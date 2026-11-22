@@ -31588,7 +31588,7 @@
       "sourceDigest": "71133ff992e7d703e96f45362927e90382ca86b6d09a2260a3573362bc2433c2",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "por.voice.ecl5.b7-9c69-9c81"
+        "por.voice.ecl5.b7-9c69-9cfc"
       ]
     },
     {
@@ -31612,7 +31612,7 @@
       "sourceDigest": "f3c338a672586476c898146da505d6d6d808e4a51683b941d6a8211183b34d4d",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "por.voice.ecl5.b7-9c69-9c81"
+        "por.voice.ecl5.b7-9c69-9cfc"
       ]
     },
     {
@@ -31636,7 +31636,7 @@
       "sourceDigest": "6d2b9b46e0dcad24636f75eea6d968d9b4cf922ac0a51f7e021cff835177ef60",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "por.voice.ecl5.b7-9c69-9c81"
+        "por.voice.ecl5.b7-9c69-9cfc"
       ]
     },
     {
@@ -31732,6 +31732,7 @@
       "sourceDigest": "fd8edd620d37506d8a348793178eb013984c84fe5c413d9073158c6faf331e05",
       "classification": "voiced-source",
       "narrationUnitIds": [
+        "por.voice.ecl5.b7-9c69-9cfc",
         "por.voice.ecl5.b7-9cd0-9cfc"
       ]
     },
@@ -83505,16 +83506,17 @@
       }
     },
     {
-      "id": "por.voice.ecl5.b7-9c69-9c81",
+      "id": "por.voice.ecl5.b7-9c69-9cfc",
       "archive": "ECL5.DAX",
       "triggerSourceId": "por.review.ecl-5.block-7.at-9c69",
       "coveredSourceIds": [
         "por.review.ecl-5.block-7.at-9c69",
         "por.review.ecl-5.block-7.at-9c7d",
-        "por.review.ecl-5.block-7.at-9c81"
+        "por.review.ecl-5.block-7.at-9c81",
+        "por.review.ecl-5.block-7.at-9cfc"
       ],
       "variant": "runtime-party-member-warns-of-statues",
-      "spokenText": "Quickly looking away, one of the party says, \"I saw broken remains of statues... heads with faces full of terror.\"",
+      "spokenText": "Quickly looking away, one of the party says, \"I saw broken remains of statues... heads with faces full of terror.\" Do you want to jump through the trap door?",
       "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech",
       "characterId": null,
       "sourceParts": [
@@ -83550,12 +83552,23 @@
               "rawText": " SAYS, 'I SAW BROKEN REMAINS OF STATUES... HEADS WITH FACES FULL OF TERROR."
             }
           ]
+        },
+        {
+          "sourceId": "por.review.ecl-5.block-7.at-9cfc",
+          "rawText": " DO YOU WANT TO JUMP THROUGH THE TRAP DOOR?",
+          "outputParts": [
+            {
+              "operandIndex": 0,
+              "kind": "literal",
+              "rawText": " DO YOU WANT TO JUMP THROUGH THE TRAP DOOR?"
+            }
+          ]
         }
       ],
       "resolution": "resolved",
       "generationEligible": true,
       "model": "eleven_v4",
-      "asset": "voices/narration/static-resolved/ecl5-b7-9c69-9c81.mp3",
+      "asset": "voices/narration/static-resolved/ecl5-b7-9c69-9cfc.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,

@@ -27,15 +27,16 @@
       "replaceSpokenText": true
     },
     {
-      "id": "por.voice.ecl5.b7-9c69-9c81",
+      "id": "por.voice.ecl5.b7-9c69-9cfc",
       "triggerSourceId": "por.review.ecl-5.block-7.at-9c69",
       "coveredSourceIds": [
         "por.review.ecl-5.block-7.at-9c69",
         "por.review.ecl-5.block-7.at-9c7d",
-        "por.review.ecl-5.block-7.at-9c81"
+        "por.review.ecl-5.block-7.at-9c81",
+        "por.review.ecl-5.block-7.at-9cfc"
       ],
-      "output": "audio/voices/narration/static-resolved/ecl5-b7-9c69-9c81.mp3",
-      "text": "Quickly looking away, one of the party says, \"I saw broken remains of statues... heads with faces full of terror.\"",
+      "output": "audio/voices/narration/static-resolved/ecl5-b7-9c69-9cfc.mp3",
+      "text": "Quickly looking away, one of the party says, \"I saw broken remains of statues... heads with faces full of terror.\" Do you want to jump through the trap door?",
       "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech",
       "replaceSpokenText": true
     },

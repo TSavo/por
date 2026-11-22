@@ -55,7 +55,8 @@ const composites: UnitSpec[] = [
   { key: "b7-9b74-9bb0", members: ["7:0x9b74", "7:0x9bb0"], variant: "secret-door-left" },
   { key: "b7-9b74-9bbe", members: ["7:0x9b74", "7:0x9bbe"], variant: "secret-door-behind" },
   { key: "b7-9b74-9bcb", members: ["7:0x9b74", "7:0x9bcb"], variant: "secret-door-right" },
-  { key: "b7-9c69-9c81", members: ["7:0x9c69", "7:0x9c7d", "7:0x9c81"], unresolved: true, variant: "runtime-party-member-warns-of-statues" },
+  // 9c81 goes on to 9cfc (9cbd GOTO), the trap-door question the petrified branch ends on too (#163).
+  { key: "b7-9c69-9cfc", members: ["7:0x9c69", "7:0x9c7d", "7:0x9c81", "7:0x9cfc"], unresolved: true, variant: "runtime-party-member-warns-of-statues" },
   { key: "b7-9cd0-9cfc", members: ["7:0x9cd0", "7:0x9ce5", "7:0x9ce9", "7:0x9cfc"], unresolved: true, variant: "runtime-party-member-petrified-and-trapdoor-question" },
   // 9df1 goes on to 9e4f (9e24 GOTO), the line the other branch at 9e28 ends on too (#138).
   { key: "b6-9df1-9e4f", members: ["6:0x9df1", "6:0x9e4f"], direction: "soft, hurried, low" },

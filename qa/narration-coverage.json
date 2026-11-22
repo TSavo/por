@@ -2259,14 +2259,6 @@
     "key": "the first-person view"
    }
   },
-  "por.voice.ecl5.b7-9c69-9c81": {
-   "run": "walk-valjevo-h2",
-   "step": 574077058,
-   "art": {
-    "kind": "view",
-    "key": "the first-person view"
-   }
-  },
   "por.voice.ecl5.b7-9d26": {
    "run": "walk-valjevo-h2",
    "step": 575102153,

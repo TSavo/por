@@ -7884,7 +7884,7 @@
       ],
       "classification": "unresolved-dynamic-template",
       "unitIds": [
-        "por.voice.ecl5.b7-9c69-9c81"
+        "por.voice.ecl5.b7-9c69-9cfc"
       ],
       "sourceDigest": "71133ff992e7d703e96f45362927e90382ca86b6d09a2260a3573362bc2433c2"
     },
@@ -7907,7 +7907,7 @@
       ],
       "classification": "unvoiced-layout",
       "unitIds": [
-        "por.voice.ecl5.b7-9c69-9c81"
+        "por.voice.ecl5.b7-9c69-9cfc"
       ],
       "sourceDigest": "f3c338a672586476c898146da505d6d6d808e4a51683b941d6a8211183b34d4d"
     },
@@ -7930,7 +7930,7 @@
       ],
       "classification": "unresolved-dynamic-template",
       "unitIds": [
-        "por.voice.ecl5.b7-9c69-9c81"
+        "por.voice.ecl5.b7-9c69-9cfc"
       ],
       "sourceDigest": "6d2b9b46e0dcad24636f75eea6d968d9b4cf922ac0a51f7e021cff835177ef60"
     },
@@ -8022,6 +8022,7 @@
       ],
       "classification": "unresolved-dynamic-template",
       "unitIds": [
+        "por.voice.ecl5.b7-9c69-9cfc",
         "por.voice.ecl5.b7-9cd0-9cfc"
       ],
       "sourceDigest": "fd8edd620d37506d8a348793178eb013984c84fe5c413d9073158c6faf331e05"
@@ -10021,12 +10022,13 @@
       "generationEligible": true
     },
     {
-      "id": "por.voice.ecl5.b7-9c69-9c81",
+      "id": "por.voice.ecl5.b7-9c69-9cfc",
       "triggerSourceId": "por.review.ecl-5.block-7.at-9c69",
       "coveredSourceIds": [
         "por.review.ecl-5.block-7.at-9c69",
         "por.review.ecl-5.block-7.at-9c7d",
-        "por.review.ecl-5.block-7.at-9c81"
+        "por.review.ecl-5.block-7.at-9c81",
+        "por.review.ecl-5.block-7.at-9cfc"
       ],
       "variant": "runtime-party-member-warns-of-statues",
       "rawSourceTexts": [
@@ -10062,9 +10064,20 @@
               "rawText": " SAYS, 'I SAW BROKEN REMAINS OF STATUES... HEADS WITH FACES FULL OF TERROR."
             }
           ]
+        },
+        {
+          "sourceId": "por.review.ecl-5.block-7.at-9cfc",
+          "rawText": " DO YOU WANT TO JUMP THROUGH THE TRAP DOOR?",
+          "outputParts": [
+            {
+              "operandIndex": 0,
+              "kind": "literal",
+              "rawText": " DO YOU WANT TO JUMP THROUGH THE TRAP DOOR?"
+            }
+          ]
         }
       ],
-      "spokenText": "QUICKLY LOOKING AWAY, SAYS, 'I SAW BROKEN REMAINS OF STATUES... HEADS WITH FACES FULL OF TERROR.",
+      "spokenText": "QUICKLY LOOKING AWAY, SAYS, 'I SAW BROKEN REMAINS OF STATUES... HEADS WITH FACES FULL OF TERROR. DO YOU WANT TO JUMP THROUGH THE TRAP DOOR?",
       "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech",
       "status": "unresolved-dynamic-template",
       "generationEligible": false

@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "dcf78b455b0ef78c3388cd0b52fcc89450dada71c7b0388cc8a18f28ec6b5680",
+  "audioSha256": "a2b15afb1cb093ee8e80d5e4c6c1206594612befc323b37ad93341535c5316d0",
+  "bytes": 159703,
+  "directionSent": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech",
+  "heardByWhisper": "Quickly looking away, one of the parties says,  I saw broken remains of statues,  heads with faces full of terror.  Do you wanna jump through the trap door?",
+  "generatedAt": "2026-11-22T22:18:31.729Z"
+}
