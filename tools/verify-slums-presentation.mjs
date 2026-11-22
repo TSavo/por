@@ -3710,7 +3710,11 @@ const illustrationRoutes = new Map([
     prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMEWIGHTS/i,
     finalPhaseCapture: "valhingen-wight-roam-loop.png",
     heldPortraitLoop: 3,
-    continuation: { inputs: ["c"], portrait: "portrait:PIC4.DAX:20:0:0", prompt: /ABATTLEBEGINS/i },
+    continuation: {
+      inputs: ["c"], portrait: "scene-illustration:area:10:ecl:b5c7:cue:wight-patrol-attack",
+      prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMEWIGHTS.*ABATTLEBEGINS/i,
+      screenshot: "valhingen-wight-patrol-attack.png",
+    },
   }],
   ...[[0, 0], [1, 2], [2, 3]].map(([member, holds]) => [`pyramid-lizardfolk-patrol-combat-phase-${member}`, {
     slot: "A", inputs: ["up", "enter", "enter", "enter", ...Array(holds).fill("q"), "c"],
