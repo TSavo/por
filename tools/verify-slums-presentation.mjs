@@ -1574,6 +1574,13 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kovel-thieves-ambush.png",
     continuation: { inputs: ["enter", "enter"], clearsPortrait: true, prompt: /THIEF.*HITPOINTS/i },
   }],
+  ["kovel-camp-sling-ambush", {
+    slot: "A", inputs: ["e", "enter", "r", "y", "i", "r"],
+    portrait: "scene-illustration:area:14:ecl:b571",
+    prompt: /WHILEINCAMPYOUARESUDDENLYATTACKEDBYTHREETHIEVESWITHSLINGS.*PRESSANYKEYTOCONTINUE/i,
+    finalPhaseCapture: "kovel-camp-sling-ambush.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /ISHITFOR\dPOINTSOFDAMAGE/i },
+  }],
   ["kovel-room-gas", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:14:ecl:9ae8:caller:9a4f",
