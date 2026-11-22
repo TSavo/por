@@ -2965,6 +2965,9 @@ async function verifyCastleEnding(fromCastleGuards, { saveAtWestGate = false, co
 const fromCastleGuards = campaign && campaignOption === "--from-castle-guards";
 if (finishFromTower) {
   copyFileSync(campaignInput, join(saveDir, "H.json"));
+  // These are legs 10 and 11 of the full campaign, so they follow its prompt records for those
+  // legs. Numbered from 1 they followed leg 1's and waited after the third input (#120).
+  campaignLeg = 9;
   await verifyCastleEnding(true, { continuous: true });
   process.exit(0);
 }

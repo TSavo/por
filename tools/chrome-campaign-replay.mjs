@@ -168,12 +168,16 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
 
     return {
       async nextFrame() {
+        // The game can run a long while between two prompts. After Tyranthraxus falls, the Enter on
+        // "...by possessing one of you!" starts about 50M instructions of his exit through the pool
+        // before the next prompt: 25 to 28 s over a pipe, and past the old 30 s wait in Chrome on a
+        // busy machine (#120). A game or page that stops still fails at once.
         const frame = await waitFor("the next Enhanced game frame", () => evaluate(`(() => {
           if (state.stopped) throw new Error(state.stopped);
           if (!state.ready || state.sequence <= ${lastSequence} || renderingSequence === state.sequence) return;
           if (document.documentElement.dataset.presentation !== "enhanced") throw new Error("Expected Enhanced mode");
           return { sequence: state.sequence, text: state.text, journal: state.journal };
-        })()`));
+        })()`), 180_000);
         lastSequence = frame.sequence;
         return frame;
       },
