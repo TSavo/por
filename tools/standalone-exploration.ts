@@ -2,6 +2,7 @@ import type { TileFingerprint } from "../src/runtime/game-data.js";
 import { allWallSymbols, frontWallSymbols, symbolTile, unpackWallSides, viewCells,
   type ViewContext, type WorldData } from "./first-person-cells.js";
 import { ExplorationCells } from "./exploration-cells.js";
+import { valjevoGlyphSwaps } from "./gamedata.js";
 import type { NativeExploration } from "./native-exploration.js";
 
 interface WallLayout {
@@ -13,31 +14,59 @@ interface WallLayout {
 
 type ActiveScenery = NativeExploration & { area: number };
 
+function mountedValjevoLayout(world: WorldData) {
+  const sets = world.wallBlocks.get("5:24");
+  const bank = "8X8D5.DAX:241";
+  if (sets?.length !== 2 || world.wallBlocks.has("5:25") || world.tileBlocks.has("8X8D5.DAX:25") ||
+      world.tileBlocks.get(bank)?.length !== 70 || world.tileBlocks.get("8X8D5.DAX:242")?.length !== 70) return;
+
+  // The guest mounts a relocated copy of wall block 24 and swaps the same glyphs
+  // in bank 241. Keep catalogue and composed-cell keys at their original indices.
+  const wallBlocks = new Map(world.wallBlocks);
+  wallBlocks.set("5:24", sets.map(set => set.map(symbol => valjevoGlyphSwaps.get(symbol) ?? symbol)));
+  const tileOrigins = new Map<string, string>();
+  for (const [a, b] of valjevoGlyphSwaps) {
+    const left = `${bank}:${a - world.tables.bankBase[1]!}`;
+    const right = `${bank}:${b - world.tables.bankBase[1]!}`;
+    tileOrigins.set(left, right);
+  }
+  return { world: { ...world, wallBlocks }, tileOrigins };
+}
+
 /** Resolve the running game's wall art using only the packaged tile identities. */
 export function standaloneExploration(world: WorldData, compositeHashes: Record<string, string>) {
   const catalogue = new Map(world.catalogue.tiles.map(tile => [tile.hash, tile]));
   const cells = new ExplorationCells(world, undefined, compositeHashes);
   const definitions = new Map<string, WallLayout[]>();
+  const mountedValjevo = mountedValjevoLayout(world);
   for (const script of world.scripts) {
     for (const slots of script.wallSlots) {
-      const context = { world, script, slots };
-      const front = frontWallSymbols(context);
-      const glyphs = new Map<number, TileFingerprint>();
-      for (const symbol of new Set(front)) {
-        const source = symbolTile(context, symbol);
-        if (!source) continue;
-        const separator = source.lastIndexOf(":");
-        const hash = world.tileBlocks.get(source.slice(0, separator))?.[Number(source.slice(separator + 1))];
-        const tile = hash && catalogue.get(hash);
-        if (tile) glyphs.set(symbol, tile);
+      const original = { world, script, slots };
+      register(original);
+      if (script.archive === 5 && mountedValjevo && slots.slots.some(slot => slot?.wallBlock === 24)) {
+        register({ ...original, ...mountedValjevo });
       }
-      const key = front.toString("base64");
-      const maps = new Set(script.maps.filter(map => map.wallLoads.includes(slots.operands.join())).map(map => map.block));
-      const layout = { context, maps, glyphs, allSymbols: allWallSymbols(context).toString("base64") };
-      const candidates = definitions.get(key);
-      if (candidates) candidates.push(layout);
-      else definitions.set(key, [layout]);
     }
+  }
+
+  function register(context: WallLayout["context"]) {
+    const { script, slots } = context;
+    const front = frontWallSymbols(context);
+    const glyphs = new Map<number, TileFingerprint>();
+    for (const symbol of new Set(front)) {
+      const source = symbolTile(context, symbol);
+      if (!source) continue;
+      const separator = source.lastIndexOf(":");
+      const hash = world.tileBlocks.get(source.slice(0, separator))?.[Number(source.slice(separator + 1))];
+      const tile = hash && catalogue.get(hash);
+      if (tile) glyphs.set(symbol, tile);
+    }
+    const key = front.toString("base64");
+    const maps = new Set(script.maps.filter(map => map.wallLoads.includes(slots.operands.join())).map(map => map.block));
+    const layout = { context, maps, glyphs, allSymbols: allWallSymbols(context).toString("base64") };
+    const candidates = definitions.get(key);
+    if (candidates) candidates.push(layout);
+    else definitions.set(key, [layout]);
   }
 
   function compatibleLayouts(native: ActiveScenery, wholeDefinition: boolean): WallLayout[] {

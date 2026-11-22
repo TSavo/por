@@ -40,6 +40,10 @@ export function usePortPaths<T extends { name: string; data: Uint8Array }>(files
   });
 }
 
+export const valjevoGlyphSwaps: ReadonlyMap<number, number> = new Map([
+  [111, 50], [50, 111], [112, 51], [51, 112],
+]);
+
 /** Make the supplied Valjevo wall sets available through the guest's DAX loader. */
 export function mountValjevoWallPieces(files: readonly { name: string; data: Uint8Array }[]) {
   const archives = new Map(files.map(file => [file.name.toUpperCase(), file.data]));
@@ -56,7 +60,6 @@ export function mountValjevoWallPieces(files: readonly { name: string; data: Uin
   const split = groupedWalls && firstAtlas && secondAtlas &&
     !wallEntries?.some(({ id }) => id === 25) &&
     !valjevoAtlases?.some(({ id }) => id === 25);
-  const renumber = new Map([[111, 50], [50, 111], [112, 51], [51, 112]]);
   return files.map(file => {
     const name = file.name.toUpperCase();
     if (name !== "WALLDEF5.DAX" && name !== "8X8D5.DAX") return file;
@@ -70,12 +73,12 @@ export function mountValjevoWallPieces(files: readonly { name: string; data: Uin
     const replacement = new Map<number, ReturnType<typeof literalRecord>>();
     if (split && groupedWalls && firstAtlas && secondAtlas) {
       if (name === "WALLDEF5.DAX") {
-        const remapped = groupedWalls.data.map(tile => renumber.get(tile) ?? tile);
+        const remapped = groupedWalls.data.map(tile => valjevoGlyphSwaps.get(tile) ?? tile);
         replacement.set(24, literalRecord(24, remapped));
         extra.push(literalRecord(25, remapped.subarray(780).map(tile => tile < 45 ? tile : (tile - 70) & 0xff)));
       } else {
         const remapped = firstAtlas.data.slice();
-        for (const [from, to] of renumber) {
+        for (const [from, to] of valjevoGlyphSwaps) {
           const start = 17 + (from - 46) * 32;
           remapped.set(firstAtlas.data.subarray(start, start + 32), 17 + (to - 46) * 32);
         }

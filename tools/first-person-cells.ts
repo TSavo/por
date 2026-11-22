@@ -390,6 +390,7 @@ export interface ViewContext {
   script: AreaScript;
   map: Pick<AreaMap, "walls">;
   slots: WallSlots;
+  tileOrigins?: ReadonlyMap<TileName, TileName>;
 }
 
 type WallContext = Omit<ViewContext, "map">;
@@ -407,7 +408,8 @@ export function symbolTile(context: WallContext, symbol: number): TileName | und
   if (!block) return;
   const tiles = context.world.tileBlocks.get(block);
   if (!tiles || index < 0 || index >= tiles.length) return;
-  return `${block}:${index}`;
+  const tile = `${block}:${index}`;
+  return context.tileOrigins?.get(tile) ?? tile;
 }
 
 /** The symbol at `index` of wall type 1..15, after the rebasing ovl29 0x0e08 does when it loads a slot. */
