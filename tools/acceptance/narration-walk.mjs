@@ -71,6 +71,7 @@ const keyOf = (square) => `${square.area}:${square.x},${square.y}`;
 /** Answer whatever the game shows until it is back on the exploration menu. Returns false when the game ended. */
 const trace = ledger.replace(/\.jsonl$/, ".trace.txt");
 rmSync(trace, { force: true });
+rmSync(ledger.replace(/\.jsonl$/, ".error.txt"), { force: true });
 /** One line per answer the walk gives, with the menu it answered: what the walk did, for reading back. */
 const note = (key) => appendFileSync(trace, `${elapsed()}s ${JSON.stringify(game.menu())} -> ${key}\n`);
 async function resolveScreen(limit = 120) {
@@ -82,6 +83,8 @@ async function resolveScreen(limit = 120) {
       log(`the game ended: ${text.replace(/\s+/g, " ").trim().slice(0, 120)}`);
       return false;
     }
+    // The party menu a training hall or an inn opens: back to the street.
+    if (/BEGIN Adventuring/.test(text) && /Choose a function\s*$/.test(text)) { note("b"); await game.press("b"); continue; }
     if (game.frame.developerVictoryAvailable) { note(":win-combat"); await game.send(":win-combat"); await game.settle(); continue; }
     // A combatant's own menu with no developer victory on offer: end the turn on guard.
     if (game.fighting()) { note("d"); await game.press("d"); if (/Guard/.test(game.menu())) await game.press("g"); continue; }
