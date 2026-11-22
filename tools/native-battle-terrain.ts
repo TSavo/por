@@ -26,6 +26,7 @@ export function observeNativeBattleTerrain(pictures: readonly PictureRecord[], a
   });
   const visible = new Map<number, TerrainPlacement>();
   const props = new Map<number, CombatArtPlacement>();
+  const fallen = combatArt.has(fallenCombatKey) ? { cells: [], prop: fallenCombatKey, reflected: false } : undefined;
 
   return {
     copySheet(cpu: Cpu) {
@@ -38,7 +39,11 @@ export function observeNativeBattleTerrain(pictures: readonly PictureRecord[], a
       const source = sheets.get(`${name}.DAX:1`);
       const start = word(8) & 0xff;
       const count = cpu.read8(word(-0x102), (word(-0x104) + 8) & 0xffff);
-      for (let frame = 0; frame < count && start + frame < 128; frame++) squares[start + frame] = source?.[frame];
+      for (let frame = 0; frame < count && start + frame < 128; frame++) {
+        // The original data path does not pass archive metadata. The sheet
+        // copy still identifies the fallen marker when a standing unit hides it.
+        squares[start + frame] = source?.[frame] ?? (name === "RANDCOM" && frame === 5 ? fallen : undefined);
+      }
     },
     draw(column: number, row: number, picture: number) {
       const source = squares[picture];

@@ -425,9 +425,11 @@ copied into battlefield slot 39. In the orc fight it displayed at native
 position `(152,104)` in seven settled frames in both data modes. The
 two data modes draw the same transparent fallen-unit PNG as a battle
 prop. The original-data renderer clears the matching component tiles
-from those placements. The paired Slums replay has no art differences
-in the scripted orc fight. Earlier random-fight frames still have
-presentation differences.
+from those placements. Both modes follow the guest's terrain draws to
+retain the prop when a living unit obscures it. Across 198 frames in
+the paired Slums replay, every settled battle prop matched and the
+scripted orc fight had no art differences. Two animation report groups
+still differ on when the prop is shown.
 Kuto's gnoll-watch portrait now includes the first animation phase from
 `PIC8.DAX` block 73, member 1. The replay selected the gnoll roster and
 then used the original Advance and idle inputs. Chrome witnessed the

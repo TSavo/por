@@ -273,8 +273,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const battleTileKeys = new Set((process.env.POR_BATTLE_TILE_KEYS ?? "").split(",").filter(Boolean));
   const combatKeys = (process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean);
   const combatKeySet = new Set(combatKeys);
-  const nativeBattleTerrain = browser && pictures && (battleTileKeys.size || combatKeys.length)
-    ? observeNativeBattleTerrain(pictures, battleTileKeys, combatKeySet) : undefined;
+  const nativeTerrainTiles = Boolean(pictures);
+  const nativeBattleTerrain = browser && (battleTileKeys.size || combatKeys.length)
+    ? observeNativeBattleTerrain(pictures ?? [], battleTileKeys, combatKeySet) : undefined;
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
   const battleTerrain = browser && (battleTileKeys.size || traceBattleDraw) ? new Frame(screen.width, screen.height) : undefined;
   const capturedTerrainKeys = new Map<number, string>();
@@ -616,18 +617,19 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           }
         }
       }
-      const battleTiles: TilePlacement[] = !scene && battlefield ? nativeBattleTerrain?.placements() ?? [] : [];
+      const battleTiles: TilePlacement[] = !scene && battlefield && nativeTerrainTiles
+        ? nativeBattleTerrain?.placements() ?? [] : [];
       const animationCombat = effect ? combat : attackArt ?? [];
-      const fallbackFallen = !nativeBattleTerrain && !scene && battlefield
+      const fallbackFallen = !nativeTerrainTiles && !scene && battlefield
         ? (attack || effect ? animationCombat : combat).filter(([, , key]) => key === fallenCombatKey)
         : [];
       const liveActors = (placements: CombatArtPlacement[]) => fallbackFallen.length
         ? placements.filter(([, , key]) => key !== fallenCombatKey) : placements;
-      const battleProps = !scene && battlefield
-        ? nativeBattleTerrain?.propPlacements() ?? fallbackFallen
-        : undefined;
+      const observedProps = !scene && battlefield ? nativeBattleTerrain?.propPlacements() ?? [] : undefined;
+      const battleProps = observedProps && [...observedProps, ...fallbackFallen.filter(([x, y]) =>
+        !observedProps.some(([left, top, key]) => key === fallenCombatKey && x === left && y === top))];
       const battleTileInventory: TileInventoryCell[] | undefined = traceBattleTiles && !attack ? [] : undefined;
-      if (((!nativeBattleTerrain && battleTileKeys.size) || battleTileInventory) && !scene && battlefield) {
+      if (((!nativeTerrainTiles && battleTileKeys.size) || battleTileInventory) && !scene && battlefield) {
         const pixels = Buffer.alloc(64);
         const selectedActors = battleTileInventory ? combat.filter(([, , , , highlighted]) => highlighted) : [];
         const selectionCells = new Set<number>();
@@ -664,12 +666,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
               x < left + width && x + 8 > left && y < top + height && y + 8 > top)) {
               battleTileInventory.push([x, y, key, pixels.toString("hex")]);
             }
-            if (!nativeBattleTerrain) {
+            if (!nativeTerrainTiles) {
               // Prefer the guest terrain draw before a target marker or actor covers the cell.
               const terrainKey = capturedTerrainKeys.get(y * screen.width + x) ?? key;
               // The standalone marker replaces its underlying 3×3 RANDCOM
               // artwork, just as it does in the native terrain observer.
-              if (terrainKey && battleTileKeys.has(terrainKey) && !fallbackFallen.some(([left, top]) =>
+              if (terrainKey && battleTileKeys.has(terrainKey) && !battleProps?.some(([left, top]) =>
                 x >= left && x < left + 24 && y >= top && y < top + 24)) battleTiles.push([x, y, terrainKey]);
             }
           }
@@ -1069,7 +1071,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           }
         }
       }
-      if (!nativeBattleTerrain || traceBattleDraw) {
+      if (!nativeTerrainTiles || traceBattleDraw) {
         const cells: TileInventoryCell[] = [];
         const pixels = Buffer.alloc(64);
         for (let dy = 0; dy < 24; dy += 8) for (let dx = 0; dx < 24; dx += 8) {
@@ -1078,7 +1080,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
             pixels.set(battleTerrain.pixels.subarray(start, start + 8), scan * 8);
           }
           const key = `battle-tile:${createHash("sha256").update(pixels).digest("hex")}`;
-          if (!nativeBattleTerrain) capturedTerrainKeys.set((y + dy) * screen.width + x + dx, key);
+          if (!nativeTerrainTiles) capturedTerrainKeys.set((y + dy) * screen.width + x + dx, key);
           if (traceBattleDraw && pixels.some(Boolean)) cells.push([dx, dy, key, pixels.toString("hex")]);
         }
         const draw = JSON.stringify({ picture, surface, cells });
