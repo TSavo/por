@@ -484,8 +484,9 @@ for (const place of places) {
         if (!pressReturn.test(await screenText())) break;
         await game.key("Enter");
       }
+      // The status line shows the square ("0,4 E") where a frame carries no exploration record.
       await until("developer travel to put the party on its square",
-        `state.ready && state.exploration?.x === ${x} && state.exploration?.y === ${y}`, 30_000);
+        `state.ready && ((state.exploration?.x === ${x} && state.exploration?.y === ${y}) || (state.text ?? []).map(([, c]) => String.fromCharCode(c)).join("").includes("${x},${y}"))`, 30_000);
     }
     await place.reach(game);
     await until("the page to settle on the runes", settled);
