@@ -14,7 +14,7 @@
  *
  *   POR_OPEN_BROWSER=0   print the address without opening a browser
  */
-import { execFile, spawn } from "node:child_process";
+import { execFile, spawn, type ChildProcess } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { request } from "node:http";
 import { createServer } from "node:net";
@@ -58,31 +58,49 @@ function answers(url: string): Promise<boolean> {
   });
 }
 
-function openBrowser(url: string): void {
+/** Chrome's own executable, where it is installed. */
+function findChrome(): string | undefined {
+  const candidates = process.platform === "darwin"
+    ? ["/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", join(homedir(), "Applications", "Google Chrome.app", "Contents", "MacOS", "Google Chrome")]
+    : process.platform === "win32"
+      ? [process.env.PROGRAMFILES, process.env["PROGRAMFILES(X86)"], process.env.LOCALAPPDATA]
+        .filter((directory): directory is string => Boolean(directory))
+        .map((directory) => join(directory, "Google", "Chrome", "Application", "chrome.exe"))
+      : (process.env.PATH ?? "").split(":").flatMap((directory) =>
+        ["google-chrome", "google-chrome-stable", "chromium", "chromium-browser"].map((name) => join(directory, name)));
+  return candidates.find((path) => existsSync(path));
+}
+
+let gameWindow: ChildProcess | undefined;
+
+/**
+ * Show the game. Where Chrome is installed it opens as a window of its own (Chrome's app mode, with a
+ * profile kept in the player's data directory): no tabs or address bar, and the title music may play
+ * at once, which a page opened in an ordinary tab may not until the player presses something. With
+ * `ownsGame`, closing that window stops the game. Without Chrome, the default browser.
+ */
+function openBrowser(url: string, ownsGame = false, gameUrl = url): void {
   if (process.env.POR_OPEN_BROWSER === "0") return;
   const fallback = (error: Error | null) => {
     if (!error) return;
-    // No Chrome: the player's default browser.
     const [command, args] = process.platform === "darwin" ? ["open", [url]]
       : process.platform === "win32" ? ["cmd", ["/c", "start", "", url]] : ["xdg-open", [url]];
     execFile(command, args, { windowsHide: true }, (failed) => {
       if (failed) console.log(`Could not open a browser (${failed.message}). Open ${url} yourself.`);
     });
   };
-  // The game is made for Chrome. Where Chrome is installed it is used.
-  if (process.platform === "darwin") execFile("open", ["-a", "Google Chrome", url], fallback);
-  else if (process.platform === "win32") {
-    // Not `start chrome`, which shows an error dialog where Chrome is not installed.
-    const chrome = [process.env.PROGRAMFILES, process.env["PROGRAMFILES(X86)"], process.env.LOCALAPPDATA]
-      .filter((directory): directory is string => Boolean(directory))
-      .map((directory) => join(directory, "Google", "Chrome", "Application", "chrome.exe")).find((path) => existsSync(path));
-    if (chrome) {
-      // Chrome stays open after the game stops.
-      const browser = spawn(chrome, [url], { detached: true, stdio: "ignore" });
-      browser.on("error", fallback);
-      browser.unref();
-    } else fallback(new Error("No Chrome"));
-  } else fallback(new Error("xdg-open"));
+  const chrome = findChrome();
+  // Without Chrome the default browser is opened on the game itself, once it answers.
+  if (!chrome) { if (gameUrl === url) fallback(new Error("No Chrome")); return; }
+  const browser = spawn(chrome, [
+    `--user-data-dir=${join(dataDirectory, "browser")}`, `--app=${url}`, "--autoplay-policy=no-user-gesture-required",
+    "--no-first-run", "--no-default-browser-check", "--window-size=1280,880",
+  ], { stdio: "ignore", windowsHide: false });
+  browser.on("error", fallback);
+  if (!ownsGame) { browser.unref(); return; }
+  gameWindow = browser;
+  // The window closed: the game goes with it.
+  browser.on("exit", () => { if (!stopping) { stop(); process.emit("SIGTERM"); } });
 }
 
 const dataDirectory = userDataDirectory();
@@ -129,6 +147,8 @@ const stop = () => {
   if (stopping) return;
   stopping = true;
   rmSync(runningFile, { force: true });
+  // The game's window is Chrome running on the game's own profile: it closes with the game.
+  gameWindow?.kill();
   // The server stops the runner and closes on SIGTERM. A browser holding a connection open must not keep it alive.
   setTimeout(() => process.exit(0), 3000).unref();
 };
@@ -141,6 +161,8 @@ process.on("SIGHUP", () => {
 });
 process.on("exit", () => rmSync(runningFile, { force: true }));
 
+// The window opens at once on a loading page, which goes to the game when it answers.
+openBrowser(`${pathToFileURL(join(root, "tools", "loading.html")).href}?game=${encodeURIComponent(url)}`, true, url);
 await import(pathToFileURL(join(appDirectory, "server.mjs")).href);
 for (const started = Date.now(); !(await answers(url)); ) {
   if (Date.now() - started > 120_000) throw new Error(`The game server did not answer at ${url}`);
@@ -148,5 +170,5 @@ for (const started = Date.now(); !(await answers(url)); ) {
 }
 writeFileSync(runningFile, JSON.stringify({ pid: process.pid, url }) + "\n");
 console.log(`Playing in your browser at ${url}`);
-console.log("If no browser opened, open that address in Chrome. Close this window or press Ctrl-C to stop the game.");
-openBrowser(url);
+console.log("If no browser opened, open that address in Chrome. Close the game's window, this window, or press Ctrl-C to stop the game.");
+if (!gameWindow) openBrowser(url, true);

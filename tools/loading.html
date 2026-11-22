@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pool of Radiance</title>
+<style>
+  :root { color-scheme: dark; }
+  html, body { height: 100%; margin: 0; background: #0b0d16; color: #f1dfae; }
+  body { display: grid; place-items: center; font: 1.4rem/1.4 Georgia, serif; letter-spacing: .08em; }
+  main { text-align: center; }
+  h1 { margin: 0 0 .4em; font-size: 2.2rem; font-weight: normal; letter-spacing: .12em; }
+  p { margin: 0; color: #b9a77d; }
+  .dots::after { content: ""; animation: dots 1.5s steps(4) infinite; }
+  @keyframes dots { 0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>POOL OF RADIANCE</h1>
+  <p><span class="dots">Loading</span></p>
+</main>
+<script>
+  // Shown the moment the game is started, before its server answers: opened by the release launcher
+  // with ?game=<address>. It waits for the game to answer, then goes to it.
+  const game = new URLSearchParams(location.search).get("game");
+  async function wait() {
+    if (!game) return;
+    for (;;) {
+      try { await fetch(game, { mode: "no-cors", cache: "no-store" }); location.replace(game); return; }
+      catch { await new Promise((resolve) => setTimeout(resolve, 300)); }
+    }
+  }
+  wait();
+</script>
+</body>
+</html>

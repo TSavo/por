@@ -57,7 +57,7 @@ const payloadPaths = [
   "game", "upgrades", "audio", "qa/art-worklist-cells.json",
   "src/audio/voices.json", "src/audio/voice-master-manifest.json", "src/audio/original-sounds.json",
   "src/maps/geography-model.json", "src/maps/atlas.json", "src/codewheel/wheel.json",
-  "tools/play.html", "tools/play.js", "tools/new-phlan-webgl.js",
+  "tools/play.html", "tools/play.js", "tools/loading.html", "tools/new-phlan-webgl.js",
   "tools/code-wheel.html", "tools/code-wheel.js", "tools/code-wheel-draw.js", "tools/rune-glyphs.js",
 ];
 const compiled = ["launch.mjs", "server.mjs", "runner.mjs"];

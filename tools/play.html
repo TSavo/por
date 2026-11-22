@@ -56,6 +56,11 @@
     #title-edition { transition-delay: 4s; }
     #title-name.shown, #title-edition.shown { opacity: 1; }
     #title-name[hidden], #title-edition[hidden] { display: none; }
+    /* Until the game's first screen arrives: no broken picture, just a word. */
+    #screen:not([src]) { visibility: hidden; }
+    #screen-loading { position: absolute; inset: 0; margin: 0; display: grid; place-items: center; background: #0b0d16;
+      color: #f1dfae; font: 1.4rem Georgia, serif; letter-spacing: .08em; pointer-events: none; z-index: 4; }
+    #screen-loading[hidden] { display: none; }
     #travel-map {
       position: absolute; left: 2.5%; top: 4%; width: 37.5%; height: 60%; z-index: 2;
       display: grid; align-items: center; background: #19140f;
@@ -245,7 +250,8 @@
       <label class="inline"><input id="audio-muted" type="checkbox"> Mute</label>
     </fieldset>
     <div id="play">
-      <img id="screen" width="320" height="200" alt="Original game screen" tabindex="-1">
+      <img id="screen" width="320" height="200" alt="" tabindex="-1">
+      <p id="screen-loading">Loading…</p>
       <img id="publisher-splash" alt="Strategic Simulations, Inc. presents" hidden>
       <img id="title-name" alt="Pool of Radiance" hidden>
       <img id="title-edition" alt="Special Edition" hidden>

@@ -1398,6 +1398,7 @@ async function showScreen() {
   }
   if (render !== screenRender) return;
   screen.src = source;
+  document.querySelector("#screen-loading").hidden = true;
   renderTravelMap(view);
   tileArt.replaceChildren(...layers);
   tileArt.hidden = !showArt;
