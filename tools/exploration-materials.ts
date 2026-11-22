@@ -1,24 +1,70 @@
 import { createHash } from "node:crypto";
+import type { TileFingerprint } from "../src/runtime/game-data.js";
 import type { NativeExploration } from "./native-exploration.js";
 
 type Artwork = ReadonlyMap<string, { file?: string; reflected?: boolean }>;
 type Material = { key: string; reflected?: boolean; pixels?: number[] };
+type WallPart = { art: Material | null; status: string; mask?: number[] };
+const fingerprint = (pixels: Buffer) => createHash("sha256").update(pixels).digest("hex");
+const blankMaterial: Material = { key: "native:empty", pixels: Array<number>(64).fill(0) };
 
 /** Generate surfaces from the active native glyph bank, including alternate levels. */
-export function buildExplorationMaterials(native: NativeExploration & { area: number }, artwork: Artwork) {
-  function texture(pixels: Buffer, transparent = false): Material {
-    const resolved = createHash("sha256").update(pixels).digest("hex");
-    const key = `tile:${native.area}:${resolved}`;
+export function buildExplorationMaterials(native: NativeExploration & { area: number }, artwork: Artwork,
+  catalogueGlyphs?: ReadonlyMap<number, TileFingerprint>) {
+  function replacement(hash: string): Material | undefined {
+    const key = `tile:${native.area}:${hash}`;
     const art = artwork.get(key);
-    if (art) return { key, reflected: art.reflected };
+    return art && { key, reflected: art.reflected };
+  }
+
+  function texture(pixels: Buffer, transparent = false): Material {
+    const resolved = fingerprint(pixels);
+    const art = replacement(resolved);
+    if (art) return art;
     const indexed = [...pixels].map(color => transparent && color === 13 ? 16 : color);
     return { key: `native:${resolved}:${Number(transparent)}`, pixels: indexed };
   }
 
+  const backgrounds = new Set([native.skyColor, native.groundColor, 0]);
+  function backdropReplacement(hashOver: (colour: number) => string): Material | undefined {
+    const matches = new Map<string, Material>();
+    for (const colour of backgrounds) {
+      const asset = replacement(hashOver(colour));
+      if (!asset) continue;
+      const source = artwork.get(asset.key)!;
+      matches.set(JSON.stringify([source.file ?? asset.key, Boolean(source.reflected)]), asset);
+    }
+    // Backdrop matches may belong to different contextual redraws of the
+    // same foreground. Only use a redraw when its identity is unambiguous.
+    return matches.size === 1 ? matches.values().next().value : undefined;
+  }
+
+  function cataloguePart(tile: TileFingerprint | undefined): WallPart {
+    if (!tile) return { art: blankMaterial, status: "missing" };
+    const exact = replacement(tile.hash);
+    const { overColour } = tile;
+    if (!overColour) return { art: exact ?? blankMaterial, status: exact ? "exact" : "missing" };
+    if (!tile.transparentMask) return { art: blankMaterial, status: "missing" };
+    const bytes = Buffer.from(tile.transparentMask, "hex");
+    if (bytes.length !== 8) return { art: blankMaterial, status: "missing" };
+    const mask = Array.from({ length: 64 }, (_, index) => Number(!(bytes[index >> 3]! & (0x80 >> (index & 7)))));
+    if (!mask.some(Boolean)) return { art: null, status: "transparent" };
+    if (exact) return { art: exact, status: "exact", mask };
+    const art = backdropReplacement(colour => overColour[colour]!);
+    return { art: art ?? blankMaterial, status: art ? "composited" : "missing", mask };
+  }
+
   const slots = Buffer.from(native.frontSlots, "base64");
-  const black = Buffer.alloc(64).toString("hex");
-  const partsBySymbol = new Map<number, { art: Material | null; status: string; mask?: number[] }>();
+  const solid = new Map([...backgrounds].map(colour => {
+    const pixels = Buffer.alloc(64, colour);
+    return [colour, catalogueGlyphs ? fingerprint(pixels) : pixels.toString("hex")];
+  }));
+  const partsBySymbol = new Map<number, WallPart>();
   for (const symbol of new Set(slots)) {
+    if (catalogueGlyphs && symbol) {
+      partsBySymbol.set(symbol, cataloguePart(catalogueGlyphs.get(symbol)));
+      continue;
+    }
     const glyph = native.glyphs[symbol];
     if (symbol === 0 || !glyph) {
       partsBySymbol.set(symbol, { art: null, status: "transparent" });
@@ -42,15 +88,8 @@ export function buildExplorationMaterials(native: NativeExploration & { area: nu
     }
     // Older entries fingerprint the glyph over a backdrop. Use those
     // when there is no replacement fingerprinted from the glyph itself.
-    const matches = new Map<string, Material>();
-    for (const background of new Set([native.skyColor, native.groundColor, 0])) {
-      const candidate = texture(Buffer.from([...pixels].map((color, i) => mask[i] ? color : background)));
-      const source = artwork.get(candidate.key);
-      if (source) matches.set(JSON.stringify([source.file ?? candidate.key, Boolean(source.reflected)]), candidate);
-    }
-    // Backdrop matches may belong to different contextual redraws of the
-    // same foreground. Only use a redraw if the visible glyph identifies it.
-    const art = matches.size === 1 ? [...matches.values()][0]! : cutout;
+    const art = backdropReplacement(background =>
+      fingerprint(Buffer.from([...pixels].map((color, i) => mask[i] ? color : background)))) ?? cutout;
     partsBySymbol.set(symbol, { art, mask, status: art.pixels ? "native" : "composited" });
   }
   const wallFaces = Array.from({ length: 15 }, (_, type) => {
@@ -59,10 +98,12 @@ export function buildExplorationMaterials(native: NativeExploration & { area: nu
     // matching the backdrop belongs to the sky or ground, not the wall quad.
     function backdropRow(row: number, color: number) {
       const symbolsInRow = symbols.slice(row * 7, row * 7 + 7);
-      const backdrop = Buffer.alloc(64, color).toString("hex");
       return symbolsInRow.length === 7 &&
-        symbolsInRow.every(symbol => partsBySymbol.get(symbol)?.status === "transparent" ||
-          native.glyphs[symbol] === backdrop || native.glyphs[symbol] === black);
+        symbolsInRow.every(symbol => {
+          if (partsBySymbol.get(symbol)?.status === "transparent") return true;
+          const identity = catalogueGlyphs ? catalogueGlyphs.get(symbol)?.hash : native.glyphs[symbol];
+          return identity === solid.get(color) || identity === solid.get(0);
+        });
     }
     let firstRow = 0;
     let endRow = 8;
