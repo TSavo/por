@@ -2857,6 +2857,16 @@ const illustrationRoutes = new Map([
     ],
     continuation: { inputs: ["enter", "enter"], portrait: "scene-illustration:area:0:ecl:ae31:caller:9ad2", prompt: /BOATDISEMBARKSYOUATSOKALKEEP/i, screenshot: "sokal-ferry-arrival.png" },
   }],
+  ["new-phlan-outbound-ferry-from-pier", {
+    slot: "A", inputs: ["up", "enter"],
+    portrait: "portrait:area:0:PIC3.DAX:41:0:0", prompt: /YOUBOARDABOAT/i,
+    heldPortraitLoop: [
+      "portrait:area:0:PIC3.DAX:41:0:0",
+      ...[1, 2, 1].map(member => `portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:${member}:0`),
+    ],
+    continuation: { inputs: ["enter", "enter"], portrait: "scene-illustration:area:0:ecl:ae31:caller:9ad2",
+      prompt: /BOATDISEMBARKSYOUATSOKALKEEP/i },
+  }],
   ["new-phlan-harbor-city-watch", {
     slot: "A", inputs: harborWatchApproach,
     requireTiledApproach: false,
