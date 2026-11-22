@@ -2984,6 +2984,11 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:10:ecl:b695:caller:b126",
     prompt: /THEREISAVAMPIREHERE/i,
     finalPhaseCapture: "valhingen-black-marble-crypt-vampire.png",
+    continuation: {
+      inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:b162",
+      prompt: /THEREISAVAMPIREHERE.*ABATTLEBEGINS/i,
+      screenshot: "valhingen-black-marble-crypt-vampire-attack.png",
+    },
   }],
   ["valhingen-crypt-examine", {
     slot: "A", inputs: ["up", "down", "up", "enter", "n", "y", "e"],
