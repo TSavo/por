@@ -1595,14 +1595,14 @@ const illustrationRoutes = new Map([
   }],
   ["bane-reward-illustration", {
     slot: "A", inputs: ["right", "right", "up", "right", "right", "up", "enter", "enter"],
-    portraitStops: { 7: "portrait:HEAD3.DAX:24:BODY3.DAX:32" },
+    portraitStops: { 7: "scene-illustration:area:8:ecl:b5c3:caller:9c34:cue:clerk-reward-check" },
     portrait: "scene-illustration:area:8:ecl:b5c3:caller:a51f", prompt: /YOUMAYKEEPALLYOUFOUNDINTHETEMPLEOFBANE/i,
-    continuation: { inputs: ["enter"], portrait: "portrait:HEAD3.DAX:24:BODY3.DAX:32",
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:commission-papers",
       prompt: /ONTHEMATTEROFCOMMISSION/i },
   }],
   ["kuto-norris-council-bonus", {
     slot: "A", inputs: ["right", "right", "up", "right", "right", "up", "enter", "enter"],
-    portraitStops: { 7: "portrait:HEAD3.DAX:24:BODY3.DAX:32" },
+    portraitStops: { 7: "scene-illustration:area:8:ecl:b5c3:caller:9c34:cue:clerk-reward-check" },
     portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:norris-bonus",
     prompt: /THECOUNCILHASAWARDEDABONUSFORYOURELIMINATINGNORRISTHEGRAY/i,
     finalPhaseCapture: "kuto-norris-council-bonus.png",
@@ -1610,7 +1610,7 @@ const illustrationRoutes = new Map([
   }],
   ["bane-annex-council-reward", {
     slot: "A", inputs: ["right", "right", "up", "right", "right", "up", "enter", "enter"],
-    portraitStops: { 7: "portrait:HEAD3.DAX:24:BODY3.DAX:32" },
+    portraitStops: { 7: "scene-illustration:area:8:ecl:b5c3:caller:9c34:cue:clerk-reward-check" },
     portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:bane-annex-reward",
     prompt: /YOUHAVECLEAREDTHEAREANEXTTOTHEEVILTEMPLE/i,
     finalPhaseCapture: "bane-annex-council-reward.png",
@@ -1618,7 +1618,7 @@ const illustrationRoutes = new Map([
   }],
   ["bivant-reward-illustration", {
     slot: "A", inputs: ["right", "right", "up", "right", "right", "up", "enter", "enter"],
-    portraitStops: { 7: "portrait:HEAD3.DAX:24:BODY3.DAX:32" },
+    portraitStops: { 7: "scene-illustration:area:8:ecl:b5c3:caller:9c34:cue:clerk-reward-check" },
     portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:bivant-rescue",
     prompt: /BIVANTWASDELIGHTEDWITHTHECHILD.SRESCUE/i,
     continuation: { inputs: ["enter"], prompt: /receives19250experiencepoints/i, clearsPortrait: true },
@@ -1630,7 +1630,7 @@ const illustrationRoutes = new Map([
       ...Array(4).fill("up"), "enter", "y", ...Array(4).fill("enter"), ...Array(4).fill("up"),
       "left", "up", "right", "up", "left", "up", "right", ...Array(6).fill("up"),
       "left", "up", "up", "left", "up", "left", "up", "up", "enter"],
-    portraitStops: { 95: "portrait:HEAD3.DAX:24:BODY3.DAX:32" },
+    portraitStops: { 95: "scene-illustration:area:8:ecl:b5c3:caller:9c34:cue:clerk-reward-check" },
     portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a",
     prompt: /WITHSOKALKEEPINOURHANDS/i,
     continuation: { inputs: ["enter"], prompt: /receives1308experiencepoints/i, clearsPortrait: true },
@@ -2124,7 +2124,7 @@ const illustrationRoutes = new Map([
   ["new-phlan-council-entry", {
     slot: "A", inputs: [...Array(8).fill("enter"), "right", "right", "up", "up", "up",
       "enter", "up", "up", "up", "up", "left", "up", "up"],
-    portrait: "portrait:HEAD3.DAX:24:BODY3.DAX:32", prompt: /THECOUNCILCLERKBEGINS/i,
+    portrait: "scene-illustration:area:8:ecl:b5c3:caller:9c34:cue:clerk-reward-check", prompt: /THECOUNCILCLERKBEGINS/i,
     verifyImageSwap: true,
   }],
   ["new-phlan-proclamations-initial", {
@@ -13193,6 +13193,18 @@ try {
     const journalStatus = () => frame.journal?.leads.find(({ id }) => id === commission)?.status;
     const visibleText = () => frame.text.toSorted(([a], [b]) => a - b)
       .map(([, character]) => String.fromCharCode(character)).join("");
+    async function verifyClerkIllustration(portrait, filename) {
+      assert.equal(frame.portrait, portrait);
+      await waitFor("the council clerk illustration", () => run(`
+        state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352`));
+      const response = await fetch(`${origin}/art/${portrait}`);
+      assert.ok(response.ok);
+      assert.deepEqual(Buffer.from(await response.arrayBuffer()), readFileSync(`upgrades/${filename}`));
+      await verifyPortraitPanel();
+      const screenshot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, filename), Buffer.from(screenshot.data, "base64"));
+    }
     await advance("j");
     assert.equal(journalStatus(), "ready-to-report");
     if (commission === "commission-lizardmen") {
@@ -13222,7 +13234,13 @@ try {
       }
       if (!originalDialogue.test(visibleText())) await advance("enter");
     } else {
-      for (const key of ["j", "right", "right", "up", "right", "right", "up", "enter", "enter"]) await advance(key);
+      for (const key of ["j", "right", "right", "up", "right", "right", "up", "enter"]) await advance(key);
+      if (routeName === "stojanow-gate-reward") {
+        const rewardCheck = "scene-illustration:area:8:ecl:b5c3:caller:9c34:cue:clerk-reward-check";
+        assert.match(visibleText(), /THECOUNCILCLERKBEGINSLOOKINGTHROUGHASTACKOFPAPERS.*DUEACURRENTREWARD/i);
+        await verifyClerkIllustration(rewardCheck, "council-clerk-reward-check.png");
+      }
+      await advance("enter");
     }
     if (art) {
       assert.equal(frame.portrait, art.portrait);
@@ -13255,16 +13273,7 @@ try {
     if (routeName === "stojanow-gate-reward") {
       const clerkPapers = "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:commission-papers";
       assert.match(visibleText(), /THECLERKSHUFFLESTHROUGHHERPAPERS.*ICANOFFERTHEFOLLOWING/i);
-      assert.equal(frame.portrait, clerkPapers);
-      await waitFor("the illustrated council commission preface", () => run(`
-        state.sequence === ${frame.sequence} &&
-        document.querySelector('.encounter-portrait[src="/art/${clerkPapers}"]')?.naturalWidth === 352`));
-      const response = await fetch(`${origin}/art/${clerkPapers}`);
-      assert.ok(response.ok);
-      assert.deepEqual(Buffer.from(await response.arrayBuffer()), readFileSync("upgrades/council-clerk-commission-papers.png"));
-      await verifyPortraitPanel();
-      const screenshot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, "council-clerk-commission-papers.png"), Buffer.from(screenshot.data, "base64"));
+      await verifyClerkIllustration(clerkPapers, "council-clerk-commission-papers.png");
     }
     await advance("j");
     if (routeName === "bivant-reward") {

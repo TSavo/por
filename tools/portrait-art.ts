@@ -928,6 +928,10 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
     `scene-illustration:area:8:ecl:${scope}:cue:stojanow-gate-reward`,
     "YOURTAKINGTHEGATEWILLENABLEOURFORCESTOASSAULTTHEENEMYSTRONGHOLD",
   ] as const),
+  ...["9c30:caller:9a4a", "b5c3:caller:9c34"].map(scope => [
+    `scene-illustration:area:8:ecl:${scope}:cue:clerk-reward-check`,
+    "ATYOURENTRY,THECOUNCILCLERKBEGINSLOOKINGTHROUGHASTACKOFPAPERS",
+  ] as const),
   ...["a7f9:caller:9a4a", "b5c3:caller:a83f"].map(scope => [
     `scene-illustration:area:8:ecl:${scope}:cue:commission-papers`,
     "THECLERKSHUFFLESTHROUGHHERPAPERS",
