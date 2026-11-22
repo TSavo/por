@@ -13,15 +13,24 @@
  "enhancedFallbacks": {
   "frames": 0,
   "presented": 3955,
-  "walks": 28,
+  "walks": 30,
   "recordedWalks": 32,
   "missingWalks": [
-   "campaign-sokal-leg",
-   "campaign-tower-leg",
    "walk-commission-5-reward",
    "walk-commission-5-taken"
   ],
+  "aliasedWalks": [
+   {
+    "walk": "campaign-sokal-leg",
+    "receipt": "campaign-full/leg-7"
+   },
+   {
+    "walk": "campaign-tower-leg",
+    "receipt": "campaign-full/leg-9"
+   }
+  ],
   "runs": 30,
+  "additionalReplays": 2,
   "keys": []
  },
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",

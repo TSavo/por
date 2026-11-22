@@ -23,10 +23,14 @@ interface Ledger {
 
 const file = "qa/enhanced-fallbacks.json";
 
-function fixtureDigest(directory: string): string {
+const fixtureEndpoints = ["end-frame.json", "last-screen.txt"];
+const hasEndpoint = (directory: string) => fixtureEndpoints.some(name => existsSync(join(directory, name)));
+
+function fixtureDigest(directory: string, inputsOnly = false): string {
   const hash = createHash("sha256");
   for (const file of readdirSync(directory).filter(name =>
-    /^(?:[A-J]|roster|boot|end-frame)\.json$|^(?:commands|prompts)\.jsonl$|^last-screen\.txt$/.test(name)).sort()) {
+    /^(?:[A-J]|roster|boot|end-frame)\.json$|^(?:commands|prompts)\.jsonl$|^last-screen\.txt$/.test(name) &&
+    (!inputsOnly || !fixtureEndpoints.includes(name))).sort()) {
     hash.update(file + "\n");
     hash.update(readFileSync(join(directory, file), "utf8").replace(/\r\n/g, "\n"));
   }
@@ -54,10 +58,24 @@ export function enhancedFallbackCoverage(root: string) {
   const { runs } = readLedger(root);
   const fixtures = join(root, "qa", "fixtures");
   const recordedWalks = recordedWalkNames(fixtures).sort();
-  const missingWalks = recordedWalks.filter(name => !runs[name] || runs[name].fixtureSha256 !== fixtureDigest(join(fixtures, name)));
+  const directWalks = recordedWalks.filter(name => runs[name]?.fixtureSha256 === fixtureDigest(join(fixtures, name)));
+  const capturedInputs = new Map(directWalks.flatMap(name => {
+    const directory = join(fixtures, name);
+    return hasEndpoint(directory) ? [[fixtureDigest(directory, true), name] as const] : [];
+  }));
+  const aliasedWalks: { walk: string; receipt: string }[] = [];
+  const missingWalks = recordedWalks.filter(name => {
+    if (directWalks.includes(name)) return false;
+    const directory = join(fixtures, name);
+    // An exported copy without its own endpoint can share its full leg's capture.
+    const receipt = !hasEndpoint(directory) && capturedInputs.get(fixtureDigest(directory, true));
+    if (!receipt) return true;
+    aliasedWalks.push({ walk: name, receipt });
+    return false;
+  });
   const keys = new Map<string, number>();
   let frames = 0, presented = 0;
-  const currentRuns = Object.entries(runs).filter(([name]) => !missingWalks.includes(name));
+  const currentRuns = Object.entries(runs).filter(([name]) => !recordedWalks.includes(name) || directWalks.includes(name));
   for (const [, run] of currentRuns) {
     presented += run.presented;
     frames += run.frames.length;
@@ -65,7 +83,7 @@ export function enhancedFallbackCoverage(root: string) {
   }
   return {
     frames, presented, walks: recordedWalks.length - missingWalks.length, recordedWalks: recordedWalks.length,
-    missingWalks, runs: currentRuns.length,
+    missingWalks, aliasedWalks, runs: currentRuns.length, additionalReplays: currentRuns.length - directWalks.length,
     keys: [...keys].sort(([a], [b]) => a.localeCompare(b)).map(([key, count]) => ({ key, frames: count })),
   };
 }
@@ -118,8 +136,8 @@ function main(): void {
   const coverage = enhancedFallbackCoverage(root);
   console.log(`Enhanced artwork: ${coverage.frames} fallback frames / ${coverage.keys.length} distinct keys across ${coverage.presented} presented views.`);
   console.log(`Recorded walks measured: ${coverage.walks} / ${coverage.recordedWalks}.`);
-  const additionalReplays = coverage.runs - coverage.walks;
-  if (additionalReplays) console.log(`${additionalReplays} additional replay captures are included.`);
+  if (coverage.additionalReplays) console.log(`${coverage.additionalReplays} additional replay captures are included.`);
+  for (const { walk, receipt } of coverage.aliasedWalks) console.log(`  ${walk} shares the ${receipt} capture (identical replay inputs).`);
   for (const { key, frames } of coverage.keys) console.log(`  ${frames}  ${key}`);
   if (coverage.missingWalks.length) console.log(`Awaiting Chrome captures: ${coverage.missingWalks.join(", ")}`);
   if (coverage.frames || coverage.missingWalks.length) process.exitCode = 1;

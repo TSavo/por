@@ -888,8 +888,9 @@ function document(list: Worklist): string {
     "",
     `**Enhanced fallbacks (#142).** ${list.enhancedFallbacks.frames} fallback frames / ${list.enhancedFallbacks.keys.length} distinct keys across ${list.enhancedFallbacks.presented} Chrome views.`,
     `Recorded walks measured in Chrome with GOG 1.3: ${list.enhancedFallbacks.walks} / ${list.enhancedFallbacks.recordedWalks}. Run \`npm run verify:enhanced-fallbacks\` for the captured keys and walks still to measure.`,
-    ...(list.enhancedFallbacks.runs > list.enhancedFallbacks.walks
-      ? [`${list.enhancedFallbacks.runs - list.enhancedFallbacks.walks} additional replay captures are included.`] : []),
+    ...(list.enhancedFallbacks.additionalReplays
+      ? [`${list.enhancedFallbacks.additionalReplays} additional replay captures are included.`] : []),
+    ...list.enhancedFallbacks.aliasedWalks.map(({ walk, receipt }) => `\`${walk}\` shares the \`${receipt}\` capture because the replay inputs are identical.`),
     "",
     ...(() => {
       // Requests the owner has made that no tool can find (qa/art-requests.json): open ones are work.
