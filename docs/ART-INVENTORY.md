@@ -353,10 +353,14 @@ against the packaged catalogue. No original pixel data is needed.
 Four 88×88 portrait animation members contain only zeroes. Sokal's ceiling
 insects use `PIC4.DAX:18:2:0` and `PIC4.DAX:18:4:0` to return to the existing
 base picture. Original-file GOG 1.3 captures match the base screen after
-each of those ticks. For `PIC6.DAX:117:5:0` and `PIC7.DAX:69:2:0`, Enhanced
-keeps the displayed silver-dragon or drider phase when the native draw leaves
-the panel pixels identical. The catalogue lists these four holds separately
-from illustrated frames and entries that still need artwork.
+each of those ticks. Diogenes's `PIC6.DAX:117:5:0` also restores the base,
+and member 6 repeats pose 2. The drider's `PIC7.DAX:69:2:0` keeps the
+preceding pose. The catalogue lists these four holds separately from
+illustrated frames and entries that still need artwork.
+
+The `diogenes-silver-dragon-phases` Chrome replay showed all seven beats
+and the wrap on both data sources. One Enter from the held portrait brings
+up the silver-bottle directions and their separate illustration.
 
 The Sokal ceiling insects cycle through five distinct paintings in eight
 210 ms draws. The Tyrmor drider cycles through seven paintings, holding its

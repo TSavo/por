@@ -402,7 +402,7 @@ export function usesPortraitDelta(key: string) {
 const portraitHoldMembers = new Map<string, "base" | "previous">([
   ["PIC4.DAX:18:2", "base"],
   ["PIC4.DAX:18:4", "base"],
-  ["PIC6.DAX:117:5", "previous"],
+  ["PIC6.DAX:117:5", "base"],
   ["PIC7.DAX:69:2", "previous"],
 ]);
 const emptyPortraitHash = "ad0f7f9197b5b43549fa37f98743ad635df67190b0ad816d0a3d8313073a1d8c";

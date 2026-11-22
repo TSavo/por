@@ -4104,17 +4104,13 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:68:2:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["diogenes-silver-dragon-phases", {
-    slot: "A", inputs: ["up", "enter", "e", "enter", "s", "enter", "enter", "enter", ...Array(21).fill("q")],
-    portraitStops: {
-      8: "portrait:PIC6.DAX:117:0:0",
-      17: "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:1:0",
-      20: "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:2:0",
-      22: "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:3:0",
-    },
-    portrait: "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:4:0",
+    slot: "A", inputs: ["up", "e", "s", "enter", "enter"],
+    portrait: "portrait:PIC6.DAX:117:0:0",
     prompt: /STANDINGBEFOREYOUNOWISAGREATSILVERDRAGON/i,
-    phaseCaptures: { 17: "diogenes-silver-dragon-phase-1.png", 20: "diogenes-silver-dragon-phase-2.png", 22: "diogenes-silver-dragon-phase-3.png" },
-    finalPhaseCapture: "diogenes-silver-dragon-phase-4.png",
+    heldPortraitLoop: [0, 1, 2, 3, 4, 0, 2].map(member => member
+      ? `portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:${member}:0` : "portrait:PIC6.DAX:117:0:0"),
+    continuation: { inputs: ["enter"], portrait: "portrait:area:25:ecl:a58b:caller:9c11:PIC6.DAX:117:0:0",
+      prompt: /FARTOTHEEASTTHEREISALARGEKOBOLDCOMPLEX.*SILVERBOTTLEOFGREATPOWER/i },
   }],
   ["tyrmor-prison-minotaur-combat-base", {
     slot: "B", inputs: ["s", ...Array.from({ length: 3 }, () => ["up", "down"]).flat(), "up", "enter", "down", "up"],
@@ -7299,7 +7295,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
-      routeName === "wild-cave-thri-kreen-two-guards-phases" ||
+      routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
       routeName === "tyrmor-prison-drider-phases" ||
       ["sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
@@ -7501,11 +7497,11 @@ try {
       const record = () => {
         const phase = image.src;
         if (phase && window.heldPortraitPhases.at(-1) !== phase) window.heldPortraitPhases.push(phase);
+        if (window.heldPortraitPhases.length > ${count}) observer.disconnect();
       };
-      record();
       const observer = new MutationObserver(record);
       observer.observe(image, { attributes: true, attributeFilter: ["src"] });
-      setTimeout(() => observer.disconnect(), 5000);
+      record();
       return true;
     })()`));
     const cycle = await waitFor("the portrait to loop without input", () =>

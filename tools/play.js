@@ -1142,6 +1142,8 @@ const portraitLoops = [
   ["portrait:area:18:ecl:af2a:PIC1.DAX:4:", [0, 1, 2, 1], "portrait:area:18:PIC1.DAX:4:0:0",
     /AROBEDORCISSITTINGHERE/i, [1510, 20, 710, 20]],
   ["portrait:area:25:ecl:a622:PIC6.DAX:120:", 3],
+  ["portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:", [0, 1, 2, 3, 4, 0, 2], "portrait:PIC6.DAX:117:0:0",
+    /STANDINGBEFOREYOUNOWISAGREATSILVERDRAGON/i, [1610, 510, 410, 1210, 1010, 1410, 1510]],
   // The last three native members repeat poses 3, 2, and 1.
   ["portrait:area:25:ecl:a991:PIC6.DAX:118:", [0, 1, 2, 3, 4, 3, 2, 1], undefined,
     /^(?!.*ABATTLEBEGINS).*THEYBLOCKTHEPASSAGEWITHTHEIRBODIES/i, [1510, 210, 210, 110, 610, 20, 20, 20]],

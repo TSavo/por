@@ -180,7 +180,9 @@ export function observeNativePictureArt(art: ReadonlySet<string>, sheetArt: Read
         return;
       }
       const { archive, block, member } = visible.picture;
-      const artMember = holds.get(`${archive}:${block}:${member}`) === "base" ? 0 : member;
+      // Diogenes's last draw repeats the third pose, with its own hold time.
+      const repeated = archive === "PIC6.DAX" && block === 117 && member === 6;
+      const artMember = holds.get(`${archive}:${block}:${member}`) === "base" ? 0 : repeated ? 2 : member;
       for (const scope of scopes) {
         for (const alias of sources(`${archive}:${block}`)) {
           const base = `portrait:${scope}${alias}:`;
