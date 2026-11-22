@@ -681,6 +681,7 @@ const stojanowTollApproach = [
 ];
 
 const councilClerkApproach = ["right", "right", "up", "right", "right", "up", "enter", "enter"];
+const cityHallEntrance = ["right", "right", "up", "up", "up", "enter", "up"];
 const fightersDoorApproach = ["left", "up", "right", "up", "enter", "n", "n", "up"];
 
 const illustrationRoutes = new Map([
@@ -762,7 +763,7 @@ const illustrationRoutes = new Map([
     prompt: /YOUOVERHEARTAVERNTALE[0-9]+/i,
   }],
   ["new-phlan-city-hall-entrance", {
-    slot: "A", inputs: ["right", "right", "up", "up", "up", "enter", "up"],
+    slot: "A", inputs: cityHallEntrance,
     portraitStops: { 5: "scene-illustration:area:0:ecl:af3f:caller:ac22" },
     phasePrompts: { 5: /OUTSIDETHECITYHALL.*CITYCLERKWAITSINSIDETOAWARDCOMMISSIONS/i },
     phaseCaptures: { 5: "new-phlan-city-hall-exterior.png" },
@@ -771,6 +772,12 @@ const illustrationRoutes = new Map([
     prompt: /YOUENTERTHECITYHALL.*YOUSEEAGUARDEDDOOR/i,
     continuation: { inputs: ["up"], portrait: "scene-illustration:area:8:ecl:9b8a:caller:9a4a",
       prompt: /OUTSIDETHECLERK.SOFFICE.*GUARDSPOSTEDAROUNDADOORINTHESOUTHWALL/i, screenshot: "new-phlan-clerk-office-guards.png" },
+  }],
+  ["new-phlan-city-hall-exit", {
+    slot: "A", inputs: cityHallEntrance,
+    portrait: "scene-illustration:area:0:ecl:9a4f",
+    prompt: /YOUENTERTHECITYHALL.*YOUSEEAGUARDEDDOOR/i,
+    continuation: { inputs: ["right", "right", "up"], clearsPortrait: true, prompt: /OUTSIDETHECITYHALL/i },
   }],
   ["new-phlan-clerk-office-guards", {
     slot: "A", inputs: ["right", "right", "up", "up", "up", "enter", "up", "up"],
@@ -7087,7 +7094,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel ||
-      ["slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance",
+      ["slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
         "new-phlan-training-duels", "new-phlan-training-north-junction", "new-phlan-training-fighters-door",
         "new-phlan-training-rogues-door", "new-phlan-training-entrance-notice",
@@ -10329,6 +10336,13 @@ try {
         document.querySelector('.encounter-portrait[src="/art/${nextPortrait}"]')?.naturalWidth === 352
       `));
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
+      if (routeName === "new-phlan-city-hall-exit") {
+        assert.deepEqual([frame.exploration?.area, frame.scenery?.x, frame.scenery?.y], [0, 4, 3]);
+        await waitForExplorationViewport();
+        await switchBothWays();
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "new-phlan-city-hall-exit.png"), Buffer.from(shot.data, "base64"));
+      }
       if (continuation.screenshot) {
         await verifyPortraitPanel();
         await switchBothWays(frame.frame);
