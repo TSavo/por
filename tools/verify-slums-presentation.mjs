@@ -2174,6 +2174,7 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:21:PIC4.DAX:41:0:0",
     prompt: /YOUBOARDABOAT/i,
     idlePortraits: [1, 2].map(phase => `portrait:area:21:ecl:ae31:caller:9977:PIC4.DAX:41:${phase}:0`),
+    heldPortraitLoop: 3,
     continuation: { inputs: ["enter", "enter", "enter"], prompt: /15,1W/i, clearsPortrait: true },
   }],
   ["sokal-keep-departure-ferry", {
@@ -2188,6 +2189,7 @@ const illustrationRoutes = new Map([
     },
     portrait: "portrait:area:0:PIC3.DAX:41:0:0", prompt: /YOUBOARDABOAT/i,
     idlePortraits: [1, 2].map(phase => `portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:${phase}:0`),
+    heldPortraitLoop: 3,
     continuation: { inputs: ["enter", "enter"], clearsPortrait: true, prompt: /BOATDISEMBARKSYOUATSOKALKEEP/i },
   }],
   ["new-phlan-harbor-city-watch", {

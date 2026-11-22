@@ -994,6 +994,10 @@ const portraitLoops = [
     /THEENCLAVEISGUARDEDBYASKELETONARMY/i],
   ["portrait:area:10:ecl:b695:caller:a92b:PIC4.DAX:20:", 3, "portrait:PIC4.DAX:20:0:0",
     /WIGHTSAPPEARFROMBEHINDTHETOWER/i],
+  ["portrait:area:21:ecl:ae31:caller:9977:PIC4.DAX:41:", 3, "portrait:area:21:PIC4.DAX:41:0:0",
+    /YOUBOARDABOAT/i],
+  ["portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:", 3, "portrait:area:0:PIC3.DAX:41:0:0",
+    /YOUBOARDABOAT/i],
 ].map(([prefix, count, initial, cue]) => ({
   cue,
   phases: Array.from({ length: count }, (_, phase) => (phase === 0 && initial) || `${prefix}${phase}:0`),
