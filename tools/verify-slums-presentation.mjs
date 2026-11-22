@@ -1525,6 +1525,15 @@ const illustrationRoutes = new Map([
     journalLead: "mendor-stacks-mathematics", journalLeadAtDiscovery: true,
     continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["mendor-mathematics-essays", {
+    slot: "B", inputs: ["s", "up", "enter", "down", "up"],
+    portraitStops: { 2: "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:mathematics-stacks", 3: null },
+    transientPortraits: { 5: {
+      id: "scene-illustration:area:15:ecl:9956:caller:9f03:cue:mathematics-essays",
+      prompt: /YOUFINDESSAYSONGEOMETRY.*BUTNOTHINGUSEFUL/i, screenshot: "mendor-mathematics-essays.png",
+    } },
+    prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i,
+  }],
   ["mendor-fyerdetha-discourses", {
     slot: "B", inputs: ["left", "s", "up", "enter", "down", "up"],
     portraitStops: { 3: "scene-illustration:area:15:ecl:99b5:caller:9de1", 4: null },
@@ -8984,13 +8993,19 @@ try {
     }
     assert.equal(frame.portrait, portrait);
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), prompt);
-    await waitFor("the enhanced dialogue illustration", () => run(`(() => {
-      const image = document.querySelector(".encounter-portrait");
-      return image?.getAttribute("src") === ${JSON.stringify("/art/" + portrait)} &&
-        image.naturalWidth === 352 && image.naturalHeight === 352;
-    })()`));
-    await switchBothWays();
-    await verifyPortraitPanel();
+    if (portrait === undefined) {
+      await waitFor("the transient illustration to clear", () => run(`
+        state.sequence === ${frame.sequence} && !animationFrame && !document.querySelector(".encounter-portrait")
+      `));
+    } else {
+      await waitFor("the enhanced dialogue illustration", () => run(`(() => {
+        const image = document.querySelector(".encounter-portrait");
+        return image?.getAttribute("src") === ${JSON.stringify("/art/" + portrait)} &&
+          image.naturalWidth === 352 && image.naturalHeight === 352;
+      })()`));
+      await switchBothWays();
+      await verifyPortraitPanel();
+    }
     if (illustration.heldPortrait) {
       const held = illustration.heldPortrait;
       for (let i = 0; i < 30 && frame.portrait !== held; i++) await advance("z");
