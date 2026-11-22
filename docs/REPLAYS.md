@@ -51,6 +51,15 @@ swallowed under `POR_INPUT_COMPAT=discard-poll-prompt`. Version 1.3's
 the game calls `FlushKeys`. New replays should use normal input and hold no
 extra presses.
 
+## Character icon editor
+
+Run `node tools/verify-character-icon-editor.mjs <Chrome executable>`
+with `POR_GAME_SOURCE=original` and `POR_GAMEDATA` set to the GOG 1.3 files,
+or with `POR_GAME_SOURCE=port` for the bundled data. The replay uses
+Chrome's keyboard input and checks the painted ready and action icons
+as the player changes head, weapon, both colours and size. It keeps the
+new icon and checks its ready pixels in the first Slums fight.
+
 ## Dice
 
 `POR_CLOCK=fixed` starts a replay on fixed dice. Version 1.3 draws one

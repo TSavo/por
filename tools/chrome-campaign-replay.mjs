@@ -194,6 +194,25 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
         })()`));
         appendFileSync(commands, JSON.stringify(key) + "\n");
       },
+      async pressKey(input) {
+        const special = {
+          enter: ["Enter", 13], up: ["ArrowUp", 38], down: ["ArrowDown", 40],
+          left: ["ArrowLeft", 37], right: ["ArrowRight", 39],
+        }[input];
+        assert.ok(special || /^[a-z0-9]$/.test(input), `Unsupported Chrome key: ${input}`);
+        const key = special?.[0] ?? input;
+        const code = special?.[0] ?? (/\d/.test(input) ? `Digit${input}` : `Key${input.toUpperCase()}`);
+        const windowsVirtualKeyCode = special?.[1] ?? input.toUpperCase().charCodeAt(0);
+        await waitFor(`Chrome ready for ${key}`, () => evaluate(`(() => {
+          if (state.sequence !== ${lastSequence}) throw new Error("The game advanced before input");
+          if (!state.ready || posting || renderingSequence === state.sequence) return;
+          screen.focus({ preventScroll: true });
+          return true;
+        })()`));
+        await command("Input.dispatchKeyEvent", { type: "keyDown", key, code, windowsVirtualKeyCode });
+        await command("Input.dispatchKeyEvent", { type: "keyUp", key, code, windowsVirtualKeyCode });
+        appendFileSync(commands, JSON.stringify(input) + "\n");
+      },
       close,
       evaluate,
       /** A PNG of the page as Chrome paints it, or of `clip` ({ x, y, width, height } in page pixels). */
