@@ -1129,6 +1129,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:24:ecl:b0b5:cue:emissary-recognition", "YOUSETHEMGUYSWHOKNOWWHEREDETREASUREIS"],
   ["scene-illustration:area:24:ecl:b420:caller:ad99:cue:emissary-recognition", "YOUSETHEMGUYSWHOKNOWWHEREDETREASUREIS"],
   ["scene-illustration:area:24:ecl:a9c2", "ASYOUDESTROYTHEALTAR,THETEMPLEDOORSFLYOPEN"],
+  ["scene-illustration:area:31:ecl:a0a3:cue:captive-aftermath", "YOUCOLDLYKILLTHEDEFENCELESSGOBLINS"],
+  ["scene-illustration:area:31:ecl:b0b5:cue:captive-aftermath", "YOUCOLDLYKILLTHEDEFENCELESSGOBLINS"],
   ["scene-illustration:area:31:ecl:a105:cue:captive-release", "YOULETTHEGOBLINSGO"],
   ["scene-illustration:area:31:ecl:b0b5:cue:captive-release", "YOULETTHEGOBLINSGO"],
   ["scene-illustration:area:31:ecl:a306:cue:searched-hay-bunks", "NOTHINGBUTLICEANDHAIR"],

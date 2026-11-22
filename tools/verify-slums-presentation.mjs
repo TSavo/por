@@ -6099,7 +6099,7 @@ const mendorCouncilRewards = new Map([
   ["mendor-history-of-the-north-reward", [8, "history-of-the-north-reward", /THESEHISTORIESCONTAINMUCHUSEFULINFORMATION/i, 550]],
   ["mendor-grand-historian-reward", [21, "grand-historian-reward", /THERECORDSPROVIDEINSIGHTSINTOMUCHTHATWASPUZZLING/i, 600]],
 ]);
-const routes = ["yarash-desk-papers-reload", "sokal-floorboard-diary-reload", "buccaneer-empty-manual-aim", "textile-stinking-cloud", "buccaneer-arrow-down", "buccaneer-oil-flask", "buccaneer-sling-shot", "bivant-reward-reload", "tyrmor-journal-reload", "new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
+const routes = ["yarash-desk-papers-reload", "sokal-floorboard-diary-reload", "buccaneer-empty-manual-aim", "textile-stinking-cloud", "buccaneer-arrow-down", "buccaneer-oil-flask", "buccaneer-sling-shot", "bivant-reward-reload", "tyrmor-journal-reload", "new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-goblins-aftermath", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
 routes.push("river-passage-reload", "new-phlan-council-reward-reload", "slums-mage-wand", "nomad-headman-rest-reload", "nomad-headman-rest-portrait", "nomad-headman-raid");
 routes.push("nomad-headman-decline-reload");
 routes.push("podal-infirmary-heal");
@@ -6347,7 +6347,8 @@ const traderJournalLeads = ["gate-trader-deal", "gate-trader-guard-warning", "ga
 const altar = routeName === "textile-altar";
 const plaza = routeName === "podal-plaza";
 const baneGate = routeName === "bane-gate";
-const baneGoblins = routeName === "bane-goblins";
+const baneGoblinAftermath = routeName === "bane-goblins-aftermath";
+const baneGoblins = routeName === "bane-goblins" || baneGoblinAftermath;
 const baneSymbol = routeName === "bane-symbol";
 const baneAltar = routeName === "bane-altar";
 const koboldCave = routeName === "kobold-cave";
@@ -11804,18 +11805,19 @@ try {
       assert.ok(knows("bane-temple-guard-check"));
       assert.match(frame.journal.objective.nextStep, baneSymbol ? /Let Him Touch You/ : /let the blind guard check/i);
     }
-    for (const key of ["j", "l"]) await advance(key);
+    for (const key of ["j", baneGoblinAftermath ? "k" : "l"]) await advance(key);
+    const goblinOutcome = baneGoblinAftermath ? "aftermath" : "release";
+    const goblinIllustration = `scene-illustration:area:31:ecl:b0b5:cue:captive-${goblinOutcome}`;
     if (baneGoblins) {
-      const released = "scene-illustration:area:31:ecl:b0b5:cue:captive-release";
-      assert.equal(frame.portrait, released);
-      assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
-        /YOULETTHEGOBLINSGO.*HOLYSYMBOLOFBANE/i);
-      await waitFor("the released goblins sharing the temple clue", () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector('.encounter-portrait[src="/art/${released}"]')?.naturalWidth === 352`));
+      assert.equal(frame.portrait, goblinIllustration);
+      const caption = baneGoblinAftermath ? /YOUCOLDLYKILLTHEDEFENCELESSGOBLINS/i : /YOULETTHEGOBLINSGO.*HOLYSYMBOLOFBANE/i;
+      assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""), caption);
+      await waitFor(`the goblin ${goblinOutcome} illustration`, () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${goblinIllustration}"]')?.naturalWidth === 352`));
       await verifyPortraitPanel();
       await switchBothWays(frame.frame);
       const shot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, "bane-captive-goblins-release.png"), Buffer.from(shot.data, "base64"));
+      writeFileSync(resolve(directory, `bane-captive-goblins-${goblinOutcome}.png`), Buffer.from(shot.data, "base64"));
     }
     if (baneSymbol) {
       const recognized = "scene-illustration:area:24:ecl:b0b5";
@@ -11849,16 +11851,16 @@ try {
       const entranceShot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "bane-temple-after-admission.png"), Buffer.from(entranceShot.data, "base64"));
     } else {
-      assert.ok(knows("bane-temple-symbol"));
-      assert.match(frame.journal.objective.nextStep, /bring a holy symbol of bane/i);
+      assert.equal(knows("bane-temple-symbol"), !baneGoblinAftermath);
+      if (!baneGoblinAftermath) assert.match(frame.journal.objective.nextStep, /bring a holy symbol of bane/i);
       await advance("j");
-      assert.equal(frame.portrait, "scene-illustration:area:31:ecl:b0b5:cue:captive-release");
+      assert.equal(frame.portrait, goblinIllustration);
       for (const key of ["right", "right", "up"]) await advance(key);
       assert.equal(frame.portrait, undefined);
       assert.equal(await verifyTiledView(31, interiorPatterns), 1);
       assert.equal(interiorPatterns.size, 22);
     }
-    console.log(`Verified witnessed Temple of Bane guidance on the ${routeName} route.`);
+    console.log(`Verified the Temple of Bane encounter outcome on the ${routeName} route.`);
   } else if (shrineReturn) {
     const meeting = () => frame.journal?.leads.find(({ id }) => id === "podal-shrine-meeting");
     await advance("j");
