@@ -4360,6 +4360,13 @@ const combatPoseRoutes = new Map([
     strikeReport: /ORCATTACKSBRINANDMISSES/i,
     inputs: ["up", "enter", "s", "enter", "enter", "enter"], strikeInputs: ["q", "q", "q", "q"],
   }],
+  ["bane-barracks-veteran-combat", {
+    slot: "A", stand: "combat:area:31:CPIC1.DAX:5:ecl:a1c8", strike: "combat:area:31:CPIC1.DAX:133:ecl:a1c8",
+    width: 96, height: 96, standCount: 2, standAnchor: [80, 32, false],
+    strikeAnchor: [80, 32], strikeReflected: false, strikeReport: /ORCLEADERHITPOINTS8AC5LONGBOW/i,
+    excluded: ["combat:area:31:CPIC1.DAX:5", "combat:area:31:CPIC1.DAX:133"],
+    inputs: ["up", ...Array(4).fill("enter")], strikeInputs: ["enter", "q", "q", "q", "q"],
+  }],
   ["bane-barrack-guard-combat", {
     slot: "A", stand: "combat:area:31:CPIC1.DAX:4:ecl:a1c8", strike: "combat:area:31:CPIC1.DAX:132:ecl:a1c8",
     width: 96, height: 96, readyPrompt: /ORCHITPOINTS5AC6/i, strikeReflected: false,
