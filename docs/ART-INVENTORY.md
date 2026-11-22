@@ -904,6 +904,17 @@ A native Chrome checkpoint replay checked 242 tile placements across the
 entry view and the west-facing view and compared state across the mode
 switch. Both checks used the browser's default art packs.
 
+### Default combat icons
+
+`ICON.DAX` contains three 24×24 ready/strike pairs, blocks 0/128, 1/129,
+and 2/130. The decoded records are byte-identical in the original DOS
+and GOG 1.3 archives. GOG overlay 14 calls the combat picture loader
+with `ICON` blocks 0, 1, and 2 into slots 9, 10, and 11 at `0bd6`,
+`0bf0`, and `0c0a`. Overlay 16 loads blocks 0 and 1 into slots 11 and
+12 at `3ee0` and `3efa`. Use the archive and block as the artwork
+identity because the slot assignments vary. Verify the actual draws in
+play before marking the six replacements as covered.
+
 ### Slums orc sentry combat
 
 The intercepting sentries in area 20 use `CPIC2.DAX` blocks 4 and 132
