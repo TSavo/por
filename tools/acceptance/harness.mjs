@@ -238,7 +238,12 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
       POR_JOURNAL_PROFILE: "", POR_BOOT_KEY_FILE: "", POR_INPUT_COMPAT: "", POR_CLOCK: "fixed",
       // The same start as verify-input: one Enter leaves the title, then every key comes from the test.
       POR_BOOT_KEYS: "31000000:1c0d", POR_LIVE_AT: "50000000", POR_BOOT_STEPS: "450000000",
-      POR_WATCH_ECL: watch.map((address) => address.toString(16)).join(","), ...env,
+      POR_WATCH_ECL: watch.map((address) => address.toString(16)).join(","),
+      // The fight's highlight, as the Enhanced display places it (nativeSelectionKey in
+      // tools/native-combat-selection.ts). From the port's own data the frame has no other picture
+      // of the battlefield, and without it Aim's Next between two alike monsters would look like a
+      // swallowed key to `press`.
+      POR_COMBAT_SELECTION_KEYS: "combat-selection:COMSPR.DAX:25", ...env,
     },
     stdio: ["pipe", "pipe", "pipe"],
   });
@@ -361,8 +366,8 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
     /**
      * Press one key and return the frame the game shows when it next waits for the player.
      * Every key is one input: a press after which the game shows exactly what it showed before
-     * (the same `look`, and nothing printed, narrated or flashed on the way) was swallowed, and fails. So no loop of presses here can make up for a
-     * swallowed key by pressing again (#76).
+     * (the same `look`, and nothing printed, narrated or flashed on the way) was swallowed, and
+     * fails. So no loop of presses here can make up for a swallowed key by pressing again (#76).
      */
     async press(key, expected, why = "") {
       const before = { look: look(game.frame), printed: texts.length, narrated: narrations.length, flashed: flashed.length };
