@@ -14,6 +14,10 @@ const portraitLoops = [
   ["portrait:area:21:ecl:9e40:PIC4.DAX:34:", 4, "portrait:area:21:PIC4.DAX:34:0:0"],
   ["portrait:area:10:ecl:b695:caller:9db8:PIC4.DAX:34:", [0, 1, 2, 3, 2, 1], "portrait:area:10:PIC4.DAX:34:0:0",
     /THEENCLAVEISGUARDEDBYASKELETONARMY/i, [1310, 110, 110, 910, 110, 110]],
+  ["portrait:area:10:ecl:b695:caller:a144:PIC4.DAX:20:", [0, 1, 2, 1], undefined,
+    /^(?!.*ABATTLEBEGINS).*DARKBENTCREATURESRUSHSWIFTLYATYOU/i, [1010, 210, 610, 210]],
+  ["portrait:area:10:ecl:b695:caller:a232:PIC4.DAX:20:", [0, 1, 2, 1], undefined,
+    /^(?=.*DOYOULEAVE)(?=.*PRESSENTERRETURNTOCONTINUE)/i, [1010, 210, 610, 210]],
   ["portrait:area:10:ecl:b695:caller:a92b:PIC4.DAX:20:", [0, 1, 2, 1], "portrait:PIC4.DAX:20:0:0",
     /WIGHTSAPPEARFROMBEHINDTHETOWER/i, [1010, 210, 610, 210]],
   // Two empty members restore the base. Native member 7 repeats member 3.

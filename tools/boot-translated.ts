@@ -42,6 +42,10 @@ const port = isPortGameRoot(root) ? portGame(root) : undefined;
 // Says which game data was chosen, so a launch can be checked from its log.
 console.error(`POR_GAME_DATA ${port ? "port" : "original"} ${root}`);
 const portProgram = port?.program;
+const fixedClockStart = Number(process.env.POR_FIXED_CLOCK_START ?? noon);
+if (!Number.isInteger(fixedClockStart) || fixedClockStart < 0 || fixedClockStart >= 24 * 60 * 60 * 100) {
+  throw new Error("POR_FIXED_CLOCK_START must be an integer in centiseconds since midnight");
+}
 const gameFiles = usePortPaths(mountValjevoWallPieces(readGameFiles(root)));
 const files = process.env.POR_PREGEN_PARTY === "1" ? stagePregenParty(gameFiles) : gameFiles;
 
@@ -274,7 +278,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const keys = [...scheduledKeys];
   attachDos(cpu, mountedFiles, keys, requestKey && ((blocking) => requestKey(cpu, keys, blocking)),
     fileClosed, fileDeleted, readCompanions,
-    process.env.POR_CLOCK === "real" ? timeOfDay() : noon,
+    process.env.POR_CLOCK === "real" ? timeOfDay() : fixedClockStart,
     // From the live step on the player answers every blocking read (tools/live-input.ts).
     requestKey ? liveStep : undefined);
   cpu.ss = boot.ss;

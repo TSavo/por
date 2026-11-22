@@ -2,8 +2,8 @@
 
 ## What to do now
 
-**Held portrait animations (#131).** 23 / 235 picture sites verified (measured 34, one-shot 6). R = 212.
-The site inventory comes from static script and native picture discovery. 44 / 44 captured native prompts passed paired Chrome checks.
+**Held portrait animations (#131).** 24 / 235 picture sites verified (measured 34, one-shot 6). R = 211.
+The site inventory comes from static script and native picture discovery. 46 / 46 captured native prompts passed paired Chrome checks.
 Run `npm run verify:held-portraits` for every site and its evidence.
 
 **Enhanced fallbacks (#142).** 16 fallback frames / 2 distinct keys across 163 Chrome views.

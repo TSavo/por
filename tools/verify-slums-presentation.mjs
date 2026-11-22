@@ -4280,6 +4280,25 @@ const illustrationRoutes = new Map([
     ],
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:62:0:0", prompt: /ABATTLEBEGINS/i },
   }],
+  ["valhingen-wight-ambush-loop", {
+    slot: "A", inputs: ["up", "down", "up"],
+    portrait: "portrait:area:10:ecl:b695:caller:a144:PIC4.DAX:20:0:0",
+    prompt: /DARK,BENTCREATURESRUSHSWIFTLYATYOU/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => "portrait:area:10:ecl:b695:caller:a144:PIC4.DAX:20:" + member + ":0"),
+    finalPhaseCapture: "valhingen-wight-ambush-loop.png",
+    continuation: { inputs: ["enter"], prompt: /DARK,BENTCREATURESRUSHSWIFTLYATYOU.*ABATTLEBEGINS/i,
+      portrait: "scene-illustration:area:10:ecl:b5c7:cue:wight-roaming-ambush", pressOnPortrait: "portrait:area:10:ecl:b695:caller:a144:PIC4.DAX:20:1:0",
+      retainPose: true, screenshot: "valhingen-wight-ambush-retained-pose.png" },
+  }],
+  ["valhingen-spirits-tower-wight-loop", {
+    slot: "A", inputs: ["up", "enter", "enter", "n"],
+    portrait: "portrait:area:10:ecl:b695:caller:a232:PIC4.DAX:20:0:0",
+    prompt: /DOYOULEAVE\?.*PRESS<ENTER>\/<RETURN>TOCONTINUE/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => "portrait:area:10:ecl:b695:caller:a232:PIC4.DAX:20:" + member + ":0"),
+    finalPhaseCapture: "valhingen-spirits-tower-wight-loop.png",
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:b5c7:cue:spirits-tower-wight-attack",
+      prompt: /YOUAREATTACKEDBYWIGHTS.*ABATTLEBEGINS/i, screenshot: "valhingen-spirits-tower-wight-loop-cleared.png" },
+  }],
   ["valhingen-wight-roam-phases", {
     slot: "A", inputs: ["up", "down", "up"],
     portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:20:0:0",
@@ -7484,6 +7503,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_INPUT_COMPAT: ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "valhingen-grave-claws" || routeName === "sokal-barracks-ghost-phases" ||
+      routeName === "valhingen-wight-ambush-loop" || routeName === "valhingen-spirits-tower-wight-loop" ||
       routeName === "old-phlan-lizard-patrol-phases" || routeName === "valjevo-tower-troll-phases" ||
       routeName === "lizard-wilds-kobold-prisoners" || routeName === "lizard-wilds-pool-dialogue" ||
       routeName === "mendor-storeroom-kobold-phases" || routeName === "mendor-storeroom-mercy-loop" ||

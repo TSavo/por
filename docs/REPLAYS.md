@@ -195,6 +195,15 @@ capture. Editing a binding for a different portrait keeps that capture valid.
 The reviewed narration-log edit in `3e497fec` accepts the preceding renderer's
 capture hashes for that exact script. The original capture hashes are retained.
 
+The Valhingen wight caller checks take their checkpoints from
+`qa/fixtures/valhingen-wight-ambush/A.json` and
+`qa/fixtures/valhingen-spirits-tower-wights/A.json`. Pass each to
+`tools/verify-slums-presentation.mjs` with the Chrome executable and
+`valhingen-wight-ambush-loop` or `valhingen-spirits-tower-wight-loop`,
+respectively. Set `POR_FIXED_CLOCK_START=4320042` for the ambush only.
+That starts the guest clock at 12:00:00.42 so the original dice choose
+the roaming wights. Use the default fixed clock for the tower route.
+
 ## Enhanced artwork fallbacks
 
 Set `POR_TRACE_ENHANCED_FALLBACKS=1` and run
