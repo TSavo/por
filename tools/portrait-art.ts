@@ -1488,6 +1488,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:29:ecl:afa1", "BEFOREYOULIESKUTO'SWELL.ITISASOURCEOFWATERINALLSEASONS"],
   ["scene-illustration:area:29:ecl:afa1:cue:daylight", "BEFOREYOULIESKUTO'SWELL.ITISASOURCEOFWATERINALLSEASONS"],
   ["scene-illustration:area:29:ecl:af2f:caller:a31b", "MONSTERSFROMTHESURROUNDINGBUILDINGSATTACKYOU"],
+  ["scene-illustration:area:29:ecl:af2f:caller:a31b:cue:kobolds-climb-from-well", "ABANDOFKOBOLDSCLIMBSFROMTHEWELLANDATTACKS"],
+  ["scene-illustration:area:29:ecl:a3b9", "ABANDOFKOBOLDSCLIMBSFROMTHEWELLANDATTACKS"],
 ]);
 export function matchScriptIllustration(context: string, dialogue: string, installed: readonly string[]) {
   for (const [id, cue] of scriptIllustrations) {

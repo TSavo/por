@@ -6889,6 +6889,11 @@ const valhingenBrassDoorBattle = {
   afterBattle: /9,1W.*AREACASTVIEWENCAMPSEARCHLOOK/i,
 };
 const controlledBattleIllustrations = new Map([
+  ["kuto-well-kobold-reinforcements", {
+    slot: "J", inputs: ["up", "y", "enter", "enter", "down", "up"],
+    portrait: "scene-illustration:area:29:ecl:a3b9",
+    caption: /ABANDOFKOBOLDSCLIMBSFROMTHEWELLANDATTACKS/i,
+  }],
   ["bane-hay-bunk-aftermath", {
     slot: "A", inputs: ["up", "enter", "s", "enter", "enter", "enter"],
     portrait: "scene-illustration:area:31:ecl:b0b5:cue:searched-hay-bunks",
