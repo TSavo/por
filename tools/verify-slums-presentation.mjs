@@ -2074,6 +2074,7 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:24:ecl:ab06:PIC1.DAX:4:0:0",
     approachSequence: [[48, 32, "encounter:area:24:ecl:ab06:SPRIT1.DAX:4:0:0", 40, 80]],
     prompt: /THEMINUTEYOUFINDTHETREASURE.*STEALFROMOURTEMPLE/i,
+    finalPhaseCapture: "bane-treasury-ambush-dialogue.png",
     continuation: { inputs: ["enter"], prompt: /ABATTLEBEGINS/i },
   }],
   ["valjevo-lower-snake-dialogue", {
