@@ -190,6 +190,14 @@ block 19, which ends at `a5a2`. ECL6 block 25 contains the pause at
 `aeeb`, and the replay reaches it with the displayed area already set to 19.
 The replay also checks the Silver Bottle commission in the journal.
 
+GOG 1.3 Chrome replays at `c5f34276` confirmed the other two area 19
+keys at the same pause. `diogenes-bottle-return` verifies the dragon's
+departure after the vampire instructions and the corresponding journal
+lead. `diogenes-upper-ledge-fireball` verifies that the empty-lair plate
+and journal discovery appear after the fireball, then saves the resulting
+state. Both routes use local checkpoint saves and check Enhanced panel
+fit and display switching.
+
 The two HEAD frames it flagged are `HEAD6.DAX:1:0:0` and
 `HEAD6.DAX:3:0:0`, both 88 by 40. Neither ID appeared in the local
 browser trace files checked for this audit. They stay unlinked pending
