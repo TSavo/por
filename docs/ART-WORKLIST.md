@@ -1,6 +1,12 @@
 # Artwork worklist
 
-**88 wall-tile cells still need art. The artwork is done when `npm run verify:art-worklist` reports 0 and nothing is left under "Not established".**
+## What to do now
+
+1. **Wall tiles: 88 cells to draw**, in The Slums. Each is listed below with its exact key. `npm run verify:art-worklist` reports this number.
+2. **Pictures: 33 frames with no art** (portraits, approach sprites, icons, ending pictures), listed under "Other pictures no key names" with the key form for each. Portraits and approach sprites first; the ending pictures only if the ending needs them.
+3. Nothing else is yours yet. Cells under "Not established" are not confirmed to appear: the QA owner is settling them by play, and each one that proves real is moved into item 1. Do not draw them.
+
+The artwork is done when items 1 and 2 are at zero and nothing is left under "Not established".
 
 ## The short version
 
@@ -269,7 +275,7 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |
 | battlefield cells of pictures no artwork shows to have been on a battlefield | 2207 |
 | battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain) | not counted: needs the game's battlefield builder read |
-| other picture frames no key names (listed below) | 35 |
+| other picture frames no key names (listed below) | 33 |
 | screen frame, text window borders and other symbols drawn outside the first-person view: no artwork key form exists for them | not counted |
 | narrated passages that describe something to see and have no artwork | will come from npm run qa:narration |
 
@@ -306,8 +312,6 @@ Every picture frame of the 1.3 files outside the tile sets and the battlefield t
 | FINAL5.DAX:8:3:0 | 88x88 | a picture of the ending | `none: tools/upgrade-art.ts accepts no key for FINAL pictures` - | native placement confirmed by the GOG 1.3 valjevo-dragon-loot draw trace (see docs/ART-INVENTORY.md); Enhanced covers the sequence with scene illustrations, and this frame has no individual binding |
 | FINAL5.DAX:8:4:0 | 88x88 | a picture of the ending | `none: tools/upgrade-art.ts accepts no key for FINAL pictures` - | native placement confirmed by the GOG 1.3 valjevo-dragon-loot draw trace (see docs/ART-INVENTORY.md); Enhanced covers the sequence with scene illustrations, and this frame has no individual binding |
 | FINAL5.DAX:8:5:0 | 88x88 | a picture of the ending | `none: tools/upgrade-art.ts accepts no key for FINAL pictures` - | native placement confirmed by the GOG 1.3 valjevo-dragon-loot draw trace (see docs/ART-INVENTORY.md); Enhanced covers the sequence with scene illustrations, and this frame has no individual binding |
-| ICON.DAX:0:0:0 | 24x24 | a 24 by 24 icon | `none: tools/upgrade-art.ts accepts no key for ICON pictures` - | the scripts do not name it; the program draws it, and where has not been read |
-| ICON.DAX:128:0:0 | 24x24 | a 24 by 24 icon | `none: tools/upgrade-art.ts accepts no key for ICON pictures` - | the scripts do not name it; the program draws it, and where has not been read |
 | ICON.DAX:1:0:0 | 24x24 | a 24 by 24 icon | `none: tools/upgrade-art.ts accepts no key for ICON pictures` - | the scripts do not name it; the program draws it, and where has not been read |
 | ICON.DAX:129:0:0 | 24x24 | a 24 by 24 icon | `none: tools/upgrade-art.ts accepts no key for ICON pictures` - | the scripts do not name it; the program draws it, and where has not been read |
 | ICON.DAX:2:0:0 | 24x24 | a 24 by 24 icon | `none: tools/upgrade-art.ts accepts no key for ICON pictures` - | the scripts do not name it; the program draws it, and where has not been read |

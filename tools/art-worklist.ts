@@ -789,7 +789,11 @@ function document(list: Worklist): string {
   const add = (...text: string[]) => lines.push(...text);
   const cellItems = list.items.filter((item) => item.kind === "first-person cell"), battleItems = list.items.filter((item) => item.kind === "battlefield cell");
   add("# Artwork worklist", "",
-    `**${list.remaining} wall-tile cells still need art. The artwork is done when \`npm run verify:art-worklist\` reports 0 and nothing is left under "Not established".**`, "",
+    "## What to do now", "",
+    `1. **Wall tiles: ${list.remaining} cells to draw**${list.remaining ? `, in ${[...new Set(cellItems.map((item) => item.areaName))].join(", ") || "the battlefield terrain"}` : ""}. Each is listed below with its exact key. \`npm run verify:art-worklist\` reports this number.`,
+    `2. **Pictures: ${list.otherPicturesNoKeyNames.length} frames with no art** (portraits, approach sprites, icons, ending pictures), listed under "Other pictures no key names" with the key form for each. Portraits and approach sprites first; the ending pictures only if the ending needs them.`,
+    `3. Nothing else is yours yet. Cells under "Not established" are not confirmed to appear: the QA owner is settling them by play, and each one that proves real is moved into item 1. Do not draw them.`, "",
+    "The artwork is done when items 1 and 2 are at zero and nothing is left under \"Not established\".", "",
     "## The short version", "",
     "Portraits, monsters, scenes and combat pictures are not on this list: this is the first-person view's wall tiles and the outdoor battle terrain.",
     "A cell is one 8 by 8 square of the screen, redrawn at 32 by 32. Most cells below are a shape you have already drawn, standing over a different sky or ground colour",
