@@ -112,14 +112,23 @@
       "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
     },
     {
-      "id": "ecl8-b13-b467-b49e",
+      "id": "ecl8-b13-b467",
       "triggerSourceId": "por.review.ecl-8.block-13.at-b467",
       "coveredSourceIds": [
-        "por.review.ecl-8.block-13.at-b467",
+        "por.review.ecl-8.block-13.at-b467"
+      ],
+      "output": "audio/voices/narration/ecl8/block-13/ecl8-b13-b467.mp3",
+      "text": "KOBOLDS APPEAR AND BOMBARD YOU WITH ROCKS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-b49e",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-b49e",
+      "coveredSourceIds": [
         "por.review.ecl-8.block-13.at-b49e"
       ],
-      "output": "audio/voices/narration/ecl8/block-13/ecl8-b13-b467-b49e.mp3",
-      "text": "KOBOLDS APPEAR AND BOMBARD YOU WITH ROCKS. WHAT DO YOU DO?",
+      "output": "audio/voices/narration/ecl8/block-13/ecl8-b13-b49e.mp3",
+      "text": "WHAT DO YOU DO?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
     {

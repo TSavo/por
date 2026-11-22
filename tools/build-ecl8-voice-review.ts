@@ -51,7 +51,7 @@ addUnit(13, ["0xa733", "0xa775", "0xa7cd", "0xa7f8", "0xa802"]);
 addUnit(13, ["0xab75", "0xabaa", "0xabb4"]);
 addUnit(13, ["0xaf93", "0xafc3"]);
 addUnit(13, ["0xb028", "0xb04b", "0xb07b", "0xb0b0"]);
-addUnit(13, ["0xb467", "0xb49e"]);
+// b467 ends at b49d EXIT. b49e " WHAT DO YOU DO?" is a subroutine thirteen passages call: alone (#173).
 addUnit(13, ["0xb512"], { status: "unresolved-dynamic" });
 
 addUnit(16, ["0x9ceb", "0x9e8c", "0x9d14"], { variant: "rubble" });

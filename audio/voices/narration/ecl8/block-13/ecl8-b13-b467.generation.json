@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "46f2134371f05088aa6240f640ed1a823b2211d15e2f217d333b706d4844ca77",
+  "audioSha256": "e58c29b2c5951118f73533e4332bbcdcfa5ea3560b1ac709f7fb9d9f9626bfeb",
+  "bytes": 54795,
+  "directionSent": "measured, expressive fantasy narration appropriate to the scene",
+  "heardByWhisper": "Kobolds appear and bombard you with rocks.",
+  "generatedAt": "2026-11-22T22:52:04.408Z"
+}

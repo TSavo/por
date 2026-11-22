@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "37fd31c4718feacf6686d62cf2a405a256238bee962d31191354ff62a6725583",
+  "audioSha256": "dcb93bf2481af356072160d99cbf2c9e298d5d15ef8e6c2fd4d3cf50dbe1c86c",
+  "bytes": 30554,
+  "directionSent": "measured, expressive fantasy narration appropriate to the scene",
+  "heardByWhisper": "What do you do?",
+  "generatedAt": "2026-11-22T22:52:05.608Z"
+}

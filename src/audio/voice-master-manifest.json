@@ -16,8 +16,8 @@
     "classifiedEvents": 2025,
     "voicedSourceEvents": 1688,
     "unvoicedEvents": 337,
-    "narrationUnits": 1434,
-    "resolvedUnits": 1434,
+    "narrationUnits": 1435,
+    "resolvedUnits": 1435,
     "unresolvedDynamicUnits": 0,
     "finiteRuntimeVariantFamilies": 70,
     "finiteRuntimeVariantAssets": 384
@@ -47550,7 +47550,7 @@
       "sourceDigest": "1110e37f86b5c9e0d3eed225eea6a0013ac4d1047025c381628e5f493d220c8d",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "ecl8-b13-b467-b49e"
+        "ecl8-b13-b467"
       ]
     },
     {
@@ -47574,7 +47574,7 @@
       "sourceDigest": "3797680e12be74a0992f2ee24c171d87f7d52ed50f2270fd349db7388063f90f",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "ecl8-b13-b467-b49e"
+        "ecl8-b13-b49e"
       ]
     },
     {
@@ -98462,22 +98462,44 @@
       }
     },
     {
-      "id": "ecl8-b13-b467-b49e",
+      "id": "ecl8-b13-b467",
       "archive": "ECL8.DAX",
       "triggerSourceId": "por.review.ecl-8.block-13.at-b467",
       "coveredSourceIds": [
-        "por.review.ecl-8.block-13.at-b467",
-        "por.review.ecl-8.block-13.at-b49e"
+        "por.review.ecl-8.block-13.at-b467"
       ],
       "variant": null,
-      "spokenText": "KOBOLDS APPEAR AND BOMBARD YOU WITH ROCKS. WHAT DO YOU DO?",
+      "spokenText": "KOBOLDS APPEAR AND BOMBARD YOU WITH ROCKS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene",
       "characterId": null,
       "sourceParts": [
         {
           "sourceId": "por.review.ecl-8.block-13.at-b467",
           "rawText": "KOBOLDS APPEAR AND BOMBARD YOU WITH ROCKS."
-        },
+        }
+      ],
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/ecl8/block-13/ecl8-b13-b467.mp3",
+      "runtimeVariants": [],
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      }
+    },
+    {
+      "id": "ecl8-b13-b49e",
+      "archive": "ECL8.DAX",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-b49e",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-b49e"
+      ],
+      "variant": null,
+      "spokenText": "WHAT DO YOU DO?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene",
+      "characterId": null,
+      "sourceParts": [
         {
           "sourceId": "por.review.ecl-8.block-13.at-b49e",
           "rawText": " WHAT DO YOU DO?"
@@ -98486,7 +98508,7 @@
       "resolution": "resolved",
       "generationEligible": true,
       "model": "eleven_v4",
-      "asset": "voices/narration/ecl8/block-13/ecl8-b13-b467-b49e.mp3",
+      "asset": "voices/narration/ecl8/block-13/ecl8-b13-b49e.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,
