@@ -215,6 +215,12 @@ at `b376` as he misses a kobold. Those captures are from local checkpoint
 probes. A separate headman-defense capture used a controlled party
 position to bring the veteran into melee range at `a1a6`.
 
+A longer GOG 1.3 Chrome run at `9ae85f80` independently checked the
+Envoy's live strike sprite. It used the same local checkpoint, fixed
+clock and legacy discard-poll replay mode. It verified the strike asset
+ID in the native animation and observed Chrome decode the 96 by 96
+sprite during playback.
+
 The Bane ogre commander's ready and strike keys pass the standalone audit
 through the Bane Mansion map's owning script, ECL1 block 24. GOG 1.3 Chrome verified both poses at
 canonical cursor `9f7b` in native combat. A DOS 1.0 Chrome control loaded
