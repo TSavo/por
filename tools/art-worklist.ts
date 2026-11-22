@@ -879,9 +879,11 @@ function document(list: Worklist): string {
   const cellItems = list.items.filter((item) => item.kind === "first-person cell"), battleItems = list.items.filter((item) => item.kind === "battlefield cell");
   add("# Artwork worklist", "",
     "## What to do now", "",
-    `**Held portrait animations \(#131\): ${list.heldPortraits.verified} / ${list.heldPortraits.total} measured scenes verified. R = ${list.heldPortraits.remaining.length}.**`,
-    ...(list.heldPortraits.enumerationComplete ? [] : ["The full native scene count is still open."]),
-    "Run `npm run verify:held-portraits` for the unverified scenes and their evidence.",
+    `**Held portrait animations (#131).** ${list.heldPortraits.verified} / ${list.heldPortraits.total} measured scenes verified. R = ${list.heldPortraits.remaining.length}.`,
+    ...(list.heldPortraits.enumerationComplete ? [] : [
+      `The full native scene count is still open. Static discovery has ${list.heldPortraits.discovery.eclCandidates} script candidates and ${list.heldPortraits.discovery.nativeCandidates} native candidates.`,
+    ]),
+    "Run `npm run verify:held-portraits` for unverified scenes or use `-- --candidates` to see the script and native leads.",
     "",
     ...(() => {
       // Requests the owner has made that no tool can find (qa/art-requests.json): open ones are work.
@@ -1182,6 +1184,9 @@ function main(): void {
     else {
       const now = new Set(items.map((item) => item.key));
       const before = new Set(committed.items.map((item) => item.key));
+      if (JSON.stringify(committed.heldPortraits) !== JSON.stringify(list.heldPortraits)) {
+        problems.push("The held portrait counts changed");
+      }
       for (const key of now) if (!before.has(key)) problems.push(`${key} is needed and is not in ${WORKLIST}`);
       for (const item of committed.items) if (!now.has(item.key) && missing(art, item.key, item.width, item.height)) problems.push(`${item.key} is in ${WORKLIST}, has no art, and the tool no longer lists it`);
     }

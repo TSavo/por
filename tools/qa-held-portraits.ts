@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { heldPortraitDiscovery } from "./discover-held-portraits.js";
 import { verifyHeldPortraitPaint, type ChromeProof, type Pose } from "./verify-held-portrait-paint.js";
 
 interface HeldPortraitInventory {
@@ -39,13 +40,30 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     return [];
   });
   const total = inventory.scenes.length;
-  return { verified: total - remaining.length, total, remaining, enumerationComplete: inventory.enumerationComplete };
+  return {
+    verified: total - remaining.length, total, remaining, enumerationComplete: inventory.enumerationComplete,
+    discovery: heldPortraitDiscovery.counts,
+  };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const { verified, total, remaining, enumerationComplete } = heldPortraitCoverage();
+  const { verified, total, remaining, enumerationComplete, discovery } = heldPortraitCoverage();
   console.log(`Held portraits: ${verified} / ${total} measured scenes verified, R = ${remaining.length}.`);
-  if (!enumerationComplete) console.log("The full native scene count is still open.");
+  if (!enumerationComplete) {
+    console.log(`The full native scene count is still open. Static discovery has ${discovery.eclCandidates} script candidates and ${discovery.nativeCandidates} native candidates.`);
+  }
   for (const { id, reason } of remaining) console.log(`  ${id} — ${reason}`);
+  if (process.argv.includes("--candidates")) {
+    const { eclCandidates, nativeCandidates } = heldPortraitDiscovery;
+    for (const row of eclCandidates) {
+      const block = row.block ?? `selector ${row.selector.address?.toString(16) ?? "unknown"}`;
+      const prompts = row.promptCandidates.map(({ next, caller }) => caller ? `${next}/${caller}` : next);
+      console.log(`  ${row.scriptArchive}:${row.scriptBlock}:${row.address} ${row.pictureArchive}:${block}` +
+        (prompts.length ? `  prompt leads ${prompts.join(", ")}` : "  prompt pending"));
+    }
+    for (const row of nativeCandidates.filter(({ status }) => status === "candidate")) {
+      console.log(`  ${row.unit}:${row.address} ${row.pictureArchive}:${row.block}`);
+    }
+  }
   if (!enumerationComplete || remaining.length) process.exitCode = 1;
 }

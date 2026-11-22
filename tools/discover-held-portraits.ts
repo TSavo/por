@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 import { disassemble, readEntryVector, scriptFromBlock, type Instruction, type Operand } from "../src/lib/ecl.js";
 import { authoredScriptAddress } from "../src/runtime/bindings.js";
 import { contentBytes, readGameData, type PictureRecord } from "../src/runtime/game-data.js";
@@ -201,4 +202,8 @@ const counts = {
   nativeCandidates: nativeCandidates.filter(row => row.status === "candidate").length,
   nativeSequencesOutsideHeldMenus: nativeCandidates.filter(row => row.status === "outside-held-menu").length,
 };
-console.log(JSON.stringify({ schemaVersion: 1, dataVersion: data.manifest.gameVersion, counts, eclCandidates, nativeCandidates }, null, 2));
+export const heldPortraitDiscovery = { schemaVersion: 1, dataVersion: data.manifest.gameVersion, counts, eclCandidates, nativeCandidates };
+
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  console.log(JSON.stringify(heldPortraitDiscovery, null, 2));
+}

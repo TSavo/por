@@ -10545,8 +10545,8 @@ try {
         .map(id => "/art/" + id);
       await waitFor("the enhanced dialogue illustration", () => run(`(() => {
         const image = document.querySelector(".encounter-portrait");
-        return ${JSON.stringify(visiblePortraits)}.includes(image?.getAttribute("src")) &&
-          image.naturalWidth === 352 && image.naturalHeight === 352;
+        return image?.naturalWidth === 352 && image.naturalHeight === 352 &&
+          ${JSON.stringify(visiblePortraits)}.includes(new URL(image.src).pathname);
       })()`));
       await switchBothWays();
       await verifyPortraitPanel();

@@ -2,9 +2,9 @@
 
 ## What to do now
 
-**Held portrait animations (#131): 0 / 6 measured scenes verified. R = 6.**
-The full native scene count is still open.
-Run `npm run verify:held-portraits` for the unverified scenes and their evidence.
+**Held portrait animations (#131).** 2 / 12 measured scenes verified. R = 10.
+The full native scene count is still open. Static discovery has 233 script candidates and 2 native candidates.
+Run `npm run verify:held-portraits` for unverified scenes or use `-- --candidates` to see the script and native leads.
 
 **There is art to do: 1 item.**
 
