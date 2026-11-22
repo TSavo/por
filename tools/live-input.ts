@@ -177,6 +177,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let sentAutomap = -1;
   let battleCursor: number | undefined;
   let portraitCaller: number | undefined;
+  let finalCouncilReward = false;
 
   function captureEclContext(cpu: Cpu) {
     const dataSegment = unit.data;
@@ -187,6 +188,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     const offset = cpu.read16(dataSegment, data.eclReturn);
     const segment = cpu.read16(dataSegment, data.eclReturn + 2);
     portraitCaller = segment === 0 ? undefined : authoredScriptAddress(archive, block, cpu.read16(segment, offset));
+    finalCouncilReward = false;
+    if (archive === 3 && block === 8 && battleCursor === 0x9f3f && portraitCaller === 0x9a4a) {
+      // The Council shares this treasure routine across rewards. Its 6E79 selector
+      // is 20 for the castle finale and resides in the ECL string-variable region.
+      const strings = cpu.read16(dataSegment, data.eclStrings + 2);
+      const base = cpu.read16(dataSegment, data.eclStrings);
+      finalCouncilReward = cpu.read16(strings, (base + (0x6e79 - 0x6b00) * 2) & 0xffff) === 20;
+    }
   }
   let drawnPerspective: { pixels: Buffer; localEcl?: number; native?: NativeExploration } | undefined;
   let lastLocalPerspective: typeof drawnPerspective;
@@ -306,13 +315,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         dialogue.includes("ANANCIENTBRONZEDRAGON,SURROUNDEDBYAFIERYAURA,RISES") && portraitKeys.includes(dragonArrival)
         ? dragonArrival : undefined;
       const scriptKey = `scene-illustration:area:${area}:ecl:${battleCursor?.toString(16)}${portraitCaller === undefined ? "" : `:caller:${portraitCaller.toString(16)}`}`;
-      // The final reward uses the treasure screen's upper rows for its text.
+      // The final reward uses the upper rows for the XP notice and the
+      // bottom row for the treasure actions.
       const illustrationText = scriptKey === "scene-illustration:area:8:ecl:9f3f:caller:9a4a"
-        ? glyphs.filter(([cell]) => cell < 640).sort(([a], [b]) => a - b)
+        ? glyphs.filter(([cell]) => finalCouncilReward || cell < 640).sort(([a], [b]) => a - b)
           .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase()
         : dialogue;
       // The maze watch and Scriptorium guards finish the nod at the same ECL cursor.
-      let illustrationScope = scriptKey;
+      let illustrationScope = finalCouncilReward && illustrationText.includes("VIEWTAKEPOOLSHAREEXIT")
+        ? `${scriptKey}:cue:council-victory-payout` : scriptKey;
       if (area === 4 && battleCursor === 0x9b63 && explorationPosition) {
         const { x, y } = explorationPosition;
         if (x === 4 && y === 2) illustrationScope = "scene-illustration:area:4:ecl:9ed5:caller:a08a";

@@ -652,6 +652,11 @@ also verifies the proclamation art at its 1.3 script cursor, the Council
 speech and reward illustrations, and the saved turn-in. The initial
 and later proclamation routes verify the same artwork and their own
 journal entries on both DOS editions.
+After the XP notice, the Council's final treasure menu shows a separate
+gems and jewelry illustration. The shared Council routine selects it
+only for the castle reward and the native treasure actions. Both DOS
+editions passed the Chrome finale through Share, Exit, and the slot C
+save, and GOG 1.3 reloaded that save with the completed objective.
 The controlled west-gate fixture `out/fresh-party-lYc83O/D.json` also
 passed both Chrome replays at `eb75918c`. Use the slot C path printed by
 the finale replay for the cold reload.

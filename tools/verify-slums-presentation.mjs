@@ -13667,7 +13667,17 @@ try {
     assert.equal(frame.portrait, undefined);
     await waitFor("the reward illustration to clear", () => run(`state.sequence === ${frame.sequence} &&
       !document.querySelector(".reward-illustration")`));
-    for (const key of ["enter", "j"]) await advance(key);
+    await advance("enter");
+    const payoutIllustration = "scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-payout";
+    assert.equal(frame.portrait, payoutIllustration);
+    assert.match(text(), /VIEWTAKEPOOLSHAREEXIT/i);
+    await waitFor("the finale gems and jewelry illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${payoutIllustration}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    const payoutShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "council-victory-payout.png"), Buffer.from(payoutShot.data, "base64"));
+    await switchBothWays();
+    await advance("j");
     assert.equal(castleStatus(), "reward-pending");
     assert.match(frame.journal.objective.nextStep, /Choose Share.*then Exit/i);
     for (const key of ["j", "s", "e", "enter", "enter", "enter", "enter", "j"]) await advance(key);
