@@ -122,5 +122,67 @@
         "artSha256": "2f4b88b58fa7002b5dc8cc20e1885fb50bcf9a0bf93b0b0993663c1e01cea111"
       }
     }
+  },
+  {
+    "producer": "ECL1.DAX:24:a262",
+    "combat": "a2ba",
+    "native": {
+      "drawCursor": "a269",
+      "members": [
+        0
+      ],
+      "evidence": "https://github.com/TSavo/por/issues/80#issuecomment-7084146807"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL1.DAX:24:a262",
+        "route": "bane-hay-bunk-ambush",
+        "data": "original",
+        "portrait": "portrait:area:31:ecl:a2bb:PIC1.DAX:4:0:0",
+        "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "a287251ae224016aa31545822c74201183e1ff10573016c4ccecda068907932c"
+      },
+      "port": {
+        "producer": "ECL1.DAX:24:a262",
+        "route": "bane-hay-bunk-ambush",
+        "data": "port",
+        "portrait": "portrait:area:31:ecl:a2bb:PIC1.DAX:4:0:0",
+        "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "a287251ae224016aa31545822c74201183e1ff10573016c4ccecda068907932c"
+      }
+    }
+  },
+  {
+    "producer": "ECL1.DAX:24:9a26",
+    "combat": "9b2c",
+    "native": {
+      "drawCursor": "b603",
+      "members": [
+        0
+      ],
+      "evidence": "https://github.com/TSavo/por/issues/80#issuecomment-7084146807"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL1.DAX:24:9a26",
+        "route": "bane-mansion-hostile-warband",
+        "data": "original",
+        "portrait": "scene-illustration:area:31:ecl:9b2d:cue:mansion-hostile-warband",
+        "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "3b341076b8a61cc7498c50babdb236abacb9b4b180c857a3007f53470ab845cc"
+      },
+      "port": {
+        "producer": "ECL1.DAX:24:9a26",
+        "route": "bane-mansion-hostile-warband",
+        "data": "port",
+        "portrait": "scene-illustration:area:31:ecl:9b2d:cue:mansion-hostile-warband",
+        "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "3b341076b8a61cc7498c50babdb236abacb9b4b180c857a3007f53470ab845cc"
+      }
+    }
   }
 ]

@@ -87,8 +87,8 @@ const promptOperands = new Map([[0x15, 3], [0x2b, 2]]);
 // These instructions can clear the panel, replace the picture, start combat, or leave the script.
 const pictureBoundaries = new Set([0x0c, 0x0e, 0x20, 0x21, 0x24, 0x29, 0x2d, 0x31, 0x37, 0x38]);
 const writers = new Set([0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x2a, 0x2f, 0x30]);
-// These straight-line instructions can prepare a fight without choosing a new picture.
-const combatPrelude = new Set([0x03, 0x04, 0x08, 0x09, 0x0b, 0x0d, 0x12, 0x17, 0x1b, 0x1c]);
+// These instructions can prepare a fight without a new picture or player input.
+const combatPrelude = new Set([0x01, 0x02, 0x03, 0x04, 0x08, 0x09, 0x0b, 0x0d, 0x12, 0x13, 0x17, 0x1b, 0x1c, 0x3a]);
 
 const scripts = data.content.filter(record => /^ECL[1-8]\.DAX$/.test(record.file));
 const eclCandidates = scripts.flatMap(record => {
@@ -108,15 +108,24 @@ const eclCandidates = scripts.flatMap(record => {
   });
 
   function immediateCombatAfter(load: Instruction) {
-    let previous = load;
-    let current = instructions.get(load.next);
-    while (current && combatPrelude.has(current.opcode)) {
-      previous = current;
-      current = instructions.get(current.next);
+    const results = new Map<string, number | null>();
+    function fightFrom(state: State): number | null {
+      const key = stateKey(state);
+      const cached = results.get(key);
+      if (cached !== undefined) return cached;
+      const current = instructions.get(state.address);
+      if (current?.opcode === 0x24) return current.address;
+      if (!current || !combatPrelude.has(current.opcode)) return null;
+      // Re-entering an active state leaves an unproven route to the fight.
+      results.set(key, null);
+      const [next, ...alternatives] = successors(state, instructions);
+      const fight = next ? fightFrom(next) : null;
+      if (fight === null || !alternatives.every(branch => fightFrom(branch) === fight)) return null;
+      results.set(key, fight);
+      return fight;
     }
-    // A conditional immediately before COMBAT can skip the fight.
-    return current?.opcode === 0x24 && !(previous.opcode >= 0x16 && previous.opcode <= 0x1b)
-      ? authored(current.address) : null;
+    const fight = fightFrom({ address: load.next, returns: [] });
+    return fight === null ? null : authored(fight);
   }
 
   function selector(op: Operand) {

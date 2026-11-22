@@ -4226,6 +4226,12 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter"], portrait: "portrait:area:25:ecl:a58b:caller:9c11:PIC6.DAX:117:0:0",
       prompt: /FARTOTHEEASTTHEREISALARGEKOBOLDCOMPLEX.*SILVERBOTTLEOFGREATPOWER/i },
   }],
+  ["diogenes-silver-directions-loop", {
+    slot: "A", inputs: ["up", "e", "s", "enter", "enter", "enter"],
+    portrait: "portrait:area:25:ecl:a58b:caller:9c11:PIC6.DAX:117:0:0",
+    prompt: /FARTOTHEEASTTHEREISALARGEKOBOLDCOMPLEX.*SILVERBOTTLEOFGREATPOWER/i,
+    heldPortraitLoop: [0, 1, 2, 3, 4, 0, 2].map(member => `portrait:area:25:ecl:a58b:caller:9c11:PIC6.DAX:117:${member}:0`),
+  }],
   ["tyrmor-prison-minotaur-combat-base", {
     slot: "B", inputs: ["s", ...Array.from({ length: 3 }, () => ["up", "down"]).flat(), "up", "enter", "down", "up"],
     portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:62:0:0", prompt: /ONELICKSITSLIPS/i,
@@ -7465,6 +7471,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
+      routeName === "diogenes-silver-directions-loop" ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       /^tyrmor-prison-(kobolds|lizardfolk|displacer|stirge)-loop$/.test(routeName) ||
       ["sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
