@@ -280,6 +280,12 @@ standalone modes. Standalone identifies the native animation member
 by its loaded picture pointer and checks its declared frame dimensions
 against the packaged catalogue. No original pixel data is needed.
 
+At `708d1dcd`, the `kobold-cave-wyvern-approach` GOG 1.3 Chrome
+replay passed with both data sources. It checks all three native SPRIT
+members, their positions over WebGL, and the switch into the dialogue
+portrait. The interiors of the closest approach view matched pixel for
+pixel between the two Enhanced screenshots.
+
 The Bane ogre commander's ready and strike keys pass the standalone audit
 through the Bane Mansion map's owning script, ECL1 block 24. GOG 1.3 Chrome verified both poses at
 canonical cursor `9f7b` in native combat. A DOS 1.0 Chrome control loaded
