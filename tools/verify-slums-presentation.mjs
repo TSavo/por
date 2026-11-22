@@ -3621,7 +3621,11 @@ const illustrationRoutes = new Map([
     prompt: /THECHAMBERLIGHTSUPTOREVEALATALL,PALEMANWITHVERYWHITETEETH/i,
     finalPhaseCapture: "valhingen-vampire-chamber-loop.png",
     heldPortraitLoop: 3,
-    continuation: { inputs: ["enter"], portrait: "portrait:area:10:ecl:b271:PIC4.DAX:23:0:0", prompt: /ABATTLEBEGINS/i },
+    continuation: {
+      inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:b271",
+      prompt: /THECHAMBERLIGHTSUPTOREVEALATALL,PALEMAN.*ABATTLEBEGINS/i,
+      screenshot: "valhingen-vampire-chamber-attack.png",
+    },
   }],
   ["valhingen-skeleton-roam-phases", {
     slot: "A", inputs: ["up", "down", "a", "a"],

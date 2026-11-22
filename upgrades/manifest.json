@@ -1616,6 +1616,7 @@
     "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:2:0": "valhingen-vampire-chamber-phase-2.png",
     "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0": "valhingen-vampire-chamber.png",
     "portrait:area:10:ecl:b271:PIC4.DAX:23:0:0": "valhingen-vampire-chamber.png",
+    "scene-illustration:area:10:ecl:b271": "valhingen-vampire-chamber-attack.png",
     "combat:area:13:CPIC8.DAX:139:ecl:a2a4": "kobold-envoy-strike.png",
     "portrait:area:10:ecl:a022:PIC4.DAX:35:0:0": "valhingen-zombie-trap.png",
     "combat:area:29:CPIC8.DAX:0:ecl:a338": "kuto-kobold-watch-ready.png",
