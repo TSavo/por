@@ -92,9 +92,10 @@ the play read as data. The port loads the image at address 0, so a read through
 segment 0 (an empty pointer, an interrupt vector) lands on the program's first
 bytes; the detail line names each such byte and the code that read it.
 
-**3. Places Enhanced shows an original picture.** Two rows from the files: the
-frames of the scene, encounter and combat archives that have artwork, and the
-host modules that decide which artwork to show by decoding the pixels of the
+**3. Places Enhanced shows an original picture.** Three rows from the files: the
+frames of the scene, encounter and combat archives that have artwork (792 of 833
+on 2026-11-22), the first-person and battlefield tile cells the worklist is sure
+can appear (7,496 of 7,496), and the host modules that decide which artwork to show by decoding the pixels of the
 original pictures. `game/` holds each picture's shape and hashes and no pixels,
 so until those modules work from identities, Enhanced finds no artwork without
 the original files. Four rows from play: title scenes with artwork, pictures in
