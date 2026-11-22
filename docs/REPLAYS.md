@@ -72,10 +72,10 @@ hide it.
   records. They are counts of inputs, and include the legacy presses that
   `POR_INPUT_COMPAT=discard-poll-prompt` drops.
 - The acceptance harness (`tools/acceptance/harness.mjs`) fails a press
-  after which the game shows exactly what it showed before: the same text
-  and colours, the same picture and square, and nothing printed, narrated
-  or flashed on the way. Its loops press through it, so none of them can
-  make up for a swallowed key.
+  after which the game shows exactly what it showed before: the same frame
+  (text and colours, both pictures and the artwork placed on them, the
+  square), and nothing printed, narrated or flashed on the way. Its loops
+  press through it, so none of them can make up for a swallowed key.
 - `POR_SWALLOW_KEY=n` makes the runner swallow the n-th key it is given (in
   each runner it starts), as if the game had read it and done nothing: the
   runner shows the same screen again and asks again at the same moment.

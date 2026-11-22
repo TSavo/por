@@ -41,11 +41,16 @@ export function screenText(frame) {
 }
 
 /**
- * Everything a frame shows the player, as one string: the text with its colours, the picture, and
- * where the party stands. Two frames with the same look show the same screen.
+ * Everything a frame shows the player, as one string: the text with its colours, both pictures,
+ * the artwork placed on them (a fight's aim highlight among it) and where the party stands. Two
+ * frames with the same look show the same screen. From the port's own data the Classic picture is
+ * blank, so Aim's Next from one orc to another at the same range changes only the Enhanced
+ * picture and the highlight. The pictures the game showed on the way (`animation`) are not part
+ * of the screen it stops on; `flashed` keeps its messages.
  */
 function look(frame) {
-  return JSON.stringify([frame?.text, frame?.frame, frame?.exploration, frame?.scene]);
+  const { animation, ...shown } = frame ?? {};
+  return JSON.stringify(shown);
 }
 
 /** The bottom line of the screen, where the game puts its menu. */
@@ -356,8 +361,7 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
     /**
      * Press one key and return the frame the game shows when it next waits for the player.
      * Every key is one input: a press after which the game shows exactly what it showed before
-     * (the same text and colours, the same picture and square, nothing printed, narrated or
-     * flashed on the way) was swallowed, and fails. So no loop of presses here can make up for a
+     * (the same `look`, and nothing printed, narrated or flashed on the way) was swallowed, and fails. So no loop of presses here can make up for a
      * swallowed key by pressing again (#76).
      */
     async press(key, expected, why = "") {
