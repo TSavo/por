@@ -12,23 +12,23 @@
   "  of which several tiles together": 1557,
   "  of which the same pixels already have art of yours in another area": 801,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 4276,
-  "  accounted for by the tool": 4126,
+  "Tile keys in the manifests": 4306,
+  "  accounted for by the tool": 4150,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
   "  blank": 9,
   "  distinct pictures among the rest": 1333,
-  "  with art in some area, alone or over a solid colour": 2374,
-  "  without (the catalogue's 720 when it was written)": 633,
+  "  with art in some area, alone or over a solid colour": 2390,
+  "  without (the catalogue's 720 when it was written)": 617,
   "    of those, no map can show": 428,
   "    of those, shown only together with other tiles, never alone": 7,
-  "    of those, shown alone in some area": 198
+  "    of those, shown alone in some area": 182
  },
  "notEstablished": {
   "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4267,
   "first-person cells of the overhead area view, which no existing artwork of the area confirms": 152,
-  "first-person cells of an area whose reading is not confirmed": 1530,
+  "first-person cells of an area whose reading is not confirmed": 1506,
   "first-person cells seen only from squares not connected to any square the existing artwork was made from": 357,
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
   "battlefield cells of pictures no artwork shows to have been on a battlefield": 2207,
@@ -113,7 +113,7 @@
    "area": 3,
    "name": "Valjevo Castle",
    "established": false,
-   "why": "12 of the 86 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
+   "why": "15 of the 110 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
    "maps": [
     3,
     5
@@ -121,10 +121,13 @@
    "wallSets": [
     "WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)"
    ],
-   "existingKeys": 86,
-   "existingKeysAccountedFor": 74,
+   "existingKeys": 110,
+   "existingKeysAccountedFor": 95,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [
+    "tile:3:14ba42f38a9f3edda8214f1dec22d94f520717c59573aa456e72854416d753d4",
+    "tile:3:3fd07573913b8b367dd8a69a57c9550f715ab8a6ba59baf2c7533bb4d14fa749",
+    "tile:3:5b786e63e19e9e670c1f1c5e88c35e2a13f2d0706d213c1aae0f2473145467ca",
     "tile:3:0b2cdc39c1c1a23e17b3d4009917f5d012885b6fa93c00d918a6368495830de9",
     "tile:3:af4d0380d89a958e265764fe02dcdcba866eb25f25e1950bb6e4aa05ee0bd059",
     "tile:3:bb979d91f7a0bb1616df770d6abdf88bbe63d259b3172d73c70c75d200020323",
@@ -139,10 +142,10 @@
     "tile:3:96617048f4ce08f69965b9034e3c443a26f48d905cec8d4553321def580420dd"
    ],
    "cellsTheViewsCanShow": 300,
-   "cellsWithArt": 74,
+   "cellsWithArt": 95,
    "toDo": 0,
    "notEstablished": {
-    "cells of an area whose reading is not confirmed": 226
+    "cells of an area whose reading is not confirmed": 205
    }
   },
   {
@@ -173,7 +176,7 @@
    "area": 5,
    "name": "Valjevo Castle",
    "established": false,
-   "why": "59 of the 110 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
+   "why": "62 of the 116 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
    "maps": [
     3,
     4,
@@ -183,10 +186,13 @@
    "wallSets": [
     "WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)"
    ],
-   "existingKeys": 110,
-   "existingKeysAccountedFor": 51,
+   "existingKeys": 116,
+   "existingKeysAccountedFor": 54,
    "existingKeysOnlyAsArrivalViews": 2,
    "unaccountedKeys": [
+    "tile:5:15450d2266965cb35a6f45fd06dbf087e58bdd114e2cf88e56dba3e596898eb1",
+    "tile:5:491c0e9a5a1fe2680ecad326e5a4a7920df0f9e348ad8b993c763c95cf886194",
+    "tile:5:eeaceede0e47e82b9f553283cc7fe87ba048adbf0680a393e3105aa7ae1e0707",
     "tile:5:c02d6f9d4991f63c33411579059bfdde13712828acf206b4b8bd22fb8a008c3e",
     "tile:5:34ef40960522a66de2fc209b1415879b75eed4a2b573fe614b74cad15fe1a562",
     "tile:5:b04ecc8b38842ce547c309d637b44884a8a96889510df80dbcc6797682210dfc",
@@ -248,10 +254,10 @@
     "tile:5:ff1d77d3d1eb61a9976147905fd8677ecfe2ad3954c5d4862243f59bc3d85948"
    ],
    "cellsTheViewsCanShow": 393,
-   "cellsWithArt": 49,
+   "cellsWithArt": 52,
    "toDo": 0,
    "notEstablished": {
-    "cells of an area whose reading is not confirmed": 344
+    "cells of an area whose reading is not confirmed": 341
    }
   },
   {
@@ -28008,12 +28014,13 @@
    "views": 46,
    "drawnIn": [
     0,
+    3,
     5,
     7,
     8,
     20
    ],
-   "sameAs": "new-phlan-harbor-lane-terrain-14ba42f38a9f.png",
+   "sameAs": "valjevo-hedge-corner-terrain-14ba42f38a9f.png",
    "why": "drawn in 46 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -28038,11 +28045,12 @@
    "views": 77,
    "drawnIn": [
     0,
+    5,
     7,
     8,
     20
    ],
-   "sameAs": "new-phlan-south-market-terrain-0-15450d226696.png",
+   "sameAs": "valjevo-merchant-wing-terrain-15450d226696.png",
    "why": "drawn in 77 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -28203,11 +28211,12 @@
    "views": 22,
    "drawnIn": [
     0,
+    5,
     7,
     8,
     20
    ],
-   "sameAs": "new-phlan-building-paving-joins-0-491c0e9a5a1f.png",
+   "sameAs": "valjevo-merchant-wing-terrain-491c0e9a5a1f.png",
    "why": "drawn in 22 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -28352,12 +28361,13 @@
    "views": 45,
    "drawnIn": [
     0,
+    3,
     5,
     7,
     8,
     20
    ],
-   "sameAs": "new-phlan-harbor-lane-terrain-5b786e63e19e.png",
+   "sameAs": "valjevo-lower-trim-5b786e63e19e.png",
    "why": "drawn in 45 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -46735,10 +46745,11 @@
    },
    "views": 29,
    "drawnIn": [
+    3,
     15,
     16
    ],
-   "sameAs": "lizardman-lower-pool-aa725e51a9d8.png",
+   "sameAs": "mendor-webgl-fountain-water-aa725e51a9d8.png",
    "why": "drawn in 29 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
