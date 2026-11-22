@@ -6076,7 +6076,7 @@ routes.push("river-pumping-hostile");
 routes.push("river-return-reload");
 routes.push("swamp-return", "swamp-reward-reload");
 routes.push("slums-potion-booth-reload");
-routes.push("bane-cell-inscription-reload", "kovel-reward", "podal-reward", "textile-reward");
+routes.push("bane-cell-inscription-reload", "kovel-reward", "podal-reward", "textile-reward", "slums-reward");
 routes.push("mendor-records-reward-reload", ...mendorCouncilRewards.keys());
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -6271,6 +6271,9 @@ const councilReward = {
   "textile-reward": ["commission-textile", /COUNCILMANCADORNALEFTTHISPAYMENT/i,
     { portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:textile-reward", xp: 5000,
       capture: "textile-council-reward.png" }],
+  "slums-reward": ["commission-slums", /YOURCLEARINGOFTHESLUMAREASPERMITSUSTOEXPAND/i,
+    { portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:slums-reward", xp: 2700,
+      capture: "slums-council-reward.png" }],
 }[swampReturn ? "swamp-reward" : routeName];
 const envoyReturn = routeName === "zhentil-return";
 const riverApproach = routeName === "river-approach";
@@ -13236,7 +13239,7 @@ try {
       assert.equal(checkpointAfterReward.leads.find(({ id }) => id === commission)?.status, "turned-in");
       console.log("Bivant reward checkpoint:", saved);
     }
-    if (["kobold-king-reward", "kovel-reward", "podal-reward", "textile-reward"].includes(routeName)) {
+    if (["kobold-king-reward", "kovel-reward", "podal-reward", "textile-reward", "slums-reward"].includes(routeName)) {
       for (const key of ["j", "enter", "e", "s", "s", "a"]) await advance(key);
       const checkpointAfterReward = JSON.parse(readFileSync(saved, "utf8"));
       assert.equal(checkpointAfterReward.leads.find(({ id }) => id === commission)?.status, "turned-in");
