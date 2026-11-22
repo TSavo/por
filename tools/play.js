@@ -1825,9 +1825,8 @@ async function poll() {
     if (lastNarrationId === null) lastNarrationId = next.narrationId ?? 0;
     const changed = next.sequence !== state.sequence;
     if (changed) state = next;
-    if (state.classicAvailable === undefined && next.classicAvailable !== undefined) state.classicAvailable = next.classicAvailable;
-    settlePresentation();
     else Object.assign(state, next);
+    settlePresentation();
     const showWheel = wheelStartup && Number.isInteger(state.codeWheelQuestion) && !state.stopped;
     if (showWheel) {
       const url = `/code-wheel?challenge=1&question=${state.codeWheelQuestion + 1}`;
