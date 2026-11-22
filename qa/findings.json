@@ -382,6 +382,14 @@
       "detail": "The Chrome replays send keys through the page's send(), not as key presses, so the page never stops or keeps a voice because of them, and they move on as soon as the game is ready. In the campaign opening (six legs, 15 narrations sent to Chrome) 5 played to the end, 0 were ended by a key, 7 were cut off or never started (the Rolf's tour defects) and 3 were still playing or queued when the leg closed its page. None of the 5 had one artwork on screen from start to end: the replay moved to the next screen under the line (the kobold surprise changed picture 2.7s into a 3.1s line; the arms shop line started on a screen with no artwork). A replay shows that a recording loads and runs to its end in Chrome. Proof that each passage is heard whole, at its moment, with its picture needs runs that wait for each line, as verify:narration-playback does for the tour. The recordings total 9,905s for the 1,362 units with one recording and 1,573s for the 379 variant recordings (ffprobe): about 2 hours 50 minutes of speech to hear each of the 1,432 units once, 3 hours 11 minutes for every recording, before any time spent reaching the passages.",
       "source": "Playback log of npm run verify:campaign-opening in Chrome, merged into qa/narration-coverage.json; ffprobe over audio/voices, 2026-11-21.",
       "status": "open"
+    },
+    {
+      "id": "narration-sent-seconds-before-its-picture",
+      "class": "narration",
+      "title": "A tour passage's narration is sent to the page 8 to 11 seconds before its picture and text are drawn",
+      "detail": "The runner sends a unit when its print begins; the page draws the passage's frame, with its illustration, when the game next waits for a key. On Rolf's tour in the Chrome harness the page's playback log timed the artwork change against a unit started the moment it was queued (verify:narration-playback --break=overlap, which makes the queue start at once): the passage's own illustration arrived 10.6s into the 13.5s line b1c2, 10.7s into the 11.8s line b257, 8.0s into the 9.1s line b2f3, 9.0s into the 11.8s line b400, 9.2s into the 11.3s line b48f and 7.6s into the 9.9s line b51c; until then the previous passage's picture was on screen. Today this is hidden on the tour because the voices.json recording speaks first and the unit starts 9 to 14 seconds late, by which time its picture has arrived (narration-rolf-tour-spoken-twice). The voices.json recording itself starts under the previous picture. Once one recording per passage remains, 'Played with their artwork on screen from start to end' will fail these lines unless the frame is drawn when the narration is sent. Not established: whether the delay is the same outside the harness (it runs the game on a fixed clock).",
+      "source": "Playback log (artSeen, artTimes) of npm run verify:narration-playback -- <chrome> --break=overlap, 2026-11-21.",
+      "status": "open"
     }
   ]
 }
