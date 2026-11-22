@@ -17,9 +17,9 @@
 // finished what the last key started, and no test has to count presses.
 
 import { spawn } from "node:child_process";
-import { mkdtempSync, rmSync } from "node:fs";
+import { appendFileSync, mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { basename, join } from "node:path";
 import { createInterface } from "node:readline";
 
 /** The version the port runs and the walkthroughs describe (GOG 1.3). */
@@ -33,6 +33,18 @@ export function screenRows(frame) {
   const cells = Array(1000).fill(" ");
   for (const [cell, character] of frame.text) cells[cell] = String.fromCharCode(character);
   return Array.from({ length: 25 }, (_, row) => cells.slice(row * 40, row * 40 + 40).join(""));
+}
+
+/**
+ * Whether the text on screen at a pause (POR_PAUSE's `text`, [cell, character] pairs) reached the
+ * page: every glyph of it, at its cell, in one of the frames the runner sent with or as the frame
+ * that ends this input (#81).
+ */
+export function pauseShown(pause, frame) {
+  return [...(frame.animation ?? []), frame].some((shown) => {
+    const cells = new Map((shown.text ?? []).map(([cell, character]) => [cell, character]));
+    return pause.text.every(([cell, character]) => character <= 32 || cells.get(cell) === character);
+  });
 }
 
 /** The text on screen with runs of spaces collapsed, as verify-input reads it. */
@@ -231,6 +243,10 @@ export function combatant(frame) {
 export async function startGame({ pregen = true, saves, env = {}, seconds = 240, watch = [] } = {}) {
   const ownSaves = saves === undefined;
   const directory = saves ?? mkdtempSync(join(tmpdir(), "por-acceptance-"));
+  // POR_PAUSE_LOG=<file.jsonl>: at close, append every pause with text on screen and whether that
+  // text reached the page, as the evidence for npm run qa:pause-callers (tools/record-pause-callers.mjs, #81).
+  const setting = (name) => env[name] ?? process.env[name];
+  const pauseLog = setting("POR_PAUSE_LOG");
   const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translated.ts"], {
     env: {
       POR_GAMEDATA: defaultGameData, POR_AUDIO_DIR: defaultAudio, ...process.env,
@@ -243,7 +259,7 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
       // tools/native-combat-selection.ts). From the port's own data the frame has no other picture
       // of the battlefield, and without it Aim's Next between two alike monsters would look like a
       // swallowed key to `press`.
-      POR_COMBAT_SELECTION_KEYS: "combat-selection:COMSPR.DAX:25", ...env,
+      POR_COMBAT_SELECTION_KEYS: "combat-selection:COMSPR.DAX:25", ...(pauseLog ? { POR_TRACE_PAUSES: "1" } : {}), ...env,
     },
     stdio: ["pipe", "pipe", "pipe"],
   });
@@ -254,6 +270,8 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
   // The names on the last party list the game showed: a fight screen has no such list.
   let friends = [];
   const flashed = [];
+  const pauses = [];
+  let pendingPauses = [];
   const dice = [];
   createInterface({ input: runner.stderr }).on("line", (line) => {
     const draw = /^POR_DICE \d+ (.+) range (\d+)(?: value (\d+))?$/.exec(line);
@@ -282,6 +300,13 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
      * game pauses `ms` milliseconds on them and asks for no key, so no screen a test stops on has them.
      */
     flashed,
+    /**
+     * With env POR_TRACE_PAUSES=1: every pause through the game's pause routine, in order, as
+     * { returns, via, ms, text, rows, shown }: where the call that paused returns to (`slice 19 +1bbd`
+     * or `exe 2d1c`), whether it came through a message routine, the text on screen as [cell,
+     * character] pairs and as rows, and whether that text reached the page (`pauseShown`).
+     */
+    pauses,
     /**
      * With env POR_TRACE_DICE=1: every random number the game has drawn so far, as
      * { caller, range, value }: who asked, for a number from 0 to range - 1, and the number the
@@ -329,8 +354,14 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
           for (const shown of game.frame.animation ?? []) {
             if (shown.statusMessage) flashed.push({ text: menuLine(shown), ms: shown.durationMs });
           }
+          for (const pause of pendingPauses) {
+            const rows = screenRows(pause).map((row) => row.trimEnd()).filter(Boolean);
+            pauses.push({ ...pause, rows, shown: pauseShown(pause, game.frame) });
+          }
+          pendingPauses = [];
           return true;
         }
+        if (value.startsWith("POR_PAUSE ")) pendingPauses.push(JSON.parse(value.slice("POR_PAUSE ".length)));
         if (value.startsWith("POR_TEXT ")) texts.push(JSON.parse(value.slice("POR_TEXT ".length)).message);
         if (value.startsWith("POR_NARRATION ")) narrations.push(JSON.parse(value.slice("POR_NARRATION ".length)));
         // The runner reports where the translation stopped on this pipe ("entry: ..."): keep it for the failure.
@@ -690,6 +721,14 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
       clearTimeout(timer);
       runner.kill();
       if (ownSaves) rmSync(directory, { recursive: true, force: true });
+      if (pauseLog) {
+        const source = setting("POR_GAME_SOURCE") === "port" ? "port" : "original";
+        const walk = setting("POR_PAUSE_WALK") ?? basename(process.argv[1] ?? "harness");
+        for (const { returns, via, rows, text, shown } of pauses) {
+          if (!text.some(([, character]) => character > 32)) continue;
+          appendFileSync(pauseLog, JSON.stringify({ walk, source, returns, via, text: rows, shown }) + "\n");
+        }
+      }
     },
   };
   await game.send(undefined);

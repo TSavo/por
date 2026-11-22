@@ -12,7 +12,7 @@ import { Cpu } from "../src/cpu/machine.js";
 import { openAutomap } from "./automap.js";
 import { attachDos, consoleText, dosLog, noon, timeOfDay, type BiosKey, type DosFile, type DosFileClosed } from "../src/runtime/dos.js";
 import { intrCounts } from "../src/runtime/intr.js";
-import { journalFrame, paletteObservers, screen, stampPanelFrame, videoSummary, type PanelFrameStamp } from "../src/runtime/video.js";
+import { journalFrame, paletteObservers, screen, stampPanelFrame, videoSummary, visibleGameText, type PanelFrameStamp } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 import { findGameRoot, gameFiles as readGameFiles, isPortGameRoot, mountValjevoWallPieces, portGame, usePortPaths } from "./gamedata.js";
 import { currentObjective, journalInventoryLeads, observeAdventureLog, questProgress, type JournalLead } from "../src/runtime/adventure-log.js";
@@ -119,6 +119,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
     const terrainSources = new Map<number, { sourceArchive: string; sourceFrame: number }>();
     // Above the pause routine's return address sit its argument, its saved BP and its own return address.
     const deathReturnDepth = 8;
+    const tracePauses = process.env.POR_TRACE_PAUSES === "1";
     cpu.tick = function (at) {
       if (panelStamp && this.cs === panelStamp.callerSegment) {
         if (pendingPanelStamp && at === pendingPanelStamp.resume) {
@@ -214,6 +215,21 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
         // so the picture before it is held that long (#129).
         const pauseMs = messageMs === undefined && !deathDelay && returnsTo(this, 0, code.pauseResumes)
           ? this.read16(this.ss, (this.sp + 4) & 0xffff) : undefined;
+        // POR_TRACE_PAUSES=1: each pause through the pause routine, once (Delay's count is still its
+        // argument), with where the call that led to it returns to and the text on screen, so the
+        // acceptance harness can tell whether that text reached the page (#81, npm run qa:pause-callers).
+        if (tracePauses && returnsTo(this, 0, code.pauseResumes) && this.dx === this.read16(this.ss, (this.sp + 4) & 0xffff)) {
+          const via = returnsTo(this, deathReturnDepth, code.messageResumes) ? "message"
+            : returnsTo(this, deathReturnDepth, code.colouredMessageResumes) ? "coloured message" : "pause";
+          // A message routine's own caller returns above the BP the pause routine saved.
+          const frame = via === "pause" ? (this.sp + deathReturnDepth) & 0xffff : (this.read16(this.ss, (this.sp + 6) & 0xffff) + 2) & 0xffff;
+          const offset = this.read16(this.ss, frame), segment = this.read16(this.ss, (frame + 2) & 0xffff);
+          const slice = loadedSlices.find(({ loadPara }) => loadPara === segment);
+          console.log(`POR_PAUSE ${JSON.stringify({
+            step: this.steps, via, returns: slice ? `slice ${slice.index} +${offset.toString(16)}` : `exe ${offset.toString(16)}`,
+            ms: this.dx, text: visibleGameText().map(([cell, character]) => [cell, character]),
+          })}`);
+        }
         capturePresentationDelay?.(this, effectDelay, messageMs, pauseMs);
         // A pause in colours the page has not shown yet (the title's flash): Delay's argument is its length.
         input?.capturePaletteHold?.(this, this.read16(this.ss, (this.sp + 4) & 0xffff));
