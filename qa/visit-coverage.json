@@ -212,6 +212,20 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "visit-lizardman-keep (qa/fixtures/visit-lizardman-keep, game/)": {
+   "areas": [
+    0,
+    8,
+    16,
+    27
+   ],
+   "commissions": [
+    "sokal"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
