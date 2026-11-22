@@ -1,6 +1,6 @@
 # Artwork worklist
 
-**The artwork is done when `npm run verify:art-worklist` reports 0 remaining and nothing is left under "Not established". It reports 2172 confirmed cells awaiting art now.**
+**The artwork is done when `npm run verify:art-worklist` reports 0 remaining and nothing is left under "Not established". It reports 2169 confirmed cells awaiting art now.**
 
 This file is written by `npm run art:worklist`. Do not edit it or `qa/art-worklist.json` by hand: add art, run the tool, commit what it writes.
 
@@ -48,26 +48,26 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 
 | What | Count |
 | --- | ---: |
-| Remaining, all kinds | 2172 |
-| First-person cells to do | 2172 |
-|   of which one stored tile | 472 |
+| Remaining, all kinds | 2169 |
+| First-person cells to do | 2169 |
+|   of which one stored tile | 469 |
 |   of which one tile over a solid colour | 232 |
 |   of which plain sky or ground | 0 |
 |   of which several tiles together | 1468 |
 |   of which the same pixels already have art of yours in another area | 791 |
 | Battlefield cells to do | 0 |
-| Tile keys in the manifests | 4038 |
-|   accounted for by the tool | 3893 |
+| Tile keys in the manifests | 4051 |
+|   accounted for by the tool | 3906 |
 | Battlefield keys in the manifests | 83 |
 |   that are one stored cell of a battlefield picture | 78 |
 | Stored 8 by 8 tiles | 3016 |
 |   blank | 9 |
 |   distinct pictures among the rest | 1333 |
-|   with art in some area, alone or over a solid colour | 2299 |
-|   without (the catalogue's 720 when it was written) | 708 |
-|     of those, no map can show | 447 |
+|   with art in some area, alone or over a solid colour | 2305 |
+|   without (the catalogue's 720 when it was written) | 702 |
+|     of those, no map can show | 444 |
 |     of those, shown only together with other tiles, never alone | 10 |
-|     of those, shown alone in some area | 251 |
+|     of those, shown alone in some area | 248 |
 
 ## Where each area stands
 
@@ -85,7 +85,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 9 | Stojanow Gate | yes | 287 | 117 | 33 | 117 of 117 |
 | 10 | Valhingen Graveyard | yes | 2452 | 425 | 465 | 435 of 435 (10 as WebGL wall materials) |
 | 11 | The Training Hall | yes | 405 | 67 | 109 | 67 of 67 |
-| 13 | The Kobold Caves | yes | 313 | 144 | 67 | 144 of 144 |
+| 13 | The Kobold Caves | yes | 313 | 147 | 64 | 149 of 149 (2 as WebGL wall materials) |
 | 14 | Kovel Mansion | yes | 150 | 64 | 22 | 64 of 64 |
 | 15 | Mendor's Library | not yet | 436 | 170 |  | 170 of 185 |
 | 16 | The Lizardman Keep | yes | 856 | 158 | 105 | 158 of 158 |
@@ -93,7 +93,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 18 | Podol Plaza | not yet | 337 | 161 |  | 189 of 194 (28 as first views of the next area) |
 | 20 | The Slums | not yet | 395 | 180 |  | 187 of 188 (7 as WebGL wall materials) |
 | 21 | Sokal Keep | yes | 500 | 85 | 165 | 85 of 85 |
-| 22 | Yarash's Pyramid | yes | 140 | 70 | 17 | 70 of 70 |
+| 22 | Yarash's Pyramid | yes | 140 | 70 | 17 | 78 of 78 (8 as WebGL wall materials) |
 | 23 | Yarash's Pyramid, lower | yes | 126 | 39 | 39 | 39 of 39 |
 | 24 | Temple of Bane | yes | 312 | 188 | 29 | 188 of 188 |
 | 25 | Wilderness, west | not yet | 51 | 0 |  | 0 of 0 |
@@ -1466,11 +1466,11 @@ Map 0; WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 bloc
 | `tile:11:f694be99114d4ada4bbf639d34cb6229464da9146cd4f986fde0c9354e68924d` | 8X8D3 block 103 tile 66 | map 0, square (5,1) facing south, column 2 row 7 | `new-phlan-building-paving-joins-0-f694be99114d.png` (area 0) |
 | `tile:11:f9d8fed90af6718c57797bf400bb9116188fb7cbb109b11938af554694e8492e` | 8X8D3 block 103 tile 48 | map 0, square (6,0) facing south, column 7 row 6 | `new-phlan-north-avenue-terrain-f9d8fed90af6.png` (area 0, 8) |
 
-### Area 13: The Kobold Caves (67)
+### Area 13: The Kobold Caves (64)
 
 Map 13; WALLDEF8 block 17 (tiles 8X8D8 block 17), block 18 (tiles 8X8D8 block 18), nothing.
 
-#### tile set 8X8D8 block 17 (66)
+#### tile set 8X8D8 block 17 (63)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
@@ -1499,7 +1499,6 @@ Map 13; WALLDEF8 block 17 (tiles 8X8D8 block 17), block 18 (tiles 8X8D8 block 18
 | `tile:13:5794e360d97ab95ff6b57367390a4d69bc61b9a456df99d0c072d5c6faf9a0e2` | 8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 67 over sky colour 0 | map 13, square (2,2) facing south, column 7 row 4 |  |
 | `tile:13:582f970de767c8dc9a6a0edd52b41247bda3e624f4b85c86b820e11452c5cf94` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 14 over 8X8D8 block 18 tile 2 | map 13, square (10,9) facing east, column 2 row 3 |  |
 | `tile:13:58e2df47c41000a23ceb290895df77049fb54735e6891f6bd158ec718cb11917` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 34 | map 13, square (11,7) facing east, column 9 row 6 |  |
-| `tile:13:6251bdc7645b63613e1bfc7cf807e1793f99364d0005c5a14cb55d7d38701f84` | 8X8D8 block 17 tile 55 | map 13, square (13,9) facing west, column 6 row 6 |  |
 | `tile:13:62b04d5962f2cea84aa1c4f8931caf77dd4c288da7cff20eaf5f726b598aa658` | 8X8D8 block 17 tile 8 over 8X8D8 block 18 tile 13 | map 13, square (1,13) facing north, column 10 row 4 |  |
 | `tile:13:63c16a00c17b7955470a45a5b0a20a23ecd8f1370f37148ffb1e1de9e8dd6d02` | 8X8D8 block 17 tile 7 over 8X8D1 block 203 tile 41 | map 13, square (2,13) facing north, column 8 row 6 |  |
 | `tile:13:6929147516344d817e3f8e17fc90c1b0f9dc1a6af14ff3b4ad12dbc6cb0c0ad4` | 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 50 over the ground colour 6 | map 13, square (3,6) facing west, column 1 row 6 |  |
@@ -1509,8 +1508,6 @@ Map 13; WALLDEF8 block 17 (tiles 8X8D8 block 17), block 18 (tiles 8X8D8 block 18
 | `tile:13:73a41193202df9021c550eea7e79a7058118e56273c894875697f66798064826` | 8X8D8 block 17 tile 49 over 8X8D8 block 18 tile 61 | map 13, square (10,9) facing north, column 9 row 3 |  |
 | `tile:13:7b7b4ba104e3a7b6d11740385398b3e5141716772b752e03b130fd5d6328e2a4` | 8X8D8 block 17 tile 49 over 8X8D8 block 17 tile 14 over sky colour 0 | map 13, square (5,7) facing east, column 9 row 3 |  |
 | `tile:13:7bce2f52146803335ea8ea44a893fd01bea1d78453a4e6706b0795b937ab36c0` | 8X8D8 block 17 tile 7 over 8X8D8 block 17 tile 67 over sky colour 0 | map 13, square (5,7) facing south, column 3 row 4 |  |
-| `tile:13:892027ab6034ae5ee19aa0e2fc24836b738188c17a8216b8ef3f31002b21e789` | 8X8D8 block 17 tile 6 | map 13, square (13,9) facing west, column 5 row 4 |  |
-| `tile:13:8d5ecba5c803351d3cab192d49d6343a4819284966ed2f0b5918d328dea722dd` | 8X8D8 block 17 tile 54 | map 13, square (13,9) facing west, column 6 row 5 |  |
 | `tile:13:918fa02251b5f50e2f8dba7ac02f336e9f33e6b8abdcb23dd7092d0cb79a9d9a` | 8X8D8 block 17 tile 5 over 8X8D8 block 17 tile 5 over 8X8D8 block 18 tile 62 | map 13, square (14,9) facing west, column 6 row 5 |  |
 | `tile:13:9581ad2cdb4d835af0bc0faff61b3935f443c2b615b668826abe0e5b4ce0c6e6` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 14 over 8X8D8 block 18 tile 4 | map 13, square (10,9) facing east, column 2 row 4 |  |
 | `tile:13:95d4f3607c9b1ab683bf801ca2db9efd8449e6066b38a3a958778391eb3b5724` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 14 over 8X8D8 block 18 tile 51 | map 13, square (2,12) facing east, column 2 row 8 |  |
