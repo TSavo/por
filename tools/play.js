@@ -985,20 +985,21 @@ function drawPanelFrame(stamps) {
   return canvas;
 }
 
-const portraitLoops = new Map([
-  ["portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:", [0, 1, 2, 3, 4]],
-  ["portrait:area:10:ecl:b50b:PIC4.DAX:34:", [0, 1, 2, 3]],
-  ["portrait:area:10:ecl:b50b:PIC4.DAX:20:", [0, 1, 2]],
-]);
+const portraitLoops = [
+  ["portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:", 5],
+  ["portrait:area:10:ecl:b50b:PIC4.DAX:34:", 4],
+  ["portrait:area:10:ecl:b50b:PIC4.DAX:20:", 3],
+  ["portrait:area:21:ecl:9e40:PIC4.DAX:34:", 4, "portrait:area:21:PIC4.DAX:34:0:0"],
+].map(([prefix, count, initial]) =>
+  Array.from({ length: count }, (_, phase) => (phase === 0 && initial) || `${prefix}${phase}:0`));
 
 async function animateHeldPortrait(image, id) {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const match = /^(.*:)([0-9]+):0$/.exec(id);
-  const phases = match && portraitLoops.get(match[1]);
+  const phases = portraitLoops.find(loop => loop.includes(id));
   if (!phases) return;
   const frames = phases.map(phase => {
     const frame = new Image();
-    frame.src = `/art/${match[1]}${phase}:0`;
+    frame.src = `/art/${phase}`;
     return frame;
   });
   try {
@@ -1006,7 +1007,7 @@ async function animateHeldPortrait(image, id) {
   } catch {
     return;
   }
-  let index = phases.indexOf(Number(match[2]));
+  let index = phases.indexOf(id);
   const interval = setInterval(() => {
     if (!image.isConnected || tileArt.hidden) {
       clearInterval(interval);

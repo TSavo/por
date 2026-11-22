@@ -2441,7 +2441,7 @@ const illustrationRoutes = new Map([
   ["sokal-undead-patrol-rejects-word", {
     slot: "C", inputs: [...Array(5).fill("up"), "enter", "enter", "p", "n", ..."zzz", "enter"],
     portraitStops: { 7: "portrait:area:21:PIC4.DAX:34:0:0" },
-    portrait: "portrait:area:21:ecl:aeab:PIC4.DAX:34:0:0",
+    portrait: "scene-illustration:area:21:ecl:aed4:cue:patrol-rejected-word",
     prompt: /THEYDIDN'TLIKETHATWORD/i,
     journalLead: "sokal-patrol-rejected-word",
   }],
@@ -2449,6 +2449,7 @@ const illustrationRoutes = new Map([
     slot: "C", inputs: [...Array(5).fill("up"), "enter", "enter"],
     portrait: "portrait:area:21:PIC4.DAX:34:0:0", prompt: /APACKOFUNDEADSUDDENLYAPPEARS/i,
     idlePortraits: [1, 2, 3].map(phase => `portrait:area:21:ecl:9e40:PIC4.DAX:34:${phase}:0`),
+    heldPortraitLoop: 4,
   }],
   ["valhingen-zombie-stairs", {
     slot: "A", inputs: ["up", "enter", "enter"],
@@ -9487,7 +9488,7 @@ try {
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-patrol-rejected-word"));
       assert.equal(frame.journal?.leads.some(({ id }) => id === "sokal-patrol-passed"), alreadyPassedPatrol);
-      for (const key of ["j", "enter"]) await advance(key);
+      await advance("j");
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /ABATTLEBEGINS/i);
       const battleHold = "scene-illustration:area:21:ecl:aed4:cue:patrol-rejected-word";
       assert.equal(frame.portrait, battleHold);
