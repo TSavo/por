@@ -2425,7 +2425,7 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:0:PIC3.DAX:41:0:0", prompt: /YOUBOARDABOAT/i,
     idlePortraits: [1, 2].map(phase => `portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:${phase}:0`),
     heldPortraitLoop: 3,
-    continuation: { inputs: ["enter", "enter"], clearsPortrait: true, prompt: /BOATDISEMBARKSYOUATSOKALKEEP/i },
+    continuation: { inputs: ["enter", "enter"], portrait: "scene-illustration:area:0:ecl:ae31:caller:9ad2", prompt: /BOATDISEMBARKSYOUATSOKALKEEP/i },
   }],
   ["new-phlan-harbor-city-watch", {
     slot: "A", inputs: harborWatchApproach,
