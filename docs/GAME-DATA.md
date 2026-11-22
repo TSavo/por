@@ -171,8 +171,23 @@ composed artwork. The original-file renderer matches its native framebuffer.
 
 Character creation uses the same native HEAD and BODY draws in the sheet at
 `(224, 8)`. The standalone artwork loader validates each piece against its
-packaged source dimensions. The Head / Body / Keep menu shows the two Enhanced
-pieces as the guest changes them and clears them on entering the icon editor.
+packaged source dimensions. The sheet shows the two Enhanced pieces wherever
+the game draws them (the roll, the name, Head / Body / Keep as the guest
+changes them, every View sheet) and drops them when the game draws over them.
+From blank pictures equal pixels say nothing, so the video module counts the
+game's writes to each 8 by 8 screen cell (`cellWriteMark`): a held portrait,
+sheet or first-person view whose cells were written since it was drawn is gone.
+
+The combat icon editor draws the old and new icons with the combat compositor
+in slot 12. Standalone follows the icon composer, which builds the actor's icon
+from its record's head, body and size, and the editor's copy into slot 12,
+recoloured with the record's palette, and keys each draw from that, with the
+selection bevels the editor draws around it.
+
+`npm run verify:port-parity` plays the same keys from the 1.3 files and from
+`game/` and compares every frame's Enhanced artwork, from the title through
+character creation, the New Phlan opening, a temple, a shop and camp, to a
+Slums fight; it reports each screen where they differ.
 
 `tiles.json` lists each distinct tile of the 8X8D sets once, by that hash, with every place it is
 stored (`archive:block:index`). A tile that has transparent pixels (colour 13) also lists

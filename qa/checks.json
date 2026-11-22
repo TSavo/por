@@ -263,6 +263,15 @@
       ]
     },
     {
+      "id": "port-parity",
+      "title": "The shipped game (game/, no original pixels) shows the same Enhanced artwork on every frame as the 1.3 files, for the same keys: the title, the ready-made party, creating a character through the portrait and the icon editor, a character sheet, the New Phlan opening, a temple, a shop, camp, and a Slums fight from the guide party's fixture; each screen that differs is reported with its frame and what is missing",
+      "command": "npm run verify:port-parity",
+      "reference": "original",
+      "needs": [
+        "the version 1.3 files"
+      ]
+    },
+    {
       "id": "game-data",
       "title": "The port's own data files are the converter's output, hold no instruction byte, and play the same game as the 1.3 files: same text on every frame, same dice, same saved game",
       "command": "npm run verify:game-data",

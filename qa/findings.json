@@ -406,6 +406,72 @@
       "status": "fixed",
       "check": "runes-readable",
       "resolution": "The host reads the font argument of the game's text routine. A glyph drawn with the rune font is never text: it stays in both pictures as the game drew it and the frame lists it as `runes` (cell, glyph code, colour). One rule for every place; the Sokal rule is removed. Classic is unchanged. The check stands at all five places in Chrome, compares each rune cell of Enhanced with Classic, requires the glyph codes to spell the word, and types SHESTNI, NOKNOK and RHODIA where the game asks. It reaches four of the places by developer travel, and does not type HARASH or LUX: see the gap on enhanced.code-wheel."
+    },
+    {
+      "id": "standalone-icon-editor-no-icons",
+      "class": "enhanced",
+      "title": "From game/ the combat icon editor showed its old and new labels and no icons",
+      "detail": "The owner, in the installed release (game/, no original pixels): after creating a character, the icon editor showed the labels \"old\" and \"new\" and no icon at all. The editor's icons were found only by matching the original pixels on screen. The native combat observer saw the editor's draws (slot 12, rows 2 and 4, columns 1 and 4) but took party icons only from the combat roster, where a character being made is not.",
+      "source": "The owner, 2026-11-22. Measured with the acceptance harness the same day: 25 key presses through the editor gave 4 icons and 4 selection bevels on every step from the 1.3 files and none from game/.",
+      "status": "fixed",
+      "check": "port-parity",
+      "resolution": "4eee431b: the observer follows the game's icon composer and the editor's recolouring copy into slot 12 and keys each draw from the record's head, body, size and palette, with the bevels. The 25 steps (parts, both colours, small and large) agree; npm run verify:port-parity walks the editor and agrees on every frame."
+    },
+    {
+      "id": "standalone-webgl-on-menus",
+      "class": "enhanced",
+      "title": "From game/ the 3D exploration view came up on the party menu and on character sheets",
+      "detail": "The owner, in the installed release: right after finishing the first character the WebGL view showed where the game is back at its party menu. From game/ the menu, a View sheet and camp's View leave the viewport as blank as the blank scenery last drawn there, and the host took the equal pixels for the scenery: perspective, the party's New Phlan pose and 121 tiles of a blank cell, so the page drew the 3D view.",
+      "source": "The owner, 2026-11-22. npm run verify:port-parity before the fix: frames 56, 57, 58 and 120 of the walk from the title had perspective, exploration and tiles only from game/.",
+      "status": "fixed",
+      "check": "port-parity",
+      "resolution": "50775b19: the video module counts the game's writes to each screen cell, and from game/ the viewport is the scenery only while its cells are unwritten since the scenery was drawn. Those frames agree."
+    },
+    {
+      "id": "standalone-sheet-portrait-and-stale-portraits",
+      "class": "enhanced",
+      "title": "From game/ the character sheet's portrait was missing on the roll, the name and View, and a portrait stayed up under lists drawn over it",
+      "detail": "From the 1.3 files Enhanced shows the sheet's head and body wherever the game draws them; from game/ only on Head Body Keep. And a portrait stayed after the game drew over it: the Temple of Sune's priest under the cures, the arms shop's keeper under the stock.",
+      "source": "npm run verify:port-parity, 2026-11-22: frames 18 to 25, 57 and 120 (sheet missing from game/), 76 and 116 (portrait only from game/).",
+      "status": "fixed",
+      "check": "port-parity",
+      "resolution": "76531bdb: the native picture observer keeps each held picture's cell write count and drops it once the game writes there; the sheet is asked for on every screen. The walk from the title to camp agrees on all 123 frames."
+    },
+    {
+      "id": "standalone-random-fight-monsters",
+      "class": "enhanced",
+      "title": "From game/ the first Slums random fights show other monster art, in other places, than from the 1.3 files",
+      "detail": "In the guide party's walk from the fixture to the orcs (npm run verify:port-parity, walk slums), both random fights differ for most of their frames. From the 1.3 files the monsters are combat:CPIC7.DAX:1 (the picture CPIC2.DAX block 1 also holds), for example at (128,104) and (152,104), with RANDCOM loose stones as combat props (combat:RANDCOM.DAX:1:0:0 and :1); from game/ they are combat:CPIC2.DAX:0, a different picture (block 0), at other cells such as (128,80), (152,80) and (32,80), and the stones are missing. In the attack animations the battle tiles and panel frame differ (animation frames at 79, 83, 84, 90, 101, 104, 105, 113, 118) and the impact effect combat-effect:COMSPR.DAX:11 falls one animation frame earlier from game/ (frame 101). The set fight with the orcs agrees on its monsters. The native observer takes the slot's ready block from the loader and the cell from the draw call; which of the two is wrong for a random fight, and why the cells differ, is not yet known.",
+      "source": "npm run verify:port-parity, 2026-11-22: combatArt differs at frames 55 to 78 and 140 onwards; out/port-parity.json lists every frame and placement, out/port-parity/ has the first frame of each as PNG.",
+      "status": "open",
+      "check": "port-parity"
+    },
+    {
+      "id": "standalone-battle-begins-too-early",
+      "class": "enhanced",
+      "title": "From game/ \"A battle begins...\" is treated as the battlefield before the game draws it",
+      "detail": "From the 1.3 files the frame that says \"A battle begins...\" still shows the 3D view, its tiles and the approaching monsters (encounter:SPRIT2.DAX:0:1:0, :4:1:0) at a Slums random fight; from game/ it shows none of them (frames 52 and 140). At the orcs' fight the same moment shows battle tiles and the battle panel frame from game/ only (frame 184). From game/ the host takes the game's combat state (data.gameState 5) for the battlefield; from the 1.3 files it waits for the battle frame's border in the pixels.",
+      "source": "npm run verify:port-parity, 2026-11-22, walk slums.",
+      "status": "open",
+      "check": "port-parity"
+    },
+    {
+      "id": "standalone-fallen-marker-missing",
+      "class": "enhanced",
+      "title": "From game/ the fallen marker is missing in the orcs' fight",
+      "detail": "From the 1.3 files a defeated orc's cell at (152,104) shows combat:RANDCOM.DAX:1:0:5, the marker the game draws for a fallen unit, for the rest of the fight (frames 185 to 193); from game/ the cell has nothing.",
+      "source": "npm run verify:port-parity, 2026-11-22, walk slums.",
+      "status": "open",
+      "check": "port-parity"
+    },
+    {
+      "id": "standalone-slums-entry-tile-area",
+      "class": "enhanced",
+      "title": "On the step from New Phlan into the Slums one frame's tiles name a different area from game/",
+      "detail": "At the first frame in the Slums (frame 40, the exploration menu at 15,4) every tile has the same hash from both sources but the 1.3 files key it tile:0:<hash> (New Phlan's artwork for that cell) and game/ tile:20:<hash> (the Slums'). From the 1.3 files the tile area is the party's area record, which still says New Phlan; from game/ it is the area of the native scenery just drawn. game/ looks right; the original-file path is the one to check.",
+      "source": "npm run verify:port-parity, 2026-11-22, walk slums.",
+      "status": "open",
+      "check": "port-parity"
     }
   ]
 }

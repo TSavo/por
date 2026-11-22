@@ -5,22 +5,20 @@ import { appendFileSync, readFileSync, readdirSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
 import { join } from "node:path";
-import { isPortGameRoot, portGame, readGameFile, requireBrowserGameRoot } from "./gamedata.js";
+import { isPortGameRoot, readGameFile, requireBrowserGameRoot } from "./gamedata.js";
 import { loadCombatMaterialMasks, loadUpgradeArt } from "./upgrade-art.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
 import { getKey, type CodeWheelQuestion, type PanelFrameStamp, type PresentationAnimationFrame, type TileInventoryCell } from "./live-input.js";
 import { developerVictoryCommand } from "./developer-combat.js";
 import { partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
-import { characterSheetPartKey, portraitKey, scriptIllustrations, type CharacterSheetPart } from "./portrait-art.js";
+import type { CharacterSheetPart } from "./portrait-art.js";
+import { enhancedArtEnv, packagedTerrain as packagedTerrainFor, packagedTiles } from "./enhanced-runner.js";
 import type { EncounterPlacement } from "./encounter-art.js";
 import { exactTextNarrations as exactTextUnits, NarrationCatalog, normalizeSpeech, type NarrationTrigger, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
 import { buildNewPhlanMaterials } from "./new-phlan-3d-materials.js";
 import { buildExplorationMaterials, explorationMaterialArea } from "./exploration-materials.js";
-import { readExplorationCellHashes } from "./exploration-cells.js";
-import { readWorld } from "./first-person-cells.js";
 import { fromPortRoot, fromWorkingRoot } from "./port-root.js";
 import { classicSoundDirectory } from "./classic-sounds.js";
-import { standaloneExploration } from "./standalone-exploration.js";
 import type { NativeExploration } from "./native-exploration.js";
 import { loadOverlandTravel, type PhlanApproach, type SokalPrompt, type SokalQuay, type TravelState } from "./overland-travel.js";
 
@@ -33,11 +31,7 @@ const gameRoot = requireBrowserGameRoot();
 // Everything the server reads from the program depends on which build the directory holds.
 const gameBuild = detectGameVersion(readGameFile(gameRoot, "GAME.OVR"));
 useGameVersion(gameBuild);
-const packagedTerrain = (() => {
-  if (!isPortGameRoot(gameRoot)) return;
-  const world = readWorld(portGame(gameRoot).data, file => new Uint8Array(readFileSync(join(gameRoot, file))));
-  return standaloneExploration(world, readExplorationCellHashes());
-})();
+const packagedTerrain = packagedTerrainFor(gameRoot);
 const planTravel = loadOverlandTravel(gameRoot);
 const page = readFileSync(fromPortRoot("tools", "play.html"));
 const script = readFileSync(fromPortRoot("tools", "play.js"));
@@ -121,14 +115,7 @@ function prepareScenery(view: ExplorationFrame) {
   const { x, y, facing, walls, area, mapId } = native;
   if (packagedTerrain) {
     const cells: TileInventoryCell[] = [];
-    const tiles: NonNullable<ExplorationFrame["tiles"]> = [];
-    packagedTerrain.cellKeys(native).forEach((key, index) => {
-      if (!key) return;
-      const screenX = 24 + (index % 11) * 8, screenY = 24 + Math.floor(index / 11) * 8;
-      if (artwork.has(key)) tiles.push([screenX, screenY, key]);
-      if (view.tileInventory) cells.push([screenX, screenY, key, ""]);
-    });
-    view.tiles = tiles;
+    view.tiles = packagedTiles(packagedTerrain, artwork, native, cells);
     if (view.tileInventory) view.tileInventory = cells;
   }
   if (native.areaView) {
@@ -155,8 +142,6 @@ let tileTrace = process.env.POR_TILE_TRACE_FILE;
 let lastTileTrace: string | undefined;
 let portraitTrace = process.env.POR_PORTRAIT_TRACE_FILE;
 const tracedPortraits = new Set<string>();
-const encounters = Object.fromEntries([...artwork].flatMap(([id, { encounter }]) =>
-  encounter ? [[id, encounter]] : []));
 // A release names its compiled runner, which the same Node runs. A checkout runs the TypeScript through tsx.
 const runnerArguments = process.env.POR_RUNNER ? [process.env.POR_RUNNER] : ["--import", "tsx", "tools/boot-translated.ts"];
 const runner = spawn(process.execPath, runnerArguments, {
@@ -166,16 +151,9 @@ const runner = spawn(process.execPath, runnerArguments, {
     POR_BROWSER_PLAY: "1",
     // A played game rolls different dice each launch, as on DOS. Replays set POR_CLOCK=fixed.
     POR_CLOCK: process.env.POR_CLOCK ?? "real",
-    POR_BATTLE_TILE_KEYS: [...artwork.keys()].filter((key) => key.startsWith("battle-tile:")).join(","),
-    POR_TILE_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("tile:")).join(","),
+    // The artwork keys the runner may resolve: tools/enhanced-runner.ts, which the port parity check shares.
+    ...enhancedArtEnv(artwork, materialMasks),
     POR_TRACE_TILES: tileTrace ? "1" : process.env.POR_TRACE_TILES,
-    POR_COMBAT_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("combat:")).join(","),
-    POR_COMBAT_MATERIAL_KEYS: [...materialMasks.keys()].join(","),
-    POR_COMBAT_EFFECT_KEYS: [...artwork.keys()].filter(key => key.startsWith("combat-effect:")).join(","),
-    POR_COMBAT_SELECTION_KEYS: [...artwork.keys()].filter(key => key.startsWith("combat-selection:")).join(","),
-    POR_PORTRAIT_ART_KEYS: [...artwork.keys()].filter(key => portraitKey.test(key) || scriptIllustrations.has(key)).join(","),
-    POR_CHARACTER_SHEET_ART_KEYS: [...artwork.keys()].filter((key) => characterSheetPartKey.test(key)).join(","),
-    POR_ENCOUNTER_ART: JSON.stringify(encounters),
     POR_LIVE_AT: process.env.POR_LIVE_AT ?? "24000000",
     POR_BOOT_STEPS: process.env.POR_BOOT_STEPS ?? "100000000",
   },
