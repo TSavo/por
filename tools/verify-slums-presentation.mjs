@@ -6100,6 +6100,11 @@ const controlledBattleIllustrations = new Map([
     portrait: `scene-illustration:area:0:ecl:${cursor}:cue:tavern-watch-arrival`,
     caption: /THECITYWATCHCHARGESIN.*DOYOURUNAWAYORSTAY/i,
   }]),
+  ["new-phlan-tavern-watch-stay-13", {
+    slot: "A", inputs: ["up", "enter", "enter", "n", ...Array(5).fill("enter")],
+    portrait: "scene-illustration:area:0:ecl:a825:cue:tavern-watch-arrival",
+    caption: /THECITYWATCHCHARGESIN.*DOYOURUNAWAYORSTAY/i,
+  }],
   ["mendor-basilisk-loot", {
     slot: "B", inputs: ["s", "up", "enter", "enter", "c", "enter"],
     portrait: "portrait:area:15:ecl:a5a3:PIC1.DAX:1:0:0",
@@ -8671,7 +8676,22 @@ try {
     const shot = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, `${routeName}.png`), Buffer.from(shot.data, "base64"));
     await switchBothWays();
-    if (routeName.startsWith("new-phlan-tavern-watch-arrival")) {
+    if (routeName === "new-phlan-tavern-watch-stay-13") {
+      await step("s");
+      const reinforcements = "portrait:area:0:ecl:add0:HEAD3.DAX:9:BODY3.DAX:7";
+      assert.match(text(), /THECITYWATCHRESPONDSTOTHENOISE/i);
+      assert.equal(frame.portrait, reinforcements);
+      await waitFor("the Watch reinforcements portrait", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${reinforcements}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const reinforcementsShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "new-phlan-tavern-watch-reinforcements.png"), Buffer.from(reinforcementsShot.data, "base64"));
+      await step("s");
+      for (let prompt = 0; prompt < 10 && !frame.developerVictoryAvailable; prompt++) await step("enter");
+      assert.equal(frame.developerVictoryAvailable, true);
+      assert.equal(frame.portrait, undefined);
+      assert.ok(frame.combatArt?.some(([, , id]) => id.endsWith(":ecl:ae06")));
+    } else if (routeName.startsWith("new-phlan-tavern-watch-arrival")) {
       await step("r");
       assert.notEqual(frame.portrait, portrait);
     } else if (routeName === "kuto-norris-entry-50") {
