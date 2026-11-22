@@ -85,9 +85,20 @@ async function inPage(url, use) {
     socket?.close();
     chrome.kill();
     await new Promise((done) => chrome.exitCode !== null ? done() : chrome.once("exit", done));
-    rmSync(profile, { recursive: true, force: true });
+    remove(profile);
   }
 }
+/**
+ * Remove a throwaway directory. On Windows a process that has just exited (Chrome's helpers, the runner)
+ * can hold its files for a moment, so removal is retried; what is left is reported, not a failure.
+ */
+function remove(path) {
+  try { rmSync(path, { recursive: true, force: true, maxRetries: 20, retryDelay: 250 }); } catch (error) {
+    console.log(`left ${path}: ${error.message}`);
+  }
+}
+/** The launchers started and not yet stopped, stopped whatever happens. */
+const running = new Set();
 const pageText = (selector) => `document.querySelector(${JSON.stringify(selector)}).textContent`;
 const home = mkdtempSync(join(process.env.POR_CHECK_TMP ?? tmpdir(), "por-original-files-home-"));
 const dataDirectory = process.platform === "darwin" ? join(home, "Library", "Application Support", "Pool of Radiance")
@@ -108,6 +119,9 @@ async function start(label) {
   const launcher = spawn(process.execPath, [join(root, "app", "launch.mjs")], { env, stdio: ["ignore", "pipe", "pipe"] });
   let log = "";
   const exited = new Promise((done) => launcher.on("exit", (code, signal) => done({ code, signal })));
+  const stopped = { launcher, exited };
+  running.add(stopped);
+  exited.then(() => running.delete(stopped));
   const url = await new Promise((found, failed) => {
     const read = (chunk) => {
       log += chunk;
@@ -256,9 +270,13 @@ try {
   expect("nothing of the folders under the player's directory", copied.length === 0, copied);
   expect("every start stopped on SIGTERM", report.starts.every(({ exit }) => exit?.signal === "SIGTERM" || exit?.code === 0),
     report.starts.map(({ exit }) => exit));
+} catch (error) {
+  expect(`no error (${error.stack ?? error})`, false);
 } finally {
+  // A launcher left running by an error is stopped before its home goes.
+  for (const { launcher, exited } of running) { launcher.kill("SIGTERM"); await exited; }
   report.failures = failures;
   console.log(JSON.stringify({ failures, starts: report.starts.map(({ label, seconds, scene }) => ({ label, seconds, scene })) }));
-  rmSync(home, { recursive: true, force: true });
+  remove(home);
 }
 process.exitCode = failures.length ? 1 : 0;

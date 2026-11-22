@@ -1,5 +1,6 @@
 /**
  * npm run release:pack [-- mac windows linux]: build the installers into dist/ from the committed port.
+ * mac-arm64 or mac-x64 in place of mac builds that one disk image.
  * Run after npm run release:build (the npm script does both). The Mac app needs macOS for its tools:
  * osacompile, hdiutil, sips, iconutil and codesign come with it. makensis builds the Windows installer: here
  * when it is installed, else on the machine POR_NSIS_HOST names over ssh (apt-get install nsis there);
@@ -43,13 +44,18 @@ const cache = join(dist, "cache");
 const requested = process.argv.slice(2);
 const platforms = requested[0] === "--check" ? [] : requested.length ? requested : ["mac", "windows", "linux"];
 for (const platform of platforms) {
-  if (!["mac", "windows", "linux"].includes(platform)) throw new Error(`Unknown platform ${platform}: use mac, windows or linux`);
+  if (!["mac", "mac-arm64", "mac-x64", "windows", "linux"].includes(platform)) {
+    throw new Error(`Unknown platform ${platform}: use mac (both disk images), mac-arm64, mac-x64, windows or linux`);
+  }
 }
+// The Mac disk images to build: both for mac, or the one architecture named.
+const macArchitectures = platforms.includes("mac") ? ["arm64", "x64"]
+  : platforms.flatMap((platform) => platform.startsWith("mac-") ? [platform.slice(4)] : []);
 const onMac = process.platform === "darwin";
 // The Mac app needs macOS's own tools (hdiutil, osacompile, sips, iconutil, codesign). The Windows installer
 // and the Linux archive can be packed elsewhere: their icon is cut with python3 and Pillow, and makensis
 // builds the installer where it is installed (apt-get install nsis).
-if (!onMac && platforms.includes("mac")) throw new Error("release:pack for mac uses macOS's own tools; on this machine pack windows or linux");
+if (!onMac && macArchitectures.length) throw new Error("release:pack for mac uses macOS's own tools; on this machine pack windows or linux");
 
 const started = Date.now();
 const log = (message: string) => console.log(`[${((Date.now() - started) / 1000).toFixed(0).padStart(4)}s] ${message}`);
@@ -259,7 +265,7 @@ const outputs: string[] = [];
 const size = (path: string) => `${(statSync(path).size / 1e6).toFixed(0)} MB`;
 
 // One disk image per architecture: each holds a single Node, not the two joined with lipo (150 MB less each).
-for (const arch of platforms.includes("mac") ? ["arm64", "x64"] : []) {
+for (const arch of macArchitectures) {
   const nodeDir = await nodeBuild(`darwin-${arch}`, "tar.gz");
   const dmgFolder = join(stages, `mac-${arch}`);
   const bundle = join(dmgFolder, "Pool of Radiance.app");

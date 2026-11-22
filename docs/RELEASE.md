@@ -12,7 +12,10 @@ On a Mac, from a checkout with `npm ci` done:
 
 ```bash
 POR_NSIS_HOST=battleaxe npm run release:pack    # all three; or: npm run release:pack -- mac
+npm run release:pack -- mac-x64                  # one disk image (mac-arm64, mac-x64)
 ```
+
+On Linux with makensis and python3 with Pillow (Battleaxe): `npm run release:pack -- windows linux`.
 
 The Windows installer needs makensis. Where it is installed (`brew install makensis`, which on an
 Intel Mac builds a dozen formulae from source for over half an hour) it runs here; otherwise
@@ -33,8 +36,9 @@ installer comes back into `dist/`. With neither, the Windows installer is skippe
 The packages are built from the commit checked out (`git archive HEAD`), not from the working tree.
 Node is the official build of the version pinned in `tools/release/pack.ts`, downloaded from nodejs.org
 into `dist/cache/` and checked against its `SHASUMS256.txt`; each Mac image carries the Node of its own
-architecture (arm64 or x64). Packing needs macOS's own tools (osacompile, hdiutil,
-sips, iconutil, codesign); the Linux archive alone packs on Linux (`npm run release:pack -- linux`, python3 with Pillow for the icon). `dist/` is not committed.
+architecture (arm64 or x64). The Mac images need macOS's own tools (osacompile, hdiutil,
+sips, iconutil, codesign); the Windows installer and the Linux archive pack on Linux too (python3 with
+Pillow cuts their icon). `dist/` is not committed.
 
 ## What the package contains
 
@@ -162,6 +166,42 @@ display is available (F10), with its pictures; the game is version 1.3.*, and **
 `Original files:` line. No game file was under the player's directory; every start stopped on SIGTERM.
 The first run took 776 of the 784 pictures: for 8 blocks the port's packer could not reach the
 original packed size, so the player's own packing is now kept where it has that size.
+
+**Windows** (#150), 2026-11-22, on Battleaxe: the installer of `c9d42f49` packed there
+(`npm run release:pack -- windows`, makensis 3.09; 694 MB, sha256 `57a9479e…bcdc9f3`), installed
+silently and unelevated (`__COMPAT_LAYER=RunAsInvoker`, `/S /D=E:\por-release-test\install`): exit 0 in
+97 seconds, 18,007 files. Copies of the GOG 1.3 folder and the first release were put at
+`E:\por-release-test\gog-1.3\POOLRAD` and `E:\por-release-test\pool`. The check ran with the installed
+`node\node.exe` starting `app\launch.mjs` as the shortcut does, homes under `E:\por-release-test\tmp`,
+and Windows Chrome 157 headless: all 33 checks passed. In the page, `E:\por-release-test\install\game`
+typed into the field gave *Not saved: E:\por-release-test\install\game has no START.EXE, GAME.OVR,
+ECL1.DAX.*, and `E:\por-release-test\gog-1.3` gave *Saved: E:\por-release-test\gog-1.3\POOLRAD (version
+1.3). It takes effect the next time the game starts…*; the setting's empty field showed
+`C:\GOG Games\Pool of Radiance`. The next start printed `Original files: E:\por-release-test\gog-1.3\POOLRAD
+(version 1.3; Classic available)` and `POR_GAME_DATA original …`; the page started in Enhanced with the
+display switch, and Classic showed the original title, the same frame as on Linux (`859db41f…`). The
+first release: `POR_CLASSIC_PICTURES E:\por-release-test\pool 784/784`, the same title. Every start
+stopped when its launcher was ended, leaving no node.exe of the install and nothing listening. 43124 was
+not free during these runs, so each start took another free port, as the launcher does (what held it was
+not established; other games run on the machine's Linux side, whose ports WSL can relay to Windows). The first run stopped at start 3: on Windows Chrome's helpers hold its
+profile for a moment after it exits, so removing the profile failed (EPERM) and left that start's game
+running; the check now retries removal, stops any launcher it started, and reports an error as a failure.
+`Uninstall.exe /S` exited 0 in 20.5 seconds and the install folder was gone a minute later. The
+screenshot of Classic at the title also showed the Enhanced publisher splash faintly over it (#153).
+
+**Mac** (#150), 2026-11-22, on the Intel Mac, once: `npm run release:pack -- mac-x64` (720 MB, sha256
+`f5192a06…d3374cf`), the app copied out of the mounted image (944 MB, `codesign --verify --strict`
+valid) and opened with `open -n -g --env HOME=<scratch> --env POR_OPEN_BROWSER=0 --env POR_CLOCK=fixed`.
+Start 1: the game answered in 21 seconds, no Classic, the blank title (`04e64636…`); the setting's
+request with `/Users/tsavo/por-assets/gog-1.3` saved `…/gog-1.3/POOLRAD` (version 1.3) in
+`<scratch>/Library/Application Support/Pool of Radiance/original-files.json`. Quit (the quit Apple event)
+stopped everything in 0.9 seconds. Start 2: the log had `Original files: /Users/tsavo/por-assets/gog-1.3/POOLRAD
+(version 1.3; Classic available)` and `POR_GAME_DATA original …/POOLRAD`, the game answered in 9 seconds
+with Classic available and the original title (`859db41f…`, as on Linux and Windows). The setting was
+cleared and the app quit again; the data directory held only `out` and `saves`, and no game file. Opened
+straight from the read-only disk image the first time, the game took 118 seconds to answer (the
+compressed image); and `tell application id …` could not quit it, because the bundle id named the
+packing stage's copy, which was not running: quitting by the app's path did.
 
 ## Where saves go
 
@@ -369,5 +409,5 @@ checked by its binaries only (it cannot run on this Intel Mac).
   SmartScreen's prompt, the finish page's Play (through the shortcut and Explorer), and closing the
   console window (its SIGHUP path is checked on the Mac; on Battleaxe the launcher's console could not
   be found as a window from the automation's session).
-- **Use my original files** has been run in the compiled release on Linux only, not yet in the Mac app
-  or a Windows install (#150). The player types or pastes the folder: there is no system folder dialog.
+- **Use my original files**: the player types or pastes the folder: there is no system folder dialog.
+  On the Mac it was set through the page's request, not typed into the page.
