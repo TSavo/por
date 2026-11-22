@@ -2,18 +2,18 @@
  "schema": 2,
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
- "remaining": 2388,
+ "remaining": 2400,
  "totals": {
-  "Remaining, all kinds": 2388,
-  "First-person cells to do": 2388,
+  "Remaining, all kinds": 2400,
+  "First-person cells to do": 2400,
   "  of which one stored tile": 327,
-  "  of which one tile over a solid colour": 327,
+  "  of which one tile over a solid colour": 335,
   "  of which plain sky or ground": 0,
-  "  of which several tiles together": 1734,
-  "  of which the same pixels already have art of yours in another area": 755,
+  "  of which several tiles together": 1738,
+  "  of which the same pixels already have art of yours in another area": 763,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 4556,
-  "  accounted for by the tool": 4400,
+  "Tile keys in the manifests": 4565,
+  "  accounted for by the tool": 4409,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
@@ -26,9 +26,9 @@
   "    of those, shown alone in some area": 177
  },
  "notEstablished": {
-  "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4065,
+  "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4051,
   "first-person cells of the overhead area view, which no existing artwork of the area confirms": 152,
-  "first-person cells of an area whose reading is not confirmed": 1453,
+  "first-person cells of an area whose reading is not confirmed": 1448,
   "first-person cells seen only from squares not connected to any square the existing artwork was made from": 200,
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
   "battlefield cells of pictures no artwork shows to have been on a battlefield": 2207,
@@ -113,7 +113,7 @@
    "area": 3,
    "name": "Valjevo Castle",
    "established": false,
-   "why": "15 of the 110 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
+   "why": "15 of the 117 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
    "maps": [
     3,
     5
@@ -121,8 +121,8 @@
    "wallSets": [
     "WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)"
    ],
-   "existingKeys": 110,
-   "existingKeysAccountedFor": 95,
+   "existingKeys": 117,
+   "existingKeysAccountedFor": 102,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [
     "tile:3:14ba42f38a9f3edda8214f1dec22d94f520717c59573aa456e72854416d753d4",
@@ -142,11 +142,12 @@
     "tile:3:96617048f4ce08f69965b9034e3c443a26f48d905cec8d4553321def580420dd"
    ],
    "cellsTheViewsCanShow": 300,
-   "cellsWithArt": 95,
+   "cellsWithArt": 100,
    "toDo": 0,
    "notEstablished": {
-    "cells of an area whose reading is not confirmed": 205
-   }
+    "cells of an area whose reading is not confirmed": 200
+   },
+   "existingKeysOnlyAsWallMaterials": 2
   },
   {
    "area": 4,
@@ -488,22 +489,22 @@
    "area": 14,
    "name": "Kovel Mansion",
    "established": true,
-   "why": "all 69 cells that have artwork are among the cells the tool works out",
+   "why": "all 70 cells that have artwork are among the cells the tool works out",
    "maps": [
     14
    ],
    "wallSets": [
     "WALLDEF3 block 1 (tiles 8X8D3 block 1), block 3 (tiles 8X8D3 block 3), block 5 (tiles 8X8D3 block 5)"
    ],
-   "existingKeys": 69,
-   "existingKeysAccountedFor": 69,
+   "existingKeys": 70,
+   "existingKeysAccountedFor": 70,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 150,
-   "cellsWithArt": 67,
-   "toDo": 19,
+   "cellsWithArt": 68,
+   "toDo": 22,
    "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 64
+    "cells that show a sky or ground colour no existing artwork of the area shows": 60
    },
    "existingKeysOnlyAsWallMaterials": 2
   },
@@ -815,22 +816,22 @@
    "area": 28,
    "name": "Zhentil Keep Outpost",
    "established": true,
-   "why": "all 82 cells that have artwork are among the cells the tool works out",
+   "why": "all 83 cells that have artwork are among the cells the tool works out",
    "maps": [
     28
    ],
    "wallSets": [
     "WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)"
    ],
-   "existingKeys": 82,
-   "existingKeysAccountedFor": 82,
+   "existingKeys": 83,
+   "existingKeysAccountedFor": 83,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 194,
-   "cellsWithArt": 81,
-   "toDo": 16,
+   "cellsWithArt": 82,
+   "toDo": 25,
    "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 78,
+    "cells that show a sky or ground colour no existing artwork of the area shows": 68,
     "cells of the overhead area view, which no existing artwork of the area confirms": 19
    },
    "existingKeysOnlyAsWallMaterials": 1
@@ -30270,6 +30271,48 @@
   },
   {
    "kind": "first-person cell",
+   "key": "tile:14:8bcc06efdf06b3769418465aeb92a19e990cc54c212c2e7af5c4fe0897b17b35",
+   "width": 32,
+   "height": 32,
+   "area": 14,
+   "areaName": "Kovel Mansion",
+   "group": "plain sky, horizon and ground",
+   "what": "several tiles together",
+   "composition": "h11.15.7.6|",
+   "description": "the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6), shown in area 14 (Kovel Mansion)",
+   "seenAt": {
+    "map": 14,
+    "x": 0,
+    "y": 0,
+    "facing": "east",
+    "column": 5,
+    "row": 5
+   },
+   "views": 499,
+   "drawnIn": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    8,
+    11,
+    15,
+    16,
+    17,
+    20,
+    21,
+    24,
+    28,
+    31
+   ],
+   "sameAs": "orc-joint-fe0897b17b35.png",
+   "why": "drawn in 499 views of map 14 (WALLDEF3 block 1 (tiles 8X8D3 block 1), block 3 (tiles 8X8D3 block 3), block 5 (tiles 8X8D3 block 5)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
    "key": "tile:14:0ae60cf3309accf1a341b5cc07952a90cf121d33ec8c6432d727b57c0c6c20f1",
    "width": 32,
    "height": 32,
@@ -30299,6 +30342,83 @@
    ],
    "sameAs": "route-0ae60cf3309a.png",
    "why": "drawn in 8 views of map 14 (WALLDEF3 block 1 (tiles 8X8D3 block 1), block 3 (tiles 8X8D3 block 3), block 5 (tiles 8X8D3 block 5)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:14:0bae672ff3e01f653ae7241fc075226c0865693834d5c45e6f2863678a2526da",
+   "width": 32,
+   "height": 32,
+   "area": 14,
+   "areaName": "Kovel Mansion",
+   "group": "shared tile set 8X8D1 block 203",
+   "what": "one tile over a solid colour",
+   "composition": "s11|8X8D1.DAX:203:16",
+   "description": "8X8D1 block 203 tile 16 over sky colour 11, shown in area 14 (Kovel Mansion)",
+   "seenAt": {
+    "map": 14,
+    "x": 0,
+    "y": 0,
+    "facing": "south",
+    "column": 10,
+    "row": 0
+   },
+   "views": 652,
+   "drawnIn": [
+    0,
+    2,
+    3,
+    4,
+    5,
+    6,
+    8,
+    11,
+    15,
+    20,
+    21,
+    24,
+    31
+   ],
+   "sameAs": "room-tile-02.png",
+   "why": "drawn in 652 views of map 14 (WALLDEF3 block 1 (tiles 8X8D3 block 1), block 3 (tiles 8X8D3 block 3), block 5 (tiles 8X8D3 block 5)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:14:323c71332298aeae05cfee4eb5855d831835c8a068440a0f21f6f96ee43b2f9b",
+   "width": 32,
+   "height": 32,
+   "area": 14,
+   "areaName": "Kovel Mansion",
+   "group": "shared tile set 8X8D1 block 203",
+   "what": "one tile over a solid colour",
+   "composition": "s11|8X8D1.DAX:203:17",
+   "description": "8X8D1 block 203 tile 17 over sky colour 11, shown in area 14 (Kovel Mansion)",
+   "seenAt": {
+    "map": 14,
+    "x": 0,
+    "y": 0,
+    "facing": "north",
+    "column": 0,
+    "row": 0
+   },
+   "views": 654,
+   "drawnIn": [
+    0,
+    2,
+    3,
+    4,
+    5,
+    6,
+    8,
+    11,
+    15,
+    20,
+    21,
+    24,
+    26,
+    31
+   ],
+   "sameAs": "room-tile-00.png",
+   "why": "drawn in 654 views of map 14 (WALLDEF3 block 1 (tiles 8X8D3 block 1), block 3 (tiles 8X8D3 block 3), block 5 (tiles 8X8D3 block 5)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -46259,6 +46379,122 @@
   },
   {
    "kind": "first-person cell",
+   "key": "tile:28:d20d585641c6d76d5fdd15d21d1f0fe0f6663d6aded22bc96508569ac0bd84f7",
+   "width": 32,
+   "height": 32,
+   "area": 28,
+   "areaName": "Zhentil Keep Outpost",
+   "group": "plain sky, horizon and ground",
+   "what": "several tiles together",
+   "composition": "h0.15.7.6|",
+   "description": "the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6), shown in area 28 (Zhentil Keep Outpost)",
+   "seenAt": {
+    "map": 28,
+    "x": 7,
+    "y": 0,
+    "facing": "east",
+    "column": 10,
+    "row": 5
+   },
+   "views": 1000,
+   "drawnIn": [
+    1,
+    2,
+    7,
+    9,
+    13,
+    14,
+    15,
+    17,
+    18,
+    26,
+    27,
+    29
+   ],
+   "sameAs": "wild-cave-chamber-d20d585641c6.png",
+   "why": "drawn in 1000 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:28:407968ce47e36633aaf0bb814b90671ffd08af55d0de8309f75371f12c4e87d6",
+   "width": 32,
+   "height": 32,
+   "area": 28,
+   "areaName": "Zhentil Keep Outpost",
+   "group": "tile set 8X8D6 block 2",
+   "what": "one tile over a solid colour",
+   "composition": "s0|8X8D6.DAX:2:57",
+   "description": "8X8D6 block 2 tile 57 over sky colour 0, shown in area 28 (Zhentil Keep Outpost)",
+   "seenAt": {
+    "map": 28,
+    "x": 2,
+    "y": 1,
+    "facing": "south",
+    "column": 1,
+    "row": 4
+   },
+   "views": 425,
+   "drawnIn": [
+    1,
+    7,
+    20
+   ],
+   "sameAs": "valjevo-tower-hall-terrain-407968ce47e3.png",
+   "why": "drawn in 425 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:28:6627939d1abd35d7c7d6507d47e73c5f8ab1bf8e4974093bb7db401b714d12f8",
+   "width": 32,
+   "height": 32,
+   "area": 28,
+   "areaName": "Zhentil Keep Outpost",
+   "group": "tile set 8X8D6 block 2",
+   "what": "one tile over a solid colour",
+   "composition": "s0|8X8D6.DAX:2:58",
+   "description": "8X8D6 block 2 tile 58 over sky colour 0, shown in area 28 (Zhentil Keep Outpost)",
+   "seenAt": {
+    "map": 28,
+    "x": 2,
+    "y": 1,
+    "facing": "east",
+    "column": 9,
+    "row": 4
+   },
+   "views": 425,
+   "drawnIn": [
+    1,
+    7,
+    20
+   ],
+   "sameAs": "valjevo-tower-hall-terrain-6627939d1abd.png",
+   "why": "drawn in 425 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:28:0ae963b7e3ae7860902898b9eaebf7e2c5b8696e1ca2425d3bb36b01eabbb10b",
+   "width": 32,
+   "height": 32,
+   "area": 28,
+   "areaName": "Zhentil Keep Outpost",
+   "group": "tile set 8X8D6 block 9",
+   "what": "several tiles together",
+   "composition": "h0.15.7.6|8X8D6.DAX:9:42",
+   "description": "8X8D6 block 9 tile 42 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6), shown in area 28 (Zhentil Keep Outpost)",
+   "seenAt": {
+    "map": 28,
+    "x": 5,
+    "y": 4,
+    "facing": "east",
+    "column": 6,
+    "row": 5
+   },
+   "views": 5,
+   "drawnIn": [],
+   "why": "drawn in 5 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
    "key": "tile:28:14d3757ae4f739077b25d4727195ea3f08c518f72d332bb55af6d09f750228cb",
    "width": 32,
    "height": 32,
@@ -46307,6 +46543,29 @@
     21
    ],
    "sameAs": "sokal-west-lintel-mid.png",
+   "why": "drawn in 6 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:28:332ea602752f60f17beb82a3d53ab5e110ab4ad1eac48920858245111bb452bd",
+   "width": 32,
+   "height": 32,
+   "area": 28,
+   "areaName": "Zhentil Keep Outpost",
+   "group": "tile set 8X8D6 block 9",
+   "what": "several tiles together",
+   "composition": "s0|8X8D1.DAX:203:17,8X8D6.DAX:9:49",
+   "description": "8X8D6 block 9 tile 49 over 8X8D1 block 203 tile 17 over sky colour 0, shown in area 28 (Zhentil Keep Outpost)",
+   "seenAt": {
+    "map": 28,
+    "x": 7,
+    "y": 0,
+    "facing": "east",
+    "column": 0,
+    "row": 3
+   },
+   "views": 6,
+   "drawnIn": [],
    "why": "drawn in 6 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -46448,8 +46707,8 @@
    "areaName": "Zhentil Keep Outpost",
    "group": "tile set 8X8D6 block 9",
    "what": "several tiles together",
-   "composition": "s11|8X8D1.DAX:203:16,8X8D6.DAX:9:56",
-   "description": "8X8D6 block 9 tile 56 over 8X8D1 block 203 tile 16 over sky colour 11, shown in area 28 (Zhentil Keep Outpost)",
+   "composition": "s0|8X8D1.DAX:203:16,8X8D6.DAX:9:56",
+   "description": "8X8D6 block 9 tile 56 over 8X8D1 block 203 tile 16 over sky colour 0, shown in area 28 (Zhentil Keep Outpost)",
    "seenAt": {
     "map": 28,
     "x": 7,
@@ -46458,12 +46717,12 @@
     "column": 10,
     "row": 3
    },
-   "views": 2,
+   "views": 4,
    "drawnIn": [
     9
    ],
    "sameAs": "stojanow-guard-wing-terrain-755bda5b8257.png",
-   "why": "drawn in 2 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 4 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -46522,6 +46781,32 @@
   },
   {
    "kind": "first-person cell",
+   "key": "tile:28:984d30227a603293ecfca9b0cd0e80157a905f43527819de05c337275ec4f2fd",
+   "width": 32,
+   "height": 32,
+   "area": 28,
+   "areaName": "Zhentil Keep Outpost",
+   "group": "tile set 8X8D6 block 9",
+   "what": "one tile over a solid colour",
+   "composition": "s0|8X8D6.DAX:9:26",
+   "description": "8X8D6 block 9 tile 26 over sky colour 0, shown in area 28 (Zhentil Keep Outpost)",
+   "seenAt": {
+    "map": 28,
+    "x": 7,
+    "y": 0,
+    "facing": "south",
+    "column": 10,
+    "row": 0
+   },
+   "views": 619,
+   "drawnIn": [
+    9
+   ],
+   "sameAs": "stojanow-gate-terrain-984d30227a60.png",
+   "why": "drawn in 619 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
    "key": "tile:28:b784b8750b8adf3caafc9bb39eccbd31f78447d7268123fcf737875c487f9fea",
    "width": 32,
    "height": 32,
@@ -46575,26 +46860,49 @@
   },
   {
    "kind": "first-person cell",
+   "key": "tile:28:e213f222fc2e4f51ae5608c2299fd2dfb8f1609d737dc01692b6824d3fa0a262",
+   "width": 32,
+   "height": 32,
+   "area": 28,
+   "areaName": "Zhentil Keep Outpost",
+   "group": "tile set 8X8D6 block 9",
+   "what": "one tile over a solid colour",
+   "composition": "s0|8X8D6.DAX:9:45",
+   "description": "8X8D6 block 9 tile 45 over sky colour 0, shown in area 28 (Zhentil Keep Outpost)",
+   "seenAt": {
+    "map": 28,
+    "x": 7,
+    "y": 0,
+    "facing": "east",
+    "column": 2,
+    "row": 4
+   },
+   "views": 5,
+   "drawnIn": [],
+   "why": "drawn in 5 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
    "key": "tile:28:e5aa3be4526ec0e96b089822c9a6290a6b74a423c00b6973692f5d25dd767c29",
    "width": 32,
    "height": 32,
    "area": 28,
    "areaName": "Zhentil Keep Outpost",
    "group": "tile set 8X8D6 block 9",
-   "what": "several tiles together",
-   "composition": "s11|8X8D6.DAX:2:58,8X8D6.DAX:9:56",
-   "description": "8X8D6 block 9 tile 56 over 8X8D6 block 2 tile 58 over sky colour 11, shown in area 28 (Zhentil Keep Outpost)",
+   "what": "one tile over a solid colour",
+   "composition": "s0|8X8D6.DAX:9:56",
+   "description": "8X8D6 block 9 tile 56 over sky colour 0, shown in area 28 (Zhentil Keep Outpost)",
    "seenAt": {
     "map": 28,
     "x": 8,
-    "y": 4,
-    "facing": "east",
-    "column": 10,
-    "row": 3
+    "y": 0,
+    "facing": "west",
+    "column": 8,
+    "row": 4
    },
-   "views": 2,
+   "views": 11,
    "drawnIn": [],
-   "why": "drawn in 2 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 11 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -46618,6 +46926,29 @@
    "views": 2,
    "drawnIn": [],
    "why": "drawn in 2 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:28:ea2245a40961c3fe8086c6990711efe7c9378be72b9ac7844c5bc47b86cbaec0",
+   "width": 32,
+   "height": 32,
+   "area": 28,
+   "areaName": "Zhentil Keep Outpost",
+   "group": "tile set 8X8D6 block 9",
+   "what": "several tiles together",
+   "composition": "h0.15.7.6|8X8D6.DAX:9:41",
+   "description": "8X8D6 block 9 tile 41 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6), shown in area 28 (Zhentil Keep Outpost)",
+   "seenAt": {
+    "map": 28,
+    "x": 9,
+    "y": 4,
+    "facing": "west",
+    "column": 4,
+    "row": 5
+   },
+   "views": 5,
+   "drawnIn": [],
+   "why": "drawn in 5 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -46645,6 +46976,32 @@
    ],
    "sameAs": "stojanow-guard-wing-terrain-f59a8b4ef53d.png",
    "why": "drawn in 6 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:28:f8ca3a417a1a3fd9d54e5c394f94b0f878b2f3aded71e1275305953be0257580",
+   "width": 32,
+   "height": 32,
+   "area": 28,
+   "areaName": "Zhentil Keep Outpost",
+   "group": "tile set 8X8D6 block 9",
+   "what": "one tile over a solid colour",
+   "composition": "s0|8X8D6.DAX:9:27",
+   "description": "8X8D6 block 9 tile 27 over sky colour 0, shown in area 28 (Zhentil Keep Outpost)",
+   "seenAt": {
+    "map": 28,
+    "x": 7,
+    "y": 0,
+    "facing": "north",
+    "column": 0,
+    "row": 0
+   },
+   "views": 619,
+   "drawnIn": [
+    9
+   ],
+   "sameAs": "stojanow-gate-terrain-f8ca3a417a1a.png",
+   "why": "drawn in 619 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",

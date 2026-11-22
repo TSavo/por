@@ -439,7 +439,12 @@ function checkExplorationGlyphMask(): void {
   const standalone = buildExplorationMaterials(blank, artwork, new Map([[2, tile]]));
   deepStrictEqual(standalone, original, "Packaged terrain uses the same art and cutout as the original glyph");
 
-  for (const [source, destination] of [[29, 18], [22, 23], [23, 22]] as const) {
+  const terrainHandoffs = [
+    [2, 18, 18], [14, 31, 24], [15, 2, 2], [20, 29, 29], [21, 0, 0],
+    [22, 23, 23], [23, 22, 22], [25, 1, 1], [25, 28, 28],
+    [27, 13, 13], [29, 18, 18], [29, 20, 20],
+  ] as const;
+  for (const [source, mapId, destination] of terrainHandoffs) {
     const sourceKey = `tile:${source}:${tile.hash}`;
     const destinationKey = `tile:${destination}:${tile.hash}`;
     const skyHash = sha256(Buffer.alloc(64, scene.skyColor));
@@ -448,7 +453,7 @@ function checkExplorationGlyphMask(): void {
       `tile:${source}:${skyHash}`, `tile:${destination}:${skyHash}`,
       `tile:${source}:${groundHash}`, `tile:${destination}:${groundHash}`,
     ].map(key => [key, { file: key }] as const));
-    const arrival = buildExplorationMaterials({ ...scene, area: source, mapId: destination }, transitionArtwork);
+    const arrival = buildExplorationMaterials({ ...scene, area: source, mapId }, transitionArtwork);
     strictEqual(arrival.wallFaces[0]?.parts[0]?.art?.key, destinationKey, "The destination map uses its own art during the handoff");
     const departure = buildExplorationMaterials({ ...scene, area: source, mapId: source }, transitionArtwork);
     strictEqual(departure.wallFaces[0]?.parts[0]?.art?.key, sourceKey, "The source map uses its own art before the handoff");

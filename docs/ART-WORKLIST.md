@@ -1,6 +1,6 @@
 # Artwork worklist
 
-**The artwork is done when `npm run verify:art-worklist` reports 0 remaining and nothing is left under "Not established". It reports 2388 confirmed cells awaiting art now.**
+**The artwork is done when `npm run verify:art-worklist` reports 0 remaining and nothing is left under "Not established". It reports 2400 confirmed cells awaiting art now.**
 
 This file is written by `npm run art:worklist`. Do not edit it or `qa/art-worklist.json` by hand: add art, run the tool, commit what it writes.
 
@@ -48,16 +48,16 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 
 | What | Count |
 | --- | ---: |
-| Remaining, all kinds | 2388 |
-| First-person cells to do | 2388 |
+| Remaining, all kinds | 2400 |
+| First-person cells to do | 2400 |
 |   of which one stored tile | 327 |
-|   of which one tile over a solid colour | 327 |
+|   of which one tile over a solid colour | 335 |
 |   of which plain sky or ground | 0 |
-|   of which several tiles together | 1734 |
-|   of which the same pixels already have art of yours in another area | 755 |
+|   of which several tiles together | 1738 |
+|   of which the same pixels already have art of yours in another area | 763 |
 | Battlefield cells to do | 0 |
-| Tile keys in the manifests | 4556 |
-|   accounted for by the tool | 4400 |
+| Tile keys in the manifests | 4565 |
+|   accounted for by the tool | 4409 |
 | Battlefield keys in the manifests | 83 |
 |   that are one stored cell of a battlefield picture | 78 |
 | Stored 8 by 8 tiles | 3016 |
@@ -76,7 +76,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 0 | New Phlan | yes | 406 | 248 | 60 | 261 of 261 (3 as first views of the next area, 10 as WebGL wall materials) |
 | 1 | Buccaneer Base | yes | 385 | 131 | 50 | 134 of 134 (3 as WebGL wall materials) |
 | 2 | Cadorna Textile House | yes | 580 | 254 | 128 | 278 of 278 (5 as first views of the next area, 19 as WebGL wall materials) |
-| 3 | Valjevo Castle | not yet | 300 | 95 |  | 95 of 110 |
+| 3 | Valjevo Castle | not yet | 300 | 100 |  | 102 of 117 (2 as WebGL wall materials) |
 | 4 | Valjevo Castle | yes | 320 | 76 | 46 | 84 of 84 (8 as WebGL wall materials) |
 | 5 | Valjevo Castle | not yet | 393 | 91 |  | 99 of 161 (2 as first views of the next area, 6 as WebGL wall materials) |
 | 6 | Valjevo Castle | yes | 310 | 76 | 88 | 82 of 82 (6 as WebGL wall materials) |
@@ -86,7 +86,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 10 | Valhingen Graveyard | yes | 2452 | 425 | 465 | 437 of 437 (12 as WebGL wall materials) |
 | 11 | The Training Hall | yes | 405 | 242 | 49 | 242 of 242 |
 | 13 | The Kobold Caves | yes | 313 | 147 | 64 | 149 of 149 (2 as WebGL wall materials) |
-| 14 | Kovel Mansion | yes | 150 | 67 | 19 | 69 of 69 (2 as WebGL wall materials) |
+| 14 | Kovel Mansion | yes | 150 | 68 | 22 | 70 of 70 (2 as WebGL wall materials) |
 | 15 | Mendor's Library | not yet | 436 | 185 |  | 190 of 205 (5 as WebGL wall materials) |
 | 16 | The Lizardman Keep | yes | 856 | 182 | 205 | 196 of 196 (14 as WebGL wall materials) |
 | 17 | The Nomad Camp | yes | 186 | 164 | 0 | 175 of 175 (11 as WebGL wall materials) |
@@ -99,7 +99,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 25 | Wilderness, west | not yet | 51 | 13 |  | 13 of 13 |
 | 26 | Wilderness, middle | yes | 387 | 105 | 190 | 173 of 173 (66 as first views of the next area, 2 as WebGL wall materials) |
 | 27 | Wilderness, east | not yet | 50 | 19 |  | 20 of 20 (1 as first views of the next area) |
-| 28 | Zhentil Keep Outpost | yes | 194 | 81 | 16 | 82 of 82 (1 as WebGL wall materials) |
+| 28 | Zhentil Keep Outpost | yes | 194 | 82 | 25 | 83 of 83 (1 as WebGL wall materials) |
 | 29 | Kuto's Well | yes | 1241 | 317 | 617 | 330 of 330 (13 as WebGL wall materials) |
 | 31 | Temple of Bane, interior | yes | 142 | 77 | 14 | 77 of 77 |
 
@@ -1458,21 +1458,24 @@ Map 13; WALLDEF8 block 17 (tiles 8X8D8 block 17), block 18 (tiles 8X8D8 block 18
 | --- | --- | --- | --- |
 | `tile:13:70d5e6e4782b613799cedd758e9bca68b586ed7a95ff2f5a5cef5120f34b6eb4` | 8X8D8 block 18 tile 6 | map 13, square (10,9) facing east, column 5 row 5 |  |
 
-### Area 14: Kovel Mansion (19)
+### Area 14: Kovel Mansion (22)
 
 Map 14; WALLDEF3 block 1 (tiles 8X8D3 block 1), block 3 (tiles 8X8D3 block 3), block 5 (tiles 8X8D3 block 5).
 
-#### plain sky, horizon and ground (1)
+#### plain sky, horizon and ground (2)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
 | `tile:14:80e3c5025a5f43f7991f9fb1c372374d1d0c7cb666c72aa6115e3e381ccd814e` | the horizon row (three rows of sky 12, one of 15, two of 7, two of ground 6) | map 14, square (11,2) facing east, column 5 row 5 | `new-phlan-street-paving-joins-0-80e3c5025a5f.png` (area 0, 8, 11, 21, 24, 28) |
+| `tile:14:8bcc06efdf06b3769418465aeb92a19e990cc54c212c2e7af5c4fe0897b17b35` | the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 14, square (0,0) facing east, column 5 row 5 | `orc-joint-fe0897b17b35.png` (area 0, 1, 2, 3, 4, 5, 6, 8, 11, 15, 16, 17, 20, 21, 24, 28, 31) |
 
-#### shared tile set 8X8D1 block 203 (6)
+#### shared tile set 8X8D1 block 203 (8)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
 | `tile:14:0ae60cf3309accf1a341b5cc07952a90cf121d33ec8c6432d727b57c0c6c20f1` | 8X8D1 block 203 tile 15 over the ground colour 6 | map 14, square (5,0) facing west, column 7 row 7 | `route-0ae60cf3309a.png` (area 2, 9, 15, 18, 20, 22, 29) |
+| `tile:14:0bae672ff3e01f653ae7241fc075226c0865693834d5c45e6f2863678a2526da` | 8X8D1 block 203 tile 16 over sky colour 11 | map 14, square (0,0) facing south, column 10 row 0 | `room-tile-02.png` (area 0, 2, 3, 4, 5, 6, 8, 11, 15, 20, 21, 24, 31) |
+| `tile:14:323c71332298aeae05cfee4eb5855d831835c8a068440a0f21f6f96ee43b2f9b` | 8X8D1 block 203 tile 17 over sky colour 11 | map 14, square (0,0) facing north, column 0 row 0 | `room-tile-00.png` (area 0, 2, 3, 4, 5, 6, 8, 11, 15, 20, 21, 24, 26, 31) |
 | `tile:14:5b52670be92caf50b8a456a072b22f8a06279387eb20120d464ce4c70a50931e` | 8X8D1 block 203 tile 32 over 8X8D1 block 203 tile 32 over the ground colour 6 | map 14, square (4,0) facing north, column 6 row 7 | `new-phlan-harbor-paving-joins-0-5b52670be92c.png` (area 0, 2, 3, 5, 8, 9, 11, 15, 18, 24, 26, 29, 31) |
 | `tile:14:699e8b134491518fdbccbf4e9783a7ecde8cec6424c1858827d3cbc005fdbaea` | 8X8D1 block 203 tile 36 over the ground colour 6 | map 14, square (5,0) facing west, column 8 row 8 | `route-699e8b134491.png` (area 2, 9, 15, 20, 22, 29) |
 | `tile:14:71c858f7e6de451eb4a77c5f3e442f50738421472a239bbcd1afe85ced791161` | 8X8D1 block 203 tile 27 over the ground colour 6 | map 14, square (14,2) facing west, column 1 row 6 | `pyramid-outer-threshold-terrain-71c858f7e6de.png` (area 0, 2, 4, 5, 7, 8, 9, 11, 16, 21, 23, 24, 28, 29, 31) |
@@ -2255,29 +2258,48 @@ Map 26; WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), b
 | `tile:26:bc40ea3be142942d5e433d5b75d7dace8cc2aa0c544f4123b7056a5a69d7977e` | 8X8D7 block 23 tile 21 | map 26, square (4,2) facing south, column 6 row 6 |  |
 | `tile:26:d326cc9fabded3214b6092f46a582ccf73115a244f08ec2e00172fefe1c7f137` | 8X8D7 block 23 tile 20 | map 26, square (4,2) facing south, column 4 row 6 |  |
 
-### Area 28: Zhentil Keep Outpost (16)
+### Area 28: Zhentil Keep Outpost (25)
 
 Map 28; WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9).
 
-#### tile set 8X8D6 block 9 (16)
+#### plain sky, horizon and ground (1)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
+| `tile:28:d20d585641c6d76d5fdd15d21d1f0fe0f6663d6aded22bc96508569ac0bd84f7` | the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6) | map 28, square (7,0) facing east, column 10 row 5 | `wild-cave-chamber-d20d585641c6.png` (area 1, 2, 7, 9, 13, 14, 15, 17, 18, 26, 27, 29) |
+
+#### tile set 8X8D6 block 2 (2)
+
+| Key (PNG 32x32) | What it is | See it at | Same pixels as |
+| --- | --- | --- | --- |
+| `tile:28:407968ce47e36633aaf0bb814b90671ffd08af55d0de8309f75371f12c4e87d6` | 8X8D6 block 2 tile 57 over sky colour 0 | map 28, square (2,1) facing south, column 1 row 4 | `valjevo-tower-hall-terrain-407968ce47e3.png` (area 1, 7, 20) |
+| `tile:28:6627939d1abd35d7c7d6507d47e73c5f8ab1bf8e4974093bb7db401b714d12f8` | 8X8D6 block 2 tile 58 over sky colour 0 | map 28, square (2,1) facing east, column 9 row 4 | `valjevo-tower-hall-terrain-6627939d1abd.png` (area 1, 7, 20) |
+
+#### tile set 8X8D6 block 9 (22)
+
+| Key (PNG 32x32) | What it is | See it at | Same pixels as |
+| --- | --- | --- | --- |
+| `tile:28:0ae963b7e3ae7860902898b9eaebf7e2c5b8696e1ca2425d3bb36b01eabbb10b` | 8X8D6 block 9 tile 42 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6) | map 28, square (5,4) facing east, column 6 row 5 |  |
 | `tile:28:14d3757ae4f739077b25d4727195ea3f08c518f72d332bb55af6d09f750228cb` | 8X8D6 block 9 tile 47 | map 28, square (7,0) facing east, column 1 row 3 | `sokal-west-lintel-corner.png` (area 21) |
 | `tile:28:2795a504ca67152aac8296d4f1e16f70523c5cf25af04d218c8cde895f0db0f0` | 8X8D6 block 9 tile 49 over 8X8D1 block 203 tile 17 over sky colour 11 | map 28, square (7,0) facing east, column 0 row 3 | `sokal-west-lintel-mid.png` (area 21) |
+| `tile:28:332ea602752f60f17beb82a3d53ab5e110ab4ad1eac48920858245111bb452bd` | 8X8D6 block 9 tile 49 over 8X8D1 block 203 tile 17 over sky colour 0 | map 28, square (7,0) facing east, column 0 row 3 |  |
 | `tile:28:33b51e82f012e7d91b96894cd582495df912d95b36989e787ee5f7885e92d5b7` | 8X8D6 block 9 tile 38 | map 28, square (7,0) facing east, column 3 row 6 | `stojanow-tower-lanes-terrain-33b51e82f012.png` (area 9, 21) |
 | `tile:28:414260af77afd8aef64b37cc3ab35c6ffbbbeeb0b6491dfc427d38dd5064d5e8` | 8X8D6 block 9 tile 42 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 28, square (5,4) facing east, column 6 row 5 |  |
 | `tile:28:58aef8f26084a2aca7cc4f541ba0f78ee369e284686f8f6b89ccb7c228377477` | 8X8D6 block 9 tile 57 | map 28, square (8,0) facing west, column 7 row 4 | `stojanow-guard-wing-terrain-58aef8f26084.png` (area 9, 16, 21) |
 | `tile:28:5f7ade4531d3bada00bc1c2d310f67d23a25dbe485f1d71a0c78936df93bbd13` | 8X8D6 block 9 tile 41 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 28, square (9,4) facing west, column 4 row 5 | `sokal-west-gate-hinge-cap.png` (area 21) |
 | `tile:28:6182286c97e2af8cf47fcf4321d9b562df43cfb3c35ee22574e9528275ea8a7d` | 8X8D6 block 9 tile 56 over sky colour 11 | map 28, square (8,0) facing west, column 8 row 4 | `sokal-raking-gate-head-end.png` (area 21) |
-| `tile:28:755bda5b825770559bb1bca3b1582f2f4788da7f1a3b9cbb0b2ec3f4c2052f71` | 8X8D6 block 9 tile 56 over 8X8D1 block 203 tile 16 over sky colour 11 | map 28, square (7,0) facing west, column 10 row 3 | `stojanow-guard-wing-terrain-755bda5b8257.png` (area 9) |
+| `tile:28:755bda5b825770559bb1bca3b1582f2f4788da7f1a3b9cbb0b2ec3f4c2052f71` | 8X8D6 block 9 tile 56 over 8X8D1 block 203 tile 16 over sky colour 0 | map 28, square (7,0) facing west, column 10 row 3 | `stojanow-guard-wing-terrain-755bda5b8257.png` (area 9) |
 | `tile:28:8a69c0e8564e565884435ba1a08a6f282775d00ecb8af439bb001edeb3831ec2` | 8X8D6 block 9 tile 54 over 8X8D6 block 9 tile 54 over the ground colour 6 | map 28, square (7,4) facing south, column 5 row 6 | `stojanow-tower-lanes-terrain-8a69c0e8564e.png` (area 9, 21) |
 | `tile:28:8f3581a37a37d80a394e310d82b46ab3fd19b341e0181b9dbbbed1a2a1bcad32` | 8X8D6 block 9 tile 37 | map 28, square (7,0) facing east, column 2 row 6 | `lizard-peat-edge-finish-8f3581a37a37.png` (area 9, 16, 21) |
+| `tile:28:984d30227a603293ecfca9b0cd0e80157a905f43527819de05c337275ec4f2fd` | 8X8D6 block 9 tile 26 over sky colour 0 | map 28, square (7,0) facing south, column 10 row 0 | `stojanow-gate-terrain-984d30227a60.png` (area 9) |
 | `tile:28:b784b8750b8adf3caafc9bb39eccbd31f78447d7268123fcf737875c487f9fea` | 8X8D6 block 9 tile 44 | map 28, square (7,0) facing west, column 10 row 7 | `stojanow-guard-wing-terrain-b784b8750b8a.png` (area 9, 21) |
 | `tile:28:ba6dffecfcac31b31c0359d99617b3180552c982bef2087cb4995bccd9554ee7` | 8X8D6 block 9 tile 45 over sky colour 11 | map 28, square (7,0) facing east, column 2 row 4 | `sokal-west-lintel-close.png` (area 21) |
-| `tile:28:e5aa3be4526ec0e96b089822c9a6290a6b74a423c00b6973692f5d25dd767c29` | 8X8D6 block 9 tile 56 over 8X8D6 block 2 tile 58 over sky colour 11 | map 28, square (8,4) facing east, column 10 row 3 |  |
+| `tile:28:e213f222fc2e4f51ae5608c2299fd2dfb8f1609d737dc01692b6824d3fa0a262` | 8X8D6 block 9 tile 45 over sky colour 0 | map 28, square (7,0) facing east, column 2 row 4 |  |
+| `tile:28:e5aa3be4526ec0e96b089822c9a6290a6b74a423c00b6973692f5d25dd767c29` | 8X8D6 block 9 tile 56 over sky colour 0 | map 28, square (8,0) facing west, column 8 row 4 |  |
 | `tile:28:e7e5bba5f7822ebd0de281edd589c3cd00b54e05e92c63c7980a882934fa77fa` | 8X8D6 block 9 tile 54 over 8X8D6 block 9 tile 54 over 8X8D1 block 203 tile 11 | map 28, square (7,0) facing north, column 5 row 6 |  |
+| `tile:28:ea2245a40961c3fe8086c6990711efe7c9378be72b9ac7844c5bc47b86cbaec0` | 8X8D6 block 9 tile 41 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6) | map 28, square (9,4) facing west, column 4 row 5 |  |
 | `tile:28:f59a8b4ef53dca4b588a04b05a81d1c5a38fb9fa2354b6e64a4853bbbf7ad8f3` | 8X8D6 block 9 tile 46 | map 28, square (7,0) facing west, column 9 row 3 | `stojanow-guard-wing-terrain-f59a8b4ef53d.png` (area 9, 21) |
+| `tile:28:f8ca3a417a1a3fd9d54e5c394f94b0f878b2f3aded71e1275305953be0257580` | 8X8D6 block 9 tile 27 over sky colour 0 | map 28, square (7,0) facing north, column 0 row 0 | `stojanow-gate-terrain-f8ca3a417a1a.png` (area 9) |
 | `tile:28:fd5111f010b1eb27874d7173f3f881527f0a97a68535e574937a39274ae5fb87` | 8X8D6 block 9 tile 48 | map 28, square (7,0) facing east, column 3 row 4 | `stojanow-tower-lanes-terrain-fd5111f010b1.png` (area 9, 21) |
 
 ### Area 29: Kuto's Well (617)
@@ -2982,9 +3004,9 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 
 | What | Count |
 | --- | ---: |
-| first-person cells that show a sky or ground colour no existing artwork of the area shows | 4065 |
+| first-person cells that show a sky or ground colour no existing artwork of the area shows | 4051 |
 | first-person cells of the overhead area view, which no existing artwork of the area confirms | 152 |
-| first-person cells of an area whose reading is not confirmed | 1453 |
+| first-person cells of an area whose reading is not confirmed | 1448 |
 | first-person cells seen only from squares not connected to any square the existing artwork was made from | 200 |
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |
 | battlefield cells of pictures no artwork shows to have been on a battlefield | 2207 |
@@ -2995,7 +3017,7 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 
 Areas not confirmed, and why:
 
-- Area 3 (Valjevo Castle): 15 of the 110 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
+- Area 3 (Valjevo Castle): 15 of the 117 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 5 (Valjevo Castle): 62 of the 161 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 7 (Valjevo Castle, the Pool): 58 of the 131 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 15 (Mendor's Library): 15 of the 205 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.

@@ -15,7 +15,7 @@ import { characterSheetPartKey, portraitKey, scriptIllustrations, type Character
 import type { EncounterPlacement } from "./encounter-art.js";
 import { exactTextNarrations as exactTextUnits, NarrationCatalog, normalizeSpeech, type NarrationTrigger, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
 import { buildNewPhlanMaterials } from "./new-phlan-3d-materials.js";
-import { buildExplorationMaterials } from "./exploration-materials.js";
+import { buildExplorationMaterials, explorationMaterialArea } from "./exploration-materials.js";
 import { readExplorationCellHashes } from "./exploration-cells.js";
 import { readWorld } from "./first-person-cells.js";
 import { standaloneExploration } from "./standalone-exploration.js";
@@ -126,9 +126,10 @@ function prepareScenery(view: ExplorationFrame) {
     view.tiles = tiles;
     if (view.tileInventory) view.tileInventory = cells;
   }
-  const harbor = area === 0 && mapId === 0;
+  const materialArea = explorationMaterialArea(native);
+  const harbor = materialArea === 0 && mapId === 0;
   const materialId = createHash("sha256")
-    .update(JSON.stringify([area,harbor,native.frontSlots,native.glyphs,native.skyColor,native.groundColor,
+    .update(JSON.stringify([area,materialArea,harbor,native.frontSlots,native.glyphs,native.skyColor,native.groundColor,
       ...(packagedTerrain ? [mapId, native.cellGeometry?.wallSymbols] : [])])).digest("hex");
   if (!localMaterialSets.has(materialId)) {
     if (localMaterialSets.size >= 32) localMaterialSets.delete(localMaterialSets.keys().next().value!);
