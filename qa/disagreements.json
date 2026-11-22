@@ -338,6 +338,28 @@
       "origin": "acceptance"
     },
     {
+      "id": "disagreement.194324265a",
+      "area": "Slums",
+      "note": "Composition: [P] 'Attacking the merchant instead -> 8 HOBGOBLIN (#6)'; the script of version 1.3 loads 15 of monster 6 and 4 of monster 7.",
+      "scenarios": [
+        "acceptance.slums.ohlo-attack-the-merchant"
+      ],
+      "status": "settled",
+      "origin": "acceptance",
+      "resolution": "Version 1.3's script loads 15 of monster 6 (HOBGOBLIN) and 4 of monster 7 (HOBGOBLIN LDR) at Morale 99 for this fight (ECL2.DAX block 20 at af51 to af65), not 8 hobgoblins. The same command with the same operand order loads the 1 KOBOLD LEADER and 15 KOBOLD of location 6 (a505), and the 1 + 3 orcs of location 1, which npm run acceptance:slums counts on screen as four. Established by disassembling the script with src/lib/ecl.ts; this fight has not been played, and the first release's script has not been compared."
+    },
+    {
+      "id": "disagreement.ff6a9ef710",
+      "area": "Slums",
+      "note": "Credit: [P] says attacking the merchant 'still counts as dealing with Ohlo'; the script credits a clear point for the fight but leaves Ohlo's own flags as they were.",
+      "scenarios": [
+        "acceptance.slums.ohlo-attack-the-merchant"
+      ],
+      "status": "settled",
+      "origin": "acceptance",
+      "resolution": "The merchant's fight credits one clear point of its own, unless Ohlo has already been dealt with (0x4a81 = 255), and empties the booth for good (0x4a1d). It does not set Ohlo's flags, so in the script Ohlo is still there to be dealt with afterwards (ECL2.DAX block 20 at af6d to af7a). [P] is right that the point is credited; 'counts as dealing with Ohlo' is true of the clear count and not of Ohlo himself. Established by disassembling the script with src/lib/ecl.ts; not played."
+    },
+    {
       "id": "disagreement.6db8cd5a84",
       "area": "Slums",
       "note": "Clue Book p.5-6 numbers the Slums map differently from [P]; the two numberings do not line up (see notes). Clue Book: stable is 4; [P]: stable is 5.",
@@ -448,14 +470,26 @@
       "origin": "acceptance"
     },
     {
+      "id": "disagreement.3414292ab4",
+      "area": "Slums",
+      "note": "Band edges: the digest gives '<=65' for the attack with +20 Morale and '65-74' for the plain attack, so a score of exactly 65 is in both.",
+      "scenarios": [
+        "acceptance.slums.parley-score-table"
+      ],
+      "status": "settled",
+      "origin": "acceptance",
+      "resolution": "A score of exactly 65 is the plain attack. The script sends every score below 75 to 'YOU HAVE ANGERED THE' and adds 20 to the monsters' Morale only when the score is below 65 (ECL2.DAX block 20 at b2f8 and b67d). Established by disassembling the script with src/lib/ecl.ts; no parley has been played."
+    },
+    {
       "id": "disagreement.38d65745c2",
       "area": "Slums",
       "note": "Clue Book p.5 says only 'You can rest safely in any room where you have defeated a set encounter ... also ... after you have cleared the slums'; it does not mention the gypsy exception that [P] gives.",
       "scenarios": [
         "acceptance.slums.resting"
       ],
-      "status": "open",
-      "origin": "acceptance"
+      "status": "settled",
+      "origin": "acceptance",
+      "resolution": "[P]'s exception is in the script: the rest routine first tests the gypsy's flag, and with her murdered (0x4a0b = 255, set at a74f) every rest is unsafe, cleared block or beaten room alike (ECL2.DAX block 20 at 9a0e to 9a48). Otherwise the Clue Book's rule holds: a rest is safe once the block is cleared and on any square with an event of its own. Established by disassembling the script with src/lib/ecl.ts; npm run acceptance:slums (orcs) rests three whole days undisturbed in the beaten room at (13,1). The gypsy has not been murdered in a test."
     },
     {
       "id": "disagreement.8d28f7ae71",
@@ -464,8 +498,9 @@
       "scenarios": [
         "acceptance.slums.clear-the-block"
       ],
-      "status": "open",
-      "origin": "acceptance"
+      "status": "settled",
+      "origin": "acceptance",
+      "resolution": "[P] is right: the block is cleared by 25 clear points, and mapping plays no part. The script has one routine that adds a point and stores the cleared mark, 254, when the count reaches 25 (ECL2.DAX block 20 at b69c to b6bb). It is called after each of the nine set fights, after Ohlo's reward or Ohlo's own fight, after the merchant's fight, and after every random fight the party wins. Walking stops rolling for random encounters once 15 are beaten (9b32). The Clue Book's '15 random encounters and all the set encounters' is the same sum without Ohlo; [SP]'s 'mapped this block completely' is not in the script. Established by disassembling the script with src/lib/ecl.ts; npm run acceptance:slums (orcs) reads the counter (script variable 0x4abb) and sees it rise by exactly one for the fight at location 1. The clear itself has not been played."
     },
     {
       "id": "disagreement.163f843517",

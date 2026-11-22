@@ -43,7 +43,8 @@
       "coveredBy": [
         "verifyFreshSlumsVictory (milestone 'Created six characters, completed Rolf's tour, saved and reloaded, and entered the Slums.')"
       ],
-      "notes": "The digest does not give the text shown on entering a cleared Slums; only that the alarm is the sign of an uncleared block."
+      "check": "acceptance-slums",
+      "notes": "The digest does not give the text shown on entering a cleared Slums; only that the alarm is the sign of an uncleared block. Established by npm run acceptance:slums (entry): one step west from (0,4) prints the entry text and puts the party in area 20 at (15,4) with no clear points; going back east returns to the New Phlan gate at (0,4), and entering again prints the text again. The script prints it on entry while its clear points (0x4abb) are below 254 (ECL2.DAX block 20 at 9aa9 to 9b24). The cleared-block branch is not exercised."
     },
     {
       "id": "acceptance.slums.exits",
@@ -108,7 +109,7 @@
         "verifyArmoredPatrols (milestone 'Won three Slums patrols and the fixed orc outpost, then reloaded the fully rested party:')",
         "verifyOhloArmor (milestone 'Won the Slums orc outpost fight and reloaded Enna with the earned XP and clerical scroll.')"
       ],
-      "notes": "XP figures in this file are per character for a party of exactly six."
+      "notes": "XP figures in this file are per character for a party of exactly six. npm run acceptance:slums (orcs) fights this with the game's own commands and requires: the text; four combatants named ORC beside the six characters; a win; 77 experience points each; loot of exactly one 'Clerical Scroll With 2 Spells'; one more clear point (script variable 0x4abb) and the fight marked as fought (0x4aca = 255); three whole days of rest in the room with no interruption; and no second fight on walking back in. Not established, so the scenario has no check yet: that the scroll's two spells are Cure Light Wounds. The game names the scroll only by its number of spells, and Use on it from the cleric's Items menu showed nothing in camp or while walking (reported as a question about the port). The script's rule for the safe rest is: a rest is safe on any square that has an event of its own, once the block is not marked by the gypsy's murder (ECL2.DAX block 20 at 9a0e to 9a48)."
     },
     {
       "id": "acceptance.slums.goblin-armsmaster",
@@ -249,25 +250,28 @@
       "kind": "optional",
       "steps": [
         "At location 19 (15,12) choose ATTACK.",
-        "Fight 8 HOBGOBLIN (#6).",
+        "Fight 15 HOBGOBLIN (#6) and 4 HOBGOBLIN LDR (#7).",
         "After the fight the merchant is gone."
       ],
       "expect": [
         "The merchant no longer appears at (15,12).",
-        "This still counts as dealing with Ohlo: the Ohlo clear point is credited."
+        "The fight credits one clear point, unless Ohlo has already been dealt with."
       ],
       "branches": [],
       "fights": [
-        "8 HOBGOBLIN (#6); morale and XP not given in the digest"
+        "15 HOBGOBLIN (#6) + 4 HOBGOBLIN LDR (#7), Morale 99; XP not given in the digest"
       ],
       "data": [],
       "sources": [
         "[P] §3.1 (qa/research/guides-digest.md)",
         "game text ECL2.DAX block 20 at 0xaf13 (src/audio/voice-master-manifest.json)"
       ],
-      "disagreements": [],
+      "disagreements": [
+        "Composition: [P] 'Attacking the merchant instead -> 8 HOBGOBLIN (#6)'; the script of version 1.3 loads 15 of monster 6 and 4 of monster 7.",
+        "Credit: [P] says attacking the merchant 'still counts as dealing with Ohlo'; the script credits a clear point for the fight but leaves Ohlo's own flags as they were."
+      ],
       "coveredBy": [],
-      "notes": "Game text 0xaf13 'THE MAN RUNS SCREAMING INTO THE BACK OF THE BOOTH.' sits next to the attack branch; the digest does not quote it."
+      "notes": "Game text 0xaf13 'THE MAN RUNS SCREAMING INTO THE BACK OF THE BOOTH.' sits next to the attack branch; the digest does not quote it. Read from the script, not played (ECL2.DAX block 20): ATTACK prints the 'RUNS SCREAMING' line (af13), then loads 15 of monster 6 and 4 of monster 7 at Morale 99 (af51 to af65; the same command loads the 1 + 15 kobolds of location 6 at a505), then sets 0x4a1d so the booth stays empty (af6d, tested at ae26) and credits one clear point unless 0x4a81 is already 255, which only Ohlo's reward or Ohlo's own fight sets (af73 to af7a). It does not set Ohlo's flags, so Ohlo can still be dealt with afterwards."
     },
     {
       "id": "acceptance.slums.ohlo-ask-for-more-or-refuse",
@@ -827,11 +831,11 @@
       "steps": [
         "In a random encounter choose Parley and an attitude.",
         "The game prints 'YOU ARE CONVERSING WITH A PARTY OF ...' (or 'A BUGBEAR LEADING A PARTY OF ...').",
-        "The score is base + 1d31 + the speaker's Charisma reaction modifier, with the base from the table in data."
+        "The score is base + 1d31 + the speaker's Charisma reaction modifier, with the base from the table in data. (The script adds a base of 10, 20 or 30 and a draw from 0 to 30, which is the same thing.)"
       ],
       "expect": [
-        "Score 65 or less: the monsters attack with +20 Morale. The game prints 'YOU HAVE ANGERED THE <monsters> THEY ATTACK.'",
-        "Score 65-74: they attack.",
+        "Score 64 or less: the monsters attack with +20 Morale. The game prints 'YOU HAVE ANGERED THE <monsters> THEY ATTACK.'",
+        "Score 65-74: they attack, with the same text and no Morale bonus.",
         "Score 75-85: the bribe demand (see parley-bribe-demand).",
         "Score 86-95: the order to leave (see parley-ordered-to-leave).",
         "Score 96 or more: the textile-house advice (see parley-textile-house-advice)."
@@ -847,9 +851,11 @@
         "[P] §3.1 (qa/research/guides-digest.md)",
         "game text ECL2.DAX block 20 at 0xb25a, 0xb65b, 0xb671 (src/audio/voice-master-manifest.json)"
       ],
-      "disagreements": [],
+      "disagreements": [
+        "Band edges: the digest gives '<=65' for the attack with +20 Morale and '65-74' for the plain attack, so a score of exactly 65 is in both."
+      ],
       "coveredBy": [],
-      "notes": "The digest gives overlapping bounds ('<=65' and '65-74'); which band owns exactly 65 must be read from the script. With these bases the maximum roll is 29 + 31 + Charisma modifier, so the 75+ bands need a positive Charisma modifier of at least +15; the digest does not state the size of the Charisma reaction modifier, so do not assume which bands are reachable."
+      "notes": "The script settles the band edges (ECL2.DAX block 20): a score below 75 goes to 'YOU HAVE ANGERED THE' (b2f8), and below 65 the Morale gains 20 (b67d), so exactly 65 is the plain attack; 75 to 85 is the bribe demand (b303), 86 to 95 the order to leave (b4c1), 96 or more the advice. The score is the attitude's base, plus a draw from 31 numbers (0 to 30, b2de), plus script variable 0x6dcf, which the Parlay command leaves (the Charisma modifier by the digest; its size was not read from the program). The bases are 10/20/20/20/30 for 8 or fewer monsters, 5/15/15/10/25 for 9 to 15 and 0/10/10/0/15 for 16 or more, in the order Haughty, Sly, Nice, Meek, Abusive (b2a1, b2be, b2d0): one more than the table in data, with a draw that starts at 0 where the digest's 1d31 starts at 1. Read from the script only; no parley has been played."
     },
     {
       "id": "acceptance.slums.parley-bribe-demand",
@@ -948,7 +954,8 @@
       ],
       "disagreements": [],
       "coveredBy": [],
-      "notes": "The digest does not give the odds of each square or whether it depends on where the party fled from."
+      "check": "acceptance-slums",
+      "notes": "The digest does not give the odds of each square or whether it depends on where the party fled from. Established by npm run acceptance:slums (flee) and the script. A flight draws the party's facing from four numbers and then the square from five, each square equally likely and whatever square the party fled from (ECL2.DAX block 20 at b225 and b22b); the squares come from the tables at b6f2 (x: 15, 14, 11, 11, 9) and b6f7 (y: 4, 6, 5, 2, 2), the scenario's five in this order. The test flees random encounters with Search on and requires the party to stand on the table's square for the number the dice trace shows, facing the way drawn. The square is then entered like any other step (b24c), so an encounter can meet the party on arrival. Only an encounter that waits for the party's choice can be fled: when the monsters run first the game prints 'The monsters flee.' and the party stays. Fleeing out of a fight in progress is not exercised; the script sends a fled fight to the same routine (b118: result above 128 goes to b225)."
     },
     {
       "id": "acceptance.slums.resting",
@@ -980,7 +987,7 @@
       "coveredBy": [
         "verifyArmoredPatrols (milestone '... then reloaded the fully rested party:')"
       ],
-      "notes": ""
+      "notes": "The script's rule (ECL2.DAX block 20 at 9a0e to 9a48): with the gypsy murdered (0x4a0b = 255) a rest is never safe; otherwise it is safe once the block is cleared (0x4abb at 254 or more) and on any square that has an event of its own, and unsafe on every other square. Unsafe stores 24 in the two rest variables. A room's square can only be camped on once its fight is over, which is the Clue Book's and [P]'s 'beaten room'. npm run acceptance:slums (orcs) rests three whole days in the beaten room at (13,1) undisturbed; the harness self-test is interrupted by monsters within one rest of eight hours at (15,4)."
     },
     {
       "id": "acceptance.slums.rest-interrupts-give-clear-points",
@@ -1044,7 +1051,7 @@
         "Clear condition: [P] '25 points (15 random + 9 set + Ohlo)'; Clue Book '15 random encounters and dealt with all the set encounters'; [SP] 'mapped this block completely, and have had 15 random encounters' (digest §7 item 8)."
       ],
       "coveredBy": [],
-      "notes": "No existing replay asserts the Slums reward at the clerk (verifyFreshSlumsVictory covers the opening and a first victory, not the clear). 450 XP = (2200 + 50x5 + 250) / 6. Because of the quirks above, 25 points can also be reached by rest interruptions or by fleeing set fights."
+      "notes": "No existing replay asserts the Slums reward at the clerk (verifyFreshSlumsVictory covers the opening and a first victory, not the clear). 450 XP = (2200 + 50x5 + 250) / 6. Because of the quirks above, 25 points can also be reached by rest interruptions or by fleeing set fights. The script settles the clear condition (ECL2.DAX block 20): one routine (b69c) adds a clear point and stores 254, the cleared mark, when the count reaches 25. It is called after each of the nine set fights (9e73, 9f08, a514, aa02, aa87, ab91, abfe, ac4b, b10d), after Ohlo's reward and after Ohlo's own fight (a3b2, a0be), after the merchant's fight (af7a), and after every random fight the party wins, whether met on a walk or in a rest (b134, b14f). Mapping plays no part. Walking stops rolling for encounters once 15 random fights are beaten (9b32), so 15 + 9 + 1 is the ordinary way to 25, but any 25 credits clear the block. npm run acceptance:slums (orcs) sees the count go up by exactly one for the fight at location 1."
     }
   ]
 }

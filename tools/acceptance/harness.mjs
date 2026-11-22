@@ -333,6 +333,8 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
     },
     /** True while a combatant of the party has its command menu up. */
     fighting: () => combatMenu.test(game.menu()),
+    /** True from the start of a fight to its end screen, whoever is acting. */
+    inFight: () => combatMenu.test(game.menu()) || continueBattle.test(game.menu()) || Boolean(game.fightEnded()),
     /** The combatant the fight screen describes: see `combatant`. */
     combatant: () => combatant(game.frame),
     /** How the fight on screen has ended: "won", "lost" or "fled", or undefined while it has not. */

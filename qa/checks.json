@@ -167,6 +167,15 @@
       "needs": [
         "game files"
       ]
+    },
+    {
+      "id": "acceptance-slums",
+      "title": "Slums walkthrough scenarios on the game itself: the entry from New Phlan, the fight with the orcs at location 1 fought with the game's own commands, and the five flee squares",
+      "command": "npm run acceptance:slums",
+      "reference": "game-data",
+      "needs": [
+        "game files"
+      ]
     }
   ]
 }
