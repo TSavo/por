@@ -68,6 +68,18 @@
    "decisions": 11,
    "heard": 3
   },
+  "verify-narration-playback-pressing": {
+   "ledger": "pressing.jsonl",
+   "games": 1,
+   "decisions": 45,
+   "heard": 6
+  },
+  "verify-narration-playback-waiting": {
+   "ledger": "waiting.jsonl",
+   "games": 1,
+   "decisions": 50,
+   "heard": 8
+  },
   "yarash-alchemical-laboratory-3f2de014": {
    "ledger": "yarash-alchemical-laboratory-3f2de014.jsonl",
    "games": 2,
@@ -330,6 +342,11 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:20:ecl:ab23"
+   },
+   "withoutArt": {
+    "run": "campaign-opening",
+    "step": 116015495,
+    "showing": "no picture"
    }
   },
   "por.voice.ecl3.b0-abd2": {
@@ -898,5 +915,276 @@
    "unitId": "por.voice.ecl7.b23-9a70-9afa"
   }
  },
- "silent": {}
+ "silent": {},
+ "playback": {
+  "runs": {
+   "campaign-opening": {
+    "log": "campaign-opening.playback.jsonl",
+    "legs": 6,
+    "lines": 15,
+    "toTheEnd": 5,
+    "endedByPlayer": 0,
+    "cutOff": 7,
+    "unfinished": 3,
+    "startedLate": 4
+   },
+   "verify-narration-playback-pressing": {
+    "log": "pressing.playback.jsonl",
+    "legs": 1,
+    "lines": 6,
+    "toTheEnd": 1,
+    "endedByPlayer": 1,
+    "cutOff": 4,
+    "unfinished": 0,
+    "startedLate": 6
+   },
+   "verify-narration-playback-waiting": {
+    "log": "waiting.playback.jsonl",
+    "legs": 1,
+    "lines": 8,
+    "toTheEnd": 7,
+    "endedByPlayer": 0,
+    "cutOff": 1,
+    "unfinished": 0,
+    "startedLate": 7
+   }
+  },
+  "played": {
+   "ecl2-b20-9dde-runtime-text": {
+    "run": "campaign-opening",
+    "asset": "voices/narration/dynamic-resolved/ecl2-b20-9dde-runtime-text-v01-you-have-surprised-a-party-of-kobolds.mp3",
+    "variantId": "ecl2-b20-9dde-runtime-text.variant-01-you-have-surprised-a-party-of-kobolds",
+    "seconds": 3.12,
+    "waited": 0.013,
+    "saw": [
+     "encounter:SPRIT2.DAX:0:0:0",
+     "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0"
+    ]
+   },
+   "por.voice.ecl3.b0-a8d3": {
+    "run": "campaign-opening",
+    "asset": "voices/narration/ecl3/b0-a8d3.mp3",
+    "seconds": 4.88,
+    "waited": 0.011,
+    "saw": [
+     null,
+     "portrait:HEAD3.DAX:42:BODY3.DAX:9",
+     null
+    ]
+   },
+   "por.voice.ecl3.b0-aad5": {
+    "run": "campaign-opening",
+    "asset": "voices/narration/ecl3/b0-aad5.mp3",
+    "seconds": 6.48,
+    "waited": 0.009,
+    "saw": [
+     null
+    ]
+   },
+   "por.voice.ecl3.b0-abd2": {
+    "run": "campaign-opening",
+    "asset": "voices/narration/ecl3/b0-abd2.mp3",
+    "seconds": 5.84,
+    "waited": 0.015,
+    "saw": [
+     null
+    ]
+   },
+   "por.voice.ecl3.b0-ac22-ac9b": {
+    "run": "campaign-opening",
+    "asset": "voices/narration/ecl3/b0-ac22-ac9b.mp3",
+    "seconds": 9.2,
+    "waited": 0.01,
+    "saw": [
+     "scene-illustration:area:0:ecl:af3f:caller:ac22",
+     "scene-illustration:area:0:ecl:acbf",
+     null
+    ]
+   },
+   "por.voice.ecl3.b0-b1c2": {
+    "run": "verify-narration-playback-waiting",
+    "asset": "voices/narration/ecl3/b0-b1c2.mp3",
+    "seconds": 13.52,
+    "waited": 13.628,
+    "art": "scene-illustration:area:0:ecl:af3f:caller:b256"
+   },
+   "por.voice.ecl3.b0-b257": {
+    "run": "verify-narration-playback-waiting",
+    "asset": "voices/narration/ecl3/b0-b257.mp3",
+    "seconds": 11.84,
+    "waited": 11.597,
+    "art": "scene-illustration:area:0:ecl:af3f:caller:b2f2"
+   },
+   "por.voice.ecl3.b0-b2f3": {
+    "run": "verify-narration-playback-waiting",
+    "asset": "voices/narration/ecl3/b0-b2f3.mp3",
+    "seconds": 9.12,
+    "waited": 9.211,
+    "art": "scene-illustration:area:0:ecl:af3f:caller:b369"
+   },
+   "por.voice.ecl3.b0-b36a": {
+    "run": "verify-narration-playback-waiting",
+    "asset": "voices/narration/ecl3/b0-b36a.mp3",
+    "seconds": 12.32,
+    "waited": 12.747,
+    "art": "scene-illustration:area:0:ecl:af3f:caller:b3ff"
+   },
+   "por.voice.ecl3.b0-b400": {
+    "run": "verify-narration-playback-waiting",
+    "asset": "voices/narration/ecl3/b0-b400.mp3",
+    "seconds": 11.84,
+    "waited": 11.939,
+    "art": "scene-illustration:area:0:ecl:af3f:caller:b48e"
+   },
+   "por.voice.ecl3.b0-b48f": {
+    "run": "verify-narration-playback-waiting",
+    "asset": "voices/narration/ecl3/b0-b48f.mp3",
+    "seconds": 11.28,
+    "waited": 11.364,
+    "art": "scene-illustration:area:0:ecl:af3f:caller:b51c"
+   },
+   "por.voice.ecl3.b0-b51c": {
+    "run": "verify-narration-playback-waiting",
+    "asset": "voices/narration/ecl3/b0-b51c.mp3",
+    "seconds": 9.92,
+    "waited": 9.988,
+    "art": "scene-illustration:area:0:ecl:af3f:caller:b58e"
+   }
+  },
+  "cutOff": {
+   "campaign-opening | leg-1 | 1 | por.voice.ecl3.b0-b0b6": {
+    "run": "campaign-opening",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl3.b0-b0b6",
+    "asset": "voices/narration/ecl3/b0-b0b6.mp3",
+    "what": "never started",
+    "reason": "a voice line replaced it, before the recording had loaded",
+    "at": 0,
+    "frame": 105
+   },
+   "campaign-opening | leg-1 | 2 | por.voice.ecl3.b0-b1c2": {
+    "run": "campaign-opening",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl3.b0-b1c2",
+    "asset": "voices/narration/ecl3/b0-b1c2.mp3",
+    "what": "cut off",
+    "reason": "a voice line replaced it",
+    "at": 1.57,
+    "of": 13.52,
+    "lost": 11.95,
+    "frame": 108
+   },
+   "campaign-opening | leg-1 | 3 | por.voice.ecl3.b0-b257": {
+    "run": "campaign-opening",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl3.b0-b257",
+    "asset": "voices/narration/ecl3/b0-b257.mp3",
+    "what": "cut off",
+    "reason": "a voice line replaced it",
+    "at": 6.19,
+    "of": 11.84,
+    "lost": 5.65,
+    "frame": 109
+   },
+   "campaign-opening | leg-1 | 4 | por.voice.ecl3.b0-b2f3": {
+    "run": "campaign-opening",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl3.b0-b2f3",
+    "asset": "voices/narration/ecl3/b0-b2f3.mp3",
+    "what": "never started",
+    "reason": "queue cleared: a voice line replaced it",
+    "frame": 109,
+    "behind": "por.voice.ecl3.b0-b257"
+   },
+   "campaign-opening | leg-1 | 5 | por.voice.ecl3.b0-b36a": {
+    "run": "campaign-opening",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl3.b0-b36a",
+    "asset": "voices/narration/ecl3/b0-b36a.mp3",
+    "what": "cut off",
+    "reason": "a voice line replaced it",
+    "at": 0.91,
+    "of": 12.32,
+    "lost": 11.41,
+    "frame": 111
+   },
+   "campaign-opening | leg-1 | 6 | por.voice.ecl3.b0-b400": {
+    "run": "campaign-opening",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl3.b0-b400",
+    "asset": "voices/narration/ecl3/b0-b400.mp3",
+    "what": "never started",
+    "reason": "queue cleared: a voice line replaced it",
+    "frame": 112
+   },
+   "campaign-opening | leg-1 | 7 | por.voice.ecl3.b0-b48f": {
+    "run": "campaign-opening",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl3.b0-b48f",
+    "asset": "voices/narration/ecl3/b0-b48f.mp3",
+    "what": "never started",
+    "reason": "queue cleared: a voice line replaced it",
+    "frame": 113
+   },
+   "verify-narration-playback-pressing | pressing | 1 | por.voice.ecl3.b0-b0b6": {
+    "run": "verify-narration-playback-pressing",
+    "leg": "pressing",
+    "unitId": "por.voice.ecl3.b0-b0b6",
+    "asset": "voices/narration/ecl3/b0-b0b6.mp3",
+    "what": "cut off",
+    "reason": "a voice line replaced it",
+    "at": 4.08,
+    "of": 10.8,
+    "lost": 6.72,
+    "frame": 19
+   },
+   "verify-narration-playback-pressing | pressing | 2 | por.voice.ecl3.b0-b1c2": {
+    "run": "verify-narration-playback-pressing",
+    "leg": "pressing",
+    "unitId": "por.voice.ecl3.b0-b1c2",
+    "asset": "voices/narration/ecl3/b0-b1c2.mp3",
+    "what": "cut off",
+    "reason": "a voice line replaced it",
+    "at": 3.36,
+    "of": 13.52,
+    "lost": 10.16,
+    "frame": 20
+   },
+   "verify-narration-playback-pressing | pressing | 3 | por.voice.ecl3.b0-b257": {
+    "run": "verify-narration-playback-pressing",
+    "leg": "pressing",
+    "unitId": "por.voice.ecl3.b0-b257",
+    "asset": "voices/narration/ecl3/b0-b257.mp3",
+    "what": "cut off",
+    "reason": "a voice line replaced it",
+    "at": 4.55,
+    "of": 11.84,
+    "lost": 7.29,
+    "frame": 21
+   },
+   "verify-narration-playback-pressing | pressing | 4 | por.voice.ecl3.b0-b2f3": {
+    "run": "verify-narration-playback-pressing",
+    "leg": "pressing",
+    "unitId": "por.voice.ecl3.b0-b2f3",
+    "asset": "voices/narration/ecl3/b0-b2f3.mp3",
+    "what": "cut off",
+    "reason": "a voice line replaced it",
+    "at": 3.56,
+    "of": 9.12,
+    "lost": 5.56,
+    "frame": 22
+   },
+   "verify-narration-playback-waiting | waiting | 1 | por.voice.ecl3.b0-b0b6": {
+    "run": "verify-narration-playback-waiting",
+    "leg": "waiting",
+    "unitId": "por.voice.ecl3.b0-b0b6",
+    "asset": "voices/narration/ecl3/b0-b0b6.mp3",
+    "what": "never started",
+    "reason": "a voice line replaced it, before the recording had loaded",
+    "at": 0,
+    "frame": 18
+   }
+  },
+  "overlaps": {}
+ }
 }
