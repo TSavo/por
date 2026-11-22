@@ -74,6 +74,9 @@ rmSync(trace, { force: true });
 rmSync(ledger.replace(/\.jsonl$/, ".error.txt"), { force: true });
 /** One line per answer the walk gives, with the menu it answered: what the walk did, for reading back. */
 const note = (key) => appendFileSync(trace, `${elapsed()}s ${JSON.stringify(game.menu())} -> ${key}\n`);
+/** The last screen answered with Enter alone, and whether a Yes/No was answered No since the step began. */
+let lastUnanswered = "";
+let saidNo = false;
 async function resolveScreen(limit = 120) {
   for (let presses = 0; presses < limit; presses++) {
     const menu = game.menu();
@@ -93,7 +96,11 @@ async function resolveScreen(limit = 120) {
     if (/^View (?:Take )?Pool (?:Share )?Exit$/.test(menuLine(game.frame))) { note("e"); await game.press("e"); continue; }
     if (pressReturn.test(text) || /Press (?:button or )?<?(?:enter|return)>?(?:\/<return>)? to continue\s*$/i.test(text) ||
         /Press any key to continue\s*$/.test(text)) { note("enter"); await game.press("enter"); continue; }
-    if (/\bYes No\s*$/.test(text)) { const answer = roll(2) ? "y" : "n"; note(answer); await game.press(answer); continue; }
+    if (/\bYes No\s*$/.test(text)) {
+      const answer = roll(2) ? "y" : "n";
+      if (answer === "n") saidNo = true;
+      note(answer); await game.press(answer); continue;
+    }
     const words = menu.replace(/^[^:]*:\s*/, "").split(" ").filter((word) => /^[A-Za-z]{2,}$/.test(word) && !never.test(word));
     if (words.length) {
       // A temple's healing list or a shop can hold the walk round and round: after a while, leave.
@@ -104,8 +111,14 @@ async function resolveScreen(limit = 120) {
       await game.press(letter);
       continue;
     }
-    // A line to type (a password, a name), or a menu the walk does not know: Enter.
-    note("enter");
+    // A line to type (a password, a number of coins) or a menu the walk does not know: Enter. Where
+    // Enter alone leaves the screen as it was, type something first: a number, or a word.
+    if (text === lastUnanswered) {
+      const typed = /NUMBER|HOW MANY|GP\b/i.test(text) ? ["1", "10", "100"][roll(3)] : ["yes", "friend", "abc"][roll(3)];
+      for (const character of typed) await game.press(character);
+      note(`${typed} enter`);
+    } else note("enter");
+    lastUnanswered = text;
     await game.press("enter");
   }
   game.fail(`The walk could not get back to the exploration menu in ${limit} presses.`);
@@ -113,6 +126,8 @@ async function resolveScreen(limit = 120) {
 
 /** Squares reached, and for each the way it was found to lead: "wall", or the square it led to. */
 const squares = new Map();
+/** How often each way out ("area:x,y heading") stayed shut because the walk answered No. */
+const refusals = new Map();
 const visit = (square) => {
   const key = keyOf(square);
   if (!squares.has(key)) squares.set(key, { square, ways: new Map() });
@@ -147,12 +162,17 @@ async function stepToward(heading) {
     await game.press("right");
     if (!(await resolveScreen())) return false;
   }
+  saidNo = false;
   await game.press("up");
   if (!(await resolveScreen())) return false;
   const to = where();
   if (!to) return true;
   const [dx, dy] = headings[heading];
   const moved = keyOf(to) !== keyOf(from);
+  // A way the party did not take because the walk answered No (a stair, a door, "do you want to
+  // enter?") is tried again, up to three times, so that the dice can answer Yes.
+  const key = `${keyOf(from)} ${heading}`;
+  if (!moved && saidNo && (refusals.get(key) ?? 0) < 3) { refusals.set(key, (refusals.get(key) ?? 0) + 1); return true; }
   node.ways.set(heading, moved ? keyOf(to) : "wall");
   visit(to);
   if (moved && (to.x !== from.x + dx || to.y !== from.y + dy || to.area !== from.area)) log(`${keyOf(from)} ${heading} led to ${keyOf(to)}`);
