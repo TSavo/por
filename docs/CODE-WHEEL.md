@@ -251,4 +251,8 @@ Classic shows the game's own prompt and accepts any word, as the program GOG sel
 no wheel, no Code wheel control and no W shortcut: every key goes to the game. Switching display
 at the prompt works both ways, and switching to Classic closes the tool.
 
-`npm run verify:code-wheel-screen -- <chrome>` checks all of this in Chrome, 19 items.
+`npm run verify:code-wheel-screen -- <chrome>` runs 18 checks in Chrome.
+All 18 passed with the mounted GOG 1.3 data on 2026-11-22. For a checkout
+without a sibling `por-assets` repository, set `POR_CODEWHEEL_REFERENCE`
+to that repository's `codewheel/runes` directory before running
+`npm run verify:code-wheel`. The comparison passed for all 70 rune tiles.
