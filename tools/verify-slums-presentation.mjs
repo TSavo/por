@@ -930,6 +930,17 @@ const illustrationRoutes = new Map([
     prompt: /JEWELRYONIT;WILLYOUTAKEIT/i,
     continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["bane-dining-room-jewelry-reward", {
+    slot: "A", inputs: ["s", "up", "enter"],
+    portraitStops: { 2: "scene-illustration:area:31:ecl:9d02" },
+    portrait: "scene-illustration:area:31:ecl:9d13",
+    prompt: /JEWELRYONIT;WILLYOUTAKEIT/i,
+    continuation: {
+      inputs: ["t", "enter", "enter"], portrait: "scene-illustration:area:31:ecl:9d3b:cue:dining-room-jewelry-reward",
+      prompt: /VIEW.*POOL.*SHARE/i, capture: "bane-dining-room-jewelry-reward.png",
+      lootCaption: /JEWELRY3SELECTTYPEOFCOINEXIT/i,
+    },
+  }],
   ["bane-north-trapdoor", {
     slot: "A", inputs: ["s", "enter", "up"],
     portrait: "scene-illustration:area:24:ecl:a8af:caller:a7bd",
