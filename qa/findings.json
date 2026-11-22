@@ -261,6 +261,22 @@
       "detail": "After loading a saved game, the first shop Buy list opens one item down with Prev showing. In a game that was not loaded it opens at the top. The campaign replay already carries a workaround for this ('After the first purchase, the last shop page starts one row later'). Whether the original does the same is not established.",
       "source": "Found by the New Phlan acceptance tests on version 1.3, 2026-11-21. Not yet compared with the original program.",
       "status": "open"
+    },
+    {
+      "id": "classic-scroll-use-shows-nothing",
+      "class": "classic",
+      "title": "Using a clerical scroll from the cleric's Items menu shows nothing",
+      "detail": "In the Slums acceptance test, the party wins a scroll from the four orcs. Choosing Use on it from the cleric's Items menu shows nothing: no list of spells and no message. The game should either show what the scroll holds or say why it cannot be used. Not yet established: whether the game drew something the text capture missed, whether the original does the same, and whether it is the same on the first release.",
+      "source": "Found by the Slums acceptance tests on version 1.3, 2026-11-21.",
+      "status": "open"
+    },
+    {
+      "id": "classic-flee-draws-matched",
+      "class": "classic",
+      "title": "Three flights from the watch drew matching facing and square numbers",
+      "detail": "Three observed flights drew (0,0), (0,0) and (1,1) for facing and square, about 1 chance in 125 if the two draws are independent. 4,507 draws from the same generator tested uniform, so this is probably chance. To settle: read how the flee routine uses its two draws, and trace more flights.",
+      "source": "Found by the Slums acceptance tests on version 1.3, 2026-11-21.",
+      "status": "open"
     }
   ]
 }
