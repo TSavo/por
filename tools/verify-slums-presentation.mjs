@@ -4289,6 +4289,16 @@ const illustrationRoutes = new Map([
     ],
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:62:0:0", prompt: /ABATTLEBEGINS/i },
   }],
+  ["valhingen-skeleton-roaming-ambush-loop", {
+    slot: "A", inputs: ["up", "down", "up"],
+    portrait: "portrait:area:10:ecl:b695:caller:9d0b:PIC4.DAX:34:0:0", prompt: /SKELETONSSILENTLYATTACK/i,
+    heldPortraitLoop: [0, 1, 2, 3, 2, 1].map(member => "portrait:area:10:ecl:b695:caller:9d0b:PIC4.DAX:34:" + member + ":0"),
+    finalPhaseCapture: "valhingen-skeleton-roaming-ambush-loop.png",
+    continuation: {
+      inputs: ["enter"], prompt: /SKELETONSSILENTLYATTACK.*ABATTLEBEGINS/i,
+      portrait: "scene-illustration:area:10:ecl:b5c7:cue:skeleton-roaming-ambush", pressOnPortrait: "portrait:area:10:ecl:b695:caller:9d0b:PIC4.DAX:34:1:0", retainPose: true,
+    },
+  }],
   ["valhingen-wight-ambush-loop", {
     slot: "A", inputs: ["up", "down", "up"],
     portrait: "portrait:area:10:ecl:b695:caller:a144:PIC4.DAX:20:0:0",
@@ -7510,9 +7520,12 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...(controlledBattleIllustration || combatPose?.developerSetup ? { POR_DEV_COMBAT: "1" } : {}),
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
+    POR_FIXED_CLOCK_START: browserEnvironment.POR_FIXED_CLOCK_START ??
+      (routeName === "valhingen-skeleton-roaming-ambush-loop" || routeName === "valhingen-wight-ambush-loop" ? "4320042" : undefined),
     POR_INPUT_COMPAT: ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "valhingen-grave-claws" || routeName === "sokal-barracks-ghost-phases" ||
       routeName === "valhingen-wight-ambush-loop" || routeName === "valhingen-spirits-tower-wight-loop" ||
+      routeName === "valhingen-skeleton-roaming-ambush-loop" ||
       routeName === "old-phlan-lizard-patrol-phases" || routeName === "valjevo-tower-troll-phases" ||
       routeName === "lizard-wilds-kobold-prisoners" || routeName === "lizard-wilds-pool-dialogue" ||
       routeName === "mendor-storeroom-kobold-phases" || routeName === "mendor-storeroom-mercy-loop" ||

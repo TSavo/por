@@ -1,6 +1,16 @@
 {
-  "fresh": ["new-phlan-rolf-approach"],
-  "checkpoints": {},
+  "fresh": [
+    "new-phlan-rolf-approach"
+  ],
+  "checkpoints": {
+    "valhingen-skeleton-roaming-ambush-loop": "qa/fixtures/valhingen-skeleton-roaming-ambush/A.json",
+    "valhingen-wight-ambush-loop": "qa/fixtures/valhingen-wight-ambush/A.json",
+    "valhingen-spirits-tower-wight-loop": "qa/fixtures/valhingen-spirits-tower-wights/A.json"
+  },
   "chains": {},
-  "proved": []
+  "proved": [
+    "valhingen-skeleton-roaming-ambush-loop",
+    "valhingen-wight-ambush-loop",
+    "valhingen-spirits-tower-wight-loop"
+  ]
 }

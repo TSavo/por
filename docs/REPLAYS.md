@@ -255,6 +255,10 @@ The Valhingen wight caller checks take their checkpoints from
 respectively. Set `POR_FIXED_CLOCK_START=4320042` for the ambush only.
 That starts the guest clock at 12:00:00.42 so the original dice choose
 the roaming wights. Use the default fixed clock for the tower route.
+The roaming skeleton ambush uses the same fixed clock as the wight ambush.
+Its saved slot is `qa/fixtures/valhingen-skeleton-roaming-ambush/A.json`.
+Run `valhingen-skeleton-roaming-ambush-loop` to check the six native beats and
+the selected pose at the battle notice.
 
 ## Enhanced artwork fallbacks
 
