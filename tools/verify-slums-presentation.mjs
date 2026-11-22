@@ -564,7 +564,7 @@ const encounterRoutes = new Map([
     placement: [56, 32, "encounter:area:10:ecl:a7b9:SPRIT4.DAX:17:0:0", 32, 80],
     requireWebGL: true,
     dialogue: {
-      key: "enter", portrait: "portrait:PIC4.DAX:17:0:0", prompt: /CREATINGZOMBIES/i,
+      key: "enter", portrait: "portrait:area:10:ecl:a7b9:PIC4.DAX:17:0:0", prompt: /RUINEDPARCHMENTS.*CREATINGZOMBIES/i,
       heldPortrait: "portrait:area:10:ecl:a7b9:PIC4.DAX:17:1:0",
     },
   }],
@@ -7953,6 +7953,10 @@ try {
           image.naturalWidth === 352 && image.naturalHeight === 352;
       })()`));
       await verifyPortraitPanel();
+      if (routeName === "valhingen-conjurer-zombie") {
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, `${routeName}-dialogue.png`), Buffer.from(shot.data, "base64"));
+      }
       if (heldPortrait || heldPortraits) {
         const remaining = new Map((heldPortraits ?? [heldPortrait]).map((id, index) => [id, index + 1]));
         for (let i = 0; i < 30 && remaining.size; i++) {
