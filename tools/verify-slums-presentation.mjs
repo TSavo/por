@@ -13359,7 +13359,13 @@ try {
       if (routeName === "stojanow-gate-reward") {
         assert.match(visibleText(), /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i);
         assert.equal(frame.portrait, undefined);
-        for (const key of ["down", "up", "right", "right", "up", "enter"]) await advance(key);
+        for (const key of ["down", "up"]) await advance(key);
+        assert.match(visibleText(), /GUARDSPOSTEDAROUNDADOORINTHESOUTHWALL/i);
+        await verifyClerkIllustration("scene-illustration:area:8:ecl:9b8a:caller:9a4a", "council-clerk-office-guards.png");
+        await advance("right");
+        assert.equal(frame.portrait, undefined);
+        await waitForExplorationViewport();
+        for (const key of ["right", "up", "enter"]) await advance(key);
         assert.match(visibleText(), /BACKSOSOON\?ICANONLYREPEATTHEEARLIEROFFERS/i);
         await verifyClerkIllustration("scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:repeat-commission-offers",
           "council-clerk-repeat-offers.png");

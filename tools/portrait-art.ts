@@ -932,6 +932,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
     `scene-illustration:area:8:ecl:${scope}:cue:stojanow-gate-reward`,
     "YOURTAKINGTHEGATEWILLENABLEOURFORCESTOASSAULTTHEENEMYSTRONGHOLD",
   ] as const),
+  ["scene-illustration:area:8:ecl:9b8a:caller:9a4a", "GUARDSPOSTEDAROUNDADOORINTHESOUTHWALL"],
   ...["9c30:caller:9a4a", "b5c3:caller:9c34"].map(scope => [
     `scene-illustration:area:8:ecl:${scope}:cue:clerk-reward-check`,
     "ATYOURENTRY,THECOUNCILCLERKBEGINSLOOKINGTHROUGHASTACKOFPAPERS",

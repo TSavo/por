@@ -4251,7 +4251,10 @@ The `stojanow-gate-reward` Chrome replay on GOG 1.3 checks the Council
 clerk's artwork as she checks for a reward, sorts the remaining
 commissions, and recognizes the returning party on a second visit.
 Each picture matches the original dialogue and fills the picture panel.
-Closing the last prompt returns the party to exploration.
+Closing the last prompt returns the party to exploration. On the way
+back into the office, the replay also checks the guards posted at the
+clerk's door. Turning away brings back the WebGL view even while the
+old room description remains in the text box.
 
 The Grand Historian's Records discovery at Mendor's Library uses its
 own illustration. Chrome ran the original search from a local Library

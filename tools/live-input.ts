@@ -333,6 +333,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         if (x === 4 && y === 2) illustrationScope = "scene-illustration:area:4:ecl:9ed5:caller:a08a";
         else if (x === 13 && y === 12) illustrationScope = "scene-illustration:area:4:ecl:9ed5:caller:ac70";
       }
+      // The clerk's threshold caption can remain in the text box after the party turns away.
+      if (area === 8 && battleCursor === 0x9a4f && livePosition?.x === 4 && livePosition.y === 5 &&
+          explorationPosition?.facing === 6) {
+        illustrationScope = "scene-illustration:area:8:ecl:9b8a:caller:9a4a";
+      }
       // Yarash's secret doors share a caption routine across rooms.
       if (area === 23 && explorationPosition?.y === 12) {
         const { x } = explorationPosition;
