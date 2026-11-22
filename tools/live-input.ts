@@ -343,7 +343,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase()
         : baneCacheCue || scriptKey === "scene-illustration:area:29:ecl:9ffb" || scriptKey === "scene-illustration:area:10:ecl:a3e4" ||
           scriptKey === "scene-illustration:area:10:ecl:ad29" || scriptKey === "scene-illustration:area:10:ecl:b373" ||
-          scriptKey === "scene-illustration:area:10:ecl:a09f"
+          scriptKey === "scene-illustration:area:10:ecl:a09f" || scriptKey === "scene-illustration:area:31:ecl:9eff"
           ? [...glyphs].sort(([a], [b]) => a - b).map(([, character]) => String.fromCharCode(character)).join("").toUpperCase()
           : dialogue;
       // The maze watch and Scriptorium guards finish the nod at the same ECL cursor.

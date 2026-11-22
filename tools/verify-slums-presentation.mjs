@@ -825,6 +825,16 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "bane-mansion-victims-room.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["bane-mansion-victims-jewelry-reward", {
+    slot: "A", inputs: ["s", "up"],
+    portrait: "scene-illustration:area:31:ecl:9ed7:cue:victims-jewelry",
+    prompt: /YOUFINDSOMEJEWELRY.*WILLYOUTAKEIT/i,
+    continuation: {
+      inputs: ["t", "enter", "enter"], portrait: "scene-illustration:area:31:ecl:9eff:cue:victims-jewelry-reward",
+      prompt: /VIEW.*POOL.*SHARE/i, capture: "bane-mansion-victims-jewelry-reward.png",
+      lootCaption: /JEWELRY3SELECTTYPEOFCOINEXIT/i,
+    },
+  }],
   ["bane-mansion-victims-jewelry", {
     slot: "A", inputs: ["s", "up"],
     portrait: "scene-illustration:area:31:ecl:9ed7:cue:victims-jewelry",
