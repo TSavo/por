@@ -68,7 +68,9 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
   let lastKey = "(boot)";
   let lastText = "";
   let actionNumber = 0;
-  const timer = setTimeout(() => runner.kill(), 90_000);
+  // A runner that shows nothing for 90 seconds is stuck. A long fight keeps showing frames: since
+  // each step of an automatic turn asks for a key, Quick to a defeat takes over 1,000 inputs (#151).
+  let timer = setTimeout(() => runner.kill(), 90_000);
   async function nextFrame() {
     for (;;) {
       const { value, done } = await iterator.next();
@@ -76,6 +78,8 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
         throw new Error(`${done ? "Runner stopped" : value} after input ${actionNumber} (${lastKey})\n${lastText.trim()}`);
       }
       if (value.startsWith("POR_FRAME ")) {
+        clearTimeout(timer);
+        timer = setTimeout(() => runner.kill(), 90_000);
         const frame = JSON.parse(value.slice(10));
         lastText = visibleText(frame);
         if (tileTrace && tileFrames && frame.tileInventory?.length) {
@@ -2063,7 +2067,8 @@ async function verifySokalTrackedAmbush(replenishCurate = false) {
       "space",
       (text) => assert.match(text, /curate hitpoints 25 ac 2 mace move\/attack/),
     ]),
-    presses("q", replenishCurate ? undefined : 588, /the monsters rejoice for the party has been destroyed/),
+    // 588 Quick to the defeat, with or without the Curate's spells replenished (#151).
+    presses("q", 588, /the monsters rejoice for the party has been destroyed/),
   ]);
   assert.deepEqual(readFileSync(landingSave), savedLanding);
   await replay(loadSlot("246a"), "85000000", [
@@ -2149,9 +2154,9 @@ if (process.argv[2] === "--sokal-recovered-courtyard-checkpoint") {
     "enter", "enter", "enter", ...(hireTwo ? [
       presses("q", 68, /theurgist hitpoints 13 ac 8 dagger/),
       presses("q", 17, /warrior hitpoints 13 ac 3 silver battle axe/),
-      presses("q", undefined, /party has been destroyed/),
+      presses("q", 954, /party has been destroyed/),
     ] : [presses("q", 78, /evoker hitpoints 6 ac 9/)]),
-    ...(finishEvokerFight ? [presses("q", undefined, /the monsters rejoice for the party has been destroyed/)] : []),
+    ...(finishEvokerFight ? [presses("q", 619, /the monsters rejoice for the party has been destroyed/)] : []),
   ]);
   if (finishEvokerFight) {
     await replay(loadSlot("2368"), "85000000", [
@@ -2221,7 +2226,7 @@ if (process.argv[2] === "--sokal-restored-arena-checkpoint") {
     "enter", "enter", "enter", "n", "left", "up", "right", "up", "up", "enter", "enter",
     (text) => assert.match(text, /7,1 w.*arena master asks if you wish to duel/),
     "y", (text) => assert.match(text, /who will duel/),
-    ...Array(7).fill("home"), "enter", "enter", "enter", presses("q", undefined, /continue battle:yes no/),
+    ...Array(7).fill("home"), "enter", "enter", "enter", presses("q", 6, /continue battle:yes no/),
     "n", (text) => assert.match(text, /you have won the duel.*duelist receives 100 experience points/),
     "enter", "enter", "s", "e", "n", "e", "s", "s", "h",
     (text) => assert.match(text, /7,1 w.*quit to dos/),

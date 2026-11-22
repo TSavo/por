@@ -78,7 +78,10 @@ hide it.
   take 134 and 22). A mode whose count is not measured has none, and fails
   at the step. The Sokal checkpoint modes' counts were measured from a save
   chain in the pipe (#151); the modes left are waiting on #166 (a fight
-  that needs recording again) and #167 (saves no mode produces).
+  that needs recording again) and #167 (saves no mode produces). Each step
+  of an automatic combat turn asks for a key, so Quick to a defeat can take
+  over 1,000 inputs: a pipe replay gives up when its runner shows nothing
+  for 90 seconds, not after 90 seconds in all.
 - The acceptance harness (`tools/acceptance/harness.mjs`) fails a press
   after which the game shows exactly what it showed before: the same frame
   (text and colours, both pictures and the artwork placed on them, the
