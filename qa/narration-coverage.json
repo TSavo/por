@@ -1,0 +1,676 @@
+{
+ "schema": 1,
+ "about": "What play has heard of the narration. Written by `npm run qa:narration -- --merge <ledgers>`; see docs/NARRATION-QA.md.",
+ "runs": {
+  "acceptance-narration-dynamic": {
+   "ledger": "acceptance-narration-dynamic.jsonl",
+   "games": 3,
+   "decisions": 350,
+   "heard": 64
+  },
+  "acceptance-new-phlan": {
+   "ledger": "acceptance-new-phlan.jsonl",
+   "games": 7,
+   "decisions": 521,
+   "heard": 106
+  },
+  "acceptance-slums": {
+   "ledger": "acceptance-slums.jsonl",
+   "games": 3,
+   "decisions": 237,
+   "heard": 40
+  },
+  "campaign-opening": {
+   "ledger": "campaign-opening.jsonl",
+   "games": 6,
+   "decisions": 112,
+   "heard": 15
+  }
+ },
+ "units": {
+  "ecl2-b20-9ab8": {
+   "run": "acceptance-new-phlan",
+   "step": 60501220,
+   "withoutArt": {
+    "run": "acceptance-new-phlan",
+    "step": 60501220,
+    "showing": "no picture"
+   }
+  },
+  "ecl2-b20-9c2a-9c43-9c5c": {
+   "run": "acceptance-slums",
+   "step": 101595877,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:20:ecl:b6df:caller:9c64:PIC2.DAX:4:0:0"
+   }
+  },
+  "ecl2-b20-9cc5-runtime-text": {
+   "run": "acceptance-slums",
+   "step": 255311488,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:20:ecl:9ce9:PIC2.DAX:0:0:0"
+   }
+  },
+  "ecl2-b20-9d7e-runtime-text": {
+   "run": "acceptance-narration-dynamic",
+   "step": 206372582,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:20:ecl:9da2:PIC2.DAX:2:0:0"
+   }
+  },
+  "ecl2-b20-9dde-runtime-text": {
+   "run": "acceptance-slums",
+   "step": 161256381,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:20:ecl:9e02:PIC2.DAX:2:0:0"
+   }
+  },
+  "ecl2-b20-9e2a": {
+   "run": "acceptance-slums",
+   "step": 115566427,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:20:PIC2.DAX:4:0:0"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-9aae": {
+   "run": "acceptance-new-phlan",
+   "step": 176436906,
+   "withoutArt": {
+    "run": "acceptance-new-phlan",
+    "step": 176436906,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl3.b0-9a9d": {
+   "run": "acceptance-new-phlan",
+   "step": 69937433,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:HEAD3.DAX:9:BODY3.DAX:7"
+   }
+  },
+  "por.voice.ecl3.b0-9bc2": {
+   "run": "acceptance-new-phlan",
+   "step": 173989743,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:PIC3.DAX:41:0:0"
+   }
+  },
+  "por.voice.ecl3.b0-9d54": {
+   "run": "acceptance-new-phlan",
+   "step": 143648409,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:HEAD3.DAX:16:BODY3.DAX:7"
+   }
+  },
+  "por.voice.ecl3.b0-9de8": {
+   "run": "acceptance-new-phlan",
+   "step": 138735230,
+   "withoutArt": {
+    "run": "acceptance-new-phlan",
+    "step": 138735230,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl3.b0-a078": {
+   "run": "acceptance-new-phlan",
+   "step": 164993768,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD3.DAX:34:BODY3.DAX:2"
+   }
+  },
+  "por.voice.ecl3.b0-a0d0": {
+   "run": "acceptance-new-phlan",
+   "step": 91068397,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD3.DAX:22:BODY3.DAX:24"
+   }
+  },
+  "por.voice.ecl3.b0-a24b": {
+   "run": "acceptance-new-phlan",
+   "step": 129293582,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD3.DAX:42:BODY3.DAX:9"
+   }
+  },
+  "por.voice.ecl3.b0-a2d7": {
+   "run": "acceptance-new-phlan",
+   "step": 137864900,
+   "withoutArt": {
+    "run": "acceptance-new-phlan",
+    "step": 137864900,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl3.b0-a3eb": {
+   "run": "acceptance-new-phlan",
+   "step": 138367137,
+   "withoutArt": {
+    "run": "acceptance-new-phlan",
+    "step": 138367137,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl3.b0-a413-a438": {
+   "run": "acceptance-new-phlan",
+   "step": 195271342,
+   "withoutArt": {
+    "run": "acceptance-new-phlan",
+    "step": 195271342,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl3.b0-a45b": {
+   "run": "acceptance-new-phlan",
+   "step": 140203050,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:7"
+   }
+  },
+  "por.voice.ecl3.b0-a59a": {
+   "run": "acceptance-new-phlan",
+   "step": 153348359,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:7"
+   }
+  },
+  "por.voice.ecl3.b0-a5d5": {
+   "run": "acceptance-new-phlan",
+   "step": 162848021,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:7"
+   }
+  },
+  "por.voice.ecl3.b0-a5ec": {
+   "run": "acceptance-new-phlan",
+   "step": 156522511,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:7"
+   }
+  },
+  "por.voice.ecl3.b0-a60d": {
+   "run": "acceptance-new-phlan",
+   "step": 144802495,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:7"
+   }
+  },
+  "por.voice.ecl3.b0-a67b": {
+   "run": "acceptance-new-phlan",
+   "step": 143848226,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:7"
+   }
+  },
+  "por.voice.ecl3.b0-a6a0": {
+   "run": "acceptance-new-phlan",
+   "step": 242660781,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:HEAD3.DAX:53:BODY3.DAX:7"
+   }
+  },
+  "por.voice.ecl3.b0-a8d3": {
+   "run": "campaign-opening",
+   "step": 94212436,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD3.DAX:42:BODY3.DAX:9"
+   }
+  },
+  "por.voice.ecl3.b0-a964": {
+   "run": "acceptance-new-phlan",
+   "step": 145284621,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:ecl:ae69:caller:a99e:HEAD3.DAX:63:BODY3.DAX:34"
+   }
+  },
+  "por.voice.ecl3.b0-a9ef-aa13": {
+   "run": "acceptance-new-phlan",
+   "step": 243023003,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:HEAD3.DAX:57:BODY3.DAX:1"
+   }
+  },
+  "por.voice.ecl3.b0-aa38": {
+   "run": "acceptance-new-phlan",
+   "step": 91292783,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:aa63"
+   }
+  },
+  "por.voice.ecl3.b0-aad5": {
+   "run": "acceptance-slums",
+   "step": 91226697,
+   "withoutArt": {
+    "run": "acceptance-slums",
+    "step": 91226697,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl3.b0-abd2": {
+   "run": "acceptance-new-phlan",
+   "step": 94996755,
+   "withoutArt": {
+    "run": "acceptance-new-phlan",
+    "step": 94996755,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl3.b0-ac22-ac9b": {
+   "run": "acceptance-new-phlan",
+   "step": 95473365,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:acbf"
+   }
+  },
+  "por.voice.ecl3.b0-b0b6": {
+   "run": "acceptance-new-phlan",
+   "step": 67326629,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9"
+   }
+  },
+  "por.voice.ecl3.b0-b1c2": {
+   "run": "acceptance-new-phlan",
+   "step": 70323749,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:af3f:caller:b256"
+   }
+  },
+  "por.voice.ecl3.b0-b257": {
+   "run": "acceptance-new-phlan",
+   "step": 71549241,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:af3f:caller:b2f2"
+   }
+  },
+  "por.voice.ecl3.b0-b2f3": {
+   "run": "acceptance-new-phlan",
+   "step": 76093197,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:af3f:caller:b369"
+   }
+  },
+  "por.voice.ecl3.b0-b36a": {
+   "run": "acceptance-new-phlan",
+   "step": 77827569,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:af3f:caller:b3ff"
+   }
+  },
+  "por.voice.ecl3.b0-b400": {
+   "run": "acceptance-new-phlan",
+   "step": 80521078,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:af3f:caller:b48e"
+   }
+  },
+  "por.voice.ecl3.b0-b48f": {
+   "run": "acceptance-new-phlan",
+   "step": 81302266,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:af3f:caller:b51c"
+   }
+  },
+  "por.voice.ecl3.b0-b51c": {
+   "run": "acceptance-new-phlan",
+   "step": 81933659,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:af3f:caller:b58e"
+   }
+  },
+  "por.voice.ecl3.b11-99c2": {
+   "run": "acceptance-new-phlan",
+   "step": 82698596,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD3.DAX:57:BODY3.DAX:1"
+   }
+  },
+  "por.voice.ecl3.b11-9a74": {
+   "run": "acceptance-new-phlan",
+   "step": 73997475,
+   "withoutArt": {
+    "run": "acceptance-new-phlan",
+    "step": 73997475,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl3.b11-9af8": {
+   "run": "acceptance-narration-dynamic",
+   "step": 153929865,
+   "withoutArt": {
+    "run": "acceptance-narration-dynamic",
+    "step": 153929865,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl3.b11-9bbe": {
+   "run": "acceptance-narration-dynamic",
+   "step": 105649052,
+   "withoutArt": {
+    "run": "acceptance-narration-dynamic",
+    "step": 105649052,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl3.b11-9c05": {
+   "run": "acceptance-narration-dynamic",
+   "step": 108494676,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+   }
+  },
+  "por.voice.ecl3.b11-9cba": {
+   "run": "acceptance-narration-dynamic",
+   "step": 108817858,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+   }
+  },
+  "por.voice.ecl3.b11-9f66": {
+   "run": "acceptance-narration-dynamic",
+   "step": 111123471,
+   "withoutArt": {
+    "run": "acceptance-narration-dynamic",
+    "step": 111123471,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl3.b11-9fe5": {
+   "run": "acceptance-narration-dynamic",
+   "step": 133614916,
+   "withoutArt": {
+    "run": "acceptance-narration-dynamic",
+    "step": 133614916,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl3.b11-a00e-a021": {
+   "run": "acceptance-narration-dynamic",
+   "step": 115978062,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD3.DAX:16:BODY3.DAX:1"
+   }
+  },
+  "por.voice.ecl3.b8-9a7d": {
+   "run": "acceptance-new-phlan",
+   "step": 99819512,
+   "withoutArt": {
+    "run": "acceptance-new-phlan",
+    "step": 99819512,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl3.b8-9b3c": {
+   "run": "acceptance-new-phlan",
+   "step": 100561036,
+   "withoutArt": {
+    "run": "acceptance-new-phlan",
+    "step": 100561036,
+    "showing": "no picture"
+   },
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:8:ecl:9b8a:caller:9a4a"
+   }
+  },
+  "por.voice.ecl3.b8-9bb8": {
+   "run": "acceptance-new-phlan",
+   "step": 105453149,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:8:ecl:b5c3:caller:9c34:cue:clerk-reward-check"
+   }
+  },
+  "por.voice.ecl3.b8-a7a4": {
+   "run": "acceptance-new-phlan",
+   "step": 105958485,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:commission-papers"
+   }
+  },
+  "por.voice.ecl3.b8-a80f": {
+   "run": "acceptance-new-phlan",
+   "step": 117222205,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:repeat-commission-offers"
+   }
+  },
+  "por.voice.ecl3.b8-a8b6": {
+   "run": "acceptance-new-phlan",
+   "step": 106825832,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:slums-commission-offer"
+   }
+  },
+  "por.voice.ecl3.b8-a8f7": {
+   "run": "acceptance-new-phlan",
+   "step": 107826188,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:sokal-commission-offer"
+   }
+  },
+  "por.voice.ecl3.b8-a927": {
+   "run": "acceptance-new-phlan",
+   "step": 108826204,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:records-commission-offer"
+   }
+  },
+  "por.voice.ecl3.b8-af4b": {
+   "run": "acceptance-new-phlan",
+   "step": 109823999,
+   "withoutArt": {
+    "run": "acceptance-new-phlan",
+    "step": 109823999,
+    "showing": "no picture"
+   }
+  }
+ },
+ "variants": {
+  "ecl2-b20-9c2a-9c43-9c5c.variant-02-goblins": {
+   "run": "acceptance-slums",
+   "step": 184768726,
+   "slot": "0x9890",
+   "value": " GOBLINS. "
+  },
+  "ecl2-b20-9c2a-9c43-9c5c.variant-03-orcs": {
+   "run": "acceptance-slums",
+   "step": 101595877,
+   "slot": "0x9890",
+   "value": " ORCS. "
+  },
+  "ecl2-b20-9cc5-runtime-text.variant-01-you-are-being-approached-by-some-angry-kobolds": {
+   "run": "acceptance-slums",
+   "step": 255311488,
+   "slot": "0x982c",
+   "value": "YOU ARE BEING APPROACHED BY SOME ANGRY KOBOLDS. "
+  },
+  "ecl2-b20-9cc5-runtime-text.variant-02-you-are-being-approached-by-some-angry-goblins": {
+   "run": "acceptance-slums",
+   "step": 330256090,
+   "slot": "0x982c",
+   "value": "YOU ARE BEING APPROACHED BY SOME ANGRY GOBLINS. "
+  },
+  "ecl2-b20-9d7e-runtime-text.variant-02-you-spy-a-group-of-seedy-looking-goblins": {
+   "run": "acceptance-narration-dynamic",
+   "step": 206372582,
+   "slot": "0x982c",
+   "value": "YOU SPY A GROUP OF SEEDY-LOOKING  GOBLINS. "
+  },
+  "ecl2-b20-9dde-runtime-text.variant-01-you-have-surprised-a-party-of-kobolds": {
+   "run": "acceptance-slums",
+   "step": 311728097,
+   "slot": "0x982c",
+   "value": "YOU HAVE SURPRISED A PARTY OF  KOBOLDS. "
+  },
+  "ecl2-b20-9dde-runtime-text.variant-02-you-have-surprised-a-party-of-goblins": {
+   "run": "acceptance-slums",
+   "step": 161256381,
+   "slot": "0x982c",
+   "value": "YOU HAVE SURPRISED A PARTY OF  GOBLINS. "
+  },
+  "ecl2-b20-9dde-runtime-text.variant-03-you-have-surprised-a-party-of-orcs": {
+   "run": "acceptance-slums",
+   "step": 172234920,
+   "slot": "0x982c",
+   "value": "YOU HAVE SURPRISED A PARTY OF  ORCS. "
+  },
+  "por.voice.ecl3.b0-a413-a438.variant-04-4": {
+   "run": "acceptance-new-phlan",
+   "step": 231271768,
+   "slot": "0x6e7e",
+   "value": "4"
+  },
+  "por.voice.ecl3.b0-a413-a438.variant-07-7": {
+   "run": "acceptance-narration-dynamic",
+   "step": 162641889,
+   "slot": "0x6e7e",
+   "value": "7"
+  },
+  "por.voice.ecl3.b0-a413-a438.variant-08-8": {
+   "run": "acceptance-new-phlan",
+   "step": 204271463,
+   "slot": "0x6e7e",
+   "value": "8"
+  },
+  "por.voice.ecl3.b0-a413-a438.variant-09-9": {
+   "run": "acceptance-new-phlan",
+   "step": 213271549,
+   "slot": "0x6e7e",
+   "value": "9"
+  },
+  "por.voice.ecl3.b0-a413-a438.variant-14-14": {
+   "run": "acceptance-narration-dynamic",
+   "step": 171641965,
+   "slot": "0x6e7e",
+   "value": "14"
+  },
+  "por.voice.ecl3.b0-a413-a438.variant-18-18": {
+   "run": "acceptance-new-phlan",
+   "step": 222271634,
+   "slot": "0x6e7e",
+   "value": "18"
+  },
+  "por.voice.ecl3.b0-a413-a438.variant-19-19": {
+   "run": "acceptance-new-phlan",
+   "step": 240271862,
+   "slot": "0x6e7e",
+   "value": "19"
+  },
+  "por.voice.ecl3.b0-a413-a438.variant-21-21": {
+   "run": "acceptance-new-phlan",
+   "step": 195271342,
+   "slot": "0x6e7e",
+   "value": "21"
+  },
+  "por.voice.ecl3.b11-a00e-a021.variant-01-fighters": {
+   "run": "acceptance-narration-dynamic",
+   "step": 115978062,
+   "slot": "0x982c",
+   "value": "FIGHTERS "
+  },
+  "por.voice.ecl3.b11-a00e-a021.variant-02-thieves": {
+   "run": "acceptance-narration-dynamic",
+   "step": 138353144,
+   "slot": "0x982c",
+   "value": "THIEVES "
+  }
+ },
+ "selectors": {
+  "por.review.ecl-3.block-0.at-a413": {
+   "run": "acceptance-new-phlan",
+   "step": 195271342,
+   "unitId": "por.voice.ecl3.b0-a413-a438",
+   "value": "21"
+  },
+  "por.review.ecl-3.block-0.at-ac22": {
+   "run": "acceptance-new-phlan",
+   "step": 95473365,
+   "unitId": "por.voice.ecl3.b0-ac22-ac9b",
+   "value": 0
+  }
+ },
+ "silent": {
+  "covered-without-trigger | por.review.ecl-3.block-0.at-aa13 | ": {
+   "kind": "covered-without-trigger",
+   "sourceId": "por.review.ecl-3.block-0.at-aa13",
+   "archive": "ECL3.DAX",
+   "block": 0,
+   "runs": {
+    "acceptance-new-phlan": {
+     "count": 4,
+     "step": 91147744
+    }
+   }
+  },
+  "no-variant | por.review.ecl-3.block-11.at-a00e | CLERICS ": {
+   "kind": "no-variant",
+   "sourceId": "por.review.ecl-3.block-11.at-a00e",
+   "archive": "ECL3.DAX",
+   "block": 11,
+   "slot": "0x982c",
+   "value": "CLERICS ",
+   "status": "not-found",
+   "runs": {
+    "acceptance-narration-dynamic": {
+     "count": 1,
+     "step": 158744011
+    }
+   }
+  },
+  "no-variant | por.review.ecl-3.block-11.at-a00e | MAGIC USERS ": {
+   "kind": "no-variant",
+   "sourceId": "por.review.ecl-3.block-11.at-a00e",
+   "archive": "ECL3.DAX",
+   "block": 11,
+   "slot": "0x982c",
+   "value": "MAGIC USERS ",
+   "status": "not-found",
+   "runs": {
+    "acceptance-narration-dynamic": {
+     "count": 1,
+     "step": 172191730
+    }
+   }
+  }
+ }
+}
