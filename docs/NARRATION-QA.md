@@ -13,7 +13,7 @@ not play the game. This measure does:
 npm run qa:narration                           the table; exit 1 while anything is left
 npm run qa:narration -- --list                 what is still unheard, by script, and every listed case
 npm run qa:narration -- --merge <ledgers...>   fold new runs into qa/narration-coverage.json
-npm run acceptance:narration-dynamic           three dynamic families, driven until they fire
+npm run acceptance:narration-dynamic           five dynamic families, driven until they fire
 ```
 
 ## The ledger
@@ -98,7 +98,12 @@ Rows that need no play, and must be zero:
   is distinct, so no two variants can match at once.
 - **Variant families the observer cannot select**: the observer reads one slot per family. Where
   it finds no single slot, or a slot other than the one the family's conditions name, no variant
-  can ever be chosen.
+  can ever be chosen. A family whose passage prints several string slots (the hirelings: a title
+  and a price) is selected on the whole sentence instead: the observer puts the passage's literal
+  texts and the slots together when the trigger runs and takes the variant recorded with exactly
+  that sentence. Such a family counts as selectable when every variant's text is a sentence the
+  passage can print and no two are alike. A sentence nobody recorded stays silent, and its ledger
+  line carries the sentence as `value`.
 - **Encounter tables established from the script**, **Monsters that can appear with no variant**,
   **Variants for monsters that cannot appear**: a family's slot is filled by the script with a
   SAVE of a literal string, chosen by the script's own table of what can turn up. The values that
@@ -116,7 +121,11 @@ Rows that need no play, and must be zero:
 - **Slots read before the script fills them**: the observer reads a family's slot when the unit's
   trigger runs. Where the script saves the value between the trigger and the print, the observer
   sees what the slot held before, and the narrator names the wrong thing or nothing. The same
-  walk is made to the trigger and the two lists must agree.
+  walk is made to the trigger and the two lists must agree. The slot is not read at all where a
+  selector at the trigger names the value itself from a count the script has already made (the
+  single proclamation at City Hall: the rewards collected, 0x4ac1, give the number before the
+  script saves it into 0x985e). There the values the selector can name must be exactly the ones
+  the print can show.
 
 The tavern tales are reported under the table and not counted: the manifest has 24 recordings from
 the first release and the script in `game/` decides how many can be rolled.

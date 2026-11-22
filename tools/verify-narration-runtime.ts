@@ -252,3 +252,42 @@ for (const group of ["goblins", "orcs", "hobgoblins", "ogres"]) {
   assert.equal(realCatalog.resolve(reach(0xa0b3, 0x11)!).status, "continuation");
 }
 console.log("verified prerecorded replacements for party names, typed confirmations, and variable encounter counts");
+
+// The proclamations at City Hall. The script prints the opening at ac22, and only then saves the
+// one proclamation's number into 0x985e (ON GOSUB at ac69). The number of rewards collected,
+// 0x4ac1, is known at the opening and decides both the branch and the number: the slot must not be
+// read. It is left holding another passage's number here, as it would be in play.
+loadBlock(3, 0);
+const proclamationNumbers = ["CI.", "CXXVI AND CX.", "CXXXIV.", "CLIV.", "CXIV.", "CCIV.", "CXXIX.", "CCI.", "CXIV."];
+for (const [rewards, number] of proclamationNumbers.entries()) {
+  storeGlobal(0x4ac1, rewards + 1);
+  storeEclString(0x985e, proclamationNumbers[(rewards + 4) % 8]!);
+  const proclamation = realCatalog.resolve(reach(0xac22, 0x12)!);
+  assert.equal(proclamation.status, "resolved", `the proclamation after ${rewards + 1} rewards has a recording`);
+  if (proclamation.status === "resolved") assert.equal(proclamation.narration.text,
+    `PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATION${number}`, "the number comes from the rewards collected, not from the slot");
+}
+storeGlobal(0x4ac1, 0);
+const proclamations = realCatalog.resolve(reach(0xac22, 0x12)!);
+assert.equal(proclamations.status, "resolved");
+if (proclamations.status === "resolved") assert.match(proclamations.narration.text, /PROCLAMATIONS LXIV, LXXVIII, CIX, AND LIX\.$/);
+console.log("verified the proclamations are chosen by the rewards collected, with a stale number in the slot");
+
+// The hirelings of the training block print two slots: the title and the price. The variant is the
+// recording of the whole sentence the game prints. The prices are the ones the 1.3 script leaves in
+// 0x9890 (9e3a to 9e9e): a SWORDSMAN, a HERO and a THEURGIST are offered with no pick of items,
+// and the recordings that say otherwise must not be played for them.
+loadBlock(3, 11);
+for (const [title, price, recorded] of [
+  ["ACOLYTE", "1 SHARE", true], ["WARRIOR", "1 SHARE", true], ["EVOKER", "2 SHARES", true], ["SWORDSMAN", "3 SHARES ", false],
+  ["ROBBER", "3 SHARES PLUS A PICK OF SPECIAL ITEMS", true], ["CURATE", "3 SHARES PLUS A PICK OF SPECIAL ITEMS", true],
+  ["HERO", "4 SHARES ", false], ["THEURGIST", "4 SHARES ", false]
+] as const) {
+  storeEclString(0x982c, title);
+  storeEclString(0x9890, price);
+  const offer = realCatalog.resolve(reach(0x9eab, 0x12)!);
+  if (!recorded) { assert.equal(offer.status, "not-found", `no recording says a ${title} joins for ${price.trim()} alone`); continue; }
+  assert.equal(offer.status, "resolved", `the offer of a ${title} has a recording`);
+  if (offer.status === "resolved") assert.equal(offer.narration.text, `'THERE IS A FINE ${title} WHO WILL JOIN YOU FOR ${price}. IS THIS ACCEPTABLE?'`);
+}
+console.log("verified the hireling offers are chosen by the whole sentence printed");

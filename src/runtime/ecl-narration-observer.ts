@@ -106,9 +106,13 @@ export class EclNarrationObserver {
     return this.deferred.map(({ triggerSourceId }) => ({ trigger: triggerSourceId, since: this.deferredSince.get(triggerSourceId) }));
   }
 
-  /** The slot whose value selects among a unit's variants, as the observer reads it. */
+  /**
+   * The slot whose value selects among a unit's variants, as the observer reads it. A unit that
+   * prints several string slots is selected on its whole sentence: its slots are joined with "+".
+   */
   variantSlot(unitId: string): string | undefined {
-    return this.unitDynamicPart(this.manifest.units.find(unit => unit.id === unitId))?.address;
+    const unit = this.manifest.units.find(unit => unit.id === unitId);
+    return this.unitDynamicPart(unit)?.address ?? this.unitSentenceSlots(unit)?.join("+");
   }
 
   constructor(readonly manifest: ObserverManifest) {
@@ -362,7 +366,7 @@ export class EclNarrationObserver {
 
   private readUnitDynamicValue(cpu: Cpu, unit: ObserverManifest["units"][number] | undefined): string | undefined {
     const part = this.unitDynamicPart(unit);
-    if (!part?.address) return undefined;
+    if (!part?.address) return this.unitSentenceSlots(unit) ? this.readUnitSentenceValue(cpu, unit!) : undefined;
     return part.kind === "dynamic-string" ? this.readEclString(cpu, part.address) : String(this.readEclValue(cpu, this.hex(part.address)));
   }
 
@@ -377,6 +381,28 @@ export class EclNarrationObserver {
     const [part] = selectors;
     if (!part?.address || selectors.some(other => other.address !== part.address)) return undefined;
     return part;
+  }
+
+  /** The string slots of a unit with variants that prints more than one of them: no single slot tells its variants apart. */
+  private unitSentenceSlots(unit: ObserverManifest["units"][number] | undefined): string[] | undefined {
+    if (!unit?.runtimeVariants?.length) return undefined;
+    const slots = new Set(unit.coveredSourceIds.flatMap(id => this.eventsById.get(id)?.outputParts ?? [])
+      .flatMap(part => part.kind === "dynamic-string" && part.address ? [part.address] : []));
+    return slots.size > 1 ? [...slots] : undefined;
+  }
+
+  /**
+   * Selects such a unit's variant by the sentence the passage is about to print: its literal
+   * texts in order, with each string slot as the script has filled it. The variant recorded with
+   * that sentence gives the selecting value. A sentence nobody recorded is returned itself, so
+   * that no variant matches it and the ledger shows what the game said.
+   */
+  private readUnitSentenceValue(cpu: Cpu, unit: ObserverManifest["units"][number]): string {
+    const sentence = this.normalizeMenuText(unit.coveredSourceIds.flatMap(id => this.eventsById.get(id)?.outputParts ?? [])
+      .map(part => part.kind === "literal" ? part.rawText ?? ""
+        : part.kind === "dynamic-string" && part.address ? this.readEclString(cpu, part.address)
+        : part.address ? String(this.readEclValue(cpu, this.hex(part.address))) : "").join(""));
+    return unit.runtimeVariants!.find(variant => this.normalizeMenuText(variant.text) === sentence)?.dynamicValue ?? sentence;
   }
 
   private readEclString(cpu: Cpu, address: string): string {

@@ -7,7 +7,7 @@
 // tavern tale rolled, the class a hall trains. Each case has its own recording, chosen by a
 // condition on the game's state. A condition that matches nothing is silence where the narrator
 // should say what happened. This test drives the game itself (GOG version 1.3, SSI's ready-made
-// party, fixed dice) so that three families of different kinds fire several times each, and
+// party, fixed dice) so that five families of different kinds fire several times each, and
 // requires that every time one fires a variant is selected:
 //
 //   tales      enumerated: the tavern tale number (ECL3.DAX block 0, slot 0x6e7e)
@@ -15,6 +15,12 @@
 //              (ECL3.DAX block 11, slot 0x982c)
 //   encounters encounter table: the random encounters of the Slums, whose monsters are drawn from
 //              the script's table (ECL2.DAX block 20, slots 0x9890 and 0x982c)
+//   hirelings  two slots: "'THERE IS A FINE <title> WHO WILL JOIN YOU FOR <price>.'" in the hiring
+//              hall (ECL3.DAX block 11, slots 0x982c and 0x9890), chosen by the whole sentence
+//   proclamations chosen by a count before the script fills the slot: the City Hall wall
+//              (ECL3.DAX block 0, count 0x4ac1, slot 0x985e)
+//
+// For hirelings and proclamations the recording chosen must also say the sentence on the screen.
 //
 // What was selected is read from the narration ledger the runner writes (POR_NARRATION_LEDGER,
 // tools/narration-ledger.ts): the passage firing is taken from the game's own printed text, the
@@ -246,7 +252,141 @@ async function encounters() {
   }
 }
 
-const tests = { tales, halls, encounters };
+/** Answer the arena master at (7,1): NO to the duel, YES to a partner. Leaves the game on the first offer or on "NO ONE". */
+async function askForPartner(game) {
+  for (let screens = 0; !/DO YOU SEEK A PARTNER FOR YOUR ADVENTURING\?/.test(flat(game.text())); screens++) {
+    if (screens >= 6) game.fail("The hiring hall did not come to its question about a partner.");
+    if (/Yes No\s*$/.test(game.text())) await game.press("n");
+    else if (pressReturn.test(game.text()) || /PRESS <RETURN> OR BUTTON TO CONTINUE\s*$/.test(game.menu())) await game.press("enter");
+    else game.fail("The hiring hall showed something this test does not know.");
+  }
+}
+
+/**
+ * The three offers the game makes that nobody has recorded (qa/findings.json,
+ * narration-dynamic-variants-not-proved). The script saves "3 SHARES " or "4 SHARES " over the
+ * price after " PLUS A PICK OF SPECIAL ITEMS" (9e67, 9e7b, 9e9e), which cuts the pick of items off
+ * for these three titles. The recordings made for them say "PLUS A PICK OF SPECIAL ITEMS", which
+ * the screen does not, and must not be played. Until the three sentences are recorded the test
+ * requires these offers to be silent, with the ledger showing the sentence, and lists them. Take a
+ * sentence out of this list when its recording exists: the offer must then be heard.
+ */
+const unrecordedOffers = [
+  "'THERE IS A FINE SWORDSMAN WHO WILL JOIN YOU FOR 3 SHARES . IS THIS ACCEPTABLE?'",
+  "'THERE IS A FINE HERO WHO WILL JOIN YOU FOR 4 SHARES . IS THIS ACCEPTABLE?'",
+  "'THERE IS A FINE THEURGIST WHO WILL JOIN YOU FOR 4 SHARES . IS THIS ACCEPTABLE?'",
+];
+/** Firings that were rightly silent because the sentence has no recording yet: { family, what, said }. */
+const awaited = [];
+
+/**
+ * Two changing slots: the hiring hall at (7,1) of the training block (ECL3.DAX block 11). The
+ * arena master offers a duel, then a partner: "'THERE IS A FINE <title> WHO WILL JOIN YOU FOR
+ * <price>. IS THIS ACCEPTABLE?'". The title is a string in slot 0x982c and the price a string in
+ * slot 0x9890; the script rolls one of eight titles (RANDOM 250 at 9d03) and sets the price from
+ * the title (9e3a to 9e9e). Refusing brings "'WOULD YOU LIKE TO CONSIDER SOMEONE ELSE?'", and YES
+ * rolls again, eight times in a stay. The party leaves the block and comes back for more.
+ * Every offer must be narrated, and by the recording of the sentence on the screen.
+ */
+async function hirelings() {
+  const unit = "por.voice.ecl3.b11-9eab-9ed8";
+  const game = await newParty({ seconds: 900 });
+  const offer = /^'THERE IS A FINE (.+) WHO WILL JOIN YOU FOR (.+)\. IS THIS ACCEPTABLE\?'$/;
+  let offers = 0;
+  try {
+    await game.walk("EENNEEEE");
+    for (let stay = 0; stay < 3; stay++) {
+      await walkOn(game, "The training block did not let the party walk.");
+      assert.deepEqual([game.here().x, game.here().y], [6, 2], "The party enters the training block at (6,2).");
+      await game.step("N");
+      await walkOn(game, "The training block did not let the party walk on.");
+      let mark = game.printed.length, since = narrationLines().length;
+      await game.face("E");
+      await game.press("up");
+      await askForPartner(game);
+      mark = game.printed.length, since = narrationLines().length;
+      await game.press("y");
+      for (let asked = 0; asked < 10; asked++) {
+        const said = flat(game.printed.slice(mark).join(""));
+        if (said === "'THERE IS NO ONE WHO WILL GO WITH YOU.'") break;
+        const [, title, price] = offer.exec(said) ?? game.fail(`The hiring hall said something that is not an offer: ${said}`);
+        offers++;
+        const what = `${title} for ${price}`;
+        const about = narrationLines().slice(since).filter((line) => line.unitId === unit);
+        const heard = about.filter((line) => line.outcome === "heard" && line.variantId);
+        const recorded = heard.map((line) => flat(families.get(unit).runtimeVariants.find(({ id }) => id === line.variantId).text));
+        // The narrator reads the game's own text: the recording must be of the sentence on the screen.
+        if (heard.length === 1 && recorded[0] === said) report.push({ family: "hirelings", what, variant: heard[0].variantId, slot: heard[0].slot, value: heard[0].value });
+        else if (!heard.length && unrecordedOffers.includes(said) && about.some((line) => line.outcome === "silent" && flat(String(line.value)).toUpperCase() === said.toUpperCase()))
+          awaited.push({ family: "hirelings", what, said });
+        else defects.push({ family: "hirelings", what, ledger: about, conditions: heard.length
+          ? [`the screen shows ${said} and the recording selected says ${recorded.join(" and ")}`]
+          : [`the screen shows ${said}`, ...families.get(unit).runtimeVariants.map(({ text }) => `recorded: ${text}`)] });
+        await game.press("n");
+        if (!/WOULD YOU LIKE TO CONSIDER SOMEONE ELSE\?/.test(flat(game.text()))) game.fail("Refusing an offer did not bring the question about someone else.");
+        mark = game.printed.length, since = narrationLines().length;
+        await game.press("y");
+      }
+      await walkOn(game, "The hiring hall did not let the party walk on.");
+      // Out of the training block by its west door and in again: the hall asks afresh.
+      const at = game.here();
+      for (const heading of at.x === 7 && at.y === 1 ? "WSW" : "SW") {
+        await game.step(heading);
+        await walkOn(game, "The training block did not let the party walk back.");
+      }
+      assert.deepEqual([game.here().x, game.here().y], [5, 2], "The party is back in the street, at (5,2).");
+      await game.step("E");
+    }
+  } finally {
+    game.close();
+  }
+  assert.ok(offers >= 8, `At least eight offers must be made; ${offers} were.`);
+}
+
+/**
+ * Chosen by a count: the proclamations on the City Hall wall (ECL3.DAX block 0 at ac22), read on
+ * arriving at (3,4) from the west. The number of rewards the clerk has paid (0x4ac1) decides the
+ * text: none, "PROCLAMATIONS LXIV, LXXVIII, CIX, AND LIX." (a fixed recording); one to nine,
+ * "PROCLAMATION <number>", whose number the script saves into slot 0x985e only after the opening
+ * print that starts the narration. The narration must be the recording of what the screen shows.
+ * The wall is read once per stay in New Phlan: the party goes to the training block and back to
+ * read it again. A new party has no rewards, so play here reaches only the fixed text; the nine
+ * numbers, with another number left in the slot, are proved by `npm run verify-narration-runtime`.
+ */
+async function proclamations() {
+  const single = "por.voice.ecl3.b0-ac22-ac8a-ac96", several = "por.voice.ecl3.b0-ac22-ac9b";
+  const lead = "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE";
+  const tight = (text) => text.replace(/\s+/g, "");
+  const game = await newParty({ watch: [0x4ac1] });
+  try {
+    await game.walk("EE");
+    for (let visit = 0; visit < 3; visit++) {
+      const mark = game.printed.length, since = narrationLines().length;
+      await game.step("E");
+      await walkOn(game, "The City Hall entrance did not let the party walk on.");
+      const printed = game.printed.slice(mark).map(flat);
+      assert.equal(printed[1], lead, "Arriving at (3,4) from the west, the party reads the proclamations.");
+      const posted = printed.slice(2).join(""), rewards = game.variable(0x4ac1);
+      const what = `after ${rewards} rewards: ${posted}`;
+      const about = narrationLines().slice(since).filter((line) => line.sourceId === "por.review.ecl-3.block-0.at-ac22");
+      const heard = about.filter((line) => line.outcome === "heard");
+      const unit = heard[0] && manifest.units.find(({ id }) => id === heard[0].unitId);
+      const recorded = heard[0]?.variantId ? unit.runtimeVariants.find(({ id }) => id === heard[0].variantId).text : unit?.spokenText;
+      if (heard.length === 1 && tight(recorded) === tight(`${lead} ${posted}`) && heard[0].unitId === (/^PROCLAMATIONS /.test(posted) ? several : single))
+        report.push({ family: "proclamations", what, variant: heard[0].variantId ?? heard[0].unitId, slot: "0x4ac1", value: rewards });
+      else defects.push({ family: "proclamations", what, ledger: about, conditions: [`the screen shows ${lead} ${posted}`, `the recording selected says ${recorded}`] });
+      // To the training block and back: the wall is read once in a stay.
+      for (const heading of "WNNEEEEWWWWSS") {
+        await game.step(heading);
+        await walkOn(game, "New Phlan did not let the party walk to the training block and back.");
+      }
+    }
+  } finally {
+    game.close();
+  }
+}
+
+const tests = { tales, halls, encounters, hirelings, proclamations };
 const wanted = process.argv.slice(2).length ? process.argv.slice(2) : Object.keys(tests);
 const failures = [];
 // One game at a time: the families share one ledger file, read by line count.
@@ -260,8 +400,11 @@ for (const name of wanted) {
 for (const name of wanted) {
   const fired = report.filter(({ family }) => family === name);
   const silent = defects.filter(({ family }) => family === name);
-  console.log(`${name}: fired ${fired.length + silent.length} times, a variant was selected ${fired.length} times`);
+  const unrecorded = awaited.filter(({ family }) => family === name);
+  console.log(`${name}: fired ${fired.length + silent.length + unrecorded.length} times, a variant was selected ${fired.length} times` +
+    (unrecorded.length ? `, ${unrecorded.length} times the sentence has no recording yet` : ""));
   for (const { what, variant, slot, value } of fired) console.log(`  heard   ${what}: ${variant} (${slot ?? "slot ?"} held ${JSON.stringify(value)})`);
+  for (const { what, said } of unrecorded) console.log(`  NO RECORDING  ${what}: silent, as it must be until this is recorded: ${said}`);
   for (const { what, ledger: lines, conditions } of silent) {
     console.log(`  SILENT  ${what}: no variant was selected`);
     for (const line of lines) console.log(`            ledger: ${JSON.stringify(line)}`);
@@ -272,4 +415,5 @@ console.log(`ledger: ${ledger}`);
 for (const failure of failures) console.error(`FAILED ${failure}`);
 if (defects.length) console.error(`${defects.length} firings of a dynamic passage selected no variant`);
 if (failures.length || defects.length) process.exit(1);
-console.log(`proved: ${wanted.join(", ")} select a variant every time they fire`);
+console.log(`proved: ${wanted.join(", ")} select a variant every time they fire` +
+  (awaited.length ? `, except ${new Set(awaited.map(({ said }) => said)).size} sentences that have no recording yet` : ""));

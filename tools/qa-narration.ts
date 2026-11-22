@@ -246,9 +246,14 @@ rows.push({ part: "Variant conditions that overlap", done: families.length - new
 // The observer reads one slot per family (EclNarrationObserver.variantSlot). The manifest's condition names
 // the slot the recordings were made for. Where the two differ, or the observer finds no single slot, the
 // family cannot be selected: the play server answers "selector-required" and the passage is silent.
+// A family that prints several string slots is selected on the whole sentence instead (variantSlot joins
+// its slots with "+"): the observer puts the passage's literal texts and the slots together and takes the
+// variant recorded with that sentence. Such a family can be selected when every variant's text is a
+// sentence its passage can print (the literal texts in order, anything in the slots) and no two are alike.
 const observer = new EclNarrationObserver(manifest as unknown as ObserverManifest);
 const unselectable: string[] = [];
 const familySlot = new Map<string, string>();
+const flatUpper = (text: string) => text.replace(/\s+/g, " ").trim().toUpperCase();
 for (const unit of families) {
   const read = observer.variantSlot(unit.id);
   const named = /^(0x[0-9a-f]{4}) == /.exec(unit.runtimeVariants![0]!.condition)?.[1];
@@ -256,10 +261,22 @@ for (const unit of families) {
   if (read) familySlot.set(unit.id, read);
   if (!read) unselectable.push(`${unit.id} (${scriptOf(unit.triggerSourceId)} ${address(unit.triggerSourceId)}): the observer finds no single slot; ` +
     `the manifest selects on ${JSON.stringify(unit.runtimeVariants![0]!.condition)}`);
+  else if (read.includes("+")) {
+    const parts = unit.coveredSourceIds.flatMap(id => eventById.get(id)?.outputParts ?? []);
+    const printable = new RegExp(`^${parts.map(part => part.kind === "literal"
+      ? flatUpper(part.rawText ?? "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/ /g, " ?") : ".*").join(" ?")}$`);
+    const sentences = new Map<string, string>();
+    for (const variant of unit.runtimeVariants!) {
+      const sentence = flatUpper(variant.text);
+      if (!printable.test(sentence)) unselectable.push(`${unit.id}: the observer selects on the sentence printed from ${read}, and ${variant.id} is recorded with a text the passage cannot print: ${JSON.stringify(variant.text)}`);
+      if (sentences.has(sentence)) unselectable.push(`${unit.id}: the observer selects on the sentence printed from ${read}, and ${variant.id} and ${sentences.get(sentence)} are recorded with the same sentence`);
+      sentences.set(sentence, variant.id);
+    }
+  }
   else if (!menuText && named !== read) unselectable.push(`${unit.id}: the observer reads ${read}, the manifest selects on ${JSON.stringify(unit.runtimeVariants![0]!.condition)}`);
 }
-rows.push({ part: "Variant families the observer cannot select", done: families.length - unselectable.length, total: families.length,
-  left: unselectable.length, note: "the observer must read the slot the family's conditions name", list: unselectable });
+rows.push({ part: "Variant families the observer cannot select", done: families.length - new Set(unselectable.map(line => line.split(/[ :]/)[0])).size, total: families.length,
+  left: unselectable.length, note: "the observer must read the slot the family's conditions name, or select on the whole sentence the family's variants were recorded with", list: unselectable });
 
 // Encounter tables. A family's slot is filled by the script itself: a SAVE of a literal string into the
 // slot, chosen by the script's own table (an ON GOTO or ON GOSUB over the monsters that can appear). The
@@ -375,6 +392,19 @@ for (const unit of tableFamilies) {
   established++;
   for (const text of table) if (!values.has(text)) noVariant.push(`${label}: the script can show ${JSON.stringify(text)} and no variant selects on it`);
   for (const value of values) if (!table.has(value)) cannotAppear.push(`${label}: variant ${JSON.stringify(value)}: no SAVE of it reaches the print`);
+  // A selector at the trigger that names the number itself for each of its cases of this unit (from a count
+  // the script has already made) takes the place of the slot: the observer then never reads the slot. The
+  // numbers the selector can name must be the ones the print can show.
+  const named = selectors.find(({ triggerSourceId }) => triggerSourceId === unit.triggerSourceId);
+  const cases = ((named?.selector?.cases ?? named?.cases ?? []) as { unitId?: string; runtimeDynamicValue?: string }[]).filter(({ unitId }) => unitId === unit.id);
+  if (cases.length && cases.every(({ runtimeDynamicValue }) => runtimeDynamicValue !== undefined)) {
+    const chosen = new Set(cases.map(({ runtimeDynamicValue }) => runtimeDynamicValue!));
+    const unnamed = [...table].filter(text => !chosen.has(text)), unshown = [...chosen].filter(text => !table.has(text));
+    if (unnamed.length || unshown.length) readEarly.push(`${label}: the selector at the trigger ${address(unit.triggerSourceId)} names the value itself` +
+      (unnamed.length ? `; it never names ${unnamed.map(text => JSON.stringify(text)).join(", ")}, which the print can show` : "") +
+      (unshown.length ? `; it names ${unshown.map(text => JSON.stringify(text)).join(", ")}, which the print cannot show` : ""));
+    continue;
+  }
   const atTrigger = script.reaching(slot, running(unit.triggerSourceId));
   const early = [...atTrigger.literal].filter(text => !table.has(text));
   const late = [...table].filter(text => !atTrigger.literal.has(text));
@@ -388,7 +418,8 @@ rows.push({ part: "Encounter tables established from the script", done: establis
 rows.push({ part: "Monsters that can appear with no variant", left: noVariant.length, note: `in the ${established} established tables`, list: noVariant });
 rows.push({ part: "Variants for monsters that cannot appear", left: cannotAppear.length, note: `in the ${established} established tables`, list: cannotAppear });
 rows.push({ part: "Slots read before the script fills them", left: readEarly.length,
-  note: `in the ${established} established tables: the trigger, where the observer reads the slot, must see the values the print shows`, list: readEarly });
+  note: `in the ${established} established tables: the trigger, where the observer reads the slot, must see the values the print shows, ` +
+    `unless a selector there names the value from a count the script has already made`, list: readEarly });
 
 // The tavern tales: reported, not counted. The roll in the script the port runs decides how many are used.
 const notes: string[] = [];
