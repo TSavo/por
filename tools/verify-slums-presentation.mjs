@@ -2288,6 +2288,14 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "council-clerk-cadorna-east-door.png",
     continuation: { inputs: ["enter"], prompt: /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i, clearsPortrait: true },
   }],
+  ["council-braccio-referral", {
+    slot: "A", inputs: [...councilClerkApproach, "enter", "enter"],
+    portraitStops: { 9: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:slums-commission-offer" },
+    portrait: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:braccio-temple-referral",
+    prompt: /YOUARESUMMONEDBYTHEBISHOPOFBRACCIOOFTYR.*REPORTTOHIMATTYR'STEMPLE/i,
+    finalPhaseCapture: "council-braccio-temple-referral.png",
+    continuation: { inputs: ["enter", "enter"], prompt: /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i, clearsPortrait: true },
+  }],
   ["new-phlan-council-entry", {
     slot: "A", inputs: [...Array(8).fill("enter"), "right", "right", "up", "up", "up",
       "enter", "up", "up", "up", "up", "left", "up", "up"],
@@ -9940,7 +9948,8 @@ try {
         assert.equal(frame.portrait, undefined);
         assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join(""), /5,6N/i);
       }
-      if (["council-records-offer", "council-podal-offer", "council-cadorna-referral", "stojanow-merchant-gate",
+      if (["council-records-offer", "council-podal-offer", "council-cadorna-referral", "council-braccio-referral",
+        "stojanow-merchant-gate",
         "stojanow-toll-refused", "stojanow-tower-arrow-volley",
         "stojanow-trader-no-money", "wild-grove-western-stench"].includes(routeName)) {
         assert.ok(!frame.classicPortrait);

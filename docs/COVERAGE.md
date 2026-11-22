@@ -4298,6 +4298,10 @@ then verifies the return to exploration on GOG 1.3.
 The `council-cadorna-referral` replay uses a checkpoint with the records
 and auction work complete. It verifies the clerk directing the party
 through the east door to Cadorna and the return to exploration.
+The `council-braccio-referral` replay checks the offer to report to
+Bishop Braccio at Tyr's temple. It uses a controlled slot A with Sokal
+complete and confirms the new temple illustration and the return to
+exploration on GOG 1.3.
 
 The `stojanow-gate-reward` Chrome replay on GOG 1.3 checks the Council
 clerk's artwork as she checks for a reward, sorts the remaining
