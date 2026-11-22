@@ -253,14 +253,17 @@ function plan(row) {
 const groupOf = (row) => `${row.slot ?? "?"}|${/\barea:\s*(\d+)/.exec(row.text ?? "")?.[1] ?? "?"}`;
 const groupSize = new Map();
 for (const row of rows.filter(row => row.status === "missing")) groupSize.set(groupOf(row), (groupSize.get(groupOf(row)) ?? 0) + 1);
-const todo = rows.filter(row => row.status === "missing" && !tried.has(row.name) && (!only || only.test(row.name)))
+// Every red route is planned first. A batch (--limit) is that many routes with squares to try, largest
+// groups first; the routes no walk can start are all written as "needs" lines in the first batch.
+const planned = rows.filter(row => row.status === "missing" && !tried.has(row.name) && (!only || only.test(row.name)))
   .sort((a, b) => groupSize.get(groupOf(b)) - groupSize.get(groupOf(a)) || groupOf(a).localeCompare(groupOf(b)) || a.name.localeCompare(b.name))
-  .slice(0, limit);
+  .map(row => ({ row, plan: plan(row) }));
+const unplayable = planned.filter(({ plan }) => plan.needs);
+const todo = planned.filter(({ plan }) => !plan.needs).slice(0, limit);
 
 if (args.includes("--plan")) {
   const counts = new Map();
-  for (const row of todo) {
-    const p = plan(row);
+  for (const { row, plan: p } of [...unplayable, ...todo]) {
     const key = p.needs ?? "candidates";
     counts.set(key, (counts.get(key) ?? 0) + 1);
     if (!p.needs) console.log(`${row.name}  area ${p.area} slot ${row.slot}: ${p.total} squares take its ${p.moves.length} moves; nearest ` +
@@ -382,7 +385,11 @@ function runRoute(file, route, worker, directory) {
     child.on("close", code => {
       clearTimeout(timer);
       try { process.kill(-child.pid, "SIGKILL"); } catch {}
-      const error = code === 0 ? "" : (tail.split("\n").find(line => /Error|assert/i.test(line)) ?? tail.trim().split("\n").pop() ?? "").slice(0, 200);
+      // The assertion and the lines that say what was seen and expected.
+      const lines = tail.split("\n");
+      const at = lines.findIndex(line => /Error|assert/i.test(line));
+      const error = code === 0 ? "" : (at >= 0 ? lines.slice(at, at + 6).map(line => line.trim()).filter(Boolean).join(" | ")
+        : lines.filter(Boolean).pop() ?? "").slice(0, 400);
       done({ exit: code, seconds: Math.round((Date.now() - started) / 1000), error });
     });
   });
@@ -392,11 +399,8 @@ let next = 0, passes = 0, done = 0;
 async function worker(index) {
   const directory = join(scratch, `w${index}`);
   while (next < todo.length) {
-    const row = todo[next++];
-    const p = plan(row);
-    if (p.needs) {
-      record({ route: row.name, slot: row.slot, needs: p.needs, done: true });
-    } else {
+    const { row, plan: p } = todo[next++];
+    {
       let passed = false;
       for (const [n, candidate] of p.candidates.entries()) {
         rmSync(directory, { recursive: true, force: true });
@@ -421,6 +425,7 @@ async function worker(index) {
     console.log(`[${done}/${todo.length}] ${row.name} (${passes} passed so far)`);
   }
 }
-console.log(`${todo.length} routes, ${pool.length} distinct saves, ${workers} workers`);
+for (const { row, plan: p } of unplayable) record({ route: row.name, slot: row.slot, needs: p.needs, done: true });
+console.log(`${unplayable.length} routes no walk can start (needs lines written); ${todo.length} routes to play, ${pool.length} distinct saves, ${workers} workers`);
 await Promise.all(Array.from({ length: workers }, (_, i) => worker(i)));
 console.log(`done: ${passes} of ${todo.length} routes pass from a save made by play`);
