@@ -1121,7 +1121,7 @@
       ],
       "disagreements": [],
       "coveredBy": [],
-      "notes": "Situational terms (behind, blind, large foe) do not show on the sheet; observe them by the d20 roll needed to hit. Losing the Dexterity bonus also removes Dexterity penalties (digest §5 Adaptational)."
+      "notes": "Situational terms (behind, blind, large foe) do not show on the sheet; observe them by the d20 roll needed to hit. Losing the Dexterity bonus also removes Dexterity penalties (digest §5 Adaptational). Seen in part, not proved as a whole: npm run acceptance:slums (guide, stage orchome) on 2026-11-22 put four suits of chain mail from the orcs' home, one of them +1, on a cleric with a shield and Dexterity 18. Without her Ring of Protection +1 the sheet read armor class 0, 0, 0 and -1; with the ring on it read -1 in all four: the ring counted with the three plain suits and not with the +1 suit."
     },
     {
       "id": "acceptance.mechanics.combat.to-hit",

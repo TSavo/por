@@ -650,7 +650,8 @@
         "Clue Book p.5-6 numbers the Slums map differently from [P]; the two numberings do not line up (see notes). Clue Book: Goblin Guards are 12; [P]: 15."
       ],
       "coveredBy": [],
-      "notes": "(3,11) is not one of the Slums flee squares; do not confuse it with the New Phlan flee square of the same coordinates."
+      "check": "acceptance-slums",
+      "notes": "(3,11) is not one of the Slums flee squares; do not confuse it with the New Phlan flee square of the same coordinates. Established by npm run acceptance:slums (guide, stage goblinguards), with the guide's party (five of six level 1), fights fought with the game's own commands by the guide's tactics. The guards' two squares, (3,10) and (3,11), share one event; the party bashes the locked door east of (2,11). The test requires the text on entering (3,11); twelve combatants named GOBLIN GUARD and eleven named GOBLIN LEADER beside the six characters (the script asks for 21 of monster 3 at ac43; the fight holds the guide's 11); a win; the guide's 65 experience points (with fewer than six standing, the share of a total that gives 65 for six); one more clear point and the script's own mark (0x4ad8). On 2026-11-22 the fight took 89 turns and five Sleeps and ended with two of six standing, 195 experience points each (65 for six); AELAR, CAELUM, DORIAN and FINN were down Unconscious, none dead, and cures and rest on the guards' square put all six right. That the room at location 16 can then be searched is proved by acceptance.slums.empty-room-hidden-chest: its only door is in the guards' east wall."
     },
     {
       "id": "acceptance.slums.empty-room-hidden-chest",
@@ -679,7 +680,8 @@
         "Clue Book p.5-6 numbers the Slums map differently from [P]; the two numberings do not line up (see notes). Clue Book: Hidden Loot is 13; [P]: 16."
       ],
       "coveredBy": [],
-      "notes": "The digest gives no coordinates for location 16."
+      "check": "acceptance-slums",
+      "notes": "The digest gives no coordinates for location 16. Established by npm run acceptance:slums (guide, stage chest). Location 16 is the six squares (4,9) to (5,11) (event 16 of the map); its only door is the one east of (3,10), in the goblin guards' wall, so the guards at location 15 are beaten first. Entered without Search the room prints 'THIS LARGE ROOM IS APPARENTLY EMPTY.' and offers nothing; the script finds the chest only with Search on (ac8e: COMPARE 0x6dca, 1). The party steps out, turns Search on and comes in again: the game prints the floorboard text with YES and NO (the room's own text is shown once, 0x4a14), YES gives 'The party has found Treasure! Each character receives 383 experience points.', exactly 2 gems and 200 platinum pieces when shared out, and two items the game lists as 'Shield' and 'Magic User Scroll With 1 Spell'. A second visit with Search on prints nothing (0x4a83). The shield is +1: the thief, who carried no shield, has armor class 2 without it and 0 with it on his arm, a shield's 1 and its +1. That the scroll's one spell is Magic Missile is not shown by this test."
     },
     {
       "id": "acceptance.slums.trolls-and-ogres",
