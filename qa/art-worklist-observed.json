@@ -4,23 +4,102 @@
   {
    "rule": "The game resets the ground code (DS:0x6f68, script address 0xc059) to 0x41 and the horizon code (DS:0x6f69, script address 0xc05f) to 9 whenever it starts a script: ovl07 0x01b6, called from the NEW ECL command (ovl03 0x0bd1, at 0x0c55, straight after the new block is loaded) and from the start of the exploring loop (ovl03 0x32f8, at 0x335d: a new game and a loaded game). ovl26 0x016d turns the codes into colours: the horizon code gives the line (0x00c7: 8 and 0x41 give 0, anything else 15) and the band (0x00fb: 8 gives 8, anything else 7); the ground code gives the ground (0x012f: 0x0b gives 8, 6 gives 1, anything else 6). So the reset values 0x41 (ground) and 9 (horizon) draw line 15, band 7, ground 6, the same as the values the program starts with (ovl11 0x044c: 0xdb and 0xe8). 0x41 gives line 0 only in the horizon code, which Kuto's Well's script alone writes (af52).",
    "observed": [
-    { "where": "New Phlan (4,12), guide-party fixture just loaded, 05:24", "ground6f68": 65, "horizon6f69": 9, "drawn": { "line": 15, "band": 7, "ground": 6 } },
-    { "where": "Valhingen Graveyard (0,4), reached by developer travel (New Phlan's saved script rewritten to run NEW ECL 10), after its script's own writes at 9a8c and 9aa0", "ground6f68": 11, "horizon6f69": 8, "drawn": { "line": 0, "band": 8, "ground": 8 }, "cells": "plain sky row all colour 0, plain ground row all colour 8" },
-    { "where": "one step west off the Graveyard's edge: its script runs NEW ECL 26 (9944) and the party is on the overland map at (13,0)", "ground6f68": 65, "horizon6f69": 9, "note": "The Graveyard's script restores only the ground code before leaving (992b); nothing in any script writes 9 to the horizon code, so the 8 it had set was replaced by the game. The overland map draws no first-person cells, so no cell was read after the reset; the flag DS:0x84e5 was 1, which makes the next first-person draw compute its colours from these codes (ovl26 0x01cc)." }
+    {
+     "where": "New Phlan (4,12), guide-party fixture just loaded, 05:24",
+     "ground6f68": 65,
+     "horizon6f69": 9,
+     "drawn": {
+      "line": 15,
+      "band": 7,
+      "ground": 6
+     }
+    },
+    {
+     "where": "Valhingen Graveyard (0,4), reached by developer travel (New Phlan's saved script rewritten to run NEW ECL 10), after its script's own writes at 9a8c and 9aa0",
+     "ground6f68": 11,
+     "horizon6f69": 8,
+     "drawn": {
+      "line": 0,
+      "band": 8,
+      "ground": 8
+     },
+     "cells": "plain sky row all colour 0, plain ground row all colour 8"
+    },
+    {
+     "where": "one step west off the Graveyard's edge: its script runs NEW ECL 26 (9944) and the party is on the overland map at (13,0)",
+     "ground6f68": 65,
+     "horizon6f69": 9,
+     "note": "The Graveyard's script restores only the ground code before leaving (992b); nothing in any script writes 9 to the horizon code, so the 8 it had set was replaced by the game. The overland map draws no first-person cells, so no cell was read after the reset; the flag DS:0x84e5 was 1, which makes the next first-person draw compute its colours from these codes (ovl26 0x01cc)."
+    }
    ],
    "run": "2026-11-21, tools/acceptance/harness.mjs with POR_WATCH_DS=6f68,6f69,84e5,6a60,6a61,6a62,6a63"
   }
  ],
  "areas": {
+  "3": {
+   "notShown": [
+    {
+     "backdrop": "s12",
+     "reason": "Valjevo Castle (ECL5 block 3)'s script sets the open sky only at 9a5f to 9a78 (11, or 8 when the hour 0x49c9 is 14 or more), which is colour 11 or 0, and the roofed sky to 9 (colour 15) at 9a65. Sky 12 came from the tool following the scratch variable 0x6e79, which other code uses for other numbers; nothing jumps into the middle of the sequence."
+    }
+   ]
+  },
   "5": {
    "notShown": [
-    { "backdrop": "s12", "reason": "Valjevo Castle's script sets the open sky only at 9a5f to 9a78 (11, or 8 when the hour 0x49c9 is 14 or more), which is colour 11 or 0, and the roofed sky to 9 (colour 15) at 9a65. Sky 12 came from the tool following the scratch variable 0x6e79, which other code uses for other numbers; nothing jumps into the middle of the sequence." }
+    {
+     "backdrop": "s12",
+     "reason": "Valjevo Castle's script sets the open sky only at 9a5f to 9a78 (11, or 8 when the hour 0x49c9 is 14 or more), which is colour 11 or 0, and the roofed sky to 9 (colour 15) at 9a65. Sky 12 came from the tool following the scratch variable 0x6e79, which other code uses for other numbers; nothing jumps into the middle of the sequence."
+    }
+   ]
+  },
+  "8": {
+   "shown": [
+    {
+     "backdrop": "s0",
+     "how": "2026-11-21, GOG 1.3, piped play (tools/acceptance/harness.mjs) from qa/fixtures/guide-party-new-phlan with POR_TRACE_TILES=1. Rested 8 hours in the inn, walked into City Hall at (4,4) at 13:46 (sky variable 0x49fd = 11), stayed inside until 14:00 and left: north to (4,3) at 14:01 and, in a second run, west to (3,4). On the street square the view is still keyed area 8 until the next step, 0x49fd is 8 and the sky is colour 0. In the eight views (four facings on each square) every cell without artwork, 9 distinct, is one the tool held under sky 0. After hour 14 the door is locked (\"THE DOOR IS LOCKED. DO YOU WANT TO BREAK IN?\"), so this is the way in. Inside, every square is roofed (0x49fe = 10, colour 12) by day and by night."
+    }
    ]
   },
   "9": {
    "notShown": [
-    { "backdrop": "s9", "reason": "Stojanow Gate's script sets the open sky only at 9935 to 994e (11, or 8 when the hour 0x49c9 is 14 or more), which is colour 11 or 0, and the roofed sky to 9 (colour 15) at 993b. Sky 9 came from the tool following the scratch variable 0x6e79, which other code uses for other numbers; nothing jumps into the middle of the sequence." },
-    { "backdrop": "s12", "reason": "Stojanow Gate's script sets the open sky only at 9935 to 994e (11, or 8 when the hour 0x49c9 is 14 or more), which is colour 11 or 0, and the roofed sky to 9 (colour 15) at 993b. Sky 12 came from the tool following the scratch variable 0x6e79, which other code uses for other numbers; nothing jumps into the middle of the sequence." }
+    {
+     "backdrop": "s9",
+     "reason": "Stojanow Gate's script sets the open sky only at 9935 to 994e (11, or 8 when the hour 0x49c9 is 14 or more), which is colour 11 or 0, and the roofed sky to 9 (colour 15) at 993b. Sky 9 came from the tool following the scratch variable 0x6e79, which other code uses for other numbers; nothing jumps into the middle of the sequence."
+    },
+    {
+     "backdrop": "s12",
+     "reason": "Stojanow Gate's script sets the open sky only at 9935 to 994e (11, or 8 when the hour 0x49c9 is 14 or more), which is colour 11 or 0, and the roofed sky to 9 (colour 15) at 993b. Sky 12 came from the tool following the scratch variable 0x6e79, which other code uses for other numbers; nothing jumps into the middle of the sequence."
+    }
+   ],
+   "shown": [
+    {
+     "backdrop": "s11",
+     "how": "2026-11-21, GOG 1.3, piped play (tools/acceptance/harness.mjs) from qa/fixtures/guide-party-new-phlan with POR_TRACE_TILES=1. Developer travel (the saved copy of New Phlan's script rewritten to run NEW ECL 9 of ECL2 at 1,4) at 05:25 to 05:28: on (2,4), (3,4) and (2,5) the view is keyed area 9, 0x49fd is 11 (the script's own 9935 to 994e) and the sky is colour 11. Every cell without artwork in those views, 7 distinct, is one the tool held under sky 11."
+    }
+   ]
+  },
+  "11": {
+   "shown": [
+    {
+     "backdrop": "s0",
+     "how": "2026-11-21, GOG 1.3, piped play (tools/acceptance/harness.mjs) from qa/fixtures/guide-party-new-phlan with POR_TRACE_TILES=1. Rested 10 hours in the inn (15:24), walked into the training block at (6,2) and out again west to (5,2) at 15:41. On the street square the view is still keyed area 11 until the next step, 0x49fd is 8 and the sky is colour 0. In the four facings every cell without artwork, 12 distinct, is one the tool held under sky 0. Inside the block every square walked is roofed (colour 12) by day and by night and has its artwork."
+    }
+   ]
+  },
+  "24": {
+   "shown": [
+    {
+     "backdrop": "s0",
+     "how": "2026-11-21, GOG 1.3, piped play (tools/acceptance/harness.mjs) from qa/fixtures/guide-party-new-phlan with POR_TRACE_TILES=1. Rested 10 hours and saved in the inn, then developer travel (the saved copy of New Phlan's script rewritten to run NEW ECL 24 of ECL1 at the wilderness arrival square 15,4): at 15:25 to 15:27 on (14,4), (13,4) and (13,3) the view is keyed area 24, 0x49fd is 8 (the script's own 9914 to 9927) and the sky is colour 0. Every cell without artwork in those views, 3 distinct, is one the tool held under sky 0."
+    }
+   ]
+  },
+  "31": {
+   "shown": [
+    {
+     "backdrop": "s0",
+     "how": "Not walked. Map 31 is the Temple of Bane's interior, run by the same script as area 24 (ECL1 block 24), which sets the open sky from the hour at 9914 to 9927 and again at b6a3 to b6bd before loading either map (b6d5, b6dd). That script's night sky was seen in play on map 24 (see area 24). Walking to an open square of map 31 at hour 14 or later would show these 3 cells directly."
+    }
    ]
   }
  }
