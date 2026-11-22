@@ -545,7 +545,19 @@ function playAnimation(continues = false) {
     // pictures running into the next batch, at the cost of a slower animation, never a stop.
     const spread = frames.length ? Math.min(900, 1.5 * perPicture * next / frames.length) : 0;
     selfPlayingBatchAt = state.presentationPolling ? now : undefined;
-    frames = frames.map(frame => ({ ...frame, durationMs: Math.max(frame.durationMs ?? 120, spread) }));
+    if (state.presentationPolling) {
+      frames = frames.map(frame => ({ ...frame, gameMs: frame.durationMs ?? 120, durationMs: Math.max(frame.durationMs ?? 120, spread) }));
+    } else {
+      // The game has gone on to its next prompt (the castle departure): the poses still to come play
+      // at the original's pace, and all within a second, so the next picture is not kept waiting
+      // behind them (#125).
+      const rest = [...animationQueue, ...frames.map(frame => ({ ...frame, gameMs: frame.durationMs ?? 120 }))];
+      const total = rest.reduce((sum, frame) => sum + (frame.gameMs ?? frame.durationMs ?? 120), 0);
+      const scale = Math.min(1, 1000 / Math.max(total, 1));
+      for (const frame of rest) frame.durationMs = Math.max(16, (frame.gameMs ?? frame.durationMs ?? 120) * scale);
+      animationQueue.length = 0;
+      frames = rest;
+    }
   }
   // The game's next batch of an animation it plays by itself (#121) follows the clips still playing,
   // so the pictures run on while the game draws the batch after (#125).

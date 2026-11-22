@@ -10734,6 +10734,7 @@ try {
         }
         await advance("j");
       }
+      let departureReachedAt;
       if (routeName === "valjevo-dragon-loot") {
         const sequence = frame.sequence;
         await waitFor("Chrome ready for the finale", () => run(`
@@ -10767,6 +10768,10 @@ try {
           const state = await latest();
           return state.ready && state.sequence > sequence && !state.presentationPolling && state;
         }, 120_000);
+        // The poses still to play when the game reaches the departure delay its picture (#125).
+        departureReachedAt = Date.now();
+        const queued = await run(`({ poses: animationQueue.length, ms: animationQueue.reduce((sum, clip) => sum + (clip.durationMs ?? 120), 0) })`);
+        console.log(`Finale poses still queued when the game reached the departure: ${queued.poses}, ${queued.ms} ms`);
       } else if (continuation.pressOnPortrait) {
         const sequence = frame.sequence;
         const [input] = continuation.inputs;
@@ -10810,6 +10815,7 @@ try {
         await waitFor("the enhanced continuation portrait", () => run(`
           document.querySelector('.encounter-portrait[src="/art/${nextPortrait}"]')?.naturalWidth === 352
         `));
+        if (departureReachedAt) console.log(`Departure picture shown ${Date.now() - departureReachedAt} ms after the game reached it`);
       }
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
       if (routeName === "new-phlan-city-hall-exit") {
