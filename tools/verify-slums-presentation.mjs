@@ -700,6 +700,13 @@ const cityHallEntrance = ["right", "right", "up", "up", "up", "enter", "up"];
 const fightersDoorApproach = ["left", "up", "right", "up", "enter", "n", "n", "up"];
 
 const illustrationRoutes = new Map([
+  ["kuto-well-surface-ambush", {
+    slot: "J", inputs: ["up", "y", "enter", "enter", "down", "up"],
+    portrait: "scene-illustration:area:29:ecl:af2f:caller:a31b",
+    heldPortrait: "scene-illustration:area:29:ecl:af2f:caller:a31b",
+    prompt: /MONSTERSFROMTHESURROUNDINGBUILDINGSATTACKYOU/i,
+    continuation: { inputs: ["enter", "enter"], clearsPortrait: true, prompt: /HITPOINTS.*MOVEVIEWAIM/i },
+  }],
   ["kuto-well-surface-notice", {
     slot: "J", inputs: ["l"],
     portrait: "scene-illustration:area:29:ecl:afa1",
