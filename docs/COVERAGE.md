@@ -4301,7 +4301,9 @@ through the east door to Cadorna and the return to exploration.
 The `council-braccio-referral` replay checks the offer to report to
 Bishop Braccio at Tyr's temple. It uses a controlled slot A with Sokal
 complete and confirms the new temple illustration and the return to
-exploration on GOG 1.3.
+exploration on GOG 1.3. The `council-kovel-offer` replay uses the same
+checkpoint to check the next offer and its illustration of the thieves
+using the mansion as a hideout.
 
 The `stojanow-gate-reward` Chrome replay on GOG 1.3 checks the Council
 clerk's artwork as she checks for a reward, sorts the remaining
