@@ -100,6 +100,15 @@ The canonical New Phlan replays below also passed in GOG 1.3 Chrome at
 The harbor aide strike replay checks the Aides' longsword turn, then
 verifies the canonical `ae09` strike frame in Chrome.
 
+For the Kovel caskets and tapestries, start from a copy of the local
+`kovel-loot-A.json` save in area 14. The three position bytes start at
+`0x3201` in its decoded native save. Set them to `07 07 06` (7,7 west)
+for a one-step approach to the caskets, or `0e 0d 04` (14,13 south)
+for the tapestries. The GOG 1.3 Chrome replays passed the needle and all
+four casket rewards, plus the separate tapestry reward, using these
+position-only fixtures.
+
+
 The `valhingen-brass-doors-look` replay uses the staged local
 `valhingen-brass-doors-A.json` save. The same canonical Look artwork,
 panel fit, and mode switch passed in Chrome with both DOS 1.0 and
