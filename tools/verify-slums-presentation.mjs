@@ -2506,6 +2506,17 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "council-bivant-rescue-offer.png",
     continuation: { inputs: ["enter"], prompt: /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i, clearsPortrait: true },
   }],
+  ["council-cadorna-south-referral", {
+    slot: "A", inputs: [...councilClerkApproach, "enter", "enter", "enter"],
+    portraitStops: {
+      9: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:slums-commission-offer",
+      10: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:braccio-temple-referral",
+    },
+    portrait: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:cadorna-diplomatic-referral",
+    prompt: /LORDCADORNAHASADELICATEDIPLOMATICMISSION.*GOTHROUGHTHESOUTHDOOR/i,
+    finalPhaseCapture: "council-cadorna-south-door.png",
+    continuation: { inputs: ["enter"], prompt: /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i, clearsPortrait: true },
+  }],
   ["new-phlan-council-entry", {
     slot: "A", inputs: [...Array(8).fill("enter"), "right", "right", "up", "up", "up",
       "enter", "up", "up", "up", "up", "left", "up", "up"],
@@ -10212,7 +10223,7 @@ try {
       }
       if (["council-records-offer", "council-podal-offer", "council-cadorna-referral", "council-braccio-referral",
         "council-kovel-offer", "council-nomad-offer", "council-kobold-offer", "council-river-offer",
-        "council-lizardfolk-offer", "council-bivant-offer", "stojanow-merchant-gate",
+        "council-lizardfolk-offer", "council-bivant-offer", "council-cadorna-south-referral", "stojanow-merchant-gate",
         "stojanow-toll-refused", "stojanow-tower-arrow-volley",
         "stojanow-trader-no-money", "wild-grove-western-stench"].includes(routeName)) {
         assert.ok(!frame.classicPortrait);

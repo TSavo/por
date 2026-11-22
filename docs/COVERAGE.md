@@ -4322,6 +4322,10 @@ The `council-bivant-offer` replay marks the lizardfolk commission
 fulfilled in a controlled slot. It checks the original rescue request,
 the new illustration of the missing heir, and the return to exploration
 on GOG 1.3.
+The `council-cadorna-south-referral` replay checks Cadorna's later
+summons through the south door for a diplomatic mission. With the rescue
+commission already complete, Chrome verifies the original direction and
+its separate picture, then the return to exploration in GOG 1.3.
 
 The `stojanow-gate-reward` Chrome replay on GOG 1.3 checks the Council
 clerk's artwork as she checks for a reward, sorts the remaining
