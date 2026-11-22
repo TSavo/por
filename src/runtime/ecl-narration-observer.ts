@@ -163,8 +163,9 @@ export class EclNarrationObserver {
         this.deferred.splice(index, 1);
         const resolved = this.makeEvent(cpu, this.eventsById.get(pending.triggerSourceId)!, selected);
         const since = this.deferredSince.get(pending.triggerSourceId);
+        const slot = resolved.unitId ? this.variantSlot(resolved.unitId) : undefined;
         this.decide(cpu, "selector-resolved", event.sourceId, { event: resolved, trigger: pending.triggerSourceId,
-          ...(since === undefined ? {} : { since }) });
+          ...(since === undefined ? {} : { since }), ...(slot ? { slot } : {}) });
         return resolved;
       }
     }

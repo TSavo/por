@@ -240,5 +240,16 @@ function create(path: string) {
   };
 }
 
-/** The ledger, when POR_NARRATION_LEDGER names a file. Undefined otherwise. */
-export const narrationLedger = process.env.POR_NARRATION_LEDGER ? create(process.env.POR_NARRATION_LEDGER) : undefined;
+let opened: ReturnType<typeof create> | undefined;
+const ledgerPath = process.env.POR_NARRATION_LEDGER;
+/**
+ * The ledger, when POR_NARRATION_LEDGER names a file. Undefined otherwise. Only the runner opens
+ * it: the play server imports the display code too and must neither write a ledger nor load the
+ * artwork a second time.
+ */
+export const narrationLedger = ledgerPath ? {
+  open(): void { opened ??= create(ledgerPath); },
+  observe(observer: EclNarrationObserver, manifest: ObserverManifest): void { (opened ??= create(ledgerPath)).observe(observer, manifest); },
+  text(step: number, message: string, fromEclText: boolean): void { opened?.text(step, message, fromEclText); },
+  frame(art: FrameArt): void { opened?.frame(art); },
+} : undefined;

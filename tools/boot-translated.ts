@@ -227,6 +227,8 @@ if (recording) {
   writeFileSync(recording, prefix, { flag: "wx" });
 }
 const automap = liveAt === undefined ? undefined : openAutomap(root);
+// POR_NARRATION_LEDGER: opened before the display reads its artwork list. Observes only.
+if (process.env.POR_BROWSER_PLAY === "1") narrationLedger?.open();
 const input = liveAt === undefined ? undefined : liveInput(liveStep, () => {
   const known = journal();
   return [...known, ...journalInventoryLeads(cpu, known, unit.data)];
