@@ -2,6 +2,7 @@ import type { Cpu } from "../src/cpu/machine.js";
 import type { Frame } from "../src/lib/ega.js";
 import { data } from "../src/runtime/bindings.js";
 import type { PictureRecord } from "../src/runtime/game-data.js";
+import { cellWriteMark } from "../src/runtime/video.js";
 import { portraitHoldAction, usesPortraitDelta, type CharacterSheetPart } from "./portrait-art.js";
 
 const pictureAddress = (segment: number, offset: number) => ((segment << 4) + offset) & 0xfffff;
@@ -17,9 +18,14 @@ interface PortraitPart {
   address: number;
 }
 
-type VisiblePicture = { pixels: Buffer } & ({ picture: PictureMember } | { head: string; body: string });
+type VisiblePicture = { pixels: Buffer; mark: number } & ({ picture: PictureMember } | { head: string; body: string });
 
 const sheetX = 224, sheetY = 8, pictureSize = 88, headHeight = 40;
+// The game's own data has blank pictures: a menu, a list or a sheet drawn over a picture leaves its
+// pixels as they were. Each held picture also keeps the write count of its cells, and a write there
+// since it was drawn means it is gone (cellWriteMark in the video module).
+const viewportMark = () => cellWriteMark(3, 3, 11, 11);
+const sheetMark = () => cellWriteMark(sheetX / 8, sheetY / 8, 11, 11);
 
 function sheetPixels(frame: Frame) {
   const pixels = Buffer.alloc(pictureSize * pictureSize);
@@ -35,7 +41,7 @@ export function observeNativePictureArt(art: ReadonlySet<string>, sheetArt: Read
   // The loader allocates a separate far pointer for each animation member.
   const members = new Map<number, PictureMember>();
   let visible: VisiblePicture | undefined;
-  let sheet: { head: string; body: string; pixels: Buffer } | undefined;
+  let sheet: { head: string; body: string; pixels: Buffer; mark: number } | undefined;
   let head: PortraitPart | undefined;
   let body: PortraitPart | undefined;
   const aliases = new Map<string, string[]>();
@@ -104,8 +110,11 @@ export function observeNativePictureArt(art: ReadonlySet<string>, sheetArt: Read
       const pixels = viewport();
       // A hold can be called after a non-base phase. Preserve its art when the native draw leaves the panel alone.
       if (holds.get(`${picture.archive}:${picture.block}:${picture.member}`) === "previous" && visible && "picture" in visible &&
-          visible.picture.archive === picture.archive && visible.picture.block === picture.block && visible.pixels.equals(pixels)) return;
-      visible = { picture, pixels };
+          visible.picture.archive === picture.archive && visible.picture.block === picture.block && visible.pixels.equals(pixels)) {
+        visible.mark = viewportMark();
+        return;
+      }
+      visible = { picture, pixels, mark: viewportMark() };
     },
     partLoaded(cpu: Cpu, isHead: boolean) {
       const slot = isHead ? data.portraitHead : data.portraitBody;
@@ -125,15 +134,15 @@ export function observeNativePictureArt(art: ReadonlySet<string>, sheetArt: Read
       if (!arg(6) || (!portraitPanel && !sheetPanel)) return;
       const parts = head && body && head.address === partAddress(cpu, data.portraitHead) &&
         body.address === partAddress(cpu, data.portraitBody) ? { head: head.source, body: body.source } : undefined;
-      if (sheetPanel) sheet = parts && { ...parts, pixels: sheetPixels(frame) };
-      else visible = parts && { ...parts, pixels: viewport() };
+      if (sheetPanel) sheet = parts && { ...parts, pixels: sheetPixels(frame), mark: sheetMark() };
+      else visible = parts && { ...parts, pixels: viewport(), mark: viewportMark() };
     },
     clear() {
       visible = undefined;
     },
     matchSheet(frame: Frame): CharacterSheetPart[] | undefined {
       if (!sheet) return;
-      if (!sheet.pixels.equals(sheetPixels(frame))) {
+      if (!sheet.pixels.equals(sheetPixels(frame)) || sheet.mark !== sheetMark()) {
         sheet = undefined;
         return;
       }
@@ -146,7 +155,7 @@ export function observeNativePictureArt(art: ReadonlySet<string>, sheetArt: Read
     },
     match(area?: number, cursor?: number, caller?: number) {
       if (!visible) return;
-      if (!visible.pixels.equals(viewport())) {
+      if (!visible.pixels.equals(viewport()) || visible.mark !== viewportMark()) {
         visible = undefined;
         return;
       }

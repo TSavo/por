@@ -438,9 +438,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       let picture = scene ? undefined : illustration ?? arrivalPicture ??
         nativePicture?.match(area, portraitCursor, pictureCaller) ??
         portraitArt(screen, area, portraitCursor, pictureCaller);
-      // Standalone data omits the original border pixels that identify the portrait picker.
+      // From the game's own data the sheet's head and body come from the game's portrait draws, for
+      // as long as nothing is drawn over them (on the roll, the name, Head Body Keep and View).
       const characterSheet = !scene && !picture ?
-        (menu === "HEADBODYKEEP" ? nativePicture?.matchSheet(screen) : undefined) ?? characterSheetArt(screen) : undefined;
+        nativePicture?.matchSheet(screen) ?? characterSheetArt(screen) : undefined;
       const enhanced = new Frame(presentation.width, presentation.height);
       enhanced.pixels.set(presentation.pixels);
       for (const [x, y, , width, height] of characterSheet ?? []) {
