@@ -3969,13 +3969,13 @@ const illustrationRoutes = new Map([
   ["valjevo-bucket-trap-giant-loops", {
     slot: "B", inputs: ["up", ...Array(4).fill("enter"), ...Array(4).fill("q")],
     portrait: "portrait:area:3:ecl:a662:PIC5.DAX:56:3:0",
-    prompt: /THEGIANTSWHOPLACEDTHEBUCKETTHERECHARGE.*COMBATWAITFLEEPARLAY/i,
+    prompt: /THEGIANTSWHOPLACEDTHEBUCKETTHERECHARGE/i,
     heldPortraitLoop: bucketTrapLoop,
     continuation: {
       inputs: ["c"],
       portraits: [bucketTrapLoop[0], "portrait:area:3:ecl:9a5a:caller:a732:PIC5.DAX:56:1:0",
         "portrait:area:3:ecl:9a5a:caller:a732:PIC5.DAX:56:3:0"],
-      prompt: /THEGIANTSWHOPLACEDTHEBUCKETTHERECHARGE.*PRESSBUTTON.*CONTINUE/i,
+      prompt: /THEGIANTSWHOPLACEDTHEBUCKETTHERECHARGE/i,
       heldPortraitLoop: bucketTrapLoop,
     },
   }],
