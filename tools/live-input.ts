@@ -348,6 +348,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   let lastAttack = "";
   let lastCombatReport = "";
+  /** The right-hand panel above the report (the actor's stats) when the last report was taken. */
+  let lastCombatStats = "";
   let lastApproach: string | undefined;
   const portraitKeys = (process.env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean);
   const portraitArt = loadPortraitArt(portraitKeys, browser);
@@ -913,6 +915,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         immediateStrike = undefined;
         lastAttack = "";
         lastCombatReport = "";
+        lastCombatStats = "";
         lastApproach = undefined;
       }
       if (captureApproach) return encounter;
@@ -1458,7 +1461,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         .filter(([cell, char]) => cell >= 423 && cell < 860 && cell % 40 >= 23 && char > 32)
         .sort(([a], [b]) => a - b);
       const report = reportGlyphs.map(([cell, char]) => `${cell}:${char}`).join(",");
-      const newReport = report.length > 0 && report !== lastCombatReport;
+      // The actor's stats above it: the same report for another actor (a second orc that surrenders)
+      // is a report of its own (#179).
+      const stats = battleGlyphs.filter(([cell, char]) => cell < 423 && cell % 40 >= 23 && char > 32)
+        .sort(([a], [b]) => a - b).map(([cell, char]) => `${cell}:${char}`).join(",");
+      const newReport = report.length > 0 && (report !== lastCombatReport || stats !== lastCombatStats);
       if (queueFull && !newReport) {
         pauseOutcome = "queue full";
         return;
@@ -1517,6 +1524,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
       }
       lastCombatReport = report;
+      lastCombatStats = stats;
       lastAttack = signature;
     } : undefined,
     /** What the last pause led to: a picture for the page, a held one, or nothing (POR_TRACE_PAUSES). */

@@ -405,33 +405,26 @@
    "original": {
     "walk": "acceptance slums flee",
     "text": [
-     "                       O C",
-     "                                 5",
-     "                          6",
-     "                       ORC",
+     "                       GOBLIN GUARD",
+     "                       Hitpoints 2",
+     "                       AC 6",
+     "                       Short Sword",
+     "                       GOBLIN GUARD",
      "                       Surrenders"
     ],
-    "shown": false,
-    "missing": [
-     "                                 5"
-    ]
+    "shown": true
    },
    "port": {
     "walk": "acceptance slums flee",
     "text": [
-     "                       ORC",
-     "                       Hitpoints 5",
+     "                       GOBLIN GUARD",
+     "                       Hitpoints 2",
      "                       AC 6",
-     "                       ORC",
+     "                       Short Sword",
+     "                       GOBLIN GUARD",
      "                       Surrenders"
     ],
-    "shown": false,
-    "missing": [
-     "                                 5"
-    ],
-    "pageHad": [
-     "                       Hitpoints 1"
-    ]
+    "shown": true
    }
   },
   "slice 24 +16b0": {

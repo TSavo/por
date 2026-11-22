@@ -386,12 +386,13 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
             const asRows = (glyphs) => screenRows({ text: glyphs }).map((row) => row.trimEnd()).filter(Boolean);
             // The rows the message is on, as the screen showed them.
             const screen = screenRows(pause);
-            const rows = [...new Set(message.map(([cell]) => Math.floor(cell / 40)))].sort((a, b) => a - b).map((row) => screen[row].trimEnd());
+            const rowNumbers = [...new Set(message.map(([cell]) => Math.floor(cell / 40)))].sort((a, b) => a - b);
+            const rows = rowNumbers.map((row) => screen[row].trimEnd());
             const best = pauseBestFrame(message, game.frame);
             // Where it differs, what the frame that came closest had in those cells.
             const had = best.shown ? screenRows(best.shown) : [];
             const pageHad = [...new Set(best.missing.map(([cell]) => Math.floor(cell / 40)))].sort((a, b) => a - b).map((row) => had[row]?.trimEnd() ?? "");
-            pauses.push({ ...pause, message, rows, shown: best.missing.length === 0, missing: asRows(best.missing), pageHad });
+            pauses.push({ ...pause, message, rows, rowNumbers, shown: best.missing.length === 0, missing: asRows(best.missing), pageHad });
           }
           pendingPauses = [];
           return true;
@@ -763,9 +764,9 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
       if (pauseLog) {
         const source = setting("POR_GAME_SOURCE") === "port" ? "port" : "original";
         const walk = setting("POR_PAUSE_WALK") ?? basename(process.argv[1] ?? "harness");
-        for (const { returns, via, rows, message, shown, missing, pageHad, host } of pauses) {
+        for (const { returns, via, rows, rowNumbers, message, shown, missing, pageHad, host } of pauses) {
           if (!message.length) continue;
-          appendFileSync(pauseLog, JSON.stringify({ walk, source, returns, via, text: rows, shown, ...(shown ? {} : { missing, pageHad, host }) }) + "\n");
+          appendFileSync(pauseLog, JSON.stringify({ walk, source, returns, via, text: rows, shown, ...(shown ? {} : { rowNumbers, missing, pageHad, host }) }) + "\n");
         }
       }
     },
