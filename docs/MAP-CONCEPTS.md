@@ -51,8 +51,7 @@ stops at encounters and story prompts. **Sokal Keep** takes the original
 ferry via the New Phlan harbor and hands control back on Thorn Island. If
 the harbor master charges a fare, choose a party member to pay the one
 platinum in the original game menu. Press Escape to stop a route.
-**Map** enlarges the illustration and **Travel art**
-switches between the illustration and the overhead terrain view.
+**Map** enlarges the illustration.
 
 **Valjevo Castle** enters Podol Plaza from the western crossroads and
 follows the road through Stojanow Gate to the castle approach. The native

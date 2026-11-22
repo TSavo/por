@@ -32,7 +32,6 @@ const phlanApproaches = document.querySelector("#phlan-approaches");
 const approachButtons = [...phlanApproaches.querySelectorAll("[data-approach]")];
 const presentation = document.querySelector("#presentation");
 const journalToggle = document.querySelector("#journal-toggle");
-const travelArtToggle = document.querySelector("#travel-art-toggle");
 const audioToggle = document.querySelector("#audio-toggle");
 const partyMaterialColors = [
   [0, 0, 0], [0, 0, 170], [0, 170, 0], [0, 170, 170],
@@ -126,7 +125,8 @@ let streetModule;
 let streetAtlas;
 let overlandViewport;
 let overlandLoading;
-let travelArtEnabled = true;
+// Enhanced overland play always shows the illustrated Moonsea map: there is no switch back to the original tiles.
+const travelArtEnabled = true;
 let travelArtReady = false;
 let travelExpanded = false;
 let activeTravel;
@@ -538,8 +538,6 @@ function renderTravelMap(view = animationFrame ?? state) {
   const visible = illustrated && travelArtEnabled && !activeTravel && !animationFrame && view.travel;
   if (!visible && travelExpanded) setTravelExpanded(false);
   travelMap.hidden = !visible;
-  travelArtToggle.hidden = !illustrated;
-  travelArtToggle.setAttribute("aria-pressed", String(travelArtEnabled));
   const routes = visible && state.ready && !state.stopped ? view.travel.routes : {};
   for (const landmark of travelLandmarks) {
     const enabled = Boolean(phlanApproaches.hidden && routes[landmark.dataset.destination]);
@@ -851,15 +849,6 @@ function ensureStreetViewport(surface) {
   }
   return streetViewport;
 }
-
-travelArtToggle.addEventListener("click", () => {
-  if (!enhanced || !state.overlandMap || !travelArtReady) return;
-  travelArtEnabled = !travelArtEnabled;
-  activeTravel = undefined;
-  renderTravelMap();
-  void showScreen();
-  if (document.activeElement === travelArtToggle) screen.focus({preventScroll:true});
-});
 
 function discoveredLocalMap({ area, mapId }) {
   const map = discoveredMaps[area];
