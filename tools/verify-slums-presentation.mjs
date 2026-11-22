@@ -2062,6 +2062,13 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "bane-hay-bunk-room.png",
     continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["bane-barracks-ambush", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "scene-illustration:area:31:ecl:a1c8:cue:barracks-ambush",
+    prompt: /YOUENTERINTOAFILTHYROOM\.EIGHTORCGUARDSATTACKYOUIMMEDIATELY.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "bane-barracks-ambush.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /ORCHITPOINTS5AC6/i },
+  }],
   ["bane-hay-bunk-ambush", {
     slot: "A", inputs: ["up", "enter", "s", "enter"],
     portraitStops: { 1: "scene-illustration:area:31:ecl:a242:cue:hay-bunk-room", 3: "scene-illustration:area:31:ecl:a269:cue:hay-bunk-room" },
