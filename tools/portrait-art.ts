@@ -892,6 +892,10 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:19:ecl:aeeb:cue:diogenes-lair-empty", /AFTERRECOVERINGFROMTHEFIREBALL.*FINDNOTHING/],
   ["scene-illustration:area:8:ecl:9f21:caller:9a4a", "WITHSOKALKEEPINOURHANDS"],
   ["scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:bivant-rescue", "BIVANTWASDELIGHTEDWITHTHECHILD"],
+  ...["a201:caller:9db7", "9efe:caller:9a4a", "9f21:caller:9a4a"].map(scope => [
+    `scene-illustration:area:8:ecl:${scope}:cue:kovel-reward`,
+    "THECOUNCILWASPLEASEDBYTHEELIMINATIONOFTHETHIEVESINKOVELMANSION",
+  ] as const),
   ["scene-illustration:area:8:ecl:a08a:caller:9db7:cue:fyerdetha-discourses-reward", "WEFINDTHESEDISCOURSESVALUABLE"],
   ["scene-illustration:area:8:ecl:9efe:caller:9a4a:cue:fyerdetha-discourses-reward", "WEFINDTHESEDISCOURSESVALUABLE"],
   ["scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:fyerdetha-discourses-reward", "WEFINDTHESEDISCOURSESVALUABLE"],

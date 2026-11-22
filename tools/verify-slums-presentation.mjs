@@ -6031,7 +6031,7 @@ routes.push("river-pumping-hostile");
 routes.push("river-return-reload");
 routes.push("swamp-return", "swamp-reward-reload");
 routes.push("slums-potion-booth-reload");
-routes.push("bane-cell-inscription-reload");
+routes.push("bane-cell-inscription-reload", "kovel-reward");
 routes.push("mendor-records-reward-reload", ...mendorCouncilRewards.keys());
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -6216,6 +6216,9 @@ const councilReward = {
   "nomad-reward": ["commission-nomads", /WEWEREMUCHRELIEVEDBYTHENEWSYOUBRINGFROMTHENOMADCAMP/i,
     { portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:nomad-camp", xp: 5900 }],
   "bane-reward": ["commission-bane", /YOUMAYKEEPALLYOUFOUNDINTHETEMPLEOFBANE/i],
+  "kovel-reward": ["commission-kovel", /ELIMINATIONOFTHETHIEVESINKOVELMANSION/i,
+    { portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kovel-reward", xp: 1150,
+      capture: "kovel-council-reward.png" }],
 }[swampReturn ? "swamp-reward" : routeName];
 const envoyReturn = routeName === "zhentil-return";
 const riverApproach = routeName === "river-approach";
@@ -13116,6 +13119,10 @@ try {
         document.querySelector('.encounter-portrait[src="/art/${art.portrait}"]')?.naturalWidth === 352`));
       await switchBothWays();
       await verifyPortraitPanel();
+      if (art.capture) {
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, art.capture), Buffer.from(shot.data, "base64"));
+      }
     }
     await advance("j");
     assert.equal(journalStatus(), "reward-pending");
@@ -13171,11 +13178,11 @@ try {
       assert.equal(checkpointAfterReward.leads.find(({ id }) => id === commission)?.status, "turned-in");
       console.log("Bivant reward checkpoint:", saved);
     }
-    if (routeName === "kobold-king-reward") {
+    if (routeName === "kobold-king-reward" || routeName === "kovel-reward") {
       for (const key of ["j", "enter", "e", "s", "s", "a"]) await advance(key);
       const checkpointAfterReward = JSON.parse(readFileSync(saved, "utf8"));
       assert.equal(checkpointAfterReward.leads.find(({ id }) => id === commission)?.status, "turned-in");
-      assert.ok(checkpointAfterReward.leads.some(({ id }) => id === "kobold-king-fell"));
+      if (routeName === "kobold-king-reward") assert.ok(checkpointAfterReward.leads.some(({ id }) => id === "kobold-king-fell"));
     }
     console.log(`Verified that ${commission} is turned in only after the council reward menu closes.`);
   } else if (envoyEscape) {
