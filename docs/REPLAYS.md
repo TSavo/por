@@ -108,6 +108,17 @@ for the tapestries. The GOG 1.3 Chrome replays passed the needle and all
 four casket rewards, plus the separate tapestry reward, using these
 position-only fixtures.
 
+With `POR_NARRATION_LEDGER` enabled on GOG 1.3 at `3f2de014`,
+the Kovel casket D and Yarash laboratory replays both passed. The ledger
+records the casket-dart unit `ECL3.DAX:14:a86f` followed by the dart
+illustration at `a8df`. It records Yarash's torture-room unit
+`ECL7.DAX:23:a01e` followed by the torture panel at `9a04:caller:a08a`,
+then the laboratory unit `a08a` followed by the laboratory panel at
+`a0fd`. The pearl unit `ECL3.DAX:14:a82f` precedes an unillustrated
+frame and the three pearl menu phases at `a862`. The ledger establishes
+selection order and does not measure when audio was heard in Chrome.
+
+
 
 The `valhingen-brass-doors-look` replay uses the staged local
 `valhingen-brass-doors-A.json` save. The same canonical Look artwork,
