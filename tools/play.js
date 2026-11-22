@@ -1182,6 +1182,8 @@ const portraitLoops = [
   // The blank third member holds the preceding pose for 20 ms.
   ["portrait:area:22:ecl:a2f9:PIC7.DAX:69:", [0, 1, 3, 4, 5, 6, 7], undefined,
     /ONELICKSITSLIPSCOMBATWAITFLEEPARLAY/i, [210, 530, 20, 20, 20, 710, 310]],
+  ["portrait:area:22:ecl:a2f9:PIC7.DAX:62:", 2, undefined,
+    /ONELICKSITSLIPSCOMBATWAITFLEEPARLAY/i, [810, 1210]],
   ["portrait:area:23:ecl:9f04:PIC7.DAX:57:", 4, undefined,
     /THEYAREWARYBUTNOTHOSTILE/i],
   ["portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:", 4, undefined,

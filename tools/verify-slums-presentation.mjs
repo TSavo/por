@@ -4124,12 +4124,14 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter", "down", "up"], portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:62:0:0", prompt: /ONELICKSITSLIPS/i },
   }],
   ["tyrmor-prison-minotaur-phases", {
-    slot: "B", inputs: ["s", "up", "down", "up", "down", "up", "down", "up", "enter", "down", "up", ...Array(5).fill("q")],
-    portraitStops: { 11: "portrait:area:22:ecl:a2f9:PIC7.DAX:62:0:0" },
-    portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:62:1:0",
+    slot: "B", inputs: ["s", "up", "down", "up", "down", "up", "down", "up", "enter"],
+    portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:62:0:0",
     prompt: /ONELICKSITSLIPS/i,
-    finalPhaseCapture: "tyrmor-prison-minotaur-phase-1.png",
-    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:62:1:0", prompt: /ABATTLEBEGINS/i },
+    heldPortraitLoop: [
+      "portrait:area:22:ecl:a2f9:PIC7.DAX:62:0:0",
+      "portrait:area:22:ecl:a2f9:PIC7.DAX:62:1:0",
+    ],
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:62:0:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["valhingen-wight-roam-phases", {
     slot: "A", inputs: ["up", "down", "up"],
@@ -7296,7 +7298,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
-      routeName === "tyrmor-prison-drider-phases" ||
+      routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       ["sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
         "new-phlan-training-duels", "new-phlan-training-north-junction", "new-phlan-training-fighters-door",

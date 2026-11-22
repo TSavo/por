@@ -367,6 +367,9 @@ The Sokal ceiling insects cycle through five distinct paintings in eight
 second pose across the blank native draw. Both Chrome replays verified the
 visible order with GOG 1.3 files and bundled data, then advanced into the
 battle introduction through the game's ordinary prompt.
+The Tyrmor minotaurs alternate two paintings with native holds of 810 and
+1210 ms. Both Chrome data modes painted both poses and accepted a single C
+to open the separate battle introduction.
 
 At `708d1dcd`, the `kobold-cave-wyvern-approach` GOG 1.3 Chrome
 replay passed with both data sources. It checks all three native SPRIT
