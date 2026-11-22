@@ -305,6 +305,8 @@ export const code = resolve({
   encounterDrawn: { "1.0": { slice: 0x1d, at: 0x78a }, "1.3": { slice: 0x1c, at: 0x7bd } },
   /** The battlefield terrain routine: its entry, and the point where a tile is in the offscreen picture. */
   terrainEntry: { "1.0": { slice: 0x21, at: 0xf1 }, "1.3": { slice: 0x20, at: 0xf1 } },
+  /** The overland viewport returns from the same blitter as the battlefield. */
+  overlandTerrainDrawResumes: { "1.0": { slice: 0x1c, at: 0x1ee }, "1.3": { slice: 0x1b, at: 0x1e6 } },
   terrainDrawn: { "1.0": { slice: 0x21, at: 0x14d }, "1.3": { slice: 0x20, at: 0x14b } },
   /** The battlefield loader has copied a replacement sheet into SQRPACI block 1. */
   battleTerrainSheetCopied: { "1.0": { slice: 0x21, at: 0xdb }, "1.3": { slice: 0x20, at: 0xdb } },

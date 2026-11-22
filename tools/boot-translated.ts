@@ -191,8 +191,9 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
         const signed = (value: number) => (value << 24) >> 24;
         const x = signed(argument(10)), y = signed(argument(8)), picture = argument(6), flags = argument(4);
         const block = picture & 0x80 ? 2 : 1, frame = picture & 0x7f;
+        const surface = returnsTo(this, 0, code.overlandTerrainDrawResumes) ? "overland" : "combat";
         const draw = JSON.stringify({
-          x, y, picture, flags, archive: "SQRPACI.DAX", block, frame,
+          x, y, picture, flags, archive: "SQRPACI.DAX", block, frame, surface,
         });
         if (!terrainDraws.has(draw)) {
           terrainDraws.add(draw);

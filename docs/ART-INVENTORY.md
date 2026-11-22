@@ -876,6 +876,15 @@ bank. All nine cell hashes of each of the 40 BACPAC frames match the
 corresponding SQRPACI block 1 frame. The worklist keeps both archives
 visible and counts the shared battlefield artwork keys once.
 
+The battlefield and overland map share the SQRPACI blitter. The
+`POR_BATTLE_DRAW` trace labels the surface from the native caller. On
+GOG 1.3 the overland viewport calls it from overlay `0x1b` at `01e1`,
+and battlefield drawing calls it from overlay `0x1f`. The Moonsea
+Lizardman Keep replay drew 41 distinct overland slot IDs, including 37
+from slots 40 and higher. The wyvern replay drew eight combat slot IDs,
+all between 3 and 39. Both replays passed in Chrome. Keep slot evidence
+from the overland replay separate from evidence of use in a fight.
+
 Enable both trace variables on the same replay and redirect its output
 to a UTF-8 log. Add `--battle-draws=PATH_TO_LOG` to the report command
 alongside that replay's `battle-tiles.jsonl`. The JSON includes each
