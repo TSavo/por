@@ -192,3 +192,5 @@ The two held-menu traces are independent of the Enhanced timing table.
 The worklist checks the renderer, the bindings that can select a loop for
 the opening portrait, and the served art hashes against each Chrome
 capture. Editing a binding for a different portrait keeps that capture valid.
+The reviewed narration-log edit in `3e497fec` accepts the preceding renderer's
+capture hashes for that exact script. The original capture hashes are retained.

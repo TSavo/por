@@ -37,10 +37,19 @@ type ScriptSite = typeof heldPortraitDiscovery.eclCandidates[number];
 const scriptSiteId = (site: ScriptSite) => `${site.scriptArchive}:${site.scriptBlock}:${site.address}`;
 const promptId = (cursor: string, caller: string | null) => caller ? `${cursor}/${caller}` : cursor;
 
+// 3e497fec changes the values recorded by logShownArtwork after drawing. Its
+// exact output script can reuse captures of the preceding display code.
+const previousRendererProof = new Map([
+  ["a25fa97665544a065cee8986d0cf43dc3e5cebeb91ef17d5734051a801fb1d06",
+    "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521"],
+]);
+
 export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.meta.url))) {
   const path = (...parts: string[]) => join(root, ...parts);
   const digest = (value: string | Buffer) => createHash("sha256").update(value).digest("hex");
   const renderer = digest(readFileSync(path("tools", "play.js"), "utf8").replace(/\r\n/g, "\n"));
+  const previousRenderer = previousRendererProof.get(renderer);
+  const matchesRenderer = (hash: string) => hash === renderer || (previousRenderer !== undefined && hash === previousRenderer);
   const inventory = JSON.parse(readFileSync(path("qa", "held-portraits.json"), "utf8")) as HeldPortraitInventory;
   const oneShots = JSON.parse(readFileSync(path("qa", "held-portrait-one-shots.json"), "utf8")) as OneShot[];
   const oneShotByProducer = new Map(oneShots.map(proof => [proof.producer, proof]));
@@ -57,7 +66,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     if (!chrome) return result("paired Chrome evidence is missing");
     try {
       for (const proof of [chrome.original, chrome.port]) {
-        if (proof.rendererSha256 !== renderer) return result(`${proof.data} Chrome evidence predates the current renderer`);
+        if (!matchesRenderer(proof.rendererSha256)) return result(`${proof.data} Chrome evidence predates the current renderer`);
         if (!proof.portrait || proof.bindingSha256 !== digest(portraitLoopSignature(proof.portrait))) {
           return result(`${proof.data} Chrome evidence predates the current portrait binding`);
         }
@@ -90,7 +99,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     const { original, port } = evidence.chrome;
     if (original.route !== port.route || original.portrait !== port.portrait) return "Chrome replays disagree";
     for (const [data, proof] of Object.entries(evidence.chrome)) {
-      if (proof.data !== data || proof.producer !== evidence.producer || proof.rendererSha256 !== renderer ||
+      if (proof.data !== data || proof.producer !== evidence.producer || !matchesRenderer(proof.rendererSha256) ||
           proof.bindingSha256 !== digest(portraitLoopSignature(proof.portrait))) return "Chrome proof predates the current renderer or binding";
       const image = assets.get(proof.portrait);
       if (!image || digest(readFileSync(image)) !== proof.artSha256) return "Chrome proof predates the current artwork";
