@@ -461,6 +461,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // The caption persists after the party turns away from the cleared tower.
       const towerLookAway = scriptKey === "scene-illustration:area:10:ecl:a672" &&
         (livePosition?.x !== 5 || livePosition.y !== 9 || explorationPosition?.facing !== 4);
+      // The post-combat floor note shares the giants' Parlay password-reading routine.
+      const barracksFloorNote = scriptKey === "scene-illustration:area:4:ecl:9a5a:caller:a49f" &&
+        livePosition?.x === 8 && livePosition.y === 0;
       // The maze watch and Scriptorium guards finish the nod at the same ECL cursor.
       let illustrationScope = finalCouncilReward && illustrationText.includes("VIEWTAKEPOOLSHAREEXIT")
         ? `${scriptKey}:cue:council-victory-payout` : scriptKey;
@@ -492,7 +495,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           illustrationScope = `${scriptKey}:cue:lab-door`;
         }
       }
-      const illustration = scene || wellLookAway || towerLookAway
+      const illustration = scene || wellLookAway || towerLookAway || barracksFloorNote
         ? undefined : matchScriptIllustration(illustrationScope, illustrationText, portraitKeys);
       if (captureIllustration && (!illustration || animation.at(-1)?.portrait === illustration)) return;
       const menu = menuText(text);

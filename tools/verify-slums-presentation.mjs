@@ -1246,6 +1246,12 @@ const illustrationRoutes = new Map([
       prompt: /TODAY'SPASSWORDIS.*THEGATEPASSWORDIS/i,
     },
   }]),
+  ["valjevo-barracks-ground-paper", {
+    slot: "C", inputs: ["up"],
+    prompt: /ONTHEGROUNDYOUFINDAPEACEOFPAPERTHATSAYS/i,
+    sceneryPrompt: [4, 8, 0],
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /TODAY'SPASSWORDIS.*THEGATEPASSWORDIS/i },
+  }],
   ["valjevo-disguise-offer", {
     slot: "B", inputs: ["up", "enter", "n"],
     portraitStops: {
@@ -7865,6 +7871,14 @@ try {
       document.querySelector("#screen").src === ${source} &&
       document.querySelector("#tile-art:not([hidden]) .street-viewport")?.isConnected`));
   }
+  async function verifySceneryPrompt(position) {
+    assert.equal(frame.portrait, undefined);
+    assert.equal(frame.classicPortrait, false);
+    assert.equal(frame.encounter, undefined);
+    assert.deepEqual([frame.scenery?.area, frame.scenery?.x, frame.scenery?.y], position);
+    await waitForExplorationViewport();
+    assert.equal(await run('Boolean(document.querySelector("#tile-art:not([hidden]) .encounter-portrait, #tile-art:not([hidden]) .encounter-sprite"))'), false);
+  }
   function observeApproach(approachSequence, requireScenery = true, requireWebGL = false) {
     return run(`(() => {
       window.observedApproach = new Set();
@@ -10784,6 +10798,19 @@ try {
       await waitFor("the transient illustration to clear", () => run(`
         state.sequence === ${frame.sequence} && !animationFrame && !document.querySelector(".encounter-portrait")
       `));
+      if (illustration.sceneryPrompt) {
+        await verifySceneryPrompt(illustration.sceneryPrompt);
+        if (heldPortraitEvidenceFile) {
+          const renderer = await fetch(new URL("/play.js", origin));
+          assert.ok(renderer.ok);
+          heldPortraitEvidence.push({
+            route: routeName, data: frame.classicAvailable === false ? "port" : "original", position: illustration.sceneryPrompt,
+            caption: frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+            checkpointSha256: createHash("sha256").update(readFileSync(checkpoint)).digest("hex"),
+            rendererSha256: createHash("sha256").update((await renderer.text()).replace(/\r\n/g, "\n")).digest("hex"),
+          });
+        }
+      }
     } else {
       const visiblePortraits = (Array.isArray(illustration.heldPortraitLoop) ? illustration.heldPortraitLoop : [portrait])
         .map(id => "/art/" + id);
@@ -11158,6 +11185,7 @@ try {
         if (departureReachedAt) console.log(`Departure picture shown ${Date.now() - departureReachedAt} ms after the game reached it`);
       }
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
+      if (illustration.sceneryPrompt && continuation.clearsPortrait) await verifySceneryPrompt(illustration.sceneryPrompt);
       if (illustration.oneShotProducer && heldPortraitEvidenceFile) {
         assert.equal(frame.portrait, undefined);
         const renderer = await fetch(origin + "/play.js");

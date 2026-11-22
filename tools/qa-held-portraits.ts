@@ -18,6 +18,25 @@ interface HeldPortraitInventory {
     remainingCues?: string[];
     approachChrome?: { original: ApproachProof; port: ApproachProof };
   }[];
+  sceneryPrompts?: SceneryPrompt[];
+}
+
+interface SceneryProof {
+  route: string;
+  data: ChromeProof["data"];
+  position: [number, number, number];
+  caption: string;
+  checkpointSha256: string;
+  rendererSha256: string;
+}
+
+interface SceneryPrompt {
+  producer: string;
+  prompt: string;
+  caption: string;
+  checkpoint: string;
+  position: [number, number, number];
+  chrome: { original: SceneryProof; port: SceneryProof };
 }
 
 interface ApproachProof {
@@ -172,15 +191,33 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     observed.set(site, evidence);
   }
 
+  function verifiedSceneryPrompt(producer: string, prompt: string) {
+    return inventory.sceneryPrompts?.some(proof => {
+      if (proof.producer !== producer || proof.prompt !== prompt) return false;
+      const { original, port } = proof.chrome;
+      const fixture = path("qa", "fixtures", proof.checkpoint);
+      const caption = normalizeCaption(proof.caption);
+      if (!caption || original.route !== port.route || !existsSync(fixture)) return false;
+      const checkpoint = digest(readFileSync(fixture));
+      return (["original", "port"] as const).every(data => {
+        const observed = proof.chrome[data];
+        return observed.data === data && observed.rendererSha256 === renderer &&
+          observed.checkpointSha256 === checkpoint && isDeepStrictEqual(observed.position, proof.position) &&
+          normalizeCaption(observed.caption).includes(caption);
+      });
+    });
+  }
+
   const sites = eclCandidates.map(site => {
     const id = scriptSiteId(site);
     const oneShot = oneShotByProducer.get(id);
     const oneShotReason = oneShot ? oneShotProblem(site, oneShot) : null;
     const evidence = observed.get(site) ?? [];
     const prompts = [...new Set(site.promptCandidates.map(({ next, caller }) => promptId(next, caller)))];
+    const scenery = new Set(prompts.filter(prompt => verifiedSceneryPrompt(id, prompt)));
     // One instruction can display several captions at the same cursor.
     const unmeasured = [
-      ...prompts.filter(prompt => !evidence.some(entry => entry.prompt === prompt)),
+      ...prompts.filter(prompt => !scenery.has(prompt) && !evidence.some(entry => entry.prompt === prompt)),
       ...new Set(evidence.flatMap(({ scene }) => scene.remainingCues ?? [])),
     ];
     const measured = evidence.length > 0 || oneShot !== undefined;
@@ -193,7 +230,8 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       source: `${site.pictureArchive}:${site.block ?? `selector ${site.selector.address?.toString(16) ?? "unknown"}`}`,
       measured, verified, unmeasured, scenes: evidence.map(({ scene }) => scene.id),
       reason: oneShot ? oneShotReason ?? "single native draw, paired Chrome checks passed" :
-        site.block === null ? "selector unresolved" : prompts.length ? null : "no prompt lead resolved",
+        site.block === null ? "selector unresolved" : scenery.size ? "paired Chrome checks confirmed scenery at " + [...scenery].join(", ") :
+          prompts.length ? null : "no prompt lead resolved",
     };
   });
   for (const site of nativeCandidates.filter(({ status }) => status === "candidate")) {
