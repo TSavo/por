@@ -288,6 +288,12 @@ export const code = resolve({
    */
   messageResumes: { "1.0": { slice: 0x19, at: 0x1721 }, "1.3": { segment: 0xba, at: 0x2275 } },
   colouredMessageResumes: { "1.0": { slice: 0x25, at: 0xc6d }, "1.3": { segment: 0x709, at: 0x7e38 } },
+  /**
+   * Where the combat panel's message routine (0xba:0x16ec) resumes after its pause. It prints its
+   * caller's text in the right-hand panel and, when its last argument is not 0, pauses and clears
+   * it: "Goes Down", the spells' results and the like.
+   */
+  panelMessageResumes: { "1.0": undefined, "1.3": { segment: 0xba, at: 0x2379 } },
   /** The top of Crt.Delay's loop, once per millisecond asked for. */
   delayLoop: { "1.0": { segment: 0x512, at: 0x53d3 }, "1.3": { segment: 0xa40, at: 0xa6b0 } },
   /** The BIOS keyboard poll inside Crt.KeyPressed. */

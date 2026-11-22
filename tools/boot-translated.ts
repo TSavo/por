@@ -220,7 +220,8 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
         // acceptance harness can tell whether that text reached the page (#81, npm run qa:pause-callers).
         if (tracePauses && returnsTo(this, 0, code.pauseResumes) && this.dx === this.read16(this.ss, (this.sp + 4) & 0xffff)) {
           const via = returnsTo(this, deathReturnDepth, code.messageResumes) ? "message"
-            : returnsTo(this, deathReturnDepth, code.colouredMessageResumes) ? "coloured message" : "pause";
+            : returnsTo(this, deathReturnDepth, code.colouredMessageResumes) ? "coloured message"
+              : code.panelMessageResumes && returnsTo(this, deathReturnDepth, code.panelMessageResumes) ? "panel message" : "pause";
           // A message routine's own caller returns above the BP the pause routine saved.
           const frame = via === "pause" ? (this.sp + deathReturnDepth) & 0xffff : (this.read16(this.ss, (this.sp + 6) & 0xffff) + 2) & 0xffff;
           const offset = this.read16(this.ss, frame), segment = this.read16(this.ss, (frame + 2) & 0xffff);

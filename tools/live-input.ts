@@ -321,6 +321,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   // The last encounter picture drawn as an approach clip, and the pauses that followed it (#129).
   let approachClip: PresentationAnimationFrame | undefined;
   let approachClipMs = 0;
+  /** The text of the last frame put in the animation or sent to the page. */
+  let presentedText = "";
   let immediateStrike: { signature: string; clip: PresentationAnimationFrame } | undefined;
   // The palette registers as the last picture sent to the page showed them, the last picture held in
   // colours the game set for a pause, and the screen's write mark when the game last set a colour (#82).
@@ -862,6 +864,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         classicPortrait: Array.isArray(picture) ? { area, cursor: portraitCursor, caller: pictureCaller } : undefined, view: perspective,
         runes: runes.some(([cell]) => cell % 40 < 16 && cell < 16 * 40) });
       shownPalette = paletteState().join();
+      presentedText = JSON.stringify(text);
       if (message === "status") {
         // A message the game shows on the bottom line and clears by itself: the whole screen as it
         // stands during the pause, for as long as the game pauses.
@@ -1350,7 +1353,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // The game pauses on the encounter picture it just drew (DELAY between APPROACHes, Rolf's
       // three steps among them): the page holds that picture as long as the original pauses, the
       // game speed times 225 ms, where it held each for 120 ms (#129).
-      if (pauseMs !== undefined && approachClip && animation.at(-1) === approachClip) {
+      // Only while the screen is still that picture: once the game has drawn something else, the
+      // pause holds that (#164).
+      if (pauseMs !== undefined && approachClip && animation.at(-1) === approachClip && presentedText === JSON.stringify(visibleGameText())) {
         approachClipMs += pauseMs;
         approachClip.durationMs = approachClipMs;
         return;
@@ -1476,7 +1481,17 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       } else if (signature && signature !== lastAttack) {
         showFrame(undefined, placements);
       } else if (!signature && !report && area !== undefined) {
+        const before = animation.length;
         showFrame(undefined, undefined, true);
+        // Whatever else a pause outside a fight leaves on screen (the party walked on between the
+        // script's DELAYs through the bugbear's gate, "The Whole Party Is Healed"): the screen as it
+        // stands, for as long as the game pauses, unless the page has it already (#164, #81).
+        if (animation.length === before && pauseMs !== undefined && !battlefield && presentedText !== JSON.stringify(visibleGameText())) {
+          showFrame(undefined, undefined, false, false, pauseMs, undefined, false, "picture");
+          // A further pause on the same screen holds it longer, as for an approach.
+          approachClip = animation.at(-1);
+          approachClipMs = pauseMs;
+        }
       }
       lastCombatReport = report;
       lastAttack = signature;
