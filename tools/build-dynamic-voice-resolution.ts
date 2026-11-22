@@ -24,7 +24,7 @@ const unresolved = reviews.flatMap(({ archive, units }) => units.flatMap(unit =>
 const slotSemantics = {
   "0x6b00": { meaning: "selected party-member name", resolution: "recorded-replacement", strategy: "Show the original name and use generic recorded narration." },
   "0x6e79": { meaning: "typed password or computed enemy count, depending on the ECL instruction", resolution: "recorded-replacement", strategy: "Preserve the original password or count on screen. Speak a generic confirmation or a creature-specific encounter line." },
-  "0x6e7e": { meaning: "random tavern-tale number", resolution: "enumerated", values: Array.from({ length: 24 }, (_, index) => String(index + 1)), evidence: "RANDOM 23 followed by ADD 1 before PRINT." },
+  "0x6e7e": { meaning: "random tavern-tale number", resolution: "enumerated", values: Array.from({ length: 24 }, (_, index) => String(index + 1)), evidence: "Version 1.3 rolls RANDOM 22 then ADD 1 before PRINT, so it tells tales 1 to 23 (the Adventurer's Journal's 23); the first release rolls RANDOM 23, so 24. All 24 are recorded; on 1.3 tale 24's recording is never used." },
   "0x985e": { meaning: "single proclamation number text", resolution: "enumerated", values: ["CI.", "CXXVI AND CX.", "CXXXIV.", "CLIV.", "CXIV.", "CCIV.", "CXXIX.", "CCI."], evidence: "Nine ON GOSUB targets assign these strings; CXIV occurs twice." },
   "0x980e": { meaning: "runtime encounter actor name", resolution: "encounter-table-dependent", strategy: "Enumerate from the encounter's monster table and grammatical-number metadata before rendering." },
   "0x980f": { meaning: "runtime encounter group name", resolution: "encounter-table-dependent", strategy: "Enumerate from the encounter's monster table before rendering." },

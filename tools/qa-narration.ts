@@ -587,7 +587,7 @@ if (tales) {
   const rolls = disassemble(scriptFromBlock(bytes)).instructions.filter(({ name, operands }) => name === "RANDOM" && operands.some(({ word }) => word === 0x6e7e));
   const highest = rolls.map(({ operands }) => operands.find(({ word }) => word !== 0x6e7e)?.low ?? operands[0]!.low);
   const recorded = tales.runtimeVariants!.map(({ dynamicValue }) => Number(dynamicValue));
-  // RANDOM n yields 0 to n and the script adds 1 (the manifest's evidence: "RANDOM 23 followed by ADD 1" for 24 tales).
+  // RANDOM n yields 0 to n and the script adds 1: 1.3 rolls RANDOM 22 (23 tales), the first release RANDOM 23 (24).
   const rolled = highest.length === 1 ? highest[0]! + 1 : undefined;
   notes.push(rolled === undefined ? `Tavern tales: ${recorded.length} recorded; the roll in ${archive} block ${block} was not established (${rolls.length} RANDOM instructions write 0x6e7e)`
     : `Tavern tales: ${recorded.length} recorded (1 to ${Math.max(...recorded)}); the game/ script rolls RANDOM ${highest[0]} then adds 1, so tales 1 to ${rolled} can be told. ` +

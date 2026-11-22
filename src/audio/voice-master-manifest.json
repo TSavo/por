@@ -65,7 +65,7 @@
           "23",
           "24"
         ],
-        "evidence": "RANDOM 23 followed by ADD 1 before PRINT."
+        "evidence": "Version 1.3 rolls RANDOM 22 then ADD 1 before PRINT, so it tells tales 1 to 23 (the Adventurer's Journal's 23); the first release rolls RANDOM 23, so 24. All 24 are recorded; on 1.3 tale 24's recording is never used."
       },
       "0x985e": {
         "meaning": "single proclamation number text",
