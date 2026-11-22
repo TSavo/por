@@ -1558,7 +1558,10 @@ async function guideOrcHome(game, state) {
   // Whoever is on his feet takes them: a character who is down takes nothing. The first standing
   // member takes the swords and the flail, the last the mail.
   const up = game.party().filter(({ hp }) => hp > 0).map(({ name }) => name);
-  const [arms, armorer] = [up[0], up.at(-1)];
+  // The mail goes to the last standing member who can wear it: a thief is held to leather (the
+  // guide's FINN wears none of the chain mail's class and no armor at all in the fixture).
+  const mailWearers = up.filter((name) => !/Thief/.test(guideParty.find((who) => who.name === name).classes));
+  const [arms, armorer] = [up[0], (mailWearers.at(-1) ?? up.at(-1))];
   assert.equal((await takeFromLoot(game, arms, [/^Broad Sword$/, /^Flail$/], 4)).length, 4, `${arms} takes the three broad swords and the flail.`);
   assert.equal((await takeFromLoot(game, armorer, [/^Chain Mail$/], 4)).length, 4, `${armorer} takes the four suits of chain mail.`);
   await shareAndLeave(game);
