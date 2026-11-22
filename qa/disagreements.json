@@ -3995,16 +3995,18 @@
       "area": "Party creation",
       "note": "High ability scores and encounter size: Clue Book p.54 says 'Beginning characters with very high ability scores look to the computer like high level adventurers. This may put them at a disadvantage'; the Lee guide §3.1 says to maximize every score with Modify, and its Party Strength (§7.14) counts class levels, armor class, THAC0 and current hit points, not the scores. To settle: compare the size of the Slums' random encounters for the ready-made party and for the guide's party. Found in qa/research/party.md.",
       "scenarios": [],
-      "status": "open",
-      "origin": "manual"
+      "status": "settled",
+      "origin": "manual",
+      "resolution": "Both are right. The first random encounter in the Slums brought the ready-made party 6 kobolds and the guide's party, with Modify's scores, 12 kobolds and 3 kobold leaders (measured on 2026-11-21 with Aim at the start of each fight; the Lee guide's rule is Party Strength times two thirds, with three leaders from eight kobolds up). So the Clue Book's warning holds: the scores reach Party Strength through the armor class, THAC0 and hit points they give, and the game sends about twice the monsters. It is no disadvantage in play: the guide's party won that fight, four more random fights and four set fights, with one character knocked unconscious once, where the ready-made party ends the armsmaster's fight with three of six standing (npm run acceptance:slums, tests guide and goblins)."
     },
     {
       "id": "disagreement.aaaebeea02",
       "area": "Party creation",
       "note": "When Modify stops: Clue Book p.54 says a character's scores can be modified 'but not after he has gone up a level'; the rule book p.7 says 'The character must start at 0 XP'; the Lee guide (digest section 4) says Modify is allowed while the character has 0 XP. To settle: try Modify Character at a training hall on a character who has experience points and has not trained. Found in qa/research/party.md.",
       "scenarios": [],
-      "status": "open",
-      "origin": "manual"
+      "status": "settled",
+      "origin": "manual",
+      "resolution": "The game refuses Modify as soon as the character has experience points: the rule book and the Lee guide are right, and the Clue Book's 'not after he has gone up a level' is too generous. Established by npm run acceptance:slums (guide, stage train): at the clerics' trainer, whose menu has Modify Character, the level 1 cleric with 2,400-odd experience points and no training yet is answered 'ELSPETH can't be modified.' on the bottom line; at the start of the game, with no experience, the same command raised her scores (npm run acceptance:guide-party)."
     },
     {
       "id": "disagreement.a9228aa07a",

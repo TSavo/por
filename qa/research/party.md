@@ -173,9 +173,51 @@ cleric places and one magic-user place, and each other magic-user one place. Eve
 takes Cure Light Wounds and every magic-user place Sleep: six cures and five Sleeps. The game sets
 5 hours for the rest.
 
+## How the party fared in the Slums
+
+`npm run acceptance:slums` (the test `guide`) walks this party from the saved game through the
+Slums by the guide's tactics: in the first rounds a Sleep from each magic-user at the nearest
+enemy that stands clear of the party, then attack what comes and guard otherwise, a bandage for a
+friend who goes down, and a rest with spells memorised again in every beaten room. With the fixed
+dice of a replay, on 2026-11-21:
+
+| Fight | The guide's party | The ready-made party (tests `orcs`, `goblins`) |
+| --- | --- | --- |
+| Orcs at (13,1), 4 orcs | six standing, 77 experience points each, one character hurt, 1 Sleep | won; one down and two more hurt |
+| Goblin armsmaster at (10,1), 9 goblins | six standing, 90 each, one character hurt, 3 Sleeps | three standing, 181 each |
+| Kobolds at (7,0), 16 kobolds | six standing, 289 each, one character hurt, 4 Sleeps | not attempted |
+| Hobgoblins at (0,2), 5 hobgoblins | six standing, 22 each, nobody hurt, 2 Sleeps | not attempted |
+| Random fights (15 kobolds and leaders in the first) | five fights, each won, 24 to 43 each, 1 or 2 Sleeps; in the fourth one fighter/magic-user went down Unconscious, and six cures at the New Phlan gate put the party right | 6 kobolds in the first one |
+
+Two things the first tries got wrong, both the guide's own advice:
+
+- **Aim Sleep.** [P] §5.2 says the spell takes "your own low-level characters" too, "so aim
+  properly". The first tactic cast it at the nearest enemy, and the monsters of a set fight start
+  next to the party. The test now reads each combatant's range from the caster with Aim and casts
+  only at an enemy two or more squares clear of every friend.
+- **Bandage.** With the careless aim, in the kobolds' room, one fighter/magic-user (9 hit points,
+  armor class -1) had 5 hit points at his turn in the second round, took no turn after it, and was
+  Dead on his sheet when the fight was won 40 turns later: a character at -1 to -9 loses a hit
+  point each round "until Bandaged" (the digest, section 4). The same fight with the same dice and
+  one Bandage in the third round left him Unconscious, and three cures in the beaten room brought
+  him back. The test now opens Done when a friend has missed more than a round and bandages if
+  the game offers it. This is the original's rule, not a fault of the port, so the first release
+  was not asked.
+
+The stable's bag (100 gold, 2 gems), the secret treasure room (50 platinum, 92 gold, 1000 electrum,
+4 gems, 2 jewelry) and the hobgoblins' gold (500 gold, 50 platinum) gave the money for the first
+training: the cleric, with 2,400-odd experience points, became level 2 at the clerics' hall for
+1000 gold pieces. The others' awards are divided among two or three classes and none had reached a
+second level. The trainer answers a cleric short of experience "Not Enough Experience", a
+character of another class "We don't train that class here", and anyone without the price
+"Training costs 1000 gp."
+
 ## Where the sources disagree
 
-Recorded in `qa/disagreements-manual.json` under "Party creation".
+Recorded in `qa/disagreements-manual.json` under "Party creation". Play settled the third and the
+fourth (`qa/disagreements.json`): Modify's scores about double the monsters of a random encounter,
+as the Clue Book warns and the Lee guide's Party Strength explains, and the party wins all the
+same; and the game refuses Modify once a character has any experience points.
 
 1. **Who makes the best fighter/thief.** [CB] p.53: "Dwarves and half-elves make the best fighter/
    thieves because of their high maximum strength and their high maximum fighter level." [P] §3.1:
