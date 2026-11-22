@@ -181,9 +181,13 @@ export function encodeRuns(data: Uint8Array, length?: number): Uint8Array {
   return out;
 }
 
-/** Build a DAX container from records, in the order given. `packedBytes` fixes a record's packed size. */
-export function buildDax(records: readonly { id: number; data: Uint8Array; packedBytes?: number }[]): Uint8Array {
-  const packed = records.map(({ id, data, packedBytes }) => ({ id, rawSize: data.length, compressed: encodeRuns(data, packedBytes) }));
+/**
+ * Build a DAX container from records, in the order given. `packedBytes` fixes a record's packed size.
+ * A record may come packed already (`compressed`, a run stream that decodes to `data`).
+ */
+export function buildDax(records: readonly { id: number; data: Uint8Array; packedBytes?: number; compressed?: Uint8Array }[]): Uint8Array {
+  const packed = records.map(({ id, data, packedBytes, compressed }) =>
+    ({ id, rawSize: data.length, compressed: compressed ?? encodeRuns(data, packedBytes) }));
   const directorySize = packed.length * 9;
   const bytes = new Uint8Array(2 + directorySize + packed.reduce((size, { compressed }) => size + compressed.length, 0));
   const view = new DataView(bytes.buffer);

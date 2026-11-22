@@ -87,7 +87,13 @@ function recolorPartySprite(image, id) {
   }
   return partyPaletteImages.get(id);
 }
-const audioSettings = document.querySelector("#audio-settings");
+// The page's settings: the sound, and in a release the player's own original files (#74).
+const settingsPanel = document.querySelector("#settings");
+const originalFiles = {
+  panel: document.querySelector("#original-files"), status: document.querySelector("#original-files-status"),
+  path: document.querySelector("#original-files-path"), use: document.querySelector("#original-files-use"),
+  stop: document.querySelector("#original-files-stop"), message: document.querySelector("#original-files-message"),
+};
 const audioControls = {
   hardware: document.querySelector("#audio-hardware"), master: document.querySelector("#audio-master"),
   effects: document.querySelector("#audio-effects"),
@@ -350,11 +356,67 @@ atlasImage.addEventListener("error", () => {
   atlasError.hidden = false;
 });
 audioToggle.addEventListener("click", () => {
-  audioSettings.hidden = !audioSettings.hidden;
-  audioToggle.setAttribute("aria-expanded", String(!audioSettings.hidden));
-  if (audioSettings.hidden) (journal.hidden ? screen : closeJournal).focus({ preventScroll: true });
+  settingsPanel.hidden = !settingsPanel.hidden;
+  audioToggle.setAttribute("aria-expanded", String(!settingsPanel.hidden));
+  if (settingsPanel.hidden) (journal.hidden ? screen : closeJournal).focus({ preventScroll: true });
   resumeBlockedAudio();
 });
+
+// "Use my original files" (#74). Only a release offers it: the server answers /original-files when the
+// launcher names the setting's file. The launcher reads the setting when the game starts, so a change
+// takes effect at the next start, and the page says so.
+const releaseNames = { "1.3": "version 1.3", first: "the first release" };
+function describeOriginalFiles({ inUse, path, problem }) {
+  const now = !inUse ? "Not in use: the game runs from its own data, and the Classic display is not available."
+    : inUse.release === "1.3" ? `In use: ${inUse.folder} (version 1.3). The Classic display is available (F10).`
+    : `In use: ${inUse.folder} (the first release). The Classic display is available (F10), with its pictures; the game is version 1.3.`;
+  const next = problem ? ` The setting cannot be used (${problem}).`
+    : (path ?? null) !== (inUse?.folder ?? null) ? (path ? ` From the next start: ${path}.` : " From the next start: none.") : "";
+  originalFiles.status.textContent = now + next;
+  originalFiles.stop.hidden = !path;
+  if (!originalFiles.path.value) originalFiles.path.value = path ?? "";
+}
+let originalFilesState;
+fetch("/original-files").then((response) => response.ok ? response.json() : undefined).then((setting) => {
+  if (!setting) return;
+  originalFilesState = setting;
+  originalFiles.path.placeholder = setting.example ?? "";
+  describeOriginalFiles(setting);
+  originalFiles.panel.hidden = false;
+}).catch(() => {});
+async function chooseOriginalFiles(path) {
+  originalFiles.use.disabled = originalFiles.stop.disabled = true;
+  originalFiles.message.textContent = path ? "Checking the folder…" : "";
+  try {
+    const response = await fetch("/original-files", {
+      method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ path }),
+    });
+    const reply = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      originalFiles.message.textContent = `Not saved: ${reply.problem ?? `the game answered ${response.status}`}.`;
+      return;
+    }
+    originalFilesState = { ...originalFilesState, path: reply.path, problem: null };
+    describeOriginalFiles(originalFilesState);
+    if (reply.path) originalFiles.path.value = reply.path;
+    originalFiles.message.textContent = reply.path
+      ? `Saved: ${reply.path} (${releaseNames[reply.release]}). It takes effect the next time the game starts: close the game and start it again.`
+      : "Saved: no original files. From the next start the game runs from its own data, without the Classic display.";
+  } catch (error) {
+    originalFiles.message.textContent = `Not saved: ${error.message}.`;
+  } finally {
+    originalFiles.use.disabled = originalFiles.stop.disabled = false;
+  }
+}
+originalFiles.use.addEventListener("click", () => {
+  const path = originalFiles.path.value.trim();
+  if (path) chooseOriginalFiles(path);
+  else originalFiles.message.textContent = "Name the folder first.";
+});
+originalFiles.path.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") originalFiles.use.click();
+});
+originalFiles.stop.addEventListener("click", () => chooseOriginalFiles(null));
 for (const key of ["hardware", "master", "effects", "narration", "muted"]) {
   audioControls[key].addEventListener("input", () => {
     audioPreferences = { ...audioPreferences, [key]: key === "muted"
@@ -2156,7 +2218,7 @@ atlasMap.addEventListener("click", () => { mapMode = "atlas"; renderAutomap(); }
 atlasSheet.addEventListener("change", renderAutomap);
 window.addEventListener("keydown", (event) => {
   resumeBlockedAudio();
-  if (event.key !== "F10" && event.target instanceof HTMLElement && event.target.closest("#audio-settings")) return;
+  if (event.key !== "F10" && event.target instanceof HTMLElement && event.target.closest("#settings")) return;
   // On the publisher screen a key goes to the title, and no further: the game is at its title
   // already, and a key sent to it there leaves the title unseen (#127). The browser keeps its own keys.
   if (publisherSplashUp() && event.key !== "F10" && !event.ctrlKey && !event.metaKey) {

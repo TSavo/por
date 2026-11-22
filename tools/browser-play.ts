@@ -21,6 +21,7 @@ import { fromPortRoot, fromWorkingRoot } from "./port-root.js";
 import { classicSoundDirectory } from "./classic-sounds.js";
 import type { NativeExploration } from "./native-exploration.js";
 import { loadOverlandTravel, type PhlanApproach, type SokalPrompt, type SokalQuay, type TravelState } from "./overland-travel.js";
+import { inspectOriginalFiles, readOriginalFilesSetting, writeOriginalFilesSetting } from "./release/original-files.js";
 
 const port = Number(process.env.POR_PLAY_PORT ?? 43124);
 if (!Number.isInteger(port) || port < 1 || port > 65535) {
@@ -28,6 +29,17 @@ if (!Number.isInteger(port) || port < 1 || port > 65535) {
 }
 const origin = `http://127.0.0.1:${port}`;
 const gameRoot = requireBrowserGameRoot();
+// The player's first-release files, whose pictures the runner puts under the 1.3 game (#74).
+const classicPictures = isPortGameRoot(gameRoot) ? process.env.POR_CLASSIC_PICTURES || undefined : undefined;
+// Classic shows the player's own original pictures: playing from the port's own data alone there are none.
+const classicAvailable = !isPortGameRoot(gameRoot) || Boolean(classicPictures);
+// A release's "Original files" setting (#74): the launcher names the file and reads it at the next start.
+const originalFilesSetting = process.env.POR_ORIGINAL_FILES_SETTING || undefined;
+const originalFilesInUse = !isPortGameRoot(gameRoot) ? { folder: gameRoot, release: "1.3" }
+  : classicPictures ? { folder: classicPictures, release: "first" } : null;
+// What a folder looks like on this computer, for the setting's empty field.
+const originalFilesExample = process.platform === "win32" ? "C:\\GOG Games\\Pool of Radiance"
+  : process.platform === "darwin" ? "~/Games/Pool of Radiance" : "~/GOG Games/Pool of Radiance";
 // Everything the server reads from the program depends on which build the directory holds.
 const gameBuild = detectGameVersion(readGameFile(gameRoot, "GAME.OVR"));
 useGameVersion(gameBuild);
@@ -495,10 +507,45 @@ const server = createServer(async (req, res) => {
     };
     res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({
       ...snapshot, sounds, soundId, messages, textId, narrations, narrationId, automapRevision,
-      // Classic shows the player's own original pictures: playing from the port's own data there are none.
-      sequence, ready, codeWheelAvailable, classicAvailable: !isPortGameRoot(gameRoot), saveSlot: saveSlot ?? null, saveSlotEvent, saveSlotAction: saveSlotAction ?? null,
+      sequence, ready, codeWheelAvailable, classicAvailable, saveSlot: saveSlot ?? null, saveSlotEvent, saveSlotAction: saveSlotAction ?? null,
       stopped: stopped ?? null, notice: notice ?? null,
     }));
+  } else if (req.method === "GET" && req.url === "/original-files" && originalFilesSetting) {
+    // What this start plays with, and what the setting names for the next one.
+    const setting = readOriginalFilesSetting(originalFilesSetting);
+    res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({
+      inUse: originalFilesInUse, path: setting.path ?? null, problem: setting.problem ?? null, example: originalFilesExample,
+    }));
+  } else if (req.method === "POST" && req.url === "/original-files" && originalFilesSetting) {
+    // The page names the player's folder, or none. Only a folder of the game's own files is written,
+    // and it takes effect when the game next starts. Nothing of the folder is copied.
+    if (req.headers.origin !== origin) { res.writeHead(403).end(); return; }
+    let body = "";
+    try {
+      for await (const chunk of req) {
+        body += chunk.toString("utf8");
+        if (body.length > 8192) { res.writeHead(413).end(); return; }
+      }
+    } catch {
+      return;
+    }
+    let path: unknown;
+    try { path = (JSON.parse(body) as { path?: unknown } | null)?.path; } catch { res.writeHead(400).end(); return; }
+    const answer = (status: number, reply: object) =>
+      res.writeHead(status, { "content-type": "application/json" }).end(JSON.stringify(reply));
+    try {
+      if (path === null) {
+        writeOriginalFilesSetting(originalFilesSetting, undefined);
+        answer(200, { path: null });
+      } else if (typeof path === "string" && path.trim()) {
+        const found = inspectOriginalFiles(path);
+        if ("problem" in found) { answer(422, { problem: found.problem }); return; }
+        writeOriginalFilesSetting(originalFilesSetting, found.folder);
+        answer(200, { path: found.folder, release: found.release });
+      } else res.writeHead(400).end();
+    } catch (error) {
+      answer(500, { problem: `cannot write ${originalFilesSetting} (${(error as Error).message})` });
+    }
   } else if (req.method === "POST" && req.url === "/key") {
     if (req.headers.origin !== origin) { res.writeHead(403).end(); return; }
     const keyPage = req.headers["x-por-page"];

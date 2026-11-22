@@ -96,12 +96,63 @@ The launcher (`tools/release/launch.ts`) serves the game on `http://127.0.0.1:43
 free, so the page keeps its browser storage from one launch to the next, and on any free port when it
 is not. It prints the address in case no browser opens. Launched again while the game runs, it opens the
 browser on the running game. It sets `POR_ROOT` to the install, `POR_RUNNER` to the compiled runner
-and `POR_GAME_SOURCE=port`, and drops every other `POR_` setting it inherits except `POR_CLOCK`,
+and `POR_GAME_SOURCE=port` (or the player's own files, below), and `POR_ORIGINAL_FILES_SETTING` to
+the setting the page writes, and drops every other `POR_` setting it inherits except `POR_CLOCK`,
 `POR_PREGEN_PARTY`, `POR_TRACE_KEYS`, `POR_SAVE_DIR` and `POR_OPEN_BROWSER` (`0`: print the address
 only). The runner names the data it chose when it starts: `POR_GAME_DATA port <install>/game`.
 
-**Classic from the player's own files:** `original-files.json` in the player's data directory (beside `saves`), `{ "path": "<their GOG Pool of Radiance folder>" }`, or `POR_ORIGINAL_FILES`, names it; a version 1.3 folder (START.EXE, ECL1.DAX, GAME.OVR starting FBOV) is run from, so the Classic switch appears (`POR_GAME_DATA original <folder>`).
-Anything else (missing, unreadable, another release) runs from `game/` and prints one `Original files:` line saying why. Nothing of the folder enters the package.
+## Classic from the player's own files
+
+The shipped game always starts in Enhanced and has no Classic display: it holds no original picture.
+The player's own Pool of Radiance from GOG unlocks it (#74).
+
+**Choosing the folder in the game:** **Settings** (the button beside Journal and Map, which also holds
+the sound) has **Use my original files** in a release: a folder field, **Use these files**, and **Stop
+using them** once one is named. It says what this start plays with (*Not in use…*, or *In use: <folder>
+(version 1.3)…*) and, after a change, what the next start will. The server (`POST /original-files`, from
+the page's own origin only) checks the folder with the launcher's own test (`tools/release/original-files.ts`):
+START.EXE, GAME.OVR and ECL1.DAX in it, or in one folder directly inside it (GOG keeps them in `POOLRAD`
+inside the game's folder), and GAME.OVR starting `FBOV` (version 1.3) or `TPOV` (the first release).
+A folder that passes is written to `original-files.json` in the player's data directory (beside
+`saves`), `{ "path": "<the folder with the files>" }`, and the page says *Saved: … It takes effect the
+next time the game starts: close the game and start it again.* One that does not is not written, and
+the page says why (*Not saved: … has no START.EXE, GAME.OVR, ECL1.DAX*). A pasted path may be quoted,
+and `~` is the player's home. The setting is only offered when the launcher names its file
+(`POR_ORIGINAL_FILES_SETTING`): `npm run play` in a checkout has none.
+
+**At start** the launcher reads `POR_ORIGINAL_FILES`, else `original-files.json`, and tests the folder again:
+
+- Version 1.3: the game runs from it (`POR_GAME_SOURCE=original`; the runner prints
+  `POR_GAME_DATA original <folder>`), and the display switch appears.
+- The first release: the game is still version 1.3 and runs from `game/` (`POR_GAME_DATA port …`),
+  and the launcher names the folder in `POR_CLASSIC_PICTURES`. The runner then fills `game/`'s blank
+  picture blocks from that folder's archives where each has the shape 1.3 has (docs/GAME-DATA.md), so
+  the Classic display shows the first release's pictures under the 1.3 game, and the display switch
+  appears. All 784 of 1.3's picture blocks are in the first release byte for byte, with the same
+  packed sizes, and it has no picture block 1.3 lacks: the runner prints
+  `POR_CLASSIC_PICTURES <folder> 784/784`.
+- Anything else (missing, unreadable, another program): it runs from `game/` and prints one
+  `Original files:` line saying why.
+
+Nothing of the folder is copied: it is read where it is, by the runner, and never enters the install
+or the player's data directory.
+
+`node tools/release/check-original-files.mjs <release root> <1.3 folder> <first-release folder>` checks
+all of this on a built release: four starts of its launcher (`POR_OPEN_BROWSER=0`, a throwaway HOME,
+the fixed clock), choosing the folders through the page's own requests in between.
+
+Checked on 2026-11-22 on Battleaxe (Linux), with `npm run release:build` and `dist/app` laid out beside
+the port's folders, the GOG 1.3 files (`por-assets/gog-1.3/POOLRAD`) and the first release
+(`por-assets/pool`), HOME in `/dev/shm`: all 24 checks passed. Start 1 (nothing named): no Classic; the
+setting refused another origin (403), the port's own `game/` (*has no START.EXE, GAME.OVR, ECL1.DAX*) and
+a missing folder, writing nothing, and took `gog-1.3` as its `POOLRAD`. Start 2 printed `Original files:
+…/POOLRAD (version 1.3; Classic available)` and `POR_GAME_DATA original …/POOLRAD`, with Classic. Start 3,
+the first release: `POR_GAME_DATA port <root>/game`, `POR_CLASSIC_PICTURES …/pool 784/784`, Classic,
+and its first Classic frame (the title) the same PNG as start 2's (sha256 `859db41f…`), where the
+shipped game's is blank (`04e64636…`). Start 4, after **Stop using them**: no Classic and no
+`Original files:` line. No game file was under the player's directory; every start stopped on SIGTERM.
+The first run took 776 of the 784 pictures: for 8 blocks the port's packer could not reach the
+original packed size, so the player's own packing is now kept where it has that size.
 
 ## Where saves go
 
@@ -283,3 +334,5 @@ Radiance`, which had not existed, was removed again.
   SmartScreen's prompt, the finish page's Play (through the shortcut and Explorer), and closing the
   console window (its SIGHUP path is checked on the Mac; on Battleaxe the launcher's console could not
   be found as a window from the automation's session). The Linux archive has not been run on Linux.
+- **Use my original files** has been run in the compiled release on Linux only, not yet in the Mac app
+  or a Windows install. The player types or pastes the folder: there is no system folder dialog.

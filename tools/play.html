@@ -202,11 +202,16 @@
     li { border-top: 1px solid #415164; padding: .7rem 0; }
     li button { font-size: .85rem; margin-left: .5rem; }
     #status { min-height: 1.5em; color: #b7c5d3; margin: .75rem 0 0; }
+    #settings[hidden], #original-files[hidden], #original-files [hidden] { display: none; }
     #audio-settings { margin: .5rem 0; padding: .8rem; border: 1px solid #546577; display: grid;
       grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: .7rem 1rem; }
-    #audio-settings[hidden] { display: none; }
     #audio-settings label { display: grid; gap: .25rem; }
     #audio-settings label.inline { display: flex; align-items: center; }
+    #original-files { margin: .5rem 0; padding: .8rem; border: 1px solid #546577; display: grid; gap: .5rem; }
+    #original-files p { margin: 0; }
+    #original-files label { display: grid; gap: .25rem; }
+    #original-files input { font: inherit; }
+    #original-files-message { color: #edca79; }
     [data-presentation="enhanced"] {
       background: radial-gradient(ellipse at top, #302820, #151310 75%);
       color: #f4ead5;
@@ -234,21 +239,32 @@
     <header>
       <h1>Pool of Radiance</h1>
       <nav aria-label="Presentation controls">
-        <button id="audio-toggle" type="button" aria-expanded="false">Audio</button>
+        <button id="audio-toggle" type="button" aria-expanded="false" aria-controls="settings">Settings</button>
         <button id="journal-toggle" type="button" aria-keyshortcuts="J" hidden>Journal</button>
         <button id="map-toggle" type="button" aria-expanded="false" aria-keyshortcuts="M" hidden>Map</button>
         <button id="wheel-toggle" type="button" aria-expanded="false" hidden>Code wheel</button>
         <button id="presentation" type="button" aria-pressed="false" aria-keyshortcuts="F10">Enhanced display</button>
       </nav>
     </header>
-    <fieldset id="audio-settings" hidden>
-      <legend>Audio</legend>
-      <label>Classic hardware <select id="audio-hardware"><option value="pc-speaker">PC Beeper</option><option value="tandy">Tandy</option><option value="silent">Silent</option></select></label>
-      <label>Master <input id="audio-master" type="range" min="0" max="1" step="0.05" value="0.8"></label>
-      <label>Effects <input id="audio-effects" type="range" min="0" max="1" step="0.05" value="1"></label>
-      <label>Narration <input id="audio-narration" type="range" min="0" max="1" step="0.05" value="1"></label>
-      <label class="inline"><input id="audio-muted" type="checkbox"> Mute</label>
-    </fieldset>
+    <section id="settings" aria-label="Settings" hidden>
+      <fieldset id="audio-settings">
+        <legend>Audio</legend>
+        <label>Classic hardware <select id="audio-hardware"><option value="pc-speaker">PC Beeper</option><option value="tandy">Tandy</option><option value="silent">Silent</option></select></label>
+        <label>Master <input id="audio-master" type="range" min="0" max="1" step="0.05" value="0.8"></label>
+        <label>Effects <input id="audio-effects" type="range" min="0" max="1" step="0.05" value="1"></label>
+        <label>Narration <input id="audio-narration" type="range" min="0" max="1" step="0.05" value="1"></label>
+        <label class="inline"><input id="audio-muted" type="checkbox"> Mute</label>
+      </fieldset>
+      <!-- A release only (#74): the server offers it when the launcher names the setting's file. -->
+      <fieldset id="original-files" hidden>
+        <legend>Use my original files</legend>
+        <p>Your own Pool of Radiance, from GOG, unlocks the Classic display: the original game's pictures. Name its folder (the one with START.EXE, or the folder that holds it). The game reads the files where they are and copies nothing.</p>
+        <p id="original-files-status"></p>
+        <label>Folder <input id="original-files-path" type="text" spellcheck="false" autocomplete="off"></label>
+        <p><button id="original-files-use" type="button">Use these files</button> <button id="original-files-stop" type="button" hidden>Stop using them</button></p>
+        <p id="original-files-message" role="status"></p>
+      </fieldset>
+    </section>
     <div id="play">
       <img id="screen" width="320" height="200" alt="" tabindex="-1">
       <p id="screen-loading">Loading…</p>

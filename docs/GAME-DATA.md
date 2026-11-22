@@ -23,6 +23,11 @@ bytes.
 - `POR_GAME_SOURCE=port` runs from `game/` even when original files are present.
   `POR_GAME_SOURCE=original` never falls back to `game/`.
 - `POR_GAMEDATA` may also name another directory in this format, such as a test copy.
+- `POR_CLASSIC_PICTURES=<folder>` (running from `game/`): the picture blocks come from that folder of
+  original files instead of blank, where each has the shape the 1.3 record describes (the same size and
+  headers, packed to the same size); the program and every other record stay `game/`'s. A release sets
+  it for a player's first-release files (#74, docs/RELEASE.md). The runner prints
+  `POR_CLASSIC_PICTURES <folder> <taken>/<records>`; the first release gives all 784.
 
 ## Files
 

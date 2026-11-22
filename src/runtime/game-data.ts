@@ -1,4 +1,4 @@
-import { buildDax } from "../lib/dax.js";
+import { buildDax, encodeRuns } from "../lib/dax.js";
 import type { LoadImage } from "../lib/exepack.js";
 import type { DosFile } from "./dos.js";
 
@@ -276,18 +276,51 @@ export function overlayFile(program: ProgramData, read: ReadGameData): Uint8Arra
   return bytes;
 }
 
-/** The game's data files, re-packed for its own loaders. Archives keep their blocks in the original order. */
-export function dataFiles(data: PortGameData, read: ReadGameData): DosFile[] {
-  const archives = new Map<string, { position: number; id: number; data: Uint8Array; packedBytes?: number }[]>();
+/** An archive block from the player's own files: its bytes, and as their archive packs them. */
+export interface OriginalBlock { data: Uint8Array; compressed: Uint8Array }
+
+/**
+ * `original`, a picture block from the player's own files, where it has the shape of `record`: the same
+ * size and the same headers (the blank record's), so the game reads what it does from the port's own
+ * data, and packed to the block's packed size, so it allocates the same. Their own packing is kept
+ * where it has that size (the port's packer is not always as short as the original's). Otherwise undefined.
+ */
+export function samePictureShape(record: PictureRecord, original: OriginalBlock): OriginalBlock | undefined {
+  const { data } = original;
+  if (data.length !== record.bytes) return;
+  const blank = blankPictureBytes(record);
+  if (record.layout !== "bitmap") {
+    // Only the pixels may differ: compare everything else.
+    let at = 0;
+    const header = record.layout === "members" ? 21 : 17;
+    if (record.layout === "members") { if (data[0] !== blank[0]) return; at = 1; }
+    for (const picture of record.pictures) {
+      for (let i = at; i < at + header; i++) if (data[i] !== blank[i]) return;
+      at += header + picture.frames * picture.height * (picture.width / 8) * 4;
+    }
+  }
+  if (record.packedBytes === undefined || original.compressed.length === record.packedBytes) return original;
+  try { return { data, compressed: encodeRuns(data, record.packedBytes) }; } catch { return; }
+}
+
+/**
+ * The game's data files, re-packed for its own loaders. Archives keep their blocks in the original order.
+ * Pictures are blank, unless `picture` gives a record the player's own (tools/gamedata.ts).
+ */
+export function dataFiles(data: PortGameData, read: ReadGameData, picture?: (record: PictureRecord) => OriginalBlock | undefined): DosFile[] {
+  const archives = new Map<string, { position: number; id: number; data: Uint8Array; packedBytes?: number; compressed?: Uint8Array }[]>();
   const files: DosFile[] = [];
-  const add = (record: RecordIdentity, bytes: Uint8Array) => {
+  const add = (record: RecordIdentity, bytes: Uint8Array, compressed?: Uint8Array) => {
     if (record.block === undefined) { files.push({ name: record.file, data: bytes }); return; }
     const blocks = archives.get(record.file) ?? [];
     archives.set(record.file, blocks);
-    blocks.push({ position: record.position ?? blocks.length, id: record.block, data: bytes, packedBytes: record.packedBytes });
+    blocks.push({ position: record.position ?? blocks.length, id: record.block, data: bytes, packedBytes: record.packedBytes, compressed });
   };
   for (const record of data.content) add(record, contentBytes(record, read));
-  for (const record of data.pictures) add(record, blankPictureBytes(record));
+  for (const record of data.pictures) {
+    const own = picture?.(record);
+    add(record, own?.data ?? blankPictureBytes(record), own?.compressed);
+  }
   for (const [name, blocks] of archives) {
     files.push({ name, data: buildDax(blocks.sort((a, b) => a.position - b.position)) });
   }

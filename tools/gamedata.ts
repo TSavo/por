@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { parseDax, type DaxEntry } from "../src/lib/dax.js";
 import { loadExecutable, type LoadImage } from "../src/lib/exepack.js";
-import { GAME_DATA_FORMAT, loadPortGame, type PortGame } from "../src/runtime/game-data.js";
+import { dataFiles, GAME_DATA_FORMAT, loadPortGame, samePictureShape, type OriginalBlock, type PortGame } from "../src/runtime/game-data.js";
 import { fromPortRoot } from "./port-root.js";
 
 const GAME_FILE = /\.(dax|exe|ovr|ex_|pic)$/i;
@@ -211,8 +211,47 @@ export function requireBrowserGameRoot(): string {
   throw new Error(`Pool of Radiance data not found${location}. Set POR_GAMEDATA to the unpacked DOS game directory or place it under gamedata/.`);
 }
 
+/**
+ * The port's own data with the pictures of the player's own original files in place of its blank ones
+ * (#74): POR_CLASSIC_PICTURES names a folder of the first release, whose pictures the Classic display
+ * then shows while the game stays version 1.3. A block is taken where the folder has it in the shape
+ * 1.3 has (samePictureShape); any other stays blank. Read where it is: nothing is copied.
+ */
+export function classicPictureFiles(root: string, folder: string): { files: { name: string; data: Uint8Array }[]; used: number; total: number } {
+  const game = portGame(root);
+  const names = new Map(fs.readdirSync(folder).map((name) => [name.toUpperCase(), name]));
+  const archives = new Map<string, Map<number, OriginalBlock>>();
+  const blocks = (file: string) => {
+    let found = archives.get(file);
+    if (!found) {
+      const name = names.get(file);
+      const archive = name ? new Uint8Array(fs.readFileSync(path.join(folder, name))) : undefined;
+      found = new Map(archive ? parseDax(file, archive).entries.map((entry) =>
+        [entry.id, { data: entry.data, compressed: storedRecord(entry, archive).compressed }]) : []);
+      archives.set(file, found);
+    }
+    return found;
+  };
+  let used = 0;
+  const files = dataFiles(game.data, (file) => new Uint8Array(fs.readFileSync(path.join(root, file))), (record) => {
+    const original = record.block === undefined ? undefined : blocks(record.file).get(record.block);
+    const block = original && samePictureShape(record, original);
+    if (block) used++;
+    return block;
+  });
+  const overlay = game.files.find(({ name }) => name === game.data.program.overlayFile.name)!;
+  return { files: [...files, overlay], used, total: game.data.pictures.length };
+}
+
 /** Every file the game can open, by name. From the port's own data, archives are re-packed and pictures are blank. */
 export function gameFiles(root: string): { name: string; data: Uint8Array }[] {
+  const pictures = process.env.POR_CLASSIC_PICTURES;
+  if (isPortGameRoot(root) && pictures) {
+    const { files, used, total } = classicPictureFiles(root, pictures);
+    // Says where the Classic pictures come from, so a launch can be checked from its log.
+    console.error(`POR_CLASSIC_PICTURES ${pictures} ${used}/${total}`);
+    return files;
+  }
   if (isPortGameRoot(root)) return portGame(root).files.map(({ name, data }) => ({ name, data }));
   return fs.readdirSync(root, { recursive: true, encoding: "utf8" })
     .filter((name) => !name.startsWith(".") && fs.statSync(path.join(root, name)).isFile())
