@@ -2,16 +2,17 @@
 
 ## What to do now
 
-**Held portrait animations (#131).** 20 / 235 picture sites verified (measured 31, one-shot 6). R = 215.
-The site inventory comes from static script and native picture discovery. 41 / 41 captured native prompts passed paired Chrome checks.
+**Held portrait animations (#131).** 20 / 235 picture sites verified (measured 32, one-shot 6). R = 215.
+The site inventory comes from static script and native picture discovery. 42 / 42 captured native prompts passed paired Chrome checks.
 Run `npm run verify:held-portraits` for every site and its evidence.
 
-**There is art to do: 1 item.**
+**There is art to do: 2 items.**
 
 1. **Wall tiles: none. Outdoor fight terrain: none.**
 2. **Pictures: none.**
-**Asked for by the owner (qa/art-requests.json): 1.**
+**Asked for by the owner (qa/art-requests.json): 2.**
    - `instrument:animated-portraits` (a tool and npm script (yours to name), its number at the top of docs/ART-WORKLIST.md): Before more one-off portrait fixes (#80): build the count of every place the game cycles picture members while it holds a prompt (scene position, block, members, order, holds, from the scripts and the game's own picture routine), with verified = a passing Chrome check from both data sources that the page paints them in that order at those holds. Print verified / total and R, name each unverified place, stay red while R > 0, and show the number here through npm run art:worklist. Issue #131.
+   - `instrument:enhanced-fallbacks` (a tool and npm script (yours to name), its number at the top of docs/ART-WORKLIST.md): Count every frame, over every recorded walk and replay, where Enhanced falls back to the original's picture (classicPortrait, the frame's own pixels, any Classic fallback): from game/ each one is a blank view. Show fallbacks / distinct keys as art to draw, red while any is left. Issue #142; #140 and #141 are the first two.
 3. **Do not draw anything under "Not established".** Those cells are not confirmed to appear. The QA owner is settling them by play and moves each one that proves real into item 1.
 
 The artwork is done when items 1 and 2 are none and nothing is left under "Not established".
