@@ -5454,7 +5454,8 @@ const combatPoseRoutes = new Map([
     inputs: ["up", ...Array(6).fill("enter"), "q", "q", "q"], strikeInputs: ["q", "q"],
   }],
   ["kuto-giant-lizard-combat", {
-    slot: "J", stand: "combat:area:29:CPIC8.DAX:59", strike: "combat:area:29:CPIC8.DAX:187",
+    slot: "J", stand: "combat:area:29:CPIC8.DAX:59:ecl:aa7a", strike: "combat:area:29:CPIC8.DAX:187:ecl:aa7a",
+    excluded: ["combat:area:29:CPIC8.DAX:59", "combat:area:29:CPIC8.DAX:187"],
     width: 192, height: 96, readyPrompt: /GIANTLIZARDHITPOINTS16/i, strikeReflected: false,
     inputs: ["s", "up", ...Array(4).fill("enter")], strikeInputs: ["enter"],
   }],

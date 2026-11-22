@@ -854,6 +854,13 @@ party strike poses using `CBODY.DAX` blocks 128 and 192. Each strike loads
 at the original position and facing during the guest's combat animation.
 Other combinations and poses can still use the guest artwork.
 
+The `kuto-giant-lizard-combat` checkpoint reaches the Old Phlan patrol
+at ECL `aa7a`. Enhanced Chrome checks the patrol-specific ready and
+strike poses in both bundled and GOG 1.3 play and switches to Classic
+and back without advancing the encounter. The original terrain draw
+trace at the ready prompt identified 36 distinct cell fingerprints.
+Each already has an Enhanced replacement.
+
 The ogre leader has separate ready and overhead strike PNGs from
 `CPIC1.DAX` blocks 9 and 137. The matcher check used both native facings
 and confirmed the 24×48 guest extent for each 96×192 replacement. The
