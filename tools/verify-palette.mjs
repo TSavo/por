@@ -121,24 +121,24 @@ const title = await startGame({ seconds: 600, env: {
 } });
 try {
   recordEnhanced(enhanced.title, title.frame);
-  let flashed;
-  for (let polls = 0; polls < 8 && !flashed; polls++) {
+  // The game flashes once its loop has made some 33,000 passes; the runner asks at a poll every
+  // million instructions, so the flash comes with one of the first few frames.
+  const flashed = [];
+  for (let polls = 0; polls < 8; polls++) {
     if (!await title.send(":travel-poll")) title.fail("The runner refused to go on at the title.");
     recordEnhanced(enhanced.title, title.frame);
-    if (title.frame.scene !== "scene:title") title.fail("The replay left the title before it flashed.");
-    // The game flashes once its loop has made some 33,000 passes; the runner asks at a poll every
-    // million instructions, so the flash comes with one of the first few frames.
-    if (classic && title.frame.animation?.some((clip) => clip.classicOnly)) flashed = title.frame;
+    if (title.frame.scene !== "scene:title") title.fail("The replay left the title.");
+    if (classic && title.frame.animation?.some((clip) => clip.classicOnly)) flashed.push(title.frame);
   }
-  if (classic && !flashed) {
+  if (classic && !flashed.length) {
     failures.push(`In 8 frames of the title no Classic picture held the flash: the original holds register 1 at ` +
       `${flash.holds.map(({ registers, ms }) => `${registers[1].toString(16)}h for ${ms} ms`).join(", ")}.`);
     checkClassic(title.frame, modeDefaults, "The title");
   }
-  if (classic && flashed) {
+  for (const [frame, view] of flashed.entries()) {
     // One flash or several, one after another: a flash ends on the colour the next begins on, which is
     // then held for both pauses.
-    const clips = flashed.animation.filter((clip) => clip.classicOnly);
+    const clips = view.animation.filter((clip) => clip.classicOnly);
     const flashes = (clips.length - 1) / 4;
     assert.ok(Number.isInteger(flashes) && flashes >= 1, `The flash was held in ${clips.length} pictures, not 4n + 1 for n flashes.`);
     const expected = [];
@@ -150,12 +150,12 @@ try {
       }
     }
     clips.forEach((clip, index) => {
-      const what = `The title's flash, picture ${index + 1} of ${clips.length}`;
+      const what = `The title's flash ${frame + 1}, picture ${index + 1} of ${clips.length}`;
       if (clip.durationMs !== expected[index].ms) failures.push(`${what} is held ${clip.durationMs} ms; the original holds it ${expected[index].ms} ms.`);
       const { counts } = checkClassic(clip, expected[index].registers, what);
       assert.ok((counts.get(1) ?? 0) > 0, `${what} has no pixel of value 1, the one that flashes.`);
     });
-    checkClassic(flashed, flash.after, "The title after its flash");
+    checkClassic(view, flash.after, `The title after flash ${frame + 1}`);
     console.log(`Title: ${flashes} flash${flashes === 1 ? "" : "es"} held in ${clips.length} Classic pictures ` +
       `(${expected.map(({ registers, ms }) => `${registers[1].toString(16)}h ${ms} ms`).join(", ")}).`);
   }
@@ -228,11 +228,13 @@ const count = (list) => list.flat().length;
 console.log(`Enhanced: ${count(enhanced.title)} title and ${count(enhanced.fight)} fight pictures recorded in ${join(directory, `${source}.json`)}.`);
 if (process.env.POR_PALETTE_BASELINE) {
   const baseline = JSON.parse(readFileSync(process.env.POR_PALETTE_BASELINE, "utf8"));
-  if (JSON.stringify(enhanced) === JSON.stringify(baseline)) {
-    console.log(`Enhanced: all ${count(enhanced.title) + count(enhanced.fight)} pictures are the baseline's.`);
-  } else {
-    failures.push(`Enhanced is not the baseline's: ${count(enhanced.title)} title and ${count(enhanced.fight)} fight pictures here, ` +
-      `${count(baseline.title)} and ${count(baseline.fight)} in ${process.env.POR_PALETTE_BASELINE}, or as many with others among them.`);
+  for (const part of ["title", "fight"]) {
+    const here = enhanced[part].flat(), there = baseline[part].flat();
+    const same = here.filter((picture, index) => picture === there[index]).length;
+    const message = `Enhanced ${part}: ${same} of ${here.length} pictures are the baseline's (${there.length} there, frame by frame ` +
+      `${JSON.stringify(enhanced[part]) === JSON.stringify(baseline[part]) ? "the same" : "not the same"}).`;
+    if (same === here.length && JSON.stringify(enhanced[part]) === JSON.stringify(baseline[part])) console.log(message);
+    else failures.push(message);
   }
 }
 if (failures.length) {

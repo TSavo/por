@@ -12,7 +12,7 @@ import { Cpu } from "../src/cpu/machine.js";
 import { openAutomap } from "./automap.js";
 import { attachDos, consoleText, dosLog, noon, timeOfDay, type BiosKey, type DosFile, type DosFileClosed } from "../src/runtime/dos.js";
 import { intrCounts } from "../src/runtime/intr.js";
-import { journalFrame, screen, stampPanelFrame, videoSummary, type PanelFrameStamp } from "../src/runtime/video.js";
+import { journalFrame, paletteObservers, screen, stampPanelFrame, videoSummary, type PanelFrameStamp } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 import { findGameRoot, gameFiles as readGameFiles, isPortGameRoot, mountValjevoWallPieces, portGame, usePortPaths } from "./gamedata.js";
 import { currentObjective, journalInventoryLeads, observeAdventureLog, questProgress, type JournalLead } from "../src/runtime/adventure-log.js";
@@ -215,6 +215,8 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
         const pauseMs = messageMs === undefined && !deathDelay && returnsTo(this, 0, code.pauseResumes)
           ? this.read16(this.ss, (this.sp + 4) & 0xffff) : undefined;
         capturePresentationDelay?.(this, effectDelay, messageMs, pauseMs);
+        // A pause in colours the page has not shown yet (the title's flash): Delay's argument is its length.
+        input?.capturePaletteHold?.(this, this.read16(this.ss, (this.sp + 4) & 0xffff));
       }
       // Some approach sequences refresh several native distances between inputs.
       if (captureEncounterDraw && isAt(this, at, code.encounterDrawn) && this.steps >= liveStep) captureEncounterDraw(this);
@@ -275,6 +277,21 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
     exeByImage.set(code.random.at, (m) => {
       random(m);
       report(m.ax);
+    });
+  }
+  const paletteTrace = process.env.POR_TRACE_PALETTE;
+  if (paletteTrace) {
+    // POR_TRACE_PALETTE=<file>: one line for every change the game makes to its palette registers
+    // through int 10h AH=10h: the step, the sixteen registers after it, and the three callers above
+    // the palette routine, by overlay slice and offset or by resident segment and offset. Observes only.
+    paletteObservers.add((registers, m) => {
+      const callers: string[] = [];
+      for (let bp = m.bp, depth = 0; depth < 3 && bp; depth++, bp = m.read16(m.ss, bp)) {
+        const offset = m.read16(m.ss, (bp + 2) & 0xffff), segment = m.read16(m.ss, (bp + 4) & 0xffff);
+        const slice = loadedSlices.find(({ loadPara }) => loadPara === segment);
+        callers.push(slice ? `slice ${slice.index}+${offset.toString(16)}` : `${segment.toString(16)}:${offset.toString(16)}`);
+      }
+      appendFileSync(paletteTrace, JSON.stringify({ step: m.steps, registers, callers }) + "\n");
     });
   }
   const keys = [...scheduledKeys];

@@ -15,7 +15,7 @@ import type { Cpu } from "../src/cpu/machine.js";
 import { currentObjective, isOpenObjective, kovelJournalTransition, trackedJournalObjective, type JournalLead } from "../src/runtime/adventure-log.js";
 import type { BiosKey } from "../src/runtime/dos.js";
 import { gameProgress } from "../src/runtime/far.js";
-import { cellWriteMark, journalFrame, screen, visibleGameRunes, visibleGameText, visiblePanelFrame, type PanelFrameStamp } from "../src/runtime/video.js";
+import { cellWriteMark, displayPalette, journalFrame, paletteObservers, paletteState, screen, visibleGameRunes, visibleGameText, visiblePanelFrame, type PanelFrameStamp } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 import { combatEffectFlightFamily, loadCombatEffects, combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, randomCombatKey, type CombatArtPlacement } from "./combat-art.js";
 import { loadCharacterSheetArt, loadPortraitArt, matchScriptIllustration } from "./portrait-art.js";
@@ -66,6 +66,8 @@ export interface PresentationAnimationFrame {
   statusMessage?: boolean;
   /** True for an encounter picture drawn as it approaches the party (SETUP MONSTER, APPROACH). */
   approach?: boolean;
+  /** True for the screen held in colours the game set for a pause (the title's flash): Classic plays it, Enhanced does not (#82). */
+  classicOnly?: boolean;
 }
 type TilePlacement = [x: number, y: number, key: string];
 export type { PanelFrameStamp } from "../src/runtime/video.js";
@@ -320,6 +322,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let approachClip: PresentationAnimationFrame | undefined;
   let approachClipMs = 0;
   let immediateStrike: { signature: string; clip: PresentationAnimationFrame } | undefined;
+  // The palette registers as the last picture sent to the page showed them, the last picture held in
+  // colours the game set for a pause, and the screen's write mark when the game last set a colour (#82).
+  let shownPalette = paletteState().join();
+  let paletteClip: PresentationAnimationFrame | undefined;
+  let paletteMark = cellWriteMark(0, 0, 40, 25);
+  paletteObservers.add(() => { paletteMark = cellWriteMark(0, 0, 40, 25); });
   /** Send the pictures captured so far in a frame the page plays, and wait until it asks for more. */
   const handOverPictureLoop = (next: number) => {
     presentationPolling = next;
@@ -391,7 +399,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   }
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false,
     durationMs?: number, effect?: { placement: TilePlacement; clean: Frame }, captureIllustration = false,
-    message?: "status" | "combat" | "picture") => {
+    message?: "status" | "combat" | "picture" | "palette") => {
     const native = screen;
     const presentation = effect?.clean ?? native;
     if (browser) {
@@ -763,7 +771,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // The map id and walls come from the map the guest drew, as the journal comes from its text.
       const mapped = explored && automap ? automap.locate(explored, nativeScenery) : explored;
       const state = {
-        frame: Buffer.from(encodePng(native)).toString("base64"),
+        // Classic shows each pixel in the colour the game's palette registers give it (int 10h AH=10h, #82).
+        frame: Buffer.from(encodePng(native, displayPalette())).toString("base64"),
         enhancedFrame: Buffer.from(encodePng(enhanced, enhancedPalette)).toString("base64"),
         // With POR_FRAME_PIXELS=1: the pixel values the game drew, one byte each, for checks that
         // compare them with the colours a picture shows (npm run verify:palette).
@@ -842,10 +851,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       narrationLedger?.frame({ awaitsKey: awaitsKey && !(attack || captureApproach || effect || captureIllustration || message), scene, portrait, encounter: encounter?.[2],
         classicPortrait: Array.isArray(picture) ? { area, cursor: portraitCursor, caller: pictureCaller } : undefined, view: perspective,
         runes: runes.some(([cell]) => cell % 40 < 16 && cell < 16 * 40) });
+      shownPalette = paletteState().join();
       if (message === "status") {
         // A message the game shows on the bottom line and clears by itself: the whole screen as it
         // stands during the pause, for as long as the game pauses.
         animation.push({ ...state, durationMs, statusMessage: true });
+      } else if (message === "palette") {
+        // The screen in colours the game set and holds through a pause without asking for a key (the
+        // title's flash): Classic shows it for as long as the game pauses. Enhanced has its own colours.
+        animation.push({ ...state, durationMs, classicOnly: true });
       } else if (message === "picture") {
         // One picture of an animation the game plays without asking for a key, for as long as the
         // game shows it.
@@ -882,7 +896,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       }
       if (captureApproach) return encounter;
     } else {
-      writeFileSync("out/por-live.png", encodePng(leads ? journalFrame(leads, trackedId) : screen));
+      writeFileSync("out/por-live.png", leads ? encodePng(journalFrame(leads, trackedId)) : encodePng(screen, displayPalette()));
     }
   };
   const showJournal = (leads: JournalLead[]) => {
@@ -1302,6 +1316,25 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const clip = animation.at(-1);
       if (clip) immediateStrike = { signature, clip };
       lastAttack = signature;
+    } : undefined,
+    /**
+     * The game pauses (Delay, `ms` long) with palette registers no picture sent so far has shown: the
+     * title's flash sets register 1 to light blue, light cyan and white, a pause each, and puts it back
+     * before it next looks at the keyboard (slice 1, 0765 to 07cf). Classic holds the screen in those
+     * colours as long as the game does (#82).
+     */
+    capturePaletteHold: browser ? (cpu: Cpu, ms: number) => {
+      // Only where the game changed colours and nothing else: a picture still being drawn waits for its frame.
+      if (cpu.steps < startAt || cellWriteMark(0, 0, 40, 25) !== paletteMark) return;
+      if (paletteState().join() === shownPalette) {
+        // The colours of the picture just held (one flash ends on light blue and the next begins on it):
+        // that picture is held the longer.
+        if (paletteClip && animation.at(-1) === paletteClip) paletteClip.durationMs = (paletteClip.durationMs ?? 0) + ms;
+        return;
+      }
+      captureEclContext(cpu);
+      showFrame(undefined, undefined, false, false, ms, undefined, false, "palette");
+      paletteClip = animation.at(-1);
     } : undefined,
     capturePresentationDelay: browser ? (cpu: Cpu, effectDelay = false, messageMs?: number, pauseMs?: number) => {
       // The game pauses on the encounter picture it just drew (DELAY between APPROACHes, Rolf's

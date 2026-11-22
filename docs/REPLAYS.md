@@ -102,6 +102,21 @@ play begins on the same dice in both builds. `POR_TRACE_DICE=1` logs every
 draw: who asked, the range, and the number drawn
 (`POR_DICE <step> <caller> range <n> value <v>`).
 
+## Palette (#82)
+
+The game sets its EGA palette registers through int 10h AH=10h, and Classic
+shows each pixel in its register's colour. `POR_TRACE_PALETTE=<file>` writes
+one JSON line per change: the step, the sixteen registers and the callers.
+Where the game changes only colours and pauses (the title's flash), the
+screen is held in them as a frame's `animation` entry marked `classicOnly`,
+which Enhanced does not play. `POR_FRAME_PIXELS=1` adds each frame's pixel
+values (`pixels`, one byte each, base64). `npm run verify:palette` replays the
+title and a fight and checks every Classic pixel against the original's code
+run under Unicorn (`tools/palette-unicorn.py`,
+`qa/fixtures/palette/original-1.3.json`). Its title replay starts the clock at
+23:59:50 (`POR_FIXED_CLOCK_START=8639000`): on any other start the runner's
+clock ends the title before it flashes (#152).
+
 ## What a frame says about the prompt
 
 Each frame the runner sends carries `prompt`, `"read"` or `"poll"`: whether

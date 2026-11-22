@@ -1,4 +1,4 @@
-import { Frame } from "../lib/ega.js";
+import { EGA_RGB, Frame } from "../lib/ega.js";
 import type { Cpu } from "../cpu/machine.js";
 import { currentObjective, type JournalLead } from "./adventure-log.js";
 import { loadedSlices } from "./overlay.js";
@@ -69,6 +69,73 @@ let column = 0;
 let row = 0;
 export let int10Count = 0;
 
+/**
+ * The EGA attribute controller: sixteen palette registers, each naming the 6-bit colour that a
+ * pixel value is shown in, and the overscan (border) register. The game sets them through int 10h
+ * AH=10h: on the title (slice 1) register 1 flashes through 9, 11 and 15 and back, and slice 31's
+ * two routines show 0 as dark grey and 8 as black, then put them back. What `screen` holds is the
+ * pixel value the game drew; the colour it is shown in is the register's.
+ */
+const paletteRegisters = new Uint8Array(16);
+let overscan = 0;
+/** Mode 0Dh is a 200-line mode: the monitor takes bit 4 of a register as intensity and ignores bits 3 and 5. */
+let twoHundredLines = false;
+/** The page int 10h AH=05h selected; in mode 0Dh each page is 0x2000 bytes of each plane. */
+let displayPage = 0;
+const planarPageBytes = 0x2000;
+/** Changes whenever a palette register does. */
+export let paletteRevision = 0;
+/** Observers of each palette change: the sixteen registers after it. They cannot change what is shown. */
+export const paletteObservers = new Set<(registers: readonly number[], cpu: Cpu) => void>();
+
+function defaultPalette(): void {
+  twoHundredLines = mode >= 4 && mode <= 6 || mode === 0x0d || mode === 0x0e;
+  // The BIOS's tables for each kind of mode: the sixteen CGA colours in 200 lines, the EGA's own in 350.
+  for (let value = 0; value < 16; value++) {
+    paletteRegisters[value] = twoHundredLines ? (value & 7) | (value & 8) << 1
+      : value === 6 ? 0x14 : value < 8 ? value : 0x30 | value;
+  }
+  overscan = 0;
+  paletteRevision++;
+}
+defaultPalette();
+
+/** The colour (an index into EGA_RGB) that a 6-bit EGA colour shows as on a 200-line monitor. */
+function cgaColor(value: number): number {
+  return (value & 7) | (value & 0x10) >> 1;
+}
+
+/** The red, green and blue of a 6-bit EGA colour as the current mode shows it. */
+function egaColor(value: number): readonly [number, number, number] {
+  if (twoHundredLines) return EGA_RGB[cgaColor(value)]!;
+  const level = (primary: number, secondary: number) => (value >> primary & 1) * 0xaa + (value >> secondary & 1) * 0x55;
+  return [level(2, 5), level(1, 4), level(0, 3)];
+}
+
+/** The colour each of the sixteen pixel values is shown in now, as the original's display shows it. */
+export function displayPalette(): (readonly [number, number, number])[] {
+  return Array.from(paletteRegisters, egaColor);
+}
+
+/** The sixteen palette registers as they stand. */
+export function paletteState(): number[] {
+  return [...paletteRegisters];
+}
+
+function paletteChanged(cpu: Cpu): void {
+  paletteRevision++;
+  for (const observer of paletteObservers) observer([...paletteRegisters], cpu);
+}
+
+/** Show the eight-pixel group at this offset of the visible page from the planes. */
+function showPlanarByte(shown: number, offset: number): void {
+  for (let x = 0; x < 8; x++) {
+    let color = 0;
+    for (let p = 0; p < 4; p++) color |= ((planes[p]![offset]! >> (7 - x)) & 1) << p;
+    screen.pixels[shown * 8 + x] = color;
+  }
+}
+
 const planes = Array.from({ length: 4 }, () => new Uint8Array(0x10000));
 const latches = new Uint8Array(4);
 const graphics = new Uint8Array(9);
@@ -93,6 +160,13 @@ function publishVideoMode(cpu: Cpu): void {
   cpu.write8(0x40, 0x49, mode);
   cpu.write16(0x40, 0x4a, mode === 2 || mode === 3 || mode === 7 ? 80 : 40);
   cpu.write16(0x40, 0x63, mode === 7 ? 0x3b4 : 0x3d4);
+  publishDisplayPage(cpu);
+}
+
+/** The BIOS data area's active page and the page's start in video memory. */
+function publishDisplayPage(cpu: Cpu): void {
+  cpu.write8(0x40, 0x62, displayPage);
+  cpu.write16(0x40, 0x4e, displayPage * (mode === 0x0d ? planarPageBytes : mode === 2 || mode === 3 || mode === 7 ? 0x1000 : 0x800));
 }
 
 /** EGA memory and indexed registers for planar mode 0Dh. */
@@ -150,8 +224,10 @@ export function attachPlanarVideo(cpu: Cpu): void {
       }
       planes[p]![offset] = (data & mask) | (latch & ~mask);
     }
-    if (offset < 8000) {
-      const cell = Math.floor(offset / 320) * 40 + offset % 40;
+    // Only the page int 10h AH=05h selected is on screen; the game draws its offscreen pictures on page 1.
+    const shown = offset - displayPage * planarPageBytes;
+    if (shown >= 0 && shown < 8000) {
+      const cell = Math.floor(shown / 320) * 40 + shown % 40;
       cellWrites[cell]!++;
       if (panelFrame.size) panelFrame.delete(cell);
       const glyphWrite = isAt(cpu, cpu.ip, code.glyphStoreA) || isAt(cpu, cpu.ip, code.glyphStoreB);
@@ -174,11 +250,7 @@ export function attachPlanarVideo(cpu: Cpu): void {
         else gameRunes.delete(cell);
         for (const observer of glyphObservers) observer(character, color, gameText.has(cell));
       }
-      for (let x = 0; x < 8; x++) {
-        let color = 0;
-        for (let p = 0; p < 4; p++) color |= ((planes[p]![offset]! >> (7 - x)) & 1) << p;
-        screen.pixels[offset * 8 + x] = color;
-      }
+      showPlanarByte(shown, offset);
     }
     return true;
   };
@@ -328,6 +400,8 @@ export function journalFrame(leads: readonly JournalLead[], trackedId?: string):
 export function resetVideo(): void {
   resetPlanarVideo();
   mode = 3;
+  displayPage = 0;
+  defaultPalette();
   column = 0;
   row = 0;
   int10Count = 0;
@@ -343,6 +417,9 @@ export function biosVideo(cpu: Cpu): void {
   if (ah === 0x00) {
     resetPlanarVideo();
     mode = al;
+    displayPage = 0;
+    // Setting a mode loads that mode's palette into the registers.
+    defaultPalette();
     publishVideoMode(cpu);
     column = 0;
     row = 0;
@@ -366,6 +443,17 @@ export function biosVideo(cpu: Cpu): void {
     return;
   }
   if (ah === 0x05) {
+    // Select the display page. The game selects page 0 when it sets mode 0Dh (START.EXE image 7101)
+    // and draws its offscreen pictures on page 1 (image 7147 with page 1), which is never shown.
+    const page = al & 7;
+    if (page !== displayPage) {
+      displayPage = page;
+      if (mode === 0x0d) {
+        for (let cell = 0; cell < cellWrites.length; cell++) cellWrites[cell]!++;
+        for (let shown = 0; shown < 8000; shown++) showPlanarByte(shown, displayPage * planarPageBytes + shown);
+      }
+    }
+    publishDisplayPage(cpu);
     cpu.cf = false;
     return;
   }
@@ -412,7 +500,31 @@ export function biosVideo(cpu: Cpu): void {
   if (ah === 0x0f) {
     cpu.ah = mode === 0x0d ? 40 : 80;
     cpu.al = mode;
-    cpu.bh = 0;
+    cpu.bh = displayPage;
+    cpu.cf = false;
+    return;
+  }
+  if (ah === 0x10) {
+    // The EGA palette functions. The game uses AL=00 (START.EXE image 704d, from slices 1 and 31).
+    if (al === 0x00 && cpu.bl < 16) {
+      paletteRegisters[cpu.bl] = cpu.bh & 0x3f;
+      paletteChanged(cpu);
+    } else if (al === 0x01 || (al === 0x00 && cpu.bl === 0x11)) {
+      overscan = cpu.bh & 0x3f;
+    } else if (al === 0x02) {
+      // Sixteen registers and the overscan register from ES:DX.
+      for (let index = 0; index < 16; index++) paletteRegisters[index] = cpu.read8(cpu.es, (cpu.dx + index) & 0xffff) & 0x3f;
+      overscan = cpu.read8(cpu.es, (cpu.dx + 16) & 0xffff) & 0x3f;
+      paletteChanged(cpu);
+    } else if (al === 0x07 && cpu.bl < 16) {
+      cpu.bh = paletteRegisters[cpu.bl]!;
+    } else if (al === 0x08) {
+      cpu.bh = overscan;
+    } else if (al === 0x09) {
+      for (let index = 0; index < 16; index++) cpu.write8(cpu.es, (cpu.dx + index) & 0xffff, paletteRegisters[index]!);
+      cpu.write8(cpu.es, (cpu.dx + 16) & 0xffff, overscan);
+    }
+    // AL=03 (blink or intensity) changes nothing in a graphics mode; the VGA's DAC calls are not EGA's.
     cpu.cf = false;
     return;
   }

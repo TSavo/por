@@ -298,10 +298,10 @@ Interrupts other than 10h, 16h, 1Bh, 21h, 23h and 24h throw (`dos.ts:124-125`). 
 |---|---|---|---|
 | 00 | Set mode | Implemented (`video.ts:280-291`) | – |
 | 02 | Set cursor | Implemented | – |
-| 05 | Select display page | Ignored (`video.ts:305-308`) | Only A000 offsets below 8000 are rendered (`video.ts:105`), so other pages never show |
+| 05 | Select display page | Implemented (#82): the selected page's 8000 bytes are on screen | The game selects page 0 when it sets mode 0Dh (`exe:7101`) and draws offscreen on page 1 (`exe:7147`) |
 | 09 | Write character | Drawn with a placeholder 3×5 font (`video.ts:125-228`) | Approximated |
 | 0F | Get mode | Implemented | – |
-| **10** | Set palette register | **No case; falls through to a no-op (`video.ts:362`)** | Called from `exe:4f59` by slices 1 and 32, so original palette changes are lost |
+| 10 | Palette registers | Implemented (#82): AL=00, 01, 02, 07, 08, 09; Classic shows each pixel in its register's colour, as a 200-line monitor shows it | Called through `exe:704d` (1.3; `exe:4f59` in the first release): the title's flash (slice 1, `0765`-`07cf`) and slice 31's `00e3`/`0105`, which show 0 as dark grey and 8 as black from a fight's start (`exe:3728`) to its end (slice 8 `0064`), and in the icon editor (slice 16) and the character sheet (slice 19). `npm run verify:palette` checks it against the original's code under Unicorn |
 
 The `Intr` shim's flags word records only CF, PF, ZF, SF and OF (`intr.ts:52-58`).
 

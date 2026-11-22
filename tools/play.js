@@ -603,8 +603,13 @@ function playPendingNarration() {
 
 // When the last batch of an animation the game plays by itself arrived, or the key that began it was sent.
 let selfPlayingBatchAt;
+/** The clips of this frame the presentation plays: the screen held in the game's own palette (#82) is Classic's alone. */
+function presentedClips() {
+  const frames = state.animation ?? [];
+  return enhanced ? frames.filter(frame => !frame.classicOnly) : frames;
+}
 function playAnimation(continues = false) {
-  let frames = state.animation ?? [];
+  let frames = presentedClips();
   if (state.presentationPolling || continues) {
     // The runner draws such an animation several times slower than the original showed it (its DOS
     // clock moves one hundredth per reading). The page asks for the next batch at once, so the time
@@ -2129,7 +2134,7 @@ async function poll() {
       playAnimation(continuesAnimation);
       if (state.automaticCombat || state.presentationPolling) {
         quickPollAfter = performance.now() + 160 +
-          (state.animation ?? []).reduce((total, frame) => total + (frame.durationMs ?? 120), 0);
+          presentedClips().reduce((total, frame) => total + (frame.durationMs ?? 120), 0);
       }
     }
     // A fight the computer plays: once the page has shown what came, it asks for more. An animation
