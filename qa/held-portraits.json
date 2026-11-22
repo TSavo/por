@@ -2,6 +2,61 @@
   "about": "Native held-menu cycles measured with GOG 1.3 by POR_HELD_PORTRAIT_TRACE, with paired Chrome evidence where available. The script and native picture sites in tools/discover-held-portraits.ts define the coverage total.",
   "scenes": [
     {
+      "id": "area:10:ecl:b50b:PIC4.DAX:20",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1010,
+          "viewport": "303a13b8baec3c2301ffeb718ae94822cc7d593bd0ac191407d8e113516a5780"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "8273d435ee730c40c0f42b4b312f1c390964cf214c9b69f2b14b1f8ce56d1183"
+        },
+        {
+          "member": 2,
+          "durationMs": 610,
+          "viewport": "8be772bee43c9c143e17e01f12e7457169f0b8820e0b234ef3114188f0bd10d1"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "8273d435ee730c40c0f42b4b312f1c390964cf214c9b69f2b14b1f8ce56d1183"
+        }
+      ]
+    },
+    {
+      "id": "area:10:ecl:b695:caller:9f7a:PIC4.DAX:35",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 110,
+          "viewport": "131cbeaccc70f399fd3c39f45bc18c15d09dc6b36d5a6e8bfc87d25b7d1461b0"
+        },
+        {
+          "member": 1,
+          "durationMs": 110,
+          "viewport": "e299c6feb35ffe3c610bb7976c7dd43704775e020f26530e792c4ffe4b4a7b7b"
+        },
+        {
+          "member": 2,
+          "durationMs": 110,
+          "viewport": "98a3952924de81197cf0013ef61bb8076d5a4517559e2efbc36c96e1fdca69fb"
+        },
+        {
+          "member": 3,
+          "durationMs": 110,
+          "viewport": "9ee411079027544f6901ae4020cce42e11cc2582363b2d0c67f91967396c07c1"
+        },
+        {
+          "member": 4,
+          "durationMs": 110,
+          "viewport": "17e59d1d6b59fcc6aa98eb81374890cc500617b873068a0e9c4a434ccf225589"
+        }
+      ]
+    },
+    {
       "id": "area:20:ecl:9e02:PIC2.DAX:0",
       "poses": [
         {
@@ -23,6 +78,71 @@
           "member": 3,
           "durationMs": 210,
           "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ]
+    },
+    {
+      "id": "area:21:ecl:a316:PIC4.DAX:17",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 410,
+          "viewport": "cecb2765d6fd8f2c299b42dd391c1c1589e460ec6b611aa33f251653e3003cd7"
+        },
+        {
+          "member": 1,
+          "durationMs": 910,
+          "viewport": "e918ce5d91bc338220ac7036d6e509b39ef2ad1f5d5e4e8956a84966d730a56f"
+        },
+        {
+          "member": 2,
+          "durationMs": 20,
+          "viewport": "a13b32899f8cfd287da3f5de380357805aab1368792689847c330d8a94edcd37"
+        }
+      ]
+    },
+    {
+      "id": "area:21:ecl:ae31:caller:a613:PIC4.DAX:18",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "a2be3144e2f17e7e83f22a2976d374b95b4f0806eeeaa1c462a7b2b597e21048"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "8b5f911a52cf4770bb62acb3077e4b7c1576dd1f440441edffc788ef856ad6c6"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "a2be3144e2f17e7e83f22a2976d374b95b4f0806eeeaa1c462a7b2b597e21048"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "4193e181e042d446905c11f222b51fe5c8054d4d84a1bd7161312588f962afc4"
+        },
+        {
+          "member": 4,
+          "durationMs": 210,
+          "viewport": "a2be3144e2f17e7e83f22a2976d374b95b4f0806eeeaa1c462a7b2b597e21048"
+        },
+        {
+          "member": 5,
+          "durationMs": 210,
+          "viewport": "25dff2b1ad316b8d366d0ebc05a8184d86d2da17ef5cfb77658397878d1c9ec1"
+        },
+        {
+          "member": 6,
+          "durationMs": 210,
+          "viewport": "04a156cb08c55f6a42666f3c8f2dbe9bb42cf1a57449a08acb800d608e4c6b55"
+        },
+        {
+          "member": 7,
+          "durationMs": 210,
+          "viewport": "4193e181e042d446905c11f222b51fe5c8054d4d84a1bd7161312588f962afc4"
         }
       ]
     },
