@@ -2581,6 +2581,13 @@ const illustrationRoutes = new Map([
     prompt: /THETOWERDOORSWINGSOPENANDASMALLARMYOFZOMBIESSHUFFLESOUT.*LOCKSFALLINGINTOPLACE/i,
     finalPhaseCapture: "valhingen-zombie-tower-attack.png",
   }],
+  ["valhingen-mystic-plea", {
+    slot: "B", inputs: ["up", "enter", "enter"],
+    portrait: "scene-illustration:area:10:ecl:b695:caller:adcd",
+    prompt: /IWOULDASKYOUTOHELPMEENDTHISFOULUNDEADCURSE/i,
+    finalPhaseCapture: "valhingen-mystic-plea.png",
+    continuation: { inputs: ["enter"], portrait: "portrait:HEAD4.DAX:0:BODY4.DAX:2", prompt: /DOYOULETHIMJOINTHEPARTYORSENDHIMAWAY/i },
+  }],
   ["valhingen-mystic-hostility", {
     slot: "B", inputs: ["up", "enter", "enter", "enter", "s"],
     portraitStops: { 4: "portrait:HEAD4.DAX:0:BODY4.DAX:2" },
