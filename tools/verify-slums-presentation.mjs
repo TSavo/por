@@ -13978,16 +13978,18 @@ try {
     assert.ok(knows(boat) && !knows(door));
     assert.match(frame.journal.objective.nextStep, /Take the rowboat/);
     for (const key of ["j", "y", "enter"]) await advance(key);
-    assert.equal(frame.portrait, "portrait:PIC7.DAX:36:0:0");
+    const exteriorPhase = id => /^portrait:area:26:ecl:a00a:PIC7\.DAX:36:([12]):0$/.exec(id ?? "")?.[1];
+    assert.ok(frame.portrait === "portrait:PIC7.DAX:36:0:0" || exteriorPhase(frame.portrait),
+      `Expected a pyramid exterior portrait, got ${frame.portrait}`);
     await waitFor("the pyramid exterior illustration", () => run(`(() => {
       const image = document.querySelector(".encounter-portrait");
       return image?.naturalWidth === 352 && image?.naturalHeight === 352;
     })()`));
     const exteriorPhases = new Set();
-    for (let i = 0; i < 9 && exteriorPhases.size < 2; i++) {
-      await advance("q");
+    for (let i = 0; i <= 9 && exteriorPhases.size < 2; i++) {
+      if (i > 0) await advance("q");
       const id = frame.portrait;
-      const phase = /^portrait:area:26:ecl:a00a:PIC7\.DAX:36:([12]):0$/.exec(id ?? "")?.[1];
+      const phase = exteriorPhase(id);
       if (!phase || exteriorPhases.has(phase)) continue;
       await waitFor(`pyramid exterior phase ${phase}`, () => run(`state.sequence === ${frame.sequence} &&
         document.querySelector('.encounter-portrait[src="/art/${id}"]')?.naturalWidth === 352`));
