@@ -2042,6 +2042,8 @@
     "scene-illustration:area:8:ecl:b5c3:caller:af36:cue:special-council-summons": "council-special-meeting-summons.png",
     "scene-illustration:area:8:ecl:a83b:caller:9a4a:cue:repeat-commission-offers": "council-clerk-repeat-offers.png",
     "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:repeat-commission-offers": "council-clerk-repeat-offers.png",
+    "scene-illustration:area:8:ecl:ac1c:caller:a891:cue:kobold-recruitment-offer": "council-kobold-recruitment-offer.png",
+    "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:kobold-recruitment-offer": "council-kobold-recruitment-offer.png",
     "scene-illustration:area:8:ecl:abbf:caller:a891:cue:nomad-alliance-offer": "council-nomad-alliance-offer.png",
     "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:nomad-alliance-offer": "council-nomad-alliance-offer.png",
     "scene-illustration:area:8:ecl:ab7d:caller:a891:cue:kovel-commission-offer": "council-kovel-mansion-offer.png",

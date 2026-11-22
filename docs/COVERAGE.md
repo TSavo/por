@@ -4308,6 +4308,9 @@ The `council-nomad-offer` Chrome replay marks the Kovel commission
 fulfilled in the controlled slot. It checks the warning about the
 nomads and the image of a messenger approaching the camp, then verifies
 the original return to exploration on GOG 1.3.
+The `council-kobold-offer` replay uses the same controlled slot with the
+Nomad work fulfilled. It checks the next Council warning, the picture
+of a recruiter addressing the tribe, and the return to exploration.
 
 The `stojanow-gate-reward` Chrome replay on GOG 1.3 checks the Council
 clerk's artwork as she checks for a reward, sorts the remaining
