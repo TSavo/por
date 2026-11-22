@@ -4,9 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "b25e30dde6bdff3b89a4abefd1256dff214d2b3c6db35685c7d3086f81d6a6b7",
-  "audioSha256": "7f4666ded786a78862d3f10fe827c1c1a716c5f837224cf2c821caf307d06309",
-  "bytes": 163465,
-  "directionSent": "",
-  "heardByWhisper": "You see rocks scattered about the smooth flagstones.  As you carefully search the room,  you feel a strange tingle as you get close to a bare area.",
-  "generatedAt": "2026-11-22T04:18:44.039Z"
+  "audioSha256": "d58f4cc71453a876917d136b5b319579d71c422645251ec2e76a1a6f3e28e00a",
+  "bytes": 153434,
+  "directionSent": "searching, then uncanny and uneasy",
+  "heardByWhisper": "You see rocks scattered about the smooth flagstones.  As you carefully search the room, you feel a strange tingle as you get close to a bare area.",
+  "generatedAt": "2026-11-22T04:33:53.355Z"
 }
