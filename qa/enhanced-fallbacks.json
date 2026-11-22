@@ -1,6 +1,21 @@
 {
  "schema": 1,
  "runs": {
+  "campaign-castle-approach-leg": {
+   "presented": 122,
+   "frames": [],
+   "fixtureSha256": "5e7252eaf505d42c72693c7e7ab715e53aacc945e9919ef25e6ef7036de0b46f"
+  },
+  "campaign-end-leg": {
+   "presented": 2,
+   "frames": [],
+   "fixtureSha256": "bbced5a633fb9a4c3167800892aed17ca0230895329760902c43e7daf5d8e09e"
+  },
+  "campaign-ending-leg": {
+   "presented": 335,
+   "frames": [],
+   "fixtureSha256": "443ba1d3e1d2f4c05b1a23b27f00cc15bfbf388235b655c02d00b3e56d9146b5"
+  },
   "campaign-full/leg-1": {
    "presented": 122,
    "frames": [],
