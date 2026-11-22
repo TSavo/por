@@ -2,9 +2,9 @@
 
 ## What to do now
 
-**There is art to do: 104 items.**
+**There is art to do: 124 items.**
 
-1. **Wall tiles: 104 cells to draw, in Phlan City Hall, Stojanow Gate, The Training Hall, Temple of Bane, Temple of Bane, interior.** Each is listed below with its exact key.
+1. **Wall tiles: 124 cells to draw, in Phlan City Hall, Stojanow Gate, The Training Hall, The Slums, Temple of Bane, Temple of Bane, interior.** Each is listed below with its exact key.
 2. **Pictures: none.**
 3. **Do not draw anything under "Not established".** Those cells are not confirmed to appear. The QA owner is settling them by play and moves each one that proves real into item 1.
 
@@ -21,9 +21,10 @@ A cell is one 8 by 8 square of the screen, redrawn at 32 by 32. Most cells below
 | 8 Phlan City Hall | 31 | 31 | 30 | 1 |
 | 11 The Training Hall | 31 | 31 | 30 | 1 |
 | 24 Temple of Bane | 27 | 27 | 26 | 1 |
+| 20 The Slums | 20 | 20 | 0 | 20 |
 | 9 Stojanow Gate | 12 | 11 | 10 | 1 |
 | 31 Temple of Bane, interior | 3 | 3 | 2 | 1 |
-| **All areas** | **104** | **103** | **98** | **5** |
+| **All areas** | **124** | **123** | **98** | **25** |
 
 Outdoor battle terrain: 0 cells. Each item below carries `shape` and, where there is one, `sameShapeAs`: the key of your existing art for that shape in the same area.
 Start with the shapes you have already drawn: those are the same piece over a new background. Then the shapes with no version yet.
@@ -74,14 +75,14 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 
 | What | Count |
 | --- | ---: |
-| Remaining, all kinds | 104 |
-| First-person cells to do | 104 |
-|   of which one stored tile | 0 |
+| Remaining, all kinds | 124 |
+| First-person cells to do | 124 |
+|   of which one stored tile | 20 |
 |   of which one tile over a solid colour | 56 |
 |   of which plain sky or ground | 1 |
 |   of which several tiles together | 47 |
-|   of which the same pixels already have art of yours in another area | 100 |
-| Distinct shapes among the first-person cells (the same tiles, whatever sky or ground is behind them) | 103 |
+|   of which the same pixels already have art of yours in another area | 120 |
+| Distinct shapes among the first-person cells (the same tiles, whatever sky or ground is behind them) | 123 |
 |   of which the area already has your art for that shape over another sky or ground | 98 |
 | Battlefield cells to do | 0 |
 | Tile keys in the manifests | 7784 |
@@ -119,7 +120,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 16 | The Lizardman Keep | yes | 419 | 419 | 0 | 440 of 440 (14 as WebGL wall materials, 7 only in unreachable views) |
 | 17 | The Nomad Camp | yes | 164 | 164 | 0 | 175 of 175 (11 as WebGL wall materials) |
 | 18 | Podol Plaza | yes | 273 | 273 | 0 | 306 of 306 (26 as first views of the next area, 7 as WebGL wall materials) |
-| 20 | The Slums | yes | 288 | 268 | 0 | 276 of 276 (8 as WebGL wall materials) |
+| 20 | The Slums | yes | 288 | 268 | 20 | 276 of 276 (8 as WebGL wall materials) |
 | 21 | Sokal Keep | yes | 254 | 254 | 0 | 314 of 314 (4 as first views of the next area, 40 as WebGL wall materials, 16 only in unreachable views) |
 | 22 | Yarash's Pyramid | yes | 87 | 87 | 0 | 95 of 95 (8 as WebGL wall materials) |
 | 23 | Yarash's Pyramid, lower | yes | 78 | 78 | 0 | 83 of 83 (5 as WebGL wall materials) |
@@ -295,6 +296,35 @@ Map 0; WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 bloc
 | `tile:11:eaaf3eda22c409df59d46965bfbaa114fdfce2600636b7f78fb7a4c61b6ed7a7` | 8X8D3 block 103 tile 6 over sky colour 0 | map 0, square (2,2) facing east, column 10 row 3 | `phlan-fallback-0-eaaf3eda22c4.png` (area 0) |
 | `tile:11:fda35ec7d9df04aeebd70aad095944df1c6a3e311c4f49c7cb25814d73ad0766` | 8X8D3 block 103 tile 4 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6) | map 0, square (2,0) facing west, column 6 row 5 | `phlan-fallback-0-fda35ec7d9df.png` (area 0) |
 
+### Area 20: The Slums (20)
+
+Map 20; WALLDEF2 block 2 (tiles 8X8D2 block 2), block 4 (tiles 8X8D2 block 4), block 1 (tiles 8X8D2 block 1).
+
+#### overhead area view, 8X8D1 block 202 (20)
+
+| Key (PNG 32x32) | What it is | See it at | Same pixels as |
+| --- | --- | --- | --- |
+| `tile:20:10fd0886e0431e57ec7e17a59570792e1059f5f7157405b493ce265199ed86da` | 8X8D1 block 202 tile 6 | map 20, square (0,0) facing north, column 8 row 3 | `zhentil-overhead-wall-e.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:17aecfacb0ac862291feba2cc4407aa3def3b3919f56e9de997aa729e34681a3` | 8X8D1 block 202 tile 8 | map 20, square (0,0) facing north, column 5 row 1 | `zhentil-overhead-wall-s.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:219379cc4da98bf424f77258bb2a0a640f2b73f11a6515fa36e60ffbbea8699f` | 8X8D1 block 202 tile 0 | map 20, square (0,0) facing north, column 0 row 0 | `zhentil-overhead-party-n.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | 8X8D1 block 202 tile 4 | map 20, square (0,0) facing north, column 2 row 8 | `zhentil-overhead-open-base.png` (area 0, 2, 9, 10, 18, 21, 26, 28, 29) |
+| `tile:20:28ff03b45f311ec95732c83a90db315c0fca1f0670cd7beb1fd2514bad09e147` | 8X8D1 block 202 tile 16 | map 20, square (0,0) facing north, column 7 row 1 | `zhentil-overhead-wall-sw.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:2d42184c2362ae350c986d8bf540af917a86f15ff43d79f3dd6b7842b9490f06` | 8X8D1 block 202 tile 17 | map 20, square (0,0) facing north, column 0 row 1 | `zhentil-overhead-wall-nsw.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:3ff193416e9b23866c37192f42c52fbc2bb3391d79c9344338de23d8db77ff13` | 8X8D1 block 202 tile 15 | map 20, square (0,0) facing north, column 2 row 1 | `zhentil-overhead-wall-new.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:47a669a9430a869565e6f1812f530165e01a58580377493e63aee5a840d7058d` | 8X8D1 block 202 tile 12 | map 20, square (0,0) facing north, column 4 row 1 | `zhentil-overhead-wall-w.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:482838757d705ffcec482082f3ff2948d4c7a385d2d9edc89a8169c67c22f3e4` | 8X8D1 block 202 tile 19 | map 20, square (0,0) facing north, column 3 row 1 | `zhentil-overhead-wall-nesw.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:496285be59da9811c312df2a2d2da1c53503c086e3f75710abea664bdf2128e3` | 8X8D1 block 202 tile 2 | map 20, square (0,0) facing south, column 0 row 0 | `zhentil-overhead-party-s.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:55654b98b0904a8baf33013b015c4125b494a17e19566b7bb720eb6555a154b0` | 8X8D1 block 202 tile 3 | map 20, square (0,0) facing west, column 0 row 0 | `zhentil-overhead-party-w.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:5ecdd034c02f06e6a9af46d43ce8fc2810a70f34366a4556c9c7fec783d622ed` | 8X8D1 block 202 tile 5 | map 20, square (0,0) facing north, column 5 row 0 | `zhentil-overhead-wall-n.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:7a3417a61ee293c17e3fac0977255633aabb174d9bdb22afdb3dc4c06a4d6c82` | 8X8D1 block 202 tile 7 | map 20, square (0,0) facing north, column 6 row 0 | `zhentil-overhead-wall-ne.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:84a465df968f8b91c365336f02295a9bf5a02887b59beb26a2763f5efd153216` | 8X8D1 block 202 tile 1 | map 20, square (0,0) facing east, column 0 row 0 | `zhentil-overhead-party-e.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:8a7463159b3cc87236f3702080b428644809d3fabe11818c4cce77feafe61c7d` | 8X8D1 block 202 tile 14 | map 20, square (0,0) facing north, column 1 row 3 | `zhentil-overhead-wall-ew.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:9062228b7598045f75a5d60a5540b958c6d17b9d450a5cd9ccd89756906bfa3f` | 8X8D1 block 202 tile 10 | map 20, square (0,0) facing north, column 1 row 1 | `zhentil-overhead-wall-es.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:9caaba9389bc7c9c4b5600fa65c80dc0951f8c05a67f7e27cca12fda0f0fe6d5` | 8X8D1 block 202 tile 9 | map 20, square (0,0) facing north, column 2 row 0 | `zhentil-overhead-wall-ns.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:ad494b78a51cb097874be17d5e9ad07ce4d108b7cfc0724a9ffb9289f7d11e5f` | 8X8D1 block 202 tile 18 | map 20, square (0,0) facing north, column 0 row 3 | `zhentil-overhead-wall-esw.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:bf9c0fd1402ac36b11c3e4d34e5623d7603c85da0b4a60007fe9b2bf76c5e1f9` | 8X8D1 block 202 tile 11 | map 20, square (0,0) facing north, column 3 row 0 | `zhentil-overhead-wall-nes.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+| `tile:20:d8afceb6a1ca80efdc8cbb48c855ae716abf2687808334df576fb5568334ee71` | 8X8D1 block 202 tile 13 | map 20, square (0,0) facing north, column 1 row 0 | `zhentil-overhead-wall-nw.png` (area 0, 2, 9, 10, 18, 21, 28, 29) |
+
 ### Area 24: Temple of Bane (27)
 
 Map 24; WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5).
@@ -382,7 +412,6 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 | What | Count |
 | --- | ---: |
 | first-person cells seen only from squares not connected to any square the existing artwork was made from | 7 |
-| first-person cells of the overhead area view, which no existing artwork of the area confirms | 20 |
 | first-person cells of an area whose reading is not confirmed | 40 |
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |
 | battlefield cells of pictures no artwork shows to have been on a battlefield | 2207 |
