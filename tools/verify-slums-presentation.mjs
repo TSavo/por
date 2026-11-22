@@ -807,6 +807,17 @@ const illustrationRoutes = new Map([
       prompt: /VIEW.*POOL.*EXIT/i, capture: "bane-southern-cache.png",
     },
   }],
+  ["bane-eastern-cache", {
+    slot: "A",
+    inputs: ["up", "up", "up", "right", "up", "up", "left", ...Array(6).fill("up"), "s", "up"],
+    portrait: "scene-illustration:area:24:ecl:a8af:caller:a847",
+    prompt: /12,9E.*ONTHEFLOORYOUFINDATRAPDOOR\.WILLYOUOPENIT\?/i,
+    continuation: {
+      inputs: ["o", "enter", "enter"], portrait: "scene-illustration:area:24:ecl:aa47:cue:eastern-cache",
+      prompt: /VIEW.*POOL.*EXIT/i, capture: "bane-eastern-cache.png",
+      lootCaption: /LOOTHANDAXEDAGGERHAMMERMACEMORNINGSTARSCIMITARSPEARSHORTSWORDITEMS/i,
+    },
+  }],
   ["bane-hidden-trapdoor", {
     slot: "A", inputs: ["right", "up", "right", "s", "up"],
     portrait: "scene-illustration:area:24:ecl:a8af:caller:a847",
