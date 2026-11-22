@@ -34,7 +34,7 @@ const liveIdleBudget = 150_000_000;
 export interface CodeWheelQuestion { number: number; espruar: string; dethek: string; path: string }
 const overlandArrivalAreas = new Set([0, 2, 10, 14, 18, 24, 31]);
 const travelRoadAreas = new Set([0, 2, 9, 18]);
-const travelRoadArrivals = new Map([[0, [8, 11, 20, 21]], [2, [15]], [9, [6]], [18, [9, 29]]]);
+const travelRoadArrivals = new Map([[0, [8, 11, 20, 21]], [2, [15]], [9, [6]], [18, [9, 29]], [20, [0]]]);
 const travelRoadScripts = new Set([...travelRoadAreas, ...[...travelRoadArrivals.values()].flat()]);
 export interface PresentationAnimationFrame {
   portrait?: string;

@@ -684,6 +684,14 @@ const councilClerkApproach = ["right", "right", "up", "right", "right", "up", "e
 const fightersDoorApproach = ["left", "up", "right", "up", "enter", "n", "n", "up"];
 
 const illustrationRoutes = new Map([
+  ["new-phlan-gateway-watch", {
+    slot: "A", inputs: ["up", "right", "right", "up"],
+    portrait: "scene-illustration:area:20:ecl:ab23",
+    heldPortrait: "scene-illustration:area:20:ecl:ab23",
+    prompt: /GATEWAYTOTHEUNSETTLEDAREAS.*CITYWATCHEYESYOUSUSPICIOUSLY/i,
+    continuation: { inputs: ["right", "right", "up"], portrait: "scene-illustration:area:0:ecl:9b68",
+      prompt: /MONSTER-CRAWLINGSLUMSOFPHLAN/i },
+  }],
   ["new-phlan-training-entrance-notice", {
     slot: "A", inputs: ["right", "right", "up", "up", "left", "up", "up", "right", "up", "up", "up", "up"],
     portrait: "scene-illustration:area:0:ecl:9af0",
@@ -7051,7 +7059,8 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       ["slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
         "new-phlan-training-duels", "new-phlan-training-north-junction", "new-phlan-training-fighters-door",
-        "new-phlan-training-rogues-door", "new-phlan-training-entrance-notice"].includes(routeName) ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
+        "new-phlan-training-rogues-door", "new-phlan-training-entrance-notice",
+        "new-phlan-gateway-watch"].includes(routeName) ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
   },
   stdio: ["ignore", "ignore", "inherit"],
 });
@@ -10022,6 +10031,9 @@ try {
       await waitFor("the enhanced held illustration", () => run(`state.sequence === ${frame.sequence} &&
         document.querySelector('.encounter-portrait[src="/art/${held}"]')?.naturalWidth === 352`));
       await verifyPortraitPanel();
+      if (routeName === "new-phlan-gateway-watch") {
+        assert.deepEqual([frame.exploration?.area, frame.scenery?.x, frame.scenery?.y], [0, 0, 4]);
+      }
       await switchBothWays(frame.frame);
       const shot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, `${routeName}-held-portrait.png`), Buffer.from(shot.data, "base64"));
