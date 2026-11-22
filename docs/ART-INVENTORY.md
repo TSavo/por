@@ -885,6 +885,13 @@ Indoor setup copies DUNGCOM into slots 0–24 and RANDCOM into slots
 34–39. The worklist holds any uncovered BACPAC hashes from the
 remaining slots 25–33 pending evidence of indoor use.
 
+GOG 1.3 arena kind entries 0–31 in `DS:2747` reference only slots 0–24
+and 34–39. The Bane ogre, Valjevo hill giants and paired wyvern traces
+produced 375 indoor draws from DUNGCOM or RANDCOM. The Bane and
+Valjevo replays captured terrain before stopping on their expected
+combat art keys. The untouched slots stay in the QA list until the
+arena initialization and later writes account for every visible cell.
+
 The battlefield and overland map share the SQRPACI blitter. The
 `POR_BATTLE_DRAW` trace labels the surface from the native caller. On
 GOG 1.3 the overland viewport calls it from overlay `0x1b` at `01e1`,
