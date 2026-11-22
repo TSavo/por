@@ -9,7 +9,9 @@
     "valhingen-skeleton-roaming-ambush-loop": "qa/fixtures/valhingen-skeleton-roaming-ambush/A.json",
     "valhingen-skeleton-tower-bones": "qa/fixtures/valhingen-skeleton-tower-bones/A.json",
     "valhingen-spirits-tower-wight-loop": "qa/fixtures/valhingen-spirits-tower-wights/A.json",
-    "valhingen-wight-ambush-loop": "qa/fixtures/valhingen-wight-ambush/A.json"
+    "valhingen-wight-ambush-loop": "qa/fixtures/valhingen-wight-ambush/A.json",
+    "valhingen-zombie-roam-animation": "qa/fixtures/valhingen-zombie-roam-animation/A.json",
+    "valhingen-zombie-tower": "qa/fixtures/valhingen-zombie-tower/A.json"
   },
   "chains": {},
   "proved": [
@@ -19,6 +21,8 @@
     "valhingen-skeleton-roaming-ambush-loop",
     "valhingen-skeleton-tower-bones",
     "valhingen-spirits-tower-wight-loop",
-    "valhingen-wight-ambush-loop"
+    "valhingen-wight-ambush-loop",
+    "valhingen-zombie-roam-animation",
+    "valhingen-zombie-tower"
   ]
 }

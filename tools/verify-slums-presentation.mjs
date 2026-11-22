@@ -3379,6 +3379,7 @@ const illustrationRoutes = new Map([
       2: null,
       3: "scene-illustration:area:10:ecl:b695:caller:a67a",
     },
+    staticPortraitStop: { index: 3, caption: /PILESOFHAIRANDFURCOVERTHEAREA/i },
     phaseCaptures: { 1: "valhingen-zombie-tower-exterior.png", 3: "valhingen-zombie-tower-door-opening.png" },
     approachStops: { 2: [56, 32, "encounter:area:10:SPRIT4.DAX:35:0:0", 32, 80] },
     portrait: "scene-illustration:area:10:ecl:b5c7:cue:zombie-tower-attack",
@@ -7804,7 +7805,7 @@ try {
         image?.complete && image.naturalWidth === 352 && new URL(image.src).pathname === ${portraitPath};
     })()`));
     await verifyPortraitPanel();
-    // Observe longer than the adjacent PIC4 block 34 loop, without sending a key.
+    // Observe through several possible pose changes without sending a key.
     const { result, exceptionDetails } = await command("Runtime.evaluate", {
       awaitPromise: true, returnByValue: true,
       expression: `new Promise(resolve => {
@@ -10249,21 +10250,14 @@ try {
     await switchBothWays();
     console.log("Verified all five Yarash papers after reloading slot A.");
   } else if (routeName === "valhingen-zombie-roam-animation") {
-    const phases = new Set();
-    for (let input = 0; input < 36 && phases.size < 5; input++) {
-      await advance(input % 2 === 0 ? "up" : "down");
-      const id = frame.portrait;
-      const match = /^portrait:area:10:ecl:b695:caller:9f43:PIC4\.DAX:35:([0-4]):0$/.exec(id ?? "");
-      if (!match || phases.has(match[1])) continue;
-      await waitFor(`the roaming zombie portrait phase ${match[1]}`, () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector('.encounter-portrait[src="/art/${id}"]')?.naturalWidth === 352`));
-      await verifyPortraitPanel();
-      const shot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, `valhingen-zombie-phase-${match[1]}.png`), Buffer.from(shot.data, "base64"));
-      phases.add(match[1]);
-    }
-    assert.deepEqual([...phases].sort(), ["0", "1", "2", "3", "4"]);
-    await verifyHeldPortraitLoop(5);
+    const poses = [0, 1, 2, 3, 4].map(member => `portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:${member}:0`);
+    for (const key of ["up", "down", "up", "down", "up"]) await advance(key);
+    assert.ok(poses.includes(frame.portrait));
+    assert.ok(frame.awaitsKey);
+    assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+      /LUMBERINGFIGURESREACHFORYOU.*PRESS<ENTER>\/<RETURN>TOCONTINUE/i);
+    await verifyHeldPortraitLoop(poses, "valhingen-zombie-roam");
+    await verifyPortraitPanel();
     await switchBothWays();
     await advance("enter");
     const attack = "scene-illustration:area:10:ecl:b5c7:cue:zombie-patrol-attack";

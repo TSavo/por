@@ -282,6 +282,13 @@ notice in each scene. The Chrome replays hold their individual captions
 for 3.65 seconds before advancing to the battle notice. Set
 `POR_HELD_PORTRAIT_CHROME_TRACE` to save the held evidence for the census.
 
+The `valhingen-zombie-roam-animation` replay loads its own checkpoint at
+the default fixed clock. The game holds five members for 110 ms each on
+“Lumbering figures reach for you.” Enter releases the loop to the battle
+notice. The `valhingen-zombie-tower` replay loads its separate checkpoint.
+There, the hair and fur caption holds only the opening portrait until
+Enter. Each route takes `qa/fixtures/<route>/A.json`.
+
 ## Enhanced artwork fallbacks
 
 Set `POR_TRACE_ENHANCED_FALLBACKS=1` and run

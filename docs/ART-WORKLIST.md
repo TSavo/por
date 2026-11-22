@@ -2,12 +2,12 @@
 
 ## What to do now
 
-**Held portrait animations (#131).** 28 / 235 picture sites verified (measured 35, one-shot 6). R = 207.
-The site inventory comes from static script and native picture discovery. 53 / 53 captured native prompts passed paired Chrome checks.
+**Held portrait animations (#131).** 30 / 235 picture sites verified (measured 36, one-shot 6). R = 205.
+The site inventory comes from static script and native picture discovery. 56 / 56 captured native prompts passed paired Chrome checks.
 Run `npm run verify:held-portraits` for every site and its evidence.
 
-**Enhanced fallbacks (#142).** 0 fallback frames / 0 distinct keys across 4304 Chrome views.
-Recorded walks measured in Chrome with GOG 1.3: 33 / 33. Run `npm run verify:enhanced-fallbacks` for the captured keys and walks still to measure.
+**Enhanced fallbacks (#142).** 0 fallback frames / 0 distinct keys across 4704 Chrome views.
+Recorded walks measured in Chrome with GOG 1.3: 34 / 34. Run `npm run verify:enhanced-fallbacks` for the captured keys and walks still to measure.
 2 additional replay captures are included.
 `campaign-sokal-leg` shares the `campaign-full/leg-7` capture because the replay inputs are identical.
 `campaign-tower-leg` shares the `campaign-full/leg-9` capture because the replay inputs are identical.

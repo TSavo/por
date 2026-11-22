@@ -6,7 +6,8 @@ const towerGiantPoseTimes = [210, 210, 210, 210];
 const silverDragonPoseOrder = [0, 1, 2, 3, 4, 0, 2];
 const silverDragonPoseTimes = [1610, 510, 410, 1210, 1010, 1410, 1510];
 const portraitLoops = [
-  ["portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:", 5],
+  ["portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:", 5, undefined,
+    /^(?!.*ABATTLEBEGINS).*LUMBERINGFIGURESREACHFORYOU/i, Array(5).fill(110)],
   ["portrait:area:10:ecl:b50b:PIC4.DAX:34:", 4],
   // The roaming wight's fourth native member repeats the second painting.
   ["portrait:area:10:ecl:b50b:PIC4.DAX:20:", [0, 1, 2, 1], undefined,

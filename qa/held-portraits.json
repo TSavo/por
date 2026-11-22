@@ -453,6 +453,167 @@
       }
     },
     {
+      "id": "area:10:ecl:b695:caller:9f43:PIC4.DAX:35",
+      "producer": "ECL4.DAX:10:b6a1",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 110,
+          "viewport": "131cbeaccc70f399fd3c39f45bc18c15d09dc6b36d5a6e8bfc87d25b7d1461b0"
+        },
+        {
+          "member": 1,
+          "durationMs": 110,
+          "viewport": "e299c6feb35ffe3c610bb7976c7dd43704775e020f26530e792c4ffe4b4a7b7b"
+        },
+        {
+          "member": 2,
+          "durationMs": 110,
+          "viewport": "98a3952924de81197cf0013ef61bb8076d5a4517559e2efbc36c96e1fdca69fb"
+        },
+        {
+          "member": 3,
+          "durationMs": 110,
+          "viewport": "9ee411079027544f6901ae4020cce42e11cc2582363b2d0c67f91967396c07c1"
+        },
+        {
+          "member": 4,
+          "durationMs": 110,
+          "viewport": "17e59d1d6b59fcc6aa98eb81374890cc500617b873068a0e9c4a434ccf225589"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "valhingen-zombie-roam-animation",
+          "data": "original",
+          "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360",
+          "bindingSha256": "80920e9ca194fc2e210e022fde4098ec6e827f4469f408e23003e721700745db",
+          "portrait": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:1:0",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:1:0",
+              "atMs": 4.399999976158142
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:2:0",
+              "atMs": 70.99999997615805
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:3:0",
+              "atMs": 187.69999997615832
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:4:0",
+              "atMs": 287.6999999761583
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:0:0",
+              "atMs": 404.39999997615814
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:1:0",
+              "atMs": 520.999999976158
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:2:0",
+              "atMs": 620.999999976158
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:3:0",
+              "atMs": 737.6999999761583
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:4:0",
+              "atMs": 837.6999999761583
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:0:0",
+              "atMs": 954.2999999761582
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:1:0",
+              "atMs": 1070.8999999761581
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:2:0",
+              "atMs": 1170.8999999761581
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:1:0": "90f662fde89b327d41c0b1f4fbe3eeb88bce12a28783b3b553fc76e29696f8c0",
+            "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:2:0": "a89872d62e1fc07b489b076c782666fc3747228c6b4dfa5740b4d4d52e214946",
+            "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:3:0": "d27732e8629115d91b9a82eca5fb1392cc79e11df7775efbb60d6f8352b14f80",
+            "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:4:0": "66529ab5b7fbc77a501080a0fff1c3271ef24a270fb60f4e8847ac4d08d37984",
+            "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:0:0": "6a9fb8c628597b1023f1095073d9ada2969c23ab88ec203161f38c1b3b7166ce"
+          }
+        },
+        "port": {
+          "route": "valhingen-zombie-roam-animation",
+          "data": "port",
+          "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360",
+          "bindingSha256": "80920e9ca194fc2e210e022fde4098ec6e827f4469f408e23003e721700745db",
+          "portrait": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:1:0",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:1:0",
+              "atMs": 8.100000023841858
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:2:0",
+              "atMs": 74.80000002384168
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:3:0",
+              "atMs": 174.80000002384168
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:4:0",
+              "atMs": 291.50000002384195
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:0:0",
+              "atMs": 391.50000002384195
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:1:0",
+              "atMs": 508.10000002384186
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:2:0",
+              "atMs": 624.8000000238417
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:3:0",
+              "atMs": 724.8000000238417
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:4:0",
+              "atMs": 841.400000023842
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:0:0",
+              "atMs": 941.5000000238415
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:1:0",
+              "atMs": 1058.1000000238419
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:2:0",
+              "atMs": 1174.8000000238417
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:1:0": "90f662fde89b327d41c0b1f4fbe3eeb88bce12a28783b3b553fc76e29696f8c0",
+            "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:2:0": "a89872d62e1fc07b489b076c782666fc3747228c6b4dfa5740b4d4d52e214946",
+            "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:3:0": "d27732e8629115d91b9a82eca5fb1392cc79e11df7775efbb60d6f8352b14f80",
+            "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:4:0": "66529ab5b7fbc77a501080a0fff1c3271ef24a270fb60f4e8847ac4d08d37984",
+            "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:0:0": "6a9fb8c628597b1023f1095073d9ada2969c23ab88ec203161f38c1b3b7166ce"
+          }
+        }
+      }
+    },
+    {
       "id": "area:10:ecl:b695:caller:9f7a:PIC4.DAX:35",
       "poses": [
         {
@@ -7870,6 +8031,92 @@
               "samples": 221,
               "poses": [
                 "scene-illustration:area:10:ecl:b695:caller:a490"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL4.DAX:10:b6a1",
+      "prompt": "b695/a67a",
+      "variants": [
+        {
+          "caption": "ALL AROUND THE TOWER, PILES OF HAIR AND FUR COVER THE AREA. Press <enter>/<return> to continue",
+          "checkpoint": "valhingen-zombie-tower/A.json",
+          "portrait": "scene-illustration:area:10:ecl:b695:caller:a67a",
+          "native": {
+            "drawCursor": "b6a8",
+            "drawCaller": "a676",
+            "members": [
+              0
+            ],
+            "heldCaption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1055,9S22:22ALLAROUNDTHETOWER,PILESOFHAIRANDFURCOVERTHEAREA.Press<enter>/<return>tocontinue",
+            "idlePolls": 120,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "131cbeaccc70f399fd3c39f45bc18c15d09dc6b36d5a6e8bfc87d25b7d1461b0"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "131cbeaccc70f399fd3c39f45bc18c15d09dc6b36d5a6e8bfc87d25b7d1461b0"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "131cbeaccc70f399fd3c39f45bc18c15d09dc6b36d5a6e8bfc87d25b7d1461b0"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "131cbeaccc70f399fd3c39f45bc18c15d09dc6b36d5a6e8bfc87d25b7d1461b0"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "131cbeaccc70f399fd3c39f45bc18c15d09dc6b36d5a6e8bfc87d25b7d1461b0"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "131cbeaccc70f399fd3c39f45bc18c15d09dc6b36d5a6e8bfc87d25b7d1461b0"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "131cbeaccc70f399fd3c39f45bc18c15d09dc6b36d5a6e8bfc87d25b7d1461b0"
+              }
+            ],
+            "battleCursor": "b5c7",
+            "battlePanelSha256": "131cbeaccc70f399fd3c39f45bc18c15d09dc6b36d5a6e8bfc87d25b7d1461b0"
+          },
+          "chrome": {
+            "original": {
+              "route": "valhingen-zombie-tower",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1055,9S22:22ALLAROUNDTHETOWER,PILESOFHAIRANDFURCOVERTHEAREA.Press<enter>/<return>tocontinue",
+              "portrait": "scene-illustration:area:10:ecl:b695:caller:a67a",
+              "checkpointSha256": "c1804f1937e03482905c6c9de027538a0273eb7318dac19b51c674cf01ce4692",
+              "artSha256": "e8f44cf89d5317efa6bc1660207ff6c0e5567e4cbbaec8a6cb6943a8c0aaa176",
+              "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3662,
+              "samples": 220,
+              "poses": [
+                "scene-illustration:area:10:ecl:b695:caller:a67a"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valhingen-zombie-tower",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1055,9S22:22ALLAROUNDTHETOWER,PILESOFHAIRANDFURCOVERTHEAREA.Press<enter>/<return>tocontinue",
+              "portrait": "scene-illustration:area:10:ecl:b695:caller:a67a",
+              "checkpointSha256": "c1804f1937e03482905c6c9de027538a0273eb7318dac19b51c674cf01ce4692",
+              "artSha256": "e8f44cf89d5317efa6bc1660207ff6c0e5567e4cbbaec8a6cb6943a8c0aaa176",
+              "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3664,
+              "samples": 221,
+              "poses": [
+                "scene-illustration:area:10:ecl:b695:caller:a67a"
               ],
               "replaced": false
             }

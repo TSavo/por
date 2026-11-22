@@ -1,20 +1,20 @@
 {
  "schema": 2,
  "heldPortraits": {
-  "verified": 28,
+  "verified": 30,
   "oneShotsVerified": 6,
-  "measured": 35,
+  "measured": 36,
   "total": 235,
-  "scenesMeasured": 53,
-  "scenesVerified": 53,
+  "scenesMeasured": 56,
+  "scenesVerified": 56,
   "unmappedScenes": 0,
-  "remaining": 207
+  "remaining": 205
  },
  "enhancedFallbacks": {
   "frames": 0,
-  "presented": 4304,
-  "walks": 33,
-  "recordedWalks": 33,
+  "presented": 4704,
+  "walks": 34,
+  "recordedWalks": 34,
   "missingWalks": [],
   "aliasedWalks": [
    {
@@ -26,7 +26,7 @@
     "receipt": "campaign-full/leg-9"
    }
   ],
-  "runs": 33,
+  "runs": 34,
   "additionalReplays": 2,
   "keys": []
  },
