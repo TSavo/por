@@ -221,6 +221,10 @@ const encounterRoutes = new Map([
     placement: [48, 32, "encounter:area:20:ecl:ab58:SPRIT2.DAX:4:0:0", 40, 80],
     dialogue: {
       key: "enter", portrait: "portrait:area:20:PIC2.DAX:4:0:0", prompt: /GUARDSRUNTOINTERCEPTYOU/i,
+      heldPortraitLoop: [
+        "portrait:area:20:PIC2.DAX:4:0:0",
+        ...[1, 2, 1].map(member => `portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:${member}:0`),
+      ],
       heldPortrait: "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:2:0",
     },
   }],
@@ -7465,7 +7469,9 @@ try {
     })()`), "Enhanced portrait should fill the outer picture panel over an opaque backdrop");
   }
 
-  async function verifyHeldPortraitLoop(count, screenshotPrefix) {
+  async function verifyHeldPortraitLoop(expected, screenshotPrefix) {
+    const order = Array.isArray(expected) ? expected : undefined;
+    const count = order?.length ?? expected;
     const held = await latest();
     await run(`(() => {
       window.heldPortraitPhases = [];
@@ -7481,16 +7487,24 @@ try {
     })()`);
     const cycle = await waitFor("the portrait to loop without input", () =>
       run(`window.heldPortraitPhases.length > ${count} && window.heldPortraitPhases`));
-    assert.equal(new Set(cycle.slice(0, count)).size, count);
+    const phases = cycle.slice(0, count);
     assert.equal(cycle[0], cycle[count]);
-    const images = await Promise.all(cycle.slice(0, count).map(async path => {
+    if (order) {
+      const observed = phases.map(path => new URL(path).pathname);
+      assert.ok(order.some((_, start) => order.every((_, index) =>
+        observed[index] === "/art/" + order[(start + index) % count])),
+      `Unexpected portrait phase order: ${observed.join(", ")}`);
+    }
+    const uniquePhases = [...new Set(phases)];
+    assert.equal(uniquePhases.length, order ? new Set(order).size : count);
+    const images = await Promise.all(uniquePhases.map(async path => {
       const response = await fetch(new URL(path, origin));
       assert.ok(response.ok, `Could not load portrait phase ${path}`);
       return Buffer.from(await response.arrayBuffer()).toString("base64");
     }));
-    assert.equal(new Set(images).size, count, "Every loop phase should display distinct artwork");
+    assert.equal(new Set(images).size, uniquePhases.length, "Every loop phase should display distinct artwork");
     if (screenshotPrefix) {
-      for (const [index, phase] of cycle.slice(0, count).entries()) {
+      for (const [index, phase] of uniquePhases.entries()) {
         await waitFor("the loaded portrait phase", () => run(`(() => {
           const image = document.querySelector(".encounter-portrait");
           return image?.src === ${JSON.stringify(phase)} && image.complete && image.naturalWidth === 352;
