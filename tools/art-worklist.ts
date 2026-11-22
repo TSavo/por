@@ -646,7 +646,9 @@ function otherPictures(data: PortGameData, read: (path: string) => Uint8Array): 
       const evidence = (family === "PIC" || family === "SPRIT")
         ? scripts ? `a PICTURE ${block} is in the script of ${[...new Set(scripts)].slice(0, 4).join(", ")}${Number(member) || Number(index) ? `; this is member ${member} frame ${index} of the record, and which members a PICTURE draws must be seen in play` : ""}`
           : `no PICTURE ${block} with a plain number is in a script of archive ${archive}`
-        : "the scripts do not name it; the program draws it, and where has not been read";
+        : file === "FINAL5.DAX"
+          ? "native placement confirmed by the GOG 1.3 valjevo-dragon-loot draw trace (see docs/ART-INVENTORY.md); Enhanced covers the sequence with scene illustrations, and this frame has no individual binding"
+          : "the scripts do not name it; the program draws it, and where has not been read";
       pictures.push({ frame, width: picture.width, height: picture.height, what, keyForm, pngSize, evidence });
     }
   }
