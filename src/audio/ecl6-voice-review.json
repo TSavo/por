@@ -2922,7 +2922,7 @@
       "classification": "voiced-narration",
       "reason": "manually reviewed narration source",
       "narrationUnitIds": [
-        "ecl6-b25-9bbf"
+        "ecl6-b25-9bbf-9c6b"
       ]
     },
     {
@@ -2967,10 +2967,11 @@
         }
       ],
       "sourceDigest": "600fcdb79c4b444e48793cc0e5cdeda821676408a0a3734154bdea37f4295ef1",
-      "classification": "voiced-narration",
-      "reason": "manually reviewed narration source",
+      "classification": "voiced-context-dependent",
+      "reason": "source participates in manually traced branch variants",
       "narrationUnitIds": [
-        "ecl6-b25-9c3e-9c6b"
+        "ecl6-b25-9c3e-9c6b",
+        "ecl6-b25-9bbf-9c6b"
       ]
     },
     {
@@ -7068,6 +7069,29 @@
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
     {
+      "id": "ecl6-b25-9bbf-9c6b",
+      "block": 25,
+      "triggerSourceId": "por.review.ecl-6.block-25.at-9bbf",
+      "coveredSourceIds": [
+        "por.review.ecl-6.block-25.at-9bbf",
+        "por.review.ecl-6.block-25.at-9c6b"
+      ],
+      "sourceTextParts": [
+        {
+          "sourceId": "por.review.ecl-6.block-25.at-9bbf",
+          "rawText": "AS YOU HIKE THROUGH THE MOUNTAINS, A LARGE DRAGON FLYS ABOVE YOU.  IT CIRCLES THEN SWOOPS DOWN AND LANDS IN FRONT OF A CAVE.  IT DISAPPEARS INTO A CAVE."
+        },
+        {
+          "sourceId": "por.review.ecl-6.block-25.at-9c6b",
+          "rawText": " WHAT WILL YOU DO?"
+        }
+      ],
+      "spokenText": "AS YOU HIKE THROUGH THE MOUNTAINS, A LARGE DRAGON FLYS ABOVE YOU. IT CIRCLES THEN SWOOPS DOWN AND LANDS IN FRONT OF A CAVE. IT DISAPPEARS INTO A CAVE. WHAT WILL YOU DO?",
+      "status": "ready",
+      "characterId": null,
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
       "id": "ecl6-b25-a128-a13a",
       "block": 25,
       "triggerSourceId": "por.review.ecl-6.block-25.at-a128",
@@ -8556,24 +8580,6 @@
         }
       ],
       "spokenText": "OFF IN THE DISTANCE YOU SEE A LARGE DRAGON FLYING THROUGH THE AIR. AS YOU WATCH, HE SWOOPS DOWN BEHIND A MOUNTAIN AND DISAPPEARS.",
-      "status": "ready",
-      "characterId": null,
-      "direction": "measured, expressive fantasy narration appropriate to the scene"
-    },
-    {
-      "id": "ecl6-b25-9bbf",
-      "block": 25,
-      "triggerSourceId": "por.review.ecl-6.block-25.at-9bbf",
-      "coveredSourceIds": [
-        "por.review.ecl-6.block-25.at-9bbf"
-      ],
-      "sourceTextParts": [
-        {
-          "sourceId": "por.review.ecl-6.block-25.at-9bbf",
-          "rawText": "AS YOU HIKE THROUGH THE MOUNTAINS, A LARGE DRAGON FLYS ABOVE YOU.  IT CIRCLES THEN SWOOPS DOWN AND LANDS IN FRONT OF A CAVE.  IT DISAPPEARS INTO A CAVE."
-        }
-      ],
-      "spokenText": "AS YOU HIKE THROUGH THE MOUNTAINS, A LARGE DRAGON FLYS ABOVE YOU. IT CIRCLES THEN SWOOPS DOWN AND LANDS IN FRONT OF A CAVE. IT DISAPPEARS INTO A CAVE.",
       "status": "ready",
       "characterId": null,
       "direction": "measured, expressive fantasy narration appropriate to the scene"

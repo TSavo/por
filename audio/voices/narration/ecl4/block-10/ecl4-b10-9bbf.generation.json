@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "1476a2f1d08dc266584ec227f564bf860fff79cab86854cb2f8e632385f5b335",
+  "audioSha256": "25b4007a3968637c723f2c6a0a2010b9efb012f320bf9fd1b3cbb10650d674ff",
+  "bytes": 162211,
+  "directionSent": "measured, expressive fantasy narration appropriate to the scene",
+  "heardByWhisper": "Fierce gusts of wind howl past, and the ground shakes as peals of thunder rock the land.  The swirling murk hides what lies ahead.",
+  "generatedAt": "2026-11-22T22:54:07.793Z"
+}

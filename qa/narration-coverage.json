@@ -919,14 +919,6 @@
     "key": "scene-illustration:area:9:ecl:9c63:caller:a1d2"
    }
   },
-  "ecl4-b10-9ba5-9bbf": {
-   "run": "walk-kovel-1",
-   "step": 258430486,
-   "art": {
-    "kind": "portrait",
-    "key": "scene-illustration:area:26:ecl:b695:caller:9c27"
-   }
-  },
   "ecl4-b10-9c45": {
    "run": "walk-valhingen-1",
    "step": 112689880,
@@ -1262,14 +1254,6 @@
     "run": "walk-wilderness-1",
     "step": 146308099,
     "showing": "no picture"
-   }
-  },
-  "ecl6-b25-9bbf": {
-   "run": "walk-wilderness-1",
-   "step": 148261674,
-   "art": {
-    "kind": "portrait",
-    "key": "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0"
    }
   },
   "ecl6-b25-9c3e-9c6b": {
@@ -1615,14 +1599,6 @@
    "art": {
     "kind": "encounter",
     "key": "encounter:area:16:ecl:a947:SPRIT8.DAX:59:0:0"
-   }
-  },
-  "ecl8-b16-a9d0": {
-   "run": "walk-lizardman-1",
-   "step": 350187114,
-   "art": {
-    "kind": "portrait",
-    "key": "scene-illustration:area:16:ecl:9a59:caller:aa24:cue:stairs-up"
    }
   },
   "ecl8-b16-aa7c": {

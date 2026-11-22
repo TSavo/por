@@ -16,8 +16,8 @@
     "classifiedEvents": 2025,
     "voicedSourceEvents": 1688,
     "unvoicedEvents": 337,
-    "narrationUnits": 1435,
-    "resolvedUnits": 1435,
+    "narrationUnits": 1436,
+    "resolvedUnits": 1436,
     "unresolvedDynamicUnits": 0,
     "finiteRuntimeVariantFamilies": 70,
     "finiteRuntimeVariantAssets": 384
@@ -19865,7 +19865,7 @@
       "sourceDigest": "c1d2299cbc99dc72a88c04181b60585ae5d61e84ab2f603a84caf929a60b394f",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "ecl4-b10-9ba5-9bbf"
+        "ecl4-b10-9ba5"
       ]
     },
     {
@@ -19889,7 +19889,7 @@
       "sourceDigest": "f05ec83c1fe9b460ed87ee87e658dfed8181fb613767423086b97c9793816f9d",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "ecl4-b10-9ba5-9bbf"
+        "ecl4-b10-9bbf"
       ]
     },
     {
@@ -35376,7 +35376,7 @@
       "sourceDigest": "b9bf6ea9bfd5b461d2cb6797415c4b4433576daa0fa0db5a44a14456ffaf24ec",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "ecl6-b25-9bbf"
+        "ecl6-b25-9bbf-9c6b"
       ]
     },
     {
@@ -35424,7 +35424,8 @@
       "sourceDigest": "600fcdb79c4b444e48793cc0e5cdeda821676408a0a3734154bdea37f4295ef1",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "ecl6-b25-9c3e-9c6b"
+        "ecl6-b25-9c3e-9c6b",
+        "ecl6-b25-9bbf-9c6b"
       ]
     },
     {
@@ -48738,7 +48739,7 @@
       "sourceDigest": "47bef3dc96c6f89ab88da399fad5738434e9bc4943591eb30fc73b5caead28b2",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "ecl8-b16-a9d0"
+        "ecl8-b16-a9d0-aa0c"
       ]
     },
     {
@@ -48786,7 +48787,8 @@
       "sourceDigest": "d725fbf3ab5191220e3a84d4d248a8c68a17ca5166b093a24993558d0c848b34",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "ecl8-b16-a9f2-aa0c"
+        "ecl8-b16-a9f2-aa0c",
+        "ecl8-b16-a9d0-aa0c"
       ]
     },
     {
@@ -68341,22 +68343,44 @@
       }
     },
     {
-      "id": "ecl4-b10-9ba5-9bbf",
+      "id": "ecl4-b10-9ba5",
       "archive": "ECL4.DAX",
       "triggerSourceId": "por.review.ecl-4.block-10.at-9ba5",
       "coveredSourceIds": [
-        "por.review.ecl-4.block-10.at-9ba5",
-        "por.review.ecl-4.block-10.at-9bbf"
+        "por.review.ecl-4.block-10.at-9ba5"
       ],
       "variant": null,
-      "spokenText": "THE SKY DARKENS. FIERCE GUSTS OF WIND HOWL PAST AND THE GROUND SHAKES AS PEALS OF THUNDER ROCK THE LAND. THE SWIRLING MURK HIDES WHAT LIES AHEAD.",
+      "spokenText": "THE SKY DARKENS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene",
       "characterId": null,
       "sourceParts": [
         {
           "sourceId": "por.review.ecl-4.block-10.at-9ba5",
           "rawText": "THE SKY DARKENS. "
-        },
+        }
+      ],
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/ecl4/block-10/ecl4-b10-9ba5.mp3",
+      "runtimeVariants": [],
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      }
+    },
+    {
+      "id": "ecl4-b10-9bbf",
+      "archive": "ECL4.DAX",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-9bbf",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-9bbf"
+      ],
+      "variant": null,
+      "spokenText": "FIERCE GUSTS OF WIND HOWL PAST AND THE GROUND SHAKES AS PEALS OF THUNDER ROCK THE LAND. THE SWIRLING MURK HIDES WHAT LIES AHEAD.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene",
+      "characterId": null,
+      "sourceParts": [
         {
           "sourceId": "por.review.ecl-4.block-10.at-9bbf",
           "rawText": "FIERCE GUSTS OF WIND HOWL PAST AND THE GROUND SHAKES AS PEALS OF THUNDER ROCK THE LAND.  THE SWIRLING MURK HIDES WHAT LIES AHEAD."
@@ -68365,7 +68389,7 @@
       "resolution": "resolved",
       "generationEligible": true,
       "model": "eleven_v4",
-      "asset": "voices/narration/ecl4/block-10/ecl4-b10-9ba5-9bbf.mp3",
+      "asset": "voices/narration/ecl4/block-10/ecl4-b10-9bbf.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,
@@ -86718,26 +86742,31 @@
       }
     },
     {
-      "id": "ecl6-b25-9bbf",
+      "id": "ecl6-b25-9bbf-9c6b",
       "archive": "ECL6.DAX",
       "triggerSourceId": "por.review.ecl-6.block-25.at-9bbf",
       "coveredSourceIds": [
-        "por.review.ecl-6.block-25.at-9bbf"
+        "por.review.ecl-6.block-25.at-9bbf",
+        "por.review.ecl-6.block-25.at-9c6b"
       ],
       "variant": null,
-      "spokenText": "AS YOU HIKE THROUGH THE MOUNTAINS, A LARGE DRAGON FLYS ABOVE YOU. IT CIRCLES THEN SWOOPS DOWN AND LANDS IN FRONT OF A CAVE. IT DISAPPEARS INTO A CAVE.",
+      "spokenText": "AS YOU HIKE THROUGH THE MOUNTAINS, A LARGE DRAGON FLYS ABOVE YOU. IT CIRCLES THEN SWOOPS DOWN AND LANDS IN FRONT OF A CAVE. IT DISAPPEARS INTO A CAVE. WHAT WILL YOU DO?",
       "direction": "measured, expressive fantasy narration appropriate to the scene",
       "characterId": null,
       "sourceParts": [
         {
           "sourceId": "por.review.ecl-6.block-25.at-9bbf",
           "rawText": "AS YOU HIKE THROUGH THE MOUNTAINS, A LARGE DRAGON FLYS ABOVE YOU.  IT CIRCLES THEN SWOOPS DOWN AND LANDS IN FRONT OF A CAVE.  IT DISAPPEARS INTO A CAVE."
+        },
+        {
+          "sourceId": "por.review.ecl-6.block-25.at-9c6b",
+          "rawText": " WHAT WILL YOU DO?"
         }
       ],
       "resolution": "resolved",
       "generationEligible": true,
       "model": "eleven_v4",
-      "asset": "voices/narration/ecl6/block-25/ecl6-b25-9bbf.mp3",
+      "asset": "voices/narration/ecl6/block-25/ecl6-b25-9bbf-9c6b.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,
@@ -99430,26 +99459,31 @@
       }
     },
     {
-      "id": "ecl8-b16-a9d0",
+      "id": "ecl8-b16-a9d0-aa0c",
       "archive": "ECL8.DAX",
       "triggerSourceId": "por.review.ecl-8.block-16.at-a9d0",
       "coveredSourceIds": [
-        "por.review.ecl-8.block-16.at-a9d0"
+        "por.review.ecl-8.block-16.at-a9d0",
+        "por.review.ecl-8.block-16.at-aa0c"
       ],
       "variant": null,
-      "spokenText": "YOU FIND A SET OF STAIRS LEADING UP.",
+      "spokenText": "YOU FIND A SET OF STAIRS LEADING UP. DO YOU GO UP?",
       "direction": "measured, expressive fantasy narration appropriate to the scene",
       "characterId": null,
       "sourceParts": [
         {
           "sourceId": "por.review.ecl-8.block-16.at-a9d0",
           "rawText": "YOU FIND A SET OF STAIRS LEADING UP."
+        },
+        {
+          "sourceId": "por.review.ecl-8.block-16.at-aa0c",
+          "rawText": " DO YOU GO UP?"
         }
       ],
       "resolution": "resolved",
       "generationEligible": true,
       "model": "eleven_v4",
-      "asset": "voices/narration/ecl8/block-16/ecl8-b16-a9d0.mp3",
+      "asset": "voices/narration/ecl8/block-16/ecl8-b16-a9d0-aa0c.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,

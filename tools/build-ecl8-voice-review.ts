@@ -61,6 +61,8 @@ addUnit(16, ["0xa217", "0xa287"]);
 addUnit(16, ["0xa368", "0xa3f6"]);
 addUnit(16, ["0xa7bd", "0xa805"]);
 addUnit(16, ["0xa9f2", "0xaa0c"]);
+// a9d0 goes on to aa0c too (a9ee GOTO): "DO YOU GO UP?" (#174).
+addUnit(16, ["0xa9d0", "0xaa0c"]);
 
 for (const addresses of [
   ["0x9f1c", "0x9f2e"], ["0x9f66", "0x9f81"], ["0x9fb7", "0x9fcc"], ["0xa002", "0xa028"],

@@ -5,17 +5,6 @@
   "block": 10,
   "items": [
     {
-      "id": "ecl4-b10-9ba5-9bbf",
-      "triggerSourceId": "por.review.ecl-4.block-10.at-9ba5",
-      "coveredSourceIds": [
-        "por.review.ecl-4.block-10.at-9ba5",
-        "por.review.ecl-4.block-10.at-9bbf"
-      ],
-      "output": "audio/voices/narration/ecl4/block-10/ecl4-b10-9ba5-9bbf.mp3",
-      "text": "THE SKY DARKENS. FIERCE GUSTS OF WIND HOWL PAST AND THE GROUND SHAKES AS PEALS OF THUNDER ROCK THE LAND. THE SWIRLING MURK HIDES WHAT LIES AHEAD.",
-      "direction": "measured, expressive fantasy narration appropriate to the scene"
-    },
-    {
       "id": "ecl4-b10-9df8-9e19",
       "triggerSourceId": "por.review.ecl-4.block-10.at-9df8",
       "coveredSourceIds": [
@@ -79,6 +68,26 @@
       ],
       "output": "audio/voices/narration/ecl4/block-10/ecl4-b10-afe3-scroll-not-read.mp3",
       "text": "DO YOU WANT TO DO ANYTHING WITH THE COFFIN?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-9ba5",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-9ba5",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-9ba5"
+      ],
+      "output": "audio/voices/narration/ecl4/block-10/ecl4-b10-9ba5.mp3",
+      "text": "THE SKY DARKENS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-9bbf",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-9bbf",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-9bbf"
+      ],
+      "output": "audio/voices/narration/ecl4/block-10/ecl4-b10-9bbf.mp3",
+      "text": "FIERCE GUSTS OF WIND HOWL PAST AND THE GROUND SHAKES AS PEALS OF THUNDER ROCK THE LAND. THE SWIRLING MURK HIDES WHAT LIES AHEAD.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
     {

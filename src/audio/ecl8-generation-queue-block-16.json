@@ -313,13 +313,14 @@
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
     {
-      "id": "ecl8-b16-a9d0",
+      "id": "ecl8-b16-a9d0-aa0c",
       "triggerSourceId": "por.review.ecl-8.block-16.at-a9d0",
       "coveredSourceIds": [
-        "por.review.ecl-8.block-16.at-a9d0"
+        "por.review.ecl-8.block-16.at-a9d0",
+        "por.review.ecl-8.block-16.at-aa0c"
       ],
-      "output": "audio/voices/narration/ecl8/block-16/ecl8-b16-a9d0.mp3",
-      "text": "YOU FIND A SET OF STAIRS LEADING UP.",
+      "output": "audio/voices/narration/ecl8/block-16/ecl8-b16-a9d0-aa0c.mp3",
+      "text": "YOU FIND A SET OF STAIRS LEADING UP. DO YOU GO UP?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
     {

@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "661fa87b084a7713f57804908c48bd408a178a1f2aa748e2d80e0eb1c0919944",
+  "audioSha256": "17e70f63dbb59f5fff8cb03e77e3243185f2f388753ac769749b8e04936dc582",
+  "bytes": 63990,
+  "directionSent": "measured, expressive fantasy narration appropriate to the scene",
+  "heardByWhisper": "You find a set of stairs leading up. Do you go up?",
+  "generatedAt": "2026-11-22T22:54:14.278Z"
+}

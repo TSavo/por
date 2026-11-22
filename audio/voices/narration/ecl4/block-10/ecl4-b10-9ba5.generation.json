@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "8137ebcf0a305f1c5570c50382f7f8e8f99abb458d21728e3a52a8974f62b3fe",
+  "audioSha256": "a4735097d99faa47a832f73b33bbade6477ba1dd3d0f597b7b599b4f29937a6e",
+  "bytes": 35569,
+  "directionSent": "measured, expressive fantasy narration appropriate to the scene",
+  "heardByWhisper": "The sky darkens.",
+  "generatedAt": "2026-11-22T22:54:04.343Z"
+}

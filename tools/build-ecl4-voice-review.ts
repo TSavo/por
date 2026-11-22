@@ -45,7 +45,8 @@ addUnit(2, ["0xa109"], { variant: "prisoner-gone" });
 addUnit(2, ["0xa4d2", "0xa500"]);
 addUnit(2, ["0xa7e2", "0xa80f", "0xa887"]);
 addUnit(2, ["0xb049", "0xb0e6"]);
-addUnit(10, ["0x9ba5", "0x9bbf"]);
+// 9ba5 "THE SKY DARKENS." is skipped when 0x49c9 is 14 or more (9ba4 IF <): 9bbf is reached alone
+// as often as after it, so each is its own unit (#174).
 addUnit(10, ["0x9df8", "0x9e19"]);
 addUnit(10, ["0xac5a", "0xacbc"]);
 addUnit(10, ["0xad54", "0xad80", "0xadcd"]);

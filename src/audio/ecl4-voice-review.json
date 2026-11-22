@@ -11,8 +11,8 @@
     "queue": "newly reached standalone unit plays after current narration"
   },
   "eventCount": 166,
-  "narrationUnitCount": 134,
-  "readyUnitCount": 130,
+  "narrationUnitCount": 135,
+  "readyUnitCount": 131,
   "unresolvedUnitCount": 4,
   "events": [
     {
@@ -2250,7 +2250,7 @@
       "classification": "voiced-narration",
       "reason": "manually reviewed narration source",
       "narrationUnitIds": [
-        "ecl4-b10-9ba5-9bbf"
+        "ecl4-b10-9ba5"
       ]
     },
     {
@@ -2274,7 +2274,7 @@
       "classification": "voiced-narration",
       "reason": "manually reviewed narration source",
       "narrationUnitIds": [
-        "ecl4-b10-9ba5-9bbf"
+        "ecl4-b10-9bbf"
       ]
     },
     {
@@ -4366,29 +4366,6 @@
       "direction": "perform Restal consistently: an older, amused, confident thieves' guild master; retain narrator identity for attribution"
     },
     {
-      "id": "ecl4-b10-9ba5-9bbf",
-      "block": 10,
-      "triggerSourceId": "por.review.ecl-4.block-10.at-9ba5",
-      "coveredSourceIds": [
-        "por.review.ecl-4.block-10.at-9ba5",
-        "por.review.ecl-4.block-10.at-9bbf"
-      ],
-      "sourceTextParts": [
-        {
-          "sourceId": "por.review.ecl-4.block-10.at-9ba5",
-          "rawText": "THE SKY DARKENS. "
-        },
-        {
-          "sourceId": "por.review.ecl-4.block-10.at-9bbf",
-          "rawText": "FIERCE GUSTS OF WIND HOWL PAST AND THE GROUND SHAKES AS PEALS OF THUNDER ROCK THE LAND.  THE SWIRLING MURK HIDES WHAT LIES AHEAD."
-        }
-      ],
-      "spokenText": "THE SKY DARKENS. FIERCE GUSTS OF WIND HOWL PAST AND THE GROUND SHAKES AS PEALS OF THUNDER ROCK THE LAND. THE SWIRLING MURK HIDES WHAT LIES AHEAD.",
-      "status": "ready",
-      "characterId": null,
-      "direction": "measured, expressive fantasy narration appropriate to the scene"
-    },
-    {
       "id": "ecl4-b10-9df8-9e19",
       "block": 10,
       "triggerSourceId": "por.review.ecl-4.block-10.at-9df8",
@@ -5608,6 +5585,42 @@
       "status": "ready",
       "characterId": "restal",
       "direction": "perform Restal consistently: an older, amused, confident thieves' guild master; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b10-9ba5",
+      "block": 10,
+      "triggerSourceId": "por.review.ecl-4.block-10.at-9ba5",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-9ba5"
+      ],
+      "sourceTextParts": [
+        {
+          "sourceId": "por.review.ecl-4.block-10.at-9ba5",
+          "rawText": "THE SKY DARKENS. "
+        }
+      ],
+      "spokenText": "THE SKY DARKENS.",
+      "status": "ready",
+      "characterId": null,
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-9bbf",
+      "block": 10,
+      "triggerSourceId": "por.review.ecl-4.block-10.at-9bbf",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-9bbf"
+      ],
+      "sourceTextParts": [
+        {
+          "sourceId": "por.review.ecl-4.block-10.at-9bbf",
+          "rawText": "FIERCE GUSTS OF WIND HOWL PAST AND THE GROUND SHAKES AS PEALS OF THUNDER ROCK THE LAND.  THE SWIRLING MURK HIDES WHAT LIES AHEAD."
+        }
+      ],
+      "spokenText": "FIERCE GUSTS OF WIND HOWL PAST AND THE GROUND SHAKES AS PEALS OF THUNDER ROCK THE LAND. THE SWIRLING MURK HIDES WHAT LIES AHEAD.",
+      "status": "ready",
+      "characterId": null,
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
     {
       "id": "ecl4-b10-9c45",

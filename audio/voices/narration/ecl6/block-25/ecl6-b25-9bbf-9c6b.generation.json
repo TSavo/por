@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "b99b145a7c8982aac57757a7e973ba03c327c0017fb92d632ea3dd5b9a698051",
+  "audioSha256": "0b8e07f31ff949ae20437471db178af8f638b9b6d5840ddad5bbcd54d647b686",
+  "bytes": 195647,
+  "directionSent": "measured, expressive fantasy narration appropriate to the scene",
+  "heardByWhisper": "As you hike through the mountains, a large dragon flies above you.  Its circles then swoops down and lands in front of a cave.  It disappears into a cave. What will you do?",
+  "generatedAt": "2026-11-22T22:54:12.317Z"
+}

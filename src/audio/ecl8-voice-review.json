@@ -3797,7 +3797,7 @@
       "classification": "voiced-narration",
       "reason": "manually reviewed narration source",
       "narrationUnitIds": [
-        "ecl8-b16-a9d0"
+        "ecl8-b16-a9d0-aa0c"
       ]
     },
     {
@@ -3842,10 +3842,11 @@
         }
       ],
       "sourceDigest": "d725fbf3ab5191220e3a84d4d248a8c68a17ca5166b093a24993558d0c848b34",
-      "classification": "voiced-narration",
-      "reason": "manually reviewed narration source",
+      "classification": "voiced-context-dependent",
+      "reason": "source participates in manually traced variants",
       "narrationUnitIds": [
-        "ecl8-b16-a9f2-aa0c"
+        "ecl8-b16-a9f2-aa0c",
+        "ecl8-b16-a9d0-aa0c"
       ]
     },
     {
@@ -9483,19 +9484,24 @@
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
     {
-      "id": "ecl8-b16-a9d0",
+      "id": "ecl8-b16-a9d0-aa0c",
       "block": 16,
       "triggerSourceId": "por.review.ecl-8.block-16.at-a9d0",
       "coveredSourceIds": [
-        "por.review.ecl-8.block-16.at-a9d0"
+        "por.review.ecl-8.block-16.at-a9d0",
+        "por.review.ecl-8.block-16.at-aa0c"
       ],
       "sourceTextParts": [
         {
           "sourceId": "por.review.ecl-8.block-16.at-a9d0",
           "rawText": "YOU FIND A SET OF STAIRS LEADING UP."
+        },
+        {
+          "sourceId": "por.review.ecl-8.block-16.at-aa0c",
+          "rawText": " DO YOU GO UP?"
         }
       ],
-      "spokenText": "YOU FIND A SET OF STAIRS LEADING UP.",
+      "spokenText": "YOU FIND A SET OF STAIRS LEADING UP. DO YOU GO UP?",
       "status": "ready",
       "characterId": null,
       "direction": "measured, expressive fantasy narration appropriate to the scene"
