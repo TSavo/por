@@ -1,6 +1,7 @@
 import { parseDax } from "../src/lib/dax.js";
 import type { Frame } from "../src/lib/ega.js";
 import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js";
+import type { PictureRecord } from "../src/runtime/game-data.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 
 const pictureKey = /^portrait:(PIC\d+\.DAX):(\d{1,3}):(\d{1,3}):(\d{1,3})$/;
@@ -391,6 +392,23 @@ export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:call
 export function usesPortraitDelta(key: string) {
   return /^portrait:PIC[78]\.DAX:51:[0-4]:0$/.test(key) || roamingZombieAnimationKey.test(key) ||
     riverLizardfolkDeltaKey.test(key) || verifiedPortraitDeltaKeys.has(key);
+}
+
+const portraitHoldMembers = new Map<string, "base" | "previous">([
+  ["PIC4.DAX:18:2", "base"],
+  ["PIC4.DAX:18:4", "base"],
+  ["PIC6.DAX:117:5", "previous"],
+  ["PIC7.DAX:69:2", "previous"],
+]);
+const emptyPortraitHash = "ad0f7f9197b5b43549fa37f98743ad635df67190b0ad816d0a3d8313073a1d8c";
+
+export function portraitHoldAction(record: PictureRecord, member: number, frame = 0) {
+  if (frame !== 0) return;
+  const action = portraitHoldMembers.get(`${record.file}:${record.block}:${member}`);
+  if (!action) return;
+  const picture = record.pictures[member];
+  if (picture?.width === 88 && picture.height === 88 && picture.frames === 1 &&
+      picture.frameHashes[0] === emptyPortraitHash) return action;
 }
 
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;

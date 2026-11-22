@@ -294,6 +294,14 @@ standalone modes. Standalone identifies the native animation member
 by its loaded picture pointer and checks its declared frame dimensions
 against the packaged catalogue. No original pixel data is needed.
 
+Four 88×88 portrait animation members contain only zeroes. Sokal's ceiling
+insects use `PIC4.DAX:18:2:0` and `PIC4.DAX:18:4:0` to return to the existing
+base picture. Original-file GOG 1.3 captures match the base screen after
+each of those ticks. For `PIC6.DAX:117:5:0` and `PIC7.DAX:69:2:0`, Enhanced
+keeps the displayed silver-dragon or drider phase when the native draw leaves
+the panel pixels identical. The catalogue lists these four holds separately
+from illustrated frames and entries that still need artwork.
+
 At `708d1dcd`, the `kobold-cave-wyvern-approach` GOG 1.3 Chrome
 replay passed with both data sources. It checks all three native SPRIT
 members, their positions over WebGL, and the switch into the dialogue

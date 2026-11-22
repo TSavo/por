@@ -2,7 +2,7 @@ import type { Cpu } from "../src/cpu/machine.js";
 import type { Frame } from "../src/lib/ega.js";
 import { data } from "../src/runtime/bindings.js";
 import type { PictureRecord } from "../src/runtime/game-data.js";
-import { usesPortraitDelta, type CharacterSheetPart } from "./portrait-art.js";
+import { portraitHoldAction, usesPortraitDelta, type CharacterSheetPart } from "./portrait-art.js";
 
 const pictureAddress = (segment: number, offset: number) => ((segment << 4) + offset) & 0xfffff;
 
@@ -40,6 +40,7 @@ export function observeNativePictureArt(art: ReadonlySet<string>, sheetArt: Read
   let body: PortraitPart | undefined;
   const aliases = new Map<string, string[]>();
   const equivalent = new Map<string, string[]>();
+  const holds = new Map<string, "base" | "previous">();
   for (const record of records) {
     const family = /^(PIC|HEAD|BODY)[1-8]\.DAX$/.exec(record.file)?.[1];
     if (!family || !record.pictures.length || !record.pictures.every(p => p.width === 88)) continue;
@@ -47,6 +48,10 @@ export function observeNativePictureArt(art: ReadonlySet<string>, sheetArt: Read
     const signature = JSON.stringify([family, record.pictures.map(picture =>
       [picture.selector, picture.height, picture.x, picture.y, picture.frameHashes])]);
     const source = `${record.file}:${record.block}`;
+    record.pictures.forEach((_, member) => {
+      const action = portraitHoldAction(record, member);
+      if (action) holds.set(`${source}:${member}`, action);
+    });
     let group = equivalent.get(signature);
     if (!group) equivalent.set(signature, group = []);
     group.push(source);
@@ -94,7 +99,12 @@ export function observeNativePictureArt(art: ReadonlySet<string>, sheetArt: Read
       const picture = word(12) === 3 && word(14) === 3 &&
         cpu.read16(segment, offset) === 88 && cpu.read16(segment, offset + 2) === 11
         ? members.get(pictureAddress(segment, offset)) : undefined;
-      visible = picture ? { picture, pixels: viewport() } : undefined;
+      if (!picture) { visible = undefined; return; }
+      const pixels = viewport();
+      // A hold can be called after a non-base phase. Preserve its art when the native draw leaves the panel alone.
+      if (holds.get(`${picture.archive}:${picture.block}:${picture.member}`) === "previous" && visible && "picture" in visible &&
+          visible.picture.archive === picture.archive && visible.picture.block === picture.block && visible.pixels.equals(pixels)) return;
+      visible = { picture, pixels };
     },
     partLoaded(cpu: Cpu, isHead: boolean) {
       const slot = isHead ? data.portraitHead : data.portraitBody;
@@ -160,10 +170,11 @@ export function observeNativePictureArt(art: ReadonlySet<string>, sheetArt: Read
         return;
       }
       const { archive, block, member } = visible.picture;
+      const artMember = holds.get(`${archive}:${block}:${member}`) === "base" ? 0 : member;
       for (const scope of scopes) {
         for (const alias of sources(`${archive}:${block}`)) {
           const base = `portrait:${scope}${alias}:`;
-          const exact = `${base}${member}:0`;
+          const exact = `${base}${artMember}:0`;
           const first = `${base}0:0`;
           if (art.has(exact)) return exact;
           if (member && art.has(first) && usesPortraitDelta(first)) return first;

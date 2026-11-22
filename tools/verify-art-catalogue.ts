@@ -27,7 +27,7 @@ import { runningScriptAddress } from "../src/runtime/bindings.js";
 import { contentBytes, readGameData, type PictureRecord, type TileCatalogue } from "../src/runtime/game-data.js";
 import { portGameRoot } from "./gamedata.js";
 import { pngDimensions } from "./png.js";
-import { scriptIllustrations } from "./portrait-art.js";
+import { portraitHoldAction, scriptIllustrations } from "./portrait-art.js";
 import { readExplorationCellHashes } from "./exploration-cells.js";
 
 const read = (path: string) => new Uint8Array(readFileSync(join(portGameRoot, path)));
@@ -310,7 +310,7 @@ console.log(`tiles that are not blank: ${tileTotal}; with a 32 by 32 replacement
 
 // Every other picture frame, by archive.
 console.log("\nPicture frames no key names, by archive (8 by 8 tile sets are in the table above)");
-const byArchive = new Map<string, { frames: number; uncovered: string[]; twins: number; uniform: number }>();
+const byArchive = new Map<string, { frames: number; uncovered: string[]; twins: number; holds: string[] }>();
 // A frame no key names may still have the pixels of one a key does name: the hashes say so.
 const namedHashes = new Set<string>();
 for (const record of data.pictures) {
@@ -321,38 +321,43 @@ for (const record of data.pictures) {
 for (const record of data.pictures) {
   if (/^8X8D\d\.DAX$/.test(record.file)) continue;
   const family = record.file.replace(/\d?\.DAX$/, "");
-  const entry = byArchive.get(family) ?? { frames: 0, uncovered: [], twins: 0, uniform: 0 };
+  const entry = byArchive.get(family) ?? { frames: 0, uncovered: [], twins: 0, holds: [] };
   byArchive.set(family, entry);
   for (const [member, picture] of record.pictures.entries()) {
     for (let index = 0; index < picture.frames; index++) {
       entry.frames++;
       const name = `${record.file}:${record.block}:${member}:${index}`;
       if (covered.has(name)) continue;
+      if (portraitHoldAction(record, member, index)) { entry.holds.push(name); continue; }
       if (namedHashes.has(`${picture.width}x${picture.height}:${picture.frameHashes[index]}`)) entry.twins++;
       else entry.uncovered.push(name);
     }
   }
 }
-let frames = 0, uncoveredFrames = 0, twinFrames = 0;
-const inventoried = { frames: 0, named: 0, twins: 0 };
-for (const [family, { frames: count, uncovered, twins }] of byArchive) {
+let frames = 0, uncoveredFrames = 0, twinFrames = 0, holdFrames = 0;
+const inventoried = { frames: 0, named: 0, twins: 0, holds: 0 };
+for (const [family, { frames: count, uncovered, twins, holds }] of byArchive) {
   frames += count;
   uncoveredFrames += uncovered.length;
   twinFrames += twins;
+  holdFrames += holds.length;
+  const named = count - uncovered.length - twins - holds.length;
   // docs/ART-INVENTORY.md counts the portrait, encounter and combat archives.
   if (/^(PIC|SPRIT|CPIC|COMSPR|RANDCOM)$/.test(family)) {
     inventoried.frames += count;
-    inventoried.named += count - uncovered.length - twins;
+    inventoried.named += named;
     inventoried.twins += twins;
+    inventoried.holds += holds.length;
   }
-  console.log(`${family.padEnd(8)} ${String(count).padStart(5)} frames  ${String(count - uncovered.length - twins).padStart(5)} named by a key  ${String(twins).padStart(5)} same pixels as a named frame  ${String(uncovered.length).padStart(5)} not covered`);
+  console.log(`${family.padEnd(8)} ${String(count).padStart(5)} frames  ${String(named).padStart(5)} named by a key  ${String(twins).padStart(5)} same pixels as a named frame  ${String(holds.length).padStart(5)} portrait holds  ${String(uncovered.length).padStart(5)} not covered`);
 }
-console.log(`all      ${String(frames).padStart(5)} frames  ${String(frames - uncoveredFrames - twinFrames).padStart(5)} named by a key  ${String(twinFrames).padStart(5)} same pixels as a named frame  ${String(uncoveredFrames).padStart(5)} not covered`);
-console.log(`PIC, SPRIT, CPIC, COMSPR and RANDCOM, the archives docs/ART-INVENTORY.md counts: ${inventoried.frames} frames, ${inventoried.named} named by a key, ${inventoried.twins} more with the pixels of a named frame`);
+console.log(`all      ${String(frames).padStart(5)} frames  ${String(frames - uncoveredFrames - twinFrames - holdFrames).padStart(5)} named by a key  ${String(twinFrames).padStart(5)} same pixels as a named frame  ${String(holdFrames).padStart(5)} portrait holds  ${String(uncoveredFrames).padStart(5)} not covered`);
+console.log(`PIC, SPRIT, CPIC, COMSPR and RANDCOM, the archives docs/ART-INVENTORY.md counts: ${inventoried.frames} frames, ${inventoried.named} named by a key, ${inventoried.twins} more with the pixels of a named frame, ${inventoried.holds} portrait holds`);
 
 mkdirSync("out", { recursive: true });
 writeFileSync(join("out", "art-catalogue.json"), JSON.stringify({
   keys: total, unreachable, wrongSize, tilesWithout,
+  portraitHolds: [...byArchive.values()].flatMap(({ holds }) => holds),
   framesNoKeyNames: Object.fromEntries([...byArchive].map(([family, { uncovered }]) => [family, uncovered])),
 }, null, 1) + "\n");
 console.log("\nEvery unresolved key, tile without a replacement and frame no key names is listed in out/art-catalogue.json");
