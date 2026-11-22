@@ -15,7 +15,10 @@
 // (head and body) and the combat icon editor (parts, both colours, size); a character sheet; the
 // New Phlan opening (Rolf's tour) to the first exploration menu; the Temple of Sune; the arms shop;
 // camp. Then, from the committed fixture (qa/fixtures/guide-party-new-phlan/), the guide's party
-// from the inn to the Slums and the orcs' fight at (13,1), fought on Quick.
+// from the inn to the Slums and the orcs' fight at (13,1), fought on Quick. Then, with the
+// ready-made party after Rolf's tour: City Hall and the clerk's commissions, the passenger dock, the
+// boat and the arrival at Sokal Keep, looking round in all four directions (the route of
+// acceptance.new-phlan.dock-before-sokal, tools/acceptance/new-phlan.mjs).
 //
 // The two runs see the same text on every frame (npm run verify:game-data proves the play is the
 // same), so frame n of one is frame n of the other. Each screen where the artwork differs is
@@ -23,7 +26,7 @@
 // first such frame of each is written to out/port-parity/ as PNG (Classic from the original files,
 // Enhanced underlay from both). The whole report is out/port-parity.json. Exit 1 while any differs.
 //
-// POR_PARITY_ONLY=start or =slums runs one of the two walks. POR_GAMEDATA names the 1.3 files.
+// POR_PARITY_ONLY=start, =slums or =sokal runs one of the walks. POR_GAMEDATA names the 1.3 files.
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { tsImport } from "tsx/esm/api";
@@ -227,10 +230,44 @@ async function slumsFight(game, screen) {
   await leaveFight(game);
 }
 
+/** Answer every "press return" until the party can walk again. */
+async function readOn(game, limit = 12) {
+  for (let presses = 0; !exploring.test(game.text()); presses++) {
+    if (presses >= limit || !pressReturn.test(game.text())) game.fail("The game did not return to the exploration menu.");
+    await game.press("enter");
+  }
+}
+
+async function sokalKeep(game, screen) {
+  screen("adding the ready-made party and the New Phlan opening");
+  await addReadyMadeParty(game);
+  await beginAdventuring(game);
+  screen("City Hall and the clerk");
+  await game.walk("EEE");
+  await game.press("enter");
+  await game.walk("E");
+  await game.walk("S");
+  await game.walk("E");
+  await readOn(game);
+  await game.walk("WE");
+  await readOn(game);
+  await game.walk("WNN");
+  screen("the passenger dock and the boat");
+  await game.walk("EEEEEENE");
+  await game.walk("N");
+  await readOn(game);
+  await game.walk("EEE");
+  await game.walk("E");
+  await readOn(game);
+  screen("Sokal Keep arrival");
+  for (let turn = 0; turn < 4; turn++) await game.press("right");
+}
+
 const walks = [
   { name: "start", start: (options) => startGame({ ...options, seconds: 600,
     env: { ...options.env, POR_BOOT_KEYS: "", POR_LIVE_AT: "24000000" } }), walk: freshStart },
   { name: "slums", start: (options) => loadParty({ ...options, seconds: 900 }), walk: slumsFight },
+  { name: "sokal", start: (options) => startGame({ ...options, seconds: 600 }), walk: sokalKeep },
 ];
 
 // ---- Comparison ----------------------------------------------------------------------------

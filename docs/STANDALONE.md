@@ -154,7 +154,7 @@ same text on every frame (`npm run verify:game-data`), so frame n of one is
 frame n of the other. If the text ever differs, the walk stops there and says
 so.
 
-Two walks:
+Three walks:
 
 - `start`: the publisher and title screens; adding SSI's ready-made party;
   creating a character through race, sex, class, alignment, the roll, the
@@ -164,9 +164,12 @@ Two walks:
 - `slums`: from the guide party's fixture (`qa/fixtures/guide-party-new-phlan/`),
   the inn to the Slums, the random fights on the way, fought on Quick, and the
   orcs' fight at (13,1).
+- `sokal`: the ready-made party after Rolf's tour, City Hall and the clerk, the
+  passenger dock, the boat, and the arrival at Sokal Keep, looking round in all
+  four directions (81 frames; all agreed on 2026-11-22).
 
-`POR_PARITY_ONLY=start npm run verify:port-parity` or `POR_PARITY_ONLY=slums
-npm run verify:port-parity` runs one walk. Each took about four to six
+`POR_PARITY_ONLY=start`, `=slums` or `=sokal` before `npm run verify:port-parity`
+runs one walk. Each took about four to six
 minutes on the Intel Mac on 2026-11-22; both together took about nine. Each
 walk plays one game at a time, first from the original files, then from
 `game/`.
