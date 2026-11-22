@@ -24,6 +24,14 @@
       "what": "The combat icon editor's Head goes from 0 to 13 (GAME.OVR slice 16 at 3bd4 to 3c0d) and the small icon's heads are CHEAD.DAX blocks 0 to 13, but Enhanced has art for small heads 0 to 10 only: for heads 11, 12 and 13 there is no combat:party key at all, so a character given one of them has no Enhanced icon, in the editor or in a fight. Draw, for each of CHEAD.DAX blocks 11, 12 and 13 as the head, each of the 32 small CBODY.DAX blocks 0 to 31 as weapon and body, the ready pose (key combat:party:<head>:<body>) and the strike pose (combat:party:<head>:<body + 128>), in the style of the existing small icons (for example combat-party-crested-dwarf-ready.png, which is combat:party:10:0), each with a -materials.png beside it giving the original material index of every pixel, as the 1600 existing poses have, so that the colours a player chooses recolour it. Add each key to \"assets\" in upgrades/manifest.json. The large icons (heads 64 to 77) are complete.",
       "asked": "Found 2026-11-22 while fixing the icon editor's missing icons from game/: the owner's brief for that fix asks for a request naming exactly any icon state whose artwork key does not exist. Measured with loadUpgradeArt: of the 1792 keys the editor can reach (14 heads by 32 bodies by 2 poses by 2 sizes), these 192 are missing, and none other.",
       "done": "6b24671b2e642e122640bf7096d1dbedfb530308"
+    },
+    {
+      "id": "animated-portrait-count",
+      "key": "instrument:animated-portraits",
+      "file": "a tool and npm script (yours to name), its number at the top of docs/ART-WORKLIST.md",
+      "what": "Before more one-off portrait fixes (#80): build the count of every place the game cycles picture members while it holds a prompt (scene position, block, members, order, holds, from the scripts and the game's own picture routine), with verified = a passing Chrome check from both data sources that the page paints them in that order at those holds. Print verified / total and R, name each unverified place, stay red while R > 0, and show the number here through npm run art:worklist. Issue #131.",
+      "asked": "The owner, 2026-11-22: \"I want to understand why we missed the portrait work on the first pass. How did our art inventory not account for that? And what else are we still missing?\"",
+      "done": null
     }
   ]
 }
