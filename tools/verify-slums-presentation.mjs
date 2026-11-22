@@ -5305,7 +5305,8 @@ const combatPoseRoutes = new Map([
   ["valjevo-outer-patrol-giant", {
     slot: "B", stand: "combat:area:3:CPIC5.DAX:55:ecl:9e98", strike: "combat:area:3:CPIC5.DAX:183:ecl:9e98",
     width: 96, height: 192, strikeReflected: true,
-    inputs: ["s", "enter", "up", "enter", "enter", "up", "enter", "enter", "c", "enter", "enter", ...Array(15).fill("q")],
+    // The tenth Quick input is the reflected strike in this checkpoint.
+    inputs: ["s", "enter", "up", "enter", "enter", "up", "enter", "enter", "c", "enter", "enter", ...Array(9).fill("q")],
   }],
   ["false-throne-impersonator-combat", {
     slot: "B", stand: "combat:area:5:CPIC5.DAX:11:ecl:abe2", strike: "combat:area:5:CPIC5.DAX:139:ecl:abe2",

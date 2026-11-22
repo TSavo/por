@@ -896,8 +896,9 @@ The scoped `bane-ogre-commander-combat` replay passed standing and strike
 checks in both GOG 1.3 data modes. All 255 distinct draw records agreed
 in slot, source, flags and position. The original-file trace yielded 51
 nonblank terrain hashes, all bound. The scoped Valjevo hill giant route
-yielded 38 terrain hashes, all bound. It reached the ready pose and
-stopped on its strike assertion.
+yielded 38 terrain hashes, all bound. The ready pose and reflected strike
+passed in both data modes after the replay checked the tenth Quick input,
+which is the reflected attack in that checkpoint.
 
 The battlefield and overland map share the SQRPACI blitter. The
 `POR_BATTLE_DRAW` trace labels the surface from the native caller. On
