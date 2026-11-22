@@ -3931,6 +3931,20 @@ const illustrationRoutes = new Map([
     prompt: /YOUENTERAROOMTHATREEKSOFSMOKEANDBURNEDFOOD/i,
     finalPhaseCapture: "valjevo-dungeon-kitchen-phase-1.png",
   }],
+  ["valjevo-dungeon-kitchen-entry-loop", {
+    slot: "B", inputs: ["up"],
+    portrait: "portrait:PIC5.DAX:73:0:0",
+    prompt: /YOUENTERAROOMTHATREEKSOFSMOKEANDBURNEDFOOD/i,
+    heldPortraitLoop: ["portrait:PIC5.DAX:73:0:0", "portrait:area:4:ecl:9a5a:caller:a7a7:PIC5.DAX:73:1:0"],
+    continuation: { inputs: ["enter"], portrait: "portrait:PIC5.DAX:73:0:0", prompt: /WHATDOYOUDOKILLTHEOVERSEER/i },
+  }],
+  ["valjevo-dungeon-kitchen-rescue-loop", {
+    slot: "B", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:0:0",
+    prompt: /THEGNOLLTURNSTOFLEE/i,
+    heldPortraitLoop: [0, 1].map(member => `portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:${member}:0`),
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /TWOOFTHESLAVESRUNQUICKLYOUTTHEDOOR/i },
+  }],
   ["mendor-fighter-phases", {
     slot: "B", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:15:PIC2.DAX:25:0:0",
