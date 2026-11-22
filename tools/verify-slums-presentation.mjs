@@ -2165,7 +2165,8 @@ const illustrationRoutes = new Map([
       slot: "B", inputs, prompt, portrait, heldPortraitLoop,
       ...(name === "attack" ? { continuation: {
         inputs: ["enter"], prompt: /ABATTLEBEGINS/i,
-        portrait: "portrait:area:5:PIC5.DAX:56:0:0",
+        portrait: "portrait:area:5:ecl:a83f:PIC5.DAX:56:0:0",
+        pressOnPortrait: prefix + "3:0", retainPose: true,
       } } : {}),
     }];
   }),
