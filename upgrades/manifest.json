@@ -1748,6 +1748,8 @@
     "scene-illustration:area:14:ecl:a585": "kovel-casket-gems.png",
     "scene-illustration:area:14:ecl:a6a5": "kovel-casket-jewelry.png",
     "scene-illustration:area:14:ecl:a779": "kovel-casket-c-gems.png",
+    "scene-illustration:area:14:ecl:9e97:caller:a824:cue:casket-lock": "kovel-casket-d-lock.png",
+    "scene-illustration:area:14:ecl:9eb8:caller:a824:cue:casket-lock": "kovel-casket-d-lock.png",
     "scene-illustration:area:14:ecl:a84f": "kovel-casket-tiny-pearls.png",
     "portrait:area:14:ecl:a862:PIC1.DAX:1:0:0": "kovel-casket-tiny-pearls.png",
     "portrait:area:14:ecl:a862:PIC1.DAX:1:1:0": "kovel-casket-tiny-pearls-phase-1.png",

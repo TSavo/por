@@ -1407,9 +1407,9 @@ const illustrationRoutes = new Map([
       1: "scene-illustration:area:14:ecl:a4e2",
       3: "scene-illustration:area:14:ecl:a519",
       4: "scene-illustration:area:14:ecl:a8df",
-      5: null, 6: null, 7: null, 8: null,
+      5: null, 6: "scene-illustration:area:14:ecl:9eb8:caller:a824:cue:casket-lock", 7: null, 8: null,
     },
-    phaseCaptures: { 4: "kovel-casket-d-darts.png" },
+    phaseCaptures: { 4: "kovel-casket-d-darts.png", 6: "kovel-casket-d-lock.png" },
     transientPortraits: { 7: {
       id: "scene-illustration:area:14:ecl:a84f",
       prompt: /THECASKETISFILLEDWITHTINYPEARLS/i, screenshot: "kovel-casket-d-pearl-discovery.png",

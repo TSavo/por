@@ -1071,6 +1071,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:14:ecl:9aa3:caller:9a4f:cue:scything-blade", "ASCYTHINGBLADEDROPSACROSSTHEDOORWAY"],
   ["scene-illustration:area:14:ecl:b359:cue:scything-blade", "ASCYTHINGBLADEDROPSACROSSTHEDOORWAY"],
   ["scene-illustration:area:14:ecl:a359:cue:wooden-cabinet", "INFRONTOFYOUISAWOODENCABINET"],
+  ["scene-illustration:area:14:ecl:9e97:caller:a824:cue:casket-lock", "HOWWILLYOUOPENTHELOCK"],
+  ["scene-illustration:area:14:ecl:9eb8:caller:a824:cue:casket-lock", "HOWWILLYOUOPENTHELOCK"],
   ["scene-illustration:area:14:ecl:9e97:caller:a38d:cue:cabinet-lock", "HOWWILLYOUOPENTHELOCK"],
   ["scene-illustration:area:14:ecl:9eb8:caller:a38d:cue:cabinet-lock", "HOWWILLYOUOPENTHELOCK"],
   ["scene-illustration:area:14:ecl:a44f:cue:cabinet-gas", "ACLOUDOFPOISONOUSYELLOWGAS"],
