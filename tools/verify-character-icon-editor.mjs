@@ -47,7 +47,23 @@ async function editorIcons() {
 
 try {
   frame = await game.nextFrame();
-  for (let i = 0; i < 6 && !/CreateNewCharacter/i.test(text()); i++) await press("enter");
+  for (let i = 0; i < 6 && !/CreateNewCharacter/i.test(text()); i++) {
+    // The publisher splash is presentation-only. The title underneath accepts the game input.
+    await game.evaluate(`new Promise(resolve => {
+      const splash = document.querySelector("#publisher-splash");
+      if (splash.hidden) {
+        resolve();
+        return;
+      }
+      const observer = new MutationObserver(() => {
+        if (!splash.hidden) return;
+        observer.disconnect();
+        resolve();
+      });
+      observer.observe(splash, { attributes: true, attributeFilter: ["hidden"] });
+    })`);
+    await press("enter");
+  }
   assert.match(text(), /CreateNewCharacter/i);
   await press("c");
   for (let i = 0; i < 6 && !/Keepthischaracter/i.test(text()); i++) await press("enter");
