@@ -718,6 +718,13 @@ terrain patterns continue to use the guest artwork.
 The courtyard Chrome replay verified the matched 32×32 terrain tiles
 alongside the six guard and strike poses and switched both displays
 without changing the guest frame or save bytes.
+With GOG 1.3, the updated replay passed with both bundled and original
+files. It verified 23 WebGL views and checked the undead withdrawal plate
+when it replaced the viewport. The patrol, withdrawal, and final two
+approach viewports matched pixel for pixel between the data sources.
+The battle captures differ. The five courtyard bindings whose hashes
+are absent from stored terrain cells were also absent from the three
+bundled and 40 original-file battlefield trace frames.
 The replay also renders a captured attack against a simulated next prompt
 with exploration artwork. The attack uses its own terrain, actors, and
 text until the browser advances to the next prompt.
