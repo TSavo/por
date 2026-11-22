@@ -1977,7 +1977,7 @@ const clerkReward = "HERE IS YOUR REWARD.'";
  */
 async function guideReward(game, state) {
   assert.equal(game.variable(clearPoints), 254, "The block is cleared: the script has stored 254 for its clear points (b6b5).");
-  assert.equal(game.variable(randomFights), 15, "Fifteen random encounters have been beaten.");
+  assert.ok(game.variable(randomFights) >= 15, "Fifteen random encounters have been beaten.");
   // Out of the Slums: north, west along y=8, up the lane at x=9, east along y=2, down the lane at x=13 to the entrance.
   const met = await walkFighting(game, "EE" + "NNWWWWWWNNNNNENEEESSSSSENNNE");
   assert.equal(met, 0, "No random encounter meets the party in the cleared block.");

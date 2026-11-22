@@ -4016,6 +4016,15 @@
       "status": "settled",
       "origin": "manual",
       "resolution": "Settled from the first release's code on 2026-11-21 (overlay slice 2, +0x32c to +0x350): a wrong word prints \"Sorry, that's incorrect.\" and asks again with a newly drawn question; the third wrong word calls the program's exit routine. Version 1.3 replaces the branch with nop, nop, jmp. START STING was not examined. See qa/research/code-wheel.md."
+    },
+    {
+      "id": "disagreement.2ac96097f0",
+      "area": "Slums",
+      "note": "How hard the Slums' set fights are: the Lee guide §6.3.1 says 'All but one set combat are easy to win with the help of Sleep spells cast in the midst of clumps of monsters' (the one is the trolls at location 20); Clue Book p.6 calls the goblin guards 'a tough fight' and tells the player to Sleep the goblin leaders 'to reduce the enemy archery'. To settle: fight them with the guide's party and tactics and count who is standing. Found by tools/acceptance/slums.mjs, test guide.",
+      "scenarios": [],
+      "status": "settled",
+      "origin": "manual",
+      "resolution": "Both hold in part. With the guide's party (five of six still level 1, a Sleep in every magic-user place) and the guide's tactics, every set fight tried was won with nobody dead, and none was easy after the first four: on 2026-11-22 the orcs' home at (3,3) (16 ORC, 4 ORC LEADER) ended with 2 of 6 standing after 89 turns and five Sleeps, the guards at (0,7) (30 ORC, 2 ORC LEADER) with 4 of 6 after 108 turns, the monster leaders at (1,5) with 5 of 6 after 71 turns, and the goblin guards at (3,11) (12 GOBLIN GUARD, 11 GOBLIN LEADER) with 2 of 6 on each of three runs (74 and 89 turns). Everyone down was Unconscious and was put right by cures and rest in the beaten room. So the Clue Book's 'tough fight' is what a level 1 party meets at the goblin guards, and the same is true of the orcs' home, which the Clue Book does not warn about. Established by npm run acceptance:slums (guide, stages orchome, guards, leaders, goblinguards), which counts the combatants, requires the win and reads who is standing from the party list. The test does not record who struck whom, so the leaders' archery is not shown to be the cause."
     }
   ]
 }
