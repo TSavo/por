@@ -10053,11 +10053,24 @@ try {
     for (const key of ["j", "up"]) await advance(key);
     for (let i = 0; i < 6 && !seesBallista(); i++) await advance("enter");
     assert.ok(seesBallista());
+    const volley = "scene-illustration:area:13:ecl:a1af";
+    assert.equal(frame.portrait, volley);
+    await waitFor("the Kobold throne volley illustration", () => run(`
+      state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${volley}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    const volleyShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "kobold-throne-ballista-volley.png"), Buffer.from(volleyShot.data, "base64"));
     await advance("j");
     assert.ok(knows("kobold-king-ballista") && !knows("kobold-surrender-offer") && !knows("kobold-prison-escort"));
     await switchBothWays();
+    await advance("j");
+    const charge = "encounter:area:13:ecl:a1b6:SPRIT8.DAX:0:0:0";
+    for (let i = 0; i < 6 && frame.encounter?.[2] !== charge; i++) await advance("enter");
+    assert.equal(frame.encounter?.[2], charge);
+    assert.equal(frame.portrait, undefined);
     assert.deepEqual(readFileSync(saved), originalSave);
-    console.log("Verified the witnessed kobold ballista clue in Chrome.");
+    console.log("Verified the Kobold throne volley, witnessed journal clue, and handoff to the charge in Chrome.");
   } else if (koboldKingDoor) {
     const reload = routeName.endsWith("-reload");
     const door = "kobold-king-secret-door";

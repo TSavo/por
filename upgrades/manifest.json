@@ -2435,6 +2435,8 @@
     "encounter:area:13:ecl:a07a:SPRIT8.DAX:0:2:0": "kobold-throne-horde-approach-far.png",
     "encounter:area:13:ecl:a07a:SPRIT8.DAX:0:1:0": "kobold-throne-horde-approach-middle.png",
     "encounter:area:13:ecl:a1b6:SPRIT8.DAX:0:1:0": "kobold-throne-horde-approach-middle.png",
+    "scene-illustration:area:13:ecl:a1a4": "kobold-throne-ballista-volley.png",
+    "scene-illustration:area:13:ecl:a1af": "kobold-throne-ballista-volley.png",
     "encounter:area:13:ecl:a1b6:SPRIT8.DAX:0:0:0": "kobold-throne-ballista-approach.png",
     "encounter:area:13:ecl:9dd4:SPRIT8.DAX:0:0:0": "kobold-net-trap-approach.png",
     "portrait:area:13:ecl:9e0c:PIC8.DAX:0:0:0": "kobold-net-trap-dialogue.png",

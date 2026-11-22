@@ -491,6 +491,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:13:ecl:a93f:cue:abandoned-prison-cell", "THISWASAPRISONCELL.BROKENBINDINGS"],
   ["scene-illustration:area:13:ecl:a2db", "THEKINGHASESCAPEDDURINGTHEFIGHT"],
   ["scene-illustration:area:13:ecl:a2e2", "THEKINGHASESCAPEDDURINGTHEFIGHT"],
+  ["scene-illustration:area:13:ecl:a1a4", "BALLISTAAPPEARANDFIRE"],
+  ["scene-illustration:area:13:ecl:a1af", "BALLISTAAPPEARANDFIRE"],
   ["scene-illustration:area:13:ecl:a4fc:cue:king-fall", "THEKING,PANICKED,HASFALLEN"],
   ["scene-illustration:area:13:ecl:a509:cue:king-fall", "THEKING,PANICKED,HASFALLEN"],
   ["scene-illustration:area:13:ecl:9ff7:cue:throne-voices", "YOUHEARTHEVOICESOFHUMANSANDKOBOLDS"],
