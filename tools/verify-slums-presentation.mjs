@@ -2423,6 +2423,22 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0",
     prompt: /THECHAMBERLIGHTSUPTOREVEALATALL,PALEMAN/i,
   }],
+  ["valhingen-marble-chest", {
+    slot: "A", inputs: ["l"],
+    portrait: "scene-illustration:area:10:ecl:b6c6:caller:9e99",
+    prompt: /YOUFINDAMARBLECHEST\.OPENIT\?/i,
+    finalPhaseCapture: "valhingen-marble-chest.png",
+    continuation: { inputs: ["n"], clearsPortrait: true, prompt: /VIEWENCAMP.*LOOK/i },
+  }],
+  ["valhingen-marble-chest-scrolls", {
+    slot: "A", inputs: ["l", "y", "enter", "enter"],
+    portraitStops: { 1: "scene-illustration:area:10:ecl:b6c6:caller:9e99", 2: null, 3: null },
+    portrait: "portrait:area:10:ecl:9eb8:PIC1.DAX:1:0:0",
+    prompt: /VIEW.*POOL.*SHARE/i,
+    idlePortraits: [1, 2].map(phase => `portrait:area:10:ecl:9eb8:PIC1.DAX:1:${phase}:0`),
+    finalPhaseCapture: "valhingen-marble-chest-scrolls.png",
+    continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /VIEWENCAMP.*LOOK/i },
+  }],
   ["valhingen-vampire-trove", {
     slot: "A", inputs: ["s", "l", "n", "l"],
     portraitStops: { 2: "scene-illustration:area:10:ecl:b6c6:caller:b353", 3: null },
