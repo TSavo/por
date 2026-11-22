@@ -12,11 +12,10 @@
  },
  "enhancedFallbacks": {
   "frames": 0,
-  "presented": 5950,
-  "walks": 38,
+  "presented": 5955,
+  "walks": 39,
   "recordedWalks": 40,
   "missingWalks": [
-   "podal-clerk",
    "walk-yarash-pyramid"
   ],
   "aliasedWalks": [
@@ -29,7 +28,7 @@
     "receipt": "campaign-full/leg-9"
    }
   ],
-  "runs": 38,
+  "runs": 39,
   "additionalReplays": 2,
   "keys": []
  },
