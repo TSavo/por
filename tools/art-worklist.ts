@@ -753,11 +753,12 @@ function otherPictures(data: PortGameData, read: (path: string) => Uint8Array): 
         : family === "SPRIT" ? ["an approach sprite", `encounter:${file}:${block}:${member}:${index}, with its placement under "encounters"`, `${picture.width * 4}x${picture.height * 4}`]
         : family === "HEAD" ? ["a portrait head", `portrait:${file}:${block}:BODYn.DAX:<body> for each body it is shown with, or character-sheet:${file}:${block}`, "352x352 for a portrait; 352 wide for a sheet part"]
         : family === "FINAL" ? ["a picture of the ending", "none: tools/upgrade-art.ts accepts no key for FINAL pictures", "-"]
-        : family === "ICON" ? ["a 24 by 24 icon", "none: tools/upgrade-art.ts accepts no key for ICON pictures", "-"]
+        : family === "ICON" ? ["a 24 by 24 combat icon", `combat:${file}:${block}`, "96x96"]
         : ["a picture", "none known", "-"];
       const evidence = (family === "PIC" || family === "SPRIT")
         ? scripts ? `a PICTURE ${block} is in the script of ${[...new Set(scripts)].slice(0, 4).join(", ")}${Number(member) || Number(index) ? `; this is member ${member} frame ${index} of the record, and which members a PICTURE draws must be seen in play` : ""}`
           : `no PICTURE ${block} with a plain number is in a script of archive ${archive}`
+        : family === "ICON" ? "the native combat picture loader loads ICON ready and strike pairs (see docs/ART-INVENTORY.md)"
         : file === "FINAL5.DAX"
           ? "native placement confirmed by the GOG 1.3 valjevo-dragon-loot draw trace (see docs/ART-INVENTORY.md); Enhanced covers the sequence with scene illustrations, and this frame has no individual binding"
           : "the scripts do not name it; the program draws it, and where has not been read";
