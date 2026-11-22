@@ -173,6 +173,16 @@ failures include script and cue resolution as well as battlefield
 tiles. Use that audit for standalone data work and the original-file
 inventories and browser replays for the current Enhanced coverage.
 See [GAME-DATA.md](GAME-DATA.md).
+
+At `5cd134af`, the same audit resolves 8,986 of 9,050 manifest keys.
+The remaining findings comprise 59 scene illustration keys and five
+battlefield tile keys. Across PIC, SPRIT, CPIC, COMSPR, and RANDCOM,
+666 of 833 source frames have a direct key and 124 more share pixels
+with a keyed frame. The other 43 are candidates for live review.
+The tile audit finds 2,374 of 3,007 nonblank original 8×8 rows with a
+32×32 replacement. Rows can share pixels, so the 633 uncovered rows
+do not represent 633 distinct drawings.
+
 The two HEAD frames it flagged are `HEAD6.DAX:1:0:0` and
 `HEAD6.DAX:3:0:0`, both 88 by 40. Neither ID appeared in the local
 browser trace files checked for this audit. They stay unlinked pending
