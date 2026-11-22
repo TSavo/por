@@ -158,6 +158,34 @@ function presses(key, count, until) {
   return { presses: key, count, until };
 }
 
+/**
+ * A walk whose keys are chosen from the screen: `choose(text)` gives the next key, or undefined once
+ * the walk has arrived. It takes exactly `keys` keys: arriving sooner or later fails, so a key the game
+ * swallows is not made up by pressing again (#151, as acceptSokalPatrol). POR_REPLAY_RECOUNT=1
+ * measures `keys`. Each call is a fresh walk: build the steps again for each replay.
+ */
+function chosenWalk(name, keys, choose) {
+  assert.ok(recount || Number.isInteger(keys), `${name} needs a key count: measure it with POR_REPLAY_RECOUNT=1.`);
+  let sent = 0;
+  let arrived = false;
+  return [
+    ...Array(recount ? 200 : keys).fill((text) => {
+      const key = arrived ? undefined : choose(text);
+      if (key === undefined) {
+        arrived = true;
+        assert.ok(recount, `${name} arrived after ${sent} of ${keys} keys.`);
+        return;
+      }
+      sent++;
+      return key;
+    }),
+    (text) => {
+      if (recount) reportCount(name, sent, keys);
+      assert.equal(choose(text), undefined, `${keys} keys did not finish ${name}: a key was swallowed, or the walk needs another.`);
+    },
+  ];
+}
+
 function describeUntil(until) {
   return typeof until === "function" ? until.toString().replace(/\s+/g, " ").slice(0, 160) : String(until);
 }
@@ -516,6 +544,8 @@ async function verifyFighterTrainingJournal() {
 
 async function verifyPodalFromCouncil(continuation, fromLodging = false) {
   const load = loadSlot;
+  // The key counts below were measured in the pipe from qa/fixtures/podal-clerk/H.json
+  // (--podal-checkpoint --auction-only, #151); the other routes here start from saves no mode makes (#167).
   const checkAuction = (status) => (_text, frame) =>
     assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-auction")?.status, status);
   const checkExchange = (_text, frame) => {
@@ -530,7 +560,7 @@ async function verifyPodalFromCouncil(continuation, fromLodging = false) {
     }, "j"] : []),
     "w", ...payerSelection, "enter", "enter", "right", ...Array(4).fill("up"), "enter", "enter", "enter", "s",
     (text) => assert.match(text, /20,29 e/),
-    "enter", "enter", "up", ...Array(12).fill(text => {
+    "enter", "enter", "up", ...chosenWalk("the walk east to 24,28", 4, (text) => {
       if (/merchants.*combat wait flee parlay/.test(text)) return "p";
       assert.doesNotMatch(text, /combat wait flee parlay/);
       if (!/24,28 e/.test(text)) return "right";
@@ -558,6 +588,8 @@ async function verifyPodalFromCouncil(continuation, fromLodging = false) {
       "right", ...Array(8).fill("up"), "right", ...Array(7).fill("up"),
       ...westboundFromJunction(true),
     ] : ["right", "right", "up", ...westboundToGate(true)]),
+    // From the 1.3 files the game empties the keyboard twice after North, so both Enters are thrown
+    // away; from game/ only once, and the second Enter chooses Stride Boldly (#186).
     "n", "enter", "enter",
     (text) => assert.match(text, /the plaza ahead is crowded with monsters.*disguise/),
     "j", (_text, frame) => {
@@ -569,15 +601,16 @@ async function verifyPodalFromCouncil(continuation, fromLodging = false) {
     "end", "enter", "enter", "enter", "e", "s", "s", "i",
   ]);
   assert.match(visibleText(arrival), /0,4 w.*quit to dos/);
-  const walkPodalStreet = (position) => Array(24).fill(text => {
+  const walkPodalStreet = (position, keys) => chosenWalk(`the walk up the street to ${position.source}`, keys, (text) => {
     if (/who are you.*haughty sly nice/.test(text)) return "s";
     assert.doesNotMatch(text, /settlers! kill them|a battle begins/);
     if (!position.test(text)) return "up";
   });
-  const reachAuction = [
-    "right", "right", ...walkPodalStreet(/7,4 e.*area cast view encamp/),
+  // Built for each replay: a walk counts its own keys.
+  const reachAuction = () => [
+    "right", "right", ...walkPodalStreet(/7,4 e.*area cast view encamp/, 7),
     (text) => assert.match(text, /7,4 e/),
-    "right", ...walkPodalStreet(/7,6 s.*area cast view encamp/), "enter",
+    "right", ...walkPodalStreet(/7,6 s.*area cast view encamp/, 2), "enter",
     (text) => assert.match(text, /the auctioneer cries/),
   ];
   const plazaSave = readFileSync(join(saveDir, "I.json"));
@@ -587,7 +620,7 @@ async function verifyPodalFromCouncil(continuation, fromLodging = false) {
       assert.match(frame.journal.objective.nextStep, /head east.*then turn south toward the auctioneer/i);
       assert.ok(!frame.journal.leads.some(({ id }) => id === "auction-started"));
     }, "j",
-    ...reachAuction, "enter", "enter",
+    ...reachAuction(), "enter", "enter",
     (text) => assert.match(text, /stand and listen move in closer listen to comments leave/),
     "j", (_text, frame) => {
       assert.match(frame.journal.objective.nextStep, /Stand and Listen.*Listen to Comments.*Move In Closer/);
@@ -604,7 +637,7 @@ async function verifyPodalFromCouncil(continuation, fromLodging = false) {
     },
   ]);
   await replay(load("1769"), "85000000", [
-    ...reachAuction, ...Array(4).fill("enter"),
+    ...reachAuction(), ...Array(4).fill("enter"),
     (text) => assert.match(text, /make a bid wait for winner try to leave/),
     "end", "end", "enter", "enter",
     (text) => assert.match(text, /the auction is cancelled/),
@@ -616,7 +649,7 @@ async function verifyPodalFromCouncil(continuation, fromLodging = false) {
   ]);
   assert.deepEqual(readFileSync(join(saveDir, "I.json")), plazaSave);
   const result = await replay(load("1769"), "85000000", [
-    ...reachAuction,
+    ...reachAuction(),
     "j", (_text, frame) => {
       assert.match(frame.journal.objective.nextStep, /watch the bidding/i);
       assert.ok(!frame.journal.leads.some(({ id }) => id === "auction-bidding" || id === "auction-exchange"));
@@ -635,7 +668,7 @@ async function verifyPodalFromCouncil(continuation, fromLodging = false) {
   assert.match(visibleText(result), /quit to dos/);
   const cadornaSave = await replay(load("246a"), "85000000", [
     "j", checkAuction("ready-to-report"), checkExchange, "j",
-    "right", "right", "up", "up", "left", ...walkPodalStreet(/0,4 w.*area cast view encamp/),
+    "right", "right", "up", "up", "left", ...walkPodalStreet(/0,4 w.*area cast view encamp/, 7),
     (text) => assert.match(text, /0,4 w/), "up", "enter", "enter",
     "l", ...Array(4).fill("left"), "down", "enter",
     (text) => assert.match(text, /take boat stay/),
@@ -643,7 +676,7 @@ async function verifyPodalFromCouncil(continuation, fromLodging = false) {
     "left", "up", "right", "up", "left", "up", "right", ...Array(6).fill("up"),
     "left", "up", "up", "left", "up", "left", "up", "up", "enter",
     (text) => assert.match(text, /your success at podal plaza is noted/),
-    ["enter", /each character receives \d+ experience points/, 4],
+    presses("enter", 1, /each character receives \d+ experience points/),
     "enter", "enter", "s", "e", "n", ...Array(8).fill("enter"), "j", checkAuction("turned-in"), "j",
     "up", "up",
     (text) => assert.match(text, /family treasure was hidden in the western building/),

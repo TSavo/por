@@ -12,7 +12,7 @@
 //                 takes. Say how many keys the walk takes and check it (acceptSokalPatrol).
 //   raw loop      a loop that writes keys to the runner while the screen does not show something.
 //                 Press each key once and check its screen (tools/verify-input.mjs).
-//   no count      presses(key, count, until) or acceptSokalPatrol(..., keys) whose count can be
+//   no count      presses(key, count, until), acceptSokalPatrol(..., keys) or chosenWalk(name, keys, ...) whose count can be
 //                 undefined in some mode (`continuous ? 7 : undefined`): that mode fails at the step
 //                 until its count is measured with POR_REPLAY_RECOUNT=1 and written (#151).
 //
@@ -62,8 +62,8 @@ function findings(file) {
       found.push({ line: line(node), shape: "repeat fill", text: node.getText(source).replace(/\s+/g, " ").slice(0, 100) });
     }
     // presses(key, undefined or a count that can be undefined, until), and acceptSokalPatrol's key count
-    if (ts.isCallExpression(node) && ts.isIdentifier(node.expression) && ["presses", "acceptSokalPatrol"].includes(node.expression.text)) {
-      const count = node.arguments[node.expression.text === "presses" ? 1 : 2];
+    if (ts.isCallExpression(node) && ts.isIdentifier(node.expression) && ["presses", "acceptSokalPatrol", "chosenWalk"].includes(node.expression.text)) {
+      const count = node.arguments[node.expression.text === "acceptSokalPatrol" ? 2 : 1];
       const mentionsUndefined = (child) => child && ((ts.isIdentifier(child) && child.text === "undefined") ||
         ts.forEachChild(child, mentionsUndefined) === true);
       if (!count || mentionsUndefined(count)) {
