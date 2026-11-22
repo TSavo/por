@@ -106,6 +106,7 @@ type ExplorationFrame = {
   nativeScenery?: NativeExploration & { area: number };
   scenery?: Pick<NativeExploration, "x" | "y" | "facing" | "walls" | "mapId"> & { materialId: string; area: number };
   overlandMap?: boolean;
+  areaView?: boolean;
   tiles?: [number, number, string][];
   tileInventory?: TileInventoryCell[];
 };
@@ -126,6 +127,10 @@ function prepareScenery(view: ExplorationFrame) {
     });
     view.tiles = tiles;
     if (view.tileInventory) view.tileInventory = cells;
+  }
+  if (native.areaView) {
+    view.areaView = true;
+    return;
   }
   const materialArea = explorationMaterialArea(native);
   const harbor = materialArea === 0 && mapId === 0;

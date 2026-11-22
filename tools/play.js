@@ -517,7 +517,7 @@ function explorationSurface(view) {
   if (view.art || view.portrait || view.classicPortrait || view.characterSheet ||
     view.combatArt?.length || view.battleTiles?.length || view.battleProps?.length) return;
   if (view.overlandMap) return { materialId: "overland" };
-  if (!view.perspective) return;
+  if (!view.perspective || view.areaView) return;
   if (view.scenery) return view.scenery;
   // Some old title/tour handoffs report position before the draw hook fires.
   const pose = view.exploration;

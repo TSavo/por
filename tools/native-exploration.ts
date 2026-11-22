@@ -6,6 +6,7 @@ export interface NativeExploration {
   y: number;
   facing: number;
   mapId?: number;
+  areaView?: boolean;
   walls: string;
   frontSlots: string;
   glyphs: Record<number, string>;
@@ -71,6 +72,7 @@ export function captureNativeExploration(cpu: Cpu, includeCellGeometry = false):
     lineColor: cpu.read8(ds, data.skyColor + 1) & 15,
     bandColor: cpu.read8(ds, data.skyColor + 2) & 15,
   } : undefined;
-  return { x, y, facing, mapId, walls: walls.toString("base64"), frontSlots: slots.toString("base64"), glyphs,
+  const areaView = cpu.read8(ds, data.areaViewActive) !== 0 || undefined;
+  return { x, y, facing, mapId, areaView, walls: walls.toString("base64"), frontSlots: slots.toString("base64"), glyphs,
     skyColor: cpu.read8(ds, data.skyColor) & 15, groundColor: cpu.read8(ds, data.groundColor) & 15, cellGeometry };
 }

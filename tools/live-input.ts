@@ -1037,7 +1037,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if (drawnPerspective && !drawnPerspective.pixels.equals(pixels)) priorPerspectiveDraw = drawnPerspective.pixels;
       drawnPerspective = { pixels, localEcl: localScenery ? cpu.read8(unit.data, data.eclBlock) : undefined,
         native: localScenery ? captureNativeExploration(cpu, standalone) : undefined };
-      if (drawnPerspective.native) lastLocalPerspective = drawnPerspective;
+      if (drawnPerspective.native && !drawnPerspective.native.areaView) lastLocalPerspective = drawnPerspective;
     } : undefined,
     captureCombatEffectUnderlay: browser && effectKeys.length ? (cpu: Cpu, scratchPicture: boolean) => {
       pendingEffect = undefined;

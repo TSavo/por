@@ -12,22 +12,22 @@
   "  of which several tiles together": 0,
   "  of which the same pixels already have art of yours in another area": 0,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 7420,
-  "  accounted for by the tool": 7415,
+  "Tile keys in the manifests": 7460,
+  "  accounted for by the tool": 7455,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
   "  blank": 9,
   "  distinct pictures among the rest": 1333,
-  "  with art in some area, alone or over a solid colour": 2553,
-  "  without (the catalogue's 720 when it was written)": 454,
+  "  with art in some area, alone or over a solid colour": 2572,
+  "  without (the catalogue's 720 when it was written)": 435,
   "    of those, no map can show": 412,
   "    of those, shown only together with other tiles, never alone": 6,
-  "    of those, shown alone in some area": 36
+  "    of those, shown alone in some area": 17
  },
  "notEstablished": {
-  "first-person cells that show a sky or ground colour no existing artwork of the area shows": 3221,
-  "first-person cells of the overhead area view, which no existing artwork of the area confirms": 172,
+  "first-person cells that show a sky or ground colour no existing artwork of the area shows": 3219,
+  "first-person cells of the overhead area view, which no existing artwork of the area confirms": 134,
   "first-person cells of an area whose reading is not confirmed": 381,
   "first-person cells seen only from squares not connected to any square the existing artwork was made from": 111,
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
@@ -285,23 +285,22 @@
    "area": 10,
    "name": "Valhingen Graveyard",
    "established": true,
-   "why": "all 902 cells that have artwork are among the cells the tool works out",
+   "why": "all 922 cells that have artwork are among the cells the tool works out",
    "maps": [
     10
    ],
    "wallSets": [
     "WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)"
    ],
-   "existingKeys": 902,
-   "existingKeysAccountedFor": 902,
+   "existingKeys": 922,
+   "existingKeysAccountedFor": 922,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 2452,
-   "cellsWithArt": 890,
+   "cellsWithArt": 910,
    "toDo": 0,
    "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 1543,
-    "cells of the overhead area view, which no existing artwork of the area confirms": 19
+    "cells that show a sky or ground colour no existing artwork of the area shows": 1542
    },
    "existingKeysOnlyAsWallMaterials": 12
   },
@@ -445,23 +444,22 @@
    "area": 18,
    "name": "Podol Plaza",
    "established": true,
-   "why": "all 286 cells that have artwork are among the cells the tool works out",
+   "why": "all 306 cells that have artwork are among the cells the tool works out",
    "maps": [
     18
    ],
    "wallSets": [
     "WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5)"
    ],
-   "existingKeys": 286,
-   "existingKeysAccountedFor": 286,
+   "existingKeys": 306,
+   "existingKeysAccountedFor": 306,
    "existingKeysOnlyAsArrivalViews": 26,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 326,
-   "cellsWithArt": 253,
+   "cellsWithArt": 273,
    "toDo": 0,
    "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 54,
-    "cells of the overhead area view, which no existing artwork of the area confirms": 19
+    "cells that show a sky or ground colour no existing artwork of the area shows": 53
    },
    "existingKeysOnlyAsWallMaterials": 7
   },

@@ -1,5 +1,5 @@
 import type { TileFingerprint } from "../src/runtime/game-data.js";
-import { allWallSymbols, frontWallSymbols, symbolTile, unpackWallSides, viewCells,
+import { allWallSymbols, areaViewCells, frontWallSymbols, symbolTile, unpackWallSides, viewCells,
   type ViewContext, type WorldData } from "./first-person-cells.js";
 import { ExplorationCells } from "./exploration-cells.js";
 import { valjevoGlyphSwaps } from "./gamedata.js";
@@ -93,11 +93,23 @@ export function standaloneExploration(world: WorldData, compositeHashes: Record<
     const geometry = native.cellGeometry;
     if (!geometry) return [];
     const layouts = compatibleLayouts(native, true);
-    if (!layouts.length) return [];
     const planes = Buffer.from(native.walls, "base64");
     if (planes.length !== 512) return [];
     const walls = unpackWallSides(planes.subarray(0, 256), planes.subarray(256));
     const { x, y, facing, groundColor, skyColor } = native;
+    if (native.areaView) {
+      // The overhead symbols come from the shared bank. The area's own script
+      // supplies the boundary rules even when another bank is mounted.
+      const script = world.scripts.find((script) => script.area === native.area);
+      const slots = script?.wallSlots[0] ?? layouts[0]?.context.slots;
+      if (!script || !slots) return [];
+      return areaViewCells({ world, script, map: { walls }, slots }, x, y, facing).map((stack) => {
+        const { tiles } = cells.prune(stack);
+        const hash = cells.cell("-", tiles).hash;
+        return hash && `tile:${native.area}:${hash}`;
+      });
+    }
+    if (!layouts.length) return [];
     const horizon = `h${skyColor}.${geometry.lineColor}.${geometry.bandColor}.${groundColor}`;
     const views = layouts.map(({ context }) =>
       viewCells({ ...context, map: { walls } }, x, y, facing).map((stack, index) => {
