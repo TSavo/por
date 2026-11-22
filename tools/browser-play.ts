@@ -116,7 +116,7 @@ function prepareScenery(view: ExplorationFrame) {
   if (!native) return;
   delete view.nativeScenery;
   const { x, y, facing, walls, area, mapId } = native;
-  if (packagedTerrain) {
+  if (packagedTerrain && !native.viewportCleared) {
     const cells: TileInventoryCell[] = [];
     view.tiles = packagedTiles(packagedTerrain, artwork, native, cells);
     if (view.tileInventory) view.tileInventory = cells;

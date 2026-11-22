@@ -581,7 +581,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
             arrivalPosition = { area: localEcl, x, y, facing };
             tileArea = localEcl;
           }
-          nativeScenery = { ...native.native, area: tileArea ?? area };
+          // Encamp can clear the view before the next prompt replaces the exploration menu.
+          // The bundled scenery's blank pixels only distinguish the clear by its extra writes.
+          const viewportCleared = !encounter && !viewportUntouched(native.mark) && !pixels.some(Boolean);
+          nativeScenery = { ...native.native, area: tileArea ?? area, viewportCleared: viewportCleared || undefined };
         }
         if (!leads) previousPerspective = perspective ? { area, pixels, mark: viewportMark() } : undefined;
       } else if (!leads) {

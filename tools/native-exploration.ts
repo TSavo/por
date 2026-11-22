@@ -7,6 +7,7 @@ export interface NativeExploration {
   facing: number;
   mapId?: number;
   areaView?: boolean;
+  viewportCleared?: boolean;
   walls: string;
   frontSlots: string;
   glyphs: Record<number, string>;

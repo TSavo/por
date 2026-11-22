@@ -91,7 +91,8 @@ function webgl(view, from) {
 /** The Enhanced artwork of one frame (or animation frame), each kind as a comparable value. */
 function artwork(view, from) {
   // The server replaces the tiles of a first-person view with the packaged terrain's (browser-play prepareScenery).
-  const tiles = from.terrain && view.nativeScenery ? packagedTiles(from.terrain, from.artwork, view.nativeScenery) : view.tiles;
+  const tiles = from.terrain && view.nativeScenery && !view.nativeScenery.viewportCleared
+    ? packagedTiles(from.terrain, from.artwork, view.nativeScenery) : view.tiles;
   return {
     webgl: webgl(view, from),
     scene: view.scene,
