@@ -206,6 +206,15 @@
         "game files",
         "python + capstone"
       ]
+    },
+    {
+      "id": "game-data-records",
+      "title": "Every record in the port's own data unpacks to the original's bytes, and pictures carry no pixels",
+      "command": "npm run verify:game-data-records",
+      "reference": "original",
+      "needs": [
+        "the version 1.3 files"
+      ]
     }
   ]
 }
