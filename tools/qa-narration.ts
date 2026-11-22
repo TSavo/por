@@ -80,7 +80,10 @@ function mergeLedger(path: string): void {
   const header = lines.find((line): line is Extract<Line, { t: "run" }> => line.t === "run");
   if (!header) throw new Error(`${path} has no run line: not a narration ledger`);
   const run = header.run;
-  // A run merged again replaces what it said before about silent cases, so a fixed defect clears.
+  // Rebuild failures recorded by this run, preserving failures from other runs.
+  for (const entry of Object.values(coverage.units)) {
+    if (entry.withoutArt?.run === run) delete entry.withoutArt;
+  }
   for (const [key, entry] of Object.entries(coverage.silent)) {
     delete entry.runs[run];
     if (!Object.keys(entry.runs).length) delete coverage.silent[key];

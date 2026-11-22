@@ -470,11 +470,6 @@
   "por.voice.ecl3.b14-9e74": {
    "run": "kovel-casket-gems-reveal-after",
    "step": 88388201,
-   "withoutArt": {
-    "run": "kovel-casket-gems-reveal-after",
-    "step": 88388201,
-    "showing": "no picture"
-   },
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:14:ecl:9eb8:caller:a824:cue:casket-lock"
