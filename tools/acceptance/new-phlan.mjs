@@ -462,6 +462,11 @@ async function shopList(game, door, greeting) {
   await game.press("y", /Buy View Pool Appraise Exit\s*$/, "YES opens the shop menu.");
   await game.press("b", /Items: Buy Exit\s*$/, "Buy lists the stock.");
   const rows = game.rows().map((row) => row.trim());
+  // The original's Buy starts its list on the second row (GAME.OVR slice 6 +0x37c sets the index
+  // to 1; the list routine counts from 0), so that row is the highlighted one (#97).
+  const white = new Set(game.frame.text.filter(([, character, colour]) => colour === 15 && character > 32).map(([cell]) => Math.floor(cell / 40)));
+  const listed = rows.map((row, index) => ({ row, index })).slice(rows.indexOf("Shop") + 1, 24).filter(({ row }) => row);
+  assert.deepEqual(listed.filter(({ index }) => white.has(index)).map(({ row }) => row), [listed[1]?.row], "The Buy list opens with its second row highlighted.");
   const stock = rows.slice(rows.indexOf("Shop") + 1, 24).filter(Boolean).map((row) => {
     const item = /^(.*\S)\s+(\d+)$/.exec(row);
     if (!item) game.fail(`The stock list has a row that is not an item and a price: ${row}`);
@@ -478,7 +483,8 @@ async function shopList(game, door, greeting) {
  */
 async function shopStock() {
   // A new party, not the loaded game: in a loaded game the first Buy list opens scrolled down by
-  // one item (reported as a finding; the original has not been checked for it).
+  // one item. That is the original's own behaviour (#97): start-up sets the list's first shown row
+  // to 1 (slice 11 +0x405), and a loaded game runs no list before the shop to bring it to 0.
   const game = await newParty();
   try {
     await game.walk("EENNEEESEESSSSSSSSSEEENN");

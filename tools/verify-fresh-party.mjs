@@ -3086,7 +3086,9 @@ const checkGear = (name) => (text) => {
   assert.match(text, /yes hand axe.*yes chain mail/);
 };
 const shopForFighter = (index) => [
-  // After the first purchase, the last shop page starts one row later.
+  // After the first purchase, the last shop page starts one row later. That is the original's
+  // own list routine (#97): it keeps the list's first shown row in DS:0x6b29 from one list to the
+  // next, and lowers it only to the row the caller starts on, which for Buy is the second.
   "b", "b", "n", "n", ...Array(index ? 13 : 14).fill("end"), "b", "e",
   "v", "i", "i", "r", "end", "r",
 ];
