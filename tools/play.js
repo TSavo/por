@@ -990,12 +990,20 @@ const portraitLoops = [
   ["portrait:area:10:ecl:b50b:PIC4.DAX:34:", 4],
   ["portrait:area:10:ecl:b50b:PIC4.DAX:20:", 3],
   ["portrait:area:21:ecl:9e40:PIC4.DAX:34:", 4, "portrait:area:21:PIC4.DAX:34:0:0"],
-].map(([prefix, count, initial]) =>
-  Array.from({ length: count }, (_, phase) => (phase === 0 && initial) || `${prefix}${phase}:0`));
+  ["portrait:area:10:ecl:b695:caller:9db8:PIC4.DAX:34:", 4, "portrait:area:10:PIC4.DAX:34:0:0",
+    /THEENCLAVEISGUARDEDBYASKELETONARMY/i],
+  ["portrait:area:10:ecl:b695:caller:a92b:PIC4.DAX:20:", 3, "portrait:PIC4.DAX:20:0:0",
+    /WIGHTSAPPEARFROMBEHINDTHETOWER/i],
+].map(([prefix, count, initial, cue]) => ({
+  cue,
+  phases: Array.from({ length: count }, (_, phase) => (phase === 0 && initial) || `${prefix}${phase}:0`),
+}));
 
-async function animateHeldPortrait(image, id) {
+async function animateHeldPortrait(image, { portrait: id, text }) {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const phases = portraitLoops.find(loop => loop.includes(id));
+  const loop = portraitLoops.find(({ phases, cue }) => phases.includes(id) &&
+    (!cue || cue.test(text.map(([, char]) => String.fromCharCode(char)).join("").replace(/[^a-z]/gi, ""))));
+  const phases = loop?.phases;
   if (!phases) return;
   const frames = phases.map(phase => {
     const frame = new Image();
@@ -1238,7 +1246,7 @@ async function showScreen() {
   tileArt.hidden = !showArt;
   if (view === state && view.ready && view.portrait && !view.automaticCombat) {
     const portrait = tileArt.querySelector(".encounter-portrait");
-    if (portrait) void animateHeldPortrait(portrait, view.portrait);
+    if (portrait) void animateHeldPortrait(portrait, view);
   }
   gameText.hidden = !useEnhanced || Boolean(sceneArt);
   if (!gameText.hidden) {
