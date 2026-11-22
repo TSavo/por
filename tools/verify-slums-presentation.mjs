@@ -683,6 +683,13 @@ const stojanowTollApproach = [
 const councilClerkApproach = ["right", "right", "up", "right", "right", "up", "enter", "enter"];
 
 const illustrationRoutes = new Map([
+  ["slums-first-arrival", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:0:ecl:9b68",
+    heldPortrait: "scene-illustration:area:0:ecl:9b68",
+    prompt: /MONSTER-CRAWLINGSLUMSOFPHLAN.*SCURRYFROMBENEATHYOURFEET.*ANALARMSOUNDS/i,
+    continuation: { inputs: ["up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMP/i },
+  }],
   ["swamp-drythh-followers-wait-base", {
     slot: "A", inputs: ["up", "b", "p", "enter", ..."savior", "enter", "y", "enter", "enter", "n", "enter", "enter", "enter"],
     portrait: "portrait:area:16:ecl:a535:PIC8.DAX:57:0:0", prompt: /COMBATWAITFLEEPARLAY/i,
@@ -6818,7 +6825,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...(controlledBattleIllustration ? { POR_DEV_COMBAT: "1" } : {}),
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
-    POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
+    POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel || routeName === "slums-first-arrival" ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
   },
   stdio: ["ignore", "ignore", "inherit"],
 });
@@ -9763,7 +9770,7 @@ try {
     if (illustration.alternatePortrait && frame.portrait === illustration.alternatePortrait) {
       portrait = illustration.alternatePortrait;
     }
-    assert.equal(frame.portrait, portrait);
+    assert.equal(frame.portrait, portrait, frame.text.map(([, char]) => String.fromCharCode(char)).join(""));
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), prompt);
     if (portrait === undefined) {
       await waitFor("the transient illustration to clear", () => run(`
@@ -10029,7 +10036,7 @@ try {
       const nextPortrait = continuation.portraits ? frame.portrait :
         continuation.clearsPortrait ? undefined : continuation.portrait ?? portrait;
       if (continuation.portraits) assert.ok(continuation.portraits.includes(nextPortrait));
-      assert.equal(frame.portrait, nextPortrait);
+      assert.equal(frame.portrait, nextPortrait, frame.text.map(([, char]) => String.fromCharCode(char)).join(""));
       if (continuation.portrait || continuation.portraits) await waitFor("the enhanced continuation portrait", () => run(`
         document.querySelector('.encounter-portrait[src="/art/${nextPortrait}"]')?.naturalWidth === 352
       `));
