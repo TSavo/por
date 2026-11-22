@@ -11278,27 +11278,25 @@ try {
     console.log("Verified the Yarash vat ambush illustration and three combatants in Chrome.");
   } else if (routeName === "kobold-cave-efreeti-dialogue") {
     const knows = id => frame.journal?.leads.some(lead => lead.id === id);
+    const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
+    const phases = [
+      "portrait:PIC8.DAX:70:0:0",
+      ...[1, 2].map(member => `portrait:area:13:ecl:a624:PIC8.DAX:70:${member}:0`),
+    ];
     for (const key of ["s", "up", "p", "enter", "enter"]) await advance(key);
-    assert.equal(frame.portrait, "portrait:PIC8.DAX:70:0:0");
+    assert.equal(frame.portrait, phases[2]);
+    assert.match(text(), /IAMTHEEFREETISAMIRAHWAHL.*AREYOU,PERCHANCE,VAMPIRES/i);
     await waitFor("the efreeti dialogue illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
-    for (const member of [1, 2]) {
-      await advance("z");
-      const phase = `portrait:area:13:ecl:a624:PIC8.DAX:70:${member}:0`;
-      assert.equal(frame.portrait, phase);
-      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
-        /IAMTHEEFREETISAMIRAHWAHL.*AREYOU,PERCHANCE,VAMPIRES/i);
-      await waitFor("the efreeti fire phase", () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector('.encounter-portrait[src="/art/${phase}"]')?.naturalWidth === 352`));
-      await switchBothWays();
-      const shot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, `kobold-cave-efreeti-fire-${member}.png`), Buffer.from(shot.data, "base64"));
-    }
-    await advance("z");
-    assert.equal(frame.portrait, "portrait:PIC8.DAX:70:0:0");
+    await verifyHeldPortraitLoop(phases);
     await advance("j");
     assert.ok(knows("kobold-efreeti") && !knows("kobold-efreeti-warning"));
-    for (const key of ["j", "n", "j"]) await advance(key);
+    for (const key of ["j", "n"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
+    assert.match(text(), /THEPARTYHASFOUNDTREASURE.*EACHCHARACTERRECEIVES666EXPERIENCEPOINTS/i);
+    await waitFor("the efreeti portrait to clear", () => run(`state.sequence === ${frame.sequence} &&
+      !animationFrame && !document.querySelector(".encounter-portrait")`));
+    await advance("j");
     assert.ok(knows("kobold-efreeti-warning"));
     console.log("Verified the efreeti portrait and witnessed warning in Chrome.");
   } else if (["kobold-cave-efreeti-bottle-loot", "mendor-manual-loot", "mendor-floorboard-jar-loot"].includes(routeName)) {
