@@ -38,6 +38,7 @@
 // Then Kuto's Well, from the guide's party in the Slums (#130).
 //
 // POR_PARITY_ONLY=start, =slums, =sokal, =leg or =kuto runs one of the walks. POR_GAMEDATA names the 1.3 files.
+// POR_PARITY_FRAMES=<directory> also writes every frame's artwork from both sources (<walk>.json).
 import { cpSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -359,6 +360,13 @@ for (const { name, start, walk } of walks) {
   const runs = [];
   for (const from of sources) runs.push(await record(from, start, walk));
   const [a, b] = runs;
+  // POR_PARITY_FRAMES=<directory>: every frame's artwork from both sources, <walk>.json, to read a
+  // difference in frames after the first of its kind (the report keeps only the union and the first).
+  if (process.env.POR_PARITY_FRAMES) {
+    mkdirSync(process.env.POR_PARITY_FRAMES, { recursive: true });
+    const plain = (frames) => frames.map(({ screen, text, menu, art, animation }) => ({ screen, text, menu, art, animation }));
+    writeFileSync(join(process.env.POR_PARITY_FRAMES, `${name}.json`), JSON.stringify({ original: plain(a), port: plain(b) }) + "\n");
+  }
   if (a.length !== b.length) differences.push({ walk: name, kind: "frames", detail: `${a.length} frames from the original files, ${b.length} from game/` });
   for (let index = 0; index < Math.min(a.length, b.length); index++) {
     const left = a[index], right = b[index];
