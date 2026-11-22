@@ -1,0 +1,237 @@
+/**
+ * The artwork catalogue: can the port's own data name every piece of Enhanced artwork?
+ *
+ *   npm run verify:art-catalogue
+ *
+ * It reads only `game/` (no original file) and the artwork manifests, and answers two questions.
+ *
+ * 1. For every artwork key in upgrades/manifest.json and upgrades/slums/manifest.json: can the
+ *    data in game/ produce that key from identities alone? A key that names a picture is
+ *    reachable when game/ lists that archive, block, member and frame. A key that carries a hash
+ *    (`tile:`, `battle-tile:`) is reachable when game/ stores that hash for a named picture. A key
+ *    that names a script position or a cue is reachable only when the converted script of that
+ *    area holds the position, or the cue's text.
+ * 2. The other way: which original pictures and frames does no key cover? Those are what Enhanced
+ *    would show blank. Every 8 by 8 tile counts as its own item and needs a 32 by 32 PNG.
+ *
+ * It prints the count for each kind of key (total, reachable, not reachable), writes every
+ * unreachable key and every uncovered tile and frame to out/art-catalogue.json, and fails while
+ * any key is unreachable.
+ */
+import { createHash } from "node:crypto";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
+import { runningScriptAddress } from "../src/runtime/bindings.js";
+import { contentBytes, readGameData, type PictureRecord } from "../src/runtime/game-data.js";
+import { portGameRoot } from "./gamedata.js";
+import { pngDimensions } from "./png.js";
+import { scriptIllustrations } from "./portrait-art.js";
+
+const read = (path: string) => new Uint8Array(readFileSync(join(portGameRoot, path)));
+const data = readGameData(read);
+const records = new Map(data.pictures.map((record) => [`${record.file}:${record.block}`, record]));
+
+// Scripts by area: the block number of a script is the area it runs.
+interface AreaScript { archive: number; block: number; end: number; starts: Set<number>; text: string }
+const scripts = new Map<number, AreaScript>();
+for (const record of data.content) {
+  if (record.kind !== "script" || record.block === undefined) continue;
+  const script = scriptFromBlock(contentBytes(record, read));
+  const { instructions } = disassemble(script);
+  const letters = instructions.flatMap(({ operands }) => operands.map(({ text }) => text ?? "")).join("").toUpperCase().replace(/[^A-Z0-9.]/g, "");
+  scripts.set(record.block, {
+    archive: Number(/\d/.exec(record.file)![0]), block: record.block, end: script.base + script.length,
+    starts: new Set(instructions.map(({ address }) => address)), text: letters,
+  });
+}
+
+// Hashes game/ stores, each with the picture it names.
+const tileHashes = new Map<string, string[]>();
+const battleHashes = new Map<string, string[]>();
+const note = (map: Map<string, string[]>, hash: string, name: string) => map.set(hash, [...(map.get(hash) ?? []), name]);
+for (const record of data.pictures) {
+  for (const [member, picture] of record.pictures.entries()) {
+    if (/^8X8D\d\.DAX$/.test(record.file) && picture.width === 8 && picture.height === 8) {
+      picture.frameHashes.forEach((hash, frame) => note(tileHashes, hash, `${record.file}:${record.block}:${frame}`));
+    }
+    picture.cellHashes?.forEach((cells, frame) => cells.forEach((hash, cell) => note(battleHashes, hash, `${record.file}:${record.block}:${member}:${frame}:cell${cell}`)));
+  }
+}
+
+/** Frames a key covers, as `file:block:member:frame`. */
+const covered = new Set<string>();
+const cover = (record: PictureRecord, member: number, frame: number) => covered.add(`${record.file}:${record.block}:${member}:${frame}`);
+let positionsNotAtInstruction = 0;
+
+/** Why the script scope of a key is not in the converted scripts, or undefined when it is. */
+function scope(area?: string, cursor?: string, caller?: string): string | undefined {
+  if (area === undefined) return;
+  const script = scripts.get(Number(area));
+  if (!script) return cursor === undefined ? undefined : `area ${area} has no converted script`;
+  for (const [what, position] of [["position", cursor], ["caller", caller]] as const) {
+    if (position === undefined) continue;
+    // Keys number script positions as the first release does. The converted scripts are 1.3's.
+    const address = runningScriptAddress(script.archive, script.block, Number.parseInt(position, 16), "1.3");
+    if (address < 0x9900 || address >= script.end) return `script ${what} ${position} is outside area ${area}'s converted script`;
+    if (!script.starts.has(address)) positionsNotAtInstruction++;
+  }
+}
+
+/** Why a named frame is not in game/, or undefined when it is. Marks it covered. */
+function frame(file: string, block: string, member = "0", index = "0"): string | undefined {
+  const record = records.get(`${file}:${block}`);
+  if (!record) return `${file} block ${block} is not in game/`;
+  const picture = record.pictures[Number(member)];
+  if (!picture) return `${file} block ${block} has no picture ${member}`;
+  if (Number(index) >= picture.frames) return `${file} block ${block} picture ${member} has no frame ${index}`;
+  cover(record, Number(member), Number(index));
+}
+
+const scoped = "(?:area:(\\d{1,3}):(?:ecl:([a-f0-9]{4}):(?:caller:([a-f0-9]{4}):)?)?)?";
+const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
+  [/^tile:(\d{1,3}):([a-f0-9]{64})$/, ([, , hash]) => {
+    const tiles = tileHashes.get(hash!);
+    if (!tiles) return "its pixels are not one stored 8 by 8 tile: the cell is composed on screen from several";
+    for (const name of tiles) covered.add(name.replace(/:(\d+)$/, ":0:$1"));
+  }],
+  [/^battle-tile:([a-f0-9]{64})$/, ([, hash]) => battleHashes.has(hash!) ? undefined : "its pixels are not one stored cell of the battlefield terrain"],
+  [/^combat:party:(\d{1,3}):(\d{1,3})(?::palette:[0-9a-f]{16})?$/, ([, head, body]) => frame("CHEAD.DAX", head!) ?? frame("CBODY.DAX", body!)],
+  [/^combat:(?:area:(\d{1,3}):)?(CPIC[1-8]\.DAX):(\d{1,3})(?::ecl:([a-f0-9]{4}))?$/, ([, area, file, block, cursor]) => frame(file!, block!) ?? scope(area, cursor)],
+  [/^combat:(RANDCOM\.DAX):(1):(0):([0-5])$/, ([, file, block, member, index]) => frame(file!, block!, member, index)],
+  [/^combat-effect:(COMSPR\.DAX):(\d{1,3})(?::(?:flip-x|transpose))?$/, ([, file, block]) => frame(file!, block!)],
+  [/^combat-selection:(COMSPR\.DAX):(\d{1,3})$/, ([, file, block]) => frame(file!, block!)],
+  [/^character-sheet:((?:HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/, ([, file, block]) => frame(file!, block!)],
+  [new RegExp(`^portrait:${scoped}(PIC\\d\\.DAX):(\\d{1,3}):(\\d{1,3}):(\\d{1,3})$`), ([, area, cursor, caller, file, block, member, index]) =>
+    frame(file!, block!, member, index) ?? scope(area, cursor, caller)],
+  [new RegExp(`^portrait:${scoped}(HEAD\\d\\.DAX):(\\d{1,3}):(BODY\\d\\.DAX):(\\d{1,3})$`), ([, area, cursor, caller, head, headBlock, body, bodyBlock]) =>
+    frame(head!, headBlock!) ?? frame(body!, bodyBlock!) ?? scope(area, cursor, caller)],
+  [new RegExp(`^encounter:${scoped}(SPRIT[1-8]\\.DAX):(\\d{1,3}):(\\d{1,3}):(\\d{1,3})$`), ([, area, cursor, caller, file, block, member, index]) =>
+    frame(file!, block!, member, index) ?? scope(area, cursor, caller)],
+  [/^scene-illustration:area:(\d{1,3}):ecl:([a-f0-9]{4})(?::caller:([a-f0-9]{4}))?(?::cue:[a-z0-9-]+)?$/, (match) => {
+    const [key, area, cursor, caller] = match;
+    const missing = scope(area, cursor, caller);
+    if (missing) return missing;
+    const cue = scriptIllustrations.get(key);
+    if (/:cue:/.test(key)) {
+      if (cue === undefined) return "its cue is not defined in tools/portrait-art.ts";
+      const text = scripts.get(Number(area))!.text;
+      if (typeof cue === "string" ? !text.includes(cue.toUpperCase().replace(/[^A-Z0-9.]/g, "")) : !cue.test(text)) return "its cue's text is not in the area's converted script";
+    }
+  }],
+  [/^scene:(title|publisher)$/, () => records.has("TITLE.DAX:1") ? (cover(records.get("TITLE.DAX:1")!, 0, 0), cover(records.get("TITLE.DAX:2") ?? records.get("TITLE.DAX:1")!, 0, 0), undefined) : "TITLE.DAX is not in game/"],
+];
+
+interface Finding { key: string; manifest: string; reason: string }
+const unreachable: Finding[] = [];
+const wrongSize: { key: string; file: string; found: string }[] = [];
+const counts = new Map<string, { total: number; reachable: number }>();
+const tileArt = new Map<string, { areas: Set<string>; sized: boolean }>();
+let total = 0;
+for (const manifest of ["upgrades/manifest.json", "upgrades/slums/manifest.json"]) {
+  const assets = (JSON.parse(readFileSync(manifest, "utf8")) as { assets: Record<string, string> }).assets;
+  for (const [key, file] of Object.entries(assets)) {
+    total++;
+    const kind = key.slice(0, key.indexOf(":"));
+    const count = counts.get(kind) ?? { total: 0, reachable: 0 };
+    counts.set(kind, count);
+    count.total++;
+    let reason: string | undefined = "the catalogue does not know this shape of key";
+    for (const [pattern, rule] of rules) {
+      const match = pattern.exec(key);
+      if (match) { reason = rule(match); break; }
+    }
+    if (reason) unreachable.push({ key, manifest, reason }); else count.reachable++;
+    const tile = /^tile:(\d{1,3}):([a-f0-9]{64})$/.exec(key);
+    if (tile) {
+      let size: { width: number; height: number } | undefined;
+      try { size = pngDimensions(readFileSync(join(dirname(manifest), file))); } catch { size = undefined; }
+      const sized = size?.width === 32 && size.height === 32;
+      if (!sized) wrongSize.push({ key, file, found: size ? `${size.width}x${size.height}` : "unreadable" });
+      const art = tileArt.get(tile[2]!) ?? { areas: new Set<string>(), sized: true };
+      art.areas.add(tile[1]!);
+      art.sized &&= sized;
+      tileArt.set(tile[2]!, art);
+    }
+  }
+}
+
+console.log("Artwork keys the data in game/ can produce from identities alone");
+console.log("kind                 total  reachable  not reachable");
+for (const [kind, { total, reachable }] of [...counts].sort((a, b) => b[1].total - a[1].total)) {
+  console.log(`${kind.padEnd(20)} ${String(total).padStart(5)}  ${String(reachable).padStart(9)}  ${String(total - reachable).padStart(13)}`);
+}
+console.log(`${"all".padEnd(20)} ${String(total).padStart(5)}  ${String(total - unreachable.length).padStart(9)}  ${String(unreachable.length).padStart(13)}`);
+if (positionsNotAtInstruction) console.log(`${positionsNotAtInstruction} script positions named by keys are inside the script but not at the start of an instruction the disassembly reached`);
+const reasons = new Map<string, number>();
+for (const { reason } of unreachable) reasons.set(reason.replace(/\d+|[a-f0-9]{4}\b/g, "N"), (reasons.get(reason.replace(/\d+|[a-f0-9]{4}\b/g, "N")) ?? 0) + 1);
+for (const [reason, count] of [...reasons].sort((a, b) => b[1] - a[1])) console.log(`  ${String(count).padStart(5)}  ${reason}`);
+
+// The other direction: every 8 by 8 tile as its own item.
+console.log("\n8 by 8 tiles and their 32 by 32 replacements (a tile counts when a tile key in any area carries its hash)");
+console.log("archive    block  tiles  blank  replaced  wrong size  without  areas with a key");
+const blankTile = createHash("sha256").update(new Uint8Array(64)).digest("hex");
+const tilesWithout: string[] = [];
+let tileTotal = 0, tileReplaced = 0;
+for (const record of data.pictures) {
+  if (!/^8X8D\d\.DAX$/.test(record.file)) continue;
+  const picture = record.pictures[0];
+  if (!picture || picture.width !== 8 || picture.height !== 8) continue;
+  let replaced = 0, wrong = 0, without = 0, empty = 0;
+  const areas = new Set<string>();
+  // A tile repeated in a set is counted each time; a tile whose pixels are all colour 0 has nothing to replace.
+  for (const [index, hash] of picture.frameHashes.entries()) {
+    if (hash === blankTile) { empty++; continue; }
+    const art = tileArt.get(hash);
+    if (!art) { without++; tilesWithout.push(`${record.file}:${record.block}:${index}`); }
+    else if (!art.sized) wrong++;
+    else { replaced++; for (const area of art.areas) areas.add(area); }
+  }
+  tileTotal += picture.frames - empty;
+  tileReplaced += replaced;
+  console.log(`${record.file.padEnd(10)} ${String(record.block).padStart(5)}  ${String(picture.frames).padStart(5)}  ${String(empty).padStart(5)}  ${String(replaced).padStart(8)}  ${String(wrong).padStart(10)}  ${String(without).padStart(7)}  ${[...areas].sort((a, b) => +a - +b).join(",")}`);
+}
+console.log(`tiles that are not blank: ${tileTotal}; with a 32 by 32 replacement: ${tileReplaced}; without: ${tilesWithout.length}; tile PNGs of the wrong size: ${wrongSize.length}`);
+
+// Every other picture frame, by archive.
+console.log("\nPicture frames no key names, by archive (8 by 8 tile sets are in the table above)");
+const byArchive = new Map<string, { frames: number; uncovered: string[] }>();
+for (const record of data.pictures) {
+  if (/^8X8D\d\.DAX$/.test(record.file)) continue;
+  const family = record.file.replace(/\d?\.DAX$/, "");
+  const entry = byArchive.get(family) ?? { frames: 0, uncovered: [] };
+  byArchive.set(family, entry);
+  for (const [member, picture] of record.pictures.entries()) {
+    for (let index = 0; index < picture.frames; index++) {
+      entry.frames++;
+      const name = `${record.file}:${record.block}:${member}:${index}`;
+      if (!covered.has(name)) entry.uncovered.push(name);
+    }
+  }
+}
+let frames = 0, uncoveredFrames = 0;
+for (const [family, { frames: count, uncovered }] of byArchive) {
+  frames += count;
+  uncoveredFrames += uncovered.length;
+  console.log(`${family.padEnd(8)} ${String(count).padStart(5)} frames  ${String(count - uncovered.length).padStart(5)} named by a key  ${String(uncovered.length).padStart(5)} not`);
+}
+console.log(`all      ${String(frames).padStart(5)} frames  ${String(frames - uncoveredFrames).padStart(5)} named by a key  ${String(uncoveredFrames).padStart(5)} not`);
+
+mkdirSync("out", { recursive: true });
+writeFileSync(join("out", "art-catalogue.json"), JSON.stringify({
+  keys: total, unreachable, wrongSize, tilesWithout,
+  framesNoKeyNames: Object.fromEntries([...byArchive].map(([family, { uncovered }]) => [family, uncovered])),
+}, null, 1) + "\n");
+console.log("\nEvery unreachable key, tile without a replacement and frame no key names is listed in out/art-catalogue.json");
+if (unreachable.length) {
+  console.error(`\nverify:art-catalogue: ${unreachable.length} of ${total} artwork keys cannot be produced from game/ alone. The first of each kind:`);
+  const shown = new Set<string>();
+  for (const { key, reason } of unreachable) {
+    const kind = key.slice(0, key.indexOf(":"));
+    if (shown.has(kind)) continue;
+    shown.add(kind);
+    console.error(`  ${key}: ${reason}`);
+  }
+  process.exit(1);
+}
+console.log(`\nverified: all ${total} artwork keys can be produced from game/ alone`);
