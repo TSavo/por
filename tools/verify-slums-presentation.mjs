@@ -2407,7 +2407,11 @@ const illustrationRoutes = new Map([
   ["valhingen-zombie-stairs", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:10:PIC4.DAX:35:0:0", prompt: /ZOMBIESSHUFFLEDOWNTHESTAIRS/i,
-    idlePortraits: [1, 2, 3, 4].map(phase => `portrait:area:10:ecl:b695:caller:9f7a:PIC4.DAX:35:${phase}:0`),
+    alternatePortrait: "portrait:area:10:ecl:b695:caller:9f7a:PIC4.DAX:35:1:0",
+    idlePortraits: [
+      ...[1, 2, 3, 4].map(phase => `portrait:area:10:ecl:b695:caller:9f7a:PIC4.DAX:35:${phase}:0`),
+      "portrait:area:10:PIC4.DAX:35:0:0",
+    ],
   }],
   ["valhingen-zombie-trap", {
     slot: "A", inputs: ["up", "enter", "enter"],
