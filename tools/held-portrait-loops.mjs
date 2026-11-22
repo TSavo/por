@@ -71,6 +71,10 @@ const portraitLoops = [
   ["portrait:area:10:ecl:a7b9:PIC4.DAX:17:", 2],
   ["portrait:area:10:ecl:aad6:PIC4.DAX:17:", 2],
   ["portrait:area:3:ecl:a6c8:PIC5.DAX:56:", [0, 1, 0, 3], undefined, /SLEEPINGGIANTS/i, [210, 210, 210, 210]],
+  // The bucket trap shares the return address, so use the waking caption's own art.
+  ["portrait:area:3:ecl:a6d2:PIC5.DAX:56:", [0, 1, 0, 3], undefined,
+    /LOOSEBOARDCREAKS.*GIANTSGETTOTHEIRFEET/i, [210, 210, 210, 210],
+    [["scene-illustration:area:3:ecl:9a5a:caller:a732:cue:waking-fire-giants", 0]]],
   // The barracks uses the same cycle at the confrontation, intruder and Stay/Leave menus.
   // Its third native member restores the opening image.
   ["portrait:area:4:ecl:a36b:PIC5.DAX:56:", [0, 1, 0, 3], "portrait:area:4:PIC5.DAX:56:0:0",

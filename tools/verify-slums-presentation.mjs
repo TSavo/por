@@ -3934,6 +3934,13 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["a"], portrait: "scene-illustration:area:3:ecl:9a5a:caller:a732:cue:waking-fire-giants",
       prompt: /LOOSEBOARDCREAKS.*GIANTSGETTOTHEIRFEET/i },
   }],
+  ["valjevo-waking-fire-giants-loop", {
+    slot: "B", inputs: ["up", "enter", "enter", "a"],
+    portrait: "scene-illustration:area:3:ecl:9a5a:caller:a732:cue:waking-fire-giants",
+    prompt: /LOOSEBOARDCREAKS.*GIANTSGETTOTHEIRFEET/i,
+    heldPortraitLoop: [0, 1, 0, 3].map(member => `portrait:area:3:ecl:a6d2:PIC5.DAX:56:${member}:0`),
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /ABATTLEBEGINS/i },
+  }],
   ["valjevo-bucket-trap-giant-phases", {
     slot: "B", inputs: ["up", ...Array(4).fill("enter"), ...Array(4).fill("q")],
     portraitStops: {
