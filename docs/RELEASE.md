@@ -196,6 +196,22 @@ with exit 2 when the disk filled):
 - `Uninstall.exe /S` exited 0 and removed everything but itself (run in place with `_?=`, as a test
   must); the saves stayed.
 
+The installer of `da37658c` (680 MB, sha256 `ce8fb431…09b6f3`), with the launcher that opens the game's
+own Chrome window, was run on Battleaxe again on 2026-11-22, installing to E: (a USB disk, which also
+holds the Ubuntu that WSL runs; 3.4 TB free) while C: had 829 MB free. `%APPDATA%\Pool of Radiance` did
+not exist before the run.
+
+- Silent and unelevated (`__COMPAT_LAYER=RunAsInvoker`, `/S /D=E:\por-release-test\install`): exit 0 in
+  60 seconds (22 on D:): 17,951 files, 864,573,666 bytes.
+- With its own pages (unelevated, driven through UI Automation): the first page is **Choose Install
+  Location**, on `C:\Program Files\Pool of Radiance`, with *Space required: 833.3 MB* and *Space
+  available: 829.2 MB*, and **Next** greyed out, though the page says "Click Next to continue" and
+  nothing says why. Typed in the folder box, `E:\por-release-test\install-gui` (3428.2 GB available)
+  and `D:\Pool of Radiance` (132.5 GB) turned **Next** on; `E:\` (a drive's root) kept it off. Next led
+  to **Choose Components** (the game, and the desktop shortcut) with **Install**; Cancel closed it.
+  So the player can choose the drive, but NSIS refuses a drive only when the files alone do not fit:
+  with 834 MB free C: would have been accepted and filled.
+
 ## Known gaps
 
 - Windows, not yet run: an elevated install to Program Files, the Start Menu and desktop shortcuts and
