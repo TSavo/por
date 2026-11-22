@@ -313,8 +313,13 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     // the starting values as well, which made 1,542 cells out of a few dozen. Kuto's Well has its own
     // audited rule below, and a first view on arrival is still drawn under the area just left.
     const writtenHere = (from: string) => from.startsWith(`area ${context.script.area}'s script`);
-    const ownBands = kuto || context.arrivalFrom ? [] : world.bands.filter(({ from }) => writtenHere(from));
-    const ownGrounds = kuto || context.arrivalFrom ? [] : world.grounds.filter(({ from }) => writtenHere(from));
+    // The game resets both bytes whenever it starts a newly loaded script (ovl07 0x01b6 in 1.3 writes
+    // 0x41 and 9 to them and puts the script cursor back at 0x9900), so nothing carries over from the
+    // area before. An area whose script writes neither therefore shows only the starting values.
+    const starting = (from: string) => from === "the game's starting value";
+    const written = { bands: world.bands.filter(({ from }) => writtenHere(from)), grounds: world.grounds.filter(({ from }) => writtenHere(from)) };
+    const ownBands = kuto || context.arrivalFrom ? [] : written.bands.length ? written.bands : world.bands.filter(({ from }) => starting(from));
+    const ownGrounds = kuto || context.arrivalFrom ? [] : written.grounds.length ? written.grounds : world.grounds.filter(({ from }) => starting(from));
     const ownGround = (ground: number) => !ownGrounds.length || ownGrounds.some((known) => known.ground === ground);
     const ownBand = (line: number, band: number) => !ownBands.length || ownBands.some((known) => known.line === line && known.band === band);
     const groundAllowed = (ground: number, shaft: boolean) => ownGround(ground) && ((!kuto && !auditedPalette && !poolLanding) || ground === 6 || (shaft && ground === 1));

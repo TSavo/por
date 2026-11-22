@@ -28,8 +28,8 @@
   "    of those, shown alone in some area": 17
  },
  "notEstablished": {
-  "first-person cells that show a sky or ground colour no existing artwork of the area shows": 1549,
-  "first-person cells of an area whose reading is not confirmed": 381,
+  "first-person cells of an area whose reading is not confirmed": 182,
+  "first-person cells that show a sky or ground colour no existing artwork of the area shows": 185,
   "first-person cells seen only from squares not connected to any square the existing artwork was made from": 7,
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
   "battlefield cells of pictures no artwork shows to have been on a battlefield": 2207,
@@ -54,12 +54,10 @@
    "existingKeysAccountedFor": 341,
    "existingKeysOnlyAsArrivalViews": 3,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 406,
+   "cellsTheViewsCanShow": 328,
    "cellsWithArt": 328,
    "toDo": 0,
-   "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 78
-   },
+   "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 10
   },
   {
@@ -77,12 +75,10 @@
    "existingKeysAccountedFor": 184,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 385,
+   "cellsTheViewsCanShow": 181,
    "cellsWithArt": 181,
    "toDo": 0,
-   "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 204
-   },
+   "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 3
   },
   {
@@ -100,12 +96,10 @@
    "existingKeysAccountedFor": 426,
    "existingKeysOnlyAsArrivalViews": 5,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 580,
+   "cellsTheViewsCanShow": 402,
    "cellsWithArt": 402,
    "toDo": 0,
-   "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 178
-   },
+   "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 19
   },
   {
@@ -131,11 +125,11 @@
     "tile:3:cf9014a7ca22d06ee206123fd5c557a0e1856c0d44c9b9fe991403777940c587",
     "tile:3:e139d35cecb00f73e69c7ca5535cabea0d844e92d83ba9c485c650278644f0a9"
    ],
-   "cellsTheViewsCanShow": 415,
+   "cellsTheViewsCanShow": 341,
    "cellsWithArt": 307,
    "toDo": 0,
    "notEstablished": {
-    "cells of an area whose reading is not confirmed": 108
+    "cells of an area whose reading is not confirmed": 34
    },
    "existingKeysOnlyAsWallMaterials": 2
   },
@@ -180,11 +174,11 @@
    "existingKeysAccountedFor": 392,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 507,
+   "cellsTheViewsCanShow": 433,
    "cellsWithArt": 369,
    "toDo": 0,
    "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 131,
+    "cells that show a sky or ground colour no existing artwork of the area shows": 57,
     "cells seen only from squares not connected to any square the existing artwork was made from": 7
    },
    "existingKeysOnlyAsWallMaterials": 23
@@ -227,12 +221,10 @@
    "existingKeysAccountedFor": 216,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 220,
+   "cellsTheViewsCanShow": 216,
    "cellsWithArt": 216,
    "toDo": 0,
-   "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 4
-   }
+   "notEstablished": {}
   },
   {
    "area": 8,
@@ -249,11 +241,11 @@
    "existingKeysAccountedFor": 305,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 405,
+   "cellsTheViewsCanShow": 326,
    "cellsWithArt": 295,
    "toDo": 0,
    "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 110
+    "cells that show a sky or ground colour no existing artwork of the area shows": 31
    },
    "existingKeysOnlyAsWallMaterials": 10
   },
@@ -272,11 +264,11 @@
    "existingKeysAccountedFor": 170,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 287,
+   "cellsTheViewsCanShow": 206,
    "cellsWithArt": 170,
    "toDo": 0,
    "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 117
+    "cells that show a sky or ground colour no existing artwork of the area shows": 36
    }
   },
   {
@@ -315,11 +307,11 @@
    "existingKeysAccountedFor": 295,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 405,
+   "cellsTheViewsCanShow": 326,
    "cellsWithArt": 295,
    "toDo": 0,
    "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 110
+    "cells that show a sky or ground colour no existing artwork of the area shows": 31
    }
   },
   {
@@ -337,12 +329,10 @@
    "existingKeysAccountedFor": 213,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 313,
+   "cellsTheViewsCanShow": 211,
    "cellsWithArt": 211,
    "toDo": 0,
-   "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 102
-   },
+   "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 2
   },
   {
@@ -360,12 +350,10 @@
    "existingKeysAccountedFor": 92,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 150,
+   "cellsTheViewsCanShow": 90,
    "cellsWithArt": 90,
    "toDo": 0,
-   "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 60
-   },
+   "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 2
   },
   {
@@ -428,12 +416,10 @@
    "existingKeysAccountedFor": 175,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 186,
+   "cellsTheViewsCanShow": 164,
    "cellsWithArt": 164,
    "toDo": 0,
-   "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 22
-   },
+   "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 11
   },
   {
@@ -451,12 +437,10 @@
    "existingKeysAccountedFor": 306,
    "existingKeysOnlyAsArrivalViews": 26,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 326,
+   "cellsTheViewsCanShow": 273,
    "cellsWithArt": 273,
    "toDo": 0,
-   "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 53
-   },
+   "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 7
   },
   {
@@ -476,11 +460,11 @@
    "unaccountedKeys": [
     "tile:20:e3186849c39595898dc81456768972ec3ccb4e6dfd818445b630fc0799fea169"
    ],
-   "cellsTheViewsCanShow": 395,
+   "cellsTheViewsCanShow": 288,
    "cellsWithArt": 180,
    "toDo": 0,
    "notEstablished": {
-    "cells of an area whose reading is not confirmed": 215
+    "cells of an area whose reading is not confirmed": 108
    },
    "existingKeysOnlyAsWallMaterials": 7
   },
@@ -521,12 +505,10 @@
    "existingKeysAccountedFor": 95,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 140,
+   "cellsTheViewsCanShow": 87,
    "cellsWithArt": 87,
    "toDo": 0,
-   "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 53
-   },
+   "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 8
   },
   {
@@ -544,12 +526,10 @@
    "existingKeysAccountedFor": 83,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 126,
+   "cellsTheViewsCanShow": 78,
    "cellsWithArt": 78,
    "toDo": 0,
-   "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 48
-   },
+   "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 5
   },
   {
@@ -567,11 +547,11 @@
    "existingKeysAccountedFor": 229,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 312,
+   "cellsTheViewsCanShow": 244,
    "cellsWithArt": 217,
    "toDo": 0,
    "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 95
+    "cells that show a sky or ground colour no existing artwork of the area shows": 27
    },
    "existingKeysOnlyAsWallMaterials": 12
   },
@@ -590,11 +570,11 @@
    "existingKeysAccountedFor": 22,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 51,
+   "cellsTheViewsCanShow": 42,
    "cellsWithArt": 22,
    "toDo": 0,
    "notEstablished": {
-    "cells of an area whose reading is not confirmed": 29
+    "cells of an area whose reading is not confirmed": 20
    }
   },
   {
@@ -610,14 +590,12 @@
    ],
    "existingKeys": 285,
    "existingKeysAccountedFor": 285,
-   "existingKeysOnlyAsArrivalViews": 67,
+   "existingKeysOnlyAsArrivalViews": 69,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 282,
-   "cellsWithArt": 216,
+   "cellsTheViewsCanShow": 214,
+   "cellsWithArt": 214,
    "toDo": 0,
-   "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 66
-   },
+   "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 2
   },
   {
@@ -635,11 +613,11 @@
    "existingKeysAccountedFor": 22,
    "existingKeysOnlyAsArrivalViews": 1,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 50,
+   "cellsTheViewsCanShow": 41,
    "cellsWithArt": 21,
    "toDo": 0,
    "notEstablished": {
-    "cells of an area whose reading is not confirmed": 29
+    "cells of an area whose reading is not confirmed": 20
    }
   },
   {
@@ -657,12 +635,10 @@
    "existingKeysAccountedFor": 128,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 194,
+   "cellsTheViewsCanShow": 127,
    "cellsWithArt": 127,
    "toDo": 0,
-   "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 67
-   },
+   "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 1
   },
   {
@@ -703,11 +679,11 @@
    "existingKeysAccountedFor": 91,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 142,
+   "cellsTheViewsCanShow": 94,
    "cellsWithArt": 91,
    "toDo": 0,
    "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 51
+    "cells that show a sky or ground colour no existing artwork of the area shows": 3
    }
   }
  ],

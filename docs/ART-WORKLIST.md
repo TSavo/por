@@ -88,35 +88,35 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 
 | Area | Name | Reading confirmed | Cells its views can show | With art | To do | Your keys accounted for |
 | ---: | --- | --- | ---: | ---: | ---: | ---: |
-| 0 | New Phlan | yes | 406 | 328 | 0 | 341 of 341 (3 as first views of the next area, 10 as WebGL wall materials) |
-| 1 | Buccaneer Base | yes | 385 | 181 | 0 | 184 of 184 (3 as WebGL wall materials) |
-| 2 | Cadorna Textile House | yes | 580 | 402 | 0 | 426 of 426 (5 as first views of the next area, 19 as WebGL wall materials) |
-| 3 | Valjevo Castle | not yet | 415 | 307 |  | 309 of 313 (2 as WebGL wall materials) |
+| 0 | New Phlan | yes | 328 | 328 | 0 | 341 of 341 (3 as first views of the next area, 10 as WebGL wall materials) |
+| 1 | Buccaneer Base | yes | 181 | 181 | 0 | 184 of 184 (3 as WebGL wall materials) |
+| 2 | Cadorna Textile House | yes | 402 | 402 | 0 | 426 of 426 (5 as first views of the next area, 19 as WebGL wall materials) |
+| 3 | Valjevo Castle | not yet | 341 | 307 |  | 309 of 313 (2 as WebGL wall materials) |
 | 4 | Valjevo Castle | yes | 206 | 206 | 0 | 214 of 214 (8 as WebGL wall materials) |
-| 5 | Valjevo Castle | yes | 507 | 369 | 0 | 392 of 392 (23 as WebGL wall materials) |
+| 5 | Valjevo Castle | yes | 433 | 369 | 0 | 392 of 392 (23 as WebGL wall materials) |
 | 6 | Valjevo Castle | yes | 182 | 182 | 0 | 190 of 190 (8 as WebGL wall materials) |
-| 7 | Valjevo Castle, the Pool | yes | 220 | 216 | 0 | 216 of 216 |
-| 8 | Phlan City Hall | yes | 405 | 295 | 0 | 305 of 305 (10 as WebGL wall materials) |
-| 9 | Stojanow Gate | yes | 287 | 170 | 0 | 170 of 170 |
+| 7 | Valjevo Castle, the Pool | yes | 216 | 216 | 0 | 216 of 216 |
+| 8 | Phlan City Hall | yes | 326 | 295 | 0 | 305 of 305 (10 as WebGL wall materials) |
+| 9 | Stojanow Gate | yes | 206 | 170 | 0 | 170 of 170 |
 | 10 | Valhingen Graveyard | yes | 1007 | 1007 | 0 | 1019 of 1019 (12 as WebGL wall materials) |
-| 11 | The Training Hall | yes | 405 | 295 | 0 | 295 of 295 |
-| 13 | The Kobold Caves | yes | 313 | 211 | 0 | 213 of 213 (2 as WebGL wall materials) |
-| 14 | Kovel Mansion | yes | 150 | 90 | 0 | 92 of 92 (2 as WebGL wall materials) |
+| 11 | The Training Hall | yes | 326 | 295 | 0 | 295 of 295 |
+| 13 | The Kobold Caves | yes | 211 | 211 | 0 | 213 of 213 (2 as WebGL wall materials) |
+| 14 | Kovel Mansion | yes | 90 | 90 | 0 | 92 of 92 (2 as WebGL wall materials) |
 | 15 | Mendor's Library | yes | 254 | 254 | 0 | 274 of 274 (15 as first views of the next area, 5 as WebGL wall materials) |
 | 16 | The Lizardman Keep | yes | 419 | 419 | 0 | 440 of 440 (14 as WebGL wall materials, 7 only in unreachable views) |
-| 17 | The Nomad Camp | yes | 186 | 164 | 0 | 175 of 175 (11 as WebGL wall materials) |
-| 18 | Podol Plaza | yes | 326 | 273 | 0 | 306 of 306 (26 as first views of the next area, 7 as WebGL wall materials) |
-| 20 | The Slums | not yet | 395 | 180 |  | 187 of 188 (7 as WebGL wall materials) |
+| 17 | The Nomad Camp | yes | 164 | 164 | 0 | 175 of 175 (11 as WebGL wall materials) |
+| 18 | Podol Plaza | yes | 273 | 273 | 0 | 306 of 306 (26 as first views of the next area, 7 as WebGL wall materials) |
+| 20 | The Slums | not yet | 288 | 180 |  | 187 of 188 (7 as WebGL wall materials) |
 | 21 | Sokal Keep | yes | 254 | 254 | 0 | 314 of 314 (4 as first views of the next area, 40 as WebGL wall materials, 16 only in unreachable views) |
-| 22 | Yarash's Pyramid | yes | 140 | 87 | 0 | 95 of 95 (8 as WebGL wall materials) |
-| 23 | Yarash's Pyramid, lower | yes | 126 | 78 | 0 | 83 of 83 (5 as WebGL wall materials) |
-| 24 | Temple of Bane | yes | 312 | 217 | 0 | 229 of 229 (12 as WebGL wall materials) |
-| 25 | Wilderness, west | not yet | 51 | 22 |  | 22 of 22 |
-| 26 | Wilderness, middle | yes | 282 | 216 | 0 | 285 of 285 (67 as first views of the next area, 2 as WebGL wall materials) |
-| 27 | Wilderness, east | not yet | 50 | 21 |  | 22 of 22 (1 as first views of the next area) |
-| 28 | Zhentil Keep Outpost | yes | 194 | 127 | 0 | 128 of 128 (1 as WebGL wall materials) |
+| 22 | Yarash's Pyramid | yes | 87 | 87 | 0 | 95 of 95 (8 as WebGL wall materials) |
+| 23 | Yarash's Pyramid, lower | yes | 78 | 78 | 0 | 83 of 83 (5 as WebGL wall materials) |
+| 24 | Temple of Bane | yes | 244 | 217 | 0 | 229 of 229 (12 as WebGL wall materials) |
+| 25 | Wilderness, west | not yet | 42 | 22 |  | 22 of 22 |
+| 26 | Wilderness, middle | yes | 214 | 214 | 0 | 285 of 285 (69 as first views of the next area, 2 as WebGL wall materials) |
+| 27 | Wilderness, east | not yet | 41 | 21 |  | 22 of 22 (1 as first views of the next area) |
+| 28 | Zhentil Keep Outpost | yes | 127 | 127 | 0 | 128 of 128 (1 as WebGL wall materials) |
 | 29 | Kuto's Well | yes | 660 | 660 | 0 | 674 of 674 (1 as first views of the next area, 13 as WebGL wall materials) |
-| 31 | Temple of Bane, interior | yes | 142 | 91 | 0 | 91 of 91 |
+| 31 | Temple of Bane, interior | yes | 94 | 91 | 0 | 91 of 91 |
 
 "Cells its views can show" counts every cell from every square of the map under every sky the script can set, including squares whose reachability is still unverified.
 A cell is listed to do only when it shows from a square connected to squares your existing art already covers, under a sky and ground colour your existing art of the area shows.
@@ -146,8 +146,8 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 
 | What | Count |
 | --- | ---: |
-| first-person cells that show a sky or ground colour no existing artwork of the area shows | 1549 |
-| first-person cells of an area whose reading is not confirmed | 381 |
+| first-person cells of an area whose reading is not confirmed | 182 |
+| first-person cells that show a sky or ground colour no existing artwork of the area shows | 185 |
 | first-person cells seen only from squares not connected to any square the existing artwork was made from | 7 |
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |
 | battlefield cells of pictures no artwork shows to have been on a battlefield | 2207 |
