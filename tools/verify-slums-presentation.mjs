@@ -4014,18 +4014,11 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "valjevo-tower-troll-phase-3.png",
   }],
   ["wild-cave-thri-kreen-two-guards-phases", {
-    slot: "A", inputs: ["up", "enter", "enter", ...Array(12).fill("z")],
-    portraitStops: {
-      3: "portrait:area:25:ecl:a991:PIC6.DAX:118:0:0",
-      12: "portrait:area:25:ecl:a991:PIC6.DAX:118:1:0",
-      13: "portrait:area:25:ecl:a991:PIC6.DAX:118:2:0",
-      14: "portrait:area:25:ecl:a991:PIC6.DAX:118:3:0",
-    },
-    portrait: "portrait:area:25:ecl:a991:PIC6.DAX:118:4:0",
-    prompt: /THEREARETWOTHRI.KREENHERE.*THEYBLOCKTHEPASSAGEWITHTHEIRBODIES/i,
-    phaseCaptures: { 12: "wild-cave-thri-kreen-two-guards-phase-1.png", 13: "wild-cave-thri-kreen-two-guards-phase-2.png", 14: "wild-cave-thri-kreen-two-guards-phase-3.png" },
-    finalPhaseCapture: "wild-cave-thri-kreen-two-guards-phase-4.png",
-    continuation: { inputs: ["a"], portrait: "portrait:area:25:ecl:a9a6:PIC6.DAX:118:4:0", prompt: /ABATTLEBEGINS/i },
+    slot: "A", inputs: ["up"],
+    portrait: "portrait:area:25:ecl:a991:PIC6.DAX:118:0:0",
+    prompt: /THEREARETWOTHRI.KREENHERE.*THEYBLOCKTHEPASSAGEWITHTHEIRBODIES.*WHATWILLYOUDO/i,
+    heldPortraitLoop: [0, 1, 2, 3, 4, 3, 2, 1].map(member => `portrait:area:25:ecl:a991:PIC6.DAX:118:${member}:0`),
+    continuation: { inputs: ["a"], portrait: "portrait:area:25:ecl:a9a6:PIC6.DAX:118:0:0", prompt: /ABATTLEBEGINS/i },
   }],
   ...[[1, 2], [3, 4], [5, 7]].map(([member, holds]) => [`sokal-ceiling-insects-combat-phase-${member}`, {
     slot: "C", inputs: ["up", "enter", "enter", ...Array(holds).fill("q")],
@@ -7295,6 +7288,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel ||
+      routeName === "wild-cave-thri-kreen-two-guards-phases" ||
       routeName === "tyrmor-prison-drider-phases" ||
       ["sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
