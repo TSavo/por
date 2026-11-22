@@ -35,7 +35,9 @@
 // Ferran, and back to the clerk's reward. POR_PARITY_LEG=<leg directory> plays another recorded leg
 // (a directory with boot.json, commands.jsonl, prompts.jsonl and the saves).
 //
-// POR_PARITY_ONLY=start, =slums, =sokal or =leg runs one of the walks. POR_GAMEDATA names the 1.3 files.
+// Then Kuto's Well, from the guide's party in the Slums (#130).
+//
+// POR_PARITY_ONLY=start, =slums, =sokal, =leg or =kuto runs one of the walks. POR_GAMEDATA names the 1.3 files.
 import { cpSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -240,6 +242,21 @@ async function slumsFight(game, screen) {
   await leaveFight(game);
 }
 
+/**
+ * Kuto's Well (area 29), which the campaign never enters (#130): from the guide's party in the Slums
+ * (qa/fixtures/guide-party-slums-eight-set-fights, slot D, at 4,10), west off the Slums' west edge,
+ * which the Slums' script sends to Kuto's Well for any heading but east; then into the plaza and a
+ * look round.
+ */
+async function kutosWell(game, screen) {
+  screen("the Slums to their west edge");
+  await walkFighting(game, "WSWWW");
+  screen("into Kuto's Well");
+  await walkFighting(game, "WWWW");
+  screen("Kuto's Well: looking round");
+  for (let turn = 0; turn < 4; turn++) await game.press("right");
+}
+
 /** Answer every "press return" until the party can walk again. */
 async function readOn(game, limit = 12) {
   for (let presses = 0; !exploring.test(game.text()); presses++) {
@@ -326,6 +343,8 @@ const walks = [
   { name: "slums", start: (options) => loadParty({ ...options, seconds: 900 }), walk: slumsFight },
   { name: "sokal", start: (options) => startGame({ ...options, seconds: 600 }), walk: sokalKeep },
   { name: "leg", start: startLeg, walk: playLeg },
+  { name: "kuto", start: (options) => loadParty({ ...options, seconds: 900 }, join("qa", "fixtures", "guide-party-slums-eight-set-fights"), "D"),
+    walk: kutosWell },
 ];
 
 // ---- Comparison ----------------------------------------------------------------------------
