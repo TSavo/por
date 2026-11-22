@@ -25,6 +25,8 @@ export interface GameDataManifest {
   /** The files that list game content records, and the one that lists picture records. */
   content: string[];
   pictures: string;
+  /** The catalogue of 8 by 8 tiles: see TileCatalogue. */
+  tiles: string;
   /** Every other file under `game/`, with its size and SHA-256. */
   files: { path: string; bytes: number; sha256: string }[];
 }
@@ -124,6 +126,20 @@ export interface PictureShape {
 export interface PictureRecord extends RecordIdentity {
   layout: "picture" | "members" | "bitmap";
   pictures: PictureShape[];
+}
+
+/**
+ * Every distinct 8 by 8 tile of the wall and scenery sets, by the hash of its pixels, with the
+ * places it is stored (`archive:block:index`). A tile with transparent pixels also lists the hash
+ * of what a screen cell shows when one solid colour is behind it, for each of the 16 colours:
+ * the first-person view draws such a tile over the sky or ground colour.
+ */
+export interface TileCatalogue {
+  format: string;
+  formatVersion: number;
+  kind: "tiles";
+  transparentColour: number;
+  tiles: { hash: string; sources: string[]; overColour?: string[] }[];
 }
 
 export interface ContentFile { format: string; formatVersion: number; kind: string; records: ContentRecord[] }

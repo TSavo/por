@@ -1,7 +1,6 @@
 import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import { parseDax } from "../src/lib/dax.js";
+import { readGameFile } from "./gamedata.js";
 import { decodePicture } from "../src/lib/picture.js";
 import { glyphFor, glyphsFromPicture, loadWalldef, parseGeo, SYMBOL_BASE, wallSlot } from "../src/lib/world.js";
 
@@ -11,7 +10,7 @@ export type NewPhlanTrace = { trace: string; batches: [number,number,string,stri
 export function buildNewPhlanMaterials(root: string, enhancedTiles: ReadonlyMap<string, ArtAsset>,
   traceSources: readonly NewPhlanTrace[] = []) {
   function block(archive: string, id: number) {
-    const result = parseDax(archive, readFileSync(join(root, archive))).entries.find(entry => entry.id === id);
+    const result = parseDax(archive, readGameFile(root, archive)).entries.find(entry => entry.id === id);
     if (!result) throw new Error(`Missing ${archive} block ${id}`);
     return result.data;
   }

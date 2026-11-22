@@ -14,6 +14,7 @@
   "content/walls.json"
  ],
  "pictures": "pictures.json",
+ "tiles": "tiles.json",
  "files": [
   {
    "path": "content/characters.json",
@@ -84,6 +85,11 @@
    "path": "program/overlays.bin",
    "bytes": 197641,
    "sha256": "c7a40d53ed322a2e1a2c9b19efc58a898df160e133f12a32f278bda0de8fbbbd"
+  },
+  {
+   "path": "tiles.json",
+   "bytes": 643462,
+   "sha256": "1f0cc2de5695a2b6a1d191973c83a8c2716f37af36afb31aaf4755fbe27804c2"
   }
  ]
 }

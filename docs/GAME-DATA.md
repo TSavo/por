@@ -40,7 +40,8 @@ bytes.
 | `content/characters.json` | The ready-made characters (CHRDAT*), their items and effects. |
 | `content/config.json` | The configuration (POOL.CFG). |
 | `content/saved-games.json`, `content/saved-games.bin` | The two saved games shipped with 1.3. |
-| `pictures.json` | Every picture record: identity and shape, and no pixels. |
+| `pictures.json` | Every picture record: identity, shape and the hash of each frame, and no pixels. |
+| `tiles.json` | Every distinct 8 by 8 wall and scenery tile by hash, where it is stored, and its hash over each solid colour. |
 
 JSON holds structure. A `.bin` file holds only content that is binary: the program bytes, script
 bytecode and the shipped saved games. A JSON entry names its place in a blob as
@@ -117,6 +118,13 @@ This classification of files into picture data, other content and program was ma
 file formats. `npm run qa:standalone` is to classify them too; when it lands, the two are to be
 reconciled.
 
+`tiles.json` lists each distinct tile of the 8X8D sets once, by that hash, with every place it is
+stored (`archive:block:index`). A tile that has transparent pixels (colour 13) also lists
+`overColour`: the hash of the cell the screen shows when one solid colour is behind the tile, for
+each of the 16 colours. The first-person view draws such tiles over the sky and ground colours,
+and a `tile:` key taken from such a cell carries one of these hashes. 367 of the 1,334 distinct
+tiles have transparent pixels.
+
 ## Serving the data to the game
 
 The game's own loaders are translated code and read `.DAX` archives through DOS. The reader
@@ -155,12 +163,13 @@ picture frame no key names.
 
 It is red today. What it measures, and what is not built yet:
 
-- A `tile:` key is the hash of an 8 by 8 cell of the first-person view as drawn. About half of
-  the keys are one stored tile, which `frameHashes` covers. The rest are cells the game composed:
-  a tile whose transparent pixels (colour 13) show the sky or ground colour, or a nearer wall's
-  tile over a farther one. Those hashes are not in `game/` yet. To store them the converter has
-  to enumerate, from the wall definitions, which tiles can overlap in a cell, and the colours
-  behind them.
+- A `tile:` key is the hash of an 8 by 8 cell of the first-person view as drawn. Of 3,940 keys,
+  2,092 are one stored tile (`frameHashes`) and 1,078 are one tile over a solid colour
+  (`tiles.json`). The other 770 are cells where a nearer wall's tile is drawn over a farther
+  one. Measured against the original pictures, 516 of those are two tiles of one archive over a
+  solid colour, and 254 are not explained by two layers. Those hashes are not in `game/` yet:
+  storing every pair would be millions of hashes, so the converter has to work out from the
+  wall definitions which tiles can overlap in a cell.
 - The check takes an area's script to be the ECL block with the area's number. Areas 30, 31 and
   32 have maps and no block of their own, so keys scoped to them count as unreachable until the
   area-to-script table is read from the program's data.

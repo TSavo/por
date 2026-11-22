@@ -247,6 +247,10 @@ function buildProgram(original: Map<string, Uint8Array>, map: InstructionMap, ou
   return program;
 }
 
+/** The colour number the first-person view treats as transparent in a tile. */
+const TRANSPARENT_COLOUR = 13;
+const tileCatalogue = new Map<string, { hash: string; sources: string[]; overColour?: string[] }>();
+
 function pictureRecord(file: string, block: number, position: number, packedBytes: number, data: Uint8Array): PictureRecord {
   const shape = (bytes: Uint8Array, selector?: number): PictureShape => {
     const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
@@ -264,6 +268,17 @@ function pictureRecord(file: string, block: number, position: number, packedByte
       }
       return hashes;
     };
+    if (/^8X8D\d\.DAX$/.test(file) && picture.width === 8 && picture.height === 8) {
+      for (const [index, pixels] of frames.entries()) {
+        const hash = sha256(pixels);
+        const tile = tileCatalogue.get(hash) ?? { hash, sources: [] };
+        tileCatalogue.set(hash, tile);
+        tile.sources.push(`${file}:${block}:${index}`);
+        if (pixels.includes(TRANSPARENT_COLOUR)) {
+          tile.overColour ??= Array.from({ length: 16 }, (_, colour) => sha256(pixels.map((pixel) => pixel === TRANSPARENT_COLOUR ? colour : pixel)));
+        }
+      }
+    }
     return {
       selector, height: view.getInt16(0, true), width: view.getInt16(2, true) * 8, x: view.getInt16(4, true), y: view.getInt16(6, true),
       frames: bytes[8]!, field: hex(bytes.subarray(9, 17)),
@@ -347,6 +362,7 @@ export function buildGameData(gameDirectory: string, map = instructionMap(gameDi
     .sort().map((name) => [name.toUpperCase(), new Uint8Array(readFileSync(join(gameDirectory, name)))]));
   const out = new Map<string, Uint8Array>();
   const program = buildProgram(original, map, out);
+  tileCatalogue.clear();
 
   const blobs = { scripts: new Blob("content/scripts.bin"), saves: new Blob("content/saved-games.bin") };
   const groups = new Map<string, ContentRecord[]>();
@@ -373,10 +389,12 @@ export function buildGameData(gameDirectory: string, map = instructionMap(gameDi
   const content = [...groups.keys()].sort().map((group) => `content/${group}.json`);
   for (const [group, records] of groups) out.set(`content/${group}.json`, text({ ...header(group), records }));
   out.set("pictures.json", text({ ...header("pictures"), records: pictures }));
+  out.set("tiles.json", text({ ...header("tiles"), transparentColour: TRANSPARENT_COLOUR,
+    tiles: [...tileCatalogue.values()].sort((a, b) => a.hash < b.hash ? -1 : 1) }));
   out.set("program.json", text(program));
   const manifest: GameDataManifest = {
     format: GAME_DATA_FORMAT, formatVersion: GAME_DATA_VERSION, gameVersion: "1.3",
-    program: "program.json", content, pictures: "pictures.json",
+    program: "program.json", content, pictures: "pictures.json", tiles: "tiles.json",
     files: [...out].sort(([a], [b]) => a < b ? -1 : 1).map(([path, bytes]) => ({ path, bytes: bytes.length, sha256: sha256(bytes) })),
   };
   out.set("manifest.json", text(manifest));

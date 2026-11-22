@@ -23,7 +23,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
 import { runningScriptAddress } from "../src/runtime/bindings.js";
-import { contentBytes, readGameData, type PictureRecord } from "../src/runtime/game-data.js";
+import { contentBytes, readGameData, type PictureRecord, type TileCatalogue } from "../src/runtime/game-data.js";
 import { portGameRoot } from "./gamedata.js";
 import { pngDimensions } from "./png.js";
 import { scriptIllustrations } from "./portrait-art.js";
@@ -59,6 +59,12 @@ for (const record of data.pictures) {
   }
 }
 
+// A tile with transparent pixels over one solid colour: the hash names the tile and the colour.
+const tileCatalogue = JSON.parse(new TextDecoder().decode(read(data.manifest.tiles))) as TileCatalogue;
+const tilesOverColour = new Map<string, { sources: string[]; colour: number }>();
+for (const { sources, overColour } of tileCatalogue.tiles) overColour?.forEach((hash, colour) => tilesOverColour.set(hash, { sources, colour }));
+const tileKeysByForm = { "one stored tile": 0, "one tile over a solid colour": 0 };
+
 /** Frames a key covers, as `file:block:member:frame`. */
 const covered = new Set<string>();
 const cover = (record: PictureRecord, member: number, frame: number) => covered.add(`${record.file}:${record.block}:${member}:${frame}`);
@@ -91,8 +97,9 @@ function frame(file: string, block: string, member = "0", index = "0"): string |
 const scoped = "(?:area:(\\d{1,3}):(?:ecl:([a-f0-9]{4}):(?:caller:([a-f0-9]{4}):)?)?)?";
 const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
   [/^tile:(\d{1,3}):([a-f0-9]{64})$/, ([, , hash]) => {
-    const tiles = tileHashes.get(hash!);
-    if (!tiles) return "its pixels are not one stored 8 by 8 tile: the cell is composed on screen from several";
+    const tiles = tileHashes.get(hash!) ?? tilesOverColour.get(hash!)?.sources;
+    if (!tiles) return "its pixels are neither one stored 8 by 8 tile nor one tile over a solid colour: the cell is composed on screen from several tiles";
+    tileKeysByForm[tileHashes.has(hash!) ? "one stored tile" : "one tile over a solid colour"]++;
     for (const name of tiles) covered.add(name.replace(/:(\d+)$/, ":0:$1"));
   }],
   [/^battle-tile:([a-f0-9]{64})$/, ([, hash]) => battleHashes.has(hash!) ? undefined : "its pixels are not one stored cell of the battlefield terrain"],
@@ -162,6 +169,7 @@ for (const [kind, { total, reachable }] of [...counts].sort((a, b) => b[1].total
   console.log(`${kind.padEnd(20)} ${String(total).padStart(5)}  ${String(reachable).padStart(9)}  ${String(total - reachable).padStart(13)}`);
 }
 console.log(`${"all".padEnd(20)} ${String(total).padStart(5)}  ${String(total - unreachable.length).padStart(9)}  ${String(unreachable.length).padStart(13)}`);
+console.log(`tile keys by form: ${Object.entries(tileKeysByForm).map(([form, count]) => `${form} ${count}`).join(", ")}`);
 if (positionsNotAtInstruction) console.log(`${positionsNotAtInstruction} script positions named by keys are inside the script but not at the start of an instruction the disassembly reached`);
 const reasons = new Map<string, number>();
 for (const { reason } of unreachable) reasons.set(reason.replace(/\d+|[a-f0-9]{4}\b/g, "N"), (reasons.get(reason.replace(/\d+|[a-f0-9]{4}\b/g, "N")) ?? 0) + 1);
@@ -182,7 +190,7 @@ for (const record of data.pictures) {
   // A tile repeated in a set is counted each time; a tile whose pixels are all colour 0 has nothing to replace.
   for (const [index, hash] of picture.frameHashes.entries()) {
     if (hash === blankTile) { empty++; continue; }
-    const art = tileArt.get(hash);
+    const art = tileArt.get(hash) ?? tileCatalogue.tiles.find((tile) => tile.hash === hash)?.overColour?.map((over) => tileArt.get(over)).find(Boolean);
     if (!art) { without++; tilesWithout.push(`${record.file}:${record.block}:${index}`); }
     else if (!art.sized) wrong++;
     else { replaced++; for (const area of art.areas) areas.add(area); }
@@ -195,27 +203,45 @@ console.log(`tiles that are not blank: ${tileTotal}; with a 32 by 32 replacement
 
 // Every other picture frame, by archive.
 console.log("\nPicture frames no key names, by archive (8 by 8 tile sets are in the table above)");
-const byArchive = new Map<string, { frames: number; uncovered: string[] }>();
+const byArchive = new Map<string, { frames: number; uncovered: string[]; twins: number; uniform: number }>();
+// A frame no key names may still have the pixels of one a key does name: the hashes say so.
+const namedHashes = new Set<string>();
+for (const record of data.pictures) {
+  record.pictures.forEach((picture, member) => picture.frameHashes.forEach((hash, index) => {
+    if (covered.has(`${record.file}:${record.block}:${member}:${index}`)) namedHashes.add(`${picture.width}x${picture.height}:${hash}`);
+  }));
+}
 for (const record of data.pictures) {
   if (/^8X8D\d\.DAX$/.test(record.file)) continue;
   const family = record.file.replace(/\d?\.DAX$/, "");
-  const entry = byArchive.get(family) ?? { frames: 0, uncovered: [] };
+  const entry = byArchive.get(family) ?? { frames: 0, uncovered: [], twins: 0, uniform: 0 };
   byArchive.set(family, entry);
   for (const [member, picture] of record.pictures.entries()) {
     for (let index = 0; index < picture.frames; index++) {
       entry.frames++;
       const name = `${record.file}:${record.block}:${member}:${index}`;
-      if (!covered.has(name)) entry.uncovered.push(name);
+      if (covered.has(name)) continue;
+      if (namedHashes.has(`${picture.width}x${picture.height}:${picture.frameHashes[index]}`)) entry.twins++;
+      else entry.uncovered.push(name);
     }
   }
 }
-let frames = 0, uncoveredFrames = 0;
-for (const [family, { frames: count, uncovered }] of byArchive) {
+let frames = 0, uncoveredFrames = 0, twinFrames = 0;
+const inventoried = { frames: 0, named: 0, twins: 0 };
+for (const [family, { frames: count, uncovered, twins }] of byArchive) {
   frames += count;
   uncoveredFrames += uncovered.length;
-  console.log(`${family.padEnd(8)} ${String(count).padStart(5)} frames  ${String(count - uncovered.length).padStart(5)} named by a key  ${String(uncovered.length).padStart(5)} not`);
+  twinFrames += twins;
+  // docs/ART-INVENTORY.md counts the portrait, encounter and combat archives.
+  if (/^(PIC|SPRIT|CPIC|COMSPR|RANDCOM)$/.test(family)) {
+    inventoried.frames += count;
+    inventoried.named += count - uncovered.length - twins;
+    inventoried.twins += twins;
+  }
+  console.log(`${family.padEnd(8)} ${String(count).padStart(5)} frames  ${String(count - uncovered.length - twins).padStart(5)} named by a key  ${String(twins).padStart(5)} same pixels as a named frame  ${String(uncovered.length).padStart(5)} not covered`);
 }
-console.log(`all      ${String(frames).padStart(5)} frames  ${String(frames - uncoveredFrames).padStart(5)} named by a key  ${String(uncoveredFrames).padStart(5)} not`);
+console.log(`all      ${String(frames).padStart(5)} frames  ${String(frames - uncoveredFrames - twinFrames).padStart(5)} named by a key  ${String(twinFrames).padStart(5)} same pixels as a named frame  ${String(uncoveredFrames).padStart(5)} not covered`);
+console.log(`PIC, SPRIT, CPIC, COMSPR and RANDCOM, the archives docs/ART-INVENTORY.md counts: ${inventoried.frames} frames, ${inventoried.named} named by a key, ${inventoried.twins} more with the pixels of a named frame`);
 
 mkdirSync("out", { recursive: true });
 writeFileSync(join("out", "art-catalogue.json"), JSON.stringify({
