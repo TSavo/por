@@ -209,6 +209,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
   const existing = new Map<number, Set<string>>();
   const drawnIn = new Map<string, number[]>(), sameAs = new Map<string, string>();
   const tilesBySource = new Map(world.catalogue.tiles.flatMap(tile => tile.sources.map(source => [source, tile] as const)));
+  const storedTileHashes = new Set(world.catalogue.tiles.map((tile) => tile.hash));
   for (const [key, { file }] of art) {
     const tile = /^tile:(\d{1,3}):([a-f0-9]{64})$/.exec(key);
     if (!tile) continue;
@@ -485,6 +486,13 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       else if (unreachableHashes.has(hash)) {
         report.existingKeysAccountedFor++;
         report.existingKeysOnlyInUnreachableViews = (report.existingKeysOnlyInUnreachableViews ?? 0) + 1;
+      } else if (storedTileHashes.has(hash)) {
+        // The pixels of one stored tile, keyed here although this area's own maps do not put that wall
+        // up: the wall material of the area next door, sampled while the area number still names this
+        // one (the Valjevo gallery arch under area 3, the Valjevo threshold under the Slums). It is a
+        // real piece of the game's art in use, so it says nothing against the reading of this area.
+        report.existingKeysAccountedFor++;
+        report.existingKeysOnlyAsWallMaterials = (report.existingKeysOnlyAsWallMaterials ?? 0) + 1;
       } else report.unaccountedKeys.push(`tile:${label}:${hash}`);
     }
 
