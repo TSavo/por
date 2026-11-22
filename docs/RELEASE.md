@@ -11,9 +11,14 @@ recommended; it is opened where it is installed).
 On a Mac, from a checkout with `npm ci` done:
 
 ```bash
-brew install makensis        # once, for the Windows installer
-npm run release:pack         # all three; or: npm run release:pack -- mac
+POR_NSIS_HOST=battleaxe npm run release:pack    # all three; or: npm run release:pack -- mac
 ```
+
+The Windows installer needs makensis. Where it is installed (`brew install makensis`, which on an
+Intel Mac builds a dozen formulae from source for over half an hour) it runs here; otherwise
+`POR_NSIS_HOST` names a machine reached by `ssh` that has it (`sudo apt-get install -y nsis` on Ubuntu,
+makensis 3.09): the staged install goes to that machine's `/dev/shm`, makensis runs there, and the
+installer comes back into `dist/`. With neither, the Windows installer is skipped with a message.
 
 `npm run release:build` alone compiles `tools/browser-play.ts`, `tools/boot-translated.ts` and
 `tools/release/launch.ts` with esbuild into `dist/app/server.mjs`, `runner.mjs` and `launch.mjs`.
