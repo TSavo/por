@@ -2,9 +2,9 @@
 
 ## What to do now
 
-**There is art to do: 38 items.**
+**There is no proven art to do right now.** Everything the tools can show the game draws has your art. Check back after the QA owner's next update to this file.
 
-1. **Wall tiles: none. Outdoor fight terrain: 38 cells to draw (the ground and scenery of fights outdoors: grass, mountains, bushes, trees, logs, rocks, streams, cacti).** Each is listed below with its exact key.
+1. **Wall tiles: none. Outdoor fight terrain: none.**
 2. **Pictures: none.**
 3. **Do not draw anything under "Not established".** Those cells are not confirmed to appear. The QA owner is settling them by play and moves each one that proves real into item 1.
 
@@ -20,7 +20,7 @@ A cell is one 8 by 8 square of the screen, redrawn at 32 by 32. Most cells below
 | ---: | ---: | ---: | ---: | ---: |
 | **All areas** | **0** | **0** | **0** | **0** |
 
-Outdoor battle terrain: 38 cells. Each item below carries `shape` and, where there is one, `sameShapeAs`: the key of your existing art for that shape in the same area.
+Outdoor battle terrain: 0 cells. Each item below carries `shape` and, where there is one, `sameShapeAs`: the key of your existing art for that shape in the same area.
 Start with the shapes you have already drawn: those are the same piece over a new background. Then the shapes with no version yet.
 
 This file is written by `npm run art:worklist`. Do not edit it or `qa/art-worklist.json` by hand: add art, run the tool, commit what it writes.
@@ -69,7 +69,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 
 | What | Count |
 | --- | ---: |
-| Remaining, all kinds | 38 |
+| Remaining, all kinds | 0 |
 | First-person cells to do | 0 |
 |   of which one stored tile | 0 |
 |   of which one tile over a solid colour | 0 |
@@ -78,11 +78,11 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 |   of which the same pixels already have art of yours in another area | 0 |
 | Distinct shapes among the first-person cells (the same tiles, whatever sky or ground is behind them) | 0 |
 |   of which the area already has your art for that shape over another sky or ground | 0 |
-| Battlefield cells to do | 38 |
+| Battlefield cells to do | 0 |
 | Tile keys in the manifests | 7908 |
 |   accounted for by the tool | 7908 |
-| Battlefield keys in the manifests | 284 |
-|   that are one stored cell of a battlefield picture | 279 |
+| Battlefield keys in the manifests | 322 |
+|   that are one stored cell of a battlefield picture | 317 |
 | Stored 8 by 8 tiles | 3016 |
 |   blank | 9 |
 |   distinct pictures among the rest | 1333 |
@@ -144,50 +144,9 @@ Outdoor setup replaces all 40 BACPAC slots. Indoor setup leaves slots 25–33 al
 | Archive | What it is | Pictures | Distinct cells | With art | To do | Not established |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
 | DUNGCOM.DAX | terrain pictures of fights indoors; the game copies them into the battlefield's picture slots | 25 | 59 | 59 | 0 | 0 |
-| WILDCOM.DAX | the scenery of fights outdoors: bushes, trees, logs, rocks, streams and cacti | 34 | 239 | 201 | 38 | 0 |
+| WILDCOM.DAX | the scenery of fights outdoors: bushes, trees, logs, rocks, streams and cacti | 34 | 239 | 239 | 0 | 0 |
 | SQRPACI.DAX | the native blitter's terrain sheet; Enhanced draws the Moonsea overland map with its illustrated plate | 256 | 1667 | 0 | 0 | 72 |
 | BACPAC.DAX | 40 Moonsea pictures whose pixels match SQRPACI block 1 frames 0–39; outdoor battle setup replaces all 40 slots | 40 | 301 | 0 | 0 | 72 |
-
-| Key (PNG 32x32) | What it is |
-| --- | --- |
-| `battle-tile:478f7b057980ebcf4e364c5ac29139d4d6960778a94c45fe53b6e5efa044032c` | WILDCOM block 1 picture 6, cell 0 (column 0, row 0 of its 3 by 3 cells) |
-| `battle-tile:c4a5e41979824628ef25ca91b308e7cecff6de1f3e4e09413c84138cd1747f35` | WILDCOM block 1 picture 6, cell 1 (column 1, row 0 of its 3 by 3 cells) |
-| `battle-tile:0eab043a52984975cdb224966ee96af20f1c54e04b66ee92b67e79b8a20a34db` | WILDCOM block 1 picture 6, cell 2 (column 2, row 0 of its 3 by 3 cells) |
-| `battle-tile:ad1d796233a3a620817c2edebed67a94b4f19c7213256491a639fbfcc633c652` | WILDCOM block 1 picture 6, cell 4 (column 1, row 1 of its 3 by 3 cells) |
-| `battle-tile:500f02e8337694ec3bbf6b54529fc789fece5eaf65a857a2a2ac816f36eeba6b` | WILDCOM block 1 picture 6, cell 5 (column 2, row 1 of its 3 by 3 cells) |
-| `battle-tile:966a1299305ba5876029b7327de0d58adc9f2bc63bd4777664897bfb737c32e3` | WILDCOM block 1 picture 6, cell 6 (column 0, row 2 of its 3 by 3 cells) |
-| `battle-tile:3f40f37a87a243035b06cd3849bcdf20e380511fa92b6de05731c01f9b078a63` | WILDCOM block 1 picture 6, cell 7 (column 1, row 2 of its 3 by 3 cells) |
-| `battle-tile:2089c395af0b3b2b0cf6738961a7d2cbb6ce5e789a853dc48e7c50c33dca0818` | WILDCOM block 1 picture 6, cell 8 (column 2, row 2 of its 3 by 3 cells) |
-| `battle-tile:61bc1a1d635c4df473a2f6804cf44174e26bdb431f113d6086d084e60a823f87` | WILDCOM block 1 picture 7, cell 0 (column 0, row 0 of its 3 by 3 cells) |
-| `battle-tile:65098bf65650683b73c43b20ddfb0c034a5302522977a948775401137e12f307` | WILDCOM block 1 picture 7, cell 1 (column 1, row 0 of its 3 by 3 cells) |
-| `battle-tile:7a8ae97b6a91141b43b2e49cb4ca57a7f5b97f91b3dad7302496e84e4d47f8f7` | WILDCOM block 1 picture 7, cell 2 (column 2, row 0 of its 3 by 3 cells) |
-| `battle-tile:cfda737f344b73767fc9f449414864d4d155f2ddd62a660104c7a48f8524adb4` | WILDCOM block 1 picture 7, cell 3 (column 0, row 1 of its 3 by 3 cells) |
-| `battle-tile:48ed96e3998d9781c4141270e6db0591702e8ccd56124fb067e5d05f7f988434` | WILDCOM block 1 picture 7, cell 4 (column 1, row 1 of its 3 by 3 cells) |
-| `battle-tile:1f2aec429e675587a2becae6bfdb7b21ff21b7632bd9ea65225b91bb1562363e` | WILDCOM block 1 picture 7, cell 5 (column 2, row 1 of its 3 by 3 cells) |
-| `battle-tile:fbe502567d24125c466ae18b21b438ec6006b7afe2834d714cfa464ac015fd81` | WILDCOM block 1 picture 7, cell 6 (column 0, row 2 of its 3 by 3 cells) |
-| `battle-tile:1c720ce23c879d8e8b09e1443c945c36b36823e1be5de7643e9382c15429b1d2` | WILDCOM block 1 picture 7, cell 7 (column 1, row 2 of its 3 by 3 cells) |
-| `battle-tile:b4eeafa5375fa4c9b2a162727a17c75a4bc0e86f5f3e6ef4f00b4c000ba435b9` | WILDCOM block 1 picture 7, cell 8 (column 2, row 2 of its 3 by 3 cells) |
-| `battle-tile:80ce11a1aefb403192f4d042ed7ba289c5ec05783b3ff3de8cf9753729803ee9` | WILDCOM block 1 picture 8, cell 0 (column 0, row 0 of its 3 by 3 cells) |
-| `battle-tile:36789f3a18726f8667e56b1ca0427e8bc00254bcd9b2ce9026abbef87ef7a5c7` | WILDCOM block 1 picture 8, cell 1 (column 1, row 0 of its 3 by 3 cells) |
-| `battle-tile:e099eb3035927a1fddcc40d2263998c52895eca06853f4464481f6285d260e31` | WILDCOM block 1 picture 8, cell 3 (column 0, row 1 of its 3 by 3 cells) |
-| `battle-tile:2e0a7a840db33db792f104aa0b2aacdfde6cb0c7a458552e8a785819721989b3` | WILDCOM block 1 picture 8, cell 4 (column 1, row 1 of its 3 by 3 cells) |
-| `battle-tile:e7a562ddd5026ce1d57b27374fd3c8d768f8312570be192bef7f22096bac67b3` | WILDCOM block 1 picture 8, cell 5 (column 2, row 1 of its 3 by 3 cells) |
-| `battle-tile:50db68c6ff809e9679c8472177917ee1f36a840de609cdee7d2d1a643b3de184` | WILDCOM block 1 picture 8, cell 6 (column 0, row 2 of its 3 by 3 cells) |
-| `battle-tile:41923f541cddb9bf14f515f44cd8cc17f74359905a8078b440e0ba2b05a4e2bd` | WILDCOM block 1 picture 8, cell 7 (column 1, row 2 of its 3 by 3 cells) |
-| `battle-tile:4681c8b4d154248aab5fd966205b86fd7e2f954b2f1d286abea82336ee264ca6` | WILDCOM block 1 picture 8, cell 8 (column 2, row 2 of its 3 by 3 cells) |
-| `battle-tile:e5b8583a2264fcefd090fcb2eb486b2730ecb82c7c403c1fe93500282858bd63` | WILDCOM block 1 picture 9, cell 3 (column 0, row 1 of its 3 by 3 cells) |
-| `battle-tile:c45ba96e1f2bf31508a8e030ba9752af08b07dba048fbe0531da01073e7455c1` | WILDCOM block 1 picture 9, cell 4 (column 1, row 1 of its 3 by 3 cells) |
-| `battle-tile:e772c6e49ae480165e84f0f8caef4e5b67fcec8b9c3a4932f18de4812014d5a8` | WILDCOM block 1 picture 9, cell 5 (column 2, row 1 of its 3 by 3 cells) |
-| `battle-tile:3e19366639b6e64bdd14f0435248f5a85f5297e64d34c175a6b0f80e64d7e0a7` | WILDCOM block 1 picture 9, cell 6 (column 0, row 2 of its 3 by 3 cells) |
-| `battle-tile:840acf2ea41c368025d624b9696776903f7e687a01020d665c07db48743c53ae` | WILDCOM block 1 picture 9, cell 7 (column 1, row 2 of its 3 by 3 cells) |
-| `battle-tile:cade024a10ef046028f982be7e66734cee3a7a4313491f716ecaa36f2ba583e9` | WILDCOM block 1 picture 9, cell 8 (column 2, row 2 of its 3 by 3 cells) |
-| `battle-tile:af4f73d0fb2e9fb6bb636b1aeaa8008bf844ecee39d361f5db1647501dd4f6db` | WILDCOM block 1 picture 10, cell 0 (column 0, row 0 of its 3 by 3 cells) |
-| `battle-tile:17baec37947ef618784b5957d7c46e8fb144296925ee436667dc17de4f00386d` | WILDCOM block 1 picture 10, cell 3 (column 0, row 1 of its 3 by 3 cells) |
-| `battle-tile:d4f375146889daf314080514314adad0a7535e89f9197c910d7b6632d96a710e` | WILDCOM block 1 picture 10, cell 4 (column 1, row 1 of its 3 by 3 cells) |
-| `battle-tile:c3bed76638809eacd3724bda7fb3887062f749ede859e5b4d8d5c7166e3e5543` | WILDCOM block 1 picture 10, cell 5 (column 2, row 1 of its 3 by 3 cells) |
-| `battle-tile:4a61cecaa43b80044e66705d8b59fc25cc487b1e6997a6029cfbbbe1624443a5` | WILDCOM block 1 picture 10, cell 6 (column 0, row 2 of its 3 by 3 cells) |
-| `battle-tile:86193ca6110dfa84c522c258d9a9d3b956dbea23fdf51747ceaa806fdbd0892a` | WILDCOM block 1 picture 10, cell 7 (column 1, row 2 of its 3 by 3 cells) |
-| `battle-tile:9f1637601968c927c51f3e545f1903c14a99473853e9358dd81f34b68cb6d740` | WILDCOM block 1 picture 10, cell 8 (column 2, row 2 of its 3 by 3 cells) |
 
 ## Not established
 
