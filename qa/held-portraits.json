@@ -7174,5 +7174,44 @@
         }
       }
     }
+  ],
+  "sceneryPrompts": [
+    {
+      "producer": "ECL5.DAX:4:a609",
+      "prompt": "9a5a/a442",
+      "caption": "ON THE GROUND YOU FIND A PEACE OF PAPER THAT SAYS:",
+      "checkpoint": "valjevo-barracks-ground-paper/C.json",
+      "position": [
+        4,
+        8,
+        0
+      ],
+      "chrome": {
+        "original": {
+          "route": "valjevo-barracks-ground-paper",
+          "data": "original",
+          "position": [
+            4,
+            8,
+            0
+          ],
+          "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:31searchONTHEGROUNDYOUFINDAPEACEOFPAPERTHATSAYS:Pressbuttonor<return>tocontinue",
+          "checkpointSha256": "e31e2768c7c197ccbdbdafc067c3ee36bf9e724e792b6099985ac44de7b7eb9b",
+          "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360"
+        },
+        "port": {
+          "route": "valjevo-barracks-ground-paper",
+          "data": "port",
+          "position": [
+            4,
+            8,
+            0
+          ],
+          "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:31searchONTHEGROUNDYOUFINDAPEACEOFPAPERTHATSAYS:Pressbuttonor<return>tocontinue",
+          "checkpointSha256": "e31e2768c7c197ccbdbdafc067c3ee36bf9e724e792b6099985ac44de7b7eb9b",
+          "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360"
+        }
+      }
+    }
   ]
 }
