@@ -1239,6 +1239,9 @@ const portraitLoops = [
   ["portrait:area:10:ecl:a7b9:PIC4.DAX:17:", 2],
   ["portrait:area:10:ecl:aad6:PIC4.DAX:17:", 2],
   ["portrait:area:3:ecl:a6c8:PIC5.DAX:56:", [0, 1, 3]],
+  // The fire giant's third native member restores the opening image.
+  ["portrait:area:4:ecl:a36b:PIC5.DAX:56:", [0, 1, 0, 3], "portrait:area:4:PIC5.DAX:56:0:0",
+    /^(?=.*THEGIANTSLOOKUPATYOU)(?=.*COMBATWAITFLEEPARLAY)/i, [210, 210, 210, 210]],
   ["portrait:area:7:ecl:9e1a:PIC5.DAX:49:", [0, 1, 2, 3, 4, 2, 1, 7], "portrait:area:7:PIC5.DAX:49:0:0",
     /AMEDUSACOMESRUNNINGTOWARDYOU.*COMBATWAITFLEEPARLAY/i, [210, 210, 210, 410, 110, 110, 210, 210]],
   ["portrait:area:13:ecl:9c10:PIC8.DAX:0:", [0, 1, 2, 1], undefined,

@@ -4448,6 +4448,21 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:4:PIC5.DAX:56:0:0", prompt: /THEGIANTSLOOKUPATYOU/i,
     continuation: { inputs: ["p", "s", "enter"], prompt: /TODAY'SPASSWORDIS/i },
   }],
+  ["valjevo-fire-giant-loop", {
+    slot: "B", inputs: ["up", "enter", "a"],
+    portrait: "portrait:area:4:PIC5.DAX:56:0:0",
+    prompt: /^(?=.*THEGIANTSLOOKUPATYOU)(?=.*COMBATWAITFLEEPARLAY)/i,
+    heldPortraitLoop: [
+      "portrait:area:4:PIC5.DAX:56:0:0",
+      "portrait:area:4:ecl:a36b:PIC5.DAX:56:1:0",
+      "portrait:area:4:PIC5.DAX:56:0:0",
+      "portrait:area:4:ecl:a36b:PIC5.DAX:56:3:0",
+    ],
+    continuation: {
+      inputs: ["c"], prompt: /ABATTLEBEGINS/i, portrait: "portrait:area:4:PIC5.DAX:56:0:0",
+      pressOnPortrait: "portrait:area:4:ecl:a36b:PIC5.DAX:56:3:0", retainPose: true,
+    },
+  }],
   ["valhingen-ghoul-ambush", {
     slot: "A", inputs: ["e", "enter", "r", "y", ...Array(10).fill("i"), "r", "enter", "enter"],
     portrait: "portrait:PIC4.DAX:72:0:0", prompt: /APACKOFHUNGRYGHOULSLOPESTOWARDYOU/i,
@@ -7343,6 +7358,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "mendor-storeroom-kobold-phases" || routeName === "mendor-storeroom-mercy-loop" ||
       routeName === "kobold-white-flag-envoy" || routeName === "kobold-white-flag-escort-phase" ||
       routeName === "valjevo-medusa-phases" || routeName === "valhingen-mummy-sarcophagi-phases" ||
+      routeName === "valjevo-fire-giant-loop" ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
