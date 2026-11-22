@@ -2,7 +2,7 @@
   "schema": 1,
   "policy": "No dynamic value is guessed. Values are either proven from local ECL assignments, runtime-only, or left for encounter-table tracing.",
   "unresolvedUnitCountBeforeTrace": 83,
-  "unitsResolvedToFiniteVariants": 69,
+  "unitsResolvedToFiniteVariants": 70,
   "unitsStillRuntimeDependent": 0,
   "slotSemantics": {
     "0x6b00": {
@@ -565,6 +565,49 @@
         "value": " OGRES",
         "condition": "0x9800 == \" OGRES\"",
         "text": "Some ogres rush to attack."
+      }
+    ],
+    "por.voice.ecl5.b7-a738-a73c": [
+      {
+        "value": "0",
+        "condition": "0x9800 == 0",
+        "text": "How do you vote?",
+        "output": "audio/voices/narration/static-resolved/ecl5-b7-a738-a73c.mp3"
+      },
+      {
+        "value": "1",
+        "condition": "0x9800 == 1",
+        "text": "And you? How do you vote?"
+      },
+      {
+        "value": "2",
+        "condition": "0x9800 == 2",
+        "text": "And how do you vote?"
+      },
+      {
+        "value": "3",
+        "condition": "0x9800 == 3",
+        "text": "What is your vote?"
+      },
+      {
+        "value": "4",
+        "condition": "0x9800 == 4",
+        "text": "And yours?"
+      },
+      {
+        "value": "5",
+        "condition": "0x9800 == 5",
+        "text": "And you? How do you vote?"
+      },
+      {
+        "value": "6",
+        "condition": "0x9800 == 6",
+        "text": "And how do you vote?"
+      },
+      {
+        "value": "7",
+        "condition": "0x9800 == 7",
+        "text": "What is your vote?"
       }
     ],
     "ecl1-b18-a105-a117-a11b": [
@@ -2256,7 +2299,13 @@
       }
     ]
   },
-  "newlyQueueableVariantCount": 379,
+  "unitSelectors": {
+    "por.voice.ecl5.b7-a738-a73c": {
+      "kind": "dynamic-value",
+      "address": "0x9800"
+    }
+  },
+  "newlyQueueableVariantCount": 384,
   "finiteSlotValuesByScope": {
     "ECL2.DAX:block-20:0x9890": [
       " KOBOLDS. ",
@@ -2997,7 +3046,7 @@
           "address": "0x6b00"
         }
       ],
-      "resolution": "static-recording"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL6.DAX",

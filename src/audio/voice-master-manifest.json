@@ -19,8 +19,8 @@
     "narrationUnits": 1432,
     "resolvedUnits": 1432,
     "unresolvedDynamicUnits": 0,
-    "finiteRuntimeVariantFamilies": 69,
-    "finiteRuntimeVariantAssets": 379
+    "finiteRuntimeVariantFamilies": 70,
+    "finiteRuntimeVariantAssets": 384
   },
   "dynamicResolution": {
     "source": "src/audio/dynamic-voice-resolution.json",
@@ -84352,7 +84352,7 @@
         "por.review.ecl-5.block-7.at-a73c"
       ],
       "variant": "runtime-party-member-vote",
-      "spokenText": "How do you vote?",
+      "spokenText": "HOW DO YOU VOTE?",
       "direction": "Clear measured fantasy narration ending with a direct question",
       "characterId": null,
       "sourceParts": [
@@ -84379,11 +84379,88 @@
           ]
         }
       ],
-      "resolution": "resolved",
+      "resolution": "finite-runtime-variants",
       "generationEligible": true,
       "model": "eleven_v4",
-      "asset": "voices/narration/static-resolved/ecl5-b7-a738-a73c.mp3",
-      "runtimeVariants": [],
+      "asset": null,
+      "runtimeVariants": [
+        {
+          "id": "por.voice.ecl5.b7-a738-a73c.variant-01-0",
+          "condition": "0x9800 == 0",
+          "dynamicValue": "0",
+          "text": "How do you vote?",
+          "direction": "Clear measured fantasy narration ending with a direct question",
+          "model": "eleven_v4",
+          "asset": "voices/narration/static-resolved/ecl5-b7-a738-a73c.mp3"
+        },
+        {
+          "id": "por.voice.ecl5.b7-a738-a73c.variant-02-1",
+          "condition": "0x9800 == 1",
+          "dynamicValue": "1",
+          "text": "And you? How do you vote?",
+          "direction": "Clear measured fantasy narration ending with a direct question",
+          "model": "eleven_v4",
+          "asset": "voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v02-1.mp3"
+        },
+        {
+          "id": "por.voice.ecl5.b7-a738-a73c.variant-06-5",
+          "condition": "0x9800 == 5",
+          "dynamicValue": "5",
+          "text": "And you? How do you vote?",
+          "direction": "Clear measured fantasy narration ending with a direct question",
+          "model": "eleven_v4",
+          "asset": "voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v02-1.mp3"
+        },
+        {
+          "id": "por.voice.ecl5.b7-a738-a73c.variant-03-2",
+          "condition": "0x9800 == 2",
+          "dynamicValue": "2",
+          "text": "And how do you vote?",
+          "direction": "Clear measured fantasy narration ending with a direct question",
+          "model": "eleven_v4",
+          "asset": "voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v03-2.mp3"
+        },
+        {
+          "id": "por.voice.ecl5.b7-a738-a73c.variant-07-6",
+          "condition": "0x9800 == 6",
+          "dynamicValue": "6",
+          "text": "And how do you vote?",
+          "direction": "Clear measured fantasy narration ending with a direct question",
+          "model": "eleven_v4",
+          "asset": "voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v03-2.mp3"
+        },
+        {
+          "id": "por.voice.ecl5.b7-a738-a73c.variant-04-3",
+          "condition": "0x9800 == 3",
+          "dynamicValue": "3",
+          "text": "What is your vote?",
+          "direction": "Clear measured fantasy narration ending with a direct question",
+          "model": "eleven_v4",
+          "asset": "voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v04-3.mp3"
+        },
+        {
+          "id": "por.voice.ecl5.b7-a738-a73c.variant-08-7",
+          "condition": "0x9800 == 7",
+          "dynamicValue": "7",
+          "text": "What is your vote?",
+          "direction": "Clear measured fantasy narration ending with a direct question",
+          "model": "eleven_v4",
+          "asset": "voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v04-3.mp3"
+        },
+        {
+          "id": "por.voice.ecl5.b7-a738-a73c.variant-05-4",
+          "condition": "0x9800 == 4",
+          "dynamicValue": "4",
+          "text": "And yours?",
+          "direction": "Clear measured fantasy narration ending with a direct question",
+          "model": "eleven_v4",
+          "asset": "voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v05-4.mp3"
+        }
+      ],
+      "selector": {
+        "kind": "dynamic-value",
+        "address": "0x9800"
+      },
       "playback": {
         "attachOnlyToTrigger": true,
         "queueAfterCurrentNarration": true

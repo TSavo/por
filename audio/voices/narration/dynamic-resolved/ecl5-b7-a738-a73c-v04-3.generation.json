@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "c3b7d310a0c52316ec0ee72a24be0cff0f6f2338866be4f740dd840c3d9d08ba",
+  "audioSha256": "8775208c615befc71bf6906831e0c34485296416c867d5c96a45c7ffa695d482",
+  "bytes": 26792,
+  "directionSent": "Clear measured fantasy narration ending with a direct question",
+  "heardByWhisper": "What is your vote?",
+  "generatedAt": "2026-11-22T17:28:15.643Z"
+}

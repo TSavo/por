@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "a12aaba21a01e8013a6c2f1de8a7365e59ba6674d269e908a42cc8466d4f8cd8",
+  "audioSha256": "74e52dc6b812212876c0fb92010dc6b18fade2168e2f0d706302ae100fa04adb",
+  "bytes": 18851,
+  "directionSent": "Clear measured fantasy narration ending with a direct question",
+  "heardByWhisper": "And yours?",
+  "generatedAt": "2026-11-22T17:28:16.710Z"
+}

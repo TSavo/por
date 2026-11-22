@@ -239,6 +239,23 @@ for (const [archive, block, address, expected] of [
   }
 }
 
+// The vote at Tyranthraxus asks each member in turn, with the member's place in the party in 0x9800
+// and the typed name on screen. The first is asked "How do you vote?" and each next one a different
+// line: the same question six times sounded stuck (#126).
+loadBlock(5, 7);
+const votes = Array.from({ length: 8 }, (_, index) => {
+  selectCpu.write16(variableSegment, variableOffset(0x9800), index);
+  const vote = realCatalog.resolve(reach(0xa738, 0x12)!);
+  assert.equal(vote.status, "resolved", `voter ${index + 1} has a recording`);
+  return vote.status === "resolved" ? vote.narration : undefined;
+});
+assert.equal(votes[0]?.text, "How do you vote?");
+assert.equal(votes[0]?.asset, "voices/narration/static-resolved/ecl5-b7-a738-a73c.mp3", "the first voter keeps the first take");
+for (let index = 1; index < votes.length; index++)
+  assert.notEqual(votes[index]?.asset, votes[index - 1]?.asset, `voters ${index} and ${index + 1} hear different lines`);
+selectCpu.write16(variableSegment, variableOffset(0x9800), 0);
+console.log("verified each voter at Tyranthraxus' offer is asked with a different line than the one before");
+
 loadBlock(1, 18);
 for (const group of ["goblins", "orcs", "hobgoblins", "ogres"]) {
   storeEclString(0x9800, ` ${group.toUpperCase()}`);

@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "a459c349a13dd419e7f85b568427b6abf3fee80cc7216fef90be36267a3f462f",
+  "audioSha256": "97b3f861911874aef5ee68befd98fe2781cda1421ca1aebc8cefa2d5192c8923",
+  "bytes": 35569,
+  "directionSent": "Clear measured fantasy narration ending with a direct question",
+  "heardByWhisper": "And you? How do you vote?",
+  "generatedAt": "2026-11-22T17:28:13.446Z"
+}

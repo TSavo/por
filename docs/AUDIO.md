@@ -134,7 +134,12 @@ The remaining player-dependent passages also use prerecorded narration. The
 narrator uses generic party references, a shared confirmation for typed
 passwords, and four creature-specific Podol Plaza encounter lines with an
 unspecified count. The game continues to display the actual names, passwords,
-and counts.
+and counts. At Tyranthraxus' offer the game asks each member "<NAME> HOW DO YOU
+VOTE?"; the narrator asks the first "How do you vote?" and the others a short
+follow-up ("And you? How do you vote?", "And how do you vote?", "What is your
+vote?", "And yours?", then round again), chosen by the voter's place in the
+party, 0x9800. The unit names that slot as its `selector`, because the slot it
+prints is the name.
 Rebuild the finite variants with `npx tsx tools/build-dynamic-voice-resolution.ts`
 using the original game data. Rebuild and validate the master with
 `npm run voice-master-manifest` and `npm run verify-voice-master`.

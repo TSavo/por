@@ -6988,6 +6988,22 @@
   "audio/voices/narration/town/temple-healing-prompt.mp3": {
    "sha256": "eff7ba8df09f4bfb273ac52f1196348a1d05a886f83bbb1d0894c451012b01c5",
    "heard": "Do you seek healing?"
+  },
+  "audio/voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v02-1.mp3": {
+   "sha256": "97b3f861911874aef5ee68befd98fe2781cda1421ca1aebc8cefa2d5192c8923",
+   "heard": "And you? How do you vote?"
+  },
+  "audio/voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v03-2.mp3": {
+   "sha256": "f7b47fcda05f53a5ef19faa8bd28c0a34cde0983596213e83ab0d85a8b86fc31",
+   "heard": "And how do you vote?"
+  },
+  "audio/voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v04-3.mp3": {
+   "sha256": "8775208c615befc71bf6906831e0c34485296416c867d5c96a45c7ffa695d482",
+   "heard": "What is your vote?"
+  },
+  "audio/voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v05-4.mp3": {
+   "sha256": "74e52dc6b812212876c0fb92010dc6b18fade2168e2f0d706302ae100fa04adb",
+   "heard": "And yours?"
   }
  }
 }

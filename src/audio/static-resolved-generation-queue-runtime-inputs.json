@@ -54,18 +54,6 @@
       "replaceSpokenText": true
     },
     {
-      "id": "por.voice.ecl5.b7-a738-a73c",
-      "triggerSourceId": "por.review.ecl-5.block-7.at-a738",
-      "coveredSourceIds": [
-        "por.review.ecl-5.block-7.at-a738",
-        "por.review.ecl-5.block-7.at-a73c"
-      ],
-      "output": "audio/voices/narration/static-resolved/ecl5-b7-a738-a73c.mp3",
-      "text": "How do you vote?",
-      "direction": "Clear measured fantasy narration ending with a direct question",
-      "replaceSpokenText": true
-    },
-    {
       "id": "por.voice.ecl7.b23-a4a7-a4bd",
       "triggerSourceId": "por.review.ecl-7.block-23.at-a4a7",
       "coveredSourceIds": [

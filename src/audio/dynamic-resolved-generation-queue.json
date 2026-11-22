@@ -2,7 +2,7 @@
   "schema": 1,
   "model": "eleven_v4",
   "sourceResolution": "src/audio/dynamic-voice-resolution.json",
-  "itemCount": 379,
+  "itemCount": 384,
   "items": [
     {
       "id": "por.voice.ecl3.b0-a413-a438.variant-01-1",
@@ -5367,6 +5367,100 @@
       "output": "audio/voices/narration/dynamic-resolved/ecl1-b18-a0ab-a0af-a0b3-v04-ogres.mp3",
       "text": "Some ogres rush to attack.",
       "direction": "measured dramatic fantasy narration"
+    },
+    {
+      "id": "por.voice.ecl5.b7-a738-a73c.variant-01-0",
+      "sourceUnitId": "por.voice.ecl5.b7-a738-a73c",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a738",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a738",
+        "por.review.ecl-5.block-7.at-a73c"
+      ],
+      "condition": "0x9800 == 0",
+      "dynamicValue": "0",
+      "output": "audio/voices/narration/static-resolved/ecl5-b7-a738-a73c.mp3",
+      "text": "How do you vote?",
+      "direction": "Clear measured fantasy narration ending with a direct question"
+    },
+    {
+      "id": "por.voice.ecl5.b7-a738-a73c.variant-02-1",
+      "sourceUnitId": "por.voice.ecl5.b7-a738-a73c",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a738",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a738",
+        "por.review.ecl-5.block-7.at-a73c"
+      ],
+      "condition": "0x9800 == 1",
+      "dynamicValue": "1",
+      "output": "audio/voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v02-1.mp3",
+      "text": "And you? How do you vote?",
+      "direction": "Clear measured fantasy narration ending with a direct question",
+      "aliases": [
+        {
+          "id": "por.voice.ecl5.b7-a738-a73c.variant-06-5",
+          "sourceUnitId": "por.voice.ecl5.b7-a738-a73c",
+          "condition": "0x9800 == 5",
+          "dynamicValue": "5"
+        }
+      ]
+    },
+    {
+      "id": "por.voice.ecl5.b7-a738-a73c.variant-03-2",
+      "sourceUnitId": "por.voice.ecl5.b7-a738-a73c",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a738",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a738",
+        "por.review.ecl-5.block-7.at-a73c"
+      ],
+      "condition": "0x9800 == 2",
+      "dynamicValue": "2",
+      "output": "audio/voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v03-2.mp3",
+      "text": "And how do you vote?",
+      "direction": "Clear measured fantasy narration ending with a direct question",
+      "aliases": [
+        {
+          "id": "por.voice.ecl5.b7-a738-a73c.variant-07-6",
+          "sourceUnitId": "por.voice.ecl5.b7-a738-a73c",
+          "condition": "0x9800 == 6",
+          "dynamicValue": "6"
+        }
+      ]
+    },
+    {
+      "id": "por.voice.ecl5.b7-a738-a73c.variant-04-3",
+      "sourceUnitId": "por.voice.ecl5.b7-a738-a73c",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a738",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a738",
+        "por.review.ecl-5.block-7.at-a73c"
+      ],
+      "condition": "0x9800 == 3",
+      "dynamicValue": "3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v04-3.mp3",
+      "text": "What is your vote?",
+      "direction": "Clear measured fantasy narration ending with a direct question",
+      "aliases": [
+        {
+          "id": "por.voice.ecl5.b7-a738-a73c.variant-08-7",
+          "sourceUnitId": "por.voice.ecl5.b7-a738-a73c",
+          "condition": "0x9800 == 7",
+          "dynamicValue": "7"
+        }
+      ]
+    },
+    {
+      "id": "por.voice.ecl5.b7-a738-a73c.variant-05-4",
+      "sourceUnitId": "por.voice.ecl5.b7-a738-a73c",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a738",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a738",
+        "por.review.ecl-5.block-7.at-a73c"
+      ],
+      "condition": "0x9800 == 4",
+      "dynamicValue": "4",
+      "output": "audio/voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v05-4.mp3",
+      "text": "And yours?",
+      "direction": "Clear measured fantasy narration ending with a direct question"
     },
     {
       "id": "ecl1-b18-a105-a117-a11b.variant-01-goblins",

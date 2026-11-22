@@ -220,7 +220,10 @@ Rows that need no play, and must be zero:
   texts and the slots together when the trigger runs and takes the variant recorded with exactly
   that sentence. Such a family counts as selectable when every variant's text is a sentence the
   passage can print and no two are alike. A sentence nobody recorded stays silent, and its ledger
-  line carries the sentence as `value`.
+  line carries the sentence as `value`. A unit whose printed slot cannot tell its variants apart
+  names the slot that can as its `selector` (from `unitSelectors` in
+  `src/audio/dynamic-voice-resolution.json`), and the observer reads that one: the vote at
+  Tyranthraxus prints the voter's name and is selected by the voter's place in the party, 0x9800.
 - **Encounter tables established from the script**, **Monsters that can appear with no variant**,
   **Variants for monsters that cannot appear**: a family's slot is filled by the script with a
   SAVE of a literal string, chosen by the script's own table of what can turn up. The values that

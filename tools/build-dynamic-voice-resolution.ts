@@ -54,7 +54,8 @@ const resolvedUnitVariants = {
 
 const unitById = new Map(reviews.flatMap(({ units }) => units.map(unit => [String(unit.id ?? unit.unitId), unit])));
 const slug = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-const valuesByUnit: Record<string, Array<{ value: string; condition: string; text: string }>> = {
+/** `output` keeps a variant on a recording that already exists under another name. */
+const valuesByUnit: Record<string, Array<{ value: string; condition: string; text: string; output?: string }>> = {
   "por.voice.ecl3.b0-a413-a438": (resolvedUnitVariants["por.voice.ecl3.b0-a413-a438"] ?? []).map((text, index) => ({ value: String(index + 1), condition: `0x6e7e == ${index + 1}`, text })),
   "por.voice.ecl3.b0-ac22-ac8a-ac96": (resolvedUnitVariants["por.voice.ecl3.b0-ac22-ac8a-ac96"] ?? []).map((text, index) => ({ value: ["CI.", "CXXVI AND CX.", "CXXXIV.", "CLIV.", "CXIV.", "CCIV.", "CXXIX.", "CCI."][index]!, condition: `0x985e == ${JSON.stringify(["CI.", "CXXVI AND CX.", "CXXXIV.", "CLIV.", "CXIV.", "CCIV.", "CXXIX.", "CCI."][index])}`, text })),
   "por.voice.ecl3.b8-9e4a-9e68": (resolvedUnitVariants["por.voice.ecl3.b8-9e4a-9e68"] ?? []).map((text, index) => ({ value: ["LIBRARY.'", "PODAL PLAZA.'", "CADORNA TEXTILE HOUSE.'"][index]!, condition: `0x9890 == ${JSON.stringify(["LIBRARY.'", "PODAL PLAZA.'", "CADORNA TEXTILE HOUSE.'"][index])}`, text })),
@@ -156,6 +157,25 @@ valuesByUnit[countedEncounter] = tracedSlots["ECL1.DAX:block-18:0x9800"]!.map(va
   text: `Some ${value.trim().toLowerCase()} rush to attack.`
 }));
 
+// A unit whose variants are not told apart by a slot it prints names the slot that tells them
+// apart. The narration observer reads it (unitDynamicPart in src/runtime/ecl-narration-observer.ts).
+const unitSelectors: Record<string, { kind: "dynamic-value" | "dynamic-string"; address: string }> = {};
+
+// The vote at Tyranthraxus' offer (ECL5.DAX block 7). The script asks each party member in turn,
+// with the member's place in the party in 0x9800 (a718 SAVE [0, 0x9800], a71e LOAD CHARACTER
+// [0x9800]) and the typed name on screen (a738 PRINTCLEAR [0x6b00]), which cannot be spoken. So the
+// narrator goes round the table: the first member is asked "How do you vote?", the take recorded
+// before there were variants, and the others a short follow-up. A party holds at most eight.
+const vote = "por.voice.ecl5.b7-a738-a73c";
+const voteFollowUps = ["And you? How do you vote?", "And how do you vote?", "What is your vote?", "And yours?"];
+tracedUnits.add(vote);
+unitSelectors[vote] = { kind: "dynamic-value", address: "0x9800" };
+valuesByUnit[vote] = Array.from({ length: 8 }, (_, index) => ({
+  value: String(index), condition: `0x9800 == ${index}`,
+  text: index === 0 ? "How do you vote?" : voteFollowUps[(index - 1) % voteFollowUps.length]!,
+  ...(index === 0 ? { output: "audio/voices/narration/static-resolved/ecl5-b7-a738-a73c.mp3" } : {})
+}));
+
 const sourceParts = (unit: Unit) => {
   const embedded = unit.rawSourceTexts ?? unit.sourceTextParts ?? unit.sourceTexts ?? [];
   return (unit.coveredSourceIds ?? []).map(sourceId => {
@@ -195,7 +215,7 @@ const generationItems = variantFamilies.flatMap(([unitId, variants]) => {
   const triggerSourceId = String(source.triggerSourceId);
   const coveredSourceIds = (source.coveredSourceIds ?? []).map(String);
   const direction = String(source.direction ?? "measured, expressive fantasy narration appropriate to the scene");
-  return variants.flatMap(({ value, condition, text }, index) => {
+  return variants.flatMap(({ value, condition, text, output }, index) => {
     const suffix = `${String(index + 1).padStart(2, "0")}-${slug(value)}`;
     const id = `${unitId}.variant-${suffix}`;
     const key = JSON.stringify([text, direction]);
@@ -213,7 +233,7 @@ const generationItems = variantFamilies.flatMap(([unitId, variants]) => {
       coveredSourceIds,
       condition,
       dynamicValue: value,
-      output: `audio/voices/narration/dynamic-resolved/${unitId.replace(/^por\.voice\./, "").replace(/\./g, "-")}-v${suffix}.mp3`,
+      output: output ?? `audio/voices/narration/dynamic-resolved/${unitId.replace(/^por\.voice\./, "").replace(/\./g, "-")}-v${suffix}.mp3`,
       text,
       direction,
       aliases
@@ -229,6 +249,7 @@ const manifest = {
   slotSemantics,
   resolvedUnitVariants,
   resolvedVariantRecords: valuesByUnit,
+  unitSelectors,
   newlyQueueableVariantCount: generationItems.length,
   finiteSlotValuesByScope,
   units: unresolved.map(unit => ({ ...unit, resolution: valuesByUnit[unit.unitId] ? "finite-variants-proven" :
