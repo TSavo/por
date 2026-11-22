@@ -5529,6 +5529,14 @@ const combatPoseRoutes = new Map([
     width: 96, height: 96, readyPrompt: /Hitpoints/i, strikeInputs: [],
     inputs: ["up", "down", "enter", "enter", "c", ...Array(4).fill("enter"), ...Array(11).fill("q")],
   }],
+  ["nomad-finale-veteran-strike", {
+    slot: "A", stand: "combat:area:17:CPIC2.DAX:0:ecl:b376",
+    strike: "combat:area:17:CPIC7.DAX:141:ecl:b376",
+    width: 96, height: 96, readyPrompt: /Hitpoints/i,
+    inputs: ["e", "enter", "r", "h", ...Array(18).fill("i"), "r", "space", "n",
+      ...Array(5).fill("enter"), "d", ...Array(4).fill("enter")],
+    strikeInputs: ["enter", ...Array(80).fill("q")], stopAtStrike: true,
+  }],
   ["nomad-shaman-ready", {
     slot: "A", stand: "combat:area:17:CPIC7.DAX:14:ecl:a1a6", width: 96, height: 96,
     readyPrompt: /Hitpoints/i, strikeInputs: [],
