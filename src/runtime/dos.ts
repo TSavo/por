@@ -51,6 +51,12 @@ export interface BiosKey {
 /** Hundredths of a second since midnight. Replays start the DOS clock at noon. */
 export const noon = 12 * 60 * 60 * 100;
 
+/**
+ * A DOS or BIOS call this layer does not serve. Reaching one in play stops the game with this error;
+ * `npm run verify:dos-calls` fails while any `int 21h` in the translated program can ask for one (#83).
+ */
+export class UnhandledDosCall extends Error {}
+
 /** The player's local time of day, for a game whose dice should differ from the last one. */
 export function timeOfDay(now = new Date()): number {
   return ((now.getHours() * 60 + now.getMinutes()) * 60 + now.getSeconds()) * 100 + Math.floor(now.getMilliseconds() / 10);
@@ -112,6 +118,8 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
   // The game seeds its dice once from this clock. Each Get Time call advances it by one
   // hundredth, so a run is repeatable from its starting time.
   let clockHundredths = clockStart % (24 * 60 * 60 * 100);
+  // The DOS date. Get Date reports it, Set Date changes it.
+  let date = { year: 1988, month: 6, day: 1 };
 
   const readAsciiz = (seg: number, off: number): string => {
     let s = "";
@@ -157,7 +165,7 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
       return;
     }
     if (n === 0x23 || n === 0x24 || n === 0x1b) return;
-    if (n !== 0x21) throw new Error(`int ${n.toString(16)} ah=${cpu.ah.toString(16)}`);
+    if (n !== 0x21) throw new UnhandledDosCall(`int ${n.toString(16)} ah=${cpu.ah.toString(16)}`);
     const ah = cpu.ah;
     if (ah === 0x30) {
       cpu.ax = 5;
@@ -173,10 +181,27 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
       return;
     }
     if (ah === 0x2a) {
-      cpu.cx = 1988;
-      cpu.dx = 0x0601;
-      cpu.al = 3;
+      cpu.cx = date.year;
+      cpu.dx = (date.month << 8) | date.day;
+      cpu.al = new Date(Date.UTC(date.year, date.month - 1, date.day)).getUTCDay();
       cpu.cf = false;
+      return;
+    }
+    // Set Date (CX year, DH month, DL day) and Set Time (CH:CL:DH.DL): AL 0 when taken, FFh when not
+    // a date or a time. Nothing in the translated program calls them (Turbo Pascal's Dos.SetDate and
+    // Dos.SetTime); they are served so that no DOS call there can stop the game (#83).
+    if (ah === 0x2b) {
+      const year = cpu.cx, month = cpu.dh, day = cpu.dl;
+      const valid = year >= 1980 && year <= 2099 && month >= 1 && month <= 12 && day >= 1 &&
+        day <= new Date(Date.UTC(year, month, 0)).getUTCDate();
+      if (valid) date = { year, month, day };
+      cpu.al = valid ? 0 : 0xff;
+      return;
+    }
+    if (ah === 0x2d) {
+      const valid = cpu.ch < 24 && cpu.cl < 60 && cpu.dh < 60 && cpu.dl < 100;
+      if (valid) clockHundredths = ((cpu.ch * 60 + cpu.cl) * 60 + cpu.dh) * 100 + cpu.dl;
+      cpu.al = valid ? 0 : 0xff;
       return;
     }
     if (ah === 0x2c) {
@@ -247,6 +272,45 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
       if (cpu.cf) cpu.ax = exists || byName.has(path) ? 5 : 3;
       else if (ah === 0x39) dirs.add(path);
       else cwd = path;
+      return;
+    }
+    // Remove Directory (Turbo Pascal's RmDir; nothing in the translated program calls it, #83):
+    // only an empty directory that is not the current one.
+    if (ah === 0x3a) {
+      const path = canonical(readAsciiz(cpu.ds, cpu.dx));
+      const inside = (name: string) => name.startsWith(`${path}\\`);
+      const error = !path || !dirs.has(path) ? 3
+        : cwd === path || inside(cwd) ? 0x10
+          : [...byName.keys(), ...dirs].some(inside) ? 5 : 0;
+      cpu.cf = error !== 0;
+      if (error) cpu.ax = error;
+      else dirs.delete(path);
+      return;
+    }
+    // Rename File (DS:DX to ES:DI; Turbo Pascal's Rename, which nothing in the translated program
+    // calls, #83). The file keeps its data under the new name, and is closed under that name and
+    // deleted under the old one, so a save renamed this way is kept where the game now looks for it.
+    if (ah === 0x56) {
+      const from = canonical(readAsciiz(cpu.ds, cpu.dx));
+      const to = canonical(readAsciiz(cpu.es, cpu.di));
+      const file = byName.get(from);
+      const error = !file ? (dirs.has(parent(from)) ? 2 : 3)
+        : !dirs.has(parent(to)) ? 3
+          : to !== from && (byName.has(to) || dirs.has(to)) ? 5 : 0;
+      cpu.cf = error !== 0;
+      if (error) {
+        cpu.ax = error;
+        return;
+      }
+      if (to === from) return;
+      byName.delete(from);
+      byName.set(to, file!);
+      if (dosFileObservers.size) {
+        observeFile({ kind: "delete", name: from, found: true });
+        observeFile({ kind: "create", name: to, found: true });
+      }
+      fileClosed?.(to, file!.data, true);
+      fileDeleted?.(from);
       return;
     }
     if (ah === 0x47) {
@@ -360,6 +424,6 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
       return;
     }
     if (ah === 0x4c) throw new Error(`dos exit ${cpu.al}`);
-    throw new Error(`int 21 ah=${ah.toString(16)} al=${cpu.al.toString(16)}`);
+    throw new UnhandledDosCall(`int 21 ah=${ah.toString(16)} al=${cpu.al.toString(16)}`);
   };
 }
