@@ -20,6 +20,12 @@
    "decisions": 359,
    "heard": 57
   },
+  "campaign-full": {
+   "ledger": "campaign-full.jsonl",
+   "games": 11,
+   "decisions": 430,
+   "heard": 113
+  },
   "campaign-opening": {
    "ledger": "campaign-opening.jsonl",
    "games": 5,
@@ -88,6 +94,15 @@
   }
  },
  "units": {
+  "ecl1-b18-9a36-prompt": {
+   "run": "campaign-full",
+   "step": 112479461,
+   "withoutArt": {
+    "run": "campaign-full",
+    "step": 112479461,
+    "showing": "no picture"
+   }
+  },
   "ecl2-b20-9ab8": {
    "run": "acceptance-new-phlan",
    "step": 60501220,
@@ -144,12 +159,217 @@
     "key": "portrait:area:20:PIC2.DAX:2:0:0"
    }
   },
+  "ecl2-b9-a9d9": {
+   "run": "campaign-full",
+   "step": 130099188,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:9:ecl:9c63:caller:aa57"
+   }
+  },
+  "ecl2-b9-aa57": {
+   "run": "campaign-full",
+   "step": 130478550,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:9:ecl:9c63:caller:aabb"
+   }
+  },
+  "ecl2-b9-aba1": {
+   "run": "campaign-full",
+   "step": 136017984,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:9:PIC2.DAX:63:0:0"
+   }
+  },
+  "ecl2-b9-ac4b": {
+   "run": "campaign-full",
+   "step": 136363525,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:9:ecl:acb7"
+   }
+  },
+  "ecl2-b9-add9": {
+   "run": "campaign-full",
+   "step": 126699171,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:9:ecl:9c63:caller:ae22"
+   }
+  },
+  "ecl2-b9-b056": {
+   "run": "campaign-full",
+   "step": 128323506,
+   "withoutArt": {
+    "run": "campaign-full",
+    "step": 128323506,
+    "showing": "no picture"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-9923": {
+   "run": "campaign-full",
+   "step": 246637103,
+   "withoutArt": {
+    "run": "campaign-full",
+    "step": 246637103,
+    "showing": "no picture"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-9963": {
+   "run": "campaign-full",
+   "step": 249410811,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:21:PIC4.DAX:41:0:0"
+   }
+  },
   "por.narration.sokal.ecl4-b21-9aae": {
    "run": "acceptance-new-phlan",
    "step": 176436906,
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:0:ecl:ae31:caller:9ad2"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-9af8": {
+   "run": "campaign-full",
+   "step": 114521113,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:PIC4.DAX:3:0:0"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-9b90": {
+   "run": "campaign-full",
+   "step": 115274290,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:21:ecl:ae31:caller:9bd0:PIC4.DAX:3:0:0"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-9be6": {
+   "run": "campaign-full",
+   "step": 115655052,
+   "withoutArt": {
+    "run": "campaign-full",
+    "step": 115655052,
+    "showing": "no picture"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-9cf0": {
+   "run": "campaign-full",
+   "step": 112295816,
+   "withoutArt": {
+    "run": "campaign-full",
+    "step": 112295816,
+    "showing": "no picture"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-9d3a": {
+   "run": "campaign-full",
+   "step": 112435503,
+   "withoutArt": {
+    "run": "campaign-full",
+    "step": 112435503,
+    "showing": "no picture"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-9dc9": {
+   "run": "campaign-full",
+   "step": 135591207,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:21:PIC4.DAX:34:0:0"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-9e08-menu": {
+   "run": "campaign-full",
+   "step": 128845831,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:21:PIC4.DAX:34:0:0"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-9eb8": {
+   "run": "campaign-full",
+   "step": 129433173,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:21:ecl:9ecc"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-a65f": {
+   "run": "campaign-full",
+   "step": 158706428,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:21:SPRIT4.DAX:6:1:0"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-a6d9": {
+   "run": "campaign-full",
+   "step": 203082295,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:21:ecl:a720"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-a730": {
+   "run": "campaign-full",
+   "step": 223088130,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:21:ecl:a762"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-a972": {
+   "run": "campaign-full",
+   "step": 205843510,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:21:ecl:a9fa"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-aa0a-menu": {
+   "run": "campaign-full",
+   "step": 210101107,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:21:SPRIT4.DAX:17:0:0"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-aad6": {
+   "run": "campaign-full",
+   "step": 212093377,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:PIC4.DAX:19:0:0"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-abc7-ac4a": {
+   "run": "campaign-full",
+   "step": 212647744,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:21:ecl:ae31:caller:ac4a"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-acf1": {
+   "run": "campaign-full",
+   "step": 213636304,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:21:ecl:ae31:caller:ad9e:PIC4.DAX:19:0:0"
+   }
+  },
+  "por.narration.sokal.ecl4-b21-ad42": {
+   "run": "campaign-full",
+   "step": 213825912,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:21:ecl:ae31:caller:ad9e:PIC4.DAX:19:0:0"
    }
   },
   "por.voice.ecl3.b0-9a9d": {
@@ -168,6 +388,23 @@
     "key": "portrait:area:0:PIC3.DAX:41:0:0"
    }
   },
+  "por.voice.ecl3.b0-9c67": {
+   "run": "campaign-full",
+   "step": 96338543,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:HEAD3.DAX:16:BODY3.DAX:7"
+   }
+  },
+  "por.voice.ecl3.b0-9d2f": {
+   "run": "campaign-full",
+   "step": 97012059,
+   "withoutArt": {
+    "run": "campaign-full",
+    "step": 97012059,
+    "showing": "no picture"
+   }
+  },
   "por.voice.ecl3.b0-9d54": {
    "run": "acceptance-new-phlan",
    "step": 143648409,
@@ -184,28 +421,12 @@
     "key": "scene-illustration:area:0:ecl:9e07"
    }
   },
-  "por.voice.ecl3.b0-a078": {
-   "run": "acceptance-new-phlan",
-   "step": 164993768,
-   "art": {
-    "kind": "portrait",
-    "key": "portrait:HEAD3.DAX:34:BODY3.DAX:2"
-   }
-  },
   "por.voice.ecl3.b0-a078-aa13": {
    "run": "acceptance-new-phlan",
    "step": 164993768,
    "art": {
     "kind": "portrait",
     "key": "portrait:HEAD3.DAX:34:BODY3.DAX:2"
-   }
-  },
-  "por.voice.ecl3.b0-a0d0": {
-   "run": "acceptance-new-phlan",
-   "step": 91068397,
-   "art": {
-    "kind": "portrait",
-    "key": "portrait:HEAD3.DAX:22:BODY3.DAX:24"
    }
   },
   "por.voice.ecl3.b0-a0d0-aa13": {
@@ -342,6 +563,11 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:20:ecl:ab23"
+   },
+   "withoutArt": {
+    "run": "campaign-full",
+    "step": 312895735,
+    "showing": "no picture"
    }
   },
   "por.voice.ecl3.b0-abd2": {
@@ -355,6 +581,14 @@
     "run": "acceptance-new-phlan",
     "step": 126003310,
     "showing": "no picture"
+   }
+  },
+  "por.voice.ecl3.b0-ac22-ac8a-ac96": {
+   "run": "campaign-full",
+   "step": 314821577,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:ac9b"
    }
   },
   "por.voice.ecl3.b0-ac22-ac9b": {
@@ -654,6 +888,38 @@
     "key": "scene-illustration:area:8:ecl:b5c3:caller:9c34:cue:clerk-reward-check"
    }
   },
+  "por.voice.ecl3.b8-9d51": {
+   "run": "campaign-full",
+   "step": 265803123,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:8:ecl:9f21:caller:9a4a"
+   }
+  },
+  "por.voice.ecl3.b8-9eea": {
+   "run": "campaign-full",
+   "step": 265980389,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:8:ecl:9f21:caller:9a4a"
+   }
+  },
+  "por.voice.ecl3.b8-9fb8": {
+   "run": "campaign-full",
+   "step": 265842483,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:8:ecl:9f21:caller:9a4a"
+   }
+  },
+  "por.voice.ecl3.b8-a421": {
+   "run": "campaign-full",
+   "step": 321513753,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:8:ecl:9f21:caller:9a4a:HEAD3.DAX:24:BODY3.DAX:32"
+   }
+  },
   "por.voice.ecl3.b8-a7a4": {
    "run": "acceptance-new-phlan",
    "step": 105958485,
@@ -694,12 +960,141 @@
     "key": "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:records-commission-offer"
    }
   },
+  "por.voice.ecl3.b8-a9bb": {
+   "run": "campaign-full",
+   "step": 271867321,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:podal-auction-commission-offer"
+   }
+  },
   "por.voice.ecl3.b8-af4b": {
    "run": "acceptance-new-phlan",
    "step": 109823999,
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:8:ecl:af78:caller:9a4a:cue:commissions-closed"
+   }
+  },
+  "por.voice.ecl5.b3-a8d0-prompt": {
+   "run": "campaign-full",
+   "step": 97641260,
+   "withoutArt": {
+    "run": "campaign-full",
+    "step": 97641260,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl5.b3-aa3e": {
+   "run": "campaign-full",
+   "step": 97905952,
+   "withoutArt": {
+    "run": "campaign-full",
+    "step": 97905952,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl5.b3-aa6c": {
+   "run": "campaign-full",
+   "step": 98067027,
+   "withoutArt": {
+    "run": "campaign-full",
+    "step": 98067027,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl5.b5-9b4b": {
+   "run": "campaign-full",
+   "step": 108563857,
+   "withoutArt": {
+    "run": "campaign-full",
+    "step": 108563857,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl5.b5-9b99": {
+   "run": "campaign-full",
+   "step": 108842468,
+   "withoutArt": {
+    "run": "campaign-full",
+    "step": 108842468,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl5.b5-a467": {
+   "run": "campaign-full",
+   "step": 114249282,
+   "withoutArt": {
+    "run": "campaign-full",
+    "step": 114249282,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl5.b7-9a52": {
+   "run": "campaign-full",
+   "step": 114814240,
+   "withoutArt": {
+    "run": "campaign-full",
+    "step": 114814240,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl5.b7-9a74": {
+   "run": "campaign-full",
+   "step": 116782346,
+   "withoutArt": {
+    "run": "campaign-full",
+    "step": 116782346,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl5.b7-9b74-9bbe": {
+   "run": "campaign-full",
+   "step": 115015649,
+   "withoutArt": {
+    "run": "campaign-full",
+    "step": 115015649,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl5.b7-a463-a4dd": {
+   "run": "campaign-full",
+   "step": 85382085,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:7:ecl:995f:caller:a4dd"
+   }
+  },
+  "por.voice.ecl5.b7-a56c-operand-9": {
+   "run": "campaign-full",
+   "step": 86092342,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:7:ecl:a5d8:SPRIT5.DAX:16:0:0"
+   }
+  },
+  "por.voice.ecl5.b7-a63a-a6a7": {
+   "run": "campaign-full",
+   "step": 107504792,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0"
+   }
+  },
+  "por.voice.ecl5.b7-a738-a73c": {
+   "run": "campaign-full",
+   "step": 108189253,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"
+   }
+  },
+  "por.voice.ecl5.b7-a82d-a8b2": {
+   "run": "campaign-full",
+   "step": 310100425,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:7:ecl:995f:caller:a8b2"
    }
   },
   "por.voice.ecl7.b23-9a70-9afa": {
@@ -724,6 +1119,22 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:23:ecl:a0fd"
+   }
+  },
+  "por.voice.ecl7.b26-9e46": {
+   "run": "campaign-full",
+   "step": 109515584,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:26:ecl:9ed3:PIC7.DAX:40:0:0"
+   }
+  },
+  "por.voice.ecl7.b26-a037": {
+   "run": "campaign-full",
+   "step": 104789056,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:PIC3.DAX:41:0:0"
    }
   }
  },
@@ -824,6 +1235,12 @@
    "slot": "0x6e7e",
    "value": "21"
   },
+  "por.voice.ecl3.b0-ac22-ac8a-ac96.variant-01-ci": {
+   "run": "campaign-full",
+   "step": 314821577,
+   "slot": "0x985e",
+   "value": "CI."
+  },
   "por.voice.ecl3.b11-9eab-9ed8.variant-01-acolyte": {
    "run": "acceptance-narration-dynamic",
    "step": 194876049,
@@ -889,6 +1306,42 @@
    "step": 172191730,
    "slot": "0x982c",
    "value": "MAGIC USERS "
+  },
+  "por.voice.ecl5.b7-a738-a73c.variant-01-0": {
+   "run": "campaign-full",
+   "step": 108189253,
+   "slot": "0x9800",
+   "value": "0"
+  },
+  "por.voice.ecl5.b7-a738-a73c.variant-02-1": {
+   "run": "campaign-full",
+   "step": 108359746,
+   "slot": "0x9800",
+   "value": "1"
+  },
+  "por.voice.ecl5.b7-a738-a73c.variant-03-2": {
+   "run": "campaign-full",
+   "step": 108530268,
+   "slot": "0x9800",
+   "value": "2"
+  },
+  "por.voice.ecl5.b7-a738-a73c.variant-04-3": {
+   "run": "campaign-full",
+   "step": 108700816,
+   "slot": "0x9800",
+   "value": "3"
+  },
+  "por.voice.ecl5.b7-a738-a73c.variant-05-4": {
+   "run": "campaign-full",
+   "step": 108871390,
+   "slot": "0x9800",
+   "value": "4"
+  },
+  "por.voice.ecl5.b7-a738-a73c.variant-06-5": {
+   "run": "campaign-full",
+   "step": 109041990,
+   "slot": "0x9800",
+   "value": "5"
   }
  },
  "selectors": {
@@ -904,15 +1357,44 @@
    "unitId": "por.voice.ecl3.b0-ac22-ac9b",
    "value": 0
   },
+  "por.review.ecl-5.block-7.at-9b74": {
+   "run": "campaign-full",
+   "step": 115015649,
+   "unitId": "por.voice.ecl5.b7-9b74-9bbe",
+   "value": 2
+  },
   "por.review.ecl-7.block-23.at-9a70": {
    "run": "yarash-alchemical-laboratory-3f2de014",
    "step": 86341804,
    "unitId": "por.voice.ecl7.b23-9a70-9afa"
   }
  },
- "silent": {},
+ "silent": {
+  "covered-without-trigger | por.review.ecl-5.block-7.at-9bb0 | ": {
+   "kind": "covered-without-trigger",
+   "sourceId": "por.review.ecl-5.block-7.at-9bb0",
+   "archive": "ECL5.DAX",
+   "block": 7,
+   "runs": {
+    "campaign-full": {
+     "count": 1,
+     "step": 115061084
+    }
+   }
+  }
+ },
  "playback": {
   "runs": {
+   "campaign-full": {
+    "log": "campaign-full.playback.jsonl",
+    "legs": 11,
+    "lines": 113,
+    "toTheEnd": 57,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 56,
+    "startedLate": 54
+   },
    "campaign-opening": {
     "log": "campaign-opening.playback.jsonl",
     "legs": 4,
@@ -945,6 +1427,234 @@
    }
   },
   "played": {
+   "ecl1-b18-9a36-prompt": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl1/block-18/ecl1-b18-9a36-prompt.mp3",
+    "seconds": 4.72,
+    "waited": 17.294,
+    "saw": [
+     null,
+     "scene-illustration:area:9:ecl:9c63:caller:aa57",
+     "scene-illustration:area:9:ecl:9c63:caller:aabb",
+     null
+    ]
+   },
+   "ecl2-b20-9dde-runtime-text": {
+    "run": "campaign-full",
+    "asset": "voices/narration/dynamic-resolved/ecl2-b20-9dde-runtime-text-v01-you-have-surprised-a-party-of-kobolds.mp3",
+    "variantId": "ecl2-b20-9dde-runtime-text.variant-01-you-have-surprised-a-party-of-kobolds",
+    "seconds": 3.12,
+    "waited": 0.024,
+    "saw": [
+     "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0",
+     "portrait:area:20:PIC2.DAX:0:0:0"
+    ]
+   },
+   "ecl2-b9-add9": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl2/block-9/ecl2-b9-add9.mp3",
+    "seconds": 10.96,
+    "waited": 9.491,
+    "saw": [
+     null,
+     "encounter:area:9:SPRIT2.DAX:63:2:0",
+     "encounter:area:9:SPRIT2.DAX:63:1:0",
+     "encounter:area:9:SPRIT2.DAX:63:0:0",
+     "portrait:area:9:PIC2.DAX:63:0:0",
+     "scene-illustration:area:9:ecl:acb7",
+     null,
+     "portrait:PIC3.DAX:29:0:0"
+    ]
+   },
+   "por.narration.sokal.ecl4-b21-9aae": {
+    "run": "campaign-full",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9aae.mp3",
+    "seconds": 2.96,
+    "waited": 31.193,
+    "saw": [
+     null,
+     "encounter:area:21:ecl:9dba:SPRIT4.DAX:34:1:0",
+     "encounter:area:21:ecl:9dbb:SPRIT4.DAX:34:0:0"
+    ]
+   },
+   "por.narration.sokal.ecl4-b21-9af8": {
+    "run": "campaign-full",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9af8.mp3",
+    "seconds": 12.8,
+    "waited": 43.232,
+    "saw": [
+     null,
+     "portrait:PIC1.DAX:1:0:0",
+     "scene-illustration:area:21:ecl:a720"
+    ]
+   },
+   "por.narration.sokal.ecl4-b21-9b90": {
+    "run": "campaign-full",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9b90.mp3",
+    "seconds": 4.8,
+    "waited": 55.382,
+    "saw": [
+     "scene-illustration:area:21:ecl:a720",
+     null,
+     "scene-illustration:area:21:ecl:a9fa",
+     null
+    ]
+   },
+   "por.narration.sokal.ecl4-b21-9be6": {
+    "run": "campaign-full",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9be6.mp3",
+    "seconds": 2.64,
+    "waited": 59.626,
+    "saw": [
+     null,
+     "encounter:area:21:SPRIT4.DAX:17:0:0",
+     "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0",
+     "portrait:area:21:ecl:aa5e:PIC4.DAX:19:0:0",
+     "portrait:area:21:ecl:aa84:PIC4.DAX:19:0:0"
+    ]
+   },
+   "por.narration.sokal.ecl4-b21-9cf0": {
+    "run": "campaign-full",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9cf0.mp3",
+    "seconds": 5.6,
+    "waited": 32.276,
+    "saw": [
+     "encounter:area:21:ecl:9dbb:SPRIT4.DAX:34:0:0",
+     "portrait:area:21:PIC4.DAX:34:0:0",
+     "scene-illustration:area:21:ecl:9ecc",
+     null,
+     "encounter:area:21:SPRIT4.DAX:6:1:0"
+    ]
+   },
+   "por.narration.sokal.ecl4-b21-9d3a": {
+    "run": "campaign-full",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9d3a.mp3",
+    "seconds": 6.88,
+    "waited": 37.947,
+    "saw": [
+     "encounter:area:21:SPRIT4.DAX:6:1:0",
+     null
+    ]
+   },
+   "por.narration.sokal.ecl4-b21-9dc9": {
+    "run": "campaign-full",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9dc9.mp3",
+    "seconds": 6.48,
+    "waited": 52.92,
+    "saw": [
+     null,
+     "portrait:PIC3.DAX:29:0:0",
+     "portrait:PIC3.DAX:29:1:0",
+     null,
+     "scene-illustration:area:21:ecl:a762",
+     null
+    ]
+   },
+   "por.narration.sokal.ecl4-b21-9e08-menu": {
+    "run": "campaign-full",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9e08-menu.mp3",
+    "seconds": 2.56,
+    "waited": 53.837,
+    "saw": [
+     "portrait:area:21:ecl:aa84:PIC4.DAX:19:0:0",
+     "portrait:PIC4.DAX:19:0:0",
+     "scene-illustration:area:21:ecl:ae31:caller:ac4a"
+    ]
+   },
+   "por.narration.sokal.ecl4-b21-9eb8": {
+    "run": "campaign-full",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9eb8.mp3",
+    "seconds": 2.24,
+    "waited": 55.199,
+    "saw": [
+     "scene-illustration:area:21:ecl:ae31:caller:ac4a",
+     "scene-illustration:area:21:ecl:ae31:caller:ace3",
+     "portrait:area:21:ecl:ae31:caller:ad9e:PIC4.DAX:19:0:0",
+     null
+    ]
+   },
+   "por.narration.sokal.ecl4-b21-a65f": {
+    "run": "campaign-full",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-a65f.mp3",
+    "seconds": 6.64,
+    "waited": 70.06,
+    "saw": [
+     null,
+     "scene-illustration:area:8:ecl:b5c3:caller:9c34:cue:clerk-reward-check",
+     "scene-illustration:area:8:ecl:9f21:caller:9a4a",
+     "scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-award",
+     null,
+     "portrait:PIC1.DAX:1:0:0",
+     "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:commission-papers",
+     "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:slums-commission-offer",
+     "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:records-commission-offer"
+    ]
+   },
+   "por.voice.ecl3.b0-9bc2": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl3/b0-9bc2.mp3",
+    "seconds": 2.16,
+    "waited": 30.404,
+    "saw": [
+     "encounter:area:21:ecl:9dbd:SPRIT4.DAX:34:0:0",
+     "portrait:area:21:PIC4.DAX:34:0:0",
+     "scene-illustration:area:21:ecl:9ecc",
+     null
+    ]
+   },
+   "por.voice.ecl3.b0-9c67": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl3/b0-9c67.mp3",
+    "seconds": 11.76,
+    "waited": 1.803,
+    "saw": [
+     null,
+     "portrait:area:0:PIC3.DAX:41:0:0",
+     null
+    ]
+   },
+   "por.voice.ecl3.b0-9d2f": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl3/b0-9d2f.mp3",
+    "seconds": 2.64,
+    "waited": 12.545,
+    "saw": [
+     null,
+     "portrait:area:26:ecl:9ed3:PIC7.DAX:40:0:0",
+     null
+    ]
+   },
+   "por.voice.ecl3.b0-9d54": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl3/b0-9d54.mp3",
+    "seconds": 8.56,
+    "waited": 23.963,
+    "saw": [
+     null,
+     "encounter:area:21:ecl:9dba:SPRIT4.DAX:34:2:0",
+     "encounter:area:21:ecl:9dbb:SPRIT4.DAX:34:1:0",
+     "encounter:area:21:ecl:9dbd:SPRIT4.DAX:34:0:0",
+     "portrait:area:21:PIC4.DAX:34:0:0",
+     "scene-illustration:area:21:ecl:9ecc",
+     null,
+     "encounter:area:21:ecl:9dba:SPRIT4.DAX:34:2:0",
+     "encounter:area:21:ecl:9dbb:SPRIT4.DAX:34:1:0",
+     "encounter:area:21:ecl:9dbd:SPRIT4.DAX:34:0:0"
+    ]
+   },
+   "por.voice.ecl3.b0-9de8": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl3/b0-9de8.mp3",
+    "seconds": 2.64,
+    "waited": 22.927,
+    "saw": [
+     "encounter:area:21:ecl:9dbb:SPRIT4.DAX:34:1:0",
+     "encounter:area:21:ecl:9dbd:SPRIT4.DAX:34:0:0",
+     "portrait:area:21:PIC4.DAX:34:0:0",
+     "scene-illustration:area:21:ecl:9ecc",
+     null
+    ]
+   },
    "por.voice.ecl3.b0-a8d3": {
     "run": "campaign-opening",
     "asset": "voices/narration/ecl3/b0-a8d3.mp3",
@@ -1048,6 +1758,191 @@
     "saw": [
      "scene-illustration:area:0:ecl:af3f:caller:b51c",
      "scene-illustration:area:0:ecl:af3f:caller:b58e"
+    ]
+   },
+   "por.voice.ecl3.b8-9a7d": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl3/b8-9a7d.mp3",
+    "seconds": 5.6,
+    "waited": 16.61,
+    "saw": [
+     null,
+     "encounter:area:21:ecl:9dba:SPRIT4.DAX:34:2:0",
+     "encounter:area:21:ecl:9dbb:SPRIT4.DAX:34:1:0"
+    ]
+   },
+   "por.voice.ecl3.b8-9b3c": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl3/b8-9b3c.mp3",
+    "seconds": 6.56,
+    "waited": 0.032,
+    "saw": [
+     "scene-illustration:area:8:ecl:9b8a:caller:9a4a",
+     null
+    ]
+   },
+   "por.voice.ecl5.b3-a8d0-prompt": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl5/b3-a8d0-prompt.mp3",
+    "seconds": 3.6,
+    "waited": 0.013,
+    "saw": [
+     null
+    ]
+   },
+   "por.voice.ecl5.b3-aa3e": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl5/b3-aa3e.mp3",
+    "seconds": 2.08,
+    "waited": 3.376,
+    "saw": [
+     null
+    ]
+   },
+   "por.voice.ecl5.b3-aa6c": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl5/b3-aa6c.mp3",
+    "seconds": 5.92,
+    "waited": 3.852,
+    "saw": [
+     null
+    ]
+   },
+   "por.voice.ecl5.b5-9b4b": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl5/b5-9b4b.mp3",
+    "seconds": 5.12,
+    "waited": 3.455,
+    "saw": [
+     null
+    ]
+   },
+   "por.voice.ecl5.b7-9a52": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl5/b7-9a52.mp3",
+    "seconds": 2.24,
+    "waited": 0.646,
+    "saw": [
+     null,
+     "scene-illustration:area:7:ecl:995f:caller:a4dd",
+     "portrait:area:7:ecl:995f:caller:a54b:PIC5.DAX:66:0:0",
+     null
+    ]
+   },
+   "por.voice.ecl5.b7-a463-a4dd": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl5/b7-a463-a4dd.mp3",
+    "seconds": 20.8,
+    "waited": 1.661,
+    "saw": [
+     null,
+     "encounter:area:7:ecl:a5d8:SPRIT5.DAX:16:0:0",
+     "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1",
+     "portrait:HEAD5.DAX:12:BODY5.DAX:1",
+     null,
+     "portrait:PIC1.DAX:1:0:0",
+     null,
+     "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0",
+     "portrait:area:7:ecl:995f:caller:a718:PIC5.DAX:66:0:0",
+     "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+     "portrait:area:7:ecl:a803:PIC5.DAX:66:0:0",
+     null,
+     "portrait:area:7:ecl:a803:PIC1.DAX:1:0:0"
+    ]
+   },
+   "por.voice.ecl5.b7-a56c-operand-9": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl5/b7-a56c-operand-9.mp3",
+    "seconds": 7.52,
+    "waited": 21.179,
+    "saw": [
+     "portrait:area:7:ecl:a803:PIC1.DAX:1:0:0",
+     "scene-illustration:area:7:ecl:a82d",
+     "portrait:area:7:FINAL5.DAX:2:0:0",
+     "portrait:area:7:FINAL5.DAX:2:1:0",
+     "portrait:area:7:FINAL5.DAX:2:2:0",
+     "portrait:area:7:FINAL5.DAX:2:3:0",
+     "portrait:area:7:FINAL5.DAX:2:0:0",
+     "portrait:area:7:FINAL5.DAX:2:1:0"
+    ]
+   },
+   "por.voice.ecl5.b7-a63a-a6a7": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl5/b7-a63a-a6a7.mp3",
+    "seconds": 21.52,
+    "waited": 15.653,
+    "saw": [
+     "portrait:area:7:FINAL5.DAX:2:1:0",
+     "portrait:area:7:FINAL5.DAX:2:2:0",
+     "portrait:area:7:FINAL5.DAX:2:3:0",
+     "portrait:area:7:FINAL5.DAX:2:0:0",
+     "portrait:area:7:FINAL5.DAX:2:1:0",
+     "portrait:area:7:FINAL5.DAX:2:2:0",
+     "portrait:area:7:FINAL5.DAX:2:3:0",
+     "portrait:area:7:FINAL5.DAX:2:0:0",
+     "portrait:area:7:FINAL5.DAX:2:1:0",
+     "portrait:area:7:FINAL5.DAX:2:2:0",
+     "portrait:area:7:FINAL5.DAX:2:3:0",
+     "portrait:area:7:FINAL5.DAX:2:0:0",
+     "portrait:area:7:FINAL5.DAX:2:1:0",
+     "portrait:area:7:FINAL5.DAX:2:2:0",
+     "portrait:area:7:FINAL5.DAX:2:3:0",
+     "portrait:area:7:FINAL5.DAX:2:0:0",
+     "scene-illustration:area:7:ecl:a82d"
+    ]
+   },
+   "por.voice.ecl5.b7-a738-a73c": {
+    "run": "campaign-full",
+    "asset": "voices/narration/static-resolved/ecl5-b7-a738-a73c.mp3",
+    "variantId": "por.voice.ecl5.b7-a738-a73c.variant-01-0",
+    "seconds": 1.36,
+    "waited": 36.363,
+    "saw": [
+     "scene-illustration:area:7:ecl:a82d:cue:possession-threat",
+     "portrait:area:7:FINAL5.DAX:7:0:0"
+    ]
+   },
+   "por.voice.ecl5.b7-a82d-a8b2": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl5/b7-a82d-a8b2.mp3",
+    "seconds": 13.92,
+    "waited": 0.012,
+    "saw": [
+     "scene-illustration:area:7:ecl:a82d:cue:pool-recall",
+     "scene-illustration:area:7:ecl:995f:caller:a8b2",
+     "scene-illustration:area:7:ecl:9b18:cue:phlan-homecoming",
+     null,
+     "scene-illustration:area:0:ecl:af3f:caller:ac22",
+     "scene-illustration:area:0:ecl:ac9b",
+     null,
+     "scene-illustration:area:0:ecl:9a4f",
+     "scene-illustration:area:8:ecl:9b8a:caller:9a4a",
+     null
+    ]
+   },
+   "por.voice.ecl7.b26-9e46": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl7/b26-9e46.mp3",
+    "seconds": 9.28,
+    "waited": 9.641,
+    "saw": [
+     "portrait:PIC3.DAX:29:0:0",
+     null,
+     "scene-illustration:area:9:ecl:9c63:caller:ae22",
+     null,
+     "encounter:area:9:SPRIT2.DAX:12:0:0",
+     "portrait:HEAD2.DAX:5:BODY2.DAX:9",
+     null
+    ]
+   },
+   "por.voice.ecl7.b26-a037": {
+    "run": "campaign-full",
+    "asset": "voices/narration/ecl7/b26-a037.mp3",
+    "seconds": 5.2,
+    "waited": 10.016,
+    "saw": [
+     null,
+     "portrait:PIC3.DAX:29:0:0"
     ]
    }
   },
