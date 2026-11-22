@@ -8,18 +8,33 @@ type WallPart = { art: Material | null; status: string; mask?: number[] };
 const fingerprint = (pixels: Buffer) => createHash("sha256").update(pixels).digest("hex");
 const blankMaterial: Material = { key: "native:empty", pixels: Array<number>(64).fill(0) };
 
+// These arrivals load the destination map and wall bank before changing the script area.
+// The key is the previous script area and the new map. The value is the destination's art area.
+const arrivalTerrainAreas = new Map([
+  ["2:18", 18],  // Textile House to Podol Plaza
+  ["14:31", 24], // Kovel Mansion to the Temple of Bane vestibule
+  ["15:2", 2],   // Mendor's Library to the Textile House
+  ["20:29", 29], // Slums to Kuto's Well
+  ["21:0", 0],   // Sokal ferry return to the New Phlan harbor
+  ["22:23", 23], // Yarash's Pyramid to the lower floor
+  ["23:22", 22], // Yarash's Pyramid back to the upper floor
+  ["25:1", 1],   // Western wilderness to Buccaneer Base
+  ["25:28", 28], // Western wilderness to Zhentil Keep
+  ["27:13", 13], // Eastern wilderness to the Kobold Caves
+  ["29:18", 18], // Kuto's Well to Podol Plaza
+  ["29:20", 20], // Kuto's Well to the Slums
+]);
+
+export function explorationMaterialArea({ area, mapId }: NativeExploration & { area: number }) {
+  return arrivalTerrainAreas.get(`${area}:${mapId}`) ?? area;
+}
+
 /** Generate surfaces from the active native glyph bank, including alternate levels. */
 export function buildExplorationMaterials(native: NativeExploration & { area: number }, artwork: Artwork,
   catalogueGlyphs?: ReadonlyMap<number, TileFingerprint>) {
-  let areas = [native.area];
-  // Crossing west out of Kuto's Well draws Podol's wall bank before the script updates the area.
-  if (native.area === 29 && native.mapId === 18) areas = [18];
-  // Yarash's teleports change floors before the script updates the area.
-  if ((native.area === 22 || native.area === 23) && (native.mapId === 22 || native.mapId === 23)) {
-    areas = [native.mapId];
-  }
+  const { area, mapId } = native;
   // The Training Hall script uses the same physical map and wall bank as New Phlan.
-  if (native.area === 11 && native.mapId === 0) areas = [native.area, 0];
+  const areas = area === 11 && mapId === 0 ? [area, 0] : [explorationMaterialArea(native)];
   function replacement(hash: string, area: number): Material | undefined {
     const key = `tile:${area}:${hash}`;
     const art = artwork.get(key);

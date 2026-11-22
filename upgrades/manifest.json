@@ -5,6 +5,15 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "tile:28:f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b": "zhentil-webgl-night-sky-f5a5fd42d16a.png",
+    "tile:14:7885d9787cff36149f5166f2ad9167505a15fc132f946d6c7938f867d940326d": "kovel-manor-morning-sky-7885d9787cff.png",
+    "tile:3:26087428ffd2b6d223de38fab23ba9a5d662555586f672bbf7dba3d0c5256510": "valjevo-area4-webgl-briar-tip-right-26087428ffd2.png",
+    "tile:3:4604b4dc3ee09fff5fd6795fec5c5db76b8d590f0431236f30f9c7f3a98df38a": "valjevo-area5-shadowed-stair-4604b4dc3ee0.png",
+    "tile:3:a52c94fd2eb12322866bd171f6182b9ad7c7cf694b3a408bef2286112789422a": "valjevo-area5-shadowed-stair-a52c94fd2eb1.png",
+    "tile:3:bb49bb5785113bb8fc7e2df2cd207b1bc6c19a6419f7477ee832a2ac07e85bf3": "valjevo-area5-shadowed-stair-bb49bb578511.png",
+    "tile:3:d6018eb11d124efb0b450d8de44880d8a47d0293b921071d965a03961b43fc0f": "valjevo-area5-shadowed-stair-d6018eb11d12.png",
+    "tile:3:d6ed999dd3ceb0fba56627163443f6c94be28c777e7b7a29c98786b73da4ea32": "valjevo-area5-shadowed-stair-d6ed999dd3ce.png",
+    "tile:3:fdd51f211ac73d88be5437be305c837f387e704b98470b33fa147d18cfca8181": "valjevo-area4-webgl-briar-tip-left-fdd51f211ac7.png",
     "tile:18:5b777b6f3b36584dfd70318eb05a72f156d0aa65e617b2d2089aa67f7eb78ee9": "podal-shrine-side-lanes-terrain-141ade08c2e9.png",
     "tile:18:7885d9787cff36149f5166f2ad9167505a15fc132f946d6c7938f867d940326d": "podol-webgl-daylight-sky-7885d9787cff.png",
     "tile:18:e88c71f6a1651b0f1c277d553a5fb65b55d254c0d8350339a9440112f7cccd21": "podal-shrine-side-lanes-terrain-791da9b2a71e.png",
