@@ -1982,13 +1982,21 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:24:ecl:a6bf:cue:temple-gate-direct-attack",
     prompt: /ABATTLEBEGINS/i,
   }],
+  ["bane-gate-back-off-again", {
+    slot: "A", inputs: ["up", "enter", "enter", "b", "b"],
+    portraitStops: { 4: "portrait:area:24:ecl:a586:PIC1.DAX:4:0:0" },
+    portrait: "scene-illustration:area:24:ecl:a6bf:cue:temple-gate-back-off-again",
+    prompt: /ASYOUBACKAWAYAGAIN.*HEGRUNTSANORDERTOATTACK.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "bane-gate-back-off-again.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /ORCHITPOINTS5AC6/i },
+  }],
   ["bane-gate-inspection-failure", {
     slot: "A", inputs: ["up", "enter", "enter", "b"],
     portrait: "portrait:area:24:ecl:a586:PIC1.DAX:4:0:0",
     heldPortrait: "portrait:area:24:ecl:a586:PIC1.DAX:4:2:0",
     prompt: /IMUSTCHECKIFYOUAREWORTHYTOENTERTHETEMPLEOFBANE/i,
     continuation: {
-      inputs: ["l"], portrait: "portrait:area:24:ecl:a6b8:PIC1.DAX:4:2:0",
+      inputs: ["l"], portraits: ["portrait:area:24:ecl:a6b8:PIC1.DAX:4:2:0", "portrait:area:24:ecl:a6bf:PIC1.DAX:4:2:0"],
       prompt: /GUARDS,INTHENAMEOFBANE,KILLTHESEUNBELIEVERS/i,
     },
   }],
@@ -9767,8 +9775,8 @@ try {
         assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /THEENTIREPARTYISKILLED/i);
       }
       if (routeName === "bane-gate-inspection-failure") {
-        await advance("z");
         const battlePortrait = "portrait:area:24:ecl:a6bf:PIC1.DAX:4:2:0";
+        if (frame.portrait !== battlePortrait) await advance("z");
         assert.equal(frame.portrait, battlePortrait);
         assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /ABATTLEBEGINS/i);
         await waitFor("the gatekeeper portrait at battle entry", () => run(`state.sequence === ${frame.sequence} &&

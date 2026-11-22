@@ -2363,6 +2363,8 @@
     "scene-illustration:area:31:ecl:9d13": "bane-dining-room-jewelry.png",
     "scene-illustration:area:24:ecl:a915": "bane-desecrated-altar.png",
     "scene-illustration:area:24:ecl:a6bf:cue:temple-gate-direct-attack": "bane-gate-direct-attack.png",
+    "scene-illustration:area:24:ecl:a6b0:cue:temple-gate-back-off-again": "bane-gate-back-off-again.png",
+    "scene-illustration:area:24:ecl:a6bf:cue:temple-gate-back-off-again": "bane-gate-back-off-again.png",
     "scene-illustration:area:24:ecl:a75b": "bane-gatekeeper-recognizes-symbol.png",
     "scene-illustration:area:24:ecl:b0b5": "bane-gatekeeper-recognizes-symbol.png",
     "scene-illustration:area:24:ecl:a9c2": "bane-altar-shattered-ambush.png",
