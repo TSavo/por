@@ -55,14 +55,19 @@ const leaving = /^(?:Exit|Leave)$/i;
 
 const copy = mkdtempSync(join(tmpdir(), "por-narration-walk-"));
 for (const file of readdirSync(saves).filter((name) => /^(?:[A-J]|roster)\.json$/.test(name))) cpSync(join(saves, file), join(copy, file));
-const game = await startGame({ pregen: false, saves: copy, seconds: minutes * 60 + 300,
-  env: { POR_DEV_COMBAT: "1", POR_NARRATION_LEDGER: ledger, POR_NARRATION_RUN: process.env.POR_NARRATION_RUN ?? `walk-${run}` } });
-// A character the saved party handed to Quick fights on with no menu, past the developer victory:
-// take each one back (the harness answers such a poll with Space).
-game.byHand = true;
-game.expect(/Load Saved Game/, "The first menu offers to load a saved game.");
-await game.press("l", /Load Which Game: A/, "L asks which saved game to load.");
-await game.press(slot.toLowerCase());
+let game;
+/** Start the game on the copy of the saves and load the slot. Done again when the party dies. */
+async function begin() {
+  game = await startGame({ pregen: false, saves: copy, seconds: minutes * 60 + 300,
+    env: { POR_DEV_COMBAT: "1", POR_NARRATION_LEDGER: ledger, POR_NARRATION_RUN: process.env.POR_NARRATION_RUN ?? `walk-${run}` } });
+  // A character the saved party handed to Quick fights on with no menu, past the developer victory:
+  // take each one back (the harness answers such a poll with Space).
+  game.byHand = true;
+  game.expect(/Load Saved Game/, "The first menu offers to load a saved game.");
+  await game.press("l", /Load Which Game: A/, "L asks which saved game to load.");
+  await game.press(slot.toLowerCase());
+}
+await begin();
 
 const heardSoFar = () => readFileSync(ledger, "utf8").split("\n").filter((line) => line.includes('"outcome":"heard"')).length;
 const where = () => game.square() ?? undefined;
@@ -77,6 +82,22 @@ const note = (key) => appendFileSync(trace, `${elapsed()}s ${JSON.stringify(game
 /** The last screen answered with Enter alone, and whether a Yes/No was answered No since the step began. */
 let lastUnanswered = "";
 let saidNo = false;
+
+/**
+ * One key, then on until the game waits for the player, as the harness's press() does, except that
+ * the developer victory is taken wherever the game offers it. The harness answers every poll of a
+ * fight the computer plays with no key, so a fight in which the monsters move first (the council
+ * guard's, when the walk refuses to leave City Hall) could kill the party before it had a menu.
+ */
+async function press(key) {
+  if (!(await game.send(key))) game.fail(`The runner does not know the key ${JSON.stringify(key)}.`);
+  for (let polls = 0; !game.frame.awaitsKey; polls++) {
+    if (polls >= 3000) game.fail("The game was still running by itself after 3000 keyboard polls.");
+    if (game.frame.developerVictoryAvailable) { note(":win-combat"); await game.send(":win-combat"); continue; }
+    const takeControl = /^Move\/Attack, Move Left = \d+$/.test(game.menu());
+    if (!(await game.send(takeControl ? "space" : ":travel-poll"))) game.fail("The runner refused to go on at a frame that does not wait for a key.");
+  }
+}
 async function resolveScreen(limit = 120) {
   for (let presses = 0; presses < limit; presses++) {
     const menu = game.menu();
@@ -87,19 +108,19 @@ async function resolveScreen(limit = 120) {
       return false;
     }
     // The party menu a training hall or an inn opens: back to the street.
-    if (/BEGIN Adventuring/.test(text) && /Choose a function\s*$/.test(text)) { note("b"); await game.press("b"); continue; }
-    if (game.frame.developerVictoryAvailable) { note(":win-combat"); await game.send(":win-combat"); await game.settle(); continue; }
+    if (/BEGIN Adventuring/.test(text) && /Choose a function\s*$/.test(text)) { note("b"); await press("b"); continue; }
+    if (game.frame.developerVictoryAvailable) { note(":win-combat"); await press(":win-combat"); continue; }
     // A combatant's own menu with no developer victory on offer: end the turn on guard.
-    if (game.fighting()) { note("d"); await game.press("d"); if (/Guard/.test(game.menu())) await game.press("g"); continue; }
-    if (continueBattle.test(menu)) { note("n"); await game.press("n"); continue; }
-    if (/claim your treasure\? Yes No\s*$/.test(text)) { note("n"); await game.press("n"); continue; }
-    if (/^View (?:Take )?Pool (?:Share )?Exit$/.test(menuLine(game.frame))) { note("e"); await game.press("e"); continue; }
+    if (game.fighting()) { note("d"); await press("d"); if (/Guard/.test(game.menu())) await press("g"); continue; }
+    if (continueBattle.test(menu)) { note("n"); await press("n"); continue; }
+    if (/claim your treasure\? Yes No\s*$/.test(text)) { note("n"); await press("n"); continue; }
+    if (/^View (?:Take )?Pool (?:Share )?Exit$/.test(menuLine(game.frame))) { note("e"); await press("e"); continue; }
     if (pressReturn.test(text) || /Press (?:button or )?<?(?:enter|return)>?(?:\/<return>)? to continue\s*$/i.test(text) ||
-        /Press any key to continue\s*$/.test(text)) { note("enter"); await game.press("enter"); continue; }
+        /Press any key to continue\s*$/.test(text)) { note("enter"); await press("enter"); continue; }
     if (/\bYes No\s*$/.test(text)) {
       const answer = roll(2) ? "y" : "n";
       if (answer === "n") saidNo = true;
-      note(answer); await game.press(answer); continue;
+      note(answer); await press(answer); continue;
     }
     const words = menu.replace(/^[^:]*:\s*/, "").split(" ").filter((word) => /^[A-Za-z]{2,}$/.test(word) && !never.test(word));
     if (words.length) {
@@ -108,18 +129,18 @@ async function resolveScreen(limit = 120) {
       const word = out ?? words[roll(words.length)];
       const letter = (/[A-Z]/.exec(word.slice(1))?.[0] ?? word[0]).toLowerCase();
       note(letter);
-      await game.press(letter);
+      await press(letter);
       continue;
     }
     // A line to type (a password, a number of coins) or a menu the walk does not know: Enter. Where
     // Enter alone leaves the screen as it was, type something first: a number, or a word.
     if (text === lastUnanswered) {
       const typed = /NUMBER|HOW MANY|GP\b/i.test(text) ? ["1", "10", "100"][roll(3)] : ["yes", "friend", "abc"][roll(3)];
-      for (const character of typed) await game.press(character);
+      for (const character of typed) await press(character);
       note(`${typed} enter`);
     } else note("enter");
     lastUnanswered = text;
-    await game.press("enter");
+    await press("enter");
   }
   game.fail(`The walk could not get back to the exploration menu in ${limit} presses.`);
 }
@@ -159,11 +180,11 @@ async function stepToward(heading) {
   // answer what comes, and give up on this way out after four turns that do not face it.
   for (let turns = 0; where()?.facing !== heading; turns++) {
     if (turns >= 4 || keyOf(where() ?? from) !== keyOf(from)) { node.ways.set(heading, "wall"); return true; }
-    await game.press("right");
+    await press("right");
     if (!(await resolveScreen())) return false;
   }
   saidNo = false;
-  await game.press("up");
+  await press("up");
   if (!(await resolveScreen())) return false;
   const to = where();
   if (!to) return true;
@@ -181,6 +202,7 @@ async function stepToward(heading) {
 
 let lastReport = 0;
 let errors = 0;
+let deaths = 0;
 try {
   if (!(await resolveScreen())) throw new Error("The saved game did not come to the exploration menu.");
   for (;;) {
@@ -196,7 +218,17 @@ try {
       const node = squares.get(keyOf(here));
       const untried = order.filter((heading) => !node.ways.has(heading));
       const heading = route.length ? route[0] : untried[roll(untried.length)];
-      if (!(await stepToward(heading))) break;
+      if (!(await stepToward(heading))) {
+        // The party died (a fight the walk could not win, or a question answered into death, such
+        // as refusing to leave when the council guard says so). That way is closed, the game starts
+        // again from the saved slot, and the walk goes on with what it has found.
+        if (++deaths > 8) break;
+        node.ways.set(heading, "wall");
+        log(`the party died stepping ${heading} from ${keyOf(here)}: loading slot ${slot.toUpperCase()} again`);
+        game.close();
+        await begin();
+        if (!(await resolveScreen())) break;
+      }
     } catch (error) {
       // A screen the walk does not know: note it and go on from wherever the game is, a few times.
       if (++errors > 8) throw error;
