@@ -78,7 +78,12 @@ export function observeNativeCombatArt(art: ReadonlySet<string>, materialKeys: R
       if (equivalents.length === 1) return equivalents[0];
     }
     const global = `combat:${source}`;
-    return art.has(global) ? global : undefined;
+    if (art.has(global)) return global;
+    // The same picture stored in another archive (CPIC2.DAX block 1 is CPIC7.DAX block 1): the
+    // framebuffer matcher finds its art by the pixels, whichever archive the key names, when one
+    // key alone has them.
+    const equivalents = (equivalentPoses.get(source) ?? []).map(other => `combat:${other}`).filter(key => art.has(key));
+    return equivalents.length === 1 ? equivalents[0] : undefined;
   }
   const slots = new Map<number, { archive: string; ready: number }>();
   const draws = new Map<string, {
