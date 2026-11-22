@@ -132,6 +132,14 @@ The browser uses framebuffer matching when it runs with the original files.
 Standalone party sprites and selection borders still depend on their
 source pixels. The CPIC observer covers monster draws.
 
+Ordinary portrait matching has a similar source-pixel dependency. With
+`POR_GAME_SOURCE=port` at `220d2236`, the GOG 1.3 Chrome
+`diogenes-advice` replay reaches the cave entrance without selecting
+`portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0`. The original-file replay
+with the same checkpoint selects that key. The PNG is already shipped.
+The standalone renderer needs the native picture identity and animation
+member to select existing PIC artwork when the original pixels are blank.
+
 `tiles.json` lists each distinct tile of the 8X8D sets once, by that hash, with every place it is
 stored (`archive:block:index`). A tile that has transparent pixels (colour 13) also lists
 `overColour`: the hash of the cell the screen shows when one solid colour is behind the tile, for
