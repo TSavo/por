@@ -3956,6 +3956,13 @@ const combatPoseRoutes = new Map([
     strikeAnchor: [80, 104], strikeReflected: false, strikeReport: /6THLVLFIGHTERATTACKSPHINEAS/i,
     inputs: ["up", "enter", "enter", "enter"], strikeInputs: ["enter", "enter", ...Array(7).fill("q")],
   }],
+  ["bane-ogre-commander-combat", {
+    slot: "A", stand: "combat:area:31:CPIC1.DAX:8:ecl:9f7b", strike: "combat:area:31:CPIC1.DAX:136:ecl:9f7b",
+    width: 96, height: 192, manualPolling: true, standAnchor: [104, 8, false],
+    strikeAnchor: [104, 56], strikeReflected: false, strikeReport: /OGREHITPOINTS21AC5/i,
+    excluded: ["combat:area:31:CPIC1.DAX:8", "combat:area:31:CPIC1.DAX:136"],
+    inputs: ["up", ...Array(8).fill("enter"), ...Array(9).fill("q")], strikeInputs: Array(39).fill("q"),
+  }],
   ["bane-ogre-escort-combat", {
     slot: "A", stand: "combat:area:31:CPIC1.DAX:4:ecl:9f7b", strike: "combat:area:31:CPIC1.DAX:132:ecl:9f7b",
     width: 96, height: 96, manualPolling: true, standAnchor: [56, 56, false],
