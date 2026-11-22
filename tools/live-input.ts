@@ -299,6 +299,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   // and asks for more with ":poll", as it does for a fight the computer plays.
   let presentationPolling = false;
   let pictureLoopShown: string | undefined;
+  // How many pictures go to the page at a time. Each loop starts with two, so its first pose arrives
+  // while the page still shows the last one before it, and doubles up to a dozen (#125).
+  let pictureLoopBatch = 2;
   let pictureLoopPasses = 0;
   let pictureLoopClip: PresentationAnimationFrame | undefined;
   let immediateStrike: { signature: string; clip: PresentationAnimationFrame } | undefined;
@@ -1194,11 +1197,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const block = cpu.read8(cpu.ss, (loopBp + 8) & 0xffff);
       const member = cpu.read8(cpu.ss, (loopBp - 0x41) & 0xffff) - 1;
       if (`${block}:${member}` === pictureLoopShown) return;
+      if (pictureLoopShown === undefined) pictureLoopBatch = 2;
       pictureLoopShown = `${block}:${member}`;
       if (pictureLoopClip) pictureLoopClip.durationMs = pictureLoopPasses * 10;
       pictureLoopPasses = 0;
       captureEclContext(cpu);
-      if (animation.length >= 12) handOverPictureLoop();
+      if (animation.length >= pictureLoopBatch) {
+        handOverPictureLoop();
+        pictureLoopBatch = Math.min(12, pictureLoopBatch * 2);
+      }
       showFrame(undefined, undefined, false, false, 100, undefined, false, "picture");
       pictureLoopClip = animation.at(-1);
       // Enhanced shows the pose drawn for this member where there is one (tools/portrait-art.ts endingPortraitKey).
