@@ -46,11 +46,11 @@ gathered in `tools/standalone-trace.ts`. Without the variable the lists are
 empty and the wrapper is not installed. The runner is killed while it waits for
 a command, so the files are rewritten before every wait.
 
-The acceptance tests drive the runner without the server, and it is the server
-that tells the runner which artwork exists. The report therefore hands the
-runner the same artwork keys the server would (`tools/browser-play.ts` builds
-them; `tools/qa-standalone.ts` repeats those lines). If the server's list
-changes, the report's must follow.
+There are two kinds of play. The acceptance tests drive the runner over a pipe,
+without the server; they feed the files, program bytes, font and sound parts.
+It is the server that tells the runner which artwork exists, so only the plays
+that go through the server and Chrome feed part 3. A runner that was not told
+the artwork is left out of part 3: it would report every picture as original.
 
 The run-time numbers cover exactly the play the report lists under the table,
 and nothing else. A file, a block, a program byte or a picture the game would
