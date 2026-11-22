@@ -1139,6 +1139,8 @@ const portraitLoops = [
   ["portrait:area:18:ecl:af2a:PIC1.DAX:4:", [0, 1, 2, 1], "portrait:area:18:PIC1.DAX:4:0:0",
     /AROBEDORCISSITTINGHERE/i, [1510, 20, 710, 20]],
   ["portrait:area:25:ecl:a622:PIC6.DAX:120:", 3],
+  ["portrait:area:31:ecl:a076:PIC1.DAX:2:", 2, "portrait:area:31:PIC1.DAX:2:0:0",
+    /INTHISROOMARESOMEGOBLINSLAVESTHATARECOWERINGINTHECORNER/i, [310, 310]],
   ["portrait:area:20:ecl:b6df:caller:9eec:PIC2.DAX:2:", 2, "portrait:area:20:PIC2.DAX:2:0:0",
     /GOBLINISINSTRUCTINGAGROUPOFYOUNGWARRIORS/i],
   ["portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:", [0, 1, 2, 1], "portrait:area:20:PIC2.DAX:4:0:0",
@@ -1173,6 +1175,8 @@ const portraitLoops = [
     /MUTILATINGSCUM.*BUTYOUWILLDIEFIRST/i, [210, 210, 210, 210]],
   ["portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:", 4, undefined,
     /POKINGAROUNDINTHEVATS/i],
+  ["portrait:area:23:ecl:aa03:PIC7.DAX:57:", 4, undefined,
+    /^(?=.*THEYRECOILINFEAR)(?=.*COMBATWAITFLEEPARLAY)/i, [210, 210, 210, 210]],
   ["portrait:area:29:ecl:af2f:caller:a6f7:PIC8.DAX:0:", 3, "portrait:area:29:PIC8.DAX:0:0:0",
     /ASMALLBANDOFSICKLYKOBOLDS/i],
 ].map(([prefix, members, initial, cue, phaseTimes]) => ({

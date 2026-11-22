@@ -10563,6 +10563,8 @@
     "portrait:area:23:ecl:aa03:PIC7.DAX:57:3:0": "pyramid-pump-prisoners-tail-dip.png",
     "portrait:area:23:ecl:aa20:PIC7.DAX:57:1:0": "pyramid-pump-prisoners-tail-rise.png",
     "portrait:area:23:ecl:aa20:PIC7.DAX:57:0:0": "pyramid-pump-prisoners-dialogue.png",
+    "portrait:area:23:ecl:aa20:PIC7.DAX:57:2:0": "pyramid-pump-prisoners-tail-arc.png",
+    "portrait:area:23:ecl:aa20:PIC7.DAX:57:3:0": "pyramid-pump-prisoners-tail-dip.png",
     "scene-illustration:area:23:ecl:aaaa": "pyramid-pump-prisoners-freed.png",
     "scene-illustration:area:23:ecl:9a04:caller:aaae": "pyramid-pump-prisoners-freed.png",
     "scene-illustration:area:23:ecl:ab06": "pyramid-pump-prisoners-hostile.png",

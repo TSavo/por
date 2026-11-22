@@ -12977,6 +12977,7 @@ try {
       const capture = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "bane-captive-goblins.png"), Buffer.from(capture.data, "base64"));
       const pleading = "portrait:area:31:ecl:a076:PIC1.DAX:2:1:0";
+      await verifyHeldPortraitLoop(["portrait:area:31:PIC1.DAX:2:0:0", pleading], routeName);
       for (let tick = 0; tick < 18 && frame.portrait !== pleading; tick++) {
         await advance("z");
         assert.ok(!frame.classicPortrait);
@@ -14037,31 +14038,21 @@ try {
       document.querySelector('.encounter-sprite[src="/art/${close}"]')?.naturalWidth === 192
     `));
     await advance("a");
-    const portrait = "portrait:area:23:ecl:aa03:PIC7.DAX:57:0:0";
+    const pumpingLoop = [0, 1, 2, 3].map(member => `portrait:area:23:ecl:aa03:PIC7.DAX:57:${member}:0`);
+    const portrait = pumpingLoop[0];
     assert.equal(frame.portrait, portrait);
+    assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+      /THEYRECOILINFEAR.*COMBATWAITFLEEPARLAY/i);
     await waitFor("the enhanced pumping room illustration", () => run(`
       document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352
     `));
     await verifyPortraitPanel();
     await switchBothWays();
     if (!riverPumpingHostile) {
-      await advance("z");
-      for (const member of [1, 2, 3]) {
-        await advance("z");
-        const phase = `portrait:area:23:ecl:aa03:PIC7.DAX:57:${member}:0`;
-        assert.equal(frame.portrait, phase);
-        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /THEYRECOILINFEAR/i);
-        await waitFor("the pumping-room prisoner animation", () => run(`state.sequence === ${frame.sequence} &&
-          document.querySelector('.encounter-portrait[src="/art/${phase}"]')?.naturalWidth === 352`));
-        await verifyPortraitPanel();
-        const shot = await command("Page.captureScreenshot", { format: "png" });
-        writeFileSync(resolve(directory, `pumping-room-prisoners-phase-${member}.png`), Buffer.from(shot.data, "base64"));
-      }
-      for (let i = 0; i < 16; i++) await advance("z");
-      assert.equal(frame.portrait, "portrait:area:23:ecl:aa03:PIC7.DAX:57:1:0");
+      await verifyHeldPortraitLoop(pumpingLoop, "pumping-room-prisoners");
     }
     await advance("p");
-    const parlay = `portrait:area:23:ecl:aa20:PIC7.DAX:57:${riverPumpingHostile ? 0 : 1}:0`;
+    const parlay = "portrait:area:23:ecl:aa20:PIC7.DAX:57:0:0";
     assert.equal(frame.portrait, parlay);
     await waitFor("the pumping-room prisoners during Parlay", () => run(`state.sequence === ${frame.sequence} &&
       document.querySelector('.encounter-portrait[src="/art/${parlay}"]')?.naturalWidth === 352`));
