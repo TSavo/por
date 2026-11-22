@@ -15,7 +15,7 @@
    "heard": 106
   },
   "acceptance-slums": {
-   "ledger": "acceptance-slums-gateway-art.jsonl",
+   "ledger": "acceptance-slums-both-gateway-views.jsonl",
    "games": 4,
    "decisions": 359,
    "heard": 57
@@ -330,11 +330,6 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:20:ecl:ab23"
-   },
-   "withoutArt": {
-    "run": "acceptance-slums",
-    "step": 1049622139,
-    "showing": "no picture"
    }
   },
   "por.voice.ecl3.b0-abd2": {
