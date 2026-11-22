@@ -939,6 +939,13 @@ const illustrationRoutes = new Map([
       lootCaption: /LOOTTAPESTRYITEMS:TAKEEXIT/i,
     },
   }],
+  ["bane-ruined-dining-room", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:31:ecl:b0b5:cue:ruined-dining-room",
+    prompt: /THEREMAINSOFAONCEGREATDININGROOM.*FURNITURELIESBURNEDANDBROKEN/i,
+    finalPhaseCapture: "bane-ruined-dining-room.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["bane-dining-room-jewelry", {
     slot: "A", inputs: ["s", "up", "enter"],
     portraitStops: { 2: "scene-illustration:area:31:ecl:9d02" },
