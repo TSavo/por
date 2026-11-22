@@ -2832,28 +2832,23 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:0:HEAD3.DAX:9:BODY3.DAX:7", prompt: /GO.*STAY/i,
   }],
   ["lizard-wilds-kobold-prisoners", {
-    slot: "A", inputs: ["up", "enter", "enter", "z", "z", "z"],
-    portraitStops: {
-      3: "portrait:area:26:PIC7.DAX:0:0:0",
-      5: "portrait:area:26:ecl:a7b4:PIC7.DAX:0:1:0",
-    },
-    portrait: "portrait:area:26:ecl:a7b4:PIC7.DAX:0:2:0", prompt: /RELEASEUS/i,
-    phaseCaptures: { 5: "lizard-wilds-kobold-prisoners-phase-1.png" },
-    finalPhaseCapture: "lizard-wilds-kobold-prisoners-phase-2.png",
+    slot: "A", inputs: ["up"],
+    portrait: "portrait:area:26:PIC7.DAX:0:0:0", prompt: /RELEASEUS/i,
+    heldPortraitLoop: [
+      "portrait:area:26:PIC7.DAX:0:0:0",
+      ...[1, 2, 1].map(member => `portrait:area:26:ecl:a7b4:PIC7.DAX:0:${member}:0`),
+    ],
     continuation: { inputs: ["r"], prompt: /WATCHOUTFORTHEMUTANTLIZARDMEN.*THENRUNOUTTHEDOOR/i, portrait: "scene-illustration:area:26:ecl:a842" },
     journalLead: "lizard-wilds-mutant-warning",
   }],
   ["lizard-wilds-pool-dialogue", {
-    slot: "A", inputs: ["up", "a", "enter", ...Array(20).fill("z")],
-    portraitStops: {
-      3: "portrait:area:26:PIC7.DAX:57:0:0",
-      6: "portrait:area:26:ecl:ad46:caller:a6a0:PIC7.DAX:57:2:0",
-      7: "portrait:area:26:ecl:ad46:caller:a6a0:PIC7.DAX:57:3:0",
-    },
-    portrait: "portrait:area:26:ecl:ad46:caller:a6a0:PIC7.DAX:57:1:0", prompt: /LIZARDMENSWIMMINGINTHEPOOL/i,
-    phaseCaptures: { 6: "lizard-wilds-pool-phase-2.png", 7: "lizard-wilds-pool-phase-3.png" },
-    finalPhaseCapture: "lizard-wilds-pool-phase-1.png",
-    continuation: { inputs: ["enter"], portrait: "portrait:area:26:ecl:a6a9:PIC7.DAX:57:1:0", prompt: /ABATTLEBEGINS/i },
+    slot: "A", inputs: ["up", "a"],
+    portrait: "portrait:area:26:PIC7.DAX:57:0:0", prompt: /LIZARDMENSWIMMINGINTHEPOOL/i,
+    heldPortraitLoop: [
+      "portrait:area:26:PIC7.DAX:57:0:0",
+      ...[1, 2, 3].map(member => `portrait:area:26:ecl:ad46:caller:a6a0:PIC7.DAX:57:${member}:0`),
+    ],
+    continuation: { inputs: ["enter"], portrait: "portrait:area:26:PIC7.DAX:57:0:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["wild-cave-giant-snake-dialogue", {
     slot: "A", inputs: ["up", "enter"],
@@ -7284,6 +7279,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "valhingen-grave-claws" || routeName === "sokal-barracks-ghost-phases" ||
       routeName === "old-phlan-lizard-patrol-phases" || routeName === "valjevo-tower-troll-phases" ||
+      routeName === "lizard-wilds-kobold-prisoners" || routeName === "lizard-wilds-pool-dialogue" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       ["sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",

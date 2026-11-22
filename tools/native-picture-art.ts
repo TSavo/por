@@ -27,6 +27,7 @@ const repeatedPictureMembers = new Map<string, readonly number[]>([
   ["PIC5.DAX:31", [0, 1, 2, 3, 4, 3, 2, 1]],
   ["PIC6.DAX:117", [0, 1, 2, 3, 4, 5, 2]],
   ["PIC6.DAX:118", [0, 1, 2, 3, 4, 3, 2, 1]],
+  ["PIC7.DAX:0", [0, 1, 2, 1]],
 ]);
 // The game's own data has blank pictures: a menu, a list or a sheet drawn over a picture leaves its
 // pixels as they were. Each held picture also keeps the write count of its cells, and a write there
