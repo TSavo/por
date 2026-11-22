@@ -43,10 +43,12 @@ const selectors = manifest.staticSelectors ?? [];
 
 /**
  * What was on screen with a passage. "view" is the first-person view of where the party stands: the
- * game draws no picture there, and the Enhanced page draws its own street view of the square.
+ * game draws no picture there, and the Enhanced page draws its own street view of the square. "runes"
+ * is a page of text the game writes in runes in the picture window (a scroll, a journal entry).
  */
-type Art = { kind: "portrait" | "encounter" | "scene" | "view"; key: string };
+type Art = { kind: "portrait" | "encounter" | "scene" | "view" | "runes"; key: string };
 const firstPersonView = "the first-person view";
+const runePage = "runes in the picture window";
 interface Coverage {
   schema: 1;
   about: string;
@@ -208,7 +210,7 @@ function mergeLedger(path: string): void {
     if (line.t === "f") {
       const art: Art | undefined = line.portrait ? { kind: "portrait", key: line.portrait }
         : line.encounter ? { kind: "encounter", key: line.encounter } : line.scene ? { kind: "scene", key: line.scene }
-        : line.view ? { kind: "view", key: firstPersonView } : undefined;
+        : line.runes ? { kind: "runes", key: runePage } : line.view ? { kind: "view", key: firstPersonView } : undefined;
       for (const waiting of open.get(line.s) ?? []) {
         waiting.frames++;
         // A picture drawn over the view before the key wait is the passage's.
@@ -353,8 +355,9 @@ function conditionsFor(sourceId: string): string {
 const withArt = heardUnits.filter(unit => coverage.units[unit.id]!.art && !coverage.units[unit.id]!.withoutArt);
 const withoutArt = heardUnits.filter(unit => !withArt.includes(unit));
 rows.push({ part: "Selected passages with their artwork showing", done: withArt.length, total: heardUnits.length, left: withoutArt.length,
-  note: `artwork is an Enhanced portrait, scene illustration or encounter picture, or the first-person view of the square, on screen before the game next waits for a key ` +
-    `(${withArt.filter(unit => coverage.units[unit.id]!.art?.kind === "view").length} by the first-person view); ` +
+  note: `artwork is an Enhanced portrait, scene illustration or encounter picture, the first-person view of the square, or runes the game writes in the picture window, on screen before the game next waits for a key ` +
+    `(${withArt.filter(unit => coverage.units[unit.id]!.art?.kind === "view").length} by the first-person view, ` +
+    `${withArt.filter(unit => coverage.units[unit.id]!.art?.kind === "runes").length} by runes in the picture window); ` +
     `${withoutArt.filter(unit => coverage.units[unit.id]!.withoutArt?.showing === "the original picture").length} showed only the original picture, ` +
     `${withoutArt.filter(unit => coverage.units[unit.id]!.withoutArt?.showing === "no picture").length} no picture`,
   list: withoutArt.map(unit => {

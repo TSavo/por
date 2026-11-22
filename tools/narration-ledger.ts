@@ -85,6 +85,8 @@ export interface LedgerFrame {
   encounter?: string;
   /** The first-person view of where the party stands is on screen (the Enhanced page draws it as the street view). */
   view?: true;
+  /** Runes fill the picture window: a page of text the game writes in Dethek runes there, which the page draws. */
+  runes?: true;
 }
 
 export interface FrameArt {
@@ -94,6 +96,7 @@ export interface FrameArt {
   classicPortrait: { area: number | undefined; cursor: number | undefined; caller: number | undefined } | undefined;
   encounter: string | undefined;
   view?: boolean;
+  runes?: boolean;
 }
 
 function create(path: string) {
@@ -235,8 +238,8 @@ function create(path: string) {
       const line: LedgerFrame = { t: "f", s: session, ...(art.awaitsKey ? { key: true as const } : {}),
         ...(art.scene ? { scene: art.scene } : {}), ...(art.portrait ? { portrait: art.portrait } : {}),
         ...(art.classicPortrait ? { classic: art.classicPortrait } : {}), ...(art.encounter ? { encounter: art.encounter } : {}),
-        ...(art.view ? { view: true as const } : {}) };
-      const shown = JSON.stringify([line.scene, line.portrait, line.classic, line.encounter, line.view]);
+        ...(art.view ? { view: true as const } : {}), ...(art.runes ? { runes: true as const } : {}) };
+      const shown = JSON.stringify([line.scene, line.portrait, line.classic, line.encounter, line.view, line.runes]);
       if (!owed && shown === lastArt) return;
       lastArt = shown;
       write(line);

@@ -42,7 +42,7 @@ Lines are JSON, one per line. `s` is the runner process, because one file can ho
 | --- | --- |
 | `{"t":"run", "run", "artwork"}` | a game started. `artwork` says whether the play server gave the runner the artwork list or the ledger loaded it (the acceptance harness has no play server) |
 | `{"t":"n", ...}` | a narration decision: see below |
-| `{"t":"f", "key", "portrait", "encounter", "scene", "classic", "view"}` | a frame's artwork. `portrait` is an Enhanced portrait or scene illustration and `encounter` an Enhanced encounter picture: both are keys of the artwork manifests, and are only present when that artwork is installed. `classic` means an original picture is showing with no Enhanced artwork for it. `view` means the first-person view of the party's square is on screen. `key` marks a frame on which the game waits for the player. Written while a narration is waiting for its frame, and whenever the artwork changes |
+| `{"t":"f", "key", "portrait", "encounter", "scene", "classic", "view", "runes"}` | a frame's artwork. `portrait` is an Enhanced portrait or scene illustration and `encounter` an Enhanced encounter picture: both are keys of the artwork manifests, and are only present when that artwork is installed. `classic` means an original picture is showing with no Enhanced artwork for it. `view` means the first-person view of the party's square is on screen, and `runes` that the game has written a page in runes in the picture window (a scroll, a journal entry). `key` marks a frame on which the game waits for the player. Written while a narration is waiting for its frame, and whenever the artwork changes |
 | `{"t":"end", "waiting"}` | the run ended; selectors still waiting |
 
 A narration line carries the source event reached (`sourceId`, `archive`, `block`), the `step`,
@@ -199,7 +199,8 @@ Rows that come from play:
 - **Silent cases found in play** (must be 0).
 - **Selected passages with their artwork showing**: of the units selected, those where an Enhanced
   portrait, scene illustration or encounter picture was on screen between the unit being selected
-  and the game next waiting for a key, or the first-person view of the square the party stands on.
+  and the game next waiting for a key, or the first-person view of the square the party stands on,
+  or a page the game writes in runes in the picture window.
   Where the game prints a passage over that view it draws no picture of its own, and the Enhanced
   page draws its street view of the square; the note counts these. Until 2026-11-22 the ledger did
   not record the view, so such passages were listed as "no picture" (#100). This is the runner's
