@@ -2174,6 +2174,12 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:20:0:0",
     prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMEWIGHTS/i,
   }],
+  ["slums-roaming-kobold-loop", {
+    slot: "B", inputs: [...Array.from({ length: 18 }, () => ["up", "enter", "down"]).flat(), "up", "enter", "a"],
+    portrait: "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0",
+    prompt: /YOUHAVESURPRISEDAPARTYOFKOBOLDS/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:20:ecl:9e02:PIC2.DAX:0:${member}:0`),
+  }],
   ["valhingen-skeleton-roam-dialogue", {
     slot: "A", inputs: ["up", "down", "a", "a"],
     portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:34:0:0",
@@ -7426,6 +7432,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valjevo-fire-giant-refusal-loop" ||
       routeName === "valjevo-fire-giant-intruder-loop" ||
       routeName.startsWith("valjevo-tower-giants-") ||
+      routeName === "slums-roaming-kobold-loop" ||
       /^valjevo-giant-barracks-password-(haughty|sly)-loop$/.test(routeName) ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||
