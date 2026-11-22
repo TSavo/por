@@ -313,6 +313,8 @@ const playbackSeconds = () => Math.round(performance.now()) / 1000;
 function logNarrationQueued(narration) {
   const entry = { id: narration.id, unitId: narration.unitId, ...(narration.variantId ? { variantId: narration.variantId } : {}),
     asset: narration.asset, queuedAt: playbackSeconds(), queuedFrame: state.sequence,
+    // Lines sounding or waiting when this one was queued: it has to wait its turn behind them.
+    ...(currentVoice || blockedVoice || narrationQueue.length ? { ahead: narrationQueue.length + (currentVoice || blockedVoice ? 1 : 0) } : {}),
     // A recording from voices.json is speaking: the page matched it to the text this narration reads.
     ...(currentVoice && currentVoice.dataset.queuedNarration !== "true" ? { behindVoiceLine: currentVoice.getAttribute("src") } : {}) };
   narrationPlayback.push(entry);

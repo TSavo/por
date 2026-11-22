@@ -74,6 +74,7 @@ told by the player when it stops a voice. It starts, stops and queues nothing.
 | --- | --- |
 | `id`, `unitId`, `variantId`, `asset` | the narration, as the play server sent it |
 | `queuedAt`, `queuedFrame` | when the page was told, and the frame then on screen |
+| `ahead` | lines sounding or waiting when this one was queued. Absent when it could start at once |
 | `behindVoiceLine` | a recording from `src/audio/voices.json` was speaking when this was queued: the page had matched it to the same text |
 | `refused` | `play()` was rejected (Chrome's autoplay rule, with no click on the page yet). The player retries on the next key or click |
 | `startedAt`, `startFrame`, `duration` | the audio element's `playing` event, and the recording's length as Chrome decoded it |
@@ -177,10 +178,11 @@ Rows that come from play:
   came while another voice element was neither paused nor ended. This is observed on the audio
   elements themselves, not read from the player's own bookkeeping.
 - **Played with their artwork on screen from start to end**: of the units played to the end, those
-  where one Enhanced artwork was drawn when the line started and no other frame replaced it before
-  the line ended. It proves a picture was there throughout. It does not compare the picture's
-  variant with the narration's variant. A unit counts once any playing of it had its artwork
-  throughout; otherwise `--list` gives what was on screen instead.
+  where the passage's own artwork was drawn when the line started and no other frame replaced it
+  before the line ended. The passage's own artwork is what the runner's ledger saw on the frame
+  that printed it. One picture throughout is not enough: a line sent before its frame is drawn
+  plays under the previous passage's picture, and does not count. It does not compare the
+  picture's variant with the narration's variant. `--list` gives what was on screen instead.
 - **Dynamic variants selected** (of 392): the variant's condition matched the game's state.
 - **Deferred selectors resolved** (of 43): play reached the selector's passage and it chose a unit
   (or its silent case).
@@ -196,11 +198,13 @@ Rows that come from play:
 Rows that need no play, and must be zero:
 
 - **Recordings missing under `audio/`**: every unit and variant asset file.
-- **Units that a voices.json recording also speaks**: the page plays the recordings of
-  `src/audio/voices.json` when their phrase appears in printed text, and the runner selects the
-  unit for the same print. Where a unit's text holds such a phrase the passage is read twice:
-  the voices.json recording at once, then the unit when that has finished. In play the playback
-  log marks the unit `behindVoiceLine`.
+- **Units that a voices.json recording also speaks** (must be 0): narration has one source, the
+  script units. `src/audio/voices.json` was an earlier, text-matched source: the page plays a
+  line listed there when its phrase appears in printed text. Its nine lines (Rolf's eight tour
+  passages and the temple question) were all script units as well, so both fired on one print and
+  the passage was read twice, or the second recording cut the first off. The list was emptied on
+  2026-11-21. The row guards that: a line added there whose phrase is in a unit's text counts
+  here. In play the playback log marks such a unit `behindVoiceLine`.
 - **Variant conditions that overlap**: within a family every condition and every selecting value
   is distinct, so no two variants can match at once.
 - **Variant families the observer cannot select**: the observer reads one slot per family. Where

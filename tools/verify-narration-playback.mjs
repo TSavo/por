@@ -17,15 +17,19 @@ import { openChromeCampaignLeg } from "./chrome-campaign-replay.mjs";
 // the page was told to play exactly what the runner selected, in order, each unit once (a covered
 // print would start nothing; the tour's units cover no print but their own, so none is reached);
 // the recording started, ran in real time and ended at its full length; no two voices overlapped;
-// one Enhanced artwork was on screen from the line's start to its end; and the passage was
-// spoken once, at once (no other recording of the same text spoke first).
+// the artwork of the frame that prints the passage was on screen from the line's start to its
+// end; and the passage was spoken once, at once (no other recording of the same text spoke first).
 //
-// Pass 2 presses Enter three seconds into each line. The owner's policy (the narration manifest:
-// "subsequentNarrationQueuesAfterCurrent") and the page's key handling say Enter lets the line run
-// on and the next one waits its turn, so it requires: the line pressed over ran to its end or was
-// stopped at that key press; the next unit started from its beginning and was not dropped; no two
-// voices overlapped. Then it presses a key that is not Enter and requires the line to stop at
-// once, with nothing left sounding or queued, and the next passage's line to start cleanly.
+// Pass 2 presses keys while a line is sounding. On the tour the game takes no key until a passage
+// is printed, which is after its line has finished, so this pass gives the page's player lines of
+// its own while the game waits. The owner's policy (the narration manifest: "subsequentNarration
+// QueuesAfterCurrent") and the page's key handling say Enter lets the line run on and the next one
+// waits its turn, so it requires: a line pressed over with Enter ran to its end; every line sent
+// after it started only when it had finished, and played to its end; no two voices overlapped. A
+// key the game ignores (the left arrow at "Press <enter>/<return> to continue", checked by the
+// screen staying the same) must leave the line playing and the line behind it queued. A key the
+// game acts on (the left arrow at the area menu, which turns the party) must end the line, with
+// nothing left sounding or queued.
 //
 // --break shows the check red: `ended` drops the player's handling of a recording's end, so the
 // next line never starts; `overlap` lets the queue start a line while another is playing. A broken
@@ -167,6 +171,8 @@ function requireSelectedWerePlayed(name, lines) {
 console.log(`Pass 1: wait for every line to finish before pressing on${broken ? ` (broken on purpose: ${broken})` : ""}`);
 {
   const leg = await openLeg("waiting");
+  /** By narration id: the artwork of the frame that printed its passage, and when the page had that frame. */
+  const passageArt = new Map();
   let log;
   try {
     for (let presses = 0; presses < 80; presses++) {
@@ -177,6 +183,10 @@ console.log(`Pass 1: wait for every line to finish before pressing on${broken ? 
       const text = textOf(leg.frame);
       if (/our tour is ended/.test(text) && /area cast view encamp search look/.test(text)) break;
       await leg.press(nextKey(text));
+      // The frame that has now arrived prints the passage of every narration queued since the key:
+      // its artwork is theirs.
+      const drawn = await leg.chrome.evaluate("({ art: state.portrait ?? state.encounter?.[2] ?? null, at: porNarrationPlayback().at, last: porNarrationPlayback().lines.at(-1)?.id ?? 0 })");
+      for (let id = passageArt.size + 1; id <= drawn.last; id++) passageArt.set(id, drawn);
     }
     log ??= await leg.playback();
   } finally { await leg.chrome.close(); }
@@ -198,84 +208,119 @@ console.log(`Pass 1: wait for every line to finish before pressing on${broken ? 
     const elapsed = line.endedAt - line.startedAt;
     if (Math.abs(elapsed - line.duration) > tolerance) fail(`${name} took ${elapsed.toFixed(2)}s to play ${line.duration}s: it did not run in real time`);
     if (line.pauses) fail(`${name} was paused ${line.pauses} times while it played`);
-    if (line.artSeen.length !== 1 || !line.artSeen[0] || line.artAtEnd !== line.artSeen[0]) {
-      fail(`${name} did not keep one artwork on screen: ${[...line.artSeen, line.artAtEnd].map((key) => key ?? "none").join(" then ")}`);
+    const own = passageArt.get(line.id);
+    if (!own?.art) fail(`${name}: the frame that printed its passage showed no Enhanced artwork`);
+    else if (line.artSeen.length !== 1 || line.artSeen[0] !== own.art || line.artAtEnd !== own.art) {
+      const arrived = line.artSeen.indexOf(own.art);
+      fail(`${name} did not have its artwork on screen from start to end: it started under ${line.artSeen[0] ?? "no artwork"}; its own, ${own.art}, was drawn ` +
+        (arrived > 0 ? `${line.artTimes[arrived]}s into the ${line.duration}s line` : `${(own.at - line.endedAt).toFixed(1)}s after the line had ended`));
     }
-    if (line.behindVoiceLine) {
-      fail(`${name} was spoken twice: ${line.behindVoiceLine} read the passage first and the unit waited ${(line.startedAt - line.queuedAt).toFixed(1)}s for it`);
-    } else if (line.startedAt - line.queuedAt > tolerance) fail(`${name} started ${(line.startedAt - line.queuedAt).toFixed(2)}s after it was queued with nothing before it`);
+    // A line with another ahead of it waited its turn: in this pass, which waits for silence, none may.
+    // Otherwise the time from queue to sound is the fetch and Chrome starting its audio output: 0.34s
+    // for the page's first recording on a quiet machine and 0.81s on a busy one, 0.01 to 0.02s after
+    // that. The shortest tour line is 9s, so these limits cannot pass a wait behind another line.
+    const loading = line.startedAt - line.queuedAt;
+    if (line.behindVoiceLine) fail(`${name} was spoken twice: ${line.behindVoiceLine} read the passage first and the unit waited ${loading.toFixed(1)}s for it`);
+    else if (line.ahead) fail(`${name} was queued behind ${line.ahead} other lines and waited ${loading.toFixed(2)}s`);
+    else if (loading > (line === log.lines[0] ? 1.5 : tolerance)) fail(`${name} took ${loading.toFixed(2)}s to start with nothing before it`);
   }
   requireNoOverlap(log.lines);
 }
 
-// ---- pass 2: press on early ----------------------------------------------------------------------------------------
-if (!broken) console.log("Pass 2: press Enter three seconds into each line, then stop one with another key");
+// ---- pass 2: press keys while a line is sounding --------------------------------------------------------------------
+if (!broken) console.log("Pass 2: press keys while a line is sounding");
 if (!broken) {
   const leg = await openLeg("pressing");
-  /** The newest narration, once it has been playing for `seconds`. */
-  const playingFor = (seconds) => (log) => log.lines.at(-1)?.position >= seconds && !log.lines.at(-1).outcome;
-  let log;
-  const pressedOver = [];
-  let stopped, afterStop;
-  try {
-    for (let presses = 0; presses < 60 && !/i will start the tour/.test(textOf(leg.frame)); presses++) await leg.press(nextKey(textOf(leg.frame)));
-    assert.match(textOf(leg.frame), /i will start the tour/);
-    /** Press on until the page is told to play another narration. A press can be spent (see openLeg). */
-    const pressOn = async (count) => {
-      for (let presses = 0; presses < 6; presses++) {
-        await leg.press(nextKey(textOf(leg.frame)));
-        if (await leg.until((now) => now.lines.length > count, 4)) return true;
-      }
-      return false;
-    };
-    while (pressedOver.length < 4) {
-      const before = await leg.until(playingFor(3));
-      if (!before) { fail(`no narration was playing three seconds into passage ${pressedOver.length + 1}`); break; }
-      pressedOver.push({ id: before.lines.at(-1).id, at: before.at });
-      if (!await pressOn(before.lines.length)) { fail(`pressing on from passage ${pressedOver.length} reached no further narration`); break; }
-    }
-    // A key that is not Enter or Space stops the voice (tools/play.js keydown). The game ignores it here.
-    const before = await leg.until(playingFor(3));
-    if (before) {
-      await leg.press("left", false);
-      await delay(400);
-      const now = await leg.playback();
-      stopped = { before: before.lines.at(-1), now: now.lines.find((line) => line.id === before.lines.at(-1).id), sounding: now.sounding, queued: now.queued, lines: now.lines.length };
-      if (await leg.chrome.evaluate("state.sequence") !== leg.frame.sequence) await leg.sync();
-      await pressOn(now.lines.length);
+  // The game takes no key until it has printed a passage, and on the tour that is after the passage's
+  // own line has finished. So the lines pressed over here are given to the page's player by this check
+  // (enqueueNarration, the same door the play server's narrations come through), while the game waits.
+  const recording = "voices/narration/ecl3/b0-b2f3.mp3";
+  let given = 9000;
+  const give = async () => {
+    const id = ++given;
+    await leg.chrome.evaluate(`enqueueNarration({ id: ${id}, unitId: "check.given.${id}", asset: ${JSON.stringify(recording)} })`);
+    return id;
+  };
+  const line = (log, id) => log.lines.find((entry) => entry.id === id);
+  const playing = (id, seconds) => (log) => line(log, id)?.position >= seconds && !line(log, id).outcome;
+  const walk = async (until) => {
+    for (let presses = 0; presses < 60 && !until.test(textOf(leg.frame)); presses++) {
       await leg.until(silent);
-      afterStop = (await leg.playback()).lines.filter((line) => line.id > stopped.before.id);
-    } else fail("no narration was playing to stop with a key");
+      await leg.press(nextKey(textOf(leg.frame)));
+    }
+    assert.match(textOf(leg.frame), until);
+    await delay(300);
+    await leg.until(silent);
+  };
+  let log, ignored, entered, acted;
+  try {
+    await walk(/i will start the tour.*press <enter>\/<return> to continue/);
+    // 1. A key the game ignores: the left arrow means nothing at "Press <enter>/<return> to continue".
+    const first = await give();
+    const queued = await give();
+    if (await leg.until(playing(first, 1), 20)) {
+      const screen = await leg.chrome.evaluate("state.frame");
+      await leg.press("left", false);
+      await delay(1500);
+      if (await leg.chrome.evaluate("state.sequence") !== leg.frame.sequence) await leg.sync();
+      const after = await leg.playback();
+      ignored = { first, queued, after: line(after, first), waiting: after.queued, sameScreen: await leg.chrome.evaluate("state.frame") === screen };
+    } else fail("the line given to the player did not start");
+    // 2. Enter while the first is sounding, or the one queued behind it if the key above ended the first:
+    // the line runs on and whatever follows waits its turn.
+    const now = await leg.playback();
+    const over = [first, queued].find((id) => !line(now, id).outcome && line(now, id).startedAt !== undefined);
+    if (over) {
+      entered = { over, lines: now.lines.length };
+      await leg.press("enter");
+    }
+    await leg.until(silent, 120);
+    // 3. A key the game acts on: at the area menu the left arrow turns the party.
+    await walk(/area cast view encamp search look/);
+    const last = await give();
+    const behind = await give();
+    if (await leg.until(playing(last, 1), 20)) {
+      const screen = await leg.chrome.evaluate("state.frame");
+      await leg.press("left");
+      await delay(800);
+      const after = await leg.playback();
+      acted = { last, behind, after: line(after, last), behindAfter: line(after, behind), sounding: after.sounding, queued: after.queued,
+        sameScreen: await leg.chrome.evaluate("state.frame") === screen };
+    } else fail("the line given to the player at the area menu did not start");
+    await leg.until(silent, 60);
     log = await leg.playback();
   } finally { await leg.chrome.close(); }
   writeFileSync(join(directory, "pressing-playback.json"), JSON.stringify(log, null, 1) + "\n");
   report(log.lines);
-  requireSelectedWerePlayed("pressing", log.lines);
+  requireSelectedWerePlayed("pressing", log.lines.filter((entry) => entry.id < 9000));
   requireNoOverlap(log.lines);
-  for (const { id, at } of pressedOver) {
-    const line = log.lines.find((entry) => entry.id === id);
-    const name = short(line.unitId);
-    const ranOn = line.outcome === "ended" && Math.abs(line.position - line.duration) <= tolerance;
-    const stoppedByKey = line.outcome === "stopped" && /^key /.test(line.reason) && Math.abs(line.endedAt - at) <= 1;
-    if (!ranOn && !stoppedByKey) fail(`${name}, pressed over with Enter, neither ran to its end nor stopped at the key: ` +
-      `${line.outcome ?? "unfinished"}${line.reason ? ` (${line.reason})` : ""} at ${line.position?.toFixed(2)}s of ${line.duration}s`);
-    const next = log.lines.find((entry) => entry.id === id + 1);
-    if (!next) fail(`no narration followed ${name}`);
-    else if (next.startedAt === undefined) fail(`${short(next.unitId)}, the line after ${name}, never started: ${next.reason ?? "still waiting"}`);
-    else if (next.startedAt < line.endedAt - 0.02) fail(`${short(next.unitId)} started before ${name} had finished`);
+  const whole = (entry) => entry.outcome === "ended" && Math.abs(entry.position - entry.duration) <= tolerance;
+  const how = (entry) => `${entry.outcome ?? "unfinished"}${entry.reason ? ` (${entry.reason})` : ""} at ${entry.position?.toFixed(2) ?? "-"}s of ${entry.duration ?? "-"}s`;
+  if (ignored) {
+    if (!ignored.sameScreen) fail("the left arrow changed the screen at the tour's first passage: it is not a key the game ignores there");
+    else if (ignored.after.outcome) fail(`a key the game ignored ended the line: ${how(ignored.after)}`);
+    else if (!whole(line(log, ignored.first))) fail(`after a key the game ignored the line did not play to its end: ${how(line(log, ignored.first))}`);
+    else console.log("  a key the game ignores left the line playing to its end");
+    if (line(log, ignored.queued).outcome === "never-started") fail(`a key the game ignored dropped the line waiting behind: ${how(line(log, ignored.queued))}`);
   }
-  if (stopped) {
-    const { before, now } = stopped;
-    const name = short(before.unitId);
-    if (now.outcome !== "stopped" || !/^key ArrowLeft/.test(now.reason ?? "")) fail(`${name} was not stopped by the key: ${now.outcome ?? "still playing"} ${now.reason ?? ""}`);
-    else if (now.position < before.position || now.position > before.position + 1.5) fail(`${name} stopped at ${now.position}s, the key came at about ${before.position}s`);
-    if (stopped.sounding || stopped.queued) fail(`after the key ${stopped.sounding} voices were sounding and ${stopped.queued} lines queued`);
-    if (!afterStop.length) fail(`no narration started after ${name} was stopped`);
-    for (const line of afterStop) {
-      if (line.outcome !== "ended" || Math.abs(line.position - line.duration) > tolerance) {
-        fail(`${short(line.unitId)}, after the stop, did not play cleanly to its end: ${line.outcome ?? "unfinished"}${line.reason ? ` (${line.reason})` : ""}`);
-      }
+  if (!entered) fail("not tested: no line was sounding to press Enter over");
+  else {
+    const over = line(log, entered.over);
+    if (!whole(over)) fail(`the line pressed over with Enter did not run on to its end: ${how(over)}`);
+    const after = log.lines.filter((entry) => entry.queuedAt > over.queuedAt && entry.id !== acted?.last && entry.id !== acted?.behind);
+    if (!after.some((entry) => entry.id < 9000)) fail("Enter over the line reached no narration of the game's own");
+    for (const entry of after) {
+      if (entry.startedAt === undefined) fail(`${short(entry.unitId)}, sent after Enter, never started: ${entry.reason ?? "still waiting"}`);
+      else if (entry.startedAt < over.endedAt - 0.02) fail(`${short(entry.unitId)} started before the line pressed over had finished`);
+      else if (!whole(entry)) fail(`${short(entry.unitId)}, which waited its turn, did not then play to its end: ${how(entry)}`);
     }
+    if (whole(over) && after.every(whole)) console.log(`  Enter let the line run on; ${after.length} lines sent after it waited their turn and played to the end`);
+  }
+  if (acted) {
+    if (acted.sameScreen) fail("the left arrow did not change the screen at the area menu: it is not a key the game acts on there");
+    else if (acted.after.outcome !== "stopped" || !/^key ArrowLeft/.test(acted.after.reason ?? "")) fail(`a key the game acted on did not end the line: ${how(acted.after)}`);
+    else if (acted.sounding || acted.queued) fail(`after the key the game acted on, ${acted.sounding} voices were sounding and ${acted.queued} lines queued`);
+    else console.log(`  a key the game acts on ended the line at ${acted.after.position.toFixed(2)}s of ${acted.after.duration}s and dropped the one waiting behind it`);
   }
 }
 
@@ -286,4 +331,4 @@ if (failures.length) {
   process.exit(1);
 }
 console.log("Rolf's tour: every unit played once to its full length in real time with its artwork on screen, none overlapped, " +
-  "each started once; Enter let a line run on and queued the next; another key stopped the line at once.");
+  "each started once; Enter let a line run on and the next wait its turn; a key the game ignores left the line alone; a key it acts on ended it.");

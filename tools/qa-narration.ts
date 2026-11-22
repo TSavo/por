@@ -307,12 +307,17 @@ const overlaps = Object.values(playback.overlaps);
 rows.push({ part: "Lines that started while another was still playing (must be 0)", left: overlaps.length,
   note: overlaps.length ? "two voices sounded at once" : "no line started over another voice",
   list: overlaps.map(entry => `${where(entry.unitId)} started over ${entry.over.join(", ")}; ${entry.run} ${entry.leg}, frame ${entry.frame}`) });
-const playedWithArt = playedUnits.filter(unit => playback.played[unit.id]!.art);
+// One artwork throughout is not enough: it has to be the passage's. The runner's ledger says which artwork
+// the passage's own frame showed (coverage.units[unit].art); a line that played under another picture, as
+// one does when it is sent before its frame is drawn, does not count.
+const ownArt = (unit: Unit) => coverage.units[unit.id]?.art?.key;
+const playedWithArt = playedUnits.filter(unit => playback.played[unit.id]!.art && playback.played[unit.id]!.art === ownArt(unit));
 rows.push({ part: "Played with their artwork on screen from start to end", done: playedWithArt.length, total: playedUnits.length,
   left: playedUnits.length - playedWithArt.length,
-  note: "of the units played to the end: one Enhanced portrait, illustration or encounter picture was drawn when the line started and stayed until it ended",
-  list: playedUnits.filter(unit => !playback.played[unit.id]!.art).map(unit =>
-    `${where(unit.id)}: on screen ${(playback.played[unit.id]!.saw ?? []).map(key => key ?? "no artwork").join(" then ") || "not recorded"} (${playback.played[unit.id]!.run})`) });
+  note: "of the units played to the end: the artwork of the passage's own frame (from the ledger) was drawn when the line started and stayed until it ended",
+  list: playedUnits.filter(unit => !playedWithArt.includes(unit)).map(unit =>
+    `${where(unit.id)}: on screen ${playback.played[unit.id]!.art ?? ((playback.played[unit.id]!.saw ?? []).map(key => key ?? "no artwork").join(" then ") || "not recorded")}; ` +
+    `the passage's artwork is ${ownArt(unit) ?? "none (the ledger saw no Enhanced artwork on its frame)"} (${playback.played[unit.id]!.run})`) });
 const variantsHeard = [...variantOwner.keys()].filter(id => coverage.variants[id]);
 const families = units.filter(unit => unit.runtimeVariants?.length);
 rows.push({ part: "Dynamic variants selected", done: variantsHeard.length, total: variantTotal, left: variantTotal - variantsHeard.length,
@@ -359,10 +364,12 @@ rows.push({ part: "Recordings missing under audio/", done: new Set(assets).size 
     (unvoicedUnits.length ? `; ${unvoicedUnits.length} units have neither a recording nor variants` : ""),
   list: [...missingAssets, ...unvoicedUnits.map(({ id }) => `${id}: no recording and no variants`)] });
 
-// The page also plays the recordings of src/audio/voices.json, which it matches to printed text by a
-// phrase (playPendingVoice in tools/play.js). Where such a phrase is in a unit's text, both fire on the
+// The page can also play recordings listed in src/audio/voices.json, which it matches to printed text by
+// a phrase (playPendingVoice in tools/play.js). Where such a phrase is in a unit's text, both fire on the
 // same print: the voices.json recording speaks first and the unit, queued behind it, speaks the passage
-// again. The playback log shows it in play as `behindVoiceLine`.
+// again, or is cut off. That legacy source was retired on 2026-11-21 (its nine lines, Rolf's tour and the
+// temple question, were all script units too) and the list is empty. This row keeps it that way: a line
+// added there for text a unit already reads turns it red. In play the log shows it as `behindVoiceLine`.
 const voiceLines = (JSON.parse(readFileSync(new URL("src/audio/voices.json", root), "utf8")) as { lines: { id: string; match?: string; file: string }[] }).lines;
 const speech = (text: string) => text.replace(/\s+/g, " ").toUpperCase();
 const spokenTwice = units.flatMap(unit => {
@@ -371,7 +378,8 @@ const spokenTwice = units.flatMap(unit => {
   return line ? [`${scriptOf(unit.triggerSourceId)} ${address(unit.triggerSourceId)} ${say(unit.spokenText)}: also spoken by ${line.id} (${line.file})`] : [];
 });
 rows.push({ part: "Units that a voices.json recording also speaks", left: spokenTwice.length,
-  note: spokenTwice.length ? "the passage is read twice: the voices.json recording first, then the unit" : "no passage has two recordings triggered by one print",
+  note: spokenTwice.length ? "the passage is read twice, or the unit is cut off: the voices.json recording fires on the same print"
+    : `narration has one source: voices.json, the retired text-matched list, holds ${voiceLines.length} lines and none repeats a unit`,
   list: spokenTwice });
 
 // A family is told apart at run time by the value in one slot: the play server picks the variant whose
