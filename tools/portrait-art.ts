@@ -655,6 +655,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:10:ecl:b695:caller:a1f0", "WEARETHESPIRITSOFTHOSEWHOFOUGHTTHEDRAGONS"],
   ["scene-illustration:area:10:ecl:a1fd", "DOYOULEAVE?"],
   ["scene-illustration:area:10:ecl:b6c6:caller:a201", "DOYOULEAVE?"],
+  ["scene-illustration:area:10:ecl:a24a", "YOUAREATTACKEDBYWIGHTS"],
+  ["scene-illustration:area:10:ecl:b5c7:cue:spirits-tower-wight-attack", "YOUAREATTACKEDBYWIGHTS"],
   ["scene-illustration:area:17:ecl:9f85", "YOUTRIPONAWIRETOTHEACCOMPANIMENTOFBELLSTINKLING"],
   ["scene-illustration:area:17:ecl:9fa7", "YOUTRIPONAWIRETOTHEACCOMPANIMENTOFBELLSTINKLING"],
   ["scene-illustration:area:17:ecl:a338", "YOUCANSEECHILDRENPEERINGOUTOFTHETENTOPENINGS"],

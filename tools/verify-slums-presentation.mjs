@@ -2652,7 +2652,10 @@ const illustrationRoutes = new Map([
   }],
   ...[
     ["leave", { inputs: ["y"], clearsPortrait: true, prompt: /VIEWENCAMP.*LOOK/i }],
-    ["stay", { inputs: ["n", "enter", "enter"], portrait: "portrait:PIC4.DAX:20:0:0", prompt: /YOUAREATTACKEDBYWIGHTS/i }],
+    ["stay", {
+      inputs: ["n", "enter", "enter"], portrait: "scene-illustration:area:10:ecl:b5c7:cue:spirits-tower-wight-attack",
+      prompt: /YOUAREATTACKEDBYWIGHTS/i, screenshot: "valhingen-spirits-tower-wight-attack.png",
+    }],
   ].map(([choice, continuation]) => [`valhingen-spirits-tower-${choice}`, {
     slot: "A", inputs: ["up", "enter", "enter"],
     portraitStops: {
@@ -9877,6 +9880,12 @@ try {
         document.querySelector('.encounter-portrait[src="/art/${nextPortrait}"]')?.naturalWidth === 352
       `));
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
+      if (continuation.screenshot) {
+        await verifyPortraitPanel();
+        await switchBothWays(frame.frame);
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, continuation.screenshot), Buffer.from(shot.data, "base64"));
+      }
       if (routeName === "kovel-lone-thief-attack") {
         const thief = "combat:area:14:CPIC3.DAX:12:ecl:9c92";
         assert.ok(frame.combatArt?.some(([, , id]) => id === thief));
