@@ -229,22 +229,29 @@ function playSound(sound) {
   effect.play().then(() => { blockedEffect = undefined; }).catch(() => { if (currentEffect === effect) blockedEffect = sound; });
 }
 
-// The game's name fades in over the title art (the owner, 2026-11-22). It is its own picture,
-// scene:title-name, with a transparent background; without it the title art shows alone.
-const titleName = document.querySelector("#title-name");
-let titleNameShown = false;
-titleName.addEventListener("load", () => { if (titleNameShown) requestAnimationFrame(() => titleName.classList.add("shown")); });
-titleName.addEventListener("error", () => { titleName.hidden = true; });
+// The game's name fades in over the title art, then SPECIAL EDITION under it (the owner, 2026-11-22).
+// Each is its own picture with a transparent background (scene:title-name, scene:title-edition);
+// without them the title art shows alone.
+const titleLayers = [["#title-name", "/art/scene:title-name"], ["#title-edition", "/art/scene:title-edition"]].map(([selector, source]) => {
+  const image = document.querySelector(selector);
+  const layer = { image, source };
+  image.addEventListener("load", () => { if (titleLayersShown) requestAnimationFrame(() => image.classList.add("shown")); });
+  image.addEventListener("error", () => { image.hidden = true; layer.missing = true; });
+  return layer;
+});
+let titleLayersShown = false;
 function showTitleName() {
   const showing = enhanced && state.scene === "scene:title";
-  if (showing === titleNameShown) return;
-  titleNameShown = showing;
-  titleName.classList.remove("shown");
-  titleName.hidden = !showing;
-  if (!showing) return;
-  if (titleName.getAttribute("src")) {
-    if (titleName.complete && titleName.naturalWidth) requestAnimationFrame(() => titleName.classList.add("shown"));
-  } else titleName.src = "/art/scene:title-name";
+  if (showing === titleLayersShown) return;
+  titleLayersShown = showing;
+  for (const { image, source, missing } of titleLayers) {
+    image.classList.remove("shown");
+    image.hidden = !showing || Boolean(missing);
+    if (!showing || missing) continue;
+    if (image.getAttribute("src")) {
+      if (image.complete && image.naturalWidth) requestAnimationFrame(() => image.classList.add("shown"));
+    } else image.src = source;
+  }
 }
 
 function playTitleCue() {
