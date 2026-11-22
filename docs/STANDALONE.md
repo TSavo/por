@@ -130,3 +130,54 @@ The page's own fallbacks happen in the browser, after the frame has left the
 runner: a picture that fails to load is replaced by the original pixels, and a
 browser without WebGL shows the original first-person view. They are not
 counted.
+
+## Port parity: the same play, the same Enhanced pictures
+
+`npm run verify:port-parity` (`tools/verify-port-parity.mjs`) asks whether the
+shipped game shows what the original files show. It drives the same keys
+through the game twice with the acceptance harness: once from the version 1.3
+files (`POR_GAME_SOURCE=original`, `POR_GAMEDATA`, by default
+`/Users/tsavo/por-assets/gog-1.3/POOLRAD`) and once from `game/`
+(`POR_GAME_SOURCE=port`). Both runs get the artwork keys the browser server
+gives the runner and the tiles it places from the packaged terrain
+(`tools/enhanced-runner.ts`, shared with `tools/browser-play.ts`). The original
+files' run is the reference: every difference is a fault of the `game/` run
+until shown otherwise.
+
+On every frame the runner sends, and on every animation frame in it, it
+compares the Enhanced artwork: whether the page would draw the 3D view
+(`webgl`, the rule of `explorationSurface` in `tools/play.js`), scene,
+portrait, the Classic fallback, character sheet pieces, encounter,
+perspective, scenery, exploration, tiles, combat art, combat selections and
+effects, battle tiles and props, panel frame and runes. The two runs see the
+same text on every frame (`npm run verify:game-data`), so frame n of one is
+frame n of the other. If the text ever differs, the walk stops there and says
+so.
+
+Two walks:
+
+- `start`: the publisher and title screens; adding SSI's ready-made party;
+  creating a character through race, sex, class, alignment, the roll, the
+  name, the portrait's head and body, and the combat icon editor (parts, both
+  colours, size); a character sheet; the New Phlan opening (Rolf's tour) to the
+  first exploration menu; the Temple of Sune; the arms shop; camp.
+- `slums`: from the guide party's fixture (`qa/fixtures/guide-party-new-phlan/`),
+  the inn to the Slums, the random fights on the way, fought on Quick, and the
+  orcs' fight at (13,1).
+
+`POR_PARITY_ONLY=start npm run verify:port-parity` or `POR_PARITY_ONLY=slums
+npm run verify:port-parity` runs one walk. Each took about four to six
+minutes on the Intel Mac on 2026-11-22; both together took about nine. Each
+walk plays one game at a time, first from the original files, then from
+`game/`.
+
+The report: each screen and kind of artwork that differs is printed as `DIFFERS
+<walk> / <screen> / <kind>`, with how many frames differ, the first frame's
+number and bottom line, and what only one side has. `out/port-parity.json`
+holds every finding with all its frame numbers, the merged lists of what is
+missing from `game/` and what is extra, and, under `first`, the whole value of
+that kind from each source (`original`, `port`) at the first frame that
+differs. `out/port-parity/` holds that frame as PNG: Classic and Enhanced from
+the original files, and Enhanced from `game/`. The check exits 1 while
+anything differs. Its open findings are in `qa/findings.json` (class
+`enhanced`, check `port-parity`).

@@ -153,6 +153,9 @@ wheel question, the word read off the wheel, the ready-made party (start the rel
 `POR_PREGEN_PARTY=1`), and the first-person view of New Phlan, reporting whether the page drew it with
 WebGL or fell back. It saves a screenshot of each and `report.json`.
 
+Whether the shipped data shows the same Enhanced pictures as the original files, frame by frame, is
+`npm run verify:port-parity`: see docs/STANDALONE.md, "Port parity".
+
 Checked on 2026-11-22 on an Intel Mac (macOS 26.3), last with the packages of `05f97892` (disk image
 749 MB, Windows installer 680 MB, Linux archive 694 MB, all three packed in 291 seconds): the disk image
 mounted with `hdiutil attach`, the app (1.0 GB) copied to a scratch Applications folder outside the
