@@ -993,15 +993,15 @@
       "features": [
         {
           "id": "enhanced.code-wheel",
-          "title": "The translation wheel on screen, with the answer enforced",
+          "title": "The translation wheel on screen: the answer enforced at start-up, put away and brought back, and open as a tool with a translate position for the rest of the game",
           "evidence": [
-            "docs/CODE-WHEEL.md; src/codewheel/wheel.json; upgrades/codewheel"
+            "docs/CODE-WHEEL.md; qa/research/code-wheel.md (When the player needs the wheel); src/codewheel/wheel.json; upgrades/codewheel"
           ],
           "checks": [
             "code-wheel",
             "code-wheel-screen"
           ],
-          "gap": "Checked on version 1.3. The first release never asks the question at start-up, so the screen is not exercised there."
+          "gap": "Checked on version 1.3. The first release never asks the question at start-up, so the screen is not exercised there. Whether Enhanced keeps the runes readable at the five places the game prints them after start-up is not checked."
         }
       ]
     }

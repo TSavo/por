@@ -2,7 +2,8 @@
 
 The browser's `/code-wheel` page uses the packaged images of the original runes and the recovered
 layout. The standalone page lets players turn the wheel and read the letters. The game page shows the same wheel at the start-up
-prompt in Enhanced display: see "The wheel at start-up" below.
+prompt in Enhanced display, and keeps it to hand for the rest of the game: see "The wheel at
+start-up" and "In the game" below.
 
 The original game shipped with a cardboard translation wheel. At start-up the game shows an
 Espruar rune, a Dethek rune and a path, and asks for the word found on the wheel. The version 1.3
@@ -49,9 +50,10 @@ and checked against the game: the rune pictures match the game's own prompt pixe
 expects. Each path gives the same 36 words, BEWARE, COPPER, DRAGON and so on in alphabetical
 order, one for each turn of the inner disc.
 
-Each disc has 35 runes and one tab marked "TRANSLATE FROM". With the two tabs lined up, the
-innermost letter ring under the dotted path translates a rune to a letter or digit; the manual's
-runic messages are read that way.
+Each disc has 35 runes and one tab marked "TRANSLATE FROM". The tabs translate a rune to a letter
+or digit: bring the rune to its tab and read the innermost letter ring under the dotted path. With
+the two tabs lined up that ring shows 0, and each position clockwise brings the next rune of each
+alphabet to the tabs: A, B, C and so on. The game's runic messages are read that way.
 
 ## Reference material
 
@@ -164,12 +166,58 @@ number and its Espruar slot, Dethek slot and path. The runner learns the number 
 
 ## In the game
 
-In Enhanced display the wheel appears over the play area when the game asks its question. The
-player turns the inner disc by dragging, with the mouse wheel, or with the Left and Right arrow
-keys, types the word and presses Enter. A wrong word is refused with "Sorry, that's incorrect."
-and a new question is asked; the third wrong word ends the session until the page is reloaded.
-That is what the unpatched game does (see the research note). The page does the refusing: the
-game's code and its dice are the same in both displays. Classic shows the game's own prompt and
-accepts any word, as the program GOG sells does. Switching display at the prompt works both ways.
+The wheel is meant to behave like the cardboard one a player kept beside the keyboard: there when
+the game asks for it, put aside and picked up again at will. The original player needed it at
+start-up and again during play, to translate runes the game shows on screen and to read Journal
+Entry 35 (the sources are in the research note, "When the player needs the wheel").
 
-`npm run verify:code-wheel-screen -- <chrome>` checks all of this in Chrome, 11 items.
+### At the start-up question
+
+In Enhanced display the wheel appears over the play area by itself when the game asks its
+question. The player turns the inner disc by dragging, with the mouse wheel, or with the Left and
+Right arrow keys, types the word and presses Enter. A wrong word is refused with "Sorry, that's
+incorrect." and a new question is asked; the third wrong word ends the session until the page is
+reloaded. That is what the unpatched game does (see the research note). The page does the
+refusing: the game's code and its dice are the same in both displays.
+
+**Put the wheel away**, **Escape** or the **Code wheel** control beside Journal and Map puts the
+wheel away. The game's own question screen is then in view, in Enhanced display, with a card in
+its empty lower part that carries the question's two runes, its path, the word typed so far, any
+refusal and a **Show the wheel** control. Escape, that control or **Code wheel** brings the wheel
+back. The disc's turn and the typed letters are kept either way, and typing the word and
+pressing Enter works the same whether the wheel is showing or put away: the same refusal, the
+same three tries, the same ending. After a wrong word the card shows the new question; the
+game's screen above it still shows the one question the game drew.
+
+W does not bring the wheel back here, because at the question every letter belongs to the word.
+
+### For the rest of the game
+
+**Code wheel**, beside Journal and Map, opens the wheel at any time as a tool to look at and
+turn. Nothing is asked and nothing is sent to the game. The same control, **Put the wheel away**,
+**W** or **Escape** closes it, and the game screen underneath is exactly as it was.
+
+- **W** is a shortcut the way J and M are: only at the exploration and camp menus, where the game
+  does not use that letter. Everywhere else W goes to the game, and the control still works.
+- Open as a tool, the wheel takes **Left** and **Right** (turn), **T** (translate position), **W**
+  and **Escape** (close). Every other key is dropped while it is open and none reaches the game,
+  which is how the Journal treats keys while it is open. F10 still changes the display.
+  Automatic combat waits while the wheel is open.
+- **Translate**, or **T**, turns the inner disc until the two TRANSLATE FROM tabs meet, the
+  position the Cluebook starts from. From there each position clockwise brings the next rune to
+  the tabs. The player reads the letter in ring 1 under the dotted path. The page does not read
+  it out or type it: translating is the player's to do, as with the cardboard.
+- With no question to answer no path is picked out. Journal Entry 35's two runes and path are
+  read as at start-up: match the runes and read the path from the inside out.
+
+The disc stays where it was left: between the question and the tool, between openings, and
+across a reload on the same browser (the page keeps the position in its own storage and works
+without it).
+
+### Classic
+
+Classic shows the game's own prompt and accepts any word, as the program GOG sells does. It has
+no wheel, no Code wheel control and no W shortcut: every key goes to the game. Switching display
+at the prompt works both ways, and switching to Classic closes the tool.
+
+`npm run verify:code-wheel-screen -- <chrome>` checks all of this in Chrome, 19 items.
