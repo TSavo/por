@@ -896,6 +896,12 @@ report filters overland draw and pixel records from the battlefield
 section. A mixed-log check preserved all eight wyvern sources and all
 25 covered combat cell patterns.
 
+The outdoor terrain builder places WILDCOM tree crowns 0–3 directly above
+trunks 4–7 (GOG overlay `0x0a` at `0e58` and `0e84`). The
+`zhentil-trespass-battle-terrain` checkpoint verified the live 3→7 thorn
+join in both data modes. It also checks the backdrop color and the exact
+edge pixels of the served 33→32 cactus tiles.
+
 Enable both trace variables on the same replay and redirect its output
 to a UTF-8 log. Add `--battle-draws=PATH_TO_LOG` to the report command
 alongside that replay's `battle-tiles.jsonl`. The JSON includes each

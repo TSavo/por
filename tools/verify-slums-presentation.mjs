@@ -9116,11 +9116,16 @@ try {
       assert.equal(hawthorn.length, 7);
       const drawn = new Set(frame.battleTiles?.map(([, , key]) => key));
       assert.deepEqual(hawthorn.filter(key => !drawn.has(key)), []);
+      const crownEdge = hawthorn.find(key => manifest[key] === "wildcom-hawthorn-7.png");
+      const trunkEdge = Object.keys(manifest).find(key => manifest[key] === "wildcom-thorn-trunk-1.png");
+      assert.ok(crownEdge && trunkEdge && frame.battleTiles.some(([x, y, key]) => key === crownEdge &&
+        frame.battleTiles.some(([nextX, nextY, nextKey]) => nextKey === trunkEdge && nextX === x && nextY === y + 8)),
+      "Expected the thorn tree trunk immediately below its crown in combat");
       const cactusJoin = ["wildcom-33-cell-7-", "wildcom-32-cell-1-"].map(prefix =>
         Object.keys(manifest).find(key => manifest[key].startsWith(prefix)));
       assert.ok(cactusJoin.every(Boolean));
-      await waitFor("the assembled WILDCOM hawthorn tiles", () => run(`state.sequence === ${frame.sequence} &&
-        ${JSON.stringify(hawthorn)}.every(key => [...document.querySelectorAll('.battle-tile')].some(tile =>
+      await waitFor("the assembled WILDCOM thorn tree tiles", () => run(`state.sequence === ${frame.sequence} &&
+        ${JSON.stringify([...hawthorn, trunkEdge])}.every(key => [...document.querySelectorAll('.battle-tile')].some(tile =>
           tile.getAttribute('src') === '/art/' + key && tile.naturalWidth === 32 && tile.naturalHeight === 32))`));
       const backdropColors = await run(`(() => {
         const screen = document.querySelector('#screen');
