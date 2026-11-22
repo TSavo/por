@@ -4,6 +4,7 @@ import type { EclNarrationObserver, NarrationDecision, ObserverManifest } from "
 import { exactTextNarrations, NarrationCatalog, normalizeSpeech } from "../src/runtime/narration.js";
 import { portraitKey, scriptIllustrations } from "./portrait-art.js";
 import { loadUpgradeArt } from "./upgrade-art.js";
+import { fromPortRoot } from "./port-root.js";
 
 // The narration ledger: what the narrator was asked to say during a run, and what was on screen.
 //
@@ -164,7 +165,7 @@ function create(path: string) {
       observer = narrationObserver;
       catalog = new NarrationCatalog(manifest);
       exact = exactTextNarrations(manifest as ObserverManifest & { events: { sourceId: string; normalizedText: string }[] });
-      const voices = JSON.parse(readFileSync(new URL("../src/audio/voices.json", import.meta.url), "utf8")) as { lines: { match?: string }[] };
+      const voices = JSON.parse(readFileSync(fromPortRoot("src", "audio", "voices.json"), "utf8")) as { lines: { match?: string }[] };
       explicitVoice = voices.lines.flatMap(line => line.match ? [normalizeSpeech(line.match)] : []);
       for (const unit of manifest.units) {
         triggers.add(unit.triggerSourceId);

@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import { fromPortRoot } from "./port-root.js";
 import { listGameFiles, readGameFile } from "./gamedata.js";
 import { parseDax } from "../src/lib/dax.js";
 import { parseGeo } from "../src/lib/world.js";
@@ -81,7 +82,7 @@ export function openAutomap(root: string) {
     }
   }
   // An illustrated plate that names a map id marks a floor kept apart from its area's own map.
-  const sheets = JSON.parse(readFileSync(new URL("../src/maps/atlas.json", import.meta.url), "utf8")) as
+  const sheets = JSON.parse(readFileSync(fromPortRoot("src", "maps", "atlas.json"), "utf8")) as
     { areas: number[]; mapId?: number }[];
   let data: AutomapData = {};
   let revision = 0;

@@ -25,6 +25,7 @@ import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 import { standaloneTrace } from "./standalone-trace.js";
 import { narrationLedger } from "./narration-ledger.js";
+import { fromPortRoot } from "./port-root.js";
 
 // The browser server reads frames from this process's stdout pipe. Node writes
 // to a pipe asynchronously on macOS and Linux, and this process blocks reading
@@ -38,6 +39,8 @@ if (!root) throw new Error("Pool of Radiance game data not found");
 // With no original files supplied the game runs from the port's own data, which holds no program file:
 // the memory image comes from it directly.
 const port = isPortGameRoot(root) ? portGame(root) : undefined;
+// Says which game data was chosen, so a launch can be checked from its log.
+console.error(`POR_GAME_DATA ${port ? "port" : "original"} ${root}`);
 const portProgram = port?.program;
 const gameFiles = usePortPaths(mountValjevoWallPieces(readGameFiles(root)));
 const files = process.env.POR_PREGEN_PARTY === "1" ? stagePregenParty(gameFiles) : gameFiles;
@@ -320,7 +323,7 @@ const browserSound = process.env.POR_BROWSER_PLAY === "1";
 let narrationObserver: EclNarrationObserver | undefined;
 const eclTextHandlers: boolean[] = [];
 if (browserSound) {
-  const manifest = JSON.parse(readFileSync(new URL("../src/audio/voice-master-manifest.json", import.meta.url), "utf8")) as ObserverManifest;
+  const manifest = JSON.parse(readFileSync(fromPortRoot("src", "audio", "voice-master-manifest.json"), "utf8")) as ObserverManifest;
   const narration = new EclNarrationObserver(manifest);
   // POR_NARRATION_LEDGER: record every narration decision. Observes only.
   narrationLedger?.observe(narration, manifest);
@@ -403,7 +406,7 @@ if (input) {
   // The frame state names the code-wheel question while the game asks it. The game picks the
   // question with Random(13) inside its code-wheel routine, and the number Random returns is the
   // question's place in the game's table. Nothing here writes to the game's memory.
-  const wheel = JSON.parse(readFileSync(new URL("../src/codewheel/wheel.json", import.meta.url), "utf8")) as
+  const wheel = JSON.parse(readFileSync(fromPortRoot("src", "codewheel", "wheel.json"), "utf8")) as
     { questions: { number: number; espruar: string; dethek: string; path: string }[] };
   const wheelSlice = loadedSlices.find(({ index }) => index === code.codeWheel.slice);
   const ask = wheelSlice?.procs.get(code.codeWheel.at);

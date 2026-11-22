@@ -1,9 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { parseDax, type DaxEntry } from "../src/lib/dax.js";
 import { loadExecutable, type LoadImage } from "../src/lib/exepack.js";
 import { GAME_DATA_FORMAT, loadPortGame, type PortGame } from "../src/runtime/game-data.js";
+import { fromPortRoot } from "./port-root.js";
 
 const GAME_FILE = /\.(dax|exe|ovr|ex_|pic)$/i;
 
@@ -108,7 +108,7 @@ export function mountValjevoWallPieces(files: readonly { name: string; data: Uin
 }
 
 /** The port's own game data, converted from version 1.3 by tools/build-game-data.ts. */
-export const portGameRoot = fileURLToPath(new URL("../game", import.meta.url));
+export const portGameRoot = fromPortRoot("game");
 
 /** True when `dir` holds the port's own data files rather than the original game. */
 export function isPortGameRoot(dir: string): boolean {

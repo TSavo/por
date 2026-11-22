@@ -1,10 +1,11 @@
 import { existsSync, readFileSync } from "node:fs";
 import { sha256, TRANSPARENT, type TileName, type WorldData } from "./first-person-cells.js";
+import { fromPortRoot } from "./port-root.js";
 
 const BLANK = sha256(new Uint8Array(64));
 
 export function readExplorationCellHashes(): Record<string, string> {
-  const file = new URL("../qa/art-worklist-cells.json", import.meta.url);
+  const file = fromPortRoot("qa", "art-worklist-cells.json");
   return existsSync(file) ? (JSON.parse(readFileSync(file, "utf8")) as { cells: Record<string, string> }).cells : {};
 }
 

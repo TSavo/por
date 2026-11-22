@@ -8,6 +8,7 @@ import { parseDax } from "../src/lib/dax.js";
 import { decodePicture, isPicture } from "../src/lib/picture.js";
 import { findGameRoot, isPortGameRoot, listGameFiles, portGame, readGameFile } from "./gamedata.js";
 import { pngDimensions } from "./png.js";
+import { fromWorkingRoot } from "./port-root.js";
 
 interface LoadedArtwork {
   file: string;
@@ -48,7 +49,7 @@ export interface ArtworkLoadIssue {
 /** Resolve the same assets for the browser and the production inventory. */
 export function loadUpgradeArt(upgrades = process.env.POR_UPGRADES_DIR, gameRoot = findGameRoot(),
   report?: (issue: ArtworkLoadIssue) => void) {
-  const artworkDirectories = upgrades === undefined ? [join("upgrades", "slums"), "upgrades"] : [upgrades];
+  const artworkDirectories = upgrades === undefined ? [fromWorkingRoot("upgrades", "slums"), fromWorkingRoot("upgrades")] : [upgrades];
   return loadUpgradeArtFromManifests(artworkDirectories.map((directory) => join(directory, "manifest.json")), gameRoot, report);
 }
 

@@ -18,6 +18,8 @@ import { buildNewPhlanMaterials } from "./new-phlan-3d-materials.js";
 import { buildExplorationMaterials, explorationMaterialArea } from "./exploration-materials.js";
 import { readExplorationCellHashes } from "./exploration-cells.js";
 import { readWorld } from "./first-person-cells.js";
+import { fromPortRoot, fromWorkingRoot } from "./port-root.js";
+import { classicSoundDirectory } from "./classic-sounds.js";
 import { standaloneExploration } from "./standalone-exploration.js";
 import type { NativeExploration } from "./native-exploration.js";
 import { loadOverlandTravel, type PhlanApproach, type SokalPrompt, type SokalQuay, type TravelState } from "./overland-travel.js";
@@ -37,26 +39,26 @@ const packagedTerrain = (() => {
   return standaloneExploration(world, readExplorationCellHashes());
 })();
 const planTravel = loadOverlandTravel(gameRoot);
-const page = readFileSync(new URL("./play.html", import.meta.url));
-const script = readFileSync(new URL("./play.js", import.meta.url));
-const streetRenderer = readFileSync(new URL("./new-phlan-webgl.js", import.meta.url));
-const wheelPage = readFileSync(new URL("./code-wheel.html", import.meta.url));
-const wheelScript = readFileSync(new URL("./code-wheel.js", import.meta.url));
-const wheelDrawing = readFileSync(new URL("./code-wheel-draw.js", import.meta.url));
-const wheelLayout = readFileSync(new URL("../src/codewheel/wheel.json", import.meta.url));
-const runeDirectory = new URL("../upgrades/codewheel/", import.meta.url);
+const page = readFileSync(fromPortRoot("tools", "play.html"));
+const script = readFileSync(fromPortRoot("tools", "play.js"));
+const streetRenderer = readFileSync(fromPortRoot("tools", "new-phlan-webgl.js"));
+const wheelPage = readFileSync(fromPortRoot("tools", "code-wheel.html"));
+const wheelScript = readFileSync(fromPortRoot("tools", "code-wheel.js"));
+const wheelDrawing = readFileSync(fromPortRoot("tools", "code-wheel-draw.js"));
+const wheelLayout = readFileSync(fromPortRoot("src", "codewheel", "wheel.json"));
+const runeDirectory = fromPortRoot("upgrades", "codewheel");
 const wheelRunes = new Map(readdirSync(runeDirectory)
   .filter(name => /^(espruar|dethek)-\d{2}\.png$/.test(name))
-  .map(name => [name.slice(0, -4), new URL(name, runeDirectory)]));
+  .map(name => [name.slice(0, -4), join(runeDirectory, name)]));
 const codeWheelAvailable = gameBuild === "1.3" && wheelRunes.size === 70;
 const wheelArt = new Set([
   "background", "outer-disc", "inner-disc", "espruar-translate-tab", "dethek-translate-tab",
   "path-dashes", "path-dash-dot-dot", "path-dots",
 ]);
-const voiceManifest = readFileSync(new URL("../src/audio/voices.json", import.meta.url));
+const voiceManifest = readFileSync(fromPortRoot("src", "audio", "voices.json"));
 const parsedVoiceManifest = JSON.parse(voiceManifest.toString("utf8")) as { lines: { file: string; match?: string }[] };
 const voiceFiles = new Set(parsedVoiceManifest.lines.map(({ file }) => file));
-const narrationManifest = readFileSync(new URL("../src/audio/voice-master-manifest.json", import.meta.url));
+const narrationManifest = readFileSync(fromPortRoot("src", "audio", "voice-master-manifest.json"));
 const parsedNarrationManifest = JSON.parse(narrationManifest.toString("utf8")) as RuntimeNarrationManifest & {
   events: { sourceId: string; normalizedText: string }[]
 };
@@ -68,24 +70,24 @@ const exactTextNarrations = exactTextUnits(parsedNarrationManifest);
 // events above 12 with other sounds and never asks for them, so the rendered Classic files
 // for those events do not belong to it.
 const soundManifest = Buffer.from(JSON.stringify((() => {
-  const manifest = JSON.parse(readFileSync(new URL("../src/audio/original-sounds.json", import.meta.url), "utf8")) as
+  const manifest = JSON.parse(readFileSync(fromPortRoot("src", "audio", "original-sounds.json"), "utf8")) as
     { events: { index: number; classic?: boolean }[] };
   if (gameBuild === "1.3") for (const event of manifest.events) if (event.index > 12) event.classic = false;
   return manifest;
 })()));
-const geographyModel = readFileSync(new URL("../src/maps/geography-model.json", import.meta.url));
-const atlasManifest = readFileSync(new URL("../src/maps/atlas.json", import.meta.url));
+const geographyModel = readFileSync(fromPortRoot("src", "maps", "geography-model.json"));
+const atlasManifest = readFileSync(fromPortRoot("src", "maps", "atlas.json"));
 const atlasSheets = JSON.parse(atlasManifest.toString("utf8")) as { file: string; areas: number[]; mapId?: number }[];
 const atlasFiles = new Set(atlasSheets.map(({ file }) => file));
 const enhancedSoundFiles = new Set((JSON.parse(soundManifest.toString("utf8")) as
   { events: { enhancedFile?: string }[] }).events.flatMap(({ enhancedFile }) => enhancedFile ? [enhancedFile] : []));
-const upgrades = process.env.POR_UPGRADES_DIR ?? "upgrades";
-const audioDirectory = process.env.POR_AUDIO_DIR ?? join("..", "por-assets", "original");
-const voiceDirectory = process.env.POR_VOICE_DIR ?? join("audio", "voices");
-const assetDirectory = process.env.POR_ASSETS_DIR ?? "audio";
-const enhancedAudioDirectory = process.env.POR_ENHANCED_AUDIO_DIR ?? join("audio", "enhanced");
+const upgrades = process.env.POR_UPGRADES_DIR ?? fromWorkingRoot("upgrades");
+const audioDirectory = process.env.POR_AUDIO_DIR ?? classicSoundDirectory;
+const voiceDirectory = process.env.POR_VOICE_DIR ?? fromWorkingRoot("audio", "voices");
+const assetDirectory = process.env.POR_ASSETS_DIR ?? fromWorkingRoot("audio");
+const enhancedAudioDirectory = process.env.POR_ENHANCED_AUDIO_DIR ?? fromWorkingRoot("audio", "enhanced");
 const gameFont = (() => {
-  for (const path of new Set([join(upgrades, "font.woff2"), join("upgrades", "font.woff2")])) {
+  for (const path of new Set([join(upgrades, "font.woff2"), fromWorkingRoot("upgrades", "font.woff2")])) {
     try {
       return readFileSync(path);
     } catch (error) {
@@ -154,7 +156,9 @@ let portraitTrace = process.env.POR_PORTRAIT_TRACE_FILE;
 const tracedPortraits = new Set<string>();
 const encounters = Object.fromEntries([...artwork].flatMap(([id, { encounter }]) =>
   encounter ? [[id, encounter]] : []));
-const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translated.ts"], {
+// A release names its compiled runner, which the same Node runs. A checkout runs the TypeScript through tsx.
+const runnerArguments = process.env.POR_RUNNER ? [process.env.POR_RUNNER] : ["--import", "tsx", "tools/boot-translated.ts"];
+const runner = spawn(process.execPath, runnerArguments, {
   env: {
     ...process.env,
     POR_GAMEDATA: gameRoot,
@@ -374,7 +378,7 @@ const server = createServer(async (req, res) => {
   } else if (req.method === "GET" && /^\/code-wheel\/[a-z0-9-]+\.png$/.test(req.url ?? "")) {
     const id = req.url!.slice("/code-wheel/".length, -4);
     const source = wheelRunes.get(id) ??
-      (wheelArt.has(id) ? new URL(`../upgrades/codewheel/${id}.png`, import.meta.url) : undefined);
+      (wheelArt.has(id) ? join(runeDirectory, `${id}.png`) : undefined);
     try {
       if (!source) { res.writeHead(404).end(); return; }
       const bytes = readFileSync(source);
@@ -425,7 +429,7 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(atlasManifest);
   } else if (req.method === "GET" && req.url?.startsWith("/atlas/") && atlasFiles.has(req.url.slice(7))) {
     try {
-      const plate = readFileSync(new URL(`../upgrades/maps/${req.url.slice(7)}`, import.meta.url));
+      const plate = readFileSync(fromPortRoot("upgrades", "maps", req.url.slice(7)));
       res.writeHead(200, { "content-type": "image/png", "content-length": plate.length }).end(plate);
     } catch {
       res.writeHead(404).end();
@@ -459,6 +463,7 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "font/woff2" }).end(gameFont);
   } else if (req.method === "GET" && /^\/audio\/(?:pc-speaker|tandy)-(?:0[1-9]|1\d|20)\.wav$/.test(req.url ?? "")) {
     try {
+      if (!audioDirectory) { res.writeHead(404).end(); return; }
       const wav = readFileSync(join(audioDirectory, req.url!.slice(7)));
       res.writeHead(200, { "content-type": "audio/wav", "content-length": wav.length }).end(wav);
     } catch {
