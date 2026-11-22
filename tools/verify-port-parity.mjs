@@ -28,8 +28,16 @@
 // first such frame of each is written to out/port-parity/ as PNG (Classic from the original files,
 // Enhanced underlay from both). The whole report is out/port-parity.json. Exit 1 while any differs.
 //
-// POR_PARITY_ONLY=start, =slums or =sokal runs one of the walks. POR_GAMEDATA names the 1.3 files.
-import { mkdirSync, rmSync, writeFileSync } from "node:fs";
+// Then a recorded leg of the campaign replay (tools/verify-fresh-party.mjs --campaign), played from
+// its own saves with its own keys exactly as the campaign sent them, by default
+// qa/fixtures/campaign-sokal-leg/: the campaign's party from the Slums gate by boat to Sokal Keep,
+// the reeds and the parchment, the patrols answered with SHESTNI and SAMOSUD, the courtyard fight,
+// Ferran, and back to the clerk's reward. POR_PARITY_LEG=<leg directory> plays another recorded leg
+// (a directory with boot.json, commands.jsonl, prompts.jsonl and the saves).
+//
+// POR_PARITY_ONLY=start, =slums, =sokal or =leg runs one of the walks. POR_GAMEDATA names the 1.3 files.
+import { cpSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { tsImport } from "tsx/esm/api";
 import { addReadyMadeParty, beginAdventuring, exploring, menuLine, pressReturn, screenText, startGame } from "./acceptance/harness.mjs";
@@ -283,11 +291,40 @@ async function sokalKeep(game, screen) {
   }
 }
 
+/** A recorded campaign leg: its boot keys, its commands, its prompt record and its saves. */
+const legDirectory = process.env.POR_PARITY_LEG ?? join("qa", "fixtures", "campaign-sokal-leg");
+function startLeg(options) {
+  const boot = JSON.parse(readFileSync(join(legDirectory, "boot.json"), "utf8"));
+  const saves = mkdtempSync(join(tmpdir(), "por-parity-leg-"));
+  for (const file of readdirSync(legDirectory).filter((name) => /^(?:[A-J]|roster)\.json$/.test(name))) {
+    cpSync(join(legDirectory, file), join(saves, file));
+  }
+  return startGame({ ...options, pregen: false, saves, seconds: 1200, env: { ...options.env,
+    POR_BOOT_KEYS: boot.bootKeys, POR_LIVE_AT: boot.startAt, POR_DEV_COMBAT: boot.developerCombat ? "1" : "0",
+    // As the campaign plays it: the key lists include the presses the game used to discard, and the
+    // game asks for each key at the moment the recorded leg asked (docs/REPLAYS.md).
+    POR_INPUT_COMPAT: "discard-poll-prompt", POR_PROMPT_SCHEDULE_IN: join(legDirectory, "prompts.jsonl") } })
+    .then((game) => {
+      const close = game.close;
+      game.close = () => { close(); rmSync(saves, { recursive: true, force: true }); };
+      return game;
+    });
+}
+/** The leg's commands, one at a time, each answered by the runner's next frame, as the campaign sends them. */
+async function playLeg(game, screen) {
+  const commands = readFileSync(join(legDirectory, "commands.jsonl"), "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line));
+  for (const [index, command] of commands.entries()) {
+    if (index % 25 === 0) screen(`recorded leg, commands ${index} to ${Math.min(index + 24, commands.length - 1)}`);
+    if (!await game.send(command)) game.fail(`The runner refused the leg's command ${index}, ${JSON.stringify(command)}.`);
+  }
+}
+
 const walks = [
   { name: "start", start: (options) => startGame({ ...options, seconds: 600,
     env: { ...options.env, POR_BOOT_KEYS: "", POR_LIVE_AT: "24000000" } }), walk: freshStart },
   { name: "slums", start: (options) => loadParty({ ...options, seconds: 900 }), walk: slumsFight },
   { name: "sokal", start: (options) => startGame({ ...options, seconds: 600 }), walk: sokalKeep },
+  { name: "leg", start: startLeg, walk: playLeg },
 ];
 
 // ---- Comparison ----------------------------------------------------------------------------
