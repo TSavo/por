@@ -719,6 +719,14 @@ interface OtherPicture {
   evidence: string;
 }
 
+function blankApproachSprites(data: PortGameData): string[] {
+  return data.pictures.flatMap(({ file, block, pictures }) => /^SPRIT[1-8]\.DAX$/.test(file)
+    ? pictures.flatMap((picture, member) => {
+      const blank = sha256(new Uint8Array(picture.width * picture.height));
+      return picture.frameHashes.flatMap((hash, index) => hash === blank ? [`${file}:${block}:${member}:${index}`] : []);
+    }) : []);
+}
+
 function otherPictures(data: PortGameData, read: (path: string) => Uint8Array): { pictures: OtherPicture[]; error?: string } {
   // The catalogue says which frames no key names. It exits non-zero while any key is unreachable; its file is written first.
   const run = spawnSync(process.execPath, ["--import", "tsx", at("tools", "verify-art-catalogue.ts")], { cwd: repository, encoding: "utf8" });
@@ -780,6 +788,7 @@ interface Worklist {
   battlefield: BattleReport[];
   storedTilesNoMapShows: { block: string; reason: string; tiles: number[] }[];
   otherPicturesNoKeyNames: OtherPicture[];
+  blankApproachSprites: string[];
   backdrops: { bands: WorldData["bands"]; grounds: WorldData["grounds"] };
   items: Item[];
 }
@@ -898,6 +907,9 @@ function document(list: Worklist): string {
     "(`docs/ART-INVENTORY.md` says the same of secondary members), so none is counted as to do.", "",
     "| Frame (archive:block:member:frame) | Size | What it is | Key form and PNG size | What is known |", "| --- | --- | --- | --- | --- |");
   for (const picture of list.otherPicturesNoKeyNames) add(`| ${picture.frame} | ${picture.width}x${picture.height} | ${picture.what} | \`${picture.keyForm}\` ${picture.pngSize} | ${picture.evidence} |`);
+  add("", "### Blank approach sprite frames", "",
+    "The native approach blitter skips palette index 0. Every pixel in each of these frames has that index, so the frame draws no actor and needs no art.", "",
+    ...list.blankApproachSprites.map(frame => `- \`${frame}\``));
   add("", "## Stored tiles no map can show", "",
     "These tiles are in the 8 by 8 tile sets and no first-person view of any map can put them on screen, for the reason given. They need no art. Do not add keys for them.",
     "The proof is by trying: the tool draws the view from every square of every map, facing each way, with the wall sets each script loads beside that map, and these tiles are in none of those views.",
@@ -966,13 +978,15 @@ function main(): void {
   const committed = existsSync(at(WORKLIST)) ? JSON.parse(readFileSync(at(WORKLIST), "utf8")) as Worklist : undefined;
   // The catalogue takes several seconds and changes nothing that is counted, so the quick modes reuse the committed list.
   const others = verify || check ? { pictures: committed?.otherPicturesNoKeyNames ?? [] } : otherPictures(data, read);
+  const blankSprites = new Set(blankApproachSprites(data));
+  const otherPicturesNoKeyNames = others.pictures.filter(({ frame }) => !blankSprites.has(frame));
 
   const notEstablished: Record<string, number | string> = {};
   for (const report of first.reports) for (const [reason, count] of Object.entries(report.notEstablished)) notEstablished[`first-person ${reason}`] = Number(notEstablished[`first-person ${reason}`] ?? 0) + count;
   notEstablished["first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows"] = "not counted";
   notEstablished["battlefield cells of pictures no artwork shows to have been on a battlefield"] = battle.reports.reduce((sum, report) => sum + report.notEstablished, 0);
   notEstablished["battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain)"] = "not counted: needs the game's battlefield builder read";
-  notEstablished["other picture frames no key names (listed below)"] = others.pictures.length;
+  notEstablished["other picture frames no key names (listed below)"] = otherPicturesNoKeyNames.length;
   if ("error" in others && others.error) notEstablished["other picture frames: " + others.error] = "?";
   notEstablished["screen frame, text window borders and other symbols drawn outside the first-person view: no artwork key form exists for them"] = "not counted";
   notEstablished["narrated passages that describe something to see and have no artwork"] = "will come from npm run qa:narration";
@@ -1007,7 +1021,7 @@ function main(): void {
     about: "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
     done: "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
     remaining: items.length, totals, notEstablished, areas: first.reports, battlefield: battle.reports,
-    storedTilesNoMapShows: first.never, otherPicturesNoKeyNames: others.pictures, backdrops: first.backdrops, items,
+    storedTilesNoMapShows: first.never, otherPicturesNoKeyNames, blankApproachSprites: [...blankSprites], backdrops: first.backdrops, items,
   };
   const json = JSON.stringify(list, null, 1) + "\n", text = document(list);
   const line = (record: Record<string, unknown>) => Object.entries(record).sort(([a], [b]) => a < b ? -1 : 1).map(([key, value]) => `${JSON.stringify(key)}:${JSON.stringify(value)}`).join(",\n");
