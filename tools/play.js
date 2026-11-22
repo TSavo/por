@@ -1003,9 +1003,11 @@ const portraitLoops = [
   ["portrait:area:10:ecl:b695:caller:9f7a:PIC4.DAX:35:", 5, "portrait:area:10:PIC4.DAX:35:0:0",
     /ZOMBIESSHUFFLEDOWNTHESTAIRS/i],
   ["portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:", 3],
-].map(([prefix, count, initial, cue]) => ({
+  ["portrait:area:3:ecl:a6c8:PIC5.DAX:56:", [0, 1, 3]],
+].map(([prefix, members, initial, cue]) => ({
   cue,
-  phases: Array.from({ length: count }, (_, phase) => (phase === 0 && initial) || `${prefix}${phase}:0`),
+  phases: (Array.isArray(members) ? members : Array.from({ length: members }, (_, index) => index))
+    .map(phase => (phase === 0 && initial) || `${prefix}${phase}:0`),
 }));
 
 async function animateHeldPortrait(image, { portrait: id, text }) {
