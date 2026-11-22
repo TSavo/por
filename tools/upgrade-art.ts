@@ -88,7 +88,8 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
         const effect = combatEffectKey.exec(id);
         const combatSelection = combatSelectionKey.exec(id);
         const sheetPart = characterSheetPartKey.exec(id);
-        const startupScene = id === "scene:title" || id === "scene:publisher";
+        // scene:title-name is the game's name, drawn on its own so the page can fade it in over the title art.
+        const startupScene = id === "scene:title" || id === "scene:publisher" || id === "scene:title-name";
         const scriptIllustration = scriptIllustrations.has(id);
         if (!startupScene && !scriptIllustration && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
             !/^battle-tile:[a-f0-9]{64}$/.test(id) && !monster && !party && !random && !combatSelection && !effect && !sheetPart && !portraitKey.test(id) && !encounter) {

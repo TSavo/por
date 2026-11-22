@@ -44,6 +44,11 @@
       position: absolute; left: 7.5%; top: 12%; width: 27.5%; height: 44%;
       image-rendering: pixelated;
     }
+    /* The game's name over the title art: faded in after a moment. */
+    #title-name { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none;
+      z-index: 2; opacity: 0; transition: opacity 2.5s ease-in 1s; }
+    #title-name.shown { opacity: 1; }
+    #title-name[hidden] { display: none; }
     #travel-map {
       position: absolute; left: 2.5%; top: 4%; width: 37.5%; height: 60%; z-index: 2;
       display: grid; align-items: center; background: #19140f;
@@ -234,6 +239,7 @@
     </fieldset>
     <div id="play">
       <img id="screen" width="320" height="200" alt="Original game screen" tabindex="-1">
+      <img id="title-name" alt="Pool of Radiance" hidden>
       <div id="tile-art" aria-hidden="true" hidden></div>
       <div id="game-text" aria-hidden="true" hidden></div>
       <section id="travel-map" aria-label="Illustrated Moonsea travel map" hidden>

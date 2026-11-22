@@ -869,14 +869,18 @@ function document(list: Worklist): string {
   add("# Artwork worklist", "",
     "## What to do now", "",
     ...(() => {
+      // Requests the owner has made that no tool can find (qa/art-requests.json): open ones are work.
+      const requests = (JSON.parse(readFileSync(at("qa", "art-requests.json"), "utf8")) as { requests: { id: string; key: string; file: string; what: string; done: string | null }[] })
+        .requests.filter((request) => !request.done);
       const keyable = list.otherPicturesNoKeyNames.filter((picture) => !/^none\b/.test(picture.keyForm));
       const ending = list.otherPicturesNoKeyNames.filter((picture) => /^none\b/.test(picture.keyForm));
-      const work = list.remaining + keyable.length;
+      const work = list.remaining + keyable.length + requests.length;
       return [
         work ? `**There is art to do: ${work} item${work === 1 ? "" : "s"}.**` : "**There is no proven art to do right now.** Everything the tools can show the game draws has your art. Check back after the QA owner's next update to this file.", "",
         `1. **Wall tiles: ${cellItems.length ? `${cellItems.length} cells to draw, in ${[...new Set(cellItems.map((item) => item.areaName))].join(", ")}` : "none"}. Outdoor fight terrain: ${battleItems.length ? `${battleItems.length} cells to draw (the ground and scenery of fights outdoors: grass, mountains, bushes, trees, logs, rocks, streams, cacti)` : "none"}.**${list.remaining ? " Each is listed below with its exact key." : ""}`,
         `2. **Pictures: ${keyable.length ? `${keyable.length} frames to draw` : "none"}.**${keyable.length ? ` Listed under "Other pictures no key names", each with its key form.` : ""}` +
           (ending.length ? ` The ${ending.length} ending frames under "Other pictures no key names" are not work: no key can name them, and the Enhanced ending covers those beats with its scene illustrations (docs/ART-INVENTORY.md). Whether the very last beat, the final council reward, is covered is still to be checked.` : ""),
+        ...(requests.length ? [`**Asked for by the owner (qa/art-requests.json): ${requests.length}.**`, ...requests.map((request) => `   - \`${request.key}\` (${request.file}): ${request.what}`)] : []),
         `3. **Do not draw anything under "Not established".** Those cells are not confirmed to appear. The QA owner is settling them by play and moves each one that proves real into item 1.`, "",
         "The artwork is done when items 1 and 2 are none and nothing is left under \"Not established\".", "",
       ];
