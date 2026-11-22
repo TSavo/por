@@ -12,8 +12,8 @@
   "  of which several tiles together": 1467,
   "  of which the same pixels already have art of yours in another area": 794,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 3966,
-  "  accounted for by the tool": 3821,
+  "Tile keys in the manifests": 3977,
+  "  accounted for by the tool": 3832,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
@@ -553,15 +553,15 @@
    "area": 17,
    "name": "The Nomad Camp",
    "established": true,
-   "why": "all 164 cells that have artwork are among the cells the tool works out",
+   "why": "all 175 cells that have artwork are among the cells the tool works out",
    "maps": [
     17
    ],
    "wallSets": [
     "WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)"
    ],
-   "existingKeys": 164,
-   "existingKeysAccountedFor": 164,
+   "existingKeys": 175,
+   "existingKeysAccountedFor": 175,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 186,
@@ -569,7 +569,8 @@
    "toDo": 0,
    "notEstablished": {
     "cells that show a sky or ground colour no existing artwork of the area shows": 22
-   }
+   },
+   "existingKeysOnlyAsWallMaterials": 11
   },
   {
    "area": 18,

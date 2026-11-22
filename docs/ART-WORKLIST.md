@@ -56,8 +56,8 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 |   of which several tiles together | 1467 |
 |   of which the same pixels already have art of yours in another area | 794 |
 | Battlefield cells to do | 0 |
-| Tile keys in the manifests | 3966 |
-|   accounted for by the tool | 3821 |
+| Tile keys in the manifests | 3977 |
+|   accounted for by the tool | 3832 |
 | Battlefield keys in the manifests | 83 |
 |   that are one stored cell of a battlefield picture | 78 |
 | Stored 8 by 8 tiles | 3016 |
@@ -89,7 +89,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 14 | Kovel Mansion | yes | 150 | 64 | 22 | 64 of 64 |
 | 15 | Mendor's Library | not yet | 436 | 170 |  | 170 of 185 |
 | 16 | The Lizardman Keep | yes | 856 | 158 | 105 | 158 of 158 |
-| 17 | The Nomad Camp | yes | 186 | 164 | 0 | 164 of 164 |
+| 17 | The Nomad Camp | yes | 186 | 164 | 0 | 175 of 175 (11 as WebGL wall materials) |
 | 18 | Podol Plaza | not yet | 337 | 161 |  | 189 of 194 (28 as first views of the next area) |
 | 20 | The Slums | not yet | 395 | 180 |  | 187 of 188 (7 as WebGL wall materials) |
 | 21 | Sokal Keep | yes | 500 | 85 | 165 | 85 of 85 |
