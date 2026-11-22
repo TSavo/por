@@ -283,7 +283,7 @@ const encounterScopeCoverage = encounterScopeFallbacks.map(observation => {
     ? callerKey : cursorKey;
   const configured = artwork.get(proposedKey)?.encounter;
   const { area, x, y, width, height } = observation.anchor;
-  const placementMatches = configured?.area === area && configured.x === x && configured.y === y &&
+  const placementMatches = configured !== undefined && configured.area === area && configured.x === x && configured.y === y &&
     configured.width === width && configured.height === height;
   return { ...observation, proposedKey, linked: configured !== undefined, placementMatches };
 }).sort((a, b) => Number(a.placementMatches) - Number(b.placementMatches));
