@@ -2354,7 +2354,7 @@
         "Clue Book p.55: 'You may put all characters into quick combat by typing 'Q' during any character's turn' and 'M' toggles 'Magic On' / 'Magic Off'. [P] says Alt-Q and does not mention the M toggle."
       ],
       "coveredBy": [],
-      "notes": "qa/findings.json input-original-control-keys-dropped (open): the port's page drops every Ctrl combination, Tab and key auto-repeat; check that Alt combinations reach the game."
+      "notes": "qa/findings.json input-original-control-keys-dropped (accepted, #77): the page keeps Ctrl keys for the browser (Ctrl-S is the page's own sound settings; Ctrl-D and Ctrl-C act only under STING), no key routine uses Tab, and a held key's repeats now reach the game; check that Alt combinations reach the game."
     },
     {
       "id": "acceptance.mechanics.ui.pool-cfg",
@@ -2470,7 +2470,7 @@
       ],
       "disagreements": [],
       "coveredBy": [],
-      "notes": "qa/findings.json classic-sting-mode (open): decide whether the port exposes STING, and check that J does nothing at the party menu without it; the party menu's key set includes J. input-original-control-keys-dropped (open): the key routine (START.EXE image 26f8) acts on Ctrl-S (sound on and off), Ctrl-D and Ctrl-C, and the page drops every Ctrl combination. Ctrl-S is not in the digest."
+      "notes": "qa/findings.json classic-sting-mode (open): decide whether the port exposes STING, and check that J does nothing at the party menu without it; the party menu's key set includes J. input-original-control-keys-dropped (accepted, #77): the key routine (START.EXE image 26f8; 1.3 image 89e9) acts on Ctrl-S (sound on and off) always and on Ctrl-D and Ctrl-C only under STING; the page keeps Ctrl keys for the browser and offers sound on and off itself. Ctrl-S is not in the digest."
     },
     {
       "id": "acceptance.mechanics.ui.version-on-credits",

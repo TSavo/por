@@ -2055,6 +2055,12 @@ const keypadDirections = {
   Numpad4: "left", Numpad6: "right",
   Numpad7: "home", Numpad8: "up", Numpad9: "pageup",
 };
+/** True when a held key's repeat goes to the game: never for the page's own windows and shortcuts. */
+function repeatsToGame(event) {
+  if (event.altKey || !bootWheel.hidden || activeTravel || travelExpanded || !automap.hidden || state.journal) return false;
+  if (event.key === "F10" || /^[jm]$/i.test(event.key)) return false;
+  return Boolean(keypadDirections[event.code] ?? commands[event.key] ?? /^[a-z0-9]$/i.test(event.key));
+}
 closeJournal.addEventListener("click", () => send("j"));
 journalToggle.addEventListener("click", () => {
   void send("j");
@@ -2092,7 +2098,12 @@ window.addEventListener("keydown", (event) => {
     return;
   }
   if ((codeWheelShown() || codeWheelAsking()) && !event.ctrlKey && !event.metaKey && !event.altKey && codeWheelKey(event)) return;
-  if (event.repeat || event.ctrlKey || event.metaKey) return;
+  // Ctrl keys stay with the browser. The original acts on Ctrl-S (sound on and off), which the
+  // page's own sound settings offer, and on Ctrl-D and Ctrl-C only when started as STING (#77).
+  if (event.ctrlKey || event.metaKey) return;
+  // A held key repeats, as the BIOS repeats it on DOS, when it goes straight to the game. send()
+  // drops a press while one is in flight, so holding a key never stacks presses up (#77).
+  if (event.repeat && !repeatsToGame(event)) return;
   if (!bootWheel.hidden && event.key !== "F10") {
     const key = wheelKey(event.key);
     if (key) {

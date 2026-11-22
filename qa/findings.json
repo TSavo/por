@@ -47,7 +47,8 @@
       "title": "The original's Ctrl key commands never reach the game",
       "detail": "The game's key routine (START.EXE image 26f8) acts on Ctrl-S (sound on and off), Ctrl-D and Ctrl-C. The page drops every Ctrl combination. Tab and key auto-repeat are dropped too, and the numeric keypad can never send digits.",
       "source": "Code reading.",
-      "status": "open",
+      "status": "accepted",
+      "resolution": "Decided on 2026-11-22 from the 1.3 key routine (keyboard unit GetKey, START.EXE image 0x89e9). Ctrl-S (0x13) switches the sound mode at 0x5372 to silent and back: the page's own sound settings offer that, so the page keeps Ctrl keys for the browser. Ctrl-D (0x04, the debug flag at 0x49f7) and Ctrl-C (0x03, quit) act only when ParamStr(1) is 'STING' (the string at 0899:0053); the port starts without it, so the original ignores them there too (classic-sting-mode). Tab (9): no menu or key routine found compares a key with it, so nothing to pass. Auto-repeat: the original takes BIOS typematic repeats as presses, and the page now sends a held key's repeats when the key goes straight to the game (tools/play.js repeatsToGame); send() drops a press while one is in flight, so a held key never stacks up. Keypad digits: the main-row digits already reach the game, and the keypad stays the page's movement keys, as its help line says.",
       "issue": 77
     },
     {
