@@ -207,6 +207,14 @@ The two HEAD frames it flagged are `HEAD6.DAX:1:0:0` and
 browser trace files checked for this audit. They stay unlinked pending
 a live draw that identifies the dialogue and matching body.
 
+The `kobold-envoy-ready` and `nomad-veteran-ready` GOG 1.3 Chrome
+replays check ready poses in combat and separately decode the strike
+PNGs. Earlier local native traces captured the Envoy's reflected strike
+at `a2a4` as he misses Enna and the allied veteran's reflected strike
+at `b376` as he misses a kobold. Those captures are from local checkpoint
+probes. A separate headman-defense capture used a controlled party
+position to bring the veteran into melee range at `a1a6`.
+
 The Bane ogre commander's ready and strike keys pass the standalone audit
 through the Bane Mansion map's owning script, ECL1 block 24. GOG 1.3 Chrome verified both poses at
 canonical cursor `9f7b` in native combat. A DOS 1.0 Chrome control loaded
