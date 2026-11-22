@@ -647,6 +647,11 @@ preserves the prompt. The journal directs the party to Share and Exit
 while the reward is pending. The replay saves the turn-in
 to slot C through the original menus. Reloading that browser-produced slot
 C with `castle-ending` restores the completed journal objective.
+The GOG 1.3 Chrome finale replay from the controlled west-gate fixture
+also verifies the proclamation art at its 1.3 script cursor, the Council
+speech and reward illustrations, and the saved turn-in. The initial
+and later proclamation routes verify the same artwork and their own
+journal entries on both DOS editions.
 The controlled west-gate fixture `out/fresh-party-lYc83O/D.json` also
 passed both Chrome replays at `eb75918c`. Use the slot C path printed by
 the finale replay for the cold reload.

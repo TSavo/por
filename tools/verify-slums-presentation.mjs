@@ -2093,12 +2093,14 @@ const illustrationRoutes = new Map([
   ["new-phlan-proclamations-initial", {
     slot: "B", inputs: ["up", "enter"], portraitStops: { 1: null },
     portrait: "scene-illustration:area:0:ecl:acbf",
+    alternatePortrait: "scene-illustration:area:0:ecl:acbc",
     prompt: /PROCLAMATIONSAREPOSTEDONTHEWALLS.*PROCLAMATIONSLXIV,LXXVIII,CIX,ANDLIX/i,
     proclamations: ["lxiv", "lxxviii", "cix", "lix"],
   }],
   ["new-phlan-proclamations-later", {
     slot: "B", inputs: ["up", "enter"], portraitStops: { 1: null },
     portrait: "scene-illustration:area:0:ecl:ac9b",
+    alternatePortrait: "scene-illustration:area:0:ecl:ac98",
     prompt: /PROCLAMATIONSAREPOSTEDONTHEWALLS.*PROCLAMATIONCI\./i,
     proclamations: ["ci"],
   }],
@@ -13567,12 +13569,14 @@ try {
     for (const [step, key] of walkToCouncil.entries()) {
       await advance(key);
       if (step === 3) {
-        const proclamations = "scene-illustration:area:0:ecl:acbf";
-        assert.equal(frame.portrait, proclamations);
+        const proclamations = frame.portrait;
+        assert.ok(["scene-illustration:area:0:ecl:acbf", "scene-illustration:area:0:ecl:acbc"].includes(proclamations));
         assert.match(text(), /PROCLAMATIONSAREPOSTEDONTHEWALLS/i);
         await waitFor("the posted proclamations illustration", () => run(`state.sequence === ${frame.sequence} &&
           document.querySelector('.encounter-portrait[src="/art/${proclamations}"]')?.naturalWidth === 352`));
         await verifyPortraitPanel();
+        const notice = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "council-finale-proclamations.png"), Buffer.from(notice.data, "base64"));
         continue;
       }
       if (!frame.tileInventory?.length) continue;
