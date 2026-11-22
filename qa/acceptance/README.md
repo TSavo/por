@@ -9,7 +9,7 @@ This folder turns the published walkthroughs into a catalogue of acceptance scen
 - The game's own on-screen text per script block, from `src/audio/voice-master-manifest.json`, cited as "game text ECLn.DAX block B at 0xADDR".
 - `qa/research/version-1.3-differences.md` for behaviour specific to version 1.3, which is the version the port runs and the Lee guide documents.
 
-Not read: `Manual.pdf` (no text layer) and `Quick Reference Card.pdf`. The digest itself did not read the Lee guide's bestiary stat blocks (§10.2) or most of its technical analysis (§12).
+Not read when the catalogue was written: `Manual.pdf` (no text layer) and `Quick Reference Card.pdf`. Since then the acceptance tests have used the manual's pages 3 to 14 and 17 to 18, read as images (characters, the party menu, viewing a character and the Items commands, the Encamp and Rest menus, combat), and the reference card's key list (`<Space>` resets all characters to manual control). The printed pages of `Adventurers Journal.pdf` have no text layer either. The digest itself did not read the Lee guide's bestiary stat blocks (§10.2) or most of its technical analysis (§12).
 
 ## Files
 

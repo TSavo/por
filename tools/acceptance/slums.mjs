@@ -18,7 +18,7 @@
 
 import assert from "node:assert/strict";
 import { addReadyMadeParty, beginAdventuring, exploring, pressReturn, startGame } from "./harness.mjs";
-import { breakCamp, healInCamp, hurt, makeCamp } from "./party-care.mjs";
+import { breakCamp, cureLightWounds, healInCamp, hurt, makeCamp, pool, templeCure } from "./party-care.mjs";
 
 const proved = [];
 const started = Date.now();
@@ -105,6 +105,12 @@ async function walkFighting(game, route) {
       await game.face(heading);
       const from = game.here();
       await game.press("up");
+      // A locked door ("Locked. Bash Pick Exit"): bash it, as often as the game's roll needs.
+      for (let bashes = 0; /Locked\. Bash Pick Exit\s*$/.test(game.menu()); bashes++) {
+        if (bashes >= 12) game.fail("Twelve tries did not open the locked door.");
+        await game.press("b");
+        if (exploring.test(game.menu()) && game.here().x === from.x && game.here().y === from.y) await game.press("up");
+      }
       for (let screens = 0; pressReturn.test(game.menu()) && /YOU ARE SURPRISED BY/.test(game.text()); screens++) {
         if (screens >= 3) game.fail("The surprise did not lead to a fight.");
         await game.press("enter");
@@ -484,6 +490,40 @@ async function healHere(game) {
   return healing;
 }
 
+/**
+ * Retreat from the Slums to New Phlan and come back. `route` leads from where the party stands to
+ * the Slums entrance at (15,4); random fights on the way are left to Quick and must be won. In New
+ * Phlan the party goes to the Temple of Sune, one step east of the gate and through the door to the
+ * north, pools its money and asks for Cure Light Wounds for its most hurt member; then it walks
+ * back through the gate. Returns what the temple said and how many fights the walk cost.
+ *
+ * What the game showed on 2026-11-21: the temple asks 100 gold pieces and answers "Not enough
+ * money." to a party that has only its starting coins and the Slums' silver, so the retreat buys
+ * nothing yet. The helper is how a test gets there and back; it does not assume the cure is paid.
+ */
+async function retreatAndReturn(game, route) {
+  const fights = await walkFighting(game, route);
+  at(game, 15, 4, "The Slums entrance is (15,4).");
+  await game.face("E");
+  await game.press("up");
+  at(game, 0, 4, "East from the Slums entrance is the New Phlan gate.");
+  const patient = hurt(game)[0];
+  await game.walk("EN");
+  await game.press("y", /Heal View Pool Appraise Exit\s*$/, "YES opens the temple menu.");
+  await pool(game);
+  const cure = patient ? await templeCure(game, patient.name, cureLightWounds) : undefined;
+  // Share the pool out again, so that each character carries its part.
+  await game.press("s");
+  await game.press("e", exploring, "Exit leaves the temple.");
+  await game.walk("SW");
+  await game.face("W");
+  const mark = game.printed.length;
+  await game.press("up");
+  printedInOrder(game, mark, [entryText], "Back through the gate the Slums print their entry text: the block is not cleared.");
+  at(game, 15, 4, "The party is back at the Slums entrance.");
+  return { fights, patient: patient?.name, cure };
+}
+
 /** The experience the goblins' fight is worth to the whole party (see the test). */
 const goblinExperience = 545;
 const goblinText = "A HEALTHY-LOOKING GOBLIN IS INSTRUCTING A GROUP OF YOUNG WARRIORS. HE SMILES AND SAYS, 'I SEE OUR OPPONENTS HAVE ARRIVED.'";
@@ -584,6 +624,10 @@ async function goblins() {
     at(game, 10, 1, "After the fight the party stands in the room.");
     assert.equal(game.variable(goblinsFought), 255, "The script records the goblins' fight as fought.");
     assert.equal(game.variable(clearPoints), before.points + 1, "The fight credits exactly one clear point.");
+
+    // The party is hurt and three are down. Retreat to New Phlan, ask the temple, come back.
+    const retreat = await retreatAndReturn(game, "SEEESSSSSENNNE");
+    progress(`goblins: retreated to New Phlan and came back; ${JSON.stringify(retreat)}`);
     assert.equal(game.discarded, 0, "No key press may be thrown away.");
     return loot;
   } finally {

@@ -76,7 +76,7 @@
       "id": "combat-messages-shown",
       "class": "classic",
       "title": "Every combat message must appear",
-      "detail": "Combat messages went missing in the past. Believed fixed, never proven.",
+      "detail": "Combat messages went missing in the past. Believed fixed, never proven. 2026-11-21: one cause found and fixed (see classic-scroll-use-shows-nothing). Messages the game shows through its two message routines and clears by itself now reach the page and the acceptance harness: in the Slums fights the harness sees \"Guarding\" and \"Your Teammate is Dying\". Still not proven: the messages drawn by the pause routine's 27 other callers.",
       "source": "Owner report.",
       "status": "open"
     },
@@ -258,7 +258,7 @@
       "id": "classic-shop-list-scrolled-after-load",
       "class": "classic",
       "title": "In a loaded game the first shop Buy list opens scrolled down one item",
-      "detail": "After loading a saved game, the first shop Buy list opens one item down with Prev showing. In a game that was not loaded it opens at the top. The campaign replay already carries a workaround for this ('After the first purchase, the last shop page starts one row later'). Whether the original does the same is not established.",
+      "detail": "After loading a saved game, the first shop Buy list opens one item down with Prev showing. In a game that was not loaded it opens at the top. The campaign replay already carries a workaround for this ('After the first purchase, the last shop page starts one row later'). Whether the original does the same is not established. 2026-11-21, more places where a list opens with the highlight off its first row, all in a new game that was never loaded: the general store's Buy list opened with its second row highlighted, and the cleric's list of spells in memory (Camp, Magic, Cast) opened with its last row highlighted. The acceptance harness therefore finds the highlighted row by its colour and never counts rows. Not compared with the original.",
       "source": "Found by the New Phlan acceptance tests on version 1.3, 2026-11-21. Not yet compared with the original program.",
       "status": "open"
     },
