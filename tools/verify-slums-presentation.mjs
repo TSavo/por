@@ -1242,6 +1242,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kovel-lone-thief.png",
     continuation: { inputs: ["l", "l"], clearsPortrait: true, prompt: /12,7N/i },
   }],
+  ["kovel-lone-thief-attack", {
+    slot: "A", inputs: ["up", "l", "enter"],
+    portrait: "scene-illustration:area:14:ecl:9c14",
+    prompt: /ATHIEFWITHASWORD.*WHATWILLYOUDO/i,
+    continuation: { inputs: ["a", "enter", "enter"], clearsPortrait: true, prompt: /HITPOINTS.*MOVEVIEWAIM.*QUICKDONE/i },
+  }],
   ["kovel-thieves-ambush", {
     slot: "A", inputs: ["up", "enter"],
     portrait: "scene-illustration:area:14:ecl:af5a",
@@ -9521,6 +9527,12 @@ try {
         document.querySelector('.encounter-portrait[src="/art/${nextPortrait}"]')?.naturalWidth === 352
       `));
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
+      if (routeName === "kovel-lone-thief-attack") {
+        const thief = "combat:area:14:CPIC3.DAX:12:ecl:9c92";
+        assert.ok(frame.combatArt?.some(([, , id]) => id === thief));
+        await waitFor("the Enhanced swordsman on the battlefield", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.combat-sprite[src="/art/${thief}"]')?.naturalWidth === 96`));
+      }
       if (routeName === "kobold-white-flag-rubble") {
         assert.deepEqual(frame.encounter, [24, 32, "encounter:area:13:SPRIT8.DAX:121:0:0", 88, 80]);
         await waitForExplorationViewport();
