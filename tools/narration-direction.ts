@@ -24,10 +24,12 @@ export function notPlainManner(direction: string): string | undefined {
 
 /** The manner to send for a direction. Throws if the direction is an instruction with no manner written for it. */
 export function sentDirection(direction: string): string {
-  const reason = notPlainManner(direction);
-  if (!reason) return direction;
   const manner = table.tags[direction];
-  if (!manner) throw new Error(`This direction cannot be sent (${reason}) and src/audio/direction-tags.json has no manner for it: ${direction}`);
+  const reason = notPlainManner(direction);
+  // A direction that passes the rule can still have a manner written for it: one that describes an
+  // action as a sentence ("Cadorna gives a formal diplomatic order ...") was read as script too.
+  if (!reason && !manner) return direction;
+  if (!manner) throw new Error(`This direction cannot be sent (${reason ?? ""}) and src/audio/direction-tags.json has no manner for it: ${direction}`);
   const mannerReason = notPlainManner(manner) ?? (manner.trim().split(/\s+/).length > 10 ? "it is longer than 10 words" : undefined);
   if (mannerReason) throw new Error(`The manner written for a direction is not plain (${mannerReason}): ${manner}`);
   return manner;

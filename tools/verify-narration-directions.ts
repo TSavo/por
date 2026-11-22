@@ -1,5 +1,5 @@
 import { readdirSync, readFileSync } from "node:fs";
-import { directionTags, notPlainManner, sentDirection } from "./narration-direction.js";
+import { directionTags, sentDirection } from "./narration-direction.js";
 
 // Every direction in every generation queue must be sendable as a plain manner.
 //
@@ -22,7 +22,6 @@ for (const [direction, count] of used) {
 }
 for (const direction of Object.keys(directionTags)) {
   if (!used.has(direction)) problems.push(`src/audio/direction-tags.json has a manner for a direction no queue uses: ${direction}`);
-  if (!notPlainManner(direction)) problems.push(`src/audio/direction-tags.json has a manner for a direction that is already plain: ${direction}`);
 }
 if (problems.length) { console.error(`${problems.length} problems:\n  ${problems.join("\n  ")}`); process.exit(1); }
 console.log(`verified ${used.size} directions over ${asWritten + throughTable} queued recordings: ${asWritten} are sent as written, ` +
