@@ -2,18 +2,18 @@
  "schema": 2,
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
- "remaining": 2215,
+ "remaining": 2155,
  "totals": {
-  "Remaining, all kinds": 2215,
-  "First-person cells to do": 2215,
-  "  of which one stored tile": 404,
-  "  of which one tile over a solid colour": 254,
+  "Remaining, all kinds": 2155,
+  "First-person cells to do": 2155,
+  "  of which one stored tile": 335,
+  "  of which one tile over a solid colour": 245,
   "  of which plain sky or ground": 0,
-  "  of which several tiles together": 1557,
-  "  of which the same pixels already have art of yours in another area": 801,
+  "  of which several tiles together": 1575,
+  "  of which the same pixels already have art of yours in another area": 712,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 4347,
-  "  accounted for by the tool": 4191,
+  "Tile keys in the manifests": 4526,
+  "  accounted for by the tool": 4370,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
@@ -26,10 +26,10 @@
   "    of those, shown alone in some area": 177
  },
  "notEstablished": {
-  "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4267,
+  "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4309,
   "first-person cells of the overhead area view, which no existing artwork of the area confirms": 152,
   "first-person cells of an area whose reading is not confirmed": 1467,
-  "first-person cells seen only from squares not connected to any square the existing artwork was made from": 357,
+  "first-person cells seen only from squares not connected to any square the existing artwork was made from": 200,
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
   "battlefield cells of pictures no artwork shows to have been on a battlefield": 2207,
   "battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain)": "not counted: needs the game's battlefield builder read",
@@ -176,7 +176,7 @@
    "area": 5,
    "name": "Valjevo Castle",
    "established": false,
-   "why": "62 of the 157 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
+   "why": "62 of the 161 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
    "maps": [
     3,
     4,
@@ -186,8 +186,8 @@
    "wallSets": [
     "WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)"
    ],
-   "existingKeys": 157,
-   "existingKeysAccountedFor": 95,
+   "existingKeys": 161,
+   "existingKeysAccountedFor": 99,
    "existingKeysOnlyAsArrivalViews": 2,
    "unaccountedKeys": [
     "tile:5:15450d2266965cb35a6f45fd06dbf087e58bdd114e2cf88e56dba3e596898eb1",
@@ -259,7 +259,7 @@
    "notEstablished": {
     "cells of an area whose reading is not confirmed": 302
    },
-   "existingKeysOnlyAsWallMaterials": 2
+   "existingKeysOnlyAsWallMaterials": 6
   },
   {
    "area": 6,
@@ -442,23 +442,23 @@
    "area": 11,
    "name": "The Training Hall",
    "established": true,
-   "why": "all 67 cells that have artwork are among the cells the tool works out",
+   "why": "all 242 cells that have artwork are among the cells the tool works out",
    "maps": [
     0
    ],
    "wallSets": [
     "WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)"
    ],
-   "existingKeys": 67,
-   "existingKeysAccountedFor": 67,
+   "existingKeys": 242,
+   "existingKeysAccountedFor": 242,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 405,
-   "cellsWithArt": 67,
-   "toDo": 109,
+   "cellsWithArt": 242,
+   "toDo": 49,
    "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 68,
-    "cells seen only from squares not connected to any square the existing artwork was made from": 161
+    "cells that show a sky or ground colour no existing artwork of the area shows": 110,
+    "cells seen only from squares not connected to any square the existing artwork was made from": 4
    }
   },
   {
@@ -8949,6 +8949,7 @@
     5,
     8,
     9,
+    11,
     15,
     18,
     24,
@@ -9016,6 +9017,7 @@
     5,
     7,
     10,
+    11,
     13,
     15,
     16,
@@ -9054,6 +9056,7 @@
     5,
     8,
     9,
+    11,
     15,
     18,
     24,
@@ -9089,6 +9092,7 @@
     2,
     8,
     9,
+    11,
     14,
     15,
     20,
@@ -9310,6 +9314,7 @@
     8,
     9,
     10,
+    11,
     15,
     16,
     20,
@@ -9345,6 +9350,7 @@
     8,
     9,
     10,
+    11,
     14,
     15,
     16,
@@ -10244,6 +10250,7 @@
     5,
     8,
     9,
+    11,
     15,
     18,
     24,
@@ -10351,6 +10358,7 @@
     5,
     7,
     10,
+    11,
     13,
     15,
     16,
@@ -10388,6 +10396,7 @@
     4,
     5,
     9,
+    11,
     14,
     15,
     18,
@@ -10399,7 +10408,7 @@
     29,
     31
    ],
-   "sameAs": "mendor-library-annex-terrain-873753906899.png",
+   "sameAs": "new-phlan-harbor-paving-joins-0-873753906899.png",
    "why": "drawn in 33 views of map 6 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -10429,6 +10438,7 @@
     5,
     8,
     9,
+    11,
     15,
     18,
     24,
@@ -10554,6 +10564,7 @@
     2,
     8,
     9,
+    11,
     14,
     15,
     20,
@@ -10588,6 +10599,7 @@
     2,
     8,
     9,
+    11,
     15,
     20,
     22,
@@ -11046,6 +11058,7 @@
     8,
     9,
     10,
+    11,
     15,
     16,
     20,
@@ -11081,6 +11094,7 @@
     8,
     9,
     10,
+    11,
     14,
     15,
     16,
@@ -12598,6 +12612,7 @@
     5,
     7,
     10,
+    11,
     13,
     15,
     16,
@@ -12638,6 +12653,7 @@
     6,
     7,
     9,
+    11,
     14,
     16,
     18,
@@ -12678,6 +12694,7 @@
     4,
     5,
     9,
+    11,
     14,
     15,
     18,
@@ -12689,7 +12706,7 @@
     29,
     31
    ],
-   "sameAs": "mendor-library-annex-terrain-873753906899.png",
+   "sameAs": "new-phlan-harbor-paving-joins-0-873753906899.png",
    "why": "drawn in 18 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -12713,7 +12730,8 @@
    },
    "views": 1,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-street-paving-joins-0-daa0c6008046.png",
    "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -12741,6 +12759,7 @@
    "drawnIn": [
     0,
     2,
+    11,
     18,
     24
    ],
@@ -12770,6 +12789,7 @@
    "drawnIn": [
     0,
     2,
+    11,
     18,
     24
    ],
@@ -12822,6 +12842,7 @@
    "drawnIn": [
     0,
     2,
+    11,
     18,
     24,
     29
@@ -12852,11 +12873,12 @@
    "drawnIn": [
     0,
     2,
+    11,
     18,
     24,
     29
    ],
-   "sameAs": "kuto-earth-perimeter-joins-3a345c508ec6.png",
+   "sameAs": "new-phlan-harbor-paving-joins-0-3a345c508ec6.png",
    "why": "drawn in 37 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -12932,10 +12954,11 @@
    "views": 6,
    "drawnIn": [
     0,
+    11,
     18,
     24
    ],
-   "sameAs": "podal-cobble-floor-5b720a6a4fb8.png",
+   "sameAs": "new-phlan-street-paving-joins-0-5b720a6a4fb8.png",
    "why": "drawn in 6 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -12982,7 +13005,8 @@
    },
    "views": 8,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-south-market-terrain-0-79df1b8dae4f.png",
    "why": "drawn in 8 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -13010,6 +13034,7 @@
    "drawnIn": [
     0,
     2,
+    11,
     18,
     24,
     29
@@ -13040,11 +13065,12 @@
    "drawnIn": [
     0,
     2,
+    11,
     18,
     24,
     29
    ],
-   "sameAs": "kuto-earth-perimeter-joins-8cf3cea60a07.png",
+   "sameAs": "new-phlan-harbor-paving-joins-0-8cf3cea60a07.png",
    "why": "drawn in 8 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -13068,7 +13094,8 @@
    },
    "views": 4,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-harbor-paving-joins-0-91149bb7ce52.png",
    "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -13095,10 +13122,11 @@
    "views": 4,
    "drawnIn": [
     0,
+    11,
     18,
     24
    ],
-   "sameAs": "podal-south-arcade-terrain-dc6c3d5510b0.png",
+   "sameAs": "new-phlan-harbor-paving-joins-0-dc6c3d5510b0.png",
    "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -13184,6 +13212,7 @@
    "drawnIn": [
     0,
     2,
+    11,
     18,
     24,
     29
@@ -13241,7 +13270,8 @@
    },
    "views": 5,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-south-market-terrain-0-1930bf3912f1.png",
    "why": "drawn in 5 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -13295,9 +13325,10 @@
    "drawnIn": [
     0,
     7,
+    11,
     20
    ],
-   "sameAs": "slums-trade-row-terrain-2c07b5fab1ef.png",
+   "sameAs": "new-phlan-south-market-terrain-0-2c07b5fab1ef.png",
    "why": "drawn in 19 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -13322,6 +13353,7 @@
    "views": 7,
    "drawnIn": [
     0,
+    11,
     20
    ],
    "sameAs": "new-phlan-street-paving-joins-0-2f4c62ac6c38.png",
@@ -13350,9 +13382,10 @@
    "drawnIn": [
     0,
     7,
+    11,
     20
    ],
-   "sameAs": "slums-shop-frontage-terrain-34c8e1f49742.png",
+   "sameAs": "new-phlan-south-market-terrain-0-34c8e1f49742.png",
    "why": "drawn in 21 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -13378,9 +13411,10 @@
    "drawnIn": [
     0,
     5,
-    7
+    7,
+    11
    ],
-   "sameAs": "valjevo-merchant-branch-terrain-377420f76a2a.png",
+   "sameAs": "new-phlan-south-market-terrain-0-377420f76a2a.png",
    "why": "drawn in 69 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -13404,7 +13438,8 @@
    },
    "views": 5,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-south-market-terrain-0-39cc1df08045.png",
    "why": "drawn in 5 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -13454,7 +13489,8 @@
    "views": 14,
    "drawnIn": [
     0,
-    7
+    7,
+    11
    ],
    "sameAs": "new-phlan-building-paving-joins-0-3c785d52bd57.png",
    "why": "drawn in 14 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -13564,9 +13600,10 @@
    "drawnIn": [
     0,
     7,
+    11,
     20
    ],
-   "sameAs": "slums-worn-courtyard-4e24210255ed.png",
+   "sameAs": "new-phlan-building-paving-joins-0-4e24210255ed.png",
    "why": "drawn in 19 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -13591,9 +13628,10 @@
    "views": 24,
    "drawnIn": [
     0,
-    7
+    7,
+    11
    ],
-   "sameAs": "valjevo-merchant-west-terrain-582935262251.png",
+   "sameAs": "new-phlan-south-market-terrain-0-582935262251.png",
    "why": "drawn in 24 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -13619,6 +13657,7 @@
    "drawnIn": [
     0,
     7,
+    11,
     20
    ],
    "sameAs": "new-phlan-street-paving-joins-0-5d6cc31ad8f8.png",
@@ -13647,9 +13686,10 @@
    "drawnIn": [
     0,
     7,
+    11,
     20
    ],
-   "sameAs": "slums-shop-frontage-terrain-624c54394650.png",
+   "sameAs": "new-phlan-south-market-terrain-0-624c54394650.png",
    "why": "drawn in 20 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -13673,7 +13713,8 @@
    },
    "views": 60,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-south-market-terrain-0-6350a67cee5e.png",
    "why": "drawn in 60 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -13700,7 +13741,8 @@
    "views": 14,
    "drawnIn": [
     0,
-    7
+    7,
+    11
    ],
    "sameAs": "new-phlan-building-paving-joins-0-74a379270d22.png",
    "why": "drawn in 14 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -13726,7 +13768,8 @@
    },
    "views": 227,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-north-avenue-terrain-76cac3df22ca.png",
    "why": "drawn in 227 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -13754,9 +13797,10 @@
    "drawnIn": [
     0,
     7,
+    11,
     20
    ],
-   "sameAs": "slums-shop-frontage-terrain-78d49be0ec8d.png",
+   "sameAs": "new-phlan-south-market-terrain-0-78d49be0ec8d.png",
    "why": "drawn in 19 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -13781,9 +13825,10 @@
    "views": 20,
    "drawnIn": [
     0,
-    5
+    5,
+    11
    ],
-   "sameAs": "valjevo-lower-trim-7fa58d10584e.png",
+   "sameAs": "new-phlan-building-paving-joins-0-7fa58d10584e.png",
    "why": "drawn in 20 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -13807,7 +13852,8 @@
    },
    "views": 224,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-north-avenue-terrain-804ed836f1ee.png",
    "why": "drawn in 224 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -13833,7 +13879,8 @@
    },
    "views": 6,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-south-market-terrain-0-819bbf4da7d5.png",
    "why": "drawn in 6 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -13859,7 +13906,8 @@
    },
    "views": 3,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-harbor-paving-joins-0-864e1c16f1f7.png",
    "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -13885,7 +13933,8 @@
    },
    "views": 4,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-south-market-terrain-0-89a02b4a8a33.png",
    "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -13913,6 +13962,7 @@
    "drawnIn": [
     0,
     7,
+    11,
     20
    ],
    "sameAs": "new-phlan-street-paving-joins-0-8a2485a2d40e.png",
@@ -13987,9 +14037,10 @@
    "drawnIn": [
     0,
     7,
+    11,
     20
    ],
-   "sameAs": "slums-trade-row-terrain-97b40cd88297.png",
+   "sameAs": "new-phlan-south-market-terrain-0-97b40cd88297.png",
    "why": "drawn in 19 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -14015,6 +14066,7 @@
    "drawnIn": [
     0,
     7,
+    11,
     20
    ],
    "sameAs": "new-phlan-street-paving-joins-0-9ef13c4eabb8.png",
@@ -14044,9 +14096,10 @@
     0,
     5,
     7,
+    11,
     20
    ],
-   "sameAs": "valjevo-lower-trim-a0c0c9c24568.png",
+   "sameAs": "new-phlan-south-market-terrain-0-a0c0c9c24568.png",
    "why": "drawn in 35 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -14070,7 +14123,8 @@
    },
    "views": 11,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-south-market-terrain-0-a2c41c4f0c4f.png",
    "why": "drawn in 11 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -14097,9 +14151,10 @@
    "views": 33,
    "drawnIn": [
     0,
-    7
+    7,
+    11
    ],
-   "sameAs": "valjevo-merchant-west-terrain-ad4007119c61.png",
+   "sameAs": "new-phlan-south-market-terrain-0-ad4007119c61.png",
    "why": "drawn in 33 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -14148,9 +14203,10 @@
    "drawnIn": [
     0,
     7,
+    11,
     20
    ],
-   "sameAs": "slums-trade-row-terrain-b8645fd4952e.png",
+   "sameAs": "new-phlan-south-market-terrain-0-b8645fd4952e.png",
    "why": "drawn in 19 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -14174,7 +14230,8 @@
    },
    "views": 3,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-harbor-paving-joins-0-bff4138f16da.png",
    "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -14201,9 +14258,10 @@
    "views": 10,
    "drawnIn": [
     0,
-    7
+    7,
+    11
    ],
-   "sameAs": "valjevo-merchant-branch-terrain-c5e2f7ff8d6b.png",
+   "sameAs": "new-phlan-south-market-terrain-0-c5e2f7ff8d6b.png",
    "why": "drawn in 10 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -14229,6 +14287,7 @@
    "drawnIn": [
     0,
     7,
+    11,
     20
    ],
    "sameAs": "new-phlan-street-paving-joins-0-c9fef07a3a27.png",
@@ -14283,6 +14342,7 @@
    "drawnIn": [
     0,
     7,
+    11,
     20
    ],
    "sameAs": "orc-door-4fd647da2110.png",
@@ -14310,9 +14370,10 @@
    "views": 22,
    "drawnIn": [
     0,
-    7
+    7,
+    11
    ],
-   "sameAs": "valjevo-terra-cotta-floor-ceaa1c6a928a.png",
+   "sameAs": "new-phlan-building-paving-joins-0-ceaa1c6a928a.png",
    "why": "drawn in 22 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -14336,7 +14397,8 @@
    },
    "views": 5,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-south-market-terrain-0-ddf169cd0d8e.png",
    "why": "drawn in 5 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -14364,9 +14426,10 @@
    "drawnIn": [
     0,
     7,
+    11,
     20
    ],
-   "sameAs": "slums-trade-row-terrain-e1e25d740d96.png",
+   "sameAs": "new-phlan-south-market-terrain-0-e1e25d740d96.png",
    "why": "drawn in 20 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -14392,9 +14455,10 @@
    "drawnIn": [
     0,
     7,
+    11,
     20
    ],
-   "sameAs": "slums-trade-row-terrain-e3d609d69fc1.png",
+   "sameAs": "new-phlan-south-market-terrain-0-e3d609d69fc1.png",
    "why": "drawn in 21 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -14420,9 +14484,10 @@
    "drawnIn": [
     0,
     7,
+    11,
     20
    ],
-   "sameAs": "slums-trade-row-terrain-e6c54d795264.png",
+   "sameAs": "new-phlan-south-market-terrain-0-e6c54d795264.png",
    "why": "drawn in 33 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -14446,7 +14511,8 @@
    },
    "views": 15,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-south-market-terrain-0-e9660b0895d8.png",
    "why": "drawn in 15 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -14475,9 +14541,10 @@
     0,
     5,
     7,
+    11,
     20
    ],
-   "sameAs": "valjevo-lower-trim-f18965943be2.png",
+   "sameAs": "new-phlan-south-market-terrain-0-f18965943be2.png",
    "why": "drawn in 27 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -14503,9 +14570,10 @@
    "drawnIn": [
     0,
     7,
+    11,
     20
    ],
-   "sameAs": "slums-trade-row-terrain-fbcbe0dd001b.png",
+   "sameAs": "new-phlan-south-market-terrain-0-fbcbe0dd001b.png",
    "why": "drawn in 20 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -14531,9 +14599,10 @@
    "drawnIn": [
     0,
     7,
+    11,
     20
    ],
-   "sameAs": "slums-trade-row-terrain-fec9ae7f67a2.png",
+   "sameAs": "new-phlan-south-market-terrain-0-fec9ae7f67a2.png",
    "why": "drawn in 19 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -14557,7 +14626,8 @@
    },
    "views": 2,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-building-exits-terrain-01af9b25e39a.png",
    "why": "drawn in 2 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -14606,7 +14676,8 @@
    },
    "views": 4,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-harbor-paving-joins-0-0d4b58782f4c.png",
    "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -14820,7 +14891,8 @@
    },
    "views": 7,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-building-paving-joins-0-5e6ca21cd26f.png",
    "why": "drawn in 7 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -14846,7 +14918,8 @@
    },
    "views": 10,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-south-market-terrain-0-6095180558e9.png",
    "why": "drawn in 10 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -14873,9 +14946,10 @@
    "views": 8,
    "drawnIn": [
     0,
+    11,
     15
    ],
-   "sameAs": "mendor-library-terrain-646a996d9a87.png",
+   "sameAs": "new-phlan-street-paving-joins-0-646a996d9a87.png",
    "why": "drawn in 8 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -14899,7 +14973,8 @@
    },
    "views": 3,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-building-paving-joins-0-6ad37cf35c20.png",
    "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -15109,7 +15184,8 @@
    },
    "views": 10,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-training-paving-0-811ae3a349c4.png",
    "why": "drawn in 10 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -15135,7 +15211,8 @@
    },
    "views": 3,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-building-exits-terrain-8912e73364ab.png",
    "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -15161,7 +15238,8 @@
    },
    "views": 13,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-street-paving-joins-0-89396b758064.png",
    "why": "drawn in 13 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -15279,7 +15357,8 @@
    },
    "views": 1,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-market-turn-terrain-9dca57c2c800.png",
    "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -15351,7 +15430,8 @@
    },
    "views": 3,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-training-civic-terrain-0-b386a3574a88.png",
    "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -15400,7 +15480,8 @@
    },
    "views": 2,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-street-paving-joins-0-bc0fc51f67b3.png",
    "why": "drawn in 2 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -15426,7 +15507,8 @@
    },
    "views": 3,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-harbor-paving-joins-0-bdc2846eeb75.png",
    "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -15571,7 +15653,8 @@
    },
    "views": 5,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-street-paving-joins-0-d26c86989444.png",
    "why": "drawn in 5 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -15647,7 +15730,8 @@
    },
    "views": 7,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-south-market-terrain-0-d4bfebd9881c.png",
    "why": "drawn in 7 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -15696,7 +15780,8 @@
    },
    "views": 8,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-civic-terrain-dc911cb26109.png",
    "why": "drawn in 8 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -15722,7 +15807,8 @@
    },
    "views": 7,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-building-exits-terrain-e26b92fadba5.png",
    "why": "drawn in 7 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -15817,7 +15903,8 @@
    },
    "views": 4,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-training-paving-0-f6613a058106.png",
    "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -15843,7 +15930,8 @@
    },
    "views": 2,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-building-paving-joins-0-f694be99114d.png",
    "why": "drawn in 2 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -15869,7 +15957,8 @@
    },
    "views": 5,
    "drawnIn": [
-    0
+    0,
+    11
    ],
    "sameAs": "new-phlan-civic-terrain-fc0e4e223ec8.png",
    "why": "drawn in 5 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
@@ -27496,1099 +27585,347 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:80e3c5025a5f43f7991f9fb1c372374d1d0c7cb666c72aa6115e3e381ccd814e",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "plain sky, horizon and ground",
-   "what": "several tiles together",
-   "composition": "h12.15.7.6|",
-   "description": "the horizon row (three rows of sky 12, one of 15, two of 7, two of ground 6), shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 8,
-    "y": 4,
-    "facing": "east",
-    "column": 5,
-    "row": 5
-   },
-   "views": 4,
-   "drawnIn": [
-    0,
-    8,
-    21,
-    24,
-    28
-   ],
-   "sameAs": "zhentil-floor-refinement-far-threshold.png",
-   "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:323c71332298aeae05cfee4eb5855d831835c8a068440a0f21f6f96ee43b2f9b",
+   "key": "tile:11:0ae60cf3309accf1a341b5cc07952a90cf121d33ec8c6432d727b57c0c6c20f1",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "shared tile set 8X8D1 block 203",
    "what": "one tile over a solid colour",
-   "composition": "s11|8X8D1.DAX:203:17",
-   "description": "8X8D1 block 203 tile 17 over sky colour 11, shown in area 11 (The Training Hall)",
+   "composition": "g6|8X8D1.DAX:203:15",
+   "description": "8X8D1 block 203 tile 15 over the ground colour 6, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
-    "x": 0,
+    "x": 13,
     "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 0
+    "facing": "south",
+    "column": 7,
+    "row": 7
    },
-   "views": 441,
+   "views": 5,
    "drawnIn": [
-    0,
     2,
-    3,
-    4,
-    5,
-    6,
-    8,
+    9,
     15,
-    20,
-    21,
-    24,
-    26,
-    31
-   ],
-   "sameAs": "room-tile-00.png",
-   "why": "drawn in 441 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:7a128cc02d3a0bf5cb49a3d6c04fb7ef793368a7413172aec694936214d6ecd8",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "shared tile set 8X8D1 block 203",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:203:41",
-   "description": "8X8D1 block 203 tile 41, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 11,
-    "y": 6,
-    "facing": "west",
-    "column": 0,
-    "row": 6
-   },
-   "views": 36,
-   "drawnIn": [
-    0,
-    2,
-    5,
-    7,
-    10,
-    13,
-    15,
-    16,
     18,
     20,
-    24,
+    22,
     29
    ],
-   "sameAs": "orc-door-936214d6ecd8.png",
-   "why": "drawn in 36 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "sameAs": "route-0ae60cf3309a.png",
+   "why": "drawn in 5 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:7a62f42874a318807e50c5f76958ec89a88041ebcdbe85f63c86b39a4adb37d7",
+   "key": "tile:11:699e8b134491518fdbccbf4e9783a7ecde8cec6424c1858827d3cbc005fdbaea",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "shared tile set 8X8D1 block 203",
    "what": "one tile over a solid colour",
-   "composition": "g6|8X8D1.DAX:203:34",
-   "description": "8X8D1 block 203 tile 34 over the ground colour 6, shown in area 11 (The Training Hall)",
+   "composition": "g6|8X8D1.DAX:203:36",
+   "description": "8X8D1 block 203 tile 36 over the ground colour 6, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
-    "x": 3,
-    "y": 1,
-    "facing": "west",
-    "column": 6,
-    "row": 6
+    "x": 13,
+    "y": 0,
+    "facing": "south",
+    "column": 8,
+    "row": 8
    },
-   "views": 14,
+   "views": 3,
    "drawnIn": [
-    0,
     2,
-    3,
-    4,
-    5,
-    6,
-    7,
     9,
-    14,
-    16,
-    18,
+    15,
     20,
-    21,
-    23,
-    24,
-    28,
-    29,
-    31
+    22,
+    29
    ],
-   "sameAs": "orc-door-b39a4adb37d7.png",
-   "why": "drawn in 14 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "sameAs": "route-699e8b134491.png",
+   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:daa0c6008046802d652f2f0fe732ebf6d5e55819c0757e8ca57e8bbeeb8294f7",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D1 block 203",
-   "what": "several tiles together",
-   "composition": "s12|8X8D3.DAX:103:6,8X8D1.DAX:203:16",
-   "description": "8X8D1 block 203 tile 16 over 8X8D3 block 103 tile 6 over sky colour 12, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 5,
-    "y": 5,
-    "facing": "west",
-    "column": 9,
-    "row": 1
-   },
-   "views": 1,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-street-paving-joins-0-daa0c6008046.png",
-   "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:09be609429c4e2db72e68769253a40f08fe1e0bf65055f356ed165cefcb83c91",
+   "key": "tile:11:1874c3b1e2b448afb22da579328fd9e473773e33baa85d7be3278cb2a99f19ec",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 101",
    "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:101:63",
-   "description": "8X8D3 block 101 tile 63, shown in area 11 (The Training Hall)",
+   "composition": "-|8X8D3.DAX:101:57",
+   "description": "8X8D3 block 101 tile 57, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
-    "x": 0,
+    "x": 13,
     "y": 0,
     "facing": "south",
     "column": 7,
     "row": 4
    },
-   "views": 98,
-   "drawnIn": [
-    0,
-    2,
-    8,
-    14,
-    15,
-    18,
-    24,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "new-phlan-gate-65cefcb83c91.png",
-   "why": "drawn in 98 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "views": 5,
+   "drawnIn": [],
+   "why": "drawn in 5 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:91149bb7ce520ef1bf6d3fbbe7957b53c612718db98f28fb3a7bedb86c0b1ea5",
+   "key": "tile:11:40f1718d713d46dca3003667aa994c80ec701106dd1409d7fcad319327920a8b",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 101",
+   "what": "one stored tile",
+   "composition": "-|8X8D3.DAX:101:60",
+   "description": "8X8D3 block 101 tile 60, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 0,
+    "y": 2,
+    "facing": "south",
+    "column": 6,
+    "row": 5
+   },
+   "views": 2,
+   "drawnIn": [],
+   "why": "drawn in 2 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:11:4c23fe508a44e32f9998329dce0edb6985bec740d0542a22c128aec206e025cb",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 101",
+   "what": "one stored tile",
+   "composition": "-|8X8D3.DAX:101:40",
+   "description": "8X8D3 block 101 tile 40, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 2,
+    "y": 4,
+    "facing": "west",
+    "column": 2,
+    "row": 8
+   },
+   "views": 8,
+   "drawnIn": [
+    2,
+    18,
+    29
+   ],
+   "sameAs": "kuto-earth-perimeter-joins-4c23fe508a44.png",
+   "why": "drawn in 8 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:11:688fefc217b332ae28481ccb2d038a8cc8c94a47133c9723ff2a47aebb810f0e",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 101",
+   "what": "one stored tile",
+   "composition": "-|8X8D3.DAX:101:58",
+   "description": "8X8D3 block 101 tile 58, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 13,
+    "y": 0,
+    "facing": "south",
+    "column": 8,
+    "row": 4
+   },
+   "views": 3,
+   "drawnIn": [],
+   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:11:e0a3abc3b4a8d171ac804ef60ea102f382d0189b8cd2be1c2a616fc8c2e8d86a",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 101",
+   "what": "one stored tile",
+   "composition": "-|8X8D3.DAX:101:69",
+   "description": "8X8D3 block 101 tile 69, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 0,
+    "y": 2,
+    "facing": "south",
+    "column": 6,
+    "row": 6
+   },
+   "views": 2,
+   "drawnIn": [
+    2,
+    9,
+    15,
+    20,
+    22,
+    29
+   ],
+   "sameAs": "route-e0a3abc3b4a8.png",
+   "why": "drawn in 2 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:11:e3922047e12c2260eaef5a4f40f4426f51c95b755440c710331492e05e3c951a",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 101",
    "what": "one tile over a solid colour",
-   "composition": "s11|8X8D3.DAX:101:16",
-   "description": "8X8D3 block 101 tile 16 over sky colour 11, shown in area 11 (The Training Hall)",
+   "composition": "g6|8X8D3.DAX:101:28",
+   "description": "8X8D3 block 101 tile 28 over the ground colour 6, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
-    "x": 5,
-    "y": 2,
-    "facing": "east",
-    "column": 9,
-    "row": 4
-   },
-   "views": 3,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-harbor-paving-joins-0-91149bb7ce52.png",
-   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:a709a24cc9b6b6e327458b686dabf569d04684f62e502130d50ddfa64bbd493f",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 101",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:101:36",
-   "description": "8X8D3 block 101 tile 36, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 1,
-    "y": 0,
+    "x": 3,
+    "y": 3,
     "facing": "west",
-    "column": 2,
+    "column": 1,
     "row": 6
-   },
-   "views": 252,
-   "drawnIn": [
-    0,
-    2,
-    8,
-    14,
-    15,
-    18,
-    24,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "new-phlan-gate-dfa64bbd493f.png",
-   "why": "drawn in 252 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:aa62939a3bc0ac6b7c3185e08b6b70c6a6717331f7b141187d51a65641a33f83",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 101",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:101:37",
-   "description": "8X8D3 block 101 tile 37, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "south",
-    "column": 8,
-    "row": 3
-   },
-   "views": 258,
-   "drawnIn": [
-    0,
-    2,
-    8,
-    14,
-    15,
-    18,
-    24,
-    29,
-    31
-   ],
-   "sameAs": "bane-outer-courts-terrain-aa62939a3bc0.png",
-   "why": "drawn in 258 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:af86e7c9eb5381ae57023c740c0d9c788d491ec24ed18487c0f2814547e972e1",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 101",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:101:49",
-   "description": "8X8D3 block 101 tile 49, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "south",
-    "column": 8,
-    "row": 7
-   },
-   "views": 363,
-   "drawnIn": [
-    0,
-    2,
-    8,
-    14,
-    15,
-    18,
-    24,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "new-phlan-gate-814547e972e1.png",
-   "why": "drawn in 363 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:b24a0082a3a043b8f572042b955363c4f154214f73877e027dd636eaa764e18b",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 101",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:101:47",
-   "description": "8X8D3 block 101 tile 47, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 1,
-    "y": 0,
-    "facing": "west",
-    "column": 2,
-    "row": 5
-   },
-   "views": 55,
-   "drawnIn": [
-    0,
-    2,
-    8,
-    14,
-    15,
-    18,
-    24,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "new-phlan-gate-36eaa764e18b.png",
-   "why": "drawn in 55 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:b4045d005d3dc2b8406945d3af18f0dfe1e86a3eeef827c3c123906c75ba2a5a",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 101",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:101:21",
-   "description": "8X8D3 block 101 tile 21, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 10,
-    "y": 0,
-    "facing": "west",
-    "column": 0,
-    "row": 5
-   },
-   "views": 95,
-   "drawnIn": [
-    0,
-    2,
-    8,
-    14,
-    15,
-    18,
-    24,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "new-phlan-gate-906c75ba2a5a.png",
-   "why": "drawn in 95 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:d4b85e9a1aca4d92e6837bc5a14ed9b1128634ac91d66bf98d1eac483c88b784",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 101",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:101:22",
-   "description": "8X8D3 block 101 tile 22, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 9,
-    "y": 1,
-    "facing": "west",
-    "column": 3,
-    "row": 5
    },
    "views": 9,
    "drawnIn": [
-    0,
-    8
+    2,
+    18,
+    24,
+    29
    ],
-   "sameAs": "new-phlan-covered-market-terrain-d4b85e9a1aca.png",
+   "sameAs": "kuto-earth-perimeter-joins-e3922047e12c.png",
    "why": "drawn in 9 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:dc6c3d5510b0653401790072e22a586a17ac1d36bc9b0f782ea2f57ec58b7828",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 101",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:101:1",
-   "description": "8X8D3 block 101 tile 1, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 5,
-    "y": 2,
-    "facing": "east",
-    "column": 9,
-    "row": 5
-   },
-   "views": 3,
-   "drawnIn": [
-    0,
-    18,
-    24
-   ],
-   "sameAs": "podal-south-arcade-terrain-dc6c3d5510b0.png",
-   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:efdc8d933de212d5d88ac5d346f07eceecfa8a614ad77866a1acae51b6ecb6fb",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 101",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:101:35",
-   "description": "8X8D3 block 101 tile 35, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "west",
-    "column": 1,
-    "row": 8
-   },
-   "views": 250,
-   "drawnIn": [
-    0,
-    2,
-    8,
-    14,
-    15,
-    18,
-    24,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "new-phlan-gate-ae51b6ecb6fb.png",
-   "why": "drawn in 250 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:14ba42f38a9f3edda8214f1dec22d94f520717c59573aa456e72854416d753d4",
+   "key": "tile:11:244e3a737dff103ce562544c8101531a1243923042056f12d1e433b13403ecd6",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 102",
    "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:10",
-   "description": "8X8D3 block 102 tile 10, shown in area 11 (The Training Hall)",
+   "composition": "-|8X8D3.DAX:102:69",
+   "description": "8X8D3 block 102 tile 69, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
     "x": 10,
-    "y": 8,
-    "facing": "north",
-    "column": 5,
-    "row": 5
-   },
-   "views": 46,
-   "drawnIn": [
-    0,
-    3,
-    5,
-    7,
-    8,
-    20
-   ],
-   "sameAs": "valjevo-hedge-corner-terrain-14ba42f38a9f.png",
-   "why": "drawn in 46 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:15450d2266965cb35a6f45fd06dbf087e58bdd114e2cf88e56dba3e596898eb1",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:52",
-   "description": "8X8D3 block 102 tile 52, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 8,
-    "facing": "south",
-    "column": 2,
-    "row": 4
-   },
-   "views": 77,
-   "drawnIn": [
-    0,
-    5,
-    7,
-    8,
-    20
-   ],
-   "sameAs": "valjevo-merchant-wing-terrain-15450d226696.png",
-   "why": "drawn in 77 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:1930bf3912f12f181acb825e6e35b4935e2fbbcf9c15b721db739476417319a4",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:19",
-   "description": "8X8D3 block 102 tile 19, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 10,
-    "y": 8,
-    "facing": "west",
-    "column": 10,
-    "row": 7
-   },
-   "views": 2,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-south-market-terrain-0-1930bf3912f1.png",
-   "why": "drawn in 2 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:2c07b5fab1efd528ab309be6c35e564bb46750de4ff813de5ff640b6ee22c2bf",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:17",
-   "description": "8X8D3 block 102 tile 17, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 8,
-    "facing": "west",
-    "column": 1,
-    "row": 6
-   },
-   "views": 10,
-   "drawnIn": [
-    0,
-    7,
-    20
-   ],
-   "sameAs": "slums-trade-row-terrain-2c07b5fab1ef.png",
-   "why": "drawn in 10 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:34c8e1f49742be249357aba1a5180b7fbd7dff4350ff758ba579534fcd9cdb70",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:57",
-   "description": "8X8D3 block 102 tile 57, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 8,
-    "facing": "east",
-    "column": 10,
-    "row": 3
-   },
-   "views": 11,
-   "drawnIn": [
-    0,
-    7,
-    20
-   ],
-   "sameAs": "slums-shop-frontage-terrain-34c8e1f49742.png",
-   "why": "drawn in 11 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:377420f76a2a02743aa7246fe5abc2356c698f47930ac0cbead1e1b62d2f1e44",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:29",
-   "description": "8X8D3 block 102 tile 29, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 8,
-    "y": 8,
-    "facing": "south",
-    "column": 8,
-    "row": 5
-   },
-   "views": 13,
-   "drawnIn": [
-    0,
-    5,
-    7
-   ],
-   "sameAs": "valjevo-merchant-branch-terrain-377420f76a2a.png",
-   "why": "drawn in 13 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:39cc1df080453d41cc72fbb1070c6f88e040bb5e36b16cb6cd948bd07b1180f5",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:6",
-   "description": "8X8D3 block 102 tile 6, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 10,
-    "y": 8,
-    "facing": "west",
-    "column": 10,
-    "row": 4
-   },
-   "views": 2,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-south-market-terrain-0-39cc1df08045.png",
-   "why": "drawn in 2 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:491c0e9a5a1fe2680ecad326e5a4a7920df0f9e348ad8b993c763c95cf886194",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:46",
-   "description": "8X8D3 block 102 tile 46, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 8,
-    "facing": "east",
-    "column": 10,
-    "row": 7
-   },
-   "views": 22,
-   "drawnIn": [
-    0,
-    5,
-    7,
-    8,
-    20
-   ],
-   "sameAs": "valjevo-merchant-wing-terrain-491c0e9a5a1f.png",
-   "why": "drawn in 22 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:4e24210255ed185eb54a70dc98aae7c1beeeb78e5107d1d01b5a931dcae9a8ae",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:59",
-   "description": "8X8D3 block 102 tile 59, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 15,
-    "y": 8,
-    "facing": "south",
-    "column": 10,
-    "row": 4
-   },
-   "views": 10,
-   "drawnIn": [
-    0,
-    7,
-    20
-   ],
-   "sameAs": "slums-worn-courtyard-4e24210255ed.png",
-   "why": "drawn in 10 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:5073fed19218b31e25fe949a437664fe32b7c96cbaa20c93e5e796af062a2ecb",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:31",
-   "description": "8X8D3 block 102 tile 31, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
+    "y": 9,
     "facing": "east",
     "column": 6,
     "row": 6
    },
-   "views": 679,
+   "views": 4,
    "drawnIn": [
-    0,
-    4,
-    5,
-    6,
-    7,
-    8,
-    20
+    7
    ],
-   "sameAs": "route-5073fed19218.png",
-   "why": "drawn in 679 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "sameAs": "valjevo-terra-cotta-floor-244e3a737dff.png",
+   "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:542aa3de288bfb705a13cf971acc398ce6f17f10c113a97d2339053598b2cce3",
+   "key": "tile:11:3bcfc4497c095510e26a7123dcf7d5000f75b567d0bb4cd72c92a870e9a41f48",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 102",
    "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:26",
-   "description": "8X8D3 block 102 tile 26, shown in area 11 (The Training Hall)",
+   "composition": "-|8X8D3.DAX:102:47",
+   "description": "8X8D3 block 102 tile 47, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
     "x": 0,
     "y": 0,
-    "facing": "north",
-    "column": 9,
+    "facing": "west",
+    "column": 10,
     "row": 7
    },
-   "views": 311,
-   "drawnIn": [
-    0,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    20
-   ],
-   "sameAs": "orc-rubble-053598b2cce3.png",
-   "why": "drawn in 311 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "views": 15,
+   "drawnIn": [],
+   "why": "drawn in 15 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:582935262251c3c3b53ec076d372c7bebfc34f9076968d8314e319ea8cca75bd",
+   "key": "tile:11:480c0193f74fe2f8eebe95e255b18123bc620f775b922bb08febe829502c265b",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 102",
    "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:18",
-   "description": "8X8D3 block 102 tile 18, shown in area 11 (The Training Hall)",
+   "composition": "-|8X8D3.DAX:102:65",
+   "description": "8X8D3 block 102 tile 65, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 12,
+    "y": 6,
+    "facing": "east",
+    "column": 9,
+    "row": 5
+   },
+   "views": 8,
+   "drawnIn": [
+    7
+   ],
+   "sameAs": "valjevo-merchant-wing-terrain-480c0193f74f.png",
+   "why": "drawn in 8 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:11:49adbe0c989896a2fc859c7518d72be11572fff18d83d579b7eb021b3dba21bc",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 102",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:102:5,8X8D3.DAX:102:67",
+   "description": "8X8D3 block 102 tile 67 over 8X8D3 block 102 tile 5, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
     "x": 8,
-    "y": 8,
-    "facing": "south",
-    "column": 7,
-    "row": 5
-   },
-   "views": 7,
-   "drawnIn": [
-    0,
-    7
-   ],
-   "sameAs": "valjevo-merchant-west-terrain-582935262251.png",
-   "why": "drawn in 7 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:5b786e63e19e9e670c1f1c5e88c35e2a13f2d0706d213c1aae0f2473145467ca",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:7",
-   "description": "8X8D3 block 102 tile 7, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 9,
-    "y": 8,
-    "facing": "north",
-    "column": 9,
-    "row": 5
-   },
-   "views": 45,
-   "drawnIn": [
-    0,
-    3,
-    5,
-    7,
-    8,
-    20
-   ],
-   "sameAs": "valjevo-lower-trim-5b786e63e19e.png",
-   "why": "drawn in 45 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:624c54394650999904d165e8083586d2c5d9dea1cfb089dcbb22e946cbbf6f37",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:58",
-   "description": "8X8D3 block 102 tile 58, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 8,
+    "y": 12,
     "facing": "east",
-    "column": 9,
-    "row": 3
-   },
-   "views": 11,
-   "drawnIn": [
-    0,
-    7,
-    20
-   ],
-   "sameAs": "slums-shop-frontage-terrain-624c54394650.png",
-   "why": "drawn in 11 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:6350a67cee5ed480bf0c6c1c98180dff777b31313ae09d346fa708c132025c0a",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:60",
-   "description": "8X8D3 block 102 tile 60, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 9,
-    "y": 13,
-    "facing": "west",
-    "column": 7,
-    "row": 4
+    "column": 6,
+    "row": 5
    },
    "views": 1,
    "drawnIn": [
-    0
+    7
    ],
-   "sameAs": "new-phlan-south-market-terrain-0-6350a67cee5e.png",
+   "sameAs": "valjevo-merchant-wing-terrain-49adbe0c9898.png",
    "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:6a31f8112a44a50377f8425ac2fde4f502b684c316174a4bdbd9d61f4c2b2d4b",
+   "key": "tile:11:8d3592ae6802ffa7f7f7ac5df9362eb4f08b56ae06b8be5a12827cb8bbb6d7b9",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 102",
-   "what": "one tile over a solid colour",
-   "composition": "s11|8X8D3.DAX:102:33",
-   "description": "8X8D3 block 102 tile 33 over sky colour 11, shown in area 11 (The Training Hall)",
+   "what": "one stored tile",
+   "composition": "-|8X8D3.DAX:102:45",
+   "description": "8X8D3 block 102 tile 45, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
     "x": 0,
     "y": 0,
-    "facing": "south",
-    "column": 2,
-    "row": 2
-   },
-   "views": 507,
-   "drawnIn": [
-    0,
-    3,
-    4,
-    5,
-    6,
-    8,
-    20
-   ],
-   "sameAs": "valjevo-dungeon-doorway-terrain-6a31f8112a44.png",
-   "why": "drawn in 507 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:76cac3df22ca0d41b487785b4d4d96f57f49be237438fa17e2e8813b0e536b56",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one tile over a solid colour",
-   "composition": "s12|8X8D3.DAX:102:49",
-   "description": "8X8D3 block 102 tile 49 over sky colour 12, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 1,
-    "y": 1,
-    "facing": "east",
-    "column": 8,
-    "row": 2
-   },
-   "views": 227,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-north-avenue-terrain-76cac3df22ca.png",
-   "why": "drawn in 227 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:78d49be0ec8d85548a56d9b83e8384b76643e1d87889ea01c72df92930638ba6",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:56",
-   "description": "8X8D3 block 102 tile 56, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 8,
-    "facing": "east",
-    "column": 9,
-    "row": 4
-   },
-   "views": 11,
-   "drawnIn": [
-    0,
-    7,
-    20
-   ],
-   "sameAs": "slums-shop-frontage-terrain-78d49be0ec8d.png",
-   "why": "drawn in 11 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:7fa58d10584ec9c662b69570d9e0b6e0b3b1ad3eecfb3a259959f7fc136b792c",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:42",
-   "description": "8X8D3 block 102 tile 42, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 9,
-    "y": 8,
     "facing": "east",
     "column": 3,
-    "row": 7
-   },
-   "views": 3,
-   "drawnIn": [
-    0,
-    5
-   ],
-   "sameAs": "valjevo-lower-trim-7fa58d10584e.png",
-   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:804ed836f1ee59cdf32cc2c761738edb955337d1de0a5b1094116703ea7a2f93",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one tile over a solid colour",
-   "composition": "s12|8X8D3.DAX:102:33",
-   "description": "8X8D3 block 102 tile 33 over sky colour 12, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 1,
-    "y": 1,
-    "facing": "north",
-    "column": 0,
-    "row": 0
-   },
-   "views": 224,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-north-avenue-terrain-804ed836f1ee.png",
-   "why": "drawn in 224 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:819bbf4da7d50ea93fca2fc26d008607ba5e0526948870150042383e992d7c8c",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:9",
-   "description": "8X8D3 block 102 tile 9, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 10,
-    "y": 8,
-    "facing": "west",
-    "column": 10,
     "row": 6
    },
-   "views": 2,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-south-market-terrain-0-819bbf4da7d5.png",
-   "why": "drawn in 2 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "views": 17,
+   "drawnIn": [],
+   "why": "drawn in 17 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -28615,872 +27952,75 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:97b40cd88297680a69a47a9f4a38c9abc2eeea77bd894d37ce767387168bd6fe",
+   "key": "tile:11:b17f6d862c65feca624f42f7f243b82e3062650c47a37e49f46e44d660a8566a",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 102",
    "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:53",
-   "description": "8X8D3 block 102 tile 53, shown in area 11 (The Training Hall)",
+   "composition": "-|8X8D3.DAX:102:48",
+   "description": "8X8D3 block 102 tile 48, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
-    "x": 13,
-    "y": 8,
-    "facing": "west",
-    "column": 1,
-    "row": 4
+    "x": 0,
+    "y": 0,
+    "facing": "east",
+    "column": 2,
+    "row": 6
    },
-   "views": 11,
-   "drawnIn": [
-    0,
-    7,
-    20
-   ],
-   "sameAs": "slums-trade-row-terrain-97b40cd88297.png",
-   "why": "drawn in 11 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "views": 15,
+   "drawnIn": [],
+   "why": "drawn in 15 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:a0c0c9c245686e8bfba08abd377e3a48184c276695b008174f605d7a2f83995e",
+   "key": "tile:11:cd0c178e86616351240aa2ee992e50a4998ce99d0a7295965dc3a5de8481c2c5",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:21",
-   "description": "8X8D3 block 102 tile 21, shown in area 11 (The Training Hall)",
+   "what": "several tiles together",
+   "composition": "h11.15.7.6|8X8D3.DAX:102:67",
+   "description": "8X8D3 block 102 tile 67 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6), shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
-    "x": 9,
-    "y": 8,
+    "x": 10,
+    "y": 9,
     "facing": "east",
-    "column": 2,
+    "column": 6,
     "row": 5
    },
-   "views": 11,
+   "views": 3,
    "drawnIn": [
-    0,
-    5,
-    7,
-    20
-   ],
-   "sameAs": "valjevo-lower-trim-a0c0c9c24568.png",
-   "why": "drawn in 11 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:a2c41c4f0c4fa31620dac8ca4d42c5425fdd1ba3f700cc05c8471549a309d990",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:63",
-   "description": "8X8D3 block 102 tile 63, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 9,
-    "y": 13,
-    "facing": "west",
-    "column": 8,
-    "row": 4
-   },
-   "views": 1,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-south-market-terrain-0-a2c41c4f0c4f.png",
-   "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:a8ed6d6150e8b242b1142b13dcee6be84fefbeac21ef725b37b80cd018dea6a6",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:30",
-   "description": "8X8D3 block 102 tile 30, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 10,
-    "y": 1,
-    "facing": "south",
-    "column": 5,
-    "row": 5
-   },
-   "views": 47,
-   "drawnIn": [
-    0,
-    3,
-    4,
-    6,
-    8,
-    20
-   ],
-   "sameAs": "orc-rubble-0cd018dea6a6.png",
-   "why": "drawn in 47 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:ad4007119c61bf7d6666c19092a0860486034153aa08a403fd206f9cd1940357",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:15",
-   "description": "8X8D3 block 102 tile 15, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 10,
-    "y": 8,
-    "facing": "west",
-    "column": 9,
-    "row": 8
-   },
-   "views": 4,
-   "drawnIn": [
-    0,
     7
    ],
-   "sameAs": "valjevo-merchant-west-terrain-ad4007119c61.png",
-   "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "sameAs": "valjevo-merchant-branch-terrain-cd0c178e8661.png",
+   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:af4d0380d89a958e265764fe02dcdcba866eb25f25e1950bb6e4aa05ee0bd059",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:2",
-   "description": "8X8D3 block 102 tile 2, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "east",
-    "column": 8,
-    "row": 3
-   },
-   "views": 726,
-   "drawnIn": [
-    0,
-    3,
-    5,
-    7,
-    8,
-    20
-   ],
-   "sameAs": "route-af4d0380d89a.png",
-   "why": "drawn in 726 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:b8645fd4952e35317fa061a3be9a84e98b48141ba4090c3c1fa13f323d8720d5",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:1",
-   "description": "8X8D3 block 102 tile 1, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 8,
-    "facing": "west",
-    "column": 0,
-    "row": 6
-   },
-   "views": 10,
-   "drawnIn": [
-    0,
-    7,
-    20
-   ],
-   "sameAs": "slums-trade-row-terrain-b8645fd4952e.png",
-   "why": "drawn in 10 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:bd7ebf5b0e105d0f47a6c2dc24787872525ccdbe7e7081220f314f20085c8728",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:3",
-   "description": "8X8D3 block 102 tile 3, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "east",
-    "column": 10,
-    "row": 3
-   },
-   "views": 1066,
-   "drawnIn": [
-    0,
-    3,
-    5,
-    7,
-    8,
-    20
-   ],
-   "sameAs": "route-bd7ebf5b0e10.png",
-   "why": "drawn in 1066 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:c109062bae81c00497c44a59d1a66885bdc4315d382df7c88791f17886541ad0",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:25",
-   "description": "8X8D3 block 102 tile 25, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 9,
-    "row": 8
-   },
-   "views": 574,
-   "drawnIn": [
-    0,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    20
-   ],
-   "sameAs": "orc-rubble-f17886541ad0.png",
-   "why": "drawn in 574 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:c6c238d6832c50eb322fcf219d1ed5b19c1e59e4da05cc0f76e9053155ad4e1d",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:28",
-   "description": "8X8D3 block 102 tile 28, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "south",
-    "column": 1,
-    "row": 7
-   },
-   "views": 498,
-   "drawnIn": [
-    0,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    20
-   ],
-   "sameAs": "orc-rubble-053155ad4e1d.png",
-   "why": "drawn in 498 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:ceaa1c6a928af7e169014854674189c9cdbdc41645ce50b1a41756218050daf6",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one tile over a solid colour",
-   "composition": "g6|8X8D3.DAX:102:43",
-   "description": "8X8D3 block 102 tile 43 over the ground colour 6, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 9,
-    "y": 7,
-    "facing": "east",
-    "column": 8,
-    "row": 8
-   },
-   "views": 22,
-   "drawnIn": [
-    0,
-    7
-   ],
-   "sameAs": "valjevo-terra-cotta-floor-ceaa1c6a928a.png",
-   "why": "drawn in 22 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:d1c8516a2591d8559a256177aea1794caa4db7259d6978f68de344c1902d1f25",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:4",
-   "description": "8X8D3 block 102 tile 4, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "south",
-    "column": 2,
-    "row": 4
-   },
-   "views": 724,
-   "drawnIn": [
-    0,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    20
-   ],
-   "sameAs": "route-d1c8516a2591.png",
-   "why": "drawn in 724 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:d95ee11282e4e744494473ad77ef9f9eae15e697a6c9b6fbac0dedbcd9289fc7",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:32",
-   "description": "8X8D3 block 102 tile 32, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "east",
-    "column": 4,
-    "row": 6
-   },
-   "views": 697,
-   "drawnIn": [
-    0,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    20
-   ],
-   "sameAs": "valjevo-dungeon-doorway-terrain-d95ee11282e4.png",
-   "why": "drawn in 697 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:db57986c636ff54578b5d2a864e2bab3b66c4e6e4347add855153b4614000ffb",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:27",
-   "description": "8X8D3 block 102 tile 27, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 8,
-    "row": 7
-   },
-   "views": 611,
-   "drawnIn": [
-    0,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    20
-   ],
-   "sameAs": "orc-rubble-3b4614000ffb.png",
-   "why": "drawn in 611 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:ddf169cd0d8e5a9b7d91c469c73cfb6e6fdc47a98898e2205291ccbbb40a267f",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:13",
-   "description": "8X8D3 block 102 tile 13, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 10,
-    "y": 8,
-    "facing": "west",
-    "column": 9,
-    "row": 6
-   },
-   "views": 2,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-south-market-terrain-0-ddf169cd0d8e.png",
-   "why": "drawn in 2 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:df30f16f431986f2cd1656a4b4e52c16bef9f85d526fc012b5b3718ca3694c8f",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one tile over a solid colour",
-   "composition": "s11|8X8D3.DAX:102:49",
-   "description": "8X8D3 block 102 tile 49 over sky colour 11, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "east",
-    "column": 8,
-    "row": 2
-   },
-   "views": 502,
-   "drawnIn": [
-    0,
-    4,
-    5,
-    6,
-    8,
-    20
-   ],
-   "sameAs": "route-df30f16f4319.png",
-   "why": "drawn in 502 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:e1e25d740d96dc559780490d178cccf8720a7224ec2336badb59664c9c44aef2",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:55",
-   "description": "8X8D3 block 102 tile 55, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 8,
-    "facing": "west",
-    "column": 1,
-    "row": 3
-   },
-   "views": 11,
-   "drawnIn": [
-    0,
-    7,
-    20
-   ],
-   "sameAs": "slums-trade-row-terrain-e1e25d740d96.png",
-   "why": "drawn in 11 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:e3d609d69fc12018b9f7d110ea30eccc6d91ee967db698226ce57a499e471dd1",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:54",
-   "description": "8X8D3 block 102 tile 54, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 8,
-    "facing": "west",
-    "column": 0,
-    "row": 3
-   },
-   "views": 11,
-   "drawnIn": [
-    0,
-    7,
-    20
-   ],
-   "sameAs": "slums-trade-row-terrain-e3d609d69fc1.png",
-   "why": "drawn in 11 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:e6c54d795264af5e30cea8c8db38610f1305aa1395cf05b3c96cd7496f272900",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:22",
-   "description": "8X8D3 block 102 tile 22, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 8,
-    "facing": "west",
-    "column": 0,
-    "row": 8
-   },
-   "views": 11,
-   "drawnIn": [
-    0,
-    7,
-    20
-   ],
-   "sameAs": "slums-trade-row-terrain-e6c54d795264.png",
-   "why": "drawn in 11 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:e9660b0895d8aa142fec4c3ddb0f36b80f500aae4c3394f6680314fcaf79ce8c",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:12",
-   "description": "8X8D3 block 102 tile 12, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 9,
-    "y": 7,
-    "facing": "east",
-    "column": 7,
-    "row": 6
-   },
-   "views": 9,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-south-market-terrain-0-e9660b0895d8.png",
-   "why": "drawn in 9 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:f18965943be25bd3f32240928a4a8bec8ee34b07f230cb1069cac20279caea4a",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:23",
-   "description": "8X8D3 block 102 tile 23, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 9,
-    "y": 8,
-    "facing": "east",
-    "column": 2,
-    "row": 7
-   },
-   "views": 13,
-   "drawnIn": [
-    0,
-    5,
-    7,
-    20
-   ],
-   "sameAs": "valjevo-lower-trim-f18965943be2.png",
-   "why": "drawn in 13 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:fbcbe0dd001b4c1a5fb04f913c956be88ece3e87439fb1b050904da2bb1cf1ec",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:20",
-   "description": "8X8D3 block 102 tile 20, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 8,
-    "facing": "west",
-    "column": 0,
-    "row": 7
-   },
-   "views": 11,
-   "drawnIn": [
-    0,
-    7,
-    20
-   ],
-   "sameAs": "slums-trade-row-terrain-fbcbe0dd001b.png",
-   "why": "drawn in 11 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:fec9ae7f67a2d06652571b4104ee754e23f5596dbbae3bd0fa573995cdc2affb",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:24",
-   "description": "8X8D3 block 102 tile 24, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 8,
-    "facing": "west",
-    "column": 0,
-    "row": 4
-   },
-   "views": 10,
-   "drawnIn": [
-    0,
-    7,
-    20
-   ],
-   "sameAs": "slums-trade-row-terrain-fec9ae7f67a2.png",
-   "why": "drawn in 10 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:ffdaaae4ccb00ac4c93c500ca5ac7c4be2428beb180d89b1f58902fd2baa34d0",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:5",
-   "description": "8X8D3 block 102 tile 5, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 8
-   },
-   "views": 2290,
-   "drawnIn": [
-    0,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    20
-   ],
-   "sameAs": "route-ffdaaae4ccb0.png",
-   "why": "drawn in 2290 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:01af9b25e39aaeea7fb9f20f5f35af970c3507db161604599c9dd2546acbe6d0",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:46",
-   "description": "8X8D3 block 103 tile 46, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 5,
-    "y": 1,
-    "facing": "south",
-    "column": 2,
-    "row": 6
-   },
-   "views": 2,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-building-exits-terrain-01af9b25e39a.png",
-   "why": "drawn in 2 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:04d5f13cec55cbafc390fc8a362209e64ab3a9416613680ae934c510589a45d1",
+   "key": "tile:11:06ab0ea758cbd6161799235b2b0d7e4521172faf22e35bf4119b31f0f52815f8",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 103",
    "what": "several tiles together",
-   "composition": "h11.15.7.6|8X8D3.DAX:103:39",
-   "description": "8X8D3 block 103 tile 39 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6), shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 0,
-    "facing": "east",
-    "column": 10,
-    "row": 5
-   },
-   "views": 342,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-building-paving-joins-0-04d5f13cec55.png",
-   "why": "drawn in 342 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:06a65aa8ca1dfc2a534d0d318a8dfc0e7b2bc6dce07bd749d040009ae04d5bf9",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "several tiles together",
-   "composition": "-|8X8D3.DAX:102:30,8X8D3.DAX:103:39",
-   "description": "8X8D3 block 103 tile 39 over 8X8D3 block 102 tile 30, shown in area 11 (The Training Hall)",
+   "composition": "-|8X8D3.DAX:101:32,8X8D3.DAX:103:39",
+   "description": "8X8D3 block 103 tile 39 over 8X8D3 block 101 tile 32, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
     "x": 14,
-    "y": 0,
-    "facing": "east",
-    "column": 7,
+    "y": 11,
+    "facing": "west",
+    "column": 3,
     "row": 5
    },
-   "views": 12,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-east-terrace-terrain-06a65aa8ca1d.png",
-   "why": "drawn in 12 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:11c970c93c97cfd4c3a7dcd5e4b1e720cee1d11696dbcaa41b327b0fa7c4985b",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:43",
-   "description": "8X8D3 block 103 tile 43, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 0,
-    "facing": "east",
-    "column": 9,
-    "row": 6
-   },
-   "views": 40,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-east-terrace-terrain-11c970c93c97.png",
-   "why": "drawn in 40 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:152143a4081e40b57ab7b78fcb411dad2904f10639cdec53bb0670753811fd6e",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:40",
-   "description": "8X8D3 block 103 tile 40, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 0,
-    "facing": "east",
-    "column": 10,
-    "row": 7
-   },
-   "views": 107,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-east-terrace-terrain-152143a4081e.png",
-   "why": "drawn in 107 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:198b73b68f171b01b1ab684a61e4d627b04a3e9383ae0d45e9f5434db96b3734",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:65",
-   "description": "8X8D3 block 103 tile 65, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 6,
-    "y": 0,
-    "facing": "south",
-    "column": 8,
-    "row": 7
-   },
-   "views": 4,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-north-avenue-terrain-198b73b68f17.png",
-   "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -29507,57 +28047,26 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:1c7fe74cd165e154490774dc234e136d798ab24f3876d90ada11e4aeea9be2eb",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:51",
-   "description": "8X8D3 block 103 tile 51, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 6,
-    "y": 0,
-    "facing": "south",
-    "column": 8,
-    "row": 5
-   },
-   "views": 6,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-north-avenue-terrain-1c7fe74cd165.png",
-   "why": "drawn in 6 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:27e07df745edb20f8ce9db18e4dc2c69a1e293ba0ec1a1f43be3c56a96eee894",
+   "key": "tile:11:243765cb742c7f8baa3c055be6cbba8c698816a73037869e4b304f63cea7bd01",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 103",
    "what": "several tiles together",
-   "composition": "h11.15.7.6|8X8D3.DAX:103:7",
-   "description": "8X8D3 block 103 tile 7 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6), shown in area 11 (The Training Hall)",
+   "composition": "-|8X8D3.DAX:101:37,8X8D3.DAX:103:0",
+   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 101 tile 37, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
-    "x": 5,
-    "y": 2,
-    "facing": "north",
-    "column": 1,
+    "x": 13,
+    "y": 3,
+    "facing": "west",
+    "column": 10,
     "row": 5
    },
-   "views": 3,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-north-avenue-terrain-27e07df745ed.png",
-   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "views": 2,
+   "drawnIn": [],
+   "why": "drawn in 2 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -29568,22 +28077,22 @@
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 103",
    "what": "several tiles together",
-   "composition": "-|8X8D3.DAX:102:26,8X8D3.DAX:103:0",
-   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 102 tile 26, shown in area 11 (The Training Hall)",
+   "composition": "-|8X8D3.DAX:102:26,8X8D3.DAX:103:0,8X8D3.DAX:103:0",
+   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 0 over 8X8D3 block 102 tile 26, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
-    "x": 13,
-    "y": 11,
+    "x": 15,
+    "y": 1,
     "facing": "east",
-    "column": 10,
+    "column": 4,
     "row": 5
    },
-   "views": 2,
+   "views": 8,
    "drawnIn": [
     8
    ],
    "sameAs": "new-phlan-east-terrace-terrain-2a90a9530957.png",
-   "why": "drawn in 2 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 8 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -29610,6 +28119,29 @@
   },
   {
    "kind": "first-person cell",
+   "key": "tile:11:39ec23f0982f82d51a199d2e205583ec5183e3f4f657da903eb6426c8777ed81",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 103",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:101:59,8X8D3.DAX:103:0,8X8D3.DAX:103:0",
+   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 0 over 8X8D3 block 101 tile 59, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 13,
+    "y": 3,
+    "facing": "north",
+    "column": 4,
+    "row": 5
+   },
+   "views": 2,
+   "drawnIn": [],
+   "why": "drawn in 2 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
    "key": "tile:11:451efcf97fe4cb8ea437dd0fba90a08e095423c51c7c23c69dd2f48be9fcead5",
    "width": 32,
    "height": 32,
@@ -29627,36 +28159,32 @@
     "column": 0,
     "row": 5
    },
-   "views": 5,
+   "views": 12,
    "drawnIn": [],
-   "why": "drawn in 5 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 12 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:45fd2b8ac4cd01017ae72e5eb3ccb345b678028762c8cb54d90ffd9df0b77739",
+   "key": "tile:11:454c08486f123540ea56b2fed133366cbc56bff3f4b494cd4d08f710aafced94",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:38",
-   "description": "8X8D3 block 103 tile 38, shown in area 11 (The Training Hall)",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:101:47,8X8D3.DAX:103:0,8X8D3.DAX:103:0",
+   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 0 over 8X8D3 block 101 tile 47, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
     "x": 13,
-    "y": 0,
-    "facing": "east",
-    "column": 10,
-    "row": 6
+    "y": 3,
+    "facing": "north",
+    "column": 2,
+    "row": 5
    },
-   "views": 458,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-building-paving-joins-0-45fd2b8ac4cd.png",
-   "why": "drawn in 458 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "views": 3,
+   "drawnIn": [],
+   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -29683,193 +28211,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:48ba7aff907865121f0f9abc7acbaf2fbd9aba0e412d942536f0ecc929490d13",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:54",
-   "description": "8X8D3 block 103 tile 54, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 15,
-    "y": 0,
-    "facing": "east",
-    "column": 10,
-    "row": 7
-   },
-   "views": 1608,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-east-terrace-terrain-48ba7aff9078.png",
-   "why": "drawn in 1608 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:56d437010922e2491fd52ab5a11720856ef7be017d97cdb02c37308592793d7e",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:17",
-   "description": "8X8D3 block 103 tile 17, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 5,
-    "y": 2,
-    "facing": "south",
-    "column": 9,
-    "row": 4
-   },
-   "views": 1,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-civic-terrain-56d437010922.png",
-   "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:5e6ca21cd26fb9dc2194d475c5ba58a893a144c307796462e5ba278a3ed9c93c",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one tile over a solid colour",
-   "composition": "s11|8X8D3.DAX:103:52",
-   "description": "8X8D3 block 103 tile 52 over sky colour 11, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 4,
-    "y": 1,
-    "facing": "south",
-    "column": 0,
-    "row": 3
-   },
-   "views": 7,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-building-paving-joins-0-5e6ca21cd26f.png",
-   "why": "drawn in 7 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:611fbe6c87417a20690cf2681fe58644193dae74482c453a4b1139ded0546833",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:56",
-   "description": "8X8D3 block 103 tile 56, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 1,
-    "facing": "east",
-    "column": 0,
-    "row": 6
-   },
-   "views": 32,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-east-terrace-terrain-611fbe6c8741.png",
-   "why": "drawn in 32 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:646a996d9a877bf5fe36750fd9b9f368be1708dbcb48727b977d49f3e8eee2af",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:9",
-   "description": "8X8D3 block 103 tile 9, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 5,
-    "y": 2,
-    "facing": "south",
-    "column": 6,
-    "row": 5
-   },
-   "views": 1,
-   "drawnIn": [
-    0,
-    15
-   ],
-   "sameAs": "mendor-library-terrain-646a996d9a87.png",
-   "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:6ad37cf35c202965922d7096419fef61f87a49b9b7afc8d521913f7f32978264",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:63",
-   "description": "8X8D3 block 103 tile 63, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 4,
-    "y": 1,
-    "facing": "south",
-    "column": 0,
-    "row": 7
-   },
-   "views": 3,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-building-paving-joins-0-6ad37cf35c20.png",
-   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:6c1cb747749f126535687ab0ad6282611445b167249e9df351953352d0be9770",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:18",
-   "description": "8X8D3 block 103 tile 18, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 5,
-    "y": 1,
-    "facing": "south",
-    "column": 7,
-    "row": 5
-   },
-   "views": 4,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-civic-terrain-6c1cb747749f.png",
-   "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:11:6eb0229fba37066c933fd301ebdf2d3f3f95c0aa02edc13b9efcec153f936da1",
    "width": 32,
    "height": 32,
@@ -29881,42 +28222,107 @@
    "description": "8X8D3 block 103 tile 0 over 8X8D1 block 203 tile 38, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
-    "x": 7,
+    "x": 6,
     "y": 14,
     "facing": "west",
     "column": 0,
     "row": 5
    },
-   "views": 5,
+   "views": 6,
    "drawnIn": [],
-   "why": "drawn in 5 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 6 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:75f1a0f0dd8afc085e998eaf410fc0f7c99d4c761883320d34621a03ff50279f",
+   "key": "tile:11:6ffbe31ffb6e357e7b5bc90c837a9e81d95b620e6c5d258167ece8994b0cb2ab",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 103",
    "what": "several tiles together",
-   "composition": "h11.15.7.6|8X8D3.DAX:103:41",
-   "description": "8X8D3 block 103 tile 41 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6), shown in area 11 (The Training Hall)",
+   "composition": "-|8X8D3.DAX:101:3,8X8D3.DAX:103:0,8X8D3.DAX:103:0",
+   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 0 over 8X8D3 block 101 tile 3, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
-    "x": 13,
-    "y": 0,
+    "x": 15,
+    "y": 11,
     "facing": "east",
-    "column": 7,
+    "column": 6,
     "row": 5
    },
-   "views": 118,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-west-garden-terrain-75f1a0f0dd8a.png",
-   "why": "drawn in 118 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:11:719b5967a953045d0d20abcf9452381308bb1fface4a6baeb52d8b74ecf29040",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 103",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:102:5,8X8D3.DAX:103:39",
+   "description": "8X8D3 block 103 tile 39 over 8X8D3 block 102 tile 5, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 14,
+    "y": 5,
+    "facing": "west",
+    "column": 8,
+    "row": 5
+   },
+   "views": 2,
+   "drawnIn": [],
+   "why": "drawn in 2 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:11:750047fda51e805e93727318ef77fa7a620e6edeb7a057b138bc80985275b9c7",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 103",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:101:21,8X8D3.DAX:103:41,8X8D3.DAX:103:0",
+   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 41 over 8X8D3 block 101 tile 21, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 14,
+    "y": 3,
+    "facing": "south",
+    "column": 1,
+    "row": 5
+   },
+   "views": 3,
+   "drawnIn": [],
+   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:11:795899f6cf242fdcf69f3d4fe0e776713195ec44bc13eb38d2043a9ecb87dfd4",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 103",
+   "what": "several tiles together",
+   "composition": "-|8X8D1.DAX:203:39,8X8D3.DAX:103:0",
+   "description": "8X8D3 block 103 tile 0 over 8X8D1 block 203 tile 39, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 3,
+    "y": 14,
+    "facing": "east",
+    "column": 10,
+    "row": 5
+   },
+   "views": 6,
+   "drawnIn": [],
+   "why": "drawn in 6 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -29943,134 +28349,140 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:811ae3a349c441d47448e1f94f7d2d9f7d9611f40e3177c2d53c418cac59be77",
+   "key": "tile:11:7c4c73abf8f8be43d7999d9caf01d84a00760d26a26251f8632c43ece6879792",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:15",
-   "description": "8X8D3 block 103 tile 15, shown in area 11 (The Training Hall)",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:101:2,8X8D3.DAX:103:0,8X8D3.DAX:103:0",
+   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 0 over 8X8D3 block 101 tile 2, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
-    "x": 6,
-    "y": 0,
-    "facing": "south",
-    "column": 6,
+    "x": 15,
+    "y": 11,
+    "facing": "east",
+    "column": 8,
     "row": 5
    },
    "views": 1,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-training-paving-0-811ae3a349c4.png",
+   "drawnIn": [],
    "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:8912e73364ab5cc50ba0bce12eed2b990830fa4034cd0a69b34c204b99e1104e",
+   "key": "tile:11:7f61c92327391a6bca5b0a528d2d032e6840ad63c3910f057a5486cdec840afa",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:47",
-   "description": "8X8D3 block 103 tile 47, shown in area 11 (The Training Hall)",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:102:5,8X8D3.DAX:103:41,8X8D3.DAX:103:0,8X8D3.DAX:103:0",
+   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 41 over 8X8D3 block 102 tile 5, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
-    "x": 4,
-    "y": 1,
+    "x": 15,
+    "y": 5,
     "facing": "south",
-    "column": 0,
-    "row": 6
+    "column": 4,
+    "row": 5
    },
-   "views": 3,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-building-exits-terrain-8912e73364ab.png",
-   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:89396b758064cb35796020a5347af3a0f5aa2b40a2a5293e8ae315ba0c1bc7e3",
+   "key": "tile:11:8a7502a683b5ca79bfab71960c48f6abd3e0a5ea79e62fc5baa85e4f755b4e38",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 103",
-   "what": "one tile over a solid colour",
-   "composition": "s11|8X8D3.DAX:103:53",
-   "description": "8X8D3 block 103 tile 53 over sky colour 11, shown in area 11 (The Training Hall)",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:101:47,8X8D3.DAX:103:39",
+   "description": "8X8D3 block 103 tile 39 over 8X8D3 block 101 tile 47, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
-    "x": 5,
-    "y": 1,
-    "facing": "north",
-    "column": 10,
-    "row": 0
-   },
-   "views": 12,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-street-paving-joins-0-89396b758064.png",
-   "why": "drawn in 12 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:8ca2144dc7b6314a110c44e27481681e5d6ecce3e173c6abf1fc960ab9929527",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:24",
-   "description": "8X8D3 block 103 tile 24, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 3,
-    "y": 2,
+    "x": 15,
+    "y": 4,
     "facing": "south",
     "column": 2,
     "row": 5
    },
-   "views": 2,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-civic-terrain-8ca2144dc7b6.png",
-   "why": "drawn in 2 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "views": 3,
+   "drawnIn": [],
+   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:9b6a784556735dc9816f557fcc3d3b175499f936df6fee43202260dad8931b52",
+   "key": "tile:11:9859de0bc085d85d77c94427a28ac253d9dc5c2cb9f8774de7282aaf58a88512",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:16",
-   "description": "8X8D3 block 103 tile 16, shown in area 11 (The Training Hall)",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:101:21,8X8D3.DAX:103:39",
+   "description": "8X8D3 block 103 tile 39 over 8X8D3 block 101 tile 21, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
-    "x": 5,
+    "x": 14,
     "y": 2,
     "facing": "south",
-    "column": 9,
+    "column": 1,
+    "row": 5
+   },
+   "views": 6,
+   "drawnIn": [],
+   "why": "drawn in 6 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:11:99de9f9b4514c2decbc4de130b2681b346a3c51f9795c515e4bcedc012b14e2b",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 103",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:101:68,8X8D3.DAX:103:41",
+   "description": "8X8D3 block 103 tile 41 over 8X8D3 block 101 tile 68, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 12,
+    "y": 4,
+    "facing": "north",
+    "column": 6,
     "row": 5
    },
    "views": 1,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-civic-terrain-9b6a78455673.png",
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:11:9d678c0fec7e982dea23320ba77532401b0493422a9dc04a2bfa2bebd8c50c42",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 103",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:101:25,8X8D3.DAX:103:0",
+   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 101 tile 25, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 14,
+    "y": 3,
+    "facing": "west",
+    "column": 10,
+    "row": 5
+   },
+   "views": 1,
+   "drawnIn": [],
    "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -30092,251 +28504,150 @@
     "column": 9,
     "row": 5
    },
-   "views": 5,
+   "views": 13,
    "drawnIn": [],
-   "why": "drawn in 5 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 13 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:a8da5e24bdcf3792884e33ceca3a326681bb98295ff41493b81beff0702e768a",
+   "key": "tile:11:b91c1a61b1b674049f1da4fdf724a912001190410004064840dea1621c0c3e16",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:57",
-   "description": "8X8D3 block 103 tile 57, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 1,
-    "facing": "east",
-    "column": 10,
-    "row": 6
-   },
-   "views": 24,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-landmark-approaches-terrain-a8da5e24bdcf.png",
-   "why": "drawn in 24 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:adc0a50821b02364997d6bc489a0e237ac8d2e2b6f7ae1bf2b4063dc854b4b23",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:49",
-   "description": "8X8D3 block 103 tile 49, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 6,
-    "y": 0,
-    "facing": "south",
-    "column": 8,
-    "row": 6
-   },
-   "views": 4,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-north-avenue-terrain-adc0a50821b0.png",
-   "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:b4b708104f67078b3cb017e33ecb3b43c125f6f424c842fc1511c02b2bc94a64",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:42",
-   "description": "8X8D3 block 103 tile 42, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 15,
-    "y": 0,
-    "facing": "west",
-    "column": 1,
-    "row": 6
-   },
-   "views": 45,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-building-paving-joins-0-b4b708104f67.png",
-   "why": "drawn in 45 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:b525b489a8bd7af2ce9a0a7e18f3e34317757f604503b5cf1aa2638c11b6431b",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one tile over a solid colour",
-   "composition": "s11|8X8D3.DAX:103:19",
-   "description": "8X8D3 block 103 tile 19 over sky colour 11, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 3,
-    "y": 2,
-    "facing": "south",
-    "column": 2,
-    "row": 3
-   },
-   "views": 6,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-civic-terrain-b525b489a8bd.png",
-   "why": "drawn in 6 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:c02eebecd52b47ecb5002e3a6a7677f8b622486d121691f2c81ca99e37ce82e2",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:44",
-   "description": "8X8D3 block 103 tile 44, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 14,
-    "y": 0,
-    "facing": "south",
-    "column": 0,
-    "row": 7
-   },
-   "views": 108,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-east-terrace-terrain-c02eebecd52b.png",
-   "why": "drawn in 108 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:c10bad57dae4106710a73914d9ac3210d97b15dc1769ae8844b9c978a77214cb",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:64",
-   "description": "8X8D3 block 103 tile 64, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 6,
-    "y": 0,
-    "facing": "south",
-    "column": 7,
-    "row": 7
-   },
-   "views": 6,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-north-avenue-terrain-c10bad57dae4.png",
-   "why": "drawn in 6 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:c270c2071655b25e35fe8d0c9ff4e75df87ec1c689a81f6e6707da80b462f112",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:55",
-   "description": "8X8D3 block 103 tile 55, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 13,
-    "y": 1,
-    "facing": "north",
-    "column": 4,
-    "row": 6
-   },
-   "views": 207,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-east-terrace-terrain-c270c2071655.png",
-   "why": "drawn in 207 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:c838dbbfe585cabfa88ae4bf9b6577e4981ad35d3da8eca47cfb1fdb620c9d3b",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:1",
-   "description": "8X8D3 block 103 tile 1, shown in area 11 (The Training Hall)",
+   "what": "several tiles together",
+   "composition": "h11.15.7.6|8X8D3.DAX:103:3",
+   "description": "8X8D3 block 103 tile 3 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6), shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
     "x": 0,
     "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 6
+    "facing": "east",
+    "column": 4,
+    "row": 5
    },
-   "views": 544,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-harbor-lane-terrain-c838dbbfe585.png",
-   "why": "drawn in 544 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "views": 8,
+   "drawnIn": [],
+   "why": "drawn in 8 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:d26c869894444bd21b6653fccc8965779c2abd71678b6dc7df589317ab2dee30",
+   "key": "tile:11:c32c234a7bbf0eaa70dc96a5319e6b2380a6410eef8894cba00a879b33355618",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:11",
-   "description": "8X8D3 block 103 tile 11, shown in area 11 (The Training Hall)",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:101:3,8X8D3.DAX:103:39,8X8D3.DAX:103:39",
+   "description": "8X8D3 block 103 tile 39 over 8X8D3 block 103 tile 39 over 8X8D3 block 101 tile 3, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
-    "x": 2,
-    "y": 2,
+    "x": 14,
+    "y": 11,
     "facing": "east",
-    "column": 9,
-    "row": 6
+    "column": 6,
+    "row": 5
    },
-   "views": 5,
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:11:c3f6c9dcaf3cbd15279435fed80c311d3039001afd1e0684d444730419443ef5",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 103",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:101:20,8X8D3.DAX:103:0",
+   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 101 tile 20, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 15,
+    "y": 11,
+    "facing": "south",
+    "column": 0,
+    "row": 5
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:11:c9eacb92173da7fb7eb5191db83856abbcb0f04e6685eeb42c6606bc1cb85525",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 103",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:101:68,8X8D3.DAX:103:39",
+   "description": "8X8D3 block 103 tile 39 over 8X8D3 block 101 tile 68, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 14,
+    "y": 2,
+    "facing": "south",
+    "column": 0,
+    "row": 5
+   },
+   "views": 11,
+   "drawnIn": [],
+   "why": "drawn in 11 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:11:ce696a4dd18147ff2b37c0398f7f33644015b73e12d2441acbe8883c621e07b1",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 103",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:102:2,8X8D3.DAX:103:0,8X8D3.DAX:103:0",
+   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 0 over 8X8D3 block 102 tile 2, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 15,
+    "y": 1,
+    "facing": "east",
+    "column": 8,
+    "row": 5
+   },
+   "views": 4,
    "drawnIn": [
-    0
+    8
    ],
-   "sameAs": "new-phlan-street-paving-joins-0-d26c86989444.png",
-   "why": "drawn in 5 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "sameAs": "new-phlan-east-terrace-terrain-ce696a4dd181.png",
+   "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:11:d0da7ad4498cfdbaf905732257665c26ccefcad1c8f80bf67ab4abc30a869795",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 103",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:102:5,8X8D3.DAX:103:0,8X8D3.DAX:103:0",
+   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 0 over 8X8D3 block 102 tile 5, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 14,
+    "y": 5,
+    "facing": "south",
+    "column": 2,
+    "row": 5
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -30347,231 +28658,111 @@
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 103",
    "what": "several tiles together",
-   "composition": "-|8X8D1.DAX:203:12,8X8D3.DAX:103:0,8X8D3.DAX:103:0",
-   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 0 over 8X8D1 block 203 tile 12, shown in area 11 (The Training Hall)",
+   "composition": "-|8X8D1.DAX:203:12,8X8D3.DAX:103:0",
+   "description": "8X8D3 block 103 tile 0 over 8X8D1 block 203 tile 12, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 15,
+    "y": 3,
+    "facing": "west",
+    "column": 10,
+    "row": 5
+   },
+   "views": 38,
+   "drawnIn": [],
+   "why": "drawn in 38 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:11:d5d688860efe2e51bcfe34f1c8df81638516bb24203b3d3c36bc23079bde91ce",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 103",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:101:64,8X8D3.DAX:103:39",
+   "description": "8X8D3 block 103 tile 39 over 8X8D3 block 101 tile 64, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
     "x": 14,
-    "y": 12,
-    "facing": "west",
-    "column": 6,
-    "row": 5
-   },
-   "views": 28,
-   "drawnIn": [],
-   "why": "drawn in 28 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:d4bfebd9881c703ec9c8702d40af2b04c1a0c8a329673f23bef7bc145b267a73",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:59",
-   "description": "8X8D3 block 103 tile 59, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 9,
-    "y": 7,
-    "facing": "east",
-    "column": 8,
-    "row": 6
-   },
-   "views": 5,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-south-market-terrain-0-d4bfebd9881c.png",
-   "why": "drawn in 5 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:dc911cb26109fedd8420ff441590f02ca7e728df8fa5068ea8aad3bd39309f2e",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one tile over a solid colour",
-   "composition": "s11|8X8D3.DAX:103:31",
-   "description": "8X8D3 block 103 tile 31 over sky colour 11, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 2,
-    "y": 2,
+    "y": 8,
     "facing": "east",
     "column": 9,
-    "row": 4
-   },
-   "views": 3,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-civic-terrain-dc911cb26109.png",
-   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:e2142330f065af697aa1885f9674e8030f32dc4271a7cc34a8b328152ae74717",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "several tiles together",
-   "composition": "-|8X8D3.DAX:102:3,8X8D3.DAX:103:0,8X8D3.DAX:103:0",
-   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 0 over 8X8D3 block 102 tile 3, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 12,
-    "y": 12,
-    "facing": "east",
-    "column": 6,
     "row": 5
-   },
-   "views": 7,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-pier-branch-terrain-e2142330f065.png",
-   "why": "drawn in 7 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:e666336645282e2e81ed4fbf36349293f87706df4ee8a4254c60c330ecd63a73",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "several tiles together",
-   "composition": "h11.15.7.6|8X8D3.DAX:103:0,8X8D3.DAX:103:0",
-   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 0 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6), shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 5
-   },
-   "views": 344,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-west-garden-terrain-e66633664528.png",
-   "why": "drawn in 344 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:f2986adcc9d014d449f56d161e9e3b4c2ceae29ccda7cce4aa3a6d936b661287",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:50",
-   "description": "8X8D3 block 103 tile 50, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 6,
-    "y": 0,
-    "facing": "south",
-    "column": 7,
-    "row": 5
-   },
-   "views": 6,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-north-avenue-terrain-f2986adcc9d0.png",
-   "why": "drawn in 6 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:f6613a058106db88c64183aa031f0c43f9f33676f27b6bf26e5600c0126ae92d",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:68",
-   "description": "8X8D3 block 103 tile 68, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 6,
-    "y": 0,
-    "facing": "south",
-    "column": 6,
-    "row": 6
-   },
-   "views": 1,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-training-paving-0-f6613a058106.png",
-   "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:11:f694be99114d4ada4bbf639d34cb6229464da9146cd4f986fde0c9354e68924d",
-   "width": 32,
-   "height": 32,
-   "area": 11,
-   "areaName": "The Training Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:66",
-   "description": "8X8D3 block 103 tile 66, shown in area 11 (The Training Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 5,
-    "y": 1,
-    "facing": "south",
-    "column": 2,
-    "row": 7
    },
    "views": 2,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-building-paving-joins-0-f694be99114d.png",
+   "drawnIn": [],
    "why": "drawn in 2 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:11:f9d8fed90af6718c57797bf400bb9116188fb7cbb109b11938af554694e8492e",
+   "key": "tile:11:e761e6a0facf5cbda34a735d1b8599c90404f5a34979393df0120e4f06fc1191",
    "width": 32,
    "height": 32,
    "area": 11,
    "areaName": "The Training Hall",
    "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:48",
-   "description": "8X8D3 block 103 tile 48, shown in area 11 (The Training Hall)",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:101:35,8X8D3.DAX:103:39",
+   "description": "8X8D3 block 103 tile 39 over 8X8D3 block 101 tile 35, shown in area 11 (The Training Hall)",
    "seenAt": {
     "map": 0,
-    "x": 6,
-    "y": 0,
+    "x": 14,
+    "y": 4,
     "facing": "south",
-    "column": 7,
-    "row": 6
+    "column": 0,
+    "row": 5
    },
-   "views": 6,
-   "drawnIn": [
-    0,
-    8
-   ],
-   "sameAs": "new-phlan-north-avenue-terrain-f9d8fed90af6.png",
-   "why": "drawn in 6 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "views": 4,
+   "drawnIn": [],
+   "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:11:eb9e232b185d36eb5f04234d2860e02ab68b2f7adf09bb63bab6f1ee640cc5d9",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 103",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:101:46,8X8D3.DAX:103:0",
+   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 101 tile 46, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 15,
+    "y": 5,
+    "facing": "north",
+    "column": 10,
+    "row": 5
+   },
+   "views": 3,
+   "drawnIn": [],
+   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:11:f396f4ed12b9fd4e0bd9427532c1789a2c7ae498a49246236bcd2f065e323cda",
+   "width": 32,
+   "height": 32,
+   "area": 11,
+   "areaName": "The Training Hall",
+   "group": "tile set 8X8D3 block 103",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:102:3,8X8D3.DAX:103:41,8X8D3.DAX:103:0,8X8D3.DAX:103:0",
+   "description": "8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 41 over 8X8D3 block 102 tile 3, shown in area 11 (The Training Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 12,
+    "y": 14,
+    "facing": "east",
+    "column": 6,
+    "row": 5
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -32068,11 +30259,12 @@
    "drawnIn": [
     0,
     8,
+    11,
     21,
     24,
     28
    ],
-   "sameAs": "zhentil-floor-refinement-far-threshold.png",
+   "sameAs": "new-phlan-street-paving-joins-0-80e3c5025a5f.png",
    "why": "drawn in 16 views of map 14 (WALLDEF3 block 1 (tiles 8X8D3 block 1), block 3 (tiles 8X8D3 block 3), block 5 (tiles 8X8D3 block 5)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -32134,6 +30326,7 @@
     5,
     8,
     9,
+    11,
     15,
     18,
     24,
@@ -32242,6 +30435,7 @@
     5,
     8,
     9,
+    11,
     15,
     18,
     24,
@@ -32277,6 +30471,7 @@
     2,
     8,
     9,
+    11,
     15,
     20,
     22,
@@ -32466,6 +30661,7 @@
     8,
     9,
     10,
+    11,
     15,
     16,
     20,
@@ -32770,6 +30966,7 @@
     2,
     8,
     9,
+    11,
     14,
     15,
     20,
@@ -32804,6 +31001,7 @@
     2,
     8,
     9,
+    11,
     15,
     20,
     22,
@@ -37801,6 +35999,7 @@
     5,
     8,
     9,
+    11,
     15,
     18,
     24,
@@ -37868,6 +36067,7 @@
     5,
     7,
     10,
+    11,
     13,
     15,
     16,
@@ -37906,6 +36106,7 @@
     5,
     8,
     9,
+    11,
     15,
     18,
     24,
@@ -37939,10 +36140,11 @@
    "drawnIn": [
     0,
     8,
+    11,
     18,
     24
    ],
-   "sameAs": "podal-workshop-lanes-terrain-97ff4f78b15e.png",
+   "sameAs": "new-phlan-pier-alley-terrain-97ff4f78b15e.png",
    "why": "drawn in 8 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -37996,6 +36198,7 @@
     2,
     8,
     9,
+    11,
     14,
     15,
     20,
@@ -38030,6 +36233,7 @@
     2,
     8,
     9,
+    11,
     15,
     20,
     22,
@@ -38445,6 +36649,7 @@
     8,
     9,
     10,
+    11,
     15,
     16,
     20,
@@ -38561,6 +36766,7 @@
     8,
     9,
     10,
+    11,
     14,
     15,
     16,
@@ -38967,6 +37173,7 @@
    "drawnIn": [
     0,
     8,
+    11,
     24
    ],
    "sameAs": "new-phlan-building-paving-joins-0-11913c45250c.png",
@@ -39304,10 +37511,11 @@
    "drawnIn": [
     0,
     8,
+    11,
     18,
     24
    ],
-   "sameAs": "new-phlan-civic-terrain-2edd110cf918.png",
+   "sameAs": "new-phlan-street-paving-joins-0-2edd110cf918.png",
    "why": "drawn in 2 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -39665,10 +37873,11 @@
    "views": 2,
    "drawnIn": [
     0,
+    11,
     18,
     24
    ],
-   "sameAs": "podal-cobble-floor-5b720a6a4fb8.png",
+   "sameAs": "new-phlan-street-paving-joins-0-5b720a6a4fb8.png",
    "why": "drawn in 2 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -39772,9 +37981,10 @@
    "drawnIn": [
     0,
     8,
+    11,
     24
    ],
-   "sameAs": "city-hall-district-terrain-30.png",
+   "sameAs": "new-phlan-building-paving-joins-0-743465f1979b.png",
    "why": "drawn in 14 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -40055,6 +38265,7 @@
    "drawnIn": [
     0,
     8,
+    11,
     18,
     24
    ],
@@ -40358,6 +38569,7 @@
    "drawnIn": [
     0,
     8,
+    11,
     24
    ],
    "sameAs": "new-phlan-building-paving-joins-0-b089021fb544.png",
@@ -40772,10 +38984,11 @@
    "views": 12,
    "drawnIn": [
     0,
+    11,
     18,
     24
    ],
-   "sameAs": "podal-south-arcade-terrain-dc6c3d5510b0.png",
+   "sameAs": "new-phlan-harbor-paving-joins-0-dc6c3d5510b0.png",
    "why": "drawn in 12 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -40982,6 +39195,7 @@
    "drawnIn": [
     0,
     8,
+    11,
     24
    ],
    "sameAs": "new-phlan-building-paving-joins-0-f4869b3d1f02.png",
@@ -41842,6 +40056,7 @@
     2,
     8,
     9,
+    11,
     14,
     15,
     20,
@@ -41876,6 +40091,7 @@
     2,
     8,
     9,
+    11,
     15,
     20,
     22,
@@ -42425,6 +40641,7 @@
     8,
     9,
     10,
+    11,
     15,
     16,
     20,
@@ -42574,6 +40791,7 @@
     8,
     9,
     10,
+    11,
     14,
     15,
     16,
@@ -47294,11 +45512,12 @@
    "drawnIn": [
     0,
     8,
+    11,
     21,
     24,
     28
    ],
-   "sameAs": "zhentil-floor-refinement-far-threshold.png",
+   "sameAs": "new-phlan-street-paving-joins-0-80e3c5025a5f.png",
    "why": "drawn in 698 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -48720,6 +46939,7 @@
    "drawnIn": [
     0,
     2,
+    11,
     18,
     24
    ],
@@ -48749,6 +46969,7 @@
    "drawnIn": [
     0,
     2,
+    11,
     18,
     24
    ],
@@ -57678,6 +55899,7 @@
    "drawnIn": [
     0,
     2,
+    11,
     18,
     24
    ],
@@ -57707,6 +55929,7 @@
    "drawnIn": [
     0,
     2,
+    11,
     18,
     24
    ],
@@ -57736,6 +55959,7 @@
    "drawnIn": [
     0,
     2,
+    11,
     18,
     24,
     29
@@ -57766,11 +55990,12 @@
    "drawnIn": [
     0,
     2,
+    11,
     18,
     24,
     29
    ],
-   "sameAs": "kuto-earth-perimeter-joins-3a345c508ec6.png",
+   "sameAs": "new-phlan-harbor-paving-joins-0-3a345c508ec6.png",
    "why": "drawn in 3 views of map 31 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -57880,6 +56105,7 @@
    "drawnIn": [
     0,
     2,
+    11,
     18,
     24,
     29
@@ -57910,11 +56136,12 @@
    "drawnIn": [
     0,
     2,
+    11,
     18,
     24,
     29
    ],
-   "sameAs": "kuto-earth-perimeter-joins-8cf3cea60a07.png",
+   "sameAs": "new-phlan-harbor-paving-joins-0-8cf3cea60a07.png",
    "why": "drawn in 1 views of map 31 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -58027,6 +56254,7 @@
    "drawnIn": [
     0,
     2,
+    11,
     18,
     24,
     29

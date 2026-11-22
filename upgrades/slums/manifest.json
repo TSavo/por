@@ -73,6 +73,15 @@
     }
   },
   "assets": {
+    "tile:11:f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b": "new-phlan-gate-31a92759fb4b.png",
+    "tile:11:f6b189fa843260fec0ac9870717503b224c055211fd417213d26307c738f717c": "new-phlan-gate-307c738f717c.png",
+    "tile:11:09be609429c4e2db72e68769253a40f08fe1e0bf65055f356ed165cefcb83c91": "new-phlan-gate-65cefcb83c91.png",
+    "tile:11:323c71332298aeae05cfee4eb5855d831835c8a068440a0f21f6f96ee43b2f9b": "room-tile-00.png",
+    "tile:11:a709a24cc9b6b6e327458b686dabf569d04684f62e502130d50ddfa64bbd493f": "new-phlan-gate-dfa64bbd493f.png",
+    "tile:11:af86e7c9eb5381ae57023c740c0d9c788d491ec24ed18487c0f2814547e972e1": "new-phlan-gate-814547e972e1.png",
+    "tile:11:b24a0082a3a043b8f572042b955363c4f154214f73877e027dd636eaa764e18b": "new-phlan-gate-36eaa764e18b.png",
+    "tile:11:b4045d005d3dc2b8406945d3af18f0dfe1e86a3eeef827c3c123906c75ba2a5a": "new-phlan-gate-906c75ba2a5a.png",
+    "tile:11:efdc8d933de212d5d88ac5d346f07eceecfa8a614ad77866a1acae51b6ecb6fb": "new-phlan-gate-ae51b6ecb6fb.png",
     "tile:2:7a62f42874a318807e50c5f76958ec89a88041ebcdbe85f63c86b39a4adb37d7": "orc-door-b39a4adb37d7.png",
     "tile:2:067e5b585dd24bcac143834da985ebebbcc25446db06ae546aeffaec0d2b9711": "orc-door-faec0d2b9711.png",
     "tile:2:7041882d54734f52b66d2334ec62779d485694e861327c4b4c765326d9fdc613": "orc-door-5326d9fdc613.png",
