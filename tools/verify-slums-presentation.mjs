@@ -2057,7 +2057,7 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:0:HEAD3.DAX:45:BODY3.DAX:24", prompt: /ITWILLCOSTYOU1PLATINUMPIECETORESTHERE/i,
     continuation: {
       inputs: ["n"], prompt: /THENYOUMUSTLEAVE/i,
-      portrait: "scene-illustration:area:0:ecl:aa63",
+      portraits: ["scene-illustration:area:0:ecl:aa63", "scene-illustration:area:0:ecl:aa60"],
     },
   }],
   ["new-phlan-tavern-spinner", {
