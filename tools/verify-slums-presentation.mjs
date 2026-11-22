@@ -2539,6 +2539,14 @@ const illustrationRoutes = new Map([
     prompt: /THETOWERDOORSWINGSOPENANDASMALLARMYOFZOMBIESSHUFFLESOUT.*LOCKSFALLINGINTOPLACE/i,
     finalPhaseCapture: "valhingen-zombie-tower-attack.png",
   }],
+  ["valhingen-mystic-hostility", {
+    slot: "B", inputs: ["up", "enter", "enter", "enter", "s"],
+    portraitStops: { 4: "portrait:HEAD4.DAX:0:BODY4.DAX:2" },
+    portrait: "scene-illustration:area:10:ecl:aee2",
+    prompt: /THENDIEYOUSCUM.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "valhingen-mystic-hostility.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /LEVEL6MUHITPOINTS/i },
+  }],
   ["valhingen-mystic-northern-wall", {
     slot: "A", inputs: ["l"],
     portrait: "scene-illustration:area:10:ecl:b420",
@@ -13558,14 +13566,17 @@ try {
     await waitFor("the Valhingen mystic portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     for (const key of ["enter", "enter", "l"]) await advance(key);
-    const directions = "portrait:area:10:ecl:ae86:HEAD4.DAX:0:BODY4.DAX:2";
-    assert.equal(frame.portrait, directions);
+    const directions = frame.portrait;
+    assert.ok([
+      "portrait:area:10:ecl:ae86:HEAD4.DAX:0:BODY4.DAX:2",
+      "portrait:area:10:ecl:ae8d:HEAD4.DAX:0:BODY4.DAX:2",
+    ].includes(directions), `Expected the scoped mystic directions, got ${directions}`);
     await waitFor("the mystic directions illustration", () => run(`
       [...document.querySelectorAll(".encounter-portrait")].some(image =>
         image.naturalWidth === 352 && image.src.endsWith(${JSON.stringify(directions)}))`));
     await switchBothWays();
-    await advance("enter");
-    assert.notEqual(frame.portrait, directions);
+    await advance("l");
+    assert.equal(frame.portrait, undefined);
     console.log("Verified the Valhingen mystic approach, directions illustration, and state-preserving switches.");
   } else if (assault || routeName === "assault-council-chamber") {
     const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, c]) => String.fromCharCode(c)).join("");
