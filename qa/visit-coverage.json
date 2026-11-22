@@ -226,6 +226,21 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "walk-commission-5-taken (qa/fixtures/walk-commission-5-taken, game/)": {
+   "areas": [
+    0,
+    8,
+    18,
+    26
+   ],
+   "commissions": [
+    "auction",
+    "sokal"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
