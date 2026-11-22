@@ -1,6 +1,11 @@
 {
  "schema": 1,
  "runs": {
+  "campaign-full/leg-1": {
+   "presented": 122,
+   "frames": [],
+   "fixtureSha256": "bd17894d32941f4e634a2294a1a765531d220d94c8ebd896d7d3274bdc4706a7"
+  },
   "visit-kovel-mansion": {
    "presented": 58,
    "frames": [],

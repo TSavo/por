@@ -26,7 +26,7 @@ const file = "qa/enhanced-fallbacks.json";
 function fixtureDigest(directory: string): string {
   const hash = createHash("sha256");
   for (const file of readdirSync(directory).filter(name =>
-    /^(?:[A-J]|roster|boot)\.json$|^(?:commands|prompts)\.jsonl$|^last-screen\.txt$/.test(name)).sort()) {
+    /^(?:[A-J]|roster|boot|end-frame)\.json$|^(?:commands|prompts)\.jsonl$|^last-screen\.txt$/.test(name)).sort()) {
     hash.update(file + "\n");
     hash.update(readFileSync(join(directory, file), "utf8").replace(/\r\n/g, "\n"));
   }
@@ -93,6 +93,10 @@ function main(): void {
     if (existsSync(join(fixture, "commands.jsonl"))) {
       assert.equal(read(directory, "commands.jsonl").trim(), read(fixture, "commands.jsonl").trim(),
         "The Chrome replay did not consume all of the fixture commands");
+      if (existsSync(join(fixture, "end-frame.json"))) {
+        assert.deepEqual(JSON.parse(read(directory, "end-frame.json")), JSON.parse(read(fixture, "end-frame.json")),
+          "The Chrome replay ended on a different frame from the recorded campaign leg");
+      }
       if (existsSync(join(fixture, "last-screen.txt"))) {
         const normalize = (text: string) => text.replace(/\s+/g, " ").trim().toLowerCase();
         const final = JSON.parse(read(directory, "end-frame.json")) as { text: [number, number][] };

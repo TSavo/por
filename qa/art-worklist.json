@@ -12,14 +12,13 @@
  },
  "enhancedFallbacks": {
   "frames": 0,
-  "presented": 641,
-  "walks": 7,
-  "recordedWalks": 30,
+  "presented": 763,
+  "walks": 8,
+  "recordedWalks": 31,
   "missingWalks": [
    "campaign-castle-approach-leg",
    "campaign-end-leg",
    "campaign-ending-leg",
-   "campaign-full/leg-1",
    "campaign-full/leg-10",
    "campaign-full/leg-11",
    "campaign-full/leg-2",
@@ -38,9 +37,10 @@
    "visit-valjevo-area-4",
    "walk-commission-5-reward",
    "walk-commission-5-taken",
+   "walk-kovel-and-nomads",
    "walk-textile-house-cleared"
   ],
-  "runs": 7,
+  "runs": 8,
   "keys": []
  },
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
