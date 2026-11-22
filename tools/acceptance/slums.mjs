@@ -903,6 +903,39 @@ async function walkAsGuideParty(game, route, state, label) {
 const back = (route) => [...route].reverse().map((heading) => opposite[heading]).join("");
 
 /**
+ * Walk `route` from a room where rest is safe, as a player who has been told not to press on hurt
+ * does (#118): a random fight that leaves anyone hurt or the party short of Sleeps ends the walk
+ * for now; the party goes back the way it came, rests in the room it left, and sets out again.
+ * The dice are not touched: each fight is fought as it comes. Returns { fights, cast, retreats }.
+ */
+async function walkRestingBetweenFights(game, route, state, label) {
+  let fights = 0, cast = 0;
+  for (let retreats = 0; ; retreats++) {
+    if (retreats >= 8) game.fail(`Eight retreats to rest did not get the party to ${label}.`);
+    let gone = 0, again = false;
+    while (gone < route.length) {
+      const step = await walkAsGuideParty(game, route[gone], state, label);
+      fights += step.fights;
+      cast += step.cast;
+      gone++;
+      if (step.fights && (hurt(game).length || state.sleeps < 2)) {
+        progress(`${label}: after a fight ${hurt(game).length} hurt and ${state.sleeps} Sleeps; back to the room to rest`);
+        const way = back(route.slice(0, gone));
+        const homeward = await walkAsGuideParty(game, way, state, `back from ${label}`);
+        fights += homeward.fights;
+        cast += homeward.cast;
+        const rest = await recover(game);
+        state.sleeps = sleepsAfterRest;
+        progress(`${label}: recovered with ${rest.cures} cures and ${rest.rests} rests`);
+        again = true;
+        break;
+      }
+    }
+    if (!again) return { fights, cast, retreats };
+  }
+}
+
+/**
  * Bring the guide's party from a room where rest is safe to the door of a set fight, fit for it:
  * nobody hurt and at least `sleeps` Sleeps in memory. A random fight on `route` can leave it less
  * than that; then it walks back, recovers in the safe room and sets out again.
@@ -1087,7 +1120,7 @@ async function guideStable(game, state) {
   at(game, 10, 1, "The stage starts in the goblins' room.");
   const before = await experience(game);
   // South through the goblins' door, west, and into the dirty room south of the stable, (6,3).
-  await walkAsGuideParty(game, "SWWSWW", state, "the stable");
+  await walkRestingBetweenFights(game, "SWWSWW", state, "the stable");
   at(game, 6, 3, "The room south of the stable is (6,3).");
   await game.press("s");
   assert.equal(game.position()?.mode, "search", "S turns Search on: the status line says so.");
