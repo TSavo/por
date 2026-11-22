@@ -4,6 +4,17 @@
   "qa/fixtures/campaign-castle-approach-leg",
   "qa/fixtures/campaign-end-leg",
   "qa/fixtures/campaign-ending-leg",
+  "qa/fixtures/campaign-full/leg-1",
+  "qa/fixtures/campaign-full/leg-10",
+  "qa/fixtures/campaign-full/leg-11",
+  "qa/fixtures/campaign-full/leg-2",
+  "qa/fixtures/campaign-full/leg-3",
+  "qa/fixtures/campaign-full/leg-4",
+  "qa/fixtures/campaign-full/leg-5",
+  "qa/fixtures/campaign-full/leg-6",
+  "qa/fixtures/campaign-full/leg-7",
+  "qa/fixtures/campaign-full/leg-8",
+  "qa/fixtures/campaign-full/leg-9",
   "qa/fixtures/campaign-sokal-leg",
   "qa/fixtures/campaign-tower-leg",
   "qa/fixtures/visit-kobold-caves",
@@ -16,9 +27,16 @@
   "qa/fixtures/visit-valhingen-graveyard",
   "qa/fixtures/visit-valjevo-area-4",
   "qa/fixtures/visit-yarashs-pyramid",
+  "qa/fixtures/walk-clerk-pays-three",
   "qa/fixtures/walk-commission-5-reward",
   "qa/fixtures/walk-commission-5-taken",
+  "qa/fixtures/walk-kobold-king",
+  "qa/fixtures/walk-kovel-and-nomads",
+  "qa/fixtures/walk-library-cleared",
+  "qa/fixtures/walk-library-locked-temple",
+  "qa/fixtures/walk-new-phlan-training",
   "qa/fixtures/walk-textile-house-cleared",
+  "qa/fixtures/walk-yarash-pyramid",
   "qa/fixtures/wilderness-walk"
  ],
  "calls": {
@@ -84,6 +102,24 @@
     "walk": "acceptance slums goblins",
     "text": [
      "Not enough money."
+    ],
+    "shown": true
+   }
+  },
+  "slice 4 +217": {
+   "original": {
+    "walk": "qa/fixtures/walk-library-locked-temple",
+    "text": [
+     " BRIN",
+     " is cured."
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-library-locked-temple",
+    "text": [
+     " BRIN",
+     " is cured."
     ],
     "shown": true
    }
@@ -190,6 +226,42 @@
      "                       Attacks",
      "                       SKELETON",
      "                       and Misses"
+    ],
+    "shown": true
+   }
+  },
+  "slice 13 +617": {
+   "original": {
+    "walk": "qa/fixtures/walk-kobold-king",
+    "text": [
+     "                       ALDA",
+     "                       Hitpoints 6",
+     "                       AC 5"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-kobold-king",
+    "text": [
+     "                       ALDA",
+     "                       Hitpoints 6",
+     "                       AC 5"
+    ],
+    "shown": true
+   }
+  },
+  "slice 14 +923": {
+   "original": {
+    "walk": "qa/fixtures/walk-yarash-pyramid",
+    "text": [
+     "The river's stench drives you back."
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-yarash-pyramid",
+    "text": [
+     "The river's stench drives you back."
     ],
     "shown": true
    }
@@ -310,6 +382,22 @@
     "shown": true
    }
   },
+  "slice 19 +16e1": {
+   "original": {
+    "walk": "qa/fixtures/walk-new-phlan-training",
+    "text": [
+     "already using Chain Mail"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-new-phlan-training",
+    "text": [
+     "already using Chain Mail"
+    ],
+    "shown": true
+   }
+  },
   "slice 19 +170d": {
    "original": {
     "walk": "acceptance slums orcs",
@@ -322,6 +410,22 @@
     "walk": "acceptance slums orcs",
     "text": [
      "Your hands are full!"
+    ],
+    "shown": true
+   }
+  },
+  "slice 19 +1df5": {
+   "original": {
+    "walk": "qa/fixtures/walk-new-phlan-training",
+    "text": [
+     "Sold!"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-new-phlan-training",
+    "text": [
+     "Sold!"
     ],
     "shown": true
    }
@@ -360,6 +464,38 @@
     "text": [
      " Rest Time: 00:00:55",
      " The Party is rudely interrupted!"
+    ],
+    "shown": true
+   }
+  },
+  "slice 21 +230": {
+   "original": {
+    "walk": "qa/fixtures/walk-new-phlan-training",
+    "text": [
+     "Overloaded.  Money will be put in Pool."
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-new-phlan-training",
+    "text": [
+     "Overloaded.  Money will be put in Pool."
+    ],
+    "shown": true
+   }
+  },
+  "slice 21 +19e8": {
+   "original": {
+    "walk": "qa/fixtures/walk-new-phlan-training",
+    "text": [
+     "No Gems or Jewelry"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-new-phlan-training",
+    "text": [
+     "No Gems or Jewelry"
     ],
     "shown": true
    }
