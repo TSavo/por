@@ -286,7 +286,8 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       && context.script.area === context.map && (context.map === 4 || context.map === 6 || context.map === 7);
     const podolPlaza = auditReachability && !context.arrivalFrom && context.script.area === 18 && context.map === 18;
     const middleWilderness = auditReachability && !context.arrivalFrom && context.script.area === 26 && context.map === 26;
-    const auditedPalette = lizardKeep || mendorLibrary || valjevo;
+    const sokalKeep = auditReachability && !context.arrivalFrom && context.script.area === 21 && context.map === 21;
+    const auditedPalette = lizardKeep || mendorLibrary || valjevo || sokalKeep;
     // ECL16's descents enter a roofed component. Its relocations all land in
     // that component. The surface starts include the entrance and stair returns.
     const lizardStarts: readonly (readonly [number, number])[] = lizardCellar ? [[1, 7], [13, 1], [4, 15], [4, 5], [10, 4], [7, 10], [10, 8]]
@@ -296,7 +297,8 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const libraryStarts: readonly (readonly [number, number])[] = [[1, 4], [8, 3], [14, 7], [4, 10], [7, 9], [5, 5], [9, 9], [9, 11]];
     const starts = mendorLibrary ? libraryStarts : lizardKeep ? lizardStarts
       : valjevo && context.map === 6 ? [[14, 4]] as const
-      : valjevo && context.map === 7 ? [[5, 6]] as const : undefined;
+      : valjevo && context.map === 7 ? [[5, 6]] as const
+      : sokalKeep ? [[8, 14]] as const : undefined;
     const camera = context.camera;
     const poolLanding = auditReachability && context.script.area === 5 && context.map === 7;
     const playable = camera ? new Set([camera[1] * 16 + camera[0]])
@@ -354,6 +356,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       if (lizardKeep) return lizardCellar ? [0] : [0, 11];
       if (poolLanding) return [15];
       if (middleWilderness && roofed) return [0];
+      if (sokalKeep) return roofed ? [12] : [0, 11];
       if (valjevo && context.map === 7) return roofed ? [15] : [0];
       if (mendorLibrary || valjevo) return roofed ? [15] : [0, 11];
       const possible = roofed ? context.script.sky.covered : context.script.sky.open;
