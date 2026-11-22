@@ -2197,7 +2197,12 @@ verified Ulrich's 352×352 portrait during the assault briefing. These Chrome
 replays checked that presentation switches preserve the live frame and save.
 
 The `assault-briefing` route also checks the escort captain's 352×352 portrait
-before Ulrich appears. The `castle-halls` and `castle-dragon` routes check
+before Ulrich appears. From a controlled slot A at `5,10 N` with the
+native castle summons set, `assault-council-chamber` checks the assembled
+Council artwork at the first briefing page, then Ulrich's portrait as he
+asks the party to lead the attack. Chrome verified both DOS editions,
+including display switching, the return to exploration, and the
+accepted commission in the journal. The `castle-halls` and `castle-dragon` routes check
 individual threshold tiles before the dragon dialogue. Run `castle-halls`
 with a controlled slot B checkpoint at `13,7 W`. Chrome checks all 605
 placements across five views, including three in the final audience area,

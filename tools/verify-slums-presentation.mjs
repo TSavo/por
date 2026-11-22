@@ -6109,6 +6109,7 @@ routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier"
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline", "valjevo-al-hyam-reload");
 routes.push("kovel-chase-no", "valjevo-records-reload", "swamp-approach-reload", "nomad-feast-decline", "kobold-royal-ballista");
+routes.push("assault-council-chamber");
 routes.push("valhingen-first-arrival-reload", "kobold-escort-arrival-reload");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
 routes.push("kuto-wide-manual-aim");
@@ -13458,18 +13459,40 @@ try {
     await advance("enter");
     assert.notEqual(frame.portrait, directions);
     console.log("Verified the Valhingen mystic approach, directions illustration, and state-preserving switches.");
-  } else if (assault) {
-    const route = ["left", "left", "up", "right", "right", "up", "enter", "enter", "enter", "enter",
-      "s", "e", "n", "enter", "enter", "enter", "enter", "right", "up", "left", "up", "right", "up", "enter"];
-    for (const key of route.slice(0, 15)) await advance(key);
-    assert.equal(frame.portrait, "portrait:HEAD3.DAX:57:BODY3.DAX:1");
-    await waitFor("the council escort portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+  } else if (assault || routeName === "assault-council-chamber") {
+    const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, c]) => String.fromCharCode(c)).join("");
+    if (assault) {
+      const route = ["left", "left", "up", "right", "right", "up", "enter", "enter", "enter", "enter",
+        "s", "e", "n", "enter", "enter", "enter", "enter", "right", "up", "left", "up", "right", "up", "enter"];
+      for (const key of route.slice(0, 15)) await advance(key);
+      assert.equal(frame.portrait, "portrait:HEAD3.DAX:57:BODY3.DAX:1");
+      await waitFor("the council escort portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+      await switchBothWays();
+      for (const key of route.slice(15)) await advance(key);
+    } else {
+      for (const key of ["up", "enter"]) await advance(key);
+    }
+    const assembly = "scene-illustration:area:8:ecl:b5c3:caller:b335:cue:assault-council";
+    assert.equal(frame.portrait, assembly);
+    assert.match(text(), /THEENTIRECITYCOUNCILISWAITINGFORYOU.*OURFORCESAREMARSHALLEDFORTHEASSAULTONVALJEVOCASTLE/i);
+    await waitFor("the assembled Council illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${assembly}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "phlan-council-assault-assembly.png"), Buffer.from(shot.data, "base64"));
     await switchBothWays();
-    for (const key of route.slice(15)) await advance(key);
+    await advance("enter");
     assert.equal(frame.portrait, "portrait:HEAD3.DAX:16:BODY3.DAX:2");
+    assert.match(text(), /THEUNANIMOUSREQUESTOFTHECOUNCILTHATYOULEADTHEATTACK/i);
     await waitFor("Ulrich's assault briefing portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
-    console.log("Verified Ulrich's assault briefing portrait and state-preserving switches.");
+    await advance("enter");
+    assert.equal(frame.portrait, undefined);
+    await waitForExplorationViewport();
+    await advance("j");
+    assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-castle")?.status, "accepted");
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the Council assembly, Ulrich's assault briefing, and the accepted commission.");
   } else if (dragon || halls) {
     const route = halls ? ["up", "up", ...Array(3).fill("enter")] : ["right", ...Array(4).fill("up"), ...Array(3).fill("enter")];
     const patterns = new Set();

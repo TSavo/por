@@ -1491,6 +1491,8 @@
     "portrait:area:8:ecl:9f21:caller:9a4a:HEAD3.DAX:24:BODY3.DAX:32": "phlan-council-finale.png",
     "scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-award": "phlan-council-victory-award.png",
     "scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-payout": "phlan-council-victory-payout.png",
+    "scene-illustration:area:8:ecl:b331:caller:9a4a:cue:assault-council": "phlan-council-assault-assembly.png",
+    "scene-illustration:area:8:ecl:b5c3:caller:b335:cue:assault-council": "phlan-council-assault-assembly.png",
     "portrait:area:8:ecl:b5c3:caller:b292:HEAD3.DAX:16:BODY3.DAX:7": "urslingen-gate-commission.png",
     "portrait:area:8:ecl:b5c3:caller:b0ea:HEAD3.DAX:55:BODY3.DAX:1": "cadorna-diplomatic-briefing.png",
     "encounter:area:4:SPRIT5.DAX:16:1:0": "valjevo-giant-patrol-captain-approach-middle.png",
