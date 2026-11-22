@@ -6119,7 +6119,7 @@ routes.push("river-pumping-hostile");
 routes.push("river-return-reload");
 routes.push("swamp-return", "swamp-reward-reload");
 routes.push("slums-potion-booth-reload");
-routes.push("bane-cell-inscription-reload", "kovel-reward", "podal-reward", "textile-reward", "slums-reward");
+routes.push("bane-cell-inscription-reload", "kovel-reward", "podal-reward", "textile-reward", "slums-reward", "stojanow-gate-reward");
 routes.push("mendor-records-reward-reload", ...mendorCouncilRewards.keys());
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -6308,6 +6308,9 @@ const councilReward = {
   "kovel-reward": ["commission-kovel", /ELIMINATIONOFTHETHIEVESINKOVELMANSION/i,
     { portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kovel-reward", xp: 1150,
       capture: "kovel-council-reward.png" }],
+  "stojanow-gate-reward": ["commission-gate", /YOURTAKINGTHEGATEWILLENABLEOURFORCESTOASSAULTTHEENEMYSTRONGHOLD/i,
+    { portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:stojanow-gate-reward", xp: 22000,
+      capture: "stojanow-council-gate-reward.png" }],
   "podal-reward": ["commission-auction", /YOURSUCCESSATPODALPLAZAISNOTED/i,
     { portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:podal-reward", xp: 1250,
       capture: "podal-council-reward.png" }],
@@ -13232,6 +13235,9 @@ try {
     assert.equal(journalStatus(), "reward-pending");
     const clerkDialogue = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
     assert.match(clerkDialogue, originalDialogue);
+    if (routeName === "stojanow-gate-reward") {
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "gate-reward-direction"));
+    }
     if (commission === "commission-lizardmen") assert.match(frame.journal.objective.nextStep, /choose Share to divide the coins, then Exit/i);
     if (routeName === "bane-reward") assert.match(frame.journal.objective.nextStep, /keep the temple treasure.*Press Enter/);
     await advance("j");
@@ -13282,7 +13288,7 @@ try {
       assert.equal(checkpointAfterReward.leads.find(({ id }) => id === commission)?.status, "turned-in");
       console.log("Bivant reward checkpoint:", saved);
     }
-    if (["kobold-king-reward", "kovel-reward", "podal-reward", "textile-reward", "slums-reward"].includes(routeName)) {
+    if (["kobold-king-reward", "kovel-reward", "podal-reward", "textile-reward", "slums-reward", "stojanow-gate-reward"].includes(routeName)) {
       for (const key of ["j", "enter", "e", "s", "s", "a"]) await advance(key);
       const checkpointAfterReward = JSON.parse(readFileSync(saved, "utf8"));
       assert.equal(checkpointAfterReward.leads.find(({ id }) => id === commission)?.status, "turned-in");

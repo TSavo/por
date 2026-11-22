@@ -1011,6 +1011,10 @@ The `stojanow-riverwalk` replay starts from the native entrance save at
 new 32×32 tiles for the river rails, stonework, and covered doorway.
 The `stojanow-tower-ettin` replay starts at `4,8 N` in controlled slot A.
 Chrome checks both 96×192 combat frames and the reflected club swing.
+The `stojanow-gate-reward` replay starts in the City Hall district with
+Stojanow Gate ready to report. GOG 1.3 Chrome checks the clerk's illustrated
+assault directions, the 22,000 XP award, and the turned-in state saved
+after Share and Exit.
 The harbor master shares his original composite. `phlan-harbor-sokal` and
 `phlan-harbor-routes` verify New Phlan's area-scoped portrait with the initial
 Sokal passage and the later ferry menu. The Urslingen replay still verifies
