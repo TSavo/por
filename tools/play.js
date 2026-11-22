@@ -535,10 +535,15 @@ travelArt.setAttribute("href", "/atlas/phlan-region-concept-v2-geography.png");
 function renderTravelMap(view = animationFrame ?? state) {
   const overland = enhanced && view.overlandMap && !view.journal && !view.classicPortrait && !view.combatArt?.length;
   const illustrated = overland && travelArtReady;
-  const visible = illustrated && travelArtEnabled && !activeTravel && !animationFrame && view.travel;
-  if (!visible && travelExpanded) setTravelExpanded(false);
+  // On the overland the illustrated Moonsea map replaces the game's own overland view: it stays up while
+  // the party walks a route and at overland prompts, and gives way only to a picture the game shows there
+  // (an encounter, a portrait, a scene). The shipped game has no original overland tiles to show instead.
+  const picture = Boolean(view.portrait || view.encounter?.length || view.scene || view.art);
+  const visible = illustrated && travelArtEnabled && !picture;
+  if ((!visible || activeTravel) && travelExpanded) setTravelExpanded(false);
   travelMap.hidden = !visible;
-  const routes = visible && state.ready && !state.stopped ? view.travel.routes : {};
+  // Landmarks take a click only at the game's travel screen, and not while a route is being walked.
+  const routes = visible && view.travel && !activeTravel && !animationFrame && state.ready && !state.stopped ? view.travel.routes : {};
   for (const landmark of travelLandmarks) {
     const enabled = Boolean(phlanApproaches.hidden && routes[landmark.dataset.destination]);
     landmark.setAttribute("aria-disabled", String(!enabled));
