@@ -8142,6 +8142,8 @@
     "scene-illustration:area:16:ecl:9a59:caller:ad91": "swamp-underwater-cache.png",
     "scene-illustration:area:16:ecl:9d41": "swamp-hidden-tunnel-entrance.png",
     "scene-illustration:area:16:ecl:9a59:caller:9d45": "swamp-hidden-tunnel-entrance.png",
+    "scene-illustration:area:16:ecl:9e88:cue:blocked-stairs": "swamp-blocked-stairway.png",
+    "scene-illustration:area:16:ecl:9a59:caller:9d45:cue:blocked-stairs": "swamp-blocked-stairway.png",
     "scene-illustration:area:16:ecl:a76b:cue:central-keep-rubble": "swamp-central-keep-rubble.png",
     "scene-illustration:area:16:ecl:a6f2:cue:central-keep-rubble": "swamp-central-keep-rubble.png",
     "scene-illustration:area:16:ecl:a8cd:cue:l-shaped-ruin": "swamp-l-shaped-ruin.png",
