@@ -8405,12 +8405,19 @@ try {
     for (let turn = 0; turn < 4; turn++) {
       await advance("a");
       assert.equal(frame.areaView, true);
+      assert.equal(frame.tileInventory?.length, 121);
+      const expected = frame.tileInventory.map(([x, y, key]) => [x, y, key]);
+      assert.deepEqual(frame.tiles, expected);
       await waitFor("the native Slums area view", () => run(`state.sequence === ${frame.sequence} &&
-        !document.querySelector('#tile-art:not([hidden]) .street-viewport')`));
+        !document.querySelector('#tile-art:not([hidden]) .street-viewport') && (() => {
+          const tiles = Array.from(document.querySelectorAll('#tile-art:not([hidden]) .terrain-tile'));
+          return tiles.length === 121 && tiles.every((image, index) =>
+            image.getAttribute('src') === '/art/' + ${JSON.stringify(expected.map(([, , key]) => key))}[index] &&
+            image.naturalWidth === 32 && image.naturalHeight === 32);
+        })()`));
       const shot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, `slums-native-area-view-${turn}.png`), Buffer.from(shot.data, "base64"));
-      assert.equal(frame.tileInventory?.length, 121);
-      cells.push(...frame.tileInventory.map(([x, y, key]) => [x, y, key]));
+      cells.push(...expected);
       await advance("a");
       assert.equal(Boolean(frame.areaView), false);
       assert.equal(await verifyTiledView(20, new Set()), 1);
