@@ -6525,12 +6525,13 @@ const declineFatima = princessFatima && option === "--decline";
 const declineKutoCache = routeName === "kuto-bandit-cache" && option === "--decline";
 const declineSmithyHammer = routeName === "sokal-smithy-hammer" && option === "--decline";
 const declineCryptScroll = ["valhingen-crypt-scroll", "valhingen-crypt-scroll-reload"].includes(routeName) && option === "--decline";
+const takePaladinTreasure = routeName === "valhingen-paladin-crypt" && option === "--take";
 const fightNorris = norrisSurrender && option === "--fight";
 const refuseNomadDismissal = routeName === "nomad-feast-decline" && option === "--refuse-to-leave";
 assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait ||
   ogreApproachOnly || councilFinale || (halls && option === "--webgl") || verifyApproachTravel || verifyDistrictTravel ||
   declineDirten || declineRestal || declineKoboldGuide || declineFatima || declineCryptScroll || declineKutoCache ||
-  declineSmithyHammer || declineValjevoDisguise || fightNorris || refuseNomadDismissal, "Option does not apply to this route");
+  declineSmithyHammer || declineValjevoDisguise || fightNorris || refuseNomadDismissal || takePaladinTreasure, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const outputDirectory = resolve(process.env.POR_PRESENTATION_OUTPUT_DIR || "out");
@@ -9114,14 +9115,32 @@ try {
       assert.match(text(), /9,2S.*AREACASTVIEWENCAMP/i);
       await waitForExplorationViewport();
     } else if (routeName === "valhingen-paladin-crypt") {
-      await step("n");
-      assert.equal(frame.portrait, undefined);
-      assert.match(text(), /AREACASTVIEWENCAMP/i);
-      await step("down");
-      await step("up");
-      assert.equal(frame.portrait, undefined);
-      assert.match(text(), /14,8W/i);
-      await waitForExplorationViewport();
+      if (takePaladinTreasure) {
+        await step("y");
+        assert.match(text(), /THEPARTYHASFOUNDTREASURE.*400EXPERIENCEPOINTS/i);
+        assert.equal(frame.portrait, undefined);
+        await step("enter");
+        assert.match(text(), /VIEWTAKEPOOLEXIT/i);
+        const treasure = "scene-illustration:area:10:ecl:a3e4:cue:paladin-treasure";
+        assert.equal(frame.portrait, treasure);
+        await waitFor("the paladin treasure illustration", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${treasure}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        await switchBothWays(frame.frame);
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "valhingen-paladin-treasure.png"), Buffer.from(shot.data, "base64"));
+        await step("t");
+        assert.match(text(), /MAGICUSERSCROLLWITH3SPELLS.*POTION.*HAMMER.*SLING.*CLERICALSCROLL/i);
+      } else {
+        await step("n");
+        assert.equal(frame.portrait, undefined);
+        assert.match(text(), /AREACASTVIEWENCAMP/i);
+        await step("down");
+        await step("up");
+        assert.equal(frame.portrait, undefined);
+        assert.match(text(), /14,8W/i);
+        await waitForExplorationViewport();
+      }
     } else {
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-courtyard-note"));
