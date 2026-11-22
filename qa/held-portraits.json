@@ -10036,6 +10036,326 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL5.DAX:5:a256",
+      "prompt": "a28f",
+      "variants": [
+        {
+          "caption": "YOU SEE A HARMLESS, MIDDLE AGED MAN.",
+          "checkpoint": "valjevo-al-hyam-portraits/B.json",
+          "portrait": "portrait:area:5:HEAD5.DAX:55:BODY5.DAX:31",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 E 00:08 YOU SEE A HARMLESS, MIDDLE AGED MAN. Combat Wait Flee Parlay",
+            "idlePolls": 64,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              },
+              {
+                "idlePolls": 64,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              }
+            ],
+            "composed": {
+              "source": "HEAD5.DAX:55:BODY5.DAX:31",
+              "headWrite": "a250",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a28f"
+            },
+            "drawCursor": "a28f",
+            "clearedPanelSha256": "7187e4a54bf34a9b847c5cde30841f3a2f1a091e75c334210f78feb08c6217cc"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-al-hyam",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:08YOUSEEAHARMLESS,MIDDLEAGEDMAN.CombatWaitFleeParlay",
+              "portrait": "portrait:area:5:HEAD5.DAX:55:BODY5.DAX:31",
+              "checkpointSha256": "fba5b7f9b1ac374fc1f0bd819aba7eaf4799c0b4c07c78a0be3319636bfe82c5",
+              "artSha256": "b9c4d68338ebe3e95ca7a992c2d5eb8680bd8dbbf3359c8148c2bc9583dbcb31",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3661,
+              "samples": 221,
+              "poses": [
+                "portrait:area:5:HEAD5.DAX:55:BODY5.DAX:31"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-al-hyam",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:08YOUSEEAHARMLESS,MIDDLEAGEDMAN.CombatWaitFleeParlay",
+              "portrait": "portrait:area:5:HEAD5.DAX:55:BODY5.DAX:31",
+              "checkpointSha256": "fba5b7f9b1ac374fc1f0bd819aba7eaf4799c0b4c07c78a0be3319636bfe82c5",
+              "artSha256": "b9c4d68338ebe3e95ca7a992c2d5eb8680bd8dbbf3359c8148c2bc9583dbcb31",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3666,
+              "samples": 221,
+              "poses": [
+                "portrait:area:5:HEAD5.DAX:55:BODY5.DAX:31"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL5.DAX:5:a256",
+      "prompt": "a338",
+      "variants": [
+        {
+          "caption": "SPARE ME AND I WILL LEAVE, NEVER TO RETURN!",
+          "checkpoint": "valjevo-al-hyam-portraits/B.json",
+          "portrait": "portrait:area:5:HEAD5.DAX:55:BODY5.DAX:31",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 E 00:08 'WAIT! I WAS JUST A MAGE SEARCHING FOR KNOWLEDGE WHEN TYRANTHRAXUS CAPTURED ME. I'VE BEEN FORCED TO WORK FOR HIM. SPARE ME AND I WILL LEAVE, NEVER TO RETURN!' Let him go Attack him",
+            "idlePolls": 64,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              },
+              {
+                "idlePolls": 64,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              }
+            ],
+            "composed": {
+              "source": "HEAD5.DAX:55:BODY5.DAX:31",
+              "headWrite": "a250",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a28f"
+            },
+            "drawCursor": "a28f",
+            "clearedPanelSha256": "7187e4a54bf34a9b847c5cde30841f3a2f1a091e75c334210f78feb08c6217cc"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-al-hyam",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:08'WAIT!IWASJUSTAMAGESEARCHINGFORKNOWLEDGEWHENTYRANTHRAXUSCAPTUREDME.I'VEBEENFORCEDTOWORKFORHIM.SPAREMEANDIWILLLEAVE,NEVERTORETURN!'LethimgoAttackhim",
+              "portrait": "portrait:area:5:HEAD5.DAX:55:BODY5.DAX:31",
+              "checkpointSha256": "fba5b7f9b1ac374fc1f0bd819aba7eaf4799c0b4c07c78a0be3319636bfe82c5",
+              "artSha256": "b9c4d68338ebe3e95ca7a992c2d5eb8680bd8dbbf3359c8148c2bc9583dbcb31",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3650,
+              "samples": 220,
+              "poses": [
+                "portrait:area:5:HEAD5.DAX:55:BODY5.DAX:31"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-al-hyam",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:08'WAIT!IWASJUSTAMAGESEARCHINGFORKNOWLEDGEWHENTYRANTHRAXUSCAPTUREDME.I'VEBEENFORCEDTOWORKFORHIM.SPAREMEANDIWILLLEAVE,NEVERTORETURN!'LethimgoAttackhim",
+              "portrait": "portrait:area:5:HEAD5.DAX:55:BODY5.DAX:31",
+              "checkpointSha256": "fba5b7f9b1ac374fc1f0bd819aba7eaf4799c0b4c07c78a0be3319636bfe82c5",
+              "artSha256": "b9c4d68338ebe3e95ca7a992c2d5eb8680bd8dbbf3359c8148c2bc9583dbcb31",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3665,
+              "samples": 220,
+              "poses": [
+                "portrait:area:5:HEAD5.DAX:55:BODY5.DAX:31"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL5.DAX:5:a256",
+      "prompt": "a38a",
+      "variants": [
+        {
+          "caption": "I'LL GIVE YOU ALL MY NOTES!",
+          "checkpoint": "valjevo-al-hyam-portraits/B.json",
+          "portrait": "portrait:area:5:ecl:a38a:HEAD5.DAX:55:BODY5.DAX:31",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 E 00:08 'WAIT! PLEASE! I'LL GIVE YOU ALL MY NOTES! HERE THEY ARE!' Let him go Attack him",
+            "idlePolls": 64,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              },
+              {
+                "idlePolls": 64,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              }
+            ],
+            "composed": {
+              "source": "HEAD5.DAX:55:BODY5.DAX:31",
+              "headWrite": "a250",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a28f"
+            },
+            "drawCursor": "a28f",
+            "clearedPanelSha256": "7187e4a54bf34a9b847c5cde30841f3a2f1a091e75c334210f78feb08c6217cc"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-al-hyam",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:08'WAIT!PLEASE!I'LLGIVEYOUALLMYNOTES!HERETHEYARE!'LethimgoAttackhim",
+              "portrait": "portrait:area:5:ecl:a38a:HEAD5.DAX:55:BODY5.DAX:31",
+              "checkpointSha256": "fba5b7f9b1ac374fc1f0bd819aba7eaf4799c0b4c07c78a0be3319636bfe82c5",
+              "artSha256": "08975a91dbcd1c6b39089def0e4d2fe49f5489a7793e2974fd651bea4dc4133c",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3662,
+              "samples": 221,
+              "poses": [
+                "portrait:area:5:ecl:a38a:HEAD5.DAX:55:BODY5.DAX:31"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-al-hyam",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:08'WAIT!PLEASE!I'LLGIVEYOUALLMYNOTES!HERETHEYARE!'LethimgoAttackhim",
+              "portrait": "portrait:area:5:ecl:a38a:HEAD5.DAX:55:BODY5.DAX:31",
+              "checkpointSha256": "fba5b7f9b1ac374fc1f0bd819aba7eaf4799c0b4c07c78a0be3319636bfe82c5",
+              "artSha256": "08975a91dbcd1c6b39089def0e4d2fe49f5489a7793e2974fd651bea4dc4133c",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3656,
+              "samples": 220,
+              "poses": [
+                "portrait:area:5:ecl:a38a:HEAD5.DAX:55:BODY5.DAX:31"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL5.DAX:5:a256",
+      "prompt": "9a5a/a45a",
+      "variants": [
+        {
+          "caption": "YOU ARE LEFT WITH THE NOTES OF AL-HYAM DHAZID",
+          "checkpoint": "valjevo-al-hyam-portraits/B.json",
+          "portrait": "portrait:area:5:ecl:9a5a:caller:a45a:HEAD5.DAX:55:BODY5.DAX:31",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 E 00:08 HE QUICKLY LEAVES. YOU ARE LEFT WITH THE NOTES OF AL-HYAM DHAZID, WHICH TELL QUITE A LOT ABOUT THE POOL OF RADIANCE. YOU COPY THEM INTO YOUR JOURNAL AS ENTRY 30. Press button or <return> to continue",
+            "idlePolls": 64,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              },
+              {
+                "idlePolls": 64,
+                "sha256": "f742e330b601bc9a1024b15066a5b1c8e8a3835dd5f138cfa90b4119bc87d94e"
+              }
+            ],
+            "composed": {
+              "source": "HEAD5.DAX:55:BODY5.DAX:31",
+              "headWrite": "a250",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a28f"
+            },
+            "drawCursor": "a28f",
+            "clearedPanelSha256": "7187e4a54bf34a9b847c5cde30841f3a2f1a091e75c334210f78feb08c6217cc"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-al-hyam",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:08HEQUICKLYLEAVES.YOUARELEFTWITHTHENOTESOFAL-HYAMDHAZID,WHICHTELLQUITEALOTABOUTTHEPOOLOFRADIANCE.YOUCOPYTHEMINTOYOURJOURNALASENTRY30.Pressbuttonor<return>tocontinue",
+              "portrait": "portrait:area:5:ecl:9a5a:caller:a45a:HEAD5.DAX:55:BODY5.DAX:31",
+              "checkpointSha256": "fba5b7f9b1ac374fc1f0bd819aba7eaf4799c0b4c07c78a0be3319636bfe82c5",
+              "artSha256": "2ff086cc94e2f36e1ee301751cc1a4224406a5c8aa9e821b03c45d01489f5dc4",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3658,
+              "samples": 220,
+              "poses": [
+                "portrait:area:5:ecl:9a5a:caller:a45a:HEAD5.DAX:55:BODY5.DAX:31"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-al-hyam",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:08HEQUICKLYLEAVES.YOUARELEFTWITHTHENOTESOFAL-HYAMDHAZID,WHICHTELLQUITEALOTABOUTTHEPOOLOFRADIANCE.YOUCOPYTHEMINTOYOURJOURNALASENTRY30.Pressbuttonor<return>tocontinue",
+              "portrait": "portrait:area:5:ecl:9a5a:caller:a45a:HEAD5.DAX:55:BODY5.DAX:31",
+              "checkpointSha256": "fba5b7f9b1ac374fc1f0bd819aba7eaf4799c0b4c07c78a0be3319636bfe82c5",
+              "artSha256": "2ff086cc94e2f36e1ee301751cc1a4224406a5c8aa9e821b03c45d01489f5dc4",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3662,
+              "samples": 221,
+              "poses": [
+                "portrait:area:5:ecl:9a5a:caller:a45a:HEAD5.DAX:55:BODY5.DAX:31"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
     }
   ]
 }
