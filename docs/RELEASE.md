@@ -147,11 +147,12 @@ opened with `open --env POR_OPEN_BROWSER=0 --env POR_PREGEN_PARTY=1` and nothing
 - Its log: `POR_GAME_DATA port <app>/Contents/Resources/game`; saves in
   `~/Library/Application Support/Pool of Radiance/saves` (created by the launch, `roster.json` in it).
 - The server answered 16 to 23 seconds after the app opened, most of it loading the artwork.
-- The title with POOL OF RADIANCE and SPECIAL EDITION faded in; the code wheel's question (2 in one run,
-  5 in another: the dice roll on the real clock); its word, read off `src/codewheel/wheel.json`, reached
-  the main menu; the ready-made characters on Add Character; the tour to the first exploration menu in
-  New Phlan, drawn with WebGL (ANGLE Metal on the Intel UHD 630), with no "WebGL exploration is
-  unavailable" in the console.
+- The title with POOL OF RADIANCE and SPECIAL EDITION faded in; the code wheel's question (2, 3, 5 and 7
+  in different runs: the dice roll on the real clock); its word, read off `src/codewheel/wheel.json`,
+  reached the main menu; the six ready-made characters (Thrender Grone, Bakshi, Rhiannon, Brother Sean,
+  Darkstar, Phineas) added from Add Character; the tour to the first exploration menu in New Phlan, drawn
+  with WebGL (ANGLE Metal on the Intel UHD 630), with no "WebGL exploration is unavailable" in the
+  console.
 - Quit (the quit Apple event Cmd-Q sends) left no launcher, runner or listener on the port, and removed
   `running.json`.
 
