@@ -83,6 +83,8 @@ export interface LedgerFrame {
   classic?: { area: number | undefined; cursor: number | undefined; caller: number | undefined };
   /** An Enhanced encounter picture: a key of the artwork manifests. */
   encounter?: string;
+  /** The first-person view of where the party stands is on screen (the Enhanced page draws it as the street view). */
+  view?: true;
 }
 
 export interface FrameArt {
@@ -91,6 +93,7 @@ export interface FrameArt {
   portrait: string | undefined;
   classicPortrait: { area: number | undefined; cursor: number | undefined; caller: number | undefined } | undefined;
   encounter: string | undefined;
+  view?: boolean;
 }
 
 function create(path: string) {
@@ -231,8 +234,9 @@ function create(path: string) {
     frame(art: FrameArt): void {
       const line: LedgerFrame = { t: "f", s: session, ...(art.awaitsKey ? { key: true as const } : {}),
         ...(art.scene ? { scene: art.scene } : {}), ...(art.portrait ? { portrait: art.portrait } : {}),
-        ...(art.classicPortrait ? { classic: art.classicPortrait } : {}), ...(art.encounter ? { encounter: art.encounter } : {}) };
-      const shown = JSON.stringify([line.scene, line.portrait, line.classic, line.encounter]);
+        ...(art.classicPortrait ? { classic: art.classicPortrait } : {}), ...(art.encounter ? { encounter: art.encounter } : {}),
+        ...(art.view ? { view: true as const } : {}) };
+      const shown = JSON.stringify([line.scene, line.portrait, line.classic, line.encounter, line.view]);
       if (!owed && shown === lastArt) return;
       lastArt = shown;
       write(line);

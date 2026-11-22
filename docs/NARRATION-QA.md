@@ -42,7 +42,7 @@ Lines are JSON, one per line. `s` is the runner process, because one file can ho
 | --- | --- |
 | `{"t":"run", "run", "artwork"}` | a game started. `artwork` says whether the play server gave the runner the artwork list or the ledger loaded it (the acceptance harness has no play server) |
 | `{"t":"n", ...}` | a narration decision: see below |
-| `{"t":"f", "key", "portrait", "encounter", "scene", "classic"}` | a frame's artwork. `portrait` is an Enhanced portrait or scene illustration and `encounter` an Enhanced encounter picture: both are keys of the artwork manifests, and are only present when that artwork is installed. `classic` means an original picture is showing with no Enhanced artwork for it. `key` marks a frame on which the game waits for the player. Written while a narration is waiting for its frame, and whenever the artwork changes |
+| `{"t":"f", "key", "portrait", "encounter", "scene", "classic", "view"}` | a frame's artwork. `portrait` is an Enhanced portrait or scene illustration and `encounter` an Enhanced encounter picture: both are keys of the artwork manifests, and are only present when that artwork is installed. `classic` means an original picture is showing with no Enhanced artwork for it. `view` means the first-person view of the party's square is on screen. `key` marks a frame on which the game waits for the player. Written while a narration is waiting for its frame, and whenever the artwork changes |
 | `{"t":"end", "waiting"}` | the run ended; selectors still waiting |
 
 A narration line carries the source event reached (`sourceId`, `archive`, `block`), the `step`,
@@ -195,11 +195,14 @@ Rows that come from play:
 - **Silent cases found in play** (must be 0).
 - **Selected passages with their artwork showing**: of the units selected, those where an Enhanced
   portrait, scene illustration or encounter picture was on screen between the unit being selected
-  and the game next waiting for a key. This is the runner's view of the frame, not the page's, and
-  says nothing about how long the picture stayed. A passage that was selected once without artwork counts as
-  without, and `--list` names it with what was showing instead: the original picture, or no
-  picture (the view of the area). This row says whether artwork was there. It does not compare the
-  artwork's variant with the narration's variant.
+  and the game next waiting for a key, or the first-person view of the square the party stands on.
+  Where the game prints a passage over that view it draws no picture of its own, and the Enhanced
+  page draws its street view of the square; the note counts these. Until 2026-11-22 the ledger did
+  not record the view, so such passages were listed as "no picture" (#100). This is the runner's
+  view of the frame, not the page's, and says nothing about how long the picture stayed. A passage
+  that was selected once without artwork counts as without, and `--list` names it with what was
+  showing instead: the original picture, or no picture at all. This row says whether artwork was
+  there. It does not compare the artwork's variant with the narration's variant.
 
 Rows that need no play, and must be zero:
 

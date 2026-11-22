@@ -41,7 +41,12 @@ const variantOwner = new Map(units.flatMap(unit => (unit.runtimeVariants ?? []).
 const variantTotal = variantOwner.size;
 const selectors = manifest.staticSelectors ?? [];
 
-type Art = { kind: "portrait" | "encounter" | "scene"; key: string };
+/**
+ * What was on screen with a passage. "view" is the first-person view of where the party stands: the
+ * game draws no picture there, and the Enhanced page draws its own street view of the square.
+ */
+type Art = { kind: "portrait" | "encounter" | "scene" | "view"; key: string };
+const firstPersonView = "the first-person view";
 interface Coverage {
   schema: 1;
   about: string;
@@ -192,7 +197,7 @@ function mergeLedger(path: string): void {
   const close = (session: number) => {
     for (const waiting of open.get(session) ?? []) {
       const entry = coverage.units[waiting.unitId]!;
-      if (waiting.art) entry.art ??= waiting.art;
+      if (waiting.art && (!entry.art || (entry.art.kind === "view" && waiting.art.kind !== "view"))) entry.art = waiting.art;
       else entry.withoutArt ??= { run, step: waiting.step,
         showing: !waiting.frames ? "not observed: the run ended first" : waiting.classic ? "the original picture" : "no picture" };
     }
@@ -202,10 +207,12 @@ function mergeLedger(path: string): void {
     games.add(line.s);
     if (line.t === "f") {
       const art: Art | undefined = line.portrait ? { kind: "portrait", key: line.portrait }
-        : line.encounter ? { kind: "encounter", key: line.encounter } : line.scene ? { kind: "scene", key: line.scene } : undefined;
+        : line.encounter ? { kind: "encounter", key: line.encounter } : line.scene ? { kind: "scene", key: line.scene }
+        : line.view ? { kind: "view", key: firstPersonView } : undefined;
       for (const waiting of open.get(line.s) ?? []) {
         waiting.frames++;
-        waiting.art ??= art;
+        // A picture drawn over the view before the key wait is the passage's.
+        if (!waiting.art || (waiting.art.kind === "view" && art && art.kind !== "view")) waiting.art = art ?? waiting.art;
         if (line.classic) waiting.classic = true;
       }
       if (line.key) close(line.s);
@@ -346,7 +353,8 @@ function conditionsFor(sourceId: string): string {
 const withArt = heardUnits.filter(unit => coverage.units[unit.id]!.art && !coverage.units[unit.id]!.withoutArt);
 const withoutArt = heardUnits.filter(unit => !withArt.includes(unit));
 rows.push({ part: "Selected passages with their artwork showing", done: withArt.length, total: heardUnits.length, left: withoutArt.length,
-  note: `artwork is an Enhanced portrait, scene illustration or encounter picture on screen before the game next waits for a key; ` +
+  note: `artwork is an Enhanced portrait, scene illustration or encounter picture, or the first-person view of the square, on screen before the game next waits for a key ` +
+    `(${withArt.filter(unit => coverage.units[unit.id]!.art?.kind === "view").length} by the first-person view); ` +
     `${withoutArt.filter(unit => coverage.units[unit.id]!.withoutArt?.showing === "the original picture").length} showed only the original picture, ` +
     `${withoutArt.filter(unit => coverage.units[unit.id]!.withoutArt?.showing === "no picture").length} no picture`,
   list: withoutArt.map(unit => {

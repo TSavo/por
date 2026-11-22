@@ -810,7 +810,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       });
       // POR_NARRATION_LEDGER: the artwork this frame resolved, for pairing with the narration. Observes only.
       narrationLedger?.frame({ awaitsKey: awaitsKey && !(attack || captureApproach || effect || captureIllustration || message), scene, portrait, encounter: encounter?.[2],
-        classicPortrait: Array.isArray(picture) ? { area, cursor: portraitCursor, caller: pictureCaller } : undefined });
+        classicPortrait: Array.isArray(picture) ? { area, cursor: portraitCursor, caller: pictureCaller } : undefined, view: perspective });
       if (message === "status") {
         // A message the game shows on the bottom line and clears by itself: the whole screen as it
         // stands during the pause, for as long as the game pauses.
