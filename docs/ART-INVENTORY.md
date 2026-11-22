@@ -403,6 +403,13 @@ sarcophagi for 1310 ms before two 110 ms opening poses. Chrome painted
 both complete loops on each data source and took one normal keypress
 from each held picture into its battle introduction.
 
+When the guest keeps the same picture for the battle notice, Enhanced
+keeps the pose visible at the keypress until the battlefield replaces
+it. The Medusa and Lizard Wilds pool replays press Combat or Enter on
+a noninitial pose and verify the pose through the notice, display
+switching and battlefield entry. The Valhingen grave claws replay
+verifies the transition to its separate battle illustration.
+
 At `708d1dcd`, the `kobold-cave-wyvern-approach` GOG 1.3 Chrome
 replay passed with both data sources. It checks all three native SPRIT
 members, their positions over WebGL, and the switch into the dialogue

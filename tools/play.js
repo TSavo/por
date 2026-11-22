@@ -1249,7 +1249,11 @@ const portraitLoops = [
     .map(phase => (phase === 0 && initial) || `${prefix}${phase}:0`),
 }));
 
-async function animateHeldPortrait(image, { portrait: id, text }) {
+let heldPoseAtInput;
+let battleNoticePose;
+
+async function animateHeldPortrait(image, view) {
+  const { portrait: id, text } = view;
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const loop = portraitLoops.find(({ phases, cue, entryAliases }) => (phases.includes(id) || entryAliases?.has(id)) &&
     (!cue || cue.test(text.map(([, char]) => String.fromCharCode(char)).join("").replace(/[^a-z]/gi, ""))));
@@ -1268,9 +1272,12 @@ async function animateHeldPortrait(image, { portrait: id, text }) {
   let index = loop.entryAliases?.get(id) ?? phases.indexOf(id);
   function scheduleNextPhase() {
     setTimeout(() => {
-      if (!image.isConnected || tileArt.hidden) return;
-      index = (index + 1) % frames.length;
-      image.src = frames[index].src;
+      if (view !== state || !image.isConnected || tileArt.hidden) return;
+      if (state.ready && !posting) {
+        index = (index + 1) % frames.length;
+        image.src = frames[index].src;
+        image.dataset.heldPose = phases[index];
+      }
       scheduleNextPhase();
     }, phaseTimes?.[index] ?? 400);
   }
@@ -1282,6 +1289,7 @@ async function showScreen() {
   const render = ++screenRender;
   renderingSequence = state.sequence;
   const view = animationFrame ?? state;
+  const portraitId = view === state ? battleNoticePose ?? view.portrait : view.portrait;
   // The wheel prompt uses a custom DOS font whose glyph codes are not letters.
   const useEnhanced = enhanced && !Number.isInteger(view.codeWheelQuestion) && !failedEnhancedFrames.has(view);
   const frame = useEnhanced ? view.enhancedFrame ?? view.frame : view.frame;
@@ -1350,7 +1358,7 @@ async function showScreen() {
   const councilVictoryAward = view.portrait === "scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-award";
   if (view.portrait) {
     const [x, y] = councilVictoryAward ? [100, 72] : [8, 8];
-    placements.push([x, y, view.portrait, undefined, undefined, 120, 120]);
+    placements.push([x, y, portraitId, undefined, undefined, 120, 120]);
   }
   if (view.encounter) placements.push(view.encounter.slice(0, 3));
   if (showArt) {
@@ -1363,7 +1371,7 @@ async function showScreen() {
       tile.alt = "";
       const terrainTile = id.startsWith("tile:");
       if (terrainTile) tile.className = "terrain-tile";
-      if (id === view.portrait) tile.className = councilVictoryAward ? "reward-illustration" : "encounter-portrait";
+      if (id === portraitId) tile.className = councilVictoryAward ? "reward-illustration" : "encounter-portrait";
       if (id.startsWith("character-sheet:")) tile.className = "character-sheet-part";
       if (id === view.encounter?.[2]) {
         tile.className = "encounter-sprite";
@@ -1519,8 +1527,8 @@ async function showScreen() {
   renderTravelMap(view);
   tileArt.replaceChildren(...layers);
   tileArt.hidden = !showArt;
-  logShownArtwork(sceneArt ? view.scene ?? view.art : showArt ? view.portrait ?? view.encounter?.[2] ?? null : null);
-  if (view === state && view.ready && view.portrait && !view.automaticCombat) {
+  logShownArtwork(sceneArt ? view.scene ?? view.art : showArt ? portraitId ?? view.encounter?.[2] ?? null : null);
+  if (view === state && view.ready && view.portrait && !battleNoticePose && !view.automaticCombat) {
     const portrait = tileArt.querySelector(".encounter-portrait");
     if (portrait) void animateHeldPortrait(portrait, view);
   }
@@ -1995,6 +2003,8 @@ async function send(key) {
   keyEndsVoice = undefined;
   if (codeWheel.ended) return;
   if (!state.ready || posting || state.stopped || renderingSequence === state.sequence) return;
+  heldPoseAtInput = !animationFrame && !tileArt.hidden
+    ? tileArt.querySelector(".encounter-portrait")?.dataset.heldPose : undefined;
   if (endsVoice && currentVoice) {
     pendingVoiceStop = { voice: currentVoice, reason: endsVoice, frame: state.frame, queued: [...narrationQueue] };
   }
@@ -2023,9 +2033,13 @@ async function send(key) {
       if (key === "backspace") codeWheel.forwarded = Math.max(0, codeWheel.forwarded - 1);
       else if (/^(?:key )?[a-z0-9]$/i.test(key)) codeWheel.forwarded++;
     }
-    if (!result.ok) pendingVoiceStop = undefined;
+    if (!result.ok) {
+      pendingVoiceStop = undefined;
+      heldPoseAtInput = undefined;
+    }
     return result.ok;
   } catch {
+    heldPoseAtInput = undefined;
     status.textContent = "Waiting for the local game runner…";
   } finally {
     posting = false;
@@ -2058,8 +2072,16 @@ async function poll() {
     const changed = next.sequence !== state.sequence;
     // A frame that follows one of an animation the game plays by itself carries the clips after it.
     const continuesAnimation = changed && Boolean(state.presentationPolling);
-    if (changed) state = next;
-    else Object.assign(state, next);
+    if (changed) {
+      // The guest leaves its picture in place for this notice. Keep the pose the player acted on.
+      const previousPose = heldPoseAtInput ?? battleNoticePose;
+      const battleNotice = previousPose && next.portrait === state.portrait &&
+        /^ABATTLEBEGINS[.!]*$/i.test(next.text?.filter(([cell]) => cell >= 960)
+          .map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, ""));
+      battleNoticePose = battleNotice ? previousPose : undefined;
+      heldPoseAtInput = undefined;
+      state = next;
+    } else Object.assign(state, next);
     settlePresentation();
     const showWheel = wheelStartup && Number.isInteger(state.codeWheelQuestion) && !state.stopped;
     if (showWheel) {

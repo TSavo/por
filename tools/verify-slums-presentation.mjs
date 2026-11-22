@@ -2856,7 +2856,11 @@ const illustrationRoutes = new Map([
       "portrait:area:26:PIC7.DAX:57:0:0",
       ...[1, 2, 3].map(member => `portrait:area:26:ecl:ad46:caller:a6a0:PIC7.DAX:57:${member}:0`),
     ],
-    continuation: { inputs: ["enter"], portrait: "portrait:area:26:PIC7.DAX:57:0:0", prompt: /ABATTLEBEGINS/i },
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:26:PIC7.DAX:57:0:0", prompt: /ABATTLEBEGINS/i,
+      pressOnPortrait: "portrait:area:26:ecl:ad46:caller:a6a0:PIC7.DAX:57:2:0",
+      retainPose: true,
+    },
   }],
   ["wild-cave-giant-snake-dialogue", {
     slot: "A", inputs: ["up", "enter"],
@@ -3309,7 +3313,10 @@ const illustrationRoutes = new Map([
       "portrait:area:10:PIC4.DAX:11:0:0",
       ...[1, 2, 3, 4, 1, 7].map(member => `portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:${member}:0`),
     ],
-    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:b5c7:cue:grave-claws-attack", prompt: /ABATTLEBEGINS/i },
+    continuation: {
+      inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:b5c7:cue:grave-claws-attack", prompt: /ABATTLEBEGINS/i,
+      pressOnPortrait: "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:1:0",
+    },
   }],
   ["valhingen-grave-claws-attack", {
     slot: "A", inputs: ["up", "enter", "enter"],
@@ -3883,7 +3890,11 @@ const illustrationRoutes = new Map([
       "portrait:area:7:PIC5.DAX:49:0:0",
       ...[1, 2, 3, 4, 2, 1, 7].map(member => `portrait:area:7:ecl:9e1a:PIC5.DAX:49:${member}:0`),
     ],
-    continuation: { inputs: ["c"], portrait: "portrait:area:7:PIC5.DAX:49:0:0", prompt: /ABATTLEBEGINS/i },
+    continuation: {
+      inputs: ["c"], portrait: "portrait:area:7:PIC5.DAX:49:0:0", prompt: /ABATTLEBEGINS/i,
+      pressOnPortrait: "portrait:area:7:ecl:9e1a:PIC5.DAX:49:7:0",
+      retainPose: true,
+    },
   }],
   ["tyrmor-prison-stirge-combat-base", {
     slot: "B", inputs: ["s", ...Array.from({ length: 9 }, () => ["up", "down"]).flat(), "up", "enter", "down", "q", "q"],
@@ -10680,6 +10691,11 @@ try {
       writeFileSync(resolve(directory, "stojanow-gate-bugbear-lookouts.png"), Buffer.from(lookoutsShot.data, "base64"));
     }
     if (continuation) {
+      const waitForPortraitPaint = (sequence, portrait) => waitFor("the displayed continuation pose", () => run(`(() => {
+        const image = document.querySelector("#tile-art:not([hidden]) .encounter-portrait");
+        return state.sequence === ${sequence} && !animationFrame && renderingSequence === undefined &&
+          image?.complete && image.naturalWidth === 352 && new URL(image.src).pathname === ${JSON.stringify("/art/" + portrait)};
+      })()`));
       if (journalLead) {
         await advance("j");
         assert.ok(frame.journal);
@@ -10734,6 +10750,21 @@ try {
           const state = await latest();
           return state.ready && state.sequence > sequence && !state.presentationPolling && state;
         }, 120_000);
+      } else if (continuation.pressOnPortrait) {
+        const sequence = frame.sequence;
+        const [input] = continuation.inputs;
+        assert.equal(continuation.inputs.length, 1);
+        const key = input === "enter" ? "Enter" : input;
+        const code = input === "enter" ? "Enter" : `Key${key.toUpperCase()}`;
+        const windowsVirtualKeyCode = input === "enter" ? 13 : key.toUpperCase().charCodeAt(0);
+        await run("screen.focus({ preventScroll: true })");
+        await waitForPortraitPaint(sequence, continuation.pressOnPortrait);
+        await command("Input.dispatchKeyEvent", { type: "keyDown", key, code, windowsVirtualKeyCode });
+        await command("Input.dispatchKeyEvent", { type: "keyUp", key, code, windowsVirtualKeyCode });
+        frame = await waitFor(`the battle notice after one ${key}`, async () => {
+          const next = await latest();
+          return next.ready && next.sequence > sequence && next;
+        });
       } else {
         for (const key of continuation.inputs) await advance(key);
       }
@@ -10756,9 +10787,13 @@ try {
         continuation.clearsPortrait ? undefined : continuation.portrait ?? portrait;
       if (continuation.portraits) assert.ok(continuation.portraits.includes(nextPortrait));
       assert.equal(frame.portrait, nextPortrait, frame.text.map(([, char]) => String.fromCharCode(char)).join(""));
-      if (continuation.portrait || continuation.portraits) await waitFor("the enhanced continuation portrait", () => run(`
-        document.querySelector('.encounter-portrait[src="/art/${nextPortrait}"]')?.naturalWidth === 352
-      `));
+      if (continuation.pressOnPortrait) {
+        await waitForPortraitPaint(frame.sequence, continuation.retainPose ? continuation.pressOnPortrait : nextPortrait);
+      } else if (continuation.portrait || continuation.portraits) {
+        await waitFor("the enhanced continuation portrait", () => run(`
+          document.querySelector('.encounter-portrait[src="/art/${nextPortrait}"]')?.naturalWidth === 352
+        `));
+      }
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
       if (routeName === "new-phlan-city-hall-exit") {
         assert.deepEqual([frame.exploration?.area, frame.scenery?.x, frame.scenery?.y], [0, 4, 3]);
@@ -10827,6 +10862,19 @@ try {
         await waitForExplorationViewport();
       }
       if (!continuation.clearsPortrait) await verifyPortraitPanel();
+      if (continuation.retainPose) {
+        await switchBothWays(frame.frame);
+        await waitForPortraitPaint(frame.sequence, continuation.pressOnPortrait);
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, `${routeName}-battle-notice.png`), Buffer.from(shot.data, "base64"));
+        await advance("enter");
+        assert.equal(frame.portrait, undefined);
+        await waitFor("the battlefield without the encounter portrait", () => run(`
+          state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined &&
+          !document.querySelector(".encounter-portrait") &&
+          document.querySelector("#tile-art:not([hidden]) .combat-sprite")?.naturalWidth === 96
+        `));
+      }
       if (routeName === "council-slums-offer") {
         const response = await fetch(`${origin}/art/${nextPortrait}`);
         assert.ok(response.ok);
