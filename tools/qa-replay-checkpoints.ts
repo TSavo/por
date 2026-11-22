@@ -97,7 +97,7 @@ if (process.argv.includes("--group")) {
   // The start state a red route needs, as far as its table entry says: slot, area, first script cursor, first picture.
   const state = (row: (typeof rows)[number]) => {
     const text = (row as { text?: string }).text ?? "";
-    const area = /area:(\d+)/.exec(text)?.[1];
+    const area = /\barea:\s*(\d+)/.exec(text)?.[1];
     const cursor = /ecl:([a-f0-9]{4})/.exec(text)?.[1];
     const scene = /"((?:portrait|encounter|combat|scene|tile)[:\w.-]*)"/.exec(text)?.[1]?.replace(/^(\w+):area:\d+:(?:ecl:[a-f0-9]{4}:)?/, "$1:");
     if (!text) return `${row.slot ?? "?"} | area ? | explicit route: ${row.name.split("-").slice(0, 2).join("-")}-*`;
