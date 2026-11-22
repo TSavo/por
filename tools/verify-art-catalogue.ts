@@ -3,12 +3,12 @@
  *
  *   npm run verify:art-catalogue
  *
- * It reads only `game/` (no original file) and the artwork manifests, and answers two questions.
+ * It reads the built-in game data, the compiled screen-cell hashes, and the artwork manifests.
  *
  * 1. For every artwork key in upgrades/manifest.json and upgrades/slums/manifest.json: can the
  *    data in game/ produce that key from identities alone? A key that names a picture is
  *    reachable when game/ lists that archive, block, member and frame. A key that carries a hash
- *    (`tile:`, `battle-tile:`) is reachable when game/ stores that hash for a named picture. A key
+ *    (`tile:`, `battle-tile:`) is reachable when the package stores that fingerprint. A key
  *    that names a script position or a cue is reachable only when the converted script of that
  *    area holds the position, or the cue's text.
  * 2. The other way: which original pictures and frames does no key cover? Those are what Enhanced
@@ -27,6 +27,7 @@ import { contentBytes, readGameData, type PictureRecord, type TileCatalogue } fr
 import { portGameRoot } from "./gamedata.js";
 import { pngDimensions } from "./png.js";
 import { scriptIllustrations } from "./portrait-art.js";
+import { readExplorationCellHashes } from "./exploration-cells.js";
 
 const read = (path: string) => new Uint8Array(readFileSync(join(portGameRoot, path)));
 const data = readGameData(read);
@@ -63,7 +64,8 @@ for (const record of data.pictures) {
 const tileCatalogue = JSON.parse(new TextDecoder().decode(read(data.manifest.tiles))) as TileCatalogue;
 const tilesOverColour = new Map<string, { sources: string[]; colour: number }>();
 for (const { sources, overColour } of tileCatalogue.tiles) overColour?.forEach((hash, colour) => tilesOverColour.set(hash, { sources, colour }));
-const tileKeysByForm = { "one stored tile": 0, "one tile over a solid colour": 0 };
+const composedCellHashes = new Set(Object.values(readExplorationCellHashes()));
+const tileKeysByForm = { "one stored tile": 0, "one tile over a solid colour": 0, "compiled screen cell": 0 };
 
 /** Frames a key covers, as `file:block:member:frame`. */
 const covered = new Set<string>();
@@ -98,7 +100,11 @@ const scoped = "(?:area:(\\d{1,3}):(?:ecl:([a-f0-9]{4}):(?:caller:([a-f0-9]{4}):
 const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
   [/^tile:(\d{1,3}):([a-f0-9]{64})$/, ([, , hash]) => {
     const tiles = tileHashes.get(hash!) ?? tilesOverColour.get(hash!)?.sources;
-    if (!tiles) return "its pixels are neither one stored 8 by 8 tile nor one tile over a solid colour: the cell is composed on screen from several tiles";
+    if (!tiles) {
+      if (!composedCellHashes.has(hash!)) return "its fingerprint is absent from the stored tiles and compiled screen cells";
+      tileKeysByForm["compiled screen cell"]++;
+      return;
+    }
     tileKeysByForm[tileHashes.has(hash!) ? "one stored tile" : "one tile over a solid colour"]++;
     for (const name of tiles) covered.add(name.replace(/:(\d+)$/, ":0:$1"));
   }],
@@ -163,7 +169,7 @@ for (const manifest of ["upgrades/manifest.json", "upgrades/slums/manifest.json"
   }
 }
 
-console.log("Artwork keys the data in game/ can produce from identities alone");
+console.log("Artwork keys the built-in data can produce from identities alone");
 console.log("kind                 total  reachable  not reachable");
 for (const [kind, { total, reachable }] of [...counts].sort((a, b) => b[1].total - a[1].total)) {
   console.log(`${kind.padEnd(20)} ${String(total).padStart(5)}  ${String(reachable).padStart(9)}  ${String(total - reachable).padStart(13)}`);
@@ -250,7 +256,7 @@ writeFileSync(join("out", "art-catalogue.json"), JSON.stringify({
 }, null, 1) + "\n");
 console.log("\nEvery unreachable key, tile without a replacement and frame no key names is listed in out/art-catalogue.json");
 if (unreachable.length) {
-  console.error(`\nverify:art-catalogue: ${unreachable.length} of ${total} artwork keys cannot be produced from game/ alone. The first of each kind:`);
+  console.error(`\nverify:art-catalogue: ${unreachable.length} of ${total} artwork keys cannot be produced from the built-in data. The first of each kind:`);
   const shown = new Set<string>();
   for (const { key, reason } of unreachable) {
     const kind = key.slice(0, key.indexOf(":"));
@@ -260,4 +266,4 @@ if (unreachable.length) {
   }
   process.exit(1);
 }
-console.log(`\nverified: all ${total} artwork keys can be produced from game/ alone`);
+console.log(`\nverified: all ${total} artwork keys can be produced from the built-in data`);

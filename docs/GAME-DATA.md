@@ -132,6 +132,12 @@ the background shows through. With built-in data the WebGL renderer matches the 
 wall definition to these tile identities, selects the installed Enhanced PNGs, and
 applies their cutouts using the masks.
 
+For complete screen cells, the browser combines the live wall layout, camera and
+backdrop colours with the catalogue and the composed fingerprints in
+`qa/art-worklist-cells.json`. The latter ships with the built-in data and contains
+hashes only. Enhanced uses those exact cell replacements when WebGL is unavailable.
+WebGL remains the default exploration renderer.
+
 ## Serving the data to the game
 
 The game's own loaders are translated code and read `.DAX` archives through DOS. The reader
@@ -158,8 +164,9 @@ form.
 
 ## The artwork catalogue
 
-`npm run verify:art-catalogue` (`tools/verify-art-catalogue.ts`) reads only `game/` and the
-artwork manifests. For every artwork key it asks whether the data in `game/` can produce that key
+`npm run verify:art-catalogue` (`tools/verify-art-catalogue.ts`) reads the built-in game data,
+the compiled screen-cell fingerprints and the artwork manifests. For every artwork key it asks
+whether the built-in data can produce that key
 from identities alone: a key that names a picture needs that archive, block, member and frame in
 `pictures.json`; a key that carries a hash needs that hash stored for a named picture; a key that
 names a script position or a cue needs the position, or the cue's text, in the area's converted
@@ -168,19 +175,14 @@ script. It prints the count for each kind of key, lists every unreachable key in
 direction: each 8 by 8 tile and whether a 32 by 32 replacement carries its hash, and each other
 picture frame no key names.
 
-It is red today. What it measures, and what is not built yet:
+The checker validates available fingerprints and script identities. Live replays
+verify which artwork those identities select at a particular camera or dialogue cue.
 
-- A `tile:` key is the hash of an 8 by 8 cell of the first-person view as drawn. Of 3,940 keys,
-  2,092 are one stored tile (`frameHashes`) and 1,078 are one tile over a solid colour
-  (`tiles.json`). The other 770 are cells where a nearer wall's tile is drawn over a farther
-  one. Measured against the original pictures, 516 of those are two tiles of one archive over a
-  solid colour, and 254 are not explained by two layers. Those hashes are not in `game/` yet:
-  storing every pair would be millions of hashes, so the converter has to work out from the
-  wall definitions which tiles can overlap in a cell.
+- A `tile:` key is the hash of one 8 by 8 first-person cell. The checker reports
+  stored tiles, tiles over a solid colour and compiled screen cells separately.
+  The worklist computes actual overlaps from wall definitions and the maps that use them.
 - The check takes an area's script to be the ECL block with the area's number. Areas 30, 31 and
   32 have maps and no block of their own, so keys scoped to them count as unreachable until the
   area-to-script table is read from the program's data.
-- The running game does not use these hashes yet. The Enhanced lookups still read original
-  pixels (`tools/upgrade-art.ts`, `tools/portrait-art.ts`, `tools/combat-art.ts`,
-  `tools/encounter-art.ts`, `tools/live-input.ts`), so from `game/`, where pictures are blank,
-  Enhanced artwork is not found.
+- Some portrait, encounter and combat lookups still read original picture pixels.
+  Those presentations need their own identity-based lookup for the built-in data.

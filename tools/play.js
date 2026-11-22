@@ -1124,11 +1124,14 @@ async function showScreen() {
   if (view.encounter) placements.push(view.encounter.slice(0, 3));
   if (showArt) {
     const perspective = view.perspective && !view.portrait;
+    const terrain = perspective && !streetCanvas && !overland ? view.tiles ?? [] : [];
     if (streetCanvas || overland) layers.push(streetCanvas ?? overland.canvas);
     else if (perspective || view.classicPortrait) layers.push(pictureBackdrop());
-    layers.push(...placements.map(([x, y, id, reflected, highlighted, width, height]) => {
+    layers.push(...[...terrain, ...placements].map(([x, y, id, reflected, highlighted, width, height]) => {
       const tile = document.createElement("img");
       tile.alt = "";
+      const terrainTile = id.startsWith("tile:");
+      if (terrainTile) tile.className = "terrain-tile";
       if (id === view.portrait) tile.className = councilVictoryAward ? "reward-illustration" : "encounter-portrait";
       if (id.startsWith("character-sheet:")) tile.className = "character-sheet-part";
       if (id === view.encounter?.[2]) {
@@ -1159,7 +1162,7 @@ async function showScreen() {
         tile.dataset.partyPalette = id;
       }
       if (aimMenu && highlighted) tile.classList.add("combat-aimed");
-      if (perspective && id === view.encounter?.[2]) {
+      if (perspective && (terrainTile || id === view.encounter?.[2])) {
         const scale = 120 / 88;
         if (streetCanvas) y += view.encounter[5] ?? 0;
         x = 8 + (x - 24) * scale;
@@ -1171,7 +1174,7 @@ async function showScreen() {
         tile.style.width = `${width / 3.2}%`;
         tile.style.height = `${height / 2}%`;
       }
-      if (reflected) tile.style.transform = "scaleX(-1)";
+      if (reflected || terrainTile && state.reflectedTiles?.includes(id)) tile.style.transform = "scaleX(-1)";
       tile.style.left = `${x / 3.2}%`;
       tile.style.top = `${y / 2}%`;
       tile.src = `/art/${id}`;
@@ -1204,7 +1207,7 @@ async function showScreen() {
         }
         return layer;
       } catch (error) {
-        if (layer.matches(".battle-tile, .combat-selection, .reward-illustration")) return null;
+        if (layer.matches(".terrain-tile, .battle-tile, .combat-selection, .reward-illustration")) return null;
         if (layer.matches(".combat-effect")) return spriteBackdrop(layer);
         if (layer.matches(".encounter-portrait")) return pictureBackdrop();
         if (layer.matches(".combat-sprite")) return spriteBackdrop(layer);

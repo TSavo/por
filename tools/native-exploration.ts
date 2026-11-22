@@ -11,10 +11,11 @@ export interface NativeExploration {
   glyphs: Record<number, string>;
   skyColor: number;
   groundColor: number;
+  cellGeometry?: { wallSymbols: string; lineColor: number; bandColor: number };
 }
 
 /** Read the same active map and graphics records the guest's scenery draw used. */
-export function captureNativeExploration(cpu: Cpu): NativeExploration | undefined {
+export function captureNativeExploration(cpu: Cpu, includeCellGeometry = false): NativeExploration | undefined {
   const ds = cpu.ds;
   const geoOffset = cpu.read16(ds, data.geo);
   const geoSegment = cpu.read16(ds, data.geo + 2);
@@ -63,6 +64,13 @@ export function captureNativeExploration(cpu: Cpu): NativeExploration | undefine
     glyphs[symbol] = pixels.toString("hex");
   }
   // Overlay 30's backdrop draw reads the top and bottom fill colors here.
+  const cellGeometry = includeCellGeometry ? {
+    wallSymbols: Buffer.from(Array.from({ length: 15 * 156 }, (_, i) =>
+      cpu.read8(wallSegment, wallOffset + i))).toString("base64"),
+    // The boundary line and band sit between the sky and ground colors.
+    lineColor: cpu.read8(ds, data.skyColor + 1) & 15,
+    bandColor: cpu.read8(ds, data.skyColor + 2) & 15,
+  } : undefined;
   return { x, y, facing, mapId, walls: walls.toString("base64"), frontSlots: slots.toString("base64"), glyphs,
-    skyColor: cpu.read8(ds, data.skyColor) & 15, groundColor: cpu.read8(ds, data.groundColor) & 15 };
+    skyColor: cpu.read8(ds, data.skyColor) & 15, groundColor: cpu.read8(ds, data.groundColor) & 15, cellGeometry };
 }

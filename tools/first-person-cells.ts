@@ -92,12 +92,19 @@ export interface AreaMap {
   passage: Uint8Array;
 }
 
-function areaMap(block: number, map: { northEast: string[]; southWest: string[]; flags: string[]; extra: string[] }): AreaMap {
-  const plane = (rows: string[]) => Uint8Array.from(rows.flatMap((row) => row.match(/../g)!.map((byte) => Number.parseInt(byte, 16))));
-  const northEast = plane(map.northEast), southWest = plane(map.southWest), extra = plane(map.extra);
-  const walls = new Uint8Array(1024), passage = new Uint8Array(1024);
+export function unpackWallSides(northEast: Uint8Array, southWest: Uint8Array): Uint8Array {
+  const walls = new Uint8Array(1024);
   for (let square = 0; square < 256; square++) {
     walls.set([northEast[square]! >> 4, northEast[square]! & 15, southWest[square]! >> 4, southWest[square]! & 15], square * 4);
+  }
+  return walls;
+}
+
+function areaMap(block: number, map: { northEast: string[]; southWest: string[]; flags: string[]; extra: string[] }): AreaMap {
+  const plane = (rows: string[]) => Uint8Array.from(rows.flatMap((row) => row.match(/../g)!.map((byte) => Number.parseInt(byte, 16))));
+  const walls = unpackWallSides(plane(map.northEast), plane(map.southWest));
+  const extra = plane(map.extra), passage = new Uint8Array(1024);
+  for (let square = 0; square < 256; square++) {
     passage.set([extra[square]! & 3, extra[square]! >> 2 & 3, extra[square]! >> 4 & 3, extra[square]! >> 6 & 3], square * 4);
   }
   return { block, walls, flags: plane(map.flags), passage };
@@ -381,7 +388,7 @@ export interface CellStack {
 export interface ViewContext {
   world: WorldData;
   script: AreaScript;
-  map: AreaMap;
+  map: Pick<AreaMap, "walls">;
   slots: WallSlots;
 }
 
@@ -422,6 +429,12 @@ export function frontWallSymbols(context: WallContext): Buffer {
   const count = pieceColumns[front]! * pieceRows[front]!;
   return Buffer.from(Array.from({ length: 15 * count }, (_, index) =>
     wallSymbol(context, Math.floor(index / count) + 1, pieceIndex[front]! + index % count)));
+}
+
+/** All ten pieces of each wall type, including the angled sides and overlaps. */
+export function allWallSymbols(context: WallContext): Buffer {
+  return Buffer.from(Array.from({ length: 15 * 156 }, (_, index) =>
+    wallSymbol(context, Math.floor(index / 156) + 1, index % 156)));
 }
 
 /** Every tile some symbol of the loaded wall definitions names, whether or not a map ever places it. */

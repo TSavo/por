@@ -162,7 +162,8 @@ function menuTimeLimit(cpu: Cpu): boolean {
 }
 
 /** Terminal control for the translated runner. Journal input stays on the host. */
-export function liveInput(startAt: number, journal: () => JournalLead[], recording?: string, automap?: Automap) {
+export function liveInput(startAt: number, journal: () => JournalLead[], recording?: string, automap?: Automap,
+  standalone = false) {
   let nextPrompt = startAt;
   let trackedId: string | undefined;
   let scene: string | undefined;
@@ -940,7 +941,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const pixels = perspectivePixels();
       if (drawnPerspective && !drawnPerspective.pixels.equals(pixels)) priorPerspectiveDraw = drawnPerspective.pixels;
       drawnPerspective = { pixels, localEcl: localScenery ? cpu.read8(unit.data, data.eclBlock) : undefined,
-        native: localScenery ? captureNativeExploration(cpu) : undefined };
+        native: localScenery ? captureNativeExploration(cpu, standalone) : undefined };
       if (drawnPerspective.native) lastLocalPerspective = drawnPerspective;
     } : undefined,
     captureCombatEffectUnderlay: browser && effectKeys.length ? (cpu: Cpu) => {
