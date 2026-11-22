@@ -36,6 +36,7 @@ const overlandArrivalAreas = new Set([0, 2, 10, 14, 18, 24, 31]);
 const travelRoadAreas = new Set([0, 2, 9, 18]);
 const travelRoadArrivals = new Map([[0, [8, 11, 20, 21]], [2, [15]], [8, [0]], [9, [6]], [18, [9, 29]], [20, [0]]]);
 const travelRoadScripts = new Set([...travelRoadAreas, ...[...travelRoadArrivals.values()].flat()]);
+const kutoWellLookFacing = new Map([["7,8", 0], ["6,7", 2], ["7,6", 4], ["8,7", 6]]);
 export interface PresentationAnimationFrame {
   portrait?: string;
   frame: string;
@@ -347,6 +348,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           scriptKey === "scene-illustration:area:31:ecl:9d3b"
           ? [...glyphs].sort(([a], [b]) => a - b).map(([, character]) => String.fromCharCode(character)).join("").toUpperCase()
           : dialogue;
+      // Look leaves the well's caption on screen after the party turns away.
+      const wellLookAway = scriptKey === "scene-illustration:area:29:ecl:afa1" &&
+        kutoWellLookFacing.get(`${livePosition?.x},${livePosition?.y}`) !== (explorationPosition?.facing ?? -1);
       // The maze watch and Scriptorium guards finish the nod at the same ECL cursor.
       let illustrationScope = finalCouncilReward && illustrationText.includes("VIEWTAKEPOOLSHAREEXIT")
         ? `${scriptKey}:cue:council-victory-payout` : scriptKey;
@@ -373,7 +377,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           illustrationScope = `${scriptKey}:cue:lab-door`;
         }
       }
-      const illustration = scene ? undefined : matchScriptIllustration(illustrationScope, illustrationText, portraitKeys);
+      const illustration = scene || wellLookAway
+        ? undefined : matchScriptIllustration(illustrationScope, illustrationText, portraitKeys);
       if (captureIllustration && (!illustration || animation.at(-1)?.portrait === illustration)) return;
       let picture = scene ? undefined : illustration ??
         arrivalPicture ?? portraitArt(screen, area, portraitCursor, pictureCaller);

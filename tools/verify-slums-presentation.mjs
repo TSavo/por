@@ -700,6 +700,13 @@ const cityHallEntrance = ["right", "right", "up", "up", "up", "enter", "up"];
 const fightersDoorApproach = ["left", "up", "right", "up", "enter", "n", "n", "up"];
 
 const illustrationRoutes = new Map([
+  ["kuto-well-surface-notice", {
+    slot: "J", inputs: ["l"],
+    portrait: "scene-illustration:area:29:ecl:afa1",
+    heldPortrait: "scene-illustration:area:29:ecl:afa1",
+    prompt: /SOURCEOFWATERINALLSEASONS/i,
+    continuation: { inputs: ["right"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMP/i },
+  }],
   ["new-phlan-gateway-watch-from-city", {
     slot: "A", inputs: ["right", "right", "up", "right", "right", "up"],
     portrait: "scene-illustration:area:0:ecl:ab23",
