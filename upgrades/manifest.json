@@ -14862,6 +14862,8 @@
     "portrait:PIC2.DAX:71:2:0": "stojanow-ettin-portrait-2.png",
     "portrait:PIC2.DAX:71:3:0": "stojanow-ettin-portrait-3.png",
     "portrait:PIC4.DAX:9:0:0": "altar-priestess-portrait.png",
+    "portrait:PIC4.DAX:9:1:0": "altar-priestess-portrait.png",
+    "portrait:PIC4.DAX:9:2:0": "altar-priestess-portrait-phase-2.png",
     "combat:CPIC5.DAX:66": "bronze-dragon-combat.png",
     "portrait:PIC5.DAX:66:0:0": "bronze-dragon-portrait.png",
     "scene:publisher": "publisher-splash.png",
