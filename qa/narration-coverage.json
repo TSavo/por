@@ -98,6 +98,12 @@
    "decisions": 972,
    "heard": 216
   },
+  "walk-bane-1": {
+   "ledger": "walk-bane-1.jsonl",
+   "games": 1,
+   "decisions": 72,
+   "heard": 37
+  },
   "walk-e1": {
    "ledger": "walk-e1.jsonl",
    "games": 1,
@@ -109,6 +115,36 @@
    "games": 1,
    "decisions": 2963,
    "heard": 545
+  },
+  "walk-kobold-1": {
+   "ledger": "walk-kobold-1.jsonl",
+   "games": 1,
+   "decisions": 244,
+   "heard": 78
+  },
+  "walk-kovel-1": {
+   "ledger": "walk-kovel-1.jsonl",
+   "games": 1,
+   "decisions": 191,
+   "heard": 22
+  },
+  "walk-library-1": {
+   "ledger": "walk-library-1.jsonl",
+   "games": 2,
+   "decisions": 1710,
+   "heard": 486
+  },
+  "walk-lizardman-1": {
+   "ledger": "walk-lizardman-1.jsonl",
+   "games": 3,
+   "decisions": 390,
+   "heard": 129
+  },
+  "walk-nomads-1": {
+   "ledger": "walk-nomads-1.jsonl",
+   "games": 1,
+   "decisions": 140,
+   "heard": 31
   },
   "walk-phlan-a1": {
    "ledger": "walk-phlan-a1.jsonl",
@@ -170,6 +206,18 @@
    "decisions": 4266,
    "heard": 699
   },
+  "walk-textile-1": {
+   "ledger": "walk-textile-1.jsonl",
+   "games": 1,
+   "decisions": 1126,
+   "heard": 198
+  },
+  "walk-valhingen-1": {
+   "ledger": "walk-valhingen-1.jsonl",
+   "games": 1,
+   "decisions": 208,
+   "heard": 20
+  },
   "walk-valjevo-g1": {
    "ledger": "walk-valjevo-g1.jsonl",
    "games": 1,
@@ -217,6 +265,18 @@
    "games": 2,
    "decisions": 159,
    "heard": 50
+  },
+  "walk-wilderness-1": {
+   "ledger": "walk-wilderness-1.jsonl",
+   "games": 1,
+   "decisions": 145,
+   "heard": 23
+  },
+  "walk-yarash-1": {
+   "ledger": "walk-yarash-1.jsonl",
+   "games": 1,
+   "decisions": 669,
+   "heard": 180
   },
   "yarash-alchemical-laboratory-3f2de014": {
    "ledger": "yarash-alchemical-laboratory-3f2de014.jsonl",
@@ -336,6 +396,86 @@
    "art": {
     "kind": "view",
     "key": "the first-person view"
+   }
+  },
+  "ecl1-b24-a424-a491": {
+   "run": "walk-bane-1",
+   "step": 1037169241,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:24:ecl:b0b5:cue:temple-gate-patrol-admission"
+   }
+  },
+  "ecl1-b24-a595": {
+   "run": "walk-bane-1",
+   "step": 1037401146,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:24:ecl:b0b5:cue:temple-gate-patrol-admission"
+   }
+  },
+  "ecl1-b24-aa6e": {
+   "run": "walk-bane-1",
+   "step": 1057622536,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:24:ecl:abbd:PIC1.DAX:4:0:0"
+   }
+  },
+  "ecl1-b24-abce": {
+   "run": "walk-bane-1",
+   "step": 1084211100,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:24:ecl:b0b5:cue:cleric-dispatch"
+   }
+  },
+  "ecl1-b24-adbf-add1-add5": {
+   "run": "walk-bane-1",
+   "step": 677854138,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:24:SPRIT1.DAX:2:0:0"
+   }
+  },
+  "ecl1-b24-add9-narration": {
+   "run": "walk-bane-1",
+   "step": 677908113,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:24:SPRIT1.DAX:2:0:0"
+   }
+  },
+  "ecl1-b24-ae26": {
+   "run": "walk-bane-1",
+   "step": 165517217,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl1-b24-aea2-narration": {
+   "run": "walk-bane-1",
+   "step": 166124219,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:24:ecl:aeda:caller:ad99:SPRIT1.DAX:4:0:0"
+   }
+  },
+  "ecl1-b24-b147": {
+   "run": "walk-bane-1",
+   "step": 894429579,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl1-b24-b2bb": {
+   "run": "walk-bane-1",
+   "step": 269408255,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:24:ecl:b0b5:cue:emissary-dismissal"
    }
   },
   "ecl2-b20-9ab8": {
@@ -777,6 +917,851 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:9:ecl:9c63:caller:a1d2"
+   }
+  },
+  "ecl4-b10-9ba5-9bbf": {
+   "run": "walk-kovel-1",
+   "step": 258430486,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:26:ecl:b695:caller:9c27"
+   }
+  },
+  "ecl4-b10-9c45": {
+   "run": "walk-valhingen-1",
+   "step": 112689880,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:26:ecl:9c99"
+   }
+  },
+  "ecl4-b10-9cf0": {
+   "run": "walk-valhingen-1",
+   "step": 148722183,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:10:ecl:b695:caller:9d0b:PIC4.DAX:34:0:0"
+   }
+  },
+  "ecl4-b10-9d2c": {
+   "run": "walk-valhingen-1",
+   "step": 123535254,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:10:PIC4.DAX:11:0:0"
+   }
+  },
+  "ecl4-b10-9d91": {
+   "run": "walk-valhingen-1",
+   "step": 495880269,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:10:PIC4.DAX:34:0:0"
+   }
+  },
+  "ecl4-b10-b536": {
+   "run": "walk-kovel-1",
+   "step": 265763392,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:10:SPRIT4.DAX:34:0:0"
+   }
+  },
+  "ecl4-b2-9abe": {
+   "run": "walk-textile-1",
+   "step": 268154469,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:2:PIC4.DAX:37:0:0"
+   }
+  },
+  "ecl4-b2-9b04": {
+   "run": "walk-textile-1",
+   "step": 184836465,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:2:SPRIT4.DAX:6:2:0"
+   }
+  },
+  "ecl4-b2-9b49": {
+   "run": "walk-library-1",
+   "step": 2053934759,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:2:SPRIT4.DAX:34:2:0"
+   }
+  },
+  "ecl4-b2-9b9e": {
+   "run": "walk-library-1",
+   "step": 1278740826,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:2:SPRIT4.DAX:72:2:0"
+   }
+  },
+  "ecl4-b2-9bef": {
+   "run": "walk-library-1",
+   "step": 119247887,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:2:SPRIT4.DAX:18:1:0"
+   }
+  },
+  "ecl4-b2-9c36": {
+   "run": "walk-library-1",
+   "step": 1699990874,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:2:ecl:abd2:caller:9c8b"
+   }
+  },
+  "ecl4-b2-9cac": {
+   "run": "walk-library-1",
+   "step": 1722920063,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:2:ecl:9cdd"
+   }
+  },
+  "ecl4-b2-9d2f": {
+   "run": "walk-textile-1",
+   "step": 232377996,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl4-b2-9d73": {
+   "run": "walk-textile-1",
+   "step": 1922821195,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl4-b2-9dad": {
+   "run": "walk-textile-1",
+   "step": 1683899707,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl4-b2-9dda": {
+   "run": "walk-textile-1",
+   "step": 2675271650,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:2:ecl:abd2:caller:a9d5"
+   }
+  },
+  "ecl4-b2-9e30-9e61": {
+   "run": "walk-textile-1",
+   "step": 2465171692,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl4-b2-9e8c": {
+   "run": "walk-textile-1",
+   "step": 2458994645,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:2:ecl:9ec4:cue:skullcrusher-mark"
+   }
+  },
+  "ecl4-b2-9ef4": {
+   "run": "walk-textile-1",
+   "step": 2620189161,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:2:ecl:abd2:caller:a9d5:cue:graffiti-room"
+   }
+  },
+  "ecl4-b2-9f3b": {
+   "run": "walk-textile-1",
+   "step": 2055952573,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl4-b2-9f6a-9ff2-skullcrusher-absent": {
+   "run": "walk-textile-1",
+   "step": 2088933252,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:2:ecl:abd2:caller:9ff2"
+   }
+  },
+  "ecl4-b2-a053": {
+   "run": "walk-textile-1",
+   "step": 2099542870,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl4-b2-a07d": {
+   "run": "walk-textile-1",
+   "step": 2115773406,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:2:ecl:a0ae"
+   }
+  },
+  "ecl4-b2-a0ae": {
+   "run": "walk-textile-1",
+   "step": 2151972201,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:2:ecl:a0c9"
+   }
+  },
+  "ecl4-b2-a0d1": {
+   "run": "walk-textile-1",
+   "step": 2036859302,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl4-b2-a614": {
+   "run": "walk-textile-1",
+   "step": 1638219968,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:2:ecl:abd2:caller:a663"
+   }
+  },
+  "ecl4-b2-a66a": {
+   "run": "walk-textile-1",
+   "step": 1642413442,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:PIC4.DAX:9:0:0"
+   }
+  },
+  "ecl4-b2-a729": {
+   "run": "walk-textile-1",
+   "step": 2569167224,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:2:ecl:a76b"
+   }
+  },
+  "ecl4-b2-a7e2-a80f-a887": {
+   "run": "walk-textile-1",
+   "step": 2304108400,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:2:SPRIT4.DAX:6:1:0"
+   }
+  },
+  "ecl4-b2-a911": {
+   "run": "walk-textile-1",
+   "step": 2330236920,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:2:ecl:a99c"
+   }
+  },
+  "ecl4-b2-a9d5-operand-9": {
+   "run": "walk-textile-1",
+   "step": 233145440,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:2:SPRIT4.DAX:6:1:0"
+   }
+  },
+  "ecl4-b2-aae3": {
+   "run": "walk-textile-1",
+   "step": 235210445,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:2:SPRIT4.DAX:6:0:0"
+   }
+  },
+  "ecl4-b2-ab6d": {
+   "run": "walk-library-1",
+   "step": 1429764847,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:2:ecl:abae"
+   }
+  },
+  "ecl4-b2-abd3": {
+   "run": "walk-textile-1",
+   "step": 2802053826,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:2:ecl:ac61"
+   }
+  },
+  "ecl4-b2-ac8a": {
+   "run": "walk-textile-1",
+   "step": 2827000800,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl4-b2-acd7": {
+   "run": "walk-textile-1",
+   "step": 2811740352,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl4-b2-ad90": {
+   "run": "walk-textile-1",
+   "step": 2812885924,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl4-b2-add7": {
+   "run": "walk-textile-1",
+   "step": 2814418728,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl6-b19-999c": {
+   "run": "walk-wilderness-1",
+   "step": 149915124,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:PIC6.DAX:12:0:0"
+   }
+  },
+  "ecl6-b19-9a4a": {
+   "run": "walk-wilderness-1",
+   "step": 150451333,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:PIC6.DAX:12:0:0"
+   }
+  },
+  "ecl6-b19-a145-a1e5-9c11-ask-advice": {
+   "run": "walk-wilderness-1",
+   "step": 155387574,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:PIC6.DAX:117:0:0"
+   }
+  },
+  "ecl6-b25-9b3d": {
+   "run": "walk-wilderness-1",
+   "step": 146308099,
+   "withoutArt": {
+    "run": "walk-wilderness-1",
+    "step": 146308099,
+    "showing": "no picture"
+   }
+  },
+  "ecl6-b25-9bbf": {
+   "run": "walk-wilderness-1",
+   "step": 148261674,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0"
+   }
+  },
+  "ecl6-b25-9c3e-9c6b": {
+   "run": "walk-wilderness-1",
+   "step": 160150759,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:PIC6.DAX:32:0:0"
+   }
+  },
+  "ecl6-b25-9ca3": {
+   "run": "walk-wilderness-1",
+   "step": 148781621,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:PIC6.DAX:12:0:0"
+   }
+  },
+  "ecl8-b13-99c1": {
+   "run": "walk-kobold-1",
+   "step": 164703432,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl8-b13-9ab7-9abb": {
+   "run": "walk-kobold-1",
+   "step": 1882815067,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:13:ecl:b511:caller:9ad7:cue:pit-fall"
+   }
+  },
+  "ecl8-b13-9ad7-9af2": {
+   "run": "walk-kobold-1",
+   "step": 1883504435,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:13:ecl:9b04:cue:pit-recovery"
+   }
+  },
+  "ecl8-b13-9b26-9b50-9b71": {
+   "run": "walk-kobold-1",
+   "step": 1872949096,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl8-b13-9b90": {
+   "run": "walk-kobold-1",
+   "step": 1840310423,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:13:ecl:9bb2:SPRIT8.DAX:0:1:0"
+   }
+  },
+  "ecl8-b13-9bb5": {
+   "run": "walk-kobold-1",
+   "step": 1843639490,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:13:ecl:9c10:PIC8.DAX:0:0:0"
+   }
+  },
+  "ecl8-b13-9d7b": {
+   "run": "walk-kobold-1",
+   "step": 810589413,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl8-b13-9dd4": {
+   "run": "walk-kobold-1",
+   "step": 675785256,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:13:ecl:9e0d:PIC8.DAX:0:0:0"
+   }
+  },
+  "ecl8-b13-9e57": {
+   "run": "walk-kobold-1",
+   "step": 670861933,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:13:ecl:9e7f:cue:spike-trap"
+   }
+  },
+  "ecl8-b13-9eb6": {
+   "run": "walk-kobold-1",
+   "step": 669217953,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:0:0"
+   }
+  },
+  "ecl8-b13-9f00": {
+   "run": "walk-kobold-1",
+   "step": 669511185,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:13:ecl:9f15:cue:slip-past-guide"
+   }
+  },
+  "ecl8-b13-9f15": {
+   "run": "walk-kobold-1",
+   "step": 706130178,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:13:PIC8.DAX:0:0:0"
+   }
+  },
+  "ecl8-b13-9f91": {
+   "run": "walk-kobold-1",
+   "step": 707129324,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:13:ecl:9fb1:cue:guide-asleep"
+   }
+  },
+  "ecl8-b13-9fb1": {
+   "run": "walk-kobold-1",
+   "step": 734240607,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:13:PIC8.DAX:0:0:0"
+   }
+  },
+  "ecl8-b13-9fd4": {
+   "run": "walk-kobold-1",
+   "step": 1237078153,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:13:ecl:9ffe:cue:throne-voices"
+   }
+  },
+  "ecl8-b13-a02c": {
+   "run": "walk-kobold-1",
+   "step": 1245277180,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:13:ecl:a07a:SPRIT8.DAX:0:1:0"
+   }
+  },
+  "ecl8-b13-a07f": {
+   "run": "walk-kobold-1",
+   "step": 1248578414,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:13:ecl:a14b:PIC8.DAX:0:0:0"
+   }
+  },
+  "ecl8-b13-a15c": {
+   "run": "walk-kobold-1",
+   "step": 1274071055,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:13:ecl:a1af"
+   }
+  },
+  "ecl8-b13-a1f0": {
+   "run": "walk-kobold-1",
+   "step": 1297023419,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:13:ecl:a27f:SPRIT8.DAX:16:1:0"
+   }
+  },
+  "ecl8-b13-a2bb": {
+   "run": "walk-kobold-1",
+   "step": 1314001170,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:13:ecl:a2e2"
+   }
+  },
+  "ecl8-b13-a6e2": {
+   "run": "walk-kobold-1",
+   "step": 1359457899,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:13:ecl:a720:cue:barracks-map"
+   }
+  },
+  "ecl8-b13-a713": {
+   "run": "walk-kobold-1",
+   "step": 1359641055,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:13:ecl:a720:cue:barracks-map"
+   }
+  },
+  "ecl8-b13-a998": {
+   "run": "walk-kobold-1",
+   "step": 369401393,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:13:ecl:a9ce:cue:steep-slope"
+   }
+  },
+  "ecl8-b13-a9ed": {
+   "run": "walk-kobold-1",
+   "step": 646536180,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl8-b13-aaa0": {
+   "run": "walk-kobold-1",
+   "step": 319574533,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:13:ecl:aacd:SPRIT8.DAX:121:1:0"
+   }
+  },
+  "ecl8-b13-ac36": {
+   "run": "walk-kobold-1",
+   "step": 786542291,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl8-b13-ac72": {
+   "run": "walk-kobold-1",
+   "step": 1633618101,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:13:ecl:aca3:cue:pantry"
+   }
+  },
+  "ecl8-b13-acab": {
+   "run": "walk-kobold-1",
+   "step": 1579537132,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:13:ecl:ace3:cue:dining-room"
+   }
+  },
+  "ecl8-b13-acf2": {
+   "run": "walk-kobold-1",
+   "step": 1401652611,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl8-b13-ad13": {
+   "run": "walk-kobold-1",
+   "step": 544832233,
+   "withoutArt": {
+    "run": "walk-kobold-1",
+    "step": 544832233,
+    "showing": "no picture"
+   }
+  },
+  "ecl8-b13-b3d1": {
+   "run": "walk-kobold-1",
+   "step": 432557985,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:13:PIC8.DAX:0:0:0"
+   }
+  },
+  "ecl8-b16-9c22": {
+   "run": "walk-lizardman-1",
+   "step": 152107947,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:27:ecl:9a87:caller:9c48"
+   }
+  },
+  "ecl8-b16-9c53": {
+   "run": "walk-lizardman-1",
+   "step": 435204494,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl8-b16-9da9": {
+   "run": "walk-lizardman-1",
+   "step": 321100579,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:16:SPRIT8.DAX:59:0:0"
+   }
+  },
+  "ecl8-b16-9e3c": {
+   "run": "walk-lizardman-1",
+   "step": 314791237,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:16:ecl:9a59:caller:9d45:cue:blocked-stairs"
+   }
+  },
+  "ecl8-b16-a57a": {
+   "run": "walk-lizardman-1",
+   "step": 1096318029,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:16:ecl:a65a:SPRIT8.DAX:57:0:0"
+   }
+  },
+  "ecl8-b16-a619-operand-9": {
+   "run": "walk-lizardman-1",
+   "step": 1096544179,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:16:ecl:a65a:SPRIT8.DAX:57:0:0"
+   }
+  },
+  "ecl8-b16-a703": {
+   "run": "walk-lizardman-1",
+   "step": 156403238,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:16:SPRIT8.DAX:57:0:0"
+   }
+  },
+  "ecl8-b16-a7bd-a805": {
+   "run": "walk-lizardman-1",
+   "step": 160169010,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl8-b16-a879": {
+   "run": "walk-lizardman-1",
+   "step": 863532584,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:16:ecl:a947:SPRIT8.DAX:59:0:0"
+   }
+  },
+  "ecl8-b16-a90f-operand-9": {
+   "run": "walk-lizardman-1",
+   "step": 863734608,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:16:ecl:a947:SPRIT8.DAX:59:0:0"
+   }
+  },
+  "ecl8-b16-a9d0": {
+   "run": "walk-lizardman-1",
+   "step": 350187114,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:16:ecl:9a59:caller:aa24:cue:stairs-up"
+   }
+  },
+  "ecl8-b16-aa7c": {
+   "run": "walk-lizardman-1",
+   "step": 394960420,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   },
+   "withoutArt": {
+    "run": "walk-lizardman-1",
+    "step": 506375780,
+    "showing": "no picture"
+   }
+  },
+  "ecl8-b16-aaf5-operand-9": {
+   "run": "walk-lizardman-1",
+   "step": 481149290,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl8-b16-ab49": {
+   "run": "walk-lizardman-1",
+   "step": 395555108,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:16:ecl:9a59:caller:aca3"
+   }
+  },
+  "ecl8-b16-ac60": {
+   "run": "walk-lizardman-1",
+   "step": 395865071,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:16:ecl:9a59:caller:aca3"
+   }
+  },
+  "ecl8-b16-acb1": {
+   "run": "walk-lizardman-1",
+   "step": 483226773,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:16:ecl:ad17:cue:pool-lizardfolk"
+   }
+  },
+  "ecl8-b16-ad22": {
+   "run": "walk-lizardman-1",
+   "step": 484779256,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:16:ecl:ad54:cue:pool-resurface"
+   }
+  },
+  "ecl8-b27-9b71": {
+   "run": "walk-lizardman-1",
+   "step": 149721711,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:PIC8.DAX:24:0:0"
+   }
+  },
+  "ecl8-b27-9c29": {
+   "run": "walk-kobold-1",
+   "step": 112904190,
+   "withoutArt": {
+    "run": "walk-kobold-1",
+    "step": 112904190,
+    "showing": "no picture"
+   }
+  },
+  "ecl8-b27-9c89": {
+   "run": "walk-kobold-1",
+   "step": 1947291817,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:PIC8.DAX:27:0:0"
+   }
+  },
+  "ecl8-b27-9d03": {
+   "run": "walk-kobold-1",
+   "step": 162352504,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:27:ecl:9d9c:PIC8.DAX:27:0:0"
+   }
+  },
+  "ecl8-b27-9de7": {
+   "run": "walk-kobold-1",
+   "step": 104549804,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:PIC3.DAX:41:0:0"
+   }
+  },
+  "ecl8-b27-9f1c-9f2e": {
+   "run": "walk-valhingen-1",
+   "step": 892048378,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:27:SPRIT8.DAX:121:1:0"
+   }
+  },
+  "ecl8-b27-9f66-9f81": {
+   "run": "walk-kobold-1",
+   "step": 2015953858,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:27:ecl:9fa5:SPRIT8.DAX:31:1:0"
+   }
+  },
+  "ecl8-b27-9fb7-9fcc": {
+   "run": "walk-kobold-1",
+   "step": 2004735882,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:27:ecl:9ff0:SPRIT8.DAX:31:1:0"
+   }
+  },
+  "ecl8-b27-a179-a18d-a191-a195-a19b-a19f": {
+   "run": "walk-kobold-1",
+   "step": 2041646742,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:27:SPRIT8.DAX:73:1:0"
+   },
+   "withoutArt": {
+    "run": "walk-valhingen-1",
+    "step": 933260422,
+    "showing": "no picture"
+   }
+  },
+  "ecl8-b27-a20d": {
+   "run": "walk-kobold-1",
+   "step": 2071018219,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
    }
   },
   "ecl8-b29-9acc": {
@@ -1283,6 +2268,14 @@
     "key": "portrait:area:0:HEAD3.DAX:45:BODY3.DAX:24"
    }
   },
+  "por.voice.ecl3.b0-a1cc": {
+   "run": "walk-library-1",
+   "step": 2264673391,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:HEAD3.DAX:16:BODY3.DAX:7"
+   }
+  },
   "por.voice.ecl3.b0-a20d": {
    "run": "walk-b1",
    "step": 1392617560,
@@ -1603,6 +2596,14 @@
     "key": "portrait:HEAD3.DAX:9:BODY3.DAX:1"
    }
   },
+  "por.voice.ecl3.b11-9c8b": {
+   "run": "walk-library-1",
+   "step": 2079189146,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+   }
+  },
   "por.voice.ecl3.b11-9cba": {
    "run": "acceptance-narration-dynamic",
    "step": 108817858,
@@ -1665,6 +2666,22 @@
    "art": {
     "kind": "portrait",
     "key": "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+   }
+  },
+  "por.voice.ecl3.b14-9a5c": {
+   "run": "walk-nomads-1",
+   "step": 147519722,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:9aa3:caller:9a4f:cue:scything-blade"
+   }
+  },
+  "por.voice.ecl3.b14-9b70-9bc4": {
+   "run": "walk-nomads-1",
+   "step": 116275806,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:9c14"
    }
   },
   "por.voice.ecl3.b14-9e74": {
@@ -1769,6 +2786,46 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:14:ecl:a8df"
+   }
+  },
+  "por.voice.ecl3.b14-a908": {
+   "run": "walk-nomads-1",
+   "step": 149663273,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:a998"
+   }
+  },
+  "por.voice.ecl3.b14-aa2b": {
+   "run": "walk-nomads-1",
+   "step": 151651611,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:ab62"
+   }
+  },
+  "por.voice.ecl3.b14-ac4c": {
+   "run": "walk-nomads-1",
+   "step": 167147388,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:accb"
+   }
+  },
+  "por.voice.ecl3.b14-ad23": {
+   "run": "walk-nomads-1",
+   "step": 170355359,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:adab"
+   }
+  },
+  "por.voice.ecl3.b14-af19": {
+   "run": "walk-nomads-1",
+   "step": 173297078,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
    }
   },
   "por.voice.ecl3.b8-9964": {
@@ -2387,12 +3444,268 @@
     "key": "scene-illustration:area:7:ecl:995f:caller:a8b2"
    }
   },
+  "por.voice.ecl7.b17-9df2": {
+   "run": "walk-wilderness-1",
+   "step": 131647359,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "por.voice.ecl7.b17-9f31": {
+   "run": "walk-nomads-1",
+   "step": 217930141,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:17:ecl:9fa7"
+   }
+  },
+  "por.voice.ecl7.b17-a21a-a2e8": {
+   "run": "walk-nomads-1",
+   "step": 220684425,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:17:ecl:9da2:caller:a33c"
+   }
+  },
+  "por.voice.ecl7.b17-a33c-operand-9": {
+   "run": "walk-nomads-1",
+   "step": 221431334,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD7.DAX:61:BODY7.DAX:30"
+   }
+  },
+  "por.voice.ecl7.b17-a3a9": {
+   "run": "walk-nomads-1",
+   "step": 222152903,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:17:ecl:9da2:caller:a416:HEAD7.DAX:74:BODY7.DAX:30"
+   }
+  },
+  "por.voice.ecl7.b17-a435-a494-tomorrow": {
+   "run": "walk-nomads-1",
+   "step": 222494861,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:17:ecl:9d74:caller:a4aa:HEAD7.DAX:74:BODY7.DAX:30"
+   }
+  },
+  "por.voice.ecl7.b17-a53e-a5c0": {
+   "run": "walk-nomads-1",
+   "step": 222870695,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD7.DAX:74:BODY7.DAX:30"
+   }
+  },
+  "por.voice.ecl7.b17-a609-a928": {
+   "run": "walk-nomads-1",
+   "step": 233365863,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:17:ecl:9da2:caller:a711"
+   }
+  },
+  "por.voice.ecl7.b17-ab21": {
+   "run": "walk-nomads-1",
+   "step": 244467002,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:17:ecl:ab82"
+   }
+  },
+  "por.voice.ecl7.b17-ab8b": {
+   "run": "walk-nomads-1",
+   "step": 244759144,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:17:ecl:9c49:PIC7.DAX:30:0:0"
+   }
+  },
+  "por.voice.ecl7.b22-999c": {
+   "run": "walk-yarash-1",
+   "step": 128823679,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:22:ecl:9a06:caller:a151:cue:teleport-flash"
+   }
+  },
+  "por.voice.ecl7.b22-9a81-9ade": {
+   "run": "walk-yarash-1",
+   "step": 419667665,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:22:ecl:9a06:caller:9c5c"
+   }
+  },
+  "por.voice.ecl7.b22-9a81-9aef": {
+   "run": "walk-yarash-1",
+   "step": 872233717,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "por.voice.ecl7.b22-9a81-9aff": {
+   "run": "walk-yarash-1",
+   "step": 414530339,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "por.voice.ecl7.b22-9a81-9b0c": {
+   "run": "walk-yarash-1",
+   "step": 409680899,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:22:ecl:9a06:caller:9c5c:cue:left"
+   }
+  },
+  "por.voice.ecl7.b22-9cca": {
+   "run": "walk-yarash-1",
+   "step": 1756746324,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:22:ecl:9a06:caller:9ce3:cue:human-priest"
+   }
+  },
+  "por.voice.ecl7.b22-9cf3-operand-9": {
+   "run": "walk-yarash-1",
+   "step": 1757369408,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:22:ecl:9d3b:SPRIT7.DAX:12:1:0"
+   }
+  },
+  "por.voice.ecl7.b22-9efa-9f61": {
+   "run": "walk-yarash-1",
+   "step": 2295418773,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:22:ecl:9a06:caller:9f51"
+   }
+  },
+  "por.voice.ecl7.b22-9fe7-a05e": {
+   "run": "walk-yarash-1",
+   "step": 128633224,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:22:ecl:9a06:caller:a016:cue:scattered-rocks"
+   }
+  },
+  "por.voice.ecl7.b22-a222-a20b": {
+   "run": "walk-yarash-1",
+   "step": 745359210,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:22:ecl:9a06:caller:a213:cue:lizardfolk-trio"
+   }
+  },
+  "por.voice.ecl7.b22-a24e-a20b": {
+   "run": "walk-yarash-1",
+   "step": 434635292,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:22:ecl:9a06:caller:a213:cue:dwarven-fighters"
+   }
+  },
+  "por.voice.ecl7.b22-a264-operand-10": {
+   "run": "walk-yarash-1",
+   "step": 823796171,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "por.voice.ecl7.b22-a264-operand-9": {
+   "run": "walk-yarash-1",
+   "step": 436649521,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:22:ecl:a2c3:HEAD7.DAX:57:BODY7.DAX:6"
+   }
+  },
+  "por.voice.ecl7.b22-a2c7-operand-9": {
+   "run": "walk-yarash-1",
+   "step": 745933454,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:22:ecl:a2f9:SPRIT7.DAX:68:0:0"
+   }
+  },
+  "por.voice.ecl7.b23-999c": {
+   "run": "walk-yarash-1",
+   "step": 401149026,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:23:ecl:9a04:caller:9ca1:cue:teleport-flash"
+   }
+  },
+  "por.voice.ecl7.b23-9a70-9ace": {
+   "run": "walk-yarash-1",
+   "step": 139515934,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:23:ecl:9a04:caller:9c23:cue:lab-door"
+   }
+  },
+  "por.voice.ecl7.b23-9a70-9ade": {
+   "run": "walk-yarash-1",
+   "step": 210414798,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "por.voice.ecl7.b23-9a70-9aed": {
+   "run": "walk-yarash-1",
+   "step": 232509854,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
   "por.voice.ecl7.b23-9a70-9afa": {
    "run": "yarash-alchemical-laboratory-3f2de014",
    "step": 86341804,
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:23:ecl:9a04:caller:9c23:cue:lab-door"
+   }
+  },
+  "por.voice.ecl7.b23-9c54-9ced": {
+   "run": "walk-yarash-1",
+   "step": 399582615,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:23:ecl:9a04:caller:9c83:cue:scattered-rocks"
+   }
+  },
+  "por.voice.ecl7.b23-9d76": {
+   "run": "walk-yarash-1",
+   "step": 3925098378,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:23:ecl:9d56:cue:throw-a-rock"
+   }
+  },
+  "por.voice.ecl7.b23-9e31": {
+   "run": "walk-yarash-1",
+   "step": 4347273509,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:23:ecl:9a04:caller:9e60:cue:five-lizardfolk"
+   }
+  },
+  "por.voice.ecl7.b23-9e76-operand-11": {
+   "run": "walk-yarash-1",
+   "step": 4349045527,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:23:ecl:9f04:SPRIT7.DAX:57:2:0"
    }
   },
   "por.voice.ecl7.b23-a01e": {
@@ -2411,12 +3724,77 @@
     "key": "scene-illustration:area:23:ecl:a0fd"
    }
   },
+  "por.voice.ecl7.b23-a10b": {
+   "run": "walk-yarash-1",
+   "step": 3276281723,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "por.voice.ecl7.b23-a262": {
+   "run": "walk-yarash-1",
+   "step": 2925321383,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "por.voice.ecl7.b26-9bc4": {
+   "run": "walk-wilderness-1",
+   "step": 122469399,
+   "withoutArt": {
+    "run": "walk-wilderness-1",
+    "step": 122469399,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl7.b26-9c05": {
+   "run": "walk-wilderness-1",
+   "step": 124309238,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:26:PIC7.DAX:30:0:0"
+   }
+  },
+  "por.voice.ecl7.b26-9c65": {
+   "run": "walk-valhingen-1",
+   "step": 108101979,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:26:ecl:9ccf:PIC7.DAX:40:0:0"
+   }
+  },
+  "por.voice.ecl7.b26-9d26": {
+   "run": "walk-library-1",
+   "step": 105196663,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:PIC7.DAX:40:0:0"
+   }
+  },
   "por.voice.ecl7.b26-9e46": {
    "run": "campaign-full",
    "step": 109515584,
    "art": {
     "kind": "portrait",
     "key": "portrait:area:26:ecl:9ed3:PIC7.DAX:40:0:0"
+   }
+  },
+  "por.voice.ecl7.b26-9f22": {
+   "run": "walk-yarash-1",
+   "step": 119702319,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:26:ecl:9f74"
+   }
+  },
+  "por.voice.ecl7.b26-9f99": {
+   "run": "walk-yarash-1",
+   "step": 122102690,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:PIC7.DAX:36:0:0"
    }
   },
   "por.voice.ecl7.b26-a037": {
@@ -2426,9 +3804,31 @@
     "kind": "portrait",
     "key": "portrait:area:0:PIC3.DAX:41:0:0"
    }
+  },
+  "por.voice.ecl7.b26-a15c-a16e": {
+   "run": "walk-kovel-1",
+   "step": 524968936,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:26:ecl:a194:SPRIT7.DAX:61:1:0"
+   }
+  },
+  "por.voice.ecl7.b26-a1f7-a20c": {
+   "run": "walk-yarash-1",
+   "step": 114626059,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:26:ecl:a230:SPRIT7.DAX:12:1:0"
+   }
   }
  },
  "variants": {
+  "ecl1-b18-a0ab-a0af-a0b3.variant-01-goblins": {
+   "run": "walk-library-1",
+   "step": 2218656956,
+   "slot": "0x9800",
+   "value": " GOBLINS"
+  },
   "ecl1-b18-a0ab-a0af-a0b3.variant-02-orcs": {
    "run": "walk-slums-d8",
    "step": 10133906115,
@@ -2470,6 +3870,18 @@
    "step": 9598022982,
    "slot": "0x9800",
    "value": " OGRES"
+  },
+  "ecl1-b24-adbf-add1-add5.variant-01-goblins": {
+   "run": "walk-bane-1",
+   "step": 677854138,
+   "slot": "0x9800",
+   "value": "GOBLINS"
+  },
+  "ecl1-b24-adbf-add1-add5.variant-02-orcs": {
+   "run": "walk-bane-1",
+   "step": 889712767,
+   "slot": "0x9800",
+   "value": "ORCS"
   },
   "ecl2-b20-9c2a-9c43-9c5c.variant-01-kobolds": {
    "run": "walk-slums-c1",
@@ -2566,6 +3978,120 @@
    "step": 4332890257,
    "slot": "0x9890",
    "value": " KOBOLDS. "
+  },
+  "ecl8-b27-9f1c-9f2e.variant-03-lizard-men": {
+   "run": "walk-valhingen-1",
+   "step": 1008925173,
+   "slot": "0x982c",
+   "value": "LIZARD MEN"
+  },
+  "ecl8-b27-9f1c-9f2e.variant-05-hippogriffs": {
+   "run": "walk-kovel-1",
+   "step": 597777897,
+   "slot": "0x982c",
+   "value": "HIPPOGRIFFS"
+  },
+  "ecl8-b27-9f1c-9f2e.variant-06-wyverns": {
+   "run": "walk-valhingen-1",
+   "step": 892048378,
+   "slot": "0x982c",
+   "value": "WYVERNS"
+  },
+  "ecl8-b27-9f1c-9f2e.variant-07-trolls": {
+   "run": "walk-valhingen-1",
+   "step": 931264496,
+   "slot": "0x982c",
+   "value": "TROLLS"
+  },
+  "ecl8-b27-9f1c-9f2e.variant-09-minotaurs": {
+   "run": "walk-wilderness-1",
+   "step": 210452903,
+   "slot": "0x982c",
+   "value": "MINOTAURS"
+  },
+  "ecl8-b27-9f66-9f81.variant-02-gnolls": {
+   "run": "walk-kobold-1",
+   "step": 2039235750,
+   "slot": "0x982c",
+   "value": "GNOLLS"
+  },
+  "ecl8-b27-9f66-9f81.variant-04-giant-lizards": {
+   "run": "walk-kovel-1",
+   "step": 692634594,
+   "slot": "0x982c",
+   "value": "GIANT LIZARDS"
+  },
+  "ecl8-b27-9f66-9f81.variant-07-trolls": {
+   "run": "walk-kobold-1",
+   "step": 2015953858,
+   "slot": "0x982c",
+   "value": "TROLLS"
+  },
+  "ecl8-b27-9f66-9f81.variant-09-minotaurs": {
+   "run": "walk-lizardman-1",
+   "step": 2373909851,
+   "slot": "0x982c",
+   "value": "MINOTAURS"
+  },
+  "ecl8-b27-9fb7-9fcc.variant-01-kobolds": {
+   "run": "walk-kovel-1",
+   "step": 659803519,
+   "slot": "0x982c",
+   "value": "KOBOLDS"
+  },
+  "ecl8-b27-9fb7-9fcc.variant-02-gnolls": {
+   "run": "walk-valhingen-1",
+   "step": 1060188350,
+   "slot": "0x982c",
+   "value": "GNOLLS"
+  },
+  "ecl8-b27-9fb7-9fcc.variant-03-lizard-men": {
+   "run": "walk-valhingen-1",
+   "step": 974529883,
+   "slot": "0x982c",
+   "value": "LIZARD MEN"
+  },
+  "ecl8-b27-9fb7-9fcc.variant-04-giant-lizards": {
+   "run": "walk-kovel-1",
+   "step": 644808453,
+   "slot": "0x982c",
+   "value": "GIANT LIZARDS"
+  },
+  "ecl8-b27-9fb7-9fcc.variant-07-trolls": {
+   "run": "walk-kobold-1",
+   "step": 2004735882,
+   "slot": "0x982c",
+   "value": "TROLLS"
+  },
+  "ecl8-b27-9fb7-9fcc.variant-08-phase-spiders": {
+   "run": "walk-valhingen-1",
+   "step": 1053198005,
+   "slot": "0x982c",
+   "value": "PHASE SPIDERS"
+  },
+  "ecl8-b27-9fb7-9fcc.variant-09-minotaurs": {
+   "run": "walk-kovel-1",
+   "step": 689025119,
+   "slot": "0x982c",
+   "value": "MINOTAURS"
+  },
+  "ecl8-b27-a179-a18d-a191-a195-a19b-a19f.variant-02-gnolls": {
+   "run": "walk-kobold-1",
+   "step": 2041646742,
+   "slot": "0x982c",
+   "value": "GNOLLS"
+  },
+  "ecl8-b27-a179-a18d-a191-a195-a19b-a19f.variant-07-trolls": {
+   "run": "walk-valhingen-1",
+   "step": 933260422,
+   "slot": "0x982c",
+   "value": "TROLLS"
+  },
+  "ecl8-b27-a179-a18d-a191-a195-a19b-a19f.variant-09-minotaurs": {
+   "run": "walk-lizardman-1",
+   "step": 2376330344,
+   "slot": "0x982c",
+   "value": "MINOTAURS"
   },
   "ecl8-b29-a47a-a48d.variant-01-gnolls": {
    "run": "walk-slums-c5b",
@@ -2884,6 +4410,90 @@
    "step": 109041990,
    "slot": "0x9800",
    "value": "5"
+  },
+  "por.voice.ecl7.b22-a222-a20b.variant-01-a-band-of-human-fighters": {
+   "run": "walk-yarash-1",
+   "step": 1961531706,
+   "slot": "0x9809",
+   "value": " A BAND OF HUMAN FIGHTERS."
+  },
+  "por.voice.ecl7.b22-a222-a20b.variant-02-displacer-beasts": {
+   "run": "walk-yarash-1",
+   "step": 745359210,
+   "slot": "0x9809",
+   "value": " DISPLACER BEASTS."
+  },
+  "por.voice.ecl7.b22-a222-a20b.variant-03-dwarven-fighters": {
+   "run": "walk-yarash-1",
+   "step": 1357136547,
+   "slot": "0x9809",
+   "value": " DWARVEN FIGHTERS."
+  },
+  "por.voice.ecl7.b22-a222-a20b.variant-04-a-trio-of-lizard-men": {
+   "run": "walk-yarash-1",
+   "step": 1366216553,
+   "slot": "0x9809",
+   "value": " A TRIO OF LIZARD MEN."
+  },
+  "por.voice.ecl7.b22-a222-a20b.variant-05-viscious-looking-driders": {
+   "run": "walk-yarash-1",
+   "step": 1901851199,
+   "slot": "0x9809",
+   "value": " VISCIOUS LOOKING DRIDERS."
+  },
+  "por.voice.ecl7.b22-a222-a20b.variant-06-some-gaunt-men-in-poorly-fitting-leather": {
+   "run": "walk-yarash-1",
+   "step": 821968013,
+   "slot": "0x9809",
+   "value": " SOME GAUNT MEN IN POORLY FITTING LEATHER."
+  },
+  "por.voice.ecl7.b22-a222-a20b.variant-09-a-group-of-emaciated-elves": {
+   "run": "walk-yarash-1",
+   "step": 2660368906,
+   "slot": "0x9809",
+   "value": " A GROUP OF EMACIATED ELVES."
+  },
+  "por.voice.ecl7.b22-a24e-a20b.variant-01-a-band-of-human-fighters": {
+   "run": "walk-yarash-1",
+   "step": 434635292,
+   "slot": "0x9809",
+   "value": " A BAND OF HUMAN FIGHTERS."
+  },
+  "por.voice.ecl7.b22-a24e-a20b.variant-03-dwarven-fighters": {
+   "run": "walk-yarash-1",
+   "step": 695830718,
+   "slot": "0x9809",
+   "value": " DWARVEN FIGHTERS."
+  },
+  "por.voice.ecl7.b22-a24e-a20b.variant-04-a-trio-of-lizard-men": {
+   "run": "walk-yarash-1",
+   "step": 1117290944,
+   "slot": "0x9809",
+   "value": " A TRIO OF LIZARD MEN."
+  },
+  "por.voice.ecl7.b22-a24e-a20b.variant-10-some-hungry-looking-kobolds": {
+   "run": "walk-yarash-1",
+   "step": 2127882140,
+   "slot": "0x9809",
+   "value": " SOME HUNGRY LOOKING KOBOLDS."
+  },
+  "por.voice.ecl7.b26-a15c-a16e.variant-04-stirges": {
+   "run": "walk-kovel-1",
+   "step": 524968936,
+   "slot": "0x982c",
+   "value": "STIRGES"
+  },
+  "por.voice.ecl7.b26-a1f7-a20c.variant-03-driders": {
+   "run": "walk-yarash-1",
+   "step": 117569962,
+   "slot": "0x982c",
+   "value": "DRIDERS"
+  },
+  "por.voice.ecl7.b26-a1f7-a20c.variant-08-merchants": {
+   "run": "walk-yarash-1",
+   "step": 114626059,
+   "slot": "0x982c",
+   "value": "MERCHANTS"
   }
  },
  "selectors": {
@@ -2911,6 +4521,17 @@
    "unitId": "por.voice.ecl3.b0-ac22-ac9b",
    "value": 0
   },
+  "por.review.ecl-3.block-14.at-9b70": {
+   "run": "walk-nomads-1",
+   "step": 116275806,
+   "unitId": "por.voice.ecl3.b14-9b70-9bc4"
+  },
+  "por.review.ecl-4.block-2.at-9f6a": {
+   "run": "walk-textile-1",
+   "step": 2088933252,
+   "unitId": "ecl4-b2-9f6a-9ff2-skullcrusher-absent",
+   "value": 0
+  },
   "por.review.ecl-5.block-3.at-9d1f": {
    "run": "walk-valjevo-g4",
    "step": 797384776,
@@ -2929,10 +4550,38 @@
    "unitId": "por.voice.ecl5.b7-9b74-9bbe",
    "value": 2
   },
+  "por.review.ecl-7.block-17.at-a435": {
+   "run": "walk-nomads-1",
+   "step": 222494861,
+   "unitId": "por.voice.ecl7.b17-a435-a494-tomorrow",
+   "value": "TOMORROW"
+  },
+  "por.review.ecl-7.block-22.at-9a81": {
+   "run": "walk-yarash-1",
+   "step": 409680899,
+   "unitId": "por.voice.ecl7.b22-9a81-9b0c"
+  },
+  "por.review.ecl-7.block-22.at-a264": {
+   "run": "walk-yarash-1",
+   "step": 436649521,
+   "unitId": "por.voice.ecl7.b22-a264-operand-9",
+   "value": 9
+  },
   "por.review.ecl-7.block-23.at-9a70": {
    "run": "yarash-alchemical-laboratory-3f2de014",
    "step": 86341804,
    "unitId": "por.voice.ecl7.b23-9a70-9afa"
+  },
+  "por.review.ecl-7.block-23.at-9e76": {
+   "run": "walk-yarash-1",
+   "step": 4349045527,
+   "unitId": "por.voice.ecl7.b23-9e76-operand-11",
+   "value": 11
+  },
+  "por.review.ecl-8.block-13.at-b512": {
+   "run": "walk-kobold-1",
+   "step": 1359641055,
+   "unitId": "ecl8-b13-a713"
   },
   "por.review.ecl-8.block-29.at-9b25": {
    "run": "walk-slums-d8",
@@ -2941,7 +4590,92 @@
    "value": 2
   }
  },
- "silent": {},
+ "silent": {
+  "covered-without-trigger | por.review.ecl-4.block-10.at-9bbf | ": {
+   "kind": "covered-without-trigger",
+   "sourceId": "por.review.ecl-4.block-10.at-9bbf",
+   "archive": "ECL4.DAX",
+   "block": 10,
+   "runs": {
+    "walk-valhingen-1": {
+     "count": 1,
+     "step": 111633502
+    }
+   }
+  },
+  "covered-without-trigger | por.review.ecl-6.block-25.at-9c6b | ": {
+   "kind": "covered-without-trigger",
+   "sourceId": "por.review.ecl-6.block-25.at-9c6b",
+   "archive": "ECL6.DAX",
+   "block": 25,
+   "runs": {
+    "walk-wilderness-1": {
+     "count": 1,
+     "step": 148541047
+    }
+   }
+  },
+  "covered-without-trigger | por.review.ecl-8.block-13.at-9c9f | ": {
+   "kind": "covered-without-trigger",
+   "sourceId": "por.review.ecl-8.block-13.at-9c9f",
+   "archive": "ECL8.DAX",
+   "block": 13,
+   "runs": {
+    "walk-kobold-1": {
+     "count": 1,
+     "step": 1844318316
+    }
+   }
+  },
+  "covered-without-trigger | por.review.ecl-8.block-13.at-9ce1 | ": {
+   "kind": "covered-without-trigger",
+   "sourceId": "por.review.ecl-8.block-13.at-9ce1",
+   "archive": "ECL8.DAX",
+   "block": 13,
+   "runs": {
+    "walk-kobold-1": {
+     "count": 1,
+     "step": 1845031698
+    }
+   }
+  },
+  "covered-without-trigger | por.review.ecl-8.block-13.at-9d05 | ": {
+   "kind": "covered-without-trigger",
+   "sourceId": "por.review.ecl-8.block-13.at-9d05",
+   "archive": "ECL8.DAX",
+   "block": 13,
+   "runs": {
+    "walk-kobold-1": {
+     "count": 1,
+     "step": 1849091458
+    }
+   }
+  },
+  "covered-without-trigger | por.review.ecl-8.block-13.at-b49e | ": {
+   "kind": "covered-without-trigger",
+   "sourceId": "por.review.ecl-8.block-13.at-b49e",
+   "archive": "ECL8.DAX",
+   "block": 13,
+   "runs": {
+    "walk-kobold-1": {
+     "count": 8,
+     "step": 669270047
+    }
+   }
+  },
+  "covered-without-trigger | por.review.ecl-8.block-16.at-aa0c | ": {
+   "kind": "covered-without-trigger",
+   "sourceId": "por.review.ecl-8.block-16.at-aa0c",
+   "archive": "ECL8.DAX",
+   "block": 16,
+   "runs": {
+    "walk-lizardman-1": {
+     "count": 4,
+     "step": 350255391
+    }
+   }
+  }
+ },
  "playback": {
   "runs": {
    "campaign-full": {
