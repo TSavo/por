@@ -7625,8 +7625,10 @@ try {
       }
     }
     if (routeName !== "moonsea-sokal-decline") {
-      await waitFor("the Sokal Keep route to settle", () => run(`state.ready && state.sequence > ${frame.sequence} && !activeTravel`), 90_000);
+      await waitFor("the Sokal Keep route to settle", () => run(`state.ready && state.sequence > ${frame.sequence} &&
+        (!activeTravel || (${routeName === "moonsea-sokal-free"} && state.sokalPrompt === "payer"))`), 90_000);
       frame = await latest();
+      assert.notEqual(frame.sokalPrompt, "payer", "The free-passage replay requires a save from before Sokal Keep was cleared");
       const text = frame.text.map(([, char]) => String.fromCharCode(char)).join("");
       assert.equal(frame.exploration?.area, 21, text);
       assert.equal(frame.scenery?.mapId, 21, text);
@@ -7634,8 +7636,16 @@ try {
       const keys = await run("sokalTravelKeys.filter(key => key !== ':travel-poll')");
       assert.equal(keys.at(-1), "enter", "The route should hand off after confirming boarding");
       assert.ok(["up", "enter"].includes(keys.at(-2)), "The original script can board on approach or Enter");
-      if (routeName === "moonsea-sokal-free") assert.match(text, /THEBOATDISEMBARKSYOUATSOKALKEEP/i);
+      assert.match(text, /THEBOATDISEMBARKSYOUATSOKALKEEP/i);
+      const arrival = "scene-illustration:area:0:ecl:ae31:caller:9ad2";
+      assert.equal(frame.portrait, arrival);
+      await waitFor("the enhanced Sokal arrival illustration", () => run(`
+        document.querySelector('.encounter-portrait[src="/art/${arrival}"]')?.naturalWidth === 352
+      `));
+      await verifyPortraitPanel();
       await switchBothWays();
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "moonsea-sokal-arrival.png"), Buffer.from(shot.data, "base64"));
     }
     console.log(`Verified ${routeName} using the original New Phlan ferry in Chrome.`);
   } else if (atlasRoute) {

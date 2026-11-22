@@ -131,7 +131,11 @@ Run the `phlan-outskirts-*` Chrome replays with `--map-destination` to check
 named arrivals or with `--map-travel` to check the approach menus.
 The `moonsea-sokal-free`, `moonsea-sokal-fare`, and `moonsea-sokal-decline`
 Chrome replays cover free passage, paying for passage, and stopping at the
-fare prompt without spending any platinum.
+fare prompt without spending any platinum. Start them on the overland map.
+The free-passage save needs Sokal Keep to be uncleared. The paid and cancel
+replays start with it cleared. Both arrival replays check the original
+disembarkation caption, the Enhanced illustration, and the map position
+at the landing.
 The `moonsea-valjevo-arrival` and `moonsea-valjevo-gate-warning` replays
 cover castle arrival through the secured gate and stopping at the defended
 gate's introduction.
