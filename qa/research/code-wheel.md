@@ -89,7 +89,92 @@ shows no `Random(13)` call from slice 2, and the game goes from the title to the
 check is in the code but nothing calls it on that path. Where the call was, and whether the copy
 of the first release we have was altered to skip it, is not established.
 
+## When the player needs the wheel
+
+Read on 2026-11-21 from the SSI documents GOG ships (`por-assets/gog-1.3/`) and from the version
+1.3 scripts. "PDF page" is the page of the file; "printed" is the number printed on the paper.
+
+### What the documents say
+
+- **Manual, printed pages 1 and 2 (PDF pages 3 and 4), "The Translation Wheel".** "As your
+  characters progress through the Forgotten Realms, they will occasionally find Dethek (Dwarvish)
+  and Espruar (Elvish) runes. The wheel is a method of translating those runes into English
+  words." It gives four uses:
+  1. *Five or six letter code words.* The computer shows two runes and a path; match the runes
+     and read rings 1 to 6 along the path. This is the start-up question.
+  2. *Three letter code words.* The computer shows two runes and a ring number; match the runes
+     and read three letters round that ring, clockwise from the dotted path. The example's word
+     is LUX. No prompt of this kind is in the version 1.3 scripts: there LUX is written out in
+     Espruar runes (below).
+  3. *Translate Elvish (Espruar).* The computer shows a list of Elvish runes. Put the Translate
+     Espruar tab at each rune, one at a time, and read the letter in ring 1 of the dotted path.
+  4. *Translate Dwarvish (Dethek).* The same with the Translate Dethek tab. "Some Dethek runes
+     have more than one translation; try each when translating words."
+- **Quick Reference Card, PDF page 1, "To Load the Game".** The start-up question only, with the
+  example ZOMBIE.
+- **Cluebook, printed page 56 (PDF page 30), "Translation Wheel".** "The wheel is used several
+  ways during the game. To begin the game match the symbols on screen and read the password
+  from inside to outside under the indicated line. During the game match the symbol to the
+  appropriate translation tab and read the letter under the ..... path in ring 1." Its example:
+  with the two tabs matched, ring 1 under the dotted path shows 0; one space clockwise it shows
+  A, the Dethek A is under the Translate Dethek tab and the Espruar A is over the Translate
+  Espruar tab.
+- **Cluebook, printed page 57 (PDF page 31).** "In Sokal Keep, a dead elf carries a scroll with
+  Elvish or Espruar writing. Turn the Translate Espruar tab under each symbol one at a time.
+  Read the English letter in ring 1 under the ..... path." It prints three "Espruar Runes
+  (Displayed On Screen)" and their translation, L U X.
+- **Cluebook, printed page 8 (PDF page 6), Sokal Keep.** The scroll's three words are LUX,
+  SHESTNI and SAMOSUD. **Printed page 34 (PDF page 19), Yarash's pyramid, level 3.** "The
+  password over door is written in Dethek. It reads NOTNOW (C64 Version 1.0) or NOKNOK (other
+  versions)."
+- **Adventurers Journal, Journal Entry 35, printed page 24 (PDF page 13).** The one place the
+  wheel is needed for something printed on paper. A lizard man "scratches marks into the dirt.
+  You recognize the marks as two runes and a path symbol", and the entry prints an Espruar rune,
+  a Dethek rune and the dashes path: a code word read like the start-up question. "They represent
+  the friend word used between lizard men of different tribes." No other journal entry, tavern
+  tale or proclamation (PDF pages 8 to 17) prints a rune.
+
+### What the game shows on screen after start-up
+
+Script opcode 3C (PROTECTION) prints a string in the rune font, after `LOAD FILES 255, 16, 255`.
+The string is stored as glyph code plus 0x3f. Espruar letters are two glyphs each, in alphabetical
+order (A is 01 02, B is 03 04, with 1f to 21 skipped); Dethek letters are one glyph each (A is
+3a, B is 3b and so on). Read from the version 1.3 `ECL*.DAX`:
+
+| Script | Where | Alphabet | Reads |
+| --- | --- | --- | --- |
+| ECL4 block 21, 9bd8 to 9be2 | Sokal Keep, the parchment scroll on the remains | Espruar | LUX, SAMOSUD, SHESTNI |
+| ECL5 block 3, aa28 | "Cadorna hands you a slip of paper … today's gate password" | Dethek | RHODIA |
+| ECL5 block 4, a478 and a490 | The guards' list: "Today's password is", "The gate password is" | Espruar, Dethek | HARASH, RHODIA |
+| ECL5 block 4, a964 | The freed slave's slip of paper, "You look at the writing…" | Dethek | RHODIA |
+| ECL7 block 23, a46a | Yarash's pyramid, the sign over the door, "six Dwarvish runes" | Dethek | NOKNOK |
+
+In each case the game then asks for the word to be typed, or a later encounter does. So the
+player translates rune by rune with the tabs, during play, at moments the game chooses.
+
+### The translate position, on the transcribed wheel
+
+`src/codewheel/wheel.json` agrees with the Cluebook's example. The Espruar disc's tab is at
+position 26 and the Dethek disc's at position 4, so the tabs meet with the inner disc turned 22
+positions. The dotted path's ring 1 window is then over position 25 of ring 1, which is `0`. One
+position clockwise it is over `A`, with `espruar-27` at the inner disc's tab and `dethek-03` at
+the outer disc's tab; `espruar-27` is glyph 01 02, the game's Espruar A.
+
+In general, with the inner disc turned `t` positions the rune at the tabs is the Espruar rune at
+position `4 + t` and the Dethek rune at position `26 - t`, and ring 1 under the dotted path shows
+ring 1's letter at position `3 + t`.
+
+### What this means for the port
+
+The wheel is needed at start-up and again during play, whenever runes are on screen or Journal
+Entry 35 is read. Enhanced therefore keeps the wheel available for the whole game, with a control
+that lines up the two tabs. It does not translate for the player.
+
 ## Not yet established
+
+- Whether Enhanced display keeps the runes readable at each of the five places above. The Sokal
+  parchment keeps the original rune font inside its picture (`tools/live-input.ts`); the others
+  were not looked at.
 
 - Which of GOG's redrawn tiles is which rune. Not needed now: the scan's runes are named by position.
 - Why the first release never calls the code-wheel routine at start-up: whether that copy was
