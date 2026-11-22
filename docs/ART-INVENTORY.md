@@ -993,14 +993,14 @@ identical source pixels in frames that have replacements. The 18 matches
 still need review for reuse in their encounter contexts. The tiger and
 hippogriff still need live encounter replays.
 
-The composed icon also renders when the party member is selected.
-The matcher checks the full highlighted cell and restores its bright
-rim, dark edge, and interior beneath the transparent replacement.
+The composed icon renders over the Enhanced selection tile when the
+party member is selected.
 Append `--manual-party` to the courtyard Chrome replay to verify Brin's
-selected icon, sample the restored colors, and switch display modes
+selected icon, sample the backing tile colors, and switch display modes
 during his manual turn. The replay also targets the wounded orc at range
-three and verifies that its replacement sprite stays aligned and the
-original white Aim cursor remains visible in the selection frame.
+three and verifies that its replacement sprite stays aligned with the
+gold Aim reticle in Enhanced. Classic shows the captured guest frame in
+both checks.
 
 ### Phlan Ruins approaches and Kobold Cave west turn
 
