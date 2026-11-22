@@ -343,13 +343,21 @@ const mountedFiles = saves ? [...saves.mountRoster(files), ...saves.files] : fil
 // each time either changes, for npm run qa:visits (#130). Observes only.
 const visitTrace = input && process.env.POR_TRACE_VISITS;
 let lastVisit = "";
+// The journal is read again only when the game has printed something since: reading it at every key
+// read made a long walk (the parity check's sokal walk) outrun its time limit.
+let visitTranscript = -1;
+let commissions: string[] = [];
 const requestKey = input && visitTrace ? (machine: Cpu, keys: BiosKey[], blocking: boolean) => {
   if (machine.steps >= liveStep && blocking) {
     // The script in memory names the area: its archive (ECLn.DAX) and block. The area record
     // (script variable 0x49f2) follows only once the new area's script has run.
     const archive = machine.read8(unit.data, data.eclArchive), block = machine.read8(unit.data, data.eclBlock);
-    const commissions = journal().filter(({ id }) => id.startsWith("commission-"))
-      .map(({ id, status }) => `${id}:${status ?? ""}`).sort();
+    const transcript = adventureLog?.() ?? "";
+    if (transcript.length !== visitTranscript) {
+      visitTranscript = transcript.length;
+      commissions = journal(transcript).filter(({ id }) => id.startsWith("commission-"))
+        .map(({ id, status }) => `${id}:${status ?? ""}`).sort();
+    }
     const visit = JSON.stringify({ archive, block, state: machine.read8(unit.data, data.gameState), commissions });
     if (visit !== lastVisit) {
       appendFileSync(visitTrace, visit + "\n");
