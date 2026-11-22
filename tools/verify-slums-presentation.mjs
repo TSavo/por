@@ -4280,7 +4280,7 @@ const illustrationRoutes = new Map([
   ["valjevo-tower-troll-encounter-loop", {
     slot: "B", inputs: ["up"],
     portrait: "portrait:area:5:ecl:9fa2:PIC5.DAX:31:0:0",
-    prompt: /^(?!.*THEYSEEMUNAWAREOFYOU)(?=.*YOUSEEAPACKOFTROLLS\.)(?=.*COMBATWAITFLEEPARLAY)/i,
+    prompt: /^(?!.*THEYSEEMUNAWAREOFYOU).*YOUSEEAPACKOFTROLLS\./i,
     heldPortraitLoop: [0, 1, 2, 3, 4, 3, 2, 1].map(member => `portrait:area:5:ecl:9fa2:PIC5.DAX:31:${member}:0`),
     continuation: {
       inputs: ["c"], portrait: "portrait:area:5:ecl:9fa2:PIC5.DAX:31:0:0", prompt: /ABATTLEBEGINS/i,

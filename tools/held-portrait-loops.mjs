@@ -64,7 +64,7 @@ const portraitLoops = [
   ["portrait:area:5:ecl:9ff9:PIC5.DAX:31:", towerTrollPoseOrder, "portrait:area:5:PIC5.DAX:31:0:0",
     /^(?!.*ABATTLEBEGINS).*YOUSEEAPACKOFTROLLS.*THEYSEEMUNAWAREOFYOU/i, towerTrollPoseTimes],
   ["portrait:area:5:ecl:9fa2:PIC5.DAX:31:", towerTrollPoseOrder, undefined,
-    /^(?!.*ABATTLEBEGINS)(?=.*YOUSEEAPACKOFTROLLS)(?=.*COMBATWAITFLEEPARLAY)/i, towerTrollPoseTimes],
+    /^(?!.*ABATTLEBEGINS).*YOUSEEAPACKOFTROLLS/i, towerTrollPoseTimes],
   ["portrait:area:5:ecl:9a5a:caller:a042:PIC5.DAX:31:", towerTrollPoseOrder, undefined,
     /APACKOFTROLLSCHARGEFROMWHERETHEYWEREHIDING/i, towerTrollPoseTimes],
   ["portrait:area:9:ecl:a945:PIC2.DAX:63:", [0, 1, 2, 1], "portrait:area:9:PIC2.DAX:63:0:0",
