@@ -315,9 +315,10 @@
             "src/audio/voice-master-manifest.json: 1,432 units and its playback policy; src/runtime/ecl-narration-observer.ts; tools/play.js"
           ],
           "checks": [
-            "narration-coverage"
+            "narration-coverage",
+            "narration-playback"
           ],
-          "gap": "The measure counts units a run chose at their trigger and flags a covered print reached with no trigger. Most units are still unheard: see the table. It records what the play server is told to play; the page's queueing (the next unit waits for the one before it) is not measured in play."
+          "gap": "The measure counts a unit only when Chrome's audio element played its recording to the end, and lists lines cut off, never started or overlapping; most units are still unplayed: see the table. Replays press through the page's send(), so their lines play late and prove only that a recording runs to its end. The direct check waits for each line on Rolf's tour only, and is red: the tour's passages have two recordings on one print (qa/findings.json, narration-rolf-tour-spoken-twice)."
         },
         {
           "id": "enhanced.narration-dynamic-variants",

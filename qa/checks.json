@@ -205,8 +205,18 @@
       ]
     },
     {
+      "id": "narration-playback",
+      "title": "Rolf's tour in Chrome, keys pressed as a player presses them, read from the page's playback log: each of the eight units started once, ran in real time to its full length with one artwork on screen, was not spoken twice, none overlapped, a covered print started nothing; Enter over a line let it run on and the next one wait; another key stopped it at once",
+      "command": "npm run verify:narration-playback",
+      "reference": "recorded-play",
+      "needs": [
+        "game files",
+        "Chrome"
+      ]
+    },
+    {
       "id": "narration-coverage",
-      "title": "Narration heard in play, counted from run ledgers: units of 1,432, variants of 392, selectors of 43, silent cases, artwork showing; and the static rows (recordings present, conditions exclusive, slots readable, encounter tables against the scripts)",
+      "title": "Narration in play, counted from run ledgers and Chrome playback logs: units selected and units played to their end of 1,432, lines cut off or never started, lines that overlapped, artwork on screen from start to end, variants of 392, selectors of 43, silent cases; and the static rows (recordings present, no passage with two recordings, conditions exclusive, slots readable, encounter tables against the scripts)",
       "command": "npm run qa:narration",
       "reference": "game-data",
       "needs": [
