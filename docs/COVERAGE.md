@@ -1011,6 +1011,10 @@ The `stojanow-riverwalk` replay starts from the native entrance save at
 new 32×32 tiles for the river rails, stonework, and covered doorway.
 The `stojanow-tower-ettin` replay starts at `4,8 N` in controlled slot A.
 Chrome checks both 96×192 combat frames and the reflected club swing.
+The `stojanow-imposters` Chrome replay on GOG 1.3 starts from the wagon
+checkpoint in slot B at `4,15 N` with the gate already suspicious. It
+verifies the guards detecting the wagon disguise and demanding surrender,
+then checks the separate confiscation scene and the party's relocation.
 The `stojanow-toll-refused` Chrome replay starts from the controlled wagon
 checkpoint in slot B at `4,15 N`. The party buys the wagon and declines
 the bugbear's 15-gold toll. GOG 1.3 shows the guard turning the party away

@@ -966,6 +966,14 @@ const illustrationRoutes = new Map([
     prompt: /THEBUGBEARTAKESTHEMONEYANDTHEGATEOPENS.*YOUPROCEEDTHROUGH/i,
     continuation: { inputs: ["enter", "up"], prompt: /8,4N.*AREACASTVIEWENCAMP|AREACASTVIEWENCAMP.*8,4N/i, clearsPortrait: true },
   }],
+  ["stojanow-imposters", {
+    slot: "B", inputs: stojanowTollApproach,
+    portrait: "scene-illustration:area:9:ecl:a778:cue:bugbear-wagon-imposters",
+    prompt: /THEYAREIMPOSTERS!ALLRIGHT,THROWDOWNYOURWEAPONS/i,
+    finalPhaseCapture: "stojanow-bugbear-wagon-imposters.png",
+    continuation: { inputs: ["s", "enter"], portrait: "scene-illustration:area:9:ecl:a0a7:cue:bugbear-confiscation",
+      prompt: /(?=.*4,14S).*THEBUGBEARSSTRIPYOUOFANYTHINGREMOTELYVALUABLE/i },
+  }],
   ["stojanow-toll-refused", {
     slot: "B", inputs: [...stojanowTollApproach, "n"],
     portraitStops: { 18: "portrait:area:9:PIC2.DAX:63:0:0" },

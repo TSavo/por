@@ -1507,6 +1507,8 @@
     "encounter:area:7:ecl:a5d8:SPRIT5.DAX:16:0:0": "valjevo-audience-bodyguards-block-path.png",
     "encounter:area:3:ecl:b35e:SPRIT5.DAX:60:1:0": "valjevo-lower-snake-approach-middle.png",
     "encounter:area:3:ecl:b35e:SPRIT5.DAX:60:0:0": "valjevo-lower-snake-approach-near.png",
+    "scene-illustration:area:9:ecl:acf8:cue:bugbear-wagon-imposters": "stojanow-bugbear-wagon-imposters.png",
+    "scene-illustration:area:9:ecl:a778:cue:bugbear-wagon-imposters": "stojanow-bugbear-wagon-imposters.png",
     "scene-illustration:area:9:ecl:ac32:cue:bugbear-toll-refused": "stojanow-bugbear-toll-refused.png",
     "scene-illustration:area:9:ecl:a0a7:cue:bugbear-toll-refused": "stojanow-bugbear-toll-refused.png",
     "scene-illustration:area:9:ecl:acb7": "stojanow-bugbear-gate-payment.png",
