@@ -45,8 +45,9 @@ export interface PauseEvidence {
   text: string[];
   /** Whether every glyph of it was in a frame the page received. */
   shown: boolean;
-  /** When not: the glyphs the frame that showed most of it lacked. */
+  /** When not: the glyphs the frame that showed most of it lacked, and what that frame had there. */
   missing?: string[];
+  pageHad?: string[];
 }
 export type PauseSource = "original" | "port";
 export const evidencePath = fromPortRoot("qa", "pause-callers.json");
@@ -129,7 +130,8 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
     if (sources.some((record) => record && !record.shown)) {
       const record = sources.find((r) => r && !r.shown)!;
       hidden.push(`${line}: ${JSON.stringify(record.text.join(" / "))} in ${record.walk}; the page lacked ` +
-        JSON.stringify((record.missing ?? []).map((row) => row.trim()).join(" / ")));
+        JSON.stringify((record.missing ?? []).map((row) => row.trim()).join(" / ")) +
+        (record.pageHad ? `, showing ${JSON.stringify(record.pageHad.map((row) => row.trim()).join(" / "))} there` : ""));
     } else if (sources.every((record) => record?.shown)) {
       const text = sources[0]!.text.map((row) => row.trim()).join(" ");
       verified.push(`${line}: ${JSON.stringify(text.length > 70 ? `${text.slice(0, 70)}...` : text)} (${sources[0]!.walk})`);

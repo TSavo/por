@@ -39,9 +39,9 @@ if (process.argv[2] === "--merge") {
       const before = found.get(key);
       if (!before || (before.shown && !line.shown)) found.set(key, line);
     }
-    for (const { id, source, walk, text, shown, missing } of found.values()) {
+    for (const { id, source, walk, text, shown, missing, pageHad } of found.values()) {
       const kept = (evidence[id] ??= {})[source];
-      if (!kept || kept.walk === walk || (kept.shown && !shown)) evidence[id][source] = { walk, text, shown, ...(shown ? {} : { missing }) };
+      if (!kept || kept.walk === walk || (kept.shown && !shown)) evidence[id][source] = { walk, text, shown, ...(shown ? {} : { missing, pageHad }) };
     }
   }
   const sorted = Object.fromEntries(callers.filter(({ id }) => evidence[id]).map(({ id }) => [id, evidence[id]]));

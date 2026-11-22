@@ -54,11 +54,16 @@ export function pauseShown(message, frame) {
 
 /** The glyphs of a pause's message that the frame showing the most of it lacks. */
 export function pauseMissing(message, frame) {
-  let best = message;
+  return pauseBestFrame(message, frame).missing;
+}
+
+/** The frame of this input that shows the most of a pause's message, and the glyphs it lacks. */
+export function pauseBestFrame(message, frame) {
+  let best = { missing: message, shown: undefined };
   for (const shown of [...(frame.animation ?? []), frame]) {
     const cells = new Map((shown.text ?? []).map(([cell, character]) => [cell, character]));
     const missing = message.filter(([cell, character]) => cells.get(cell) !== character);
-    if (missing.length < best.length) best = missing;
+    if (missing.length < best.missing.length || !best.shown) best = { missing, shown };
   }
   return best;
 }
@@ -382,8 +387,11 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
             // The rows the message is on, as the screen showed them.
             const screen = screenRows(pause);
             const rows = [...new Set(message.map(([cell]) => Math.floor(cell / 40)))].sort((a, b) => a - b).map((row) => screen[row].trimEnd());
-            const missing = pauseMissing(message, game.frame);
-            pauses.push({ ...pause, message, rows, shown: missing.length === 0, missing: asRows(missing) });
+            const best = pauseBestFrame(message, game.frame);
+            // Where it differs, what the frame that came closest had in those cells.
+            const had = best.shown ? screenRows(best.shown) : [];
+            const pageHad = [...new Set(best.missing.map(([cell]) => Math.floor(cell / 40)))].sort((a, b) => a - b).map((row) => had[row]?.trimEnd() ?? "");
+            pauses.push({ ...pause, message, rows, shown: best.missing.length === 0, missing: asRows(best.missing), pageHad });
           }
           pendingPauses = [];
           return true;
@@ -755,9 +763,9 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
       if (pauseLog) {
         const source = setting("POR_GAME_SOURCE") === "port" ? "port" : "original";
         const walk = setting("POR_PAUSE_WALK") ?? basename(process.argv[1] ?? "harness");
-        for (const { returns, via, rows, message, shown, missing } of pauses) {
+        for (const { returns, via, rows, message, shown, missing, pageHad } of pauses) {
           if (!message.length) continue;
-          appendFileSync(pauseLog, JSON.stringify({ walk, source, returns, via, text: rows, shown, ...(shown ? {} : { missing }) }) + "\n");
+          appendFileSync(pauseLog, JSON.stringify({ walk, source, returns, via, text: rows, shown, ...(shown ? {} : { missing, pageHad }) }) + "\n");
         }
       }
     },
