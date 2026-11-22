@@ -371,6 +371,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // Look leaves the well's caption on screen after the party turns away.
       const wellLookAway = scriptKey === "scene-illustration:area:29:ecl:afa1" &&
         kutoWellLookFacing.get(`${livePosition?.x},${livePosition?.y}`) !== (explorationPosition?.facing ?? -1);
+      // The caption persists after the party turns away from the cleared tower.
+      const towerLookAway = scriptKey === "scene-illustration:area:10:ecl:a672" &&
+        (livePosition?.x !== 5 || livePosition.y !== 9 || explorationPosition?.facing !== 4);
       // The maze watch and Scriptorium guards finish the nod at the same ECL cursor.
       let illustrationScope = finalCouncilReward && illustrationText.includes("VIEWTAKEPOOLSHAREEXIT")
         ? `${scriptKey}:cue:council-victory-payout` : scriptKey;
@@ -402,7 +405,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           illustrationScope = `${scriptKey}:cue:lab-door`;
         }
       }
-      const illustration = scene || wellLookAway
+      const illustration = scene || wellLookAway || towerLookAway
         ? undefined : matchScriptIllustration(illustrationScope, illustrationText, portraitKeys);
       if (captureIllustration && (!illustration || animation.at(-1)?.portrait === illustration)) return;
       const menu = menuText(text);

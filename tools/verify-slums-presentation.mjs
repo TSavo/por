@@ -3198,6 +3198,13 @@ const illustrationRoutes = new Map([
       screenshot: "valhingen-charged-tower-wight-attack.png",
     },
   }],
+  ["valhingen-zombie-tower-quiet", {
+    slot: "B", inputs: ["l"],
+    portrait: "scene-illustration:area:10:ecl:a672:cue:zombie-tower-quiet",
+    prompt: /PILESOFHAIRANDFURCOVERTHEAREA/i,
+    finalPhaseCapture: "valhingen-zombie-tower-quiet.png",
+    continuation: { inputs: ["right"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMP/i },
+  }],
   ["valhingen-zombie-tower", {
     slot: "A", inputs: ["l", "enter", "enter", "enter"],
     portraitStops: {

@@ -660,6 +660,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:10:ecl:9e52:cue:giant-skeleton-retainers", "YOUFINDAGIANTSKELETONANDITSRETAINERS"],
   ["scene-illustration:area:10:ecl:a923:cue:charged-tower", "BALLLIGHTNING.WIGHTSAPPEARFROMBEHINDTHETOWER"],
   ["scene-illustration:area:10:ecl:a66a:cue:zombie-tower-exterior", "PILESOFHAIRANDFURCOVERTHEAREA"],
+  ["scene-illustration:area:10:ecl:a672:cue:zombie-tower-quiet", "PILESOFHAIRANDFURCOVERTHEAREA"],
   ["scene-illustration:area:10:ecl:b6a8:caller:a676:cue:zombie-tower-exterior", "PILESOFHAIRANDFURCOVERTHEAREA"],
   ["scene-illustration:area:10:ecl:b5c7:cue:zombie-tower-attack", "THETOWERDOORSWINGSOPENANDASMALLARMYOFZOMBIESSHUFFLESOUT"],
   ["scene-illustration:area:10:ecl:b695:caller:a67a", "PILESOFHAIRANDFURCOVERTHEAREA"],
