@@ -50,3 +50,9 @@ Once the image is unpacked, overlay stubs are visible. Each one starts with `CD 
 Simeon's 2010 note treats the `int 3Fh` stub and the rewritten far jump as the scheme for the DOS Gold Box games, not only for Azure Bonds. PoR is the first of them, and the descriptor he published was recovered while porting Azure Bonds. Expect the same interrupt and the same jump opcode. Do not assume the 16-byte scratch area or the previous-stub link are identical until the unpacked PoR image is scanned. The tool prints every field it reads so a mismatch is obvious.
 
 The ECL interpreter and the DAX loader are inside these overlays (in CotAB they ended up in the segments he numbered around the script runner and the file reader). Finding them is a search for the opcode dispatch: a jump table or a chain of comparisons on a byte just read from the script pointer at `DS:offset+8000h`. That search is the next REA session, and it wants the unpacked EXE plus `GAME.OVR` sliced by the stub table.
+
+## STING mode is not supported
+
+The original's debug start-up mode is selected by the command-line argument `STING`: the code compares `ParamStr(1)` with the string at `0899:0053`, and only on a match does it act on Ctrl-D (key 0x04, flips the debug flag at `0x49f7`; hit-point debug) and Ctrl-C (key 0x03, calls `0x8990`, quit). Guide research also credits it with Alt-X (win combat), J to train for free, and skipping the intro and copy protection.
+
+The port never passes `STING`: it starts the original with an empty command tail (settled on issue #77). So the port ignores Ctrl-D and Ctrl-C exactly as the original does without the argument, and STING is not exposed in any mode. The J in the party menu's key set belongs to this mode and does nothing without it. Do not add a STING switch; `POR_DEV_COMBAT` (README) is the port's separate, local-testing aid.
