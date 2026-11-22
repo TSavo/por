@@ -8388,8 +8388,11 @@ try {
       document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
     await switchBothWays();
     await advance("enter");
-    const invitation = "portrait:area:0:ecl:ae69:HEAD3.DAX:0:BODY3.DAX:4";
-    assert.equal(frame.portrait, invitation);
+    const invitation = frame.portrait;
+    assert.ok([
+      "portrait:area:0:ecl:ae69:HEAD3.DAX:0:BODY3.DAX:4",
+      "portrait:area:0:ecl:ae66:HEAD3.DAX:0:BODY3.DAX:4",
+    ].includes(invitation), `Expected the scoped Dirten invitation, got ${invitation}`);
     await waitFor("Dirten's invitation illustration", () => run(`state.sequence === ${frame.sequence} &&
       document.querySelector('.encounter-portrait[src="/art/${invitation}"]')?.naturalWidth === 352`));
     await verifyPortraitPanel();

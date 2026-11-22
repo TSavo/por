@@ -157,6 +157,10 @@ jeweler art under 1.3 because its dedicated art was bound only to the
 1.0 dialogue and shop cursors. Both sets of cursors now select the same
 silver merchant PNG, verified in Chrome through the buy menu on each
 edition.
+The Bishop Braccio-to-Dirten handoff exposed another shifted dialogue
+cursor in the same bank. Chrome verified that the distinct invitation
+illustration appears after Dirten's introduction in both editions and
+that the journal learns the invitation from the native dialogue.
 For example, the `new-phlan-rolf-approach` Chrome replay starts with a
 fresh party and checks the enhanced dock, Rolf's approach and all seven
 tour stops, and the return to scenery after the City Hall guard. This
