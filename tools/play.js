@@ -90,11 +90,12 @@ function recolorPartySprite(image, id) {
 const audioSettings = document.querySelector("#audio-settings");
 const audioControls = {
   hardware: document.querySelector("#audio-hardware"), master: document.querySelector("#audio-master"),
-  effects: document.querySelector("#audio-effects"), dialogue: document.querySelector("#audio-dialogue"),
+  effects: document.querySelector("#audio-effects"),
   narration: document.querySelector("#audio-narration"), muted: document.querySelector("#audio-muted"),
 };
+// No Dialogue level: one narrator performs every character, so every spoken line is narration.
 const defaultAudioPreferences = { hardware: "pc-speaker", master: 0.8, effects: 1,
-  dialogue: 1, narration: 1, muted: false };
+  narration: 1, muted: false };
 let audioPreferences = defaultAudioPreferences;
 try { audioPreferences = { ...defaultAudioPreferences, ...JSON.parse(localStorage.getItem("por.audio.v1") ?? "{}") }; } catch {}
 let currentEffect;
@@ -186,12 +187,12 @@ const failedSceneArt = new WeakSet();
 const failedEnhancedFrames = new WeakSet();
 
 function syncAudioControls() {
-  for (const key of ["hardware", "master", "effects", "dialogue", "narration"])
+  for (const key of ["hardware", "master", "effects", "narration"])
     audioControls[key].value = String(audioPreferences[key]);
   audioControls.muted.checked = audioPreferences.muted;
   if (currentEffect) currentEffect.volume = audioPreferences.muted ? 0 : audioPreferences.master * audioPreferences.effects;
   if (currentVoice) currentVoice.volume = audioPreferences.muted ? 0 :
-    audioPreferences.master * audioPreferences[currentVoice.dataset.voiceType];
+    audioPreferences.master * audioPreferences.narration;
 }
 
 function saveAudioPreferences() {
@@ -211,9 +212,11 @@ function stopEffect() {
 
 function playSound(sound) {
   if (sound.index === 0 || sound.index === 0xff) { stopEffect(); return; }
-  if (sound.index < 1 || sound.index > 20 || audioPreferences.hardware === "silent") return;
+  if (sound.index < 1 || sound.index > 20) return;
   const entry = soundManifest.events.find((candidate) => candidate.index === sound.index);
   const replacement = enhanced && entry?.enhancedFile;
+  // Silent is the Classic hardware choice: it silences the original's sounds, not Enhanced ones.
+  if (!replacement && audioPreferences.hardware === "silent") return;
   if (sound.enhancedOnly && !replacement) return;
   // The server marks events whose Classic file does not belong to the running build.
   if (!replacement && entry?.classic === false) return;
@@ -287,7 +290,7 @@ function playTitleCue() {
     titleCueStarted = false;
     return;
   }
-  if (titleCueStarted || audioPreferences.hardware === "silent" || !soundManifest.events.some(entry => entry.index === 13 && entry.enhancedFile)) return;
+  if (titleCueStarted || !soundManifest.events.some(entry => entry.index === 13 && entry.enhancedFile)) return;
   titleCueStarted = true;
   playSound({ index: 13, enhancedOnly: true });
 }
@@ -337,7 +340,7 @@ audioToggle.addEventListener("click", () => {
   if (audioSettings.hidden) (journal.hidden ? screen : closeJournal).focus({ preventScroll: true });
   resumeBlockedAudio();
 });
-for (const key of ["hardware", "master", "effects", "dialogue", "narration", "muted"]) {
+for (const key of ["hardware", "master", "effects", "narration", "muted"]) {
   audioControls[key].addEventListener("input", () => {
     audioPreferences = { ...audioPreferences, [key]: key === "muted"
       ? audioControls[key].checked : key === "hardware" ? audioControls[key].value : Number(audioControls[key].value) };
@@ -438,7 +441,7 @@ function beginVoice(line) {
   voice.preload = "auto";
   voice.dataset.voiceType = line.type;
   if (line.queuedNarration) voice.dataset.queuedNarration = "true";
-  voice.volume = audioPreferences.muted ? 0 : audioPreferences.master * audioPreferences[line.type];
+  voice.volume = audioPreferences.muted ? 0 : audioPreferences.master * audioPreferences.narration;
   currentVoice = voice;
   logVoice(voice, line.log);
   voice.addEventListener("ended", () => {

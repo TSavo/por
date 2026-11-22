@@ -230,6 +230,8 @@ Tandy traces are converted to VGM register streams and canonical WAV with the
 validated libvgm SN76489/SN76496 core. PC-speaker assets are rendered from the
 original PIT divisors and gate transitions. Classic plays these verified assets
 with PC Beeper, Tandy, and Silent choices according to the original replacement
-rules. Enhanced uses approved effects and music with the same event IDs.
-Dialogue and narration remain Enhanced-only layers and never change
+rules; Silent silences only those original sounds, never Enhanced effects or music.
+Enhanced uses approved effects and music with the same event IDs.
+Narration is an Enhanced-only layer (one narrator performs every character, so
+there is one Narration level and no separate Dialogue level) and never changes
 ECL or campaign state.
