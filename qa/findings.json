@@ -340,6 +340,48 @@
       "status": "fixed",
       "check": "narration-transcripts",
       "resolution": "The generator sends only a plain manner (src/audio/direction-tags.json, tools/narration-direction.ts), transcribes every take and keeps it only if it says its script; all 142 takes were re-recorded and a fresh sweep of the library hears none repeating, adding or cutting."
+    },
+    {
+      "id": "narration-chrome-checks-played-nothing",
+      "class": "narration",
+      "title": "No Chrome check ever played a narration: headless Chrome refused every play()",
+      "detail": "The Chrome harness (tools/chrome-campaign-replay.mjs) started Chrome with --mute-audio and no autoplay flag, and presses keys through the page's send(), which Chrome does not count as a click. Measured in the harness on 2026-11-21: new Audio('/narration/voices/narration/ecl3/b0-b0b6.mp3').play() rejected with NotAllowedError (\"play() failed because the user didn't interact with the document first\"), currentTime 0 and paused after three seconds, navigator.userActivation.hasBeenActive false. The player then holds the line as blocked and starts nothing else, so in every campaign and presentation replay the narration queue never moved. `npm run qa:narration` counted those units as heard because it counted what the page was told to play.",
+      "source": "Probe through openChromeCampaignLeg, 2026-11-21.",
+      "status": "fixed",
+      "check": "narration-playback",
+      "resolution": "The harness passes --autoplay-policy=no-user-gesture-required. --mute-audio stays: the recordings load and run in real time with the output silenced. The page keeps a playback log (window.porNarrationPlayback) and the measure counts a unit only when the audio element played it to its end."
+    },
+    {
+      "id": "narration-rolf-tour-spoken-twice",
+      "class": "narration",
+      "title": "Every passage of Rolf's tour has two recordings triggered by one print: it is read twice, or the unit is cut off",
+      "detail": "The page plays the recordings of src/audio/voices.json when their phrase appears in printed text (playPendingVoice, tools/play.js), and the runner selects the script unit for the same print (POR_NARRATION). The play server skips a unit that voices.json handles only for text drawn outside the scripts (handledByExplicitVoice, tools/browser-play.ts); for script prints both fire. `npm run qa:narration -- --list` names the 11 units under 'Units that a voices.json recording also speaks': Rolf's eight (ECL3.DAX block 0, b0b6 b1c2 b257 b2f3 b36a b400 b48f b51c) and the temple greetings that end 'DO YOU SEEK HEALING?'. For tour passages 6 to 8 voices.json names the unit's own file, so the same recording plays twice. What the player gets depends on which message the page polls first. Both in one poll (verify:narration-playback pass 1, waiting for every line): the voices.json recording speaks at once and the unit waits behind it, starting 9.2 to 13.6 seconds after it was queued (b1c2 13.6, b257 11.6, b2f3 9.2, b36a 12.7, b400 11.9, b48f 11.4, b51c 10.0) and then reading the passage again in full. The unit first and the phrase a poll later (b0b6 in the same pass and in the campaign opening): the voices.json recording stops the unit 0.1s after it was queued, before a sound, and the unit's 10.8s are never heard. Decide which recording owns these passages and stop the other from firing; the manifest's policy says the units do.",
+      "source": "Playback logs of npm run verify:narration-playback and npm run verify:campaign-opening in Chrome, 2026-11-21; audio events traced on the page (the /voice/ file's ended event is followed at once by the /narration/ file's play).",
+      "status": "open"
+    },
+    {
+      "id": "narration-voice-line-cuts-the-unit-before",
+      "class": "narration",
+      "title": "Moving on with Enter cuts the tour's narration mid-sentence and discards the lines waiting behind it",
+      "detail": "The policy is that the next narration queues after the current one, and the page keeps a unit sounding when Enter is pressed. A voices.json recording does not queue: playVoice stops whatever is sounding and empties the queue. So on Rolf's tour pressing Enter while a unit is sounding lets the next passage's voices.json recording cut it off. verify:narration-playback pass 2, Enter three seconds into each unit: b0b6 stopped at 4.08s of 10.8s (6.72s lost), b1c2 at 3.36s of 13.52s (10.16s lost), b257 at 4.55s of 11.84s (7.29s lost), b2f3 at 3.56s of 9.12s (5.56s lost), all 'a voice line replaced it'. The campaign opening replay in Chrome (leg 1), of the eight tour units: b1c2 cut at 1.57s of 13.52s (11.95s lost), b257 at 6.19s of 11.84s (5.65s lost), b36a at 0.91s of 12.32s (11.41s lost); b2f3 (9.12s), b400 (11.84s) and b48f (11.28s) never started, dropped from the queue when the next passage's voices.json recording cleared it; b0b6 (10.8s) never started, replaced before it had loaded; b51c was still waiting when the leg closed. Not one of the eight was heard whole. `npm run qa:narration -- --list` gives each under 'Units cut off or never started'. Same cause as narration-rolf-tour-spoken-twice.",
+      "source": "Playback logs of npm run verify:narration-playback and npm run verify:campaign-opening in Chrome, 2026-11-21.",
+      "status": "open"
+    },
+    {
+      "id": "narration-any-other-key-drops-the-queue",
+      "class": "narration",
+      "title": "Any key but Enter, Space or F10 stops the narration and throws away the lines waiting behind it, whether or not the game takes the key",
+      "detail": "tools/play.js keydown: `if (currentVoice && event.key !== \"F10\" && !advancingCoveredPrint) stopVoice()` runs before the page decides whether the key means anything, and stopVoice empties the queue. A key that moves the game on legitimately ends the line being spoken. But the same happens for a key the game ignores at that screen (an arrow at 'Press <enter>/<return> to continue', Shift, Tab), and the lines that were queued behind it are never spoken at all: there is no way to hear them again. And Enter over a voices.json recording (Rolf's tour, the temple question) is not treated as Enter over a unit: it stops the recording and drops the unit queued behind it. The measure counts a line stopped by a key as ended by the player and a line dropped from the queue as never started, whichever key did it. Owner's call: whether keys the game ignores should silence the narrator, and whether queued lines should survive the key that ends the current one.",
+      "source": "Read from tools/play.js, 2026-11-21; pass 2 of npm run verify:narration-playback stops b36a with the left arrow at 3.02s of 12.32s, a key the game ignores at that screen.",
+      "status": "open"
+    },
+    {
+      "id": "narration-replays-cannot-prove-heard",
+      "class": "narration",
+      "title": "A replay cannot be the evidence that a passage was heard: it presses on without waiting and its keys never reach the page's key handling",
+      "detail": "The Chrome replays send keys through the page's send(), not as key presses, so the page never stops or keeps a voice because of them, and they move on as soon as the game is ready. In the campaign opening (six legs, 15 narrations sent to Chrome) 5 played to the end, 0 were ended by a key, 7 were cut off or never started (the Rolf's tour defects) and 3 were still playing or queued when the leg closed its page. None of the 5 had one artwork on screen from start to end: the replay moved to the next screen under the line (the kobold surprise changed picture 2.7s into a 3.1s line; the arms shop line started on a screen with no artwork). A replay shows that a recording loads and runs to its end in Chrome. Proof that each passage is heard whole, at its moment, with its picture needs runs that wait for each line, as verify:narration-playback does for the tour. The recordings total 9,905s for the 1,362 units with one recording and 1,573s for the 379 variant recordings (ffprobe): about 2 hours 50 minutes of speech to hear each of the 1,432 units once, 3 hours 11 minutes for every recording, before any time spent reaching the passages.",
+      "source": "Playback log of npm run verify:campaign-opening in Chrome, merged into qa/narration-coverage.json; ffprobe over audio/voices, 2026-11-21.",
+      "status": "open"
     }
   ]
 }
