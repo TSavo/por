@@ -5,6 +5,17 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "tile:17:055c36f4b0ba24b25df6683e11021ea31c12fc91438280d4f6180e48ab3bea80": "nomad-rail-horizon-ef67b219e965.png",
+    "tile:17:1d9d5691eac79cf9acdf954170179d65251d88c5f5158bfaab78e2c3089de750": "nomad-entry-terrain-cd5c92b431b1.png",
+    "tile:17:1f44d57a55068ba8a07cec79d44656d7994a067acd925892d29220851633b1bd": "nomad-canvas-joins-8561492a597e.png",
+    "tile:17:4a207f758704dc2fecdf9c3df5d261446f98552c7bf2b256d67d222583ecd9b2": "nomad-tent-canvas-daylight-edge-6271e2b56d8e.png",
+    "tile:17:7a4f192e9174b92b3259744bb9461a7eab16ded36b71cd04e2323fbc8121919b": "nomad-entry-terrain-48a9f1c137ba.png",
+    "tile:17:801aa9ab1fe8fa2ed6fdf5da2d9f5ca595ef27612b3bb50c72dd0e91ae0bfb0d": "nomad-entry-terrain-24ba1c5e34fe.png",
+    "tile:17:8eb97597bb38a1787a0b79364455bec2fe1b0d61b2159aea50b1df61930f2b44": "nomad-entry-terrain-dd57f5890ac6.png",
+    "tile:17:bf5b1c7d9a6aa059f19b680494ba427ca8ffa53fb7eee4918882e8dcb23ff136": "nomad-entry-terrain-b66bcf797f56.png",
+    "tile:17:c5b2c6f92031d6039de170373fc35f54b74813d45149815a078f23fcd493c251": "nomad-entry-terrain-0f698ff9dab4.png",
+    "tile:17:c8764d9e7b8ef8c312b3de046282229a2efa2995bae167141db8a364249c04e0": "nomad-entry-terrain-de09282f7a84.png",
+    "tile:17:f8b9fa7b4ebc310b03865021c374233ffc79b3d49a8e077c21dce0a79538f3a1": "nomad-entry-terrain-79b93579a671.png",
     "tile:20:a2439eed0238008528692279bf8976c8764d245e57b881860dc3eace49d8cd2c": "slums-trade-row-terrain-78b9ac2bd200.png",
     "tile:20:2c65b932021c45dcfb745142c790c949400881d72c4694d94fd2f59d26417b81": "slums-shop-frontage-terrain-5795b1b70c9b.png",
     "tile:20:7989fd05003cc689ef110230f67f431b433aab8466d691b9d05d9ad9e1aee965": "slums-trade-row-terrain-f6f788d5dc8b.png",
