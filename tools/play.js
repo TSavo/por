@@ -1271,6 +1271,9 @@ const portraitLoops = [
     /THEYPLEADFORMERCY/i, [210, 210, 210, 210]],
   ["portrait:area:15:ecl:9987:caller:adf9:PIC2.DAX:0:", [0, 1, 2, 1], "portrait:area:15:PIC2.DAX:0:0:0",
     /WILLYOUSPARETHEM/i, [210, 210, 210, 210]],
+  ["portrait:area:15:ecl:99b5:caller:ae7b:PIC2.DAX:0:", [0, 1, 2, 1], undefined,
+    /SKETCHAMAPINTOYOURJOURNALCALLINGITENTRY/i, [210, 210, 210, 210],
+    [["scene-illustration:area:15:ecl:99b5:caller:ae7b", 0]]],
   ["portrait:area:16:ecl:a535:PIC8.DAX:57:", 4, undefined,
     /COMBATWAITFLEEPARLAY/i, [210, 210, 210, 210]],
   // The blank third member holds the preceding pose for 20 ms.
@@ -1307,7 +1310,7 @@ const portraitLoops = [
 ].map(([prefix, members, initial, cue, phaseTimes, aliases]) => ({
   cue,
   phaseTimes,
-  entryAliases: aliases && new Map(aliases.map(([member, index]) => [`${prefix}${member}:0`, index])),
+  entryAliases: aliases && new Map(aliases.map(([key, index]) => [typeof key === "number" ? `${prefix}${key}:0` : key, index])),
   phases: (Array.isArray(members) ? members : Array.from({ length: members }, (_, index) => index))
     .map(phase => (phase === 0 && initial) || `${prefix}${phase}:0`),
 }));

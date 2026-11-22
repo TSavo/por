@@ -1235,10 +1235,10 @@ const illustrationRoutes = new Map([
     },
   }],
   ["mendor-storeroom-kobold-map", {
-    slot: "B", inputs: ["up", ...Array(4).fill("enter"), "p", "y"],
-    portraitStops: { 6: "portrait:area:15:PIC2.DAX:0:0:0" },
+    slot: "B", inputs: ["up", "p", "y"],
     portrait: "scene-illustration:area:15:ecl:99b5:caller:ae7b",
     prompt: /SKETCHAMAPINTOYOURJOURNALCALLINGITENTRY10/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:15:ecl:99b5:caller:ae7b:PIC2.DAX:0:${member}:0`),
     journalLead: "mendor-storeroom-map", journalLeadAtDiscovery: true,
     continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
@@ -7368,6 +7368,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "old-phlan-lizard-patrol-phases" || routeName === "valjevo-tower-troll-phases" ||
       routeName === "lizard-wilds-kobold-prisoners" || routeName === "lizard-wilds-pool-dialogue" ||
       routeName === "mendor-storeroom-kobold-phases" || routeName === "mendor-storeroom-mercy-loop" ||
+      routeName === "mendor-storeroom-kobold-map" ||
       routeName === "kobold-white-flag-envoy" || routeName === "kobold-white-flag-escort-phase" ||
       routeName === "valjevo-medusa-phases" || routeName === "valhingen-mummy-sarcophagi-phases" ||
       routeName === "valjevo-fire-giant-loop" ||
@@ -7575,6 +7576,7 @@ try {
       if (state.sequence !== ${held.sequence} || !state.ready || animationFrame || renderingSequence !== undefined) return false;
       const image = document.querySelector(".encounter-portrait");
       if (!image?.complete || image.naturalWidth !== 352) return false;
+      if (${JSON.stringify(order?.map(key => `/art/${key}`) ?? null)}?.every(path => path !== new URL(image.src).pathname)) return false;
       window.heldPortraitPhases = [];
       const record = () => {
         const phase = image.src;
