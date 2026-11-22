@@ -12,6 +12,7 @@ const blankMaterial: Material = { key: "native:empty", pixels: Array<number>(64)
 // The key is the previous script area and the new map. The value is the destination's art area.
 const arrivalTerrainAreas = new Map([
   ["2:18", 18],  // Textile House to Podol Plaza
+  ["7:3", 5],    // Pool stairs back to the outer Valjevo halls
   ["14:31", 24], // Kovel Mansion to the Temple of Bane vestibule
   ["15:2", 2],   // Mendor's Library to the Textile House
   ["20:29", 29], // Slums to Kuto's Well

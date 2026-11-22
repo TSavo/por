@@ -447,7 +447,7 @@ function checkExplorationGlyphMask(): void {
     "An additional screen composition leaves the packaged wall material unchanged");
 
   const terrainHandoffs = [
-    [2, 18, 18], [14, 31, 24], [15, 2, 2], [20, 29, 29], [21, 0, 0],
+    [2, 18, 18], [7, 3, 5], [14, 31, 24], [15, 2, 2], [20, 29, 29], [21, 0, 0],
     [22, 23, 23], [23, 22, 22], [25, 1, 1], [25, 28, 28],
     [26, 22, 22], [27, 13, 13], [27, 16, 16], [29, 18, 18], [29, 20, 20],
   ] as const;
