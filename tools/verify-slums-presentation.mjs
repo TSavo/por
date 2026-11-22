@@ -9116,6 +9116,9 @@ try {
       assert.equal(hawthorn.length, 7);
       const drawn = new Set(frame.battleTiles?.map(([, , key]) => key));
       assert.deepEqual(hawthorn.filter(key => !drawn.has(key)), []);
+      const cactusJoin = ["wildcom-33-cell-7-", "wildcom-32-cell-1-"].map(prefix =>
+        Object.keys(manifest).find(key => manifest[key].startsWith(prefix)));
+      assert.ok(cactusJoin.every(Boolean));
       await waitFor("the assembled WILDCOM hawthorn tiles", () => run(`state.sequence === ${frame.sequence} &&
         ${JSON.stringify(hawthorn)}.every(key => [...document.querySelectorAll('.battle-tile')].some(tile =>
           tile.getAttribute('src') === '/art/' + key && tile.naturalWidth === 32 && tile.naturalHeight === 32))`));
@@ -9131,6 +9134,23 @@ try {
         return [bare, [...ctx.getImageData(0, 0, 1, 1).data]];
       })()`);
       assert.deepEqual(backdropColors, [[15, 14, 18, 255], [15, 14, 18, 255]]);
+      const joined = await command("Runtime.evaluate", { awaitPromise: true, returnByValue: true,
+        expression: `(async () => {
+        const canvas = new OffscreenCanvas(32, 32);
+        const ctx = canvas.getContext('2d');
+        const rows = [];
+        for (const [index, key] of ${JSON.stringify(cactusJoin)}.entries()) {
+          const response = await fetch('/art/' + key);
+          const tile = await createImageBitmap(await response.blob());
+          ctx.drawImage(tile, 0, 0);
+          rows.push([...ctx.getImageData(0, index === 0 ? 31 : 0, 32, 1).data]);
+          tile.close();
+        }
+        return rows;
+      })()` });
+      assert.ok(!joined.exceptionDetails, joined.exceptionDetails?.text);
+      const joinRows = joined.result.value;
+      assert.deepEqual(joinRows[0], joinRows[1], "Cactus pixels should continue across the shared tile edge");
       const shot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "zhentil-trespass-battle-terrain.png"), Buffer.from(shot.data, "base64"));
     }
@@ -9149,7 +9169,7 @@ try {
       const battleFrame = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "bane-hay-bunk-panel-frame.png"), Buffer.from(battleFrame.data, "base64"));
     }
-    await switchBothWays();
+    if (routeName !== "zhentil-trespass-battle-terrain") await switchBothWays();
     if (routeName === "new-phlan-rolf-tour") {
       async function verifyScriptedView() {
         assert.equal(frame.portrait, undefined);
