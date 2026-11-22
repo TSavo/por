@@ -2,10 +2,12 @@
 
 ## What to do now
 
-**There is no proven art to do right now.** Everything the tools can show the game draws has your art. Check back after the QA owner's next update to this file.
+**There is art to do: 1 item.**
 
 1. **Wall tiles: none. Outdoor fight terrain: none.**
 2. **Pictures: none.**
+**Asked for by the owner (qa/art-requests.json): 1.**
+   - `combat:party:11:0 to combat:party:13:159 (192 keys)` (upgrades/combat-party-<head>-<weapon>-ready.png and -strike.png, each with its -materials.png (new)): The combat icon editor's Head goes from 0 to 13 (GAME.OVR slice 16 at 3bd4 to 3c0d) and the small icon's heads are CHEAD.DAX blocks 0 to 13, but Enhanced has art for small heads 0 to 10 only: for heads 11, 12 and 13 there is no combat:party key at all, so a character given one of them has no Enhanced icon, in the editor or in a fight. Draw, for each of CHEAD.DAX blocks 11, 12 and 13 as the head, each of the 32 small CBODY.DAX blocks 0 to 31 as weapon and body, the ready pose (key combat:party:<head>:<body>) and the strike pose (combat:party:<head>:<body + 128>), in the style of the existing small icons (for example combat-party-crested-dwarf-ready.png, which is combat:party:10:0), each with a -materials.png beside it giving the original material index of every pixel, as the 1600 existing poses have, so that the colours a player chooses recolour it. Add each key to "assets" in upgrades/manifest.json. The large icons (heads 64 to 77) are complete.
 3. **Do not draw anything under "Not established".** Those cells are not confirmed to appear. The QA owner is settling them by play and moves each one that proves real into item 1.
 
 The artwork is done when items 1 and 2 are none and nothing is left under "Not established".
