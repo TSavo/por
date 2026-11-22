@@ -1,0 +1,13 @@
+{
+ "route": "valhingen-skeleton-roam-phases",
+ "from": "qa/fixtures/valhingen-skeleton-roaming-ambush/A.json",
+ "fromSlot": "A",
+ "keys": [],
+ "start": [
+  2,
+  6,
+  2
+ ],
+ "saveIn": "A",
+ "how": "tools/make-replay-checkpoints.mjs from game/: load `from`, walk `keys` (a message on the way read on, a fight won with :win-combat), then e, s and the slot letter"
+}

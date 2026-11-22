@@ -1,0 +1,13 @@
+{
+ "route": "valhingen-grave-claws-attack",
+ "from": "qa/fixtures/valhingen-grave-claws/A.json",
+ "fromSlot": "A",
+ "keys": [],
+ "start": [
+  5,
+  4,
+  2
+ ],
+ "saveIn": "A",
+ "how": "tools/make-replay-checkpoints.mjs from game/: load `from`, walk `keys` (a message on the way read on, a fight won with :win-combat), then e, s and the slot letter"
+}
