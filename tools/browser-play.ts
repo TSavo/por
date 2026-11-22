@@ -211,6 +211,7 @@ interface FrameState extends ExplorationFrame {
   battleTileInventory?: TileInventoryCell[];
   panelFrame?: PanelFrameStamp[];
   text?: [number, number, number][];
+  runes?: [number, number, number][];
   textColors?: [number, number, number][];
   journal?: { objective: JournalObjective; leads: JournalLead[]; trackedId?: string };
 }

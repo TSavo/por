@@ -1002,9 +1002,10 @@
           ],
           "checks": [
             "code-wheel",
-            "code-wheel-screen"
+            "code-wheel-screen",
+            "runes-readable"
           ],
-          "gap": "Checked on version 1.3. The first release never asks the question at start-up, so the screen is not exercised there. Whether Enhanced keeps the runes readable at the five places the game prints them after start-up is not checked."
+          "gap": "Checked on version 1.3. The first release never asks the question at start-up, so the screen is not exercised there. The runes the game writes during play are checked at all five places, Sokal Keep by play and the four in Valjevo Castle and Yarash's pyramid by developer travel with a level 1 party. Not established: that the game takes HARASH and LUX where it asks for them (the check types SHESTNI, NOKNOK and RHODIA), the same five places on the first release, and that every rune on screen matches its tile on the wheel (looked at for two Dethek runes only)."
         }
       ]
     }

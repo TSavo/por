@@ -214,6 +214,37 @@ The disc stays where it was left: between the question and the tool, between ope
 across a reload on the same browser (the page keeps the position in its own storage and works
 without it).
 
+### The runes the game writes during play
+
+After start-up the game writes words in runes at five places, for the player to translate with
+the wheel and type back: the parchment at Sokal Keep (LUX, SAMOSUD, SHESTNI in Espruar), the
+guards' list in Valjevo Castle (HARASH in Espruar, RHODIA in Dethek), the freed slave's slip and
+Cadorna's slip (RHODIA), and the sign in Yarash's pyramid (NOKNOK in Dethek). The research note
+has the scripts, the screen positions and where each word is asked for.
+
+Enhanced shows those runes exactly as the game draws them: the game's own glyphs, at the game's
+positions, enlarged without smoothing, in the same place as Classic. They are never drawn as
+letters and no artwork is laid over them. The rule is one line in the host and has no list of
+places: a glyph the game draws with its rune font is not text (`visibleGameRunes` in
+`src/runtime/video.ts`), so it stays in the picture, and the frame names it (`runes`: cell,
+glyph code, colour). Before 2026-11-21 only the Sokal parchment was handled, and the guards'
+list and both slips came out partly or wholly as letters (`OPABfgABhiOP` for HARASH).
+
+The runes on screen are the game's 8 by 8 pixel glyphs: an Espruar letter is two of them side by
+side and a Dethek letter is one. The wheel's rune pictures (`upgrades/codewheel/`) are the
+original runes enlarged (the status table above), so the player should be comparing like with
+like. That was looked at for NOKNOK only: at the translate position N is `dethek-26` and K is
+`dethek-29`, and each is the shape the pyramid's sign shows, centred in its wider tile. Nothing
+compares every rune on screen with its tile yet.
+The page does not translate, and the narrator does not say the word: no recording covers a rune
+instruction.
+
+What a later change must keep: nothing may be drawn over a rune cell, an illustration at one of
+these places must not show the word in letters, and a narration line for one of these passages
+must not speak it. `npm run verify:runes-readable -- <chrome>` checks the five places in Chrome
+in both displays and types SHESTNI, NOKNOK and RHODIA where the game asks. It reaches Sokal Keep
+by play and the other four by developer travel, which its header explains.
+
 ### Classic
 
 Classic shows the game's own prompt and accepts any word, as the program GOG sells does. It has

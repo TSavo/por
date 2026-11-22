@@ -38,6 +38,18 @@ export function visibleGameText(): [number, number, number][] {
   return [...gameText].map(([cell, [character, color]]) => [cell, character, color]);
 }
 
+/**
+ * The runes on screen: text cell, glyph code and colour of each glyph the game has drawn from its
+ * rune font and not drawn over since. The game writes Espruar and Dethek words with these (script
+ * opcode 3C, and the code-wheel question at start-up) for the player to translate with the wheel,
+ * so they are never text for the page to draw as letters: they stay in the picture. The codes are
+ * the ones qa/research/code-wheel.md uses: Espruar A is 01 02, Dethek A is 3a.
+ */
+const gameRunes = new Map<number, [number, number]>();
+export function visibleGameRunes(): [number, number, number][] {
+  return [...gameRunes].map(([cell, [glyph, color]]) => [cell, glyph, color]);
+}
+
 let mode = 3;
 let column = 0;
 let row = 0;
@@ -52,6 +64,7 @@ let mapMask = 15;
 
 function resetPlanarVideo(): void {
   gameText.clear();
+  gameRunes.clear();
   panelFrame.clear();
   for (const plane of planes) plane.fill(0);
   latches.fill(0);
@@ -129,12 +142,20 @@ export function attachPlanarVideo(cpu: Cpu): void {
       const glyphRepeat = isAt(cpu, cpu.ip, code.glyphRepeatA) || isAt(cpu, cpu.ip, code.glyphRepeatB);
       if (glyphRepeat) {
         // The repeated store writes the row the first store just wrote.
-      } else if (!glyphWrite) gameText.delete(cell);
-      else if (cpu.read8(cpu.ss, cpu.bp - 0xf) === 7 && cpu.read8(cpu.ss, cpu.bp - 0xc) === 3) {
+      } else if (!glyphWrite) {
+        gameText.delete(cell);
+        gameRunes.delete(cell);
+      } else if (cpu.read8(cpu.ss, cpu.bp - 0xf) === 7 && cpu.read8(cpu.ss, cpu.bp - 0xc) === 3) {
         const character = cpu.read8(cpu.ss, cpu.bp + 8);
         const color = cpu.read8(cpu.ss, cpu.bp + 0xc) & 15;
-        if (character > 32 && character < 127 && color) gameText.set(cell, [character, color]);
+        // The text routine's first argument chooses the font: 1 for letters, 0 for the rune font,
+        // where the character is the glyph code plus 0x40. A rune is not a letter, whatever
+        // letter has the same code.
+        const rune = cpu.read8(cpu.ss, cpu.bp + 6) === 0;
+        if (!rune && character > 32 && character < 127 && color) gameText.set(cell, [character, color]);
         else gameText.delete(cell);
+        if (rune && character > 0x40 && color) gameRunes.set(cell, [character - 0x40, color]);
+        else gameRunes.delete(cell);
         for (const observer of glyphObservers) observer(character, color, gameText.has(cell));
       }
       for (let x = 0; x < 8; x++) {

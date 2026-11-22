@@ -15,7 +15,7 @@ import type { Cpu } from "../src/cpu/machine.js";
 import { currentObjective, isOpenObjective, kovelJournalTransition, trackedJournalObjective, type JournalLead } from "../src/runtime/adventure-log.js";
 import type { BiosKey } from "../src/runtime/dos.js";
 import { gameProgress } from "../src/runtime/far.js";
-import { journalFrame, screen, visibleGameText, visiblePanelFrame, type PanelFrameStamp } from "../src/runtime/video.js";
+import { journalFrame, screen, visibleGameRunes, visibleGameText, visiblePanelFrame, type PanelFrameStamp } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 import { combatEffectFlightFamily, loadCombatEffects, combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
 import { loadCharacterSheetArt, loadPortraitArt, matchScriptIllustration } from "./portrait-art.js";
@@ -319,13 +319,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const glyphs = visibleGameText();
       const dialogue = glyphs.filter(([cell]) => cell >= 640 && cell < 960).sort(([a], [b]) => a - b)
         .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase();
-      // The parchment uses the original rune font inside the picture while
-      // the surrounding dialogue and party list use the normal game font.
-      const text = dialogue.includes("THELASTPARTISEATENAWAY") ? glyphs.filter(([cell]) => {
-        const column = cell % 40;
-        const row = Math.floor(cell / 40);
-        return column < 1 || column >= 16 || row < 1 || row >= 16;
-      }) : glyphs;
+      // Runes are never text: every word the game writes in its rune font stays in the picture,
+      // as the game drew it, for the player to translate with the wheel (visibleGameRunes).
+      const text = glyphs;
+      const runes = visibleGameRunes();
       // Several auction outcomes share the same pause and native return address.
       const otherAuctionOutcome = area === 18 && battleCursor === 0xb240 && portraitCaller === 0xa839 &&
         !dialogue.startsWith("AMANANDOGREEXCHANGETHEWANDANDALARGEBAG");
@@ -658,6 +655,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         // With POR_WATCH_ECL: the watched script variables, by address in hexadecimal.
         scriptVariables,
         text,
+        // The rune glyphs on screen (cell, glyph code, colour). They are in both pictures.
+        runes: runes.length ? runes : undefined,
         portrait,
         characterSheet,
         classicPortrait: Array.isArray(picture),

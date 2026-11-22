@@ -152,6 +152,76 @@ order (A is 01 02, B is 03 04, with 1f to 21 skipped); Dethek letters are one gl
 In each case the game then asks for the word to be typed, or a later encounter does. So the
 player translates rune by rune with the tabs, during play, at moments the game chooses.
 
+Where each word is asked for, from the same scripts:
+
+| Word | Asked for | Script |
+| --- | --- | --- |
+| SHESTNI | The undead patrol in Sokal Keep's courtyard, "WHAT DO YOU SAY? (TYPE A SINGLE WORD)", until Ferran is met | ECL4 block 21, 9e80 |
+| SAMOSUD | The same patrol afterwards. Ferran also says the word in plain letters when he is freed (ad42) | ECL4 block 21, 9e80 |
+| LUX | Deeper in Sokal Keep, twice, by the same question: at a382 and by the pale form (Ferran's spirit) at aa7e | ECL4 block 21, a382 and aa7e |
+| NOKNOK | At the sign itself: "YOU QUICKLY TRANSLATE THEM AND SAY...?" A wrong word springs the trap | ECL7 block 23, a4a1 |
+| RHODIA | The hedge gate of Valjevo Castle, "WHAT PASSWORD DO YOU GIVE?" | ECL5 block 3, aa56 |
+| HARASH | The castle's patrols and posts, when the party is disguised | ECL5 block 3, 9ef1 and ac65; block 4, 9e48 |
+
+### Where on the screen, and what the text routine is given (measured 2026-11-21)
+
+Played on version 1.3 and read from the running game:
+
+- The Sokal parchment is the only place that puts its runes in the picture box: the script clears
+  the box (`CLEAR BOX`, 9bd7) and prints the three words there, at text cells 202, 281 and 361
+  (row 5 column 2, row 7 column 1, row 9 column 1). The other four print the runes in the text
+  window, on the line after the sentence that introduces them (the guards' list on the same line):
+  HARASH at row 17 column 22 and RHODIA at row 19 column 22; the slave's RHODIA at row 18 column 1;
+  Cadorna's RHODIA at row 20 column 1; NOKNOK at row 21 column 1.
+- The game's text routine (the one `glyphStoreA` and `glyphStoreB` in `src/runtime/bindings.ts`
+  belong to) takes the font as its first argument, at `[bp+6]`: 1 for letters, 0 for the rune
+  font. For a rune the character it is given is the glyph code plus 0x40 (the stored byte plus 1):
+  LUX arrives as 57 58, 6c 6d, 72 73; NOKNOK as 87 88 84 87 88 84. Between a new game and the
+  Sokal parchment the only calls with font 0 are the start-up question's four glyphs and opcode
+  3C's strings.
+- So every Espruar glyph (41 to 77) and the Dethek glyphs for A to E (7a to 7e) have the code of a
+  printable letter, and the Dethek glyphs from F on (7f to 93) do not.
+
+### What Enhanced display did with the runes, and does now
+
+Enhanced draws the game's text itself: the host lists each character the game draws in a text
+cell, blanks that cell in the Enhanced picture, and the page draws the letter in its own font
+(`src/runtime/video.ts`, `tools/live-input.ts`, `tools/play.js`). Until 2026-11-21 the host did
+not look at the font, so a rune whose code is a printable letter was listed as that letter:
+
+| Place | Classic | Enhanced before | Enhanced now |
+| --- | --- | --- | --- |
+| Sokal parchment | the three words in runes | the same runes: this one screen had its own rule keeping the picture box out of the text | the same runes |
+| Guards' list | HARASH and RHODIA in runes | `OPABfgABhiOP` in letters for HARASH; RHODIA with its fourth and sixth runes replaced by `}` and `z` | the same runes |
+| Slave's slip | RHODIA in runes | four runes, `}` and `z` | the same runes |
+| Cadorna's slip | RHODIA in runes | four runes, `}` and `z` | the same runes |
+| Pyramid sign | NOKNOK in runes | the same runes (N, O and K are past F) | the same runes |
+
+Now the host asks the font. A glyph drawn with the rune font is never text: it stays in both
+pictures as the game drew it, and the frame lists it apart (`runes`: cell, glyph code, colour).
+The page shows the Enhanced picture under its own lettering, so the runes appear at the game's
+positions, the game's shapes, enlarged without smoothing. The Sokal rule is gone; the general one
+covers it. Classic was never affected: it shows the game's picture.
+
+The new illustrations at these places do not carry the word. The pyramid's sign is painted with
+its English line only, the two Valjevo papers with scribbles, and each is in the picture box
+while the runes are in the text window below it. At Sokal no picture is shown with the runes.
+
+The narration does not give a word away. The manifest (`src/audio/voice-master-manifest.json`)
+has no entry for any of the eight rune instructions, and the units either side of them say only
+what the screen says in letters ("TODAY'S PASSWORD IS", "YOU LOOK AT THE WRITING...", "THIS IS
+FOLLOWED BY SIX DWARVISH RUNES..."). The one unit that speaks a rune word is Ferran's, which the
+game itself prints in letters.
+
+`npm run verify:runes-readable -- <chrome>` stands at all five places in Chrome, photographs both
+displays, compares every rune cell, requires the frame's glyph codes to spell the word, and types
+SHESTNI to the patrol, NOKNOK at the door and RHODIA at the hedge gate. Sokal Keep is walked to
+from a new game. The other four are reached by developer travel: the check rewrites the copy of
+New Phlan's script inside a saved game so that the party's next step runs `NEW ECL` to the
+place, and sets one script variable where the place needs an earlier deed (the giants dead for
+the list on the ground, Cadorna released for his slip). The party is six level 1 characters who
+have not played their way there.
+
 ### The translate position, on the transcribed wheel
 
 `src/codewheel/wheel.json` agrees with the Cluebook's example. The Espruar disc's tab is at
@@ -172,9 +242,19 @@ that lines up the two tabs. It does not translate for the player.
 
 ## Not yet established
 
-- Whether Enhanced display keeps the runes readable at each of the five places above. The Sokal
-  parchment keeps the original rune font inside its picture (`tools/live-input.ts`); the others
-  were not looked at.
+- Whether the game takes HARASH where it asks for it. The word is asked for by Valjevo Castle's
+  patrols and posts once the party is disguised; `npm run verify:runes-readable` shows the runes
+  at the guards' list and does not go on to a patrol. LUX is likewise shown and not typed: the
+  check types SHESTNI, the word the first patrol takes.
+- Whether every rune on screen matches its tile on the Enhanced wheel. Looked at for N and K of
+  NOKNOK only (`dethek-26` and `dethek-29` at the translate position, the same shapes as on the
+  pyramid's sign). `npm run verify:code-wheel` compares the tiles with the start-up question's
+  pictures, and nothing compares them with the glyphs opcode 3C draws.
+- The five places on the first release. The check runs version 1.3. The font argument is read at
+  the same place in both releases' text routine, but only 1.3 was played.
+- The four places beyond Sokal Keep as a player reaches them. The check arrives by developer
+  travel with a level 1 party, so it shows what the screen does there, and not that a played
+  game's state (other pictures held, a disguise, an alarm) leaves the runes alone.
 
 - Which of GOG's redrawn tiles is which rune. Not needed now: the scan's runes are named by position.
 - Why the first release never calls the code-wheel routine at start-up: whether that copy was
