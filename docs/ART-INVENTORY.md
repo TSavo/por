@@ -415,6 +415,14 @@ Chrome reaches the encounter through the normal dialogue and presses Wait
 on the fourth pose. The battle notice uses another key for the same
 painting, and the renderer keeps the visible pose through that change.
 
+The Black Hand emissary's native loop shows three distinct paintings.
+The two 20 ms draws use the new intermediate spear pose between the
+upright and raised positions. Chrome verifies the loop after the normal
+rampart encounter and shows the separate battle illustration on Combat.
+The Kobold Caves wyvern loops three wing paintings in four steps and
+retains the visible pose through its battle notice. Both routes pass
+with GOG 1.3 and bundled data.
+
 At `708d1dcd`, the `kobold-cave-wyvern-approach` GOG 1.3 Chrome
 replay passed with both data sources. It checks all three native SPRIT
 members, their positions over WebGL, and the switch into the dialogue

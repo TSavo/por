@@ -23,6 +23,7 @@ type VisiblePicture = { pixels: Buffer; mark: number } & ({ picture: PictureMemb
 const sheetX = 224, sheetY = 8, pictureSize = 88, headHeight = 40;
 // These native members repeat the same picture with separate hold times.
 const repeatedPictureMembers = new Map<string, readonly number[]>([
+  ["PIC1.DAX:4", [0, 1, 2, 1]],
   ["PIC2.DAX:0", [0, 1, 2, 1]],
   ["PIC4.DAX:11", [0, 1, 2, 3, 4, 1, 1, 7]],
   ["PIC5.DAX:31", [0, 1, 2, 3, 4, 3, 2, 1]],
@@ -31,6 +32,7 @@ const repeatedPictureMembers = new Map<string, readonly number[]>([
   ["PIC6.DAX:118", [0, 1, 2, 3, 4, 3, 2, 1]],
   ["PIC7.DAX:0", [0, 1, 2, 1]],
   ["PIC8.DAX:0", [0, 1, 2, 1]],
+  ["PIC8.DAX:121", [0, 1, 2, 1]],
 ]);
 // The game's own data has blank pictures: a menu, a list or a sheet drawn over a picture leaves its
 // pixels as they were. Each held picture also keeps the write count of its cells, and a write there

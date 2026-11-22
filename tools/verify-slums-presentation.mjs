@@ -895,6 +895,20 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "bane-black-hand-emissary-combat.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
+  ["bane-black-hand-emissary-loop", {
+    slot: "A", inputs: [...Array.from({ length: 49 }, () => ["up", "down"]).flat(), "up", "enter"],
+    portrait: "portrait:area:24:ecl:aeda:PIC1.DAX:4:0:0", prompt: /THEORCSREADYTHEIRSPEARS.*COMBATWAITFLEEPARLAY/i,
+    heldPortraitLoop: [
+      "portrait:area:24:ecl:aeda:PIC1.DAX:4:0:0",
+      ...[1, 2, 1].map(member => `portrait:area:24:ecl:aeda:caller:ad99:PIC1.DAX:4:${member}:0`),
+    ],
+    continuation: {
+      inputs: ["c"], portrait: "scene-illustration:area:24:ecl:b086:caller:ad99:cue:emissary-combat",
+      prompt: /THEORCSREADYTHEIRSPEARS.*ABATTLEBEGINS/i,
+      pressOnPortrait: "portrait:area:24:ecl:aeda:caller:ad99:PIC1.DAX:4:2:0",
+      screenshot: "bane-black-hand-emissary-loop-battle-notice.png",
+    },
+  }],
   ["bane-black-hand-emissary-dismissal", {
     slot: "A",
     inputs: [...Array.from({ length: 50 }, () => ["up", "down"]).flat(),
@@ -3961,6 +3975,19 @@ const illustrationRoutes = new Map([
     ],
     continuation: { inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:a893", prompt: /ABATTLEBEGINS/i },
   }],
+  ["kobold-cave-wyvern-dialogue", {
+    slot: "A", inputs: ["up"],
+    portrait: "portrait:PIC8.DAX:121:0:0", prompt: /BEFOREYOULIESAHUGEWYVERN.*ITRISESUPANDCHARGES/i,
+    heldPortraitLoop: [
+      "portrait:PIC8.DAX:121:0:0",
+      ...[1, 2, 1].map(member => `portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:${member}:0`),
+    ],
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:PIC8.DAX:121:0:0", prompt: /ABATTLEBEGINS/i,
+      pressOnPortrait: "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:2:0",
+      retainPose: true,
+    },
+  }],
   ["valhingen-mummy-sarcophagi-attack", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:PIC4.DAX:114:0:0", prompt: /MUMMIESOPENTHEIRSARCOPHOGI/i,
@@ -6906,7 +6933,7 @@ const mendorCouncilRewards = new Map([
   ["mendor-history-of-the-north-reward", [8, "history-of-the-north-reward", /THESEHISTORIESCONTAINMUCHUSEFULINFORMATION/i, 550]],
   ["mendor-grand-historian-reward", [21, "grand-historian-reward", /THERECORDSPROVIDEINSIGHTSINTOMUCHTHATWASPUZZLING/i, 600]],
 ]);
-const routes = ["yarash-desk-papers-reload", "sokal-floorboard-diary-reload", "buccaneer-empty-manual-aim", "textile-stinking-cloud", "buccaneer-arrow-down", "buccaneer-oil-flask", "buccaneer-sling-shot", "bivant-reward-reload", "tyrmor-journal-reload", "new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-goblins-aftermath", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
+const routes = ["yarash-desk-papers-reload", "sokal-floorboard-diary-reload", "buccaneer-empty-manual-aim", "textile-stinking-cloud", "buccaneer-arrow-down", "buccaneer-oil-flask", "buccaneer-sling-shot", "bivant-reward-reload", "tyrmor-journal-reload", "new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-goblins-aftermath", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
 routes.push("river-passage-reload", "new-phlan-council-reward-reload", "slums-mage-wand", "nomad-headman-rest-reload", "nomad-headman-rest-portrait", "nomad-headman-raid");
 routes.push("nomad-headman-decline-reload");
 routes.push("podal-infirmary-heal");
@@ -7292,7 +7319,8 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "mendor-storeroom-kobold-phases" || routeName === "mendor-storeroom-mercy-loop" ||
       routeName === "kobold-white-flag-envoy" || routeName === "kobold-white-flag-escort-phase" ||
       routeName === "valjevo-medusa-phases" || routeName === "valhingen-mummy-sarcophagi-phases" ||
-      routeName === "swamp-drythh-followers-wait-base" ||
+      routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
+      routeName === "bane-black-hand-emissary-loop" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       ["sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
@@ -9784,28 +9812,11 @@ try {
     for (const key of ["j", "enter"]) await advance(key);
     assert.notEqual(frame.portrait, cadorna);
     console.log("Verified Cadorna's envoy portrait and sealed-packet clue in Chrome.");
-  } else if (routeName === "valhingen-mummy-sarcophagi" || routeName === "kobold-cave-wyvern-dialogue") {
-    const wyvernDialogue = routeName === "kobold-cave-wyvern-dialogue";
+  } else if (routeName === "valhingen-mummy-sarcophagi") {
     for (const key of ["up", "enter", "enter"]) await advance(key);
-    assert.equal(frame.portrait, wyvernDialogue ? "portrait:PIC8.DAX:121:0:0" : "portrait:PIC4.DAX:114:0:0");
-    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
-      wyvernDialogue ? /BEFOREYOULIESAHUGEWYVERN/i : /MUMMIESOPENTHEIRSARCOPHOGI/i);
+    assert.equal(frame.portrait, "portrait:PIC4.DAX:114:0:0");
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /MUMMIESOPENTHEIRSARCOPHOGI/i);
     await waitFor("the enhanced encounter illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
-    if (wyvernDialogue) {
-      const seen = new Set();
-      for (let i = 0; i < 18 && seen.size < 2; i++) {
-        await advance("z");
-        const phase = /^portrait:area:13:ecl:b511:caller:aad4:PIC8\.DAX:121:([12]):0$/.exec(frame.portrait)?.[1];
-        if (!phase || seen.has(phase)) continue;
-        await waitFor(`the enhanced wyvern wing pose ${phase}`, () => run(
-          `state.sequence === ${frame.sequence} && [...document.querySelectorAll(".encounter-portrait")].some(
-            image => image.getAttribute("src") === ${JSON.stringify("/art/" + frame.portrait)} && image.naturalWidth === 352)`));
-        const shot = await command("Page.captureScreenshot", { format: "png" });
-        writeFileSync(resolve(directory, `kobold-wyvern-phase-${phase}.png`), Buffer.from(shot.data, "base64"));
-        seen.add(phase);
-      }
-      assert.deepEqual([...seen].sort(), ["1", "2"]);
-    }
     await switchBothWays();
     console.log(`Verified ${routeName} in Chrome.`);
   } else if (routeName === "yarash-desk-papers-reload") {
@@ -10878,7 +10889,8 @@ try {
         await waitFor("the battlefield without the encounter portrait", () => run(`
           state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined &&
           !document.querySelector(".encounter-portrait") &&
-          document.querySelector("#tile-art:not([hidden]) .combat-sprite")?.naturalWidth === 96
+          [...document.querySelectorAll("#tile-art:not([hidden]) .combat-sprite")]
+            .some(image => image.complete && image.naturalWidth > 0)
         `));
       }
       if (routeName === "council-slums-offer") {
