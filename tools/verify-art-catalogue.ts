@@ -39,6 +39,7 @@ const nativeCueSources = new Map<string, { overlay: number; offset: number; exam
   ["scene-illustration:area:7:ecl:a82d:cue:possession-threat", { overlay: 0x12, offset: 0x20b }],
   ["scene-illustration:area:7:ecl:a82d:cue:pool-recall", { overlay: 0x12, offset: 0x260 }],
   ["scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-award", { overlay: 5, offset: 0x8c7, exampleNumber: "1" }],
+  ["scene-illustration:area:6:ecl:a814:cue:curse-impact", { overlay: 7, offset: 0x2089, exampleNumber: "1" }],
 ]);
 
 function nativeCaption({ overlay, offset, exampleNumber = "" }: { overlay: number; offset: number; exampleNumber?: string }): string {
