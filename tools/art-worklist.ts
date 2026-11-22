@@ -3,6 +3,7 @@
  *
  *   npm run art:worklist                      regenerate qa/art-worklist.json and docs/ART-WORKLIST.md
  *   npm run art:worklist -- --check           fail if the committed files are stale
+ *   npm run art:worklist -- --coverage-only   refresh Chrome evidence after recording a replay
  *   npm run art:worklist -- --sheets [dir]    also write reference sheets of the originals (default out/art-worklist/)
  *   npm run verify:art-worklist               check every item against the manifests and PNGs; print what remains
  *   npm run art:worklist -- --held            write the held ("Not established") first-person cells, with the backdrop,
@@ -1087,6 +1088,17 @@ function main(): void {
   const check = args.includes("--check"), verify = args.includes("--verify");
   const sheetIndex = args.indexOf("--sheets");
   const started = Date.now();
+  const committed = existsSync(at(WORKLIST)) ? JSON.parse(readFileSync(at(WORKLIST), "utf8")) as Worklist : undefined;
+  const { sites: _sites, scenes: _scenes, unmapped: _unmapped, ...heldPortraits } = heldPortraitCoverage(repository);
+  const enhancedFallbacks = enhancedFallbackCoverage(repository);
+  if (args.length === 1 && args[0] === "--coverage-only") {
+    if (!committed) throw new Error("Run npm run art:worklist before refreshing its replay coverage.");
+    const list = { ...committed, heldPortraits, enhancedFallbacks };
+    writeFileSync(at(WORKLIST), JSON.stringify(list, null, 1) + "\n");
+    writeFileSync(at(DOCUMENT), document(list));
+    console.log(`Refreshed held portrait and Enhanced fallback coverage in ${WORKLIST} and ${DOCUMENT}.`);
+    return;
+  }
   const read = (path: string) => new Uint8Array(readFileSync(at("game", path)));
   const data = readGameData(read);
   const world = readWorld(data, read);
@@ -1097,7 +1109,6 @@ function main(): void {
   const first = firstPerson(world, art, cells);
   const battle = battlefield(data, art, original, cache.battlefield ?? {});
   const items = [...first.items, ...battle.items];
-  const committed = existsSync(at(WORKLIST)) ? JSON.parse(readFileSync(at(WORKLIST), "utf8")) as Worklist : undefined;
   // The catalogue takes several seconds and changes nothing that is counted, so the quick modes reuse the committed list.
   const others = verify || check ? { pictures: [...(committed?.otherPicturesNoKeyNames ?? []), ...(committed?.endingFramesCoveredByIllustrations ?? [])] } : otherPictures(data, read);
   const blankSprites = new Set(blankApproachSprites(data.pictures));
@@ -1154,8 +1165,6 @@ function main(): void {
     "    of those, shown only together with other tiles, never alone": first.stored.withoutArtShownOnlyWithOthers,
     "    of those, shown alone in some area": first.stored.withoutArtShownAlone,
   };
-  const { sites: _sites, scenes: _scenes, unmapped: _unmapped, ...heldPortraits } = heldPortraitCoverage(repository);
-  const enhancedFallbacks = enhancedFallbackCoverage(repository);
   const list: Worklist = {
     schema: 2,
     heldPortraits,

@@ -117,4 +117,4 @@ function main(): void {
   if (coverage.frames || coverage.missingWalks.length) process.exitCode = 1;
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) main();

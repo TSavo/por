@@ -1,33 +1,40 @@
 {
  "schema": 2,
  "heldPortraits": {
-  "verified": 24,
-  "oneShotsVerified": 6,
+  "verified": 0,
+  "oneShotsVerified": 0,
   "measured": 34,
   "total": 235,
   "scenesMeasured": 46,
-  "scenesVerified": 46,
+  "scenesVerified": 0,
   "unmappedScenes": 0,
-  "remaining": 211
+  "remaining": 235
  },
  "enhancedFallbacks": {
-  "frames": 16,
-  "presented": 163,
-  "walks": 1,
-  "recordedWalks": 19,
+  "frames": 0,
+  "presented": 463,
+  "walks": 5,
+  "recordedWalks": 30,
   "missingWalks": [
    "campaign-castle-approach-leg",
    "campaign-end-leg",
    "campaign-ending-leg",
+   "campaign-full/leg-1",
+   "campaign-full/leg-10",
+   "campaign-full/leg-11",
+   "campaign-full/leg-2",
+   "campaign-full/leg-3",
+   "campaign-full/leg-4",
+   "campaign-full/leg-5",
+   "campaign-full/leg-6",
+   "campaign-full/leg-7",
+   "campaign-full/leg-8",
+   "campaign-full/leg-9",
    "campaign-sokal-leg",
    "campaign-tower-leg",
    "visit-kobold-caves",
-   "visit-kovel-mansion",
    "visit-lizardman-keep",
-   "visit-mendors-library",
-   "visit-temple-of-bane",
    "visit-textile-house",
-   "visit-training-hall",
    "visit-valhingen-graveyard",
    "visit-valjevo-area-4",
    "visit-yarashs-pyramid",
@@ -35,17 +42,8 @@
    "walk-commission-5-taken",
    "walk-textile-house-cleared"
   ],
-  "runs": 1,
-  "keys": [
-   {
-    "key": "portrait:area:17:ecl:9c49:PIC7.DAX:30:0:0",
-    "frames": 1
-   },
-   {
-    "key": "surface:overland",
-    "frames": 15
-   }
-  ]
+  "runs": 5,
+  "keys": []
  },
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining, no invalid tile artwork and zero Enhanced fallbacks across the recorded walks. The artwork is done when, as well, nothing is left under notEstablished.",
