@@ -31,6 +31,7 @@
     "verify:rune-glyphs": "tsx tools/verify-rune-glyphs.mjs",
     "verify:port-parity": "node tools/verify-port-parity.mjs",
     "qa:visits": "tsx tools/visit-coverage.ts",
+    "qa:replay-checkpoints": "tsx tools/qa-replay-checkpoints.ts",
     "verify:narration-playback": "node tools/verify-narration-playback.mjs",
     "qa:inventory": "tsx tools/qa-inventory.ts",
     "qa:version-1.3": "tsx tools/qa-version-1.3.ts",
