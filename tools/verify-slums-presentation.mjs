@@ -1960,9 +1960,20 @@ const illustrationRoutes = new Map([
     prompt: /MYFINALOFFER/i,
     continuation: { inputs: ["l"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["stojanow-trader-no-money", {
+    slot: "B", inputs: ["up", "enter", "enter", "p", "y", "enter"],
+    portraitStops: {
+      4: "scene-illustration:area:9:ecl:9c35:caller:aeaa:cue:wagon-first-offer",
+      5: "portrait:HEAD2.DAX:5:BODY2.DAX:9",
+    },
+    portrait: "scene-illustration:area:9:ecl:a0a7:cue:trader-no-money",
+    prompt: /YOUDON'TGOTTHEMONEY,FRIEND.WELLSEEYOUAROUND/i,
+    finalPhaseCapture: "stojanow-trader-no-money.png",
+    continuation: { inputs: ["up"], prompt: /4,13N/i, clearsPortrait: true },
+  }],
   ["stojanow-wagon-handover", {
     slot: "B", inputs: ["up", "enter", "enter", "p", "n", "t"],
-    portrait: "portrait:area:9:ecl:9c63:HEAD2.DAX:5:BODY2.DAX:9",
+    portrait: "scene-illustration:area:9:ecl:9c63:caller:af3a:cue:wagon-handover",
     prompt: /PLEASUREDOINGBUSINESSWITHYOU/i,
     journalLead: "gate-trader-guard-warning",
     continuation: { inputs: ["enter"], portrait: "scene-illustration:area:9:ecl:9c63:caller:afb8", prompt: /BUGBEARSHAVEBEENSTUCKGUARDINGTHEGATE/i },
@@ -9803,7 +9814,8 @@ try {
         assert.equal(frame.portrait, undefined);
         assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join(""), /5,6N/i);
       }
-      if (["stojanow-merchant-gate", "stojanow-toll-refused", "stojanow-tower-arrow-volley", "wild-grove-western-stench"].includes(routeName)) {
+      if (["stojanow-merchant-gate", "stojanow-toll-refused", "stojanow-tower-arrow-volley",
+        "stojanow-trader-no-money", "wild-grove-western-stench"].includes(routeName)) {
         assert.ok(!frame.classicPortrait);
         await waitForExplorationViewport();
       }

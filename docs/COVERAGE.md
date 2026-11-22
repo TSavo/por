@@ -1013,6 +1013,11 @@ The `stojanow-riverwalk` replay starts from the native entrance save at
 new 32×32 tiles for the river rails, stonework, and covered doorway.
 The `stojanow-tower-ettin` replay starts at `4,8 N` in controlled slot A.
 Chrome checks both 96×192 combat frames and the reflected club swing.
+The `stojanow-trader-no-money` Chrome replay on GOG 1.3 starts from the
+wagon checkpoint in slot B at `4,15 N` with the party's coins set to zero.
+The party tries to buy the wagon and sees the original insufficient-funds
+notice. It then sees the merchant drive off with his wagon. The separate
+`stojanow-wagon-handover` replay checks the successful purchase artwork.
 The `stojanow-merchant-gate` Chrome replay starts from a controlled slot A
 at `4,13 N` before 05:00. On GOG 1.3 it verifies the two original approach
 illustrations, then uses Look to see the merchant hand something to the

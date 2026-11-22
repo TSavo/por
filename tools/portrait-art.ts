@@ -982,6 +982,14 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:lizardmen", "LIZARDMENMENACEHASGREATLYIMPROVED"],
   ["scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kobold-king", "THISLOSSOFTHEKOBOLDFORCESWILLBEAMAJORBLOW"],
   ["scene-illustration:area:8:ecl:b5c3:caller:a51f", "YOUMAYKEEPALLYOUFOUNDINTHETEMPLEOFBANE"],
+  ...["af36", "9c63:caller:af3a"].map(scope => [
+    `scene-illustration:area:9:ecl:${scope}:cue:wagon-handover`,
+    "PLEASUREDOINGBUSINESSWITHYOU.HERE'SYOURWAGON",
+  ] as const),
+  ...["b052", "a0a7"].map(scope => [
+    `scene-illustration:area:9:ecl:${scope}:cue:trader-no-money`,
+    "YOUDON'TGOTTHEMONEY,FRIEND",
+  ] as const),
   ...["aea6", "9c35:caller:aeaa"].map(scope => [
     `scene-illustration:area:9:ecl:${scope}:cue:wagon-first-offer`,
     "ALLIT'LLCOSTYOUIS250GOLDPIECES",
