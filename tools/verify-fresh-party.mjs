@@ -2993,12 +2993,13 @@ if (process.argv[2] === "--podal-checkpoint") {
 
 if (process.argv[2] === "--startup-scenes") {
   const checkScene = (scene) => (_text, frame) => assert.equal(frame.scene, scene);
+  // The runner passes the game's own publisher screen without asking (#127): the page shows the
+  // publisher screen itself, over the title, which waits for a key.
   await replay("", "24000000", [
-    checkScene("scene:publisher"), "enter",
     checkScene("scene:title"), "enter",
     checkScene(undefined),
   ]);
-  console.log("Verified publisher splash, title, and credits on a fresh boot.");
+  console.log("Verified the title waits for a key on a fresh boot, with the publisher screen passed.");
   process.exit(0);
 }
 

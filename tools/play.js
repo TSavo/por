@@ -248,9 +248,24 @@ let titleLayersShown = false;
 // The runner passes the publisher screen before the page sees its first frame (it runs ahead to
 // POR_LIVE_AT), so the page shows the publisher art itself, once, before the title: about three
 // seconds, then a fade to the harbour, and only then do the title's name and SPECIAL EDITION fade in.
-// Presentation only: the game is already at its title and waits there.
+// Presentation only: the game is already at its title and waits there. So a key pressed while the
+// publisher screen is up must not reach the game, which would leave its title before the player saw
+// it (#127): the key brings the title up instead (publisherSplashUp, leavePublisherSplash).
 const publisherSplash = document.querySelector("#publisher-splash");
 let publisherSplashDone = false;
+let publisherSplashLeaving = false;
+let publisherSplashTimer;
+/** The publisher screen is up, or fading out over the title: from the title's first frame until it is gone. */
+function publisherSplashUp() {
+  return !publisherSplashDone && Boolean(publisherSplash.getAttribute("src"));
+}
+function leavePublisherSplash() {
+  if (publisherSplashDone || publisherSplashLeaving) return;
+  publisherSplashLeaving = true;
+  clearTimeout(publisherSplashTimer);
+  publisherSplash.classList.remove("shown");
+  publisherSplashTimer = setTimeout(() => { publisherSplash.hidden = true; publisherSplashDone = true; showTitleName(); }, 1200);
+}
 function showPublisherSplash() {
   if (publisherSplashDone) return false;
   if (state.scene === "scene:publisher" || !enhanced || state.scene !== "scene:title") {
@@ -260,11 +275,9 @@ function showPublisherSplash() {
   if (!publisherSplash.getAttribute("src")) {
     publisherSplash.hidden = false;
     publisherSplash.addEventListener("load", () => {
-      requestAnimationFrame(() => publisherSplash.classList.add("shown"));
-      setTimeout(() => {
-        publisherSplash.classList.remove("shown");
-        setTimeout(() => { publisherSplash.hidden = true; publisherSplashDone = true; showTitleName(); }, 1200);
-      }, 3500);
+      if (publisherSplashLeaving) return;
+      requestAnimationFrame(() => { if (!publisherSplashLeaving) publisherSplash.classList.add("shown"); });
+      publisherSplashTimer = setTimeout(leavePublisherSplash, 3500);
     }, { once: true });
     publisherSplash.addEventListener("error", () => { publisherSplash.hidden = true; publisherSplashDone = true; showTitleName(); }, { once: true });
     publisherSplash.src = "/art/scene:publisher";
@@ -2233,6 +2246,13 @@ atlasSheet.addEventListener("change", renderAutomap);
 window.addEventListener("keydown", (event) => {
   resumeBlockedAudio();
   if (event.key !== "F10" && event.target instanceof HTMLElement && event.target.closest("#audio-settings")) return;
+  // On the publisher screen a key goes to the title, and no further: the game is at its title
+  // already, and a key sent to it there leaves the title unseen (#127). The browser keeps its own keys.
+  if (publisherSplashUp() && event.key !== "F10" && !event.ctrlKey && !event.metaKey) {
+    event.preventDefault();
+    leavePublisherSplash();
+    return;
+  }
   const advancingCoveredPrint = currentVoice?.dataset.queuedNarration === "true" && ["Enter", " "].includes(event.key);
   // A key ends the line only when the game acts on it. The key press names the reason; send() notes
   // the screen when the key goes to the game, and poll() ends the voice if the game's next frame

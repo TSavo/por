@@ -127,7 +127,9 @@ try {
   if (publisher) {
     await shot("1-publisher.png");
     note("publisher", { shownBy: publisher, sceneWhenThePageLoaded });
-    if (publisher === "the game's frame") await key("Enter");
+    // One Enter on the publisher screen brings the title up and goes no further (#127): the title
+    // below must still be the game's.
+    await key("Enter");
   } else note("publisher", { seen: false, sceneWhenThePageLoaded });
 
   await until("the title", `state.ready && state.scene === "scene:title"`);

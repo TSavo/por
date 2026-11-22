@@ -898,6 +898,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const requestKey = (cpu: Cpu, keys: BiosKey[], blocking: boolean, legacyFlush = false): void => {
     keyQueue = keys;
     if (cpu.steps < startAt || keys.length) return;
+    // The page shows the publisher screen itself, over the game's title, and a key there brings the
+    // title up (tools/play.js). The game's own publisher screen is passed without asking, as it is
+    // before POR_LIVE_AT, however fast the runner got there: on version 1.3 a key that ends the
+    // publisher screen ends the title too, so the player would never see it (#127).
+    if (browser && !blocking && scene === "scene:publisher") return;
     const kind: PromptKind = legacyFlush || (!blocking && returnsTo(cpu, 0, code.flushPollResumes)) ? "flush"
       : !blocking && returnsTo(cpu, 0, code.drainPollResumes) ? "drain" : blocking ? "read" : "poll";
     const expected = schedule?.[prompts];
