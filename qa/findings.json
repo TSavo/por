@@ -65,8 +65,9 @@
       "title": "A portrait sometimes shows inside another portrait",
       "detail": "The Enhanced portrait layer has had an opaque backdrop since 9f9098dd. The fresh-party Rolf replay at 0adc165e passed on DOS 1.0 and GOG 1.3: all three approach sprites over WebGL, the single full-panel greeting, all seven tour stops, and the City Hall guard transition. A separate old tour checkpoint did not reach the greeting. The GOG 1.3 Rhetoric stacks replay verified panel geometry and display switching, with identical picture pixels before and after the change. The reported Zhentil overnight ambush still needs a live reproduction: the short replay with zhentil-quarters-A.json returned to exploration at 6,0 E, and the envoy replay with parallel-cadorna-envoy-A.json stopped before its first expected portrait.",
       "source": "Owner report.",
-      "status": "open",
-      "issue": 79
+      "status": "fixed",
+      "issue": 79,
+      "resolution": "The recovered overnight Zhentil checkpoint reached the reported four-guard ambush in both GOG 1.3 and bundled Chrome replays. The battle-entry illustration filled the outer viewport with no inner frame. The bundled-only missing guard advance was a separate lookup issue, #115; the native draw now finds the scoped artwork through the identical SPRIT5 frame."
     },
     {
       "id": "display-animated-portraits-loop",

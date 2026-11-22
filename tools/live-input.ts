@@ -333,8 +333,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   }
   const nativePicture = browser && standalone && pictures && (portraitKeys.length || characterSheetKeys.length)
     ? observeNativePictureArt(new Set(portraitKeys), new Set(characterSheetKeys), pictures, perspectivePixels) : undefined;
-  const nativeEncounter = browser && standalone && hasEncounterArtwork
-    ? observeNativeEncounterArt(encounterPlacements, perspectivePixels) : undefined;
+  const nativeEncounter = browser && standalone && pictures && hasEncounterArtwork
+    ? observeNativeEncounterArt(encounterPlacements, perspectivePixels, pictures) : undefined;
   let codeWheelQuestion: number | undefined;
   let codeWheelAttempt: number | undefined;
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false,

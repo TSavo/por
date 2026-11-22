@@ -1,11 +1,30 @@
 import type { Cpu } from "../src/cpu/machine.js";
 import type { EncounterAnchor } from "../src/lib/assets.js";
 import { data } from "../src/runtime/bindings.js";
+import type { PictureRecord } from "../src/runtime/game-data.js";
 import type { EncounterPlacement } from "./encounter-art.js";
 
 const address = (segment: number, offset: number) => ((segment << 4) + offset) & 0xfffff;
 
-export function observeNativeEncounterArt(anchors: Record<string, EncounterAnchor>, viewport: () => Buffer) {
+export function observeNativeEncounterArt(anchors: Record<string, EncounterAnchor>, viewport: () => Buffer,
+  pictures: readonly PictureRecord[]) {
+  // Different SPRIT banks can store the exact same cel. The original
+  // framebuffer matcher can find the area's artwork for any such copy.
+  const bySignature = new Map<string, string[]>();
+  const equivalents = new Map<string, string[]>();
+  for (const { file, block, pictures: members } of pictures) {
+    if (!/^SPRIT[1-8]\.DAX$/.test(file)) continue;
+    members.forEach(({ width, height, x, y, frameHashes }, member) => {
+      const hash = frameHashes[0];
+      if (!hash) return;
+      const signature = `${width}:${height}:${x}:${y}:${hash}`;
+      const group = bySignature.get(signature) ?? [];
+      const source = `${file}:${block}:${member}:0`;
+      group.push(source);
+      bySignature.set(signature, group);
+      equivalents.set(source, group);
+    });
+  }
   const members = new Map<number, string>();
   let drawn: string | undefined;
   let visible: { member: string; pixels: Buffer } | undefined;
@@ -55,9 +74,18 @@ export function observeNativeEncounterArt(anchors: Record<string, EncounterAncho
         if (caller !== undefined) scopes.unshift(`${script}caller:${caller.toString(16).padStart(4, "0")}:`);
       }
       for (const scope of scopes) {
-        const key = `encounter:${scope}${visible.member}`;
-        const anchor = anchors[key];
-        if (!anchor || (anchor.area !== undefined && anchor.area !== area)) continue;
+        const direct = `encounter:${scope}${visible.member}`;
+        const available = (key: string) => {
+          const anchor = anchors[key];
+          return anchor && (anchor.area === undefined || anchor.area === area);
+        };
+        const matching = available(direct) ? [direct] : (equivalents.get(visible.member) ?? [])
+          .map(member => `encounter:${scope}${member}`).filter(available);
+        // If equivalent sources have different artwork for this scope,
+        // retain the existing next-scope lookup instead of guessing.
+        const [key] = matching;
+        if (!key || matching.length !== 1) continue;
+        const anchor = anchors[key]!;
         const { x, y, width, height, webglYOffset } = anchor;
         return webglYOffset ? [x, y, key, width, height, webglYOffset] : [x, y, key, width, height];
       }
