@@ -1366,6 +1366,10 @@ const illustrationRoutes = new Map([
     prompt: /VIEW.*POOL.*SHARE/i,
     idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:a598:PIC1.DAX:1:${phase}:0`),
     heldPortraitLoop: 3,
+    transientPortraits: { 6: {
+      id: "scene-illustration:area:14:ecl:a585",
+      prompt: /POUCHOFSMALLGEMS/i, screenshot: "kovel-casket-gems-discovery.png",
+    } },
     finalPhaseCapture: "kovel-casket-gems.png",
     continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /6,7W/i },
   }],
@@ -1390,6 +1394,10 @@ const illustrationRoutes = new Map([
     prompt: /VIEW.*POOL.*SHARE/i,
     idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:a78c:PIC1.DAX:1:${phase}:0`),
     heldPortraitLoop: 3,
+    transientPortraits: { 7: {
+      id: "scene-illustration:area:14:ecl:a779",
+      prompt: /SOMEBEAUTIFULGEMS/i, screenshot: "kovel-casket-c-gems-discovery.png",
+    } },
     finalPhaseCapture: "kovel-casket-c-gems.png",
     continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /6,7W/i },
   }],
@@ -1430,6 +1438,10 @@ const illustrationRoutes = new Map([
     prompt: /VIEW.*POOL.*SHARE/i,
     idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:a6b8:PIC1.DAX:1:${phase}:0`),
     heldPortraitLoop: 3,
+    transientPortraits: { 6: {
+      id: "scene-illustration:area:14:ecl:a6a5",
+      prompt: /VARIETYOFGOLDCHAINS/i, screenshot: "kovel-casket-jewelry-discovery.png",
+    } },
     finalPhaseCapture: "kovel-casket-jewelry.png",
     continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /6,7W/i },
   }],

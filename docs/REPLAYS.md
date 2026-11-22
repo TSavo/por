@@ -116,7 +116,9 @@ illustration at `a8df`. It records Yarash's torture-room unit
 then the laboratory unit `a08a` followed by the laboratory panel at
 `a0fd`. The pearl unit `ECL3.DAX:14:a82f` originally preceded an unillustrated
 frame. The replay now verifies the transient pearl caption illustration
-at `a84f` before the three pearl menu phases at `a862`. The ledger establishes
+at `a84f` before the three pearl menu phases at `a862`.
+The other three casket replays likewise verify their discovery frames
+(`a585`, `a6a5`, and `a779`) before the animated treasure menus. The ledger establishes
 selection order and does not measure when audio was heard in Chrome.
 
 
