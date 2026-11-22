@@ -156,7 +156,14 @@ interface Item {
   why: string;
 }
 
-interface Context { label: number; script: AreaScript; map: number; slots: WallSlots; arrivalFrom?: number }
+interface Context {
+  label: number;
+  script: AreaScript;
+  map: number;
+  slots: WallSlots;
+  wallArchive?: number;
+  arrivalFrom?: number;
+}
 interface AreaReport {
   area: number;
   name: string;
@@ -177,7 +184,9 @@ interface AreaReport {
 }
 
 const FACING: Record<number, string> = { 0: "north", 2: "east", 4: "south", 6: "west" };
-const slotText = (context: Context) => `WALLDEF${context.script.archive} ${context.slots.slots.slice(1).map((slot) => slot ? `block ${slot.wallBlock}${slot.set ? ` set ${slot.set + 1}` : ""} (tiles 8X8D${context.script.archive} block ${slot.tileBlock})` : "nothing").join(", ")}`;
+const wallArchiveOf = (context: Context) => context.wallArchive ?? context.script.archive;
+const scriptForWalls = (context: Context) => context.wallArchive === undefined ? context.script : { ...context.script, archive: context.wallArchive };
+const slotText = (context: Context) => `WALLDEF${wallArchiveOf(context)} ${context.slots.slots.slice(1).map((slot) => slot ? `block ${slot.wallBlock}${slot.set ? ` set ${slot.set + 1}` : ""} (tiles 8X8D${wallArchiveOf(context)} block ${slot.tileBlock})` : "nothing").join(", ")}`;
 
 interface Agg { rc: 0 | 1 | 2; roofed: boolean; shaft: boolean; tiles: TileName[]; open: boolean; views: number; squares: Set<number>; first: Item["seenAt"] }
 interface Entry { cell: Cell; context: Context; views: number; squares: Set<number>; first: Item["seenAt"]; areaView: boolean }
@@ -210,6 +219,16 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       }
     }
   }
+  // Valjevo can keep the Slums wall bank mounted across an archive change.
+  // The native map number still refers to GEO5, while its walls use WALLDEF2.
+  const slumsWalls = world.scripts.filter((script) => script.archive === 2)
+    .flatMap((script) => script.wallSlots).find((slots) => slots.operands.join() === "2,4,1");
+  if (slumsWalls) {
+    for (const area of [3, 7]) {
+      const script = world.scripts.find((candidate) => candidate.area === area && candidate.archive === 5);
+      if (script && world.maps.has(`5:${area}`)) own.push({ label: area, script, map: area, slots: slumsWalls, wallArchive: 2 });
+    }
+  }
   // NEW ECL keeps the old area number until the new script's first turn (ovl03 0x0bd1 and 0x3387), so
   // the first view of the area it starts is drawn, and keyed, under the number of the area left.
   const arrivals: Context[] = [];
@@ -228,7 +247,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
   /** Every cell a context can show, with where. */
   const enumerate = (context: Context, have: Set<string>, auditReachability = true) => {
     const map = world.maps.get(`${context.script.archive}:${context.map}`)!;
-    const view: ViewContext = { world, script: context.script, map, slots: context.slots };
+    const view: ViewContext = { world, script: scriptForWalls(context), map, slots: context.slots };
     const aggs = new Map<string, Agg>();
     const views: { square: number; roofed: boolean; shaft: boolean; aggs: Agg[]; walls: boolean }[] = [];
     const overhead = new Map<string, Entry>();
@@ -240,7 +259,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const lizardCellar = lizardKeep && context.map === 30;
     const mendorLibrary = auditReachability && !context.arrivalFrom && context.script.area === 15 && context.map === 15;
     const valjevo = auditReachability && !context.arrivalFrom && context.script.archive === 5
-      && context.script.area === context.map && (context.map === 4 || context.map === 6);
+      && context.script.area === context.map && (context.map === 4 || context.map === 6 || (context.map === 7 && context.wallArchive === 2));
     const podolPlaza = auditReachability && !context.arrivalFrom && context.script.area === 18 && context.map === 18;
     const middleWilderness = auditReachability && !context.arrivalFrom && context.script.area === 26 && context.map === 26;
     const auditedPalette = lizardKeep || mendorLibrary || valjevo;
@@ -252,7 +271,8 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     // the five sealed cells at map 15's masonry corners.
     const libraryStarts: readonly (readonly [number, number])[] = [[1, 4], [8, 3], [14, 7], [4, 10], [7, 9], [5, 5], [9, 9], [9, 11]];
     const starts = mendorLibrary ? libraryStarts : lizardKeep ? lizardStarts
-      : valjevo && context.map === 6 ? [[14, 4]] as const : undefined;
+      : valjevo && context.map === 6 ? [[14, 4]] as const
+      : valjevo && context.map === 7 ? [[5, 6]] as const : undefined;
     const playable = starts && reachable(map, starts.map(([x, y]) => y * 16 + x), context.script.area);
     const groundAllowed = (ground: number, shaft: boolean) => (!kuto && !auditedPalette) || ground === 6 || (shaft && ground === 1);
     const lowerValues = (shaft: boolean) => lowers.filter(({ line, band, ground }) =>
@@ -302,6 +322,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const hashesOf = new Map<Agg, Map<string, string | undefined>>();
     const skies = (roofed: boolean) => {
       if (lizardKeep) return lizardCellar ? [0] : [0, 11];
+      if (valjevo && context.map === 7) return roofed ? [15] : [0];
       if (mendorLibrary || valjevo) return roofed ? [15] : [0, 11];
       const possible = roofed ? context.script.sky.covered : context.script.sky.open;
       // Paired native captures of the Podol healer route show canopy colour 12.
@@ -378,7 +399,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       }
       for (const [hash, list] of entries) seen.set(hash, [...(seen.get(hash) ?? []), ...list]);
       // WebGL samples the uncomposited foreground of each wall present on the map.
-      const wallContext = { world, script: context.script, slots: context.slots };
+      const wallContext = { world, script: scriptForWalls(context), slots: context.slots };
       const types = new Set(map.walls);
       frontWallSymbols(wallContext).forEach((symbol, index) => {
         if (!types.has(Math.floor(index / faceSize) + 1)) return;
@@ -450,7 +471,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       }
       const entry = certain[0]!;
       const { context, cell } = entry;
-      const slot = context.slots.slots.findIndex((loaded, index) => index > 0 && loaded && cell.tiles.some((tile) => tile.startsWith(`8X8D${context.script.archive}.DAX:${loaded.tileBlock}:`)));
+      const slot = context.slots.slots.findIndex((loaded, index) => index > 0 && loaded && cell.tiles.some((tile) => tile.startsWith(`8X8D${wallArchiveOf(context)}.DAX:${loaded.tileBlock}:`)));
       const top = cell.tiles.at(-1);
       const group = entry.areaView ? "overhead area view, 8X8D1 block 202" : !cell.tiles.length ? "plain sky, horizon and ground"
         : top!.startsWith("8X8D1.DAX:203:") && slot <= 0 ? "shared tile set 8X8D1 block 203"
@@ -474,10 +495,10 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
   const loaded = new Map<string, Set<TileName>>();
   for (const context of own) {
     const map = world.maps.get(`${context.script.archive}:${context.map}`)!;
-    const named = namedTiles({ world, script: context.script, map, slots: context.slots });
+    const named = namedTiles({ world, script: scriptForWalls(context), map, slots: context.slots });
     for (const slot of context.slots.slots) {
       if (!slot) continue;
-      const block = `8X8D${context.script.archive}.DAX:${slot.tileBlock}`;
+      const block = `8X8D${wallArchiveOf(context)}.DAX:${slot.tileBlock}`;
       loaded.set(block, loaded.get(block) ?? new Set());
     }
     for (const tile of named) {
