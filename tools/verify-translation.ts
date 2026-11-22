@@ -438,6 +438,14 @@ function checkExplorationGlyphMask(): void {
   const blank = { ...scene, area: 0, glyphs: { 2: Buffer.alloc(64).toString("hex") } };
   const standalone = buildExplorationMaterials(blank, artwork, new Map([[2, tile]]));
   deepStrictEqual(standalone, original, "Packaged terrain uses the same art and cutout as the original glyph");
+
+  const podolKey = `tile:18:${tile.hash}`;
+  const kutoKey = `tile:29:${tile.hash}`;
+  const transitionArtwork = new Map([[podolKey, { file: "podol.png" }], [kutoKey, { file: "kuto.png" }]]);
+  const arrival = buildExplorationMaterials({ ...scene, area: 29, mapId: 18 }, transitionArtwork);
+  strictEqual(arrival.wallFaces[0]?.parts[0]?.art?.key, podolKey, "Podol's map uses Podol art during the handoff");
+  const departure = buildExplorationMaterials({ ...scene, area: 29, mapId: 29 }, transitionArtwork);
+  strictEqual(departure.wallFaces[0]?.parts[0]?.art?.key, kutoKey, "Kuto's map uses its own art");
 }
 
 // The game calls Turbo Pascal's Randomize once at start. It stores the DOS time as the seed.

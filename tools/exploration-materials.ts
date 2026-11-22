@@ -11,8 +11,11 @@ const blankMaterial: Material = { key: "native:empty", pixels: Array<number>(64)
 /** Generate surfaces from the active native glyph bank, including alternate levels. */
 export function buildExplorationMaterials(native: NativeExploration & { area: number }, artwork: Artwork,
   catalogueGlyphs?: ReadonlyMap<number, TileFingerprint>) {
+  let areas = [native.area];
+  // Crossing west out of Kuto's Well draws Podol's wall bank before the script updates the area.
+  if (native.area === 29 && native.mapId === 18) areas = [18];
   // The Training Hall script uses the same physical map and wall bank as New Phlan.
-  const areas = native.area === 11 && native.mapId === 0 ? [native.area, 0] : [native.area];
+  if (native.area === 11 && native.mapId === 0) areas = [native.area, 0];
   function replacement(hash: string, area: number): Material | undefined {
     const key = `tile:${area}:${hash}`;
     const art = artwork.get(key);
