@@ -2220,6 +2220,18 @@ const illustrationRoutes = new Map([
     approach: [56, 32, "encounter:area:0:SPRIT3.DAX:7:0:0", 32, 80],
     verifyImageSwap: true,
   }],
+  ["council-slums-offer", {
+    slot: "A", inputs: ["right", "right", "up", "right", "right", "up", "enter", "enter", "enter"],
+    portraitStops: {
+      7: "scene-illustration:area:8:ecl:b5c3:caller:9c34:cue:clerk-reward-check",
+      8: "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:commission-papers",
+    },
+    portrait: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:slums-commission-offer",
+    prompt: /THESLUMSIMMEDIATELYTOOURWESTNEEDTOBECLEAREDOFMONSTERS/i,
+    finalPhaseCapture: "council-clerk-slums-offer.png",
+    continuation: { inputs: ["enter"], portrait: "portrait:HEAD3.DAX:24:BODY3.DAX:32",
+      prompt: /SOKALKEEPONTHORNISLANDMUSTBECLEARED/i },
+  }],
   ["new-phlan-council-entry", {
     slot: "A", inputs: [...Array(8).fill("enter"), "right", "right", "up", "up", "up",
       "enter", "up", "up", "up", "up", "left", "up", "up"],

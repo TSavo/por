@@ -4281,6 +4281,11 @@ same council portrait pause. Each selects its own installed illustration
 and falls back when that art is unavailable. The finale cue is tested
 separately from the ordinary reward variants.
 
+The `council-slums-offer` Chrome replay starts from controlled slot A at
+`5,5 E` outside the clerk's office with the Slums and Sokal work available.
+On GOG 1.3 the clerk points out the western slums on a city model, then
+the original Sokal Keep offer follows on the next page.
+
 The `stojanow-gate-reward` Chrome replay on GOG 1.3 checks the Council
 clerk's artwork as she checks for a reward, sorts the remaining
 commissions, and recognizes the returning party on a second visit.
