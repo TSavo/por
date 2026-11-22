@@ -2232,7 +2232,7 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:slums-commission-offer",
     prompt: /THESLUMSIMMEDIATELYTOOURWESTNEEDTOBECLEAREDOFMONSTERS/i,
     finalPhaseCapture: "council-clerk-slums-offer.png",
-    continuation: { inputs: ["enter"], portrait: "portrait:HEAD3.DAX:24:BODY3.DAX:32",
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:sokal-commission-offer",
       prompt: /SOKALKEEPONTHORNISLANDMUSTBECLEARED/i },
   }],
   ["new-phlan-council-entry", {
@@ -9877,6 +9877,14 @@ try {
         await waitForExplorationViewport();
       }
       if (!continuation.clearsPortrait) await verifyPortraitPanel();
+      if (routeName === "council-slums-offer") {
+        const response = await fetch(`${origin}/art/${nextPortrait}`);
+        assert.ok(response.ok);
+        assert.deepEqual(Buffer.from(await response.arrayBuffer()), readFileSync("upgrades/council-clerk-sokal-offer.png"));
+        await switchBothWays(frame.frame);
+        const screenshot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "council-clerk-sokal-offer.png"), Buffer.from(screenshot.data, "base64"));
+      }
       if (routeName === "diogenes-upper-ledge-fireball") {
         const casualtyShot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, "diogenes-fireball-casualties.png"), Buffer.from(casualtyShot.data, "base64"));
