@@ -1528,11 +1528,11 @@ const illustrationRoutes = new Map([
   }],
   ["valjevo-dragon-loot", {
     slot: "B", manualPolling: true,
-    inputs: ["right", ...Array(4).fill("up"), ...Array(5).fill("enter"), ...Array(6).fill("a"),
-      "enter", "enter", ...Array(33).fill("q"), "n", "enter", "enter"],
+    inputs: ["right", ...Array(4).fill("up"), ...Array(4).fill("enter"), ...Array(6).fill("a"),
+      "enter", ...Array(27).fill("q"), "n", "enter"],
     portrait: "portrait:area:7:ecl:a803:PIC1.DAX:1:0:0", prompt: /View.*Exit/i,
-    continuation: { inputs: ["e"], portrait: "scene-illustration:area:7:ecl:a82d",
-      prompt: /THESPIRITOFTYRANTHRAXUSFLARESUP/i },
+    continuation: { inputs: ["e"], portrait: "scene-illustration:area:7:ecl:995f:caller:a8b2",
+      prompt: /TYRANTHRAXUSHASFINALLYBEENDEFEATED.*YOULEAVETHECASTLE/i },
   }],
   ["textile-diary-discovery", {
     slot: "B", inputs: ["up", "right"],
@@ -7287,7 +7287,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...(controlledBattleIllustration ? { POR_DEV_COMBAT: "1" } : {}),
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
-    POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel ||
+    POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" ||
       routeName === "tyrmor-prison-drider-phases" ||
       ["sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
@@ -7385,7 +7385,7 @@ try {
     // This replay steps every combat pause explicitly through advance().
     await run(`(() => {
       const fetchOriginal = window.fetch.bind(window);
-      window.fetch = (url, options) => url === "/key" && options?.body === ":poll"
+      window.fetch = (url, options) => url === "/key" && options?.body === ":poll" && !state.presentationPolling
         ? Promise.resolve(new Response(null, { status: 409 }))
         : fetchOriginal(url, options);
     })()`);
@@ -10720,7 +10720,38 @@ try {
         }
         await advance("j");
       }
-      for (const key of continuation.inputs) await advance(key);
+      if (routeName === "valjevo-dragon-loot") {
+        const sequence = frame.sequence;
+        await waitFor("Chrome ready for the finale", () => run(`
+          state.sequence === ${sequence} && state.ready && !animationFrame && renderingSequence === undefined`));
+        await run(`(() => {
+          const prefix = "/art/portrait:area:7:FINAL5.DAX:";
+          window.finalePoses = [];
+          window.observeFinale = true;
+          function sample() {
+            if (!window.observeFinale) return;
+            const image = document.querySelector("#tile-art:not([hidden]) .encounter-portrait");
+            if (image?.complete && image.naturalWidth === 352 && image.getClientRects().length) {
+              const path = decodeURIComponent(new URL(image.src).pathname);
+              if (path.startsWith(prefix)) {
+                const pose = path.slice(prefix.length);
+                if (window.finalePoses.at(-1) !== pose) window.finalePoses.push(pose);
+              }
+            }
+            requestAnimationFrame(sample);
+          }
+          requestAnimationFrame(sample);
+          screen.focus({ preventScroll: true });
+        })()`);
+        await command("Input.dispatchKeyEvent", { type: "keyDown", key: "e", code: "KeyE", windowsVirtualKeyCode: 69 });
+        await command("Input.dispatchKeyEvent", { type: "keyUp", key: "e", code: "KeyE", windowsVirtualKeyCode: 69 });
+        frame = await waitFor("the departure prompt after one E", async () => {
+          const state = await latest();
+          return state.ready && state.sequence > sequence && !state.presentationPolling && state;
+        }, 120_000);
+      } else {
+        for (const key of continuation.inputs) await advance(key);
+      }
       if (continuation.transientPortrait) {
         const id = continuation.transientPortrait;
         assert.ok(frame.animation?.some(phase => phase.portrait === id &&
@@ -10839,48 +10870,23 @@ try {
           document.querySelector('.encounter-portrait[src="/art/${battlePortrait}"]')?.naturalWidth === 352`));
       }
       if (routeName === "valjevo-dragon-loot") {
-        const text = () => frame.text.map(([, char]) => String.fromCharCode(char)).join("");
-        for (let page = 0; page < 2; page++) {
-          await advance("enter");
-          assert.equal(frame.portrait, nextPortrait);
-        }
-
-        for (const [cue, caption, screenshot] of [
-          ["possession-threat", /youhavebutslainthebodyipossessed.*bypossessingoneofyou!/i, "valjevo-possession-threat.png"],
-          ["pool-recall", /nolordbane!.*donotcallmebackthroughthepool!/i, "valjevo-pool-recall.png"],
-        ]) {
-          await advance("enter");
-          const scene = "scene-illustration:area:7:ecl:a82d:cue:" + cue;
-          assert.equal(frame.portrait, scene);
-          assert.match(text(), caption);
-          await waitFor("the enhanced finale illustration " + cue, () => run(`state.sequence === ${frame.sequence} &&
-            document.querySelector('.encounter-portrait[src="/art/${scene}"]')?.naturalWidth === 352 &&
-            document.querySelector('.encounter-portrait[src="/art/${scene}"]')?.naturalHeight === 352`));
-          await verifyPortraitPanel();
-          await switchBothWays(frame.frame);
-          const shot = await command("Page.captureScreenshot", { format: "png" });
-          writeFileSync(resolve(directory, screenshot), Buffer.from(shot.data, "base64"));
-        }
-
-        await advance("enter");
-        assert.equal(frame.portrait, "scene-illustration:area:7:ecl:995f:caller:a8b2");
-        assert.match(text(), /tyranthraxushasfinallybeendefeated.*youleavethecastle/i);
-        await advance("enter");
-        const homecoming = "scene-illustration:area:7:ecl:9b18:cue:phlan-homecoming";
-        assert.equal(frame.portrait, homecoming);
-        assert.match(text(), /finallyyouenterthecivilizedareaofphlan/i);
-        await waitFor("the Phlan homecoming illustration", () => run(`state.sequence === ${frame.sequence} &&
-          document.querySelector('.encounter-portrait[src="/art/${homecoming}"]')?.naturalWidth === 352 &&
-          document.querySelector('.encounter-portrait[src="/art/${homecoming}"]')?.naturalHeight === 352`));
+        await waitFor("the settled castle departure", () => run(`
+          state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined`));
+        const poses = await run("window.observeFinale = false; window.finalePoses");
+        // The controlled save plays fifteen cycles of each native sequence at its saved game speed.
+        const expected = [[2, 4], [7, 6]].flatMap(([block, members]) =>
+          Array.from({ length: 15 * members }, (_, index) => `${block}:${index % members}:0`));
+        writeFileSync(resolve(directory, "valjevo-finale-poses.json"), JSON.stringify(poses));
+        assert.deepEqual(poses, expected, "Chrome should paint every finale pose in native order");
         await verifyPortraitPanel();
         await switchBothWays(frame.frame);
-        const arrival = await command("Page.captureScreenshot", { format: "png" });
-        writeFileSync(resolve(directory, "valjevo-phlan-homecoming.png"), Buffer.from(arrival.data, "base64"));
-        for (let page = 0; page < 3; page++) await advance("enter");
+        const departure = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "valjevo-castle-departure.png"), Buffer.from(departure.data, "base64"));
+        await advance("enter");
         assert.equal(frame.portrait, undefined);
-        assert.match(text(), /gatewaytotheunsettledareas/i);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /gatewaytotheunsettledareas/i);
         await waitForExplorationViewport();
-        console.log("Verified the spirit's recall, castle departure, Phlan homecoming and WebGL return to play:", directory);
+        console.log("Verified 150 finale poses, castle departure, and WebGL return to Phlan in Chrome:", directory);
       }
       if (routeName === "new-phlan-innkeeper") {
         const declinedRoomShot = await command("Page.captureScreenshot", { format: "png" });

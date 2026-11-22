@@ -324,8 +324,11 @@ also identified two animations that run between those caption frames.
 The Enhanced poses for blocks 2 and 7 are 352×352 portraits bound by
 `portrait:area:7:FINAL5.DAX:<block>:<member>:0`. Each set shares a
 fixed illustrated background with individually drawn spirit poses.
-The Chrome checkpoint checks above cover the caption illustrations and
-council payout. The live animation check follows the intervening native draws.
+The live Chrome `valjevo-dragon-loot` check starts both animations with a
+single E through the browser keyboard handler. With original GOG 1.3 and
+bundled data, the visible panel paints all 150 poses in native order.
+The check then verifies display switching at the castle departure and
+one Enter returning the party to the WebGL view in Phlan.
 
 The `valjevo-pool-return-stairs` Chrome replay passed with the original
 GOG 1.3 files and with `POR_GAME_SOURCE=port`. While the script still
