@@ -55,6 +55,16 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "parity kuto (Kuto's Well from the Slums save, both sources)": {
+   "areas": [
+    20,
+    29
+   ],
+   "commissions": [],
+   "traces": [
+    "trace-parity-kuto.jsonl"
+   ]
   }
  }
 }
