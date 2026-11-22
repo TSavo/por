@@ -1999,6 +1999,8 @@
     "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:stojanow-gate-reward": "stojanow-council-gate-reward.png",
     "scene-illustration:area:8:ecl:9c30:caller:9a4a:cue:clerk-reward-check": "council-clerk-reward-check.png",
     "scene-illustration:area:8:ecl:b5c3:caller:9c34:cue:clerk-reward-check": "council-clerk-reward-check.png",
+    "scene-illustration:area:8:ecl:a83b:caller:9a4a:cue:repeat-commission-offers": "council-clerk-repeat-offers.png",
+    "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:repeat-commission-offers": "council-clerk-repeat-offers.png",
     "scene-illustration:area:8:ecl:a7f9:caller:9a4a:cue:commission-papers": "council-clerk-commission-papers.png",
     "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:commission-papers": "council-clerk-commission-papers.png",
     "scene-illustration:area:8:ecl:a08a:caller:9db7:cue:fyerdetha-discourses-reward": "mendor-fyerdetha-discourses-reward.png",

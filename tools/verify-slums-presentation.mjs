@@ -13340,6 +13340,13 @@ try {
       if (routeName === "stojanow-gate-reward") {
         assert.match(visibleText(), /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i);
         assert.equal(frame.portrait, undefined);
+        for (const key of ["down", "up", "right", "right", "up", "enter"]) await advance(key);
+        assert.match(visibleText(), /BACKSOSOON\?ICANONLYREPEATTHEEARLIEROFFERS/i);
+        await verifyClerkIllustration("scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:repeat-commission-offers",
+          "council-clerk-repeat-offers.png");
+        await advance("enter");
+        assert.match(visibleText(), /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i);
+        assert.equal(frame.portrait, undefined);
       }
       for (const key of ["e", "s", "s", "a"]) await advance(key);
       const checkpointAfterReward = JSON.parse(readFileSync(saved, "utf8"));

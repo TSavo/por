@@ -4248,10 +4248,10 @@ and falls back when that art is unavailable. The finale cue is tested
 separately from the ordinary reward variants.
 
 The `stojanow-gate-reward` Chrome replay on GOG 1.3 checks the Council
-clerk's separate illustrations as she checks for a reward at entry and
-later sorts the remaining commissions. Both match the native dialogue
-and fill the picture panel. The replay follows the party back to
-exploration after the last prompt.
+clerk's artwork as she checks for a reward, sorts the remaining
+commissions, and recognizes the returning party on a second visit.
+Each picture matches the original dialogue and fills the picture panel.
+Closing the last prompt returns the party to exploration.
 
 The Grand Historian's Records discovery at Mendor's Library uses its
 own illustration. Chrome ran the original search from a local Library

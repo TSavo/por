@@ -933,6 +933,10 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
     `scene-illustration:area:8:ecl:${scope}:cue:clerk-reward-check`,
     "ATYOURENTRY,THECOUNCILCLERKBEGINSLOOKINGTHROUGHASTACKOFPAPERS",
   ] as const),
+  ...["a83b:caller:9a4a", "b5c3:caller:a83f"].map(scope => [
+    `scene-illustration:area:8:ecl:${scope}:cue:repeat-commission-offers`,
+    "BACKSOSOON?ICANONLYREPEATTHEEARLIEROFFERS",
+  ] as const),
   ...["a7f9:caller:9a4a", "b5c3:caller:a83f"].map(scope => [
     `scene-illustration:area:8:ecl:${scope}:cue:commission-papers`,
     "THECLERKSHUFFLESTHROUGHHERPAPERS",
