@@ -65,6 +65,20 @@
    "traces": [
     "trace-parity-kuto.jsonl"
    ]
+  },
+  "visit-kovel-mansion (qa/fixtures/visit-kovel-mansion, game/)": {
+   "areas": [
+    0,
+    8,
+    14,
+    26
+   ],
+   "commissions": [
+    "sokal"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
