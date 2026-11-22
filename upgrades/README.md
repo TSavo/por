@@ -27,6 +27,10 @@ area and use the rendered tile pattern. Two source assets with identical
 rendered pixels in the same area share a replacement. Classic mode keeps the
 original pixels.
 
+List a `tile:` key in `screenCellsOnly` when the PNG is a finished screen
+cell for the Enhanced fallback. The WebGL atlas continues to select its wall,
+sky, and ground materials without that screen composition.
+
 Set `POR_TRACE_TILES=1` when collecting references for a new route. The
 local runner's `/state` includes `tileInventory` with each exploration
 cell's x and y coordinates and replacement key, including cells that have

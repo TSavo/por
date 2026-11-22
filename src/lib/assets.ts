@@ -23,6 +23,7 @@ export interface OverrideManifest {
   version: 1;
   assets: Record<string, string>;
   reflectedTiles?: string[];
+  screenCellsOnly?: string[];
   encounters?: Record<string, EncounterAnchor>;
 }
 

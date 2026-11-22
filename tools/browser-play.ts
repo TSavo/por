@@ -99,7 +99,8 @@ let streetMaterials: ReturnType<typeof buildNewPhlanMaterials> | undefined;
 const localMaterialSets = new Map<string, string>();
 function newPhlanMaterials() {
   return streetMaterials ??= buildNewPhlanMaterials(gameRoot, new Map(
-    [...artwork].map(([key, art]) => [key, { file: art.path, reflected: Boolean(art.reflected) }])));
+    [...artwork].filter(([, art]) => !art.screenCellOnly)
+      .map(([key, art]) => [key, { file: art.path, reflected: Boolean(art.reflected) }])));
 }
 type ExplorationFrame = {
   nativeScenery?: NativeExploration & { area: number };
