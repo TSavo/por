@@ -18,7 +18,8 @@
 // from the inn to the Slums and the orcs' fight at (13,1), fought on Quick. Then, with the
 // ready-made party after Rolf's tour: City Hall and the clerk's commissions, the passenger dock, the
 // boat and the arrival at Sokal Keep, looking round in all four directions (the route of
-// acceptance.new-phlan.dock-before-sokal, tools/acceptance/new-phlan.mjs).
+// acceptance.new-phlan.dock-before-sokal, tools/acceptance/new-phlan.mjs); then into the keep by the
+// campaign's keys: the gates, the reeds and the parchment, and the undead patrol with its password.
 //
 // The two runs see the same text on every frame (npm run verify:game-data proves the play is the
 // same), so frame n of one is frame n of the other. Each screen where the artwork differs is
@@ -261,6 +262,18 @@ async function sokalKeep(game, screen) {
   await readOn(game);
   screen("Sokal Keep arrival");
   for (let turn = 0; turn < 4; turn++) await game.press("right");
+  // Into the keep by the campaign's own keys (verifySokalKeep in tools/verify-fresh-party.mjs): the
+  // gates, the reeds and the parchment in runes, then the undead patrol, answered with its password.
+  screen("Sokal Keep: the gates, the reeds and the parchment");
+  for (const key of ["up", "left", "up", "up", "enter", "enter", "end", "enter", "enter", "enter", "enter"]) await game.press(key);
+  screen("Sokal Keep: the undead patrol");
+  for (const key of ["right", "right", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up", "left"]) await game.press(key);
+  if (/parlay/i.test(game.text())) {
+    await game.press("p");
+    await game.press("n");
+    for (const letter of "shestni") await game.press(letter);
+    await game.press("enter");
+  }
 }
 
 const walks = [
