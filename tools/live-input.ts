@@ -44,13 +44,14 @@ const travelRoadAreas = new Set([0, 2, 9, 18]);
 const travelRoadArrivals = new Map([[0, [8, 11, 20, 21]], [2, [15]], [8, [0]], [9, [6]], [18, [9, 29]], [20, [0]]]);
 const travelRoadScripts = new Set([...travelRoadAreas, ...[...travelRoadArrivals.values()].flat()]);
 const kutoWellLookFacing = new Map([["7,8", 0], ["6,7", 2], ["7,6", 4], ["8,7", 6]]);
-// The completed PRINTCLEAR cursors of captions the guest clears before its next usable prompt.
+// The completed print cursors of captions the guest clears before its next usable prompt.
 // Use the loaded script's area so the artwork follows the print during district transitions.
 const transientScriptIllustrations = new Map([
   ["7:26:9be2", "scene-illustration:area:26:ecl:9be2"],
   ["8:13:ad39", "scene-illustration:area:13:ecl:ad39"],
   ["8:16:aab7", "scene-illustration:area:16:ecl:aab7"],
   ["8:27:9c50", "scene-illustration:area:27:ecl:9c50"],
+  ["8:27:a1b4", "scene-illustration:area:27:ecl:a1b4:cue:trolls-insult"],
 ]);
 export interface PresentationAnimationFrame {
   portrait?: string;
