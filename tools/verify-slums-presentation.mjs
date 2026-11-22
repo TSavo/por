@@ -664,7 +664,7 @@ const encounterRoutes = new Map([
       [48, 32, "encounter:area:31:SPRIT1.DAX:4:0:0", 40, 80],
     ],
     requireWebGL: true,
-    dialogue: { key: "enter", portrait: "portrait:area:31:PIC1.DAX:4:0:0", prompt: /ALARGEGROUPOFFOULORCS/i },
+    dialogue: { key: "enter", portrait: "scene-illustration:area:31:ecl:9b2d:cue:mansion-hostile-warband", prompt: /ALARGEGROUPOFFOULORCS/i },
   }],
   ["kobold-cave-wyvern-approach", {
     slot: "A", inputs: ["up", "enter"],
@@ -2474,6 +2474,19 @@ const illustrationRoutes = new Map([
     prompt: /WHILEINCAMPYOUARESUDDENLYATTACKEDBYORCS.*ABATTLEBEGINS/i,
     phaseCaptures: { 11: "bane-camp-orc-ambush-interruption.png" },
     finalPhaseCapture: "bane-camp-orc-ambush-battle.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
+  ["bane-mansion-camp-orc-ambush", {
+    slot: "A", inputs: ["e", "enter", "r", "h", ...Array(6).fill("i"), "r", "enter", "enter"],
+    portraitStops: {
+      2: "portrait:PIC3.DAX:29:0:0",
+      11: "scene-illustration:area:31:ecl:b699:cue:orc-camp-ambush",
+      12: "scene-illustration:area:31:ecl:b699:cue:orc-camp-ambush",
+    },
+    portrait: "scene-illustration:area:31:ecl:b6a2:cue:orc-camp-ambush",
+    prompt: /WHILEINCAMPYOUARESUDDENLYATTACKEDBYORCS.*ABATTLEBEGINS/i,
+    phaseCaptures: { 11: "bane-mansion-camp-orc-interruption.png" },
+    finalPhaseCapture: "bane-mansion-camp-orc-battle.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
   ["bane-barracks-ambush", {
