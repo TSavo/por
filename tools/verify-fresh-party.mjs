@@ -31,7 +31,22 @@ if (tileFrames) mkdirSync(tileFrames);
 let tracedFrames = 0;
 let campaignLeg = 0;
 
-async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopAt, developerCombat = false, recording) {
+/**
+ * The page answers a frame of a fight the computer plays (`automaticCombat`) or of an animation the game
+ * plays by itself (`presentationPolling`) with ":poll", no key (tools/play.js, poll()). A replay that
+ * answers as the page does sends its keys only where the player acts, and counts them as the page does
+ * (#166).
+ */
+function pageAnswersByItself(frame) {
+  return Boolean((frame.automaticCombat || frame.presentationPolling) && !frame.journal);
+}
+
+/**
+ * `pagePolls`: the pipe answers the frames the page answers by itself with ":poll" (pageAnswersByItself),
+ * so a key in `actions` is only ever the player's. Without it, a key answers whatever frame comes next,
+ * the computer's steps of a fight included: the older replays are written so.
+ */
+async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopAt, developerCombat = false, recording, { pagePolls = false } = {}) {
   if (campaignChrome) {
     const directory = resolve(saveDir, `leg-${++campaignLeg}`);
     const chrome = await openChromeCampaignLeg({
@@ -91,12 +106,24 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
       }
     }
   }
+  let held = false;
+  async function answerAsThePage(frame, command) {
+    // An explicit ":poll" is the replay's own, and `hold` leaves the next frame for the next step's key.
+    if (command === ":poll" || held) { held = false; return frame; }
+    for (let polls = 0; pagePolls && pageAnswersByItself(frame); polls++) {
+      if (polls >= 20_000) throw new Error(`The game played by itself for 20,000 polls after input ${actionNumber} (${lastKey})\n${lastText.trim()}`);
+      runner.stdin.write(":poll\n");
+      frame = await nextFrame();
+    }
+    return frame;
+  }
   try {
-    return await replayActions(await nextFrame(), actions, stopAt, (command) => {
+    return await replayActions(await answerAsThePage(await nextFrame()), actions, stopAt, async (command, hold = false) => {
       lastKey = command;
       actionNumber++;
       runner.stdin.write(command + "\n");
-      return nextFrame();
+      held = hold;
+      return answerAsThePage(await nextFrame(), command);
     });
   } finally {
     clearTimeout(timer);
@@ -115,6 +142,15 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
 // 2,000 times) and prints "POR_REPLAY_COUNT" with the count to write. A run in that mode checks
 // nothing about swallowed keys; it is how a count is written after the game or a route changes.
 const recount = process.env.POR_REPLAY_RECOUNT === "1";
+
+/**
+ * Press `key`, and leave the frame it brings up for the next step even where the page would answer it
+ * by itself (a replay with `pagePolls`): the player presses the next key while the computer plays, as
+ * Space to take the party back from Quick in a fight the computer has begun.
+ */
+function hold(key) {
+  return { hold: key };
+}
 
 /** Press `key` exactly `count` times; the last press, and only the last, brings up `until`. */
 function presses(key, count, until) {
@@ -162,6 +198,10 @@ async function replayActions(frame, actions, stopAt, send) {
     }
     if (step?.presses !== undefined) {
       frame = await pressCounted(frame, step, send);
+      continue;
+    }
+    if (step?.hold !== undefined) {
+      frame = await send(step.hold, true);
       continue;
     }
     if (typeof step !== "string") continue;
@@ -1132,23 +1172,27 @@ async function verifySokalReinforcement(fightToEnd = false) {
     (text) => assert.match(text, /curate's spells in memory.*bless cure light wounds/),
     "e", "left", "up", "up", "enter",
     (text) => assert.match(text, /8,5 w.*a large force of orcs and hobgoblins rushes you/),
-    "enter", "enter", "enter", ...Array(38).fill("q"), "space",
+    // The fight as the page plays it (#166): the computer's steps are answered with ":poll". The party
+    // comes from earlier fights on Quick, so the computer begins; Space, at its first step, gives every
+    // member back to the player.
+    "enter", "enter", "enter", hold("enter"),
+    (text, frame) => assert.ok(frame.automaticCombat && /orc hitpoints 5 ac 6/.test(text), `The computer should begin the fight:\n${text}`),
+    "space",
     (text) => assert.match(text, /alda hitpoints 6 ac 3 short sword.*move view aim/),
-    "a", "n", "n",
-    (text) => assert.match(text, /orc hitpoints 5 ac 6 range = 1.*manual target/),
+    "a", presses("n", 2, /orc hitpoints 5 ac 6 range = 1.*manual target/),
     "t",
     (text) => assert.match(text, /enna hitpoints 3 ac 3 long bow.*move view aim/),
-    "a", ...Array(6).fill("n"),
-    (text) => assert.match(text, /hobgoblin hitpoints 6 ac 5 long sword \(helpless\) range = 3.*manual target/),
-    "t", "q",
-    (text) => assert.match(text, /orc hitpoints 5 ac 6 move\/attack/),
-    ...Array(9).fill("q"),
+    "a", presses("n", 6, /hobgoblin hitpoints 6 ac 5 long sword \(helpless\) range = 3.*manual target/),
+    "t",
+    // The bow shoots twice: the second arrow at the orc the aim comes to.
+    (text) => assert.match(text, /orc hitpoints 5 ac 6 aim:next prev manual target/),
+    "t",
     (text) => assert.match(text, /brin hitpoints 6 ac 1.*move view aim use quick done/),
-    "alt-q", "z",
+    hold("alt-q"), hold("z"),
     (text) => assert.match(text, /hobgoblin hitpoints 6 ac 5.*move\/attack/),
-    // Not measured: the fixed Quick and Space above no longer reach Alda's turn (#166).
-    ...(fightToEnd ? [presses("q", undefined, /the monsters rejoice for the party has been destroyed/)] : []),
-  ]);
+    // The rest of the fight is the computer's: the page polls it to the end (#151 measures the count).
+    ...(fightToEnd ? [presses(":poll", undefined, /the monsters rejoice for the party has been destroyed/)] : []),
+  ], saveDir, undefined, false, undefined, { pagePolls: true });
   console.log("Equipped and recruited the party, then verified manual sword and bow attacks at Sokal:", join(saveDir, "J.json"));
   if (fightToEnd) console.log("The first courtyard fight reached the original defeat screen.");
 }

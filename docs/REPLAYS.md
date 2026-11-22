@@ -77,11 +77,21 @@ hide it.
   check is measured in each (`verifySokalPatrolVictory`'s four variants all
   take 134 and 22). A mode whose count is not measured has none, and fails
   at the step. The Sokal checkpoint modes' counts were measured from a save
-  chain in the pipe (#151); the modes left are waiting on #166 (a fight
-  that needs recording again) and #167 (saves no mode produces). Each step
+  chain in the pipe (#151); the courtyard fight of #166 is recorded again as
+  the page plays it (below), and #167 waits on saves no mode produces. Each step
   of an automatic combat turn asks for a key, so Quick to a defeat can take
   over 1,000 inputs: a pipe replay gives up when its runner shows nothing
   for 90 seconds, not after 90 seconds in all.
+- A pipe replay given `{ pagePolls: true }` (the Sokal courtyard fight in
+  `verifySokalReinforcement`, #166) answers every frame the
+  page answers by itself, a step of a fight the computer plays
+  (`automaticCombat`) or of an animation the game plays by itself
+  (`presentationPolling`), with `:poll`, as `tools/play.js` does; its keys
+  are then the player's only, and count as they do on the page.
+  `hold(key)` presses a key and leaves the next frame for the next step even
+  where the page would poll it: Space at the computer's first step of a
+  fight takes a party on Quick back by hand. The older pipe replays answer
+  the computer's steps with their keys, and their counts are written so.
 - The acceptance harness (`tools/acceptance/harness.mjs`) fails a press
   after which the game shows exactly what it showed before: the same frame
   (text and colours, both pictures and the artwork placed on them, the
