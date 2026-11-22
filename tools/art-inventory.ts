@@ -669,7 +669,8 @@ const sceneReviewRequirements = new Map<string, string[]>([
 
 const runtimeGroups = [
   { id: "scripted-scene-illustrations", label: "Scripted scene illustrations", entries: runtimeReplacements.filter(({ scriptCue }) => scriptCue) },
-  { id: "runtime-artwork", label: "Runtime artwork", entries: runtimeReplacements.filter(({ scriptCue }) => !scriptCue) },
+  { id: "composed-screen-cells", label: "Composed screen cells", entries: runtimeReplacements.filter(({ screenCellOnly }) => screenCellOnly) },
+  { id: "runtime-artwork", label: "Runtime artwork", entries: runtimeReplacements.filter(({ scriptCue, screenCellOnly }) => !scriptCue && !screenCellOnly) },
 ].filter(({ entries }) => entries.length);
 const runtimeGallery = runtimeGroups.map(({ id, label, entries }) => {
   const scripted = id === "scripted-scene-illustrations";
@@ -716,7 +717,7 @@ const gallery = archives.map(({ file, category, entries }) =>
     const linked = new Set([...enhanced.map(({ source }) => `${source?.member}:${source?.frame}`), ...(tileFrames ?? [])]).size;
     const coverage = total === 0 ? "" : linked === 0 ? "missing" : linked === total ? "complete" : "partial";
     return `<figure data-enhanced="${Boolean(linked)}" data-coverage="${coverage}" data-visual="${Boolean(entry.pictures?.length)}"><figcaption>${file} #${entry.id} · ${entry.format}${monster ? ` · ${escape(monster)}` : ""}${total ? ` · ${linked}/${total} frames linked` : ""}</figcaption>` +
-    (tileFrames ? '<p>Atlas pixel matches count area-specific tiles in <a href="#runtime-artwork">Runtime artwork</a>.</p>' : "") +
+    (tileFrames ? '<p>Atlas pixel matches count area-specific tiles. See <a href="#runtime-artwork">Runtime artwork</a> and <a href="#composed-screen-cells">Composed screen cells</a>.</p>' : "") +
     (entry.pictures ?? []).map((pic, index) => {
       const target = entry.enhancedFrames?.[index];
       return `<div class="preview"><a href="${escape(pic.preview)}" target="_blank" rel="noopener"><img loading="lazy" src="${escape(pic.preview)}" alt="${file} #${entry.id}, ${pic.width}×${pic.height}, ${pic.frames} frames"></a>` +
