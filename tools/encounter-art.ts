@@ -17,7 +17,8 @@ export function encounterAnchor(key: string, configured?: EncounterAnchor) {
   const match = encounterKey.exec(key);
   if (!match || !anchor) return;
   const { area, x, y, width, height, flatBackground, webglYOffset = 0 } = anchor;
-  if ([area, x, y, width, height].every(Number.isInteger) && area >= 0 && area <= 255 &&
+  const areaValid = area === undefined ? match[1] === undefined : Number.isInteger(area) && area >= 0 && area <= 255;
+  if (areaValid && [x, y, width, height].every(Number.isInteger) &&
       (match[1] === undefined || Number(match[1]) === area) &&
       x >= 0 && y >= 0 && width > 0 && height > 0 && x + width <= 320 && y + height <= 200 &&
       Number.isInteger(webglYOffset) && y + webglYOffset >= 0 && y + webglYOffset + height <= 200 &&
