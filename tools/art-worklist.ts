@@ -636,8 +636,11 @@ function battlefield(data: PortGameData, art: Map<string, Art>, original: Origin
         distinct.add(hash);
         if (keyed.has(hash)) { report.withArt++; return; }
         if (random.has(hashes.join())) return;
-        // A terrain picture no artwork shows on a battlefield is still listed: the wilderness and the
-        // other terrain sets are what their battles are drawn from.
+        // WILDCOM is the terrain of fights outdoors, so its pictures are listed even where no artwork
+        // has been seen on them. SQRPACI is the battlefield's two picture slots as stored on disk, which
+        // the game overwrites with DUNGCOM or WILDCOM pictures before a fight, and where BACPAC is drawn
+        // is not read: those stay held back until it is known that their stored pictures are ever shown.
+        if (!proven.has(hashes.join()) && archive !== "WILDCOM.DAX") { report.notEstablished++; return; }
         report.toDo++;
         if (listed.has(hash)) return;
         listed.add(hash);
