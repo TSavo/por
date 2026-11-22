@@ -722,11 +722,15 @@ function battlefield(data: PortGameData, art: Map<string, Art>, original: Origin
   const reports: BattleReport[] = [];
   const listed = new Set<string>();
   const unconfirmed = new Set<string>();
-  // Indoor setup leaves slots 25–33 alone. Keep their possible BACPAC cells
-  // on hold until indoor cell-kind selection establishes whether they are used.
-  const indoorResidual = new Set([...frames]
+  // Indoor setup leaves slots 25–33 holding BACPAC, but no indoor fight draws them. The battlefield
+  // draws (overlay 0x1f at 0206, 067d, 06de, 0966) pass slot = DS:2747[4 * kind]. The indoor builder
+  // (overlay 0x0a 0810, writing through 0221) stores kind = 1 + a constant 0..24 in every cell; 0000
+  // adds kinds 0x1a–0x1d; combat writes 0x1e and 0x1f and restores saved kinds. Kinds 0–31 name
+  // slots 0–24 and 34–39 only: slots 25–33 are kinds 0x39–0x41, which only the outdoor builder writes.
+  const indoorUnused = new Set([...frames]
     .filter(([name]) => /^BACPAC\.DAX:1:\d+:(2[5-9]|3[0-3])$/.test(name))
     .flatMap(([, hashes]) => hashes));
+  const struckIndoor = new Set<string>();
   const about: Record<string, string> = {
     "DUNGCOM.DAX": "terrain pictures of fights indoors; the game copies them into the battlefield's picture slots",
     "WILDCOM.DAX": "the scenery of fights outdoors: bushes, trees, logs, rocks, streams and cacti",
@@ -746,10 +750,7 @@ function battlefield(data: PortGameData, art: Map<string, Art>, original: Origin
         if (keyed.has(hash)) { report.withArt++; return; }
         if (random.has(hashes.join())) return;
         if (archive === "SQRPACI.DAX" || archive === "BACPAC.DAX") {
-          if (indoorResidual.has(hash)) {
-            report.notEstablished++;
-            unconfirmed.add(hash);
-          }
+          if (indoorUnused.has(hash)) struckIndoor.add(hash);
           return;
         }
         if (!proven.has(hashes.join()) && archive !== "WILDCOM.DAX") {
@@ -775,7 +776,7 @@ function battlefield(data: PortGameData, art: Map<string, Art>, original: Origin
       : "game/ holds no cell hashes for this archive: run npm run art:worklist with POR_GAMEDATA set";
     reports.push(report);
   }
-  return { items, reports, derived, unconfirmedCells: [...unconfirmed].filter((hash) => !listed.has(hash)).length,
+  return { items, reports, derived, unconfirmedCells: [...unconfirmed].filter((hash) => !listed.has(hash)).length, struckIndoorCells: struckIndoor.size,
     keys: keyed.size, keysThatAreAStoredCell: [...keyed].filter((hash) => holders.has(hash)).length };
 }
 
@@ -852,6 +853,7 @@ interface Worklist {
   notEstablished: Record<string, number | string>;
   areas: AreaReport[];
   battlefield: BattleReport[];
+  battlefieldStruckOff?: { cells: number; reason: string };
   storedTilesNoMapShows: { block: string; reason: string; tiles: number[] }[];
   otherPicturesNoKeyNames: OtherPicture[];
   endingFramesCoveredByIllustrations: OtherPicture[];
@@ -964,7 +966,7 @@ function document(list: Worklist): string {
   }
   add("## To do: battlefield cells", "",
     "The battlefield is drawn from 24 by 24 pictures, each nine cells. Combat copies DUNGCOM or WILDCOM into the shared terrain sheet, then copies RANDCOM into slots 34–39.",
-    "Outdoor setup replaces all 40 BACPAC slots. Indoor setup leaves slots 25–33 alone, so any remaining BACPAC hashes in those slots stay under Not established pending indoor draw evidence.", "",
+    "Outdoor setup replaces all 40 BACPAC slots. Indoor setup leaves slots 25–33 holding BACPAC, but no indoor fight can name those slots (struck off under Not established).", "",
     "| Archive | What it is | Pictures | Distinct cells | With art | To do | Not established |", "| --- | --- | ---: | ---: | ---: | ---: | ---: |");
   for (const report of list.battlefield) add(`| ${report.archive} | ${report.what} | ${report.frames} | ${report.distinctCells} | ${report.withArt} | ${report.toDo} | ${report.notEstablished} |`);
   add("");
@@ -981,6 +983,7 @@ function document(list: Worklist): string {
     add("", `Struck off, not held: ${struck.reduce((sum, { count }) => sum + count, 0)} cells the tool once tried under a sky or ground the area's script shows cannot occur there (\`${OBSERVED}\`):`, "");
     for (const { area, reason, count } of struck) add(`- Area ${area.area} (${area.name}), ${count} cells: ${reason}`);
   }
+  if (list.battlefieldStruckOff?.cells) add("", `Struck off, not held: ${list.battlefieldStruckOff.cells} ${list.battlefieldStruckOff.reason}.`);
   add("", "Areas not confirmed, and why:", "");
   for (const area of list.areas) if (!area.established) add(`- Area ${area.area} (${area.name}): ${area.why}.`);
   add("", "### Other pictures no key names", "",
@@ -1116,6 +1119,11 @@ function main(): void {
     about: "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
     done: "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
     remaining: items.length, totals, notEstablished, areas: first.reports, battlefield: battle.reports,
+    battlefieldStruckOff: { cells: battle.struckIndoorCells, reason: "distinct BACPAC cells of slots 25–33 that no battlefield draws. Outdoor setup replaces all 40 slots. "
+      + "Indoors every battlefield draw (overlay 0x1f at 0206, 067d, 06de and 0966) takes its slot from the kind table at DS:2747, and the indoor builder "
+      + "(overlay 0x0a at 0810, through 0221 and 0000) and combat's later writes store only kinds 1–31, which name slots 0–24 and 34–39. "
+      + "Slots 25–33 are kinds 0x39–0x41, written only by the outdoor builder at 11b4 after it has loaded WILDCOM over them. "
+      + "17 Slums fights traced with POR_TRACE_BATTLE_DRAW=1 and the Bane, Valjevo and wyvern traces in docs/ART-INVENTORY.md drew no slot from 25 to 33" },
     storedTilesNoMapShows: first.never, otherPicturesNoKeyNames, endingFramesCoveredByIllustrations, blankApproachSprites: [...blankSprites], backdrops: first.backdrops, items,
   };
   const json = JSON.stringify(list, null, 1) + "\n", text = document(list);

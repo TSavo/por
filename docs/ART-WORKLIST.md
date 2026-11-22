@@ -139,14 +139,14 @@ Nothing is listed.
 ## To do: battlefield cells
 
 The battlefield is drawn from 24 by 24 pictures, each nine cells. Combat copies DUNGCOM or WILDCOM into the shared terrain sheet, then copies RANDCOM into slots 34–39.
-Outdoor setup replaces all 40 BACPAC slots. Indoor setup leaves slots 25–33 alone, so any remaining BACPAC hashes in those slots stay under Not established pending indoor draw evidence.
+Outdoor setup replaces all 40 BACPAC slots. Indoor setup leaves slots 25–33 holding BACPAC, but no indoor fight can name those slots (struck off under Not established).
 
 | Archive | What it is | Pictures | Distinct cells | With art | To do | Not established |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
 | DUNGCOM.DAX | terrain pictures of fights indoors; the game copies them into the battlefield's picture slots | 25 | 59 | 59 | 0 | 0 |
 | WILDCOM.DAX | the scenery of fights outdoors: bushes, trees, logs, rocks, streams and cacti | 34 | 239 | 239 | 0 | 0 |
-| SQRPACI.DAX | the native blitter's terrain sheet; Enhanced draws the Moonsea overland map with its illustrated plate | 256 | 1667 | 0 | 0 | 72 |
-| BACPAC.DAX | 40 Moonsea pictures whose pixels match SQRPACI block 1 frames 0–39; outdoor battle setup replaces all 40 slots | 40 | 301 | 0 | 0 | 72 |
+| SQRPACI.DAX | the native blitter's terrain sheet; Enhanced draws the Moonsea overland map with its illustrated plate | 256 | 1667 | 0 | 0 | 0 |
+| BACPAC.DAX | 40 Moonsea pictures whose pixels match SQRPACI block 1 frames 0–39; outdoor battle setup replaces all 40 slots | 40 | 301 | 0 | 0 | 0 |
 
 ## Not established
 
@@ -156,7 +156,7 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 | --- | ---: |
 | first-person cells seen only from squares not connected to any square the existing artwork was made from | 7 |
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |
-| distinct battlefield cells of pictures no artwork shows to have been on a battlefield | 72 |
+| distinct battlefield cells of pictures no artwork shows to have been on a battlefield | 0 |
 | battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain) | not counted: needs the game's battlefield builder read |
 | other picture frames no key names (listed below) | 0 |
 | screen frame, text window borders and other symbols drawn outside the first-person view: no artwork key form exists for them | not counted |
@@ -168,6 +168,8 @@ Struck off, not held: 115 cells the tool once tried under a sky or ground the ar
 - Area 5 (Valjevo Castle), 57 cells: Valjevo Castle's script sets the open sky only at 9a5f to 9a78 (11, or 8 when the hour 0x49c9 is 14 or more), which is colour 11 or 0, and the roofed sky to 9 (colour 15) at 9a65. Sky 12 came from the tool following the scratch variable 0x6e79, which other code uses for other numbers; nothing jumps into the middle of the sequence.
 - Area 9 (Stojanow Gate), 12 cells: Stojanow Gate's script sets the open sky only at 9935 to 994e (11, or 8 when the hour 0x49c9 is 14 or more), which is colour 11 or 0, and the roofed sky to 9 (colour 15) at 993b. Sky 9 came from the tool following the scratch variable 0x6e79, which other code uses for other numbers; nothing jumps into the middle of the sequence.
 - Area 9 (Stojanow Gate), 12 cells: Stojanow Gate's script sets the open sky only at 9935 to 994e (11, or 8 when the hour 0x49c9 is 14 or more), which is colour 11 or 0, and the roofed sky to 9 (colour 15) at 993b. Sky 12 came from the tool following the scratch variable 0x6e79, which other code uses for other numbers; nothing jumps into the middle of the sequence.
+
+Struck off, not held: 72 distinct BACPAC cells of slots 25–33 that no battlefield draws. Outdoor setup replaces all 40 slots. Indoors every battlefield draw (overlay 0x1f at 0206, 067d, 06de and 0966) takes its slot from the kind table at DS:2747, and the indoor builder (overlay 0x0a at 0810, through 0221 and 0000) and combat's later writes store only kinds 1–31, which name slots 0–24 and 34–39. Slots 25–33 are kinds 0x39–0x41, written only by the outdoor builder at 11b4 after it has loaded WILDCOM over them. 17 Slums fights traced with POR_TRACE_BATTLE_DRAW=1 and the Bane, Valjevo and wyvern traces in docs/ART-INVENTORY.md drew no slot from 25 to 33.
 
 Areas not confirmed, and why:
 

@@ -30,7 +30,7 @@
  "notEstablished": {
   "first-person cells seen only from squares not connected to any square the existing artwork was made from": 7,
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
-  "distinct battlefield cells of pictures no artwork shows to have been on a battlefield": 72,
+  "distinct battlefield cells of pictures no artwork shows to have been on a battlefield": 0,
   "battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain)": "not counted: needs the game's battlefield builder read",
   "other picture frames no key names (listed below)": 0,
   "screen frame, text window borders and other symbols drawn outside the first-person view: no artwork key form exists for them": "not counted",
@@ -700,7 +700,7 @@
    "distinctCells": 1667,
    "withArt": 0,
    "toDo": 0,
-   "notEstablished": 72,
+   "notEstablished": 0,
    "why": "a cell is listed to do when another cell of its picture has artwork; for the rest, which pictures a fight can place has not been read from the game's battlefield builder"
   },
   {
@@ -711,10 +711,14 @@
    "distinctCells": 301,
    "withArt": 0,
    "toDo": 0,
-   "notEstablished": 72,
+   "notEstablished": 0,
    "why": "a cell is listed to do when another cell of its picture has artwork; for the rest, which pictures a fight can place has not been read from the game's battlefield builder"
   }
  ],
+ "battlefieldStruckOff": {
+  "cells": 72,
+  "reason": "distinct BACPAC cells of slots 25–33 that no battlefield draws. Outdoor setup replaces all 40 slots. Indoors every battlefield draw (overlay 0x1f at 0206, 067d, 06de and 0966) takes its slot from the kind table at DS:2747, and the indoor builder (overlay 0x0a at 0810, through 0221 and 0000) and combat's later writes store only kinds 1–31, which name slots 0–24 and 34–39. Slots 25–33 are kinds 0x39–0x41, written only by the outdoor builder at 11b4 after it has loaded WILDCOM over them. 17 Slums fights traced with POR_TRACE_BATTLE_DRAW=1 and the Bane, Valjevo and wyvern traces in docs/ART-INVENTORY.md drew no slot from 25 to 33"
+ },
  "storedTilesNoMapShows": [
   {
    "block": "8X8D1 block 1",
