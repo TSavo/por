@@ -1,8 +1,11 @@
 import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { isDeepStrictEqual } from "node:util";
+import type { EncounterAnchor } from "../src/lib/assets.js";
 import { heldPortraitDiscovery } from "./discover-held-portraits.js";
+import type { EncounterPlacement } from "./encounter-art.js";
 import { portraitLoopSignature } from "./held-portrait-loops.mjs";
 import { verifyHeldPortraitPaint, type ChromeProof, type Pose } from "./verify-held-portrait-paint.js";
 
@@ -13,7 +16,15 @@ interface HeldPortraitInventory {
     poses: Pose[];
     chrome?: { original: ChromeProof; port: ChromeProof };
     remainingCues?: string[];
+    approachChrome?: { original: ApproachProof; port: ApproachProof };
   }[];
+}
+
+interface ApproachProof {
+  route: string;
+  data: ChromeProof["data"];
+  rendererSha256: string;
+  steps: { placement: EncounterPlacement; caption: string; sha256: string }[];
 }
 
 interface OneShotProof {
@@ -55,13 +66,38 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
   const oneShotByProducer = new Map(oneShots.map(proof => [proof.producer, proof]));
   if (oneShotByProducer.size !== oneShots.length) throw new Error("Duplicate one-shot portrait producer");
   const assets = new Map<string, string>();
+  const encounters = new Map<string, EncounterAnchor>();
   for (const name of ["upgrades/slums/manifest.json", "upgrades/manifest.json"]) {
-    const manifest = JSON.parse(readFileSync(path(name), "utf8")) as { assets: Record<string, string> };
+    const manifest = JSON.parse(readFileSync(path(name), "utf8")) as {
+      assets: Record<string, string>; encounters?: Record<string, EncounterAnchor>;
+    };
     for (const [id, file] of Object.entries(manifest.assets)) {
-      if (id.startsWith("portrait:") || id.startsWith("scene-illustration:")) assets.set(id, path(dirname(name), file));
+      if (/^(portrait|scene-illustration|encounter):/.test(id)) assets.set(id, path(dirname(name), file));
     }
+    for (const [id, anchor] of Object.entries(manifest.encounters ?? {})) encounters.set(id, anchor);
   }
-  const scenes = inventory.scenes.map(({ id, producer, poses, chrome, remainingCues }) => {
+  const normalizeCaption = (text: string) => text.replace(/[^a-z]/gi, "").toUpperCase();
+  function approachCues(cues: string[] | undefined, proof: { original: ApproachProof; port: ApproachProof } | undefined) {
+    if (!cues || !proof) return cues;
+    const { original, port } = proof;
+    if (original.route !== port.route || original.data !== "original" || port.data !== "port" ||
+        !matchesRenderer(original.rendererSha256) || !matchesRenderer(port.rendererSha256)) return cues;
+    return cues.filter(cue => {
+      const caption = normalizeCaption(cue);
+      return !original.steps.some(({ placement, sha256, caption: observed }) => {
+        const [x, y, key, width, height, webglYOffset = 0] = placement;
+        const anchor = encounters.get(key);
+        const image = assets.get(key);
+        if (!anchor || !image || x !== anchor.x || y !== anchor.y || width !== anchor.width || height !== anchor.height ||
+            webglYOffset !== (anchor.webglYOffset ?? 0) || !normalizeCaption(observed).includes(caption) ||
+            !existsSync(image) || digest(readFileSync(image)) !== sha256) return false;
+        return port.steps.some(step => isDeepStrictEqual(step.placement, placement) &&
+          step.sha256 === sha256 && normalizeCaption(step.caption).includes(caption));
+      });
+    });
+  }
+  const scenes = inventory.scenes.map(({ id, producer, poses, chrome, remainingCues, approachChrome }) => {
+    remainingCues = approachCues(remainingCues, approachChrome);
     const result = (reason: string | null) => ({ id, producer, verified: reason === null, reason, remainingCues });
     if (!chrome) return result("paired Chrome evidence is missing");
     try {

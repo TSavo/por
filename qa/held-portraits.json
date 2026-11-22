@@ -1021,6 +1021,142 @@
       }
     },
     {
+      "id": "area:13:ecl:b511:caller:aad4:PIC8.DAX:121",
+      "producer": "ECL8.DAX:13:aa99",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 410,
+          "viewport": "58227a6946536932920d0ca38ce488ca8b552452054ed88b50653a67bb9a0b16"
+        },
+        {
+          "member": 1,
+          "durationMs": 310,
+          "viewport": "5e017ad0021f9ddbaaaa1cd2501266bdcc1fb2aa3ed987f8e580d9d84efb1ca1"
+        },
+        {
+          "member": 2,
+          "durationMs": 310,
+          "viewport": "a657bc385e9b2edeeed6292065973aa3cc8982d90dc7d73a85299c6ac856aaf4"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "5e017ad0021f9ddbaaaa1cd2501266bdcc1fb2aa3ed987f8e580d9d84efb1ca1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kobold-cave-wyvern-dialogue",
+          "data": "original",
+          "rendererSha256": "a25fa97665544a065cee8986d0cf43dc3e5cebeb91ef17d5734051a801fb1d06",
+          "bindingSha256": "7befa10a4929f0a7c4b21fc000c6bc8f64c82cfde7950c4079ac662661dd9934",
+          "portrait": "portrait:PIC8.DAX:121:0:0",
+          "paints": [
+            {
+              "key": "portrait:PIC8.DAX:121:0:0",
+              "atMs": 8.200000011920565
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:1:0",
+              "atMs": 341.4000000119213
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:2:0",
+              "atMs": 658.1000000119202
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:1:0",
+              "atMs": 974.7000000119206
+            },
+            {
+              "key": "portrait:PIC8.DAX:121:0:0",
+              "atMs": 1174.7000000119206
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:1:0",
+              "atMs": 1591.4000000119213
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:2:0",
+              "atMs": 1891.4000000119213
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:1:0",
+              "atMs": 2208.10000001192
+            },
+            {
+              "key": "portrait:PIC8.DAX:121:0:0",
+              "atMs": 2424.7000000119206
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:1:0",
+              "atMs": 2824.7000000119206
+            }
+          ],
+          "sha256": {
+            "portrait:PIC8.DAX:121:0:0": "6da494295cbaec6039a1cd86a7cc4111c482db4d1eb0f805632bab267107dacc",
+            "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:1:0": "eb20e2a1a474e97111aa2103a79e146cfad22d0405429089887e2e8315c7de0a",
+            "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:2:0": "180ff60c9cfca1e056162e5a7cf634391fc623e9238b3b127c1195a61a4be7b4"
+          }
+        },
+        "port": {
+          "route": "kobold-cave-wyvern-dialogue",
+          "data": "port",
+          "rendererSha256": "a25fa97665544a065cee8986d0cf43dc3e5cebeb91ef17d5734051a801fb1d06",
+          "bindingSha256": "7befa10a4929f0a7c4b21fc000c6bc8f64c82cfde7950c4079ac662661dd9934",
+          "portrait": "portrait:PIC8.DAX:121:0:0",
+          "paints": [
+            {
+              "key": "portrait:PIC8.DAX:121:0:0",
+              "atMs": 1.2000000357629688
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:1:0",
+              "atMs": 334.6000000357626
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:2:0",
+              "atMs": 651.200000035763
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:1:0",
+              "atMs": 951.200000035763
+            },
+            {
+              "key": "portrait:PIC8.DAX:121:0:0",
+              "atMs": 1167.9000000357628
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:1:0",
+              "atMs": 1567.8000000357624
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:2:0",
+              "atMs": 1884.4000000357628
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:1:0",
+              "atMs": 2201.1000000357635
+            },
+            {
+              "key": "portrait:PIC8.DAX:121:0:0",
+              "atMs": 2401.1000000357635
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:1:0",
+              "atMs": 2817.700000035762
+            }
+          ],
+          "sha256": {
+            "portrait:PIC8.DAX:121:0:0": "6da494295cbaec6039a1cd86a7cc4111c482db4d1eb0f805632bab267107dacc",
+            "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:1:0": "eb20e2a1a474e97111aa2103a79e146cfad22d0405429089887e2e8315c7de0a",
+            "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:2:0": "180ff60c9cfca1e056162e5a7cf634391fc623e9238b3b127c1195a61a4be7b4"
+          }
+        }
+      }
+    },
+    {
       "id": "area:15:ecl:9987:caller:adf9:PIC2.DAX:0",
       "producer": "ECL2.DAX:15:ad31",
       "poses": [
@@ -3221,7 +3357,67 @@
       "remainingCues": [
         "You must be the servants of Yarash!",
         "Foul servants of Yarash!"
-      ]
+      ],
+      "approachChrome": {
+        "original": {
+          "route": "pyramid-lizardfolk-patrol-from-secret-door",
+          "data": "original",
+          "steps": [
+            {
+              "placement": [
+                56,
+                32,
+                "encounter:area:23:ecl:9f04:SPRIT7.DAX:57:2:0",
+                24,
+                57
+              ],
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:26THEIRLEADERSAYS'FOULSERVANTSOFYARASH!'CombatWaitFleeAdvance",
+              "sha256": "9afb7244f37a21cd42b490841f886d360d50c6487801e1813d663df7ea77ec9a"
+            },
+            {
+              "placement": [
+                56,
+                32,
+                "encounter:area:23:ecl:9f04:SPRIT7.DAX:57:1:0",
+                32,
+                65
+              ],
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:26STANDINGREADYTHEIRLEADERSAYS'YOUMUSTBETHESERVANTSOFYARASH!'CombatWaitFleeAdvance",
+              "sha256": "e274304c29efa6caa6fc7a187c67f77c451d90e656887d07d70421c51dccf54c"
+            }
+          ],
+          "rendererSha256": "a25fa97665544a065cee8986d0cf43dc3e5cebeb91ef17d5734051a801fb1d06"
+        },
+        "port": {
+          "route": "pyramid-lizardfolk-patrol-from-secret-door",
+          "data": "port",
+          "steps": [
+            {
+              "placement": [
+                56,
+                32,
+                "encounter:area:23:ecl:9f04:SPRIT7.DAX:57:2:0",
+                24,
+                57
+              ],
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:26THEIRLEADERSAYS'FOULSERVANTSOFYARASH!'CombatWaitFleeAdvance",
+              "sha256": "9afb7244f37a21cd42b490841f886d360d50c6487801e1813d663df7ea77ec9a"
+            },
+            {
+              "placement": [
+                56,
+                32,
+                "encounter:area:23:ecl:9f04:SPRIT7.DAX:57:1:0",
+                32,
+                65
+              ],
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:26STANDINGREADYTHEIRLEADERSAYS'YOUMUSTBETHESERVANTSOFYARASH!'CombatWaitFleeAdvance",
+              "sha256": "e274304c29efa6caa6fc7a187c67f77c451d90e656887d07d70421c51dccf54c"
+            }
+          ],
+          "rendererSha256": "a25fa97665544a065cee8986d0cf43dc3e5cebeb91ef17d5734051a801fb1d06"
+        }
+      }
     },
     {
       "id": "area:24:ecl:aeda:caller:ad99:PIC1.DAX:4",

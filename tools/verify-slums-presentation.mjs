@@ -43,6 +43,18 @@ const arenaMasterDistances = [
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["pyramid-lizardfolk-patrol-from-secret-door", {
+    slot: "A", inputs: ["up", "enter", "up", "enter"],
+    settleInputs: ["enter", "enter"],
+    placement: [56, 32, "encounter:area:23:ecl:9f04:SPRIT7.DAX:57:2:0", 24, 57],
+    prompt: /FOULSERVANTSOFYARASH.*COMBATWAITFLEEADVANCE/i,
+    requireWebGL: true,
+    approachSteps: [
+      { inputs: ["a"], placement: [56, 32, "encounter:area:23:ecl:9f04:SPRIT7.DAX:57:1:0", 32, 65],
+        prompt: /YOUMUSTBETHESERVANTSOFYARASH.*COMBATWAITFLEEADVANCE/i },
+      { inputs: ["a"], placement: [48, 32, "encounter:area:23:ecl:9f04:SPRIT7.DAX:57:0:0", 48, 80] },
+    ],
+  }],
   ["valjevo-barracks-waking-giants", {
     slot: "B", inputs: ["up", "enter"], requireWebGL: true,
     placement: [48, 32, "encounter:area:3:ecl:a815:SPRIT5.DAX:55:1:0", 32, 73],
@@ -9038,6 +9050,7 @@ try {
       console.log("Native save:", saved);
     }
   } else if (encounterRoute) {
+    const approachProof = [];
     const approachSequence = encounterRoute.transient ? [encounterRoute.placement] : encounterRoute.approachSequence;
     if (approachSequence) await observeApproach(approachSequence, encounterRoute.requireTiledApproach, encounterRoute.requireWebGL);
     const terrainPatterns = new Set();
@@ -9062,8 +9075,17 @@ try {
       await advance(key);
       if (terrain) terrainViews += await verifyTiledView(terrain.area, terrainPatterns);
     }
-    async function verifyApproach(placement) {
-      assert.deepEqual(frame.encounter, placement);
+    const approachCaption = () => frame.text.toSorted(([a], [b]) => a - b).map(([, character]) => String.fromCharCode(character)).join("");
+    for (const key of encounterRoute.settleInputs ?? []) {
+      if (encounterRoute.prompt.test(approachCaption())) break;
+      await advance(key);
+    }
+    async function verifyApproach(placement, prompt) {
+      assert.deepEqual(frame.encounter, placement, approachCaption());
+      if (prompt) {
+        assert.equal(frame.portrait, undefined);
+        assert.match(approachCaption(), prompt);
+      }
       const [x, y, id, width, height, webglYOffset = 0] = placement;
       const scale = 120 / 88;
       await waitFor("the enhanced approach sprite at its guest anchor", () => run(`(() => {
@@ -9075,13 +9097,34 @@ try {
           Math.abs(parseFloat(image.style.top) - ${(8 + (y + webglYOffset - 24) * scale) / 2}) < .001;
       })()`));
       await switchBothWays();
+      if (prompt) {
+        await waitFor("the rendered encounter caption and sprite", () => run(`(() => {
+          const glyphs = [...document.querySelectorAll("#game-text:not([hidden]) span")]
+            .sort((a, b) => parseFloat(a.style.top) - parseFloat(b.style.top) || parseFloat(a.style.left) - parseFloat(b.style.left));
+          return state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined &&
+            document.querySelector('.encounter-sprite[src="/art/${id}"]')?.naturalWidth === ${width * 4} &&
+            document.querySelector(".street-viewport")?.getContext("webgl") &&
+            !document.querySelector(".encounter-portrait") &&
+            ${prompt}.test(glyphs.map(glyph => glyph.textContent).join(""));
+        })()`));
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, `${routeName}-${width}.png`), Buffer.from(shot.data, "base64"));
+        if (heldPortraitEvidenceFile) {
+          const response = await fetch(origin + "/art/" + id);
+          assert.ok(response.ok);
+          approachProof.push({
+            placement, caption: approachCaption(),
+            sha256: createHash("sha256").update(Buffer.from(await response.arrayBuffer())).digest("hex"),
+          });
+        }
+      }
     }
     if (encounterRoute.transient) {
       assert.deepEqual(frame.animation?.flatMap(({ encounter }) => encounter ? [encounter] : []),
         approachSequence);
       await switchBothWays();
     } else {
-      await verifyApproach(encounterRoute.placement);
+      await verifyApproach(encounterRoute.placement, encounterRoute.prompt);
       if (encounterRoute.requireWebGL) {
         await waitForExplorationViewport();
         if (routeName === "swamp-giant-lizard-approach") {
@@ -9125,12 +9168,12 @@ try {
     const approachSteps = encounterRoute.approachSteps ?? (encounterRoute.closer
       ? [{ inputs: [encounterRoute.closerKey ?? "a"], placement: encounterRoute.closer }]
       : []);
-    for (const { inputs, placement } of approachSteps) {
+    for (const { inputs, placement, prompt } of approachSteps) {
       const terrain = frame.tileInventory;
       assert.equal(terrain?.length, 121);
       for (const input of inputs) await advance(input);
       assert.deepEqual(frame.tileInventory, terrain);
-      await verifyApproach(placement);
+      await verifyApproach(placement, prompt);
     }
     if (encounterRoute.acceptedCommission) {
       await advance("j");
@@ -9202,6 +9245,14 @@ try {
         assert.equal(frame.portrait, undefined);
         assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /14,10E/i);
       }
+    }
+    if (approachProof.length) {
+      const response = await fetch(origin + "/play.js");
+      assert.ok(response.ok);
+      heldPortraitEvidence.push({
+        route: routeName, data: frame.classicAvailable === false ? "port" : "original", steps: approachProof,
+        rendererSha256: createHash("sha256").update((await response.text()).replace(/\r\n/g, "\n")).digest("hex"),
+      });
     }
     console.log(`Verified ${routeName} source frame, screen anchor, and mode switching in Chrome.`);
   } else if (routeName === "lizardfolk-battle-wall") {
