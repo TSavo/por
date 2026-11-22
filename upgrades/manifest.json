@@ -5,6 +5,9 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "tile:20:a2439eed0238008528692279bf8976c8764d245e57b881860dc3eace49d8cd2c": "slums-trade-row-terrain-78b9ac2bd200.png",
+    "tile:20:2c65b932021c45dcfb745142c790c949400881d72c4694d94fd2f59d26417b81": "slums-shop-frontage-terrain-5795b1b70c9b.png",
+    "tile:20:7989fd05003cc689ef110230f67f431b433aab8466d691b9d05d9ad9e1aee965": "slums-trade-row-terrain-f6f788d5dc8b.png",
     "tile:20:3c07cc96383e51ec7fff1b4dea4d6596878feaed2de3ba0343c42ede17ab2f87": "podal-west-boundary-terrain-5b52670be92c.png",
     "tile:20:2f7439721d4efb828caf1d57119a74ff6664fd1175b1d11fef981214aa454478": "podal-west-boundary-terrain-92ccb4f65a1e.png",
     "tile:20:9fcdf0ff6bdfd2b832cfd91e6160e494b4f67ec897064204ba4dc3a869b31c4d": "podal-west-boundary-terrain-9fcdf0ff6bdf.png",
