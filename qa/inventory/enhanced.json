@@ -314,7 +314,10 @@
           "evidence": [
             "src/audio/voice-master-manifest.json: 1,432 units and its playback policy; src/runtime/ecl-narration-observer.ts; tools/play.js"
           ],
-          "checks": []
+          "checks": [
+            "narration-coverage"
+          ],
+          "gap": "The measure counts units a run chose at their trigger and flags a covered print reached with no trigger. Most units are still unheard: see the table. It records what the play server is told to play; the page's queueing (the next unit waits for the one before it) is not measured in play."
         },
         {
           "id": "enhanced.narration-dynamic-variants",
@@ -322,7 +325,11 @@
           "evidence": [
             "src/audio/voice-master-manifest.json: runtimeVariants, staticSelectors, dynamicResolution; audio/voices/narration/dynamic-resolved"
           ],
-          "checks": []
+          "checks": [
+            "narration-coverage",
+            "acceptance-narration-dynamic"
+          ],
+          "gap": "Three families are driven until they fire; the rest of the 392 variants and 43 selectors count only when a run happens to reach them. Open defects are in qa/findings.json (narration-dynamic-variants-not-proved)."
         },
         {
           "id": "enhanced.narration-with-its-picture",
@@ -330,7 +337,10 @@
           "evidence": [
             "upgrades/manifest.json; src/audio/voice-master-manifest.json; tools/live-input.ts; tools/play.js"
           ],
-          "checks": []
+          "checks": [
+            "narration-coverage"
+          ],
+          "gap": "The measure records whether Enhanced artwork was on screen between a narration starting and the next key wait, and lists heard passages with none. It does not compare the artwork's variant with the narration's variant, and it covers only passages a run has heard."
         },
         {
           "id": "enhanced.narration-one-narrator",

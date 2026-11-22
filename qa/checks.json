@@ -187,6 +187,24 @@
       ]
     },
     {
+      "id": "acceptance-narration-dynamic",
+      "title": "Three dynamic narration families driven on the game itself until they fire several times, each firing required to select a variant: the tavern tale number, the four training halls, the Slums' random encounters",
+      "command": "npm run acceptance:narration-dynamic",
+      "reference": "game-data",
+      "needs": [
+        "game files"
+      ]
+    },
+    {
+      "id": "narration-coverage",
+      "title": "Narration heard in play, counted from run ledgers: units of 1,432, variants of 392, selectors of 43, silent cases, artwork showing; and the static rows (recordings present, conditions exclusive, slots readable, encounter tables against the scripts)",
+      "command": "npm run qa:narration",
+      "reference": "game-data",
+      "needs": [
+        "converted game data in game/"
+      ]
+    },
+    {
       "id": "script-positions",
       "title": "Artwork and narration keys the running game reports at New Phlan's silver shop are the first release's, from a new game and from a New Phlan save of each release",
       "command": "npm run verify:script-positions",
