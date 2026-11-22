@@ -11868,7 +11868,7 @@
       "sourceDigest": "70d39e6c51eac660650858b8d6ab949388c868fab46e8b629345cc454167621c",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "por.voice.ecl3.b0-a078"
+        "por.voice.ecl3.b0-a078-aa13"
       ]
     },
     {
@@ -11892,7 +11892,7 @@
       "sourceDigest": "6f0321d07b513dce834dcf2bd8c66e7c1930996fc7632bb309ddece4ae5202c6",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "por.voice.ecl3.b0-a0d0"
+        "por.voice.ecl3.b0-a0d0-aa13"
       ]
     },
     {
@@ -12683,6 +12683,8 @@
       "sourceDigest": "cc23b9a331db4a5b058400e360aa7055a933d4e2abcd567862a92f12dfaf3a72",
       "classification": "voiced-source",
       "narrationUnitIds": [
+        "por.voice.ecl3.b0-a078-aa13",
+        "por.voice.ecl3.b0-a0d0-aa13",
         "por.voice.ecl3.b0-a9ef-aa13"
       ]
     },
@@ -61285,15 +61287,16 @@
       }
     },
     {
-      "id": "por.voice.ecl3.b0-a078",
+      "id": "por.voice.ecl3.b0-a078-aa13",
       "archive": "ECL3.DAX",
       "triggerSourceId": "por.review.ecl-3.block-0.at-a078",
       "coveredSourceIds": [
-        "por.review.ecl-3.block-0.at-a078"
+        "por.review.ecl-3.block-0.at-a078",
+        "por.review.ecl-3.block-0.at-aa13"
       ],
       "variant": null,
-      "spokenText": "THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE.",
-      "direction": "Measured expressive fantasy narration appropriate to the scene",
+      "spokenText": "THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE.' DO YOU SEEK HEALING?'",
+      "direction": "The narrator performs the priests' welcoming question with warm religious formality",
       "characterId": null,
       "sourceParts": [
         {
@@ -61306,12 +61309,23 @@
               "rawText": "THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE."
             }
           ]
+        },
+        {
+          "sourceId": "por.review.ecl-3.block-0.at-aa13",
+          "rawText": "' DO YOU SEEK HEALING?'",
+          "outputParts": [
+            {
+              "operandIndex": 0,
+              "kind": "literal",
+              "rawText": "' DO YOU SEEK HEALING?'"
+            }
+          ]
         }
       ],
       "resolution": "resolved",
       "generationEligible": true,
       "model": "eleven_v4",
-      "asset": "voices/narration/ecl3/b0-a078.mp3",
+      "asset": "voices/narration/ecl3/b0-a078-aa13.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,
@@ -61319,15 +61333,16 @@
       }
     },
     {
-      "id": "por.voice.ecl3.b0-a0d0",
+      "id": "por.voice.ecl3.b0-a0d0-aa13",
       "archive": "ECL3.DAX",
       "triggerSourceId": "por.review.ecl-3.block-0.at-a0d0",
       "coveredSourceIds": [
-        "por.review.ecl-3.block-0.at-a0d0"
+        "por.review.ecl-3.block-0.at-a0d0",
+        "por.review.ecl-3.block-0.at-aa13"
       ],
       "variant": null,
-      "spokenText": "YOU ARE WELCOMED BY PRIESTESS JOY OF SUNE.",
-      "direction": "Measured expressive fantasy narration appropriate to the scene",
+      "spokenText": "YOU ARE WELCOMED BY PRIESTESS JOY OF SUNE.' DO YOU SEEK HEALING?'",
+      "direction": "The narrator performs the priestess's welcoming question with warm religious formality",
       "characterId": null,
       "sourceParts": [
         {
@@ -61340,12 +61355,23 @@
               "rawText": "YOU ARE WELCOMED BY PRIESTESS JOY OF SUNE."
             }
           ]
+        },
+        {
+          "sourceId": "por.review.ecl-3.block-0.at-aa13",
+          "rawText": "' DO YOU SEEK HEALING?'",
+          "outputParts": [
+            {
+              "operandIndex": 0,
+              "kind": "literal",
+              "rawText": "' DO YOU SEEK HEALING?'"
+            }
+          ]
         }
       ],
       "resolution": "resolved",
       "generationEligible": true,
       "model": "eleven_v4",
-      "asset": "voices/narration/ecl3/b0-a0d0.mp3",
+      "asset": "voices/narration/ecl3/b0-a0d0-aa13.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,

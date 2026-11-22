@@ -428,7 +428,7 @@
       ],
       "classification": "voiced-unit-trigger",
       "unitIds": [
-        "por.voice.ecl3.b0-a078"
+        "por.voice.ecl3.b0-a078-aa13"
       ],
       "sourceDigest": "70d39e6c51eac660650858b8d6ab949388c868fab46e8b629345cc454167621c"
     },
@@ -451,7 +451,7 @@
       ],
       "classification": "voiced-unit-trigger",
       "unitIds": [
-        "por.voice.ecl3.b0-a0d0"
+        "por.voice.ecl3.b0-a0d0-aa13"
       ],
       "sourceDigest": "6f0321d07b513dce834dcf2bd8c66e7c1930996fc7632bb309ddece4ae5202c6"
     },
@@ -1207,8 +1207,10 @@
           "rawText": "' DO YOU SEEK HEALING?'"
         }
       ],
-      "classification": "voiced-unit-continuation",
+      "classification": "voiced-variant-member",
       "unitIds": [
+        "por.voice.ecl3.b0-a078-aa13",
+        "por.voice.ecl3.b0-a0d0-aa13",
         "por.voice.ecl3.b0-a9ef-aa13"
       ],
       "sourceDigest": "cc23b9a331db4a5b058400e360aa7055a933d4e2abcd567862a92f12dfaf3a72"
@@ -6103,6 +6105,80 @@
       "generationEligible": false
     },
     {
+      "id": "por.voice.ecl3.b0-a078-aa13",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a078",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a078",
+        "por.review.ecl-3.block-0.at-aa13"
+      ],
+      "variant": null,
+      "rawSourceTexts": [
+        {
+          "sourceId": "por.review.ecl-3.block-0.at-a078",
+          "rawText": "THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE.",
+          "outputParts": [
+            {
+              "operandIndex": 0,
+              "kind": "literal",
+              "rawText": "THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE."
+            }
+          ]
+        },
+        {
+          "sourceId": "por.review.ecl-3.block-0.at-aa13",
+          "rawText": "' DO YOU SEEK HEALING?'",
+          "outputParts": [
+            {
+              "operandIndex": 0,
+              "kind": "literal",
+              "rawText": "' DO YOU SEEK HEALING?'"
+            }
+          ]
+        }
+      ],
+      "spokenText": "THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE.' DO YOU SEEK HEALING?'",
+      "direction": "The narrator performs the priests' welcoming question with warm religious formality",
+      "status": "qa-resolved",
+      "generationEligible": true
+    },
+    {
+      "id": "por.voice.ecl3.b0-a0d0-aa13",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a0d0",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a0d0",
+        "por.review.ecl-3.block-0.at-aa13"
+      ],
+      "variant": null,
+      "rawSourceTexts": [
+        {
+          "sourceId": "por.review.ecl-3.block-0.at-a0d0",
+          "rawText": "YOU ARE WELCOMED BY PRIESTESS JOY OF SUNE.",
+          "outputParts": [
+            {
+              "operandIndex": 0,
+              "kind": "literal",
+              "rawText": "YOU ARE WELCOMED BY PRIESTESS JOY OF SUNE."
+            }
+          ]
+        },
+        {
+          "sourceId": "por.review.ecl-3.block-0.at-aa13",
+          "rawText": "' DO YOU SEEK HEALING?'",
+          "outputParts": [
+            {
+              "operandIndex": 0,
+              "kind": "literal",
+              "rawText": "' DO YOU SEEK HEALING?'"
+            }
+          ]
+        }
+      ],
+      "spokenText": "YOU ARE WELCOMED BY PRIESTESS JOY OF SUNE.' DO YOU SEEK HEALING?'",
+      "direction": "The narrator performs the priestess's welcoming question with warm religious formality",
+      "status": "qa-resolved",
+      "generationEligible": true
+    },
+    {
       "id": "por.voice.ecl3.b0-a9ef-aa13",
       "triggerSourceId": "por.review.ecl-3.block-0.at-a9ef",
       "coveredSourceIds": [
@@ -6964,56 +7040,6 @@
       ],
       "spokenText": "'WILL YOU ACCOMPANY DIRTEN?'",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech",
-      "status": "qa-resolved",
-      "generationEligible": true
-    },
-    {
-      "id": "por.voice.ecl3.b0-a078",
-      "triggerSourceId": "por.review.ecl-3.block-0.at-a078",
-      "coveredSourceIds": [
-        "por.review.ecl-3.block-0.at-a078"
-      ],
-      "variant": null,
-      "rawSourceTexts": [
-        {
-          "sourceId": "por.review.ecl-3.block-0.at-a078",
-          "rawText": "THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE.",
-          "outputParts": [
-            {
-              "operandIndex": 0,
-              "kind": "literal",
-              "rawText": "THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE."
-            }
-          ]
-        }
-      ],
-      "spokenText": "THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE.",
-      "direction": "Measured expressive fantasy narration appropriate to the scene",
-      "status": "qa-resolved",
-      "generationEligible": true
-    },
-    {
-      "id": "por.voice.ecl3.b0-a0d0",
-      "triggerSourceId": "por.review.ecl-3.block-0.at-a0d0",
-      "coveredSourceIds": [
-        "por.review.ecl-3.block-0.at-a0d0"
-      ],
-      "variant": null,
-      "rawSourceTexts": [
-        {
-          "sourceId": "por.review.ecl-3.block-0.at-a0d0",
-          "rawText": "YOU ARE WELCOMED BY PRIESTESS JOY OF SUNE.",
-          "outputParts": [
-            {
-              "operandIndex": 0,
-              "kind": "literal",
-              "rawText": "YOU ARE WELCOMED BY PRIESTESS JOY OF SUNE."
-            }
-          ]
-        }
-      ],
-      "spokenText": "YOU ARE WELCOMED BY PRIESTESS JOY OF SUNE.",
-      "direction": "Measured expressive fantasy narration appropriate to the scene",
       "status": "qa-resolved",
       "generationEligible": true
     },

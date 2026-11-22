@@ -36,6 +36,28 @@
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
     {
+      "unitId": "por.voice.ecl3.b0-a078-aa13",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a078",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a078",
+        "por.review.ecl-3.block-0.at-aa13"
+      ],
+      "output": "audio/voices/narration/ecl3/b0-a078-aa13.mp3",
+      "text": "THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE.' DO YOU SEEK HEALING?'",
+      "direction": "The narrator performs the priests' welcoming question with warm religious formality"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a0d0-aa13",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a0d0",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a0d0",
+        "por.review.ecl-3.block-0.at-aa13"
+      ],
+      "output": "audio/voices/narration/ecl3/b0-a0d0-aa13.mp3",
+      "text": "YOU ARE WELCOMED BY PRIESTESS JOY OF SUNE.' DO YOU SEEK HEALING?'",
+      "direction": "The narrator performs the priestess's welcoming question with warm religious formality"
+    },
+    {
       "unitId": "por.voice.ecl3.b0-a9ef-aa13",
       "triggerSourceId": "por.review.ecl-3.block-0.at-a9ef",
       "coveredSourceIds": [
@@ -244,26 +266,6 @@
       "output": "audio/voices/narration/ecl3/b0-a014.mp3",
       "text": "'WILL YOU ACCOMPANY DIRTEN?'",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
-    },
-    {
-      "unitId": "por.voice.ecl3.b0-a078",
-      "triggerSourceId": "por.review.ecl-3.block-0.at-a078",
-      "coveredSourceIds": [
-        "por.review.ecl-3.block-0.at-a078"
-      ],
-      "output": "audio/voices/narration/ecl3/b0-a078.mp3",
-      "text": "THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE.",
-      "direction": "Measured expressive fantasy narration appropriate to the scene"
-    },
-    {
-      "unitId": "por.voice.ecl3.b0-a0d0",
-      "triggerSourceId": "por.review.ecl-3.block-0.at-a0d0",
-      "coveredSourceIds": [
-        "por.review.ecl-3.block-0.at-a0d0"
-      ],
-      "output": "audio/voices/narration/ecl3/b0-a0d0.mp3",
-      "text": "YOU ARE WELCOMED BY PRIESTESS JOY OF SUNE.",
-      "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
     {
       "unitId": "por.voice.ecl3.b0-a15c",

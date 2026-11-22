@@ -6,10 +6,10 @@
    "ledger": "acceptance-narration-dynamic.jsonl",
    "games": 3,
    "decisions": 350,
-   "heard": 64
+   "heard": 66
   },
   "acceptance-new-phlan": {
-   "ledger": "acceptance-new-phlan-after-slums-arrival.jsonl",
+   "ledger": "acceptance-new-phlan.jsonl",
    "games": 7,
    "decisions": 521,
    "heard": 106
@@ -82,6 +82,11 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:0:ecl:9b68"
+   },
+   "withoutArt": {
+    "run": "acceptance-new-phlan",
+    "step": 60501220,
+    "showing": "no picture"
    }
   },
   "ecl2-b20-9c2a-9c43-9c5c": {
@@ -173,7 +178,23 @@
     "key": "portrait:HEAD3.DAX:34:BODY3.DAX:2"
    }
   },
+  "por.voice.ecl3.b0-a078-aa13": {
+   "run": "acceptance-new-phlan",
+   "step": 164993768,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD3.DAX:34:BODY3.DAX:2"
+   }
+  },
   "por.voice.ecl3.b0-a0d0": {
+   "run": "acceptance-new-phlan",
+   "step": 91068397,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD3.DAX:22:BODY3.DAX:24"
+   }
+  },
+  "por.voice.ecl3.b0-a0d0-aa13": {
    "run": "acceptance-new-phlan",
    "step": 91068397,
    "art": {
@@ -787,6 +808,18 @@
    "step": 138353144,
    "slot": "0x982c",
    "value": "THIEVES "
+  },
+  "por.voice.ecl3.b11-a00e-a021.variant-03-clerics": {
+   "run": "acceptance-narration-dynamic",
+   "step": 158744011,
+   "slot": "0x982c",
+   "value": "CLERICS "
+  },
+  "por.voice.ecl3.b11-a00e-a021.variant-04-magic-users": {
+   "run": "acceptance-narration-dynamic",
+   "step": 172191730,
+   "slot": "0x982c",
+   "value": "MAGIC USERS "
   }
  },
  "selectors": {
@@ -808,48 +841,5 @@
    "unitId": "por.voice.ecl7.b23-9a70-9afa"
   }
  },
- "silent": {
-  "covered-without-trigger | por.review.ecl-3.block-0.at-aa13 | ": {
-   "kind": "covered-without-trigger",
-   "sourceId": "por.review.ecl-3.block-0.at-aa13",
-   "archive": "ECL3.DAX",
-   "block": 0,
-   "runs": {
-    "acceptance-new-phlan": {
-     "count": 4,
-     "step": 91147744
-    }
-   }
-  },
-  "no-variant | por.review.ecl-3.block-11.at-a00e | CLERICS ": {
-   "kind": "no-variant",
-   "sourceId": "por.review.ecl-3.block-11.at-a00e",
-   "archive": "ECL3.DAX",
-   "block": 11,
-   "slot": "0x982c",
-   "value": "CLERICS ",
-   "status": "not-found",
-   "runs": {
-    "acceptance-narration-dynamic": {
-     "count": 1,
-     "step": 158744011
-    }
-   }
-  },
-  "no-variant | por.review.ecl-3.block-11.at-a00e | MAGIC USERS ": {
-   "kind": "no-variant",
-   "sourceId": "por.review.ecl-3.block-11.at-a00e",
-   "archive": "ECL3.DAX",
-   "block": 11,
-   "slot": "0x982c",
-   "value": "MAGIC USERS ",
-   "status": "not-found",
-   "runs": {
-    "acceptance-narration-dynamic": {
-     "count": 1,
-     "step": 172191730
-    }
-   }
-  }
- }
+ "silent": {}
 }

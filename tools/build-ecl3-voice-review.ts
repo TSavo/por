@@ -23,6 +23,9 @@ const composites: UnitSpec[] = [
   { key: "b0-a0f7-a113", members: ["0:0xa0f7", "0:0xa113"], variant: "poisonous-barren-river" },
   { key: "b0-a0f7-a129", members: ["0:0xa0f7", "0:0xa129"], variant: "beautiful-stojanow-river" },
   { key: "b0-a413-a438", members: ["0:0xa413", "0:0xa438"], unresolved: true, variant: "runtime-tavern-tale-number" },
+  // All three temples greet the party and then print the same question at aa13.
+  { key: "b0-a078-aa13", members: ["0:0xa078", "0:0xaa13"], direction: "The narrator performs the priests' welcoming question with warm religious formality" },
+  { key: "b0-a0d0-aa13", members: ["0:0xa0d0", "0:0xaa13"], direction: "The narrator performs the priestess's welcoming question with warm religious formality" },
   { key: "b0-a9ef-aa13", members: ["0:0xa9ef", "0:0xaa13"], direction: "The narrator performs the priests' welcoming question with warm religious formality" },
   { key: "b0-ac22-ac8a-ac96", members: ["0:0xac22", "0:0xac8a", "0:0xac96"], unresolved: true, variant: "single-runtime-proclamation-number" },
   { key: "b0-ac22-ac9b", members: ["0:0xac22", "0:0xac9b"], variant: "fixed-multiple-proclamations" },
