@@ -4075,6 +4075,8 @@
     "portrait:area:0:PIC3.DAX:41:0:0": "new-phlan-outbound-ferry.png",
     "portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:1:0": "new-phlan-outbound-ferry-phase-1.png",
     "portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:2:0": "new-phlan-outbound-ferry-phase-2.png",
+    "portrait:area:0:ecl:af3c:caller:9bd6:PIC3.DAX:41:1:0": "new-phlan-outbound-ferry-phase-1.png",
+    "portrait:area:0:ecl:af3c:caller:9bd6:PIC3.DAX:41:2:0": "new-phlan-outbound-ferry-phase-2.png",
     "tile:10:9272ea70a438b820462d18e92a97ec3cef17c7868e3b02a6eee4ad7c83f0b8d1": "graveyard-slate-court-joins-9272ea70a438.png",
     "tile:10:5b557e644fb3640b4223997561ab8a8457b797d915f562d0963b1bbb5e2f4959": "graveyard-slate-court-joins-5b557e644fb3.png",
     "tile:10:09060a46ebc2e1ad35ed377dea2e5db88e58313f2619804080b997d262bd7dfa": "graveyard-slate-court-joins-09060a46ebc2.png",

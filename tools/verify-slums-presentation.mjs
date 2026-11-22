@@ -2123,16 +2123,15 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:21:PIC4.DAX:41:0:0", prompt: /YOUBOARDABOAT/i,
     continuation: { inputs: ["enter", "enter", "enter"], prompt: /15,1W/i, clearsPortrait: true },
   }],
-  ["new-phlan-outbound-ferry", {
-    slot: "A", inputs: ["up", "enter", ...Array(19).fill("z")],
+  ...[["new-phlan-outbound-ferry", "af3f"], ["new-phlan-outbound-ferry-13", "af3c"]].map(([route, cursor]) => [route, {
+    slot: "A", inputs: ["up", "enter", "enter", "right", "up", "up", "up", "up", "enter"],
     portraitStops: {
-      2: "portrait:area:0:PIC3.DAX:41:0:0",
-      13: "portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:1:0",
+      2: "portrait:area:0:HEAD3.DAX:16:BODY3.DAX:7",
     },
-    phaseCaptures: { 13: "new-phlan-outbound-ferry-phase-1.png" },
-    finalPhaseCapture: "new-phlan-outbound-ferry-phase-2.png",
-    portrait: "portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:2:0", prompt: /YOUBOARDABOAT/i,
-  }],
+    portrait: "portrait:area:0:PIC3.DAX:41:0:0", prompt: /YOUBOARDABOAT/i,
+    idlePortraits: [1, 2].map(phase => `portrait:area:0:ecl:${cursor}:caller:9bd6:PIC3.DAX:41:${phase}:0`),
+    continuation: { inputs: ["enter", "enter"], clearsPortrait: true, prompt: /BOATDISEMBARKSYOUATSOKALKEEP/i },
+  }]),
   ["new-phlan-harbor-city-watch", {
     slot: "A", inputs: harborWatchApproach,
     requireTiledApproach: false,
