@@ -4315,6 +4315,9 @@ The `council-river-offer` Chrome replay marks the Kobold commission
 fulfilled and checks the briefing to find the source of the Stojonow
 River's pollution. The illustration shows the contaminated water while
 leaving its source to be discovered in the game.
+The `council-lizardfolk-offer` replay marks the river commission fulfilled
+in the controlled slot. It checks the original warning beside the new
+marsh scene, then returns to exploration on GOG 1.3.
 
 The `stojanow-gate-reward` Chrome replay on GOG 1.3 checks the Council
 clerk's artwork as she checks for a reward, sorts the remaining
