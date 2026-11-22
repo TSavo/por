@@ -2,10 +2,10 @@
  "schema": 2,
  "heldPortraits": {
   "verified": 1,
-  "measured": 9,
+  "measured": 10,
   "total": 235,
-  "scenesMeasured": 18,
-  "scenesVerified": 4,
+  "scenesMeasured": 19,
+  "scenesVerified": 8,
   "unmappedScenes": 0,
   "remaining": 234
  },

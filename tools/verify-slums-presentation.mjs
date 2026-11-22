@@ -4464,6 +4464,17 @@ const illustrationRoutes = new Map([
       pressOnPortrait: "portrait:area:4:ecl:a36b:PIC5.DAX:56:3:0", retainPose: true,
     },
   }],
+  ["valjevo-fire-giant-refusal-loop", {
+    slot: "B", inputs: ["up", "enter", "a", "p", "n"],
+    portrait: "portrait:area:4:PIC5.DAX:56:0:0",
+    prompt: /GETLOST,WIMP.*BEATIT,BEATTHEM!GETIT/i,
+    heldPortraitLoop: [
+      "portrait:area:4:PIC5.DAX:56:0:0",
+      "portrait:area:4:ecl:a36b:PIC5.DAX:56:1:0",
+      "portrait:area:4:PIC5.DAX:56:0:0",
+      "portrait:area:4:ecl:a36b:PIC5.DAX:56:3:0",
+    ],
+  }],
   ["valhingen-ghoul-ambush", {
     slot: "A", inputs: ["e", "enter", "r", "y", ...Array(10).fill("i"), "r", "enter", "enter"],
     portrait: "portrait:PIC4.DAX:72:0:0", prompt: /APACKOFHUNGRYGHOULSLOPESTOWARDYOU/i,
@@ -7360,6 +7371,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "kobold-white-flag-envoy" || routeName === "kobold-white-flag-escort-phase" ||
       routeName === "valjevo-medusa-phases" || routeName === "valhingen-mummy-sarcophagi-phases" ||
       routeName === "valjevo-fire-giant-loop" ||
+      routeName === "valjevo-fire-giant-refusal-loop" ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
