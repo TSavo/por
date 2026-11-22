@@ -25,6 +25,7 @@
     "qa:disagreements": "tsx tools/qa-disagreements.ts",
     "qa:acceptance": "tsx tools/qa-acceptance.ts",
     "qa:narration": "tsx tools/qa-narration.ts",
+    "qa:narration-transcripts": "node tools/qa-narration-transcripts.mjs",
     "acceptance:new-phlan": "node tools/acceptance/new-phlan.mjs",
     "acceptance:harness": "node tools/acceptance/harness-selftest.mjs && node tools/acceptance/party-care-selftest.mjs",
     "acceptance:slums": "node tools/acceptance/slums.mjs",

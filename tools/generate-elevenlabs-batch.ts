@@ -14,6 +14,28 @@ if (!key) throw new Error("ELEVENLABS_API_KEY is required");
 const hasMp3Signature = (bytes: Uint8Array) => bytes.length >= 3 &&
   (Buffer.from(bytes.subarray(0, 3)).toString("ascii") === "ID3" || (bytes[0] === 0xff && (bytes[1]! & 0xe0) === 0xe0));
 const wait = (milliseconds: number) => new Promise(resolveWait => setTimeout(resolveWait, milliseconds));
+// The voice model sometimes says a sentence twice, or drops one, in a take that is otherwise fine.
+// Every take is therefore transcribed by a Whisper server and kept only if it says about as many
+// words as its script. Set POR_WHISPER_URL (any server with /v1/audio/transcriptions); pass
+// --unchecked to generate without listening, which is how the takes that repeated got in.
+const whisper = process.env.POR_WHISPER_URL?.replace(/\/$/, "");
+if (!whisper && !process.argv.includes("--unchecked"))
+  throw new Error("POR_WHISPER_URL is required so every take is listened to; pass --unchecked to skip that");
+const words = (text: string) => text.toUpperCase().replace(/[’']/g, "").replace(/[^A-Z0-9]+/g, " ").trim().split(" ").filter(Boolean);
+async function heardIn(mp3: Uint8Array): Promise<string> {
+  const form = new FormData();
+  form.append("file", new Blob([Buffer.from(mp3)], { type: "audio/mpeg" }), "take.mp3");
+  form.append("model", "whisper-1");
+  form.append("language", "en");
+  const response = await fetch(`${whisper}/v1/audio/transcriptions`, { method: "POST", body: form });
+  if (!response.ok) throw new Error(`The Whisper server answered ${response.status}`);
+  return ((await response.json()) as { text: string }).text.trim();
+}
+/** The same tolerance as npm run qa:narration-transcripts. */
+const saysItsScript = (script: string, heard: string) => {
+  const scripted = words(script).length, spoken = words(heard).length;
+  return spoken <= scripted * 1.25 + 2 && spoken >= scripted * 0.75 - 2;
+};
 for (const item of batch.items) {
   const output = resolve(item.output);
   mkdirSync(dirname(output), { recursive: true });
@@ -26,8 +48,9 @@ for (const item of batch.items) {
     }
   }
   let mp3: Uint8Array | undefined;
+  let heard: string | undefined;
   let lastError = "unknown failure";
-  for (let attempt = 1; attempt <= 3; attempt++) {
+  for (let attempt = 1; attempt <= (whisper ? 6 : 3); attempt++) {
     try {
       const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(design.selection.savedVoiceId)}?output_format=mp3_44100_128`, {
         method: "POST", headers: { "xi-api-key": key, "content-type": "application/json" },
@@ -36,9 +59,19 @@ for (const item of batch.items) {
       if (!response.ok) throw new Error(`ElevenLabs ${response.status}: ${await response.text()}`);
       mp3 = new Uint8Array(await response.arrayBuffer());
       if (!hasMp3Signature(mp3)) throw new Error("ElevenLabs response is not a valid MP3");
+      if (whisper) {
+        heard = await heardIn(mp3);
+        if (!saysItsScript(item.text, heard)) {
+          const rejected = heard;
+          mp3 = undefined;
+          heard = undefined;
+          throw new Error(`take ${attempt} does not say its script; it was heard as: ${rejected}`);
+        }
+      }
       break;
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
+      console.log(`retrying ${output}: ${lastError}`);
       if (attempt < 3) await wait(500 * 2 ** (attempt - 1));
     }
   }
@@ -56,6 +89,7 @@ for (const item of batch.items) {
   writeFileSync(receipt, `${JSON.stringify({ schema: 1, provider: "ElevenLabs", model: batch.model ?? "eleven_v4",
     voiceId: design.selection.savedVoiceId, textSha256: createHash("sha256").update(item.text).digest("hex"),
     audioSha256: createHash("sha256").update(mp3).digest("hex"), bytes: mp3.length,
+    ...(heard === undefined ? {} : { heardByWhisper: heard }),
     generatedAt: new Date().toISOString() }, null, 2)}\n`);
   rmSync(outputTemp, { force: true });
   rmSync(transcriptTemp, { force: true });
