@@ -37,18 +37,23 @@ but GitHub and this repository.
 
 ## Running on Battleaxe
 
-`ssh battleaxe` is Ubuntu (WSL) on a 32-CPU machine. Set up once, with your own short NAME:
+`ssh battleaxe` is Ubuntu (WSL) on a 32-CPU machine with plenty of memory but a slow USB root disk, so
+**work trees live in RAM, under `/dev/shm`** (lost if WSL restarts: copy anything you record back at once).
+Set up once, with your own short NAME:
 
 ```sh
-ssh battleaxe 'git -C ~/por-qa fetch -q && git -C ~/por-qa worktree add --detach ~/por-wt-NAME origin/main && ln -s ~/por-qa/node_modules ~/por-wt-NAME/node_modules'
+ssh battleaxe 'git -C ~/por-qa fetch -q && git -C ~/por-qa worktree add --detach /dev/shm/por-wt-NAME origin/main && ln -s ~/por-qa/node_modules /dev/shm/por-wt-NAME/node_modules'
 ```
 
 For each run, from your checkout (edit and commit where you like):
 
 ```sh
-rsync -a --delete --exclude node_modules --exclude out --exclude .git ./ battleaxe:por-wt-NAME/
-ssh battleaxe 'cd ~/por-wt-NAME && <env> npm run -s <check> > run.log 2>&1; echo exit $?'   # in the background
+rsync -a --delete --exclude node_modules --exclude out --exclude .git ./ battleaxe:/dev/shm/por-wt-NAME/
+ssh battleaxe 'cd /dev/shm/por-wt-NAME && <env> npm run -s <check> > run.log 2>&1; echo exit $?'   # in the background
 ```
+
+Run the typecheck there too. Many agents share the machine: at most one heavy run of yours at a time. If
+ssh says "Session open refused", add `-o ControlMaster=no -o ControlPath=none`.
 
 On Battleaxe: the 1.3 files `POR_GAMEDATA=$HOME/por-assets/gog-1.3/POOLRAD`; the first release
 `$HOME/por-assets/pool` (`qa:version-1.3` needs `POR_GAMEDATA` on the first release and
