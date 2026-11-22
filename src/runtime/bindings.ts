@@ -299,6 +299,12 @@ export const code = resolve({
   terrainDrawn: { "1.0": { slice: 0x21, at: 0x14d }, "1.3": { slice: 0x20, at: 0x14b } },
   /** The battlefield loader has copied a replacement sheet into SQRPACI block 1. */
   battleTerrainSheetCopied: { "1.0": { slice: 0x21, at: 0xdb }, "1.3": { slice: 0x20, at: 0xdb } },
+  /** The animation loader has allocated and initialized a native picture member. */
+  pictureMember: { "1.0": { slice: 0x1d, at: 0x3dc }, "1.3": { slice: 0x1c, at: 0x400 } },
+  /** The picture animation loader releases one member's native allocation. */
+  pictureMemberRelease: { "1.0": { slice: 0x1d, at: 0x495 }, "1.3": { slice: 0x1c, at: 0x4ca } },
+  /** The animated picture helper returns after presenting one selected member. */
+  pictureMemberPresented: { "1.0": { slice: 0x1d, at: 0x4c }, "1.3": { slice: 0x1c, at: 0x4c } },
   /** The loader assigns a ready block and its strike block to a combat picture slot. */
   combatPictureLoad: { "1.0": { slice: 0x21, at: 0x1ca }, "1.3": { slice: 0x20, at: 0x1c8 } },
   /** The compositor draws a selected picture slot and pose into the battlefield. */

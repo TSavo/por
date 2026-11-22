@@ -12595,7 +12595,7 @@ try {
       await verifyPortraitPanel();
       await switchBothWays();
       await advance("enter");
-      assert.equal(frame.portrait, undefined);
+      assert.equal(frame.portrait, undefined, text());
     }
     console.log(`Verified ${routeName} artwork and dialogue in Chrome.`);
   } else if (koboldCave) {

@@ -146,13 +146,13 @@ selection borders and replaces them on terrain redraw. The
 `buccaneer-native-manual-aim` Chrome replay checks the border on occupied and empty
 cells and its return to the active actor when Manual Aim closes.
 
-Ordinary portrait matching has a similar source-pixel dependency. With
-`POR_GAME_SOURCE=port` at `220d2236`, the GOG 1.3 Chrome
-`diogenes-advice` replay reaches the cave entrance without selecting
-`portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0`. The original-file replay
-with the same checkpoint selects that key. The PNG is already shipped.
-The standalone renderer needs the native picture identity and animation
-member to select existing PIC artwork when the original pixels are blank.
+In standalone mode, the PIC animation loader supplies the archive, block and
+member for each native picture allocation. The renderer resolves existing
+Enhanced portrait keys when the guest presents that member in the 88×88
+picture panel, including when the underlying art pixels are blank. The guest
+still draws the picture, and the observer drops its identity on release or when
+the viewport changes. The original-file renderer continues matching its native
+framebuffer. Composed portraits from HEAD and BODY are handled separately.
 
 `tiles.json` lists each distinct tile of the 8X8D sets once, by that hash, with every place it is
 stored (`archive:block:index`). A tile that has transparent pixels (colour 13) also lists

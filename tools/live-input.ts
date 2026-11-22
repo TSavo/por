@@ -4,7 +4,6 @@ import { captureNativeExploration, type NativeExploration } from "./native-explo
 import { observeNativeCombatArt } from "./native-combat-art.js";
 import { nativeSelectionKey, observeNativeCombatSelection } from "./native-combat-selection.js";
 import { observeNativeBattleTerrain } from "./native-battle-terrain.js";
-import type { PictureRecord } from "../src/runtime/game-data.js";
 import { captureOverlandTravel, identifyPhlanPrompt, identifySokalPrompt, isQuayDialogue, isSokalBoatHandoff,
   type SokalQuay, type TravelState } from "./overland-travel.js";
 import { createHash } from "node:crypto";
@@ -18,6 +17,8 @@ import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 import { combatEffectFlightFamily, loadCombatEffects, combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
 import { loadCharacterSheetArt, loadPortraitArt, matchScriptIllustration } from "./portrait-art.js";
+import { observeNativePictureArt } from "./native-picture-art.js";
+import type { PictureRecord } from "../src/runtime/game-data.js";
 import { loadEncounterArt, type EncounterPlacement } from "./encounter-art.js";
 import { canWinDeveloperCombat, developerVictoryCommand, winDeveloperCombat } from "./developer-combat.js";
 import type { Automap, ExploredPosition } from "./automap.js";
@@ -296,6 +297,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     }
     return pixels;
   }
+  const nativePicture = browser && standalone && pictures && portraitKeys.length
+    ? observeNativePictureArt(new Set(portraitKeys), pictures, perspectivePixels) : undefined;
   let codeWheelQuestion: number | undefined;
   let codeWheelAttempt: number | undefined;
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false,
@@ -396,8 +399,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const illustration = scene || wellLookAway
         ? undefined : matchScriptIllustration(illustrationScope, illustrationText, portraitKeys);
       if (captureIllustration && (!illustration || animation.at(-1)?.portrait === illustration)) return;
-      let picture = scene ? undefined : illustration ??
-        arrivalPicture ?? portraitArt(screen, area, portraitCursor, pictureCaller);
+      const menu = menuText(text);
+      // The overland map shares the native viewport blit and omits Area.
+      const overlandMap = menu === "CASTVIEWENCAMPSEARCHLOOK";
+      if (overlandMap || menu.startsWith("AREACASTVIEWENCAMP") || nativeBattleActive) nativePicture?.clear();
+      let picture = scene ? undefined : illustration ?? arrivalPicture ??
+        nativePicture?.match(area, portraitCursor, pictureCaller) ??
+        portraitArt(screen, area, portraitCursor, pictureCaller);
       const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
       const enhanced = new Frame(presentation.width, presentation.height);
       enhanced.pixels.set(presentation.pixels);
@@ -421,14 +429,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       }
       const tiles: [number, number, string][] = [];
       const tileInventory: TileInventoryCell[] | undefined = traceTiles ? [] : undefined;
-      const menu = menuText(text);
       const overlandScript = activeEcl >= 25 && activeEcl <= 27;
       const phlanArrival = overlandScript ? identifyPhlanPrompt(dialogue, menu) : undefined;
       const sokalPrompt = activeEcl === 0 ? identifySokalPrompt(dialogue, menu, harborTicket) : undefined;
-      // The overland map shares the native viewport blit with first-person
-      // scenes. Its exploration menu omits Area, even during the cave exit
-      // when the area record still names the dungeon.
-      const overlandMap = menu === "CASTVIEWENCAMPSEARCHLOOK";
       const battlefield = nativeBattleActive || hasBattlefieldBorder(presentation);
       // The icon editor also uses the viewport blit. Its two preview labels
       // stay in place while the player changes parts, palette, and size.
@@ -926,6 +929,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       keyQueue.length = waiting;
     },
     captureEncounterDraw: browser && (nativeEncounterDirectory || hasEncounterArtwork) ? (cpu: Cpu) => {
+      nativePicture?.clear();
       const captureAnimation = hasEncounterArtwork && animation.length < 12;
       if (scene || area === undefined || (!nativeEncounterDirectory && !captureAnimation)) return;
       captureEclContext(cpu);
@@ -955,6 +959,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     nativeCombat,
     nativeSelection,
     nativeBattleTerrain,
+    nativePicture,
     captureBattleTerrain: battleTerrain ? (cpu: Cpu, column: number, row: number, picture: number) => {
       if (column > 18 || row > 18 || column % 3 || row % 3) return;
       const x = 8 + column * 8;
@@ -997,6 +1002,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       }
     } : undefined,
     capturePerspective: browser ? (cpu: Cpu, localScenery: boolean) => {
+      nativePicture?.clear();
       const pixels = perspectivePixels();
       if (drawnPerspective && !drawnPerspective.pixels.equals(pixels)) priorPerspectiveDraw = drawnPerspective.pixels;
       drawnPerspective = { pixels, localEcl: localScenery ? cpu.read8(unit.data, data.eclBlock) : undefined,

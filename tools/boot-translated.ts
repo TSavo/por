@@ -37,7 +37,8 @@ const root = findGameRoot();
 if (!root) throw new Error("Pool of Radiance game data not found");
 // With no original files supplied the game runs from the port's own data, which holds no program file:
 // the memory image comes from it directly.
-const portProgram = isPortGameRoot(root) ? portGame(root).program : undefined;
+const port = isPortGameRoot(root) ? portGame(root) : undefined;
+const portProgram = port?.program;
 const gameFiles = usePortPaths(mountValjevoWallPieces(readGameFiles(root)));
 const files = process.env.POR_PREGEN_PARTY === "1" ? stagePregenParty(gameFiles) : gameFiles;
 
@@ -85,17 +86,22 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
   const captureBattleTerrain = input?.captureBattleTerrain;
   const nativeCombat = input?.nativeCombat;
+  const nativePicture = input?.nativePicture;
+  const picturePresentation = nativePicture ? code.pictureMemberPresented : undefined;
   const nativeBattleTerrain = input?.nativeBattleTerrain;
   const nativeSelection = input?.nativeSelection;
   const selectionReturn = code.combatSelectionDrawResumes;
   const codeWheel = input && process.env.POR_BROWSER_PLAY === "1" ? startupInput.codeWheel : undefined;
   if (capturePresentationDelay || capturePerspective || traceBattleDraw || captureBattleTerrain ||
-      codeWheel || nativeCombat || nativeSelection || nativeBattleTerrain) {
+      codeWheel || nativeCombat || nativeSelection || nativeBattleTerrain || nativePicture) {
     const tick = cpu.tick;
     const terrainDraws = new Set<string>();
     // Above the pause routine's return address sit its argument, its saved BP and its own return address.
     const deathReturnDepth = 8;
     cpu.tick = function (at) {
+      if (picturePresentation && at === picturePresentation.at && isAt(this, at, picturePresentation)) {
+        nativePicture?.presented(this);
+      }
       if (codeWheel && isAt(this, at, codeWheel.beforeRead)) {
         input?.setCodeWheelQuestion(
           this.read8(this.ss, (this.bp + codeWheel.questionOffset) & 0xffff),
@@ -251,7 +257,7 @@ if (process.env.POR_BROWSER_PLAY === "1") narrationLedger?.open();
 const input = liveAt === undefined ? undefined : liveInput(liveStep, () => {
   const known = journal();
   return [...known, ...journalInventoryLeads(cpu, known, unit.data)];
-}, recording, automap, Boolean(portProgram), portProgram ? portGame(root).data.pictures : undefined);
+}, recording, automap, Boolean(port), port?.data.pictures);
 const saves = input && openSaveSlots(process.env.POR_SAVE_DIR ??
   join("out", "saves", createHash("sha256").update(realpathSync(root)).digest("hex").slice(0, 16)));
 const rosterClosed: DosFileClosed = (name, data, written) => { if (written) saves?.saveRoster(name, data); };
@@ -386,6 +392,8 @@ if (input && process.env.POR_BROWSER_PLAY === "1") {
   const observe = farCallObservers.get(cpu);
   farCallObservers.set(cpu, (segment, offset) => {
     observe?.(segment, offset);
+    if (input.nativePicture && isAt(cpu, cpu.ip, code.pictureMember)) input.nativePicture.load(cpu);
+    if (input.nativePicture && isAt(cpu, cpu.ip, code.pictureMemberRelease)) input.nativePicture.release(cpu);
     // The clear before the battle music branch runs in every hardware mode.
     // Where the game itself asks for event 14, on Tandy in the first release, it is not sent twice.
     if (isAt(cpu, cpu.ip, code.battleBegins) && isFar(segment, offset, far.clearText)) {
