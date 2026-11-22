@@ -4,8 +4,8 @@
 //       Replays each recorded walk (boot.json, commands.jsonl, prompts.jsonl and its saves, as
 //       tools/record-walk.mjs writes them) from the 1.3 files and from game/, side by side, with
 //       POR_PAUSE_LOG=<out.jsonl> (tools/acceptance/harness.mjs), which appends one line for every
-//       pause through the pause routine that had text on screen: the walk, the source, where the call
-//       returns to, the text, and whether that text reached the page. Any harness run (the acceptance
+//       pause through the pause routine that put new text on screen: the walk, the source, where the
+//       call returns to, that text, and whether it reached the page. Any harness run (the acceptance
 //       tests) can add to such a log the same way.
 //   node tools/record-pause-callers.mjs --merge <out.jsonl>...
 //       Keeps in qa/pause-callers.json, for each call and source, a pause whose text did not reach
@@ -90,7 +90,7 @@ async function replay(fixture, source) {
     rmSync(saves, { recursive: true, force: true });
   }
   // The harness wrote the pauses with text to `out` when the game closed.
-  const withText = game.pauses.filter((pause) => pause.text.some(([, character]) => character > 32));
+  const withText = game.pauses.filter((pause) => pause.message.length);
   const unknown = new Set(withText.map((pause) => pause.returns).filter((returns) => !byReturn.has(returns)));
   console.log(`${walk} from ${source}: ${taken} / ${commands.length} commands, ${game.pauses.length} pauses, ` +
     `${withText.length} with text, ${withText.filter((pause) => !pause.shown).length} of them not on the page` +

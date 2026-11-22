@@ -36,15 +36,31 @@ export function screenRows(frame) {
 }
 
 /**
- * Whether the text on screen at a pause (POR_PAUSE's `text`, [cell, character] pairs) reached the
- * page: every glyph of it, at its cell, in one of the frames the runner sent with or as the frame
- * that ends this input (#81).
+ * What a pause put on screen (POR_PAUSE's `text`, [cell, character] pairs) that the page did not
+ * already show in `before`, the frame that ended the previous input: the message (#81).
  */
-export function pauseShown(pause, frame) {
-  return [...(frame.animation ?? []), frame].some((shown) => {
+export function pauseMessage(pause, before) {
+  const cells = new Map((before?.text ?? []).map(([cell, character]) => [cell, character]));
+  return pause.text.filter(([cell, character]) => character > 32 && cells.get(cell) !== character);
+}
+
+/**
+ * Whether a pause's message reached the page: every glyph of it, at its cell, in one of the frames
+ * the runner sent with, or as, the frame that ends this input (#81).
+ */
+export function pauseShown(message, frame) {
+  return pauseMissing(message, frame).length === 0;
+}
+
+/** The glyphs of a pause's message that the frame showing the most of it lacks. */
+export function pauseMissing(message, frame) {
+  let best = message;
+  for (const shown of [...(frame.animation ?? []), frame]) {
     const cells = new Map((shown.text ?? []).map(([cell, character]) => [cell, character]));
-    return pause.text.every(([cell, character]) => character <= 32 || cells.get(cell) === character);
-  });
+    const missing = message.filter(([cell, character]) => cells.get(cell) !== character);
+    if (missing.length < best.length) best = missing;
+  }
+  return best;
 }
 
 /** The text on screen with runs of spaces collapsed, as verify-input reads it. */
@@ -302,9 +318,10 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
     flashed,
     /**
      * With env POR_TRACE_PAUSES=1: every pause through the game's pause routine, in order, as
-     * { returns, via, ms, text, rows, shown }: where the call that paused returns to (`slice 19 +1bbd`
-     * or `exe 2d1c`), whether it came through a message routine, the text on screen as [cell,
-     * character] pairs and as rows, and whether that text reached the page (`pauseShown`).
+     * { returns, via, ms, text, message, rows, shown }: where the call that paused returns to
+     * (`slice 19 +1bbd` or `exe 2d1c`), whether it came through a message routine, the text on screen
+     * ([cell, character] pairs), what of it the page did not already show (`pauseMessage`, also as
+     * rows), and whether that reached the page (`pauseShown`).
      */
     pauses,
     /**
@@ -348,6 +365,7 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
         const { value, done } = await lines.next();
         if (done) throw new Error(`The game stopped after ${JSON.stringify(command)}.\n${errors}\nLast screen:\n${game.frame ? game.text() : "(none)"}`);
         if (value.startsWith("POR_FRAME ")) {
+          const before = game.frame;
           game.frame = JSON.parse(value.slice("POR_FRAME ".length));
           const listed = party(game.frame);
           if (listed.length) friends = listed.map(({ name }) => name);
@@ -355,8 +373,10 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
             if (shown.statusMessage) flashed.push({ text: menuLine(shown), ms: shown.durationMs });
           }
           for (const pause of pendingPauses) {
-            const rows = screenRows(pause).map((row) => row.trimEnd()).filter(Boolean);
-            pauses.push({ ...pause, rows, shown: pauseShown(pause, game.frame) });
+            const message = pauseMessage(pause, before);
+            const asRows = (glyphs) => screenRows({ text: glyphs }).map((row) => row.trimEnd()).filter(Boolean);
+            const missing = pauseMissing(message, game.frame);
+            pauses.push({ ...pause, message, rows: asRows(message), shown: missing.length === 0, missing: asRows(missing) });
           }
           pendingPauses = [];
           return true;
@@ -724,9 +744,9 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
       if (pauseLog) {
         const source = setting("POR_GAME_SOURCE") === "port" ? "port" : "original";
         const walk = setting("POR_PAUSE_WALK") ?? basename(process.argv[1] ?? "harness");
-        for (const { returns, via, rows, text, shown } of pauses) {
-          if (!text.some(([, character]) => character > 32)) continue;
-          appendFileSync(pauseLog, JSON.stringify({ walk, source, returns, via, text: rows, shown }) + "\n");
+        for (const { returns, via, rows, message, shown, missing } of pauses) {
+          if (!message.length) continue;
+          appendFileSync(pauseLog, JSON.stringify({ walk, source, returns, via, text: rows, shown, ...(shown ? {} : { missing }) }) + "\n");
         }
       }
     },
