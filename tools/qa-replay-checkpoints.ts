@@ -88,6 +88,10 @@ const total = rows.length;
 const runnable = rows.filter(row => row.status !== "missing").length;
 const proved = rows.filter(row => registry.proved.includes(row.name) && row.status !== "missing").length;
 
+if (process.argv.includes("--json")) {
+  console.log(JSON.stringify(rows));
+  process.exit(0);
+}
 if (process.argv.includes("--list")) {
   for (const row of rows) console.log(`${row.status.padEnd(9)} ${row.table.padEnd(18)} ${(row.slot ?? "?").padEnd(2)} ${row.name}${row.file ? `  ${row.file}` : ""}`);
 }
