@@ -2510,7 +2510,8 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:records-commission-offer",
     prompt: /THECOUNCILISOFFERINGAREWARDFORBOOKS,MAPS,TOMES.*THEREWARDISTIEDTOTHEVALUEOFTHEINFORMATION/i,
     finalPhaseCapture: "council-clerk-records-offer.png",
-    continuation: { inputs: ["enter"], prompt: /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i, clearsPortrait: true },
+    continuation: { inputs: ["enter"], prompt: /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i, clearsPortrait: true,
+      transientPortrait: "scene-illustration:area:8:ecl:af78:caller:9a4a:cue:commissions-closed" },
   }],
   ["council-podal-offer", {
     slot: "A", inputs: [...councilClerkApproach, "enter", "enter", "enter"],
