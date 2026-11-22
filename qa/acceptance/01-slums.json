@@ -585,7 +585,8 @@
         "Clue Book p.5-6 numbers the Slums map differently from [P]; the two numberings do not line up (see notes). Clue Book: Monster Guards are 10; [P]: 13."
       ],
       "coveredBy": [],
-      "notes": "The digest quotes no text for location 13. Game text 0xab59 'GUARDS RUN TO INTERCEPT YOU.' is the likely line (script order: it sits between the treasure room and the monster leaders, and the Clue Book calls the spot 'Monster Guards'); confirm against the script before asserting it."
+      "check": "acceptance-slums",
+      "notes": "The digest quotes no text for location 13. Game text 0xab59 'GUARDS RUN TO INTERCEPT YOU.' is the likely line (script order: it sits between the treasure room and the monster leaders, and the Clue Book calls the spot 'Monster Guards'); confirm against the script before asserting it. Established by npm run acceptance:slums (guide, stage guards), with the guide's party (five of six level 1), fights fought with the game's own commands by the guide's tactics. The guards' three squares, (0,5) to (0,7), share one event; the party comes from the orcs' home across the old hemp market and bashes the locked door north of (0,8). The test requires the text 'GUARDS RUN TO INTERCEPT YOU.' on entering (0,7) (0xab59: confirmed by play); thirty combatants named ORC and two named ORC LEADER beside the six characters (the script asks for 4 of monster 5 at ab89; the fight holds the guide's 2); a win; the guide's 99 experience points (with fewer than six standing, the share of a total that gives 99 for six); one more clear point and the script's own mark (0x4acf). On 2026-11-22 the fight took 108 turns and five Sleeps and ended with four of six standing, 148 experience points each (99 for six); AELAR and CAELUM were down Unconscious, none dead, and cures and rest on the guards' square put all six right."
     },
     {
       "id": "acceptance.slums.monster-leaders",

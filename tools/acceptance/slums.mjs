@@ -1782,6 +1782,59 @@ async function guideOhlo(game, state) {
   return outside;
 }
 
+const clerkGreeting = "AT YOUR ENTRY, THE COUNCIL CLERK BEGINS LOOKING THROUGH A STACK OF PAPERS. 'BEFORE I CAN OFFER ANY COMMISSIONS, I MUST SEE IF YOU ARE DUE A CURRENT REWARD.";
+const clerkSlums = "YOUR CLEARING OF THE SLUM AREAS PERMITS US TO EXPAND.";
+const clerkReward = "HERE IS YOUR REWARD.'";
+
+/**
+ * Stage: the Council Clerk's reward for the cleared Slums, from Ohlo's room. Proves
+ * acceptance.slums.clear-the-block: 25 clear points and the script's mark of a cleared block; the
+ * entry without its text; the clerk's two sentences; 450 experience points; 1 jewelry, 50 platinum
+ * and 250 gold pieces. Ends at the New Phlan gate.
+ */
+async function guideReward(game, state) {
+  assert.equal(game.variable(clearPoints), 254, "The block is cleared: the script has stored 254 for its clear points (b6b5).");
+  assert.equal(game.variable(randomFights), 15, "Fifteen random encounters have been beaten.");
+  // Out of the Slums: north, west along y=8, up the lane at x=9, east along y=2, down the lane at x=13 to the entrance.
+  const met = await walkFighting(game, "ENNWWWWWWNNNNNENEEESSSSSENNNE");
+  assert.equal(met, 0, "No random encounter meets the party in the cleared block.");
+  at(game, 15, 4, "The Slums entrance is (15,4).");
+  await game.face("E");
+  await game.press("up");
+  at(game, 0, 4, "East from the Slums entrance is the New Phlan gate.");
+  // In again: a cleared block prints no entry text, and so no alarm (the script at 9aa9).
+  await game.face("W");
+  let mark = game.printed.length;
+  await game.press("up");
+  at(game, 15, 4, "West of the gate is the Slums entrance.");
+  printedInOrder(game, mark, [], "Entering the cleared Slums prints nothing: no alarm sounds.");
+  await game.face("E");
+  await game.press("up");
+  at(game, 0, 4, "The party is back at the gate.");
+
+  // To the clerk at City Hall (5,5): east to the hall's door, in, south, east.
+  await game.walk("EEE");
+  await readOn(game);
+  await game.walk("ES");
+  const before = { exp: await experience(game), money: await partyMoney(game) };
+  mark = game.printed.length;
+  await game.walk("E");
+  at(game, 5, 5, "The clerk is at (5,5).");
+  for (let presses = 0; !/The party has found Treasure!/.test(game.text()); presses++) {
+    if (presses >= 8) game.fail("The clerk's words did not lead to a reward.");
+    await game.press("enter");
+  }
+  const said = game.printed.slice(mark).map(flat);
+  assert.deepEqual(said.slice(0, 3), [clerkGreeting, clerkSlums, clerkReward].map(flat), `The clerk looks for a reward due, names the Slums and hands it over. She said:\n${said.join("\n")}`);
+  // [P] §6.2.2: "Clear the Slums: 1 jewelry, 50 platinum, 250 gold (450 XP)".
+  const { loot, exp } = await claimTreasure(game, { taker: "AELAR", xp: 450, money: { Jewelry: 1, Platinum: 50, Gold: 250 }, label: "the clerk's reward" });
+  assert.deepEqual(loot, [], "The reward holds no items.");
+  for (const [name, points] of Object.entries(exp)) assert.ok(points >= before.exp[name] + perClass(name, 450), `${name}'s sheet shows at least ${perClass(name, 450)} experience points more: ${before.exp[name]} then, ${points} now.`);
+  await readOn(game, 12);
+  state.reward = { said: game.printed.slice(mark).map(flat), exp };
+  progress(`the reward: the clerk said ${JSON.stringify(state.reward.said)}; experience ${JSON.stringify(exp)}`);
+}
+
 /**
  * Walk back and forth between two neighbouring open squares with Search on until `wanted` random
  * encounters in all have been beaten (the script's count, 0x4a80). `out` leads from the safe room
