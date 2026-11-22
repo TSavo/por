@@ -5142,6 +5142,7 @@
     "portrait:area:5:PIC5.DAX:60:0:0": "valjevo-giant-snake-dialogue.png",
     "portrait:area:3:PIC5.DAX:60:0:0": "valjevo-lower-snake-dialogue.png",
     "portrait:PIC2.DAX:26:0:0": "mendor-basilisk-dialogue.png",
+    "portrait:area:15:ecl:a465:PIC2.DAX:26:0:0": "mendor-basilisk-hiss.png",
     "portrait:area:15:ecl:a520:PIC2.DAX:26:1:0": "mendor-basilisk-alert.png",
     "tile:14:e466c34abbd76dc280b14d646164628b5b0fc2ba9cfd40a86f2ae4b8f077dcb3": "old-phlan-east-lane-terrain-e466c34abbd7.png",
     "tile:14:b505a5db5557ee2f019256d5b39e70aaeaa91433d73e896784e9962672192f85": "old-phlan-east-lane-terrain-b505a5db5557.png",

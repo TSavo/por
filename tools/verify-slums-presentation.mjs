@@ -3667,6 +3667,14 @@ const illustrationRoutes = new Map([
     slot: "B", inputs: ["up", "up", "enter"],
     portrait: "portrait:area:15:PIC2.DAX:17:0:0", prompt: /IDEFENDEDTHESEBOOKSINLIFE/i,
   }],
+  ["mendor-basilisk-hiss", {
+    slot: "B", inputs: ["up", "enter", "enter", "enter", "w"],
+    portraitStops: { 4: "portrait:PIC2.DAX:26:0:0" },
+    portrait: "portrait:area:15:ecl:a465:PIC2.DAX:26:0:0",
+    prompt: /ITHISSESATYOU.*COMBATWAITFLEEPARLAY/i,
+    finalPhaseCapture: "mendor-basilisk-hiss.png",
+    continuation: { inputs: ["c", "enter"], clearsPortrait: true, prompt: /BASILISKHITPOINTS31AC4/i },
+  }],
 ]);
 const illustration = illustrationRoutes.get(routeName);
 const nomadSentries = routeName === "nomad-camp-sentries";
