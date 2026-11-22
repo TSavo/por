@@ -511,7 +511,7 @@ function togglePresentation() {
 
 function explorationSurface(view) {
   if (view.art || view.portrait || view.classicPortrait || view.characterSheet ||
-    view.combatArt?.length || view.battleTiles?.length) return;
+    view.combatArt?.length || view.battleTiles?.length || view.battleProps?.length) return;
   if (view.overlandMap) return { materialId: "overland" };
   if (!view.perspective) return;
   if (view.scenery) return view.scenery;
@@ -1173,7 +1173,7 @@ async function showScreen() {
   }
   const selectionArt = (view.combatSelections ?? []).map(([x, y, id]) =>
     [x, y, id, undefined, manualAimOnCell, 24, 24]);
-  const placements = [...(view.battleTiles ?? []), ...selectionArt, ...(view.combatArt ?? [])];
+  const placements = [...(view.battleTiles ?? []), ...(view.battleProps ?? []), ...selectionArt, ...(view.combatArt ?? [])];
   if (view.combatEffect) placements.push([...view.combatEffect, undefined, undefined, 24, 24]);
   if (view.characterSheet) {
     const [head, body] = view.characterSheet;

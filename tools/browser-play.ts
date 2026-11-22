@@ -203,6 +203,7 @@ interface FrameState extends ExplorationFrame {
   combatSelections?: [number, number, string][];
   combatEffect?: [number, number, string];
   battleTiles?: [number, number, string][];
+  battleProps?: CombatArtPlacement[];
   animation?: (PresentationAnimationFrame & ExplorationFrame)[];
   automaticCombat?: boolean;
   developerVictoryAvailable?: boolean;

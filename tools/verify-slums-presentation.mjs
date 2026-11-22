@@ -8062,7 +8062,8 @@ try {
     console.log("Verified the Enhanced Manual Aim marker follows empty squares and clears on Escape.");
   } else if (stinkingCloud) {
     const cloud = "combat:RANDCOM.DAX:1:0:4";
-    const cells = ({ combatArt }) => combatArt.filter(([, , id]) => id === cloud);
+    const combatLayers = ({ battleProps, combatArt }) => [...(battleProps ?? []), ...combatArt];
+    const cells = (candidate) => combatLayers(candidate).filter(([, , id]) => id === cloud);
     for (const key of ["up", ...Array(5).fill("enter"), "space", "d", "g", "d", "g",
       ...Array(15).fill("enter"), "c", "enter", "n", "n", "t"]) await advance(key);
     const frames = [frame, ...(frame.animation ?? [])];
@@ -8077,11 +8078,11 @@ try {
     assert.ok(choking);
     const placements = [[80, 80], [104, 80], [80, 104], [104, 104]];
     assert.deepEqual(cells(choking), placements.map(([x, y]) => [x, y, cloud, false]));
-    const stack = choking.combatArt.filter(([x, y]) => x === 80 && y === 80);
+    const stack = combatLayers(choking).filter(([x, y]) => x === 80 && y === 80);
     assert.equal(stack[0]?.[2], cloud);
     assert.match(stack[1]?.[2] ?? "", /^combat:party:/);
     assert.deepEqual(cells(frame), []);
-    await run(`animationFrame = ${JSON.stringify(choking)}; showScreen();`);
+    await run(`finishAnimation(); animationFrame = ${JSON.stringify(choking)}; showScreen();`);
     await waitFor("all four Enhanced cloud tiles", () => run(`${JSON.stringify(placements)}.every(([x, y]) =>
       [...document.querySelectorAll('.combat-sprite[src="/art/${cloud}"]')].some(image => image.naturalWidth === 96 &&
         Math.abs(parseFloat(image.style.left) - x / 3.2) < 0.01 && Math.abs(parseFloat(image.style.top) - y / 2) < 0.01))`));

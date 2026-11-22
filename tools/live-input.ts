@@ -52,6 +52,7 @@ export interface PresentationAnimationFrame {
   combatSelections?: TilePlacement[];
   combatEffect?: TilePlacement;
   battleTiles: TilePlacement[];
+  battleProps?: CombatArtPlacement[];
   panelFrame?: PanelFrameStamp[];
   text: [number, number, number][];
   perspective?: boolean;
@@ -244,8 +245,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let scriptVariables: Record<string, number> | undefined;
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
   const battleTileKeys = new Set((process.env.POR_BATTLE_TILE_KEYS ?? "").split(",").filter(Boolean));
-  const nativeBattleTerrain = browser && pictures && battleTileKeys.size
-    ? observeNativeBattleTerrain(pictures, battleTileKeys) : undefined;
+  const combatKeys = (process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean);
+  const combatKeySet = new Set(combatKeys);
+  const nativeBattleTerrain = browser && pictures && (battleTileKeys.size || combatKeys.length)
+    ? observeNativeBattleTerrain(pictures, battleTileKeys, combatKeySet) : undefined;
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
   const battleTerrain = browser && (battleTileKeys.size || traceBattleDraw) ? new Frame(screen.width, screen.height) : undefined;
   const tracedBattleTerrain = new Set<string>();
@@ -259,9 +262,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const flightFrame = (frame: PresentationAnimationFrame) => frame.combatEffect && !isImpact(frame.combatEffect[2]);
   let pendingEffect: { x: number; y: number; background: Uint8Array; key?: string } | undefined;
   const materialKeys = new Set((process.env.POR_COMBAT_MATERIAL_KEYS ?? "").split(",").filter(Boolean));
-  const combatKeys = (process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean);
   const combatArt = loadCombatArtMatcher(combatKeys, undefined, materialKeys);
-  const nativeCombat = browser && standalone && combatKeys.length ? observeNativeCombatArt(new Set(combatKeys), materialKeys) : undefined;
+  const nativeCombat = browser && standalone && combatKeys.length ? observeNativeCombatArt(combatKeySet, materialKeys) : undefined;
   const attackKeys = new Set(combatKeys
     .filter((key) => Number(monsterCombatKey.exec(key)?.[3] ?? partyCombatKey.exec(key)?.[2]) >= 128));
   const animation: PresentationAnimationFrame[] = [];
@@ -574,6 +576,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
       }
       const battleTiles: TilePlacement[] = !scene && battlefield ? nativeBattleTerrain?.placements() ?? [] : [];
+      const battleProps = !scene && battlefield ? nativeBattleTerrain?.propPlacements() : undefined;
       const battleTileInventory: TileInventoryCell[] | undefined = traceBattleTiles && !attack ? [] : undefined;
       if (((!nativeBattleTerrain && battleTileKeys.size) || battleTileInventory) && !scene && battlefield) {
         const pixels = Buffer.alloc(64);
@@ -676,6 +679,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         combatSelections: combatSelections.length ? combatSelections : undefined,
         combatEffect: effect?.placement,
         battleTiles,
+        battleProps,
         battleTileInventory,
         panelFrame: scene ? undefined : standalone ? visiblePanelFrame() : matchPanelFrame(screen),
         tileInventory,
@@ -712,7 +716,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         animation.push({ frame: state.frame, enhancedFrame: state.enhancedFrame, portrait: captureIllustration ? portrait : undefined,
           text: state.text, combatArt: effect ? combat : attackArt ?? [], combatSelections: state.combatSelections,
           combatEffect: state.combatEffect,
-          battleTiles, panelFrame: state.panelFrame, perspective,
+          battleTiles, battleProps, panelFrame: state.panelFrame, perspective,
           nativeScenery: state.nativeScenery, exploration: state.exploration,
           overlandMap: state.overlandMap, encounter, tiles, durationMs });
       } else {

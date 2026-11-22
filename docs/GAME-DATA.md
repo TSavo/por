@@ -126,7 +126,9 @@ Standalone Enhanced battlefields track the guest's replacement sheets in
 the SQRPACI cache and place existing tile art from their packaged hashes.
 GOG 1.3 Chrome comparisons verified wall placement and redraw order in
 the Kobold Envoy and Bane hay-bunk fights. All nonblank DUNGCOM cells have
-tile mappings. RANDCOM has partial cell coverage. WILDCOM and untouched
+tile mappings. Native RANDCOM draws use available whole Enhanced artwork when
+their nonblank cells lack complete tile coverage. These backdrops render beneath
+combatants and are removed by terrain redraws. WILDCOM and untouched
 SQRPACI cells still need Enhanced tile mappings. DUNGCOM frame 22 is
 blank in the original battlefields.
 
