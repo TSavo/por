@@ -3072,7 +3072,7 @@ const illustrationRoutes = new Map([
     approachStops: { 2: [48, 32, "encounter:area:10:SPRIT4.DAX:34:0:0", 40, 80] },
     portrait: `scene-illustration:area:10:ecl:9e52:cue:giant-skeleton-${kind}`,
     prompt,
-    finalPhaseCapture: `valhingen-giant-skeleton-${kind}.png`,
+    finalPhaseCapture: `valhingen-giant-skeleton-${kind}-attack.png`,
     continuation,
   }]),
   ["valhingen-marble-chest", {
