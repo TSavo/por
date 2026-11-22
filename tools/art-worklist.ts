@@ -721,12 +721,16 @@ function battlefield(data: PortGameData, art: Map<string, Art>, original: Origin
   const reports: BattleReport[] = [];
   const listed = new Set<string>();
   const unconfirmed = new Set<string>();
-  const overlandOnly = new Set<string>();
+  // Indoor setup leaves slots 25–33 alone. Keep their possible BACPAC cells
+  // on hold until indoor cell-kind selection establishes whether they are used.
+  const indoorResidual = new Set([...frames]
+    .filter(([name]) => /^BACPAC\.DAX:1:\d+:(2[5-9]|3[0-3])$/.test(name))
+    .flatMap(([, hashes]) => hashes));
   const about: Record<string, string> = {
     "DUNGCOM.DAX": "terrain pictures of fights indoors; the game copies them into the battlefield's picture slots",
     "WILDCOM.DAX": "the scenery of fights outdoors: bushes, trees, logs, rocks, streams and cacti",
-    "SQRPACI.DAX": "the terrain sheet: block 1 frames 0 to 39 are the ground of fights outdoors (the same pixels as BACPAC); the rest of block 1 and all of block 2 are the Moonsea overland map's tiles, which Enhanced replaces with the illustrated Moonsea plate",
-    "BACPAC.DAX": "40 base terrain pictures loaded into the battlefield slots; their pixels match SQRPACI block 1 frames 0–39",
+    "SQRPACI.DAX": "the native blitter's terrain sheet; Enhanced draws the Moonsea overland map with its illustrated plate",
+    "BACPAC.DAX": "40 Moonsea pictures whose pixels match SQRPACI block 1 frames 0–39; outdoor battle setup replaces all 40 slots",
   };
   for (const archive of ["DUNGCOM.DAX", "WILDCOM.DAX", "SQRPACI.DAX", "BACPAC.DAX"]) {
     const mine = [...frames].filter(([name]) => name.startsWith(archive));
@@ -740,14 +744,14 @@ function battlefield(data: PortGameData, art: Map<string, Art>, original: Origin
         distinct.add(hash);
         if (keyed.has(hash)) { report.withArt++; return; }
         if (random.has(hashes.join())) return;
-        // Looked at on 2026-11-22. WILDCOM is the scenery of fights outdoors and BACPAC's 40 frames are the
-        // ground of fights outdoors (overlay 0x03 loads them into terrain slots 0 to 39; the wyvern fight
-        // drew slots 3 to 39): both are work. SQRPACI's other frames, block 1 from 40 and all of block 2,
-        // are the Moonsea overland map's tiles. Enhanced replaces the overland view with the illustrated
-        // Moonsea plate and its fast travel (docs/MAP-CONCEPTS.md), so those need no artwork.
-        const [archiveName, blockText, , frameText] = name.split(":");
-        if (archiveName === "SQRPACI.DAX" && (blockText !== "1" || Number(frameText) >= 40)) { overlandOnly.add(hash); return; }
-        if (!proven.has(hashes.join()) && archiveName !== "WILDCOM.DAX" && archiveName !== "BACPAC.DAX" && archiveName !== "SQRPACI.DAX") {
+        if (archive === "SQRPACI.DAX" || archive === "BACPAC.DAX") {
+          if (indoorResidual.has(hash)) {
+            report.notEstablished++;
+            unconfirmed.add(hash);
+          }
+          return;
+        }
+        if (!proven.has(hashes.join()) && archive !== "WILDCOM.DAX") {
           report.notEstablished++;
           unconfirmed.add(hash);
           return;
@@ -760,7 +764,8 @@ function battlefield(data: PortGameData, art: Map<string, Art>, original: Origin
           kind: "battlefield cell", key: `battle-tile:${hash}`, width: 32, height: 32, group: `battlefield, ${file!.replace(".DAX", "")}`,
           what: "one cell of a battlefield picture", composition: `${name}:cell${cell}`,
           description: `${file!.replace(".DAX", "")} block ${block} picture ${frame}, cell ${cell} (column ${cell % 3}, row ${Math.floor(cell / 3)} of its 3 by 3 cells)`,
-          drawnIn: [], why: "another cell of the same picture already has artwork, so the picture has been on a battlefield, and a picture is drawn whole",
+          drawnIn: [], why: archive === "WILDCOM.DAX" ? "native outdoor battlefield setup loads WILDCOM"
+            : "another cell of the same picture already has artwork, so the picture has been on a battlefield, and a picture is drawn whole",
         });
       });
     }
@@ -957,8 +962,8 @@ function document(list: Worklist): string {
     }
   }
   add("## To do: battlefield cells", "",
-    "The battlefield is drawn from 24 by 24 pictures, each nine cells. SQRPACI.DAX holds the battlefield's two picture slots; DUNGCOM.DAX and WILDCOM.DAX are pictures too (terrain for fights indoors and outdoors,",
-    "24 by 24, 25 and 34 of them), not game content: the art inventory's listing of them as game data is the one that was wrong.", "",
+    "The battlefield is drawn from 24 by 24 pictures, each nine cells. Combat copies DUNGCOM or WILDCOM into the shared terrain sheet, then copies RANDCOM into slots 34–39.",
+    "Outdoor setup replaces all 40 BACPAC slots. Indoor setup leaves slots 25–33 alone, so any remaining BACPAC hashes in those slots stay under Not established pending indoor draw evidence.", "",
     "| Archive | What it is | Pictures | Distinct cells | With art | To do | Not established |", "| --- | --- | ---: | ---: | ---: | ---: | ---: |");
   for (const report of list.battlefield) add(`| ${report.archive} | ${report.what} | ${report.frames} | ${report.distinctCells} | ${report.withArt} | ${report.toDo} | ${report.notEstablished} |`);
   add("");
