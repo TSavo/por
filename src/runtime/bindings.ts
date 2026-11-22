@@ -261,6 +261,8 @@ export const code = resolve({
   effectShownA: { "1.0": { slice: 0x19, at: 0x1d27 }, "1.3": { segment: 0xba, at: 0x2874 } },
   effectShownB: { "1.0": { slice: 0x19, at: 0x1fea }, "1.3": { segment: 0xba, at: 0x2b34 } },
   effectShownC: { "1.0": { slice: 0x19, at: 0x2169 }, "1.3": { segment: 0xba, at: 0x2cbd } },
+  /** Copies an effect slot and pose into a frame of the projectile scratch picture. */
+  combatEffectCompose: { "1.0": { slice: 0x19, at: 0x18e1 }, "1.3": { segment: 0xba, at: 0x2432 } },
   /** Where each of those three resumes after the pause that follows. */
   effectPausedA: { "1.0": { slice: 0x19, at: 0x1d3c }, "1.3": { segment: 0xba, at: 0x2889 } },
   effectPausedB: { "1.0": { slice: 0x19, at: 0x2005 }, "1.3": { segment: 0xba, at: 0x2b4f } },

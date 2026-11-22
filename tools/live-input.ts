@@ -4,6 +4,7 @@ import { captureNativeExploration, type NativeExploration } from "./native-explo
 import { observeNativeCombatArt } from "./native-combat-art.js";
 import { nativeSelectionKey, observeNativeCombatSelection } from "./native-combat-selection.js";
 import { observeNativeBattleTerrain } from "./native-battle-terrain.js";
+import { observeNativeCombatEffects } from "./native-combat-effects.js";
 import { captureOverlandTravel, identifyPhlanPrompt, identifySokalPrompt, isQuayDialogue, isSokalBoatHandoff,
   type SokalQuay, type TravelState } from "./overland-travel.js";
 import { createHash } from "node:crypto";
@@ -250,11 +251,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const selectionKeys = new Set((process.env.POR_COMBAT_SELECTION_KEYS ?? "").split(",").filter(Boolean));
   const nativeSelection = browser && standalone && code.combatSelectionDrawResumes ? observeNativeCombatSelection() : undefined;
   const effectKeys = (process.env.POR_COMBAT_EFFECT_KEYS ?? "").split(",").filter(Boolean);
+  const nativeEffects = browser && standalone && effectKeys.length ? observeNativeCombatEffects(new Set(effectKeys)) : undefined;
   const matchCombatEffect = loadCombatEffects(effectKeys);
   const isHoldEffect = (key: string) => /:(?:9|137)(?::flip-x)?$/.test(key);
   const isImpact = (key: string) => isHoldEffect(key) || /:(?:10|138)(?::flip-x)?$/.test(key) || /:(?:11|139)$/.test(key);
   const flightFrame = (frame: PresentationAnimationFrame) => frame.combatEffect && !isImpact(frame.combatEffect[2]);
-  let pendingEffect: { x: number; y: number; background: Uint8Array } | undefined;
+  let pendingEffect: { x: number; y: number; background: Uint8Array; key?: string } | undefined;
   const materialKeys = new Set((process.env.POR_COMBAT_MATERIAL_KEYS ?? "").split(",").filter(Boolean));
   const combatKeys = (process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean);
   const combatArt = loadCombatArtMatcher(combatKeys, undefined, materialKeys);
@@ -960,6 +962,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     nativeSelection,
     nativeBattleTerrain,
     nativePicture,
+    nativeEffects,
     captureBattleTerrain: battleTerrain ? (cpu: Cpu, column: number, row: number, picture: number) => {
       if (column > 18 || row > 18 || column % 3 || row % 3) return;
       const x = 8 + column * 8;
@@ -1009,7 +1012,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         native: localScenery ? captureNativeExploration(cpu, standalone) : undefined };
       if (drawnPerspective.native) lastLocalPerspective = drawnPerspective;
     } : undefined,
-    captureCombatEffectUnderlay: browser && effectKeys.length ? (cpu: Cpu) => {
+    captureCombatEffectUnderlay: browser && effectKeys.length ? (cpu: Cpu, scratchPicture: boolean) => {
       pendingEffect = undefined;
       // At the native call site the far destination pointer precedes the
       // source pointer, flags, picture index, row and column.
@@ -1018,6 +1021,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const width = cpu.read16(segment, offset + 2);
       if (argument(8) !== 5 || row > 18 || column > 18 || width < column + 3 ||
           cpu.read16(segment, offset) < row * 8 + 24) return;
+      const key = scratchPicture ? nativeEffects?.draw(argument(10)) : undefined;
+      if (nativeEffects && !key) return;
       const planeMasks = Array.from({ length: 4 }, (_, plane) => cpu.read8(cpu.ds, data.planeMasks + plane) & 15);
       const background = new Uint8Array(24 * 24);
       for (let dy = 0; dy < 24; dy++) {
@@ -1031,7 +1036,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           }
         }
       }
-      pendingEffect = { x: 8 + column * 8, y: 8 + row * 8, background };
+      pendingEffect = { x: 8 + column * 8, y: 8 + row * 8, background, key };
     } : undefined,
     capturePresentationDelay: browser ? (cpu: Cpu, effectDelay = false, messageMs?: number) => {
       const draw = effectDelay ? pendingEffect : undefined;
@@ -1046,7 +1051,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if (scene) return;
       if (draw) {
         const { x, y, background } = draw;
-        const key = matchCombatEffect(screen, x, y, background);
+        const key = draw.key ?? matchCombatEffect(screen, x, y, background);
         if (key) {
           const previous = animation.at(-1)?.combatEffect;
           if (previous?.[0] === x && previous[1] === y && previous[2] === key) return;

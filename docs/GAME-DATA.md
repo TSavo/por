@@ -146,6 +146,11 @@ selection borders and replaces them on terrain redraw. The
 `buccaneer-native-manual-aim` Chrome replay checks the border on occupied and empty
 cells and its return to the active actor when Manual Aim closes.
 
+Standalone projectile and impact art follows the guest's COMSPR loads,
+scratch-frame copies and draw coordinates. The oil-flask Chrome replay
+checks all four art variants and removal after the attack in both data
+modes. Death markers still use the original pixel matcher.
+
 In standalone mode, the PIC animation loader supplies the archive, block and
 member for each native picture allocation. The renderer resolves existing
 Enhanced portrait keys when the guest presents that member in the 88×88

@@ -83,6 +83,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const capturePerspective = input?.capturePerspective;
   const captureEncounterDraw = input?.captureEncounterDraw;
   const captureCombatEffectUnderlay = input?.captureCombatEffectUnderlay;
+  const nativeEffects = input?.nativeEffects;
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
   const captureBattleTerrain = input?.captureBattleTerrain;
   const nativeCombat = input?.nativeCombat;
@@ -93,7 +94,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const selectionReturn = code.combatSelectionDrawResumes;
   const codeWheel = input && process.env.POR_BROWSER_PLAY === "1" ? startupInput.codeWheel : undefined;
   if (capturePresentationDelay || capturePerspective || traceBattleDraw || captureBattleTerrain ||
-      codeWheel || nativeCombat || nativeSelection || nativeBattleTerrain || nativePicture) {
+      codeWheel || nativeCombat || nativeSelection || nativeBattleTerrain || nativePicture || nativeEffects) {
     const tick = cpu.tick;
     const terrainDraws = new Set<string>();
     // Above the pause routine's return address sit its argument, its saved BP and its own return address.
@@ -113,6 +114,10 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
         if (isAt(this, at, code.combatPictureLoad)) nativeCombat.load(this);
         if (isAt(this, at, code.combatPictureDraw)) nativeCombat.draw(this);
       }
+      if (nativeEffects) {
+        if (isAt(this, at, code.combatPictureLoad)) nativeEffects.load(this);
+        if (this.steps >= liveStep && isAt(this, at, code.combatEffectCompose)) nativeEffects.compose(this);
+      }
       if (nativeSelection && selectionReturn && this.steps >= liveStep && isAt(this, at, code.combatPictureDraw) &&
           returnsTo(this, 0, selectionReturn)) nativeSelection.draw(this);
       if (nativeBattleTerrain && isAt(this, at, code.battleTerrainSheetCopied)) nativeBattleTerrain.copySheet(this);
@@ -122,9 +127,11 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       }
       // The combat effect code draws projectiles and impacts into the offscreen
       // picture, flips the visible buffer, and then enters the original EGA delay.
-      if (captureCombatEffectUnderlay && this.steps >= liveStep &&
-          (isAt(this, at, code.effectShownA) || isAt(this, at, code.effectShownB) || isAt(this, at, code.effectShownC) ||
-           isAt(this, at, code.deathShown))) captureCombatEffectUnderlay(this);
+      if (captureCombatEffectUnderlay && this.steps >= liveStep) {
+        if (isAt(this, at, code.effectShownA) || isAt(this, at, code.effectShownB) || isAt(this, at, code.effectShownC)) {
+          captureCombatEffectUnderlay(this, true);
+        } else if (isAt(this, at, code.deathShown)) captureCombatEffectUnderlay(this, false);
+      }
       if (isAt(this, at, code.delayLoop) && this.steps >= liveStep) {
         const projectileDelay = captureCombatEffectUnderlay !== undefined &&
           (returnsTo(this, 0, code.effectPausedA) || returnsTo(this, 0, code.effectPausedB) || returnsTo(this, 0, code.effectPausedC));
@@ -400,6 +407,7 @@ if (input && process.env.POR_BROWSER_PLAY === "1") {
       input.nativeCombat?.reset();
       input.nativeSelection?.reset();
       input.nativeBattleTerrain?.reset();
+      input.nativeEffects?.reset();
       const mode = cpu.read8(cpu.ds, data.soundMode);
       if (mode !== 0 || !behaviour.startsBattleMusicOnTandy) console.log(`POR_SOUND ${JSON.stringify({ index: 14, mode, step: cpu.steps, enhancedOnly: true })}`);
     }

@@ -7035,7 +7035,7 @@ routes.push("new-phlan-council-reflected-effects", "textile-reflected-arrow");
 const partyDefeatEffect = routeName === "valjevo-party-defeat-effect";
 const defeatEffect = partyDefeatEffect || routeName === "buccaneer-pen-defeat-effect";
 const projectile = {
-  "buccaneer-oil-flask": { phases: ["4", "4:flip-x", "4:transpose", "132"], damage: 10 },
+  "buccaneer-oil-flask": { phases: ["4", "4:flip-x", "4:transpose", "132"], damage: 10, quickTurns: 1 },
   "buccaneer-sling-shot": { phases: ["8", "136"], damage: 5 },
   "buccaneer-arrow-down": { phases: ["128"], damage: 3, archer: "ALDA",
     inputs: ["m", "pageup", "right", "enter", "a", "n", "n", "t"], launch: [80, 56], landing: [80, 104] },
@@ -8107,7 +8107,8 @@ try {
         }
       }).observe(art, {childList: true});`);
     if (projectile) {
-      for (const key of ["up", "up", "enter", "enter", "a", "enter", "enter", "q", "q", ...(projectile.inputs ?? [])]) {
+      for (const key of ["up", "up", "enter", "enter", "a", "enter", "enter",
+        ...Array(projectile.quickTurns ?? 2).fill("q"), ...(projectile.inputs ?? [])]) {
         await advance(key);
       }
       const ids = projectile.phases.map(phase => `combat-effect:COMSPR.DAX:${phase}`);
