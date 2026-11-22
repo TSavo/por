@@ -296,8 +296,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     .filter((key) => Number(monsterCombatKey.exec(key)?.[3] ?? partyCombatKey.exec(key)?.[2]) >= 128));
   const animation: PresentationAnimationFrame[] = [];
   // A frame that hands the page pictures of an animation still running (#121): the page plays them
-  // and asks for more with ":poll", as it does for a fight the computer plays.
-  let presentationPolling = false;
+  // and asks for more with ":poll", as it does for a fight the computer plays. Its value is how many
+  // pictures the next batch will hold, which the page uses to pace this one (#125).
+  let presentationPolling: number | false = false;
   let pictureLoopShown: string | undefined;
   // How many pictures go to the page at a time. Each loop starts with two, so its first pose arrives
   // while the page still shows the last one before it, and doubles up to a dozen (#125).
@@ -306,8 +307,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let pictureLoopClip: PresentationAnimationFrame | undefined;
   let immediateStrike: { signature: string; clip: PresentationAnimationFrame } | undefined;
   /** Send the pictures captured so far in a frame the page plays, and wait until it asks for more. */
-  const handOverPictureLoop = () => {
-    presentationPolling = true;
+  const handOverPictureLoop = (next: number) => {
+    presentationPolling = next;
     awaitsKey = false;
     showFrame();
     presentationPolling = false;
@@ -1185,7 +1186,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       pictureLoopPasses = 0;
       pictureLoopShown = undefined;
       captureEclContext(cpu);
-      handOverPictureLoop();
+      // What comes next is another loop, or none: the page paces these as the last batch came.
+      handOverPictureLoop(animation.length);
     } : undefined,
     presentPictureLoop: browser ? (cpu: Cpu) => {
       if (cpu.steps < startAt) return;
@@ -1203,8 +1205,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       pictureLoopPasses = 0;
       captureEclContext(cpu);
       if (animation.length >= pictureLoopBatch) {
-        handOverPictureLoop();
-        pictureLoopBatch = Math.min(12, pictureLoopBatch * 2);
+        const next = Math.min(12, pictureLoopBatch * 2);
+        handOverPictureLoop(next);
+        pictureLoopBatch = next;
       }
       showFrame(undefined, undefined, false, false, 100, undefined, false, "picture");
       pictureLoopClip = animation.at(-1);

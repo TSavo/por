@@ -198,7 +198,7 @@ interface FrameState extends ExplorationFrame {
   battleProps?: CombatArtPlacement[];
   animation?: (PresentationAnimationFrame & ExplorationFrame)[];
   automaticCombat?: boolean;
-  presentationPolling?: boolean;
+  presentationPolling?: number;
   developerVictoryAvailable?: boolean;
   tileInventory?: TileInventoryCell[];
   battleTileInventory?: TileInventoryCell[];

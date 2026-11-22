@@ -532,12 +532,15 @@ function playAnimation(continues = false) {
   let frames = state.animation ?? [];
   if (state.presentationPolling || continues) {
     // The runner draws such an animation several times slower than the original showed it (its DOS
-    // clock moves one hundredth per reading). Each batch is therefore spread over the time the last
-    // one took to arrive, up to a second a picture, so the poses keep moving while the next batch is
-    // drawn, rather than playing at once and holding the last pose for seconds (#125). The game's own
-    // timing is untouched.
+    // clock moves one hundredth per reading). The page asks for the next batch at once, so the time
+    // this batch took to arrive is what drawing it cost. Each batch is spread over the time the next
+    // one will take, which the frame names by its size, up to 0.9 s a picture, so the poses keep
+    // moving while it is drawn, rather than playing at once and then holding for seconds (#125). The
+    // game's own timing is untouched.
     const now = performance.now();
-    const spread = frames.length ? Math.min(1000, (now - (selfPlayingBatchAt ?? now)) / frames.length) : 0;
+    const next = typeof state.presentationPolling === "number" ? state.presentationPolling : frames.length;
+    const perPicture = frames.length ? (now - (selfPlayingBatchAt ?? now)) / frames.length : 0;
+    const spread = frames.length ? Math.min(900, perPicture * next / frames.length) : 0;
     selfPlayingBatchAt = state.presentationPolling ? now : undefined;
     frames = frames.map(frame => ({ ...frame, durationMs: Math.max(frame.durationMs ?? 120, spread) }));
   }
