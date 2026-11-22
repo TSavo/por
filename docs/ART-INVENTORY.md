@@ -141,16 +141,16 @@ encounter branches can use the same source frame, and some script scenes
 have no archive picture. Branch-specific artwork can improve live coverage
 without changing the source-frame count.
 
-The GOG 1.3 inventory at `974a4df4` covers 760 of 833 archive frames
+The GOG 1.3 inventory at `7c7ecdb7` covers 760 of 833 archive frames
 (91.2%). Of the 73 unlinked rows, 34 are PIC, 33 are SPRIT, and six are
 CPIC. There are 59 distinct nonuniform images among those rows. The
 inventory found no unambiguous script picture references pointing to an
 unlinked frame. Check live draws before treating those rows as missing
 artwork the player can see.
 
-The same run loaded 8,528 mappings from 7,325 PNG files with zero artwork
-load or portrait match issues. It counted 388 distinct scripted scene
-illustrations across 853 scene bindings. These counts exclude proofs of
+The same run loaded 8,500 mappings from 7,331 PNG files with zero artwork
+load or portrait match issues. It counted 394 distinct scripted scene
+illustrations across 861 scene bindings. These counts exclude proofs of
 visual quality and coverage of unplayed branches.
 
 Running the same inventory against the DOS 1.0 and GOG 1.3 data at
