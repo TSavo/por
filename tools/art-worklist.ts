@@ -5,6 +5,12 @@
  *   npm run art:worklist -- --check           fail if the committed files are stale
  *   npm run art:worklist -- --sheets [dir]    also write reference sheets of the originals (default out/art-worklist/)
  *   npm run verify:art-worklist               check every item against the manifests and PNGs; print what remains
+ *   npm run art:worklist -- --held            write the held ("Not established") first-person cells, with the backdrop,
+ *                                             square and facing of each, to out/art-worklist-held.json (not committed)
+ *
+ * qa/art-worklist-observed.json records, per area, backdrops (sky, horizon, ground) seen in play, which count
+ * exactly as backdrops existing artwork confirms, and backdrops the script shows cannot occur, whose cells are
+ * dropped for good.
  *
  * It reads `game/` (no original file) and the two artwork manifests, fresh on every run. The
  * first-person view is worked out by tools/first-person-cells.ts. A screen cell whose pixels are
@@ -38,6 +44,19 @@ const repository = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const at = (...parts: string[]) => join(repository, ...parts);
 const MANIFESTS = ["upgrades/manifest.json", "upgrades/slums/manifest.json"] as const;
 const WORKLIST = "qa/art-worklist.json", DOCUMENT = "docs/ART-WORKLIST.md", CELLS = "qa/art-worklist-cells.json", NOTES = "qa/art-worklist-notes.md";
+/** Backdrops seen in play, or shown from the script not to occur, per area: see the file's own "about". */
+const OBSERVED = "qa/art-worklist-observed.json";
+interface ObservedArea {
+  /** Backdrops the running game drew in this area. `s<sky>` also stands for the horizon row under that sky. */
+  shown?: { backdrop: Backdrop; how: string }[];
+  /** Backdrops the script shows cannot occur in this area, with the reason. `s<sky>` also covers the horizon row under that sky. */
+  notShown?: { backdrop: Backdrop; reason: string }[];
+}
+function readObserved(): Record<string, ObservedArea> {
+  return existsSync(at(OBSERVED)) ? (JSON.parse(readFileSync(at(OBSERVED), "utf8")) as { areas: Record<string, ObservedArea> }).areas : {};
+}
+/** A held cell, for --held: what play would have to show for it to become work. */
+interface Held { area: number; areaName: string; key: string; reason: string; backdrop: Backdrop; composition: string; map: number; x: number; y: number; facing: string; column: number; row: number; views: number }
 const BLANK = sha256(new Uint8Array(64));
 
 const names: Record<number, string> = {
@@ -196,6 +215,8 @@ interface AreaReport {
   cellsWithArt: number;
   toDo: number;
   notEstablished: Record<string, number>;
+  /** Cells left out for good because qa/art-worklist-observed.json records, from the script, that their sky or ground does not occur here. */
+  struckOff?: Record<string, number>;
 }
 
 const FACING: Record<number, string> = { 0: "north", 2: "east", 4: "south", 6: "west" };
@@ -207,6 +228,8 @@ interface Agg { rc: 0 | 1 | 2; roofed: boolean; shaft: boolean; tiles: TileName[
 interface Entry { cell: Cell; context: Context; views: number; squares: Set<number>; first: Item["seenAt"]; areaView: boolean }
 
 function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
+  const observed = readObserved();
+  const held: Held[] = [];
   const existing = new Map<number, Set<string>>();
   const drawnIn = new Map<string, number[]>(), sameAs = new Map<string, string>();
   const tilesBySource = new Map(world.catalogue.tiles.flatMap(tile => tile.sources.map(source => [source, tile] as const)));
@@ -318,6 +341,15 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     // The game resets both bytes whenever it starts a newly loaded script (ovl07 0x01b6 in 1.3 writes
     // 0x41 and 9 to them and puts the script cursor back at 0x9900), so nothing carries over from the
     // area before. An area whose script writes neither therefore shows only the starting values.
+    // ovl07 0x01b6 has two callers: the NEW ECL command (ovl03 0x0c55, straight after the new block
+    // is loaded) and the start of the exploring loop (ovl03 0x335d: a new game and a loaded one).
+    // The 0x41 goes to the ground code (DS:0x6f68, script 0xc059), where ovl26 0x012f reads it as
+    // ground 6; the 9 goes to the horizon code (DS:0x6f69, script 0xc05f), which ovl26 0x00c7 and
+    // 0x00fb read as line 15 and band 7. So the reset draws exactly HORIZON; 0x41 means line 0 only
+    // as a horizon code, which Kuto's Well alone writes.
+    // Seen in play on 2026-11-21 (qa/art-worklist-observed.json, "rules"): New Phlan 0x41 and 9; the
+    // Graveyard 0x0b and 8 after its own writes; one step off the Graveyard's edge (its NEW ECL 26)
+    // 0x41 and 9 again, though no script writes 9 to the horizon code.
     const starting = (from: string) => from === "the game's starting value";
     const written = { bands: world.bands.filter(({ from }) => writtenHere(from)), grounds: world.grounds.filter(({ from }) => writtenHere(from)) };
     const ownBands = kuto || context.arrivalFrom ? [] : written.bands.length ? written.bands : world.bands.filter(({ from }) => starting(from));
@@ -504,6 +536,12 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
 
     // Backdrops the existing artwork confirms: a cell with art that only one backdrop can make.
     const confirmed = new Set<Backdrop>(["-"]);
+    // Backdrops seen in play in this area count exactly as ones existing artwork confirms.
+    for (const { backdrop } of observed[label]?.shown ?? []) confirmed.add(backdrop);
+    // Backdrops the script shows cannot occur here: their cells are neither work nor held.
+    const ruledOut = observed[label]?.notShown ?? [];
+    const ruling = (backdrop: Backdrop) => ruledOut.find((rule) => rule.backdrop === backdrop
+      || (rule.backdrop[0] === "s" && backdrop.startsWith(`h${rule.backdrop.slice(1)}.`)));
     // These two scope 26 keys were authored for the Valhingen arrival while
     // the script area still reports 26. They establish nothing about map 26's ground.
     const graveyardArrivalBackdrops = label === 26 ? new Set([
@@ -535,9 +573,12 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       const shape = shapeOf(entry.cell.signature);
       if (shape && !shapeWithArt.has(shape)) shapeWithArt.set(shape, `tile:${label}:${hash}`);
     }
-    for (const [hash, list] of seen) {
+    for (let [hash, list] of seen) {
       if (have.has(hash)) continue;
       if (!report.established) { note("cells of an area whose reading is not confirmed"); continue; }
+      const struck = list.length && list.every((entry) => !entry.areaView && ruling(entry.cell.backdrop)) ? ruling(list[0]!.cell.backdrop) : undefined;
+      if (struck) { (report.struckOff ??= {})[struck.reason] = (report.struckOff[struck.reason] ?? 0) + 1; continue; }
+      list = list.filter((entry) => entry.areaView || !ruling(entry.cell.backdrop));
       const reached = list.filter((entry) => [...entry.squares].some((square) => walkable.get(entry.context)!.has(square)));
       const certain = reached.filter((entry) => entry.areaView ? overheadConfirmed : auditedContexts.has(entry.context) || backdropOk(entry.cell.backdrop));
       // Held back, not listed. On 2026-11-21 these were listed as "likely" work for an hour and that
@@ -550,6 +591,11 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
         if (list.every((entry) => entry.areaView)) note("cells of the overhead area view, which no existing artwork of the area confirms");
         else if (!reached.length) note("cells seen only from squares not connected to any square the existing artwork was made from");
         else note("cells that show a sky or ground colour no existing artwork of the area shows");
+        const reason = list.every((entry) => entry.areaView) ? "overhead view" : !reached.length ? "unconnected squares" : "unproven sky or ground";
+        for (const entry of reached.length ? reached : list) {
+          held.push({ area: label, areaName: report.name, key: `tile:${label}:${hash}`, reason, backdrop: entry.cell.backdrop, composition: entry.cell.signature,
+            map: entry.context.map, x: entry.first!.x, y: entry.first!.y, facing: entry.first!.facing, column: entry.first!.column, row: entry.first!.row, views: entry.views });
+        }
         continue;
       }
       const entry = certain[0]!;
@@ -621,7 +667,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
   }
   items.sort((a, b) => a.area! - b.area! || a.group.localeCompare(b.group, undefined, { numeric: true }) || a.key.localeCompare(b.key));
   return {
-    items, reports, never,
+    items, reports, never, held,
     stored: { ...stored, distinctPictures: stored.distinctPictures.size },
     backdrops: { bands: world.bands, grounds: world.grounds },
   };
@@ -894,6 +940,11 @@ function document(list: Worklist): string {
   add("## Not established", "", "Do not start on these. Each is something the tool could not confirm can appear, with the reason. None is in the count above and none is dropped.", "",
     "| What | Count |", "| --- | ---: |");
   for (const [what, count] of Object.entries(list.notEstablished)) add(`| ${what} | ${count} |`);
+  const struck = list.areas.flatMap((area) => Object.entries(area.struckOff ?? {}).map(([reason, count]) => ({ area, reason, count })));
+  if (struck.length) {
+    add("", `Struck off, not held: ${struck.reduce((sum, { count }) => sum + count, 0)} cells the tool once tried under a sky or ground the area's script shows cannot occur there (\`${OBSERVED}\`):`, "");
+    for (const { area, reason, count } of struck) add(`- Area ${area.area} (${area.name}), ${count} cells: ${reason}`);
+  }
   add("", "Areas not confirmed, and why:", "");
   for (const area of list.areas) if (!area.established) add(`- Area ${area.area} (${area.name}): ${area.why}.`);
   add("", "### Other pictures no key names", "",
@@ -1065,6 +1116,13 @@ function main(): void {
     const pending = Object.entries(notEstablished).filter(([, count]) => typeof count === "number" && count > 0);
     if (pending.length) console.log(`Not counted, not established (see ${DOCUMENT}): ${pending.map(([what, count]) => `${count} ${what}`).join("; ")}`);
     process.exit(items.length || invalidTiles.length ? 1 : 0);
+  }
+  if (args.includes("--held")) {
+    // Not committed: out/ is the scratch directory. One row per held cell and backdrop, with a square and facing that shows it.
+    mkdirSync(at("out"), { recursive: true });
+    writeFileSync(at("out", "art-worklist-held.json"), JSON.stringify(first.held, null, 1) + "\n");
+    console.log(`wrote out/art-worklist-held.json: ${first.held.length} rows for ${new Set(first.held.map((row) => row.key)).size} held cells`);
+    return;
   }
   writeFileSync(at(WORKLIST), json);
   writeFileSync(at(DOCUMENT), text);

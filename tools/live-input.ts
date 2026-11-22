@@ -243,6 +243,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     return address;
   });
   let scriptVariables: Record<string, number> | undefined;
+  // POR_WATCH_DS=6f68,6f69 makes each frame report those bytes of the program's data segment
+  // (`dataBytes`): state the scripts set that is not a script variable, such as the ground and
+  // horizon codes the first-person view is drawn with. Read only.
+  const watchedData = (process.env.POR_WATCH_DS ?? "").split(",").filter(Boolean).map((text) => {
+    if (!/^[0-9a-f]{1,4}$/i.test(text)) throw new Error(`POR_WATCH_DS takes data segment offsets in hexadecimal, not ${text}`);
+    return Number.parseInt(text, 16);
+  });
+  let dataBytes: Record<string, number> | undefined;
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
   const battleTileKeys = new Set((process.env.POR_BATTLE_TILE_KEYS ?? "").split(",").filter(Boolean));
   const combatKeys = (process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean);
@@ -657,6 +665,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         awaitsKey: awaitsKey || undefined,
         // With POR_WATCH_ECL: the watched script variables, by address in hexadecimal.
         scriptVariables,
+        // With POR_WATCH_DS: the watched bytes of the data segment, by offset in hexadecimal.
+        dataBytes,
         text,
         // The rune glyphs on screen (cell, glyph code, colour). They are in both pictures.
         runes: runes.length ? runes : undefined,
@@ -846,6 +856,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       scriptVariables = watchedVariables.length && (segment || offset)
         ? Object.fromEntries(watchedVariables.map((address) => [address.toString(16), cpu.read16(segment, offset + eclGlobalOffset(address))]))
         : undefined;
+      dataBytes = watchedData.length ? Object.fromEntries(watchedData.map((offset) => [offset.toString(16), cpu.read8(unit.data, offset)])) : undefined;
       // Valjevo draws the dungeon hedge before copying the selected ECL
       // back to the area record. Other transition art uses the record's scope.
       if (area === 5 && activeEcl === 3) area = 3;
