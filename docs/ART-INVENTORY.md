@@ -131,17 +131,26 @@ encounter branches can use the same source frame, and some script scenes
 have no archive picture. Branch-specific artwork can improve live coverage
 without changing the source-frame count.
 
-The GOG 1.3 inventory at `d2214735` covers 760 of 833 archive frames
+The GOG 1.3 inventory at `36da49a7` covers 760 of 833 archive frames
 (91.2%). Of the 73 unlinked rows, 34 are PIC, 33 are SPRIT, and six are
 CPIC. There are 59 distinct nonuniform images among those rows. The
 inventory found no unambiguous script picture references pointing to an
 unlinked frame. Check live draws before treating those rows as missing
 artwork the player can see.
 
-The same run loaded 8,387 mappings from 7,286 PNG files with zero artwork
-load or portrait match issues. It counted 352 distinct scripted scene
-illustrations across 755 scene bindings. These counts exclude proofs of
+The same run loaded 8,394 mappings from 7,289 PNG files with zero artwork
+load or portrait match issues. It counted 355 distinct scripted scene
+illustrations across 762 scene bindings. These counts exclude proofs of
 visual quality and coverage of unplayed branches.
+
+Running the same inventory against the DOS 1.0 and GOG 1.3 data at
+`36da49a7` produced identical replacement, archive coverage, atlas,
+and named monster pose records. All 68 script picture references select
+the same source IDs in both editions. Four New Phlan references have
+addresses three bytes later in 1.3: the jeweler, the arms and armor
+shop, the silver shop, and the priests of Tempus. Each still selects
+the same head and body. Browser replays check which art appears at
+each prompt; matching inventory records establish the shared asset set.
 For example, the `new-phlan-rolf-approach` Chrome replay starts with a
 fresh party and checks the enhanced dock, Rolf's approach and all seven
 tour stops, and the return to scenery after the City Hall guard. This
