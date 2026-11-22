@@ -2060,6 +2060,20 @@ const illustrationRoutes = new Map([
       portraits: ["scene-illustration:area:0:ecl:aa63", "scene-illustration:area:0:ecl:aa60"],
     },
   }],
+  ["new-phlan-tempus-watch-challenge", {
+    slot: "A", inputs: ["up", "enter"],
+    portrait: "portrait:area:0:ecl:aab8:HEAD3.DAX:57:BODY3.DAX:1",
+    alternatePortrait: "portrait:area:0:ecl:aac4:HEAD3.DAX:57:BODY3.DAX:1",
+    prompt: /YOUATTACKEDTHECITYWATCH/i,
+    finalPhaseCapture: "new-phlan-tempus-watch-challenge.png",
+    continuation: {
+      inputs: ["enter"], prompt: /ABATTLEBEGINS/i,
+      portraits: [
+        "portrait:area:0:ecl:aac7:HEAD3.DAX:57:BODY3.DAX:1",
+        "portrait:area:0:ecl:aac4:HEAD3.DAX:57:BODY3.DAX:1",
+      ],
+    },
+  }],
   ["new-phlan-tavern-spinner", {
     slot: "A", inputs: ["up", "enter", "y"],
     portrait: "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:7", prompt: /WESPINTHISTOP/i,
@@ -4647,11 +4661,11 @@ const combatPoseRoutes = new Map([
     width: 96, height: 96, readyPrompt: /7THLVLCLERIC/i,
     inputs: ["up", "enter", "enter", ...Array(19).fill("q")],
   }],
-  ["tempus-temple-line-fighter-ready", {
-    slot: "A", stand: "combat:area:0:CPIC3.DAX:11:ecl:aac7", width: 96, height: 96,
+  ...[["tempus-temple-line-fighter-ready", "aac7"], ["tempus-temple-line-fighter-ready-13", "aac4"]].map(([route, cursor]) => [route, {
+    slot: "A", stand: `combat:area:0:CPIC3.DAX:11:ecl:${cursor}`, width: 96, height: 96,
     readyPrompt: /4THLVLFIGHTER/i, strikeInputs: [],
     inputs: ["up", "enter", "enter", ...Array(4).fill("q")],
-  }],
+  }]),
   ["tempus-temple-captain-ready", {
     slot: "A", stand: "combat:area:0:CPIC3.DAX:16:ecl:aac7", strike: "combat:area:0:CPIC3.DAX:144:ecl:aac7",
     width: 96, height: 96,
