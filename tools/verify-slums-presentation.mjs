@@ -1589,6 +1589,14 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter"], portrait: "portrait:HEAD3.DAX:24:BODY3.DAX:32",
       prompt: /ONTHEMATTEROFCOMMISSION/i },
   }],
+  ["kuto-norris-council-bonus", {
+    slot: "A", inputs: ["right", "right", "up", "right", "right", "up", "enter", "enter"],
+    portraitStops: { 7: "portrait:HEAD3.DAX:24:BODY3.DAX:32" },
+    portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:norris-bonus",
+    prompt: /THECOUNCILHASAWARDEDABONUSFORYOURELIMINATINGNORRISTHEGRAY/i,
+    finalPhaseCapture: "kuto-norris-council-bonus.png",
+    continuation: { inputs: ["enter"], prompt: /receives1250experiencepoints/i, clearsPortrait: true },
+  }],
   ["bivant-reward-illustration", {
     slot: "A", inputs: ["right", "right", "up", "right", "right", "up", "enter", "enter"],
     portraitStops: { 7: "portrait:HEAD3.DAX:24:BODY3.DAX:32" },
