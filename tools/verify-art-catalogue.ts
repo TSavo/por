@@ -34,22 +34,23 @@ const read = (path: string) => new Uint8Array(readFileSync(join(portGameRoot, pa
 const data = readGameData(read);
 const records = new Map(data.pictures.map((record) => [`${record.file}:${record.block}`, record]));
 
-// The ending overlay prints these two captions while the same ECL cursor is suspended.
-const finaleCueOffsets = new Map([
-  ["scene-illustration:area:7:ecl:a82d:cue:possession-threat", 0x20b],
-  ["scene-illustration:area:7:ecl:a82d:cue:pool-recall", 0x260],
+// Native captions printed while the ECL interpreter is suspended.
+const nativeCueSources = new Map<string, { overlay: number; offset: number; exampleNumber?: string }>([
+  ["scene-illustration:area:7:ecl:a82d:cue:possession-threat", { overlay: 0x12, offset: 0x20b }],
+  ["scene-illustration:area:7:ecl:a82d:cue:pool-recall", { overlay: 0x12, offset: 0x260 }],
+  ["scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-award", { overlay: 5, offset: 0x8c7, exampleNumber: "1" }],
 ]);
-const finaleCode = data.program.overlays.find(overlay => overlay.index === 0x12)?.code;
-const finaleOverlay = finaleCode ? read(finaleCode.file).subarray(finaleCode.offset, finaleCode.offset + finaleCode.length) : undefined;
 
-function finaleCaption(offset: number): string {
-  if (!finaleOverlay) return "";
-  const firstLength = finaleOverlay[offset] ?? 0;
+function nativeCaption({ overlay, offset, exampleNumber = "" }: { overlay: number; offset: number; exampleNumber?: string }): string {
+  const code = data.program.overlays.find(entry => entry.index === overlay)?.code;
+  if (!code) return "";
+  const bytes = read(code.file).subarray(code.offset, code.offset + code.length);
+  const firstLength = bytes[offset] ?? 0;
   const second = offset + firstLength + 1;
-  const secondLength = finaleOverlay[second] ?? 0;
-  if (!firstLength || !secondLength || second + secondLength >= finaleOverlay.length) return "";
-  const decode = (start: number, length: number) => Buffer.from(finaleOverlay.subarray(start + 1, start + 1 + length)).toString("ascii");
-  return (decode(offset, firstLength) + decode(second, secondLength)).toUpperCase().replace(/\s/g, "");
+  const secondLength = bytes[second] ?? 0;
+  if (!firstLength || !secondLength || second + secondLength >= bytes.length) return "";
+  const decode = (start: number, length: number) => Buffer.from(bytes.subarray(start + 1, start + 1 + length)).toString("ascii");
+  return (decode(offset, firstLength) + exampleNumber + decode(second, secondLength)).toUpperCase().replace(/\s/g, "");
 }
 
 interface CaptionPart { kind: string; rawText?: string }
@@ -208,8 +209,11 @@ const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
     const cue = scriptIllustrations.get(key);
     if (/:cue:/.test(key)) {
       if (cue === undefined) return "its cue is not defined in tools/portrait-art.ts";
-      const finaleOffset = finaleCueOffsets.get(key);
-      if (finaleOffset !== undefined && typeof cue === "string" && finaleCaption(finaleOffset).includes(cue)) return;
+      const nativeSource = nativeCueSources.get(key);
+      if (nativeSource !== undefined) {
+        const caption = nativeCaption(nativeSource);
+        if (typeof cue === "string" ? caption.includes(cue) : cue.test(caption)) return;
+      }
       // A displayed caption can outlast the script that printed it.
       // TREASURE prepares rewards; COMBAT opens the engine's loot menu at its resume cursor.
       if (cue === "VIEWTAKEPOOLEXIT" || cue === "VIEWTAKEPOOLSHAREEXIT") {

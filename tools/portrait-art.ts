@@ -731,7 +731,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:1:ecl:b5f7:caller:acbd", "YOUENTERAROOMWITHFOURGUARDSINGLEAMINGCHAINMAIL"],
   ["scene-illustration:area:1:ecl:ad75", "YOUDRAWYOURWEAPONSANDATTACK.THECAPTAINDRAWSHISSWORD"],
   ["scene-illustration:area:1:ecl:ad8b", "YOUDRAWYOURWEAPONSANDATTACK.THECAPTAINDRAWSHISSWORD"],
-  ["scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-award", "EACHCHARACTERRECEIVES67500EXPERIENCEPOINTS"],
+  ["scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-award", /EACHCHARACTERRECEIVES\d+EXPERIENCEPOINTS/],
   ["scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-payout", "VIEWTAKEPOOLSHAREEXIT"],
   ["scene-illustration:area:8:ecl:b331:caller:9a4a:cue:assault-council", "THEENTIRECITYCOUNCILISWAITINGFORYOU"],
   ["scene-illustration:area:8:ecl:b5c3:caller:b335:cue:assault-council", "THEENTIRECITYCOUNCILISWAITINGFORYOU"],
