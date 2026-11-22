@@ -161,6 +161,11 @@ failures include script and cue resolution as well as battlefield
 tiles. Use that audit for standalone data work and the original-file
 inventories and browser replays for the current Enhanced coverage.
 See [GAME-DATA.md](GAME-DATA.md).
+The two HEAD frames it flagged are `HEAD6.DAX:1:0:0` and
+`HEAD6.DAX:3:0:0`, both 88 by 40. Neither ID appeared in the local
+browser trace files checked for this audit. They stay unlinked pending
+a live draw that identifies the dialogue and matching body.
+
 
 Running the same inventory against the DOS 1.0 and GOG 1.3 data at
 `4ae6efc8` produced identical replacement, archive coverage, atlas,

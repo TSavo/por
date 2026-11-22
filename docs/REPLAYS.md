@@ -100,6 +100,12 @@ The canonical New Phlan replays below also passed in GOG 1.3 Chrome at
 The harbor aide strike replay checks the Aides' longsword turn, then
 verifies the canonical `ae09` strike frame in Chrome.
 
+The `valhingen-brass-doors-look` replay uses the staged local
+`valhingen-brass-doors-A.json` save. The same canonical Look artwork,
+panel fit, and mode switch passed in Chrome with both DOS 1.0 and
+GOG 1.3.
+
+
 The host reads which release's script is in memory and reports the first release's numbering in both cases. Use that numbering for New Phlan artwork and narration keys. The artwork replays use the same route names on both editions.
 
 Saves from the first release are not a supported player feature. A replay for 1.3 should make its checkpoint on 1.3.
