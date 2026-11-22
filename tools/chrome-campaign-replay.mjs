@@ -167,6 +167,22 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
       send = key => key === ":poll" && !state.presentationPolling ? undefined : sendKey(key);
     })()`);
 
+    // POR_REPLAY_WAIT_NARRATION=1: before each key, wait until every narration the page was told to
+    // play has ended and none is queued (#102). A replay presses through send(), which the page's key
+    // handling never sees, so without this the lines pile up and play long after their passage, under
+    // other pictures. With it, each line plays whole on the frame that printed its passage, and the
+    // playback log can say whether that passage's artwork stayed on screen from start to end.
+    const waitForNarration = process.env.POR_REPLAY_WAIT_NARRATION === "1";
+    async function narrationFinished(key) {
+      if (!waitForNarration) return;
+      await waitFor(`the narration to finish before ${key} at frame ${lastSequence}`, () => evaluate(`(() => {
+        if (state.stopped) throw new Error(state.stopped);
+        if (typeof porNarrationPlayback !== "function") return true;
+        const log = porNarrationPlayback();
+        return !log.queued && !log.sounding && log.lines.every((line) => line.outcome);
+      })()`), 180_000);
+    }
+
     return {
       async nextFrame() {
         // The game can run a long while between two prompts. After Tyranthraxus falls, the Enter on
@@ -185,6 +201,7 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
         return frame;
       },
       async send(key) {
+        await narrationFinished(key);
         await waitFor(`${key} at frame ${lastSequence}`, () => evaluate(`(async () => {
           if (state.sequence !== ${lastSequence}) throw new Error("The game advanced before input");
           if (!state.ready || posting || renderingSequence === state.sequence) return;
@@ -203,6 +220,7 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
         const key = special?.[0] ?? input;
         const code = special?.[0] ?? (/\d/.test(input) ? `Digit${input}` : `Key${input.toUpperCase()}`);
         const windowsVirtualKeyCode = special?.[1] ?? input.toUpperCase().charCodeAt(0);
+        await narrationFinished(key);
         await waitFor(`Chrome ready for ${key}`, () => evaluate(`(() => {
           if (state.sequence !== ${lastSequence}) throw new Error("The game advanced before input");
           if (!state.ready || posting || renderingSequence === state.sequence) return;

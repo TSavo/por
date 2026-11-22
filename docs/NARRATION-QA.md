@@ -139,7 +139,11 @@ that a recording loads and runs to its end. It does not show that it was heard a
 The rows say which: a line that started more than a second after it was queued is counted in the
 note of the played row and listed, and the artwork row fails a line whose picture changed under it.
 Proof that a passage is heard whole, at its moment, needs a run that waits for each line, as
-`verify:narration-playback` does.
+`verify:narration-playback` does. A Chrome campaign replay does that with
+`POR_REPLAY_WAIT_NARRATION=1` (#102): before each key it waits until every line the page was told
+to play has ended and none is queued, so each line plays whole on the frame that printed its
+passage. The keys still go through `send()`, so the run says nothing about what a key does to a
+line; `verify:narration-playback` pass 2 measures that.
 
 ## The silent cases
 
