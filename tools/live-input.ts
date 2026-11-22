@@ -879,11 +879,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     const atDiscardPoll = legacyFlush || (!blocking &&
       (returnsTo(cpu, 0, code.flushPollResumes) || returnsTo(cpu, 0, code.drainPollResumes)));
     if (atDiscardPoll && !promptAtDiscardPolls) return;
-    const battlePoll = !blocking && isAt(cpu, cpu.ip, code.keyPressedPoll) && hasBattlefieldBorder(screen);
+    const battlefield = hasBattlefieldBorder(screen) ||
+      (standalone && cpu.read8(unit.data, data.gameState) === 5 && hasBattlefieldFrame());
+    const battlePoll = !blocking && isAt(cpu, cpu.ip, code.keyPressedPoll) && battlefield;
     const combatMenu = developerCombat ? menuText(visibleGameText()) : "";
     // Combat can pause on a hostile's first turn before the party gets a menu.
     developerVictoryAvailable = developerCombat && canWinDeveloperCombat(cpu) &&
-      ((battlePoll && combatMenu === "") || (combatMenu.startsWith("MOVEVIEWAIM") && hasBattlefieldBorder(screen)));
+      ((battlePoll && combatMenu === "") || (combatMenu.startsWith("MOVEVIEWAIM") && battlefield));
     const kovelTransition = kovelJournalTransition(cpu, unit.data);
     if (kovelTransition !== undefined && kovelTransition !== previousKovelTransition) journal();
     previousKovelTransition = kovelTransition;

@@ -85,7 +85,8 @@
       "detail": "Combat messages went missing in the past. Believed fixed, never proven. 2026-11-21: one cause found and fixed (see classic-scroll-use-shows-nothing). Messages the game shows through its two message routines and clears by itself now reach the page and the acceptance harness: in the Slums fights the harness sees \"Guarding\" and \"Your Teammate is Dying\". Still not proven: the messages drawn by the pause routine's 27 other callers.",
       "source": "Owner report.",
       "status": "open",
-      "issue": 81
+      "issue": 81,
+      "partialVerification": "Current Chrome Arena replays show the player-directed miss and keep it on screen through a GOG display switch. In both game-data modes, one Quick key plays the hit and miss reports and reaches Continue Battle after simulated connection interruptions. Issue 117 fixed the bundled Quick poll that prevented those reports. Other native pause callers remain unverified."
     },
     {
       "id": "classic-palette-changes-ignored",
