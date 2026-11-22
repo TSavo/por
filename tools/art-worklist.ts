@@ -828,6 +828,7 @@ interface Worklist {
   battlefield: BattleReport[];
   storedTilesNoMapShows: { block: string; reason: string; tiles: number[] }[];
   otherPicturesNoKeyNames: OtherPicture[];
+  endingFramesCoveredByIllustrations: OtherPicture[];
   blankApproachSprites: string[];
   backdrops: { bands: WorldData["bands"]; grounds: WorldData["grounds"] };
   items: Item[];
@@ -952,6 +953,9 @@ function document(list: Worklist): string {
     "(`docs/ART-INVENTORY.md` says the same of secondary members), so none is counted as to do.", "",
     "| Frame (archive:block:member:frame) | Size | What it is | Key form and PNG size | What is known |", "| --- | --- | --- | --- | --- |");
   for (const picture of list.otherPicturesNoKeyNames) add(`| ${picture.frame} | ${picture.width}x${picture.height} | ${picture.what} | \`${picture.keyForm}\` ${picture.pngSize} | ${picture.evidence} |`);
+  if (list.endingFramesCoveredByIllustrations.length) add("", "### Ending frames covered by Enhanced illustrations", "",
+    "The paired GOG 1.3 Chrome replays verified the illustrated ending and council reward. These archive records remain inventoried for Classic and are covered as a sequence in Enhanced.", "",
+    ...list.endingFramesCoveredByIllustrations.map(({ frame }) => `- \`${frame}\``));
   add("", "### Blank approach sprite frames", "",
     "The native approach blitter skips palette index 0. Every pixel in each of these frames has that index, so the frame draws no actor and needs no art.", "",
     ...list.blankApproachSprites.map(frame => `- \`${frame}\``));
@@ -1022,9 +1026,20 @@ function main(): void {
   const items = [...first.items, ...battle.items];
   const committed = existsSync(at(WORKLIST)) ? JSON.parse(readFileSync(at(WORKLIST), "utf8")) as Worklist : undefined;
   // The catalogue takes several seconds and changes nothing that is counted, so the quick modes reuse the committed list.
-  const others = verify || check ? { pictures: committed?.otherPicturesNoKeyNames ?? [] } : otherPictures(data, read);
+  const others = verify || check ? { pictures: [...(committed?.otherPicturesNoKeyNames ?? []), ...(committed?.endingFramesCoveredByIllustrations ?? [])] } : otherPictures(data, read);
   const blankSprites = new Set(blankApproachSprites(data.pictures));
-  const otherPicturesNoKeyNames = others.pictures.filter(({ frame }) => !blankSprites.has(frame));
+  const endingKeys = [
+    "scene-illustration:area:7:ecl:a82d:cue:possession-threat",
+    "scene-illustration:area:7:ecl:a82d:cue:pool-recall",
+    "scene-illustration:area:7:ecl:995f:caller:a8b2",
+    "scene-illustration:area:7:ecl:9b18:cue:phlan-homecoming",
+    "portrait:area:8:ecl:9f21:caller:9a4a:HEAD3.DAX:24:BODY3.DAX:32",
+    "scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-award",
+    "scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-payout",
+  ];
+  const endingCovered = endingKeys.every((key) => !missing(art, key, 352, 352));
+  const endingFramesCoveredByIllustrations = endingCovered ? others.pictures.filter(({ frame }) => frame.startsWith("FINAL5.DAX:")) : [];
+  const otherPicturesNoKeyNames = others.pictures.filter((picture) => !blankSprites.has(picture.frame) && !endingFramesCoveredByIllustrations.includes(picture));
 
   const notEstablished: Record<string, number | string> = {};
   for (const report of first.reports) for (const [reason, count] of Object.entries(report.notEstablished)) notEstablished[`first-person ${reason}`] = Number(notEstablished[`first-person ${reason}`] ?? 0) + count;
@@ -1066,7 +1081,7 @@ function main(): void {
     about: "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
     done: "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
     remaining: items.length, totals, notEstablished, areas: first.reports, battlefield: battle.reports,
-    storedTilesNoMapShows: first.never, otherPicturesNoKeyNames, blankApproachSprites: [...blankSprites], backdrops: first.backdrops, items,
+    storedTilesNoMapShows: first.never, otherPicturesNoKeyNames, endingFramesCoveredByIllustrations, blankApproachSprites: [...blankSprites], backdrops: first.backdrops, items,
   };
   const json = JSON.stringify(list, null, 1) + "\n", text = document(list);
   const line = (record: Record<string, unknown>) => Object.entries(record).sort(([a], [b]) => a < b ? -1 : 1).map(([key, value]) => `${JSON.stringify(key)}:${JSON.stringify(value)}`).join(",\n");

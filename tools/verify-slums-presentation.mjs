@@ -14983,6 +14983,15 @@ try {
       "up", "left", "up", "up", "enter"];
     for (const [step, key] of walkToCouncil.entries()) {
       await advance(key);
+      if (step === 2) {
+        const entrance = "scene-illustration:area:0:ecl:af3f:caller:ac22";
+        assert.match(text(), /YOUAREOUTSIDETHECITYHALL/i);
+        assert.equal(frame.portrait, entrance);
+        await waitFor("the City Hall entrance illustration", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${entrance}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        continue;
+      }
       if (step === 3) {
         const proclamations = "scene-illustration:area:0:ecl:acbf";
         assert.equal(frame.portrait, proclamations);
@@ -14994,12 +15003,19 @@ try {
         writeFileSync(resolve(directory, "council-finale-proclamations.png"), Buffer.from(notice.data, "base64"));
         continue;
       }
+      if (frame.portrait) {
+        const portrait = frame.portrait;
+        await waitFor(`the council route illustration at step ${step}`, () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        continue;
+      }
       if (!frame.tileInventory?.length) continue;
       const area = Number(frame.tileInventory[0][2].split(":")[1]);
       assert.ok(area === 0 || area === 8);
       views += await verifyTiledView(area, patterns);
     }
-    assert.equal(views, 13);
+    assert.equal(views, 7);
     assert.ok([...patterns].some(id => id.startsWith("tile:8:")), "The route should reach the City Hall district");
     assert.match(text(), /YOURQUESTISOVER.*TYRANTHRAXUSISDEFEATED.*PHLANISFREE/i);
     const finalePortrait = "portrait:area:8:ecl:9f21:caller:9a4a:HEAD3.DAX:24:BODY3.DAX:32";
@@ -15030,7 +15046,8 @@ try {
     writeFileSync(resolve(directory, "council-reward.png"), Buffer.from(reward.data, "base64"));
     await switchBothWays(frame.frame);
     await advance("enter");
-    assert.equal(frame.portrait, undefined);
+    // The native clerk portrait can remain visible between the award and payout.
+    assert.ok(frame.portrait === undefined || frame.portrait === "portrait:HEAD3.DAX:24:BODY3.DAX:32");
     await waitFor("the reward illustration to clear", () => run(`state.sequence === ${frame.sequence} &&
       !document.querySelector(".reward-illustration")`));
     await advance("enter");

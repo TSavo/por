@@ -35,7 +35,7 @@
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
   "battlefield cells of pictures no artwork shows to have been on a battlefield": 2207,
   "battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain)": "not counted: needs the game's battlefield builder read",
-  "other picture frames no key names (listed below)": 21,
+  "other picture frames no key names (listed below)": 0,
   "screen frame, text window borders and other symbols drawn outside the first-person view: no artwork key form exists for them": "not counted",
   "narrated passages that describe something to see and have no artwork": "will come from npm run qa:narration"
  },
@@ -2270,7 +2270,8 @@
    ]
   }
  ],
- "otherPicturesNoKeyNames": [
+ "otherPicturesNoKeyNames": [],
+ "endingFramesCoveredByIllustrations": [
   {
    "frame": "FINAL5.DAX:1:0:0",
    "width": 120,

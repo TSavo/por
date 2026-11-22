@@ -289,8 +289,13 @@ data at `77fd39fc`. Both runs passed the possession threat, Pool recall,
 castle departure, Phlan homecoming, display switching, and return to
 WebGL. The bundled captures show the three Enhanced illustrations filling
 the panel with one set of surrounding rails. Keep the individual FINAL5
-records deferred for those beats. This checkpoint replay ends on the
-return to exploration, before the final council reward.
+records covered by that Enhanced sequence. A separate `castle-ending
+--council-finale` checkpoint replay passed in both modes. It verified
+seven WebGL views, the City Hall and proclamations illustrations, the
+clerk’s victory portrait, the XP award, the treasure payout, display
+switching, and a saved journal turn-in. No individual FINAL5 replacement
+is needed for the verified sequence. These paired checkpoint runs do
+not certify a continuous campaign playthrough.
 
 The `valjevo-pool-return-stairs` Chrome replay passed with the original
 GOG 1.3 files and with `POR_GAME_SOURCE=port`. While the script still
