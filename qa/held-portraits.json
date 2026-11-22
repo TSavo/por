@@ -8178,6 +8178,190 @@
           }
         }
       }
+    },
+    {
+      "id": "area:4:ecl:9a5a:caller:a862:PIC5.DAX:73",
+      "producer": "ECL5.DAX:4:a728",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1510,
+          "viewport": "61384c484becc699a39e82ac3b53eed7825662e59fd4149712745485fcd75fca"
+        },
+        {
+          "member": 1,
+          "durationMs": 510,
+          "viewport": "3636c6efb7395283dbc7bd364b5058375317bf7647856e53d341e342238f4ce1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "valjevo-dungeon-kitchen-rescue-loop",
+          "data": "original",
+          "rendererSha256": "4a5ce4805ccc29ba0770cc0246dc6e35173ba6e789188d5e2500bced96a31584",
+          "bindingSha256": "2e4c0c399a6be01f5cab0480dfb7e9b73e27794299ade4812f48e6bbd0b388f9",
+          "portrait": "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:0:0",
+              "atMs": 4.5
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:1:0",
+              "atMs": 1454.5
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:0:0",
+              "atMs": 1954.3999999999996
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:1:0",
+              "atMs": 3471
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:0:0",
+              "atMs": 3987.7000000000007
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:1:0",
+              "atMs": 5487.6
+            }
+          ],
+          "sha256": {
+            "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:0:0": "0d1744a16541311e8f8c1efdfa26f77846e286229b0e290f96da90c0297ab094",
+            "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:1:0": "9cf33fedf38579c6493a6cd1f359ec06b75615018f0ef0860fbaa3d5032e0fec"
+          }
+        },
+        "port": {
+          "route": "valjevo-dungeon-kitchen-rescue-loop",
+          "data": "port",
+          "rendererSha256": "4a5ce4805ccc29ba0770cc0246dc6e35173ba6e789188d5e2500bced96a31584",
+          "bindingSha256": "2e4c0c399a6be01f5cab0480dfb7e9b73e27794299ade4812f48e6bbd0b388f9",
+          "portrait": "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:0:0",
+              "atMs": 0.8999999761581421
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:1:0",
+              "atMs": 1450.8999999761581
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:0:0",
+              "atMs": 1950.7999999761578
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:1:0",
+              "atMs": 3467.399999976158
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:0:0",
+              "atMs": 3967.399999976158
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:1:0",
+              "atMs": 5483.9999999761585
+            }
+          ],
+          "sha256": {
+            "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:0:0": "0d1744a16541311e8f8c1efdfa26f77846e286229b0e290f96da90c0297ab094",
+            "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:1:0": "9cf33fedf38579c6493a6cd1f359ec06b75615018f0ef0860fbaa3d5032e0fec"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73",
+      "producer": "ECL5.DAX:4:a728",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1510,
+          "viewport": "61384c484becc699a39e82ac3b53eed7825662e59fd4149712745485fcd75fca"
+        },
+        {
+          "member": 1,
+          "durationMs": 510,
+          "viewport": "3636c6efb7395283dbc7bd364b5058375317bf7647856e53d341e342238f4ce1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "valjevo-dungeon-kitchen-oil-loop",
+          "data": "original",
+          "rendererSha256": "4a5ce4805ccc29ba0770cc0246dc6e35173ba6e789188d5e2500bced96a31584",
+          "bindingSha256": "b1d9e73faa1d4c11114dc73cfafecc822f4dc0f53ab311329a2b06adb2981bcc",
+          "portrait": "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:0:0",
+              "atMs": 3.699999964237577
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:1:0",
+              "atMs": 1420.299999964238
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:0:0",
+              "atMs": 1936.9999999642368
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:1:0",
+              "atMs": 3436.8999999642365
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:0:0",
+              "atMs": 3953.599999964237
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:1:0",
+              "atMs": 5453.499999964237
+            }
+          ],
+          "sha256": {
+            "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:0:0": "23fd07ec97fa8371967dbbde3bc1bbc270ee2e35af48d7066e4af064d8be82e9",
+            "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:1:0": "9524ff3fbe8eb80761092b5bd491f22093aec1497fa428ee7b0927096816c417"
+          }
+        },
+        "port": {
+          "route": "valjevo-dungeon-kitchen-oil-loop",
+          "data": "port",
+          "rendererSha256": "4a5ce4805ccc29ba0770cc0246dc6e35173ba6e789188d5e2500bced96a31584",
+          "bindingSha256": "b1d9e73faa1d4c11114dc73cfafecc822f4dc0f53ab311329a2b06adb2981bcc",
+          "portrait": "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:0:0",
+              "atMs": 14.600000035762605
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:1:0",
+              "atMs": 1431.200000035763
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:0:0",
+              "atMs": 1947.9000000357628
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:1:0",
+              "atMs": 3464.400000035763
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:0:0",
+              "atMs": 3964.400000035763
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:1:0",
+              "atMs": 5481.000000035763
+            }
+          ],
+          "sha256": {
+            "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:0:0": "23fd07ec97fa8371967dbbde3bc1bbc270ee2e35af48d7066e4af064d8be82e9",
+            "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:1:0": "9524ff3fbe8eb80761092b5bd491f22093aec1497fa428ee7b0927096816c417"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
