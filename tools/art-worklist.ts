@@ -393,7 +393,7 @@ function document(list: Worklist): string {
   const lines: string[] = [];
   const add = (...text: string[]) => lines.push(...text);
   add("# Artwork worklist", "",
-    `**The artwork is done when \`npm run verify:art-worklist\` reports 0 remaining. It reports ${list.remaining} now.**`, "",
+    `**There are ${list.remaining} confirmed first-person cells awaiting art.** Run \`npm run verify:art-worklist\` to check this list. Open coverage questions are listed under “Still being worked out”.`, "",
     "This file is written by `npm run art:worklist`. Do not edit it or `qa/art-worklist.json` by hand: add art, run the tool, commit what it writes.", "",
     "To the artwork agent: this list exists to carry your work to 100%, not to correct it. The owner's words are that you have",
     "\"done an amazing job of keeping the art consistent in the VGA style, creating all new 32x32 tiles from 8x8 inspirations\".",
@@ -493,7 +493,7 @@ function main(): void {
   const list: Worklist = {
     schema: 1,
     about: "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
-    done: "The artwork is done when npm run verify:art-worklist reports 0 remaining.",
+    done: "The confirmed first-person worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork.",
     remaining: items.length, stillBeingWorkedOut: stillBeingWorkedOut(reports), areas: reports, items,
   };
   const json = JSON.stringify(list, null, 1) + "\n", text = document(list);
@@ -531,11 +531,16 @@ function main(): void {
     return;
   }
   if (verify) {
-    console.log(`\nverify:art-worklist: ${items.length} remaining (${Date.now() - started} ms). The artwork is done when this is 0.`);
+    const invalidTiles = [...art.keys()].filter((key) => key.startsWith("tile:")).flatMap((key) => {
+      const issue = missing(art, key, 32, 32);
+      return issue ? [`${key}: ${issue}`] : [];
+    });
+    console.log(`\nverify:art-worklist: ${items.length} confirmed first-person cells remaining (${Date.now() - started} ms).`);
+    if (invalidTiles.length) console.error(`Invalid tile artwork (first ${Math.min(invalidTiles.length, 10)} of ${invalidTiles.length}):\n${invalidTiles.slice(0, 10).join("\n")}`);
     const pending = Object.entries(list.stillBeingWorkedOut).filter(([, count]) => typeof count === "number");
     if (pending.length) console.log(`Not counted, still being worked out: ${pending.map(([what, count]) => `${count} ${what}`).join("; ")}`);
     if (cells.missingHashes) console.log(`${cells.missingHashes} cells have no hash in ${CELLS}: run npm run art:worklist with POR_GAMEDATA set`);
-    process.exit(items.length ? 1 : 0);
+    process.exit(items.length || invalidTiles.length ? 1 : 0);
   }
   writeFileSync(at(WORKLIST), json);
   writeFileSync(at(DOCUMENT), text);

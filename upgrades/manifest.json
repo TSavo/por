@@ -3997,6 +3997,8 @@
     "encounter:area:20:SPRIT2.DAX:2:2:0": "slums-goblin-lesson-far.png",
     "combat:area:5:CPIC5.DAX:12:ecl:abe2": "false-throne-thief-stand.png",
     "combat:area:5:CPIC5.DAX:140:ecl:abe2": "false-throne-thief-strike.png",
+    "tile:22:228a010ec6afee2452833b3324acc5c8caeed83bff7299f110435bf2f6400620": "pyramid-upper-doorway-threshold-228a010ec6af.png",
+    "tile:22:92df48167746faefc397c59326840c70b6dc6988740a5af2a7007a7e319ea69d": "pyramid-upper-sandstone-skyjoin-92df48167746.png",
     "tile:22:ca76200801250e2324082273c74573623d45b20be41c29f01ce44bc0c6378133": "yarash-inner-return-terrain-ca7620080125.png",
     "tile:22:06d3f856d5d5c37b20560459bdd2e899a43f72f77149f37ba7c743ed589d0c87": "yarash-inner-return-terrain-06d3f856d5d5.png",
     "encounter:area:16:SPRIT8.DAX:59:0:0": "swamp-giant-lizard-approach.png",

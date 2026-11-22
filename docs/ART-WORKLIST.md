@@ -1,6 +1,6 @@
 # Artwork worklist
 
-**The artwork is done when `npm run verify:art-worklist` reports 0 remaining. It reports 231 now.**
+**There are 229 confirmed first-person cells awaiting art.** Run `npm run verify:art-worklist` to check this list. Open coverage questions are listed under “Still being worked out”.
 
 This file is written by `npm run art:worklist`. Do not edit it or `qa/art-worklist.json` by hand: add art, run the tool, commit what it writes.
 
@@ -66,7 +66,7 @@ Each area below also says how many of your existing keys the tool can account fo
 | 18 | Podol Plaza | not yet | 198 | 125 |  | 125 of 194 |
 | 20 | The Slums | not yet | 390 | 177 |  | 177 of 197 |
 | 21 | Sokal Keep | yes | 601 | 85 | 115 | 85 of 85 |
-| 22 | Yarash's Pyramid | yes | 87 | 68 | 2 | 68 of 68 |
+| 22 | Yarash's Pyramid | yes | 87 | 70 | 0 | 70 of 70 |
 | 23 | Yarash's Pyramid, lower | yes | 78 | 39 | 15 | 39 of 39 |
 | 24 | Temple of Bane | not yet | 389 | 188 |  | 188 of 188 |
 | 25 | Wilderness, west | not yet | 41 | 0 |  | 0 of 0 |
@@ -353,15 +353,6 @@ Each area below also says how many of your existing keys the tool can account fo
 | `tile:21:a1b8baf4059c3a18ecd999f94f44fbba3630c87a33820ec33a092d52785d83bd` | 8X8D4 block 9 tile 43 | map 21, square (6,15) facing north, cell column 7 row 5 | 9, 28 |
 | `tile:21:b762d5d836385e9ea94651ab7488b47053b0958365d8a92a8bbb672f624096ce` | 8X8D4 block 9 tile 27 over sky colour 12 | map 21, square (1,0) facing north, cell column 0 row 0 |  |
 | `tile:21:f7f1cfd7f855df9f8a2cf56ec685afad5afab8cd7a8b33c3856d94c295566739` | 8X8D4 block 9 tile 45 over sky colour 12 | map 21, square (8,12) facing west, cell column 2 row 4 |  |
-
-### Area 22: Yarash's Pyramid (2)
-
-#### tile set 8X8D7 block 3 (2)
-
-| Key (PNG 32x32) | What it is | See it at | Already drawn in area |
-| --- | --- | --- | --- |
-| `tile:22:228a010ec6afee2452833b3324acc5c8caeed83bff7299f110435bf2f6400620` | 8X8D7 block 3 tile 53 | map 22, square (15,9) facing north, cell column 4 row 6 | 2 |
-| `tile:22:92df48167746faefc397c59326840c70b6dc6988740a5af2a7007a7e319ea69d` | 8X8D7 block 3 tile 13 over sky colour 15 | map 22, square (15,6) facing west, cell column 0 row 2 |  |
 
 ### Area 23: Yarash's Pyramid, lower (15)
 

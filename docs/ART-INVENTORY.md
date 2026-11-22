@@ -10,7 +10,9 @@
 > `npm run verify:script-positions` checks this. See docs/REPLAYS.md.
 
 > **What is left to draw** is listed in [ART-WORKLIST.md](ART-WORKLIST.md), with the exact key and size of each piece.
-> The artwork is done when `npm run verify:art-worklist` reports 0 remaining.
+> `npm run verify:art-worklist` checks confirmed first-person cells and validates installed tile PNGs.
+> Full coverage also requires resolving the worklist's open cases and reviewing portraits,
+> encounters and battlefield art.
 
 
 Run `npx tsx tools/art-inventory.ts` with the original game files installed.
