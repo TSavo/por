@@ -1186,7 +1186,9 @@ const ferryPoseTimes = [2010, 1510, 2010, 1510];
 const portraitLoops = [
   ["portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:", 5],
   ["portrait:area:10:ecl:b50b:PIC4.DAX:34:", 4],
-  ["portrait:area:10:ecl:b50b:PIC4.DAX:20:", 3],
+  // The roaming wight's fourth native member repeats the second painting.
+  ["portrait:area:10:ecl:b50b:PIC4.DAX:20:", [0, 1, 2, 1], undefined,
+    /YOUHAVEMANAGEDTOSNEAKUPONSOMEWIGHTS/i, [1010, 210, 610, 210]],
   ["portrait:area:21:ecl:9e40:PIC4.DAX:34:", 4, "portrait:area:21:PIC4.DAX:34:0:0"],
   ["portrait:area:10:ecl:b695:caller:9db8:PIC4.DAX:34:", 4, "portrait:area:10:PIC4.DAX:34:0:0",
     /THEENCLAVEISGUARDEDBYASKELETONARMY/i],
@@ -1228,7 +1230,7 @@ const portraitLoops = [
   ["portrait:area:9:ecl:a945:PIC2.DAX:63:", [0, 1, 2, 1], "portrait:area:9:PIC2.DAX:63:0:0",
     /THELEADERSWINGSATYOU/i, [1310, 110, 510, 20]],
   ["portrait:area:10:ecl:b695:caller:9f7a:PIC4.DAX:35:", 5, "portrait:area:10:PIC4.DAX:35:0:0",
-    /ZOMBIESSHUFFLEDOWNTHESTAIRS/i],
+    /ZOMBIESSHUFFLEDOWNTHESTAIRS/i, Array(5).fill(110)],
   ["portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:", 3],
   // Successive native members 5 and 6 share the same picture.
   ["portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:", [0, 1, 2, 3, 4, 1, 7], "portrait:area:10:PIC4.DAX:11:0:0",

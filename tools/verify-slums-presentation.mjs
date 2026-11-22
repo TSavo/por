@@ -4179,7 +4179,7 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:20:0:0",
     prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMEWIGHTS/i,
     finalPhaseCapture: "valhingen-wight-roam-loop.png",
-    heldPortraitLoop: 3,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:10:ecl:b50b:PIC4.DAX:20:${member}:0`),
     continuation: {
       inputs: ["c"], portrait: "scene-illustration:area:10:ecl:b5c7:cue:wight-patrol-attack",
       prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMEWIGHTS.*ABATTLEBEGINS/i,
