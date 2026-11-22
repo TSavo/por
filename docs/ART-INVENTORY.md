@@ -97,6 +97,14 @@ current script cursor and caller. Each record includes the matching asset ID,
 original anchor and dimensions, and the cursor and caller seen in play. This only
 checks sprites with an installed placement to compare against.
 
+The archive approach pass added eight visible frames: the far ogre, near
+goblin, and three distances each for the ettin and shield-bearer. Each distance
+uses the position and dimensions in its sprite header. These bindings match a
+native draw of the exact archive member. Their placement and draw signatures
+were checked against bundled and GOG 1.3 data. A campaign route that calls
+these members has yet to be traced. The six remaining archived approach frames
+contain only transparent pixels and are listed separately in the worklist.
+
 The original Slums route pack included 19 cell fingerprints from the feeding
 kobold's approach at (14, 7) facing south. All 19 intersect the opaque pixels of
 `SPRIT2.DAX:0:0:0` at its native anchor. The `slums-feeding-kobolds` Chrome
