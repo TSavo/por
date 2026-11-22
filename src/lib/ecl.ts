@@ -25,8 +25,8 @@
  * The opcode table is the CotAB command set (0x00-0x40). Operand counts follow
  * the implementation of each command, which in a few cases differs from the
  * skip-size stored beside the name (ECL CLOCK, menus, ON GOTO). Pool of
- * Radiance is the earlier game; opcodes past the ones its scripts actually use
- * still need to be checked against its interpreter in GAME.OVR.
+ * Radiance's own interpreter dispatches 0x00-0x3D except 0x1F; 0x1F and
+ * 0x3E-0x40 are kept only so CotAB scripts decode, and no PoR script uses them.
  */
 
 export const ECL_BASE = 0x9900;

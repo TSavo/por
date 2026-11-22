@@ -19,7 +19,7 @@ EXEPACK's stub is what runs if you load the packed file. The game code is not vi
 
 REA `rea-agents` 6.9.0 (MIT, `github.com/morluto/rea`) is installed for this machine, with Ghidra 12.1.4 and JDK 21. `docs/rea/doctor.json` is the doctor output: Ghidra is healthy, the native decompiler matches linux x64, and the DOS path is the one REA documents (`x86:LE:16:Real Mode`, load segment `0x1000`).
 
-The uploaded `POR` archive was not on the VM. `uploads/POR_63d1.zip` was named in the task and `/workspace/uploads` was empty, so `rea inspect` was never pointed at `START.EXE` or `GAME.OVR`. That is a missing input, not a REA failure.
+The first REA session had no game files (`uploads/POR_63d1.zip` was empty), so it was not pointed at `START.EXE`. A later session had the real files and ran `rea search` on `START.EXE`; see `docs/rea/NOTES.md`. `GAME.OVR` is not an MZ and is not an REA input.
 
 To show the DOS loader actually runs, `rea inspect` was pointed at a 33-byte MZ whose only instruction is `RET`. REA reported `format: dos-mz`, `architecture: x86`, provider Ghidra 12.1.4, confidence `derived`. The trimmed result is `docs/rea/tiny-mz-summary.json`. Limitations REA stated, and that will apply to the real executable:
 

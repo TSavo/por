@@ -23,7 +23,7 @@ The split that matches the tools:
 3. `npm run tools -- exe` to list stub file offsets.
 4. Cut those ranges out of `GAME.OVR` and, if a range is real code, `rea inspect` that slice with an explicit raw 16-bit load. REA can do a headerless image when you tell it the format. It will not invent the overlay table.
 
-This was not run on the game, because the uploaded archive was not in the VM. The tiny MZ in `docs/rea/tiny-mz-summary.json` only proves the DOS loader starts. It has no overlay stubs.
+REA was run on `START.EXE` only (`docs/rea/NOTES.md`), never on a `GAME.OVR` slice. The tiny MZ in `docs/rea/tiny-mz-summary.json` only proves the DOS loader starts. It has no overlay stubs.
 
 ## Size of the unknown
 

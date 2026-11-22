@@ -1,6 +1,8 @@
 # Fish Audio Drama 3 prompt authoring
 
-Enhanced narration targets Fish Audio Drama 3. The original ECL text remains immutable source material. Editorial annotations describe how the text should be performed and compile reproducibly into Fish prompts; they never replace or paraphrase the source.
+**Status: superseded for production.** The shipped narration is produced directly with ElevenLabs `eleven_v4` from the saved Voice Design identity in `src/audio/narrator-voice-design.json` (see [AUDIO.md](AUDIO.md)); no Fish Audio Drama 3 recording is used. This page records the earlier Fish prompt-authoring design and the annotation rules, which `tools/compile-fish-prompts.ts` and `src/audio/fish-prompts.json` still implement.
+
+Enhanced narration was first planned for Fish Audio Drama 3. The original ECL text remains immutable source material. Editorial annotations describe how the text should be performed and compile reproducibly into Fish prompts; they never replace or paraphrase the source.
 
 Official references:
 
@@ -29,11 +31,9 @@ Use another `<|speaker:N|>` only when the project owner explicitly authors a tru
 
 ## Narrator identity
 
-The narrator timbre is designed once with ElevenLabs Voice Design and approved by the project owner. That saved synthetic voice then produces a clean 20–30 second neutral anchor passage. Every Drama 3 narration request conditions `<|speaker:0|>` on the same anchor audio and its exact transcript. ElevenLabs establishes the stable identity; Drama 3 supplies the passage-specific directed performance.
+The narrator timbre is designed once with ElevenLabs Voice Design and approved by the project owner. In the original Fish plan that saved voice produced a neutral anchor passage on which every Drama 3 request conditioned `<|speaker:0|>`. Production dropped the Fish stage: ElevenLabs `eleven_v4` narrates directly from the saved voice.
 
-`narrator-voice-design.json` contains the reviewed voice description, preview text, design parameters, selected generated voice ID, and Fish anchor provenance. No voice is generated until the owner approves the design prompt.
-
-The official full Drama 3 checkpoint requires at least 48 GB of VRAM. The project workstation has an RTX 3070 with 8 GB of VRAM and 64 GB of system RAM, so it cannot run that checkpoint directly. The initial local evaluation profile uses the unofficial 9.7 GiB `drama3-small` quantization with expert offload; its authors report about 4.4 GB of VRAM in that mode. Local results must be compared against hosted Drama 3 before production use. The chosen runtime, exact weight digest, peak memory, speed, word accuracy, and direction-following results must be recorded.
+`narrator-voice-design.json` contains the reviewed voice description, preview text, design parameters, selected generated voice ID, and the anchor provenance.
 
 ## Annotation rules
 

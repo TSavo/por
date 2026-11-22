@@ -2,7 +2,7 @@
 
 ECL is the script language for maps, encounters, and story. A block inside `ECLn.DAX` is one script. The disassembler skips the first uint16 of the decompressed block and uses Pool of Radiance's script load address, `0x9900`. The separate Curse of the Azure Bonds example below uses `0x8000`.
 
-The opcode names and operand counts below are the Curse of the Azure Bonds interpreter, which is the public reconstruction of this engine. coab ships no license file (copyright 2013 Simeon Pilgrim), so this project reimplements the behavior and does not copy that source. Pool of Radiance is the earlier game. Where the two might differ is called out at the bottom, and it is not settled until `GAME.OVR` is disassembled.
+The opcode names and operand counts below are the Curse of the Azure Bonds interpreter, which is the public reconstruction of this engine. coab ships no license file (copyright 2013 Simeon Pilgrim), so this project reimplements the behavior and does not copy that source. Pool of Radiance is the earlier game. The two differ in the range of opcodes: Pool of Radiance's own interpreter (in `GAME.OVR`) dispatches `0x00` to `0x3D` except `0x1F`. The rows for `1F`, `3E`, `3F` and `40` below are CotAB's and are not PoR opcodes. Measured on the port's data: disassembling every script in every `ECLn.DAX` (`npm run tools -- disasm`, 16,571 lines) finds none of them (`UNKNOWN 1F`, `DUMP`, `FIND SPECIAL`, `DESTROY ITEMS`), and the table in `src/lib/ecl.ts` keeps them only so that CotAB scripts still decode.
 
 ## Entry vector
 
@@ -65,7 +65,7 @@ Counts are how many operands the command actually reads. A few CotAB skip-sizes 
 | `1C` | CLEAR MONSTERS | 0 | No-op |
 | `1D` | PARTY STRENGTH | 1 | Halts |
 | `1E` | CHECK PARTY | 6 | Halts |
-| `1F` | unknown | 2 | Halts. CotAB's table has no implementation. |
+| `1F` | unknown | 2 | Halts. CotAB's table has no implementation; PoR's dispatch does not handle it either. |
 | `20` | NEW ECL | 1 | Halts |
 | `21` | LOAD FILES | 3 | Halts. This is what loads GEO and WALLDEF. |
 | `22` | PARTY SURPRISE | 2 | Halts |
@@ -96,9 +96,9 @@ Counts are how many operands the command actually reads. A few CotAB skip-sizes 
 | `3B` | SPELL | 3 | Halts |
 | `3C` | PROTECTION | 1 | Halts |
 | `3D` | CLEAR BOX | 0 | No-op |
-| `3E` | DUMP | 0 | Halts |
-| `3F` | FIND SPECIAL | 1 | Halts |
-| `40` | DESTROY ITEMS | 1 | Halts |
+| `3E` | DUMP | 0 | Halts. CotAB only; not a PoR opcode. |
+| `3F` | FIND SPECIAL | 1 | Halts. CotAB only; not a PoR opcode. |
+| `40` | DESTROY ITEMS | 1 | Halts. CotAB only; not a PoR opcode. |
 
 `IF` tests flags left by the previous `COMPARE`: index 0 is equal, then not-equal, less, greater, less-or-equal, greater-or-equal.
 
@@ -128,9 +128,9 @@ Believed shared, and checked on CotAB bytes:
 - 6-bit ECL strings and the operand codes `00/01/02/03/80/81`
 - The five-word entry vector and opcodes through the ones the opening script uses (`SAVE`, `LOAD FILES`, `PICTURE`, `COMPARE`, `IF`, `GOTO`, `GOSUB`, `PRINT`)
 
-Not checked on PoR, and likely to differ in details:
+Not checked by this disassembler against PoR's interpreter (the port itself runs PoR's own interpreter, so none of this affects play), and likely to differ in details:
 
-- Which opcodes exist. `SPELL`, `PARLAY`, `ENCOUNTER MENU`, and `CALL` may be CotAB additions or renumbered.
+- Which opcodes exist. PoR's dispatch stops at `0x3D` and has no `0x1F`; see the top of this page. `SPELL`, `PARLAY`, `ENCOUNTER MENU`, and `CALL` are in the shared range.
 - Block ids. CotAB's first ECL file starts at id 80, not 1.
 - The exact wall-slot rectangles.
 - Title-page composition. CotAB uses four blocks; PoR may use one.

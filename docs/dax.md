@@ -1,6 +1,6 @@
 # DAX container and pictures
 
-Gold Box games store almost every asset in `.DAX` files. Pool of Radiance and Curse of the Azure Bonds use the same container. The layout below was checked by decoding `TITLE.DAX` from the CotAB tree until the SSI title card was legible, pixel for pixel, at 320×200. The PoR files were not on this machine (see `docs/rea/NOTES.md`), so the same parser still has to be run on the uploaded set. Nothing in the header is game-specific, and the CotAB files are the next game in the same engine.
+Gold Box games store almost every asset in `.DAX` files. Pool of Radiance and Curse of the Azure Bonds use the same container. The layout below was checked by decoding `TITLE.DAX` from the CotAB tree until the SSI title card was legible, pixel for pixel, at 320×200. Nothing in the header is game-specific; the same parser reads Pool of Radiance's files (the port runs from them), and the CotAB files are the next game in the same engine. The block ids and sizes quoted below are CotAB's examples.
 
 ## Container
 
@@ -60,7 +60,7 @@ Not every block is a picture.
 | --- | --- | --- |
 | `GEOn.DAX` | 1026 (0x402) | uint16 skipped, then 16×16 map |
 | `WALLDEFn.DAX` | 780 (0x30C) | 5 slices × 156 glyph ids |
-| `ECLn.DAX` | varies | uint16 skipped, then bytecode at address 0x8000 |
+| `ECLn.DAX` | varies | uint16 skipped, then bytecode at address 0x9900 (PoR, `ECL_BASE` in `src/lib/ecl.ts`; 0x8000 in CotAB) |
 | `8X8Dn.DAX` | picture, often 8×8 × N | symbol sets |
 
 `8X8D1` block 201 in the CotAB set is not a picture (the first bytes are not a height and width). Blocks 202 and 203 are: 40 glyphs and 45 glyphs. The 45-glyph set is symbol ids 1..0x2D. Wall tiles live in the area file (`8X8D2` ids 1..4 are 70 glyphs each) and line up with `WALLDEF2` block ids.
