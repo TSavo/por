@@ -4027,24 +4027,22 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-cave-thri-kreen-two-guards-phase-4.png",
     continuation: { inputs: ["a"], portrait: "portrait:area:25:ecl:a9a6:PIC6.DAX:118:4:0", prompt: /ABATTLEBEGINS/i },
   }],
-  ...[1, 3, 5].map(member => [`sokal-ceiling-insects-combat-phase-${member}`, {
-    slot: "C", inputs: ["up", "enter", "enter", ...Array(member + 1).fill("q")],
+  ...[[1, 2], [3, 4], [5, 7]].map(([member, holds]) => [`sokal-ceiling-insects-combat-phase-${member}`, {
+    slot: "C", inputs: ["up", "enter", "enter", ...Array(holds).fill("q")],
     portrait: `portrait:area:21:ecl:ae31:caller:a613:PIC4.DAX:18:${member}:0`, prompt: /THEINTERIORISOVERRUNWITHINSECTS/i,
     continuation: { inputs: ["enter"], portrait: `portrait:area:21:ecl:aed4:PIC4.DAX:18:${member}:0`, prompt: /ABATTLEBEGINS/i },
   }]),
   ["sokal-ceiling-insects-phases", {
-    slot: "C", inputs: ["up", "enter", "enter", ...Array(7).fill("q")],
-    portraitStops: {
-      3: "portrait:area:21:PIC4.DAX:18:0:0",
-      5: "portrait:area:21:ecl:ae31:caller:a613:PIC4.DAX:18:1:0",
-      7: "portrait:area:21:ecl:ae31:caller:a613:PIC4.DAX:18:3:0",
-      9: "portrait:area:21:ecl:ae31:caller:a613:PIC4.DAX:18:5:0",
+    slot: "C", inputs: ["up"],
+    portrait: "portrait:area:21:PIC4.DAX:18:0:0",
+    prompt: /^(?!.*ABATTLEBEGINS).*THEINTERIORISOVERRUNWITHINSECTS/i,
+    heldPortraitLoop: [0, 1, 0, 3, 0, 5, 6, 3].map(member => member
+      ? `portrait:area:21:ecl:ae31:caller:a613:PIC4.DAX:18:${member}:0`
+      : "portrait:area:21:PIC4.DAX:18:0:0"),
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:21:PIC4.DAX:18:0:0", prompt: /ABATTLEBEGINS/i,
+      screenshot: "sokal-ceiling-insects-battle-opening.png",
     },
-    portrait: "portrait:area:21:ecl:ae31:caller:a613:PIC4.DAX:18:6:0",
-    prompt: /THEINTERIORISOVERRUNWITHINSECTS/i,
-    phaseCaptures: { 5: "sokal-ceiling-insects-phase-1.png", 7: "sokal-ceiling-insects-phase-3.png", 9: "sokal-ceiling-insects-phase-5.png" },
-    finalPhaseCapture: "sokal-ceiling-insects-phase-6.png",
-    continuation: { inputs: ["enter"], portrait: "portrait:area:21:ecl:aed4:PIC4.DAX:18:6:0", prompt: /ABATTLEBEGINS/i },
   }],
   ...[[0, 0], [1, 2], [3, 4], [6, 5]].map(([member, holds]) => [`tyrmor-prison-drider-combat-phase-${member}`, {
     slot: "B", inputs: ["s", ...Array.from({ length: 26 }, () => ["up", "enter", "down"]).flat(),
@@ -4060,18 +4058,11 @@ const illustrationRoutes = new Map([
   }],
   ["tyrmor-prison-drider-phases", {
     slot: "B", inputs: ["s", ...Array.from({ length: 26 }, () => ["up", "enter", "down"]).flat(),
-      "up", "enter", "enter", "down", "up", ...Array(9).fill("q")],
-    portraitStops: {
-      85: "portrait:area:22:ecl:a2f9:PIC7.DAX:69:0:0",
-      86: "portrait:area:22:ecl:a2f9:PIC7.DAX:69:1:0",
-      88: "portrait:area:22:ecl:a2f9:PIC7.DAX:69:3:0",
-      89: "portrait:area:22:ecl:a2f9:PIC7.DAX:69:6:0",
-    },
-    portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:69:7:0",
+      "up", "enter", "enter"],
+    portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:69:0:0",
     prompt: /ONELICKSITSLIPS/i,
-    phaseCaptures: { 86: "tyrmor-prison-drider-phase-1.png", 88: "tyrmor-prison-drider-phase-3.png", 89: "tyrmor-prison-drider-phase-6.png" },
-    finalPhaseCapture: "tyrmor-prison-drider-phase-7.png",
-    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:69:7:0", prompt: /ABATTLEBEGINS/i },
+    heldPortraitLoop: [0, 1, 3, 4, 5, 6, 7].map(member => `portrait:area:22:ecl:a2f9:PIC7.DAX:69:${member}:0`),
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:69:0:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["tyranthraxus-join-vote", {
     slot: "B", inputs: ["right", "up", "up", "up", "up", "enter", "enter", "enter",
@@ -7304,7 +7295,8 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel ||
-      ["textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
+      routeName === "tyrmor-prison-drider-phases" ||
+      ["sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
         "new-phlan-training-duels", "new-phlan-training-north-junction", "new-phlan-training-fighters-door",
         "new-phlan-training-rogues-door", "new-phlan-training-entrance-notice",
@@ -11262,6 +11254,14 @@ try {
       const items = frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
       assert.match(items, takeScatteredObjects ? /POTIONWAND(?:CLERICALSCROLLWITH2SPELLS){2}/i
         : /WAND3POTIONSCLERICALSCROLLWITH2SPELLSSHIELD(?:CLERICALSCROLLWITH2SPELLS){4}/i);
+    }
+    if (routeName === "sokal-ceiling-insects-phases") {
+      await advance("enter");
+      assert.equal(frame.portrait, undefined);
+      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /HITPOINTS/i);
+      await waitFor("the ceiling insects battlefield replacing the portrait", () => run(`
+        state.sequence === ${frame.sequence} && !animationFrame && !document.querySelector(".encounter-portrait")
+      `));
     }
     console.log(`Verified ${routeName} illustration, panel fit, and mode switching in Chrome.`);
   } else if (routeName === "pyramid-lizardfolk-vats") {

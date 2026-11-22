@@ -1131,6 +1131,9 @@ const portraitLoops = [
     /THEENCLAVEISGUARDEDBYASKELETONARMY/i],
   ["portrait:area:10:ecl:b695:caller:a92b:PIC4.DAX:20:", 3, "portrait:PIC4.DAX:20:0:0",
     /WIGHTSAPPEARFROMBEHINDTHETOWER/i],
+  // Two empty members restore the base. Native member 7 repeats member 3.
+  ["portrait:area:21:ecl:ae31:caller:a613:PIC4.DAX:18:", [0, 1, 0, 3, 0, 5, 6, 3], "portrait:area:21:PIC4.DAX:18:0:0",
+    /^(?!.*ABATTLEBEGINS).*THEINTERIORISOVERRUNWITHINSECTS/i, Array(8).fill(210), [[7, 7]]],
   ["portrait:area:21:ecl:ae31:caller:9977:PIC4.DAX:41:", 3, "portrait:area:21:PIC4.DAX:41:0:0",
     /YOUBOARDABOAT/i],
   ["portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:", 3, "portrait:area:0:PIC3.DAX:41:0:0",
@@ -1171,6 +1174,9 @@ const portraitLoops = [
     /YOUFINDAFIGHTERWITHBATTEREDARMORANDWILDEYES/i, [400, 100, 300, 200, 700]],
   ["portrait:area:15:ecl:a520:PIC2.DAX:26:", 2, "portrait:PIC2.DAX:26:0:0",
     /YOUSEEADULLBROWNREPTILIANMONSTER/i],
+  // The blank third member holds the preceding pose for 20 ms.
+  ["portrait:area:22:ecl:a2f9:PIC7.DAX:69:", [0, 1, 3, 4, 5, 6, 7], undefined,
+    /ONELICKSITSLIPSCOMBATWAITFLEEPARLAY/i, [210, 530, 20, 20, 20, 710, 310]],
   ["portrait:area:23:ecl:9f04:PIC7.DAX:57:", 4, undefined,
     /THEYAREWARYBUTNOTHOSTILE/i],
   ["portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:", 4, undefined,
@@ -1181,16 +1187,17 @@ const portraitLoops = [
     /^(?=.*THEYRECOILINFEAR)(?=.*COMBATWAITFLEEPARLAY)/i, [210, 210, 210, 210]],
   ["portrait:area:29:ecl:af2f:caller:a6f7:PIC8.DAX:0:", 3, "portrait:area:29:PIC8.DAX:0:0:0",
     /ASMALLBANDOFSICKLYKOBOLDS/i],
-].map(([prefix, members, initial, cue, phaseTimes]) => ({
+].map(([prefix, members, initial, cue, phaseTimes, aliases]) => ({
   cue,
   phaseTimes,
+  entryAliases: aliases && new Map(aliases.map(([member, index]) => [`${prefix}${member}:0`, index])),
   phases: (Array.isArray(members) ? members : Array.from({ length: members }, (_, index) => index))
     .map(phase => (phase === 0 && initial) || `${prefix}${phase}:0`),
 }));
 
 async function animateHeldPortrait(image, { portrait: id, text }) {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const loop = portraitLoops.find(({ phases, cue }) => phases.includes(id) &&
+  const loop = portraitLoops.find(({ phases, cue, entryAliases }) => (phases.includes(id) || entryAliases?.has(id)) &&
     (!cue || cue.test(text.map(([, char]) => String.fromCharCode(char)).join("").replace(/[^a-z]/gi, ""))));
   if (!loop) return;
   const { phases, phaseTimes } = loop;
@@ -1204,7 +1211,7 @@ async function animateHeldPortrait(image, { portrait: id, text }) {
   } catch {
     return;
   }
-  let index = phases.indexOf(id);
+  let index = loop.entryAliases?.get(id) ?? phases.indexOf(id);
   function scheduleNextPhase() {
     setTimeout(() => {
       if (!image.isConnected || tileArt.hidden) return;
