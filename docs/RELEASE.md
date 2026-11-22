@@ -257,11 +257,22 @@ each loaded at 96 pixels) after the character sheet's head and body pictures. A 
 on the game in the same Chrome took it over within 1.5 seconds; the older one then read *Pool of
 Radiance is open in another window* and its sound stopped.
 
+The installer of `d7e87953` (sha256 `0c8e8fff…a2d8a`, with #94 and #114), the same way: with its pages,
+Next on C: (861.9 MB free, enough for the old check) showed *Pool of Radiance needs 1089 MB free on C:,
+and C: has 861 MB*, and `E:\Pool of Radiance` went on to the components; silent, installed in 45
+seconds; on the game page 6.3 seconds after the shortcut's command; a second launch opened a second
+window on the game; closing the windows stopped everything in 7 seconds; the opening as above
+(question 1, ZOMBIE), with one start waiting 75 seconds on *Loading* for the USB disk; uninstalled in
+13.4 seconds. Characters made in earlier sessions were in `roster.json` but not on Add Character to
+Party in a new one, with `SAVE\CHARLIST.TXT` saved empty (#119). After the run `%APPDATA%\Pool of
+Radiance`, which had not existed, was removed again.
+
 ## Known gaps
 
 - Windows, not yet run: an elevated install to Program Files, the Start Menu and desktop shortcuts and
   the uninstall entry (the unelevated run cannot write the all-users places, so none were made),
   SmartScreen's prompt, the finish page's Play (through the shortcut and Explorer), and closing the
-  console window (its SIGHUP path is checked on the Mac). The Linux archive has not been run on Linux.
+  console window (its SIGHUP path is checked on the Mac; on Battleaxe the launcher's console could not
+  be found as a window from the automation's session). The Linux archive has not been run on Linux.
 - The Mac app holds a universal Node (297 MB); one disk image per architecture would be about 150 MB
   smaller each.
