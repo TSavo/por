@@ -17616,7 +17616,7 @@ export function exe_0504b(m: Cpu): void {
       case 0x504f: {
         // 504f: pushf 
         m.tick(0x504f);
-        m.push((m.cf ? 1 : 0) | (m.pf ? 4 : 0) | (m.zf ? 0x40 : 0) | (m.sf ? 0x80 : 0) | (m.of ? 0x800 : 0) | 2);
+        m.push((m.cf ? 1 : 0) | (m.pf ? 4 : 0) | (m.zf ? 0x40 : 0) | (m.sf ? 0x80 : 0) | (m.df ? 0x400 : 0) | (m.of ? 0x800 : 0) | 2);
         ip = 0x5050;
         break;
       }
@@ -25100,7 +25100,7 @@ export function exe_05993(m: Cpu): void {
       case 0x599e: {
         // 599e: pushf 
         m.tick(0x599e);
-        m.push((m.cf ? 1 : 0) | (m.pf ? 4 : 0) | (m.zf ? 0x40 : 0) | (m.sf ? 0x80 : 0) | (m.of ? 0x800 : 0) | 2);
+        m.push((m.cf ? 1 : 0) | (m.pf ? 4 : 0) | (m.zf ? 0x40 : 0) | (m.sf ? 0x80 : 0) | (m.df ? 0x400 : 0) | (m.of ? 0x800 : 0) | 2);
         ip = 0x599f;
         break;
       }
@@ -25221,7 +25221,7 @@ export function exe_05993(m: Cpu): void {
       case 0x59d5: {
         // 59d5: popf 
         m.tick(0x59d5);
-        { const f = m.pop(); m.cf = (f & 1) !== 0; m.pf = (f & 4) !== 0; m.zf = (f & 0x40) !== 0; m.sf = (f & 0x80) !== 0; m.of = (f & 0x800) !== 0; }
+        { const f = m.pop(); m.cf = (f & 1) !== 0; m.pf = (f & 4) !== 0; m.zf = (f & 0x40) !== 0; m.sf = (f & 0x80) !== 0; m.df = (f & 0x400) !== 0; m.of = (f & 0x800) !== 0; }
         ip = 0x59d6;
         break;
       }
@@ -28971,7 +28971,7 @@ export function exe_05e44(m: Cpu): void {
       case 0x5e4d: {
         // 5e4d: pushf 
         m.tick(0x5e4d);
-        m.push((m.cf ? 1 : 0) | (m.pf ? 4 : 0) | (m.zf ? 0x40 : 0) | (m.sf ? 0x80 : 0) | (m.of ? 0x800 : 0) | 2);
+        m.push((m.cf ? 1 : 0) | (m.pf ? 4 : 0) | (m.zf ? 0x40 : 0) | (m.sf ? 0x80 : 0) | (m.df ? 0x400 : 0) | (m.of ? 0x800 : 0) | 2);
         ip = 0x5e4e;
         break;
       }
@@ -29019,7 +29019,7 @@ export function exe_05e44(m: Cpu): void {
       case 0x5e5c: {
         // 5e5c: pushf 
         m.tick(0x5e5c);
-        m.push((m.cf ? 1 : 0) | (m.pf ? 4 : 0) | (m.zf ? 0x40 : 0) | (m.sf ? 0x80 : 0) | (m.of ? 0x800 : 0) | 2);
+        m.push((m.cf ? 1 : 0) | (m.pf ? 4 : 0) | (m.zf ? 0x40 : 0) | (m.sf ? 0x80 : 0) | (m.df ? 0x400 : 0) | (m.of ? 0x800 : 0) | 2);
         ip = 0x5e5d;
         break;
       }
@@ -29177,7 +29177,7 @@ export function exe_05e44(m: Cpu): void {
       case 0x5e8a: {
         // 5e8a: popf 
         m.tick(0x5e8a);
-        { const f = m.pop(); m.cf = (f & 1) !== 0; m.pf = (f & 4) !== 0; m.zf = (f & 0x40) !== 0; m.sf = (f & 0x80) !== 0; m.of = (f & 0x800) !== 0; }
+        { const f = m.pop(); m.cf = (f & 1) !== 0; m.pf = (f & 4) !== 0; m.zf = (f & 0x40) !== 0; m.sf = (f & 0x80) !== 0; m.df = (f & 0x400) !== 0; m.of = (f & 0x800) !== 0; }
         ip = 0x5e8b;
         break;
       }
@@ -29218,7 +29218,7 @@ export function exe_05e44(m: Cpu): void {
       case 0x5e97: {
         // 5e97: popf 
         m.tick(0x5e97);
-        { const f = m.pop(); m.cf = (f & 1) !== 0; m.pf = (f & 4) !== 0; m.zf = (f & 0x40) !== 0; m.sf = (f & 0x80) !== 0; m.of = (f & 0x800) !== 0; }
+        { const f = m.pop(); m.cf = (f & 1) !== 0; m.pf = (f & 4) !== 0; m.zf = (f & 0x40) !== 0; m.sf = (f & 0x80) !== 0; m.df = (f & 0x400) !== 0; m.of = (f & 0x800) !== 0; }
         ip = 0x5e98;
         break;
       }
@@ -29237,7 +29237,7 @@ export function exe_05e44(m: Cpu): void {
       case 0x5e9c: {
         // 5e9c: popf 
         m.tick(0x5e9c);
-        { const f = m.pop(); m.cf = (f & 1) !== 0; m.pf = (f & 4) !== 0; m.zf = (f & 0x40) !== 0; m.sf = (f & 0x80) !== 0; m.of = (f & 0x800) !== 0; }
+        { const f = m.pop(); m.cf = (f & 1) !== 0; m.pf = (f & 4) !== 0; m.zf = (f & 0x40) !== 0; m.sf = (f & 0x80) !== 0; m.df = (f & 0x400) !== 0; m.of = (f & 0x800) !== 0; }
         ip = 0x5e9d;
         break;
       }

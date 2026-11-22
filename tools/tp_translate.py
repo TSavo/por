@@ -459,9 +459,9 @@ def emit_insn(insn, next_ip: int, proc_name: dict[int, str], falls: bool = True,
             lines.append("        return;")
         lines.append("      }")
     elif mn == "iret":
-        # An interrupt return pops the return address and then the flags.
+        # An interrupt return pops the return address and then the flags, the direction flag among them.
         lines.append("        m.retf(0);")
-        lines.append("        { const f = m.pop(); m.cf = (f & 1) !== 0; m.pf = (f & 4) !== 0; m.zf = (f & 0x40) !== 0; m.sf = (f & 0x80) !== 0; m.of = (f & 0x800) !== 0; }")
+        lines.append("        { const f = m.pop(); m.cf = (f & 1) !== 0; m.pf = (f & 4) !== 0; m.zf = (f & 0x40) !== 0; m.sf = (f & 0x80) !== 0; m.df = (f & 0x400) !== 0; m.of = (f & 0x800) !== 0; }")
         lines.append("        return;")
         lines.append("      }")
     elif mn == "call":
@@ -795,9 +795,9 @@ def generic_op(mn: str, op: str, parts: list[str]) -> str | None:
     if mn == "leave":
         return "m.sp = m.bp; m.bp = m.pop();"
     if mn == "pushf":
-        return "m.push((m.cf ? 1 : 0) | (m.pf ? 4 : 0) | (m.zf ? 0x40 : 0) | (m.sf ? 0x80 : 0) | (m.of ? 0x800 : 0) | 2);"
+        return "m.push((m.cf ? 1 : 0) | (m.pf ? 4 : 0) | (m.zf ? 0x40 : 0) | (m.sf ? 0x80 : 0) | (m.df ? 0x400 : 0) | (m.of ? 0x800 : 0) | 2);"
     if mn == "popf":
-        return "{ const f = m.pop(); m.cf = (f & 1) !== 0; m.pf = (f & 4) !== 0; m.zf = (f & 0x40) !== 0; m.sf = (f & 0x80) !== 0; m.of = (f & 0x800) !== 0; }"
+        return "{ const f = m.pop(); m.cf = (f & 1) !== 0; m.pf = (f & 4) !== 0; m.zf = (f & 0x40) !== 0; m.sf = (f & 0x80) !== 0; m.df = (f & 0x400) !== 0; m.of = (f & 0x800) !== 0; }"
     if mn == "sahf":
         return "{ const f = m.ah; m.cf = (f & 1) !== 0; m.pf = (f & 4) !== 0; m.zf = (f & 0x40) !== 0; m.sf = (f & 0x80) !== 0; }"
     if mn == "lahf":
