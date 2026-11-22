@@ -10,21 +10,21 @@ rendered from them, and is not part of the release.
 
 ## Where the port stands
 
-Measured on November 21, 2026, with the original files from
-`por-assets/pool`. The artwork counts are from `cec4a39a`. Each row names
-its check or source.
+Measured on November 22, 2026 on Battleaxe (`npm run verify` and the
+artwork inventory on the 1.3 files, `por-assets/gog-1.3/POOLRAD`). Each
+row names its check or source.
 
 | System | State | Check |
 | --- | --- | --- |
 | Translation | All 831 procedure prologues in `START.EXE` and `GAME.OVR` have a translated procedure, and `src/translated` matches the generator. The coverage table counts 988 translated procedures, which adds the routines reached only by a direct call. | `npm run verify`, `npm run verify:translation-reproducible` |
 | Campaign | Character creation through the final council reward replays in Chrome from an empty save directory, on the regenerated translation. Three battles use the developer victory command. | `npm run verify:campaign -- <chrome-executable> --full` |
-| Journal | 20 commission definitions match the original ECL dialogue, and 16 progress flags are checked through the translated setter. Leads and the tracked quest save with each slot. | `npm run verify` |
+| Journal | 20 journal definitions match the original ECL dialogue, and 16 progress flags are checked through the translated setter. Leads and the tracked quest save with each slot. | `npm run verify` |
 | Atlas and travel | 19 illustrated plates load. The Moonsea plate works as the overland travel map. | `npm run verify`, [Map concepts](docs/MAP-CONCEPTS.md) |
 | Enhanced exploration | WebGL exploration reads the camera and walls from the active game map. | [New Phlan 3D prototype](docs/NEW-PHLAN-3D-PROTOTYPE.md) |
-| Enhanced artwork | 7,970 validated replacement mappings from 7,098 PNG files. Of 833 picture, sprite, and combat source frames, 631 are linked, 22 resolve through exact pixel matches, and 180 remain. All 448 tall and 352 small party icon combinations have both poses. | `npx tsx tools/art-inventory.ts` |
-| Classic audio | All 20 original sound events render through the decoded driver for PC speaker and Tandy. | `npx tsx tools/verify-original-audio.ts` |
+| Enhanced artwork | 13,245 validated replacement mappings from 10,545 PNG files. Of 833 picture, sprite, and combat source frames, 700 are linked, 22 resolve through exact pixel matches, 70 through composed portrait matches, and 41 remain. All 448 tall and 352 small party icon combinations have both poses. | `npx tsx tools/art-inventory.ts` |
+| Classic audio | All 21 original sound events of version 1.3 render through the decoded driver for PC speaker and Tandy. | `npx tsx tools/verify-original-audio.ts` |
 | Enhanced effects and music | 11 approved effects and 2 approved music cues cover every reachable original event. | `npx tsx tools/verify-enhanced-audio.ts` |
-| Narration | All 2,025 text-producing ECL events are classified into 1,432 narration units. 1,745 recordings are complete, with none pending. | `npm run verify-voice-master`, `npm run verify-narration-generation` |
+| Narration | All 2,025 text-producing ECL events are classified into 1,432 narration units. All 1,751 queued recordings are complete, with none pending (the units and variants reference 1,745 of them, by `npm run qa:narration`). | `npm run verify-voice-master`, `npm run verify-narration-generation` |
 
 [Coverage](docs/COVERAGE.md) records which checks use ordinary play and
 which start from controlled saves. [Audio](docs/AUDIO.md) and the
@@ -200,9 +200,6 @@ Left:
 - Retire the first release once nothing depends on it: the `src/translated`
   copy, its column in `src/runtime/bindings.ts`, and the checks' first-release
   paths.
-- The code wheel. The 1.3 program accepts any word: its check is patched
-  out. Classic keeps that. Enhanced shows the wheel on screen as part of
-  the game and enforces the answer again.
 - Check the whole game against 1.3 and the walkthrough. The differences in
   behaviour found so far are in the research note.
 
@@ -240,11 +237,12 @@ Left:
 
 ### Artwork
 
-- 180 source frames remain unlinked: 112 scene illustration frames, 61
-  encounter sprite frames, and 7 combat poses. Many are animation members
-  or share pixels with art bound elsewhere. Check the draw in Chrome
-  before commissioning a replacement.
-- 15 literal script picture references point to 9 distinct unlinked frames.
+- 41 source frames remain unlinked after exact-pixel and composed-portrait
+  matches (6 of them uniform, 35 distinct non-uniform pixel signatures).
+  Many are animation members or share pixels with art bound elsewhere.
+  Check the draw in Chrome before commissioning a replacement.
+- No literal script picture reference points to an unlinked frame
+  (`unlinkedScriptPictures` is empty in the inventory).
 - Interface drawing and embedded graphics in `START.EXE` and `GAME.OVR`
   still need their own audit.
 
@@ -258,12 +256,12 @@ Left:
 
 ### Documentation
 
-- [PORT.md](docs/PORT.md) and [ARCHITECTURE.md](docs/ARCHITECTURE.md)
-  describe the port before it could play. They still present the title
-  frame as blank and the Enhanced display and audio as planned.
+- [PORT.md](docs/PORT.md) and [ARCHITECTURE.md](docs/ARCHITECTURE.md) were
+  brought up to the code in #88.
 - The procedure table in [COVERAGE.md](docs/COVERAGE.md) counts two
-  verified procedures and predates the campaign replays. The log also
-  keeps superseded combat watchdog passages and some damaged characters.
+  procedures verified on their own; the rest are verified through play. The
+  log also keeps superseded combat watchdog passages and some damaged
+  characters.
 - The README does not yet cover audio setup.
 
 ## Earlier plan
