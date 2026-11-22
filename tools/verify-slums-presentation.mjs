@@ -575,7 +575,8 @@ const encounterRoutes = new Map([
     placement: [56, 32, "encounter:area:10:ecl:aad6:SPRIT4.DAX:17:0:0", 32, 80],
     requireWebGL: true,
     dialogue: {
-      key: "enter", portrait: "portrait:PIC4.DAX:17:0:0", prompt: /SUMMONSAWIGHT/i,
+      key: "enter", portrait: "portrait:area:10:ecl:aad6:PIC4.DAX:17:0:0", prompt: /SURPRISEAFIGUREASITSUMMONSAWIGHT/i,
+      capture: true,
       heldPortrait: "portrait:area:10:ecl:aad6:PIC4.DAX:17:1:0",
     },
   }],
