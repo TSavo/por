@@ -141,20 +141,20 @@ encounter branches can use the same source frame, and some script scenes
 have no archive picture. Branch-specific artwork can improve live coverage
 without changing the source-frame count.
 
-The GOG 1.3 inventory at `7c7ecdb7` covers 760 of 833 archive frames
+The DOS 1.0 and GOG 1.3 inventories at `f401f867` each cover 760 of 833 archive frames
 (91.2%). Of the 73 unlinked rows, 34 are PIC, 33 are SPRIT, and six are
 CPIC. There are 59 distinct nonuniform images among those rows. The
 inventory found no unambiguous script picture references pointing to an
 unlinked frame. Check live draws before treating those rows as missing
 artwork the player can see.
 
-The same run loaded 8,500 mappings from 7,331 PNG files with zero artwork
-load or portrait match issues. It counted 394 distinct scripted scene
-illustrations across 861 scene bindings. These counts exclude proofs of
+Each run loaded 8,506 mappings from 7,334 PNG files with zero artwork
+load or portrait match issues. Each counted 397 distinct scripted scene
+illustrations across 867 scene bindings. These counts exclude proofs of
 visual quality and coverage of unplayed branches.
 
 Running the same inventory against the DOS 1.0 and GOG 1.3 data at
-`36da49a7` produced identical replacement, archive coverage, atlas,
+`f401f867` produced identical replacement, archive coverage, atlas,
 and named monster pose records. All 68 script picture references select
 the same source IDs in both editions. Four New Phlan references have
 addresses three bytes later in 1.3: the jeweler, the arms and armor
