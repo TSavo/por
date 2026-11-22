@@ -154,7 +154,7 @@ same text on every frame (`npm run verify:game-data`), so frame n of one is
 frame n of the other. If the text ever differs, the walk stops there and says
 so.
 
-Four walks:
+Five walks:
 
 - `start`: the publisher and title screens; adding SSI's ready-made party;
   creating a character through race, sex, class, alignment, the roll, the
@@ -168,6 +168,9 @@ Four walks:
   passenger dock, the boat, and the arrival at Sokal Keep, looking round in all
   four directions (81 frames; all agreed on 2026-11-22).
 
+- `kuto`: Kuto's Well (area 29), which the campaign never enters (#130): from the guide's
+  party in the Slums (`qa/fixtures/guide-party-slums-eight-set-fights/`, slot D), into the
+  plaza and looking round.
 - `leg`: a recorded walk from its own saves and keys, by default the campaign's
   Sokal leg (`qa/fixtures/campaign-sokal-leg/`); `POR_PARITY_LEG=<directory>`
   plays another. The campaign's legs are in `qa/fixtures/campaign-*-leg/`. Walks
@@ -177,7 +180,7 @@ Four walks:
   are sent, with normal input; `node tools/record-walk.mjs --replay <directory>`
   plays one back and writes its visit trace for `npm run qa:visits`.
 
-`POR_PARITY_ONLY=start`, `=slums`, `=sokal` or `=leg` before `npm run verify:port-parity`
+`POR_PARITY_ONLY=start`, `=slums`, `=sokal`, `=kuto` or `=leg` before `npm run verify:port-parity`
 runs one walk. Each took about four to six
 minutes on the Intel Mac on 2026-11-22; both together took about nine. Each
 walk plays one game at a time, first from the original files, then from

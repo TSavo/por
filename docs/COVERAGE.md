@@ -19,8 +19,10 @@ Verified means a test ran it alone and checked the bytes it wrote. The entry poi
 | **Total procedures** | **988** | **988** | **2** |
 
 Two checks keep this table true. `npm run verify` fails while any prologue in
-`START.EXE` or `GAME.OVR` lacks a translated procedure. It finds 831
-prologues: 73 resident and 758 in the overlays.
+`START.EXE` or `GAME.OVR` lacks a translated procedure. On the first
+release it finds 836 prologues: 78 resident and 758 in 38 overlay slices; on
+version 1.3, 846: 171 resident and 675 in 35 slices (measured 2026-11-22).
+The table above is the first release's.
 `npm run verify:translation-reproducible` regenerates the translation and
 fails if `src/translated` differs from the generator. It needs Python with
 capstone. Change the generator and run `npm run translate`. Do not edit

@@ -193,7 +193,7 @@ Rows that come from play:
   that printed it. One picture throughout is not enough: a line sent before its frame is drawn
   plays under the previous passage's picture, and does not count. It does not compare the
   picture's variant with the narration's variant. `--list` gives what was on screen instead.
-- **Dynamic variants selected** (of 392): the variant's condition matched the game's state.
+- **Dynamic variants selected** (of 402): the variant's condition matched the game's state.
 - **Deferred selectors resolved** (of 43): play reached the selector's passage and it chose a unit
   (or its silent case).
 - **Silent cases found in play** (must be 0).

@@ -181,6 +181,17 @@ The campfire banks share one global flame phase. Chrome verified it in
 the Slums and Tyrmor through the original Encamp menu.
 Source IDs use the DAX block number, member, and frame. The JSON keeps the
 archive directory index separately for decoding the preview.
+
+The counts quoted below with a commit hash were true at that commit and are
+history. The current counts (2026-11-22, on the GOG 1.3 files, Battleaxe):
+`tools/art-inventory.ts` reports 113 archives and 833 source frames, of which 700
+are linked directly, 22 resolve through exact pixel matches, 70 through composed
+portrait matches (42 scoped, 28 global) and 41 remain (6 uniform, 35 distinct
+nonuniform pixel signatures). It loads 13,245 validated replacement mappings,
+reports no artwork load issues and no unlinked script picture reference.
+`npm run verify:art-catalogue` counts 13,258 manifest keys across both
+manifests: 13,253 static and 5 historical (framebuffer) with none unresolved;
+3,007 nonblank original 8×8 tiles, 2,574 with a 32×32 replacement.
 The inventory at `722fa445` reports 833 source frames, including 26
 `COMSPR.DAX` frames, with 616 linked directly, 22 covered through exact
 pixel matches, and 195 unlinked. The unlinked entries include 11

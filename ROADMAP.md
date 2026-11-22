@@ -16,7 +16,7 @@ row names its check or source.
 
 | System | State | Check |
 | --- | --- | --- |
-| Translation | All 831 procedure prologues in `START.EXE` and `GAME.OVR` have a translated procedure, and `src/translated` matches the generator. The coverage table counts 988 translated procedures, which adds the routines reached only by a direct call. | `npm run verify`, `npm run verify:translation-reproducible` |
+| Translation | All 846 procedures of version 1.3 (171 resident, 675 in 35 overlay slices) and all 836 of the first release (78 resident, 758 in 38 slices) have a translated procedure, and the translation matches the generator. The first release's coverage table counts 988 translated procedures, which adds the routines reached only by a direct call. | `npm run verify`, `npm run verify:translation-reproducible` |
 | Campaign | Character creation through the final council reward replays in Chrome from an empty save directory, on the regenerated translation. Three battles use the developer victory command. | `npm run verify:campaign -- <chrome-executable> --full` |
 | Journal | 20 journal definitions match the original ECL dialogue, and 16 progress flags are checked through the translated setter. Leads and the tracked quest save with each slot. | `npm run verify` |
 | Atlas and travel | 19 illustrated plates load. The Moonsea plate works as the overland travel map. | `npm run verify`, [Map concepts](docs/MAP-CONCEPTS.md) |
