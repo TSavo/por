@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "f2d12ae75534549e678d3c9c3a00c7f7e31e5b8829df8778de36291f60ae7627",
+  "audioSha256": "b0620e81cb3810798320b1a9ac3ffbf5d5689dfb395b6365a9080a48e0a3d6a5",
+  "bytes": 188124,
+  "directionSent": "controlled, superior, and calculating",
+  "heardByWhisper": "You burst into an elegantly paneled room.  A small man sits hunched over a table by the east wall.  He sets down his pen and gazes sternly at you.  Well, he demands.",
+  "generatedAt": "2026-11-22T03:51:39.965Z"
+}

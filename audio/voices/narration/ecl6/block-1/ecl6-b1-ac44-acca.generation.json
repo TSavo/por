@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "271fa31c916c5f1f9992e0cb87e58006abeef9d76a98473ec793e2d811b5ba7e",
+  "audioSha256": "0c995e5f227ed6dca1a05b761faf11ba5181d15b8c4d04e60356efbfea69eafa",
+  "bytes": 186870,
+  "directionSent": "large, commanding, battle-hardened, confident",
+  "heardByWhisper": "You enter a room with four guards in gleaning chain mail.  As you enter, one of them goes through the south door and returns with the  Buccaneer Captain. The Captain looks you over and says,  What do you want?",
+  "generatedAt": "2026-11-22T03:59:42.877Z"
+}

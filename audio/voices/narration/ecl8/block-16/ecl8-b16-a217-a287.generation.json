@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "a685f73ead1b08fedad94cb31502bd73ca46fcf2c19af7dc4b7cb587f4b446c7",
-  "audioSha256": "87b4c7e29c4e8423ae70217e1f4ed06cc57d80f45e7225987e45410d8d683a31",
-  "bytes": 575990,
-  "generatedAt": "2026-11-19T04:46:48.337Z"
+  "audioSha256": "30abf948279c74c1258247198cfb3cfd82ff3213cc1806c14b8d1fbf1eedbddf",
+  "bytes": 341515,
+  "directionSent": "",
+  "heardByWhisper": "From nearby, a group of lizard men appear.  One, larger than the rest, moves to the front.  Your time is through, old one.  Your claws are blunt.  Face me or find some fool to champion you.  The old lizard man turns to you and says, our cause is one.  Will you champion me?",
+  "generatedAt": "2026-11-22T03:53:18.085Z"
 }

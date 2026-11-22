@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "abe0c2f7962708262f09c760e339b7fa7b9139b56372fd45eecaefb6070fa0f6",
-  "audioSha256": "3b0b1d3624f0828fe7d90d9822a051f1ad7e4a5f997dcf6c047cb1294c580ff1",
-  "bytes": 299301,
-  "generatedAt": "2026-11-19T04:47:44.086Z"
+  "audioSha256": "675e148208f2a3cb42ab3b27e0f043cfc4886429503ac5351d764ea50e9b68e4",
+  "bytes": 148418,
+  "directionSent": "",
+  "heardByWhisper": "The old lizard man recognizes the word and his lips part in a toothy grin.  You all gather close as he begins his story.",
+  "generatedAt": "2026-11-22T03:55:34.048Z"
 }

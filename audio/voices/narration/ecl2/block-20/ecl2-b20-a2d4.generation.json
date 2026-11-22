@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "8cc9fa2dfe96ad4071c6a8be791b8c40c056433ab9bccff16e97256e8db15a0f",
+  "audioSha256": "8c855a6faf08de8de2c11228227c73c2ecd27c7b3763fa7ef3ff619d32d3da3c",
+  "bytes": 112474,
+  "directionSent": "controlled, superior, and calculating",
+  "heardByWhisper": "You have returned empty handed, he observes.  I have no time for you now, he waves his hand.",
+  "generatedAt": "2026-11-22T03:51:59.673Z"
+}

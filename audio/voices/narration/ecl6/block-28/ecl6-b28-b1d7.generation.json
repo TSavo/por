@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "96ba66a2bb313594656fd0375081caff26f56abbf985379afe20478ba7a527ce",
-  "audioSha256": "3c6f0dbf6b582d368b545f6505a606547c1d1f6353846c6fbc23b6b0ec42e32f",
-  "bytes": 299301,
-  "generatedAt": "2026-11-19T04:47:02.763Z"
+  "audioSha256": "650e81aea4fa2af3c21cac11e9e671217fbfdd0ec4160779ba5d8c2359c07c58",
+  "bytes": 135461,
+  "directionSent": "controlled, cordial, probing, politically calculating",
+  "heardByWhisper": "As you don't answer the last question, the commandant smiles slightly and says,  I see that you are not foolish and loose-tongued.",
+  "generatedAt": "2026-11-22T03:57:52.147Z"
 }

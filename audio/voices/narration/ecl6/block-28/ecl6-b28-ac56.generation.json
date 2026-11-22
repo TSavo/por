@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "39bf36cdd4927a73cfa42c6ff776cfe9dd06d233311be40c68dec10c9242ff12",
-  "audioSha256": "0aa1b6847afb6674fd244d95e451ad26ac4b8dc66875e137b7026d21bb65da9b",
-  "bytes": 309750,
-  "generatedAt": "2026-11-19T04:46:21.939Z"
+  "audioSha256": "77df9143e809dc7be4dd59c3e93f56abdff84cd2cf4dd25781b4e8c5d5b82610",
+  "bytes": 181437,
+  "directionSent": "controlled, cordial, probing, and politically calculating",
+  "heardByWhisper": "You say that Bishop Braccio is not the real power in flan and the commandant responds by saying  The citizens of flan are wise to not follow an idiot from the temple of Tyr",
+  "generatedAt": "2026-11-22T03:56:53.137Z"
 }

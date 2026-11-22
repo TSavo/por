@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "bf92fbf765a8d54d9e2bccf3ad8dd4e7544852a5633d07d62130c8577037f48b",
+  "audioSha256": "1bbef6b63cf162d84973624a27abf6ab67f2d2b2e3b857dd1ad84745c9dd1bdd",
+  "bytes": 85724,
+  "directionSent": "controlled, superior, and calculating",
+  "heardByWhisper": "You presume too much,\" the man says quietly.  He gestures.",
+  "generatedAt": "2026-11-22T03:51:45.216Z"
+}

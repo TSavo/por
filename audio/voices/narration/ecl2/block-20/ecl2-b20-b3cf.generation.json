@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "1768a69b9e7deca858dac79b762e40fa1b5fad76e09733ab24d385908951d345",
+  "audioSha256": "ba2c1f4d16962dc605eb250170b4267d68317b440ace9616f32e3bf55b03d159",
+  "bytes": 82798,
+  "directionSent": "expressive fantasy narration",
+  "heardByWhisper": "What a bunch of cheapskates, the leader complains.  Let him have it, boys.",
+  "generatedAt": "2026-11-22T03:52:45.003Z"
+}

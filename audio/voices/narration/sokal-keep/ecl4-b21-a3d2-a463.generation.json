@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "56faef158505ac1cf45fcfbfc0c3e2d99a193cef28ad5d1f3a682de72ee4de32",
+  "audioSha256": "3232496963e43fd3b4a7dc5d790a8524daab82b3ea9f5e4665fdd86db06e58a5",
+  "bytes": 389998,
+  "directionSent": "dramatic, mournful turmoil, then one sorrowful voice",
+  "heardByWhisper": "The haunts burst into a chorus of howls, moans, complaints, wails, and other lamentations  over their fate and the fate of their families.  They were the original defenders of the Keep, before the cleric's spells inadvertently  bound them to this place.  One spirit's voice rises above the rest.  An account of our trials is within the diary.  He points to a floorboard.",
+  "generatedAt": "2026-11-22T03:58:44.646Z"
+}

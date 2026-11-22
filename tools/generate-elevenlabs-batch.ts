@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+import { sentDirection } from "./narration-direction.js";
 
 interface NarratorDesign { selection: { savedVoiceId?: string | null; approvedByOwner: boolean } }
 interface Batch { model?: string; items: Array<{ output: string; text: string; direction: string }> }
@@ -59,11 +60,14 @@ for (const item of batch.items) {
   let mp3: Uint8Array | undefined;
   let heard: string | undefined;
   let lastError = "unknown failure";
+  let sent = sentDirection(item.direction);
   for (let attempt = 1; attempt <= (whisper ? 6 : 3); attempt++) {
+    // Three takes that do not say the script: the manner itself is being read. Send the line alone.
+    if (whisper && attempt > 3) sent = "";
     try {
       const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(design.selection.savedVoiceId)}?output_format=mp3_44100_128`, {
         method: "POST", headers: { "xi-api-key": key, "content-type": "application/json" },
-        body: JSON.stringify({ text: `[${item.direction}] ${item.text}`, model_id: batch.model ?? "eleven_v4" })
+        body: JSON.stringify({ text: sent ? `[${sent}] ${item.text}` : item.text, model_id: batch.model ?? "eleven_v4" })
       });
       if (!response.ok) throw new Error(`ElevenLabs ${response.status}: ${await response.text()}`);
       mp3 = new Uint8Array(await response.arrayBuffer());
@@ -98,6 +102,7 @@ for (const item of batch.items) {
   writeFileSync(receipt, `${JSON.stringify({ schema: 1, provider: "ElevenLabs", model: batch.model ?? "eleven_v4",
     voiceId: design.selection.savedVoiceId, textSha256: createHash("sha256").update(item.text).digest("hex"),
     audioSha256: createHash("sha256").update(mp3).digest("hex"), bytes: mp3.length,
+    directionSent: sent,
     ...(heard === undefined ? {} : { heardByWhisper: heard }),
     generatedAt: new Date().toISOString() }, null, 2)}\n`);
   rmSync(outputTemp, { force: true });

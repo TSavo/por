@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "9c2327436811c158b08000fd7e4d70fc0f71776fcf45ea4fbdd7e2b71965a221",
+  "audioSha256": "7ae041256d8c4b76f24448fb7d0efe9cfb7c50eb59bef1d803e27201d39850d3",
+  "bytes": 417166,
+  "directionSent": "oily, avaricious, cowardly, unpleasant",
+  "heardByWhisper": "You are just outside a pen for holding slaves.  The people here are worn and beaten, destined to a life of slavery.  Around the pen, there are many guards and sleazy merchants looking at the slaves.  You see a boy that has a heart-shaped birthmark on his left shoulder.  As you stare at the boy, a sleazy fat merchant approaches you and says,  That young boy will bring a good price at gentle keep. I think I shall buy him.",
+  "generatedAt": "2026-11-22T03:59:23.664Z"
+}

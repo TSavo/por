@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "d4b1c36d4564501a561aa89cf22cdbd59b1d28041b1dda5a1e8d639d86fc21f3",
-  "audioSha256": "bc892f7412d535471ef0e74582f9e1eb988502f67d0950be700291048ef23530",
-  "bytes": 244131,
-  "generatedAt": "2026-11-19T04:47:24.634Z"
+  "audioSha256": "29c6218a97f448445f79d76963b5d0a7abf34e7d303a4e5917c5ad2d28758d63",
+  "bytes": 111220,
+  "directionSent": "controlled, cordial, probing, politically calculating",
+  "heardByWhisper": "You talk a little while longer than the Commandant states that he has other duties to attend to.  He bids you good night.",
+  "generatedAt": "2026-11-22T03:58:32.723Z"
 }

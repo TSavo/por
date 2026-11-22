@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "b436abff35d92fd9efa1f335f2a9cf6cb0177cdb61b0cd55e9dcdb520b51745b",
+  "audioSha256": "c3d273f91f198ef00bc4dc1b270768b707a92cc0d2184fa2d623dace78f504fa",
+  "bytes": 162211,
+  "directionSent": "low, weary, honorable, solemn release",
+  "heardByWhisper": "To pass my guards on the way out, speak the word Samosud.  Now we are freed, our duty done!  Faran fades away.",
+  "generatedAt": "2026-11-22T03:59:10.390Z"
+}

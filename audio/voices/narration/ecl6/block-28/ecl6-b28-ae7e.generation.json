@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "bc5c419bd40fdbd06719fcdb1fb98cf6b79cc57400d532d71d0075c50eb40933",
-  "audioSha256": "506fc7d1fe1b012bf6c57bf19191ca8ae458d348e3c22e8186ee1731bd67e2d5",
-  "bytes": 278821,
-  "generatedAt": "2026-11-19T04:46:31.294Z"
+  "audioSha256": "3238e34e2ebdf38fd593793e68794d536d8a19df1df835906b2bfadea0246342",
+  "bytes": 103278,
+  "directionSent": "controlled, cordial, probing, politically calculating",
+  "heardByWhisper": "One of the commandant's advisors asks you if you've heard of any unique magical items or places",
+  "generatedAt": "2026-11-22T03:57:04.907Z"
 }

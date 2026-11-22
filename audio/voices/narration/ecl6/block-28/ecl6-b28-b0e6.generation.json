@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "bc5077c99cebf497309251a43ca7a3e49065c368606a8a560c70544ed9094679",
-  "audioSha256": "36d529cea7fa21bcdf73bcb4af94a0a44330991af60dc2f4047f5c80f62a6fe8",
-  "bytes": 308078,
-  "generatedAt": "2026-11-19T04:46:53.574Z"
+  "audioSha256": "bcb9792f7ef804ece9dbe706b1967204cdfce9e8e0ed56915cdefe619444b18d",
+  "bytes": 180183,
+  "directionSent": "controlled, cordial, probing, politically calculating",
+  "heardByWhisper": "You tell the Commandant that New Flann's forces are capable.  He looks at you and says,  I hope, for your sake, that your city's forces can defend themselves from Tyrant Thraxus' horde.",
+  "generatedAt": "2026-11-22T03:57:37.590Z"
 }

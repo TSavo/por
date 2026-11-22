@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "11589a726adbf16f44d53cbd6f1789e4d5e0305f93b7db51829bc764be83e2ad",
-  "audioSha256": "95fd7e9663e42cf6888e888831801fc46390ce97ad354db75627d9a05393faa3",
-  "bytes": 229084,
-  "generatedAt": "2026-11-19T04:47:34.307Z"
+  "audioSha256": "9baff3cd58e0cfce11cb1f65738300afe36f40ff02d98d917c06596e1eed5f24",
+  "bytes": 147164,
+  "directionSent": "the old lizardman as aged, deliberate, dignified, and",
+  "heardByWhisper": "What is it?",
+  "generatedAt": "2026-11-22T03:54:49.532Z"
 }

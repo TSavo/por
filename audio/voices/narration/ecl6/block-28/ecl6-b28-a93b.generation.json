@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "0cf09bf8c70e0c53dc74016dae0cd0906095e193b11f3fe703f2fd3d9e1043a5",
-  "audioSha256": "db65fa325755f056976026d68eec4c288445d62a24b90cf5d9dc2818d0380aff",
-  "bytes": 340261,
-  "generatedAt": "2026-11-19T04:45:54.792Z"
+  "audioSha256": "43d7bf0fd8291a709bbb78afbfb7bd37debd0ee2123001b44f3282ffce34fdbb",
+  "bytes": 163465,
+  "directionSent": "controlled, cordial, probing, and politically calculating",
+  "heardByWhisper": "The conversation completely dies, and everyone is staring at each other.  The commandant excuses himself and leaves.  A guard takes you back to your quarters.",
+  "generatedAt": "2026-11-22T03:56:04.642Z"
 }

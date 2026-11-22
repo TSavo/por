@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "b78addf4f0d8d09b616f71bcaf05b38f895247490eeabe05162e160b92b64a17",
-  "audioSha256": "910bf512af3837e49b11c2575c88d5e42afa99e126d3979cde5ed7d2e61b945a",
-  "bytes": 255834,
-  "generatedAt": "2026-11-19T04:46:57.361Z"
+  "audioSha256": "9935be92423c865f914d846c292a11f68171be1d376701a529abfa1b9f182ff1",
+  "bytes": 123758,
+  "directionSent": "controlled, cordial, probing, politically calculating",
+  "heardByWhisper": "You tell the Commandant that New Flann's forces are weak.  He smiles and says, I hope that Flann can defend itself.",
+  "generatedAt": "2026-11-22T03:57:44.958Z"
 }

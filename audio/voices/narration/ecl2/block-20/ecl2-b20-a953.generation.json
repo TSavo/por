@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "682349f7a6c88a341156f8c6584ddcfea5bab249fcdff7d7074676742a0468f4",
+  "audioSha256": "157cc5195240734ab8eec3b5da7597010493df0029a5fa19f4e56f4fb778fb1e",
+  "bytes": 35569,
+  "directionSent": "the ragged fortune teller",
+  "heardByWhisper": "The telling is finished.",
+  "generatedAt": "2026-11-22T03:52:32.930Z"
+}

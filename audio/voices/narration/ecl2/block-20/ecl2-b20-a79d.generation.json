@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "4517b9eeb4d2ca0426d04c639bda788e68afc2af712b7588833f8e5663ad7874",
+  "audioSha256": "11fdfc71fda105985f1349ef19a1076d91355cbe7635ef0c9a1d276902102c4d",
+  "bytes": 131700,
+  "directionSent": "the ragged fortune teller",
+  "heardByWhisper": "The woman's hands make mystic passages while she mutters some words.  Her voice undergoes a strange transformation.",
+  "generatedAt": "2026-11-22T03:52:27.398Z"
+}

@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "c9f295dabd1de405779a3aacecd1833d69d9a090b7fae8ba45b9c7182024d41f",
-  "audioSha256": "e5671c35b3cec5134286044b15c75ac4233fa4261e120ee647fe6ef2a503f43d",
-  "bytes": 322289,
-  "generatedAt": "2026-11-19T04:46:36.081Z"
+  "audioSha256": "d06608aaf781cf5508724154b53d6eaead5a51cbf65542cb81d90860f0feb5cb",
+  "bytes": 157195,
+  "directionSent": "controlled, cordial, probing, politically calculating",
+  "heardByWhisper": "As you mentioned politics, the commandant says I've heard that Flan's town council is corrupt,  specifically Ulvik Eberhard. Is this true?",
+  "generatedAt": "2026-11-22T03:57:11.168Z"
 }

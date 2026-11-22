@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "ea07730ea120a63e827c52d979c11adfe0965f8bcf4040e2e3b3db6e4231c0ae",
-  "audioSha256": "5bc763986c9e76aed41a4d29c14bf64c5e0666c9a6d97398ffda24c4583d2520",
-  "bytes": 308078,
-  "generatedAt": "2026-11-19T04:46:05.339Z"
+  "audioSha256": "b65f4cbc26ab32304d5b13b6fe2c9299a99d5f95beb6ed1cad90b0c167bc5b32",
+  "bytes": 173914,
+  "directionSent": "controlled, cordial, probing, and politically calculating",
+  "heardByWhisper": "The Commandant is surprised that your city is having no trouble with Tyrant Thraxus.  He then says, your town defenses must be strong in order to handle him.  How strong are they?",
+  "generatedAt": "2026-11-22T03:56:19.607Z"
 }

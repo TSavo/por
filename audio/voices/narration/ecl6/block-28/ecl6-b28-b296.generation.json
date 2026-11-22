@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "507268bd2952d085567a7b0929ed0aeaab7cc4ac9b7ed60308d62886effd74f4",
-  "audioSha256": "e5ce0e20ca157cccc7f359de3a6cb48618f766e8b1d8a232dbe34bd3c755c0b5",
-  "bytes": 306825,
-  "generatedAt": "2026-11-19T04:47:11.725Z"
+  "audioSha256": "3bd5270e0d744952adc6f1cd2c1875b93fe453ea98fd48c070a03f953bbc8ec4",
+  "bytes": 162211,
+  "directionSent": "controlled, cordial, probing, politically calculating",
+  "heardByWhisper": "As you mention the Pool of Radiance, the Commandant tells you a story about that very pool.  You enjoy the story and copy it into your journal under entry 46.",
+  "generatedAt": "2026-11-22T03:58:08.793Z"
 }

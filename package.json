@@ -48,6 +48,7 @@
     "voice-inventory": "tsx tools/voice-inventory.ts",
     "voice-review-extraction": "tsx tools/voice-review-extraction.ts",
     "verify-narration-generation": "tsx tools/verify-narration-generation.ts",
+    "verify-narration-directions": "tsx tools/verify-narration-directions.ts",
     "verify-narration-runtime": "tsx tools/verify-narration-runtime.ts",
     "voice-master-manifest": "tsx tools/build-master-voice-manifest.ts",
     "verify-voice-master": "tsx tools/verify-master-voice-manifest.ts",

@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "09e4036182fc7c9092bb01670996bb8a5aa6577b552c86d2bdc05095214a71f2",
-  "audioSha256": "bbbae0d6d7c413da73923aa422af386c0a6ba2c0205a3a82911fecfa007366b9",
-  "bytes": 294286,
-  "generatedAt": "2026-11-19T04:46:48.999Z"
+  "audioSha256": "b4c6f54cf43fdc308694dfbf5793189fa0509f3b372ec31af028445d6f0c8caf",
+  "bytes": 159703,
+  "directionSent": "controlled, cordial, probing, politically calculating",
+  "heardByWhisper": "You tell the commandant that New Fland's forces are strong.  He seems impressed and says,  it sounds like your city can handle that fire demon, Tyrantheraxis.",
+  "generatedAt": "2026-11-22T03:57:30.814Z"
 }

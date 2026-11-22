@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "83a8e3adc17193d175b54fe4e737e6b3dbbe8224483b206e74489cf87427160f",
+  "audioSha256": "0e63b63ec00f6d46ab9b51642e6ffc369421a4f8dd47db18cae9f280b86d4a96",
+  "bytes": 178929,
+  "directionSent": "large, commanding, battle-hardened, confident",
+  "heardByWhisper": "The captain says, you have made a good deal.  After talking, the captain makes a motion and the boy is brought to you.  The captain then leaves the room and you are escorted back outside.",
+  "generatedAt": "2026-11-22T03:59:52.508Z"
+}

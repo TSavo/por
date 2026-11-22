@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "723525643e9918b0bc21f7606e8a7124167251985f571c2057fdcc9b31cbce69",
+  "audioSha256": "a3bc4b7455965042d4c7e640b3bd8970dd8a8c18f5779cc5dce2cb486d0fb5fb",
+  "bytes": 72767,
+  "directionSent": "wounded, weary, then somber",
+  "heardByWhisper": "You lie, the spirit moans as it fades away.",
+  "generatedAt": "2026-11-22T03:59:01.643Z"
+}

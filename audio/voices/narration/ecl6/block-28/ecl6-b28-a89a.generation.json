@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "bb9911c87735f7652ce30aa5ad696d63216d76b5abd209860015efe07be087d4",
-  "audioSha256": "2d0b44e42db0e63fecc4af5b7bbbbb1d51a78e84c1c30c6832939ef7b80056d3",
-  "bytes": 283837,
-  "generatedAt": "2026-11-19T04:45:50.133Z"
+  "audioSha256": "29908e0e9187638d5959cc6ace4893005731a57d8d9c266bd7dee2e3d209cf9d",
+  "bytes": 152180,
+  "directionSent": "controlled, cordial, probing, and politically calculating",
+  "heardByWhisper": "The conversation begins to die down.  The Commandant starts a conversation by saying, well,  are you having much trouble with the creatures from Old Flan?",
+  "generatedAt": "2026-11-22T03:55:57.196Z"
 }

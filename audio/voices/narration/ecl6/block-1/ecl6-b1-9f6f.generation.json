@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "4efa419c5dadd8664f78fe0d26674cff191c892d4d8e395462b0a990ed079ef0",
+  "audioSha256": "92ded9a6f04007b0c95a61373d71a1b10a9524af4a79cae703e35725916c2e05",
+  "bytes": 126684,
+  "directionSent": "oily, avaricious, cowardly, unpleasant",
+  "heardByWhisper": "You punch the merchant in the nose and he falls to the ground, badly bleeding.  The merchant yells for his guards and they come running.",
+  "generatedAt": "2026-11-22T04:00:05.750Z"
+}

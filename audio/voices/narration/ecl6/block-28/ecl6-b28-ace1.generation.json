@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "225ede69c238de2c479acb411192826f849d05ff216c586eef6fc8f730699058",
-  "audioSha256": "b2de58f246e3260f646363b984a61d71c22ff38b12777d7ff39361d07d6f7555",
-  "bytes": 281329,
-  "generatedAt": "2026-11-19T04:46:26.949Z"
+  "audioSha256": "23b87f55fc8c294382c124fcef3287313664d85bfe755b3b81671720022e11a0",
+  "bytes": 112474,
+  "directionSent": "controlled, cordial, probing, politically calculating",
+  "heardByWhisper": "You say that you don't know anything about that matter, and  the Commandant responds by saying, yes, of course you don't.",
+  "generatedAt": "2026-11-22T03:56:59.250Z"
 }

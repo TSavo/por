@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "a0b127d5da45be261e88fe3b989edd08dc05e182e9f199dbbd1abb5724af2df4",
+  "audioSha256": "7e4423783d53e1fe9208d639af45040d1da6ba925d1aaa6b139c28f561751c33",
+  "bytes": 213620,
+  "directionSent": "measured, then low, weary, honorable, solemn",
+  "heardByWhisper": "The shape speaks. I am the life form of Ferran Martinez, bound with the  undead spirits of all who die within these walls to guard the keep. Tell me, has the city been freed?",
+  "generatedAt": "2026-11-22T03:58:52.985Z"
+}

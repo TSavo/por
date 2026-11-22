@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "4f0a624bb3e5cacf977f90c805866d82090284b311e791ff9ec3522700e9798c",
-  "audioSha256": "4087d4524606d59386dff41eff2b5487580483e22a081299d95550414605db88",
-  "bytes": 321035,
-  "generatedAt": "2026-11-19T04:47:26.072Z"
+  "audioSha256": "3db954ea5c25c3afd18b747d212cce82611f158b1b374959170e9638bc68d896",
+  "bytes": 178929,
+  "directionSent": "",
+  "heardByWhisper": "You lash out with your weapon, dealing one swift, deadly blow.  The old lizard man totters for a moment with a surprised look on his face, and  then collapses.",
+  "generatedAt": "2026-11-22T03:54:17.777Z"
 }

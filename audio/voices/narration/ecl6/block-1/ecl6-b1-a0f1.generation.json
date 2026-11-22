@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "ec1a86521e4eaea2ab6761387495f9465ae21c0295d4915e14aa09f98dd1c134",
+  "audioSha256": "ccd2dc24b3e32acfb90c3767b6854e95ee8079f2c90cbf102e84e0fab7fefd05",
+  "bytes": 119997,
+  "directionSent": "oily, avaricious, cowardly, unpleasant",
+  "heardByWhisper": "You run away from the battle back to the merchant's area.  From behind you hear people calling you names like Pansy and Wimp.",
+  "generatedAt": "2026-11-22T04:00:17.939Z"
+}

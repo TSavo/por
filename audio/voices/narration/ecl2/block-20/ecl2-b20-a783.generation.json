@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "ca8a1e4cad0f5b8bb085f8306f63f2777f503f6576ba5a2804bdb0598161a92d",
+  "audioSha256": "8f6a5a0192d4e928b3f528c14467d89a47c87a74a41fc0b2fefbe346575b7b01",
+  "bytes": 25538,
+  "directionSent": "",
+  "heardByWhisper": "You leave the shop.",
+  "generatedAt": "2026-11-22T03:52:22.378Z"
+}

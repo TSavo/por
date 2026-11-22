@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "d1e08dedd6c3d6c41b21490f17ef5fb6d219ba5d10fd60912c7460e0f1d63005",
+  "audioSha256": "2f8906fb58f8a4a368929cc38b18bcb1436e3d95938104f81293faa6a329c831",
+  "bytes": 303063,
+  "directionSent": "large, commanding, battle-hardened, confident",
+  "heardByWhisper": "The slaves cheer your victory.  A large group of buccaneers stands in disbelief.  The buccaneers part as a large man in gleaming chain mail steps forth.  The slaves fall silent.  The captain says, you have fought well.  You may ransom yourselves or die.  What will you do?",
+  "generatedAt": "2026-11-22T03:59:33.711Z"
+}

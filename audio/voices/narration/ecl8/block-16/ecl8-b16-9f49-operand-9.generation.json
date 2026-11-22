@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "9cb1da4b4249d427946f39528c06246fc81914867437ae7247e663fa518578ca",
-  "audioSha256": "66b31721de39afbbe105c7e6d4b66dee34a91224dad3c32bc8bb5eb3ad0f1005",
-  "bytes": 234100,
-  "generatedAt": "2026-11-19T04:47:21.118Z"
+  "audioSha256": "61cd9b6127365f69dd4a6ea7aeab168a809a030261919d2e39a0e7209e6f46c2",
+  "bytes": 34315,
+  "directionSent": "",
+  "heardByWhisper": "He looks at you patiently.",
+  "generatedAt": "2026-11-22T03:53:55.969Z"
 }

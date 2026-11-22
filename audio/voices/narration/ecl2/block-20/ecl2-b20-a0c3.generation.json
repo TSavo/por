@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "24ea6e9671a0ea76076bc4cd5efbc21ec77c99df3ebc06f62392b6192902ad46",
+  "audioSha256": "c3c28529be4129afea3f3e0fceda91815d3e0db8b1f9734da93b1c8188f356e6",
+  "bytes": 85724,
+  "directionSent": "controlled, superior, and calculating",
+  "heardByWhisper": "I have no time for the likes of you, the man says eerily.  Be gone!",
+  "generatedAt": "2026-11-22T03:51:50.229Z"
+}
