@@ -45,6 +45,11 @@
       image-rendering: pixelated;
     }
     /* The game's name over the title art, faded in after a moment, then SPECIAL EDITION. */
+    /* The publisher screen, shown by the page before the title: it fades in, holds, and fades out over the harbour. */
+    #publisher-splash { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none;
+      z-index: 3; opacity: 1; transition: opacity 1.2s ease-out; background: #000; }
+    #publisher-splash:not(.shown) { opacity: 0; }
+    #publisher-splash[hidden] { display: none; }
     #title-name, #title-edition { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none;
       z-index: 2; opacity: 0; transition: opacity 2.5s ease-in 1s; }
     /* SPECIAL EDITION follows once the name is in. */
@@ -241,6 +246,7 @@
     </fieldset>
     <div id="play">
       <img id="screen" width="320" height="200" alt="Original game screen" tabindex="-1">
+      <img id="publisher-splash" alt="Strategic Simulations, Inc. presents" hidden>
       <img id="title-name" alt="Pool of Radiance" hidden>
       <img id="title-edition" alt="Special Edition" hidden>
       <div id="tile-art" aria-hidden="true" hidden></div>

@@ -240,7 +240,34 @@ const titleLayers = [["#title-name", "/art/scene:title-name"], ["#title-edition"
   return layer;
 });
 let titleLayersShown = false;
+// The runner passes the publisher screen before the page sees its first frame (it runs ahead to
+// POR_LIVE_AT), so the page shows the publisher art itself, once, before the title: about three
+// seconds, then a fade to the harbour, and only then do the title's name and SPECIAL EDITION fade in.
+// Presentation only: the game is already at its title and waits there.
+const publisherSplash = document.querySelector("#publisher-splash");
+let publisherSplashDone = false;
+function showPublisherSplash() {
+  if (publisherSplashDone) return false;
+  if (state.scene === "scene:publisher" || !enhanced || state.scene !== "scene:title") {
+    if (state.scene === "scene:publisher") publisherSplashDone = true;
+    return false;
+  }
+  if (!publisherSplash.getAttribute("src")) {
+    publisherSplash.hidden = false;
+    publisherSplash.addEventListener("load", () => {
+      requestAnimationFrame(() => publisherSplash.classList.add("shown"));
+      setTimeout(() => {
+        publisherSplash.classList.remove("shown");
+        setTimeout(() => { publisherSplash.hidden = true; publisherSplashDone = true; showTitleName(); }, 1200);
+      }, 3500);
+    }, { once: true });
+    publisherSplash.addEventListener("error", () => { publisherSplash.hidden = true; publisherSplashDone = true; showTitleName(); }, { once: true });
+    publisherSplash.src = "/art/scene:publisher";
+  }
+  return true;
+}
 function showTitleName() {
+  if (showPublisherSplash()) return;
   const showing = enhanced && state.scene === "scene:title";
   if (showing === titleLayersShown) return;
   titleLayersShown = showing;
