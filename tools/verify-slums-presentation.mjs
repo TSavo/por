@@ -14801,12 +14801,16 @@ try {
     assert.ok(knows("river-fountain") && !knows("river-equipment-destroyed"));
     assert.match(frame.journal.objective.nextStep, /Destroy the Equipment/);
     await advance("j");
+    const inlet = [0, 1, 2].map(member => `portrait:area:23:ecl:9a04:caller:a689:PIC7.DAX:45:${member}:0`);
     for (const phase of [1, 2]) {
       await advance("enter");
-      const fountainFrame = `portrait:PIC7.DAX:45:${phase}:0`;
+      const fountainFrame = phase === 1 ? inlet[1] : "portrait:PIC7.DAX:45:2:0";
       assert.equal(frame.portrait, fountainFrame);
-      await waitFor(`the fountain illustration phase ${phase}`, () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector('.encounter-portrait[src="/art/${fountainFrame}"]')?.naturalWidth === 352`));
+      if (phase === 1) await verifyHeldPortraitLoop(inlet, "yarash-fountain-right-inlet");
+      else {
+        await waitFor("the fountain decision illustration", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${fountainFrame}"]')?.naturalWidth === 352`));
+      }
       await verifyPortraitPanel();
       const shot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, `pyramid-fountain-phase-${phase}.png`), Buffer.from(shot.data, "base64"));
