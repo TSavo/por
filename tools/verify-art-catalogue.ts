@@ -196,6 +196,8 @@ const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
     // These transitions can leave the displayed area and active script on opposite sides of the handoff.
     let scriptArea = area;
     if (/^scene-illustration:area:19:ecl:aeeb:cue:diogenes-(?:advice-departure|bottle-departure|lair-empty)$/.test(key)) scriptArea = "25";
+    // The cave's PRINTCLEAR instructions at a0ea and a4cc resume at these cursors before the area updates.
+    if (/^scene-illustration:area:25:ecl:(?:a135:cue:diogenes-lair-empty|a558:cue:diogenes-flight)$/.test(key)) scriptArea = "19";
     if (/^scene-illustration:area:25:ecl:(?:b624:caller:(?:9d4d|9da7|9e0e|9bd9|9bfc)|b5ec|b6a0|(?:9bd5|9bf8|9c00):caller:9af6)(?::cue:|$)/.test(key)) scriptArea = "28";
     // Valhingen's first storm panel appears before the wilderness area ID changes.
     if (key === "scene-illustration:area:26:ecl:b695:caller:9c27") scriptArea = "10";
