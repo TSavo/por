@@ -12,8 +12,8 @@
  },
  "enhancedFallbacks": {
   "frames": 0,
-  "presented": 2883,
-  "walks": 24,
+  "presented": 3287,
+  "walks": 26,
   "recordedWalks": 32,
   "missingWalks": [
    "campaign-full/leg-10",
@@ -21,11 +21,9 @@
    "campaign-tower-leg",
    "walk-commission-5-reward",
    "walk-commission-5-taken",
-   "walk-kobold-king",
-   "walk-kovel-and-nomads",
-   "walk-textile-house-cleared"
+   "walk-kobold-king"
   ],
-  "runs": 26,
+  "runs": 28,
   "keys": []
  },
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
