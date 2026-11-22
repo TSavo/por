@@ -840,12 +840,21 @@ function document(list: Worklist): string {
   const cellItems = list.items.filter((item) => item.kind === "first-person cell"), battleItems = list.items.filter((item) => item.kind === "battlefield cell");
   add("# Artwork worklist", "",
     "## What to do now", "",
-    `1. **Wall tiles: ${list.remaining} cells to draw**${list.remaining ? `, in ${[...new Set(cellItems.map((item) => item.areaName))].join(", ") || "the battlefield terrain"}` : ""}. Each is listed below with its exact key. \`npm run verify:art-worklist\` reports this number.`,
-    `2. **Pictures: ${list.otherPicturesNoKeyNames.length} frames with no art** (portraits, approach sprites, icons, ending pictures), listed under "Other pictures no key names" with the key form for each. Portraits and approach sprites first; the ending pictures only if the ending needs them.`,
-    `3. Nothing else is yours yet. Cells under "Not established" are not confirmed to appear: the QA owner is settling them by play, and each one that proves real is moved into item 1. Do not draw them.`, "",
-    "The artwork is done when items 1 and 2 are at zero and nothing is left under \"Not established\".", "",
+    ...(() => {
+      const keyable = list.otherPicturesNoKeyNames.filter((picture) => !/^none\b/.test(picture.keyForm));
+      const ending = list.otherPicturesNoKeyNames.filter((picture) => /^none\b/.test(picture.keyForm));
+      const work = list.remaining + keyable.length;
+      return [
+        work ? `**There is art to do: ${work} item${work === 1 ? "" : "s"}.**` : "**There is no proven art to do right now.** Everything the tools can show the game draws has your art. Check back after the QA owner's next update to this file.", "",
+        `1. **Wall tiles: ${list.remaining ? `${list.remaining} cells to draw, in ${[...new Set(cellItems.map((item) => item.areaName ?? "the battlefield terrain"))].join(", ")}` : "none"}.**${list.remaining ? " Each is listed below with its exact key." : ""}`,
+        `2. **Pictures: ${keyable.length ? `${keyable.length} frames to draw` : "none"}.**${keyable.length ? ` Listed under "Other pictures no key names", each with its key form.` : ""}` +
+          (ending.length ? ` The ${ending.length} ending frames under "Other pictures no key names" are not work: no key can name them, and the Enhanced ending covers those beats with its scene illustrations (docs/ART-INVENTORY.md). Whether the very last beat, the final council reward, is covered is still to be checked.` : ""),
+        `3. **Do not draw anything under "Not established".** Those cells are not confirmed to appear. The QA owner is settling them by play and moves each one that proves real into item 1.`, "",
+        "The artwork is done when items 1 and 2 are none and nothing is left under \"Not established\".", "",
+      ];
+    })(),
     "## The short version", "",
-    "Portraits, monsters, scenes and combat pictures are not on this list: this is the first-person view's wall tiles and the outdoor battle terrain.",
+    "This file covers the first-person view's wall tiles, the outdoor battle terrain, and any picture frame no artwork key names yet.",
     "A cell is one 8 by 8 square of the screen, redrawn at 32 by 32. Most cells below are a shape you have already drawn, standing over a different sky or ground colour",
     "(another hour of the day, another part of the map). So count shapes, not cells:", "",
     "| Area | Cells to do | Distinct shapes | Shapes you have already drawn over another sky or ground | Shapes with no version yet |", "| ---: | ---: | ---: | ---: | ---: |",
