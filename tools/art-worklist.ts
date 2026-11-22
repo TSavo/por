@@ -490,11 +490,18 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       if (!report.established) { note("cells of an area whose reading is not confirmed"); continue; }
       const reached = list.filter((entry) => [...entry.squares].some((square) => walkable.get(entry.context)!.has(square)));
       const certain = reached.filter((entry) => entry.areaView ? overheadConfirmed : auditedContexts.has(entry.context) || backdropOk(entry.cell.backdrop));
+      // The area's reading is confirmed, so the game's own draw procedure produces this cell from this
+      // square. What existing artwork does not confirm is only whether play brings it up: the overhead
+      // view, a sky or ground colour of another hour, a square beyond the ones already covered. Holding
+      // these back left the artist with an empty list and thousands of cells outstanding, so they are
+      // listed as work, each saying why it is likely and not certain (the owner, 2026-11-21: every cell
+      // the game can show gets artwork).
+      let likely = "";
       if (!certain.length) {
-        if (list.every((entry) => entry.areaView)) note("cells of the overhead area view, which no existing artwork of the area confirms");
-        else if (!reached.length) note("cells seen only from squares not connected to any square the existing artwork was made from");
-        else note("cells that show a sky or ground colour no existing artwork of the area shows");
-        continue;
+        likely = list.every((entry) => entry.areaView) ? "likely: drawn by the overhead area view, which no existing artwork of this area confirms"
+          : !reached.length ? "likely: drawn from squares not connected to the ones the existing artwork covers"
+          : "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day";
+        certain.push(...(reached.length ? reached : list));
       }
       const entry = certain[0]!;
       const { context, cell } = entry;
@@ -508,7 +515,8 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
         kind: "first-person cell", key: `tile:${label}:${hash}`, width: 32, height: 32, area: label, areaName: report.name, group, what: cell.kind,
         composition: cell.signature, description: `${describeSignature(cell.signature)}, shown in area ${label} (${report.name})`,
         seenAt: entry.first, views, drawnIn: drawnIn.get(hash) ?? [], sameAs: sameAs.get(hash),
-        why: `drawn in ${views} views of map ${context.map} (${slotText(context)}) from squares connected to ones the existing artwork covers`,
+        why: likely ? `${likely}; drawn in ${views} views of map ${context.map} (${slotText(context)})`
+          : `drawn in ${views} views of map ${context.map} (${slotText(context)}) from squares connected to ones the existing artwork covers`,
       });
       report.toDo++;
     }
@@ -628,7 +636,8 @@ function battlefield(data: PortGameData, art: Map<string, Art>, original: Origin
         distinct.add(hash);
         if (keyed.has(hash)) { report.withArt++; return; }
         if (random.has(hashes.join())) return;
-        if (!proven.has(hashes.join())) { report.notEstablished++; return; }
+        // A terrain picture no artwork shows on a battlefield is still listed: the wilderness and the
+        // other terrain sets are what their battles are drawn from.
         report.toDo++;
         if (listed.has(hash)) return;
         listed.add(hash);
