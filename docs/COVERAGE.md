@@ -1234,6 +1234,12 @@ even when entries 38 and 51 were already recorded in a save.
 The `kovel-jail-enemy-turn` Chrome replay starts from slot A at (10,13)
 facing north. It enters the jail fight and confirms that the original
 enemy turns advance to the party's manual menu without a Quick keypress.
+The lone thief at (12,7) has separate artwork when caught and when he
+escapes. `kovel-lone-thief` and `kovel-lone-thief-attack` check the two
+choices after catching him. A controlled GOG 1.3 Chrome replay from
+(12,8 N) used a DOS clock one second after noon to draw the escape
+branch. It checked the original backstab and escape caption, panel fit,
+display switching, and the return to exploration with the save intact.
 `kovel-castle-map-nw` starts at (6,14) west and `kovel-castle-map-ne`
 starts at (3,5) east with the Valjevo assault tracked. Each checks that
 only the map found by the party guides the assault, then saves in slot A
