@@ -731,6 +731,14 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "bane-black-hand-emissary-departure.png",
     continuation: { inputs: ["up"], clearsPortrait: true, prompt: /^(?!.*HESPITSANDLEAVES).*NAMEACHP/i },
   }],
+  ["bane-black-hand-emissary-combat", {
+    slot: "A", inputs: [...Array.from({ length: 50 }, () => ["up", "down"]).flat(), "up", "enter", "enter", "enter", "c"],
+    portraitStops: { 104: "portrait:area:24:ecl:aeda:PIC1.DAX:4:0:0" },
+    portrait: "scene-illustration:area:24:ecl:b086:caller:ad99:cue:emissary-combat",
+    prompt: /THEORCSREADYTHEIRSPEARS.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "bane-black-hand-emissary-combat.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
   ["bane-black-hand-emissary-dismissal", {
     slot: "A",
     inputs: [...Array.from({ length: 50 }, () => ["up", "down"]).flat(),
