@@ -7598,7 +7598,7 @@ try {
       const timeout = setTimeout(() => {
         socket.removeEventListener("message", receive);
         reject(new Error(`Chrome did not answer ${method}`));
-      }, 10_000);
+      }, method === "Page.navigate" ? 60_000 : 10_000);
       function receive(event) {
         const message = JSON.parse(event.data);
         if (message.id !== id) return;

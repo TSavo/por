@@ -59,7 +59,7 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
   // the page's own send(), which is not a click. Without the autoplay flag every narration is
   // refused and none plays. --mute-audio only silences the output: the recordings still load and
   // run in real time, which is what the playback log measures.
-  const chrome = spawn(chromePath, ["--headless", "--no-first-run", "--mute-audio",
+  const chrome = spawn(chromePath, ["--headless", "--no-first-run", "--mute-audio", "--disable-component-update",
     "--autoplay-policy=no-user-gesture-required", "--remote-debugging-port=0", `--user-data-dir=${profile}`, "about:blank"], {
     stdio: "ignore", windowsHide: true,
   });
@@ -68,6 +68,7 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
   let socket;
   let messageId = 0;
   let lastSequence = -1;
+  let observingFallbacks = false;
 
   async function waitFor(description, read, timeout = 30_000) {
     const deadline = Date.now() + timeout;
@@ -83,13 +84,13 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
     throw new Error(`Timed out waiting for ${description}`);
   }
 
-  function command(method, params = {}) {
+  function command(method, params = {}, timeout = 10_000) {
     const id = ++messageId;
     return new Promise((done, reject) => {
       const timer = setTimeout(() => {
         socket.removeEventListener("message", receive);
         reject(new Error(`Chrome did not respond to ${method}`));
-      }, 10_000);
+      }, timeout);
       function receive(event) {
         const message = JSON.parse(event.data);
         if (message.id !== id) return;
@@ -129,7 +130,7 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
   }
 
   async function close() {
-    if (traceEnhancedFallbacks && socket?.readyState === WebSocket.OPEN) {
+    if (observingFallbacks && socket?.readyState === WebSocket.OPEN) {
       try {
         const trace = await evaluate("window.porEnhancedFallbacks()");
         writeFileSync(join(directory, "enhanced-fallbacks.json"), JSON.stringify(trace, null, 2) + "\n");
@@ -156,9 +157,11 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
     const pages = await fetch(`http://127.0.0.1:${debuggerPort}/json/list`).then((response) => response.json());
     socket = new WebSocket(pages.find(({ type }) => type === "page").webSocketDebuggerUrl);
     await waitFor("Chrome's debug connection", () => socket.readyState === WebSocket.OPEN);
-    await waitFor("the game server", () => fetch(origin).then((response) => response.ok, () => false));
+    // The server inventories the artwork before listening. A cold checkout can take longer
+    // than the browser's normal per-frame wait to open every asset header.
+    await waitFor("the game server", () => fetch(origin).then((response) => response.ok, () => false), 360_000);
     // The page starts in Enhanced; the checks were written for a page that starts in Classic.
-    await command("Page.navigate", { url: `${origin}/?display=classic` });
+    await command("Page.navigate", { url: `${origin}/?display=classic` }, 60_000);
     // The game's 320 by 200 picture; or, from the port's own data (no Classic), any first picture.
     // The runner starts once the server has loaded the artwork and must then boot to startAt before its
     // first frame, so the wait grows with the leg's boot: a second for each million steps beyond 30 s.
@@ -169,7 +172,10 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
       return typeof send === "function" && (document.querySelector("#screen").naturalWidth === 320 ||
         (state.classicAvailable === false && document.querySelector("#screen").naturalWidth > 0));
     })()`), 30_000 + (Number(startAt) || 0) / 1000);
-    if (traceEnhancedFallbacks) await evaluate(`(${observeEnhancedFallbacks})()`);
+    if (traceEnhancedFallbacks) {
+      await evaluate(`(${observeEnhancedFallbacks})()`);
+      observingFallbacks = true;
+    }
     await evaluate(`(() => {
       if (!enhanced) document.querySelector("#presentation").click();
       const sendKey = send;

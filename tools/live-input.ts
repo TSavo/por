@@ -198,6 +198,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let livePosition: { x: number; y: number } | undefined;
   let developerVictoryAvailable = false;
   let activeEcl: number;
+  let gameMode: number;
   let harborTicket: SokalQuay["ticket"] = "none";
   let explorationPosition: PresentationAnimationFrame["exploration"];
   let mappedPosition: ExploredPosition | undefined;
@@ -215,7 +216,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
 
   function captureEclContext(cpu: Cpu) {
     const dataSegment = unit.data;
-    nativeBattleActive = standalone && cpu.read8(dataSegment, data.gameState) === 5;
+    gameMode = cpu.read8(dataSegment, data.gameState);
+    nativeBattleActive = standalone && gameMode === 5;
     // Artwork is keyed by script positions in the first release's numbering.
     // The numbering is that of the script in memory, which a loaded game can bring from the other release.
     battleCursor = authoredScriptPosition(cpu, cpu.read16(dataSegment, data.eclCursor));
@@ -480,15 +482,21 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if (captureIllustration && (!illustration || animation.at(-1)?.portrait === illustration)) return;
       const menu = menuText(text);
       // The overland map shares the native viewport blit and omits Area.
-      const overlandMap = menu === "CASTVIEWENCAMPSEARCHLOOK";
+      const overlandMenu = menu === "CASTVIEWENCAMPSEARCHLOOK";
       // Menu and battle-state changes can precede the actual viewport redraw.
       if (!captureApproach && !attack && !effect && !captureIllustration && !message &&
-          overlandMap) nativePicture?.clear();
+          overlandMenu) nativePicture?.clear();
       // Runes the game writes in the picture box (the Sokal parchment, after CLEAR BOX) take the
       // place of its picture. The shipped game's pictures and runes are blank, so the held
       // portrait's pixels still match the box and would otherwise stay over the runes.
       if (runes.some(([cell]) => cell % 40 < 16 && cell < 16 * 40)) nativePicture?.clear();
-      let picture = scene ? undefined : illustration ?? arrivalPicture ??
+      // The camp's exit script reaches the same Enter/Leave prompt from inside the camp.
+      // In bundled data, the terrain draw can clear its picture before the prompt is reported.
+      const campReturnKey = "portrait:area:17:ecl:9c49:PIC7.DAX:30:0:0";
+      const campReturnPicture = area === 17 && portraitCursor === 0x9c49 && pictureCaller === undefined &&
+        menu === "ENTERLEAVE" && dialogue.includes("YOUHAVESTUMBLEDUPONALARGENOMADCAMP") &&
+        portraitKeys.includes(campReturnKey) ? campReturnKey : undefined;
+      let picture = scene ? undefined : illustration ?? arrivalPicture ?? campReturnPicture ??
         nativePicture?.match(area, portraitCursor, pictureCaller) ??
         portraitArt(screen, area, portraitCursor, pictureCaller);
       // From the game's own data the sheet's head and body come from the game's portrait draws, for
@@ -529,6 +537,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const tiles: [number, number, string][] = [];
       const tileInventory: TileInventoryCell[] | undefined = traceTiles ? [] : undefined;
       const overlandScript = activeEcl >= 25 && activeEcl <= 27;
+      // A wilderness approach keeps the map while the guest changes to the encounter menu.
+      const overlandEncounter = gameMode === 3 && overlandScript && travelPosition !== undefined &&
+        (encounter !== undefined || menu === "COMBATWAITFLEEPARLAY");
+      const overlandMap = overlandMenu || overlandEncounter;
       const phlanArrival = overlandScript ? identifyPhlanPrompt(dialogue, menu) : undefined;
       const sokalPrompt = activeEcl === 0 ? identifySokalPrompt(dialogue, menu, harborTicket) : undefined;
       const battlefield = nativeBattlefield || hasBattlefieldBorder(presentation);
@@ -775,7 +787,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         classicPortraitCaller: Array.isArray(picture) ? pictureCaller : undefined,
         perspective,
         overlandMap: overlandMap && !scene && picture === undefined && !characterSheet && !battlefield || undefined,
-        travelPosition: overlandMap && !dialogue && !encounter && !scene && picture === undefined && !characterSheet && !battlefield && !leads && !attack
+        travelPosition: overlandMenu && !dialogue && !encounter && !scene && picture === undefined && !characterSheet && !battlefield && !leads && !attack
           ? travelPosition : undefined,
         phlanArrival: travelFrame ? phlanArrival : undefined,
         sokalPrompt: travelFrame ? sokalPrompt : undefined,

@@ -1,122 +1,29 @@
 {
  "schema": 1,
  "runs": {
+  "visit-kovel-mansion": {
+   "presented": 58,
+   "frames": [],
+   "fixtureSha256": "8a9b65366bac7ae08488bc690c74d480550bfd880eed1589e5cea3e093e6b9ea"
+  },
+  "visit-mendors-library": {
+   "presented": 101,
+   "frames": [],
+   "fixtureSha256": "06257e3878704f9e9d9d52a478a7da00bfb4e6a9590f7a7cec515ebefa1f06fa"
+  },
+  "visit-temple-of-bane": {
+   "presented": 54,
+   "frames": [],
+   "fixtureSha256": "99ad7707542c43320ccc3497bb5fc8f72f0bd72d15352fe56ebd8642b246a069"
+  },
+  "visit-training-hall": {
+   "presented": 87,
+   "frames": [],
+   "fixtureSha256": "52989ae9c40f2cd3d78a8623d9c1b5e256dcbd6cfcb2fba2db4b74b25a054a52"
+  },
   "wilderness-walk": {
    "presented": 163,
-   "frames": [
-    {
-     "sequence": 47,
-     "animation": false,
-     "keys": [
-      "surface:overland"
-     ]
-    },
-    {
-     "sequence": 48,
-     "animation": true,
-     "keys": [
-      "surface:overland"
-     ]
-    },
-    {
-     "sequence": 51,
-     "animation": false,
-     "keys": [
-      "surface:overland"
-     ]
-    },
-    {
-     "sequence": 52,
-     "animation": true,
-     "keys": [
-      "surface:overland"
-     ]
-    },
-    {
-     "sequence": 76,
-     "animation": false,
-     "keys": [
-      "portrait:area:17:ecl:9c49:PIC7.DAX:30:0:0"
-     ]
-    },
-    {
-     "sequence": 111,
-     "animation": false,
-     "keys": [
-      "surface:overland"
-     ]
-    },
-    {
-     "sequence": 112,
-     "animation": false,
-     "keys": [
-      "surface:overland"
-     ]
-    },
-    {
-     "sequence": 113,
-     "animation": false,
-     "keys": [
-      "surface:overland"
-     ]
-    },
-    {
-     "sequence": 114,
-     "animation": false,
-     "keys": [
-      "surface:overland"
-     ]
-    },
-    {
-     "sequence": 115,
-     "animation": false,
-     "keys": [
-      "surface:overland"
-     ]
-    },
-    {
-     "sequence": 116,
-     "animation": false,
-     "keys": [
-      "surface:overland"
-     ]
-    },
-    {
-     "sequence": 117,
-     "animation": false,
-     "keys": [
-      "surface:overland"
-     ]
-    },
-    {
-     "sequence": 118,
-     "animation": false,
-     "keys": [
-      "surface:overland"
-     ]
-    },
-    {
-     "sequence": 119,
-     "animation": false,
-     "keys": [
-      "surface:overland"
-     ]
-    },
-    {
-     "sequence": 120,
-     "animation": false,
-     "keys": [
-      "surface:overland"
-     ]
-    },
-    {
-     "sequence": 121,
-     "animation": false,
-     "keys": [
-      "surface:overland"
-     ]
-    }
-   ],
+   "frames": [],
    "fixtureSha256": "9d46b32434cec35075991e34a89a9f80654388636c551ab8566b2147d71907b8"
   }
  }

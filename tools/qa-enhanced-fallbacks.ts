@@ -41,13 +41,20 @@ function readLedger(root: string): Ledger {
   return ledger;
 }
 
+function recordedWalkNames(fixtures: string, path = ""): string[] {
+  return readdirSync(join(fixtures, path), { withFileTypes: true })
+    .filter(entry => entry.isDirectory())
+    .flatMap(entry => {
+      const name = path ? `${path}/${entry.name}` : entry.name;
+      return existsSync(join(fixtures, name, "commands.jsonl")) ? [name] : recordedWalkNames(fixtures, name);
+    });
+}
+
 export function enhancedFallbackCoverage(root: string) {
   const { runs } = readLedger(root);
   const fixtures = join(root, "qa", "fixtures");
-  const recordedWalks = readdirSync(fixtures, { withFileTypes: true })
-    .filter(entry => entry.isDirectory() && existsSync(join(fixtures, entry.name, "commands.jsonl")))
-    .map(entry => entry.name).sort();
-  const missingWalks = recordedWalks.filter(name => runs[name]?.fixtureSha256 !== fixtureDigest(join(fixtures, name)));
+  const recordedWalks = recordedWalkNames(fixtures).sort();
+  const missingWalks = recordedWalks.filter(name => !runs[name] || runs[name].fixtureSha256 !== fixtureDigest(join(fixtures, name)));
   const keys = new Map<string, number>();
   let frames = 0, presented = 0;
   const currentRuns = Object.entries(runs).filter(([name]) => !missingWalks.includes(name));
@@ -67,7 +74,7 @@ function main(): void {
   const root = process.cwd();
   const [command, name, directory] = process.argv.slice(2);
   if (command === "--record") {
-    assert.ok(name && /^[a-z0-9][a-z0-9-]*$/.test(name) && directory,
+    assert.ok(name && /^[a-z0-9][a-z0-9-]*(?:\/[a-z0-9][a-z0-9-]*)*$/.test(name) && directory,
       "Pass a recording name and the completed Chrome leg directory");
     assert.ok(existsSync(resolve(directory, "end-frame.json")), "The replay must reach its expected final frame");
     const { data, presented, frames } = JSON.parse(readFileSync(resolve(directory, "enhanced-fallbacks.json"), "utf8")) as
@@ -110,4 +117,4 @@ function main(): void {
   if (coverage.frames || coverage.missingWalks.length) process.exitCode = 1;
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) main();
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).

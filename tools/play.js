@@ -665,13 +665,13 @@ travelArt.setAttribute("href", "/atlas/phlan-region-concept-v2-geography.png");
 function renderTravelMap(view = animationFrame ?? state) {
   const overland = enhanced && view.overlandMap && !view.journal && !view.classicPortrait && !view.combatArt?.length;
   const illustrated = overland && travelArtReady;
-  // On the overland the illustrated Moonsea map replaces the game's own overland view: it stays up while
-  // the party walks a route and at overland prompts, and gives way only to a picture the game shows there
-  // (an encounter, a portrait, a scene). The shipped game has no original overland tiles to show instead.
-  const picture = Boolean(view.portrait || view.encounter?.length || view.scene || view.art);
+  // Approaching figures are drawn over the map. A portrait or scene occupies the whole panel.
+  const picture = Boolean(view.portrait || view.scene || view.art);
+  const encounter = Boolean(view.encounter?.length);
   const visible = illustrated && travelArtEnabled && !picture;
-  if ((!visible || activeTravel) && travelExpanded) setTravelExpanded(false);
+  if ((!visible || encounter || activeTravel) && travelExpanded) setTravelExpanded(false);
   travelMap.hidden = !visible;
+  tileArt.classList.toggle("overland-encounter", visible && encounter);
   // Landmarks take a click only at the game's travel screen, and not while a route is being walked.
   const routes = visible && view.travel && !activeTravel && !animationFrame && state.ready && !state.stopped ? view.travel.routes : {};
   for (const landmark of travelLandmarks) {
@@ -2088,7 +2088,7 @@ async function poll() {
       codeWheelStatus() ??
       (waitingForFerryPayer(activeTravel) ? "Choose who pays 1 platinum for Sokal Keep. Esc to stop travel." : undefined) ??
       (activeTravel && `Traveling toward ${activeTravel.label}… Esc to stop.`) ??
-      (!travelMap.hidden && state.ready ? "Select a highlighted destination or use the arrow keys." : undefined) ??
+      (!travelMap.hidden && state.ready && state.travel ? "Select a highlighted destination or use the arrow keys." : undefined) ??
       (state.ready && state.developerVictoryAvailable ? "F9 wins the fight (developer mode)." : undefined) ??
       (state.automaticCombat && !state.journal ? "Combat in progress…"
         : state.ready && !state.presentationPolling ? "Arrows or keypad to move. Enter to confirm." : "Game running…");

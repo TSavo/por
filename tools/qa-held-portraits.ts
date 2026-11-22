@@ -48,19 +48,24 @@ type ScriptSite = typeof heldPortraitDiscovery.eclCandidates[number];
 const scriptSiteId = (site: ScriptSite) => `${site.scriptArchive}:${site.scriptBlock}:${site.address}`;
 const promptId = (cursor: string, caller: string | null) => caller ? `${cursor}/${caller}` : cursor;
 
-// 3e497fec changes the values recorded by logShownArtwork after drawing. Its
-// exact output script can reuse captures of the preceding display code.
-const previousRendererProof = new Map([
+// These exact revisions are equivalent for held portraits. 3e497fec changed the
+// narration log. The wilderness repair changes only the travel map layer and its
+// status text. Art and timing signatures are still checked for each capture.
+const previousRendererProof = new Map<string, readonly string[]>([
   ["a25fa97665544a065cee8986d0cf43dc3e5cebeb91ef17d5734051a801fb1d06",
-    "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521"],
+    ["b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521"]],
+  ["40e3b6aa3c316d2d8e093b2ccbe82e167c15a73da050b955a6e6e948c2d2eaf4", [
+    "a25fa97665544a065cee8986d0cf43dc3e5cebeb91ef17d5734051a801fb1d06",
+    "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+  ]],
 ]);
 
 export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.meta.url))) {
   const path = (...parts: string[]) => join(root, ...parts);
   const digest = (value: string | Buffer) => createHash("sha256").update(value).digest("hex");
   const renderer = digest(readFileSync(path("tools", "play.js"), "utf8").replace(/\r\n/g, "\n"));
-  const previousRenderer = previousRendererProof.get(renderer);
-  const matchesRenderer = (hash: string) => hash === renderer || (previousRenderer !== undefined && hash === previousRenderer);
+  const acceptedRenderers = new Set([renderer, ...(previousRendererProof.get(renderer) ?? [])]);
+  const matchesRenderer = (hash: string) => acceptedRenderers.has(hash);
   const inventory = JSON.parse(readFileSync(path("qa", "held-portraits.json"), "utf8")) as HeldPortraitInventory;
   const oneShots = JSON.parse(readFileSync(path("qa", "held-portrait-one-shots.json"), "utf8")) as OneShot[];
   const oneShotByProducer = new Map(oneShots.map(proof => [proof.producer, proof]));

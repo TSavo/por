@@ -194,6 +194,8 @@ the opening portrait, and the served art hashes against each Chrome
 capture. Editing a binding for a different portrait keeps that capture valid.
 The reviewed narration-log edit in `3e497fec` accepts the preceding renderer's
 capture hashes for that exact script. The original capture hashes are retained.
+The exact wilderness renderer revision also accepts those two capture hashes.
+Its changes are confined to the travel map layer and the status text it shows.
 
 The Valhingen wight caller checks take their checkpoints from
 `qa/fixtures/valhingen-wight-ambush/A.json` and
@@ -218,3 +220,9 @@ on the completed GOG replay and regenerate the worklist with `npm run art:workli
 The verifier reports the measured walks, their fallback frames and their
 distinct keys. It exits with status 1 while a recorded walk needs a
 capture or a captured fallback remains.
+
+The wilderness walk ends at the same recorded screen in both data modes.
+Chrome displayed 163 views per run. The original-data baseline recorded
+15 overland background fallbacks and one Nomad Camp portrait fallback.
+The atlas and scoped portrait fixes brought that count to zero in both
+data modes. The separate runner parity check matched all 152 frames.
