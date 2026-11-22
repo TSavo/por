@@ -183,6 +183,21 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "visit-yarashs-pyramid (qa/fixtures/visit-yarashs-pyramid, game/)": {
+   "areas": [
+    0,
+    8,
+    22,
+    23,
+    26
+   ],
+   "commissions": [
+    "sokal"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
