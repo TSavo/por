@@ -1,0 +1,9 @@
+{"t":"playback","run":"leg-1","leg":"leg-1","at":39.295,"frame":119,"queued":7}
+{"t":"p","id":1,"unitId":"por.voice.ecl3.b0-b0b6","asset":"voices/narration/ecl3/b0-b0b6.mp3","queuedAt":27.87,"queuedFrame":106,"startedAt":28.315,"startFrame":107,"duration":10.8,"artAtStart":"portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9","artSeen":["portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9","scene-illustration:area:0:ecl:af3f:caller:b256","scene-illustration:area:0:ecl:af3f:caller:b2f2","scene-illustration:area:0:ecl:af3f:caller:b369","scene-illustration:area:0:ecl:af3f:caller:b3ff","scene-illustration:area:0:ecl:af3f:caller:b48e","scene-illustration:area:0:ecl:af3f:caller:b51c","scene-illustration:area:0:ecl:af3f:caller:b58e",null,"portrait:PIC3.DAX:29:0:0"],"artTimes":[0,1.533,2.876,4.952,6.499,8.052,9.09,9.814,10.018,10.648],"position":10.79274}
+{"t":"p","id":2,"unitId":"por.voice.ecl3.b0-b1c2","asset":"voices/narration/ecl3/b0-b1c2.mp3","queuedAt":29.837,"queuedFrame":108,"ahead":1}
+{"t":"p","id":3,"unitId":"por.voice.ecl3.b0-b257","asset":"voices/narration/ecl3/b0-b257.mp3","queuedAt":31.184,"queuedFrame":109,"ahead":2}
+{"t":"p","id":4,"unitId":"por.voice.ecl3.b0-b2f3","asset":"voices/narration/ecl3/b0-b2f3.mp3","queuedAt":33.254,"queuedFrame":110,"ahead":3}
+{"t":"p","id":5,"unitId":"por.voice.ecl3.b0-b36a","asset":"voices/narration/ecl3/b0-b36a.mp3","queuedAt":34.807,"queuedFrame":111,"ahead":4}
+{"t":"p","id":6,"unitId":"por.voice.ecl3.b0-b400","asset":"voices/narration/ecl3/b0-b400.mp3","queuedAt":36.359,"queuedFrame":112,"ahead":5}
+{"t":"p","id":7,"unitId":"por.voice.ecl3.b0-b48f","asset":"voices/narration/ecl3/b0-b48f.mp3","queuedAt":37.398,"queuedFrame":113,"ahead":6}
+{"t":"p","id":8,"unitId":"por.voice.ecl3.b0-b51c","asset":"voices/narration/ecl3/b0-b51c.mp3","queuedAt":38.121,"queuedFrame":114,"ahead":7}

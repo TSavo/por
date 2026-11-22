@@ -1,0 +1,10 @@
+{"t":"playback","run":"leg-9","leg":"leg-9","at":40.663,"frame":97,"queued":5}
+{"t":"p","id":1,"unitId":"por.voice.ecl5.b3-a8d0-prompt","asset":"voices/narration/ecl5/b3-a8d0-prompt.mp3","queuedAt":24.883,"queuedFrame":29,"startedAt":24.899,"startFrame":29,"duration":3.6,"artAtStart":null,"artSeen":[null],"artTimes":[0],"outcome":"ended","endedAt":28.547,"endFrame":47,"position":3.6,"artAtEnd":null}
+{"t":"p","id":2,"unitId":"por.voice.ecl5.b3-aa3e","asset":"voices/narration/ecl5/b3-aa3e.mp3","queuedAt":25.093,"queuedFrame":30,"ahead":1,"startedAt":28.553,"startFrame":47,"duration":2.08,"artAtStart":null,"artSeen":[null],"artTimes":[0],"outcome":"ended","endedAt":30.701,"endFrame":58,"position":2.08,"artAtEnd":null}
+{"t":"p","id":3,"unitId":"por.voice.ecl5.b3-aa6c","asset":"voices/narration/ecl5/b3-aa6c.mp3","queuedAt":26.449,"queuedFrame":37,"ahead":2,"startedAt":30.707,"startFrame":58,"duration":5.92,"artAtStart":null,"artSeen":[null],"artTimes":[0],"outcome":"ended","endedAt":36.696,"endFrame":81,"position":5.92,"artAtEnd":null}
+{"t":"p","id":4,"unitId":"por.voice.ecl5.b5-9b4b","asset":"voices/narration/ecl5/b5-9b4b.mp3","queuedAt":31.907,"queuedFrame":62,"ahead":1,"startedAt":36.703,"startFrame":81,"duration":5.12,"artAtStart":null,"artSeen":[null,"portrait:PIC3.DAX:29:0:0"],"artTimes":[0,3.533],"position":3.903659}
+{"t":"p","id":5,"unitId":"por.voice.ecl5.b5-9b99","asset":"voices/narration/ecl5/b5-9b99.mp3","queuedAt":32.321,"queuedFrame":63,"ahead":2}
+{"t":"p","id":6,"unitId":"por.voice.ecl5.b5-a467","asset":"voices/narration/ecl5/b5-a467.mp3","queuedAt":35.492,"queuedFrame":77,"ahead":3}
+{"t":"p","id":7,"unitId":"por.voice.ecl5.b7-9a52","asset":"voices/narration/ecl5/b7-9a52.mp3","queuedAt":35.492,"queuedFrame":77,"ahead":4}
+{"t":"p","id":8,"unitId":"por.voice.ecl5.b7-9b74-9bbe","asset":"voices/narration/ecl5/b7-9b74-9bbe.mp3","queuedAt":35.953,"queuedFrame":78,"ahead":5}
+{"t":"p","id":9,"unitId":"por.voice.ecl5.b7-9a74","asset":"voices/narration/ecl5/b7-9a74.mp3","queuedAt":37.103,"queuedFrame":82,"ahead":5}
