@@ -3,6 +3,8 @@ const ferryPoseOrder = [0, 1, 2, 1];
 const ferryPoseTimes = [2010, 1510, 2010, 1510];
 const towerGiantPoseOrder = [0, 1, 0, 3];
 const towerGiantPoseTimes = [210, 210, 210, 210];
+const towerTrollPoseOrder = [0, 1, 2, 3, 4, 3, 2, 1];
+const towerTrollPoseTimes = [1310, 20, 20, 20, 510, 110, 110, 210];
 const silverDragonPoseOrder = [0, 1, 2, 3, 4, 0, 2];
 const silverDragonPoseTimes = [1610, 510, 410, 1210, 1010, 1410, 1510];
 const portraitLoops = [
@@ -59,8 +61,12 @@ const portraitLoops = [
     /GUARDSRUNTOINTERCEPTYOU/i, [1510, 20, 710, 20]],
   ["portrait:area:20:ecl:9e02:PIC2.DAX:0:", [0, 1, 2, 1], undefined,
     /^(?!.*ABATTLEBEGINS).*YOUHAVESURPRISEDAPARTYOFKOBOLDS/i, [210, 210, 210, 210]],
-  ["portrait:area:5:ecl:9ff9:PIC5.DAX:31:", [0, 1, 2, 3, 4, 3, 2, 1], "portrait:area:5:PIC5.DAX:31:0:0",
-    /^(?!.*ABATTLEBEGINS).*YOUSEEAPACKOFTROLLS.*THEYSEEMUNAWAREOFYOU/i, [1310, 20, 20, 20, 510, 110, 110, 210]],
+  ["portrait:area:5:ecl:9ff9:PIC5.DAX:31:", towerTrollPoseOrder, "portrait:area:5:PIC5.DAX:31:0:0",
+    /^(?!.*ABATTLEBEGINS).*YOUSEEAPACKOFTROLLS.*THEYSEEMUNAWAREOFYOU/i, towerTrollPoseTimes],
+  ["portrait:area:5:ecl:9fa2:PIC5.DAX:31:", towerTrollPoseOrder, undefined,
+    /^(?!.*ABATTLEBEGINS)(?=.*YOUSEEAPACKOFTROLLS)(?=.*COMBATWAITFLEEPARLAY)/i, towerTrollPoseTimes],
+  ["portrait:area:5:ecl:9a5a:caller:a042:PIC5.DAX:31:", towerTrollPoseOrder, undefined,
+    /APACKOFTROLLSCHARGEFROMWHERETHEYWEREHIDING/i, towerTrollPoseTimes],
   ["portrait:area:9:ecl:a945:PIC2.DAX:63:", [0, 1, 2, 1], "portrait:area:9:PIC2.DAX:63:0:0",
     /THELEADERSWINGSATYOU/i, [1310, 110, 510, 20]],
   ["portrait:area:10:ecl:b695:caller:9f7a:PIC4.DAX:35:", 5, "portrait:area:10:PIC4.DAX:35:0:0",

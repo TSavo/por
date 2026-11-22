@@ -549,6 +549,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           dialogue.includes("THEYCOMERUNNINGTOWARDYOU") && portraitKeys.includes(streetGiants)) {
         picture = streetGiants;
       }
+      // Keep the tower's ordinary troll portrait at the shared battle notice.
+      const towerTrolls = "portrait:area:5:ecl:9fa2:PIC5.DAX:31:0:0";
+      if (picture && area === 5 && portraitCursor === 0xa052 && dialogue.includes("YOUSEEAPACKOFTROLLS") &&
+          !dialogue.includes("THEYSEEMUNAWAREOFYOU") && portraitKeys.includes(towerTrolls)) {
+        picture = towerTrolls;
+      }
       // From the game's own data the sheet's head and body come from the game's portrait draws, for
       // as long as nothing is drawn over them (on the roll, the name, Head Body Keep and View).
       const characterSheet = !scene && !picture ?

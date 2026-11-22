@@ -4277,6 +4277,26 @@ const illustrationRoutes = new Map([
     ],
     continuation: { inputs: ["c"], portrait: "portrait:area:5:ecl:a052:PIC5.DAX:31:0:0", prompt: /ABATTLEBEGINS/i },
   }],
+  ["valjevo-tower-troll-encounter-loop", {
+    slot: "B", inputs: ["up"],
+    portrait: "portrait:area:5:ecl:9fa2:PIC5.DAX:31:0:0",
+    prompt: /^(?!.*THEYSEEMUNAWAREOFYOU)(?=.*YOUSEEAPACKOFTROLLS\.)(?=.*COMBATWAITFLEEPARLAY)/i,
+    heldPortraitLoop: [0, 1, 2, 3, 4, 3, 2, 1].map(member => `portrait:area:5:ecl:9fa2:PIC5.DAX:31:${member}:0`),
+    continuation: {
+      inputs: ["c"], portrait: "portrait:area:5:ecl:9fa2:PIC5.DAX:31:0:0", prompt: /ABATTLEBEGINS/i,
+      pressOnPortrait: "portrait:area:5:ecl:9fa2:PIC5.DAX:31:4:0", retainPose: true,
+    },
+  }],
+  ["valjevo-tower-troll-ambush-loop", {
+    slot: "B", inputs: ["up"],
+    portrait: "portrait:area:5:ecl:9a5a:caller:a042:PIC5.DAX:31:0:0",
+    prompt: /APACKOFTROLLSCHARGEFROMWHERETHEYWEREHIDING/i,
+    heldPortraitLoop: [0, 1, 2, 3, 4, 3, 2, 1].map(member => `portrait:area:5:ecl:9a5a:caller:a042:PIC5.DAX:31:${member}:0`),
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:5:ecl:a052:PIC5.DAX:31:0:0", prompt: /ABATTLEBEGINS/i,
+      pressOnPortrait: "portrait:area:5:ecl:9a5a:caller:a042:PIC5.DAX:31:4:0", retainPose: true,
+    },
+  }],
   ["wild-cave-thri-kreen-two-guards-phases", {
     slot: "A", inputs: ["up"],
     portrait: "portrait:area:25:ecl:a991:PIC6.DAX:118:0:0",
@@ -7628,7 +7648,8 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_FIXED_CLOCK_START: browserEnvironment.POR_FIXED_CLOCK_START ??
-      (routeName === "valjevo-street-giants-loop" ? "4320100" :
+      (["valjevo-street-giants-loop", "valjevo-tower-troll-encounter-loop"].includes(routeName) ? "4320100" :
+        routeName === "valjevo-tower-troll-ambush-loop" ? "4322783" :
         routeName === "valhingen-skeleton-roaming-ambush-loop" || routeName === "valhingen-wight-ambush-loop" ? "4320042" : undefined),
     ...(textileScorpionLoop ? { POR_PROMPT_SCHEDULE_IN: resolve(textileScorpionWalk, "prompts.jsonl") } : {}),
     POR_INPUT_COMPAT: textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
@@ -7638,6 +7659,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valhingen-skeleton-roaming-ambush-loop" ||
       routeName === "old-phlan-lizard-patrol-phases" || routeName === "valjevo-tower-troll-phases" ||
       routeName === "valjevo-street-giants-loop" ||
+      /^valjevo-tower-troll-(encounter|ambush)-loop$/.test(routeName) ||
       routeName === "valjevo-dungeon-kitchen-choice" ||
       /^valjevo-dungeon-kitchen-(entry|rescue|warning|oil)-loop$/.test(routeName) ||
       routeName === "lizard-wilds-kobold-prisoners" || routeName === "lizard-wilds-pool-dialogue" ||
