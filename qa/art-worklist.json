@@ -12,23 +12,23 @@
   "  of which several tiles together": 1381,
   "  of which the same pixels already have art of yours in another area": 684,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 4967,
-  "  accounted for by the tool": 4811,
+  "Tile keys in the manifests": 5013,
+  "  accounted for by the tool": 4857,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
   "  blank": 9,
   "  distinct pictures among the rest": 1333,
-  "  with art in some area, alone or over a solid colour": 2397,
-  "  without (the catalogue's 720 when it was written)": 610,
+  "  with art in some area, alone or over a solid colour": 2411,
+  "  without (the catalogue's 720 when it was written)": 596,
   "    of those, no map can show": 428,
   "    of those, shown only together with other tiles, never alone": 6,
-  "    of those, shown alone in some area": 176
+  "    of those, shown alone in some area": 162
  },
  "notEstablished": {
   "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4051,
   "first-person cells of the overhead area view, which no existing artwork of the area confirms": 152,
-  "first-person cells of an area whose reading is not confirmed": 1448,
+  "first-person cells of an area whose reading is not confirmed": 1417,
   "first-person cells seen only from squares not connected to any square the existing artwork was made from": 197,
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
   "battlefield cells of pictures no artwork shows to have been on a battlefield": 2207,
@@ -177,7 +177,7 @@
    "area": 5,
    "name": "Valjevo Castle",
    "established": false,
-   "why": "62 of the 161 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
+   "why": "62 of the 176 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
    "maps": [
     3,
     4,
@@ -187,9 +187,9 @@
    "wallSets": [
     "WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)"
    ],
-   "existingKeys": 161,
-   "existingKeysAccountedFor": 99,
-   "existingKeysOnlyAsArrivalViews": 2,
+   "existingKeys": 176,
+   "existingKeysAccountedFor": 114,
+   "existingKeysOnlyAsArrivalViews": 17,
    "unaccountedKeys": [
     "tile:5:15450d2266965cb35a6f45fd06dbf087e58bdd114e2cf88e56dba3e596898eb1",
     "tile:5:491c0e9a5a1fe2680ecad326e5a4a7920df0f9e348ad8b993c763c95cf886194",
@@ -290,7 +290,7 @@
    "area": 7,
    "name": "Valjevo Castle, the Pool",
    "established": false,
-   "why": "58 of the 131 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
+   "why": "58 of the 162 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
    "maps": [
     7,
     3
@@ -298,8 +298,8 @@
    "wallSets": [
     "WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)"
    ],
-   "existingKeys": 131,
-   "existingKeysAccountedFor": 73,
+   "existingKeys": 162,
+   "existingKeysAccountedFor": 104,
    "existingKeysOnlyAsArrivalViews": 40,
    "unaccountedKeys": [
     "tile:7:073bed6ce208bae09aa922cc701b2e85d31b89cb815bf9741c330a855b7f23ab",
@@ -362,10 +362,10 @@
     "tile:7:ff1d77d3d1eb61a9976147905fd8677ecfe2ad3954c5d4862243f59bc3d85948"
    ],
    "cellsTheViewsCanShow": 269,
-   "cellsWithArt": 33,
+   "cellsWithArt": 64,
    "toDo": 0,
    "notEstablished": {
-    "cells of an area whose reading is not confirmed": 236
+    "cells of an area whose reading is not confirmed": 205
    }
   },
   {

@@ -56,18 +56,18 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 |   of which several tiles together | 1381 |
 |   of which the same pixels already have art of yours in another area | 684 |
 | Battlefield cells to do | 0 |
-| Tile keys in the manifests | 4967 |
-|   accounted for by the tool | 4811 |
+| Tile keys in the manifests | 5013 |
+|   accounted for by the tool | 4857 |
 | Battlefield keys in the manifests | 83 |
 |   that are one stored cell of a battlefield picture | 78 |
 | Stored 8 by 8 tiles | 3016 |
 |   blank | 9 |
 |   distinct pictures among the rest | 1333 |
-|   with art in some area, alone or over a solid colour | 2397 |
-|   without (the catalogue's 720 when it was written) | 610 |
+|   with art in some area, alone or over a solid colour | 2411 |
+|   without (the catalogue's 720 when it was written) | 596 |
 |     of those, no map can show | 428 |
 |     of those, shown only together with other tiles, never alone | 6 |
-|     of those, shown alone in some area | 176 |
+|     of those, shown alone in some area | 162 |
 
 ## Where each area stands
 
@@ -78,9 +78,9 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 2 | Cadorna Textile House | yes | 580 | 254 | 128 | 278 of 278 (5 as first views of the next area, 19 as WebGL wall materials) |
 | 3 | Valjevo Castle | not yet | 300 | 100 |  | 102 of 117 (2 as WebGL wall materials) |
 | 4 | Valjevo Castle | yes | 320 | 76 | 46 | 84 of 84 (8 as WebGL wall materials) |
-| 5 | Valjevo Castle | not yet | 393 | 91 |  | 99 of 161 (2 as first views of the next area, 6 as WebGL wall materials) |
+| 5 | Valjevo Castle | not yet | 393 | 91 |  | 114 of 176 (17 as first views of the next area, 6 as WebGL wall materials) |
 | 6 | Valjevo Castle | yes | 310 | 76 | 88 | 82 of 82 (6 as WebGL wall materials) |
-| 7 | Valjevo Castle, the Pool | not yet | 269 | 33 |  | 73 of 131 (40 as first views of the next area) |
+| 7 | Valjevo Castle, the Pool | not yet | 269 | 64 |  | 104 of 162 (40 as first views of the next area) |
 | 8 | Phlan City Hall | yes | 405 | 163 | 129 | 173 of 173 (10 as WebGL wall materials) |
 | 9 | Stojanow Gate | yes | 287 | 117 | 33 | 117 of 117 |
 | 10 | Valhingen Graveyard | yes | 2452 | 556 | 334 | 568 of 568 (12 as WebGL wall materials) |
@@ -2607,7 +2607,7 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 | --- | ---: |
 | first-person cells that show a sky or ground colour no existing artwork of the area shows | 4051 |
 | first-person cells of the overhead area view, which no existing artwork of the area confirms | 152 |
-| first-person cells of an area whose reading is not confirmed | 1448 |
+| first-person cells of an area whose reading is not confirmed | 1417 |
 | first-person cells seen only from squares not connected to any square the existing artwork was made from | 197 |
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |
 | battlefield cells of pictures no artwork shows to have been on a battlefield | 2207 |
@@ -2619,8 +2619,8 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 Areas not confirmed, and why:
 
 - Area 3 (Valjevo Castle): 15 of the 117 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
-- Area 5 (Valjevo Castle): 62 of the 161 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
-- Area 7 (Valjevo Castle, the Pool): 58 of the 131 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
+- Area 5 (Valjevo Castle): 62 of the 176 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
+- Area 7 (Valjevo Castle, the Pool): 58 of the 162 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 15 (Mendor's Library): 15 of the 205 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 18 (Podol Plaza): 5 of the 202 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 20 (The Slums): 1 of the 188 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
