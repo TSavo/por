@@ -3877,19 +3877,13 @@ const illustrationRoutes = new Map([
     },
   }],
   ["valjevo-medusa-phases", {
-    slot: "B", inputs: ["up", "enter", "enter", "enter", ...Array(9).fill("q")],
-    portraitStops: {
-      4: "portrait:area:7:PIC5.DAX:49:0:0",
-      6: "portrait:area:7:ecl:9e1a:PIC5.DAX:49:1:0",
-      7: "portrait:area:7:ecl:9e1a:PIC5.DAX:49:2:0",
-      8: "portrait:area:7:ecl:9e1a:PIC5.DAX:49:3:0",
-      10: "portrait:area:7:ecl:9e1a:PIC5.DAX:49:4:0",
-    },
-    portrait: "portrait:area:7:ecl:9e1a:PIC5.DAX:49:7:0",
-    prompt: /AMEDUSACOMESRUNNINGTOWARDYOU/i,
-    phaseCaptures: { 6: "valjevo-medusa-phase-1.png", 7: "valjevo-medusa-phase-2.png", 8: "valjevo-medusa-phase-3.png", 10: "valjevo-medusa-phase-4.png" },
-    finalPhaseCapture: "valjevo-medusa-phase-7.png",
-    continuation: { inputs: ["c"], portrait: "portrait:area:7:ecl:9e3e:PIC5.DAX:49:7:0", prompt: /ABATTLEBEGINS/i },
+    slot: "B", inputs: ["up", "enter"],
+    portrait: "portrait:area:7:PIC5.DAX:49:0:0", prompt: /AMEDUSACOMESRUNNINGTOWARDYOU/i,
+    heldPortraitLoop: [
+      "portrait:area:7:PIC5.DAX:49:0:0",
+      ...[1, 2, 3, 4, 2, 1, 7].map(member => `portrait:area:7:ecl:9e1a:PIC5.DAX:49:${member}:0`),
+    ],
+    continuation: { inputs: ["c"], portrait: "portrait:area:7:PIC5.DAX:49:0:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["tyrmor-prison-stirge-combat-base", {
     slot: "B", inputs: ["s", ...Array.from({ length: 9 }, () => ["up", "down"]).flat(), "up", "enter", "down", "q", "q"],
@@ -3943,15 +3937,13 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:0:2:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["valhingen-mummy-sarcophagi-phases", {
-    slot: "A", inputs: ["up", "enter", "enter", ...Array(24).fill("q")],
-    portraitStops: {
-      3: "portrait:PIC4.DAX:114:0:0",
-      11: "portrait:area:10:ecl:b695:caller:a86f:PIC4.DAX:114:2:0",
-    },
-    portrait: "portrait:area:10:ecl:b695:caller:a86f:PIC4.DAX:114:1:0",
-    prompt: /WITHSLOW,OMINOUSCREAKS,MUMMIESOPENTHEIRSARCOPHOGI/i,
-    phaseCaptures: { 11: "valhingen-mummy-sarcophagi-phase-2.png" },
-    finalPhaseCapture: "valhingen-mummy-sarcophagi-phase-1.png",
+    slot: "A", inputs: ["up"],
+    portrait: "portrait:PIC4.DAX:114:0:0", prompt: /WITHSLOW,OMINOUSCREAKS,MUMMIESOPENTHEIRSARCOPHOGI/i,
+    heldPortraitLoop: [
+      "portrait:PIC4.DAX:114:0:0",
+      ...[1, 2].map(member => `portrait:area:10:ecl:b695:caller:a86f:PIC4.DAX:114:${member}:0`),
+    ],
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:a893", prompt: /ABATTLEBEGINS/i },
   }],
   ["valhingen-mummy-sarcophagi-attack", {
     slot: "A", inputs: ["up", "enter", "enter"],
@@ -7283,6 +7275,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "lizard-wilds-kobold-prisoners" || routeName === "lizard-wilds-pool-dialogue" ||
       routeName === "mendor-storeroom-kobold-phases" || routeName === "mendor-storeroom-mercy-loop" ||
       routeName === "kobold-white-flag-envoy" || routeName === "kobold-white-flag-escort-phase" ||
+      routeName === "valjevo-medusa-phases" || routeName === "valhingen-mummy-sarcophagi-phases" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       ["sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
