@@ -5,6 +5,9 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "tile:18:5b777b6f3b36584dfd70318eb05a72f156d0aa65e617b2d2089aa67f7eb78ee9": "podal-shrine-side-lanes-terrain-141ade08c2e9.png",
+    "tile:18:7885d9787cff36149f5166f2ad9167505a15fc132f946d6c7938f867d940326d": "podol-webgl-daylight-sky-7885d9787cff.png",
+    "tile:18:e88c71f6a1651b0f1c277d553a5fb65b55d254c0d8350339a9440112f7cccd21": "podal-shrine-side-lanes-terrain-791da9b2a71e.png",
     "tile:29:7885d9787cff36149f5166f2ad9167505a15fc132f946d6c7938f867d940326d": "podal-west-boundary-terrain-7885d9787cff.png",
     "tile:29:7c8975e1e60a5c8337f28edf8c33c3b180360b7279644a9bc1af3c51e6220bf5": "kuto-well-shaft-water-7c8975e1e60a.png",
     "tile:25:1352286f7dddf65efce52c789476c7e917ecdd98d1c1ca9ab2dde1e4964caefe": "wild-cave-minotaur-1352286f7ddd.png",

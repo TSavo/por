@@ -14,6 +14,10 @@ export function buildExplorationMaterials(native: NativeExploration & { area: nu
   let areas = [native.area];
   // Crossing west out of Kuto's Well draws Podol's wall bank before the script updates the area.
   if (native.area === 29 && native.mapId === 18) areas = [18];
+  // Yarash's teleports change floors before the script updates the area.
+  if ((native.area === 22 || native.area === 23) && (native.mapId === 22 || native.mapId === 23)) {
+    areas = [native.mapId];
+  }
   // The Training Hall script uses the same physical map and wall bank as New Phlan.
   if (native.area === 11 && native.mapId === 0) areas = [native.area, 0];
   function replacement(hash: string, area: number): Material | undefined {
