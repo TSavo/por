@@ -2,12 +2,10 @@
 
 ## What to do now
 
-**There is art to do: 1 item.**
+**There is no proven art to do right now.** Everything the tools can show the game draws has your art. Check back after the QA owner's next update to this file.
 
 1. **Wall tiles: none. Outdoor fight terrain: none.**
 2. **Pictures: none.**
-**Asked for by the owner (qa/art-requests.json): 1.**
-   - `scene:title-edition` (upgrades/title-edition.png (new)): Draw SPECIAL EDITION as its own picture: a 1280 by 800 PNG with a transparent background, lettered to sit under the game's name (scene:title-name) over the harbour title art, in the same style. Save it as upgrades/title-edition.png and add "scene:title-edition": "title-edition.png" to "assets" in upgrades/manifest.json. The page fades it in after the name (tools/play.js, showTitleName).
 3. **Do not draw anything under "Not established".** Those cells are not confirmed to appear. The QA owner is settling them by play and moves each one that proves real into item 1.
 
 The artwork is done when items 1 and 2 are none and nothing is left under "Not established".

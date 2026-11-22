@@ -7,7 +7,7 @@
       "file": "upgrades/title-name.png (new)",
       "what": "Draw the game's name, POOL OF RADIANCE, as its own picture: a 1280 by 800 PNG with a transparent background, the lettering placed to sit over the harbour title art (upgrades/harbor-title.png), in the style of the publisher screen's lettering (upgrades/publisher-splash.png). Save it as upgrades/title-name.png and add \"scene:title-name\": \"title-name.png\" to \"assets\" in upgrades/manifest.json. The page already fades it in over the title art in Enhanced (tools/play.js, showTitleName); leave upgrades/harbor-title.png as it is.",
       "asked": "The owner, 2026-11-22: \"I like that new title screen except it doesn't actually have the title on it.\" Then: \"I like the idea of having the title fade in over the harbor ... keep them as separate pictures ... and we can fade one into the other.\"",
-      "done": "c8621f4b4d063fd3ca6e4f96cec666874df03ab0"
+      "done": "a08b63bf9dd856ed6ea9072fa57977e68f395eb6"
     },
     {
       "id": "title-screen-edition",
@@ -15,7 +15,7 @@
       "file": "upgrades/title-edition.png (new)",
       "what": "Draw SPECIAL EDITION as its own picture: a 1280 by 800 PNG with a transparent background, lettered to sit under the game's name (scene:title-name) over the harbour title art, in the same style. Save it as upgrades/title-edition.png and add \"scene:title-edition\": \"title-edition.png\" to \"assets\" in upgrades/manifest.json. The page fades it in after the name (tools/play.js, showTitleName).",
       "asked": "The owner, 2026-11-22: \"We want a second title after the first one that says special edition.\"",
-      "done": null
+      "done": "3feacd882ee8fe3b3c88962bcd2b349478afae90"
     }
   ]
 }
