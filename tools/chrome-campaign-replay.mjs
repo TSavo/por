@@ -162,8 +162,9 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
     await evaluate(`(() => {
       if (!enhanced) document.querySelector("#presentation").click();
       const sendKey = send;
-      // The existing route supplies the original combat inputs itself.
-      send = key => key === ":poll" ? undefined : sendKey(key);
+      // The existing route supplies the original combat inputs itself. The page still asks for more of
+      // an animation the game plays by itself, which takes no key (#121).
+      send = key => key === ":poll" && !state.presentationPolling ? undefined : sendKey(key);
     })()`);
 
     return {
@@ -175,6 +176,8 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
         const frame = await waitFor("the next Enhanced game frame", () => evaluate(`(() => {
           if (state.stopped) throw new Error(state.stopped);
           if (!state.ready || state.sequence <= ${lastSequence} || renderingSequence === state.sequence) return;
+          // A frame of an animation the game plays by itself is not a prompt: the page goes on by itself.
+          if (state.presentationPolling) return;
           if (document.documentElement.dataset.presentation !== "enhanced") throw new Error("Expected Enhanced mode");
           return { sequence: state.sequence, text: state.text, journal: state.journal };
         })()`), 180_000);

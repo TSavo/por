@@ -295,6 +295,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const attackKeys = new Set(combatKeys
     .filter((key) => Number(monsterCombatKey.exec(key)?.[3] ?? partyCombatKey.exec(key)?.[2]) >= 128));
   const animation: PresentationAnimationFrame[] = [];
+  // A frame that hands the page pictures of an animation still running (#121): the page plays them
+  // and asks for more with ":poll", as it does for a fight the computer plays.
+  let presentationPolling = false;
+  let pictureLoopShown: string | undefined;
+  let pictureLoopPasses = 0;
+  let pictureLoopClip: PresentationAnimationFrame | undefined;
   let lastAttack = "";
   let lastCombatReport = "";
   let lastApproach: string | undefined;
@@ -339,7 +345,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let codeWheelAttempt: number | undefined;
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false,
     durationMs?: number, effect?: { placement: TilePlacement; clean: Frame }, captureIllustration = false,
-    message?: "status" | "combat") => {
+    message?: "status" | "combat" | "picture") => {
     const native = screen;
     const presentation = effect?.clean ?? native;
     if (browser) {
@@ -751,6 +757,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         codeWheelQuestion,
         codeWheelAttempt,
         automaticCombat: automaticCombat || undefined,
+        presentationPolling: presentationPolling || undefined,
         developerVictoryAvailable: !leads && developerVictoryAvailable || undefined,
         journal: leads && { objective: currentObjective(leads, trackedId), leads,
           trackedId: trackedJournalObjective(leads, trackedId) },
@@ -771,6 +778,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         // A message the game shows on the bottom line and clears by itself: the whole screen as it
         // stands during the pause, for as long as the game pauses.
         animation.push({ ...state, durationMs, statusMessage: true });
+      } else if (message === "picture") {
+        // One picture of an animation the game plays without asking for a key, for as long as the
+        // game shows it.
+        animation.push({ ...state, durationMs });
       } else if (attack || captureApproach || effect || captureIllustration) {
         // Reports and status lines can be the only visible record of a game action.
         if (message !== "combat" && animation.length >= 12) {
@@ -1128,6 +1139,46 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
       }
       pendingEffect = { x: 8 + column * 8, y: 8 + row * 8, background, key };
+    } : undefined,
+    /**
+     * The castle ending's animation loop has drawn a frame (#121). The loop runs by the DOS clock for
+     * many seconds and reads no key, so without this the page shows one still picture throughout.
+     * Each new picture becomes a clip lasting as long as the game showed it (one pass of the loop is
+     * one DOS clock hundredth). A dozen clips go to the page in a frame it plays and then answers
+     * with ":poll", as for a fight the computer plays; the game's own timing is untouched.
+     */
+    presentPictureLoop: browser ? (cpu: Cpu) => {
+      if (cpu.steps < startAt) return;
+      pictureLoopPasses++;
+      // The helper's saved BP is the loop's frame: the loop keeps the picture block in [bp+8] and the
+      // number of the member it draws, from 1, in [bp-0x41]. The member is known from any game data,
+      // the port's own included, where the screen has no original pixels to compare.
+      const loopBp = cpu.read16(cpu.ss, cpu.bp);
+      const block = cpu.read8(cpu.ss, (loopBp + 8) & 0xffff);
+      const member = cpu.read8(cpu.ss, (loopBp - 0x41) & 0xffff) - 1;
+      if (`${block}:${member}` === pictureLoopShown) return;
+      pictureLoopShown = `${block}:${member}`;
+      if (pictureLoopClip) pictureLoopClip.durationMs = pictureLoopPasses * 10;
+      pictureLoopPasses = 0;
+      captureEclContext(cpu);
+      if (animation.length >= 12) {
+        presentationPolling = true;
+        awaitsKey = false;
+        showFrame();
+        presentationPolling = false;
+        pictureLoopClip = undefined;
+        for (;;) {
+          const command = readCommand();
+          if (command === undefined || command === ":quit") throw new Error("Live session closed");
+          if (command === ":poll" || command === ":travel-poll") break;
+          console.log("Enter a letter, digit, arrow name: the game is playing an animation and takes no key now.");
+        }
+      }
+      showFrame(undefined, undefined, false, false, 100, undefined, false, "picture");
+      pictureLoopClip = animation.at(-1);
+      // Enhanced shows the pose drawn for this member where there is one (tools/portrait-art.ts endingPortraitKey).
+      const pose = `portrait:area:7:FINAL5.DAX:${block}:${member}:0`;
+      if (pictureLoopClip && portraitKeys.includes(pose)) pictureLoopClip.portrait = pose;
     } : undefined,
     capturePresentationDelay: browser ? (cpu: Cpu, effectDelay = false, messageMs?: number) => {
       const draw = effectDelay ? pendingEffect : undefined;

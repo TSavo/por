@@ -2012,7 +2012,7 @@ async function poll() {
     bootWheel.hidden = !showWheel;
     document.documentElement.classList.toggle("code-wheel-open", showWheel);
     if (restoreGameFocus) screen.focus({ preventScroll: true });
-    closeJournal.disabled = !state.ready || Boolean(state.stopped);
+    closeJournal.disabled = !state.ready || Boolean(state.presentationPolling) || Boolean(state.stopped);
     autoTrack.disabled = closeJournal.disabled;
     mapToggle.disabled = !state.exploration && !(enhanced && state.travel && travelArtEnabled && travelArtReady);
     journalToggle.disabled = closeJournal.disabled;
@@ -2035,12 +2035,14 @@ async function poll() {
     if (changed) {
       renderJournal();
       playAnimation();
-      if (state.automaticCombat) {
+      if (state.automaticCombat || state.presentationPolling) {
         quickPollAfter = performance.now() + 160 +
           (state.animation ?? []).reduce((total, frame) => total + (frame.durationMs ?? 120), 0);
       }
     }
-    if (state.automaticCombat && !state.journal && !codeWheelTool() && state.ready && !animationFrame && performance.now() >= quickPollAfter) {
+    // A fight the computer plays, or an animation the game plays by itself (#121): once the page has
+    // shown what came, it asks for more.
+    if ((state.automaticCombat || state.presentationPolling) && !state.journal && !codeWheelTool() && state.ready && !animationFrame && performance.now() >= quickPollAfter) {
       void send(":poll");
     }
     followTravel();
@@ -2057,7 +2059,7 @@ async function poll() {
       (!travelMap.hidden && state.ready ? "Select a highlighted destination or use the arrow keys." : undefined) ??
       (state.ready && state.developerVictoryAvailable ? "F9 wins the fight (developer mode)." : undefined) ??
       (state.automaticCombat && !state.journal ? "Combat in progress…"
-        : state.ready ? "Arrows or keypad to move. Enter to confirm." : "Game running…");
+        : state.ready && !state.presentationPolling ? "Arrows or keypad to move. Enter to confirm." : "Game running…");
   } catch {
     status.textContent = "Waiting for the local game runner…";
   }

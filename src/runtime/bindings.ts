@@ -316,6 +316,13 @@ export const code = resolve({
   pictureMemberRelease: { "1.0": { slice: 0x1d, at: 0x495 }, "1.3": { slice: 0x1c, at: 0x4ca } },
   /** The animated picture helper returns after presenting one selected member. */
   pictureMemberPresented: { "1.0": { slice: 0x1d, at: 0x4c }, "1.3": { slice: 0x1c, at: 0x4c } },
+  /**
+   * Where the castle ending's animation loop (slice 18 procedure 6 in 1.3) resumes after the helper
+   * above has drawn a frame. The loop plays the FINAL pictures of Tyranthraxus leaving through the
+   * pool by the DOS clock, many seconds with no key read, so the host hands its frames to the page
+   * as they are drawn (#121). Not located in the first release.
+   */
+  pictureLoopResumes: { "1.0": undefined, "1.3": { slice: 0x12, at: 0x93 } },
   /** The composed portrait loader records the loaded piece's block ID. */
   portraitHeadLoaded: { "1.0": { slice: 0x1d, at: 0x60b }, "1.3": { slice: 0x1c, at: 0x640 } },
   portraitBodyLoaded: { "1.0": { slice: 0x1d, at: 0x654 }, "1.3": { slice: 0x1c, at: 0x689 } },

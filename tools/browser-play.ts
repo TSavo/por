@@ -155,6 +155,8 @@ const runner = spawn(process.execPath, runnerArguments, {
     ...enhancedArtEnv(artwork, materialMasks),
     POR_TRACE_TILES: tileTrace ? "1" : process.env.POR_TRACE_TILES,
     POR_LIVE_AT: process.env.POR_LIVE_AT ?? "24000000",
+    // The page plays the castle ending's animation as the game draws it (#121).
+    POR_PICTURE_LOOP_FRAMES: process.env.POR_PICTURE_LOOP_FRAMES ?? "1",
     POR_BOOT_STEPS: process.env.POR_BOOT_STEPS ?? "100000000",
   },
   stdio: ["pipe", "pipe", "inherit"],
@@ -194,6 +196,7 @@ interface FrameState extends ExplorationFrame {
   battleProps?: CombatArtPlacement[];
   animation?: (PresentationAnimationFrame & ExplorationFrame)[];
   automaticCombat?: boolean;
+  presentationPolling?: boolean;
   developerVictoryAvailable?: boolean;
   tileInventory?: TileInventoryCell[];
   battleTileInventory?: TileInventoryCell[];
@@ -508,8 +511,10 @@ const server = createServer(async (req, res) => {
     const track = /^track ([1-9]\d{0,2})$/.exec(command);
     const validTrack = frame.journal && (command === "track auto" ||
       (track && Number(track[1]) <= frame.journal.leads.filter(isOpenObjective).length));
-    const validPoll = expected === String(sequence) && (command === ":poll" && frame.automaticCombat ||
+    const validPoll = expected === String(sequence) && (command === ":poll" && (frame.automaticCombat || frame.presentationPolling) ||
       command === ":travel-poll" && frame.travelPolling);
+    // While the game plays an animation by itself it takes no key: the page only asks for more of it.
+    if (frame.presentationPolling && !validPoll) { res.writeHead(409).end(); return; }
     const validDeveloperVictory = command === developerVictoryCommand && expected === String(sequence) &&
       frame.developerVictoryAvailable;
     const validLabel = /^:map-label(?: [\x20-\x7e]{0,40})?$/.test(command) && Boolean(frame.exploration);

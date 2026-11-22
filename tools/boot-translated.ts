@@ -101,8 +101,10 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const panelStamp = portProgram && input && process.env.POR_BROWSER_PLAY === "1" ? panelFrameDraw.stamp : undefined;
   let pendingPanelStamp: { resume: number; x: number; y: number; kind: PanelFrameStamp[2] } | undefined;
   const codeWheel = input && process.env.POR_BROWSER_PLAY === "1" ? startupInput.codeWheel : undefined;
+  // The page server asks for the frames of the castle ending's animation as they are drawn (#121).
+  const pictureLoop = input?.presentPictureLoop && process.env.POR_PICTURE_LOOP_FRAMES === "1" ? code.pictureLoopResumes : undefined;
   if (capturePresentationDelay || capturePerspective || traceBattleDraw || captureBattleTerrain ||
-      codeWheel || nativeCombat || nativeSelection || nativeBattleTerrain || nativePicture || nativeEffects || panelStamp) {
+      codeWheel || nativeCombat || nativeSelection || nativeBattleTerrain || nativePicture || nativeEffects || panelStamp || pictureLoop) {
     const tick = cpu.tick;
     const terrainDraws = new Set<string>();
     const terrainSources = new Map<number, { sourceArchive: string; sourceFrame: number }>();
@@ -126,6 +128,10 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       if (picturePresentation && at === picturePresentation.at && isAt(this, at, picturePresentation)) {
         nativePicture?.presented(this);
       }
+      // The helper's own frame is still up here: its return address is the caller's.
+      if (pictureLoop && at === code.pictureMemberPresented.at && isAt(this, at, code.pictureMemberPresented) &&
+          this.read16(this.ss, (this.bp + 2) & 0xffff) === pictureLoop.at &&
+          this.read16(this.ss, (this.bp + 4) & 0xffff) === codeSegment(pictureLoop)) input?.presentPictureLoop?.(this);
       if (headLoaded && at === headLoaded.at && isAt(this, at, headLoaded)) nativePicture?.partLoaded(this, true);
       if (bodyLoaded && at === bodyLoaded.at && isAt(this, at, bodyLoaded)) nativePicture?.partLoaded(this, false);
       if (portraitPresentation && at === portraitPresentation.at && isAt(this, at, portraitPresentation)) {
