@@ -122,13 +122,15 @@ bytes that shape needs), and 59 `battle-tile:` artwork keys are the hash of an 8
 DUNGCOM frame, which only pixels can give. A fight in the Slums played from `game/`, where these
 records are blank, draws the same dice as from the 1.3 files.
 
-The blank picture records also affect combat art. The `kobold-envoy-ready`
-Chrome replay at `dc53657c`, run with `POR_GAME_SOURCE=port`, reaches
-Dorn's combat turn with an empty `combatArt` list. The same checkpoint
-with the original 1.3 files selects the Enhanced Envoy key. The current
-combat matcher samples rendered pixels, so a blank CPIC record gives it
-no sprite to match. Standalone combat needs the active picture identity,
-position and facing from the native draw to select Enhanced art.
+The standalone browser resolves Enhanced monster sprites from the native
+CPIC load and draw calls. The loader identifies each slot's archive and
+ready block. The draw call supplies the pose, position, facing, and
+picture extent. Terrain redraws remove overwritten placements. The
+`kobold-envoy-strike` and `bane-hay-bunk-raider-combat` Chrome replays
+verify ready and animated strike art with `POR_GAME_SOURCE=port`.
+The browser uses framebuffer matching when it runs with the original files.
+Standalone party sprites and selection borders still depend on their
+source pixels. The CPIC observer covers monster draws.
 
 `tiles.json` lists each distinct tile of the 8X8D sets once, by that hash, with every place it is
 stored (`archive:block:index`). A tile that has transparent pixels (colour 13) also lists

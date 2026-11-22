@@ -84,8 +84,9 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const captureCombatEffectUnderlay = input?.captureCombatEffectUnderlay;
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
   const captureBattleTerrain = input?.captureBattleTerrain;
+  const nativeCombat = input?.nativeCombat;
   const codeWheel = input && process.env.POR_BROWSER_PLAY === "1" ? startupInput.codeWheel : undefined;
-  if (capturePresentationDelay || capturePerspective || traceBattleDraw || captureBattleTerrain || codeWheel) {
+  if (capturePresentationDelay || capturePerspective || traceBattleDraw || captureBattleTerrain || codeWheel || nativeCombat) {
     const tick = cpu.tick;
     const terrainDraws = new Set<string>();
     // Above the pause routine's return address sit its argument, its saved BP and its own return address.
@@ -98,6 +99,10 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
         );
       }
       if (codeWheel && isAt(this, at, codeWheel.afterRead)) input?.setCodeWheelQuestion(undefined);
+      if (nativeCombat && this.steps >= liveStep) {
+        if (isAt(this, at, code.combatPictureLoad)) nativeCombat.load(this);
+        if (isAt(this, at, code.combatPictureDraw)) nativeCombat.draw(this);
+      }
       // The first-person draw has finished writing the viewport.
       if (capturePerspective && isAt(this, at, code.viewportDrawn)) {
         capturePerspective(this, returnsTo(this, 0, code.localSceneryResumes));
@@ -124,10 +129,14 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       // Some approach sequences refresh several native distances between inputs.
       if (captureEncounterDraw && isAt(this, at, code.encounterDrawn) && this.steps >= liveStep) captureEncounterDraw(this);
       // The terrain routine writes to the guest's offscreen EGA surface.
-      if (captureBattleTerrain && isAt(this, at, code.terrainDrawn) && this.steps >= liveStep &&
-          this.read8(this.ds, data.offscreenDraw) === 1 && this.read8(this.ss, (this.sp + 4) & 0xffff) === 1) {
-        captureBattleTerrain(this, this.read8(this.ss, (this.sp + 10) & 0xffff),
-          this.read8(this.ss, (this.sp + 8) & 0xffff), this.read8(this.ss, (this.sp + 6) & 0xffff));
+      if ((captureBattleTerrain || nativeCombat) && isAt(this, at, code.terrainDrawn) &&
+          this.steps >= liveStep && this.read8(this.ds, data.offscreenDraw) === 1) {
+        const column = this.read8(this.ss, (this.sp + 10) & 0xffff);
+        const row = this.read8(this.ss, (this.sp + 8) & 0xffff);
+        nativeCombat?.overwriteTile(column, row);
+        if (captureBattleTerrain && this.read8(this.ss, (this.sp + 4) & 0xffff) === 1) {
+          captureBattleTerrain(this, column, row, this.read8(this.ss, (this.sp + 6) & 0xffff));
+        }
       }
       // The far entry draws a frame from one of the two SQRPACI blocks.
       if (traceBattleDraw && isAt(this, at, code.terrainEntry) && this.steps >= liveStep) {
@@ -370,6 +379,7 @@ if (input && process.env.POR_BROWSER_PLAY === "1") {
     // The clear before the battle music branch runs in every hardware mode.
     // Where the game itself asks for event 14, on Tandy in the first release, it is not sent twice.
     if (isAt(cpu, cpu.ip, code.battleBegins) && isFar(segment, offset, far.clearText)) {
+      input.nativeCombat?.reset();
       const mode = cpu.read8(cpu.ds, data.soundMode);
       if (mode !== 0 || !behaviour.startsBattleMusicOnTandy) console.log(`POR_SOUND ${JSON.stringify({ index: 14, mode, step: cpu.steps, enhancedOnly: true })}`);
     }

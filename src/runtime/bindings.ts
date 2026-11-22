@@ -68,6 +68,10 @@ export const data = resolve({
   sector: { "1.0": 0x495b, "1.3": 0x49fa },
   /** 1 while the battlefield is being drawn to the offscreen picture. */
   offscreenDraw: { "1.0": 0x497e, "1.3": 0x4a1e },
+  /** Archive number appended when the combat picture loader opens CPIC. */
+  combatPictureBank: { "1.0": 0x52d4, "1.3": 0x5376 },
+  /** Ready and strike far pointers indexed by combat picture slot. */
+  combatPictureSlots: { "1.0": 0x5db8, "1.3": 0x5e5a },
   /** Pointer to the offscreen picture. */
   offscreen: { "1.0": 0x4980, "1.3": 0x4a20 },
   /** Sound hardware: 0 is Tandy, 1 is the PC speaker, 2 is silent. */
@@ -290,6 +294,10 @@ export const code = resolve({
   /** The battlefield terrain routine: its entry, and the point where a tile is in the offscreen picture. */
   terrainEntry: { "1.0": { slice: 0x21, at: 0xf1 }, "1.3": { slice: 0x20, at: 0xf1 } },
   terrainDrawn: { "1.0": { slice: 0x21, at: 0x14d }, "1.3": { slice: 0x20, at: 0x14b } },
+  /** The loader assigns a ready block and its strike block to a combat picture slot. */
+  combatPictureLoad: { "1.0": { slice: 0x21, at: 0x1ca }, "1.3": { slice: 0x20, at: 0x1c8 } },
+  /** The compositor draws a selected picture slot and pose into the battlefield. */
+  combatPictureDraw: { "1.0": { slice: 0x21, at: 0x4fe }, "1.3": { slice: 0x20, at: 0x4fc } },
   /** The disk overlay: load a game, save a game, save and leave. */
   loadGame: { "1.0": { slice: 0x11, at: 0x159d }, "1.3": { slice: 0x11, at: 0x1602 } },
   saveGame: { "1.0": { slice: 0x11, at: 0x1ced }, "1.3": { slice: 0x11, at: 0x1d58 } },

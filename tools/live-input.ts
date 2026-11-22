@@ -1,6 +1,7 @@
 import { appendFileSync, mkdtempSync, readFileSync, readSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { captureNativeExploration, type NativeExploration } from "./native-exploration.js";
+import { observeNativeCombatArt } from "./native-combat-art.js";
 import { captureOverlandTravel, identifyPhlanPrompt, identifySokalPrompt, isQuayDialogue, isSokalBoatHandoff,
   type SokalQuay, type TravelState } from "./overland-travel.js";
 import { createHash } from "node:crypto";
@@ -187,12 +188,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let portraitCaller: number | undefined;
   let finalCouncilReward = false;
   let baneCacheCue: string | undefined;
+  let nativeBattleActive = false;
   const baneCacheCues = new Map<number, string>([
     [4, "rubble-tapestry-reward"], [6, "great-hall-cache"], [8, "northern-cache"], [9, "southern-cache"], [17, "eastern-cache"],
   ]);
 
   function captureEclContext(cpu: Cpu) {
     const dataSegment = unit.data;
+    nativeBattleActive = standalone && cpu.read8(dataSegment, data.gameState) === 5;
     // Artwork is keyed by script positions in the first release's numbering.
     // The numbering is that of the script in memory, which a loaded game can bring from the other release.
     battleCursor = authoredScriptPosition(cpu, cpu.read16(dataSegment, data.eclCursor));
@@ -246,8 +249,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const flightFrame = (frame: PresentationAnimationFrame) => frame.combatEffect && !isImpact(frame.combatEffect[2]);
   let pendingEffect: { x: number; y: number; background: Uint8Array } | undefined;
   const materialKeys = new Set((process.env.POR_COMBAT_MATERIAL_KEYS ?? "").split(",").filter(Boolean));
-  const combatArt = loadCombatArtMatcher((process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean), undefined, materialKeys);
-  const attackKeys = new Set((process.env.POR_COMBAT_ART_KEYS ?? "").split(",")
+  const combatKeys = (process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean);
+  const combatArt = loadCombatArtMatcher(combatKeys, undefined, materialKeys);
+  const nativeCombat = browser && standalone && combatKeys.length ? observeNativeCombatArt(new Set(combatKeys)) : undefined;
+  const attackKeys = new Set(combatKeys
     .filter((key) => Number(monsterCombatKey.exec(key)?.[3] ?? partyCombatKey.exec(key)?.[2]) >= 128));
   const animation: PresentationAnimationFrame[] = [];
   let lastAttack = "";
@@ -418,7 +423,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // scenes. Its exploration menu omits Area, even during the cave exit
       // when the area record still names the dungeon.
       const overlandMap = menu === "CASTVIEWENCAMPSEARCHLOOK";
-      const battlefield = hasBattlefieldBorder(presentation);
+      const battlefield = nativeBattleActive || hasBattlefieldBorder(presentation);
       // The icon editor also uses the viewport blit. Its two preview labels
       // stay in place while the player changes parts, palette, and size.
       const iconEditor = text.filter(([cell]) =>
@@ -501,7 +506,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const aimCell = battlefield && menu.replace(/\s/g, "").startsWith("(USECURSORKEYS)")
         ? manualAimCell(presentation) : undefined;
       const combat = attack || (!scene && !perspective)
-        ? combatArt(presentation, enhanced, area, battleCursor, battlefield ? battleTerrain : undefined, iconEditor, aimCell) : [];
+        ? [
+          ...combatArt(presentation, enhanced, area, battleCursor, battlefield ? battleTerrain : undefined, iconEditor, aimCell),
+          ...(battlefield ? nativeCombat?.placements(presentation, area, battleCursor) ?? [] : []),
+        ] : [];
       const combatSelections: TilePlacement[] = [];
       for (const [x, y, , , highlighted, width = 24, height = 24] of attack ?? combat) {
         if (!highlighted || width % 24 || height % 24) continue;
@@ -915,6 +923,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
       }
     } : undefined,
+    nativeCombat,
     captureBattleTerrain: battleTerrain ? (cpu: Cpu, column: number, row: number, picture: number) => {
       if (column > 18 || row > 18 || column % 3 || row % 3) return;
       const x = 8 + column * 8;
@@ -1075,8 +1084,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         showFrame(undefined, undefined, false, false, 1200, undefined, true);
         return;
       }
-      const battlefield = hasBattlefieldBorder(screen);
-      const placements = combatArt(screen, undefined, area, battleCursor, battlefield ? battleTerrain : undefined);
+      const battlefield = nativeBattleActive || hasBattlefieldBorder(screen);
+      const placements = [
+        ...combatArt(screen, undefined, area, battleCursor, battlefield ? battleTerrain : undefined),
+        ...(battlefield ? nativeCombat?.placements(screen, area, battleCursor) ?? [] : []),
+      ];
       const attacks = placements.filter(([, , key]) => attackKeys.has(key) || attackKeys.has(partyRecolorKey.exec(key)?.[1] ?? ""));
       const signature = attacks.length ? JSON.stringify(attacks) : "";
       // Combat prints action and result text below the actor's stats in
