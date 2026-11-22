@@ -6925,7 +6925,7 @@ routes.push("kovel-chase-no", "valjevo-records-reload", "swamp-approach-reload",
 routes.push("assault-council-chamber", "assault-summons", "stojanow-gate-rocks");
 routes.push("valhingen-first-arrival-reload", "kobold-escort-arrival-reload");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
-routes.push("kuto-wide-manual-aim", "buccaneer-native-manual-aim");
+routes.push("kuto-wide-manual-aim", "buccaneer-native-manual-aim", "valjevo-pool-return-stairs");
 routes.push("valhingen-zombie-roam-animation");
 const valhingenBrassDoorBattle = {
   slot: "A", inputs: ["left", "up", "up", "left", "up", "enter", "enter"],
@@ -7048,6 +7048,7 @@ const ending = routeName === "castle-ending";
 const councilFinale = ending && option === "--council-finale";
 const dragon = routeName === "castle-dragon";
 const halls = routeName === "castle-halls";
+const poolReturnStairs = routeName === "valjevo-pool-return-stairs";
 const assault = routeName === "assault-briefing";
 const mystic = routeName === "graveyard-mystic";
 const vampire = routeName === "graveyard-vampire";
@@ -7151,7 +7152,7 @@ mkdirSync("out", { recursive: true });
 const outputDirectory = resolve(process.env.POR_PRESENTATION_OUTPUT_DIR || "out");
 mkdirSync(outputDirectory, { recursive: true });
 const directory = mkdtempSync(resolve(outputDirectory, "slums-presentation-"));
-const slot = (wideManualAim || norrisSurrenderReload ? "J" : (routeName === "tyrmor-journal-reload" || routeName === "kobold-king-treasury" || routeName === "mendor-manual-loot" || routeName === "mendor-floorboard-jar-loot") ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
+const slot = (wideManualAim || norrisSurrenderReload ? "J" : (routeName === "tyrmor-journal-reload" || routeName === "kobold-king-treasury" || routeName === "mendor-manual-loot" || routeName === "mendor-floorboard-jar-loot") ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || poolReturnStairs || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
 const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
@@ -14688,6 +14689,25 @@ try {
     assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-castle")?.status, "accepted");
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the Council assembly, Ulrich's assault briefing, and the accepted commission.");
+  } else if (poolReturnStairs) {
+    assert.equal(frame.scenery?.mapId, 7);
+    for (const key of ["left", "up", "left", "up", "enter", "up"]) await advance(key);
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /DOYOUWANTTOGODOWNTHESESTAIRS/i);
+    await advance("y");
+    assert.equal(frame.scenery?.area, 7);
+    assert.equal(frame.scenery?.mapId, 3);
+    await waitForExplorationViewport();
+    const materialsResponse = await fetch(`${origin}/exploration-materials/${frame.scenery.materialId}`);
+    assert.ok(materialsResponse.ok);
+    const { wallFaces } = await materialsResponse.json();
+    const walls = wallFaces.flatMap(({ parts }) => parts.flatMap(({ art }) =>
+      art?.key.startsWith("tile:") ? [art.key] : []));
+    assert.ok(walls.length && walls.every(key => key.startsWith("tile:5:")),
+      "Expected the outer Valjevo wall materials during the stair handoff");
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "valjevo-pool-return-stairs.png"), Buffer.from(shot.data, "base64"));
+    await switchBothWays();
+    console.log("Verified native Pool return stairs use the outer Valjevo WebGL materials:", directory);
   } else if (dragon || halls) {
     const route = halls ? ["up", "up", ...Array(3).fill("enter")] : ["right", ...Array(4).fill("up"), ...Array(3).fill("enter")];
     const patterns = new Set();
