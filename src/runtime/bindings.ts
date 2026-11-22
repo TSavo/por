@@ -325,6 +325,10 @@ export const code = resolve({
   combatPictureLoad: { "1.0": { slice: 0x21, at: 0x1ca }, "1.3": { slice: 0x20, at: 0x1c8 } },
   /** The compositor draws a selected picture slot and pose into the battlefield. */
   combatPictureDraw: { "1.0": { slice: 0x21, at: 0x4fe }, "1.3": { slice: 0x20, at: 0x4fc } },
+  /** The icon composer builds the actor's combat icon in its slot from head, body and size; a set argument recolours it. */
+  partyIconCompose: { "1.0": { slice: 0x11, at: 0x477 }, "1.3": { slice: 0x11, at: 0x482 } },
+  /** The icon editor copies a composed icon to another slot, recoloured with the actor's palette when asked. */
+  iconEditorCopy: { "1.0": { slice: 0x10, at: 0x3580 }, "1.3": { slice: 0x10, at: 0x35be } },
   /** Where the battlefield cursor renderer resumes after drawing the COMSPR selection bevel. */
   combatSelectionDrawResumes: { "1.0": undefined, "1.3": { slice: 0x1f, at: 0x23e } },
   /** The disk overlay: load a game, save a game, save and leave. */

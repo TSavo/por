@@ -141,6 +141,8 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       if (nativeCombat && this.steps >= liveStep) {
         if (isAt(this, at, code.combatPictureLoad)) nativeCombat.load(this);
         if (isAt(this, at, code.combatPictureDraw)) nativeCombat.draw(this);
+        if (isAt(this, at, code.partyIconCompose)) nativeCombat.compose(this);
+        if (isAt(this, at, code.iconEditorCopy)) nativeCombat.copy(this);
       }
       if (nativeEffects) {
         if (isAt(this, at, code.combatPictureLoad)) nativeEffects.load(this);

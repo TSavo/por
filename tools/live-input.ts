@@ -553,7 +553,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const combat = attack || (!scene && !perspective)
         ? [
           ...combatArt(presentation, enhanced, area, battleCursor, battlefield ? battleTerrain : undefined, iconEditor, aimCell),
-          ...(battlefield ? nativeCombat?.placements(presentation, area, battleCursor) ?? [] : []),
+          // From the game's own data the screen has no pixels to match: the editor's icons, like the
+          // battlefield's, come from the composer and draw calls.
+          ...(battlefield || iconEditor ? nativeCombat?.placements(presentation, area, battleCursor) ?? [] : []),
         ] : [];
       const combatSelections: TilePlacement[] = nativeMarkers && selectionKeys.has(nativeSelectionKey) ? nativeMarkers : [];
       let attackArt = attack;
@@ -573,7 +575,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         for (const [x, y, , , highlighted, width = 24, height = 24] of attack ?? combat) {
           if (!highlighted || width % 24 || height % 24) continue;
           const corner = presentation.get(x, y);
-          const block = corner === 15 ? 25 : iconEditor && corner === 7 ? 153 : undefined;
+          const block = nativeCombat?.bevel(x, y) ?? (corner === 15 ? 25 : iconEditor && corner === 7 ? 153 : undefined);
           const key = `combat-selection:COMSPR.DAX:${block}`;
           if (!selectionKeys.has(key)) continue;
           for (let dy = 0; dy < height; dy += 24) {
