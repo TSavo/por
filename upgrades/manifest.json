@@ -11670,7 +11670,7 @@
     "encounter:area:2:SPRIT4.DAX:18:1:0": "phlan-ruins-scorpion-approach.png",
     "encounter:area:2:ecl:9be9:SPRIT4.DAX:18:0:0": "textile-courtyard-scorpions-approach.png",
     "encounter:area:2:SPRIT4.DAX:6:2:0": "phlan-ruins-hobgoblin-approach.png",
-    "encounter:area:2:SPRIT4.DAX:34:2:0": "phlan-ruins-skeleton-approach.png",
+    "encounter:area:2:SPRIT4.DAX:34:2:0": "textile-ambush-skeleton-far.png",
     "encounter:area:2:SPRIT4.DAX:72:2:0": "phlan-ruins-ghoul-approach.png",
     "tile:0:9dca57c2c800009211f6af8acd50aac8d40878ddadc46be8517ef0f3d0ffe98e": "new-phlan-market-turn-terrain-9dca57c2c800.png",
     "combat:area:10:CPIC4.DAX:34:ecl:b5c7": "graveyard-enclave-skeleton-stand.png",
