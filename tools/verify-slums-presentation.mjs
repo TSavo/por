@@ -4533,11 +4533,16 @@ const combatPoseRoutes = new Map([
     width: 96, height: 96, strikeReflected: false,
     inputs: [...harborWatchBattle, ...Array(18).fill("q")],
   }],
-  ["new-phlan-harbor-watch-auxiliary", {
-    slot: "A", stand: "combat:area:0:CPIC3.DAX:15:ecl:ae09", strike: "combat:area:0:CPIC3.DAX:143:ecl:ae09",
+  ["new-phlan-harbor-watch-aide-ready-13", {
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:11:ecl:ae06",
+    width: 96, height: 96, readyPrompt: /NOMADHITPOINTS.*LONGBOW/i, strikeInputs: [],
+    inputs: [...harborWatchBattle, ...Array(18).fill("q")],
+  }],
+  ...[["", "ae09"], ["-13", "ae06"]].map(([suffix, cursor]) => [`new-phlan-harbor-watch-auxiliary${suffix}`, {
+    slot: "A", stand: `combat:area:0:CPIC3.DAX:15:ecl:${cursor}`, strike: `combat:area:0:CPIC3.DAX:143:ecl:${cursor}`,
     width: 96, height: 96, strikeReflected: false,
     inputs: [...harborWatchBattle, "q"],
-  }],
+  }]),
   ["new-phlan-watch-fighter", {
     slot: "A", stand: "combat:area:11:CPIC3.DAX:11:ecl:a07a", strike: "combat:area:11:CPIC3.DAX:139:ecl:a07a",
     width: 96, height: 96, strikeReflected: true,
