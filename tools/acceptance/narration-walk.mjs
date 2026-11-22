@@ -128,12 +128,19 @@ function nextGoal(from) {
 }
 async function stepToward(heading) {
   const from = where();
-  await game.face(heading);
+  if (!from) return resolveScreen();
+  const node = visit(from);
+  // Turn by the game's own Right. A turn can start an event, or the square can spin the party:
+  // answer what comes, and give up on this way out after four turns that do not face it.
+  for (let turns = 0; where()?.facing !== heading; turns++) {
+    if (turns >= 4 || keyOf(where() ?? from) !== keyOf(from)) { node.ways.set(heading, "wall"); return true; }
+    await game.press("right");
+    if (!(await resolveScreen())) return false;
+  }
   await game.press("up");
   if (!(await resolveScreen())) return false;
   const to = where();
-  if (!from || !to) return true;
-  const node = visit(from);
+  if (!to) return true;
   const [dx, dy] = headings[heading];
   const moved = keyOf(to) !== keyOf(from);
   node.ways.set(heading, moved ? keyOf(to) : "wall");
@@ -143,6 +150,7 @@ async function stepToward(heading) {
 }
 
 let lastReport = 0;
+let errors = 0;
 try {
   if (!(await resolveScreen())) throw new Error("The saved game did not come to the exploration menu.");
   for (;;) {
@@ -152,16 +160,19 @@ try {
     visit(here);
     const route = nextGoal(here);
     if (!route) { log("every way out of every square reached has been tried"); break; }
-    if (route.length) {
-      // Walk the known route; a square that turns out otherwise (an event moved the party) re-plans.
-      const heading = route[0];
-      const expected = squares.get(keyOf(here)).ways.get(heading);
-      if (!(await stepToward(heading))) break;
-      if (keyOf(where()) !== expected) continue;
-    } else {
+    try {
+      // Walk the known route one step at a time; where a step leads elsewhere (an event moved the
+      // party), the way is recorded as it went and the next step re-plans.
       const node = squares.get(keyOf(here));
       const untried = order.filter((heading) => !node.ways.has(heading));
-      if (!(await stepToward(untried[roll(untried.length)]))) break;
+      const heading = route.length ? route[0] : untried[roll(untried.length)];
+      if (!(await stepToward(heading))) break;
+    } catch (error) {
+      // A screen the walk does not know: note it and go on from wherever the game is, a few times.
+      if (++errors > 8) throw error;
+      log(`recovered: ${error.message.split("\n")[0]}`);
+      appendFileSync(ledger.replace(/\.jsonl$/, ".error.txt"), `${error.stack}\n${screenText(game.frame)}\n`);
+      if (!(await resolveScreen())) break;
     }
     if (elapsed() - lastReport >= 60) {
       lastReport = elapsed();
