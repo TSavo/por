@@ -1089,7 +1089,7 @@ export function exe_01500(m: Cpu): void {
       case 0x151a: {
         // 151a: imul cx
         m.tick(0x151a);
-        { const r = (m.ax << 16 >> 16) * ((m.cx) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; }
+        { const r = (m.ax << 16 >> 16) * ((m.cx) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; m.cf = m.of = r !== (r << 16 >> 16); }
         ip = 0x151c;
         break;
       }

@@ -1572,7 +1572,7 @@ export function ovl37_006d(m: Cpu): void {
       case 0x239: {
         // 0239: imul cx
         m.tick(0x239);
-        { const r = (m.ax << 16 >> 16) * ((m.cx) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; }
+        { const r = (m.ax << 16 >> 16) * ((m.cx) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; m.cf = m.of = r !== (r << 16 >> 16); }
         ip = 0x23b;
         break;
       }
@@ -3998,7 +3998,7 @@ export function ovl37_0554(m: Cpu): void {
       case 0x5a7: {
         // 05a7: imul cx
         m.tick(0x5a7);
-        { const r = (m.ax << 16 >> 16) * ((m.cx) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; }
+        { const r = (m.ax << 16 >> 16) * ((m.cx) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; m.cf = m.of = r !== (r << 16 >> 16); }
         ip = 0x5a9;
         break;
       }
@@ -9341,7 +9341,7 @@ export function ovl37_0c83(m: Cpu): void {
       case 0xc8e: {
         // 0c8e: imul cx
         m.tick(0xc8e);
-        { const r = (m.ax << 16 >> 16) * ((m.cx) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; }
+        { const r = (m.ax << 16 >> 16) * ((m.cx) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; m.cf = m.of = r !== (r << 16 >> 16); }
         ip = 0xc90;
         break;
       }

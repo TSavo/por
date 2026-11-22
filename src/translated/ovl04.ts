@@ -3803,7 +3803,7 @@ export function ovl04_0515(m: Cpu): void {
       case 0x680: {
         // 0680: imul dx
         m.tick(0x680);
-        { const r = (m.ax << 16 >> 16) * ((m.dx) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; }
+        { const r = (m.ax << 16 >> 16) * ((m.dx) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; m.cf = m.of = r !== (r << 16 >> 16); }
         ip = 0x682;
         break;
       }

@@ -7426,7 +7426,7 @@ export function ovl20_0ac0(m: Cpu): void {
       case 0xb3a: {
         // 0b3a: imul cx
         m.tick(0xb3a);
-        { const r = (m.ax << 16 >> 16) * ((m.cx) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; }
+        { const r = (m.ax << 16 >> 16) * ((m.cx) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; m.cf = m.of = r !== (r << 16 >> 16); }
         ip = 0xb3c;
         break;
       }
@@ -7886,7 +7886,7 @@ export function ovl20_0b63(m: Cpu): void {
       case 0xbeb: {
         // 0beb: imul cx
         m.tick(0xbeb);
-        { const r = (m.ax << 16 >> 16) * ((m.cx) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; }
+        { const r = (m.ax << 16 >> 16) * ((m.cx) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; m.cf = m.of = r !== (r << 16 >> 16); }
         ip = 0xbed;
         break;
       }

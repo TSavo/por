@@ -709,8 +709,9 @@ def generic_op(mn: str, op: str, parts: list[str]) -> str | None:
     if mn == "imul" and parts:
         src, sw = load(parts[0])
         if sw == 8:
-            return f"{{ const r = (m.al << 24 >> 24) * (({src}) << 24 >> 24); m.ax = r & 0xffff; }}"
-        return f"{{ const r = (m.ax << 16 >> 16) * (({src}) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; }}"
+            # CF and OF: the product does not fit in its low half.
+            return f"{{ const r = (m.al << 24 >> 24) * (({src}) << 24 >> 24); m.ax = r & 0xffff; m.cf = m.of = r !== (r << 24 >> 24); }}"
+        return f"{{ const r = (m.ax << 16 >> 16) * (({src}) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; m.cf = m.of = r !== (r << 16 >> 16); }}"
     if mn == "idiv" and parts:
         src, sw = load(parts[0])
         if sw == 8:

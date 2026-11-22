@@ -1276,7 +1276,7 @@ export function ovl13_0191(m: Cpu): void {
       case 0x20b: {
         // 020b: imul dx
         m.tick(0x20b);
-        { const r = (m.ax << 16 >> 16) * ((m.dx) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; }
+        { const r = (m.ax << 16 >> 16) * ((m.dx) << 16 >> 16); m.ax = r & 0xffff; m.dx = (r >> 16) & 0xffff; m.cf = m.of = r !== (r << 16 >> 16); }
         ip = 0x20d;
         break;
       }
