@@ -6925,7 +6925,7 @@ routes.push("kovel-chase-no", "valjevo-records-reload", "swamp-approach-reload",
 routes.push("assault-council-chamber", "assault-summons", "stojanow-gate-rocks");
 routes.push("valhingen-first-arrival-reload", "kobold-escort-arrival-reload");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
-routes.push("kuto-wide-manual-aim", "buccaneer-native-manual-aim", "valjevo-pool-return-stairs");
+routes.push("kuto-wide-manual-aim", "buccaneer-native-manual-aim", "valjevo-pool-return-stairs", "lizardman-keep-west-approach");
 routes.push("valhingen-zombie-roam-animation");
 const valhingenBrassDoorBattle = {
   slot: "A", inputs: ["left", "up", "up", "left", "up", "enter", "enter"],
@@ -14715,6 +14715,25 @@ try {
     assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-castle")?.status, "accepted");
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the Council assembly, Ulrich's assault briefing, and the accepted commission.");
+  } else if (routeName === "lizardman-keep-west-approach") {
+    const positions = new Set();
+    const patterns = new Set();
+    async function verifyKeepApproach() {
+      assert.equal(frame.scenery?.mapId, 16);
+      assert.equal(await verifyTiledView(16, patterns), 1);
+      const { x, y, facing } = frame.scenery;
+      positions.add(`${x},${y},${facing}`);
+    }
+    await verifyKeepApproach();
+    for (const key of ["up", "right", "up", "up", "left", "up", "left", "up", "right", "up"]) {
+      await advance(key);
+      await verifyKeepApproach();
+    }
+    assert.ok(positions.size > 1, "Expected the party to move through the western approach");
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "lizardman-keep-west-approach.png"), Buffer.from(shot.data, "base64"));
+    await switchBothWays();
+    console.log(`Verified the western approach to Lizardman Keep in Chrome across ${positions.size} views and ${patterns.size} tile patterns: ${directory}`);
   } else if (poolReturnStairs) {
     assert.equal(frame.scenery?.mapId, 7);
     for (const key of ["left", "up", "left", "up", "enter", "up"]) await advance(key);
