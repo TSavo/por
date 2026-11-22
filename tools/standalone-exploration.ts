@@ -38,6 +38,7 @@ export function standaloneExploration(world: WorldData, compositeHashes: Record<
   const catalogue = new Map(world.catalogue.tiles.map(tile => [tile.hash, tile]));
   const cells = new ExplorationCells(world, undefined, compositeHashes);
   const definitions = new Map<string, WallLayout[]>();
+  const definitionsByMap = new Map<number, WallLayout[]>();
   const mountedValjevo = mountedValjevoLayout(world);
   for (const script of world.scripts) {
     for (const slots of script.wallSlots) {
@@ -67,6 +68,11 @@ export function standaloneExploration(world: WorldData, compositeHashes: Record<
     const candidates = definitions.get(key);
     if (candidates) candidates.push(layout);
     else definitions.set(key, [layout]);
+    for (const map of maps) {
+      const candidates = definitionsByMap.get(map);
+      if (candidates) candidates.push(layout);
+      else definitionsByMap.set(map, [layout]);
+    }
   }
 
   function compatibleLayouts(native: ActiveScenery, wholeDefinition: boolean): WallLayout[] {
@@ -89,10 +95,37 @@ export function standaloneExploration(world: WorldData, compositeHashes: Record<
     return glyphs;
   }
 
+  function retainedSlotLayouts(native: ActiveScenery, wallSymbols: string, walls: Uint8Array): WallLayout[] {
+    if (native.mapId === undefined) return [];
+    const active = Buffer.from(wallSymbols, "base64");
+    const symbolsPerSlot = 5 * 156;
+    if (active.length !== 3 * symbolsPerSlot) return [];
+    const candidates = (definitionsByMap.get(native.mapId) ?? []).filter(layout => {
+      const { operands, slots } = layout.context.slots;
+      const expected = Buffer.from(layout.allSymbols, "base64");
+      const retained = [1, 2, 3].filter(slot => operands[slot - 1] === 0xff && !slots[slot]);
+      if (!retained.length || retained.length === 3) return false;
+      return [1, 2, 3].every(slot => {
+        const start = (slot - 1) * symbolsPerSlot;
+        const end = start + symbolsPerSlot;
+        if (!retained.includes(slot)) return active.subarray(start, end).equals(expected.subarray(start, end));
+
+        // LOAD PIECES 0xff leaves a wall slot and its bank in memory. Ignore that
+        // state only if the map neither draws its wall types nor uses its glyphs.
+        const firstType = (slot - 1) * 5 + 1;
+        const firstSymbol = world.tables.bankBase[slot]!;
+        return !walls.some(type => type >= firstType && type < firstType + 5) &&
+          !expected.some(symbol => symbol >= firstSymbol && symbol < firstSymbol + 70);
+      });
+    });
+    const scoped = candidates.filter(layout => layout.context.script.area === native.area);
+    return scoped.length ? scoped : candidates;
+  }
+
   function cellKeys(native: ActiveScenery): (string | undefined)[] {
     const geometry = native.cellGeometry;
     if (!geometry) return [];
-    const layouts = compatibleLayouts(native, true);
+    const exactLayouts = compatibleLayouts(native, true);
     const planes = Buffer.from(native.walls, "base64");
     if (planes.length !== 512) return [];
     const walls = unpackWallSides(planes.subarray(0, 256), planes.subarray(256));
@@ -101,7 +134,7 @@ export function standaloneExploration(world: WorldData, compositeHashes: Record<
       // The overhead symbols come from the shared bank. The area's own script
       // supplies the boundary rules even when another bank is mounted.
       const script = world.scripts.find((script) => script.area === native.area);
-      const slots = script?.wallSlots[0] ?? layouts[0]?.context.slots;
+      const slots = script?.wallSlots[0] ?? exactLayouts[0]?.context.slots;
       if (!script || !slots) return [];
       return areaViewCells({ world, script, map: { walls }, slots }, x, y, facing).map((stack) => {
         const { tiles } = cells.prune(stack);
@@ -109,6 +142,7 @@ export function standaloneExploration(world: WorldData, compositeHashes: Record<
         return hash && `tile:${native.area}:${hash}`;
       });
     }
+    const layouts = exactLayouts.length ? exactLayouts : retainedSlotLayouts(native, geometry.wallSymbols, walls);
     if (!layouts.length) return [];
     const horizon = `h${skyColor}.${geometry.lineColor}.${geometry.bandColor}.${groundColor}`;
     const views = layouts.map(({ context }) =>
