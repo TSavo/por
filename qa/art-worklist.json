@@ -34,7 +34,7 @@
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
   "battlefield cells of pictures no artwork shows to have been on a battlefield": 2207,
   "battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain)": "not counted: needs the game's battlefield builder read",
-  "other picture frames no key names (listed below)": 60,
+  "other picture frames no key names (listed below)": 35,
   "screen frame, text window borders and other symbols drawn outside the first-person view: no artwork key form exists for them": "not counted",
   "narrated passages that describe something to see and have no artwork": "will come from npm run qa:narration"
  },
@@ -2515,177 +2515,6 @@
    "evidence": "the scripts do not name it; the program draws it, and where has not been read"
   },
   {
-   "frame": "PIC2.DAX:71:0:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC2.DAX:71:0:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 71 with a plain number is in a script of archive 2"
-  },
-  {
-   "frame": "PIC2.DAX:71:1:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC2.DAX:71:1:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 71 with a plain number is in a script of archive 2"
-  },
-  {
-   "frame": "PIC2.DAX:71:2:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC2.DAX:71:2:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 71 with a plain number is in a script of archive 2"
-  },
-  {
-   "frame": "PIC2.DAX:71:3:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC2.DAX:71:3:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 71 with a plain number is in a script of archive 2"
-  },
-  {
-   "frame": "PIC4.DAX:9:1:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC4.DAX:9:1:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 9 with a plain number is in a script of archive 4"
-  },
-  {
-   "frame": "PIC4.DAX:9:2:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC4.DAX:9:2:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 9 with a plain number is in a script of archive 4"
-  },
-  {
-   "frame": "PIC4.DAX:9:3:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC4.DAX:9:3:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 9 with a plain number is in a script of archive 4"
-  },
-  {
-   "frame": "PIC4.DAX:18:2:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC4.DAX:18:2:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 18 with a plain number is in a script of archive 4"
-  },
-  {
-   "frame": "PIC4.DAX:18:4:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC4.DAX:18:4:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 18 with a plain number is in a script of archive 4"
-  },
-  {
-   "frame": "PIC4.DAX:72:1:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC4.DAX:72:1:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 72 with a plain number is in a script of archive 4"
-  },
-  {
-   "frame": "PIC4.DAX:72:2:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC4.DAX:72:2:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 72 with a plain number is in a script of archive 4"
-  },
-  {
-   "frame": "PIC4.DAX:72:3:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC4.DAX:72:3:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 72 with a plain number is in a script of archive 4"
-  },
-  {
-   "frame": "PIC4.DAX:72:4:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC4.DAX:72:4:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 72 with a plain number is in a script of archive 4"
-  },
-  {
-   "frame": "PIC4.DAX:72:5:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC4.DAX:72:5:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 72 with a plain number is in a script of archive 4"
-  },
-  {
-   "frame": "PIC5.DAX:56:2:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC5.DAX:56:2:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 56 with a plain number is in a script of archive 5"
-  },
-  {
-   "frame": "PIC6.DAX:65:0:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC6.DAX:65:0:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 65 with a plain number is in a script of archive 6"
-  },
-  {
-   "frame": "PIC6.DAX:65:1:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC6.DAX:65:1:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 65 with a plain number is in a script of archive 6"
-  },
-  {
-   "frame": "PIC6.DAX:117:5:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC6.DAX:117:5:0",
-   "pngSize": "352x352",
-   "evidence": "a PICTURE 117 is in the script of area 19 at 9aec, area 19 at 9c7d, area 19 at a142, area 19 at a285; this is member 5 frame 0 of the record, and which members a PICTURE draws must be seen in play"
-  },
-  {
-   "frame": "PIC7.DAX:69:2:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the 88 by 88 window",
-   "keyForm": "portrait:PIC7.DAX:69:2:0",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 69 with a plain number is in a script of archive 7"
-  },
-  {
    "frame": "SPRIT1.DAX:9:2:0",
    "width": 32,
    "height": 57,
@@ -2731,42 +2560,6 @@
    "evidence": "no PICTURE 71 with a plain number is in a script of archive 2"
   },
   {
-   "frame": "SPRIT6.DAX:10:0:0",
-   "width": 88,
-   "height": 88,
-   "what": "an approach sprite",
-   "keyForm": "encounter:SPRIT6.DAX:10:0:0, with its placement under \"encounters\"",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 10 with a plain number is in a script of archive 6"
-  },
-  {
-   "frame": "SPRIT6.DAX:67:0:0",
-   "width": 88,
-   "height": 88,
-   "what": "an approach sprite",
-   "keyForm": "encounter:SPRIT6.DAX:67:0:0, with its placement under \"encounters\"",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 67 with a plain number is in a script of archive 6"
-  },
-  {
-   "frame": "SPRIT6.DAX:74:0:0",
-   "width": 88,
-   "height": 88,
-   "what": "an approach sprite",
-   "keyForm": "encounter:SPRIT6.DAX:74:0:0, with its placement under \"encounters\"",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 74 with a plain number is in a script of archive 6"
-  },
-  {
-   "frame": "SPRIT6.DAX:119:0:0",
-   "width": 88,
-   "height": 88,
-   "what": "an approach sprite",
-   "keyForm": "encounter:SPRIT6.DAX:119:0:0, with its placement under \"encounters\"",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 119 with a plain number is in a script of archive 6"
-  },
-  {
    "frame": "SPRIT8.DAX:19:0:0",
    "width": 24,
    "height": 80,
@@ -2792,24 +2585,6 @@
    "keyForm": "encounter:SPRIT8.DAX:19:2:0, with its placement under \"encounters\"",
    "pngSize": "64x196",
    "evidence": "no PICTURE 19 with a plain number is in a script of archive 8"
-  },
-  {
-   "frame": "SPRIT8.DAX:113:0:0",
-   "width": 88,
-   "height": 88,
-   "what": "an approach sprite",
-   "keyForm": "encounter:SPRIT8.DAX:113:0:0, with its placement under \"encounters\"",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 113 with a plain number is in a script of archive 8"
-  },
-  {
-   "frame": "SPRIT8.DAX:116:0:0",
-   "width": 88,
-   "height": 88,
-   "what": "an approach sprite",
-   "keyForm": "encounter:SPRIT8.DAX:116:0:0, with its placement under \"encounters\"",
-   "pngSize": "352x352",
-   "evidence": "no PICTURE 116 with a plain number is in a script of archive 8"
   }
  ],
  "backdrops": {
