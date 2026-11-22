@@ -92,14 +92,13 @@ The canonical New Phlan replays below also passed in GOG 1.3 Chrome at
 
 | Replay coverage | Checkpoint |
 | --- | --- |
-| Harbor City Watch portrait, fighter and auxiliary standing and strike poses, aide standing pose | `combat-agent-watch-mage-durable-A.json` |
+| Harbor City Watch portrait, fighter, auxiliary, and aide standing and strike poses | `combat-agent-watch-mage-durable-A.json` |
 | Tempus line fighter standing pose | `combat-agent-tempus-watch-A.json` |
 | Tavern brawl illustration and approach | `parallel-portrait-phlan-tavern-A.json` |
 | Tavern Watch arrival and Stay branch after controlled victory | `combat-agent-tavern-deep-durable-A.json` |
 
-The harbor aide strike replay reached the canonical `ae09` placement at a
-Move/Attack prompt and failed its turn assertion before the strike. The
-separate standing replay verified that placement in Chrome.
+The harbor aide strike replay checks the Aides' longsword turn, then
+verifies the canonical `ae09` strike frame in Chrome.
 
 The host reads which release's script is in memory and reports the first release's numbering in both cases. Use that numbering for New Phlan artwork and narration keys. The artwork replays use the same route names on both editions.
 

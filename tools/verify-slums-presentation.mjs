@@ -4618,7 +4618,8 @@ const combatPoseRoutes = new Map([
   ["new-phlan-harbor-watch-aide", {
     slot: "A", stand: "combat:area:0:CPIC3.DAX:11:ecl:ae09", strike: "combat:area:0:CPIC3.DAX:139:ecl:ae09",
     width: 96, height: 96, strikeReflected: false,
-    inputs: [...harborWatchBattle, ...Array(18).fill("q")],
+    readyPrompt: /AIDESHITPOINTS.*LONGSWORD/i,
+    inputs: [...harborWatchBattle, ...Array(14).fill("q")],
   }],
   ["new-phlan-harbor-watch-aide-ready", {
     slot: "A", stand: "combat:area:0:CPIC3.DAX:11:ecl:ae09",
