@@ -570,6 +570,11 @@ const encounterRoutes = new Map([
       capture: true,
       heldPortrait: "portrait:area:10:ecl:a7b9:PIC4.DAX:17:1:0",
     },
+    battleStart: {
+      input: "c", portrait: "scene-illustration:area:10:ecl:a7f5",
+      prompt: /RUINEDPARCHMENTS.*CREATINGZOMBIES.*ABATTLEBEGINS/i,
+      screenshot: "valhingen-zombie-conjuration-attack.png",
+    },
   }],
   ["valhingen-conjurer-wight", {
     slot: "A", inputs: ["up", "enter"],
@@ -8631,7 +8636,7 @@ try {
       await switchBothWays();
     }
     if (encounterRoute.battleStart) {
-      const { input, prompt, portrait } = encounterRoute.battleStart;
+      const { input, prompt, portrait, screenshot } = encounterRoute.battleStart;
       await advance(input);
       assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), prompt);
       if (portrait) {
@@ -8640,6 +8645,12 @@ try {
           [...document.querySelectorAll(".encounter-portrait")].some(image =>
             image.getAttribute("src") === ${JSON.stringify("/art/" + portrait)} &&
             image.naturalWidth === 352 && image.naturalHeight === 352 && image.getClientRects().length > 0)`));
+      }
+      if (screenshot) {
+        await verifyPortraitPanel();
+        await switchBothWays(frame.frame);
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, screenshot), Buffer.from(shot.data, "base64"));
       }
     }
     if (encounterRoute.acceptedCommission) {
