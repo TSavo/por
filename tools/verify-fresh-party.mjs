@@ -3026,6 +3026,10 @@ if (process.argv[2] === "--character-sheet") {
 
 if (process.argv[2] === "--character-icon-editor") {
   const { loadUpgradeArt } = await tsImport("./upgrade-art.ts", import.meta.url);
+  const { findGameRoot, isPortGameRoot } = await tsImport("./gamedata.ts", import.meta.url);
+  const gameRoot = findGameRoot();
+  assert.ok(gameRoot);
+  const nativeIcons = isPortGameRoot(gameRoot);
   process.env.POR_COMBAT_ART_KEYS = [...loadUpgradeArt().keys()].filter(key => key.startsWith("combat:")).join(",");
   const checkEditor = (text, frame) => {
     assert.match(text, /old ready action new ready action/);
@@ -3045,9 +3049,20 @@ if (process.argv[2] === "--character-icon-editor") {
           [32, 104, `combat:party:0:${weapon}`], [104, 104, `combat:party:0:${128 + weapon}`],
         ]);
       }
-    }]),
+    }, ...(key === "h" ? Array.from({ length: 14 }, (_, index) => {
+      const head = (index + 1) % 14;
+      return ["n", (text, frame) => {
+        checkEditor(text, frame);
+        if (head !== 0 && head < 11) return;
+        const artHead = nativeIcons || head === 0 ? head : head - 11;
+        assert.deepEqual(frame.combatArt?.map(placement => placement.slice(0, 3)), [
+          [32, 56, "combat:party:0:0"], [104, 56, "combat:party:0:128"],
+          [32, 104, `combat:party:${artHead}:0`], [104, 104, `combat:party:${artHead}:128`],
+        ]);
+      }];
+    }).flat() : [])]),
   ]);
-  console.log("Verified 18 native character icon editor frames stay out of the perspective renderer.");
+  console.log("Verified 32 character icon editor frames, including ready and strike art for small heads 11–13.");
   process.exit(0);
 }
 
