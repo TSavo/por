@@ -90,7 +90,9 @@ const runnable = rows.filter(row => row.status !== "missing").length;
 const proved = rows.filter(row => registry.proved.includes(row.name) && row.status !== "missing").length;
 
 if (process.argv.includes("--json")) {
-  console.log(JSON.stringify(rows));
+  // Over a pipe, exiting right after console.log cuts the line at the pipe's buffer (about 146 KB
+  // here once the rows carried their table text), and the sweep could not parse it.
+  await new Promise((done) => process.stdout.write(JSON.stringify(rows) + "\n", done));
   process.exit(0);
 }
 if (process.argv.includes("--group")) {

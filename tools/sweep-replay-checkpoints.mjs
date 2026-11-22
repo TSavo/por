@@ -1,6 +1,8 @@
 // Find committed saves that make presentation replays pass (#90).
 //
-//   POR_GAME_SOURCE=port node tools/sweep-replay-checkpoints.mjs <chrome> <results.jsonl> [--workers N] [--only <regex>] [--routes-from <file>]
+//   POR_GAME_SOURCE=port node tools/sweep-replay-checkpoints.mjs <chrome> <results.jsonl> [--workers N] [--only <regex>] [--routes-from <file>] [--from <regex>]
+//
+// --from tries only the saves whose path under qa/fixtures matches <regex> (a campaign leg's slot, for example).
 //
 // For every route that npm run qa:replay-checkpoints lists as missing, tries each distinct saved game under
 // qa/fixtures (campaign legs, walks, guide parties), relabelled to the route's slot letter, with
@@ -79,7 +81,8 @@ const timeoutSeconds = Number(flag("--timeout", "240"));
 const rows = JSON.parse(execFileSync("npx", ["tsx", "tools/qa-replay-checkpoints.ts", "--json"], { encoding: "utf8", maxBuffer: 1 << 26 }));
 const done = new Set(existsSync(resultsPath) ? readFileSync(resultsPath, "utf8").split("\n").filter(Boolean).map(line => JSON.parse(line)).filter(r => r.exit === 0 || r.exit === "none").map(r => r.route) : []);
 const todo = rows.filter(row => row.status === "missing" && !done.has(row.name) && !/-(reload|save)$/.test(row.name) && (!only || only.test(row.name)));
-const pool = candidates();
+const from = flag("--from") ? new RegExp(flag("--from")) : undefined;
+const pool = candidates().filter(candidate => !from || from.test(candidate.path));
 console.log(`${todo.length} routes to try against ${pool.length} distinct saves, ${workers} workers`);
 
 const scratch = "/dev/shm/sweep";
