@@ -11,6 +11,17 @@ This folder turns the published walkthroughs into a catalogue of acceptance scen
 
 Not read when the catalogue was written: `Manual.pdf` (no text layer) and `Quick Reference Card.pdf`. Since then the acceptance tests have used the manual's pages 3 to 14 and 17 to 18, read as images (characters, the party menu, viewing a character and the Items commands, the Encamp and Rest menus, combat), and the reference card's key list (`<Space>` resets all characters to manual control). The printed pages of `Adventurers Journal.pdf` have no text layer either. The digest itself did not read the Lee guide's bestiary stat blocks (§10.2) or most of its technical analysis (§12).
 
+## The party the tests play with
+
+A player who follows the guide does not start with the ready-made characters. `qa/research/party.md`
+records what the sources say about making a party, and `tools/acceptance/party.mjs` makes that
+party through the game's own menus: Create New Character, Add Character to Party, Modify
+Character, the arms shop, the inn. `npm run acceptance:guide-party` makes it from nothing and
+compares it with the saved game in `qa/fixtures/guide-party-new-phlan/`, from which a suite starts
+in seconds (`loadParty` and `innToSlums` in `party.mjs`). The tests of New Phlan and the first four
+of the Slums still use the ready-made six; the Slums tests from the goblin armsmaster's proof
+onward use the guide's party.
+
 ## Files
 
 - `00-new-phlan.json` to `23-inner-tower.json`: one file per area, in the guide's order.
