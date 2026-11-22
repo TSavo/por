@@ -337,7 +337,9 @@
       "title": "142 of 1,747 narration recordings repeated a phrase, spoke their direction aloud or stopped early",
       "detail": "Found on 2026-11-21 by transcribing the library with Whisper: 102 repeated a phrase the script says once (one line four times over), 35 said clearly more (33 spoke their performance direction), 5 stopped before the end of the line. No existing check listened. The cause was directions written as instructions ('perform X consistently: ...; retain narrator identity ...'): 72% of those takes were wrong against 2.5% of the rest. Fixed: the generator sends only a plain manner (55 hand-written in src/audio/direction-tags.json), transcribes every take and retries any that does not say its script, and all 142 were re-recorded. A fresh sweep hears 1,730 of 1,747 as their script and none repeating, adding or cutting; the other 17 match poorly on names the recogniser mishears. Not proved: the performance of the re-recorded character lines, which needs listening.",
       "source": "npm run qa:narration-transcripts; docs/AUDIO.md, 'Every take is listened to'.",
-      "status": "fixed"
+      "status": "fixed",
+      "check": "narration-transcripts",
+      "resolution": "narration-transcripts"
     }
   ]
 }
