@@ -9,7 +9,7 @@
    "heard": 66
   },
   "acceptance-new-phlan": {
-   "ledger": "acceptance-new-phlan-tavern-art.jsonl",
+   "ledger": "acceptance-new-phlan-passenger-dock.jsonl",
    "games": 7,
    "decisions": 521,
    "heard": 106
@@ -159,10 +159,9 @@
   "por.voice.ecl3.b0-9de8": {
    "run": "acceptance-new-phlan",
    "step": 138735230,
-   "withoutArt": {
-    "run": "acceptance-new-phlan",
-    "step": 138735230,
-    "showing": "no picture"
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:9e07"
    }
   },
   "por.voice.ecl3.b0-a078": {

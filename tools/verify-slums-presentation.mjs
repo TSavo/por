@@ -683,6 +683,13 @@ const stojanowTollApproach = [
 const councilClerkApproach = ["right", "right", "up", "right", "right", "up", "enter", "enter"];
 
 const illustrationRoutes = new Map([
+  ["new-phlan-passenger-dock-sign", {
+    slot: "B", inputs: ["left", "up", "right", "up"],
+    portrait: "scene-illustration:area:0:ecl:9e07",
+    heldPortrait: "scene-illustration:area:0:ecl:9e07",
+    prompt: /TOTHENORTHISTHEPASSENGERDOCK/i,
+    continuation: { inputs: ["right", "right", "up"], clearsPortrait: true, prompt: /10,2W.*AREACASTVIEWENCAMP|AREACASTVIEWENCAMP.*10,2W/i },
+  }],
   ["new-phlan-tavern-interior", {
     slot: "A", inputs: ["right", "up"],
     portrait: "scene-illustration:area:0:ecl:af3f:caller:a328",
@@ -6907,7 +6914,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel ||
       ["slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance",
-        "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale"].includes(routeName) ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
+        "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign"].includes(routeName) ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
   },
   stdio: ["ignore", "ignore", "inherit"],
 });
