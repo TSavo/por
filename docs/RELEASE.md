@@ -247,6 +247,15 @@ not exist before the run.
   a start and 41.4 MB after three (18.6 MB of it Safe Browsing's lists).
   C: itself was falling (871 MB free at 05:31, 455 MB at 05:50) from Docker Desktop's disk image and
   Google Drive's cache, both on C: (#116, for the owner).
+- `Uninstall.exe /S`, run as Settings runs it (it copies itself to `%TEMP%` and returns), with the game
+  stopped: exit 0, the install folder gone entirely 14.5 seconds later; the saves stayed.
+
+The installer of `7a9f667e` (sha256 `f3a0886e…c465223`), the same way: installed in 54 seconds; on the
+game page 4.1 seconds after the shortcut's command; the opening as above (code wheel question 11,
+VULCAN), and the icon editor with its four icons drawn (`combat:party:0:0` and `:0:128`, old and new,
+each loaded at 96 pixels) after the character sheet's head and body pictures. A second window opened
+on the game in the same Chrome took it over within 1.5 seconds; the older one then read *Pool of
+Radiance is open in another window* and its sound stopped.
 
 ## Known gaps
 
