@@ -1,7 +1,7 @@
 // Walk every square that can be reached from a saved game, with the narration ledger on, so that the
 // passages the scripts tie to places are heard (#98).
 //
-//   node tools/acceptance/narration-walk.mjs <save directory> <slot> [--minutes N] [--seed N] [--run NAME]
+//   node tools/acceptance/narration-walk.mjs <save directory> <slot> [--minutes N] [--seed N] [--run NAME] [--record-leg DIRECTORY]
 //
 // The party is loaded from <slot> of a copy of <save directory> (a campaign's out/campaign-*/ holds
 // slots A to I). From where it stands it tries each of the four ways out of every square it has
@@ -15,7 +15,9 @@
 // The ledger is out/narration-ledgers/walk-<run>.jsonl (or POR_NARRATION_LEDGER), for
 // `npm run qa:narration -- --merge`. Game data as for any acceptance run: POR_GAME_SOURCE=port plays
 // from game/. It prints, as it goes, the squares reached and the passages heard.
-import { appendFileSync, cpSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync } from "node:fs";
+// --record-leg writes one numbered replay leg for each load of the saved slot.
+// Pass a leg directory to npm run verify:campaign -- <chrome> --replay-leg <directory>.
+import { appendFileSync, cpSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { continueBattle, menuLine, pressReturn, screenText, startGame } from "./harness.mjs";
@@ -28,10 +30,19 @@ const argument = (name, fallback) => {
   return at >= 0 ? process.argv[at + 1] : fallback;
 };
 const [saves, slot] = process.argv.slice(2);
-if (!saves || !/^[A-J]$/i.test(slot ?? "")) throw new Error("Usage: narration-walk.mjs <save directory> <slot A-J> [--minutes N] [--seed N] [--run NAME]");
+if (!saves || !/^[A-J]$/i.test(slot ?? "")) throw new Error("Usage: narration-walk.mjs <save directory> <slot A-J> [--minutes N] [--seed N] [--run NAME] [--record-leg DIRECTORY]");
 const minutes = Number(argument("--minutes", "30"));
 let seed = Number(argument("--seed", "1")) >>> 0;
 const run = argument("--run", `${slot.toUpperCase()}-${seed}`);
+const recordPath = argument("--record-leg");
+if (process.argv.includes("--record-leg") && (!recordPath || recordPath.startsWith("--"))) {
+  throw new Error("--record-leg requires a new directory.");
+}
+const recording = recordPath && resolve(recordPath);
+if (recording) {
+  mkdirSync(dirname(recording), { recursive: true });
+  mkdirSync(recording);
+}
 const ledger = resolve(process.env.POR_NARRATION_LEDGER ?? `out/narration-ledgers/walk-${run}.jsonl`);
 mkdirSync(dirname(ledger), { recursive: true });
 rmSync(ledger, { force: true });
@@ -53,13 +64,49 @@ const never = /^(?:Quit|Encamp|View|Cast|Area|Look|Search|Camp|Save|Alter|Magic|
 const leaveAfter = 12;
 const leaving = /^(?:Exit|Leave)$/i;
 
+const saveFiles = (directory) => readdirSync(directory).filter((name) => /^(?:[A-J]|roster)\.json$/.test(name));
+const boot = { bootKeys: "31000000:1c0d", startAt: "50000000", developerCombat: true, inputCompat: "" };
 const copy = mkdtempSync(join(tmpdir(), "por-narration-walk-"));
-for (const file of readdirSync(saves).filter((name) => /^(?:[A-J]|roster)\.json$/.test(name))) cpSync(join(saves, file), join(copy, file));
+for (const file of saveFiles(saves)) cpSync(join(saves, file), join(copy, file));
 let game;
+let legNumber = 0;
+let leg;
+
+/** Save the last screen of this run before closing its runner. */
+function closeGame() {
+  try {
+    if (leg) writeFileSync(join(leg, "last-screen.txt"), game.rows().map((row) => row.trimEnd()).join("\n").trimEnd() + "\n");
+  } finally {
+    leg = undefined;
+    game.close();
+  }
+}
+
 /** Start the game on the copy of the saves and load the slot. Done again when the party dies. */
 async function begin() {
+  const nextLeg = recording && join(recording, `leg-${++legNumber}`);
+  const commands = nextLeg && join(nextLeg, "commands.jsonl");
+  if (nextLeg) {
+    mkdirSync(nextLeg);
+    for (const file of saveFiles(copy)) cpSync(join(copy, file), join(nextLeg, file));
+    writeFileSync(join(nextLeg, "boot.json"), JSON.stringify(boot) + "\n");
+    writeFileSync(commands, "");
+  }
   game = await startGame({ pregen: false, saves: copy, seconds: minutes * 60 + 300,
-    env: { POR_DEV_COMBAT: "1", POR_NARRATION_LEDGER: ledger, POR_NARRATION_RUN: process.env.POR_NARRATION_RUN ?? `walk-${run}` } });
+    env: { POR_BOOT_KEYS: boot.bootKeys, POR_LIVE_AT: boot.startAt, POR_INPUT_COMPAT: boot.inputCompat,
+      POR_DEV_COMBAT: boot.developerCombat ? "1" : "0",
+      POR_NARRATION_LEDGER: ledger, POR_NARRATION_RUN: process.env.POR_NARRATION_RUN ?? `walk-${run}`,
+      ...(nextLeg ? { POR_PROMPT_SCHEDULE_IN: "", POR_PROMPT_SCHEDULE_OUT: join(nextLeg, "prompts.jsonl") } : {}),
+    } });
+  leg = nextLeg;
+  if (commands) {
+    const send = game.send;
+    game.send = async (command) => {
+      const accepted = await send(command);
+      if (accepted && command !== undefined) appendFileSync(commands, JSON.stringify(command) + "\n");
+      return accepted;
+    };
+  }
   // A character the saved party handed to Quick fights on with no menu, past the developer victory:
   // take each one back (the harness answers such a poll with Space).
   game.byHand = true;
@@ -247,7 +294,7 @@ try {
         if (++deaths > 8) break;
         node.ways.set(heading, "wall");
         log(`the party died stepping ${heading} from ${keyOf(here)}: loading slot ${slot.toUpperCase()} again`);
-        game.close();
+        closeGame();
         await begin();
         if (!(await resolveScreen())) break;
       }
@@ -268,6 +315,6 @@ try {
   appendFileSync(ledger.replace(/\.jsonl$/, ".error.txt"), `${error.stack}\n${screenText(game.frame)}\n`);
 } finally {
   log(`done: ${squares.size} squares reached; ${heardSoFar()} narrations heard; ledger ${ledger}`);
-  game.close();
+  closeGame();
   rmSync(copy, { recursive: true, force: true });
 }

@@ -281,3 +281,10 @@ routes that were run in Chrome from the named file.
 under `qa/fixtures` against each missing route (relabelled to the route's slot letter) and logs every try;
 `--adopt <results.jsonl>` copies each pass into `qa/fixtures/replay-checkpoints/<save id>/<slot>.json` and
 registers it. Run it on Battleaxe with `POR_GAME_SOURCE=port`.
+
+
+Use `--record-leg <new-directory>` on `tools/acceptance/narration-walk.mjs`
+to keep a replay for each load of the saved slot. Run `verify:campaign`
+against each numbered leg, then record its Chrome fallbacks as above.
+The leg includes the initial saves, the runner commands, the prompt schedule
+and the last screen.
