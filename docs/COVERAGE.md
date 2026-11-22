@@ -2811,12 +2811,15 @@ encounters use the same artwork with mappings for their own sprite IDs.
 at the Temple of Tyr stop. `new-phlan-outbound-ferry` checks boarding
 in New Phlan on both DOS editions. Start from slot A at `11,2 N`
 before speaking to the harbor master. The replay gets the free Sokal
-ticket, walks to the pier, observes both Enhanced animation phases,
-and continues to the Sokal landing caption.
-`sokal-keep-departure-ferry-phases` checks boarding at the keep, the two
-Enhanced animation phases as they appear, and the return to New Phlan.
-It passed on both DOS editions using the same slot C fixture. These
-replays check presentation switching and save preservation.
+ticket, walks to the pier, and continues to the Sokal landing caption.
+`sokal-keep-departure-ferry-phases` checks boarding at the keep and the
+return to New Phlan. Both replays check the full Enhanced cycle while
+the boarding prompt is held.
+`phlan-ferry-east` and `phlan-ferry-river` check the same cycle at the
+return docks, then use one browser Take Boat key and check the WebGL
+landing in New Phlan. All four routes passed with GOG 1.3 and bundled
+data. Block 41 in all four picture banks has the same native sequence
+`0, 1, 2, 1` with measured holds of `2010, 1510, 2010, 1510 ms`.
 
 `buccaneer-east-run` checks five new fence and corner tiles across
 21 views and 2,541 placements. `nomad-inner-tent-lane` checks 11 new

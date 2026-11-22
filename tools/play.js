@@ -1180,6 +1180,9 @@ function drawPanelFrame(stamps) {
   return canvas;
 }
 
+// Block 41's final member repeats the second painting on all four ferries.
+const ferryPoseOrder = [0, 1, 2, 1];
+const ferryPoseTimes = [2010, 1510, 2010, 1510];
 const portraitLoops = [
   ["portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:", 5],
   ["portrait:area:10:ecl:b50b:PIC4.DAX:34:", 4],
@@ -1194,10 +1197,14 @@ const portraitLoops = [
     /^(?!.*ABATTLEBEGINS).*THEINTERIORISOVERRUNWITHINSECTS/i, Array(8).fill(210), [[7, 7]]],
   ["portrait:area:21:ecl:a316:PIC4.DAX:17:", 3, "portrait:area:21:PIC4.DAX:17:0:0",
     /GHOSTLYSHAPESSCREECHOUTADREADFULKEENINGHOWL/i, [410, 910, 20]],
-  ["portrait:area:21:ecl:ae31:caller:9977:PIC4.DAX:41:", 3, "portrait:area:21:PIC4.DAX:41:0:0",
-    /YOUBOARDABOAT/i],
-  ["portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:", 3, "portrait:area:0:PIC3.DAX:41:0:0",
-    /YOUBOARDABOAT/i],
+  ["portrait:area:21:ecl:ae31:caller:9977:PIC4.DAX:41:", ferryPoseOrder, "portrait:area:21:PIC4.DAX:41:0:0",
+    /YOUBOARDABOAT/i, ferryPoseTimes],
+  ["portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:", ferryPoseOrder, "portrait:area:0:PIC3.DAX:41:0:0",
+    /YOUBOARDABOAT/i, ferryPoseTimes],
+  ["portrait:area:27:ecl:9e4b:PIC8.DAX:41:", ferryPoseOrder, "portrait:PIC8.DAX:41:0:0",
+    /BOATDOCKEDHERETHATWILLRETURNYOU/i, ferryPoseTimes],
+  ["portrait:area:26:ecl:a098:PIC7.DAX:41:", ferryPoseOrder, undefined,
+    /BOATHERETHATWILLTAKEYOUBACK/i, ferryPoseTimes],
   ["portrait:area:18:ecl:9dca:PIC1.DAX:2:", 2],
   ["portrait:area:18:ecl:af2a:PIC1.DAX:4:", [0, 1, 2, 1], "portrait:area:18:PIC1.DAX:4:0:0",
     /AROBEDORCISSITTINGHERE/i, [1510, 20, 710, 20]],

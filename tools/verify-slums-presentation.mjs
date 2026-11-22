@@ -2833,8 +2833,10 @@ const illustrationRoutes = new Map([
     slot: "C", inputs: ["up", "up", "enter", "y", "enter"],
     portrait: "portrait:area:21:PIC4.DAX:41:0:0",
     prompt: /YOUBOARDABOAT/i,
-    idlePortraits: [1, 2].map(phase => `portrait:area:21:ecl:ae31:caller:9977:PIC4.DAX:41:${phase}:0`),
-    heldPortraitLoop: 3,
+    heldPortraitLoop: [
+      "portrait:area:21:PIC4.DAX:41:0:0",
+      ...[1, 2, 1].map(phase => `portrait:area:21:ecl:ae31:caller:9977:PIC4.DAX:41:${phase}:0`),
+    ],
     continuation: { inputs: ["enter", "enter", "enter"], prompt: /15,1W/i, clearsPortrait: true },
   }],
   ["sokal-keep-departure-ferry", {
@@ -2848,8 +2850,10 @@ const illustrationRoutes = new Map([
       2: "portrait:area:0:HEAD3.DAX:16:BODY3.DAX:7",
     },
     portrait: "portrait:area:0:PIC3.DAX:41:0:0", prompt: /YOUBOARDABOAT/i,
-    idlePortraits: [1, 2].map(phase => `portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:${phase}:0`),
-    heldPortraitLoop: 3,
+    heldPortraitLoop: [
+      "portrait:area:0:PIC3.DAX:41:0:0",
+      ...[1, 2, 1].map(phase => `portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:${phase}:0`),
+    ],
     continuation: { inputs: ["enter", "enter"], portrait: "scene-illustration:area:0:ecl:ae31:caller:9ad2", prompt: /BOATDISEMBARKSYOUATSOKALKEEP/i, screenshot: "sokal-ferry-arrival.png" },
   }],
   ["new-phlan-harbor-city-watch", {
@@ -5865,11 +5869,11 @@ const combatPose = combatPoseRoutes.get(routeName);
 const ferryRoutes = new Map([
   ["phlan-ferry-east", {
     slot: "B", prompt: /BOATDOCKEDHERETHATWILLRETURNYOU/i, portrait: "portrait:PIC8.DAX:41:0:0",
-    motion: "portrait:area:27:ecl:9e4b:PIC8.DAX:41", capture: "eastern-return-ferry",
+    motion: "portrait:area:27:ecl:9e4b:PIC8.DAX:41", capture: "eastern-return-ferry", landing: /15,1S/i,
   }],
   ["phlan-ferry-river", {
     slot: "A", prompt: /BOATHERETHATWILLTAKEYOUBACK/i, portrait: "portrait:area:26:ecl:a098:PIC7.DAX:41:0:0",
-    motion: "portrait:area:26:ecl:a098:PIC7.DAX:41", capture: "river-sector-return-ferry",
+    motion: "portrait:area:26:ecl:a098:PIC7.DAX:41", capture: "river-sector-return-ferry", landing: /15,1W/i,
   }],
 ]);
 const ferry = ferryRoutes.get(routeName);
@@ -7312,7 +7316,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...(controlledBattleIllustration || combatPose?.developerSetup ? { POR_DEV_COMBAT: "1" } : {}),
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
-    POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
+    POR_INPUT_COMPAT: ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "valhingen-grave-claws" || routeName === "sokal-barracks-ghost-phases" ||
       routeName === "old-phlan-lizard-patrol-phases" || routeName === "valjevo-tower-troll-phases" ||
       routeName === "lizard-wilds-kobold-prisoners" || routeName === "lizard-wilds-pool-dialogue" ||
@@ -9350,35 +9354,34 @@ try {
     }
     assert.deepEqual(readFileSync(saved), originalSave);
   } else if (ferry) {
-    for (const key of ["down", "enter"]) await advance(key);
+    async function pressFerryKey(key, code, windowsVirtualKeyCode) {
+      const sequence = frame.sequence;
+      await waitFor("the ferry frame accepting input", () => run(`
+        state.sequence === ${sequence} && state.ready && !animationFrame && renderingSequence === undefined
+      `));
+      await command("Input.dispatchKeyEvent", { type: "keyDown", key, code, windowsVirtualKeyCode });
+      await command("Input.dispatchKeyEvent", { type: "keyUp", key, code, windowsVirtualKeyCode });
+      frame = await waitFor(`the next ferry frame after one ${key}`, async () => {
+        const next = await latest();
+        return next.ready && next.sequence > sequence && next;
+      });
+    }
+    await run("screen.focus({ preventScroll: true })");
+    await pressFerryKey("ArrowDown", "ArrowDown", 40);
     assert.equal(frame.portrait, ferry.portrait);
     const text = frame.text.map(([, character]) => String.fromCharCode(character)).join("");
     assert.match(text, ferry.prompt);
     assert.match(text, /TAKEBOAT.*STAY/i);
     await waitFor("the Phlan ferry illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
-    const remainingPhases = new Map([1, 2].map(phase => [`${ferry.motion}:${phase}:0`, phase]));
-    for (let i = 0; i < 30 && remainingPhases.size; i++) {
-      await advance("z");
-      const phase = remainingPhases.get(frame.portrait);
-      if (!phase) continue;
-      await waitFor(`the ${routeName} phase ${phase}`, () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector('.encounter-portrait[src="/art/${frame.portrait}"]')?.naturalWidth === 352`));
-      await verifyPortraitPanel();
-      const shot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, `${ferry.capture}-phase-${phase}.png`), Buffer.from(shot.data, "base64"));
-      remainingPhases.delete(frame.portrait);
-    }
-    assert.equal(remainingPhases.size, 0);
+    await verifyPortraitPanel();
+    const loop = [ferry.portrait, ...[1, 2, 1].map(phase => `${ferry.motion}:${phase}:0`)];
+    await verifyHeldPortraitLoop(loop, ferry.capture);
     await switchBothWays();
-    await advance("t");
-    const patterns = new Set();
-    let pierViews = 0;
-    for (const key of ["enter", "enter", "enter"]) {
-      await advance(key);
-      if (frame.perspective) pierViews += await verifyTiledView(0, patterns);
-    }
-    assert.ok(pierViews > 0 && /15,1[SW]/i.test(frame.text.map(([, char]) => String.fromCharCode(char)).join("")));
-    console.log(`Verified the return ferry artwork and ${pierViews} enhanced New Phlan landing views at ${routeName} in Chrome.`);
+    await pressFerryKey("t", "KeyT", 84);
+    assert.equal(frame.portrait, undefined);
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), ferry.landing);
+    assert.equal(await verifyTiledView(0, new Set()), 1);
+    console.log(`Verified the return ferry loop and the Enhanced New Phlan landing at ${routeName} in Chrome.`);
   } else if (outskirts) {
     if (verifyApproachTravel || verifyDistrictTravel) {
       const marker = 'document.querySelector("[data-destination=phlan]")';
