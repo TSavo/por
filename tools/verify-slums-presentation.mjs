@@ -6174,6 +6174,11 @@ const valhingenBrassDoorBattle = {
   afterBattle: /9,1W.*AREACASTVIEWENCAMPSEARCHLOOK/i,
 };
 const controlledBattleIllustrations = new Map([
+  ["bane-hay-bunk-aftermath", {
+    slot: "A", inputs: ["up", "enter", "s", "enter", "enter", "enter"],
+    portrait: "scene-illustration:area:31:ecl:b0b5:cue:searched-hay-bunks",
+    caption: /YOUFINISHSEARCHINGTHEBEDSBUTYOUFINDNOTHINGBUTLICEANDHAIR/i,
+  }],
   ["bane-cleric-dispatch", {
     slot: "A", inputs: ["up", "d", "enter", "enter", "enter", "enter"],
     portrait: "scene-illustration:area:24:ecl:b0b5:cue:cleric-dispatch",
@@ -8819,6 +8824,11 @@ try {
       await step("enter");
       assert.match(text(), /VIEWTAKEPOOLEXIT/i);
       assert.equal(frame.portrait, "portrait:PIC1.DAX:1:0:0");
+    } else if (routeName === "bane-hay-bunk-aftermath") {
+      for (const key of ["down", "up"]) await step(key);
+      assert.equal(frame.portrait, undefined);
+      assert.match(text(), /10,15E.*AREACASTVIEWENCAMP/i);
+      await waitForExplorationViewport();
     } else if (routeName === "bane-cleric-dispatch") {
       await step("j");
       assert.match(frame.journal?.leads.find(({ id }) => id === "bane-cleric-dispatch")?.detail ?? "", /entry 25/i);

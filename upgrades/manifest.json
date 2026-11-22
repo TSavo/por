@@ -1547,6 +1547,8 @@
     "scene-illustration:area:31:ecl:a224:cue:hay-bunk-room": "bane-hay-bunk-room.png",
     "scene-illustration:area:31:ecl:a242:cue:hay-bunk-room": "bane-hay-bunk-room.png",
     "scene-illustration:area:31:ecl:a269:cue:hay-bunk-room": "bane-hay-bunk-room.png",
+    "scene-illustration:area:31:ecl:a306:cue:searched-hay-bunks": "bane-hay-bunk-aftermath.png",
+    "scene-illustration:area:31:ecl:b0b5:cue:searched-hay-bunks": "bane-hay-bunk-aftermath.png",
     "scene-illustration:area:2:ecl:a295:cue:skullcrusher-key": "textile-skullcrusher-brass-key.png",
     "scene-illustration:area:2:ecl:abd2:caller:a3fc:cue:skullcrusher-key": "textile-skullcrusher-brass-key.png",
     "scene-illustration:area:2:ecl:a41e:cue:skullcrusher-freed": "textile-skullcrusher-freed.png",
