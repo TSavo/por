@@ -35,7 +35,10 @@ const data = readGameData(read);
 const records = new Map(data.pictures.map((record) => [`${record.file}:${record.block}`, record]));
 
 // Script blocks are the primary area IDs. A script can also load a separate map.
-interface AreaScript { archive: number; block: number; end: number; starts: Set<number>; text: string; captions: string[] }
+interface AreaScript {
+  archive: number; block: number; end: number; starts: Set<number>; text: string; captions: string[];
+  treasureMenus: Set<number>;
+}
 const scripts = new Map<number, AreaScript>();
 for (const record of data.content) {
   if (record.kind !== "script" || record.block === undefined) continue;
@@ -44,9 +47,16 @@ for (const record of data.content) {
   const captions = instructions.flatMap(({ operands }) =>
     operands.flatMap(({ text }) => text ? [text.toUpperCase().replace(/\s/g, "")] : []));
   const letters = captions.join("").replace(/[^A-Z0-9.]/g, "");
+  const nextInstructions = new Map(instructions.map(instruction => [instruction.address, instruction]));
+  const treasureMenus = new Set<number>();
+  for (const instruction of instructions) {
+    if (instruction.name !== "TREASURE") continue;
+    const combat = nextInstructions.get(instruction.next);
+    if (combat?.name === "COMBAT") treasureMenus.add(combat.next);
+  }
   scripts.set(record.block, {
     archive: Number(/\d/.exec(record.file)![0]), block: record.block, end: script.base + script.length,
-    starts: new Set(instructions.map(({ address }) => address)), text: letters, captions,
+    starts: new Set(nextInstructions.keys()), text: letters, captions, treasureMenus,
   });
 }
 
@@ -150,6 +160,12 @@ const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
       if (cue === undefined) return "its cue is not defined in tools/portrait-art.ts";
       // A displayed caption can outlast the script that printed it.
       const { text, captions } = scripts.get(Number(area))!;
+      // TREASURE prepares rewards; COMBAT opens the engine's loot menu at its resume cursor.
+      if (cue === "VIEWTAKEPOOLEXIT" || cue === "VIEWTAKEPOOLSHAREEXIT") {
+        const script = scripts.get(Number(scriptArea))!;
+        const address = runningScriptAddress(script.archive, script.block, Number.parseInt(cursor, 16), "1.3");
+        if (script.treasureMenus.has(address)) return;
+      }
       const matches = typeof cue === "string"
         ? text.includes(cue.toUpperCase().replace(/[^A-Z0-9.]/g, ""))
         : cue.test(text) || captions.some(caption => cue.test(caption));
