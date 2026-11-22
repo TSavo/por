@@ -27,8 +27,8 @@
    "heard": 15
   },
   "kovel-casket-c-gems-reveal-after": {
-   "ledger": "kovel-casket-c-gems-reveal-after.jsonl",
-   "games": 2,
+   "ledger": "kovel-casket-c-gems-lock-final.jsonl",
+   "games": 1,
    "decisions": 9,
    "heard": 6
   },
@@ -45,14 +45,14 @@
    "heard": 6
   },
   "kovel-casket-gems-reveal-after": {
-   "ledger": "kovel-casket-gems-reveal-after.jsonl",
-   "games": 2,
+   "ledger": "kovel-casket-gems-lock-final.jsonl",
+   "games": 1,
    "decisions": 9,
    "heard": 6
   },
   "kovel-casket-jewelry-reveal-after": {
-   "ledger": "kovel-casket-jewelry-reveal-after.jsonl",
-   "games": 2,
+   "ledger": "kovel-casket-jewelry-lock-final.jsonl",
+   "games": 1,
    "decisions": 9,
    "heard": 6
   },
