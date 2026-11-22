@@ -15103,6 +15103,16 @@ try {
         writeFileSync(resolve(directory, "sokal-undead-patrol.png"), Buffer.from(shot.data, "base64"));
         patrol = true;
       }
+      if (landing && frame.portrait === "scene-illustration:area:21:ecl:9ecc") {
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /THEUNDEADLEAVE/i);
+        await waitFor("Sokal undead withdrawal illustration", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${frame.portrait}"]')?.naturalWidth === 352 &&
+          !document.querySelector(".street-viewport")`));
+        await verifyPortraitPanel();
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, `${routeName}-${step}.png`), Buffer.from(shot.data, "base64"));
+        continue;
+      }
       if (!frame.tileInventory?.length) continue;
       if (landing && frame.tileInventory.every(([, , , indices]) => /^0+$/.test(indices))) continue;
       assert.ok(frame.perspective && frame.scenery, `Missing Sokal WebGL camera at step ${step} (${key})`);
