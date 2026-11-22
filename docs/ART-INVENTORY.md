@@ -14,6 +14,13 @@
 > Full coverage also requires resolving the worklist's open cases and reviewing portraits,
 > encounters and battlefield art.
 
+Valjevo hedge-maze visual QA at map 4 `(9,5)` covered the approach from
+`(8,5)` and all four facings in Enhanced WebGL. The six Chrome viewport
+crops matched pixel for pixel between GOG 1.3 and the bundled translation.
+The hedge tops, stone corners and path edges joined without gaps. The
+backdrop changed from blue-gray on the approach to tan inside the alcove
+in both runs. These were controlled archive-script checkpoint runs.
+
 For new scene illustrations, use `npm run qa:narration -- --list` to find
 observed passages without art. Compare the passage and any alternate
 outcomes against the scene bindings in `upgrades/manifest.json`. A bare
