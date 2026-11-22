@@ -53,6 +53,8 @@ export interface PresentationAnimationFrame {
   encounter?: EncounterPlacement;
   tiles?: TilePlacement[];
   durationMs?: number;
+  /** True for a message on the bottom line that the game shows for a moment and clears by itself. */
+  statusMessage?: boolean;
 }
 type TilePlacement = [x: number, y: number, key: string];
 export type PanelFrameStamp = [x: number, y: number, kind: "rail-x" | "rail-y" | "stud"];
@@ -282,7 +284,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let codeWheelQuestion: number | undefined;
   let codeWheelAttempt: number | undefined;
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false,
-    durationMs?: number, effect?: { placement: TilePlacement; clean: Frame }, captureIllustration = false) => {
+    durationMs?: number, effect?: { placement: TilePlacement; clean: Frame }, captureIllustration = false,
+    statusMessage = false) => {
     const native = screen;
     const presentation = effect?.clean ?? native;
     if (browser) {
@@ -617,14 +620,18 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         enhanced, journal: Boolean(leads), codeWheelPrompt: codeWheelQuestion !== undefined, scene, battlefield, portrait,
         classicPortrait: Array.isArray(picture) ? { area, cursor: portraitCursor, caller: pictureCaller, sources: picture } : undefined,
         characterSheet: Boolean(characterSheet), overlandMap: Boolean(state.overlandMap),
-        travelMap: Boolean(state.travelPosition) && !(attack || captureApproach || effect || captureIllustration),
+        travelMap: Boolean(state.travelPosition) && !(attack || captureApproach || effect || captureIllustration || statusMessage),
         perspective, nativeScenery,
         encounter: encounter?.[2], combatArt: combat.length, battleTiles, combatSelections, panelFrame: state.panelFrame,
       });
       // POR_NARRATION_LEDGER: the artwork this frame resolved, for pairing with the narration. Observes only.
-      narrationLedger?.frame({ awaitsKey: awaitsKey && !(attack || captureApproach || effect || captureIllustration), scene, portrait, encounter: encounter?.[2],
+      narrationLedger?.frame({ awaitsKey: awaitsKey && !(attack || captureApproach || effect || captureIllustration || statusMessage), scene, portrait, encounter: encounter?.[2],
         classicPortrait: Array.isArray(picture) ? { area, cursor: portraitCursor, caller: pictureCaller } : undefined });
-      if (attack || captureApproach || effect || captureIllustration) {
+      if (statusMessage) {
+        // A message the game shows on the bottom line and clears by itself: the whole screen as it
+        // stands during the pause, for as long as the game pauses.
+        animation.push({ ...state, durationMs, statusMessage: true });
+      } else if (attack || captureApproach || effect || captureIllustration) {
         if (animation.length >= 12) {
           const flight = animation.findIndex(flightFrame);
           if (flight < 0) return;
@@ -958,9 +965,16 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       }
       pendingEffect = { x: 8 + column * 8, y: 8 + row * 8, background };
     } : undefined,
-    capturePresentationDelay: browser ? (cpu: Cpu, effectDelay = false) => {
+    capturePresentationDelay: browser ? (cpu: Cpu, effectDelay = false, messageMs?: number) => {
       const draw = effectDelay ? pendingEffect : undefined;
       pendingEffect = undefined;
+      if (messageMs !== undefined) {
+        // "Must be Readied" and the like: on the bottom line for the length of the pause, then gone
+        // before the game next asks for a key. Without this frame the player never sees it.
+        captureEclContext(cpu);
+        showFrame(undefined, undefined, false, false, messageMs, undefined, false, true);
+        return;
+      }
       if (scene) return;
       if (draw) {
         const { x, y, background } = draw;

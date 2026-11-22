@@ -197,12 +197,14 @@ async function orcs() {
     console.log(`orcs: won with ${aimed} aimed attacks`);
 
     // The treasure: one item, the clerical scroll. The game names it by its number of spells.
+    // The cleric takes it: Take gives an item to the member highlighted in the party list.
     await game.press("enter", treasureMenu, "A won fight with loot leads to the treasure menu.");
+    await game.highlight(cleric);
     await game.press("t", /Take: (?:Money )?Items Exit\s*$/, "Take offers the items.");
     await game.press("i", /Items: Take Exit\s*$/, "Items lists the loot.");
     const loot = game.rows().map((row) => row.trim()).filter(Boolean);
     assert.deepEqual(loot.slice(loot.indexOf("Loot") + 1, -1), ["Clerical Scroll With 2 Spells"], "The loot is one clerical scroll with two spells.");
-    await game.press("e");
+    await game.press("t", treasureMenu, "Take gives the scroll to the cleric and returns to the treasure menu.");
     await leaveFight(game);
     at(game, 13, 1, "After the fight the party stands in the room.");
 
@@ -225,10 +227,85 @@ async function orcs() {
     await game.walk("W");
     printedInOrder(game, mark, [], "The beaten room is silent on a second visit.");
     game.expect(exploring);
+
+    await readTheScroll(game);
     assert.equal(game.discarded, 0, "No key press may be thrown away.");
+    proved.push("acceptance.slums.orcs-arguing-over-papers");
   } finally {
     game.close();
   }
+}
+
+/** The ready-made party's cleric, as his character sheet says. */
+const cleric = "BROTHER SEAN";
+const scroll = /^Clerical Scroll With \d Spells?$/;
+
+/**
+ * What the orcs' scroll holds, and how the game lets a character use it. From the exploration
+ * menu, with the scroll among the cleric's items.
+ *
+ * The manual (p.9, Items): "An item that is not Ready cannot be used", and a character "cannot use
+ * more than two hand-held items at once". The game's item table (the file ITEMS, 16 bytes for each
+ * kind of item after a 2-byte header) gives kind 62, the clerical scroll, two hands and the mace
+ * and the shield one each. So with mace and shield in hand the cleric can neither use nor ready
+ * the scroll, and the game says so on the bottom line for a moment (225 ms times the game's speed
+ * setting, which is 1 in a new game of version 1.3) and clears the line by itself: Use prints "Must be Readied" (GAME.OVR of version
+ * 1.3, the Items routine at slice 19 offset 12ba), Ready prints "Your hands are full!".
+ */
+/** The texts the game has flashed on the bottom line since `from`. Each must have stayed for a whole number of the pause routine's 225 ms. */
+function flashedSince(game, from) {
+  const shown = game.flashed.slice(from);
+  for (const { text, ms } of shown) assert.ok(ms > 0 && ms % 225 === 0, `"${text}" stayed ${ms} ms, which is not a whole number of 225 ms pauses.`);
+  return shown.map(({ text }) => text);
+}
+
+async function readTheScroll(game) {
+  const who = await game.viewSheet(cleric);
+  assert.equal(who.classes, "Cleric", `${cleric}'s sheet says he is a cleric.`);
+  await game.press("i", /Ready Use Trade Drop Halve Join Exit\s*$/, "Items lists what the cleric carries.");
+  const carried = game.items();
+  assert.deepEqual(carried.filter(({ ready }) => ready).map(({ name }) => name).sort(), ["Mace", "Shield", "Splint Mail"], "The cleric has his mace, armor and shield ready.");
+  assert.deepEqual(carried.filter(({ ready }) => !ready).map(({ name }) => name), ["Clerical Scroll With 2 Spells"], "The scroll is among his items, not ready.");
+
+  // Use on the scroll while it is not ready: the game answers, and the answer is gone by the time
+  // it asks for the next key.
+  await game.selectItem(scroll);
+  let shown = game.flashed.length;
+  await game.press("u", /Ready Use Trade Drop Halve Join Exit\s*$/, "Use on an item that is not ready leaves the Items menu up.");
+  assert.deepEqual(flashedSince(game, shown), ["Must be Readied"], "Use on the scroll while it is not ready says 'Must be Readied' on the bottom line.");
+  // Ready with both hands full: mace and shield.
+  shown = game.flashed.length;
+  await game.press("r");
+  assert.deepEqual(flashedSince(game, shown), ["Your hands are full!"], "Ready on the scroll with mace and shield in hand says 'Your hands are full!'.");
+  assert.equal(game.items().find(({ name }) => scroll.test(name)).ready, false, "The scroll is still not ready.");
+  // One free hand is not enough: the scroll takes two.
+  await game.selectItem(/^Mace$/);
+  await game.press("r");
+  assert.equal(game.items().find(({ name }) => name === "Mace").ready, false, "Ready on the mace puts it away.");
+  await game.selectItem(scroll);
+  shown = game.flashed.length;
+  await game.press("r");
+  assert.deepEqual(flashedSince(game, shown), ["Your hands are full!"], "With only the mace put away the scroll still cannot be readied: it takes both hands.");
+  await game.selectItem(/^Shield$/);
+  await game.press("r");
+  await game.selectItem(scroll);
+  shown = game.flashed.length;
+  await game.press("r");
+  assert.deepEqual(flashedSince(game, shown), [], "With both hands free Ready says nothing.");
+  assert.equal(game.items().find(({ name }) => scroll.test(name)).ready, true, "With both hands free the scroll is readied.");
+
+  // Use on the readied scroll lists its spells: Cure Light Wounds, twice.
+  await game.press("u", /Choose Spell: Cast Exit\s*$/, "Use on the readied scroll offers its spells to cast.");
+  const listed = game.rows().map((row) => row.trim()).filter(Boolean);
+  assert.deepEqual(listed.slice(0, -1), [`${cleric}'s Spells on Scroll`, "1st Level", "Cure Light Wounds", "Cure Light Wounds"],
+    "The scroll holds Cure Light Wounds twice, both of the first level, and nothing else.");
+  // Casting one uses it up: the scroll is left with one spell.
+  await game.press("c", /Cast Spell on whom Select Exit\s*$/, "Cast asks whom to cast the spell on.");
+  await game.press("s", /Ready Use Trade Drop Halve Join Exit\s*$/, "Select casts the spell and returns to the Items screen.");
+  assert.deepEqual(game.items().filter(({ name }) => scroll.test(name)), [{ name: "Clerical Scroll With 1 Spell", ready: true, selected: true }],
+    "After one casting the scroll holds one spell.");
+  await game.press("e", /View: ?Items/, "Exit leaves the Items screen.");
+  await game.press("e", exploring, "Exit leaves the character sheet.");
 }
 
 // From each flee square, a neighbouring square with no wall between (read from the map, GEO block 20).

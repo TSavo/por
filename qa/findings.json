@@ -265,10 +265,12 @@
     {
       "id": "classic-scroll-use-shows-nothing",
       "class": "classic",
-      "title": "Using a clerical scroll from the cleric's Items menu shows nothing",
-      "detail": "In the Slums acceptance test, the party wins a scroll from the four orcs. Choosing Use on it from the cleric's Items menu shows nothing: no list of spells and no message. The game should either show what the scroll holds or say why it cannot be used. Not yet established: whether the game drew something the text capture missed, whether the original does the same, and whether it is the same on the first release.",
+      "title": "Messages the game flashes on the bottom line (\"Must be Readied\") were never shown",
+      "detail": "In the Slums acceptance test, the party wins a scroll from the four orcs. Choosing Use on it from the cleric's Items menu showed nothing. Established on 2026-11-21: the game does answer. Its Items routine (GAME.OVR of version 1.3, slice 19 at 12ba; first release slice 19 at 12c3) tests the item's Ready flag, and for an item that is not ready calls the message routine (1.3 resident 0xba:0x1693; first release slice 25 at 16df) with \"Must be Readied\". That routine prints on the bottom line, pauses for 225 ms times the speed setting through Crt.Delay, and clears the line again without asking for a key. The host took a picture of the screen only where the game asks for a key and at pauses it recognised as a fight report, an approaching monster or an illustration, so this message, and every other one shown through the same routine (\"Your hands are full!\" on Ready), reached neither the test's text capture nor the player's screen in the browser. The game itself was right: the manual (p.9) says an item that is not Ready cannot be used, and the game's item table (file ITEMS) gives a clerical scroll two hands, so the cleric must put away mace and shield to ready it. Readied, Use lists the scroll's spells: Cure Light Wounds twice.",
       "source": "Found by the Slums acceptance tests on version 1.3, 2026-11-21.",
-      "status": "open"
+      "status": "fixed",
+      "check": "acceptance-slums",
+      "resolution": "Fixed on 2026-11-21. The host now recognises the pause inside the game's two message routines (bindings `messageResumes` and `colouredMessageResumes`, both builds: 1.3 resident 0xba:0x1693 with 42 callers and 0x709:0xd68 with 8, among them the trainer's refusals) and sends the screen as it stands during that pause as a frame the page holds for the length of the pause; the acceptance harness collects those messages as `game.flashed`. `npm run acceptance:slums` (orcs) requires \"Must be Readied\" on Use, \"Your hands are full!\" on Ready with mace and shield in hand and again with only the mace put away, the scroll readied with both hands free, and then the list \"Spells on Scroll / 1st Level / Cure Light Wounds / Cure Light Wounds\" and one spell left after one casting. Without the host change the test fails at the first message. The first release shows the same message through the same routine (seen on 2026-11-21; its pause was 900 ms). Not covered: the pause routine has 27 more direct callers that draw in their own way before pausing; they were not examined (see combat-messages-shown)."
     },
     {
       "id": "classic-flee-draws-matched",
@@ -276,7 +278,8 @@
       "title": "Three flights from the watch drew matching facing and square numbers",
       "detail": "Three observed flights drew (0,0), (0,0) and (1,1) for facing and square, about 1 chance in 125 if the two draws are independent. 4,507 draws from the same generator tested uniform, so this is probably chance. To settle: read how the flee routine uses its two draws, and trace more flights.",
       "source": "Found by the Slums acceptance tests on version 1.3, 2026-11-21.",
-      "status": "open"
+      "status": "accepted",
+      "resolution": "Not a defect; settled on 2026-11-21. The flee routine is the Slums script at b225: two separate RANDOM commands, one from four numbers for the facing and one from five for the square, each a call to the game's Random with nothing between them; neither is derived from the other. Random is Turbo Pascal's: seed = seed * 0x08088405 + 1, and the number is the seed's high word modulo the range. The port's generator is exactly that one: a search of all 2^32 seeds found exactly one (e299f333) that reproduces every one of the 4,528 draws the flee test traced, in order. For that generator the two draws of a flight are as good as independent: over 2,000,000 random seeds each of the 20 pairs came up between 4.96% and 5.03% of the time and facing equalled square in 20.03% of flights. So a flight has matching numbers one time in five, and three in a row one time in 125. A replay starts from a fixed seed, so every run sees the same three flights, (0,0), (0,0), (1,1): it is one observation, repeated, not growing evidence."
     },
     {
       "id": "script-positions-follow-the-loaded-script",

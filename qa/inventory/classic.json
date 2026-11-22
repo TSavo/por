@@ -1021,7 +1021,9 @@
           "evidence": [
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
-          "checks": []
+          "checks": [
+            "acceptance-harness"
+          ]
         },
         {
           "id": "classic.menu.explore",
@@ -1056,7 +1058,9 @@
           "evidence": [
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
-          "checks": []
+          "checks": [
+            "acceptance-harness"
+          ]
         },
         {
           "id": "classic.menu.camp-magic",
@@ -1064,7 +1068,9 @@
           "evidence": [
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
-          "checks": []
+          "checks": [
+            "acceptance-harness"
+          ]
         },
         {
           "id": "classic.menu.camp-rest",
@@ -1088,7 +1094,9 @@
           "evidence": [
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
-          "checks": []
+          "checks": [
+            "acceptance-harness"
+          ]
         },
         {
           "id": "classic.menu.items",
@@ -1096,7 +1104,9 @@
           "evidence": [
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
-          "checks": []
+          "checks": [
+            "acceptance-slums"
+          ]
         },
         {
           "id": "classic.menu.combat-1",
@@ -1144,7 +1154,10 @@
           "evidence": [
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
-          "checks": []
+          "checks": [
+            "acceptance-new-phlan",
+            "acceptance-harness"
+          ]
         },
         {
           "id": "classic.menu.shop",
@@ -1152,7 +1165,10 @@
           "evidence": [
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
-          "checks": []
+          "checks": [
+            "acceptance-new-phlan",
+            "acceptance-harness"
+          ]
         },
         {
           "id": "classic.menu.treasure",
@@ -1160,7 +1176,9 @@
           "evidence": [
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
-          "checks": []
+          "checks": [
+            "acceptance-slums"
+          ]
         },
         {
           "id": "classic.menu.appraise",

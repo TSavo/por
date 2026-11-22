@@ -69,7 +69,12 @@ export function square(frame) {
   return where && { area: where.area, x: where.x, y: where.y, facing: "N?E?S?W?"[where.facing] };
 }
 
-/** The party list as the game draws it: [{ name, ac, hp }]. */
+/**
+ * The party list as the game draws it: [{ name, ac, hp, hurt }]. `hurt` is true where the game
+ * draws the hit points in yellow (colour 14) and not in green: the manual (p.8, p.13) says the hit
+ * points of a character with damage that has not been healed are highlighted. The list shows no
+ * maximum, so this is how a player sees who needs healing.
+ */
 export function party(frame) {
   const rows = screenRows(frame);
   const header = rows.findIndex((row) => /Name\s+AC\s+HP/.test(row));
@@ -79,7 +84,10 @@ export function party(frame) {
     // The party menu leaves a blank row under the heading; the list ends at the first other row.
     if (!match && !members.length && !rows[row].trim()) continue;
     if (!match) break;
-    members.push({ name: match[1], ac: +match[2], hp: +match[3] });
+    // The colour of the last character of the row: the last digit of the hit points.
+    const last = row * 40 + rows[row].trimEnd().length - 1;
+    const colour = frame.text.find(([cell]) => cell === last)?.[2];
+    members.push({ name: match[1], ac: +match[2], hp: +match[3], hurt: colour === 14 });
   }
   return members;
 }
@@ -95,6 +103,55 @@ export function highlighted(frame) {
   const found = party(frame).map(({ name }) => name)
     .filter((name) => rows.some((row, index) => white.has(index) && row.trim().startsWith(name)));
   return found.length === 1 ? found[0] : undefined;
+}
+
+/**
+ * The row of a list the game has highlighted: the index of the one row from `first` to `last`
+ * that is drawn in white (colour 15), or undefined when no single row is.
+ */
+function whiteRow(frame, first, last) {
+  const white = new Set();
+  for (const [cell, character, colour] of frame.text) if (colour === 15 && character > 32) white.add(Math.floor(cell / 40));
+  const rows = [...white].filter((row) => row >= first && row <= last);
+  return rows.length === 1 ? rows[0] : undefined;
+}
+
+/**
+ * A character's Items screen, as the game draws it: [{ name, ready, selected }] in list order.
+ * `ready` is the game's own Yes or No in the Ready column; `selected` marks the highlighted row.
+ * Undefined when the screen is not an Items screen.
+ */
+export function items(frame) {
+  const rows = screenRows(frame);
+  const header = rows.findIndex((row) => /^\s*Ready Item\s*$/.test(row));
+  if (header < 0) return undefined;
+  const white = whiteRow(frame, header + 1, 23);
+  const found = [];
+  for (let row = header + 1; row < 24; row++) {
+    const match = /^\s*(Yes|No)\s+(\S.*?)\s*$/.exec(rows[row]);
+    if (match) found.push({ name: match[2], ready: match[1] === "Yes", selected: row === white });
+  }
+  return found;
+}
+
+/**
+ * What a character sheet the game is showing says: { name, classes, level, exp, ac, hp, status,
+ * weapon, armor }, or undefined when no sheet is up. `hp` is the number after "HP" (what the
+ * character has now) and `status` the word after "Status" (Okay, Unconscious, Dying, Dead, ...).
+ */
+export function sheet(frame) {
+  const rows = screenRows(frame).map((row) => row.trim());
+  const text = rows.join("\n");
+  const status = /^Status (.+)$/m.exec(text);
+  const hp = /^HP (-?\d+)\b/m.exec(text);
+  if (!status || !hp) return undefined;
+  const filled = rows.filter(Boolean);
+  const level = /^Level ([\d/]+)\s+Exp (\d+)/m.exec(text);
+  return {
+    name: filled[0], classes: filled[3], level: level?.[1], exp: level ? +level[2] : undefined,
+    ac: +(/^AC (-?\d+)/m.exec(text)?.[1] ?? NaN), hp: +hp[1], status: status[1].trim(),
+    weapon: /^Weapon (.+)$/m.exec(text)?.[1].trim(), armor: /^Armor (.+)$/m.exec(text)?.[1].trim(),
+  };
 }
 
 /** The coins on a character sheet the game is showing: { Platinum: 2, Silver: 36, ... }. */
@@ -173,6 +230,7 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
   let discarded = 0;
   const texts = [];
   const narrations = [];
+  const flashed = [];
   const dice = [];
   createInterface({ input: runner.stderr }).on("line", (line) => {
     const draw = /^POR_DICE \d+ (.+) range (\d+)(?: value (\d+))?$/.exec(line);
@@ -191,6 +249,12 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
     printed: texts,
     /** Every narration event the runner has reported, in order: { sourceId, ... } as the narration observer names it. */
     narrated: narrations,
+    /**
+     * Every message the game has put on the bottom line for a moment and cleared again by itself,
+     * in order: { text, ms }. "Must be Readied" and "Your hands are full!" are shown this way: the
+     * game pauses `ms` milliseconds on them and asks for no key, so no screen a test stops on has them.
+     */
+    flashed,
     /**
      * With env POR_TRACE_DICE=1: every random number the game has drawn so far, as
      * { caller, range, value }: who asked, for a number from 0 to range - 1, and the number the
@@ -233,6 +297,9 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
         if (done) throw new Error(`The game stopped after ${JSON.stringify(command)}.\n${errors}\nLast screen:\n${game.frame ? game.text() : "(none)"}`);
         if (value.startsWith("POR_FRAME ")) {
           game.frame = JSON.parse(value.slice("POR_FRAME ".length));
+          for (const shown of game.frame.animation ?? []) {
+            if (shown.statusMessage) flashed.push({ text: menuLine(shown), ms: shown.durationMs });
+          }
           return true;
         }
         if (value.startsWith("POR_TEXT ")) texts.push(JSON.parse(value.slice("POR_TEXT ".length)).message);
@@ -300,7 +367,7 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
       const purses = {};
       for (let views = 0; Object.keys(purses).length < names.length; views++) {
         if (views >= names.length * 2) game.fail(`Could not read the sheets of ${names.filter((name) => !(name in purses)).join(", ")}.`);
-        await game.press("v", /View: ?Items/, "V shows a character sheet.");
+        await game.press("v", /View: ?[A-Z][a-z]+ .*Exit\s*$/, "V shows a character sheet.");
         const name = game.rows().find((row) => row.trim()).trim();
         if (!names.includes(name)) game.fail(`The sheet is headed "${name}", which is not a member of the party.`);
         purses[name] = coins(game.frame);
@@ -309,6 +376,75 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
         await game.press("end");
       }
       return purses;
+    },
+    /**
+     * From a menu that has View (walking, camp, a shop, the treasure menu), open the character
+     * sheet of the member whose name starts with `name` and return what it says (see `sheet`).
+     * The sheet is left open, on its menu "View:Items Spells Trade Drop Exit".
+     */
+    async viewSheet(name) {
+      if (!/\bView\b/.test(game.menu())) game.fail("This menu has no View to open a character sheet with.");
+      const menu = game.menu();
+      for (let views = 0; ; views++) {
+        if (views >= 9) game.fail(`Could not open the character sheet of ${name}.`);
+        await game.press("v", /View: ?[A-Z][a-z]+ .*Exit\s*$/, "V shows a character sheet.");
+        const shown = sheet(game.frame);
+        if (!shown) game.fail("V did not show a character sheet with hit points and a status.");
+        if (shown.name.startsWith(name)) return shown;
+        await game.press("e");
+        if (game.menu() !== menu) game.fail(`Leaving the character sheet did not return to "${menu}".`);
+        await game.press("end");
+      }
+    },
+    /**
+     * From a menu that has View, read every member's sheet: [{ name, hp, status, ... }] in the
+     * order the sheets came up. Leaves the game on the same menu. This is how a player learns who
+     * is hurt, unconscious or dead: the party list shows only the hit points.
+     */
+    async sheets() {
+      const menu = game.menu();
+      const names = game.party().map(({ name }) => name);
+      const found = new Map();
+      for (let views = 0; found.size < names.length; views++) {
+        if (views >= names.length * 2) game.fail(`Could not read the sheets of ${names.filter((name) => !found.has(name)).join(", ")}.`);
+        await game.press("v", /View: ?[A-Z][a-z]+ .*Exit\s*$/, "V shows a character sheet.");
+        const shown = sheet(game.frame);
+        if (!shown || !names.includes(shown.name)) game.fail("V showed a sheet that is not a party member's.");
+        found.set(shown.name, shown);
+        await game.press("e");
+        if (game.menu() !== menu) game.fail(`Leaving ${shown.name}'s character sheet did not return to "${menu}".`);
+        await game.press("end");
+      }
+      return names.map((name) => found.get(name));
+    },
+    /**
+     * In a list where the game highlights one row (spells, cures, a shop's stock), move the
+     * highlight with End to the first row that matches `pattern`. Returns that row's text. Such a
+     * list can open with the highlight on any row, so a test must not count rows. The list's
+     * heading, on the top row, can be white too and is not looked at.
+     */
+    async selectLine(pattern) {
+      for (let moves = 0; ; moves++) {
+        const row = whiteRow(game.frame, 2, 23);
+        const text = row === undefined ? undefined : game.rows()[row].trim();
+        if (text !== undefined && pattern.test(text)) return text;
+        if (moves >= 30) game.fail(`Could not move the highlight to a row that matches ${pattern}.`);
+        await game.press("end");
+      }
+    },
+    /** The Items screen on show: see `items`. */
+    items: () => items(game.frame),
+    /** On an Items screen, move the highlight to the first item whose name matches `pattern`. Returns that item. */
+    async selectItem(pattern) {
+      for (let moves = 0; ; moves++) {
+        const list = items(game.frame);
+        if (!list) game.fail("The game is not showing a character's Items screen.");
+        const selected = list.find((item) => item.selected);
+        if (selected && pattern.test(selected.name)) return selected;
+        if (!list.some(({ name }) => pattern.test(name))) game.fail(`The Items screen lists nothing that matches ${pattern}.`);
+        if (moves >= list.length + 1) game.fail(`Could not move the highlight to ${pattern}.`);
+        await game.press("end");
+      }
     },
     /** Turn until the party faces N, E, S or W. */
     async face(heading) {

@@ -114,7 +114,12 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
         const deathDelay = captureCombatEffectUnderlay !== undefined &&
           returnsTo(this, 0, code.pauseResumes) && returnsTo(this, deathReturnDepth, code.deathResumes);
         const effectDelay = projectileDelay || deathDelay;
-        capturePresentationDelay?.(this, effectDelay);
+        // The two message routines print on the bottom line and pause through the pause routine, then
+        // clear the line. The pause's length is Delay's argument, just above its return address.
+        const messageMs = returnsTo(this, 0, code.pauseResumes) &&
+          (returnsTo(this, deathReturnDepth, code.messageResumes) || returnsTo(this, deathReturnDepth, code.colouredMessageResumes))
+          ? this.read16(this.ss, (this.sp + 4) & 0xffff) : undefined;
+        capturePresentationDelay?.(this, effectDelay, messageMs);
       }
       // Some approach sequences refresh several native distances between inputs.
       if (captureEncounterDraw && isAt(this, at, code.encounterDrawn) && this.steps >= liveStep) captureEncounterDraw(this);

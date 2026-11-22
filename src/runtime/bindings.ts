@@ -264,6 +264,14 @@ export const code = resolve({
   deathResumes: { "1.0": { slice: 0x20, at: 0x100b }, "1.3": { slice: 0x1f, at: 0x1018 } },
   /** Where the pause routine resumes after Crt.Delay. */
   pauseResumes: { "1.0": { slice: 0x25, at: 0xc96 }, "1.3": { segment: 0x709, at: 0x7e61 } },
+  /**
+   * Where the two routines that show a message on the bottom line resume after their pause. Each
+   * prints the message, pauses, and clears the line again without asking for a key. The first
+   * prints in green ("Must be Readied"); the second, in the text unit, takes the colour from its
+   * caller (the trainer's "Training costs 1000 gp.").
+   */
+  messageResumes: { "1.0": { slice: 0x19, at: 0x1721 }, "1.3": { segment: 0xba, at: 0x2275 } },
+  colouredMessageResumes: { "1.0": { slice: 0x25, at: 0xc6d }, "1.3": { segment: 0x709, at: 0x7e38 } },
   /** The top of Crt.Delay's loop, once per millisecond asked for. */
   delayLoop: { "1.0": { segment: 0x512, at: 0x53d3 }, "1.3": { segment: 0xa40, at: 0xa6b0 } },
   /** The BIOS keyboard poll inside Crt.KeyPressed. */

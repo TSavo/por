@@ -160,6 +160,15 @@
       ]
     },
     {
+      "id": "acceptance-harness",
+      "title": "The acceptance harness and its party-care helpers on the game itself: prompts, dice trace, position, a fight by the game's own commands; then what the game offers a party: the Camp menu (no Fix), the cleric's spells in memory, the temple's price and refusal, the trainer's 1000 gp refusal, buying from pooled money",
+      "command": "npm run acceptance:harness",
+      "reference": "game-data",
+      "needs": [
+        "game files"
+      ]
+    },
+    {
       "id": "acceptance-new-phlan",
       "title": "New Phlan walkthrough scenarios on the game itself: Rolf's tour, City Hall and the clerk, the dock, the temples, the tavern and the city watch",
       "command": "npm run acceptance:new-phlan",
@@ -170,7 +179,7 @@
     },
     {
       "id": "acceptance-slums",
-      "title": "Slums walkthrough scenarios on the game itself: the entry from New Phlan, the fight with the orcs at location 1 fought with the game's own commands, and the five flee squares",
+      "title": "Slums walkthrough scenarios on the game itself: the entry from New Phlan, the fight with the orcs at location 1 fought with the game's own commands, their scroll readied and read (with the messages the game flashes on the bottom line), and the five flee squares",
       "command": "npm run acceptance:slums",
       "reference": "game-data",
       "needs": [

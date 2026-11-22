@@ -72,6 +72,15 @@ on by itself (a fight being played out, a rest, a pause), and
 `:travel-poll` answers it with no key. `tools/acceptance/harness.mjs` waits
 on `awaitsKey` and compares no screens.
 
+The game also shows messages that it clears by itself: "Must be Readied",
+"Your hands are full!", the trainer's "Training costs 1000 gp.". Two routines
+print such a message on the bottom line, pause for 225 ms times the speed
+setting, and clear the line, all without asking for a key, so no frame the
+game waits on has the message. The runner sends the screen as it stands
+during that pause as an entry of the next frame's `animation`, marked
+`statusMessage`, with the pause as `durationMs`: the page holds it that
+long, and the acceptance harness collects the texts as `game.flashed`.
+
 A frame's `exploration` gives the square the game has the party on, the
 one its status line prints. `POR_WATCH_ECL=4abb,4a80` adds the values of
 those script variables to each frame as `scriptVariables`.
