@@ -887,6 +887,13 @@ const illustrationRoutes = new Map([
     portrait: "portrait:HEAD2.DAX:52:BODY2.DAX:31",
     prompt: /THEYSEEMUNAWAREOFYOU.*COMBATWAITFLEEPARLAY/i,
   }],
+  ["bane-mansion-exterior", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:31:ecl:b0b5:cue:mansion-exterior",
+    prompt: /YOUSTANDOUTSIDEALARGEMANSION.*CRUDEBLACKHANDPRINTS/i,
+    finalPhaseCapture: "bane-mansion-exterior.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["bane-mansion-victims-room", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:31:ecl:b0b5:cue:victims-room",
