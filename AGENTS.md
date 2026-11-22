@@ -35,7 +35,10 @@ but GitHub and this repository.
   `npm run qa:narration` (#98), `npm run qa:version-1.3` (the 1.3 measure),
   `npm run qa:repeat-presses` (replay steps that press until the screen changes, #76),
   `npm run qa:instruction-diff` (every translated instruction against the original's bytes under Unicorn,
-  #91; needs `POR_GAMEDATA_1_3` and Python with capstone and unicorn, `~/por-venv` on Battleaxe).
+  #91; needs `POR_GAMEDATA_1_3` and Python with capstone and unicorn, `~/por-venv` on Battleaxe),
+  `npm run qa:pause-callers` (every call that pauses with a message, verified when a replay from both
+  sources puts that message on the page, #81; evidence from `tools/record-pause-callers.mjs`),
+  `npm run verify:dos-calls` (every DOS function the translated program can ask for is served, #83).
 - Commit messages: a short imperative summary; the body says what was run and seen.
 
 ## Running on Battleaxe
