@@ -227,8 +227,25 @@ enabled, the DOS trace records reads covering all 36,603 bytes of
 `FINAL5.DAX` during the route. Chrome verified the Enhanced art for
 the hoard, possession threat, recall through the Pool and departure,
 then verified the return to WebGL exploration in Phlan. Archive reads
-establish that the ending loads these records. Individual on-screen
-placements still require a draw trace.
+establish that the ending loads these records. A native draw trace
+from the same GOG 1.3 route then confirmed the placements below by
+matching the archive frames against the guest framebuffer.
+
+| Block | Panel position | Original size | Drawing behavior |
+| --- | --- | --- | --- |
+| 1 | (8, 8) | 120×120 | Background for block 2 |
+| 2 | (24, 40) | 88×88 | Member 0 with XOR phases from members 1–3 |
+| 3 | (8, 8) | 120×120 | Background for the later panel |
+| 4 | (8, 96) | 56×32 | Opaque draw over block 3 |
+| 5 | (112, 80) | 16×48 | Opaque draw over block 3 |
+| 6 | (8, 80) | 16×48 | Opaque draw over block 3 |
+| 7 | (24, 8) | 88×88 | Member 0 with XOR phases from members 1–5 |
+| 8 | (24, 8) | 88×88 | Replaces block 7, with its own base and XOR phases 1–5 |
+
+In 1.3, overlay `0x12` draws blocks 1 and 3–6 at `038e`, `0402`,
+`045d`, `04b9`, and `0514` respectively. It starts the animated draw
+at `006a` and presents the composed panel at `006f`. Overlay `0x1c`
+draws and presents the subsequent animation phases at `002f` and `0034`.
 
 The Bane ogre commander's ready and strike keys pass the standalone audit
 through the Bane Mansion map's owning script, ECL1 block 24. GOG 1.3 Chrome verified both poses at
