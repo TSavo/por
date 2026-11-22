@@ -232,7 +232,7 @@ if (process.env.POR_BROWSER_PLAY === "1") narrationLedger?.open();
 const input = liveAt === undefined ? undefined : liveInput(liveStep, () => {
   const known = journal();
   return [...known, ...journalInventoryLeads(cpu, known, unit.data)];
-}, recording, automap);
+}, recording, automap, Boolean(portProgram));
 const saves = input && openSaveSlots(process.env.POR_SAVE_DIR ??
   join("out", "saves", createHash("sha256").update(realpathSync(root)).digest("hex").slice(0, 16)));
 const rosterClosed: DosFileClosed = (name, data, written) => { if (written) saves?.saveRoster(name, data); };
