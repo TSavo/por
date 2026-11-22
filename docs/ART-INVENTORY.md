@@ -391,6 +391,12 @@ kobolds reuse their raised-hands pose on the fourth native draw. Both
 loops hold each step for 210 ms. Chrome verified both loops on each data
 source and followed the pool's attack prompt and the prisoners' release.
 
+Mendor's storeroom kobolds and the white-flag envoy in the Kobold Caves
+continue their four-step loops while the player considers either prompt
+in each encounter. Both reuse the second pose on the fourth draw. Chrome
+verified the loops and followed the parlay to the journal map and the
+truce to the escort scene with GOG 1.3 and bundled data.
+
 At `708d1dcd`, the `kobold-cave-wyvern-approach` GOG 1.3 Chrome
 replay passed with both data sources. It checks all three native SPRIT
 members, their positions over WebGL, and the switch into the dialogue

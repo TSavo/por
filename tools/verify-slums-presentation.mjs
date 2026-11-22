@@ -1228,18 +1228,26 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:15:ecl:ae94:PIC2.DAX:0:1:0", prompt: /ABATTLEBEGINS/i,
   }],
   ["mendor-storeroom-kobold-phases", {
-    slot: "B", inputs: ["up", ...Array(4).fill("enter"), "a", "a", "p", "a", "a", "y"],
-    portraitStops: {
-      5: "portrait:area:15:PIC2.DAX:0:0:0",
-      6: "portrait:area:15:ecl:ad7b:PIC2.DAX:0:1:0",
-      7: "portrait:area:15:ecl:ad7b:PIC2.DAX:0:2:0",
-      8: "portrait:area:15:ecl:9987:caller:adf9:PIC2.DAX:0:2:0",
-      10: "portrait:area:15:ecl:9987:caller:adf9:PIC2.DAX:0:1:0",
+    slot: "B", inputs: ["up", "p"],
+    portrait: "portrait:area:15:PIC2.DAX:0:0:0", prompt: /WILLYOUSPARETHEM/i,
+    heldPortraitLoop: [
+      "portrait:area:15:PIC2.DAX:0:0:0",
+      ...[1, 2, 1].map(member => `portrait:area:15:ecl:9987:caller:adf9:PIC2.DAX:0:${member}:0`),
+    ],
+    journalLead: "mendor-storeroom-map",
+    continuation: {
+      inputs: ["y"], portrait: "scene-illustration:area:15:ecl:99b5:caller:ae7b",
+      prompt: /SKETCHAMAPINTOYOURJOURNALCALLINGITENTRY10/i,
     },
-    portrait: "scene-illustration:area:15:ecl:99b5:caller:ae7b",
-    prompt: /SKETCHAMAPINTOYOURJOURNALCALLINGITENTRY10/i,
-    journalLead: "mendor-storeroom-map", journalLeadAtDiscovery: true,
-    continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
+  ["mendor-storeroom-mercy-loop", {
+    slot: "B", inputs: ["up"],
+    portrait: "portrait:area:15:PIC2.DAX:0:0:0", prompt: /THEYPLEADFORMERCY/i,
+    heldPortraitLoop: [
+      "portrait:area:15:PIC2.DAX:0:0:0",
+      ...[1, 2, 1].map(member => `portrait:area:15:ecl:ad7b:PIC2.DAX:0:${member}:0`),
+    ],
+    continuation: { inputs: ["p"], portrait: "portrait:area:15:PIC2.DAX:0:0:0", prompt: /WILLYOUSPARETHEM/i },
   }],
   ["stojanow-bugbear-gate-payment", {
     slot: "B", inputs: [...stojanowTollApproach, "y"],
@@ -3313,11 +3321,9 @@ const illustrationRoutes = new Map([
     },
   }],
   ["kobold-white-flag-escort-phase", {
-    slot: "B", inputs: ["up", "enter", "enter", "enter", "z", "z", "a"],
-    portraitStops: {
-      6: "portrait:area:13:ecl:9c10:PIC8.DAX:0:2:0",
-    },
-    portrait: "portrait:area:13:ecl:9c5e:PIC8.DAX:0:2:0", prompt: /IAMTOESCORTYOUTOOURTREASURE.*FOLLOWREFUSEKILLIT/i,
+    slot: "B", inputs: ["up", "a"],
+    portrait: "portrait:area:13:ecl:9c5e:PIC8.DAX:0:0:0", prompt: /IAMTOESCORTYOUTOOURTREASURE.*FOLLOWREFUSEKILLIT/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:13:ecl:9c5e:PIC8.DAX:0:${member}:0`),
     continuation: { inputs: ["f"], portrait: "scene-illustration:area:13:ecl:b511:caller:afc2",
       prompt: /THEKOBOLDPAUSES/i },
   }],
@@ -3351,21 +3357,16 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /THENOISEHASDISTURBEDSOMETHING/i },
   }],
   ["kobold-white-flag-envoy", {
-    slot: "B", inputs: ["up", "enter", "enter", "enter", ...Array(22).fill("z")],
+    slot: "B", inputs: ["up"],
     approachSequence: [
       [56, 32, "encounter:area:13:ecl:9b8a:SPRIT8.DAX:0:1:0", 24, 65],
       [56, 32, "encounter:area:13:ecl:9bb1:SPRIT8.DAX:0:1:0", 24, 65],
       [56, 32, "encounter:area:13:ecl:9bb2:SPRIT8.DAX:0:1:0", 24, 65],
       [48, 32, "encounter:area:13:ecl:9bb2:SPRIT8.DAX:0:0:0", 40, 80],
     ],
-    portraitStops: {
-      3: "portrait:area:13:ecl:9c10:PIC8.DAX:0:0:0",
-      6: "portrait:area:13:ecl:9c10:PIC8.DAX:0:2:0",
-    },
-    portrait: "portrait:area:13:ecl:9c10:PIC8.DAX:0:1:0", prompt: /WEWILLPAYFORATRUCE/i,
-    phaseCaptures: { 6: "kobold-white-flag-envoy-phase-2.png" },
-    finalPhaseCapture: "kobold-white-flag-envoy-phase-1.png",
-    continuation: { inputs: ["a"], portrait: "portrait:area:13:ecl:9c5e:PIC8.DAX:0:1:0", prompt: /IAMTOESCORTYOUTOOURTREASURE/i },
+    portrait: "portrait:area:13:ecl:9c10:PIC8.DAX:0:0:0", prompt: /WEWILLPAYFORATRUCE/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:13:ecl:9c10:PIC8.DAX:0:${member}:0`),
+    continuation: { inputs: ["a"], portrait: "portrait:area:13:ecl:9c5e:PIC8.DAX:0:0:0", prompt: /IAMTOESCORTYOUTOOURTREASURE/i },
   }],
   ["kobold-throne-first-audience", {
     slot: "B", inputs: ["up", "enter", "enter", "enter"],
@@ -7280,6 +7281,8 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valhingen-grave-claws" || routeName === "sokal-barracks-ghost-phases" ||
       routeName === "old-phlan-lizard-patrol-phases" || routeName === "valjevo-tower-troll-phases" ||
       routeName === "lizard-wilds-kobold-prisoners" || routeName === "lizard-wilds-pool-dialogue" ||
+      routeName === "mendor-storeroom-kobold-phases" || routeName === "mendor-storeroom-mercy-loop" ||
+      routeName === "kobold-white-flag-envoy" || routeName === "kobold-white-flag-escort-phase" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       ["sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
@@ -10289,13 +10292,6 @@ try {
               document.querySelector('.encounter-portrait[src="/art/${interimPortrait}"]')?.naturalWidth === 352`));
             await verifyPortraitPanel();
           }
-        }
-        if (routeName === "mendor-storeroom-kobold-phases" && interimPortrait && index > 5) {
-          const caption = index < 8 ? /THEYPLEADFORMERCY/i : /WILLYOUSPARETHEM/i;
-          assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), caption);
-          if (index === 6 || index === 7) await switchBothWays(frame.frame);
-          const shot = await command("Page.captureScreenshot", { format: "png" });
-          writeFileSync(resolve(directory, `mendor-storeroom-kobold-phase-${index}.png`), Buffer.from(shot.data, "base64"));
         }
         if (routeName === "stojanow-ettin-guardroom" && interimPortrait) {
           const captions = [
