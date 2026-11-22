@@ -1,6 +1,6 @@
 # Artwork worklist
 
-**The artwork is done when `npm run verify:art-worklist` reports 0 remaining and nothing is left under "Not established". It reports 2181 confirmed cells awaiting art now.**
+**The artwork is done when `npm run verify:art-worklist` reports 0 remaining and nothing is left under "Not established". It reports 2178 confirmed cells awaiting art now.**
 
 This file is written by `npm run art:worklist`. Do not edit it or `qa/art-worklist.json` by hand: add art, run the tool, commit what it writes.
 
@@ -48,16 +48,16 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 
 | What | Count |
 | --- | ---: |
-| Remaining, all kinds | 2181 |
-| First-person cells to do | 2181 |
-|   of which one stored tile | 482 |
+| Remaining, all kinds | 2178 |
+| First-person cells to do | 2178 |
+|   of which one stored tile | 478 |
 |   of which one tile over a solid colour | 232 |
 |   of which plain sky or ground | 0 |
-|   of which several tiles together | 1467 |
-|   of which the same pixels already have art of yours in another area | 794 |
+|   of which several tiles together | 1468 |
+|   of which the same pixels already have art of yours in another area | 791 |
 | Battlefield cells to do | 0 |
-| Tile keys in the manifests | 3977 |
-|   accounted for by the tool | 3832 |
+| Tile keys in the manifests | 4003 |
+|   accounted for by the tool | 3858 |
 | Battlefield keys in the manifests | 83 |
 |   that are one stored cell of a battlefield picture | 78 |
 | Stored 8 by 8 tiles | 3016 |
@@ -73,7 +73,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 
 | Area | Name | Reading confirmed | Cells its views can show | With art | To do | Your keys accounted for |
 | ---: | --- | --- | ---: | ---: | ---: | ---: |
-| 0 | New Phlan | yes | 406 | 248 | 60 | 251 of 251 (3 as first views of the next area) |
+| 0 | New Phlan | yes | 406 | 248 | 60 | 261 of 261 (3 as first views of the next area, 10 as WebGL wall materials) |
 | 1 | Buccaneer Base | yes | 385 | 129 | 52 | 129 of 129 |
 | 2 | Cadorna Textile House | yes | 580 | 254 | 128 | 259 of 259 (5 as first views of the next area) |
 | 3 | Valjevo Castle | not yet | 300 | 74 |  | 74 of 81 |
@@ -81,7 +81,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 5 | Valjevo Castle | not yet | 393 | 49 |  | 51 of 110 (2 as first views of the next area) |
 | 6 | Valjevo Castle | yes | 310 | 72 | 90 | 72 of 72 |
 | 7 | Valjevo Castle, the Pool | not yet | 269 | 33 |  | 73 of 131 (40 as first views of the next area) |
-| 8 | Phlan City Hall | yes | 405 | 157 | 132 | 157 of 157 |
+| 8 | Phlan City Hall | yes | 405 | 163 | 129 | 173 of 173 (10 as WebGL wall materials) |
 | 9 | Stojanow Gate | yes | 287 | 117 | 33 | 117 of 117 |
 | 10 | Valhingen Graveyard | yes | 2452 | 419 | 471 | 419 of 419 |
 | 11 | The Training Hall | yes | 405 | 67 | 109 | 67 of 67 |
@@ -624,7 +624,7 @@ Map 6; WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 bl
 | `tile:6:f1a0d40c62bb72a61cb372b9c094da9b9b070ff895d9ef9da059dd44821f8368` | 8X8D5 block 242 tile 49 over 8X8D5 block 242 tile 49 over 8X8D5 block 241 tile 65 over sky colour 11 | map 6, square (4,0) facing south, column 8 row 2 |  |
 | `tile:6:faa872107917abb576b13111d58e3e59d9cd756f71db8efce64b3da3b2fea0a6` | 8X8D5 block 242 tile 21 over sky colour 15 | map 6, square (5,0) facing south, column 8 row 3 |  |
 
-### Area 8: Phlan City Hall (132)
+### Area 8: Phlan City Hall (129)
 
 Map 0; WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103).
 
@@ -666,13 +666,11 @@ Map 0; WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 bloc
 | `tile:8:e3922047e12c2260eaef5a4f40f4426f51c95b755440c710331492e05e3c951a` | 8X8D3 block 101 tile 28 over the ground colour 6 | map 0, square (3,3) facing west, column 1 row 6 | `kuto-earth-perimeter-joins-e3922047e12c.png` (area 2, 18, 24, 29) |
 | `tile:8:e72913a89f9d3daef62dc19e63acc5d329e89789dbe44e1e0e3099927e06f034` | 8X8D3 block 101 tile 34 | map 0, square (2,3) facing west, column 0 row 5 | `new-phlan-proclamation-walk-terrain-e72913a89f9d.png` (area 0, 2, 18, 24, 29) |
 
-#### tile set 8X8D3 block 102 (53)
+#### tile set 8X8D3 block 102 (50)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
 | `tile:8:0e154b2b42e53709f209ebe14a14cd59008146dad1f01dc0475f8614a6202889` | 8X8D3 block 102 tile 16 | map 0, square (5,1) facing south, column 0 row 7 | `new-phlan-civic-terrain-0e154b2b42e5.png` (area 0, 7, 11, 20) |
-| `tile:8:14ba42f38a9f3edda8214f1dec22d94f520717c59573aa456e72854416d753d4` | 8X8D3 block 102 tile 10 | map 0, square (11,6) facing south, column 8 row 5 | `slums-trade-row-terrain-14ba42f38a9f.png` (area 0, 5, 7, 20) |
-| `tile:8:15450d2266965cb35a6f45fd06dbf087e58bdd114e2cf88e56dba3e596898eb1` | 8X8D3 block 102 tile 52 | map 0, square (14,7) facing east, column 9 row 4 | `slums-trade-row-terrain-15450d226696.png` (area 0, 7, 20) |
 | `tile:8:1930bf3912f12f181acb825e6e35b4935e2fbbcf9c15b721db739476417319a4` | 8X8D3 block 102 tile 19 | map 0, square (10,7) facing east, column 10 row 7 | `new-phlan-south-market-terrain-0-1930bf3912f1.png` (area 0) |
 | `tile:8:244e3a737dff103ce562544c8101531a1243923042056f12d1e433b13403ecd6` | 8X8D3 block 102 tile 69 | map 0, square (10,9) facing east, column 6 row 6 | `valjevo-terra-cotta-floor-244e3a737dff.png` (area 7) |
 | `tile:8:2c07b5fab1efd528ab309be6c35e564bb46750de4ff813de5ff640b6ee22c2bf` | 8X8D3 block 102 tile 17 | map 0, square (13,8) facing west, column 1 row 6 | `slums-trade-row-terrain-2c07b5fab1ef.png` (area 0, 7, 20) |
@@ -684,10 +682,9 @@ Map 0; WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 bloc
 | `tile:8:3c785d52bd5743e287ba141d5549e8235d3b16650a4a6dd89841f7b03fbc28f9` | 8X8D3 block 102 tile 66 | map 0, square (13,6) facing south, column 1 row 5 | `new-phlan-building-paving-joins-0-3c785d52bd57.png` (area 0, 7) |
 | `tile:8:456f9f400e4fb32e2b5f13e2bc06736c4ba19f898ed29143ac49fb15e0c33ad1` | 8X8D3 block 102 tile 0 | map 0, square (5,1) facing south, column 0 row 6 | `valjevo-lower-trim-456f9f400e4f.png` (area 0, 5, 7, 11, 20) |
 | `tile:8:480c0193f74fe2f8eebe95e255b18123bc620f775b922bb08febe829502c265b` | 8X8D3 block 102 tile 65 | map 0, square (12,6) facing east, column 9 row 5 | `valjevo-merchant-wing-terrain-480c0193f74f.png` (area 7) |
-| `tile:8:491c0e9a5a1fe2680ecad326e5a4a7920df0f9e348ad8b993c763c95cf886194` | 8X8D3 block 102 tile 46 | map 0, square (14,7) facing east, column 10 row 7 | `slums-worn-courtyard-491c0e9a5a1f.png` (area 0, 7, 20) |
+| `tile:8:49adbe0c989896a2fc859c7518d72be11572fff18d83d579b7eb021b3dba21bc` | 8X8D3 block 102 tile 67 over 8X8D3 block 102 tile 5 | map 0, square (8,12) facing east, column 6 row 5 | `valjevo-merchant-wing-terrain-49adbe0c9898.png` (area 7) |
 | `tile:8:4e24210255ed185eb54a70dc98aae7c1beeeb78e5107d1d01b5a931dcae9a8ae` | 8X8D3 block 102 tile 59 | map 0, square (15,8) facing south, column 10 row 4 | `slums-worn-courtyard-4e24210255ed.png` (area 0, 7, 20) |
 | `tile:8:582935262251c3c3b53ec076d372c7bebfc34f9076968d8314e319ea8cca75bd` | 8X8D3 block 102 tile 18 | map 0, square (9,7) facing east, column 7 row 5 | `valjevo-merchant-west-terrain-582935262251.png` (area 0, 7) |
-| `tile:8:5b786e63e19e9e670c1f1c5e88c35e2a13f2d0706d213c1aae0f2473145467ca` | 8X8D3 block 102 tile 7 | map 0, square (10,7) facing south, column 2 row 5 | `valjevo-lower-trim-5b786e63e19e.png` (area 0, 5, 7, 20) |
 | `tile:8:5d6cc31ad8f8909dbfb51faf0fb70a9731367b107ace2c2761b9eb85951cc9ee` | 8X8D3 block 102 tile 36 | map 0, square (0,0) facing east, column 8 row 5 | `new-phlan-street-paving-joins-0-5d6cc31ad8f8.png` (area 0, 7, 20) |
 | `tile:8:624c54394650999904d165e8083586d2c5d9dea1cfb089dcbb22e946cbbf6f37` | 8X8D3 block 102 tile 58 | map 0, square (13,8) facing east, column 9 row 3 | `slums-shop-frontage-terrain-624c54394650.png` (area 0, 7, 20) |
 | `tile:8:6350a67cee5ed480bf0c6c1c98180dff777b31313ae09d346fa708c132025c0a` | 8X8D3 block 102 tile 60 | map 0, square (13,6) facing east, column 10 row 4 | `new-phlan-south-market-terrain-0-6350a67cee5e.png` (area 0) |
@@ -734,7 +731,6 @@ Map 0; WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 bloc
 | `tile:8:0da28796f3f66a72e2645e54a1f2897c80134436264ad00d76b1c07aa990cd37` | 8X8D3 block 103 tile 37 | map 0, square (5,1) facing south, column 1 row 8 | `new-phlan-civic-terrain-0da28796f3f6.png` (area 0, 11) |
 | `tile:8:1a83f260002396d35ecdecff75b4bdfb9225a0f1e09a1cbe43a89760a0df887a` | 8X8D3 block 103 tile 39 over 8X8D3 block 102 tile 3 | map 0, square (12,11) facing east, column 8 row 5 |  |
 | `tile:8:243765cb742c7f8baa3c055be6cbba8c698816a73037869e4b304f63cea7bd01` | 8X8D3 block 103 tile 0 over 8X8D3 block 101 tile 37 | map 0, square (13,3) facing west, column 10 row 5 |  |
-| `tile:8:2f163d7206ea4e6a2989a021b7bd568c838c61fdf825b0a95ad24462e87f1b84` | 8X8D3 block 103 tile 14 | map 0, square (3,3) facing east, column 10 row 6 | `new-phlan-civic-terrain-2f163d7206ea.png` (area 0) |
 | `tile:8:30f3bb975c3bf219afc9b2d64fc0e35835e7c401da3ad597bf5af8d9a439237d` | 8X8D3 block 103 tile 0 over 8X8D3 block 102 tile 30 | map 0, square (13,5) facing south, column 1 row 5 |  |
 | `tile:8:39ec23f0982f82d51a199d2e205583ec5183e3f4f657da903eb6426c8777ed81` | 8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 0 over 8X8D3 block 101 tile 59 | map 0, square (13,3) facing north, column 4 row 5 |  |
 | `tile:8:451efcf97fe4cb8ea437dd0fba90a08e095423c51c7c23c69dd2f48be9fcead5` | 8X8D3 block 103 tile 0 over 8X8D3 block 101 tile 21 | map 0, square (13,3) facing west, column 0 row 5 |  |
@@ -764,6 +760,8 @@ Map 0; WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 bloc
 | `tile:8:aff5e903c90440b24b67d198a77f832e074475934f66bdb265cc26b17c9a6077` | 8X8D3 block 103 tile 0 over 8X8D3 block 101 tile 35 | map 0, square (15,3) facing south, column 0 row 5 |  |
 | `tile:8:b386a3574a88e3d97c8dbf8af3f4bba1629b4647b8f37fe12ea834d90fcee0e8` | 8X8D3 block 103 tile 10 | map 0, square (2,2) facing south, column 1 row 6 | `new-phlan-training-civic-terrain-0-b386a3574a88.png` (area 0) |
 | `tile:8:b91c1a61b1b674049f1da4fdf724a912001190410004064840dea1621c0c3e16` | 8X8D3 block 103 tile 3 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 0, square (0,0) facing east, column 4 row 5 |  |
+| `tile:8:bc0fc51f67b36ed051bbab273b0e11f9886fba78b3e730da540b61b7fd1a64a0` | 8X8D3 block 103 tile 20 | map 0, square (3,4) facing north, column 10 row 1 | `new-phlan-street-paving-joins-0-bc0fc51f67b3.png` (area 0) |
+| `tile:8:bdc2846eeb75d16b7e334279cc32c448aae109f3c5fcdf2fb2cb9f1f1588ce52` | 8X8D3 block 103 tile 21 | map 0, square (4,3) facing west, column 0 row 1 | `new-phlan-harbor-paving-joins-0-bdc2846eeb75.png` (area 0) |
 | `tile:8:c32c234a7bbf0eaa70dc96a5319e6b2380a6410eef8894cba00a879b33355618` | 8X8D3 block 103 tile 39 over 8X8D3 block 103 tile 39 over 8X8D3 block 101 tile 3 | map 0, square (14,11) facing east, column 6 row 5 |  |
 | `tile:8:c3f6c9dcaf3cbd15279435fed80c311d3039001afd1e0684d444730419443ef5` | 8X8D3 block 103 tile 0 over 8X8D3 block 101 tile 20 | map 0, square (15,11) facing south, column 0 row 5 |  |
 | `tile:8:c9eacb92173da7fb7eb5191db83856abbcb0f04e6685eeb42c6606bc1cb85525` | 8X8D3 block 103 tile 39 over 8X8D3 block 101 tile 68 | map 0, square (14,2) facing south, column 0 row 5 |  |
@@ -775,7 +773,6 @@ Map 0; WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 bloc
 | `tile:8:d4bfebd9881c703ec9c8702d40af2b04c1a0c8a329673f23bef7bc145b267a73` | 8X8D3 block 103 tile 59 | map 0, square (9,7) facing east, column 8 row 6 | `new-phlan-south-market-terrain-0-d4bfebd9881c.png` (area 0) |
 | `tile:8:d5d688860efe2e51bcfe34f1c8df81638516bb24203b3d3c36bc23079bde91ce` | 8X8D3 block 103 tile 39 over 8X8D3 block 103 tile 39 over 8X8D3 block 101 tile 64 | map 0, square (14,9) facing east, column 6 row 5 |  |
 | `tile:8:dc911cb26109fedd8420ff441590f02ca7e728df8fa5068ea8aad3bd39309f2e` | 8X8D3 block 103 tile 31 over sky colour 11 | map 0, square (2,2) facing east, column 9 row 4 | `new-phlan-civic-terrain-dc911cb26109.png` (area 0) |
-| `tile:8:e19067bee3819b8d873718c2a7a1a61cebdd3ffcf3d786860b77148e6863abfc` | 8X8D3 block 103 tile 8 | map 0, square (3,3) facing east, column 10 row 7 | `new-phlan-civic-terrain-e19067bee381.png` (area 0) |
 | `tile:8:e26b92fadba50b8d889a6fd196a894e7522d35272a8daa59dae7752e34b12f1c` | 8X8D3 block 103 tile 4 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 0, square (2,0) facing west, column 6 row 5 | `new-phlan-building-exits-terrain-e26b92fadba5.png` (area 0) |
 | `tile:8:e761e6a0facf5cbda34a735d1b8599c90404f5a34979393df0120e4f06fc1191` | 8X8D3 block 103 tile 39 over 8X8D3 block 101 tile 35 | map 0, square (14,4) facing south, column 0 row 5 |  |
 | `tile:8:eb9e232b185d36eb5f04234d2860e02ab68b2f7adf09bb63bab6f1ee640cc5d9` | 8X8D3 block 103 tile 0 over 8X8D3 block 101 tile 46 | map 0, square (15,5) facing north, column 10 row 5 |  |
@@ -1375,19 +1372,19 @@ Map 0; WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 bloc
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
-| `tile:11:14ba42f38a9f3edda8214f1dec22d94f520717c59573aa456e72854416d753d4` | 8X8D3 block 102 tile 10 | map 0, square (10,8) facing north, column 5 row 5 | `slums-trade-row-terrain-14ba42f38a9f.png` (area 0, 5, 7, 20) |
-| `tile:11:15450d2266965cb35a6f45fd06dbf087e58bdd114e2cf88e56dba3e596898eb1` | 8X8D3 block 102 tile 52 | map 0, square (13,8) facing south, column 2 row 4 | `slums-trade-row-terrain-15450d226696.png` (area 0, 7, 20) |
+| `tile:11:14ba42f38a9f3edda8214f1dec22d94f520717c59573aa456e72854416d753d4` | 8X8D3 block 102 tile 10 | map 0, square (10,8) facing north, column 5 row 5 | `new-phlan-harbor-lane-terrain-14ba42f38a9f.png` (area 0, 5, 7, 8, 20) |
+| `tile:11:15450d2266965cb35a6f45fd06dbf087e58bdd114e2cf88e56dba3e596898eb1` | 8X8D3 block 102 tile 52 | map 0, square (13,8) facing south, column 2 row 4 | `new-phlan-south-market-terrain-0-15450d226696.png` (area 0, 7, 8, 20) |
 | `tile:11:1930bf3912f12f181acb825e6e35b4935e2fbbcf9c15b721db739476417319a4` | 8X8D3 block 102 tile 19 | map 0, square (10,8) facing west, column 10 row 7 | `new-phlan-south-market-terrain-0-1930bf3912f1.png` (area 0) |
 | `tile:11:2c07b5fab1efd528ab309be6c35e564bb46750de4ff813de5ff640b6ee22c2bf` | 8X8D3 block 102 tile 17 | map 0, square (13,8) facing west, column 1 row 6 | `slums-trade-row-terrain-2c07b5fab1ef.png` (area 0, 7, 20) |
 | `tile:11:34c8e1f49742be249357aba1a5180b7fbd7dff4350ff758ba579534fcd9cdb70` | 8X8D3 block 102 tile 57 | map 0, square (13,8) facing east, column 10 row 3 | `slums-shop-frontage-terrain-34c8e1f49742.png` (area 0, 7, 20) |
 | `tile:11:377420f76a2a02743aa7246fe5abc2356c698f47930ac0cbead1e1b62d2f1e44` | 8X8D3 block 102 tile 29 | map 0, square (8,8) facing south, column 8 row 5 | `valjevo-merchant-branch-terrain-377420f76a2a.png` (area 0, 5, 7) |
 | `tile:11:39cc1df080453d41cc72fbb1070c6f88e040bb5e36b16cb6cd948bd07b1180f5` | 8X8D3 block 102 tile 6 | map 0, square (10,8) facing west, column 10 row 4 | `new-phlan-south-market-terrain-0-39cc1df08045.png` (area 0) |
-| `tile:11:491c0e9a5a1fe2680ecad326e5a4a7920df0f9e348ad8b993c763c95cf886194` | 8X8D3 block 102 tile 46 | map 0, square (13,8) facing east, column 10 row 7 | `slums-worn-courtyard-491c0e9a5a1f.png` (area 0, 7, 20) |
+| `tile:11:491c0e9a5a1fe2680ecad326e5a4a7920df0f9e348ad8b993c763c95cf886194` | 8X8D3 block 102 tile 46 | map 0, square (13,8) facing east, column 10 row 7 | `new-phlan-building-paving-joins-0-491c0e9a5a1f.png` (area 0, 7, 8, 20) |
 | `tile:11:4e24210255ed185eb54a70dc98aae7c1beeeb78e5107d1d01b5a931dcae9a8ae` | 8X8D3 block 102 tile 59 | map 0, square (15,8) facing south, column 10 row 4 | `slums-worn-courtyard-4e24210255ed.png` (area 0, 7, 20) |
 | `tile:11:5073fed19218b31e25fe949a437664fe32b7c96cbaa20c93e5e796af062a2ecb` | 8X8D3 block 102 tile 31 | map 0, square (0,0) facing east, column 6 row 6 | `route-5073fed19218.png` (area 0, 4, 5, 6, 7, 8, 20) |
 | `tile:11:542aa3de288bfb705a13cf971acc398ce6f17f10c113a97d2339053598b2cce3` | 8X8D3 block 102 tile 26 | map 0, square (0,0) facing north, column 9 row 7 | `orc-rubble-053598b2cce3.png` (area 0, 3, 4, 5, 6, 7, 8, 20) |
 | `tile:11:582935262251c3c3b53ec076d372c7bebfc34f9076968d8314e319ea8cca75bd` | 8X8D3 block 102 tile 18 | map 0, square (8,8) facing south, column 7 row 5 | `valjevo-merchant-west-terrain-582935262251.png` (area 0, 7) |
-| `tile:11:5b786e63e19e9e670c1f1c5e88c35e2a13f2d0706d213c1aae0f2473145467ca` | 8X8D3 block 102 tile 7 | map 0, square (9,8) facing north, column 9 row 5 | `valjevo-lower-trim-5b786e63e19e.png` (area 0, 5, 7, 20) |
+| `tile:11:5b786e63e19e9e670c1f1c5e88c35e2a13f2d0706d213c1aae0f2473145467ca` | 8X8D3 block 102 tile 7 | map 0, square (9,8) facing north, column 9 row 5 | `new-phlan-harbor-lane-terrain-5b786e63e19e.png` (area 0, 5, 7, 8, 20) |
 | `tile:11:624c54394650999904d165e8083586d2c5d9dea1cfb089dcbb22e946cbbf6f37` | 8X8D3 block 102 tile 58 | map 0, square (13,8) facing east, column 9 row 3 | `slums-shop-frontage-terrain-624c54394650.png` (area 0, 7, 20) |
 | `tile:11:6350a67cee5ed480bf0c6c1c98180dff777b31313ae09d346fa708c132025c0a` | 8X8D3 block 102 tile 60 | map 0, square (9,13) facing west, column 7 row 4 | `new-phlan-south-market-terrain-0-6350a67cee5e.png` (area 0) |
 | `tile:11:6a31f8112a44a50377f8425ac2fde4f502b684c316174a4bdbd9d61f4c2b2d4b` | 8X8D3 block 102 tile 33 over sky colour 11 | map 0, square (0,0) facing south, column 2 row 2 | `valjevo-dungeon-doorway-terrain-6a31f8112a44.png` (area 0, 3, 4, 5, 6, 8, 20) |
@@ -2778,7 +2775,7 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 | first-person cells that show a sky or ground colour no existing artwork of the area shows | 4060 |
 | first-person cells of the overhead area view, which no existing artwork of the area confirms | 152 |
 | first-person cells of an area whose reading is not confirmed | 1545 |
-| first-person cells seen only from squares not connected to any square the existing artwork was made from | 720 |
+| first-person cells seen only from squares not connected to any square the existing artwork was made from | 717 |
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |
 | battlefield cells of pictures no artwork shows to have been on a battlefield | 2207 |
 | battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain) | not counted: needs the game's battlefield builder read |
