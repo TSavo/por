@@ -442,7 +442,7 @@ function checkExplorationGlyphMask(): void {
   const terrainHandoffs = [
     [2, 18, 18], [14, 31, 24], [15, 2, 2], [20, 29, 29], [21, 0, 0],
     [22, 23, 23], [23, 22, 22], [25, 1, 1], [25, 28, 28],
-    [27, 13, 13], [29, 18, 18], [29, 20, 20],
+    [26, 22, 22], [27, 13, 13], [27, 16, 16], [29, 18, 18], [29, 20, 20],
   ] as const;
   for (const [source, mapId, destination] of terrainHandoffs) {
     const sourceKey = `tile:${source}:${tile.hash}`;
