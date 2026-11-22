@@ -8673,6 +8673,21 @@ try {
       assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-bane")?.status, "ready-to-report");
       await step("j");
       await step("l");
+      const remains = "scene-illustration:area:24:ecl:b0b5:cue:shattered-altar";
+      assert.equal(frame.portrait, remains);
+      await step("up");
+      assert.equal(frame.portrait, undefined);
+      await waitForExplorationViewport();
+      for (const key of ["down", "up"]) await step(key);
+      assert.match(text(), /THEREMAINSOFANEVILALTARARENEARBY/i);
+      assert.equal(frame.portrait, remains);
+      await waitFor("the altar remains illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${remains}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const remainsShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "bane-altar-remains.png"), Buffer.from(remainsShot.data, "base64"));
+      await switchBothWays();
+      for (const key of ["down", "up"]) await step(key);
       assert.equal(frame.portrait, undefined);
       await waitForExplorationViewport();
     } else if (routeName === "mendor-basilisk-loot") {
