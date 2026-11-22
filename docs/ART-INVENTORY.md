@@ -371,6 +371,15 @@ The Tyrmor minotaurs alternate two paintings with native holds of 810 and
 1210 ms. Both Chrome data modes painted both poses and accepted a single C
 to open the separate battle introduction.
 
+The Valjevo tower trolls cycle through five paintings in eight native
+steps. The bundled resolver reuses the earlier poses for their return
+draws and for the equivalent return draws in the Wild Cave guards.
+The Wild Cave battle opening also keeps the portrait when Attack is
+selected from a non-base pose.
+The Old Phlan lizard patrol cycles through four poses at 210 ms each.
+Chrome verified the exact displayed loops for the trolls and patrol on
+both data sources, then opened their battle introductions with one key.
+
 At `708d1dcd`, the `kobold-cave-wyvern-approach` GOG 1.3 Chrome
 replay passed with both data sources. It checks all three native SPRIT
 members, their positions over WebGL, and the switch into the dialogue

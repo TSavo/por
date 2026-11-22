@@ -21,6 +21,12 @@ interface PortraitPart {
 type VisiblePicture = { pixels: Buffer; mark: number } & ({ picture: PictureMember } | { head: string; body: string });
 
 const sheetX = 224, sheetY = 8, pictureSize = 88, headHeight = 40;
+// These native members repeat the same picture with separate hold times.
+const repeatedPictureMembers = new Map<string, readonly number[]>([
+  ["PIC5.DAX:31", [0, 1, 2, 3, 4, 3, 2, 1]],
+  ["PIC6.DAX:117", [0, 1, 2, 3, 4, 5, 2]],
+  ["PIC6.DAX:118", [0, 1, 2, 3, 4, 3, 2, 1]],
+]);
 // The game's own data has blank pictures: a menu, a list or a sheet drawn over a picture leaves its
 // pixels as they were. Each held picture also keeps the write count of its cells, and a write there
 // since it was drawn means it is gone (cellWriteMark in the video module).
@@ -180,11 +186,11 @@ export function observeNativePictureArt(art: ReadonlySet<string>, sheetArt: Read
         return;
       }
       const { archive, block, member } = visible.picture;
-      // Diogenes's last draw repeats the third pose, with its own hold time.
-      const repeated = archive === "PIC6.DAX" && block === 117 && member === 6;
-      const artMember = holds.get(`${archive}:${block}:${member}`) === "base" ? 0 : repeated ? 2 : member;
+      const source = `${archive}:${block}`;
+      const repeated = repeatedPictureMembers.get(source)?.[member] ?? member;
+      const artMember = holds.get(`${source}:${member}`) === "base" ? 0 : repeated;
       for (const scope of scopes) {
-        for (const alias of sources(`${archive}:${block}`)) {
+        for (const alias of sources(source)) {
           const base = `portrait:${scope}${alias}:`;
           const exact = `${base}${artMember}:0`;
           const first = `${base}0:0`;

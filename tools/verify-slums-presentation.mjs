@@ -3986,32 +3986,24 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter"], portrait: "portrait:area:29:ecl:aa7a:PIC8.DAX:57:3:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["old-phlan-lizard-patrol-phases", {
-    slot: "B", inputs: ["up", "enter", "enter", ...Array(16).fill("z")],
-    portraitStops: {
-      3: "portrait:area:29:PIC8.DAX:57:0:0",
-      5: "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:1:0",
-      6: "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:2:0",
-      7: "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:3:0",
-    },
-    portrait: "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:1:0",
+    slot: "B", inputs: ["up"],
+    portrait: "portrait:area:29:PIC8.DAX:57:0:0",
     prompt: /ALIZARDMANLEADSAPACKOFGIANTLIZARDSONPATROL.*DOORTHATHASBEENNAILEDCLOSED/i,
-    phaseCaptures: {
-      5: "old-phlan-lizard-patrol-phase-1.png", 6: "old-phlan-lizard-patrol-phase-2.png", 7: "old-phlan-lizard-patrol-phase-3.png",
-    },
-    continuation: { inputs: ["enter"], portrait: "portrait:area:29:ecl:aa7a:PIC8.DAX:57:1:0", prompt: /ABATTLEBEGINS/i },
+    heldPortraitLoop: [
+      "portrait:area:29:PIC8.DAX:57:0:0",
+      ...[1, 2, 3].map(member => `portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:${member}:0`),
+    ],
+    continuation: { inputs: ["enter"], portrait: "portrait:area:29:PIC8.DAX:57:0:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["valjevo-tower-troll-phases", {
-    slot: "B", inputs: ["up", "b", "up", ...Array(23).fill("q")],
-    portraitStops: {
-      3: "portrait:area:5:PIC5.DAX:31:0:0",
-      11: "portrait:area:5:ecl:9ff9:PIC5.DAX:31:4:0",
-      14: "portrait:area:5:ecl:9ff9:PIC5.DAX:31:2:0",
-      15: "portrait:area:5:ecl:9ff9:PIC5.DAX:31:1:0",
-    },
-    portrait: "portrait:area:5:ecl:9ff9:PIC5.DAX:31:3:0",
+    slot: "B", inputs: ["up"],
+    portrait: "portrait:area:5:PIC5.DAX:31:0:0",
     prompt: /YOUSEEAPACKOFTROLLS.*THEYSEEMUNAWAREOFYOU/i,
-    phaseCaptures: { 11: "valjevo-tower-troll-phase-4.png", 14: "valjevo-tower-troll-phase-2.png", 15: "valjevo-tower-troll-phase-1.png" },
-    finalPhaseCapture: "valjevo-tower-troll-phase-3.png",
+    heldPortraitLoop: [
+      "portrait:area:5:PIC5.DAX:31:0:0",
+      ...[1, 2, 3, 4, 3, 2, 1].map(member => `portrait:area:5:ecl:9ff9:PIC5.DAX:31:${member}:0`),
+    ],
+    continuation: { inputs: ["c"], portrait: "portrait:area:5:ecl:a052:PIC5.DAX:31:0:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["wild-cave-thri-kreen-two-guards-phases", {
     slot: "A", inputs: ["up"],
@@ -7297,6 +7289,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
+      routeName === "old-phlan-lizard-patrol-phases" || routeName === "valjevo-tower-troll-phases" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       ["sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
