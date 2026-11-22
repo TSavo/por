@@ -1050,7 +1050,9 @@
           "evidence": [
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
-          "checks": []
+          "checks": [
+            "acceptance-slums"
+          ]
         },
         {
           "id": "classic.menu.camp",
@@ -1069,7 +1071,8 @@
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
           "checks": [
-            "acceptance-harness"
+            "acceptance-harness",
+            "acceptance-slums"
           ]
         },
         {
@@ -1078,7 +1081,9 @@
           "evidence": [
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
-          "checks": []
+          "checks": [
+            "acceptance-slums"
+          ]
         },
         {
           "id": "classic.menu.camp-alter",
@@ -1114,7 +1119,9 @@
           "evidence": [
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
-          "checks": []
+          "checks": [
+            "acceptance-slums"
+          ]
         },
         {
           "id": "classic.menu.combat-2",
@@ -1122,7 +1129,9 @@
           "evidence": [
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
-          "checks": []
+          "checks": [
+            "acceptance-slums"
+          ]
         },
         {
           "id": "classic.menu.combat-aim",
@@ -1130,7 +1139,9 @@
           "evidence": [
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
-          "checks": []
+          "checks": [
+            "acceptance-slums"
+          ]
         },
         {
           "id": "classic.menu.encounter",

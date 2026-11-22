@@ -169,8 +169,11 @@ export const exploring = /Area Cast View Encamp Search Look\s*$/;
 export const pressReturn = /Press <enter>\/<return> to continue\s*$/;
 
 // Fights. The game's own words, from its fight screens and from the text of GAME.OVR.
-/** A combatant's command menu. Cast and Turn are there only for a character who can. */
-export const combatMenu = /Move View Aim Use (?:Cast )?(?:Turn )?Quick Done\s*$/;
+/**
+ * A combatant's command menu. Cast and Turn are there only for a character who can, and Use only
+ * for one who carries something: a magic-user who has thrown her darts sees "Move View Aim Quick Done".
+ */
+export const combatMenu = /Move View Aim (?:Use )?(?:Cast )?(?:Turn )?Quick Done\s*$/;
 /** The menu of the Aim command. Target is offered only for a combatant the attacker can reach. */
 export const aimMenu = /Aim:Next Prev Manual (?:Target )?Center Exit\s*$/;
 /** Asked on a turn when no enemy is left that can still fight or be seen. No ends the fight. */
@@ -230,6 +233,8 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
   let discarded = 0;
   const texts = [];
   const narrations = [];
+  // The names on the last party list the game showed: a fight screen has no such list.
+  let friends = [];
   const flashed = [];
   const dice = [];
   createInterface({ input: runner.stderr }).on("line", (line) => {
@@ -243,6 +248,8 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
   const game = {
     /** The last frame the runner sent. */
     frame: undefined,
+    /** Set to take the characters back from Quick in the fights that follow: see `settle`. */
+    byHand: false,
     /** The save directory in use. */
     saves: directory,
     /** Every string the game has printed through its script text routine, in order. */
@@ -297,6 +304,8 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
         if (done) throw new Error(`The game stopped after ${JSON.stringify(command)}.\n${errors}\nLast screen:\n${game.frame ? game.text() : "(none)"}`);
         if (value.startsWith("POR_FRAME ")) {
           game.frame = JSON.parse(value.slice("POR_FRAME ".length));
+          const listed = party(game.frame);
+          if (listed.length) friends = listed.map(({ name }) => name);
           for (const shown of game.frame.animation ?? []) {
             if (shown.statusMessage) flashed.push({ text: menuLine(shown), ms: shown.durationMs });
           }
@@ -314,6 +323,11 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
      *
      * The frame says when the game waits, so nothing here compares screens. The earlier rule, "the
      * text stayed the same for three polls", is gone: no place was found that still needs it.
+     *
+     * While `game.byHand` is set, a poll the game makes while it moves a character by itself in a
+     * fight (the bottom line then reads "Move/Attack, Move Left = n") is answered with Space: the
+     * Quick Reference Card's "<Space>: Resets all characters to manual control". A character once
+     * given to Quick stays with the computer from fight to fight until that key.
      */
     async settle({ until, limit = 3000 } = {}) {
       for (let polls = 0; ; polls++) {
@@ -323,7 +337,8 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
           return game.frame;
         }
         if (polls >= limit) game.fail(`The game was still running by itself after ${limit} keyboard polls${until ? ` without showing ${until}` : ""}.`);
-        if (!await game.send(":travel-poll")) game.fail("The runner refused to go on at a frame that does not wait for a key.");
+        const takeControl = game.byHand && /^Move\/Attack, Move Left = \d+$/.test(menuLine(game.frame));
+        if (!await game.send(takeControl ? "space" : ":travel-poll")) game.fail("The runner refused to go on at a frame that does not wait for a key.");
       }
     },
     /** Press one key and return the frame the game shows when it next waits for the player. */
@@ -524,23 +539,80 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
      * what `combatants` lists. Returns the target as it was shown before the attack, or undefined,
      * with the menu as it was, when no combatant in reach was chosen.
      */
-    async aim(choose) {
+    async aim(choose, giveUp) {
       if (!game.fighting()) game.fail("Only a combatant's own menu has Aim.");
       await game.press("a", aimMenu, "A opens Aim.");
+      return game.target(choose, giveUp);
+    },
+    /**
+     * With the Aim menu open (after Aim, or after choosing a spell that asks for a target): Next
+     * until `choose(target, place)` accepts a combatant that can be reached, then Target. Returns
+     * that combatant, or undefined after leaving the Aim menu with Exit when none was chosen.
+     * `giveUp(target, place)`, when given, ends the search early at a combatant it accepts.
+     */
+    async target(choose, giveUp) {
+      game.expect(aimMenu, "Targets are chosen from the Aim menu.");
+      let self;
       for (let place = 0; ; place++) {
         const shown = game.combatant();
-        if (!shown || shown.range === undefined) game.fail("Aim does not show whom it is aimed at.");
-        if (place && shown.range === 0) break;
+        if (!shown) game.fail("Aim does not show whom it is aimed at.");
+        // Aim starts on the combatant itself and Next comes round to it again. With a weapon the
+        // game prints the range, 0 for the combatant itself; for a spell it names the spell
+        // ("Spell:Sleep") and prints no range, so there the combatant is known by its name,
+        // which no other combatant has (monsters of a kind share theirs; party members do not).
+        if (!place) self = shown.name;
+        if (place && (shown.range === 0 || (shown.range === undefined && shown.name === self))) break;
         if (place >= 80) game.fail("Aim's Next did not come back to the combatant itself.");
         const target = { ...shown, reachable: /\bTarget\b/.test(game.menu()) };
         if (target.reachable && choose(target, place)) {
           await game.press("t");
           return target;
         }
+        if (giveUp?.(target, place)) break;
         await game.press("n", aimMenu, "N aims at the next combatant.");
       }
-      await game.press("e", combatMenu, "E leaves Aim.");
+      await game.press("e");
       return undefined;
+    },
+    /**
+     * One combatant's turn played by hand, from its command menu, with the game's own commands:
+     *   - a caster who has one of `spells` in memory (patterns, tried in order) casts it at the
+     *     nearest enemy the game lets it target;
+     *   - otherwise the combatant attacks the nearest enemy in reach, with Aim and Target;
+     *   - otherwise it ends its turn with Done and Guard, and waits for the enemy to come.
+     * An enemy is a combatant whose name is not one of the party's (the names of the last party
+     * list the game showed). Aim lists the combatants nearest first, so the search stops at the
+     * first enemy: if that one is out of reach, the ones behind it are taken to be too.
+     * Nobody is handed to Quick, so the next fight is by hand too.
+     * Returns what was done: { cast, at } | { attacked } | { guarded: true }.
+     */
+    async playTurn({ spells = [] } = {}) {
+      const enemy = ({ name }) => !friends.includes(name);
+      if (/\bCast\b/.test(game.menu()) && spells.length) {
+        await game.press("c", /Choose Spell: Cast Exit\s*$/, "Cast lists the spells in memory.");
+        const known = game.rows().map((row) => row.trim());
+        const spell = spells.find((pattern) => known.some((row) => pattern.test(row)));
+        if (spell) {
+          const cast = await game.selectLine(spell);
+          await game.press("c");
+          if (aimMenu.test(game.menu())) {
+            const at = await game.target(enemy, enemy);
+            if (at) return { cast, at };
+          } else if (!/Choose Spell: Cast Exit\s*$/.test(game.menu())) return { cast };
+        }
+        // No such spell, or nobody to cast it at: back to the command menu. Leaving Aim with a
+        // spell in hand, the game asks "Abort Spell?".
+        for (let presses = 0; !combatMenu.test(game.menu()); presses++) {
+          if (presses >= 3) game.fail("Leaving the spell list did not return to the combatant's menu.");
+          await game.press(/Abort Spell\? Yes No\s*$/.test(game.menu()) ? "y" : "e");
+        }
+      }
+      const attacked = await game.aim(enemy, enemy);
+      if (attacked) return { attacked };
+      if (!combatMenu.test(game.menu())) game.fail("Leaving Aim did not return to the combatant's menu.");
+      await game.press("d");
+      if (/Guard Delay Quit (?:Bandage )?(?:Speed )?Exit\s*$/.test(game.menu())) await game.press("g");
+      return { guarded: true };
     },
     /**
      * Fight until the fight ends, reacting to what the game shows and never counting presses.

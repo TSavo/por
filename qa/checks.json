@@ -179,7 +179,7 @@
     },
     {
       "id": "acceptance-slums",
-      "title": "Slums walkthrough scenarios on the game itself: the entry from New Phlan, the fight with the orcs at location 1 fought with the game's own commands, their scroll readied and read (with the messages the game flashes on the bottom line), and the five flee squares",
+      "title": "Slums walkthrough scenarios on the game itself: the entry from New Phlan, the fight with the orcs at location 1 fought with the game's own commands, their scroll readied and read (with the messages the game flashes on the bottom line), the five flee squares, and the goblin armsmaster at location 2 after healing in camp with the cleric's spells and bashing the locked door",
       "command": "npm run acceptance:slums",
       "reference": "game-data",
       "needs": [

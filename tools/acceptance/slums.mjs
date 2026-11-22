@@ -18,8 +18,12 @@
 
 import assert from "node:assert/strict";
 import { addReadyMadeParty, beginAdventuring, exploring, pressReturn, startGame } from "./harness.mjs";
+import { breakCamp, healInCamp, hurt, makeCamp } from "./party-care.mjs";
 
 const proved = [];
+const started = Date.now();
+/** A line of progress on the error stream, with the seconds since the script began: the long tests say where they are. */
+const progress = (line) => console.error(`[${Math.round((Date.now() - started) / 1000)}s] ${line}`);
 const flat = (text) => text.replace(/\s+/g, " ").trim();
 
 // Script variables (the script keeps its lasting state in them; none of it is on screen).
@@ -29,12 +33,16 @@ const clearPoints = 0x4abb;
 const orcsFought = 0x4aca;
 /** Random encounters beaten (b12a). */
 const randomFights = 0x4a80;
+/** 255 once the fight with the goblins at (10,1) has been fought (9f0c). */
+const goblinsFought = 0x4acb;
 
 const entryText = "YOU HAVE ENTERED THE MONSTER-CRAWLING SLUMS OF PHLAN. SMALL, UGLY THINGS SCURRY FROM BENEATH YOUR FEET. IN THE DISTANCE, AN ALARM SOUNDS.";
 /** The menu of a random encounter: Advance when the monsters are far, Parlay when they are near. */
 const encounterMenu = /Combat Wait Flee (?:Advance|Parlay)\s*$/;
 /** The treasure menu after a won fight. */
 const treasureMenu = /View Take Pool Share Exit\s*$/;
+/** The same menu once everything has been taken or shared out: Take and Share are gone. */
+const emptiedTreasureMenu = /^View Pool Exit$/;
 // The five squares a flight ends on, in the order of the script's tables at b6f2 (x) and b6f7 (y).
 // The scenario acceptance.slums.flee-squares gives the same five.
 const fleeSquares = [[15, 4], [14, 6], [11, 5], [11, 2], [9, 2]];
@@ -51,7 +59,7 @@ function printedInOrder(game, from, expected, why) {
 
 /** Start a game with the six ready-made characters, go through the opening and step west into the Slums. */
 async function enterSlums(options) {
-  const game = await startGame({ seconds: 500, watch: [clearPoints, orcsFought, randomFights], ...options });
+  const game = await startGame({ seconds: 500, watch: [clearPoints, orcsFought, randomFights, goblinsFought], ...options });
   try {
     await addReadyMadeParty(game);
     await beginAdventuring(game);
@@ -74,7 +82,7 @@ async function leaveFight(game) {
   let treasure = false;
   for (let presses = 0; !exploring.test(game.menu()); presses++) {
     if (presses >= 12) game.fail("The end of the fight did not lead back to the exploration menu.");
-    if (treasureMenu.test(game.menu())) { treasure = true; await game.press("e"); }
+    if (treasureMenu.test(game.menu()) || emptiedTreasureMenu.test(game.menu())) { treasure = true; await game.press("e"); }
     else if (/^(?:Take: (?:Money )?(?:Items )?Exit|Items: Take Exit)$/.test(game.menu())) await game.press("e");
     // "There is still treasure left. Do you want to go back and claim your treasure?"
     else if (/claim your treasure\? Yes No\s*$/.test(game.text())) await game.press("n");
@@ -402,7 +410,188 @@ async function flee() {
   }
 }
 
-const tests = { entry, orcs, flee };
+/**
+ * At the treasure menu after a won fight: `taker` takes each item of the loot that matches one of
+ * `wanted` (the rest is left: a party cannot carry sixteen goblins' arms), the money is shared out
+ * with the game's Share, and the party leaves. Returns the whole loot list as the game named it.
+ */
+async function collect(game, taker, wanted = [/./]) {
+  game.expect(treasureMenu, "A won fight with loot leads to the treasure menu.");
+  const lootMenu = /Items: Take (?:Next )?(?:Prev )?Exit\s*$/;
+  const listed = () => {
+    const rows = game.rows().map((row) => row.trim()).filter(Boolean);
+    return rows.slice(rows.indexOf("Loot") + 1, -1);
+  };
+  const loot = [];
+  await game.highlight(taker);
+  await game.press("t", /Take: (?:Money )?(?:Items )?Exit\s*$/, "Take offers what there is.");
+  const money = /\bMoney\b/.test(game.menu());
+  if (/\bItems\b/.test(game.menu())) {
+    await game.press("i", lootMenu, "Items lists the loot.");
+    // Read the whole list, then come back to its top. Next moves the list up by one row.
+    loot.push(...listed());
+    let pages = 1;
+    for (; /\bNext\b/.test(game.menu()); pages++) {
+      if (pages >= 60) game.fail("The loot list is longer than this test expects.");
+      await game.press("n", lootMenu, "Next moves the loot list on.");
+      loot.push(listed().at(-1));
+    }
+    for (let back = 1; back < pages; back++) await game.press("p", lootMenu, "Prev moves the loot list back.");
+    // Take what is wanted from the first page, one item at a time.
+    for (let takes = 0; lootMenu.test(game.menu()); takes++) {
+      if (takes >= 20) game.fail("The loot list did not come to an end.");
+      const next = listed().find((name) => wanted.some((pattern) => pattern.test(name)));
+      if (!next) break;
+      await game.selectLine(new RegExp(`^${next.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`));
+      // The page fills up again from the next one, so its length says nothing: the caller looks
+      // for the item among the taker's own.
+      await game.press("t");
+      if (takes >= wanted.length && wanted.every((pattern) => pattern.source !== ".")) break;
+    }
+  }
+  const treasure = () => treasureMenu.test(game.menu()) || emptiedTreasureMenu.test(game.menu()) || /^View (?:Take )?Pool (?:Share )?Exit$/.test(game.menu());
+  for (let presses = 0; !treasure(); presses++) {
+    if (presses >= 4) game.fail("Taking the loot did not lead back to the treasure menu.");
+    await game.press("e");
+  }
+  if (money) {
+    await game.press("s");
+    if (!treasure()) game.fail("Share did not lead back to the treasure menu.");
+  }
+  for (let presses = 0; !exploring.test(game.menu()); presses++) {
+    if (presses >= 12) game.fail("Leaving the treasure did not lead back to the exploration menu.");
+    if (treasure()) await game.press("e");
+    else if (/claim your treasure\? Yes No\s*$/.test(game.text())) await game.press("n");
+    else if (pressReturn.test(game.menu())) await game.press("enter");
+    else game.fail("Leaving the treasure, the game shows something this test does not know.");
+  }
+  return loot;
+}
+
+/** The members who are on their feet: the party list shows a character who is down with 0 hit points. */
+const standing = (game) => game.party().filter(({ hp }) => hp > 0).length;
+
+/**
+ * In camp on a square where rest is safe: the cleric heals the party with his own cures until the
+ * game shows nobody as hurt (party-care.mjs). Fails with the screen if a rest is interrupted.
+ */
+async function healHere(game) {
+  if (!hurt(game).length) return { cures: 0, rests: 0, healed: true };
+  await makeCamp(game);
+  const healing = await healInCamp(game, [cleric]);
+  if (!healing.healed) game.fail(`Healing in camp did not heal the party: ${JSON.stringify(healing)}.`);
+  await breakCamp(game);
+  return healing;
+}
+
+/** The experience the goblins' fight is worth to the whole party (see the test). */
+const goblinExperience = 545;
+const goblinText = "A HEALTHY-LOOKING GOBLIN IS INSTRUCTING A GROUP OF YOUNG WARRIORS. HE SMILES AND SAYS, 'I SEE OUR OPPONENTS HAVE ARRIVED.'";
+
+/**
+ * acceptance.slums.goblin-armsmaster: the set fight at location 2, (10,1). The party first beats
+ * the orcs at (13,1), every turn by hand so that nobody is left to Quick, and heals in their room,
+ * where rest is safe. The goblins' room is entered from the south: the map (GEO block 20) has a
+ * door of its second kind between (10,2) and (10,1), which the game shows as "Locked. Bash Pick Exit".
+ */
+async function goblins() {
+  const game = await enterSlums();
+  try {
+    await walkFighting(game, "WSSSWNNNNNEN");
+    await game.face("W");
+    await game.press("up");
+    at(game, 13, 1, "Location 1 is (13,1).");
+    // The set fights are fought by hand. A random fight on the way is left to Quick, which stays
+    // on from fight to fight, so the characters are taken back with Space when a set fight begins.
+    game.byHand = true;
+    await game.startFight("enter");
+    await game.win({ turn: (game) => game.playTurn() });
+    game.byHand = false;
+    await game.press("enter", treasureMenu, "The orcs leave treasure.");
+    assert.deepEqual(await collect(game, cleric), ["Clerical Scroll With 2 Spells"], "The cleric takes the orcs' scroll.");
+    progress(`goblins: the orcs are beaten; the party list shows ${game.party().map(({ hp }) => hp).join(" ")}`);
+    const healing = await healHere(game);
+    progress(`goblins: healed with ${healing.cures} cures and ${healing.rests} rests; ${game.party().map(({ hp }) => hp).join(" ")}`);
+    assert.deepEqual(hurt(game), [], "After healing in the orcs' room the game shows nobody as hurt.");
+
+    // To the square south of the goblins' room. A random fight on the way is fought by hand; a
+    // party that comes out of it hurt goes back to the orcs' room, heals and sets out again.
+    let fights = 0, returns = 0;
+    for (;;) {
+      fights += await walkFighting(game, "ESWWWW");
+      at(game, 10, 2, "The square south of the goblins' room is (10,2).");
+      if (!hurt(game).length) break;
+      if (++returns > 3) game.fail("Three returns to the orcs' room did not bring the party to the goblins unhurt.");
+      fights += await walkFighting(game, "EEEENW");
+      at(game, 13, 1, "The party is back in the orcs' room.");
+      await healHere(game);
+    }
+    progress(`goblins: at the door after ${fights} random fights and ${returns} returns`);
+    assert.equal(game.variable(goblinsFought), 0, "The goblins have not been fought yet.");
+    const before = { points: game.variable(clearPoints) };
+
+    // The door is locked: Bash until it gives. Each try is the game's own roll.
+    await game.face("N");
+    let mark = game.printed.length;
+    let bashes = 0;
+    for (; game.here().y !== 1; bashes++) {
+      if (bashes >= 12) game.fail("Twelve tries did not open the door to the goblins' room.");
+      if (!/Locked\. Bash Pick Exit\s*$/.test(game.menu())) await game.press("up", /Locked\. Bash Pick Exit\s*$/, "The door north of (10,2) is locked.");
+      await game.press("b");
+    }
+    at(game, 10, 1, "Location 2 is (10,1).");
+    printedInOrder(game, mark, [goblinText], "Entering the room prints the armsmaster's text.");
+    game.expect(pressReturn, "The text waits for return before the fight.");
+
+    // The fight: 8 GOBLIN GUARD (#2) and 1 GOBLIN LEADER (#12), and the six characters.
+    game.byHand = true;
+    await game.startFight("enter");
+    const listed = await game.combatants();
+    const count = (wanted) => listed.filter(({ name }) => name === wanted).length;
+    assert.deepEqual([count("GOBLIN GUARD"), count("GOBLIN LEADER"), listed.length], [8, 1, 15],
+      `The fight is against eight goblin guards and one goblin leader; Aim listed ${listed.map(({ name }) => name).join(", ")}.`);
+    // The magic-users open with Sleep; everyone else attacks what is in reach or stands guard.
+    const did = [];
+    const { xp } = await game.win({
+      turn: async (game) => {
+        const who = game.combatant().name;
+        const turn = await game.playTurn({ spells: [/^Sleep$/] });
+        did.push(`${who} ${turn.cast ? `casts ${turn.cast}` : turn.attacked ? `attacks ${turn.attacked.name}` : "guards"}`);
+        if (did.length % 12 === 0) progress(`goblins: ${did.length} turns fought`);
+      },
+    });
+    console.log(`goblins: ${healing.cures} cures and ${healing.rests} rests after the orcs, ${fights} random fights and ${returns} returns on the way, ${bashes} bashes; ${did.length} turns, ${did.filter((turn) => /casts/.test(turn)).length} spells; ${xp} experience points`);
+    await game.press("enter", treasureMenu, "A won fight with loot leads to the treasure menu.");
+    game.byHand = false;
+    // The experience of a fight is shared among the characters still on their feet, rounded down.
+    // The scenario's 90 is for six. On 2026-11-21 the game awarded 109 with five standing (three
+    // fights, different characters down) and 181 with three: 545 points in all is the one total
+    // that gives all three figures (6 x 90 = 540 to 545, 5 x 109 = 545 to 549, 3 x 181 = 543 to 545).
+    const up = standing(game);
+    if (!up) game.fail("Nobody is standing after a fight the party won.");
+    assert.equal(xp, Math.floor(goblinExperience / up), `With ${up} characters standing each receives ${Math.floor(goblinExperience / up)} experience points: ${goblinExperience} shared.`);
+    // The loot is what nine goblins carried. One suit among it is plain "Leather Armor", where the
+    // guards wore studded leather: the armsmaster's. The game names an unidentified magic item by
+    // its plain name, so the "+1" of the scenario is not on this screen.
+    const loot = await collect(game, cleric, [/^Leather Armor$/]);
+    progress(`goblins: won with ${up} standing; loot ${JSON.stringify(loot)}`);
+    assert.equal(loot.filter((name) => name === "Leather Armor").length, 1, `The treasure holds one suit of leather armor; the game listed ${JSON.stringify(loot)}.`);
+    await game.viewSheet(cleric);
+    await game.press("i", /Ready Use Trade Drop Halve Join Exit\s*$/, "Items lists what the cleric carries.");
+    assert.ok(game.items().some(({ name, ready }) => name === "Leather Armor" && !ready), `The cleric now carries the leather armor: ${JSON.stringify(game.items())}`);
+    await game.press("e");
+    await game.press("e", exploring, "Exit leaves the character sheet.");
+    at(game, 10, 1, "After the fight the party stands in the room.");
+    assert.equal(game.variable(goblinsFought), 255, "The script records the goblins' fight as fought.");
+    assert.equal(game.variable(clearPoints), before.points + 1, "The fight credits exactly one clear point.");
+    assert.equal(game.discarded, 0, "No key press may be thrown away.");
+    return loot;
+  } finally {
+    game.close();
+  }
+}
+
+const tests = { entry, orcs, flee, goblins };
 const wanted = process.argv.slice(2);
 for (const name of wanted) if (!(name in tests)) throw new Error(`No test named ${name}. The tests are: ${Object.keys(tests).join(", ")}.`);
 if (wanted.length) {
