@@ -13,8 +13,10 @@ export function observeNativeBattleTerrain(pictures: readonly PictureRecord[], a
     return shapes.length === 1 && shape?.width === 24 && shape.height === 24 && shape.cellHashes
       ? [[`${file}:${block}`, shape.cellHashes.map((cells, frame) => {
         const key = `combat:RANDCOM.DAX:1:0:${frame}`;
+        // The fallen-unit marker has a dedicated transparent sprite, which the
+        // pixel matcher also draws over the battlefield in the original data path.
         const whole = file === "RANDCOM.DAX" && block === 1 && combatArt.has(key) &&
-          cells.some(hash => hash !== blankCell && !art.has(`battle-tile:${hash}`));
+          (frame === 5 || cells.some(hash => hash !== blankCell && !art.has(`battle-tile:${hash}`)));
         return { cells, prop: whole ? key : undefined, reflected: frame === 0 };
       })] as const] : [];
   }));

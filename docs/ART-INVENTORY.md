@@ -419,6 +419,12 @@ shield, teal traveler, and jade guard also have new pose pairs. All 40
 base frames and their material masks were checked at 96×96. In a Chrome
 replay from the controlled Grishnak checkpoint, GOG 1.3 displayed the
 scout and the blue, plum, and ochre swordsmen in Enhanced combat.
+
+The Slums parity replay traced the fallen-unit marker to RANDCOM frame 5,
+copied into battlefield slot 39. In the orc fight it displayed at native
+position `(152,104)` in seven settled frames in both data modes. The
+bundled renderer draws the same transparent fallen-unit PNG as the
+original-data renderer. Its native terrain observer emits it as a prop.
 Kuto's gnoll-watch portrait now includes the first animation phase from
 `PIC8.DAX` block 73, member 1. The replay selected the gnoll roster and
 then used the original Advance and idle inputs. Chrome witnessed the
