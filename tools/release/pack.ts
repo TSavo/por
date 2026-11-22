@@ -5,7 +5,8 @@
  * when it is installed, else on the machine POR_NSIS_HOST names over ssh (apt-get install nsis there);
  * with neither, the installer is skipped with a message.
  *
- *   dist/Pool-of-Radiance-<version>-mac.dmg             Pool of Radiance.app, to drag to Applications
+ *   dist/Pool-of-Radiance-<version>-mac-arm64.dmg       Pool of Radiance.app for Apple silicon, to drag to Applications
+ *   dist/Pool-of-Radiance-<version>-mac-x64.dmg         the same for Intel Macs
  *   dist/Pool-of-Radiance-<version>-windows-setup.exe   NSIS installer to Program Files
  *   dist/pool-of-radiance-<version>-linux-x64.tar.gz    a folder with a start script
  *
@@ -44,7 +45,10 @@ const platforms = requested[0] === "--check" ? [] : requested.length ? requested
 for (const platform of platforms) {
   if (!["mac", "windows", "linux"].includes(platform)) throw new Error(`Unknown platform ${platform}: use mac, windows or linux`);
 }
-if (process.platform !== "darwin") throw new Error("release:pack uses macOS's own tools (hdiutil, osacompile, sips, iconutil, lipo)");
+const onMac = process.platform === "darwin";
+// The Mac and Windows packages need macOS's own tools (hdiutil, osacompile, sips, iconutil, codesign); the Linux
+// archive alone can be packed elsewhere (the icon is cut with python3 and Pillow).
+if (!onMac && platforms.some((platform) => platform !== "linux")) throw new Error("release:pack for mac and windows uses macOS's own tools; on this machine pack only linux");
 
 const started = Date.now();
 const log = (message: string) => console.log(`[${((Date.now() - started) / 1000).toFixed(0).padStart(4)}s] ${message}`);
@@ -194,15 +198,21 @@ for (const path of payloadPaths) if (!existsSync(join(payload, path))) throw new
 const icons = join(stages, "icons");
 mkdirSync(icons, { recursive: true });
 const square = join(icons, "square.png");
-run("sips", ["-c", "800", "800", fromPortRoot("upgrades", "harbor-title.png"), "--out", square]);
+if (onMac) run("sips", ["-c", "800", "800", fromPortRoot("upgrades", "harbor-title.png"), "--out", square]);
 const iconset = join(icons, "AppIcon.iconset");
 mkdirSync(iconset);
-for (const size of [16, 32, 128, 256, 512]) {
-  run("sips", ["-z", String(size), String(size), square, "--out", join(iconset, `icon_${size}x${size}.png`)]);
-  run("sips", ["-z", String(size * 2), String(size * 2), square, "--out", join(iconset, `icon_${size}x${size}@2x.png`)]);
+if (onMac) {
+  for (const size of [16, 32, 128, 256, 512]) {
+    run("sips", ["-z", String(size), String(size), square, "--out", join(iconset, `icon_${size}x${size}.png`)]);
+    run("sips", ["-z", String(size * 2), String(size * 2), square, "--out", join(iconset, `icon_${size}x${size}@2x.png`)]);
+  }
+} else {
+  run("python3", ["-c", "import sys\nfrom PIL import Image\nim=Image.open(sys.argv[1]).convert('RGBA')\nw,h=im.size\n" +
+    "l,t=(w-800)//2,(h-800)//2\nim.crop((l,t,l+800,t+800)).resize((256,256),Image.LANCZOS).save(sys.argv[2])",
+    fromPortRoot("upgrades", "harbor-title.png"), join(iconset, "icon_256x256.png")]);
 }
 const icns = join(icons, "AppIcon.icns");
-run("iconutil", ["-c", "icns", iconset, "-o", icns]);
+if (onMac) run("iconutil", ["-c", "icns", iconset, "-o", icns]);
 // A Windows icon holding one 256-pixel PNG.
 const png256 = readFileSync(join(iconset, "icon_256x256.png"));
 const ico = Buffer.alloc(22);
@@ -247,20 +257,20 @@ async function nodeBuild(build: string, kind: "tar.gz" | "tar.xz" | "zip"): Prom
 const outputs: string[] = [];
 const size = (path: string) => `${(statSync(path).size / 1e6).toFixed(0)} MB`;
 
-if (platforms.includes("mac")) {
-  const [arm, intel] = [await nodeBuild("darwin-arm64", "tar.gz"), await nodeBuild("darwin-x64", "tar.gz")];
-  const dmgFolder = join(stages, "mac");
+// One disk image per architecture: each holds a single Node, not the two joined with lipo (150 MB less each).
+for (const arch of platforms.includes("mac") ? ["arm64", "x64"] : []) {
+  const nodeDir = await nodeBuild(`darwin-${arch}`, "tar.gz");
+  const dmgFolder = join(stages, `mac-${arch}`);
   const bundle = join(dmgFolder, "Pool of Radiance.app");
   mkdirSync(dmgFolder, { recursive: true });
-  log("compiling the Mac app");
+  log(`compiling the Mac app (${arch})`);
   run("osacompile", ["-s", "-o", bundle, fromPortRoot("tools", "release", "mac-app.applescript")]);
   const contents = join(bundle, "Contents");
   cloneInto(payload, join(contents, "Resources"));
-  // One Node for Apple silicon and Intel Macs.
-  run("lipo", ["-create", join(arm, "bin", "node"), join(intel, "bin", "node"), "-output", join(contents, "MacOS", "node")]);
+  copyFileSync(join(nodeDir, "bin", "node"), join(contents, "MacOS", "node"));
   chmodSync(join(contents, "MacOS", "node"), 0o755);
   mkdirSync(join(contents, "Resources", "licenses"), { recursive: true });
-  copyFileSync(join(intel, "LICENSE"), join(contents, "Resources", "licenses", "node-LICENSE"));
+  copyFileSync(join(nodeDir, "LICENSE"), join(contents, "Resources", "licenses", "node-LICENSE"));
   copyFileSync(icns, join(contents, "Resources", "applet.icns"));
   rmSync(join(contents, "Resources", "Assets.car"), { force: true });
   const plist = join(contents, "Info.plist");
@@ -270,14 +280,14 @@ if (platforms.includes("mac")) {
     ["CFBundleDisplayName", "Pool of Radiance"], ["CFBundleShortVersionString", version], ["CFBundleVersion", version],
     ["LSMinimumSystemVersion", "13.5"], ["CFBundleIconFile", "applet"],
   ]) run("plutil", ["-replace", key!, "-string", value!, plist]);
-  checkNothingOriginal(contents, "the Mac app", []);
-  checkGame(join(contents, "Resources"), "the Mac app");
+  checkNothingOriginal(contents, `the Mac app (${arch})`, []);
+  checkGame(join(contents, "Resources"), `the Mac app (${arch})`);
   // The app is changed after osacompile signed it. An ad-hoc signature seals it again; a Developer ID replaces it.
   log("sealing the app with an ad-hoc signature");
   run("codesign", ["--force", "--sign", "-", bundle]);
   run("codesign", ["--verify", "--strict", bundle]);
   symlinkSync("/Applications", join(dmgFolder, "Applications"));
-  const dmg = join(dist, `Pool-of-Radiance-${version}-mac.dmg`);
+  const dmg = join(dist, `Pool-of-Radiance-${version}-mac-${arch}.dmg`);
   rmSync(dmg, { force: true });
   log("building the disk image");
   run("hdiutil", ["create", "-quiet", "-volname", "Pool of Radiance", "-srcfolder", dmgFolder, "-fs", "HFS+", "-format", "ULFO", "-ov", dmg]);
