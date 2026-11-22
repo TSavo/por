@@ -452,8 +452,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const scriptKey = `scene-illustration:area:${area}:ecl:${battleCursor?.toString(16)}${portraitCaller === undefined ? "" : `:caller:${portraitCaller.toString(16)}`}`;
       // The final reward uses the upper rows for the XP notice and the
       // bottom row for treasure actions, like the Kuto cache and Valhingen tombs.
-      const illustrationText = scriptKey === "scene-illustration:area:8:ecl:9f3f:caller:9a4a"
-        ? glyphs.filter(([cell]) => finalCouncilReward || cell < 640).sort(([a], [b]) => a - b)
+      const councilRewardScreen = scriptKey === "scene-illustration:area:8:ecl:9f3f:caller:9a4a";
+      const illustrationText = councilRewardScreen && finalCouncilReward
+        ? [...glyphs].sort(([a], [b]) => a - b)
           .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase()
         : baneCacheCue || scriptKey === "scene-illustration:area:29:ecl:9ffb" || scriptKey === "scene-illustration:area:10:ecl:a3e4" ||
           scriptKey === "scene-illustration:area:10:ecl:ad29" || scriptKey === "scene-illustration:area:10:ecl:b373" ||
@@ -501,7 +502,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           illustrationScope = `${scriptKey}:cue:lab-door`;
         }
       }
-      const illustration = scene || wellLookAway || towerLookAway || barracksFloorNote
+      const illustration = scene || wellLookAway || towerLookAway || barracksFloorNote ||
+        (councilRewardScreen && !finalCouncilReward)
         ? undefined : matchScriptIllustration(illustrationScope, illustrationText, portraitKeys);
       if (captureIllustration && (!illustration || animation.at(-1)?.portrait === illustration)) return;
       const menu = menuText(text);
