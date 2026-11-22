@@ -141,20 +141,29 @@ encounter branches can use the same source frame, and some script scenes
 have no archive picture. Branch-specific artwork can improve live coverage
 without changing the source-frame count.
 
-The DOS 1.0 and GOG 1.3 inventories at `f401f867` each cover 760 of 833 archive frames
+The DOS 1.0 and GOG 1.3 inventories at `4ae6efc8` each cover 760 of 833 archive frames
 (91.2%). Of the 73 unlinked rows, 34 are PIC, 33 are SPRIT, and six are
 CPIC. There are 59 distinct nonuniform images among those rows. The
 inventory found no unambiguous script picture references pointing to an
 unlinked frame. Check live draws before treating those rows as missing
 artwork the player can see.
 
-Each run loaded 8,506 mappings from 7,334 PNG files with zero artwork
-load or portrait match issues. Each counted 397 distinct scripted scene
-illustrations across 867 scene bindings. These counts exclude proofs of
+Each run loaded 8,534 mappings from 7,356 PNG files with zero artwork
+load or portrait match issues. Each counted 409 distinct scripted scene
+illustrations across 889 scene bindings. These counts exclude proofs of
 visual quality and coverage of unplayed branches.
 
+The separate `verify:art-catalogue` audit checks whether the standalone
+`game/` dataset can derive manifest keys from its stored identities.
+At `4ae6efc8` it could derive 7,687 of 8,547 keys, with 770 of the
+860 failures involving composed exploration tiles. The remaining
+failures include script and cue resolution as well as battlefield
+tiles. Use that audit for standalone data work and the original-file
+inventories and browser replays for the current Enhanced coverage.
+See [GAME-DATA.md](GAME-DATA.md).
+
 Running the same inventory against the DOS 1.0 and GOG 1.3 data at
-`f401f867` produced identical replacement, archive coverage, atlas,
+`4ae6efc8` produced identical replacement, archive coverage, atlas,
 and named monster pose records. All 68 script picture references select
 the same source IDs in both editions. Four New Phlan references have
 addresses three bytes later in 1.3: the jeweler, the arms and armor
