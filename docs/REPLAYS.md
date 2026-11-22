@@ -80,6 +80,13 @@ those script variables to each frame as `scriptVariables`.
 
 A saved game holds a copy of its area's script. A checkpoint the first release saved, loaded on 1.3, runs the first release's script for that area, so the positions there are not moved. Only New Phlan's script differs between the releases (three bytes longer in 1.3 from `a692` on).
 
+The canonical `new-phlan-outbound-ferry` replay passes on GOG 1.3 with the local
+`parallel-harbor-master-south-A.json` checkpoint. It checks the harbor master's
+portrait, both ferry art phases, and arrival at Sokal Keep. The similarly named
+harbor checkpoints start from different positions or quest states. The canonical
+`phlan-priest-tempus` replay also passes on 1.3 with `parallel-priest-tempus-A.json`
+and verifies that the portrait persists through the healing menu.
+
 The host reads which release's script is in memory and reports the first release's numbering in both cases. Use that numbering for New Phlan artwork and narration keys. The artwork replays use the same route names on both editions.
 
 Saves from the first release are not a supported player feature. A replay for 1.3 should make its checkpoint on 1.3.
