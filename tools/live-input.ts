@@ -17,7 +17,7 @@ import type { BiosKey } from "../src/runtime/dos.js";
 import { gameProgress } from "../src/runtime/far.js";
 import { cellWriteMark, journalFrame, screen, visibleGameRunes, visibleGameText, visiblePanelFrame, type PanelFrameStamp } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
-import { combatEffectFlightFamily, loadCombatEffects, combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
+import { combatEffectFlightFamily, loadCombatEffects, combatHighlightPixel, fallenCombatKey, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
 import { loadCharacterSheetArt, loadPortraitArt, matchScriptIllustration } from "./portrait-art.js";
 import { observeNativePictureArt } from "./native-picture-art.js";
 import type { PictureRecord } from "../src/runtime/game-data.js";
@@ -617,7 +617,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
       }
       const battleTiles: TilePlacement[] = !scene && battlefield ? nativeBattleTerrain?.placements() ?? [] : [];
-      const battleProps = !scene && battlefield ? nativeBattleTerrain?.propPlacements() : undefined;
+      const animationCombat = effect ? combat : attackArt ?? [];
+      const fallbackFallen = !nativeBattleTerrain && !scene && battlefield
+        ? (attack || effect ? animationCombat : combat).filter(([, , key]) => key === fallenCombatKey)
+        : [];
+      const liveActors = (placements: CombatArtPlacement[]) => fallbackFallen.length
+        ? placements.filter(([, , key]) => key !== fallenCombatKey) : placements;
+      const battleProps = !scene && battlefield
+        ? nativeBattleTerrain?.propPlacements() ?? fallbackFallen
+        : undefined;
       const battleTileInventory: TileInventoryCell[] | undefined = traceBattleTiles && !attack ? [] : undefined;
       if (((!nativeBattleTerrain && battleTileKeys.size) || battleTileInventory) && !scene && battlefield) {
         const pixels = Buffer.alloc(64);
@@ -659,7 +667,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
             if (!nativeBattleTerrain) {
               // Prefer the guest terrain draw before a target marker or actor covers the cell.
               const terrainKey = capturedTerrainKeys.get(y * screen.width + x) ?? key;
-              if (terrainKey && battleTileKeys.has(terrainKey)) battleTiles.push([x, y, terrainKey]);
+              // The standalone marker replaces its underlying 3×3 RANDCOM
+              // artwork, just as it does in the native terrain observer.
+              if (terrainKey && battleTileKeys.has(terrainKey) && !fallbackFallen.some(([left, top]) =>
+                x >= left && x < left + 24 && y >= top && y < top + 24)) battleTiles.push([x, y, terrainKey]);
             }
           }
         }
@@ -726,7 +737,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         exploration: mapped,
         encounter,
         tiles,
-        combatArt: combat,
+        combatArt: liveActors(combat),
         combatSelections: combatSelections.length ? combatSelections : undefined,
         combatEffect: effect?.placement,
         battleTiles,
@@ -765,7 +776,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           animation.splice(flight, 1);
         }
         animation.push({ frame: state.frame, enhancedFrame: state.enhancedFrame, portrait: captureIllustration ? portrait : undefined,
-          text: state.text, combatArt: effect ? combat : attackArt ?? [], combatSelections: state.combatSelections,
+          text: state.text, combatArt: liveActors(animationCombat),
+          combatSelections: state.combatSelections,
           combatEffect: state.combatEffect,
           battleTiles, battleProps, panelFrame: state.panelFrame, perspective,
           nativeScenery: state.nativeScenery, exploration: state.exploration,

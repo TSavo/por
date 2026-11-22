@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import type { Cpu } from "../src/cpu/machine.js";
 import type { PictureRecord } from "../src/runtime/game-data.js";
-import type { CombatArtPlacement } from "./combat-art.js";
+import { fallenCombatKey, type CombatArtPlacement } from "./combat-art.js";
 
 type TerrainPlacement = [x: number, y: number, key: string];
 const blankCell = createHash("sha256").update(Buffer.alloc(64)).digest("hex");
@@ -16,7 +16,7 @@ export function observeNativeBattleTerrain(pictures: readonly PictureRecord[], a
         // The fallen-unit marker has a dedicated transparent sprite, which the
         // pixel matcher also draws over the battlefield in the original data path.
         const whole = file === "RANDCOM.DAX" && block === 1 && combatArt.has(key) &&
-          (frame === 5 || cells.some(hash => hash !== blankCell && !art.has(`battle-tile:${hash}`)));
+          (key === fallenCombatKey || cells.some(hash => hash !== blankCell && !art.has(`battle-tile:${hash}`)));
         return { cells, prop: whole ? key : undefined, reflected: frame === 0 };
       })] as const] : [];
   }));

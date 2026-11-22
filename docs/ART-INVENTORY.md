@@ -423,8 +423,11 @@ scout and the blue, plum, and ochre swordsmen in Enhanced combat.
 The Slums parity replay traced the fallen-unit marker to RANDCOM frame 5,
 copied into battlefield slot 39. In the orc fight it displayed at native
 position `(152,104)` in seven settled frames in both data modes. The
-bundled renderer draws the same transparent fallen-unit PNG as the
-original-data renderer. Its native terrain observer emits it as a prop.
+two data modes draw the same transparent fallen-unit PNG as a battle
+prop. The original-data renderer clears the matching component tiles
+from those placements. The paired Slums replay has no art differences
+in the scripted orc fight. Earlier random-fight frames still have
+presentation differences.
 Kuto's gnoll-watch portrait now includes the first animation phase from
 `PIC8.DAX` block 73, member 1. The replay selected the gnoll roster and
 then used the original Advance and idle inputs. Chrome witnessed the

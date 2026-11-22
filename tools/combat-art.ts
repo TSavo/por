@@ -18,7 +18,7 @@ export const partyRecolorKey = /^(combat:party:\d{1,3}:\d{1,3}):palette:0[0-9a-f
 export const combatEffectKey = /^combat-effect:(COMSPR\.DAX):(\d{1,3})(?::(flip-x|transpose))?$/;
 export const randomCombatKey = /^combat:(RANDCOM\.DAX):(1):(0):([0-5])$/;
 export const combatSelectionKey = /^combat-selection:(COMSPR\.DAX):(25|153)$/;
-const fallenCombatKey = "combat:RANDCOM.DAX:1:0:5";
+export const fallenCombatKey = "combat:RANDCOM.DAX:1:0:5";
 const partyMaterialIndices = new Set([1, 2, 3, 4, 6, 7, 9, 10, 11, 12, 14, 15]);
 const smallHeadAliasSources = new Map([[11, 0], [12, 1], [13, 2]]);
 

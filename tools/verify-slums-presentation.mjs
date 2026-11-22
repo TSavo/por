@@ -7420,7 +7420,8 @@ try {
           parseFloat(tile.style.left) === x / 3.2 && parseFloat(tile.style.top) === y / 2))`));
       for (const [, , id] of wallTiles) patrolWallTiles.delete(id);
     }
-    const sprites = (frame.combatArt ?? []).filter(([, , id]) => patrolCombatSprites.has(id));
+    const sprites = [...(frame.battleProps ?? []), ...(frame.combatArt ?? [])]
+      .filter(([, , id]) => patrolCombatSprites.has(id));
     if (sprites.length) {
       await waitFor("the enhanced battlefield sprites", () => run(`state.sequence === ${frame.sequence} && !animationFrame &&
         ${JSON.stringify(sprites)}.every(([x, y, id, reflected]) => [...document.querySelectorAll(".combat-sprite")].some(sprite =>
@@ -15428,7 +15429,7 @@ try {
               classic,
               enhanced: !layer.hidden && screen.getAttribute("src") === oldFrame &&
                 layer.querySelectorAll(".battle-tile").length === attack.battleTiles.length &&
-                layer.querySelectorAll(".combat-sprite").length === attack.combatArt.length,
+                layer.querySelectorAll(".combat-sprite").length === attack.combatArt.length + (attack.battleProps?.length ?? 0),
               sameAttack: animationFrame === attack && state.sequence === sequence,
             };
           }
@@ -15503,7 +15504,7 @@ try {
             return fallback?.style.backgroundImage.includes(original.frame) &&
               parseFloat(fallback.style.left) === x / 3.2 && parseFloat(fallback.style.top) === y / 2 &&
               !document.querySelector("#game-text").hidden &&
-              document.querySelectorAll(".combat-sprite").length === original.combatArt.length - 1 &&
+              document.querySelectorAll(".combat-sprite").length === original.combatArt.length + (original.battleProps?.length ?? 0) - 1 &&
               document.querySelectorAll(".battle-tile").length === original.battleTiles.length;
           } finally {
             state = original;
@@ -15778,7 +15779,7 @@ try {
         state = live;
         await showScreen();
         return { preservesBattle, resumesEnhancements: !layer.hidden &&
-          layer.querySelectorAll(".combat-sprite").length === live.combatArt.length };
+          layer.querySelectorAll(".combat-sprite").length === live.combatArt.length + (live.battleProps?.length ?? 0) };
       } finally {
         state = live;
         await showScreen();
