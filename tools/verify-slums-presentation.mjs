@@ -8,6 +8,9 @@ import { dirname, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
+const textileScorpionLoop = routeName === "textile-house-scorpion-held-loop";
+const textileScorpionWalk = "qa/fixtures/walk-textile-house-cleared";
+const textileScorpionPortrait = "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:";
 const takeScatteredObjects = routeName === "valhingen-scattered-objects" && option === "--take";
 const towerSave = routeName === "valjevo-tower-save";
 const towerReload = routeName === "valjevo-tower-reload";
@@ -3889,6 +3892,22 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "textile-ghoul-battle-entry.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /GHOULHITPOINTS10AC6/i },
   }],
+  ["textile-house-scorpion-held-loop", {
+    slot: "G",
+    // The recorded walk reaches the scorpions and leaves the battle notice to one physical Enter.
+    inputs: textileScorpionLoop ? readFileSync(resolve(textileScorpionWalk, "commands.jsonl"), "utf8")
+      .trim().split(/\r?\n/).slice(0, 50).map(line => JSON.parse(line)) : [],
+    portrait: textileScorpionPortrait + "0:0",
+    prompt: /SCORPIONSAPPROACHHUNGRILY/i,
+    heldPortraitLoop: [0, 1, 0, 3, 0, 5, 6, 3].map(member => textileScorpionPortrait + member + ":0"),
+    finalPhaseCapture: "textile-house-scorpion-hold.png",
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:2:ecl:9c1b:PIC4.DAX:18:0:0",
+      prompt: /^(?=.*SCORPIONSAPPROACHHUNGRILY)(?=.*ABATTLEBEGINS)/i,
+      pressOnPortrait: textileScorpionPortrait + "6:0", retainPose: true,
+      screenshot: "textile-house-scorpion-battle-notice.png",
+    },
+  }],
   ["textile-poison-frog-phases", {
     slot: "B", inputs: ["s", "up", "up", "down", "up", "down", "enter", "q"],
     portrait: "portrait:area:2:PIC4.DAX:37:0:0",
@@ -7567,7 +7586,8 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_FIXED_CLOCK_START: browserEnvironment.POR_FIXED_CLOCK_START ??
       (routeName === "valjevo-street-giants-loop" ? "4320100" :
         routeName === "valhingen-skeleton-roaming-ambush-loop" || routeName === "valhingen-wight-ambush-loop" ? "4320042" : undefined),
-    POR_INPUT_COMPAT: ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
+    ...(textileScorpionLoop ? { POR_PROMPT_SCHEDULE_IN: resolve(textileScorpionWalk, "prompts.jsonl") } : {}),
+    POR_INPUT_COMPAT: textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "pyramid-vats-mutants-loop" ||
       routeName === "valhingen-grave-claws" || routeName === "sokal-barracks-ghost-phases" ||
       routeName === "valhingen-wight-ambush-loop" || routeName === "valhingen-spirits-tower-wight-loop" ||

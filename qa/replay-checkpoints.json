@@ -4,6 +4,7 @@
   ],
   "checkpoints": {
     "armorer": "qa/fixtures/replay-checkpoints/290582c2f29f/A.json",
+    "textile-house-scorpion-held-loop": "qa/fixtures/walk-textile-house-cleared/G.json",
     "valhingen-giant-skeleton-alone": "qa/fixtures/valhingen-giant-skeleton-alone/A.json",
     "valhingen-giant-skeleton-retainers": "qa/fixtures/valhingen-giant-skeleton-retainers/A.json",
     "valhingen-skeleton-roaming-ambush-loop": "qa/fixtures/valhingen-skeleton-roaming-ambush/A.json",
@@ -16,6 +17,7 @@
   "chains": {},
   "proved": [
     "armorer",
+    "textile-house-scorpion-held-loop",
     "valhingen-giant-skeleton-alone",
     "valhingen-giant-skeleton-retainers",
     "valhingen-skeleton-roaming-ambush-loop",
