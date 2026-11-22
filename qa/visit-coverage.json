@@ -379,6 +379,27 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "walk-yarash-pyramid": {
+   "areas": [
+    2,
+    15,
+    22,
+    23,
+    26
+   ],
+   "commissions": [
+    "auction",
+    "kobolds",
+    "kovel",
+    "nomads",
+    "river",
+    "sokal",
+    "textile"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
