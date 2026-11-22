@@ -34,6 +34,24 @@ const read = (path: string) => new Uint8Array(readFileSync(join(portGameRoot, pa
 const data = readGameData(read);
 const records = new Map(data.pictures.map((record) => [`${record.file}:${record.block}`, record]));
 
+// The ending overlay prints these two captions while the same ECL cursor is suspended.
+const finaleCueOffsets = new Map([
+  ["scene-illustration:area:7:ecl:a82d:cue:possession-threat", 0x20b],
+  ["scene-illustration:area:7:ecl:a82d:cue:pool-recall", 0x260],
+]);
+const finaleCode = data.program.overlays.find(overlay => overlay.index === 0x12)?.code;
+const finaleOverlay = finaleCode ? read(finaleCode.file).subarray(finaleCode.offset, finaleCode.offset + finaleCode.length) : undefined;
+
+function finaleCaption(offset: number): string {
+  if (!finaleOverlay) return "";
+  const firstLength = finaleOverlay[offset] ?? 0;
+  const second = offset + firstLength + 1;
+  const secondLength = finaleOverlay[second] ?? 0;
+  if (!firstLength || !secondLength || second + secondLength >= finaleOverlay.length) return "";
+  const decode = (start: number, length: number) => Buffer.from(finaleOverlay.subarray(start + 1, start + 1 + length)).toString("ascii");
+  return (decode(offset, firstLength) + decode(second, secondLength)).toUpperCase().replace(/\s/g, "");
+}
+
 interface CaptionPart { kind: string; rawText?: string }
 const narration = JSON.parse(readFileSync(new URL("../src/audio/voice-master-manifest.json", import.meta.url), "utf8")) as {
   events: { sourceId: string; source: { archive: string; block: number }; outputParts?: CaptionPart[] }[];
@@ -188,6 +206,8 @@ const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
     const cue = scriptIllustrations.get(key);
     if (/:cue:/.test(key)) {
       if (cue === undefined) return "its cue is not defined in tools/portrait-art.ts";
+      const finaleOffset = finaleCueOffsets.get(key);
+      if (finaleOffset !== undefined && typeof cue === "string" && finaleCaption(finaleOffset).includes(cue)) return;
       // A displayed caption can outlast the script that printed it.
       // TREASURE prepares rewards; COMBAT opens the engine's loot menu at its resume cursor.
       if (cue === "VIEWTAKEPOOLEXIT" || cue === "VIEWTAKEPOOLSHAREEXIT") {
