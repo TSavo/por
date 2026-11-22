@@ -10,10 +10,14 @@
 //   node tools/record-pause-callers.mjs --merge <out.jsonl>...
 //       Keeps in qa/pause-callers.json, for each call and source, a pause whose text did not reach
 //       the page if there is one, and otherwise one that did. A walk replayed again replaces what it
-//       recorded before.
+//       recorded before. The walks replayed from both sources are kept there too (`replayed`).
+//   node tools/record-pause-callers.mjs --untraced [--list]
+//       Every committed recorded walk (qa/fixtures/*, qa/fixtures/campaign-full/leg-*) that
+//       qa/pause-callers.json does not list as replayed: replays each from both sources into
+//       out/pause-callers-<time>.jsonl and merges it. Run it after recording a walk. --list only names them.
 //
 // POR_GAMEDATA_1_3 names the 1.3 files (default ~/por-assets/gog-1.3/POOLRAD).
-import { cpSync, existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { appendFileSync, cpSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { homedir, tmpdir } from "node:os";
 import { join, relative, resolve } from "node:path";
 import { tsImport } from "tsx/esm/api";
@@ -27,11 +31,31 @@ const byReturn = new Map(callers.map((caller) => [
   caller.id,
 ]));
 
-if (process.argv[2] === "--merge") {
+/** The walks already replayed from both sources, as qa/pause-callers.json names them. */
+function readReplayed() {
+  return new Set(existsSync(evidencePath) ? JSON.parse(readFileSync(evidencePath, "utf8")).replayed ?? [] : []);
+}
+
+/** Every committed recorded walk: a directory of qa/fixtures or of the full campaign's legs with boot.json and commands.jsonl. */
+function recordedWalks() {
+  const roots = [join("qa", "fixtures"), join("qa", "fixtures", "campaign-full")];
+  return roots.flatMap((root) => readdirSync(root, { withFileTypes: true }).filter((entry) => entry.isDirectory())
+    .map((entry) => join(root, entry.name)))
+    .filter((directory) => existsSync(join(directory, "boot.json")) && existsSync(join(directory, "commands.jsonl")))
+    .sort();
+}
+
+function merge(files) {
   const evidence = readEvidence();
-  for (const file of process.argv.slice(3)) {
-    const lines = readFileSync(file, "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line))
-      .map((line) => ({ ...line, id: byReturn.get(line.returns) })).filter((line) => line.id);
+  const replayed = readReplayed();
+  const sourcesOf = new Map();
+  for (const file of files) {
+    const all = readFileSync(file, "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line));
+    // A replay's own line says the walk was played from that source, whether or not it paused.
+    for (const line of all.filter((line) => line.replayed)) {
+      sourcesOf.set(line.walk, new Set([...sourcesOf.get(line.walk) ?? [], line.source]));
+    }
+    const lines = all.map((line) => ({ ...line, id: byReturn.get(line.returns) })).filter((line) => line.id);
     // What each walk found, by call and source: a pause that did not reach the page wins.
     const found = new Map();
     for (const line of lines) {
@@ -44,19 +68,37 @@ if (process.argv[2] === "--merge") {
       if (!kept || kept.walk === walk || (kept.shown && !shown)) evidence[id][source] = { walk, text, shown, ...(shown ? {} : { missing, pageHad }) };
     }
   }
+  for (const [walk, seen] of sourcesOf) if (seen.has("original") && seen.has("port")) replayed.add(walk);
   const sorted = Object.fromEntries(callers.filter(({ id }) => evidence[id]).map(({ id }) => [id, evidence[id]]));
   writeFileSync(evidencePath, JSON.stringify({
     about: "Evidence for npm run qa:pause-callers (#81): for each call that pauses through the game's pause routine, " +
-      "a replayed pause from the 1.3 files (original) and from game/ (port), its text, and whether that text reached the page. " +
-      "Written by node tools/record-pause-callers.mjs --merge.",
+      "a replayed pause from the 1.3 files (original) and from game/ (port), its text, and whether that text reached the page; " +
+      "and the recorded walks replayed from both sources so far. Written by node tools/record-pause-callers.mjs --merge or --untraced.",
+    replayed: [...replayed].sort(),
     calls: sorted,
   }, null, 1) + "\n");
-  console.log(`kept evidence for ${Object.keys(sorted).length} of ${callers.length} calls in ${evidencePath}`);
+  console.log(`kept evidence for ${Object.keys(sorted).length} of ${callers.length} calls from ${replayed.size} replayed walks in ${evidencePath}`);
+}
+
+if (process.argv[2] === "--merge") {
+  merge(process.argv.slice(3));
   process.exit(0);
 }
 
-const [out, ...fixtures] = process.argv.slice(2);
-if (!out || !fixtures.length) throw new Error("usage: node tools/record-pause-callers.mjs <out.jsonl> <fixture directory>... | --merge <out.jsonl>...");
+// --untraced: every committed walk not yet replayed from both sources, into a fresh log, then merged.
+const untraced = process.argv[2] === "--untraced";
+let [out, ...fixtures] = process.argv.slice(2);
+if (untraced) {
+  const replayed = readReplayed();
+  fixtures = recordedWalks().filter((walk) => !replayed.has(walk));
+  console.log(`${fixtures.length} recorded walks not yet replayed: ${fixtures.join(" ") || "none"}`);
+  if (process.argv.includes("--list") || !fixtures.length) process.exit(0);
+  mkdirSync("out", { recursive: true });
+  out = join("out", `pause-callers-${new Date().toISOString().replace(/[:.]/g, "-")}.jsonl`);
+}
+if (!out || !fixtures.length) {
+  throw new Error("usage: node tools/record-pause-callers.mjs <out.jsonl> <fixture directory>... | --merge <out.jsonl>... | --untraced [--list]");
+}
 
 const { loadUpgradeArt, loadCombatMaterialMasks } = await tsImport("./upgrade-art.ts", import.meta.url);
 const { portGameRoot, readGameFile } = await tsImport("./gamedata.ts", import.meta.url);
@@ -89,6 +131,7 @@ async function replay(fixture, source) {
     game.close();
     rmSync(saves, { recursive: true, force: true });
   }
+  appendFileSync(out, JSON.stringify({ walk, source, replayed: true, commands: taken, of: commands.length }) + "\n");
   // The harness wrote the pauses with text to `out` when the game closed.
   const withText = game.pauses.filter((pause) => pause.message.length);
   const unknown = new Set(withText.map((pause) => pause.returns).filter((returns) => !byReturn.has(returns)));
@@ -99,5 +142,9 @@ async function replay(fixture, source) {
 
 if (!existsSync(out)) writeFileSync(out, "");
 // One game at a time: the machine is shared.
-for (const fixture of fixtures) for (const source of ["original", "port"]) await replay(fixture, source);
+for (const [index, fixture] of fixtures.entries()) {
+  for (const source of ["original", "port"]) await replay(fixture, source);
+  console.log(`${index + 1} / ${fixtures.length} walks replayed`);
+}
+if (untraced) merge([out]);
 process.exit(0);

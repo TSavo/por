@@ -37,7 +37,9 @@ but GitHub and this repository.
   `npm run qa:instruction-diff` (every translated instruction against the original's bytes under Unicorn,
   #91; needs `POR_GAMEDATA_1_3` and Python with capstone and unicorn, `~/por-venv` on Battleaxe),
   `npm run qa:pause-callers` (every call that pauses with a message, verified when a replay from both
-  sources puts that message on the page, #81; evidence from `tools/record-pause-callers.mjs`),
+  sources puts that message on the page, #81; evidence from `tools/record-pause-callers.mjs`;
+  after recording a walk, run `node tools/record-pause-callers.mjs --untraced` on Battleaxe and commit
+  `qa/pause-callers.json`),
   `npm run verify:dos-calls` (every DOS function the translated program can ask for is served, #83).
 - Commit messages: a short imperative summary; the body says what was run and seen.
 

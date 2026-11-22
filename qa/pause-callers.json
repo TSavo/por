@@ -1,5 +1,26 @@
 {
- "about": "Evidence for npm run qa:pause-callers (#81): for each call that pauses through the game's pause routine, a replayed pause from the 1.3 files (original) and from game/ (port), its text, and whether that text reached the page. Written by node tools/record-pause-callers.mjs --merge.",
+ "about": "Evidence for npm run qa:pause-callers (#81): for each call that pauses through the game's pause routine, a replayed pause from the 1.3 files (original) and from game/ (port), its text, and whether that text reached the page; and the recorded walks replayed from both sources so far. Written by node tools/record-pause-callers.mjs --merge or --untraced.",
+ "replayed": [
+  "qa/fixtures/campaign-castle-approach-leg",
+  "qa/fixtures/campaign-end-leg",
+  "qa/fixtures/campaign-ending-leg",
+  "qa/fixtures/campaign-sokal-leg",
+  "qa/fixtures/campaign-tower-leg",
+  "qa/fixtures/visit-kobold-caves",
+  "qa/fixtures/visit-kovel-mansion",
+  "qa/fixtures/visit-lizardman-keep",
+  "qa/fixtures/visit-mendors-library",
+  "qa/fixtures/visit-temple-of-bane",
+  "qa/fixtures/visit-textile-house",
+  "qa/fixtures/visit-training-hall",
+  "qa/fixtures/visit-valhingen-graveyard",
+  "qa/fixtures/visit-valjevo-area-4",
+  "qa/fixtures/visit-yarashs-pyramid",
+  "qa/fixtures/walk-commission-5-reward",
+  "qa/fixtures/walk-commission-5-taken",
+  "qa/fixtures/walk-textile-house-cleared",
+  "qa/fixtures/wilderness-walk"
+ ],
  "calls": {
   "exe 2f3b": {
    "original": {
