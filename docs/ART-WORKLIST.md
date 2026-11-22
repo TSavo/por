@@ -56,8 +56,8 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 |   of which several tiles together | 1468 |
 |   of which the same pixels already have art of yours in another area | 791 |
 | Battlefield cells to do | 0 |
-| Tile keys in the manifests | 4066 |
-|   accounted for by the tool | 3916 |
+| Tile keys in the manifests | 4068 |
+|   accounted for by the tool | 3918 |
 | Battlefield keys in the manifests | 83 |
 |   that are one stored cell of a battlefield picture | 78 |
 | Stored 8 by 8 tiles | 3016 |
@@ -83,7 +83,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 7 | Valjevo Castle, the Pool | not yet | 269 | 33 |  | 73 of 131 (40 as first views of the next area) |
 | 8 | Phlan City Hall | yes | 405 | 163 | 129 | 173 of 173 (10 as WebGL wall materials) |
 | 9 | Stojanow Gate | yes | 287 | 117 | 33 | 117 of 117 |
-| 10 | Valhingen Graveyard | yes | 2452 | 425 | 465 | 435 of 435 (10 as WebGL wall materials) |
+| 10 | Valhingen Graveyard | yes | 2452 | 425 | 465 | 437 of 437 (12 as WebGL wall materials) |
 | 11 | The Training Hall | yes | 405 | 67 | 109 | 67 of 67 |
 | 13 | The Kobold Caves | yes | 313 | 147 | 64 | 149 of 149 (2 as WebGL wall materials) |
 | 14 | Kovel Mansion | yes | 150 | 64 | 22 | 64 of 64 |

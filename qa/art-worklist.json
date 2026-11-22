@@ -12,8 +12,8 @@
   "  of which several tiles together": 1468,
   "  of which the same pixels already have art of yours in another area": 791,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 4066,
-  "  accounted for by the tool": 3916,
+  "Tile keys in the manifests": 4068,
+  "  accounted for by the tool": 3918,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
@@ -409,15 +409,15 @@
    "area": 10,
    "name": "Valhingen Graveyard",
    "established": true,
-   "why": "all 435 cells that have artwork are among the cells the tool works out",
+   "why": "all 437 cells that have artwork are among the cells the tool works out",
    "maps": [
     10
    ],
    "wallSets": [
     "WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)"
    ],
-   "existingKeys": 435,
-   "existingKeysAccountedFor": 435,
+   "existingKeys": 437,
+   "existingKeysAccountedFor": 437,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 2452,
@@ -427,7 +427,7 @@
     "cells that show a sky or ground colour no existing artwork of the area shows": 1543,
     "cells of the overhead area view, which no existing artwork of the area confirms": 19
    },
-   "existingKeysOnlyAsWallMaterials": 10
+   "existingKeysOnlyAsWallMaterials": 12
   },
   {
    "area": 11,
