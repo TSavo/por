@@ -72,6 +72,9 @@ export const data = resolve({
   combatPictureBank: { "1.0": 0x52d4, "1.3": 0x5376 },
   /** Ready and strike far pointers indexed by combat picture slot. */
   combatPictureSlots: { "1.0": 0x5db8, "1.3": 0x5e5a },
+  /** Icon-size suffix and EGA indices for the party icon palette pairs. */
+  partyIconSizeSuffix: { "1.0": 0x08d9, "1.3": 0x08c5 },
+  partyIconPaletteIndices: { "1.0": 0x3c6e, "1.3": 0x3cf6 },
   /** Pointer to the offscreen picture. */
   offscreen: { "1.0": 0x4980, "1.3": 0x4a20 },
   /** Sound hardware: 0 is Tandy, 1 is the PC speaker, 2 is silent. */

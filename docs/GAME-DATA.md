@@ -129,8 +129,11 @@ picture extent. Terrain redraws remove overwritten placements. The
 `kobold-envoy-strike` and `bane-hay-bunk-raider-combat` Chrome replays
 verify ready and animated strike art with `POR_GAME_SOURCE=port`.
 The browser uses framebuffer matching when it runs with the original files.
-Standalone party sprites and selection borders still depend on their
-source pixels. The CPIC observer covers monster draws.
+Standalone party sprites use the head, body, size and palette from the
+native combatant record at the same draw call. The browser applies the
+native palette through the existing Enhanced material masks where
+available. The `kobold-envoy-party-icon-strike` Chrome replay checks
+both party poses. Selection borders still depend on source pixels.
 
 Ordinary portrait matching has a similar source-pixel dependency. With
 `POR_GAME_SOURCE=port` at `220d2236`, the GOG 1.3 Chrome

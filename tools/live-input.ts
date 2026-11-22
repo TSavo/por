@@ -251,7 +251,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const materialKeys = new Set((process.env.POR_COMBAT_MATERIAL_KEYS ?? "").split(",").filter(Boolean));
   const combatKeys = (process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean);
   const combatArt = loadCombatArtMatcher(combatKeys, undefined, materialKeys);
-  const nativeCombat = browser && standalone && combatKeys.length ? observeNativeCombatArt(new Set(combatKeys)) : undefined;
+  const nativeCombat = browser && standalone && combatKeys.length ? observeNativeCombatArt(new Set(combatKeys), materialKeys) : undefined;
   const attackKeys = new Set(combatKeys
     .filter((key) => Number(monsterCombatKey.exec(key)?.[3] ?? partyCombatKey.exec(key)?.[2]) >= 128));
   const animation: PresentationAnimationFrame[] = [];

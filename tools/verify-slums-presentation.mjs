@@ -5518,6 +5518,12 @@ const combatPoseRoutes = new Map([
     inputs: ["up", ...Array(7).fill("enter"), ...Array(11).fill("q")],
     strikeInputs: Array(100).fill("q"), stopAtStrike: true,
   }],
+  ["kobold-envoy-party-icon-strike", {
+    slot: "A", stand: "combat:party:0:0", strike: "combat:party:0:128",
+    width: 96, height: 96, readyPrompt: /Hitpoints/i,
+    inputs: ["up", ...Array(7).fill("enter"), ...Array(11).fill("q")],
+    strikeInputs: Array(100).fill("q"), stopAtStrike: true,
+  }],
   ["kobold-fatima-combat", {
     excluded: ["combat:area:13:CPIC8.DAX:11:ecl:a2a4"],
     slot: "B", stand: "combat:area:13:CPIC8.DAX:11:ecl:a856", strike: "combat:area:13:CPIC8.DAX:139:ecl:a856",

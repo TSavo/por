@@ -1,11 +1,46 @@
 import type { Cpu } from "../src/cpu/machine.js";
 import type { Frame } from "../src/lib/ega.js";
-import { data } from "../src/runtime/bindings.js";
+import { data, segment as unit } from "../src/runtime/bindings.js";
 import { isCombatExtent, type CombatArtPlacement } from "./combat-art.js";
 
-export function observeNativeCombatArt(art: ReadonlySet<string>) {
+const defaultPalette = "0123456789abcdef";
+
+function partyPose(cpu: Cpu, slot: number, pose: number, art: ReadonlySet<string>, materialKeys: ReadonlySet<string>) {
+  let segment = unit.data, pointer = data.combatRoster;
+  for (let count = 0; count < 72; count++) {
+    const offset = cpu.read16(segment, pointer);
+    segment = cpu.read16(segment, pointer + 2);
+    if (!offset && !segment) return;
+    pointer = offset + 0x104;
+    const record = (field: number) => cpu.read8(segment, offset + field);
+    if (record(0x10e) !== 0 || record(0xbf) !== slot) continue;
+
+    // The DOS loader adds 64 to both blocks for the tall icon archive.
+    const size = cpu.read8(unit.data, data.partyIconSizeSuffix + record(0xc0));
+    if (size !== 0x53 && size !== 0x54) return;
+    const tall = size === 0x54 ? 64 : 0;
+    const base = `combat:party:${record(0xbd) + tall}:${record(0xbe) + tall + pose * 128}`;
+    const palette = [...defaultPalette];
+    for (let pair = 0; pair < 6; pair++) {
+      const index = cpu.read8(unit.data, data.partyIconPaletteIndices + pair);
+      const colors = record(0xc1 + pair);
+      palette[index] = (colors & 15).toString(16);
+      palette[index + 8] = (colors >> 4).toString(16);
+    }
+    const remap = palette.join("");
+    if (remap !== defaultPalette) {
+      const recolored = `${base}:palette:${remap}`;
+      if (art.has(recolored) || (art.has(base) && materialKeys.has(base))) return recolored;
+    }
+    return art.has(base) ? base : undefined;
+  }
+}
+
+export function observeNativeCombatArt(art: ReadonlySet<string>, materialKeys: ReadonlySet<string>) {
   const slots = new Map<number, { archive: string; ready: number }>();
-  const draws = new Map<string, { x: number; y: number; width: number; height: number; source: string; reflected: boolean }>();
+  const draws = new Map<string, {
+    x: number; y: number; width: number; height: number; monster?: string; party?: string; reflected: boolean;
+  }>();
 
   function clear(x: number, y: number, width: number, height: number) {
     for (const [id, sprite] of draws) {
@@ -28,10 +63,14 @@ export function observeNativeCombatArt(art: ReadonlySet<string>) {
     draw(cpu: Cpu) {
       if (cpu.read8(cpu.ds, data.offscreenDraw) !== 1) return;
       const arg = (offset: number) => cpu.read8(cpu.ss, (cpu.sp + offset) & 0xffff);
-      const slot = slots.get(arg(4)), pose = arg(6), facing = arg(8);
+      const slot = arg(4), pose = arg(6), facing = arg(8);
       const row = (arg(10) << 24) >> 24, column = (arg(12) << 24) >> 24;
-      if (!slot || pose > 1) return;
-      const pointer = data.combatPictureSlots + arg(4) * 8 + pose * 4;
+      if (pose > 1) return;
+      const source = slots.get(slot);
+      const monster = source && `${source.archive}:${source.ready + pose * 128}`;
+      const party = !monster && slot < 8 ? partyPose(cpu, slot, pose, art, materialKeys) : undefined;
+      if (!monster && !party) return;
+      const pointer = data.combatPictureSlots + slot * 8 + pose * 4;
       const offset = cpu.read16(cpu.ds, pointer), segment = cpu.read16(cpu.ds, pointer + 2);
       if (!segment && !offset) return;
       const width = cpu.read16(segment, offset + 2) * 8, height = cpu.read16(segment, offset);
@@ -40,7 +79,7 @@ export function observeNativeCombatArt(art: ReadonlySet<string>) {
       if (x >= 176 || y >= 176 || x + width <= 8 || y + height <= 8) return;
       // The masked blit preserves transparent pixels from earlier draws.
       draws.set(`${column}:${row}`, {
-        x, y, width, height, source: `${slot.archive}:${slot.ready + pose * 128}`, reflected: facing > 3,
+        x, y, width, height, monster, party, reflected: facing > 3,
       });
     },
     overwriteTile(column: number, row: number) {
@@ -49,10 +88,10 @@ export function observeNativeCombatArt(art: ReadonlySet<string>) {
     reset() { draws.clear(); },
     placements(frame: Frame, area?: number, cursor?: number): CombatArtPlacement[] {
       const result: CombatArtPlacement[] = [];
-      for (const { x, y, width, height, source, reflected } of draws.values()) {
-        const local = `combat:area:${area}:${source}`;
+      for (const { x, y, width, height, monster, party, reflected } of draws.values()) {
+        const local = `combat:area:${area}:${monster}`;
         const scoped = `${local}:ecl:${cursor?.toString(16).padStart(4, "0")}`;
-        const key = [scoped, local, `combat:${source}`].find(id => art.has(id));
+        const key = party ?? [scoped, local, `combat:${monster}`].find(id => art.has(id));
         if (key) result.push([x, y, key, reflected, frame.get(x, y) === 15, width, height]);
       }
       return result;
