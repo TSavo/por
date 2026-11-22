@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "88d0660083839b3af0ff1caa1e5c23520ff895f8b74aeac0e2a625e10caa9e57",
-  "audioSha256": "2c510a3ebeeda9e9e56f67059b6a50e221f83e2ff758f2a0e65f65473938ae1d",
-  "bytes": 368265,
-  "generatedAt": "2026-11-19T04:46:28.096Z"
+  "audioSha256": "35183ad366b3f50ac2ffa80d31541d3822e904f46a902e3ad03ac826751c10c0",
+  "bytes": 166390,
+  "directionSent": "nervous, deferential, cunning",
+  "heardByWhisper": "The Kobold calls out, the envoys are here, Great King.  An aged voice replies, send them forward.  Your guide, however, has fallen into a stupor.",
+  "generatedAt": "2026-11-22T04:20:57.738Z"
 }

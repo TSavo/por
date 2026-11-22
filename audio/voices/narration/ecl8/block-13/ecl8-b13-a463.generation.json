@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "1e8f5a8adf981a7c5c4de48d3304278d847b54bbf5f6cb0c364376451f5cc7bd",
-  "audioSha256": "b9faf814f9bbb9d100c86b3192a12e69dffe95bc9cb1e7df116e8b15faf08bc0",
-  "bytes": 109966,
-  "generatedAt": "2026-11-19T04:45:34.681Z"
+  "audioSha256": "7e473103584adfe1b706f27c8b31ab7f93904defc720e85bffa83e0fc80d2076",
+  "bytes": 53541,
+  "directionSent": "expressive fantasy narration, quoted speech in character",
+  "heardByWhisper": "You reach the king's quarters and confront his guards.",
+  "generatedAt": "2026-11-22T04:20:38.654Z"
 }

@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "55f5f8fa79113a10513ed2c782a90e245381c181d45b2714f040658af4f04b0d",
-  "audioSha256": "84730e7585f02c7f2afe08bf561e9bdff27998f3ae698f760d9b8861ea0cbf62",
-  "bytes": 250818,
-  "generatedAt": "2026-11-19T04:44:46.254Z"
+  "audioSha256": "440f595181febcff574936e92fcc171a90a02f3119f855d85792b41788526d1c",
+  "bytes": 100771,
+  "directionSent": "fierce, confident, young, noble",
+  "heardByWhisper": "The princess says, I shall go my own way now, but you will always be remembered.  Good hunting!",
+  "generatedAt": "2026-11-22T04:20:19.912Z"
 }

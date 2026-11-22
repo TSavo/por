@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "3649539cf4908a95c869dfe423a212a78f28639744800b43ff162d3353c639d1",
-  "audioSha256": "b704593bc40584bc7e78b02e389b87bb4d11e68f9ecf1e6c44d40212867af3a2",
-  "bytes": 272552,
-  "generatedAt": "2026-11-19T04:45:46.830Z"
+  "audioSha256": "b5f3a41f006306d636acf4073112c29bd40bae54c4bf1a9d6aec696ef17302b2",
+  "bytes": 72767,
+  "directionSent": "proud, powerful, fiery authority",
+  "heardByWhisper": "Die, happy fiends! Your death shall be my freedom!",
+  "generatedAt": "2026-11-22T04:20:47.611Z"
 }

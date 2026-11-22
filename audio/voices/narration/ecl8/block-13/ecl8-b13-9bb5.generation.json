@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "a0c354fd68b3e115211dbdd7dbf8b5c7c271c7a307cd27ed978d5f8d27fcf12f",
-  "audioSha256": "e7cb2366cb7015172b6382f498c47813be5393af6f591ef36691c4fba990741f",
-  "bytes": 262103,
-  "generatedAt": "2026-11-19T04:44:54.673Z"
+  "audioSha256": "4baf3f8a4c91a2fafcb57c15cc2bcda84453d01525754eb787ef2e8eed9a29b4",
+  "bytes": 88232,
+  "directionSent": "nervous, deferential, cunning",
+  "heardByWhisper": "The kobold bows and says, you are quite dangerous, we will pay for a truce.",
+  "generatedAt": "2026-11-22T04:20:25.017Z"
 }

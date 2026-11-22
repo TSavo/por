@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "a7d9451e781069120d2c0a006f14f305e28ec737c2ee62040ced8f21e59f1f31",
-  "audioSha256": "1565665ceac0ece6583189ed47bdf7d46494b448be05b675e962998f6c1ee6b8",
-  "bytes": 448931,
-  "generatedAt": "2026-11-19T04:44:39.649Z"
+  "audioSha256": "f35f19955a56cf9a3217711d08335d0f8bc6878717f221fdda4639fbc4b9db04",
+  "bytes": 217381,
+  "directionSent": "nervous, deferential, cunning",
+  "heardByWhisper": "The cobalt disappears beyond the boulder.  You clamber noisily down a slope of rubble.  At the bottom, the cobalt dives beneath some rubble.  Just around the corner is our treasure.  Take what you wish and leave us.  Good day.",
+  "generatedAt": "2026-11-22T04:20:14.687Z"
 }

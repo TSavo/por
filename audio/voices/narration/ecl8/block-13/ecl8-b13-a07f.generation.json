@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "e73454d2650a1fa23da5eb039f30965d7831cfa5e927895f22e5b0740ff8a9ee",
-  "audioSha256": "205a4d7020c0b9bcfb468f251c8274bc2f217ea7175a2cdb876f76d5c2f62707",
-  "bytes": 291778,
-  "generatedAt": "2026-11-19T04:45:19.172Z"
+  "audioSha256": "65547a0354e669b6105f6c49b8a1df6d1704203abcc091cc00c38b3bb9ac37bb",
+  "bytes": 173914,
+  "directionSent": "expressive fantasy narration, quoted speech in character",
+  "heardByWhisper": "One says, these men are enemies, defeat them and my lord shall be most generous.  The king looks at him and then at you. He smiles and screams, kill them!",
+  "generatedAt": "2026-11-22T04:20:34.718Z"
 }

@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "2164b393b236791122ce8dd6ee131dd5cb360f900f91c9e3f13c24cdc926fba1",
+  "audioSha256": "be481ae0c73f80de0f74ef52c1727621cc5e8e9857ecea883ebb9eb58451a38e",
+  "bytes": 93247,
+  "directionSent": "terrified, unstable, abrupt emotional turns",
+  "heardByWhisper": "The man screams while frothing at the mouth.  He is wrapped in fire and so cruel!",
+  "generatedAt": "2026-11-22T04:21:02.606Z"
+}

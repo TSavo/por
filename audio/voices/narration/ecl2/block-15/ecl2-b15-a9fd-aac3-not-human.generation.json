@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "ad7e386bd0f4a26368e07d28731f7c611e87db60eb7a4773c2ea3569e5d3f1f5",
+  "audioSha256": "076d77c8dc13798f8be83e968ea0be81a74b73a1099011ba2af1bee44e14fda1",
+  "bytes": 89486,
+  "directionSent": "terrified, unstable, abrupt emotional turns",
+  "heardByWhisper": "The man screams while frothing at the mouth.  He is not human, I tell you! Not at all!",
+  "generatedAt": "2026-11-22T04:21:08.275Z"
+}
