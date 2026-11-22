@@ -104,11 +104,29 @@
    "decisions": 591,
    "heard": 62
   },
+  "walk-slums-c3": {
+   "ledger": "walk-slums-c3.jsonl",
+   "games": 1,
+   "decisions": 88,
+   "heard": 19
+  },
+  "walk-slums-c5": {
+   "ledger": "walk-slums-c5.jsonl",
+   "games": 1,
+   "decisions": 145,
+   "heard": 31
+  },
   "walk-slums-d2": {
    "ledger": "walk-slums-d2.jsonl",
    "games": 1,
    "decisions": 143,
    "heard": 24
+  },
+  "walk-slums-d4": {
+   "ledger": "walk-slums-d4.jsonl",
+   "games": 1,
+   "decisions": 48,
+   "heard": 8
   },
   "walk-valjevo-g1": {
    "ledger": "walk-valjevo-g1.jsonl",
@@ -122,11 +140,23 @@
    "decisions": 21,
    "heard": 12
   },
+  "walk-valjevo-g3": {
+   "ledger": "walk-valjevo-g3.jsonl",
+   "games": 1,
+   "decisions": 57,
+   "heard": 28
+  },
   "walk-valjevo-g4": {
    "ledger": "walk-valjevo-g4.jsonl",
    "games": 1,
    "decisions": 38,
    "heard": 24
+  },
+  "walk-valjevo-h1": {
+   "ledger": "walk-valjevo-h1.jsonl",
+   "games": 1,
+   "decisions": 52,
+   "heard": 19
   },
   "yarash-alchemical-laboratory-3f2de014": {
    "ledger": "yarash-alchemical-laboratory-3f2de014.jsonl",
@@ -139,6 +169,38 @@
   "ecl1-b18-9a36-prompt": {
    "run": "campaign-full",
    "step": 112479461,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl1-b18-9d86-ready": {
+   "run": "walk-valjevo-g3",
+   "step": 1295689078,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:18:PIC1.DAX:4:0:0"
+   }
+  },
+  "ecl1-b18-9e23": {
+   "run": "walk-valjevo-g3",
+   "step": 1295936248,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl1-b18-a105-a117-a11b": {
+   "run": "walk-valjevo-g3",
+   "step": 1292166789,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:18:SPRIT1.DAX:4:0:0"
+   }
+  },
+  "ecl1-b18-b1fb": {
+   "run": "walk-valjevo-g3",
+   "step": 1207240357,
    "art": {
     "kind": "view",
     "key": "the first-person view"
@@ -224,12 +286,84 @@
     "key": "portrait:area:20:PIC2.DAX:4:0:0"
    }
   },
+  "ecl2-b20-b30e": {
+   "run": "walk-slums-d4",
+   "step": 177060051,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:20:PIC2.DAX:4:0:0"
+   }
+  },
   "ecl2-b20-b4cc": {
    "run": "walk-slums-c1",
    "step": 825800449,
    "art": {
     "kind": "portrait",
     "key": "portrait:area:20:PIC2.DAX:4:0:0"
+   }
+  },
+  "ecl2-b9-9bc8": {
+   "run": "walk-valjevo-g3",
+   "step": 1557581037,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:9:ecl:9c63:caller:a9b2:cue:tower-arrow-volley"
+   }
+  },
+  "ecl2-b9-9be9": {
+   "run": "walk-valjevo-g3",
+   "step": 1529674368,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:9:ecl:a7a3:cue:bugbear-alarm"
+   }
+  },
+  "ecl2-b9-a0e5": {
+   "run": "walk-valjevo-g3",
+   "step": 389649329,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl2-b9-a730": {
+   "run": "walk-valjevo-g3",
+   "step": 1137249885,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:9:PIC2.DAX:63:0:0"
+   }
+  },
+  "ecl2-b9-a7b8": {
+   "run": "walk-valjevo-g3",
+   "step": 1137559390,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:9:ecl:a0a7:cue:bugbear-confiscation"
+   }
+  },
+  "ecl2-b9-a82f": {
+   "run": "walk-valjevo-g3",
+   "step": 1514807995,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:9:ecl:a863"
+   }
+  },
+  "ecl2-b9-a8ad": {
+   "run": "walk-valjevo-g3",
+   "step": 1529185132,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:9:PIC2.DAX:63:0:0"
+   }
+  },
+  "ecl2-b9-a981": {
+   "run": "walk-valjevo-g3",
+   "step": 1557628676,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:9:ecl:9c63:caller:a9b2:cue:tower-arrow-volley"
    }
   },
   "ecl2-b9-a9d9": {
@@ -679,6 +813,14 @@
     "key": "scene-illustration:area:0:ecl:acbf"
    }
   },
+  "por.voice.ecl3.b0-ae1a": {
+   "run": "walk-slums-c5",
+   "step": 415455406,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD3.DAX:22:BODY3.DAX:24"
+   }
+  },
   "por.voice.ecl3.b0-b0b6": {
    "run": "acceptance-new-phlan",
    "step": 67326629,
@@ -1071,6 +1213,14 @@
     "key": "portrait:area:8:ecl:b564:HEAD3.DAX:57:BODY3.DAX:1"
    }
   },
+  "por.voice.ecl3.b8-b496": {
+   "run": "walk-slums-c5",
+   "step": 233382509,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
   "por.voice.ecl5.b3-99be": {
    "run": "walk-valjevo-g4",
    "step": 760607913,
@@ -1359,6 +1509,46 @@
     "key": "the first-person view"
    }
   },
+  "por.voice.ecl5.b7-9b74-9bbe": {
+   "run": "walk-valjevo-h1",
+   "step": 127791013,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "por.voice.ecl5.b7-9d75": {
+   "run": "walk-valjevo-h1",
+   "step": 150671670,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:7:ecl:995f:caller:9dd1"
+   }
+  },
+  "por.voice.ecl5.b7-9de2-operand-9": {
+   "run": "walk-valjevo-h1",
+   "step": 151402599,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:7:ecl:9e1a:SPRIT5.DAX:49:1:0"
+   }
+  },
+  "por.voice.ecl5.b7-9e74-9eed": {
+   "run": "walk-valjevo-h1",
+   "step": 61706525,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "por.voice.ecl5.b7-9f12-operand-9": {
+   "run": "walk-valjevo-h1",
+   "step": 62400826,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:7:ecl:9f47:SPRIT5.DAX:11:1:0"
+   }
+  },
   "por.voice.ecl5.b7-a463-a4dd": {
    "run": "campaign-full",
    "step": 85382085,
@@ -1441,6 +1631,18 @@
   }
  },
  "variants": {
+  "ecl1-b18-a105-a117-a11b.variant-02-orcs": {
+   "run": "walk-valjevo-g3",
+   "step": 1302071433,
+   "slot": "0x9800",
+   "value": " ORCS"
+  },
+  "ecl1-b18-a105-a117-a11b.variant-03-hobgoblins": {
+   "run": "walk-valjevo-g3",
+   "step": 1292166789,
+   "slot": "0x9800",
+   "value": " HOBGOBLINS"
+  },
   "ecl2-b20-9c2a-9c43-9c5c.variant-01-kobolds": {
    "run": "walk-slums-c1",
    "step": 1253605367,
@@ -1683,6 +1885,12 @@
   }
  },
  "selectors": {
+  "por.review.ecl-1.block-18.at-9d86": {
+   "run": "walk-valjevo-g3",
+   "step": 1295689078,
+   "unitId": "ecl1-b18-9d86-ready",
+   "value": 9
+  },
   "por.review.ecl-3.block-0.at-a0f7": {
    "run": "walk-slums-c1",
    "step": 94813687,
