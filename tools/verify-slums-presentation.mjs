@@ -5956,6 +5956,11 @@ const controlledBattleIllustrations = new Map([
     portrait: "portrait:area:14:ecl:b38b:caller:b16c:HEAD3.DAX:16:BODY3.DAX:8",
     caption: /THEBOSSHASALLIESEVERYWHERE.*TAKETHESEPAPERS/i,
   }],
+  ["kobold-king-escaped", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:13:ecl:a2e2",
+    caption: /THEKINGHASESCAPEDDURINGTHEFIGHT/i,
+  }],
   ["textile-drum-silenced", {
     slot: "B", inputs: ["up", "enter", "enter", "enter"],
     portrait: "scene-illustration:area:2:ecl:9cdd",
@@ -8543,6 +8548,17 @@ try {
       await step("down");
       await step("up");
       assert.equal(frame.portrait, undefined);
+      await waitForExplorationViewport();
+    } else if (routeName === "kobold-king-escaped") {
+      await step("j");
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "kobold-king-escaped"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "kobold-king-fell"));
+      await step("j");
+      await step("down");
+      assert.equal(frame.portrait, portrait);
+      await step("up");
+      assert.equal(frame.portrait, undefined);
+      assert.match(text(), /AREACASTVIEWENCAMP/i);
       await waitForExplorationViewport();
     } else if (routeName === "textile-drum-silenced") {
       await step("j");
