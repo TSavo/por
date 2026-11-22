@@ -354,8 +354,8 @@ Four 88×88 portrait animation members contain only zeroes. Sokal's ceiling
 insects use `PIC4.DAX:18:2:0` and `PIC4.DAX:18:4:0` to return to the existing
 base picture. Original-file GOG 1.3 captures match the base screen after
 each of those ticks. Diogenes's `PIC6.DAX:117:5:0` also restores the base,
-and member 6 repeats pose 2. The drider's `PIC7.DAX:69:2:0` keeps the
-preceding pose. The catalogue lists these four holds separately from
+and member 6 repeats pose 2. The drider's `PIC7.DAX:69:2:0` restores the
+base picture for 20 ms. The catalogue lists these four holds separately from
 illustrated frames and entries that still need artwork.
 
 The `diogenes-silver-dragon-phases` Chrome replay showed all seven beats
@@ -363,8 +363,8 @@ and the wrap on both data sources. One Enter from the held portrait brings
 up the silver-bottle directions and their separate illustration.
 
 The Sokal ceiling insects cycle through five distinct paintings in eight
-210 ms draws. The Tyrmor drider cycles through seven paintings, holding its
-second pose across the blank native draw. Both Chrome replays verified the
+210 ms draws. The Tyrmor drider cycles through seven paintings in eight
+steps, including a 20 ms return to the base pose. Both Chrome replays verified the
 visible order with GOG 1.3 files and bundled data, then advanced into the
 battle introduction through the game's ordinary prompt.
 The Tyrmor minotaurs alternate two paintings with native holds of 810 and

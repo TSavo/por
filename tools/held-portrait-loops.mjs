@@ -113,9 +113,9 @@ const portraitLoops = [
     [["scene-illustration:area:15:ecl:99b5:caller:ae7b", 0]]],
   ["portrait:area:16:ecl:a535:PIC8.DAX:57:", 4, undefined,
     /COMBATWAITFLEEPARLAY/i, [210, 210, 210, 210]],
-  // The blank third member holds the preceding pose for 20 ms.
-  ["portrait:area:22:ecl:a2f9:PIC7.DAX:69:", [0, 1, 3, 4, 5, 6, 7], undefined,
-    /ONELICKSITSLIPSCOMBATWAITFLEEPARLAY/i, [210, 530, 20, 20, 20, 710, 310]],
+  // The blank third member restores the base picture for 20 ms.
+  ["portrait:area:22:ecl:a2f9:PIC7.DAX:69:", [0, 1, 0, 3, 4, 5, 6, 7], undefined,
+    /ONELICKSITSLIPSCOMBATWAITFLEEPARLAY/i, [210, 510, 20, 20, 20, 20, 710, 310]],
   ["portrait:area:22:ecl:a2f9:PIC7.DAX:62:", 2, undefined,
     /ONELICKSITSLIPSCOMBATWAITFLEEPARLAY/i, [810, 1210]],
   ["portrait:area:22:ecl:a2f9:PIC7.DAX:0:", [0, 1, 2, 1], undefined,

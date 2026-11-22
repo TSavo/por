@@ -4140,7 +4140,7 @@ const illustrationRoutes = new Map([
       "up", "enter", "enter"],
     portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:69:0:0",
     prompt: /ONELICKSITSLIPS/i,
-    heldPortraitLoop: [0, 1, 3, 4, 5, 6, 7].map(member => `portrait:area:22:ecl:a2f9:PIC7.DAX:69:${member}:0`),
+    heldPortraitLoop: [0, 1, 0, 3, 4, 5, 6, 7].map(member => `portrait:area:22:ecl:a2f9:PIC7.DAX:69:${member}:0`),
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:69:0:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["tyranthraxus-join-vote", {
