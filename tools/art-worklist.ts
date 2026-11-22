@@ -51,6 +51,8 @@ interface ObservedArea {
   shown?: { backdrop: Backdrop; how: string }[];
   /** Backdrops the script shows cannot occur in this area, with the reason. `s<sky>` also covers the horizon row under that sky. */
   notShown?: { backdrop: Backdrop; reason: string }[];
+  /** Exact tile IDs captured from the native overhead Area command. */
+  overheadCells?: { keys: string[]; how: string };
 }
 function readObserved(): Record<string, ObservedArea> {
   return existsSync(at(OBSERVED)) ? (JSON.parse(readFileSync(at(OBSERVED), "utf8")) as { areas: Record<string, ObservedArea> }).areas : {};
@@ -566,6 +568,8 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       return skyOk(sky) && groundOk(ground) && usual({ line: Number(line), band: Number(band), ground: Number(ground) });
     };
     const overheadConfirmed = [...seen].some(([hash, list]) => have.has(hash) && list.every((entry) => entry.areaView));
+    const observedOverhead = observed[label]?.overheadCells;
+    const overheadKeys = new Set(observedOverhead?.keys);
 
     const shapeOf = (signature: string) => signature.includes("|") ? signature.slice(signature.indexOf("|") + 1) : signature;
     const shapeWithArt = new Map<string, string>();
@@ -580,7 +584,9 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       if (struck) { (report.struckOff ??= {})[struck.reason] = (report.struckOff[struck.reason] ?? 0) + 1; continue; }
       list = list.filter((entry) => entry.areaView || !ruling(entry.cell.backdrop));
       const reached = list.filter((entry) => [...entry.squares].some((square) => walkable.get(entry.context)!.has(square)));
-      const certain = reached.filter((entry) => entry.areaView ? overheadConfirmed : auditedContexts.has(entry.context) || backdropOk(entry.cell.backdrop));
+      const certain = reached.filter((entry) => entry.areaView
+        ? (observedOverhead ? overheadKeys.has(`tile:${label}:${hash}`) : overheadConfirmed)
+        : auditedContexts.has(entry.context) || backdropOk(entry.cell.backdrop));
       // Held back, not listed. On 2026-11-21 these were listed as "likely" work for an hour and that
       // was wrong: the sky and ground combinations the tool tries include values other areas' scripts
       // set (the Graveyard sets its own on entry, yet was multiplied by Kuto's Well's and the starting

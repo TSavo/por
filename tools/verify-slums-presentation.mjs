@@ -5928,6 +5928,7 @@ const environmentRoutes = new Map([
     slot: "B", area: 20, views: 5, patterns: 10, sceneryOnly: true,
     walk: ["right", "up", "up", "left"],
   }],
+  ["slums-native-area-view", { slot: "B", area: 20 }],
   ["slums-side-arcades-fortune", {
     slot: "B", area: 20, views: 13, patterns: 49, sceneryOnly: true,
     walk: ["left", "up", "up", "right", "up", "b", "up", "left", "up", "up", "right", "up"],
@@ -8398,6 +8399,26 @@ try {
     assert.notDeepEqual(readFileSync(saved), originalSave);
     writeFileSync(resolve(directory, "valjevo-save-scene.json"), JSON.stringify(expected));
     console.log("Native save:", saved);
+  } else if (routeName === "slums-native-area-view") {
+    assert.equal(await verifyTiledView(20, new Set()), 1);
+    const cells = [];
+    for (let turn = 0; turn < 4; turn++) {
+      await advance("a");
+      assert.equal(frame.areaView, true);
+      await waitFor("the native Slums area view", () => run(`state.sequence === ${frame.sequence} &&
+        !document.querySelector('#tile-art:not([hidden]) .street-viewport')`));
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, `slums-native-area-view-${turn}.png`), Buffer.from(shot.data, "base64"));
+      assert.equal(frame.tileInventory?.length, 121);
+      cells.push(...frame.tileInventory.map(([x, y, key]) => [x, y, key]));
+      await advance("a");
+      assert.equal(Boolean(frame.areaView), false);
+      assert.equal(await verifyTiledView(20, new Set()), 1);
+      if (turn < 3) await advance("right");
+    }
+    assert.equal(new Set(cells.map(([, , key]) => key)).size, 20);
+    writeFileSync(resolve(directory, "slums-native-area-cells.json"), JSON.stringify(cells));
+    console.log("Verified the native Slums Area command and return to WebGL:", directory);
   } else if (environment) {
     const area = environment.area ?? 2;
     const actor = environment.sceneryOnly ? undefined
