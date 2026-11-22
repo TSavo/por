@@ -1160,12 +1160,20 @@ const portraitLoops = [
   ["portrait:area:14:ecl:a6b8:PIC1.DAX:1:", 3],
   ["portrait:area:14:ecl:a78c:PIC1.DAX:1:", 3],
   ["portrait:area:14:ecl:a862:PIC1.DAX:1:", 3],
+  // The identical final two native members hold for 500 ms and 200 ms.
+  ["portrait:area:15:ecl:a85b:PIC2.DAX:25:", 5, "portrait:area:15:PIC2.DAX:25:0:0",
+    /YOUFINDAFIGHTERWITHBATTEREDARMORANDWILDEYES/i, [400, 100, 300, 200, 700]],
   ["portrait:area:15:ecl:a520:PIC2.DAX:26:", 2, "portrait:PIC2.DAX:26:0:0",
     /YOUSEEADULLBROWNREPTILIANMONSTER/i],
+  ["portrait:area:23:ecl:9f04:PIC7.DAX:57:", 4, undefined,
+    /THEYAREWARYBUTNOTHOSTILE/i],
+  ["portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:", 4, undefined,
+    /POKINGAROUNDINTHEVATS/i],
   ["portrait:area:29:ecl:af2f:caller:a6f7:PIC8.DAX:0:", 3, "portrait:area:29:PIC8.DAX:0:0:0",
     /ASMALLBANDOFSICKLYKOBOLDS/i],
-].map(([prefix, members, initial, cue]) => ({
+].map(([prefix, members, initial, cue, phaseTimes]) => ({
   cue,
+  phaseTimes,
   phases: (Array.isArray(members) ? members : Array.from({ length: members }, (_, index) => index))
     .map(phase => (phase === 0 && initial) || `${prefix}${phase}:0`),
 }));
@@ -1174,8 +1182,8 @@ async function animateHeldPortrait(image, { portrait: id, text }) {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const loop = portraitLoops.find(({ phases, cue }) => phases.includes(id) &&
     (!cue || cue.test(text.map(([, char]) => String.fromCharCode(char)).join("").replace(/[^a-z]/gi, ""))));
-  const phases = loop?.phases;
-  if (!phases) return;
+  if (!loop) return;
+  const { phases, phaseTimes } = loop;
   const frames = phases.map(phase => {
     const frame = new Image();
     frame.src = `/art/${phase}`;
@@ -1187,14 +1195,15 @@ async function animateHeldPortrait(image, { portrait: id, text }) {
     return;
   }
   let index = phases.indexOf(id);
-  const interval = setInterval(() => {
-    if (!image.isConnected || tileArt.hidden) {
-      clearInterval(interval);
-      return;
-    }
-    index = (index + 1) % frames.length;
-    image.src = frames[index].src;
-  }, 400);
+  function scheduleNextPhase() {
+    setTimeout(() => {
+      if (!image.isConnected || tileArt.hidden) return;
+      index = (index + 1) % frames.length;
+      image.src = frames[index].src;
+      scheduleNextPhase();
+    }, phaseTimes?.[index] ?? 400);
+  }
+  scheduleNextPhase();
 }
 
 async function showScreen() {

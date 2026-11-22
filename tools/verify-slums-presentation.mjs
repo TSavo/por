@@ -369,15 +369,15 @@ const encounterRoutes = new Map([
   ["pyramid-vats-lizard-approach", {
     slot: "A", inputs: ["s", "up", "enter"],
     placement: [48, 32, "encounter:area:23:ecl:a1b9:SPRIT7.DAX:57:0:0", 48, 80],
-    dialogueSteps: [
-      { key: "enter", portrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:0:0", prompt: /POKINGAROUNDINTHEVATS/i },
-      { keys: ["z", "z"], portrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:1:0", prompt: /POKINGAROUNDINTHEVATS/i },
-      ...[2, 3].map(member => ({
-        key: "z", portrait: `portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:${member}:0`, prompt: /POKINGAROUNDINTHEVATS/i,
-      })),
-      { keys: Array(11).fill("z"), portrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:1:0", prompt: /POKINGAROUNDINTHEVATS/i },
-    ],
-    battleStart: { input: "enter", portrait: "portrait:area:23:ecl:a23f:PIC7.DAX:57:1:0", prompt: /ABATTLEBEGINS/i },
+    dialogue: {
+      key: "enter", portrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:0:0",
+      prompt: /POKINGAROUNDINTHEVATS/i,
+      heldPortraitLoop: [0, 1, 2, 3].map(member => `portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:${member}:0`),
+    },
+    battleStart: {
+      input: "enter", portrait: "portrait:area:23:ecl:a23f:PIC7.DAX:57:0:0", prompt: /ABATTLEBEGINS/i,
+      screenshot: "pyramid-vats-lizard-attack.png",
+    },
   }],
   ["stojanow-patrol-fighter-approach", {
     slot: "A", inputs: ["up", "enter"],
@@ -3760,18 +3760,18 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "valjevo-dungeon-kitchen-phase-1.png",
   }],
   ["mendor-fighter-phases", {
-    slot: "B", inputs: ["up", "enter", "enter", ...Array(12).fill("q")],
-    portraitStops: {
-      3: "portrait:area:15:PIC2.DAX:25:0:0",
-      6: "portrait:area:15:ecl:a85b:PIC2.DAX:25:2:0",
-      8: "portrait:area:15:ecl:a85b:PIC2.DAX:25:3:0",
-      9: "portrait:area:15:ecl:a85b:PIC2.DAX:25:4:0",
-    },
-    portrait: "portrait:area:15:ecl:a85b:PIC2.DAX:25:1:0",
+    slot: "B", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:15:PIC2.DAX:25:0:0",
     prompt: /YOUFINDAFIGHTERWITHBATTEREDARMORANDWILDEYES/i,
-    phaseCaptures: { 6: "mendor-fighter-phase-2.png", 8: "mendor-fighter-phase-3.png", 9: "mendor-fighter-phase-4.png" },
-    finalPhaseCapture: "mendor-fighter-phase-1.png",
-    continuation: { inputs: ["c"], portrait: "portrait:area:15:ecl:aafb:PIC2.DAX:25:1:0", prompt: /ABATTLEBEGINS/i },
+    heldPortraitLoop: [
+      "portrait:area:15:PIC2.DAX:25:0:0",
+      ...[1, 2, 3, 4].map(member => `portrait:area:15:ecl:a85b:PIC2.DAX:25:${member}:0`),
+    ],
+    finalPhaseCapture: "mendor-fighter-dialogue.png",
+    continuation: {
+      inputs: ["c"], portrait: "portrait:area:15:PIC2.DAX:25:0:0", prompt: /ABATTLEBEGINS/i,
+      screenshot: "mendor-fighter-combat-opening.png",
+    },
   }],
   ["slums-grain-sack-phases", {
     slot: "B", inputs: ["up", "enter", "enter", ...Array(23).fill("q")],
@@ -4223,6 +4223,12 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter", "enter", "enter"],
     approachSequence: [[48, 32, "encounter:area:23:ecl:9f04:SPRIT7.DAX:57:0:0", 48, 80]],
     portrait: "portrait:area:23:ecl:9f04:PIC7.DAX:57:0:0", prompt: /THEYAREWARY,BUTNOTHOSTILE/i,
+    heldPortraitLoop: [0, 1, 2, 3].map(member => `portrait:area:23:ecl:9f04:PIC7.DAX:57:${member}:0`),
+    continuation: {
+      inputs: ["p"], portrait: "portrait:area:23:ecl:9f2a:PIC7.DAX:57:0:0",
+      prompt: /THEYAREWARY,BUTNOTHOSTILE.*HAUGHTYSLYNICEMEEKABUSIVE/i,
+      screenshot: "pyramid-lizardfolk-patrol-parlay.png",
+    },
   }],
   ["valhingen-skeleton-enclave", {
     slot: "A", inputs: ["up", "enter", "enter"],
@@ -7477,9 +7483,11 @@ try {
     const order = Array.isArray(expected) ? expected : undefined;
     const count = order?.length ?? expected;
     const held = await latest();
-    await run(`(() => {
-      window.heldPortraitPhases = [];
+    await waitFor("the settled held portrait", () => run(`(() => {
+      if (state.sequence !== ${held.sequence} || !state.ready || animationFrame || renderingSequence !== undefined) return false;
       const image = document.querySelector(".encounter-portrait");
+      if (!image?.complete || image.naturalWidth !== 352) return false;
+      window.heldPortraitPhases = [];
       const record = () => {
         const phase = image.src;
         if (phase && window.heldPortraitPhases.at(-1) !== phase) window.heldPortraitPhases.push(phase);
@@ -7488,7 +7496,8 @@ try {
       const observer = new MutationObserver(record);
       observer.observe(image, { attributes: true, attributeFilter: ["src"] });
       setTimeout(() => observer.disconnect(), 5000);
-    })()`);
+      return true;
+    })()`));
     const cycle = await waitFor("the portrait to loop without input", () =>
       run(`window.heldPortraitPhases.length > ${count} && window.heldPortraitPhases`));
     const phases = cycle.slice(0, count);
