@@ -93,6 +93,8 @@ const portraitLoops = [
     /YOUENTERAROOMTHATREEKSOFSMOKEANDBURNEDFOOD/i, [1510, 510]],
   ["portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:", 2, undefined,
     /THEGNOLLTURNSTOFLEE/i, [1510, 510]],
+  ["portrait:area:4:ecl:9a5a:caller:aa89:PIC5.DAX:73:", 2, undefined,
+    /THEOVERSEERTURNSTOWARDYOUBLUDGEONINHAND/i, [1510, 510]],
   ["portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:", [0, 1, 0, 3], undefined,
     /THISPAPERHASTHEPASSWORDS|LETSSEEIFYOUCANREADTODAYSLIST/i, [210, 210, 210, 210],
     [["scene-illustration:area:4:ecl:9a5a:caller:a442", 0]]],

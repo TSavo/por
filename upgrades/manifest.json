@@ -9838,6 +9838,7 @@
     "portrait:area:3:ecl:9a5a:caller:a732:PIC5.DAX:56:0:0": "valjevo-waking-fire-giants.png",
     "portrait:area:3:ecl:a74e:PIC5.DAX:56:0:0": "valjevo-waking-fire-giants.png",
     "portrait:area:4:ecl:9a5a:caller:aa89:PIC5.DAX:73:0:0": "valjevo-kitchen-gnoll-warning.png",
+    "portrait:area:4:ecl:9a5a:caller:aa89:PIC5.DAX:73:1:0": "valjevo-kitchen-gnoll-warning-phase-1.png",
     "portrait:area:4:ecl:9a5a:caller:aad4:PIC5.DAX:73:0:0": "valjevo-kitchen-gnoll-oil.png",
     "portrait:area:4:ecl:aadf:PIC5.DAX:73:0:0": "valjevo-kitchen-gnoll-oil.png",
     "combat:area:20:CPIC2.DAX:0:ecl:a514": "mendor-kobold-stand.png",

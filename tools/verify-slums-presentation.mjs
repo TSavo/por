@@ -3951,6 +3951,13 @@ const illustrationRoutes = new Map([
     heldPortraitLoop: [0, 1].map(member => `portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:${member}:0`),
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /TWOOFTHESLAVESRUNQUICKLYOUTTHEDOOR/i },
   }],
+  ["valjevo-dungeon-kitchen-warning-loop", {
+    slot: "B", inputs: ["up", "enter", "end", "end", "enter"],
+    portrait: "portrait:area:4:ecl:9a5a:caller:aa89:PIC5.DAX:73:0:0",
+    prompt: /THEOVERSEERTURNSTOWARDYOUBLUDGEONINHAND/i,
+    heldPortraitLoop: [0, 1].map(member => `portrait:area:4:ecl:9a5a:caller:aa89:PIC5.DAX:73:${member}:0`),
+    continuation: { inputs: ["enter"], portrait: "portrait:PIC5.DAX:73:0:0", prompt: /WHATDOYOUDOKILLTHEOVERSEER/i },
+  }],
   ["mendor-fighter-phases", {
     slot: "B", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:15:PIC2.DAX:25:0:0",
