@@ -68,7 +68,7 @@
       "id": "display-animated-portraits-loop",
       "class": "enhanced-display",
       "title": "Every frame of an animated portrait must play as a loop in Chrome",
-      "detail": "GOG 1.3 Chrome replay valhingen-zombie-roam-animation at f34b0904 displayed all five native roaming zombie phases with Enhanced art filling a single panel. Captures show consistent framing across the five phases. Continuous loop behavior and other animated portrait families still require live verification.",
+      "detail": "GOG 1.3 Chrome replay valhingen-zombie-roam-animation at f34b0904 displayed all five native roaming zombie phases with Enhanced art filling a single panel. Captures show consistent framing across the five phases. During a separate 2.5-second input-free Chrome check at 64a5241a, the held zombie prompt displayed phase 1 throughout. The five frames appear across inputs, but the held prompt currently stays static. Other animated portrait families still require live verification.",
       "source": "Owner requirement.",
       "status": "open"
     },
