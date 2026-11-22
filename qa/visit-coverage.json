@@ -42,6 +42,19 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "visit-valjevo-area-4 (qa/fixtures/visit-valjevo-area-4, game/)": {
+   "areas": [
+    3,
+    4,
+    6
+   ],
+   "commissions": [
+    "sokal"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
