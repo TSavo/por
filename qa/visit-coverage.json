@@ -272,6 +272,23 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "walk-kovel-and-nomads": {
+   "areas": [
+    0,
+    8,
+    14,
+    17,
+    26
+   ],
+   "commissions": [
+    "auction",
+    "sokal",
+    "textile"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
