@@ -21,6 +21,11 @@
    "frames": [],
    "fixtureSha256": "bd17894d32941f4e634a2294a1a765531d220d94c8ebd896d7d3274bdc4706a7"
   },
+  "campaign-full/leg-10": {
+   "presented": 335,
+   "frames": [],
+   "fixtureSha256": "5dc898d127cc937dbe85243a9867a1255276353b64bb1cadc41da13e987f11b4"
+  },
   "campaign-full/leg-11": {
    "presented": 2,
    "frames": [],
@@ -125,6 +130,11 @@
    "presented": 78,
    "frames": [],
    "fixtureSha256": "d1d53cb1de05e616850117aa700abeb23697d16d67fe7d1078a0dabd1950ec00"
+  },
+  "walk-kobold-king": {
+   "presented": 333,
+   "frames": [],
+   "fixtureSha256": "9c45c391d24f607d89d0c2350b0c6058f888a8547c48b6773a75b869a64fb2fe"
   },
   "walk-kovel-and-nomads": {
    "presented": 233,
