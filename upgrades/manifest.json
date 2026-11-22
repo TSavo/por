@@ -2029,6 +2029,8 @@
     "scene-illustration:area:8:ecl:b5c3:caller:af36:cue:special-council-summons": "council-special-meeting-summons.png",
     "scene-illustration:area:8:ecl:a83b:caller:9a4a:cue:repeat-commission-offers": "council-clerk-repeat-offers.png",
     "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:repeat-commission-offers": "council-clerk-repeat-offers.png",
+    "scene-illustration:area:8:ecl:aaa1:caller:a891:cue:cadorna-commission-referral": "council-clerk-cadorna-east-door.png",
+    "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:cadorna-commission-referral": "council-clerk-cadorna-east-door.png",
     "scene-illustration:area:8:ecl:aa2a:caller:a891:cue:podal-auction-commission-offer": "council-podal-auction-offer.png",
     "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:podal-auction-commission-offer": "council-podal-auction-offer.png",
     "scene-illustration:area:8:ecl:a9af:caller:a891:cue:records-commission-offer": "council-clerk-records-offer.png",
