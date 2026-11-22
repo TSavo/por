@@ -12,23 +12,20 @@
  },
  "enhancedFallbacks": {
   "frames": 0,
-  "presented": 2347,
-  "walks": 20,
-  "recordedWalks": 31,
+  "presented": 2883,
+  "walks": 24,
+  "recordedWalks": 32,
   "missingWalks": [
    "campaign-full/leg-10",
-   "campaign-full/leg-11",
-   "campaign-full/leg-7",
-   "campaign-full/leg-8",
-   "campaign-full/leg-9",
    "campaign-sokal-leg",
    "campaign-tower-leg",
    "walk-commission-5-reward",
    "walk-commission-5-taken",
+   "walk-kobold-king",
    "walk-kovel-and-nomads",
    "walk-textile-house-cleared"
   ],
-  "runs": 22,
+  "runs": 26,
   "keys": []
  },
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",

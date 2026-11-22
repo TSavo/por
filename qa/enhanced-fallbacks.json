@@ -21,6 +21,11 @@
    "frames": [],
    "fixtureSha256": "bd17894d32941f4e634a2294a1a765531d220d94c8ebd896d7d3274bdc4706a7"
   },
+  "campaign-full/leg-11": {
+   "presented": 2,
+   "frames": [],
+   "fixtureSha256": "58409401e0f587cb1c60624bf60696b43a5b7b0cda4f2580b0650baefc152e42"
+  },
   "campaign-full/leg-2": {
    "presented": 4,
    "frames": [],
@@ -45,6 +50,21 @@
    "presented": 3,
    "frames": [],
    "fixtureSha256": "7db416ae1b2234dcedb9187f72d3904594c50130884f02359e6868b2350e584c"
+  },
+  "campaign-full/leg-7": {
+   "presented": 315,
+   "frames": [],
+   "fixtureSha256": "f3bee43e0f751f5e9b62ed0911e9e5e874585c65b9f9e0c61a4344792d45a457"
+  },
+  "campaign-full/leg-8": {
+   "presented": 122,
+   "frames": [],
+   "fixtureSha256": "e97518f9ab50ae0c5b1bb06ecfc094922525f190ead5de2aafa134f18590d5d8"
+  },
+  "campaign-full/leg-9": {
+   "presented": 97,
+   "frames": [],
+   "fixtureSha256": "99509cc19d144fe15d67ce4b0e86a32b20c7481a37d53dad78d19ed93f2f3909"
   },
   "narration/campaign-f": {
    "presented": 145,
