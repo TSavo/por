@@ -82,7 +82,9 @@ hide it.
   This is how a replay is shown to fail on a swallowed key.
 - `npm run qa:repeat-presses` counts the replay steps that still press a key
   until the screen changes, by file and line, and exits 1 while any is
-  left.
+  left. It also counts a `presses` or `acceptSokalPatrol` whose count can be
+  `undefined` in some mode (`continuous ? 7 : undefined`): that mode fails at
+  the step until its count is measured and written (#151).
 
 ## Character icon editor
 

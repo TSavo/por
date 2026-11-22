@@ -12,6 +12,9 @@
 //                 takes. Say how many keys the walk takes and check it (acceptSokalPatrol).
 //   raw loop      a loop that writes keys to the runner while the screen does not show something.
 //                 Press each key once and check its screen (tools/verify-input.mjs).
+//   no count      presses(key, count, until) or acceptSokalPatrol(..., keys) whose count can be
+//                 undefined in some mode (`continuous ? 7 : undefined`): that mode fails at the step
+//                 until its count is measured with POR_REPLAY_RECOUNT=1 and written (#151).
 //
 // The acceptance harness's own loops press through game.press, which fails on a swallowed key,
 // so they are not counted. It prints R, the number of such steps, and exits 1 while R > 0.
@@ -58,6 +61,15 @@ function findings(file) {
       ts.isNumericLiteral(node.expression.expression.arguments[0] ?? node) && isFunction(node.arguments[0])) {
       found.push({ line: line(node), shape: "repeat fill", text: node.getText(source).replace(/\s+/g, " ").slice(0, 100) });
     }
+    // presses(key, undefined or a count that can be undefined, until), and acceptSokalPatrol's key count
+    if (ts.isCallExpression(node) && ts.isIdentifier(node.expression) && ["presses", "acceptSokalPatrol"].includes(node.expression.text)) {
+      const count = node.arguments[node.expression.text === "presses" ? 1 : 2];
+      const mentionsUndefined = (child) => child && ((ts.isIdentifier(child) && child.text === "undefined") ||
+        ts.forEachChild(child, mentionsUndefined) === true);
+      if (!count || mentionsUndefined(count)) {
+        found.push({ line: line(node), shape: "no count", text: node.getText(source).replace(/\s+/g, " ").slice(0, 100) });
+      }
+    }
     // for (...; !pattern.test(screen); ...) { runner.stdin.write(...) } and while loops alike
     const condition = ts.isForStatement(node) ? node.condition
       : ts.isWhileStatement(node) || ts.isDoStatement(node) ? node.expression : undefined;
@@ -78,5 +90,5 @@ for (const file of files) {
   console.log(`${file}: ${found.length}`);
   for (const { line, shape, text } of found) console.log(`  ${line}  ${shape}  ${text}`);
 }
-console.log(`R = ${total} replay steps press a key again until the screen changes, in ${files.length} files read.`);
+console.log(`R = ${total} replay steps press a key again until the screen changes, or have no count in some mode, in ${files.length} files read.`);
 process.exit(total ? 1 : 0);
