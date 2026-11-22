@@ -2,18 +2,18 @@
  "schema": 2,
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
- "remaining": 3564,
+ "remaining": 3520,
  "totals": {
-  "Remaining, all kinds": 3564,
-  "First-person cells to do": 3325,
+  "Remaining, all kinds": 3520,
+  "First-person cells to do": 3281,
   "  of which one stored tile": 11,
-  "  of which one tile over a solid colour": 709,
+  "  of which one tile over a solid colour": 699,
   "  of which plain sky or ground": 37,
-  "  of which several tiles together": 2568,
-  "  of which the same pixels already have art of yours in another area": 558,
+  "  of which several tiles together": 2534,
+  "  of which the same pixels already have art of yours in another area": 545,
   "Battlefield cells to do": 239,
-  "Tile keys in the manifests": 7580,
-  "  accounted for by the tool": 7575,
+  "Tile keys in the manifests": 7624,
+  "  accounted for by the tool": 7619,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
@@ -264,20 +264,20 @@
    "area": 10,
    "name": "Valhingen Graveyard",
    "established": true,
-   "why": "all 922 cells that have artwork are among the cells the tool works out",
+   "why": "all 947 cells that have artwork are among the cells the tool works out",
    "maps": [
     10
    ],
    "wallSets": [
     "WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)"
    ],
-   "existingKeys": 922,
-   "existingKeysAccountedFor": 922,
+   "existingKeys": 947,
+   "existingKeysAccountedFor": 947,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 2452,
-   "cellsWithArt": 910,
-   "toDo": 1542,
+   "cellsWithArt": 935,
+   "toDo": 1517,
    "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 12
   },
@@ -459,20 +459,20 @@
    "area": 21,
    "name": "Sokal Keep",
    "established": true,
-   "why": "all 295 cells that have artwork are among the cells the tool works out",
+   "why": "all 314 cells that have artwork are among the cells the tool works out",
    "maps": [
     21
    ],
    "wallSets": [
     "WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)"
    ],
-   "existingKeys": 295,
-   "existingKeysAccountedFor": 295,
+   "existingKeys": 314,
+   "existingKeysAccountedFor": 314,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 500,
-   "cellsWithArt": 273,
-   "toDo": 227,
+   "cellsWithArt": 292,
+   "toDo": 208,
    "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 22
   },
@@ -17768,13 +17768,14 @@
     16,
     17,
     18,
+    21,
     25,
     26,
     27,
     28,
     29
    ],
-   "sameAs": "valjevo-scope5-screen-5-d20d585641c6.png",
+   "sameAs": "sokal-night-cell-d20d585641c6.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 918 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
   },
   {
@@ -18124,9 +18125,10 @@
     15,
     18,
     20,
+    21,
     29
    ],
-   "sameAs": "valjevo-scope3-cell-45f5e38f7219.png",
+   "sameAs": "sokal-night-cell-45f5e38f7219.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 469 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
   },
   {
@@ -18480,9 +18482,10 @@
     15,
     18,
     20,
+    21,
     29
    ],
-   "sameAs": "valjevo-scope3-cell-b03fbca109ab.png",
+   "sameAs": "sokal-night-cell-b03fbca109ab.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 468 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
   },
   {
@@ -23037,29 +23040,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:10:2386df8d4e110f5066db5957fe9347eb912ed86f75c4eae78e25d205874c5e53",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "plain sky, horizon and ground",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|",
-   "description": "the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 0,
-    "y": 0,
-    "facing": "east",
-    "column": 5,
-    "row": 5
-   },
-   "views": 774,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 774 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:10:23cd922178851f7c2f9bf5ab8ecd8b3b3fa3924c85c786b6f1e9931ef542f3b5",
    "width": 32,
    "height": 32,
@@ -23533,13 +23513,14 @@
     16,
     17,
     18,
+    21,
     25,
     26,
     27,
     28,
     29
    ],
-   "sameAs": "valjevo-scope5-screen-5-d20d585641c6.png",
+   "sameAs": "sokal-night-cell-d20d585641c6.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 774 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
   },
   {
@@ -25134,8 +25115,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 20",
    "what": "several tiles together",
-   "composition": "h14.15.7.6|8X8D4.DAX:20:36,8X8D4.DAX:20:36",
-   "description": "8X8D4 block 20 tile 36 over 8X8D4 block 20 tile 36 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 6), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:20:36,8X8D4.DAX:20:36",
+   "description": "8X8D4 block 20 tile 36 over 8X8D4 block 20 tile 36 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 2,
@@ -25144,9 +25125,9 @@
     "column": 5,
     "row": 5
    },
-   "views": 63,
+   "views": 7,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 63 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 7 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -25449,8 +25430,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 20",
    "what": "several tiles together",
-   "composition": "h14.0.8.6|8X8D4.DAX:20:35",
-   "description": "8X8D4 block 20 tile 35 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 6), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:20:35",
+   "description": "8X8D4 block 20 tile 35 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 6,
@@ -25459,9 +25440,9 @@
     "column": 8,
     "row": 5
    },
-   "views": 3,
+   "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -25807,8 +25788,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 20",
    "what": "several tiles together",
-   "composition": "h14.0.8.6|8X8D4.DAX:20:32",
-   "description": "8X8D4 block 20 tile 32 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 6), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:20:32",
+   "description": "8X8D4 block 20 tile 32 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 3,
@@ -25817,9 +25798,9 @@
     "column": 4,
     "row": 5
    },
-   "views": 42,
+   "views": 7,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 42 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 7 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -25968,7 +25949,7 @@
    },
    "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -26490,7 +26471,7 @@
    },
    "views": 6,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 6 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 6 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -26721,29 +26702,6 @@
    "views": 63,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 63 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:06ab5a879db57396503b886d97dc2f59d3338916f54e4d8c50eb37536dda66ce",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:211:10,8X8D4.DAX:211:3",
-   "description": "8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 10 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 3,
-    "y": 0,
-    "facing": "south",
-    "column": 9,
-    "row": 5
-   },
-   "views": 54,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 54 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
   },
   {
    "kind": "first-person cell",
@@ -27076,8 +27034,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 211",
    "what": "several tiles together",
-   "composition": "h14.0.8.6|8X8D4.DAX:20:35,8X8D4.DAX:211:2",
-   "description": "8X8D4 block 211 tile 2 over 8X8D4 block 20 tile 35 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 6), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:20:35,8X8D4.DAX:211:2",
+   "description": "8X8D4 block 211 tile 2 over 8X8D4 block 20 tile 35 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 4,
@@ -27086,9 +27044,9 @@
     "column": 10,
     "row": 5
    },
-   "views": 3,
+   "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -27237,8 +27195,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 211",
    "what": "several tiles together",
-   "composition": "h14.15.7.6|8X8D4.DAX:20:30,8X8D4.DAX:211:12,8X8D4.DAX:211:3",
-   "description": "8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 12 over 8X8D4 block 20 tile 30 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 6), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:20:30,8X8D4.DAX:211:12,8X8D4.DAX:211:3",
+   "description": "8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 12 over 8X8D4 block 20 tile 30 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 3,
@@ -27247,9 +27205,9 @@
     "column": 3,
     "row": 5
    },
-   "views": 9,
+   "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 9 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -27490,8 +27448,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 211",
    "what": "several tiles together",
-   "composition": "h14.15.7.8|8X8D4.DAX:212:15,8X8D4.DAX:211:17",
-   "description": "8X8D4 block 211 tile 17 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 8), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:212:15,8X8D4.DAX:211:17",
+   "description": "8X8D4 block 211 tile 17 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 2,
@@ -27500,9 +27458,9 @@
     "column": 4,
     "row": 5
    },
-   "views": 111,
+   "views": 37,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 111 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 37 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -27779,29 +27737,6 @@
    "views": 165,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 165 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:18e5f9d4254a354e841fcfc5da8594f3f08714709d10a3a3cb423533c04b2963",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:211:2",
-   "description": "8X8D4 block 211 tile 2 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 0,
-    "y": 0,
-    "facing": "east",
-    "column": 7,
-    "row": 5
-   },
-   "views": 105,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 105 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
   },
   {
    "kind": "first-person cell",
@@ -28564,29 +28499,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:10:21b3453b873cb47dfd08723336f2861a74773097795a131d33cc892a7e044685",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:211:10,8X8D4.DAX:211:12",
-   "description": "8X8D4 block 211 tile 12 over 8X8D4 block 211 tile 10 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 0,
-    "y": 0,
-    "facing": "south",
-    "column": 3,
-    "row": 5
-   },
-   "views": 52,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 52 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:10:21e5804df677d021dae1ae2c5d4d717660e3d7515a89c7c7add1a98a4073ecfe",
    "width": 32,
    "height": 32,
@@ -28882,7 +28794,7 @@
    },
    "views": 7,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 7 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 7 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -29021,29 +28933,6 @@
    "views": 3,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:28b2a94c22fb30488b16197df034ee2d12dffcc267dff74d0ecb8aed34e38090",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:211:10",
-   "description": "8X8D4 block 211 tile 10 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 0,
-    "y": 0,
-    "facing": "east",
-    "column": 9,
-    "row": 5
-   },
-   "views": 224,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 224 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
   },
   {
    "kind": "first-person cell",
@@ -29445,8 +29334,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 211",
    "what": "several tiles together",
-   "composition": "h14.15.7.8|8X8D4.DAX:212:15,8X8D4.DAX:211:17,8X8D4.DAX:211:12,8X8D4.DAX:211:12,8X8D4.DAX:211:9,8X8D4.DAX:211:9",
-   "description": "8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 12 over 8X8D4 block 211 tile 12 over 8X8D4 block 211 tile 17 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 8), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:212:15,8X8D4.DAX:211:17,8X8D4.DAX:211:12,8X8D4.DAX:211:12,8X8D4.DAX:211:9,8X8D4.DAX:211:9",
+   "description": "8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 12 over 8X8D4 block 211 tile 12 over 8X8D4 block 211 tile 17 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 13,
@@ -29455,9 +29344,9 @@
     "column": 6,
     "row": 5
    },
-   "views": 3,
+   "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -29572,7 +29461,7 @@
    },
    "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -31216,8 +31105,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 211",
    "what": "several tiles together",
-   "composition": "h14.15.7.8|8X8D4.DAX:212:15,8X8D4.DAX:211:17,8X8D4.DAX:211:3,8X8D4.DAX:211:3,8X8D4.DAX:211:9,8X8D4.DAX:211:9",
-   "description": "8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 17 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 8), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:212:15,8X8D4.DAX:211:17,8X8D4.DAX:211:3,8X8D4.DAX:211:3,8X8D4.DAX:211:9,8X8D4.DAX:211:9",
+   "description": "8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 17 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 15,
@@ -31226,9 +31115,9 @@
     "column": 6,
     "row": 5
    },
-   "views": 3,
+   "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -31436,29 +31325,6 @@
    "views": 93,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 93 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:488641f2915ac95c5fb7d7976254d5855a32eb7131bcc8b42481bbb01a28a3b7",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:211:14",
-   "description": "8X8D4 block 211 tile 14 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 0,
-    "y": 0,
-    "facing": "south",
-    "column": 1,
-    "row": 5
-   },
-   "views": 87,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 87 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
   },
   {
    "kind": "first-person cell",
@@ -31734,7 +31600,7 @@
    },
    "views": 4,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 4 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 4 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -31757,7 +31623,7 @@
    },
    "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -32332,7 +32198,7 @@
    },
    "views": 11,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 11 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 11 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -32815,7 +32681,7 @@
    },
    "views": 52,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 52 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 52 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -33390,7 +33256,7 @@
    },
    "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -33460,29 +33326,6 @@
    "views": 2,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:61dfedd7215d66414bf573a1456c1f2ea8614c3c26abf616fb139e766bb12295",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.15.7.8|8X8D4.DAX:211:17",
-   "description": "8X8D4 block 211 tile 17 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 0,
-    "y": 0,
-    "facing": "east",
-    "column": 6,
-    "row": 5
-   },
-   "views": 474,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 474 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
   },
   {
    "kind": "first-person cell",
@@ -33762,29 +33605,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:10:6622cf675610dfe97e29c9544d1dd43ffb2ef377bdfa001e975d91d39aa44b66",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:212:7,8X8D4.DAX:211:3",
-   "description": "8X8D4 block 211 tile 3 over 8X8D4 block 212 tile 7 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 1,
-    "y": 1,
-    "facing": "west",
-    "column": 3,
-    "row": 5
-   },
-   "views": 30,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 30 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:10:666989cf947e8988d2d6512fde1a7a03e4e7bfade6ec771b4b1e8d52682d1476",
    "width": 32,
    "height": 32,
@@ -34057,7 +33877,7 @@
    },
    "views": 16,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 16 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 16 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -34839,7 +34659,7 @@
    },
    "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -34919,8 +34739,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 211",
    "what": "several tiles together",
-   "composition": "h14.0.8.6|8X8D4.DAX:20:32,8X8D4.DAX:211:3,8X8D4.DAX:211:3",
-   "description": "8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 3 over 8X8D4 block 20 tile 32 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 6), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:20:32,8X8D4.DAX:211:3,8X8D4.DAX:211:3",
+   "description": "8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 3 over 8X8D4 block 20 tile 32 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 3,
@@ -34929,9 +34749,9 @@
     "column": 6,
     "row": 5
    },
-   "views": 6,
+   "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 6 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -34942,8 +34762,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 211",
    "what": "several tiles together",
-   "composition": "h14.15.7.8|8X8D4.DAX:211:17,8X8D4.DAX:211:12",
-   "description": "8X8D4 block 211 tile 12 over 8X8D4 block 211 tile 17 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 8), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:211:17,8X8D4.DAX:211:12",
+   "description": "8X8D4 block 211 tile 12 over 8X8D4 block 211 tile 17 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 1,
@@ -34952,9 +34772,9 @@
     "column": 9,
     "row": 5
    },
-   "views": 33,
+   "views": 11,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 33 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 11 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -35070,29 +34890,6 @@
    "views": 6,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 6 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:767c9cb9417a93b2538e55872438cc8ad2a57b71f7c0464a972cff402181177a",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:211:14,8X8D4.DAX:211:12",
-   "description": "8X8D4 block 211 tile 12 over 8X8D4 block 211 tile 14 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 2,
-    "y": 0,
-    "facing": "south",
-    "column": 9,
-    "row": 5
-   },
-   "views": 30,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 30 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
   },
   {
    "kind": "first-person cell",
@@ -35809,29 +35606,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:10:7ef5a71d739806fb5ffff92c5cfea070e3f2d6b7b58a28fbf991c5d9095bee61",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:212:15,8X8D4.DAX:211:3",
-   "description": "8X8D4 block 211 tile 3 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 1,
-    "y": 0,
-    "facing": "south",
-    "column": 9,
-    "row": 5
-   },
-   "views": 39,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 39 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:10:7f0b08817ce2c19d335f6d348c6229bb9bb2edabf0d4d12fbd484820a23b5e38",
    "width": 32,
    "height": 32,
@@ -36058,7 +35832,7 @@
    },
    "views": 29,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 29 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 29 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -36150,7 +35924,7 @@
    },
    "views": 11,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 11 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 11 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -36276,8 +36050,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 211",
    "what": "several tiles together",
-   "composition": "h14.15.7.6|8X8D4.DAX:20:30,8X8D4.DAX:211:2",
-   "description": "8X8D4 block 211 tile 2 over 8X8D4 block 20 tile 30 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 6), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:20:30,8X8D4.DAX:211:2",
+   "description": "8X8D4 block 211 tile 2 over 8X8D4 block 20 tile 30 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 3,
@@ -36286,9 +36060,9 @@
     "column": 1,
     "row": 5
    },
-   "views": 9,
+   "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 9 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -36667,8 +36441,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 211",
    "what": "several tiles together",
-   "composition": "h14.15.7.8|8X8D4.DAX:212:15,8X8D4.DAX:211:17,8X8D4.DAX:211:3",
-   "description": "8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 17 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 8), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:212:15,8X8D4.DAX:211:17,8X8D4.DAX:211:3",
+   "description": "8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 17 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 10,
@@ -36677,9 +36451,9 @@
     "column": 9,
     "row": 5
    },
-   "views": 6,
+   "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 6 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -37304,29 +37078,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:10:93739a115c86f96bf4f44e9e792265f5555338b79a48c6421efe238dbac00cd6",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:212:15,8X8D4.DAX:211:12,8X8D4.DAX:211:12",
-   "description": "8X8D4 block 211 tile 12 over 8X8D4 block 211 tile 12 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 13,
-    "y": 0,
-    "facing": "west",
-    "column": 6,
-    "row": 5
-   },
-   "views": 29,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 29 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:10:93ce5de23b99e44037d826b3dd4e43da109b54f4d307827df3c2032a01356b28",
    "width": 32,
    "height": 32,
@@ -37369,7 +37120,7 @@
    },
    "views": 12,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 12 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 12 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -37760,7 +37511,7 @@
    },
    "views": 4,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 4 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 4 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -37783,7 +37534,7 @@
    },
    "views": 24,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 24 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 24 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -38266,7 +38017,7 @@
    },
    "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -38312,7 +38063,7 @@
    },
    "views": 13,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 13 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 13 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -38576,8 +38327,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 211",
    "what": "several tiles together",
-   "composition": "h14.15.7.8|8X8D4.DAX:211:14,8X8D4.DAX:211:17,8X8D4.DAX:211:3,8X8D4.DAX:211:3,8X8D4.DAX:211:9,8X8D4.DAX:211:9",
-   "description": "8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 17 over 8X8D4 block 211 tile 14 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 8), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:211:14,8X8D4.DAX:211:17,8X8D4.DAX:211:3,8X8D4.DAX:211:3,8X8D4.DAX:211:9,8X8D4.DAX:211:9",
+   "description": "8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 17 over 8X8D4 block 211 tile 14 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 1,
@@ -38586,9 +38337,9 @@
     "column": 6,
     "row": 5
    },
-   "views": 42,
+   "views": 14,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 42 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 14 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -39144,29 +38895,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:10:aa16874b4fa5a07f79aeb6efd130400d26d258cfc9b24c2915d1928c946a63b7",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:211:14,8X8D4.DAX:211:3,8X8D4.DAX:211:3,8X8D4.DAX:211:9,8X8D4.DAX:211:9",
-   "description": "8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 14 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 2,
-    "y": 0,
-    "facing": "south",
-    "column": 6,
-    "row": 5
-   },
-   "views": 18,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 18 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:10:aadbc8f9e0e83c363140ab18affe2c0f68f69fc675b62cfaa8aa888894106eb5",
    "width": 32,
    "height": 32,
@@ -39404,8 +39132,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 211",
    "what": "several tiles together",
-   "composition": "h14.15.7.8|8X8D4.DAX:212:15,8X8D4.DAX:211:17,8X8D4.DAX:211:9,8X8D4.DAX:211:9",
-   "description": "8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 17 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 8), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:212:15,8X8D4.DAX:211:17,8X8D4.DAX:211:9,8X8D4.DAX:211:9",
+   "description": "8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 9 over 8X8D4 block 211 tile 17 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 13,
@@ -39414,9 +39142,9 @@
     "column": 6,
     "row": 5
    },
-   "views": 3,
+   "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -39922,7 +39650,7 @@
    },
    "views": 5,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 5 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 5 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -40439,8 +40167,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 211",
    "what": "several tiles together",
-   "composition": "h14.15.7.6|8X8D4.DAX:20:36,8X8D4.DAX:211:2",
-   "description": "8X8D4 block 211 tile 2 over 8X8D4 block 20 tile 36 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 6), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:20:36,8X8D4.DAX:211:2",
+   "description": "8X8D4 block 211 tile 2 over 8X8D4 block 20 tile 36 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 5,
@@ -40449,9 +40177,9 @@
     "column": 7,
     "row": 5
    },
-   "views": 27,
+   "views": 3,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 27 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -40612,7 +40340,7 @@
    },
    "views": 3,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -40738,8 +40466,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 211",
    "what": "several tiles together",
-   "composition": "h14.15.7.6|8X8D4.DAX:20:36,8X8D4.DAX:211:3",
-   "description": "8X8D4 block 211 tile 3 over 8X8D4 block 20 tile 36 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 6), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:20:36,8X8D4.DAX:211:3",
+   "description": "8X8D4 block 211 tile 3 over 8X8D4 block 20 tile 36 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 2,
@@ -40748,9 +40476,9 @@
     "column": 9,
     "row": 5
    },
-   "views": 18,
+   "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 18 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -40843,29 +40571,6 @@
    "views": 26,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 26 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:c1d333566125152c08d2b27b66f4af929dac6f15642f0018a3a3463402dd7197",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.15.7.8|8X8D4.DAX:211:10,8X8D4.DAX:211:17,8X8D4.DAX:211:3",
-   "description": "8X8D4 block 211 tile 3 over 8X8D4 block 211 tile 17 over 8X8D4 block 211 tile 10 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 2,
-    "y": 1,
-    "facing": "south",
-    "column": 9,
-    "row": 5
-   },
-   "views": 54,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 54 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
   },
   {
    "kind": "first-person cell",
@@ -41306,29 +41011,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:10:c730da5552dedf14ad6ab47af8b37a365dad420efd221f530796294491b0a411",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:211:14,8X8D4.DAX:211:2,8X8D4.DAX:211:2",
-   "description": "8X8D4 block 211 tile 2 over 8X8D4 block 211 tile 2 over 8X8D4 block 211 tile 14 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 0,
-    "y": 0,
-    "facing": "south",
-    "column": 4,
-    "row": 5
-   },
-   "views": 63,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 63 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:10:c7af4b522cd02f0748a3b8bf9a175cc7a61cfbef37b0749591f594dd689fa5c2",
    "width": 32,
    "height": 32,
@@ -41509,7 +41191,7 @@
    },
    "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -41785,7 +41467,7 @@
    },
    "views": 13,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 13 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 13 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -41900,7 +41582,7 @@
    },
    "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -42088,29 +41770,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:10:d0cf3574215fcb303176667a839560d3a3c1ca9ace5b8aa4e06185ee34722bb6",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:211:3",
-   "description": "8X8D4 block 211 tile 3 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 0,
-    "y": 0,
-    "facing": "east",
-    "column": 8,
-    "row": 5
-   },
-   "views": 98,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 98 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:10:d1e1a0afe703d832e211e48ac48e60cc4134d0975bbf05214a9068eee59464e2",
    "width": 32,
    "height": 32,
@@ -42256,8 +41915,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 211",
    "what": "several tiles together",
-   "composition": "h14.15.7.8|8X8D4.DAX:212:15,8X8D4.DAX:211:17,8X8D4.DAX:211:2",
-   "description": "8X8D4 block 211 tile 2 over 8X8D4 block 211 tile 17 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 8), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:212:15,8X8D4.DAX:211:17,8X8D4.DAX:211:2",
+   "description": "8X8D4 block 211 tile 2 over 8X8D4 block 211 tile 17 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 13,
@@ -42266,9 +41925,9 @@
     "column": 1,
     "row": 5
    },
-   "views": 6,
+   "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 6 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -43579,30 +43238,7 @@
    },
    "views": 3,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:e26bbb13da3d8460074bffc2b597578fcb8f0f2c9afa9a274c2c32e9cf2eb694",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.15.7.8|8X8D4.DAX:211:14,8X8D4.DAX:211:17,8X8D4.DAX:211:2,8X8D4.DAX:211:2",
-   "description": "8X8D4 block 211 tile 2 over 8X8D4 block 211 tile 2 over 8X8D4 block 211 tile 17 over 8X8D4 block 211 tile 14 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 10,
-    "y": 0,
-    "facing": "west",
-    "column": 4,
-    "row": 5
-   },
-   "views": 93,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 93 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -43764,29 +43400,6 @@
    "views": 10,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 10 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:e5e4bfb65b55f866c567c51ae8b97f8d012a9617c810c5e370ca23ed5e8b19a2",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:211:14,8X8D4.DAX:211:10",
-   "description": "8X8D4 block 211 tile 10 over 8X8D4 block 211 tile 14 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 2,
-    "y": 1,
-    "facing": "east",
-    "column": 6,
-    "row": 5
-   },
-   "views": 26,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 26 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
   },
   {
    "kind": "first-person cell",
@@ -44040,29 +43653,6 @@
    "views": 1,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:e759a3f002a42ea0e48e7312de15b88c297319c8cb001127c8a792f27c90c2e8",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:212:15,8X8D4.DAX:211:2",
-   "description": "8X8D4 block 211 tile 2 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 2,
-    "y": 0,
-    "facing": "west",
-    "column": 2,
-    "row": 5
-   },
-   "views": 50,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 50 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
   },
   {
    "kind": "first-person cell",
@@ -44362,29 +43952,6 @@
    "views": 32,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 32 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:eaba4c8fbe3dc4aaab32e81f6fbfa0bc8f60743f12ed1345f348174d82a003f5",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:212:7,8X8D4.DAX:211:2",
-   "description": "8X8D4 block 211 tile 2 over 8X8D4 block 212 tile 7 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 1,
-    "y": 1,
-    "facing": "west",
-    "column": 2,
-    "row": 5
-   },
-   "views": 30,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 30 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
   },
   {
    "kind": "first-person cell",
@@ -44707,29 +44274,6 @@
    "views": 29,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 29 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:eebb97b6a40d4481e06cdb25dcbaba2be3e1f3a6814baf17ecc2a004b21f8e05",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 211",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:211:10,8X8D4.DAX:211:2",
-   "description": "8X8D4 block 211 tile 2 over 8X8D4 block 211 tile 10 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 1,
-    "y": 0,
-    "facing": "south",
-    "column": 1,
-    "row": 5
-   },
-   "views": 68,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 68 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
   },
   {
    "kind": "first-person cell",
@@ -45568,8 +45112,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 211",
    "what": "several tiles together",
-   "composition": "h14.15.7.8|8X8D4.DAX:212:15,8X8D4.DAX:211:17,8X8D4.DAX:211:12",
-   "description": "8X8D4 block 211 tile 12 over 8X8D4 block 211 tile 17 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 8), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:212:15,8X8D4.DAX:211:17,8X8D4.DAX:211:12",
+   "description": "8X8D4 block 211 tile 12 over 8X8D4 block 211 tile 17 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 2,
@@ -45578,9 +45122,9 @@
     "column": 9,
     "row": 5
    },
-   "views": 9,
+   "views": 3,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 9 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -45972,29 +45516,6 @@
    "views": 4,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 4 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:02b70165b49d2d85e331056c3ea307650f0cc55b62e8e8954dc4b0ef6dd78abb",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 212",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:212:11",
-   "description": "8X8D4 block 212 tile 11 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 1,
-    "row": 5
-   },
-   "views": 104,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 104 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
   },
   {
    "kind": "first-person cell",
@@ -46481,29 +46002,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:10:0bbcaa1101458626e7e49c0dbe8ba920acc32322c10c1f07ed7f591641223699",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 212",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:212:13",
-   "description": "8X8D4 block 212 tile 13 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 0,
-    "y": 0,
-    "facing": "south",
-    "column": 7,
-    "row": 5
-   },
-   "views": 101,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 101 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:10:0c4473a52de8614d12c174a75b6504a7c6fe85dd04f0fab5825a796a5cbbc620",
    "width": 32,
    "height": 32,
@@ -46799,7 +46297,7 @@
    },
    "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -46822,7 +46320,7 @@
    },
    "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -47466,7 +46964,7 @@
    },
    "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -47891,8 +47389,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 212",
    "what": "several tiles together",
-   "composition": "h14.15.7.6|8X8D4.DAX:20:49,8X8D4.DAX:212:7,8X8D4.DAX:212:7",
-   "description": "8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 7 over 8X8D4 block 20 tile 49 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 6), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:20:49,8X8D4.DAX:212:7,8X8D4.DAX:212:7",
+   "description": "8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 7 over 8X8D4 block 20 tile 49 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 14,
@@ -47901,9 +47399,9 @@
     "column": 4,
     "row": 5
    },
-   "views": 18,
+   "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 18 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -48133,30 +47631,7 @@
    },
    "views": 3,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:2e7e9eae4c28fe583da4232eb68236cd6065945846b8026988f4bb4f2f0aabb8",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 212",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:212:15",
-   "description": "8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 0,
-    "y": 0,
-    "facing": "east",
-    "column": 4,
-    "row": 5
-   },
-   "views": 194,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 194 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -48179,30 +47654,7 @@
    },
    "views": 5,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 5 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:2fcc5336167b77b27de161bd9c9f4e8f10d3e4007060bdfa14863c760bf7a33b",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 212",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:212:14",
-   "description": "8X8D4 block 212 tile 14 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 5
-   },
-   "views": 182,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 182 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 5 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -48236,8 +47688,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 212",
    "what": "several tiles together",
-   "composition": "h14.15.7.8|8X8D4.DAX:211:14,8X8D4.DAX:211:17,8X8D4.DAX:212:11",
-   "description": "8X8D4 block 212 tile 11 over 8X8D4 block 211 tile 17 over 8X8D4 block 211 tile 14 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 8), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:211:14,8X8D4.DAX:211:17,8X8D4.DAX:212:11",
+   "description": "8X8D4 block 212 tile 11 over 8X8D4 block 211 tile 17 over 8X8D4 block 211 tile 14 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 8,
@@ -48246,9 +47698,9 @@
     "column": 1,
     "row": 5
    },
-   "views": 3,
+   "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -48478,7 +47930,7 @@
    },
    "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -49294,8 +48746,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 212",
    "what": "several tiles together",
-   "composition": "h14.15.7.8|8X8D4.DAX:211:10,8X8D4.DAX:211:17,8X8D4.DAX:211:12,8X8D4.DAX:212:13",
-   "description": "8X8D4 block 212 tile 13 over 8X8D4 block 211 tile 12 over 8X8D4 block 211 tile 17 over 8X8D4 block 211 tile 10 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 8), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:211:10,8X8D4.DAX:211:17,8X8D4.DAX:211:12,8X8D4.DAX:212:13",
+   "description": "8X8D4 block 212 tile 13 over 8X8D4 block 211 tile 12 over 8X8D4 block 211 tile 17 over 8X8D4 block 211 tile 10 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 6,
@@ -49304,9 +48756,9 @@
     "column": 9,
     "row": 5
    },
-   "views": 3,
+   "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -49559,7 +49011,7 @@
    },
    "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -49616,8 +49068,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 212",
    "what": "several tiles together",
-   "composition": "h14.0.8.6|8X8D4.DAX:20:32,8X8D4.DAX:212:15",
-   "description": "8X8D4 block 212 tile 15 over 8X8D4 block 20 tile 32 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 6), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:20:32,8X8D4.DAX:212:15",
+   "description": "8X8D4 block 212 tile 15 over 8X8D4 block 20 tile 32 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 9,
@@ -49626,9 +49078,9 @@
     "column": 4,
     "row": 5
    },
-   "views": 6,
+   "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 6 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -50295,7 +49747,7 @@
    },
    "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -50697,8 +50149,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 212",
    "what": "several tiles together",
-   "composition": "h14.0.8.6|8X8D4.DAX:20:33,8X8D4.DAX:212:15",
-   "description": "8X8D4 block 212 tile 15 over 8X8D4 block 20 tile 33 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 6), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:20:33,8X8D4.DAX:212:15",
+   "description": "8X8D4 block 212 tile 15 over 8X8D4 block 20 tile 33 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 6,
@@ -50707,9 +50159,9 @@
     "column": 1,
     "row": 5
    },
-   "views": 3,
+   "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -50732,7 +50184,7 @@
    },
    "views": 7,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 7 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 7 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -51008,7 +50460,7 @@
    },
    "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -51790,7 +51242,7 @@
    },
    "views": 3,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -52020,7 +51472,7 @@
    },
    "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -52307,8 +51759,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 212",
    "what": "several tiles together",
-   "composition": "h14.15.7.8|8X8D4.DAX:212:15,8X8D4.DAX:211:17,8X8D4.DAX:212:7",
-   "description": "8X8D4 block 212 tile 7 over 8X8D4 block 211 tile 17 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 8), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:212:15,8X8D4.DAX:211:17,8X8D4.DAX:212:7",
+   "description": "8X8D4 block 212 tile 7 over 8X8D4 block 211 tile 17 over 8X8D4 block 212 tile 15 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 6,
@@ -52317,9 +51769,9 @@
     "column": 9,
     "row": 5
    },
-   "views": 6,
+   "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 6 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -52457,7 +51909,7 @@
    },
    "views": 3,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 3 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -52836,8 +52288,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 212",
    "what": "several tiles together",
-   "composition": "h14.15.7.6|8X8D4.DAX:20:30,8X8D4.DAX:212:7,8X8D4.DAX:212:7",
-   "description": "8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 7 over 8X8D4 block 20 tile 30 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 6), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:20:30,8X8D4.DAX:212:7,8X8D4.DAX:212:7",
+   "description": "8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 7 over 8X8D4 block 20 tile 30 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 14,
@@ -52846,9 +52298,9 @@
     "column": 3,
     "row": 5
    },
-   "views": 18,
+   "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 18 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -53400,7 +52852,7 @@
    },
    "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -53792,29 +53244,6 @@
    "views": 2,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:9afe4b55ed1b4f40711ea54eba7e04ad0de4590c412900336e517ebe17b2afdf",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 212",
-   "what": "several tiles together",
-   "composition": "h14.0.8.8|8X8D4.DAX:212:7,8X8D4.DAX:212:7",
-   "description": "8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 7 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 5
-   },
-   "views": 738,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 738 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
   },
   {
    "kind": "first-person cell",
@@ -54458,7 +53887,7 @@
    },
    "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -54527,7 +53956,7 @@
    },
    "views": 5,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 5 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 5 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -55976,7 +55405,7 @@
    },
    "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -56091,7 +55520,7 @@
    },
    "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -56355,8 +55784,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 212",
    "what": "several tiles together",
-   "composition": "h14.15.7.8|8X8D4.DAX:211:10,8X8D4.DAX:211:17,8X8D4.DAX:212:13",
-   "description": "8X8D4 block 212 tile 13 over 8X8D4 block 211 tile 17 over 8X8D4 block 211 tile 10 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 8), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:211:10,8X8D4.DAX:211:17,8X8D4.DAX:212:13",
+   "description": "8X8D4 block 212 tile 13 over 8X8D4 block 211 tile 17 over 8X8D4 block 211 tile 10 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 5,
@@ -56365,9 +55794,9 @@
     "column": 9,
     "row": 5
    },
-   "views": 6,
+   "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 6 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -57160,8 +56589,8 @@
    "areaName": "Valhingen Graveyard",
    "group": "tile set 8X8D4 block 212",
    "what": "several tiles together",
-   "composition": "h14.15.7.8|8X8D4.DAX:211:17,8X8D4.DAX:212:7,8X8D4.DAX:212:7",
-   "description": "8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 7 over 8X8D4 block 211 tile 17 over the horizon row (three rows of sky 14, one of 15, two of 7, two of ground 8), shown in area 10 (Valhingen Graveyard)",
+   "composition": "h14.0.8.8|8X8D4.DAX:211:17,8X8D4.DAX:212:7,8X8D4.DAX:212:7",
+   "description": "8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 7 over 8X8D4 block 211 tile 17 over the horizon row (three rows of sky 14, one of 0, two of 8, two of ground 8), shown in area 10 (Valhingen Graveyard)",
    "seenAt": {
     "map": 10,
     "x": 7,
@@ -57170,9 +56599,9 @@
     "column": 6,
     "row": 5
    },
-   "views": 33,
+   "views": 11,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 33 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 11 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -57218,7 +56647,7 @@
    },
    "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -57310,7 +56739,7 @@
    },
    "views": 1,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -58690,7 +58119,7 @@
    },
    "views": 2,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20))"
+   "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -59454,13 +58883,14 @@
     16,
     17,
     18,
+    21,
     25,
     26,
     27,
     28,
     29
    ],
-   "sameAs": "valjevo-scope5-screen-5-d20d585641c6.png",
+   "sameAs": "sokal-night-cell-d20d585641c6.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 918 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
   },
   {
@@ -59810,9 +59240,10 @@
     15,
     18,
     20,
+    21,
     29
    ],
-   "sameAs": "valjevo-scope3-cell-45f5e38f7219.png",
+   "sameAs": "sokal-night-cell-45f5e38f7219.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 469 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
   },
   {
@@ -60166,9 +59597,10 @@
     15,
     18,
     20,
+    21,
     29
    ],
-   "sameAs": "valjevo-scope3-cell-b03fbca109ab.png",
+   "sameAs": "sokal-night-cell-b03fbca109ab.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 468 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
   },
   {
@@ -67829,51 +67261,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:d20d585641c6d76d5fdd15d21d1f0fe0f6663d6aded22bc96508569ac0bd84f7",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "plain sky, horizon and ground",
-   "what": "several tiles together",
-   "composition": "h0.15.7.6|",
-   "description": "the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6), shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 3,
-    "y": 0,
-    "facing": "west",
-    "column": 2,
-    "row": 5
-   },
-   "views": 691,
-   "drawnIn": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    9,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    25,
-    26,
-    27,
-    28,
-    29
-   ],
-   "sameAs": "valjevo-scope5-screen-5-d20d585641c6.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 691 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:dc22b32cebf4ced712a04997fd7c66eb5ada64544fb2074a55c3019bffbc80b2",
    "width": 32,
    "height": 32,
@@ -68208,44 +67595,6 @@
    ],
    "sameAs": "graveyard-moon-path-431a24c32254.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 51 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:45f5e38f7219ffc606ba569d2abe5be146d8630bf8dcde674e3c28c3ce4e621a",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "shared tile set 8X8D1 block 203",
-   "what": "one tile over a solid colour",
-   "composition": "s0|8X8D1.DAX:203:17",
-   "description": "8X8D1 block 203 tile 17 over sky colour 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 0
-   },
-   "views": 538,
-   "drawnIn": [
-    0,
-    2,
-    3,
-    4,
-    5,
-    6,
-    9,
-    10,
-    14,
-    15,
-    18,
-    20,
-    29
-   ],
-   "sameAs": "valjevo-scope3-cell-45f5e38f7219.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 538 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
   },
   {
    "kind": "first-person cell",
@@ -68641,44 +67990,6 @@
    "views": 1300,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 1300 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:b03fbca109ab749692421d27e7e24a728523604f8fd1580a98748b76cb2ce15c",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "shared tile set 8X8D1 block 203",
-   "what": "one tile over a solid colour",
-   "composition": "s0|8X8D1.DAX:203:16",
-   "description": "8X8D1 block 203 tile 16 over sky colour 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 10,
-    "row": 0
-   },
-   "views": 534,
-   "drawnIn": [
-    0,
-    2,
-    3,
-    4,
-    5,
-    6,
-    9,
-    10,
-    14,
-    15,
-    18,
-    20,
-    29
-   ],
-   "sameAs": "valjevo-scope3-cell-b03fbca109ab.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 534 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
   },
   {
    "kind": "first-person cell",
@@ -71075,7 +70386,7 @@
     18
    ],
    "sameAs": "podal-shrine-side-lanes-terrain-046ad3c1e78a.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 14 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
+   "why": "drawn in 14 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -71124,7 +70435,7 @@
     18
    ],
    "sameAs": "podal-gate-fountain-terrain-116338ca66f4.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 26 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
+   "why": "drawn in 26 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -71150,7 +70461,7 @@
     18
    ],
    "sameAs": "podal-shrine-side-lanes-terrain-1e6559d3d062.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 7 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
+   "why": "drawn in 7 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -71199,7 +70510,7 @@
     18
    ],
    "sameAs": "podal-workshop-lanes-terrain-37386fdc91e5.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 8 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
+   "why": "drawn in 8 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -71245,7 +70556,7 @@
    },
    "views": 3,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 3 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
+   "why": "drawn in 3 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -71295,58 +70606,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:7a637a9ca7a97b8ec3d77d94e9de5fd97068f1e901c7a2735a654f77869bcf82",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 5",
-   "what": "one tile over a solid colour",
-   "composition": "s0|8X8D4.DAX:5:17",
-   "description": "8X8D4 block 5 tile 17 over sky colour 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 4,
-    "y": 0,
-    "facing": "east",
-    "column": 4,
-    "row": 3
-   },
-   "views": 9,
-   "drawnIn": [
-    18
-   ],
-   "sameAs": "podal-south-arcade-terrain-7a637a9ca7a9.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 9 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:7ef7a8d9cefa87e58b3f992fc564d7ce4890d24a98010ebcf2a6430c0fc289e2",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 5",
-   "what": "one tile over a solid colour",
-   "composition": "s0|8X8D4.DAX:5:50",
-   "description": "8X8D4 block 5 tile 50 over sky colour 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 5,
-    "y": 0,
-    "facing": "east",
-    "column": 2,
-    "row": 1
-   },
-   "views": 20,
-   "drawnIn": [
-    18
-   ],
-   "sameAs": "podal-south-arcade-terrain-7ef7a8d9cefa.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 20 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:7ef87e5548a82e7c211613cc0266aefa8c3abc711afad60ec9d4cf3b7192c502",
    "width": 32,
    "height": 32,
@@ -71370,7 +70629,7 @@
     18
    ],
    "sameAs": "podal-shrine-side-lanes-terrain-7ef87e5548a8.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 14 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
+   "why": "drawn in 14 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -71442,7 +70701,7 @@
     18
    ],
    "sameAs": "podal-gate-fountain-terrain-9e0bbd33b6be.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 8 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
+   "why": "drawn in 8 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -71492,7 +70751,7 @@
     18
    ],
    "sameAs": "podal-shrine-side-lanes-terrain-a5f98dc03502.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 7 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
+   "why": "drawn in 7 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -71541,33 +70800,7 @@
     18
    ],
    "sameAs": "podal-gate-fountain-terrain-c8c4461579fc.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 32 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:d0b60f00e865fc0df7097f0e242f2a54a904d2272248e62d0c91d4ff0c530053",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 5",
-   "what": "one tile over a solid colour",
-   "composition": "s0|8X8D4.DAX:5:18",
-   "description": "8X8D4 block 5 tile 18 over sky colour 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 4,
-    "y": 0,
-    "facing": "east",
-    "column": 6,
-    "row": 3
-   },
-   "views": 9,
-   "drawnIn": [
-    18
-   ],
-   "sameAs": "podal-workshop-lanes-terrain-d0b60f00e865.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 9 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
+   "why": "drawn in 32 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -71590,7 +70823,7 @@
    },
    "views": 3,
    "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 3 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
+   "why": "drawn in 3 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -71617,7 +70850,7 @@
     18
    ],
    "sameAs": "podal-shrine-side-lanes-terrain-df1a7dc7e5ee.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 7 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
+   "why": "drawn in 7 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -71694,29 +70927,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:09117f36ff21fabe79c4585831104bc9409ef9cd7e2533e5a3913652bedfff9d",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 9",
-   "what": "several tiles together",
-   "composition": "s0|8X8D4.DAX:5:66,8X8D4.DAX:9:27",
-   "description": "8X8D4 block 9 tile 27 over 8X8D4 block 5 tile 66 over sky colour 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 8,
-    "y": 14,
-    "facing": "west",
-    "column": 1,
-    "row": 4
-   },
-   "views": 1,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 1 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:0932be08f93994b10ba5ddd54a451bb86ec64ec6a6704d58a6da63f8928bd8a5",
    "width": 32,
    "height": 32,
@@ -71760,56 +70970,6 @@
    "views": 8,
    "drawnIn": [],
    "why": "likely: drawn from squares not connected to the ones the existing artwork covers; drawn in 8 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:0ae963b7e3ae7860902898b9eaebf7e2c5b8696e1ca2425d3bb36b01eabbb10b",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 9",
-   "what": "several tiles together",
-   "composition": "h0.15.7.6|8X8D4.DAX:9:42",
-   "description": "8X8D4 block 9 tile 42 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6), shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 6,
-    "y": 11,
-    "facing": "east",
-    "column": 9,
-    "row": 5
-   },
-   "views": 10,
-   "drawnIn": [
-    16,
-    28
-   ],
-   "sameAs": "lizardman-upper-keep-backdrop-0ae963b7e3ae.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 10 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:0f847d1831b676e76bd185a2c0d3c73ebf4eb718da56a8c140a234841df71e0c",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 9",
-   "what": "several tiles together",
-   "composition": "s0|8X8D4.DAX:5:50,8X8D4.DAX:9:26",
-   "description": "8X8D4 block 9 tile 26 over 8X8D4 block 5 tile 50 over sky colour 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 4,
-    "y": 1,
-    "facing": "north",
-    "column": 10,
-    "row": 3
-   },
-   "views": 7,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 7 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
   },
   {
    "kind": "first-person cell",
@@ -71860,29 +71020,6 @@
    ],
    "sameAs": "stojanow-upper-gate-terrain-21eed945e787.png",
    "why": "likely: drawn from squares not connected to the ones the existing artwork covers; drawn in 2 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:24aec2104958516ad826e6327ba213cd0d08f2078a6bc62a6c8959576688ef3c",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 9",
-   "what": "several tiles together",
-   "composition": "s0|8X8D4.DAX:5:6,8X8D4.DAX:9:27",
-   "description": "8X8D4 block 9 tile 27 over 8X8D4 block 5 tile 6 over sky colour 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 5,
-    "y": 0,
-    "facing": "south",
-    "column": 1,
-    "row": 1
-   },
-   "views": 10,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 10 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
   },
   {
    "kind": "first-person cell",
@@ -71983,34 +71120,6 @@
    ],
    "sameAs": "lizard-sunken-wet-joins-2e2141fe30ab.png",
    "why": "likely: drawn from squares not connected to the ones the existing artwork covers; drawn in 8 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:332ea602752f60f17beb82a3d53ab5e110ab4ad1eac48920858245111bb452bd",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 9",
-   "what": "one tile over a solid colour",
-   "composition": "s0|8X8D4.DAX:9:49",
-   "description": "8X8D4 block 9 tile 49 over sky colour 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 7,
-    "y": 12,
-    "facing": "west",
-    "column": 0,
-    "row": 3
-   },
-   "views": 4,
-   "drawnIn": [
-    9,
-    16,
-    28
-   ],
-   "sameAs": "lizardman-upper-keep-backdrop-332ea602752f.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 4 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
   },
   {
    "kind": "first-person cell",
@@ -72352,34 +71461,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:984d30227a603293ecfca9b0cd0e80157a905f43527819de05c337275ec4f2fd",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 9",
-   "what": "one tile over a solid colour",
-   "composition": "s0|8X8D4.DAX:9:26",
-   "description": "8X8D4 block 9 tile 26 over sky colour 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 1,
-    "y": 0,
-    "facing": "south",
-    "column": 10,
-    "row": 0
-   },
-   "views": 625,
-   "drawnIn": [
-    9,
-    16,
-    28
-   ],
-   "sameAs": "lizardman-upper-keep-backdrop-984d30227a60.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 625 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:9a4ac03bffe81d707e144cfb140cdf11478447a8ab201408ee5e418c2742a5ae",
    "width": 32,
    "height": 32,
@@ -72603,29 +71684,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:c1a910f9202526b46c769c3161975ab872b051eeeb9175a982f8c3c8691df37a",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 9",
-   "what": "several tiles together",
-   "composition": "s0|8X8D4.DAX:5:66,8X8D4.DAX:9:26",
-   "description": "8X8D4 block 9 tile 26 over 8X8D4 block 5 tile 66 over sky colour 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 7,
-    "y": 14,
-    "facing": "east",
-    "column": 9,
-    "row": 4
-   },
-   "views": 1,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 1 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:c8bb02dc77381a45d7dffa2ebb9a7f6c936fa960bcc505c7e309b22f06231d16",
    "width": 32,
    "height": 32,
@@ -72722,29 +71780,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:d6dbc2bd0b208e8b7209324b78b7b5687644081a38d7b4f5c0c4754695b2a31a",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 9",
-   "what": "several tiles together",
-   "composition": "s0|8X8D4.DAX:5:50,8X8D4.DAX:9:27",
-   "description": "8X8D4 block 9 tile 27 over 8X8D4 block 5 tile 50 over sky colour 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 5,
-    "y": 1,
-    "facing": "east",
-    "column": 3,
-    "row": 3
-   },
-   "views": 7,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 7 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:d7cb9e937c648f6e65df6773db173627ddfccebfddf8b37cd15c4e1f2c4b8a4c",
    "width": 32,
    "height": 32,
@@ -72791,88 +71826,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:e213f222fc2e4f51ae5608c2299fd2dfb8f1609d737dc01692b6824d3fa0a262",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 9",
-   "what": "one tile over a solid colour",
-   "composition": "s0|8X8D4.DAX:9:45",
-   "description": "8X8D4 block 9 tile 45 over sky colour 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 8,
-    "y": 12,
-    "facing": "west",
-    "column": 2,
-    "row": 4
-   },
-   "views": 4,
-   "drawnIn": [
-    16,
-    28
-   ],
-   "sameAs": "lizardman-upper-keep-backdrop-e213f222fc2e.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 4 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:e5aa3be4526ec0e96b089822c9a6290a6b74a423c00b6973692f5d25dd767c29",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 9",
-   "what": "one tile over a solid colour",
-   "composition": "s0|8X8D4.DAX:9:56",
-   "description": "8X8D4 block 9 tile 56 over sky colour 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 6,
-    "y": 12,
-    "facing": "east",
-    "column": 8,
-    "row": 4
-   },
-   "views": 8,
-   "drawnIn": [
-    9,
-    16,
-    28
-   ],
-   "sameAs": "lizardman-upper-keep-backdrop-e5aa3be4526e.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 8 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:ea2245a40961c3fe8086c6990711efe7c9378be72b9ac7844c5bc47b86cbaec0",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 9",
-   "what": "several tiles together",
-   "composition": "h0.15.7.6|8X8D4.DAX:9:41",
-   "description": "8X8D4 block 9 tile 41 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6), shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 9,
-    "y": 11,
-    "facing": "west",
-    "column": 1,
-    "row": 5
-   },
-   "views": 10,
-   "drawnIn": [
-    16,
-    28
-   ],
-   "sameAs": "lizardman-upper-keep-backdrop-ea2245a40961.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 10 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:f13139b1996aff8e85fb63807c0670d4dd992a9acc9ea2078978b6fa0ffe2f47",
    "width": 32,
    "height": 32,
@@ -72893,57 +71846,6 @@
    "views": 5,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 5 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:f24389337de20dbde8bb9ce20e82a6f5ead1b4e631e552d10a59faae510bf5b4",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 9",
-   "what": "several tiles together",
-   "composition": "s0|8X8D4.DAX:5:6,8X8D4.DAX:9:26",
-   "description": "8X8D4 block 9 tile 26 over 8X8D4 block 5 tile 6 over sky colour 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 5,
-    "y": 0,
-    "facing": "north",
-    "column": 9,
-    "row": 1
-   },
-   "views": 10,
-   "drawnIn": [],
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 10 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:f8ca3a417a1a3fd9d54e5c394f94b0f878b2f3aded71e1275305953be0257580",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 9",
-   "what": "one tile over a solid colour",
-   "composition": "s0|8X8D4.DAX:9:27",
-   "description": "8X8D4 block 9 tile 27 over sky colour 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 1,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 0
-   },
-   "views": 626,
-   "drawnIn": [
-    9,
-    16,
-    28
-   ],
-   "sameAs": "lizardman-upper-keep-backdrop-f8ca3a417a1a.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 626 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
   },
   {
    "kind": "first-person cell",
@@ -75971,13 +74873,14 @@
     16,
     17,
     18,
+    21,
     25,
     26,
     27,
     28,
     29
    ],
-   "sameAs": "valjevo-scope5-screen-5-d20d585641c6.png",
+   "sameAs": "sokal-night-cell-d20d585641c6.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 701 views of map 24 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5))"
   },
   {
@@ -76327,9 +75230,10 @@
     15,
     18,
     20,
+    21,
     29
    ],
-   "sameAs": "valjevo-scope3-cell-45f5e38f7219.png",
+   "sameAs": "sokal-night-cell-45f5e38f7219.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 328 views of map 24 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5))"
   },
   {
@@ -76679,9 +75583,10 @@
     15,
     18,
     20,
+    21,
     29
    ],
-   "sameAs": "valjevo-scope3-cell-b03fbca109ab.png",
+   "sameAs": "sokal-night-cell-b03fbca109ab.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 330 views of map 24 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5))"
   },
   {
@@ -77288,9 +76193,10 @@
    },
    "views": 51,
    "drawnIn": [
-    18
+    18,
+    21
    ],
-   "sameAs": "podal-south-arcade-terrain-7a637a9ca7a9.png",
+   "sameAs": "sokal-night-cell-7a637a9ca7a9.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 51 views of map 24 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5))"
   },
   {
@@ -77340,9 +76246,10 @@
    },
    "views": 359,
    "drawnIn": [
-    18
+    18,
+    21
    ],
-   "sameAs": "podal-south-arcade-terrain-7ef7a8d9cefa.png",
+   "sameAs": "sokal-night-cell-7ef7a8d9cefa.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 359 views of map 24 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5))"
   },
   {
@@ -77613,9 +76520,10 @@
    },
    "views": 48,
    "drawnIn": [
-    18
+    18,
+    21
    ],
-   "sameAs": "podal-workshop-lanes-terrain-d0b60f00e865.png",
+   "sameAs": "sokal-night-cell-d0b60f00e865.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 48 views of map 24 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5))"
   },
   {
@@ -81309,13 +80217,14 @@
     16,
     17,
     18,
+    21,
     25,
     26,
     27,
     28,
     29
    ],
-   "sameAs": "valjevo-scope5-screen-5-d20d585641c6.png",
+   "sameAs": "sokal-night-cell-d20d585641c6.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 670 views of map 31 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5))"
   },
   {
@@ -81619,9 +80528,10 @@
     15,
     18,
     20,
+    21,
     29
    ],
-   "sameAs": "valjevo-scope3-cell-45f5e38f7219.png",
+   "sameAs": "sokal-night-cell-45f5e38f7219.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 592 views of map 31 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5))"
   },
   {
@@ -81925,9 +80835,10 @@
     15,
     18,
     20,
+    21,
     29
    ],
-   "sameAs": "valjevo-scope3-cell-b03fbca109ab.png",
+   "sameAs": "sokal-night-cell-b03fbca109ab.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 594 views of map 31 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5))"
   },
   {
