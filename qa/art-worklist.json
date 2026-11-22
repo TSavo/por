@@ -2,33 +2,33 @@
  "schema": 2,
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
- "remaining": 2167,
+ "remaining": 2141,
  "totals": {
-  "Remaining, all kinds": 2167,
-  "First-person cells to do": 2167,
-  "  of which one stored tile": 467,
+  "Remaining, all kinds": 2141,
+  "First-person cells to do": 2141,
+  "  of which one stored tile": 441,
   "  of which one tile over a solid colour": 232,
   "  of which plain sky or ground": 0,
   "  of which several tiles together": 1468,
-  "  of which the same pixels already have art of yours in another area": 791,
+  "  of which the same pixels already have art of yours in another area": 779,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 4068,
-  "  accounted for by the tool": 3918,
+  "Tile keys in the manifests": 4160,
+  "  accounted for by the tool": 4010,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
   "  blank": 9,
   "  distinct pictures among the rest": 1333,
-  "  with art in some area, alone or over a solid colour": 2307,
-  "  without (the catalogue's 720 when it was written)": 700,
-  "    of those, no map can show": 444,
-  "    of those, shown only together with other tiles, never alone": 10,
-  "    of those, shown alone in some area": 246
+  "  with art in some area, alone or over a solid colour": 2360,
+  "  without (the catalogue's 720 when it was written)": 647,
+  "    of those, no map can show": 428,
+  "    of those, shown only together with other tiles, never alone": 7,
+  "    of those, shown alone in some area": 212
  },
  "notEstablished": {
   "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4060,
   "first-person cells of the overhead area view, which no existing artwork of the area confirms": 152,
-  "first-person cells of an area whose reading is not confirmed": 1545,
+  "first-person cells of an area whose reading is not confirmed": 1530,
   "first-person cells seen only from squares not connected to any square the existing artwork was made from": 717,
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
   "battlefield cells of pictures no artwork shows to have been on a battlefield": 2207,
@@ -479,37 +479,38 @@
    "area": 14,
    "name": "Kovel Mansion",
    "established": true,
-   "why": "all 64 cells that have artwork are among the cells the tool works out",
+   "why": "all 69 cells that have artwork are among the cells the tool works out",
    "maps": [
     14
    ],
    "wallSets": [
     "WALLDEF3 block 1 (tiles 8X8D3 block 1), block 3 (tiles 8X8D3 block 3), block 5 (tiles 8X8D3 block 5)"
    ],
-   "existingKeys": 64,
-   "existingKeysAccountedFor": 64,
+   "existingKeys": 69,
+   "existingKeysAccountedFor": 69,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 150,
-   "cellsWithArt": 64,
-   "toDo": 22,
+   "cellsWithArt": 67,
+   "toDo": 19,
    "notEstablished": {
     "cells that show a sky or ground colour no existing artwork of the area shows": 64
-   }
+   },
+   "existingKeysOnlyAsWallMaterials": 2
   },
   {
    "area": 15,
    "name": "Mendor's Library",
    "established": false,
-   "why": "15 of the 185 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
+   "why": "15 of the 205 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
    "maps": [
     15
    ],
    "wallSets": [
     "WALLDEF2 block 1 (tiles 8X8D2 block 1), block 19 (tiles 8X8D2 block 19), block 23 (tiles 8X8D2 block 23)"
    ],
-   "existingKeys": 185,
-   "existingKeysAccountedFor": 170,
+   "existingKeys": 205,
+   "existingKeysAccountedFor": 190,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [
     "tile:15:09be609429c4e2db72e68769253a40f08fe1e0bf65055f356ed165cefcb83c91",
@@ -529,17 +530,18 @@
     "tile:15:25fe94559966ae9beacb3a39b152218ecde79135bd7dfe616407e6942caea02c"
    ],
    "cellsTheViewsCanShow": 436,
-   "cellsWithArt": 170,
+   "cellsWithArt": 185,
    "toDo": 0,
    "notEstablished": {
-    "cells of an area whose reading is not confirmed": 266
-   }
+    "cells of an area whose reading is not confirmed": 251
+   },
+   "existingKeysOnlyAsWallMaterials": 5
   },
   {
    "area": 16,
    "name": "The Lizardman Keep",
    "established": true,
-   "why": "all 158 cells that have artwork are among the cells the tool works out",
+   "why": "all 169 cells that have artwork are among the cells the tool works out",
    "maps": [
     16,
     30
@@ -548,17 +550,18 @@
     "WALLDEF8 block 9 (tiles 8X8D8 block 9), block 20 (tiles 8X8D8 block 20), block 23 (tiles 8X8D8 block 23)",
     "WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)"
    ],
-   "existingKeys": 158,
-   "existingKeysAccountedFor": 158,
+   "existingKeys": 169,
+   "existingKeysAccountedFor": 169,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 856,
-   "cellsWithArt": 158,
-   "toDo": 105,
+   "cellsWithArt": 160,
+   "toDo": 103,
    "notEstablished": {
     "cells that show a sky or ground colour no existing artwork of the area shows": 319,
     "cells seen only from squares not connected to any square the existing artwork was made from": 274
-   }
+   },
+   "existingKeysOnlyAsWallMaterials": 9
   },
   {
    "area": 17,
@@ -587,15 +590,15 @@
    "area": 18,
    "name": "Podol Plaza",
    "established": false,
-   "why": "5 of the 194 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
+   "why": "5 of the 199 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
    "maps": [
     18
    ],
    "wallSets": [
     "WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5)"
    ],
-   "existingKeys": 194,
-   "existingKeysAccountedFor": 189,
+   "existingKeys": 199,
+   "existingKeysAccountedFor": 194,
    "existingKeysOnlyAsArrivalViews": 28,
    "unaccountedKeys": [
     "tile:18:3f5c91cb0f492dabf7ba2d09ad7c6da460f8b208d9e0c6afabfcafb191ba0025",
@@ -609,7 +612,8 @@
    "toDo": 0,
    "notEstablished": {
     "cells of an area whose reading is not confirmed": 176
-   }
+   },
+   "existingKeysOnlyAsWallMaterials": 5
   },
   {
    "area": 20,
@@ -640,25 +644,26 @@
    "area": 21,
    "name": "Sokal Keep",
    "established": true,
-   "why": "all 85 cells that have artwork are among the cells the tool works out",
+   "why": "all 99 cells that have artwork are among the cells the tool works out",
    "maps": [
     21
    ],
    "wallSets": [
     "WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)"
    ],
-   "existingKeys": 85,
-   "existingKeysAccountedFor": 85,
+   "existingKeys": 99,
+   "existingKeysAccountedFor": 99,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 500,
-   "cellsWithArt": 85,
-   "toDo": 165,
+   "cellsWithArt": 93,
+   "toDo": 157,
    "notEstablished": {
     "cells that show a sky or ground colour no existing artwork of the area shows": 124,
     "cells seen only from squares not connected to any square the existing artwork was made from": 107,
     "cells of the overhead area view, which no existing artwork of the area confirms": 19
-   }
+   },
+   "existingKeysOnlyAsWallMaterials": 6
   },
   {
    "area": 22,
@@ -710,23 +715,24 @@
    "area": 24,
    "name": "Temple of Bane",
    "established": true,
-   "why": "all 188 cells that have artwork are among the cells the tool works out",
+   "why": "all 204 cells that have artwork are among the cells the tool works out",
    "maps": [
     24
    ],
    "wallSets": [
     "WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5)"
    ],
-   "existingKeys": 188,
-   "existingKeysAccountedFor": 188,
+   "existingKeys": 204,
+   "existingKeysAccountedFor": 204,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 312,
-   "cellsWithArt": 188,
-   "toDo": 29,
+   "cellsWithArt": 192,
+   "toDo": 25,
    "notEstablished": {
     "cells that show a sky or ground colour no existing artwork of the area shows": 95
-   }
+   },
+   "existingKeysOnlyAsWallMaterials": 12
   },
   {
    "area": 25,
@@ -799,30 +805,31 @@
    "area": 28,
    "name": "Zhentil Keep Outpost",
    "established": true,
-   "why": "all 79 cells that have artwork are among the cells the tool works out",
+   "why": "all 82 cells that have artwork are among the cells the tool works out",
    "maps": [
     28
    ],
    "wallSets": [
     "WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)"
    ],
-   "existingKeys": 79,
-   "existingKeysAccountedFor": 79,
+   "existingKeys": 82,
+   "existingKeysAccountedFor": 82,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 194,
-   "cellsWithArt": 79,
-   "toDo": 18,
+   "cellsWithArt": 81,
+   "toDo": 16,
    "notEstablished": {
     "cells that show a sky or ground colour no existing artwork of the area shows": 78,
     "cells of the overhead area view, which no existing artwork of the area confirms": 19
-   }
+   },
+   "existingKeysOnlyAsWallMaterials": 1
   },
   {
    "area": 29,
    "name": "Kuto's Well",
    "established": true,
-   "why": "all 298 cells that have artwork are among the cells the tool works out",
+   "why": "all 316 cells that have artwork are among the cells the tool works out",
    "maps": [
     29,
     32
@@ -831,18 +838,19 @@
     "WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1)",
     "WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)"
    ],
-   "existingKeys": 298,
-   "existingKeysAccountedFor": 298,
+   "existingKeys": 316,
+   "existingKeysAccountedFor": 316,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 1241,
-   "cellsWithArt": 298,
-   "toDo": 435,
+   "cellsWithArt": 305,
+   "toDo": 428,
    "notEstablished": {
     "cells that show a sky or ground colour no existing artwork of the area shows": 408,
     "cells of the overhead area view, which no existing artwork of the area confirms": 19,
     "cells seen only from squares not connected to any square the existing artwork was made from": 81
-   }
+   },
+   "existingKeysOnlyAsWallMaterials": 11
   },
   {
    "area": 31,
@@ -9055,6 +9063,7 @@
     17,
     18,
     20,
+    24,
     26,
     27,
     29,
@@ -9156,14 +9165,16 @@
     2,
     9,
     10,
+    14,
     15,
     18,
     20,
+    24,
     26,
     29,
     31
    ],
-   "sameAs": "podal-west-boundary-terrain-0264796f9fa2.png",
+   "sameAs": "bane-side-galleries-terrain-0264796f9fa2.png",
    "why": "drawn in 8 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -9252,14 +9263,16 @@
    "drawnIn": [
     2,
     9,
+    14,
     15,
     18,
     20,
+    24,
     26,
     29,
     31
    ],
-   "sameAs": "podal-west-boundary-terrain-9fcdf0ff6bdf.png",
+   "sameAs": "bane-side-galleries-terrain-9fcdf0ff6bdf.png",
    "why": "drawn in 8 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -9352,14 +9365,16 @@
    "drawnIn": [
     2,
     9,
+    14,
     15,
     18,
     20,
+    24,
     26,
     29,
     31
    ],
-   "sameAs": "podal-west-boundary-terrain-f5d7a245e0ac.png",
+   "sameAs": "bane-side-galleries-terrain-f5d7a245e0ac.png",
    "why": "drawn in 6 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -11005,6 +11020,7 @@
     17,
     18,
     20,
+    24,
     26,
     27,
     29,
@@ -11129,14 +11145,16 @@
     2,
     9,
     10,
+    14,
     15,
     18,
     20,
+    24,
     26,
     29,
     31
    ],
-   "sameAs": "podal-west-boundary-terrain-0264796f9fa2.png",
+   "sameAs": "bane-side-galleries-terrain-0264796f9fa2.png",
    "why": "drawn in 19 views of map 6 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -11485,14 +11503,16 @@
    "drawnIn": [
     2,
     9,
+    14,
     15,
     18,
     20,
+    24,
     26,
     29,
     31
    ],
-   "sameAs": "podal-west-boundary-terrain-9fcdf0ff6bdf.png",
+   "sameAs": "bane-side-galleries-terrain-9fcdf0ff6bdf.png",
    "why": "drawn in 19 views of map 6 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -11647,14 +11667,16 @@
    "drawnIn": [
     2,
     9,
+    14,
     15,
     18,
     20,
+    24,
     26,
     29,
     31
    ],
-   "sameAs": "podal-west-boundary-terrain-f5d7a245e0ac.png",
+   "sameAs": "bane-side-galleries-terrain-f5d7a245e0ac.png",
    "why": "drawn in 8 views of map 6 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -32710,40 +32732,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:14:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739",
-   "width": 32,
-   "height": 32,
-   "area": 14,
-   "areaName": "Kovel Mansion",
-   "group": "tile set 8X8D3 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:1:14",
-   "description": "8X8D3 block 1 tile 14, shown in area 14 (Kovel Mansion)",
-   "seenAt": {
-    "map": 14,
-    "x": 3,
-    "y": 0,
-    "facing": "north",
-    "column": 10,
-    "row": 4
-   },
-   "views": 18,
-   "drawnIn": [
-    2,
-    9,
-    10,
-    15,
-    18,
-    20,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "podal-west-boundary-terrain-0264796f9fa2.png",
-   "why": "drawn in 18 views of map 14 (WALLDEF3 block 1 (tiles 8X8D3 block 1), block 3 (tiles 8X8D3 block 3), block 5 (tiles 8X8D3 block 5)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:14:17becf7f46404d6b55c17617c207d9b53707bc1d70bc2e28023728545c3a3447",
    "width": 32,
    "height": 32,
@@ -32934,39 +32922,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:14:9fcdf0ff6bdfd2b832cfd91e6160e494b4f67ec897064204ba4dc3a869b31c4d",
-   "width": 32,
-   "height": 32,
-   "area": 14,
-   "areaName": "Kovel Mansion",
-   "group": "tile set 8X8D3 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:1:13",
-   "description": "8X8D3 block 1 tile 13, shown in area 14 (Kovel Mansion)",
-   "seenAt": {
-    "map": 14,
-    "x": 4,
-    "y": 0,
-    "facing": "north",
-    "column": 7,
-    "row": 4
-   },
-   "views": 18,
-   "drawnIn": [
-    2,
-    9,
-    15,
-    18,
-    20,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "podal-west-boundary-terrain-9fcdf0ff6bdf.png",
-   "why": "drawn in 18 views of map 14 (WALLDEF3 block 1 (tiles 8X8D3 block 1), block 3 (tiles 8X8D3 block 3), block 5 (tiles 8X8D3 block 5)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:14:e0a3abc3b4a8d171ac804ef60ea102f382d0189b8cd2be1c2a616fc8c2e8d86a",
    "width": 32,
    "height": 32,
@@ -33057,39 +33012,6 @@
    ],
    "sameAs": "kuto-earth-chamber-joins-f08f5d405196.png",
    "why": "drawn in 8 views of map 14 (WALLDEF3 block 1 (tiles 8X8D3 block 1), block 3 (tiles 8X8D3 block 3), block 5 (tiles 8X8D3 block 5)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:14:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae",
-   "width": 32,
-   "height": 32,
-   "area": 14,
-   "areaName": "Kovel Mansion",
-   "group": "tile set 8X8D3 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:1:15",
-   "description": "8X8D3 block 1 tile 15, shown in area 14 (Kovel Mansion)",
-   "seenAt": {
-    "map": 14,
-    "x": 4,
-    "y": 0,
-    "facing": "north",
-    "column": 5,
-    "row": 6
-   },
-   "views": 6,
-   "drawnIn": [
-    2,
-    9,
-    15,
-    18,
-    20,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "podal-west-boundary-terrain-f5d7a245e0ac.png",
-   "why": "drawn in 6 views of map 14 (WALLDEF3 block 1 (tiles 8X8D3 block 1), block 3 (tiles 8X8D3 block 3), block 5 (tiles 8X8D3 block 5)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -33525,35 +33447,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:16:2b189e32fb8cf14bccc4e230acdc7e87885e4ba1d93051e2861319877487c307",
-   "width": 32,
-   "height": 32,
-   "area": 16,
-   "areaName": "The Lizardman Keep",
-   "group": "tile set 8X8D8 block 9",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:9:55",
-   "description": "8X8D8 block 9 tile 55, shown in area 16 (The Lizardman Keep)",
-   "seenAt": {
-    "map": 16,
-    "x": 8,
-    "y": 0,
-    "facing": "north",
-    "column": 4,
-    "row": 5
-   },
-   "views": 9,
-   "drawnIn": [
-    9,
-    18,
-    21,
-    24
-   ],
-   "sameAs": "podal-workshop-lanes-terrain-2b189e32fb8c.png",
-   "why": "drawn in 9 views of map 16 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 20 (tiles 8X8D8 block 20), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:16:2bf0907bbca4cab51410edb7133ca4b000d0fb21731e247c9641e7a1e54b6c98",
    "width": 32,
    "height": 32,
@@ -33753,33 +33646,6 @@
    ],
    "sameAs": "stojanow-guard-wing-terrain-755bda5b8257.png",
    "why": "drawn in 1 views of map 16 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 20 (tiles 8X8D8 block 20), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:16:80365aff0ddcf91182a971781062979ea6fb274bdd0be01e236be5c240ec701b",
-   "width": 32,
-   "height": 32,
-   "area": 16,
-   "areaName": "The Lizardman Keep",
-   "group": "tile set 8X8D8 block 9",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:9:8",
-   "description": "8X8D8 block 9 tile 8, shown in area 16 (The Lizardman Keep)",
-   "seenAt": {
-    "map": 16,
-    "x": 8,
-    "y": 0,
-    "facing": "north",
-    "column": 5,
-    "row": 5
-   },
-   "views": 16,
-   "drawnIn": [
-    9,
-    21
-   ],
-   "sameAs": "stojanow-tower-lanes-terrain-80365aff0ddc.png",
-   "why": "drawn in 16 views of map 16 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 20 (tiles 8X8D8 block 20), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -36107,6 +35973,7 @@
     17,
     18,
     20,
+    24,
     26,
     27,
     29,
@@ -36188,14 +36055,16 @@
     2,
     9,
     10,
+    14,
     15,
     18,
     20,
+    24,
     26,
     29,
     31
    ],
-   "sameAs": "podal-west-boundary-terrain-0264796f9fa2.png",
+   "sameAs": "bane-side-galleries-terrain-0264796f9fa2.png",
    "why": "drawn in 22 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -36858,14 +36727,16 @@
    "drawnIn": [
     2,
     9,
+    14,
     15,
     18,
     20,
+    24,
     26,
     29,
     31
    ],
-   "sameAs": "podal-west-boundary-terrain-9fcdf0ff6bdf.png",
+   "sameAs": "bane-side-galleries-terrain-9fcdf0ff6bdf.png",
    "why": "drawn in 20 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -37290,14 +37161,16 @@
    "drawnIn": [
     2,
     9,
+    14,
     15,
     18,
     20,
+    24,
     26,
     29,
     31
    ],
-   "sameAs": "podal-west-boundary-terrain-f5d7a245e0ac.png",
+   "sameAs": "bane-side-galleries-terrain-f5d7a245e0ac.png",
    "why": "drawn in 9 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -37325,35 +37198,6 @@
    ],
    "sameAs": "podal-shrine-side-lanes-terrain-0145c0de44fe.png",
    "why": "drawn in 24 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:01697ad7b036813ed1b469175cdc453587c02d633b910dbea068f811eda34255",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 5",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:5:9",
-   "description": "8X8D4 block 5 tile 9, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 6,
-    "y": 0,
-    "facing": "north",
-    "column": 4,
-    "row": 7
-   },
-   "views": 21,
-   "drawnIn": [
-    0,
-    8,
-    18,
-    24
-   ],
-   "sameAs": "podal-shrine-side-lanes-terrain-01697ad7b036.png",
-   "why": "drawn in 21 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -37694,33 +37538,6 @@
    ],
    "sameAs": "podal-shrine-side-lanes-terrain-141ade08c2e9.png",
    "why": "drawn in 70 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:164a07d4807884d4c0a92b54a97c2c0e22024c8648f86ba3d02ca01a0226cfa2",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 5",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:5:28",
-   "description": "8X8D4 block 5 tile 28, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 6,
-    "y": 8,
-    "facing": "south",
-    "column": 0,
-    "row": 8
-   },
-   "views": 28,
-   "drawnIn": [
-    18,
-    24
-   ],
-   "sameAs": "podal-workshop-lanes-terrain-164a07d48078.png",
-   "why": "drawn in 28 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -38113,33 +37930,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:384b3db048aec1cc9c5f9cd1b63ac2aafedb993fdbfd23e2267dd5ad788ec375",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 5",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:5:13",
-   "description": "8X8D4 block 5 tile 13, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 7,
-    "y": 9,
-    "facing": "south",
-    "column": 2,
-    "row": 5
-   },
-   "views": 22,
-   "drawnIn": [
-    18,
-    24
-   ],
-   "sameAs": "podal-shrine-side-lanes-terrain-384b3db048ae.png",
-   "why": "drawn in 22 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:38814527e4670422a8d54f184289d398dee69d40251e1e2fb2a93596c4092b96",
    "width": 32,
    "height": 32,
@@ -38295,35 +38085,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:452118d96dcf90836db29fa3b9ad629d876984ade695d5956b2ca49304ef76c2",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 5",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:5:60",
-   "description": "8X8D4 block 5 tile 60, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 6,
-    "y": 0,
-    "facing": "north",
-    "column": 4,
-    "row": 6
-   },
-   "views": 19,
-   "drawnIn": [
-    0,
-    8,
-    18,
-    24
-   ],
-   "sameAs": "podal-shrine-side-lanes-terrain-452118d96dcf.png",
-   "why": "drawn in 19 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:47ec4b15094d68775c69c2b62c39ea8cc3f449b9fae26b213873f6ef7df8d874",
    "width": 32,
    "height": 32,
@@ -38450,33 +38211,6 @@
    ],
    "sameAs": "podal-cobble-floor-568b6dbfe4a2.png",
    "why": "drawn in 40 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:578312445d28f7cb34207332dcbae26e8360793066255d1e3ae16128b118a31c",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 5",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:5:10",
-   "description": "8X8D4 block 5 tile 10, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 6,
-    "y": 8,
-    "facing": "south",
-    "column": 1,
-    "row": 8
-   },
-   "views": 8,
-   "drawnIn": [
-    18,
-    24
-   ],
-   "sameAs": "podal-workshop-lanes-terrain-578312445d28.png",
-   "why": "drawn in 8 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -39509,60 +39243,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:c97685125724f596804cd5abdfe634c07241d3f365c8bcedf5c69fba0569aa8b",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 5",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:5:5",
-   "description": "8X8D4 block 5 tile 5, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 7,
-    "y": 8,
-    "facing": "south",
-    "column": 2,
-    "row": 8
-   },
-   "views": 8,
-   "drawnIn": [
-    18,
-    24
-   ],
-   "sameAs": "podal-workshop-lanes-terrain-c97685125724.png",
-   "why": "drawn in 8 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:ca66beb5d5923e7d2dfc2257cbf331d3f3b84e6e9a8076759f28ab49952f0368",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 5",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:5:16",
-   "description": "8X8D4 block 5 tile 16, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 7,
-    "y": 10,
-    "facing": "south",
-    "column": 0,
-    "row": 5
-   },
-   "views": 24,
-   "drawnIn": [
-    18,
-    24
-   ],
-   "sameAs": "podal-shrine-side-lanes-terrain-ca66beb5d592.png",
-   "why": "drawn in 24 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:d0f56d87eee16a503cf0bc41fdbb1249c62652b42841d109989084b691b44f0d",
    "width": 32,
    "height": 32,
@@ -39745,33 +39425,6 @@
    ],
    "sameAs": "bane-sanctuary-terrain-e42d2d150d9d.png",
    "why": "drawn in 1 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:e4c4cfe2e11e35939f460141bf79788540aa7b376191f2eff650b06913c59070",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 5",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:5:27",
-   "description": "8X8D4 block 5 tile 27, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 7,
-    "y": 7,
-    "facing": "south",
-    "column": 1,
-    "row": 5
-   },
-   "views": 30,
-   "drawnIn": [
-    18,
-    24
-   ],
-   "sameAs": "podal-shrine-side-lanes-terrain-e4c4cfe2e11e.png",
-   "why": "drawn in 30 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -41806,85 +41459,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:24:f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b",
-   "width": 32,
-   "height": 32,
-   "area": 24,
-   "areaName": "Temple of Bane",
-   "group": "shared tile set 8X8D1 block 203",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:203:13",
-   "description": "8X8D1 block 203 tile 13, shown in area 24 (Temple of Bane)",
-   "seenAt": {
-    "map": 24,
-    "x": 15,
-    "y": 4,
-    "facing": "north",
-    "column": 10,
-    "row": 4
-   },
-   "views": 52,
-   "drawnIn": [
-    0,
-    1,
-    2,
-    3,
-    5,
-    7,
-    8,
-    9,
-    10,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    20,
-    26,
-    27,
-    29,
-    31
-   ],
-   "sameAs": "new-phlan-gate-31a92759fb4b.png",
-   "why": "drawn in 52 views of map 24 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:24:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739",
-   "width": 32,
-   "height": 32,
-   "area": 24,
-   "areaName": "Temple of Bane",
-   "group": "tile set 8X8D1 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:1:14",
-   "description": "8X8D1 block 1 tile 14, shown in area 24 (Temple of Bane)",
-   "seenAt": {
-    "map": 24,
-    "x": 15,
-    "y": 4,
-    "facing": "north",
-    "column": 10,
-    "row": 3
-   },
-   "views": 4,
-   "drawnIn": [
-    2,
-    9,
-    10,
-    15,
-    18,
-    20,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "podal-west-boundary-terrain-0264796f9fa2.png",
-   "why": "drawn in 4 views of map 24 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:24:17becf7f46404d6b55c17617c207d9b53707bc1d70bc2e28023728545c3a3447",
    "width": 32,
    "height": 32,
@@ -42042,39 +41616,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:24:9fcdf0ff6bdfd2b832cfd91e6160e494b4f67ec897064204ba4dc3a869b31c4d",
-   "width": 32,
-   "height": 32,
-   "area": 24,
-   "areaName": "Temple of Bane",
-   "group": "tile set 8X8D1 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:1:13",
-   "description": "8X8D1 block 1 tile 13, shown in area 24 (Temple of Bane)",
-   "seenAt": {
-    "map": 24,
-    "x": 15,
-    "y": 4,
-    "facing": "east",
-    "column": 7,
-    "row": 4
-   },
-   "views": 4,
-   "drawnIn": [
-    2,
-    9,
-    15,
-    18,
-    20,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "podal-west-boundary-terrain-9fcdf0ff6bdf.png",
-   "why": "drawn in 4 views of map 24 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:24:e661bce0938e73b6610229ae27e6f1e51de4af50b1df92a3ae665507ff3a15f7",
    "width": 32,
    "height": 32,
@@ -42133,39 +41674,6 @@
     31
    ],
    "sameAs": "kuto-earth-chamber-joins-f08f5d405196.png",
-   "why": "drawn in 2 views of map 24 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:24:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae",
-   "width": 32,
-   "height": 32,
-   "area": 24,
-   "areaName": "Temple of Bane",
-   "group": "tile set 8X8D1 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:1:15",
-   "description": "8X8D1 block 1 tile 15, shown in area 24 (Temple of Bane)",
-   "seenAt": {
-    "map": 24,
-    "x": 15,
-    "y": 4,
-    "facing": "east",
-    "column": 5,
-    "row": 6
-   },
-   "views": 2,
-   "drawnIn": [
-    2,
-    9,
-    15,
-    18,
-    20,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "podal-west-boundary-terrain-f5d7a245e0ac.png",
    "why": "drawn in 2 views of map 24 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -45697,7 +45205,10 @@
     "row": 8
    },
    "views": 9,
-   "drawnIn": [],
+   "drawnIn": [
+    15
+   ],
+   "sameAs": "mendor-webgl-fountain-basin-middle-a-09be3b9182cb.png",
    "why": "drawn in 9 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -45720,7 +45231,10 @@
     "row": 8
    },
    "views": 6,
-   "drawnIn": [],
+   "drawnIn": [
+    15
+   ],
+   "sameAs": "mendor-webgl-fountain-basin-right-40f46157dc27.png",
    "why": "drawn in 6 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -45743,7 +45257,10 @@
     "row": 7
    },
    "views": 6,
-   "drawnIn": [],
+   "drawnIn": [
+    15
+   ],
+   "sameAs": "mendor-webgl-fountain-rim-right-6fcc88dfcbdd.png",
    "why": "drawn in 6 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -45766,7 +45283,10 @@
     "row": 6
    },
    "views": 15,
-   "drawnIn": [],
+   "drawnIn": [
+    15
+   ],
+   "sameAs": "mendor-webgl-fountain-basin-middle-b-82e819909938.png",
    "why": "drawn in 15 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -45789,7 +45309,10 @@
     "row": 7
    },
    "views": 29,
-   "drawnIn": [],
+   "drawnIn": [
+    15
+   ],
+   "sameAs": "mendor-webgl-fountain-water-aa725e51a9d8.png",
    "why": "drawn in 29 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -45835,7 +45358,10 @@
     "row": 8
    },
    "views": 8,
-   "drawnIn": [],
+   "drawnIn": [
+    15
+   ],
+   "sameAs": "mendor-webgl-fountain-basin-left-bd497db7487c.png",
    "why": "drawn in 8 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -45881,7 +45407,10 @@
     "row": 7
    },
    "views": 8,
-   "drawnIn": [],
+   "drawnIn": [
+    15
+   ],
+   "sameAs": "mendor-webgl-fountain-rim-left-dc6d9f29883b.png",
    "why": "drawn in 8 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -45935,35 +45464,6 @@
    ],
    "sameAs": "sokal-west-lintel-mid.png",
    "why": "drawn in 6 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:2b189e32fb8cf14bccc4e230acdc7e87885e4ba1d93051e2861319877487c307",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "tile set 8X8D6 block 9",
-   "what": "one stored tile",
-   "composition": "-|8X8D6.DAX:9:55",
-   "description": "8X8D6 block 9 tile 55, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 7,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 4
-   },
-   "views": 23,
-   "drawnIn": [
-    9,
-    18,
-    21,
-    24
-   ],
-   "sameAs": "podal-workshop-lanes-terrain-2b189e32fb8c.png",
-   "why": "drawn in 23 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -46120,33 +45620,6 @@
    ],
    "sameAs": "stojanow-guard-wing-terrain-755bda5b8257.png",
    "why": "drawn in 2 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:80365aff0ddcf91182a971781062979ea6fb274bdd0be01e236be5c240ec701b",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "tile set 8X8D6 block 9",
-   "what": "one stored tile",
-   "composition": "-|8X8D6.DAX:9:8",
-   "description": "8X8D6 block 9 tile 8, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 7,
-    "y": 0,
-    "facing": "north",
-    "column": 5,
-    "row": 4
-   },
-   "views": 48,
-   "drawnIn": [
-    9,
-    21
-   ],
-   "sameAs": "stojanow-tower-lanes-terrain-80365aff0ddc.png",
-   "why": "drawn in 48 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -52373,29 +51846,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:29:573d740bc625c9900f388da0daf6eb1848b804b55b573fea84920f123bab2ad8",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "tile set 8X8D8 block 20",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:20:6",
-   "description": "8X8D8 block 20 tile 6, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 7,
-    "y": 7,
-    "facing": "north",
-    "column": 8,
-    "row": 8
-   },
-   "views": 7,
-   "drawnIn": [],
-   "why": "drawn in 7 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:29:584b97b37335c2c7c1b5f34725a884b4871965fa86931d931841591683ed8109",
    "width": 32,
    "height": 32,
@@ -52902,29 +52352,6 @@
    "views": 2,
    "drawnIn": [],
    "why": "drawn in 2 views of map 32 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:6cb31b5d08a09f1b265a7249fe2338150117617bb83c3cfff60e4feb4cde04f5",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "tile set 8X8D8 block 20",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:20:15",
-   "description": "8X8D8 block 20 tile 15, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 7,
-    "y": 7,
-    "facing": "north",
-    "column": 5,
-    "row": 5
-   },
-   "views": 18,
-   "drawnIn": [],
-   "why": "drawn in 18 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -54695,29 +54122,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:29:b5f6d48925a42d197a6ca831e79d529fc1d3872301b712e117168cfee077ca61",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "tile set 8X8D8 block 20",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:20:13",
-   "description": "8X8D8 block 20 tile 13, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 7,
-    "y": 7,
-    "facing": "north",
-    "column": 4,
-    "row": 5
-   },
-   "views": 18,
-   "drawnIn": [],
-   "why": "drawn in 18 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:29:b6b344d4132862c8e8e562704fa0da122ec990474ed2dd75b59a102bb8329dd1",
    "width": 32,
    "height": 32,
@@ -54995,52 +54399,6 @@
    "views": 16,
    "drawnIn": [],
    "why": "drawn in 16 views of map 32 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:c0a5f6097d2de5c4e6a0f8bde4c0e5508d827f1a86286311f5af541dd9043a81",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "tile set 8X8D8 block 20",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:20:12",
-   "description": "8X8D8 block 20 tile 12, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 7,
-    "y": 7,
-    "facing": "north",
-    "column": 7,
-    "row": 8
-   },
-   "views": 7,
-   "drawnIn": [],
-   "why": "drawn in 7 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:c0d1222e5b597764fcb488b98e61859ae949e50fc7f279803431e79bcd359349",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "tile set 8X8D8 block 20",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:20:5",
-   "description": "8X8D8 block 20 tile 5, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 7,
-    "y": 7,
-    "facing": "north",
-    "column": 2,
-    "row": 8
-   },
-   "views": 6,
-   "drawnIn": [],
-   "why": "drawn in 6 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -55910,29 +55268,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:29:de259a79b6bfbf6c9f7a4ca334e7f3d71969cfdfbcd42af717643fa100c8fe6f",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "tile set 8X8D8 block 20",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:20:14",
-   "description": "8X8D8 block 20 tile 14, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 7,
-    "y": 7,
-    "facing": "north",
-    "column": 6,
-    "row": 5
-   },
-   "views": 18,
-   "drawnIn": [],
-   "why": "drawn in 18 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:29:df6b40952b1fe3601193bb8a6e275979fa8f45bc28bd750fc8340f9dd0805610",
    "width": 32,
    "height": 32,
@@ -56420,29 +55755,6 @@
    "views": 1,
    "drawnIn": [],
    "why": "drawn in 1 views of map 32 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:f43b69796604d23793b01dcea2adad7b1dbea0472b7a0f2f1426599c6a2bf934",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "tile set 8X8D8 block 20",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:20:29",
-   "description": "8X8D8 block 20 tile 29, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 7,
-    "y": 7,
-    "facing": "north",
-    "column": 3,
-    "row": 8
-   },
-   "views": 6,
-   "drawnIn": [],
-   "why": "drawn in 6 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
