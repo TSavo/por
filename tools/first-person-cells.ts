@@ -584,7 +584,8 @@ export function reachable(map: AreaMap, starts: readonly number[], area: number)
       if (map.walls[square * 4 + side]! !== 0 && map.passage[square * 4 + side]! === 0) continue;
       let nx = x + steps[side]![0], ny = y + steps[side]![1];
       if (nx < 0 || nx > 15 || ny < 0 || ny > 15) {
-        if (area === 0 || area === 10) continue;
+        // Both southbound Sokal ferry edges open a departure prompt in place.
+        if (area === 0 || area === 10 || area === 21) continue;
         nx &= 15;
         ny &= 15;
       }
