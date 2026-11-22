@@ -152,3 +152,9 @@ The host reads which release's script is in memory and reports the first release
 Saves from the first release are not a supported player feature. A replay for 1.3 should make its checkpoint on 1.3.
 
 `npm run verify:script-positions` checks this on whichever build `POR_GAMEDATA` holds: it plays to New Phlan's silver shop from a new game and from a New Phlan save of each release, and requires the first release's portrait keys and narration event.
+
+### Lizardman Keep western approach
+
+Run `node tools/verify-slums-presentation.mjs <checkpoint> <chrome> lizardman-keep-west-approach` with the local GOG 1.3 `parallel-lizard-lower-43421-A.json` checkpoint. Despite its filename, the party starts on the surface, map 16.
+
+The route walks and turns through ten distinct surface views. Chrome checked all 121 fallback cell bindings per sampled frame, the live WebGL viewport, and display switching against both bundled 1.3 data and the original GOG 1.3 files. The final exploration viewport matched pixel for pixel. The catacomb descent and map 30 require a separate replay.
