@@ -15,10 +15,10 @@
    "heard": 106
   },
   "acceptance-slums": {
-   "ledger": "acceptance-slums.jsonl",
-   "games": 3,
-   "decisions": 237,
-   "heard": 40
+   "ledger": "acceptance-slums-gateway-art.jsonl",
+   "games": 4,
+   "decisions": 359,
+   "heard": 57
   },
   "campaign-opening": {
    "ledger": "campaign-opening.jsonl",
@@ -122,6 +122,14 @@
    "art": {
     "kind": "portrait",
     "key": "portrait:area:20:PIC2.DAX:4:0:0"
+   }
+  },
+  "ecl2-b20-9e88": {
+   "run": "acceptance-slums",
+   "step": 614389848,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:20:PIC2.DAX:2:0:0"
    }
   },
   "por.narration.sokal.ecl4-b21-9aae": {
@@ -319,9 +327,13 @@
   "por.voice.ecl3.b0-aad5": {
    "run": "acceptance-slums",
    "step": 91226697,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:20:ecl:ab23"
+   },
    "withoutArt": {
     "run": "acceptance-slums",
-    "step": 91226697,
+    "step": 1049622139,
     "showing": "no picture"
    }
   },
