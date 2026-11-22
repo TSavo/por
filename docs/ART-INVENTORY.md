@@ -21,13 +21,15 @@ The hedge tops, stone corners and path edges joined without gaps. The
 backdrop changed from blue-gray on the approach to tan inside the alcove
 in both runs. These were controlled archive-script checkpoint runs.
 
-The static catalogue cannot derive five installed Sokal courtyard wall keys
-from a single stored terrain cell. The five are the straight-side cap miter,
-side sliver, coping end chip, broken coping end, and coping end return.
-They also did not appear in the archived paired courtyard placement traces
-(40 GOG 1.3 frames and 3 bundled frames). Keep those bindings pending a
-capture of the exact cells. The verifier's five findings describe unproven
-runtime identities for existing artwork.
+Five installed Sokal courtyard wall bindings match 63 placements in the
+historical 46-frame final framebuffer trace. The checked cells sit beside
+or partly under actors. The hash, first placement and count for each cell
+are recorded in `qa/art-worklist-observed.json`. The current paired
+courtyard replay passed in Chrome with the same 367 native draw calls in
+both data modes. None of the five hashes appeared in the current final
+framebuffer traces, and none appeared in the original-data capture taken
+immediately after native terrain blits. The catalogue reports the five as
+historical framebuffer bindings and preserves their existing fallback PNGs.
 
 For new scene illustrations, use `npm run qa:narration -- --list` to find
 observed passages without art. Compare the passage and any alternate
