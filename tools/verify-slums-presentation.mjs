@@ -5937,6 +5937,13 @@ const valhingenBrassDoorBattle = {
   afterBattle: /9,1W.*AREACASTVIEWENCAMPSEARCHLOOK/i,
 };
 const controlledBattleIllustrations = new Map([
+  ["kovel-ambush-guild-files", {
+    slot: "A", inputs: ["up", "enter", "enter", "enter"],
+    afterBattle: /8,13N.*AREACASTVIEWENCAMP/i,
+    walk: ["down", "up"],
+    portrait: "scene-illustration:area:14:ecl:b359:cue:guild-files",
+    caption: /IMPORTANTLOOKINGFILES.*ENTRIES38AND51/i,
+  }],
   ["kovel-jail-papers", {
     slot: "A", inputs: ["up", "enter", "enter", "enter"],
     portrait: "portrait:area:14:ecl:b38b:caller:b16c:HEAD3.DAX:16:BODY3.DAX:8",
@@ -8498,6 +8505,14 @@ try {
       await step("enter");
       assert.match(text(), /VIEWTAKEPOOLEXIT/i);
       assert.equal(frame.portrait, "portrait:PIC1.DAX:1:0:0");
+    } else if (routeName === "kovel-ambush-guild-files") {
+      await step("j");
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "kovel-thief-ambush-cleared"));
+      assert.match(frame.journal?.leads.find(({ id }) => id === "kovel-guild-files")?.detail ?? "", /entries 38 and 51/i);
+      await step("j");
+      await step("up");
+      assert.equal(frame.portrait, undefined);
+      await waitForExplorationViewport();
     } else if (routeName === "kovel-jail-papers") {
       await step("enter");
       assert.match(text(), /YOUCOPYTHEPAPERSINTOYOURJOURNALUNDERJOURNALENTRY48/i);
