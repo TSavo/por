@@ -555,7 +555,8 @@ const encounterRoutes = new Map([
     placement: [56, 32, "encounter:area:10:ecl:a5bb:SPRIT4.DAX:17:0:0", 32, 80],
     requireWebGL: true,
     dialogue: {
-      key: "enter", portrait: "portrait:PIC4.DAX:17:0:0", prompt: /CREATINGNEWSKELETONS/i,
+      key: "enter", portrait: "portrait:area:10:ecl:a5bb:PIC4.DAX:17:0:0", prompt: /SHADOWYFORMCREATINGNEWSKELETONS/i,
+      capture: true,
       heldPortrait: "portrait:area:10:ecl:a5bb:PIC4.DAX:17:1:0",
     },
   }],
@@ -565,6 +566,7 @@ const encounterRoutes = new Map([
     requireWebGL: true,
     dialogue: {
       key: "enter", portrait: "portrait:area:10:ecl:a7b9:PIC4.DAX:17:0:0", prompt: /RUINEDPARCHMENTS.*CREATINGZOMBIES/i,
+      capture: true,
       heldPortrait: "portrait:area:10:ecl:a7b9:PIC4.DAX:17:1:0",
     },
   }],
@@ -7939,7 +7941,7 @@ try {
       await advance("j");
     }
     const dialogueSteps = encounterRoute.dialogueSteps ?? (encounterRoute.dialogue ? [encounterRoute.dialogue] : []);
-    for (const { key, keys = [key], portrait, prompt, heldPortrait, heldPortraits } of dialogueSteps) {
+    for (const { key, keys = [key], portrait, prompt, heldPortrait, heldPortraits, capture } of dialogueSteps) {
       for (const input of keys) await advance(input);
       assert.equal(frame.encounter, undefined);
       assert.equal(frame.portrait, portrait);
@@ -7953,7 +7955,7 @@ try {
           image.naturalWidth === 352 && image.naturalHeight === 352;
       })()`));
       await verifyPortraitPanel();
-      if (routeName === "valhingen-conjurer-zombie") {
+      if (capture) {
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, `${routeName}-dialogue.png`), Buffer.from(shot.data, "base64"));
       }
