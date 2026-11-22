@@ -147,6 +147,12 @@ async function item(name, body, { party = false } = {}) {
     // The title waits for one key. The prompt follows it.
     await chrome.nextFrame();
     const toPrompt = async () => {
+      // In Enhanced the page shows its publisher screen over the title first, and a key there only
+      // brings the title up, without reaching the game (#127). Then the title takes its own key.
+      if (await page('typeof publisherSplashUp === "function" && publisherSplashUp()')) {
+        await key(" ");
+        await until("the publisher screen to give way to the title", "!publisherSplashUp()");
+      }
       await key(" ");
       await until("the code-wheel prompt", `state.ready && (${hooks.atPrompt})`);
     };
