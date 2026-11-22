@@ -3236,6 +3236,14 @@
     "tile:9:ff6a32fbbb4c5d2972bfd9d1a8d7dcefc5def433b2ed312ea71dae297a9665eb"
   ],
   "assets": {
+    "battle-tile:478f7b057980ebcf4e364c5ac29139d4d6960778a94c45fe53b6e5efa044032c": "wildcom-fir-trunk-0.png",
+    "battle-tile:c4a5e41979824628ef25ca91b308e7cecff6de1f3e4e09413c84138cd1747f35": "wildcom-fir-trunk-1.png",
+    "battle-tile:0eab043a52984975cdb224966ee96af20f1c54e04b66ee92b67e79b8a20a34db": "wildcom-fir-trunk-2.png",
+    "battle-tile:ad1d796233a3a620817c2edebed67a94b4f19c7213256491a639fbfcc633c652": "wildcom-fir-trunk-4.png",
+    "battle-tile:500f02e8337694ec3bbf6b54529fc789fece5eaf65a857a2a2ac816f36eeba6b": "wildcom-fir-trunk-5.png",
+    "battle-tile:966a1299305ba5876029b7327de0d58adc9f2bc63bd4777664897bfb737c32e3": "wildcom-fir-trunk-6.png",
+    "battle-tile:3f40f37a87a243035b06cd3849bcdf20e380511fa92b6de05731c01f9b078a63": "wildcom-fir-trunk-7.png",
+    "battle-tile:2089c395af0b3b2b0cf6738961a7d2cbb6ce5e789a853dc48e7c50c33dca0818": "wildcom-fir-trunk-8.png",
     "battle-tile:80ce11a1aefb403192f4d042ed7ba289c5ec05783b3ff3de8cf9753729803ee9": "wildcom-1-f8-c0-fallen-80ce11a1aefb.png",
     "battle-tile:36789f3a18726f8667e56b1ca0427e8bc00254bcd9b2ce9026abbef87ef7a5c7": "wildcom-1-f8-c1-fallen-36789f3a1872.png",
     "battle-tile:e099eb3035927a1fddcc40d2263998c52895eca06853f4464481f6285d260e31": "wildcom-1-f8-c3-fallen-e099eb303592.png",
