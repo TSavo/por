@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "ea5ab6d4735cf93d2974c34c9164c05052b692ec08923a45ede6482be7ebf701",
-  "audioSha256": "c72a8905a38e631f682ee38f73357d84687d32eb8e036864e4f6a81cb6bdcad4",
-  "bytes": 188124,
-  "generatedAt": "2026-11-19T04:45:45.784Z"
+  "audioSha256": "8a8af903e5983d7ffed1e7a676287a1e340fb6b3e4817ab90b19184fadf7abd3",
+  "bytes": 100771,
+  "directionSent": "Continuous destruction result, moving from final impact into released pressure",
+  "heardByWhisper": "You have destroyed the last piece of equipment.  The wine subsides as the pressure is released.",
+  "generatedAt": "2026-11-22T04:18:52.565Z"
 }

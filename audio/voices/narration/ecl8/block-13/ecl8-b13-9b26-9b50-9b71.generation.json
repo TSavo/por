@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "c52f7d17a5fc95b00f663bff2a73cc707499716b69daf2dbcc32885e7e67782c",
-  "audioSha256": "40b9e03b9f25964c596cdadd053a33740d6c6940e81907eff5688cba491ddc7a",
-  "bytes": 177675,
-  "generatedAt": "2026-11-20T21:05:18.536Z"
+  "audioSha256": "680e80195ff699a7a0920b5c2cca53378bd329c984fbd9f44450dbee08563097",
+  "bytes": 134207,
+  "directionSent": "expressive fantasy narration, quoted speech in character",
+  "heardByWhisper": "You find a pile of mine tailings.  In it is a Cobold's crude drawing.  You record it in your journal under entry 42.",
+  "generatedAt": "2026-11-22T04:19:35.154Z"
 }

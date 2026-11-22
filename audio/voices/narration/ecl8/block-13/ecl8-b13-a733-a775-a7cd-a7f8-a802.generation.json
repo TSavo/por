@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "4a089afb8e04e82e7878c223f1326eb65757f1795f07c73c4dccf6f1c6dc19c3",
-  "audioSha256": "42a425d1899a20aaf58aec6506fb1123650ea956390e2e87092779455cb33cb9",
-  "bytes": 552585,
-  "generatedAt": "2026-11-20T21:05:26.353Z"
+  "audioSha256": "fc8f8fc95cff2fbc5eef9caefb53b78b0d5dc7513270f1113d1e61d1517c6b04",
+  "bytes": 290524,
+  "directionSent": "fierce, confident, young, noble",
+  "heardByWhisper": "You hear muffled sounds and turn to investigate.  In this room is a young woman in barbarian finery.  She drops a cobold she was strangling when she sees you.  I am Princess Fatima.  The princess continues.  You record it in your journal under entry 16.  She offers to join your band.",
+  "generatedAt": "2026-11-22T04:19:55.581Z"
 }

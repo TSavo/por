@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "a531315cee1e35fae71c7ce9a61978667b828ac1a3187ef4d65009a08a77ee96",
-  "audioSha256": "3adfd66f713e29f6f9bd3d4e11f636ba70a2506b5b9911dc10c7e51909f01ac6",
-  "bytes": 365757,
-  "generatedAt": "2026-11-19T04:44:33.346Z"
+  "audioSha256": "3296b212248d99181cd604afea80b563321b53f1a452f1de7f72b5625bced46d",
+  "bytes": 182691,
+  "directionSent": "nervous, deferential, cunning",
+  "heardByWhisper": "The kobold pauses, idly taps the wall, then proceeds.  A boulder blocks off the passage.  Using a lever, the kobold dislodges it and proceeds.  Do you?",
+  "generatedAt": "2026-11-22T04:20:01.966Z"
 }

@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "0e864af25bc3fe279757a2553d3e94a1b46912480dfbb09eb2b267a92e100cf8",
-  "audioSha256": "61c96f4e491872321bd52bb12cc8eec5276f0fb6adced7efd6581ec83a603a16",
-  "bytes": 368265,
-  "generatedAt": "2026-11-19T04:45:22.726Z"
+  "audioSha256": "9a353b004b0675b6101005bd52df08d6ea7cb83b3cea54f48a026aa25a7d718d",
+  "bytes": 364503,
+  "directionSent": "Continuous corpse search and discovery of Tyrmor's journal",
+  "heardByWhisper": "You find corpse search and discovery of Tirmore's journal.  You find the corpse of a man.  The body has been stripped of weapons and armor, as well as any useful gear.  However, you find a book under the body.  It is the Journal of Tirmore.  It is fascinating, and you include much of its information in your journal as Entry 26.",
+  "generatedAt": "2026-11-22T04:18:23.879Z"
 }
