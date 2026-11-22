@@ -342,11 +342,6 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:20:ecl:ab23"
-   },
-   "withoutArt": {
-    "run": "campaign-opening",
-    "step": 116015495,
-    "showing": "no picture"
    }
   },
   "por.voice.ecl3.b0-abd2": {
