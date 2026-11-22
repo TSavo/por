@@ -3,8 +3,10 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, wri
 import { delimiter, dirname, join, resolve } from "node:path";
 import { parseDax } from "../src/lib/dax.js";
 import { loadExecutable } from "../src/lib/exepack.js";
+import { isPicture } from "../src/lib/picture.js";
 import { detectGameVersion } from "../src/runtime/bindings.js";
 import { buildExplorationMaterials } from "./exploration-materials.js";
+import { isPortGameRoot, portGame, portGameRoot, usePortPaths } from "./gamedata.js";
 import { loadUpgradeArt } from "./upgrade-art.js";
 import type { NativeExploration } from "./native-exploration.js";
 
@@ -14,8 +16,9 @@ import type { NativeExploration } from "./native-exploration.js";
 //
 // The release shape (ROADMAP.md): the shipped game is version 1.3, it runs in Enhanced with no file
 // from the player, and everything it needs besides the original pictures is converted from the 1.3
-// files into the port's own data. This report counts what stands between today and that, part by
-// part, and fails while anything is left. docs/STANDALONE.md says how to read it.
+// files into the port's own data (game/, docs/GAME-DATA.md). This report counts what stands between
+// today and that, part by part, and fails while anything is left. docs/STANDALONE.md says how to
+// read it. It reads the original 1.3 files to measure against; it changes nothing.
 //
 // Every number comes from the files or from playing the game now. The report plays the game itself
 // (about a quarter of an hour) with POR_TRACE_STANDALONE set, which makes the runner record every
@@ -130,7 +133,7 @@ const inventory = JSON.parse(readFileSync(join(inventoryDirectory, "inventory.js
 };
 const pictureFormats = new Set(["picture", "EGA font"]);
 type FileClass = "picture" | "content" | "program" | "unclassified";
-interface GameFile { name: string; bytes: number; kind: FileClass; what: string; evidence: string;
+interface GameFile { name: string; disk: string; bytes: number; kind: FileClass; what: string; evidence: string;
   blocks?: { id: number; start: number; end: number }[] }
 const families: [RegExp, FileClass, string, string][] = [
   [/^(START\.EXE|GAME\.OVR)$/, "program", "the program",
@@ -141,7 +144,6 @@ const families: [RegExp, FileClass, string, string][] = [
   [/^MON\d(CHA|ITM|SPC)\.DAX$/, "content", "monsters", "monster character records, their items and special abilities, in the saved-character layout"],
   [/^ITEM\d\.DAX$/, "content", "items", "item records the scripts hand out"],
   [/^ITEMS$/, "content", "item table", "a table of 16-byte item property records; not a DAX archive"],
-  [/^(DUNGCOM|WILDCOM)\.DAX$/, "content", "combat data", "named for dungeon and wilderness combat; the blocks do not decode as pictures; what they hold is not established here"],
   [/^CHRDAT[A-Z]\d\.(SAV|ITM|SPC)$/, "content", "ready-made characters", "character records with their items and abilities, in the saved-character layout"],
   [/^SAVGAM[A-Z]\.DAT$/, "content", "saved-game templates", "two saved games (slots A and J) shipped in the directory, in the game's own save layout"],
   [/^POOL\.CFG$/, "content", "configuration", "text lines: one-letter settings, the data path and the save path"],
@@ -152,23 +154,30 @@ const gameFiles: GameFile[] = readdirSync(root).filter(name => statSync(join(roo
     const name = file.toUpperCase(), data = bytesOf(file);
     const formats = formatsByFile.get(name);
     let blocks: GameFile["blocks"];
+    // A block is a picture when the inventory decodes it as one, or when it starts with a picture
+    // header (height, width, frame count) whose shape accounts for its size.
+    let shaped = 0;
     if (name.endsWith(".DAX")) {
       const base = 2 + new DataView(data.buffer, data.byteOffset).getUint16(0, true);
-      blocks = parseDax(name, data).entries.map(({ id, offset, compSize }) => ({ id, start: base + offset, end: base + offset + compSize }));
+      const entries = parseDax(name, data).entries;
+      blocks = entries.map(({ id, offset, compSize }) => ({ id, start: base + offset, end: base + offset + compSize }));
+      shaped = entries.filter((entry, index) => !pictureFormats.has(formats?.[index] ?? "") && isPicture(entry.data)).length;
     }
     const family = families.find(([pattern]) => pattern.test(name));
     const tally = formats && [...new Set(formats)].map(format => `${formats.filter(other => other === format).length} ${format}`).join(", ");
-    if (formats?.length && formats.every(format => pictureFormats.has(format))) {
-      return { name, bytes: data.length, kind: "picture", what: "pictures", blocks,
-        evidence: `every block decodes as picture data (${tally})` };
+    const pictureBlocks = (formats?.filter(format => pictureFormats.has(format)).length ?? 0) + shaped;
+    if (!family && blocks?.length && pictureBlocks === blocks.length) {
+      return { name, disk: file, bytes: data.length, kind: "picture", what: "pictures", blocks,
+        evidence: `every block decodes as picture data (${tally})` +
+          (shaped ? `; the art inventory does not decode ${shaped} of them, but each has a picture header whose shape accounts for its size` : "") };
     }
     if (family) {
-      // A file the name calls content must not hold blocks that decode as pictures, and the other way round.
+      // A file the name calls content must not hold blocks the inventory decodes as pictures.
       const mixed = formats?.some(format => pictureFormats.has(format));
-      return { name, bytes: data.length, kind: mixed ? "unclassified" : family[1], what: family[2], blocks,
+      return { name, disk: file, bytes: data.length, kind: mixed ? "unclassified" : family[1], what: family[2], blocks,
         evidence: `${family[3]}${tally ? ` (blocks: ${tally})` : ""}${mixed ? "; but some blocks decode as pictures" : ""}` };
     }
-    return { name, bytes: data.length, kind: "unclassified", what: "unknown", blocks, evidence: tally ? `blocks: ${tally}` : "no rule matches this name" };
+    return { name, disk: file, bytes: data.length, kind: "unclassified", what: "unknown", blocks, evidence: tally ? `blocks: ${tally}` : "no rule matches this name" };
   });
 // What the traced play read of each file.
 interface FileTrace { opens: number; misses: number; creates: number; reads: number; bytesRead: number; writes: number; read: [number, number][] }
@@ -197,9 +206,27 @@ const ofClass = (kind: FileClass) => gameFiles.filter(file => file.kind === kind
 const sum = (files: GameFile[]) => files.reduce((total, { bytes }) => total + bytes, 0);
 const content = ofClass("content"), pictures = ofClass("picture"), program = ofClass("program"), unknown = ofClass("unclassified");
 const openedContent = content.filter(({ name }) => (fileReads.get(name)?.reads ?? 0) > 0);
-rows.push(["1. Content files converted to the port's own data", 0, content.length + unknown.length,
-  `${count(sum(content) + sum(unknown))} bytes of scripts, maps, wall definitions, monsters, items, characters, saves and configuration; ` +
-  `none is converted. ${traced ? `The traced play read ${openedContent.length} of them` : playNote}`]);
+// The port's own data (game/, docs/GAME-DATA.md), read through the runner's reader. A content file counts as
+// converted when the file the reader hands the game holds the same records with the same bytes.
+const converted = isPortGameRoot(portGameRoot) ? portGame(portGameRoot) : undefined;
+const convertedFiles = new Map(converted?.files.map(({ name, data }) => [name.toUpperCase(), data]));
+const equal = (a: Uint8Array, b: Uint8Array) => a.length === b.length && a.every((byte, at) => byte === b[at]);
+const reproduced = (file: GameFile): boolean => {
+  const theirs = convertedFiles.get(file.name);
+  if (!theirs) return false;
+  // The configuration names the port's own directories where a store installer wrote its own; the runner does the same to the original.
+  const ours = file.name === "POOL.CFG" ? usePortPaths([{ name: file.name, data: bytesOf(file.disk) }])[0]!.data : bytesOf(file.disk);
+  if (!file.blocks) return equal(ours, theirs);
+  const before = parseDax(file.name, ours).entries, after = parseDax(file.name, theirs).entries;
+  return before.length === after.length && before.every((entry, index) => entry.id === after[index]!.id && equal(entry.data, after[index]!.data));
+};
+const convertedContent = [...content, ...unknown].filter(reproduced);
+const notConverted = [...content, ...unknown].filter(file => !convertedContent.includes(file));
+rows.push(["1. Content files the converted data reproduces", convertedContent.length, content.length + unknown.length,
+  `${count(sum(content) + sum(unknown))} bytes of scripts, maps, wall definitions, monsters, items, characters, saves and configuration. ` +
+  (converted ? `game/ gives the game ${convertedContent.length} of them with the same records and bytes` : "There is no game/ directory") +
+  (notConverted.length ? `; not reproduced: ${notConverted.map(({ name }) => name).join(" ")}` : "") +
+  `. ${traced ? `The traced play read ${openedContent.length} of them` : playNote}`]);
 details.push(`Part 1. The ${gameFiles.length} files of version 1.3 (${count(sum(gameFiles))} bytes), by what they hold:`,
   ...([["picture", pictures], ["content", content], ["program", program], ["unclassified", unknown]] as const).map(([kind, files]) => {
     const read = files.filter(({ name }) => (fileReads.get(name)?.reads ?? 0) > 0);
@@ -228,7 +255,8 @@ if (list) {
     }));
 }
 
-// Host code that opens the original files itself, without going through the game's DOS calls.
+// Host code that works from the pixels of the original pictures. The converted data holds each
+// picture's shape and hashes and no pixels, so these find nothing there.
 // Everything the runner and the server import is followed from their two entry points.
 const reachable = new Set<string>();
 const follow = (file: string) => {
@@ -241,13 +269,10 @@ const follow = (file: string) => {
   }
 };
 for (const entry of ["tools/boot-translated.ts", "tools/browser-play.ts"]) follow(entry);
-// The three files that define the readers are left out; a module counts when it calls one.
-const definitions = new Set(["tools/gamedata.ts", "src/lib/dax.ts", "src/lib/exepack.ts"]);
-const directReaders = [...reachable].filter(file => !/^src\/translated/.test(file) && !definitions.has(file) &&
-  /\b(?:parseDax|loadExecutable|readGameFile|findGameRoot|requireBrowserGameRoot)\(/.test(readFileSync(file, "utf8"))).sort();
-rows.push(["1. Host modules that no longer open original files", 0, directReaders.length,
-  `of the ${reachable.size} modules the runner and the server load, these parse the program or an archive from the game directory themselves, ` +
-  "outside the game's DOS calls: " + directReaders.join(", ")]);
+// The library that defines the decoders is left out; a module counts when its code, comments aside, calls one.
+const directReaders = [...reachable].filter(file => !/^src\/(?:translated|lib\/)/.test(file) &&
+  /\b(?:decodePicture|frameSlice|pictureMembers|glyphsFromPicture)\(/
+    .test(readFileSync(file, "utf8").replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, ""))).sort();
 
 // ---------------------------------------------------------------------------------------------
 // Part 2. Program bytes the game reads as data.
@@ -263,7 +288,7 @@ interface DataMap { image: { bytes: number; dataSegment: number; instructions: [
     instructions: [number, number][] }[] }
 if (!existsSync(mapPath)) {
   unmeasured.push(`Part 2: the translator did not run (${(translator.error?.message ?? translator.stderr ?? "").trim().split("\n").at(-1)}). Set POR_PYTHON to a Python with capstone.`);
-  rows.push(["2. Program bytes that are not instructions, converted", undefined, undefined, "not measured: the translator did not run"]);
+  rows.push(["2. Program bytes that are not instructions, kept", undefined, undefined, "not measured: the translator did not run"]);
 } else {
   const map = JSON.parse(readFileSync(mapPath, "utf8")) as DataMap;
   const image = loadExecutable(bytesOf("START.EXE")).image;
@@ -284,6 +309,16 @@ if (!existsSync(mapPath)) {
   const sliceBytes = map.slices.reduce((total, { codeBytes }) => total + codeBytes, 0);
   const sliceInstructions = sliceClass.reduce((total, bytes) => total + tally(bytes, 1), 0);
   const notInstructions = image.length - imageInstructions + sliceBytes - sliceInstructions;
+  // What the converted data keeps of them: the image and the overlay file the reader builds from game/.
+  const overlay = bytesOf("GAME.OVR"), convertedOverlay = convertedFiles.get("GAME.OVR"), convertedImage = converted?.program.image;
+  const dropped: { where: string; at: number; address?: number; slice?: number }[] = [];
+  imageClass.forEach((byte, at) => { if (byte !== 1 && convertedImage?.[at] !== image[at]) dropped.push({ where: "image", at, address: at }); });
+  map.slices.forEach(({ fileOffset, codeBytes }, index) => {
+    for (let at = 0; at < codeBytes; at++) {
+      if (sliceClass[index]![at] !== 1 && convertedOverlay?.[fileOffset + at] !== overlay[fileOffset + at]) dropped.push({ where: `slice ${index}`, at, slice: index });
+    }
+  });
+  const kept = notInstructions - dropped.length;
 
   // The traced reads. 3 marks a byte read before anything was written to it: its value came from the file.
   const memory = new Uint8Array(0x100000);
@@ -327,7 +362,27 @@ if (!existsSync(mapPath)) {
     const observed = readOf(2) + readOf(3) + readOf(4) + sliceRead;
     note += `. Read as data ${playNote}, with the value the file gave them: ${count(observed)} of these bytes ` +
       `(${count(readOf(2))} call tables, ${count(readOf(3))} other resident, ${count(readOf(4))} data segment, ${count(sliceRead)} in slices)`;
-    rows.push(["2. Program bytes that are not instructions, converted", 0, notInstructions, note]);
+    // Of the bytes the converted data does not keep, the ones the play read with the file's value.
+    const droppedRead = dropped.filter(({ address, slice, at }) => {
+      if (address !== undefined) return original(address);
+      const where = loaded.get(map.slices[slice!]!.fileOffset);
+      return where !== undefined && original(where.loadPara * 16 + at);
+    });
+    note += `. game/ ${converted ? `keeps ${count(kept)} of them; of the ${count(dropped.length)} it does not keep, the traced play read ${count(droppedRead.length)}` : "does not exist"}`;
+    rows.push(["2. Program bytes that are not instructions, kept", kept, notInstructions, note]);
+    const late: string[] = [];
+    if (droppedRead.length) late.push(`  Bytes the game read that game/ does not keep: ${droppedRead.slice(0, list ? undefined : 20).map(({ where, at }) => `${where}+${at.toString(16)}`).join(" ")}`);
+    if (list && dropped.length) {
+      // Runs of dropped bytes, so the list stays readable.
+      const runs: string[] = [];
+      for (let index = 0; index < dropped.length; index++) {
+        const first = dropped[index]!;
+        let last = first;
+        while (dropped[index + 1]?.where === first.where && dropped[index + 1]!.at === last.at + 1) last = dropped[++index]!;
+        runs.push(`${first.where}+${first.at.toString(16)}..${last.at.toString(16)}`);
+      }
+      late.push(`  Bytes game/ does not keep, ${runs.length} runs: ${runs.join(" ")}`);
+    }
     rows.push(["2. Bytes read as data that are not instructions", observed, observed + imageInstructionRead + sliceInstructionRead,
       `${count(imageInstructionRead)} image bytes and ${count(sliceInstructionRead)} slice bytes the translator emitted as instructions were also read as data ${playNote}`]);
     // Between the image and the stack lie the program's uninitialised variables. They start as zeros.
@@ -337,11 +392,13 @@ if (!existsSync(mapPath)) {
       `(heap, video) are left out. Between the image and the stack are ${count(layout.stackSegment * 16 - image.length)} bytes of variables no file fills; ` +
       `${count(blank)} were read before the game wrote them, and need only be zero.`,
       `  GAME.OVR is ${count(map.overlayFileBytes)} bytes: ${count(sliceBytes)} slice code, ` +
-      `${count(map.slices.reduce((total, { relocationBytes }) => total + relocationBytes, 0))} relocation tables the port does not use, the rest headers.`);
+      `${count(map.slices.reduce((total, { relocationBytes }) => total + relocationBytes, 0))} relocation tables the port does not use, the rest headers.`,
+      ...late);
     if (instructionReads.length) details.push(`  Instruction bytes read as data: ${instructionReads.slice(0, list ? undefined : 12).join(", ")}${!list && instructionReads.length > 12 ? ", ..." : ""}`,
       "  The port loads the image at address 0. A read through segment 0 is the game following an empty pointer or reading an interrupt vector; on DOS it would not reach the program at all.");
   } else {
-    rows.push(["2. Program bytes that are not instructions, converted", 0, notInstructions, `${note}. Bytes read as data: ${playNote}`]);
+    rows.push(["2. Program bytes that are not instructions, kept", kept, notInstructions,
+      `${note}. game/ ${converted ? `keeps ${count(kept)} of them` : "does not exist"}. Bytes read as data: ${playNote}`]);
     rows.push(["2. Bytes read as data that are not instructions", undefined, undefined, playNote]);
     unmeasured.push("Part 2: which program bytes the game reads as data needs the traced play.");
   }
@@ -361,6 +418,9 @@ unmeasured.push(`Part 3: how many pictures of the other ${uncounted.length} pict
 rows.push(["3. Original picture frames with artwork", linked, inventory.encounterTotals.frames,
   "every frame of the scene, encounter and combat picture archives (tools/art-inventory.ts): " +
   inventory.encounterFamilies.map(({ label, frames, unlinked }) => `${label} ${frames - unlinked}/${frames}`).join(", ")]);
+rows.push(["3. Host modules that match artwork without pixels", 0, directReaders.length,
+  `of the ${reachable.size} modules the runner and the server load, these decode the pixels of original pictures to decide which artwork to show; ` +
+  "game/ holds picture shapes and hashes and no pixels, so from it they match nothing: " + directReaders.join(", ")]);
 interface Kind { frames: number; framesWithOriginalPixels: number; originalPixels: number; inPanel: number; elsewhere: number }
 interface EnhancedTrace { artworkKnown: boolean; frames: number; kinds: Record<string, Kind>; scenes: Record<string, number>;
   pictureArt: Record<string, number>; pictureFallbacks: Record<string, number>; encounters: Record<string, number>;
@@ -464,6 +524,7 @@ rows.push(["5. Sound events Enhanced plays from the repository", fromRepository.
 // ---------------------------------------------------------------------------------------------
 const tracked = spawnSync("git", ["ls-files", "-z"], { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 }).stdout.split("\0").filter(Boolean);
 const committed: [pattern: RegExp, what: string][] = [
+  [/^game\//, "the converted 1.3 data: scripts, maps, tables, saves, the program's data bytes; picture shapes and hashes, no pixels"],
   [/^src\/translated-1\.3\//, "the 1.3 program, instruction for instruction (generated from START.EXE and GAME.OVR)"],
   [/^src\/translated\//, "the first-release program, instruction for instruction"],
   [/^src\/audio\/.*\.json$/, "narration manifests and queues that hold the game's script text, and the sound event table"],
@@ -485,6 +546,31 @@ details.push("Part 6. Original game content, or material derived from it, alread
     return `  ${pattern.source.replace(/\\/g, "").padEnd(58)} ${String(files.length).padStart(5)} ${count(files.reduce((total, file) => total + statSync(file).size, 0)).padStart(13)}   ${what}`;
   }),
   "  This list is the paths this tool knows to hold such material; it does not search the repository for more.");
+
+// ---------------------------------------------------------------------------------------------
+// Part 7. The game played from the converted data alone.
+// ---------------------------------------------------------------------------------------------
+// The same piped plays as above, with POR_GAMEDATA naming game/ and no original directory given.
+// They show that the game runs; they say nothing about pictures, which game/ does not hold.
+if (option("--skip-play")) {
+  rows.push(["7. Plays that pass from the converted data alone", undefined, undefined, "not run: --skip-play"]);
+} else if (!converted) {
+  rows.push(["7. Plays that pass from the converted data alone", 0, 3, "there is no game/ directory"]);
+} else {
+  const standalone = ["verify:input", "acceptance:new-phlan", "acceptance:slums"];
+  const results: string[] = [];
+  for (const [index, name] of standalone.entries()) {
+    const started = Date.now();
+    progress(`from game/ ${index + 1}/${standalone.length}: ${name} ... `);
+    const run = spawnSync("npm", ["run", "-s", name], { encoding: "utf8", maxBuffer: 256 * 1024 * 1024,
+      env: { ...process.env, POR_GAMEDATA: portGameRoot, POR_GAME_SOURCE: "port", POR_AUDIO_DIR: audio, POR_TRACE_STANDALONE: "" } });
+    writeFileSync(join(output, `from-game-${name.replace(/[^a-z0-9.]+/gi, "-")}.log`), `${run.stdout ?? ""}\n${run.stderr ?? ""}`);
+    results.push(`${name}: ${run.status === 0 ? "pass" : "fail"}`);
+    progress(`${run.status === 0 ? "pass" : "fail"} in ${Math.round((Date.now() - started) / 1000)} s\n`);
+  }
+  rows.push(["7. Plays that pass from the converted data alone", results.filter(result => result.endsWith("pass")).length, standalone.length,
+    `run now with POR_GAMEDATA=game and no original directory: ${results.join("; ")}`]);
+}
 
 // ---------------------------------------------------------------------------------------------
 // The report.

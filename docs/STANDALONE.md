@@ -3,7 +3,8 @@
 `npm run qa:standalone` measures how far the port is from the release shape in
 `ROADMAP.md`: version 1.3, in Enhanced, with no file from the player. It prints a
 table of parts with done, of and left, and exits 1 while anything is left or not
-measured. It converts nothing. It only counts.
+measured. It converts nothing. It only counts, and it needs the original 1.3
+files to count against.
 
 ```
 POR_GAMEDATA=../por-assets/gog-1.3/POOLRAD POR_AUDIO_DIR=../por-assets/original \
@@ -59,40 +60,50 @@ what the game uses, never totals.
 
 ## The parts
 
-**1. Content files converted.** Every file of the 1.3 directory is put in one of
-three classes. *Picture*: every block decodes as picture data, which Enhanced
-replaces with artwork. *Content*: scripts, maps, wall definitions, monsters,
-items, combat data, ready-made characters, saved games shipped with the release and the
-configuration file, which the game cannot run without and which must become the
-port's own data. *Program*: `START.EXE` and `GAME.OVR`. A file whose name says
-content but which holds picture blocks is *unclassified* and counts as left.
-Left is every content file not yet available from converted data. The second
-row counts the host modules that open the game directory themselves, outside
-the game's DOS calls: the art matchers compare what the game drew against the
-original pictures, so today Enhanced needs the picture files even where it
-shows none of their pixels.
+The converted data is `game/` ([GAME-DATA.md](GAME-DATA.md)). The report reads it
+through the runner's own reader and compares it with the 1.3 files, so "done"
+means the game is handed the same thing from `game/` as from the original.
+
+**1. Content files the converted data reproduces.** Every file of the 1.3
+directory is put in one of three classes. *Picture*: every block is picture
+data, which Enhanced replaces with artwork. A block counts as a picture when
+the art inventory decodes it as one, or when it starts with a picture header
+whose shape accounts for its size. *Content*: scripts, maps, wall definitions,
+monsters, items, ready-made characters, the saved games shipped with the
+release and the configuration file, which the game cannot run without.
+*Program*: `START.EXE` and `GAME.OVR`. A file whose name says content but which
+holds picture blocks is *unclassified* and counts as left. A content file is
+done when the file the reader builds from `game/` has the same records with the
+same bytes.
 
 **2. Program bytes that are not instructions.** The translated code replaces
 the program's instructions, but it still reads text and tables from the loaded
 image, from the overlay slices and from the data segment. Of is every byte of
-the image and the slices that the translator did not emit as an instruction:
-that is what must ship as converted data. The note gives how many of those
-bytes the traced play read with the value the file gave them. A byte the game
-wrote before it first read it is not counted, because its value did not come
-from the file. Reads the host makes through the guest's memory (the journal,
-the overlay call tables) are counted with the game's own. The second row
-checks the claim that no instruction is needed as data: left there is the
-number of instruction bytes the play read as data.
+the image and the slices that the translator did not emit as an instruction.
+Done is how many of them `game/` keeps with their original value. The note
+gives how many of those bytes the traced play read with the value the file gave
+them, and how many of the bytes `game/` does not keep the play read: that last
+number has to be 0. A byte the game wrote before it first read it is not
+counted as read, because its value did not come from the file. Reads the host
+makes through the guest's memory (the journal, the overlay call tables) are
+counted with the game's own. The second row checks the claim that no
+instruction is needed as data: left there is the number of instruction bytes
+the play read as data. The port loads the image at address 0, so a read through
+segment 0 (an empty pointer, an interrupt vector) lands on the program's first
+bytes; the detail line names each such byte and the code that read it.
 
-**3. Places Enhanced shows an original picture.** One row from the files: the
-frames of the scene, encounter and combat archives that have artwork. Four rows
-from play: title scenes with artwork, pictures in the picture panel with
-artwork, the 8 by 8 wall textures of the 3D view with artwork, and Enhanced
-frames with no original pixel. For the last, the runner takes the frame it
-hands to the page (the game's drawing with every part the page draws itself
-blanked out), removes what the page's layers cover, and counts the pixels of
-the game's own drawing that are still visible. The breakdown under the table
-gives those frames by what they showed.
+**3. Places Enhanced shows an original picture.** Two rows from the files: the
+frames of the scene, encounter and combat archives that have artwork, and the
+host modules that decide which artwork to show by decoding the pixels of the
+original pictures. `game/` holds each picture's shape and hashes and no pixels,
+so until those modules work from identities, Enhanced finds no artwork without
+the original files. Four rows from play: title scenes with artwork, pictures in
+the picture panel with artwork, the 8 by 8 wall textures of the 3D view with
+artwork, and Enhanced frames with no original pixel. For the last, the runner
+takes the frame it hands to the page (the game's drawing with every part the
+page draws itself blanked out), removes what the page's layers cover, and
+counts the pixels of the game's own drawing that are still visible. The
+breakdown under the table gives those frames by what they showed.
 
 **4. Characters the page draws.** Enhanced draws game text itself, in the web
 font, from the characters the host captured as the game drew them. A character
@@ -107,6 +118,11 @@ lives in `por-assets`.
 
 **6. Original material in the repository.** A list, with sizes, of the paths
 that hold original game content or material derived from it. It has no left.
+
+**7. Plays that pass from the converted data alone.** The input check and the
+New Phlan and Slums acceptance tests, run with `POR_GAMEDATA` naming `game/` and
+no original directory. They show that the game itself runs. They are driven
+over a pipe and read text, so they say nothing about pictures.
 
 ## What it cannot see
 
