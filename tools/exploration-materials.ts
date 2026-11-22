@@ -11,25 +11,19 @@ const blankMaterial: Material = { key: "native:empty", pixels: Array<number>(64)
 /** Generate surfaces from the active native glyph bank, including alternate levels. */
 export function buildExplorationMaterials(native: NativeExploration & { area: number }, artwork: Artwork,
   catalogueGlyphs?: ReadonlyMap<number, TileFingerprint>) {
-  function replacement(hash: string): Material | undefined {
-    const key = `tile:${native.area}:${hash}`;
+  // The Training Hall script uses the same physical map and wall bank as New Phlan.
+  const areas = native.area === 11 && native.mapId === 0 ? [native.area, 0] : [native.area];
+  function replacement(hash: string, area: number): Material | undefined {
+    const key = `tile:${area}:${hash}`;
     const art = artwork.get(key);
     return art && { key, reflected: art.reflected };
   }
 
-  function texture(pixels: Buffer, transparent = false): Material {
-    const resolved = fingerprint(pixels);
-    const art = replacement(resolved);
-    if (art) return art;
-    const indexed = [...pixels].map(color => transparent && color === 13 ? 16 : color);
-    return { key: `native:${resolved}:${Number(transparent)}`, pixels: indexed };
-  }
-
   const backgrounds = new Set([native.skyColor, native.groundColor, 0]);
-  function backdropReplacement(hashOver: (colour: number) => string): Material | undefined {
+  function backdropReplacement(hashOver: (colour: number) => string, area: number): Material | undefined {
     const matches = new Map<string, Material>();
     for (const colour of backgrounds) {
-      const asset = replacement(hashOver(colour));
+      const asset = replacement(hashOver(colour), area);
       if (!asset) continue;
       const source = artwork.get(asset.key)!;
       matches.set(JSON.stringify([source.file ?? asset.key, Boolean(source.reflected)]), asset);
@@ -39,19 +33,34 @@ export function buildExplorationMaterials(native: NativeExploration & { area: nu
     return matches.size === 1 ? matches.values().next().value : undefined;
   }
 
+  function foreground(hash: string, hashOver?: (colour: number) => string) {
+    for (const area of areas) {
+      const exact = replacement(hash, area);
+      if (exact) return { art: exact, status: "exact" };
+      const composited = hashOver && backdropReplacement(hashOver, area);
+      if (composited) return { art: composited, status: "composited" };
+    }
+  }
+
+  function texture(pixels: Buffer, transparent = false): Material {
+    const hash = fingerprint(pixels);
+    return foreground(hash)?.art ?? {
+      key: `native:${hash}:${Number(transparent)}`,
+      pixels: [...pixels].map(color => transparent && color === 13 ? 16 : color),
+    };
+  }
+
   function cataloguePart(tile: TileFingerprint | undefined): WallPart {
     if (!tile) return { art: blankMaterial, status: "missing" };
-    const exact = replacement(tile.hash);
     const { overColour } = tile;
-    if (!overColour) return { art: exact ?? blankMaterial, status: exact ? "exact" : "missing" };
+    if (!overColour) return foreground(tile.hash) ?? { art: blankMaterial, status: "missing" };
     if (!tile.transparentMask) return { art: blankMaterial, status: "missing" };
     const bytes = Buffer.from(tile.transparentMask, "hex");
     if (bytes.length !== 8) return { art: blankMaterial, status: "missing" };
     const mask = Array.from({ length: 64 }, (_, index) => Number(!(bytes[index >> 3]! & (0x80 >> (index & 7)))));
     if (!mask.some(Boolean)) return { art: null, status: "transparent" };
-    if (exact) return { art: exact, status: "exact", mask };
-    const art = backdropReplacement(colour => overColour[colour]!);
-    return { art: art ?? blankMaterial, status: art ? "composited" : "missing", mask };
+    const material = foreground(tile.hash, colour => overColour[colour]!);
+    return { ...(material ?? { art: blankMaterial, status: "missing" }), mask };
   }
 
   const slots = Buffer.from(native.frontSlots, "base64");
@@ -81,16 +90,11 @@ export function buildExplorationMaterials(native: NativeExploration & { area: nu
       partsBySymbol.set(symbol, { art, status: art.pixels ? "native" : "exact" });
       continue;
     }
-    const cutout = texture(pixels, true);
-    if (!cutout.pixels) {
-      partsBySymbol.set(symbol, { art: cutout, mask, status: "exact" });
-      continue;
-    }
     // Older entries fingerprint the glyph over a backdrop. Use those
     // when there is no replacement fingerprinted from the glyph itself.
-    const art = backdropReplacement(background =>
-      fingerprint(Buffer.from([...pixels].map((color, i) => mask[i] ? color : background)))) ?? cutout;
-    partsBySymbol.set(symbol, { art, mask, status: art.pixels ? "native" : "composited" });
+    const material = foreground(fingerprint(pixels), background =>
+      fingerprint(Buffer.from([...pixels].map((color, i) => mask[i] ? color : background))));
+    partsBySymbol.set(symbol, { ...(material ?? { art: texture(pixels, true), status: "native" }), mask });
   }
   const wallFaces = Array.from({ length: 15 }, (_, type) => {
     const symbols = [...slots.subarray(type * 56, type * 56 + 56)];
