@@ -59,7 +59,7 @@ export function timeOfDay(now = new Date()): number {
 export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
   requestKey?: (blocking: boolean) => void, fileClosed?: DosFileClosed,
   fileDeleted?: (name: string) => void, readCompanions?: (name: string) => DosFile[] | undefined,
-  clockStart = noon): void {
+  clockStart = noon, everyReadAnsweredFrom = Number.POSITIVE_INFINITY): void {
   dosLog.length = 0;
   consoleText = "";
   resetVideo();
@@ -146,6 +146,12 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
         return;
       }
       if (key !== undefined) keyboard.shift();
+      // Before live play a replay's scheduled keys can run out, and the read gets Enter. From
+      // `everyReadAnsweredFrom` on the runner answers each read with the player's key, so an
+      // empty queue there is a runner fault: stop rather than press a key nobody pressed.
+      else if (cpu.steps >= everyReadAnsweredFrom) {
+        throw new Error(`A blocking key read at step ${cpu.steps} found no key: in live play every read is answered by the player`);
+      }
       cpu.ax = key ?? 0x1c0d;
       cpu.zf = false;
       return;

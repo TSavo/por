@@ -56,7 +56,9 @@
       "title": "A blocking key read with nothing queued returns Enter",
       "detail": "src/runtime/dos.ts answers 0x1c0d when no key is waiting. In live play the runner always supplies a key first, so this only fires before the live step. It still needs a check that it cannot fire in play.",
       "source": "Code reading.",
-      "status": "open",
+      "status": "fixed",
+      "check": "translation-unit",
+      "resolution": "Measured on 2026-11-22: booting the shipped game as browser-play.ts does (live from step 24000000, no boot keys) and playing to the first menu, the Enter answer fired 0 times; tools/live-input.ts answers every blocking read after the live step with the player's key. A blocking read at or after the live step with no key ready now stops the game with an error instead of pressing Enter (attachDos takes the live step; the runner passes it). Before the live step a replay still gets Enter, as its recordings expect. checkUnansweredKeyRead in tools/verify-translation.ts fails on the old dos.ts and passes on the new.",
       "issue": 78
     },
     {

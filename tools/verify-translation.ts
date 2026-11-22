@@ -655,6 +655,27 @@ function checkCrtRetrace(): void {
 
 checkCrtRetrace();
 
+// A blocking BIOS key read (int 16h, AH 0) with nothing queued. Before live play a replay's keys
+// can run out and the read is answered with Enter. From the live step on the runner answers every
+// read with the player's key, so an empty queue there must stop the game, never press Enter (#78).
+function checkUnansweredKeyRead(): void {
+  const read = (steps: number): number => {
+    const m = fresh();
+    attachDos(m, [], [], () => {}, undefined, undefined, undefined, noon, 1000);
+    m.steps = steps;
+    m.ah = 0;
+    m.onIntr?.(m, 0x16);
+    return m.ax;
+  };
+  if (read(999) !== 0x1c0d) throw new Error("A key read before live play no longer gets Enter");
+  let stopped = false;
+  try { read(1000); } catch { stopped = true; }
+  if (!stopped) throw new Error("A key read in live play with no key queued was answered with a key nobody pressed");
+  console.log("verified that a key read in live play is never answered with a phantom Enter");
+}
+
+checkUnansweredKeyRead();
+
 function checkPartySaveFiles(): void {
   for (const letter of "ABCDEFGHIJ") {
     if (!isPartyFile(`SAVE\\CHRDAT${letter}6.SAV`, letter) || isPartyFile("SAVE\\CHRDATZ1.SAV") ||

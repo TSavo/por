@@ -254,7 +254,9 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const keys = [...scheduledKeys];
   attachDos(cpu, mountedFiles, keys, requestKey && ((blocking) => requestKey(cpu, keys, blocking)),
     fileClosed, fileDeleted, readCompanions,
-    process.env.POR_CLOCK === "real" ? timeOfDay() : noon);
+    process.env.POR_CLOCK === "real" ? timeOfDay() : noon,
+    // From the live step on the player answers every blocking read (tools/live-input.ts).
+    requestKey ? liveStep : undefined);
   cpu.ss = boot.ss;
   cpu.sp = boot.sp || 0xfffe;
   cpu.ds = 0x2000;
