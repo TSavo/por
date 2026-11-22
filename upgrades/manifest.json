@@ -3134,6 +3134,8 @@
     "portrait:area:9:PIC2.DAX:63:0:0": "stojanow-bugbear-warning-dialogue.png",
     "portrait:area:9:ecl:a945:PIC2.DAX:63:1:0": "stojanow-bugbear-warning-windup.png",
     "portrait:area:9:ecl:a945:PIC2.DAX:63:2:0": "stojanow-bugbear-warning-hook.png",
+    "scene-illustration:area:9:ecl:ab5f:cue:merchant-at-gate": "stojanow-merchant-at-gate.png",
+    "scene-illustration:area:9:ecl:9c63:caller:ab63:cue:merchant-at-gate": "stojanow-merchant-at-gate.png",
     "scene-illustration:area:9:ecl:a9ae:cue:tower-arrow-volley": "stojanow-tower-arrow-volley.png",
     "scene-illustration:area:9:ecl:9c63:caller:a9b2:cue:tower-arrow-volley": "stojanow-tower-arrow-volley.png",
     "scene-illustration:area:9:ecl:a151:cue:gate-rock-volley": "stojanow-gate-rock-volley.png",

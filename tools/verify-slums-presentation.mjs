@@ -1946,6 +1946,14 @@ const illustrationRoutes = new Map([
     journalLead: "gate-bugbear-lookouts", journalLeadAtDiscovery: true,
     continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["stojanow-merchant-gate", {
+    slot: "A", inputs: ["up", "enter", "enter", "l"],
+    portraitStops: { 1: "scene-illustration:area:9:ecl:9c63:caller:aa57", 2: "scene-illustration:area:9:ecl:9c63:caller:aabb", 3: null },
+    portrait: "scene-illustration:area:9:ecl:9c63:caller:ab63:cue:merchant-at-gate",
+    prompt: /AMANWITHAWAGONOFGOODSWHOISTALKINGTOTWOOFTHEBUGBEARS.*THEMANHANDSSOMETHINGTOTHEBUGBEARSANDTHEGATESOPEN/i,
+    finalPhaseCapture: "stojanow-merchant-at-gate.png",
+    continuation: { inputs: ["enter"], prompt: /AREA.*VIEW.*ENCAMP/i, clearsPortrait: true },
+  }],
   ["stojanow-wagon-final-offer", {
     slot: "B", inputs: ["up", "enter", "enter", "p", "n"],
     portrait: "portrait:area:9:ecl:aeef:HEAD2.DAX:5:BODY2.DAX:9",
@@ -9763,7 +9771,7 @@ try {
         assert.equal(frame.portrait, undefined);
         assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join(""), /5,6N/i);
       }
-      if (["stojanow-toll-refused", "stojanow-tower-arrow-volley", "wild-grove-western-stench"].includes(routeName)) {
+      if (["stojanow-merchant-gate", "stojanow-toll-refused", "stojanow-tower-arrow-volley", "wild-grove-western-stench"].includes(routeName)) {
         assert.ok(!frame.classicPortrait);
         await waitForExplorationViewport();
       }
