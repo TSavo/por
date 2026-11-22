@@ -85,6 +85,8 @@ const portraitLoops = [
   // Its third native member restores the opening image.
   ["portrait:area:4:ecl:a36b:PIC5.DAX:56:", [0, 1, 0, 3], "portrait:area:4:PIC5.DAX:56:0:0",
     /^(?=.*(?:THEGIANTSLOOKUPATYOU|GETEM))(?=.*COMBATWAITFLEEPARLAY)|GETLOSTWIMP.*BEATITBEATTHEMGETIT/i, [210, 210, 210, 210]],
+  ["portrait:area:4:ecl:a289:PIC5.DAX:56:", [0, 1, 0, 3], undefined,
+    /^(?!.*ABATTLEBEGINS).*THEYCOMERUNNINGTOWARDYOU.*COMBATWAITFLEEPARLAY/i, [210, 210, 210, 210]],
   ["portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:", [0, 1, 0, 3], undefined,
     /THISPAPERHASTHEPASSWORDS|LETSSEEIFYOUCANREADTODAYSLIST/i, [210, 210, 210, 210],
     [["scene-illustration:area:4:ecl:9a5a:caller:a442", 0]]],

@@ -526,6 +526,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           (!picture || picture === "portrait:area:3:ecl:9a5a:caller:a732:PIC5.DAX:56:0:0")) {
         picture = bucketChargeBase;
       }
+      // The street charge shares the barracks fight's script from the battle notice onward.
+      const streetGiants = "portrait:area:4:ecl:a289:PIC5.DAX:56:0:0";
+      if (picture && area === 4 && portraitCursor === 0xa2a7 &&
+          dialogue.includes("THEYCOMERUNNINGTOWARDYOU") && portraitKeys.includes(streetGiants)) {
+        picture = streetGiants;
+      }
       // From the game's own data the sheet's head and body come from the game's portrait draws, for
       // as long as nothing is drawn over them (on the roll, the name, Head Body Keep and View).
       const characterSheet = !scene && !picture ?

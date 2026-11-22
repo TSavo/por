@@ -1256,6 +1256,16 @@ const illustrationRoutes = new Map([
     sceneryPrompt: [4, 8, 0],
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /TODAY'SPASSWORDIS.*THEGATEPASSWORDIS/i },
   }],
+  ["valjevo-street-giants-loop", {
+    slot: "J", inputs: ["up", "enter", "a", "a"],
+    portrait: "portrait:area:4:ecl:a289:PIC5.DAX:56:0:0",
+    prompt: /THEYCOMERUNNINGTOWARDYOU/i,
+    heldPortraitLoop: [0, 1, 0, 3].map(member => `portrait:area:4:ecl:a289:PIC5.DAX:56:${member}:0`),
+    continuation: {
+      inputs: ["c"], portrait: "portrait:area:4:ecl:a289:PIC5.DAX:56:0:0",
+      prompt: /ABATTLEBEGINS/i, pressOnPortrait: "portrait:area:4:ecl:a289:PIC5.DAX:56:3:0", retainPose: true,
+    },
+  }],
   ["valjevo-disguise-offer", {
     slot: "B", inputs: ["up", "enter", "n"],
     portraitStops: {
@@ -7547,12 +7557,14 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_FIXED_CLOCK_START: browserEnvironment.POR_FIXED_CLOCK_START ??
-      (routeName === "valhingen-skeleton-roaming-ambush-loop" || routeName === "valhingen-wight-ambush-loop" ? "4320042" : undefined),
+      (routeName === "valjevo-street-giants-loop" ? "4320100" :
+        routeName === "valhingen-skeleton-roaming-ambush-loop" || routeName === "valhingen-wight-ambush-loop" ? "4320042" : undefined),
     POR_INPUT_COMPAT: ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "valhingen-grave-claws" || routeName === "sokal-barracks-ghost-phases" ||
       routeName === "valhingen-wight-ambush-loop" || routeName === "valhingen-spirits-tower-wight-loop" ||
       routeName === "valhingen-skeleton-roaming-ambush-loop" ||
       routeName === "old-phlan-lizard-patrol-phases" || routeName === "valjevo-tower-troll-phases" ||
+      routeName === "valjevo-street-giants-loop" ||
       routeName === "lizard-wilds-kobold-prisoners" || routeName === "lizard-wilds-pool-dialogue" ||
       routeName === "mendor-storeroom-kobold-phases" || routeName === "mendor-storeroom-mercy-loop" ||
       routeName === "mendor-storeroom-kobold-map" ||
