@@ -1,6 +1,6 @@
 # Artwork worklist
 
-**The artwork is done when `npm run verify:art-worklist` reports 0 remaining and nothing is left under "Not established". It reports 3703 confirmed cells awaiting art now.**
+**The artwork is done when `npm run verify:art-worklist` reports 0 remaining and nothing is left under "Not established". It reports 3564 confirmed cells awaiting art now.**
 
 This file is written by `npm run art:worklist`. Do not edit it or `qa/art-worklist.json` by hand: add art, run the tool, commit what it writes.
 
@@ -48,16 +48,16 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 
 | What | Count |
 | --- | ---: |
-| Remaining, all kinds | 3703 |
-| First-person cells to do | 3464 |
-|   of which one stored tile | 145 |
+| Remaining, all kinds | 3564 |
+| First-person cells to do | 3325 |
+|   of which one stored tile | 11 |
 |   of which one tile over a solid colour | 709 |
-|   of which plain sky or ground | 42 |
+|   of which plain sky or ground | 37 |
 |   of which several tiles together | 2568 |
-|   of which the same pixels already have art of yours in another area | 697 |
+|   of which the same pixels already have art of yours in another area | 558 |
 | Battlefield cells to do | 239 |
-| Tile keys in the manifests | 7460 |
-|   accounted for by the tool | 7455 |
+| Tile keys in the manifests | 7580 |
+|   accounted for by the tool | 7575 |
 | Battlefield keys in the manifests | 83 |
 |   that are one stored cell of a battlefield picture | 78 |
 | Stored 8 by 8 tiles | 3016 |
@@ -73,16 +73,16 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 
 | Area | Name | Reading confirmed | Cells its views can show | With art | To do | Your keys accounted for |
 | ---: | --- | --- | ---: | ---: | ---: | ---: |
-| 0 | New Phlan | yes | 406 | 308 | 98 | 321 of 321 (3 as first views of the next area, 10 as WebGL wall materials) |
+| 0 | New Phlan | yes | 406 | 328 | 78 | 341 of 341 (3 as first views of the next area, 10 as WebGL wall materials) |
 | 1 | Buccaneer Base | yes | 385 | 181 | 204 | 184 of 184 (3 as WebGL wall materials) |
-| 2 | Cadorna Textile House | yes | 580 | 382 | 198 | 406 of 406 (5 as first views of the next area, 19 as WebGL wall materials) |
+| 2 | Cadorna Textile House | yes | 580 | 402 | 178 | 426 of 426 (5 as first views of the next area, 19 as WebGL wall materials) |
 | 3 | Valjevo Castle | not yet | 415 | 307 |  | 309 of 313 (2 as WebGL wall materials) |
 | 4 | Valjevo Castle | yes | 206 | 206 | 0 | 214 of 214 (8 as WebGL wall materials) |
 | 5 | Valjevo Castle | yes | 507 | 369 | 138 | 392 of 392 (23 as WebGL wall materials) |
 | 6 | Valjevo Castle | yes | 182 | 182 | 0 | 190 of 190 (8 as WebGL wall materials) |
 | 7 | Valjevo Castle, the Pool | yes | 220 | 216 | 4 | 216 of 216 |
 | 8 | Phlan City Hall | yes | 405 | 295 | 110 | 305 of 305 (10 as WebGL wall materials) |
-| 9 | Stojanow Gate | yes | 287 | 150 | 137 | 150 of 150 |
+| 9 | Stojanow Gate | yes | 287 | 170 | 117 | 170 of 170 |
 | 10 | Valhingen Graveyard | yes | 2452 | 910 | 1542 | 922 of 922 (12 as WebGL wall materials) |
 | 11 | The Training Hall | yes | 405 | 295 | 110 | 295 of 295 |
 | 13 | The Kobold Caves | yes | 313 | 211 | 102 | 213 of 213 (2 as WebGL wall materials) |
@@ -92,15 +92,15 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 17 | The Nomad Camp | yes | 186 | 164 | 22 | 175 of 175 (11 as WebGL wall materials) |
 | 18 | Podol Plaza | yes | 326 | 273 | 53 | 306 of 306 (26 as first views of the next area, 7 as WebGL wall materials) |
 | 20 | The Slums | not yet | 395 | 180 |  | 187 of 188 (7 as WebGL wall materials) |
-| 21 | Sokal Keep | yes | 500 | 253 | 247 | 275 of 275 (22 as WebGL wall materials) |
+| 21 | Sokal Keep | yes | 500 | 273 | 227 | 295 of 295 (22 as WebGL wall materials) |
 | 22 | Yarash's Pyramid | yes | 140 | 87 | 53 | 95 of 95 (8 as WebGL wall materials) |
 | 23 | Yarash's Pyramid, lower | yes | 126 | 78 | 48 | 83 of 83 (5 as WebGL wall materials) |
 | 24 | Temple of Bane | yes | 312 | 217 | 95 | 229 of 229 (12 as WebGL wall materials) |
 | 25 | Wilderness, west | not yet | 51 | 22 |  | 22 of 22 |
-| 26 | Wilderness, middle | yes | 301 | 216 | 85 | 285 of 285 (67 as first views of the next area, 2 as WebGL wall materials) |
+| 26 | Wilderness, middle | yes | 282 | 216 | 66 | 285 of 285 (67 as first views of the next area, 2 as WebGL wall materials) |
 | 27 | Wilderness, east | not yet | 50 | 21 |  | 22 of 22 (1 as first views of the next area) |
-| 28 | Zhentil Keep Outpost | yes | 194 | 107 | 87 | 108 of 108 (1 as WebGL wall materials) |
-| 29 | Kuto's Well | yes | 660 | 640 | 20 | 654 of 654 (1 as first views of the next area, 13 as WebGL wall materials) |
+| 28 | Zhentil Keep Outpost | yes | 194 | 127 | 67 | 128 of 128 (1 as WebGL wall materials) |
+| 29 | Kuto's Well | yes | 660 | 660 | 0 | 674 of 674 (1 as first views of the next area, 13 as WebGL wall materials) |
 | 31 | Temple of Bane, interior | yes | 142 | 91 | 51 | 91 of 91 |
 
 "Cells its views can show" counts every cell from every square of the map under every sky the script can set, including squares whose reachability is still unverified.
@@ -111,41 +111,16 @@ So a cell is one stored tile, one tile over the sky or ground colour, or several
 
 ## To do: first-person cells
 
-### Area 0: New Phlan (98)
+### Area 0: New Phlan (78)
 
 Map 0; WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103).
 
-#### overhead area view, 8X8D1 block 202 (19)
-
-| Key (PNG 32x32) | What it is | See it at | Same pixels as |
-| --- | --- | --- | --- |
-| `tile:0:10fd0886e0431e57ec7e17a59570792e1059f5f7157405b493ce265199ed86da` | 8X8D1 block 202 tile 6 | map 0, square (0,0) facing north, column 5 row 2 | `podol-overhead-wall-e.png` (area 10, 18) |
-| `tile:0:17aecfacb0ac862291feba2cc4407aa3def3b3919f56e9de997aa729e34681a3` | 8X8D1 block 202 tile 8 | map 0, square (0,0) facing north, column 8 row 2 | `podol-overhead-wall-s.png` (area 10, 18) |
-| `tile:0:219379cc4da98bf424f77258bb2a0a640f2b73f11a6515fa36e60ffbbea8699f` | 8X8D1 block 202 tile 0 | map 0, square (0,0) facing north, column 0 row 0 | `podol-overhead-party-n.png` (area 10, 18) |
-| `tile:0:28ff03b45f311ec95732c83a90db315c0fca1f0670cd7beb1fd2514bad09e147` | 8X8D1 block 202 tile 16 | map 0, square (0,0) facing north, column 7 row 2 | `podol-overhead-wall-sw.png` (area 10, 18) |
-| `tile:0:2d42184c2362ae350c986d8bf540af917a86f15ff43d79f3dd6b7842b9490f06` | 8X8D1 block 202 tile 17 | map 0, square (0,0) facing north, column 8 row 4 | `podol-overhead-wall-nsw.png` (area 10, 18) |
-| `tile:0:3ff193416e9b23866c37192f42c52fbc2bb3391d79c9344338de23d8db77ff13` | 8X8D1 block 202 tile 15 | map 0, square (0,0) facing north, column 6 row 0 | `podol-overhead-wall-new.png` (area 10, 18) |
-| `tile:0:47a669a9430a869565e6f1812f530165e01a58580377493e63aee5a840d7058d` | 8X8D1 block 202 tile 12 | map 0, square (0,0) facing north, column 4 row 1 | `podol-overhead-wall-w.png` (area 10, 18) |
-| `tile:0:482838757d705ffcec482082f3ff2948d4c7a385d2d9edc89a8169c67c22f3e4` | 8X8D1 block 202 tile 19 | map 0, square (0,0) facing north, column 5 row 0 | `podol-overhead-wall-nesw.png` (area 10, 18) |
-| `tile:0:496285be59da9811c312df2a2d2da1c53503c086e3f75710abea664bdf2128e3` | 8X8D1 block 202 tile 2 | map 0, square (0,0) facing south, column 0 row 0 | `podol-overhead-party-s.png` (area 10, 18) |
-| `tile:0:55654b98b0904a8baf33013b015c4125b494a17e19566b7bb720eb6555a154b0` | 8X8D1 block 202 tile 3 | map 0, square (0,0) facing west, column 0 row 0 | `podol-overhead-party-w.png` (area 10, 18) |
-| `tile:0:5ecdd034c02f06e6a9af46d43ce8fc2810a70f34366a4556c9c7fec783d622ed` | 8X8D1 block 202 tile 5 | map 0, square (0,0) facing north, column 8 row 1 | `podol-overhead-wall-n.png` (area 10, 18) |
-| `tile:0:7a3417a61ee293c17e3fac0977255633aabb174d9bdb22afdb3dc4c06a4d6c82` | 8X8D1 block 202 tile 7 | map 0, square (0,0) facing north, column 4 row 0 | `podol-overhead-wall-ne.png` (area 10, 18) |
-| `tile:0:84a465df968f8b91c365336f02295a9bf5a02887b59beb26a2763f5efd153216` | 8X8D1 block 202 tile 1 | map 0, square (0,0) facing east, column 0 row 0 | `podol-overhead-party-e.png` (area 10, 18) |
-| `tile:0:8a7463159b3cc87236f3702080b428644809d3fabe11818c4cce77feafe61c7d` | 8X8D1 block 202 tile 14 | map 0, square (0,0) facing north, column 0 row 1 | `podol-overhead-wall-ew.png` (area 10, 18) |
-| `tile:0:9062228b7598045f75a5d60a5540b958c6d17b9d450a5cd9ccd89756906bfa3f` | 8X8D1 block 202 tile 10 | map 0, square (0,0) facing north, column 9 row 2 | `podol-overhead-wall-es.png` (area 10, 18) |
-| `tile:0:9caaba9389bc7c9c4b5600fa65c80dc0951f8c05a67f7e27cca12fda0f0fe6d5` | 8X8D1 block 202 tile 9 | map 0, square (0,0) facing north, column 1 row 0 | `podol-overhead-wall-ns.png` (area 10, 18) |
-| `tile:0:ad494b78a51cb097874be17d5e9ad07ce4d108b7cfc0724a9ffb9289f7d11e5f` | 8X8D1 block 202 tile 18 | map 0, square (0,0) facing north, column 6 row 2 | `podol-overhead-wall-esw.png` (area 10, 18) |
-| `tile:0:bf9c0fd1402ac36b11c3e4d34e5623d7603c85da0b4a60007fe9b2bf76c5e1f9` | 8X8D1 block 202 tile 11 | map 0, square (0,0) facing north, column 3 row 1 | `podol-overhead-wall-nes.png` (area 10, 18) |
-| `tile:0:d8afceb6a1ca80efdc8cbb48c855ae716abf2687808334df576fb5568334ee71` | 8X8D1 block 202 tile 13 | map 0, square (0,0) facing north, column 10 row 0 | `podol-overhead-wall-nw.png` (area 10, 18) |
-
-#### plain sky, horizon and ground (26)
+#### plain sky, horizon and ground (25)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
 | `tile:0:03f3fa6f4aa3222c474b7badad5f71aae8ad3ecd23338585c8f21da399432be1` | the horizon row (three rows of sky 12, one of 15, two of 7, two of ground 8) | map 0, square (8,4) facing east, column 5 row 5 |  |
 | `tile:0:0a366a5ddb501c1a57601fbc36c146187a66643c24eb25152b1b1f14a828293a` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 1) | map 0, square (0,0) facing east, column 5 row 5 |  |
-| `tile:0:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 0, square (0,0) facing north, column 2 row 9 | `podol-overhead-open-base.png` (area 10, 18, 26) |
 | `tile:0:23cd922178851f7c2f9bf5ab8ecd8b3b3fa3924c85c786b6f1e9931ef542f3b5` | the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 8) | map 0, square (0,0) facing east, column 5 row 5 |  |
 | `tile:0:248662edc76d26809ca31f9b0430b4d664d7afcb67b5e10619f0ee78c45c37dd` | the horizon row (three rows of sky 12, one of 0, two of 8, two of ground 6) | map 0, square (8,4) facing east, column 5 row 5 |  |
 | `tile:0:249940bda6255296e785e307c104e14566277c598c51dc33911f04a6906218e6` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 8) | map 0, square (0,0) facing east, column 5 row 5 |  |
@@ -247,7 +222,7 @@ Map 1; WALLDEF6 block 2 (tiles 8X8D6 block 2), block 6 (tiles 8X8D6 block 6), bl
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
 | `tile:1:0a366a5ddb501c1a57601fbc36c146187a66643c24eb25152b1b1f14a828293a` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 1) | map 1, square (0,0) facing north, column 0 row 5 |  |
-| `tile:1:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 1, square (0,0) facing north, column 0 row 6 | `podol-overhead-open-base.png` (area 10, 18, 26) |
+| `tile:1:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 1, square (0,0) facing north, column 0 row 6 | `zhentil-overhead-open-base.png` (area 0, 2, 9, 10, 18, 21, 26, 28, 29) |
 | `tile:1:23cd922178851f7c2f9bf5ab8ecd8b3b3fa3924c85c786b6f1e9931ef542f3b5` | the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 8) | map 1, square (0,0) facing north, column 0 row 5 |  |
 | `tile:1:249940bda6255296e785e307c104e14566277c598c51dc33911f04a6906218e6` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 8) | map 1, square (0,0) facing north, column 0 row 5 |  |
 | `tile:1:2d20c35200ed2bf03750e8dd6605060f850bb748dacde434ae2943bbe30dc374` | the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 1) | map 1, square (0,0) facing north, column 0 row 5 |  |
@@ -461,40 +436,15 @@ Map 1; WALLDEF6 block 2 (tiles 8X8D6 block 2), block 6 (tiles 8X8D6 block 6), bl
 | `tile:1:fd036b64f067cf1a157b4f1193edcff6d78c356660e77ec52ee62446760c847d` | 8X8D6 block 6 tile 12 over the horizon row (three rows of sky 11, one of 0, two of 7, two of ground 6) | map 1, square (11,5) facing east, column 8 row 5 |  |
 | `tile:1:fd7f561bf3b8eb38fced0ec2f58ef554ac4ccd6028a3e4764ce95486ddf4d4f2` | 8X8D6 block 6 tile 33 over 8X8D6 block 6 tile 15 over the horizon row (three rows of sky 11, one of 0, two of 7, two of ground 8) | map 1, square (12,4) facing east, column 9 row 5 |  |
 
-### Area 2: Cadorna Textile House (198)
+### Area 2: Cadorna Textile House (178)
 
 Map 2; WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20).
 
-#### overhead area view, 8X8D1 block 202 (19)
-
-| Key (PNG 32x32) | What it is | See it at | Same pixels as |
-| --- | --- | --- | --- |
-| `tile:2:10fd0886e0431e57ec7e17a59570792e1059f5f7157405b493ce265199ed86da` | 8X8D1 block 202 tile 6 | map 2, square (0,0) facing north, column 9 row 6 | `podol-overhead-wall-e.png` (area 10, 18) |
-| `tile:2:17aecfacb0ac862291feba2cc4407aa3def3b3919f56e9de997aa729e34681a3` | 8X8D1 block 202 tile 8 | map 2, square (0,0) facing north, column 10 row 5 | `podol-overhead-wall-s.png` (area 10, 18) |
-| `tile:2:219379cc4da98bf424f77258bb2a0a640f2b73f11a6515fa36e60ffbbea8699f` | 8X8D1 block 202 tile 0 | map 2, square (0,0) facing north, column 0 row 0 | `podol-overhead-party-n.png` (area 10, 18) |
-| `tile:2:28ff03b45f311ec95732c83a90db315c0fca1f0670cd7beb1fd2514bad09e147` | 8X8D1 block 202 tile 16 | map 2, square (0,0) facing north, column 6 row 1 | `podol-overhead-wall-sw.png` (area 10, 18) |
-| `tile:2:2d42184c2362ae350c986d8bf540af917a86f15ff43d79f3dd6b7842b9490f06` | 8X8D1 block 202 tile 17 | map 2, square (0,0) facing north, column 1 row 0 | `podol-overhead-wall-nsw.png` (area 10, 18) |
-| `tile:2:3ff193416e9b23866c37192f42c52fbc2bb3391d79c9344338de23d8db77ff13` | 8X8D1 block 202 tile 15 | map 2, square (0,0) facing north, column 3 row 0 | `podol-overhead-wall-new.png` (area 10, 18) |
-| `tile:2:47a669a9430a869565e6f1812f530165e01a58580377493e63aee5a840d7058d` | 8X8D1 block 202 tile 12 | map 2, square (0,0) facing north, column 2 row 5 | `podol-overhead-wall-w.png` (area 10, 18) |
-| `tile:2:482838757d705ffcec482082f3ff2948d4c7a385d2d9edc89a8169c67c22f3e4` | 8X8D1 block 202 tile 19 | map 2, square (0,0) facing north, column 7 row 0 | `podol-overhead-wall-nesw.png` (area 10, 18) |
-| `tile:2:496285be59da9811c312df2a2d2da1c53503c086e3f75710abea664bdf2128e3` | 8X8D1 block 202 tile 2 | map 2, square (0,0) facing south, column 0 row 0 | `podol-overhead-party-s.png` (area 10, 18) |
-| `tile:2:55654b98b0904a8baf33013b015c4125b494a17e19566b7bb720eb6555a154b0` | 8X8D1 block 202 tile 3 | map 2, square (0,0) facing west, column 0 row 0 | `podol-overhead-party-w.png` (area 10, 18) |
-| `tile:2:5ecdd034c02f06e6a9af46d43ce8fc2810a70f34366a4556c9c7fec783d622ed` | 8X8D1 block 202 tile 5 | map 2, square (0,0) facing north, column 10 row 2 | `podol-overhead-wall-n.png` (area 10, 18) |
-| `tile:2:7a3417a61ee293c17e3fac0977255633aabb174d9bdb22afdb3dc4c06a4d6c82` | 8X8D1 block 202 tile 7 | map 2, square (0,0) facing north, column 1 row 2 | `podol-overhead-wall-ne.png` (area 10, 18) |
-| `tile:2:84a465df968f8b91c365336f02295a9bf5a02887b59beb26a2763f5efd153216` | 8X8D1 block 202 tile 1 | map 2, square (0,0) facing east, column 0 row 0 | `podol-overhead-party-e.png` (area 10, 18) |
-| `tile:2:8a7463159b3cc87236f3702080b428644809d3fabe11818c4cce77feafe61c7d` | 8X8D1 block 202 tile 14 | map 2, square (0,0) facing north, column 1 row 3 | `podol-overhead-wall-ew.png` (area 10, 18) |
-| `tile:2:9062228b7598045f75a5d60a5540b958c6d17b9d450a5cd9ccd89756906bfa3f` | 8X8D1 block 202 tile 10 | map 2, square (0,0) facing north, column 3 row 1 | `podol-overhead-wall-es.png` (area 10, 18) |
-| `tile:2:9caaba9389bc7c9c4b5600fa65c80dc0951f8c05a67f7e27cca12fda0f0fe6d5` | 8X8D1 block 202 tile 9 | map 2, square (0,0) facing north, column 7 row 1 | `podol-overhead-wall-ns.png` (area 10, 18) |
-| `tile:2:ad494b78a51cb097874be17d5e9ad07ce4d108b7cfc0724a9ffb9289f7d11e5f` | 8X8D1 block 202 tile 18 | map 2, square (0,0) facing north, column 0 row 1 | `podol-overhead-wall-esw.png` (area 10, 18) |
-| `tile:2:bf9c0fd1402ac36b11c3e4d34e5623d7603c85da0b4a60007fe9b2bf76c5e1f9` | 8X8D1 block 202 tile 11 | map 2, square (0,0) facing north, column 2 row 0 | `podol-overhead-wall-nes.png` (area 10, 18) |
-| `tile:2:d8afceb6a1ca80efdc8cbb48c855ae716abf2687808334df576fb5568334ee71` | 8X8D1 block 202 tile 13 | map 2, square (0,0) facing north, column 10 row 0 | `podol-overhead-wall-nw.png` (area 10, 18) |
-
-#### plain sky, horizon and ground (18)
+#### plain sky, horizon and ground (17)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
 | `tile:2:0a366a5ddb501c1a57601fbc36c146187a66643c24eb25152b1b1f14a828293a` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 1) | map 2, square (10,0) facing south, column 5 row 5 |  |
-| `tile:2:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 2, square (0,0) facing north, column 2 row 9 | `podol-overhead-open-base.png` (area 10, 18, 26) |
 | `tile:2:23cd922178851f7c2f9bf5ab8ecd8b3b3fa3924c85c786b6f1e9931ef542f3b5` | the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 8) | map 2, square (12,0) facing east, column 5 row 5 |  |
 | `tile:2:249940bda6255296e785e307c104e14566277c598c51dc33911f04a6906218e6` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 8) | map 2, square (10,0) facing south, column 5 row 5 |  |
 | `tile:2:2d20c35200ed2bf03750e8dd6605060f850bb748dacde434ae2943bbe30dc374` | the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 1) | map 2, square (10,0) facing south, column 5 row 5 |  |
@@ -704,7 +654,7 @@ Map 3, 4, 6, 5, 7; WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (ti
 | `tile:5:03c7f1ae93e8acdce01fa4ee2d9206c1bd47cccce78bcb3c7e67555d0acbcdc8` | the horizon row (three rows of sky 15, one of 15, two of 7, two of ground 8) | map 3, square (0,0) facing east, column 5 row 5 |  |
 | `tile:5:03f3fa6f4aa3222c474b7badad5f71aae8ad3ecd23338585c8f21da399432be1` | the horizon row (three rows of sky 12, one of 15, two of 7, two of ground 8) | map 3, square (4,0) facing south, column 4 row 5 |  |
 | `tile:5:0a366a5ddb501c1a57601fbc36c146187a66643c24eb25152b1b1f14a828293a` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 1) | map 3, square (4,0) facing south, column 4 row 5 |  |
-| `tile:5:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 3, square (0,0) facing north, column 2 row 9 | `podol-overhead-open-base.png` (area 10, 18, 26) |
+| `tile:5:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 3, square (0,0) facing north, column 2 row 9 | `zhentil-overhead-open-base.png` (area 0, 2, 9, 10, 18, 21, 26, 28, 29) |
 | `tile:5:23cd922178851f7c2f9bf5ab8ecd8b3b3fa3924c85c786b6f1e9931ef542f3b5` | the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 8) | map 3, square (4,0) facing south, column 4 row 5 |  |
 | `tile:5:248662edc76d26809ca31f9b0430b4d664d7afcb67b5e10619f0ee78c45c37dd` | the horizon row (three rows of sky 12, one of 0, two of 8, two of ground 6) | map 3, square (4,0) facing south, column 4 row 5 |  |
 | `tile:5:249940bda6255296e785e307c104e14566277c598c51dc33911f04a6906218e6` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 8) | map 3, square (4,0) facing south, column 4 row 5 |  |
@@ -878,7 +828,7 @@ Map 7, 3; WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
-| `tile:7:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 3, square (13,15) facing west, column 4 row 7 | `podol-overhead-open-base.png` (area 10, 18, 26) |
+| `tile:7:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 3, square (13,15) facing west, column 4 row 7 | `zhentil-overhead-open-base.png` (area 0, 2, 9, 10, 18, 21, 26, 28, 29) |
 | `tile:7:7c8975e1e60a5c8337f28edf8c33c3b180360b7279644a9bc1af3c51e6220bf5` | the ground colour 1 | map 3, square (13,15) facing west, column 4 row 7 | `kuto-well-shaft-water-7c8975e1e60a.png` (area 29) |
 
 #### shared tile set 8X8D1 block 203 (2)
@@ -898,7 +848,7 @@ Map 0; WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 bloc
 | --- | --- | --- | --- |
 | `tile:8:03f3fa6f4aa3222c474b7badad5f71aae8ad3ecd23338585c8f21da399432be1` | the horizon row (three rows of sky 12, one of 15, two of 7, two of ground 8) | map 0, square (8,4) facing east, column 5 row 5 |  |
 | `tile:8:0a366a5ddb501c1a57601fbc36c146187a66643c24eb25152b1b1f14a828293a` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 1) | map 0, square (0,0) facing east, column 5 row 5 |  |
-| `tile:8:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 0, square (0,0) facing north, column 2 row 9 | `podol-overhead-open-base.png` (area 10, 18, 26) |
+| `tile:8:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 0, square (0,0) facing north, column 2 row 9 | `zhentil-overhead-open-base.png` (area 0, 2, 9, 10, 18, 21, 26, 28, 29) |
 | `tile:8:23cd922178851f7c2f9bf5ab8ecd8b3b3fa3924c85c786b6f1e9931ef542f3b5` | the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 8) | map 0, square (0,0) facing east, column 5 row 5 |  |
 | `tile:8:248662edc76d26809ca31f9b0430b4d664d7afcb67b5e10619f0ee78c45c37dd` | the horizon row (three rows of sky 12, one of 0, two of 8, two of ground 6) | map 0, square (8,4) facing east, column 5 row 5 |  |
 | `tile:8:249940bda6255296e785e307c104e14566277c598c51dc33911f04a6906218e6` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 8) | map 0, square (0,0) facing east, column 5 row 5 |  |
@@ -1027,35 +977,11 @@ Map 0; WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 bloc
 | `tile:8:eaaf3eda22c409df59d46965bfbaa114fdfce2600636b7f78fb7a4c61b6ed7a7` | 8X8D3 block 103 tile 6 over sky colour 0 | map 0, square (2,2) facing east, column 10 row 3 | `phlan-fallback-0-eaaf3eda22c4.png` (area 0) |
 | `tile:8:fda35ec7d9df04aeebd70aad095944df1c6a3e311c4f49c7cb25814d73ad0766` | 8X8D3 block 103 tile 4 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6) | map 0, square (2,0) facing west, column 6 row 5 | `phlan-fallback-0-fda35ec7d9df.png` (area 0) |
 
-### Area 9: Stojanow Gate (137)
+### Area 9: Stojanow Gate (117)
 
 Map 9; WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23).
 
-#### overhead area view, 8X8D1 block 202 (19)
-
-| Key (PNG 32x32) | What it is | See it at | Same pixels as |
-| --- | --- | --- | --- |
-| `tile:9:10fd0886e0431e57ec7e17a59570792e1059f5f7157405b493ce265199ed86da` | 8X8D1 block 202 tile 6 | map 9, square (0,0) facing north, column 1 row 1 | `podol-overhead-wall-e.png` (area 10, 18) |
-| `tile:9:17aecfacb0ac862291feba2cc4407aa3def3b3919f56e9de997aa729e34681a3` | 8X8D1 block 202 tile 8 | map 9, square (0,0) facing north, column 3 row 5 | `podol-overhead-wall-s.png` (area 10, 18) |
-| `tile:9:219379cc4da98bf424f77258bb2a0a640f2b73f11a6515fa36e60ffbbea8699f` | 8X8D1 block 202 tile 0 | map 9, square (0,0) facing north, column 0 row 0 | `podol-overhead-party-n.png` (area 10, 18) |
-| `tile:9:28ff03b45f311ec95732c83a90db315c0fca1f0670cd7beb1fd2514bad09e147` | 8X8D1 block 202 tile 16 | map 9, square (0,0) facing north, column 2 row 1 | `podol-overhead-wall-sw.png` (area 10, 18) |
-| `tile:9:2d42184c2362ae350c986d8bf540af917a86f15ff43d79f3dd6b7842b9490f06` | 8X8D1 block 202 tile 17 | map 9, square (0,0) facing north, column 7 row 0 | `podol-overhead-wall-nsw.png` (area 10, 18) |
-| `tile:9:3ff193416e9b23866c37192f42c52fbc2bb3391d79c9344338de23d8db77ff13` | 8X8D1 block 202 tile 15 | map 9, square (0,0) facing north, column 4 row 0 | `podol-overhead-wall-new.png` (area 10, 18) |
-| `tile:9:47a669a9430a869565e6f1812f530165e01a58580377493e63aee5a840d7058d` | 8X8D1 block 202 tile 12 | map 9, square (0,0) facing north, column 0 row 1 | `podol-overhead-wall-w.png` (area 10, 18) |
-| `tile:9:482838757d705ffcec482082f3ff2948d4c7a385d2d9edc89a8169c67c22f3e4` | 8X8D1 block 202 tile 19 | map 9, square (0,0) facing north, column 3 row 6 | `podol-overhead-wall-nesw.png` (area 10, 18) |
-| `tile:9:496285be59da9811c312df2a2d2da1c53503c086e3f75710abea664bdf2128e3` | 8X8D1 block 202 tile 2 | map 9, square (0,0) facing south, column 0 row 0 | `podol-overhead-party-s.png` (area 10, 18) |
-| `tile:9:55654b98b0904a8baf33013b015c4125b494a17e19566b7bb720eb6555a154b0` | 8X8D1 block 202 tile 3 | map 9, square (0,0) facing west, column 0 row 0 | `podol-overhead-party-w.png` (area 10, 18) |
-| `tile:9:5ecdd034c02f06e6a9af46d43ce8fc2810a70f34366a4556c9c7fec783d622ed` | 8X8D1 block 202 tile 5 | map 9, square (0,0) facing north, column 10 row 3 | `podol-overhead-wall-n.png` (area 10, 18) |
-| `tile:9:7a3417a61ee293c17e3fac0977255633aabb174d9bdb22afdb3dc4c06a4d6c82` | 8X8D1 block 202 tile 7 | map 9, square (0,0) facing north, column 1 row 0 | `podol-overhead-wall-ne.png` (area 10, 18) |
-| `tile:9:84a465df968f8b91c365336f02295a9bf5a02887b59beb26a2763f5efd153216` | 8X8D1 block 202 tile 1 | map 9, square (0,0) facing east, column 0 row 0 | `podol-overhead-party-e.png` (area 10, 18) |
-| `tile:9:8a7463159b3cc87236f3702080b428644809d3fabe11818c4cce77feafe61c7d` | 8X8D1 block 202 tile 14 | map 9, square (0,0) facing north, column 4 row 1 | `podol-overhead-wall-ew.png` (area 10, 18) |
-| `tile:9:9062228b7598045f75a5d60a5540b958c6d17b9d450a5cd9ccd89756906bfa3f` | 8X8D1 block 202 tile 10 | map 9, square (0,0) facing north, column 3 row 1 | `podol-overhead-wall-es.png` (area 10, 18) |
-| `tile:9:9caaba9389bc7c9c4b5600fa65c80dc0951f8c05a67f7e27cca12fda0f0fe6d5` | 8X8D1 block 202 tile 9 | map 9, square (0,0) facing north, column 10 row 0 | `podol-overhead-wall-ns.png` (area 10, 18) |
-| `tile:9:ad494b78a51cb097874be17d5e9ad07ce4d108b7cfc0724a9ffb9289f7d11e5f` | 8X8D1 block 202 tile 18 | map 9, square (0,0) facing north, column 5 row 1 | `podol-overhead-wall-esw.png` (area 10, 18) |
-| `tile:9:bf9c0fd1402ac36b11c3e4d34e5623d7603c85da0b4a60007fe9b2bf76c5e1f9` | 8X8D1 block 202 tile 11 | map 9, square (0,0) facing north, column 8 row 0 | `podol-overhead-wall-nes.png` (area 10, 18) |
-| `tile:9:d8afceb6a1ca80efdc8cbb48c855ae716abf2687808334df576fb5568334ee71` | 8X8D1 block 202 tile 13 | map 9, square (0,0) facing north, column 2 row 0 | `podol-overhead-wall-nw.png` (area 10, 18) |
-
-#### plain sky, horizon and ground (48)
+#### plain sky, horizon and ground (47)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
@@ -1064,7 +990,6 @@ Map 9; WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), bl
 | `tile:9:05145bbce052a9edeb4cabc4502b4c02bd353aabc668e9c2fe50ca6ce9b2d82e` | the horizon row (three rows of sky 9, one of 15, two of 7, two of ground 6) | map 9, square (4,0) facing south, column 5 row 5 |  |
 | `tile:9:0629031ff6ecb1cb4aac4bee3b6b365d05f5e7703d340339d98d9402159f1fba` | the horizon row (three rows of sky 9, one of 0, two of 7, two of ground 1) | map 9, square (4,0) facing south, column 5 row 5 |  |
 | `tile:9:0a366a5ddb501c1a57601fbc36c146187a66643c24eb25152b1b1f14a828293a` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 1) | map 9, square (4,0) facing south, column 5 row 5 |  |
-| `tile:9:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 9, square (0,0) facing north, column 2 row 9 | `podol-overhead-open-base.png` (area 10, 18, 26) |
 | `tile:9:23cd922178851f7c2f9bf5ab8ecd8b3b3fa3924c85c786b6f1e9931ef542f3b5` | the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 8) | map 9, square (4,0) facing south, column 5 row 5 |  |
 | `tile:9:248662edc76d26809ca31f9b0430b4d664d7afcb67b5e10619f0ee78c45c37dd` | the horizon row (three rows of sky 12, one of 0, two of 8, two of ground 6) | map 9, square (4,0) facing south, column 5 row 5 |  |
 | `tile:9:249940bda6255296e785e307c104e14566277c598c51dc33911f04a6906218e6` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 8) | map 9, square (4,0) facing south, column 5 row 5 |  |
@@ -2774,7 +2699,7 @@ Map 0; WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 bloc
 | --- | --- | --- | --- |
 | `tile:11:03f3fa6f4aa3222c474b7badad5f71aae8ad3ecd23338585c8f21da399432be1` | the horizon row (three rows of sky 12, one of 15, two of 7, two of ground 8) | map 0, square (8,4) facing east, column 5 row 5 |  |
 | `tile:11:0a366a5ddb501c1a57601fbc36c146187a66643c24eb25152b1b1f14a828293a` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 1) | map 0, square (0,0) facing east, column 5 row 5 |  |
-| `tile:11:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 0, square (0,0) facing north, column 2 row 9 | `podol-overhead-open-base.png` (area 10, 18, 26) |
+| `tile:11:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 0, square (0,0) facing north, column 2 row 9 | `zhentil-overhead-open-base.png` (area 0, 2, 9, 10, 18, 21, 26, 28, 29) |
 | `tile:11:23cd922178851f7c2f9bf5ab8ecd8b3b3fa3924c85c786b6f1e9931ef542f3b5` | the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 8) | map 0, square (0,0) facing east, column 5 row 5 |  |
 | `tile:11:248662edc76d26809ca31f9b0430b4d664d7afcb67b5e10619f0ee78c45c37dd` | the horizon row (three rows of sky 12, one of 0, two of 8, two of ground 6) | map 0, square (8,4) facing east, column 5 row 5 |  |
 | `tile:11:249940bda6255296e785e307c104e14566277c598c51dc33911f04a6906218e6` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 8) | map 0, square (0,0) facing east, column 5 row 5 |  |
@@ -2911,7 +2836,7 @@ Map 13; WALLDEF8 block 17 (tiles 8X8D8 block 17), block 18 (tiles 8X8D8 block 18
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
-| `tile:13:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 13, square (0,0) facing north, column 2 row 9 | `podol-overhead-open-base.png` (area 10, 18, 26) |
+| `tile:13:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 13, square (0,0) facing north, column 2 row 9 | `zhentil-overhead-open-base.png` (area 0, 2, 9, 10, 18, 21, 26, 28, 29) |
 | `tile:13:23cd922178851f7c2f9bf5ab8ecd8b3b3fa3924c85c786b6f1e9931ef542f3b5` | the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 8) | map 13, square (1,0) facing north, column 5 row 5 |  |
 | `tile:13:3d71c1052c4d9c676b7ef6f5bed4650cd060d64db29dd69ffa192d38dbbada18` | the horizon row (three rows of sky 0, one of 0, two of 8, two of ground 8) | map 13, square (1,0) facing north, column 5 row 5 | `valhingen-graveyard-3d71c1052c4d.png` (area 10, 26) |
 | `tile:13:523152dd9aee4e41cdd527cad46aead68b996d39422def6ec46e975e51df9ae3` | the horizon row (three rows of sky 0, one of 0, two of 8, two of ground 6) | map 13, square (1,0) facing north, column 5 row 5 | `kuto-earth-chamber-joins-523152dd9aee.png` (area 29) |
@@ -3034,7 +2959,7 @@ Map 14; WALLDEF3 block 1 (tiles 8X8D3 block 1), block 3 (tiles 8X8D3 block 3), b
 | --- | --- | --- | --- |
 | `tile:14:03f3fa6f4aa3222c474b7badad5f71aae8ad3ecd23338585c8f21da399432be1` | the horizon row (three rows of sky 12, one of 15, two of 7, two of ground 8) | map 14, square (11,2) facing east, column 5 row 5 |  |
 | `tile:14:0a366a5ddb501c1a57601fbc36c146187a66643c24eb25152b1b1f14a828293a` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 1) | map 14, square (0,0) facing east, column 5 row 5 |  |
-| `tile:14:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 14, square (0,0) facing north, column 2 row 9 | `podol-overhead-open-base.png` (area 10, 18, 26) |
+| `tile:14:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 14, square (0,0) facing north, column 2 row 9 | `zhentil-overhead-open-base.png` (area 0, 2, 9, 10, 18, 21, 26, 28, 29) |
 | `tile:14:23cd922178851f7c2f9bf5ab8ecd8b3b3fa3924c85c786b6f1e9931ef542f3b5` | the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 8) | map 14, square (0,0) facing east, column 5 row 5 |  |
 | `tile:14:248662edc76d26809ca31f9b0430b4d664d7afcb67b5e10619f0ee78c45c37dd` | the horizon row (three rows of sky 12, one of 0, two of 8, two of ground 6) | map 14, square (11,2) facing east, column 5 row 5 |  |
 | `tile:14:249940bda6255296e785e307c104e14566277c598c51dc33911f04a6906218e6` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 8) | map 14, square (0,0) facing east, column 5 row 5 |  |
@@ -3112,7 +3037,7 @@ Map 17; WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), b
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
 | `tile:17:0a366a5ddb501c1a57601fbc36c146187a66643c24eb25152b1b1f14a828293a` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 1) | map 17, square (0,0) facing north, column 0 row 5 |  |
-| `tile:17:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 17, square (0,0) facing north, column 0 row 6 | `podol-overhead-open-base.png` (area 10, 18, 26) |
+| `tile:17:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 17, square (0,0) facing north, column 0 row 6 | `zhentil-overhead-open-base.png` (area 0, 2, 9, 10, 18, 21, 26, 28, 29) |
 | `tile:17:23cd922178851f7c2f9bf5ab8ecd8b3b3fa3924c85c786b6f1e9931ef542f3b5` | the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 8) | map 17, square (0,0) facing north, column 0 row 5 |  |
 | `tile:17:249940bda6255296e785e307c104e14566277c598c51dc33911f04a6906218e6` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 8) | map 17, square (0,0) facing north, column 0 row 5 |  |
 | `tile:17:2d20c35200ed2bf03750e8dd6605060f850bb748dacde434ae2943bbe30dc374` | the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 1) | map 17, square (0,0) facing north, column 0 row 5 |  |
@@ -3221,41 +3146,16 @@ Map 18; WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), b
 | `tile:18:8126ec334049dc5409aa7978a014e9a5f51b21b0d6c32121d917c20712ef1c10` | 8X8D1 block 5 tile 43 over 8X8D1 block 5 tile 43 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 8) | map 18, square (0,15) facing south, column 3 row 5 |  |
 | `tile:18:a23da0d5ed47aef2b91ead700199b56b7f394a3225edb8cd92267243a7cd576a` | 8X8D1 block 5 tile 47 over 8X8D1 block 5 tile 47 over 8X8D1 block 203 tile 19 over the ground colour 1 | map 18, square (0,15) facing south, column 8 row 8 |  |
 
-### Area 21: Sokal Keep (247)
+### Area 21: Sokal Keep (227)
 
 Map 21; WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9).
 
-#### overhead area view, 8X8D1 block 202 (19)
-
-| Key (PNG 32x32) | What it is | See it at | Same pixels as |
-| --- | --- | --- | --- |
-| `tile:21:10fd0886e0431e57ec7e17a59570792e1059f5f7157405b493ce265199ed86da` | 8X8D1 block 202 tile 6 | map 21, square (0,0) facing north, column 3 row 3 | `podol-overhead-wall-e.png` (area 10, 18) |
-| `tile:21:17aecfacb0ac862291feba2cc4407aa3def3b3919f56e9de997aa729e34681a3` | 8X8D1 block 202 tile 8 | map 21, square (0,0) facing north, column 1 row 1 | `podol-overhead-wall-s.png` (area 10, 18) |
-| `tile:21:219379cc4da98bf424f77258bb2a0a640f2b73f11a6515fa36e60ffbbea8699f` | 8X8D1 block 202 tile 0 | map 21, square (0,0) facing north, column 0 row 0 | `podol-overhead-party-n.png` (area 10, 18) |
-| `tile:21:28ff03b45f311ec95732c83a90db315c0fca1f0670cd7beb1fd2514bad09e147` | 8X8D1 block 202 tile 16 | map 21, square (0,0) facing north, column 4 row 1 | `podol-overhead-wall-sw.png` (area 10, 18) |
-| `tile:21:2d42184c2362ae350c986d8bf540af917a86f15ff43d79f3dd6b7842b9490f06` | 8X8D1 block 202 tile 17 | map 21, square (0,0) facing north, column 0 row 1 | `podol-overhead-wall-nsw.png` (area 10, 18) |
-| `tile:21:3ff193416e9b23866c37192f42c52fbc2bb3391d79c9344338de23d8db77ff13` | 8X8D1 block 202 tile 15 | map 21, square (0,0) facing north, column 7 row 0 | `podol-overhead-wall-new.png` (area 10, 18) |
-| `tile:21:47a669a9430a869565e6f1812f530165e01a58580377493e63aee5a840d7058d` | 8X8D1 block 202 tile 12 | map 21, square (0,0) facing north, column 4 row 3 | `podol-overhead-wall-w.png` (area 10, 18) |
-| `tile:21:482838757d705ffcec482082f3ff2948d4c7a385d2d9edc89a8169c67c22f3e4` | 8X8D1 block 202 tile 19 | map 21, square (0,0) facing north, column 6 row 0 | `podol-overhead-wall-nesw.png` (area 10, 18) |
-| `tile:21:496285be59da9811c312df2a2d2da1c53503c086e3f75710abea664bdf2128e3` | 8X8D1 block 202 tile 2 | map 21, square (0,0) facing south, column 0 row 0 | `podol-overhead-party-s.png` (area 10, 18) |
-| `tile:21:55654b98b0904a8baf33013b015c4125b494a17e19566b7bb720eb6555a154b0` | 8X8D1 block 202 tile 3 | map 21, square (0,0) facing west, column 0 row 0 | `podol-overhead-party-w.png` (area 10, 18) |
-| `tile:21:5ecdd034c02f06e6a9af46d43ce8fc2810a70f34366a4556c9c7fec783d622ed` | 8X8D1 block 202 tile 5 | map 21, square (0,0) facing north, column 2 row 0 | `podol-overhead-wall-n.png` (area 10, 18) |
-| `tile:21:7a3417a61ee293c17e3fac0977255633aabb174d9bdb22afdb3dc4c06a4d6c82` | 8X8D1 block 202 tile 7 | map 21, square (0,0) facing north, column 3 row 0 | `podol-overhead-wall-ne.png` (area 10, 18) |
-| `tile:21:84a465df968f8b91c365336f02295a9bf5a02887b59beb26a2763f5efd153216` | 8X8D1 block 202 tile 1 | map 21, square (0,0) facing east, column 0 row 0 | `podol-overhead-party-e.png` (area 10, 18) |
-| `tile:21:8a7463159b3cc87236f3702080b428644809d3fabe11818c4cce77feafe61c7d` | 8X8D1 block 202 tile 14 | map 21, square (0,0) facing north, column 1 row 8 | `podol-overhead-wall-ew.png` (area 10, 18) |
-| `tile:21:9062228b7598045f75a5d60a5540b958c6d17b9d450a5cd9ccd89756906bfa3f` | 8X8D1 block 202 tile 10 | map 21, square (0,0) facing north, column 3 row 1 | `podol-overhead-wall-es.png` (area 10, 18) |
-| `tile:21:9caaba9389bc7c9c4b5600fa65c80dc0951f8c05a67f7e27cca12fda0f0fe6d5` | 8X8D1 block 202 tile 9 | map 21, square (0,0) facing north, column 6 row 1 | `podol-overhead-wall-ns.png` (area 10, 18) |
-| `tile:21:ad494b78a51cb097874be17d5e9ad07ce4d108b7cfc0724a9ffb9289f7d11e5f` | 8X8D1 block 202 tile 18 | map 21, square (0,0) facing north, column 0 row 9 | `podol-overhead-wall-esw.png` (area 10, 18) |
-| `tile:21:bf9c0fd1402ac36b11c3e4d34e5623d7603c85da0b4a60007fe9b2bf76c5e1f9` | 8X8D1 block 202 tile 11 | map 21, square (10,0) facing north, column 10 row 1 | `podol-overhead-wall-nes.png` (area 10, 18) |
-| `tile:21:d8afceb6a1ca80efdc8cbb48c855ae716abf2687808334df576fb5568334ee71` | 8X8D1 block 202 tile 13 | map 21, square (0,0) facing north, column 1 row 0 | `podol-overhead-wall-nw.png` (area 10, 18) |
-
-#### plain sky, horizon and ground (27)
+#### plain sky, horizon and ground (26)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
 | `tile:21:03f3fa6f4aa3222c474b7badad5f71aae8ad3ecd23338585c8f21da399432be1` | the horizon row (three rows of sky 12, one of 15, two of 7, two of ground 8) | map 21, square (12,0) facing east, column 6 row 5 |  |
 | `tile:21:0a366a5ddb501c1a57601fbc36c146187a66643c24eb25152b1b1f14a828293a` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 1) | map 21, square (3,0) facing west, column 2 row 5 |  |
-| `tile:21:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 21, square (0,0) facing north, column 2 row 9 | `podol-overhead-open-base.png` (area 10, 18, 26) |
 | `tile:21:23cd922178851f7c2f9bf5ab8ecd8b3b3fa3924c85c786b6f1e9931ef542f3b5` | the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 8) | map 21, square (3,0) facing west, column 2 row 5 |  |
 | `tile:21:248662edc76d26809ca31f9b0430b4d664d7afcb67b5e10619f0ee78c45c37dd` | the horizon row (three rows of sky 12, one of 0, two of 8, two of ground 6) | map 21, square (12,0) facing east, column 6 row 5 |  |
 | `tile:21:249940bda6255296e785e307c104e14566277c598c51dc33911f04a6906218e6` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 8) | map 21, square (3,0) facing west, column 2 row 5 |  |
@@ -3511,7 +3411,7 @@ Map 22; WALLDEF7 block 1 (tiles 8X8D7 block 1), block 3 (tiles 8X8D7 block 3), n
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
 | `tile:22:03c7f1ae93e8acdce01fa4ee2d9206c1bd47cccce78bcb3c7e67555d0acbcdc8` | the horizon row (three rows of sky 15, one of 15, two of 7, two of ground 8) | map 22, square (4,0) facing west, column 2 row 5 |  |
-| `tile:22:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 22, square (0,0) facing north, column 2 row 9 | `podol-overhead-open-base.png` (area 10, 18, 26) |
+| `tile:22:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 22, square (0,0) facing north, column 2 row 9 | `zhentil-overhead-open-base.png` (area 0, 2, 9, 10, 18, 21, 26, 28, 29) |
 | `tile:22:26fa52dcd9a267dd4bb354b8add06994990e98109684d21b04cba6a782f2b9f8` | the horizon row (three rows of sky 15, one of 0, two of 8, two of ground 8) | map 22, square (4,0) facing west, column 2 row 5 | `valhingen-covered-horizon-26fa52dcd9a2.png` (area 10) |
 | `tile:22:32625ff90017b0844411a0ae6993bb3eac304a80b4d3c47ab2bf77f99ced4fb1` | the horizon row (three rows of sky 15, one of 15, two of 7, two of ground 1) | map 22, square (4,0) facing west, column 2 row 5 |  |
 | `tile:22:492240994d7f25147f065e9e1d12618d4bb7593933a84155da30663a36250194` | the horizon row (three rows of sky 15, one of 0, two of 8, two of ground 1) | map 22, square (4,0) facing west, column 2 row 5 |  |
@@ -3583,7 +3483,7 @@ Map 23; WALLDEF7 block 1 (tiles 8X8D7 block 1), block 3 (tiles 8X8D7 block 3), n
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
 | `tile:23:03c7f1ae93e8acdce01fa4ee2d9206c1bd47cccce78bcb3c7e67555d0acbcdc8` | the horizon row (three rows of sky 15, one of 15, two of 7, two of ground 8) | map 23, square (2,0) facing south, column 2 row 5 |  |
-| `tile:23:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 23, square (0,0) facing north, column 2 row 9 | `podol-overhead-open-base.png` (area 10, 18, 26) |
+| `tile:23:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 23, square (0,0) facing north, column 2 row 9 | `zhentil-overhead-open-base.png` (area 0, 2, 9, 10, 18, 21, 26, 28, 29) |
 | `tile:23:26fa52dcd9a267dd4bb354b8add06994990e98109684d21b04cba6a782f2b9f8` | the horizon row (three rows of sky 15, one of 0, two of 8, two of ground 8) | map 23, square (2,0) facing south, column 2 row 5 | `valhingen-covered-horizon-26fa52dcd9a2.png` (area 10) |
 | `tile:23:32625ff90017b0844411a0ae6993bb3eac304a80b4d3c47ab2bf77f99ced4fb1` | the horizon row (three rows of sky 15, one of 15, two of 7, two of ground 1) | map 23, square (2,0) facing south, column 2 row 5 |  |
 | `tile:23:492240994d7f25147f065e9e1d12618d4bb7593933a84155da30663a36250194` | the horizon row (three rows of sky 15, one of 0, two of 8, two of ground 1) | map 23, square (2,0) facing south, column 2 row 5 |  |
@@ -3651,7 +3551,7 @@ Map 24; WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), b
 | --- | --- | --- | --- |
 | `tile:24:03f3fa6f4aa3222c474b7badad5f71aae8ad3ecd23338585c8f21da399432be1` | the horizon row (three rows of sky 12, one of 15, two of 7, two of ground 8) | map 24, square (6,3) facing east, column 5 row 5 |  |
 | `tile:24:0a366a5ddb501c1a57601fbc36c146187a66643c24eb25152b1b1f14a828293a` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 1) | map 24, square (4,1) facing east, column 7 row 5 |  |
-| `tile:24:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 24, square (0,0) facing north, column 2 row 9 | `podol-overhead-open-base.png` (area 10, 18, 26) |
+| `tile:24:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 24, square (0,0) facing north, column 2 row 9 | `zhentil-overhead-open-base.png` (area 0, 2, 9, 10, 18, 21, 26, 28, 29) |
 | `tile:24:23cd922178851f7c2f9bf5ab8ecd8b3b3fa3924c85c786b6f1e9931ef542f3b5` | the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 8) | map 24, square (4,1) facing east, column 7 row 5 |  |
 | `tile:24:248662edc76d26809ca31f9b0430b4d664d7afcb67b5e10619f0ee78c45c37dd` | the horizon row (three rows of sky 12, one of 0, two of 8, two of ground 6) | map 24, square (6,3) facing east, column 5 row 5 |  |
 | `tile:24:249940bda6255296e785e307c104e14566277c598c51dc33911f04a6906218e6` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 8) | map 24, square (4,1) facing east, column 7 row 5 |  |
@@ -3765,33 +3665,9 @@ Map 24; WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), b
 | `tile:24:2d38e7553ce601d07a1ba243f8e839e028635ad46a684bcfae8ab1e2130c0d91` | 8X8D1 block 203 tile 16 over 8X8D1 block 5 tile 6 over sky colour 0 | map 24, square (15,5) facing east, column 9 row 1 | `podol-screen-final-18-2d38e7553ce6.png` (area 18) |
 | `tile:24:fee2c7506184fe0e593d3138d0dcf93070650cab9abd075068a5798d5336a3df` | 8X8D1 block 203 tile 17 over 8X8D1 block 5 tile 6 over sky colour 0 | map 24, square (15,7) facing east, column 1 row 1 | `podol-screen-final-18-fee2c7506184.png` (area 18) |
 
-### Area 26: Wilderness, middle (85)
+### Area 26: Wilderness, middle (66)
 
 Map 26; WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23).
-
-#### overhead area view, 8X8D1 block 202 (19)
-
-| Key (PNG 32x32) | What it is | See it at | Same pixels as |
-| --- | --- | --- | --- |
-| `tile:26:10fd0886e0431e57ec7e17a59570792e1059f5f7157405b493ce265199ed86da` | 8X8D1 block 202 tile 6 | map 26, square (0,0) facing north, column 7 row 2 | `podol-overhead-wall-e.png` (area 10, 18) |
-| `tile:26:17aecfacb0ac862291feba2cc4407aa3def3b3919f56e9de997aa729e34681a3` | 8X8D1 block 202 tile 8 | map 26, square (0,0) facing north, column 1 row 0 | `podol-overhead-wall-s.png` (area 10, 18) |
-| `tile:26:219379cc4da98bf424f77258bb2a0a640f2b73f11a6515fa36e60ffbbea8699f` | 8X8D1 block 202 tile 0 | map 26, square (0,0) facing north, column 0 row 0 | `podol-overhead-party-n.png` (area 10, 18) |
-| `tile:26:28ff03b45f311ec95732c83a90db315c0fca1f0670cd7beb1fd2514bad09e147` | 8X8D1 block 202 tile 16 | map 26, square (0,0) facing north, column 6 row 2 | `podol-overhead-wall-sw.png` (area 10, 18) |
-| `tile:26:2d42184c2362ae350c986d8bf540af917a86f15ff43d79f3dd6b7842b9490f06` | 8X8D1 block 202 tile 17 | map 26, square (0,0) facing north, column 6 row 3 | `podol-overhead-wall-nsw.png` (area 10, 18) |
-| `tile:26:3ff193416e9b23866c37192f42c52fbc2bb3391d79c9344338de23d8db77ff13` | 8X8D1 block 202 tile 15 | map 26, square (0,0) facing north, column 3 row 4 | `podol-overhead-wall-new.png` (area 10, 18) |
-| `tile:26:47a669a9430a869565e6f1812f530165e01a58580377493e63aee5a840d7058d` | 8X8D1 block 202 tile 12 | map 26, square (0,0) facing north, column 0 row 2 | `podol-overhead-wall-w.png` (area 10, 18) |
-| `tile:26:482838757d705ffcec482082f3ff2948d4c7a385d2d9edc89a8169c67c22f3e4` | 8X8D1 block 202 tile 19 | map 26, square (0,0) facing north, column 2 row 3 | `podol-overhead-wall-nesw.png` (area 10, 18) |
-| `tile:26:496285be59da9811c312df2a2d2da1c53503c086e3f75710abea664bdf2128e3` | 8X8D1 block 202 tile 2 | map 26, square (0,0) facing south, column 0 row 0 | `podol-overhead-party-s.png` (area 10, 18) |
-| `tile:26:55654b98b0904a8baf33013b015c4125b494a17e19566b7bb720eb6555a154b0` | 8X8D1 block 202 tile 3 | map 26, square (0,0) facing west, column 0 row 0 | `podol-overhead-party-w.png` (area 10, 18) |
-| `tile:26:5ecdd034c02f06e6a9af46d43ce8fc2810a70f34366a4556c9c7fec783d622ed` | 8X8D1 block 202 tile 5 | map 26, square (0,0) facing north, column 1 row 1 | `podol-overhead-wall-n.png` (area 10, 18) |
-| `tile:26:7a3417a61ee293c17e3fac0977255633aabb174d9bdb22afdb3dc4c06a4d6c82` | 8X8D1 block 202 tile 7 | map 26, square (0,0) facing north, column 7 row 1 | `podol-overhead-wall-ne.png` (area 10, 18) |
-| `tile:26:84a465df968f8b91c365336f02295a9bf5a02887b59beb26a2763f5efd153216` | 8X8D1 block 202 tile 1 | map 26, square (0,0) facing east, column 0 row 0 | `podol-overhead-party-e.png` (area 10, 18) |
-| `tile:26:8a7463159b3cc87236f3702080b428644809d3fabe11818c4cce77feafe61c7d` | 8X8D1 block 202 tile 14 | map 26, square (0,9) facing north, column 10 row 10 | `podol-overhead-wall-ew.png` (area 10, 18) |
-| `tile:26:9062228b7598045f75a5d60a5540b958c6d17b9d450a5cd9ccd89756906bfa3f` | 8X8D1 block 202 tile 10 | map 26, square (0,0) facing north, column 2 row 2 | `podol-overhead-wall-es.png` (area 10, 18) |
-| `tile:26:9caaba9389bc7c9c4b5600fa65c80dc0951f8c05a67f7e27cca12fda0f0fe6d5` | 8X8D1 block 202 tile 9 | map 26, square (0,8) facing north, column 9 row 10 | `podol-overhead-wall-ns.png` (area 10, 18) |
-| `tile:26:ad494b78a51cb097874be17d5e9ad07ce4d108b7cfc0724a9ffb9289f7d11e5f` | 8X8D1 block 202 tile 18 | map 26, square (0,0) facing north, column 3 row 2 | `podol-overhead-wall-esw.png` (area 10, 18) |
-| `tile:26:bf9c0fd1402ac36b11c3e4d34e5623d7603c85da0b4a60007fe9b2bf76c5e1f9` | 8X8D1 block 202 tile 11 | map 26, square (0,0) facing north, column 9 row 3 | `podol-overhead-wall-nes.png` (area 10, 18) |
-| `tile:26:d8afceb6a1ca80efdc8cbb48c855ae716abf2687808334df576fb5568334ee71` | 8X8D1 block 202 tile 13 | map 26, square (0,0) facing north, column 0 row 1 | `podol-overhead-wall-nw.png` (area 10, 18) |
 
 #### plain sky, horizon and ground (14)
 
@@ -3874,41 +3750,16 @@ Map 26; WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), b
 | `tile:26:e63e2eb81ef6f33724e095849002050e72add51be7e3a5fc01798d3b5f97c555` | 8X8D7 block 8 tile 19 over 8X8D7 block 8 tile 21 over the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 6) | map 26, square (5,1) facing east, column 4 row 5 |  |
 | `tile:26:eb13e875f347adc3e80cf68affd34dc1be49d5cd316b2f93a1a08326f18a42f1` | 8X8D7 block 8 tile 20 over the horizon row (three rows of sky 0, one of 0, two of 8, two of ground 6) | map 26, square (0,0) facing east, column 6 row 5 |  |
 
-### Area 28: Zhentil Keep Outpost (87)
+### Area 28: Zhentil Keep Outpost (67)
 
 Map 28; WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9).
 
-#### overhead area view, 8X8D1 block 202 (19)
-
-| Key (PNG 32x32) | What it is | See it at | Same pixels as |
-| --- | --- | --- | --- |
-| `tile:28:10fd0886e0431e57ec7e17a59570792e1059f5f7157405b493ce265199ed86da` | 8X8D1 block 202 tile 6 | map 28, square (0,0) facing north, column 8 row 1 | `podol-overhead-wall-e.png` (area 10, 18) |
-| `tile:28:17aecfacb0ac862291feba2cc4407aa3def3b3919f56e9de997aa729e34681a3` | 8X8D1 block 202 tile 8 | map 28, square (0,0) facing north, column 4 row 2 | `podol-overhead-wall-s.png` (area 10, 18) |
-| `tile:28:219379cc4da98bf424f77258bb2a0a640f2b73f11a6515fa36e60ffbbea8699f` | 8X8D1 block 202 tile 0 | map 28, square (0,0) facing north, column 0 row 0 | `podol-overhead-party-n.png` (area 10, 18) |
-| `tile:28:28ff03b45f311ec95732c83a90db315c0fca1f0670cd7beb1fd2514bad09e147` | 8X8D1 block 202 tile 16 | map 28, square (0,0) facing north, column 0 row 1 | `podol-overhead-wall-sw.png` (area 10, 18) |
-| `tile:28:2d42184c2362ae350c986d8bf540af917a86f15ff43d79f3dd6b7842b9490f06` | 8X8D1 block 202 tile 17 | map 28, square (0,0) facing north, column 2 row 0 | `podol-overhead-wall-nsw.png` (area 10, 18) |
-| `tile:28:3ff193416e9b23866c37192f42c52fbc2bb3391d79c9344338de23d8db77ff13` | 8X8D1 block 202 tile 15 | map 28, square (0,0) facing north, column 0 row 2 | `podol-overhead-wall-new.png` (area 10, 18) |
-| `tile:28:47a669a9430a869565e6f1812f530165e01a58580377493e63aee5a840d7058d` | 8X8D1 block 202 tile 12 | map 28, square (0,0) facing north, column 7 row 1 | `podol-overhead-wall-w.png` (area 10, 18) |
-| `tile:28:482838757d705ffcec482082f3ff2948d4c7a385d2d9edc89a8169c67c22f3e4` | 8X8D1 block 202 tile 19 | map 28, square (0,0) facing north, column 6 row 6 | `podol-overhead-wall-nesw.png` (area 10, 18) |
-| `tile:28:496285be59da9811c312df2a2d2da1c53503c086e3f75710abea664bdf2128e3` | 8X8D1 block 202 tile 2 | map 28, square (0,0) facing south, column 0 row 0 | `podol-overhead-party-s.png` (area 10, 18) |
-| `tile:28:55654b98b0904a8baf33013b015c4125b494a17e19566b7bb720eb6555a154b0` | 8X8D1 block 202 tile 3 | map 28, square (0,0) facing west, column 0 row 0 | `podol-overhead-party-w.png` (area 10, 18) |
-| `tile:28:5ecdd034c02f06e6a9af46d43ce8fc2810a70f34366a4556c9c7fec783d622ed` | 8X8D1 block 202 tile 5 | map 28, square (0,0) facing north, column 3 row 1 | `podol-overhead-wall-n.png` (area 10, 18) |
-| `tile:28:7a3417a61ee293c17e3fac0977255633aabb174d9bdb22afdb3dc4c06a4d6c82` | 8X8D1 block 202 tile 7 | map 28, square (0,0) facing north, column 1 row 0 | `podol-overhead-wall-ne.png` (area 10, 18) |
-| `tile:28:84a465df968f8b91c365336f02295a9bf5a02887b59beb26a2763f5efd153216` | 8X8D1 block 202 tile 1 | map 28, square (0,0) facing east, column 0 row 0 | `podol-overhead-party-e.png` (area 10, 18) |
-| `tile:28:8a7463159b3cc87236f3702080b428644809d3fabe11818c4cce77feafe61c7d` | 8X8D1 block 202 tile 14 | map 28, square (0,0) facing north, column 0 row 3 | `podol-overhead-wall-ew.png` (area 10, 18) |
-| `tile:28:9062228b7598045f75a5d60a5540b958c6d17b9d450a5cd9ccd89756906bfa3f` | 8X8D1 block 202 tile 10 | map 28, square (0,0) facing north, column 1 row 1 | `podol-overhead-wall-es.png` (area 10, 18) |
-| `tile:28:9caaba9389bc7c9c4b5600fa65c80dc0951f8c05a67f7e27cca12fda0f0fe6d5` | 8X8D1 block 202 tile 9 | map 28, square (0,0) facing north, column 3 row 0 | `podol-overhead-wall-ns.png` (area 10, 18) |
-| `tile:28:ad494b78a51cb097874be17d5e9ad07ce4d108b7cfc0724a9ffb9289f7d11e5f` | 8X8D1 block 202 tile 18 | map 28, square (0,0) facing north, column 3 row 6 | `podol-overhead-wall-esw.png` (area 10, 18) |
-| `tile:28:bf9c0fd1402ac36b11c3e4d34e5623d7603c85da0b4a60007fe9b2bf76c5e1f9` | 8X8D1 block 202 tile 11 | map 28, square (0,0) facing north, column 4 row 0 | `podol-overhead-wall-nes.png` (area 10, 18) |
-| `tile:28:d8afceb6a1ca80efdc8cbb48c855ae716abf2687808334df576fb5568334ee71` | 8X8D1 block 202 tile 13 | map 28, square (0,0) facing north, column 5 row 0 | `podol-overhead-wall-nw.png` (area 10, 18) |
-
-#### plain sky, horizon and ground (26)
+#### plain sky, horizon and ground (25)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
 | `tile:28:03f3fa6f4aa3222c474b7badad5f71aae8ad3ecd23338585c8f21da399432be1` | the horizon row (three rows of sky 12, one of 15, two of 7, two of ground 8) | map 28, square (0,2) facing south, column 5 row 5 |  |
 | `tile:28:0a366a5ddb501c1a57601fbc36c146187a66643c24eb25152b1b1f14a828293a` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 1) | map 28, square (7,0) facing east, column 10 row 5 |  |
-| `tile:28:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 28, square (0,0) facing north, column 2 row 9 | `podol-overhead-open-base.png` (area 10, 18, 26) |
 | `tile:28:23cd922178851f7c2f9bf5ab8ecd8b3b3fa3924c85c786b6f1e9931ef542f3b5` | the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 8) | map 28, square (7,0) facing east, column 10 row 5 |  |
 | `tile:28:248662edc76d26809ca31f9b0430b4d664d7afcb67b5e10619f0ee78c45c37dd` | the horizon row (three rows of sky 12, one of 0, two of 8, two of ground 6) | map 28, square (0,2) facing south, column 5 row 5 |  |
 | `tile:28:249940bda6255296e785e307c104e14566277c598c51dc33911f04a6906218e6` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 8) | map 28, square (7,0) facing east, column 10 row 5 |  |
@@ -3985,35 +3836,6 @@ Map 28; WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), b
 | `tile:28:e06ef6c08a4d98b382ed74c352261d2f9a419874a5f3a7ae06d555a6225dec6f` | 8X8D6 block 9 tile 41 over the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 6) | map 28, square (9,4) facing west, column 4 row 5 |  |
 | `tile:28:f13139b1996aff8e85fb63807c0670d4dd992a9acc9ea2078978b6fa0ffe2f47` | 8X8D6 block 9 tile 42 over the horizon row (three rows of sky 0, one of 0, two of 8, two of ground 1) | map 28, square (5,4) facing east, column 6 row 5 |  |
 
-### Area 29: Kuto's Well (20)
-
-Map 29, 32; WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1); WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1).
-
-#### overhead area view, 8X8D1 block 202 (20)
-
-| Key (PNG 32x32) | What it is | See it at | Same pixels as |
-| --- | --- | --- | --- |
-| `tile:29:10fd0886e0431e57ec7e17a59570792e1059f5f7157405b493ce265199ed86da` | 8X8D1 block 202 tile 6 | map 29, square (0,0) facing north, column 4 row 1 | `podol-overhead-wall-e.png` (area 10, 18) |
-| `tile:29:17aecfacb0ac862291feba2cc4407aa3def3b3919f56e9de997aa729e34681a3` | 8X8D1 block 202 tile 8 | map 29, square (0,0) facing north, column 7 row 6 | `podol-overhead-wall-s.png` (area 10, 18) |
-| `tile:29:219379cc4da98bf424f77258bb2a0a640f2b73f11a6515fa36e60ffbbea8699f` | 8X8D1 block 202 tile 0 | map 29, square (0,0) facing north, column 0 row 0 | `podol-overhead-party-n.png` (area 10, 18) |
-| `tile:29:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | 8X8D1 block 202 tile 4 | map 29, square (0,0) facing north, column 10 row 3 | `podol-overhead-open-base.png` (area 10, 18, 26) |
-| `tile:29:28ff03b45f311ec95732c83a90db315c0fca1f0670cd7beb1fd2514bad09e147` | 8X8D1 block 202 tile 16 | map 29, square (0,0) facing north, column 7 row 1 | `podol-overhead-wall-sw.png` (area 10, 18) |
-| `tile:29:2d42184c2362ae350c986d8bf540af917a86f15ff43d79f3dd6b7842b9490f06` | 8X8D1 block 202 tile 17 | map 29, square (0,0) facing north, column 1 row 0 | `podol-overhead-wall-nsw.png` (area 10, 18) |
-| `tile:29:3ff193416e9b23866c37192f42c52fbc2bb3391d79c9344338de23d8db77ff13` | 8X8D1 block 202 tile 15 | map 29, square (0,0) facing north, column 4 row 0 | `podol-overhead-wall-new.png` (area 10, 18) |
-| `tile:29:47a669a9430a869565e6f1812f530165e01a58580377493e63aee5a840d7058d` | 8X8D1 block 202 tile 12 | map 29, square (0,0) facing north, column 5 row 1 | `podol-overhead-wall-w.png` (area 10, 18) |
-| `tile:29:482838757d705ffcec482082f3ff2948d4c7a385d2d9edc89a8169c67c22f3e4` | 8X8D1 block 202 tile 19 | map 29, square (0,0) facing north, column 7 row 7 | `podol-overhead-wall-nesw.png` (area 10, 18) |
-| `tile:29:496285be59da9811c312df2a2d2da1c53503c086e3f75710abea664bdf2128e3` | 8X8D1 block 202 tile 2 | map 29, square (0,0) facing south, column 0 row 0 | `podol-overhead-party-s.png` (area 10, 18) |
-| `tile:29:55654b98b0904a8baf33013b015c4125b494a17e19566b7bb720eb6555a154b0` | 8X8D1 block 202 tile 3 | map 29, square (0,0) facing west, column 0 row 0 | `podol-overhead-party-w.png` (area 10, 18) |
-| `tile:29:5ecdd034c02f06e6a9af46d43ce8fc2810a70f34366a4556c9c7fec783d622ed` | 8X8D1 block 202 tile 5 | map 29, square (0,0) facing north, column 10 row 1 | `podol-overhead-wall-n.png` (area 10, 18) |
-| `tile:29:7a3417a61ee293c17e3fac0977255633aabb174d9bdb22afdb3dc4c06a4d6c82` | 8X8D1 block 202 tile 7 | map 29, square (0,0) facing north, column 6 row 0 | `podol-overhead-wall-ne.png` (area 10, 18) |
-| `tile:29:84a465df968f8b91c365336f02295a9bf5a02887b59beb26a2763f5efd153216` | 8X8D1 block 202 tile 1 | map 29, square (0,0) facing east, column 0 row 0 | `podol-overhead-party-e.png` (area 10, 18) |
-| `tile:29:8a7463159b3cc87236f3702080b428644809d3fabe11818c4cce77feafe61c7d` | 8X8D1 block 202 tile 14 | map 29, square (0,0) facing north, column 4 row 2 | `podol-overhead-wall-ew.png` (area 10, 18) |
-| `tile:29:9062228b7598045f75a5d60a5540b958c6d17b9d450a5cd9ccd89756906bfa3f` | 8X8D1 block 202 tile 10 | map 29, square (0,0) facing north, column 8 row 1 | `podol-overhead-wall-es.png` (area 10, 18) |
-| `tile:29:9caaba9389bc7c9c4b5600fa65c80dc0951f8c05a67f7e27cca12fda0f0fe6d5` | 8X8D1 block 202 tile 9 | map 29, square (0,0) facing north, column 2 row 0 | `podol-overhead-wall-ns.png` (area 10, 18) |
-| `tile:29:ad494b78a51cb097874be17d5e9ad07ce4d108b7cfc0724a9ffb9289f7d11e5f` | 8X8D1 block 202 tile 18 | map 29, square (0,0) facing north, column 2 row 8 | `podol-overhead-wall-esw.png` (area 10, 18) |
-| `tile:29:bf9c0fd1402ac36b11c3e4d34e5623d7603c85da0b4a60007fe9b2bf76c5e1f9` | 8X8D1 block 202 tile 11 | map 29, square (0,0) facing north, column 3 row 0 | `podol-overhead-wall-nes.png` (area 10, 18) |
-| `tile:29:d8afceb6a1ca80efdc8cbb48c855ae716abf2687808334df576fb5568334ee71` | 8X8D1 block 202 tile 13 | map 29, square (0,0) facing north, column 5 row 0 | `podol-overhead-wall-nw.png` (area 10, 18) |
-
 ### Area 31: Temple of Bane, interior (51)
 
 Map 31; WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5).
@@ -4023,7 +3845,7 @@ Map 31; WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), b
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
 | `tile:31:0a366a5ddb501c1a57601fbc36c146187a66643c24eb25152b1b1f14a828293a` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 1) | map 31, square (4,0) facing south, column 5 row 5 |  |
-| `tile:31:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 31, square (0,0) facing north, column 2 row 9 | `podol-overhead-open-base.png` (area 10, 18, 26) |
+| `tile:31:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3` | the ground colour 8 | map 31, square (0,0) facing north, column 2 row 9 | `zhentil-overhead-open-base.png` (area 0, 2, 9, 10, 18, 21, 26, 28, 29) |
 | `tile:31:23cd922178851f7c2f9bf5ab8ecd8b3b3fa3924c85c786b6f1e9931ef542f3b5` | the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 8) | map 31, square (4,0) facing south, column 5 row 5 |  |
 | `tile:31:249940bda6255296e785e307c104e14566277c598c51dc33911f04a6906218e6` | the horizon row (three rows of sky 11, one of 0, two of 8, two of ground 8) | map 31, square (4,0) facing south, column 5 row 5 |  |
 | `tile:31:2d20c35200ed2bf03750e8dd6605060f850bb748dacde434ae2943bbe30dc374` | the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 1) | map 31, square (4,0) facing south, column 5 row 5 |  |

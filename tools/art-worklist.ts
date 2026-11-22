@@ -51,13 +51,22 @@ const names: Record<number, string> = {
 // ---------------------------------------------------------------------------------------------
 // The manifests, read fresh.
 
-interface Art { file: string; manifest: string; size?: { width: number; height: number } | null }
+interface Art {
+  file: string;
+  manifest: string;
+  size?: { width: number; height: number } | null;
+  screenCellOnly: boolean;
+}
 function readArt(): Map<string, Art> {
   const art = new Map<string, Art>();
   // The Slums pack is read first and the main manifest takes precedence, as tools/upgrade-art.ts loads them.
   for (const manifest of [MANIFESTS[1], MANIFESTS[0]]) {
-    const assets = (JSON.parse(readFileSync(at(manifest), "utf8")) as { assets: Record<string, string> }).assets;
-    for (const [key, file] of Object.entries(assets)) art.set(key, { file, manifest });
+    const { assets, screenCellsOnly } = JSON.parse(readFileSync(at(manifest), "utf8")) as {
+      assets: Record<string, string>;
+      screenCellsOnly?: string[];
+    };
+    const screenCells = new Set(screenCellsOnly);
+    for (const [key, file] of Object.entries(assets)) art.set(key, { file, manifest, screenCellOnly: screenCells.has(key) });
   }
   return art;
 }
@@ -322,7 +331,9 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
             mine.add(agg);
           });
           views.push({ square: y * 16 + x, roofed, shaft, aggs: [...mine], walls });
-          if (context.script.areaView && !context.arrivalFrom) {
+          // The middle wilderness enables AREA only while loading the overland
+          // map. Its local encounter map keeps the native Area command disabled.
+          if (context.script.areaView && !context.arrivalFrom && !(context.script.area === 26 && context.map === 26)) {
             areaViewCells(view, x, y, facing).forEach((stack, index) => {
               const { tiles } = cells.prune(stack);
               const cell = cells.cell("-", tiles);
@@ -467,9 +478,11 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const graveyardArrivalBackdrops = label === 26 ? new Set([
       cells.cell("g8", []).hash, cells.cell("h0.0.8.8", []).hash,
     ]) : undefined;
-    const podolAreaFill = label === 18 ? cells.cell("g8", []).hash : undefined;
+    // Palette 8 is the original open-square fill in AREA mode. Its screen
+    // art does not establish an ordinary first-person ground profile.
+    const areaFill = cells.cell("g8", []).hash;
     for (const [hash, list] of seen) {
-      if (!have.has(hash) || hash === podolAreaFill || graveyardArrivalBackdrops?.has(hash)) continue;
+      if (!have.has(hash) || (hash === areaFill && art.get(`tile:${label}:${hash}`)?.screenCellOnly) || graveyardArrivalBackdrops?.has(hash)) continue;
       const backdrops = new Set(list.filter((entry) => !entry.areaView).map((entry) => entry.cell.backdrop));
       if (backdrops.size === 1) confirmed.add([...backdrops][0]!);
     }

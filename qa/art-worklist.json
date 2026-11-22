@@ -2,18 +2,18 @@
  "schema": 2,
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
- "remaining": 3703,
+ "remaining": 3564,
  "totals": {
-  "Remaining, all kinds": 3703,
-  "First-person cells to do": 3464,
-  "  of which one stored tile": 145,
+  "Remaining, all kinds": 3564,
+  "First-person cells to do": 3325,
+  "  of which one stored tile": 11,
   "  of which one tile over a solid colour": 709,
-  "  of which plain sky or ground": 42,
+  "  of which plain sky or ground": 37,
   "  of which several tiles together": 2568,
-  "  of which the same pixels already have art of yours in another area": 697,
+  "  of which the same pixels already have art of yours in another area": 558,
   "Battlefield cells to do": 239,
-  "Tile keys in the manifests": 7460,
-  "  accounted for by the tool": 7455,
+  "Tile keys in the manifests": 7580,
+  "  accounted for by the tool": 7575,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
@@ -39,20 +39,20 @@
    "area": 0,
    "name": "New Phlan",
    "established": true,
-   "why": "all 321 cells that have artwork are among the cells the tool works out",
+   "why": "all 341 cells that have artwork are among the cells the tool works out",
    "maps": [
     0
    ],
    "wallSets": [
     "WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)"
    ],
-   "existingKeys": 321,
-   "existingKeysAccountedFor": 321,
+   "existingKeys": 341,
+   "existingKeysAccountedFor": 341,
    "existingKeysOnlyAsArrivalViews": 3,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 406,
-   "cellsWithArt": 308,
-   "toDo": 98,
+   "cellsWithArt": 328,
+   "toDo": 78,
    "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 10
   },
@@ -81,20 +81,20 @@
    "area": 2,
    "name": "Cadorna Textile House",
    "established": true,
-   "why": "all 406 cells that have artwork are among the cells the tool works out",
+   "why": "all 426 cells that have artwork are among the cells the tool works out",
    "maps": [
     2
    ],
    "wallSets": [
     "WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20)"
    ],
-   "existingKeys": 406,
-   "existingKeysAccountedFor": 406,
+   "existingKeys": 426,
+   "existingKeysAccountedFor": 426,
    "existingKeysOnlyAsArrivalViews": 5,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 580,
-   "cellsWithArt": 382,
-   "toDo": 198,
+   "cellsWithArt": 402,
+   "toDo": 178,
    "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 19
   },
@@ -244,20 +244,20 @@
    "area": 9,
    "name": "Stojanow Gate",
    "established": true,
-   "why": "all 150 cells that have artwork are among the cells the tool works out",
+   "why": "all 170 cells that have artwork are among the cells the tool works out",
    "maps": [
     9
    ],
    "wallSets": [
     "WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23)"
    ],
-   "existingKeys": 150,
-   "existingKeysAccountedFor": 150,
+   "existingKeys": 170,
+   "existingKeysAccountedFor": 170,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 287,
-   "cellsWithArt": 150,
-   "toDo": 137,
+   "cellsWithArt": 170,
+   "toDo": 117,
    "notEstablished": {}
   },
   {
@@ -459,20 +459,20 @@
    "area": 21,
    "name": "Sokal Keep",
    "established": true,
-   "why": "all 275 cells that have artwork are among the cells the tool works out",
+   "why": "all 295 cells that have artwork are among the cells the tool works out",
    "maps": [
     21
    ],
    "wallSets": [
     "WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)"
    ],
-   "existingKeys": 275,
-   "existingKeysAccountedFor": 275,
+   "existingKeys": 295,
+   "existingKeysAccountedFor": 295,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 500,
-   "cellsWithArt": 253,
-   "toDo": 247,
+   "cellsWithArt": 273,
+   "toDo": 227,
    "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 22
   },
@@ -576,9 +576,9 @@
    "existingKeysAccountedFor": 285,
    "existingKeysOnlyAsArrivalViews": 67,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 301,
+   "cellsTheViewsCanShow": 282,
    "cellsWithArt": 216,
-   "toDo": 85,
+   "toDo": 66,
    "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 2
   },
@@ -608,20 +608,20 @@
    "area": 28,
    "name": "Zhentil Keep Outpost",
    "established": true,
-   "why": "all 108 cells that have artwork are among the cells the tool works out",
+   "why": "all 128 cells that have artwork are among the cells the tool works out",
    "maps": [
     28
    ],
    "wallSets": [
     "WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9)"
    ],
-   "existingKeys": 108,
-   "existingKeysAccountedFor": 108,
+   "existingKeys": 128,
+   "existingKeysAccountedFor": 128,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 194,
-   "cellsWithArt": 107,
-   "toDo": 87,
+   "cellsWithArt": 127,
+   "toDo": 67,
    "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 1
   },
@@ -629,7 +629,7 @@
    "area": 29,
    "name": "Kuto's Well",
    "established": true,
-   "why": "all 654 cells that have artwork are among the cells the tool works out",
+   "why": "all 674 cells that have artwork are among the cells the tool works out",
    "maps": [
     29,
     32
@@ -638,13 +638,13 @@
     "WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1)",
     "WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)"
    ],
-   "existingKeys": 654,
-   "existingKeysAccountedFor": 654,
+   "existingKeys": 674,
+   "existingKeysAccountedFor": 674,
    "existingKeysOnlyAsArrivalViews": 1,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 660,
-   "cellsWithArt": 640,
-   "toDo": 20,
+   "cellsWithArt": 660,
+   "toDo": 0,
    "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 13
   },
@@ -2897,519 +2897,6 @@
  "items": [
   {
    "kind": "first-person cell",
-   "key": "tile:0:10fd0886e0431e57ec7e17a59570792e1059f5f7157405b493ce265199ed86da",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:6",
-   "description": "8X8D1 block 202 tile 6, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 5,
-    "row": 2
-   },
-   "views": 4708,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-e.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 4708 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:17aecfacb0ac862291feba2cc4407aa3def3b3919f56e9de997aa729e34681a3",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:8",
-   "description": "8X8D1 block 202 tile 8, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 8,
-    "row": 2
-   },
-   "views": 5264,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-s.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 5264 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:219379cc4da98bf424f77258bb2a0a640f2b73f11a6515fa36e60ffbbea8699f",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:0",
-   "description": "8X8D1 block 202 tile 0, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-n.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:28ff03b45f311ec95732c83a90db315c0fca1f0670cd7beb1fd2514bad09e147",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:16",
-   "description": "8X8D1 block 202 tile 16, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 7,
-    "row": 2
-   },
-   "views": 4092,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-sw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 4092 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:2d42184c2362ae350c986d8bf540af917a86f15ff43d79f3dd6b7842b9490f06",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:17",
-   "description": "8X8D1 block 202 tile 17, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 8,
-    "row": 4
-   },
-   "views": 6444,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nsw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 6444 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:3ff193416e9b23866c37192f42c52fbc2bb3391d79c9344338de23d8db77ff13",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:15",
-   "description": "8X8D1 block 202 tile 15, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 6,
-    "row": 0
-   },
-   "views": 4804,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-new.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 4804 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:47a669a9430a869565e6f1812f530165e01a58580377493e63aee5a840d7058d",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:12",
-   "description": "8X8D1 block 202 tile 12, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 4,
-    "row": 1
-   },
-   "views": 4636,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-w.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 4636 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:482838757d705ffcec482082f3ff2948d4c7a385d2d9edc89a8169c67c22f3e4",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:19",
-   "description": "8X8D1 block 202 tile 19, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 5,
-    "row": 0
-   },
-   "views": 11248,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nesw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 11248 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:496285be59da9811c312df2a2d2da1c53503c086e3f75710abea664bdf2128e3",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:2",
-   "description": "8X8D1 block 202 tile 2, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "south",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-s.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:55654b98b0904a8baf33013b015c4125b494a17e19566b7bb720eb6555a154b0",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:3",
-   "description": "8X8D1 block 202 tile 3, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "west",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-w.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:5ecdd034c02f06e6a9af46d43ce8fc2810a70f34366a4556c9c7fec783d622ed",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:5",
-   "description": "8X8D1 block 202 tile 5, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 8,
-    "row": 1
-   },
-   "views": 4456,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-n.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 4456 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:7a3417a61ee293c17e3fac0977255633aabb174d9bdb22afdb3dc4c06a4d6c82",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:7",
-   "description": "8X8D1 block 202 tile 7, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 4,
-    "row": 0
-   },
-   "views": 3448,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ne.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 3448 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:84a465df968f8b91c365336f02295a9bf5a02887b59beb26a2763f5efd153216",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:1",
-   "description": "8X8D1 block 202 tile 1, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "east",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-e.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:8a7463159b3cc87236f3702080b428644809d3fabe11818c4cce77feafe61c7d",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:14",
-   "description": "8X8D1 block 202 tile 14, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 1
-   },
-   "views": 16968,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ew.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 16968 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:9062228b7598045f75a5d60a5540b958c6d17b9d450a5cd9ccd89756906bfa3f",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:10",
-   "description": "8X8D1 block 202 tile 10, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 9,
-    "row": 2
-   },
-   "views": 4588,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-es.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 4588 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:9caaba9389bc7c9c4b5600fa65c80dc0951f8c05a67f7e27cca12fda0f0fe6d5",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:9",
-   "description": "8X8D1 block 202 tile 9, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 1,
-    "row": 0
-   },
-   "views": 17608,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ns.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 17608 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:ad494b78a51cb097874be17d5e9ad07ce4d108b7cfc0724a9ffb9289f7d11e5f",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:18",
-   "description": "8X8D1 block 202 tile 18, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 6,
-    "row": 2
-   },
-   "views": 5940,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-esw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 5940 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:bf9c0fd1402ac36b11c3e4d34e5623d7603c85da0b4a60007fe9b2bf76c5e1f9",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:11",
-   "description": "8X8D1 block 202 tile 11, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 1
-   },
-   "views": 8788,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nes.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 8788 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:d8afceb6a1ca80efdc8cbb48c855ae716abf2687808334df576fb5568334ee71",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:13",
-   "description": "8X8D1 block 202 tile 13, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 10,
-    "row": 0
-   },
-   "views": 7304,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 7304 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:0:03f3fa6f4aa3222c474b7badad5f71aae8ad3ecd23338585c8f21da399432be1",
    "width": 32,
    "height": 32,
@@ -3453,34 +2940,6 @@
    "views": 1197,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 1197 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:0:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3",
-   "width": 32,
-   "height": 32,
-   "area": 0,
-   "areaName": "New Phlan",
-   "group": "plain sky, horizon and ground",
-   "what": "plain backdrop",
-   "composition": "g8|",
-   "description": "the ground colour 8, shown in area 0 (New Phlan)",
-   "seenAt": {
-    "map": 0,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 9
-   },
-   "views": 41572,
-   "drawnIn": [
-    10,
-    18,
-    26
-   ],
-   "sameAs": "podol-overhead-open-base.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 41572 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
   },
   {
    "kind": "first-person cell",
@@ -5354,11 +4813,17 @@
    },
    "views": 35320,
    "drawnIn": [
+    0,
+    2,
+    9,
     10,
     18,
-    26
+    21,
+    26,
+    28,
+    29
    ],
-   "sameAs": "podol-overhead-open-base.png",
+   "sameAs": "zhentil-overhead-open-base.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 35320 views of map 1 (WALLDEF6 block 2 (tiles 8X8D6 block 2), block 6 (tiles 8X8D6 block 6), block 6 (tiles 8X8D6 block 6))"
   },
   {
@@ -10040,519 +9505,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:2:10fd0886e0431e57ec7e17a59570792e1059f5f7157405b493ce265199ed86da",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:6",
-   "description": "8X8D1 block 202 tile 6, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 9,
-    "row": 6
-   },
-   "views": 5592,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-e.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 5592 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:17aecfacb0ac862291feba2cc4407aa3def3b3919f56e9de997aa729e34681a3",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:8",
-   "description": "8X8D1 block 202 tile 8, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 10,
-    "row": 5
-   },
-   "views": 6316,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-s.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 6316 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:219379cc4da98bf424f77258bb2a0a640f2b73f11a6515fa36e60ffbbea8699f",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:0",
-   "description": "8X8D1 block 202 tile 0, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-n.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:28ff03b45f311ec95732c83a90db315c0fca1f0670cd7beb1fd2514bad09e147",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:16",
-   "description": "8X8D1 block 202 tile 16, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 6,
-    "row": 1
-   },
-   "views": 9452,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-sw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 9452 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:2d42184c2362ae350c986d8bf540af917a86f15ff43d79f3dd6b7842b9490f06",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:17",
-   "description": "8X8D1 block 202 tile 17, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 1,
-    "row": 0
-   },
-   "views": 7864,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nsw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 7864 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:3ff193416e9b23866c37192f42c52fbc2bb3391d79c9344338de23d8db77ff13",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:15",
-   "description": "8X8D1 block 202 tile 15, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 0
-   },
-   "views": 8560,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-new.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 8560 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:47a669a9430a869565e6f1812f530165e01a58580377493e63aee5a840d7058d",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:12",
-   "description": "8X8D1 block 202 tile 12, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 5
-   },
-   "views": 3360,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-w.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 3360 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:482838757d705ffcec482082f3ff2948d4c7a385d2d9edc89a8169c67c22f3e4",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:19",
-   "description": "8X8D1 block 202 tile 19, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 7,
-    "row": 0
-   },
-   "views": 6912,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nesw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 6912 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:496285be59da9811c312df2a2d2da1c53503c086e3f75710abea664bdf2128e3",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:2",
-   "description": "8X8D1 block 202 tile 2, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "south",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-s.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:55654b98b0904a8baf33013b015c4125b494a17e19566b7bb720eb6555a154b0",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:3",
-   "description": "8X8D1 block 202 tile 3, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "west",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-w.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:5ecdd034c02f06e6a9af46d43ce8fc2810a70f34366a4556c9c7fec783d622ed",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:5",
-   "description": "8X8D1 block 202 tile 5, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 10,
-    "row": 2
-   },
-   "views": 9140,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-n.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 9140 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:7a3417a61ee293c17e3fac0977255633aabb174d9bdb22afdb3dc4c06a4d6c82",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:7",
-   "description": "8X8D1 block 202 tile 7, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 1,
-    "row": 2
-   },
-   "views": 7280,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ne.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 7280 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:84a465df968f8b91c365336f02295a9bf5a02887b59beb26a2763f5efd153216",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:1",
-   "description": "8X8D1 block 202 tile 1, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "east",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-e.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:8a7463159b3cc87236f3702080b428644809d3fabe11818c4cce77feafe61c7d",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:14",
-   "description": "8X8D1 block 202 tile 14, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 1,
-    "row": 3
-   },
-   "views": 7024,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ew.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 7024 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:9062228b7598045f75a5d60a5540b958c6d17b9d450a5cd9ccd89756906bfa3f",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:10",
-   "description": "8X8D1 block 202 tile 10, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 1
-   },
-   "views": 8268,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-es.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 8268 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:9caaba9389bc7c9c4b5600fa65c80dc0951f8c05a67f7e27cca12fda0f0fe6d5",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:9",
-   "description": "8X8D1 block 202 tile 9, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 7,
-    "row": 1
-   },
-   "views": 17508,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ns.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 17508 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:ad494b78a51cb097874be17d5e9ad07ce4d108b7cfc0724a9ffb9289f7d11e5f",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:18",
-   "description": "8X8D1 block 202 tile 18, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 1
-   },
-   "views": 7048,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-esw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 7048 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:bf9c0fd1402ac36b11c3e4d34e5623d7603c85da0b4a60007fe9b2bf76c5e1f9",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:11",
-   "description": "8X8D1 block 202 tile 11, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 0
-   },
-   "views": 6668,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nes.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 6668 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:d8afceb6a1ca80efdc8cbb48c855ae716abf2687808334df576fb5568334ee71",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:13",
-   "description": "8X8D1 block 202 tile 13, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 10,
-    "row": 0
-   },
-   "views": 7720,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 7720 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:2:0a366a5ddb501c1a57601fbc36c146187a66643c24eb25152b1b1f14a828293a",
    "width": 32,
    "height": 32,
@@ -10573,34 +9525,6 @@
    "views": 601,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 601 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:2:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3",
-   "width": 32,
-   "height": 32,
-   "area": 2,
-   "areaName": "Cadorna Textile House",
-   "group": "plain sky, horizon and ground",
-   "what": "plain backdrop",
-   "composition": "g8|",
-   "description": "the ground colour 8, shown in area 2 (Cadorna Textile House)",
-   "seenAt": {
-    "map": 2,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 9
-   },
-   "views": 30789,
-   "drawnIn": [
-    10,
-    18,
-    26
-   ],
-   "sameAs": "podol-overhead-open-base.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 30789 views of map 2 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20))"
   },
   {
    "kind": "first-person cell",
@@ -14894,11 +13818,17 @@
    },
    "views": 235532,
    "drawnIn": [
+    0,
+    2,
+    9,
     10,
     18,
-    26
+    21,
+    26,
+    28,
+    29
    ],
-   "sameAs": "podol-overhead-open-base.png",
+   "sameAs": "zhentil-overhead-open-base.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 235532 views of map 3 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1))"
   },
   {
@@ -18172,11 +17102,17 @@
    },
    "views": 68,
    "drawnIn": [
+    0,
+    2,
+    9,
     10,
     18,
-    26
+    21,
+    26,
+    28,
+    29
    ],
-   "sameAs": "podol-overhead-open-base.png",
+   "sameAs": "zhentil-overhead-open-base.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 68 views of map 3 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1))"
   },
   {
@@ -18321,11 +17257,17 @@
    },
    "views": 28573,
    "drawnIn": [
+    0,
+    2,
+    9,
     10,
     18,
-    26
+    21,
+    26,
+    28,
+    29
    ],
-   "sameAs": "podol-overhead-open-base.png",
+   "sameAs": "zhentil-overhead-open-base.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 28573 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
   },
   {
@@ -21025,519 +19967,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:9:10fd0886e0431e57ec7e17a59570792e1059f5f7157405b493ce265199ed86da",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:6",
-   "description": "8X8D1 block 202 tile 6, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 1,
-    "row": 1
-   },
-   "views": 3368,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-e.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 3368 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:17aecfacb0ac862291feba2cc4407aa3def3b3919f56e9de997aa729e34681a3",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:8",
-   "description": "8X8D1 block 202 tile 8, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 5
-   },
-   "views": 15568,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-s.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 15568 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:219379cc4da98bf424f77258bb2a0a640f2b73f11a6515fa36e60ffbbea8699f",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:0",
-   "description": "8X8D1 block 202 tile 0, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-n.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:28ff03b45f311ec95732c83a90db315c0fca1f0670cd7beb1fd2514bad09e147",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:16",
-   "description": "8X8D1 block 202 tile 16, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 1
-   },
-   "views": 11068,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-sw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 11068 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:2d42184c2362ae350c986d8bf540af917a86f15ff43d79f3dd6b7842b9490f06",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:17",
-   "description": "8X8D1 block 202 tile 17, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 7,
-    "row": 0
-   },
-   "views": 4452,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nsw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 4452 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:3ff193416e9b23866c37192f42c52fbc2bb3391d79c9344338de23d8db77ff13",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:15",
-   "description": "8X8D1 block 202 tile 15, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 4,
-    "row": 0
-   },
-   "views": 2932,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-new.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 2932 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:47a669a9430a869565e6f1812f530165e01a58580377493e63aee5a840d7058d",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:12",
-   "description": "8X8D1 block 202 tile 12, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 1
-   },
-   "views": 3468,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-w.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 3468 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:482838757d705ffcec482082f3ff2948d4c7a385d2d9edc89a8169c67c22f3e4",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:19",
-   "description": "8X8D1 block 202 tile 19, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 6
-   },
-   "views": 2948,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nesw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 2948 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:496285be59da9811c312df2a2d2da1c53503c086e3f75710abea664bdf2128e3",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:2",
-   "description": "8X8D1 block 202 tile 2, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "south",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-s.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:55654b98b0904a8baf33013b015c4125b494a17e19566b7bb720eb6555a154b0",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:3",
-   "description": "8X8D1 block 202 tile 3, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "west",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-w.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:5ecdd034c02f06e6a9af46d43ce8fc2810a70f34366a4556c9c7fec783d622ed",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:5",
-   "description": "8X8D1 block 202 tile 5, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 10,
-    "row": 3
-   },
-   "views": 16732,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-n.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 16732 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:7a3417a61ee293c17e3fac0977255633aabb174d9bdb22afdb3dc4c06a4d6c82",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:7",
-   "description": "8X8D1 block 202 tile 7, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 1,
-    "row": 0
-   },
-   "views": 9176,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ne.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 9176 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:84a465df968f8b91c365336f02295a9bf5a02887b59beb26a2763f5efd153216",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:1",
-   "description": "8X8D1 block 202 tile 1, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "east",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-e.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:8a7463159b3cc87236f3702080b428644809d3fabe11818c4cce77feafe61c7d",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:14",
-   "description": "8X8D1 block 202 tile 14, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 4,
-    "row": 1
-   },
-   "views": 5360,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ew.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 5360 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:9062228b7598045f75a5d60a5540b958c6d17b9d450a5cd9ccd89756906bfa3f",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:10",
-   "description": "8X8D1 block 202 tile 10, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 1
-   },
-   "views": 10248,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-es.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 10248 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:9caaba9389bc7c9c4b5600fa65c80dc0951f8c05a67f7e27cca12fda0f0fe6d5",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:9",
-   "description": "8X8D1 block 202 tile 9, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 10,
-    "row": 0
-   },
-   "views": 3772,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ns.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 3772 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:ad494b78a51cb097874be17d5e9ad07ce4d108b7cfc0724a9ffb9289f7d11e5f",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:18",
-   "description": "8X8D1 block 202 tile 18, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 5,
-    "row": 1
-   },
-   "views": 2484,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-esw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 2484 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:bf9c0fd1402ac36b11c3e4d34e5623d7603c85da0b4a60007fe9b2bf76c5e1f9",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:11",
-   "description": "8X8D1 block 202 tile 11, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 8,
-    "row": 0
-   },
-   "views": 5044,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nes.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 5044 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:d8afceb6a1ca80efdc8cbb48c855ae716abf2687808334df576fb5568334ee71",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:13",
-   "description": "8X8D1 block 202 tile 13, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 0
-   },
-   "views": 9976,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 9976 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:9:03c7f1ae93e8acdce01fa4ee2d9206c1bd47cccce78bcb3c7e67555d0acbcdc8",
    "width": 32,
    "height": 32,
@@ -21650,34 +20079,6 @@
    "views": 917,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 917 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:9:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3",
-   "width": 32,
-   "height": 32,
-   "area": 9,
-   "areaName": "Stojanow Gate",
-   "group": "plain sky, horizon and ground",
-   "what": "plain backdrop",
-   "composition": "g8|",
-   "description": "the ground colour 8, shown in area 9 (Stojanow Gate)",
-   "seenAt": {
-    "map": 9,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 9
-   },
-   "views": 46747,
-   "drawnIn": [
-    10,
-    18,
-    26
-   ],
-   "sameAs": "podol-overhead-open-base.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 46747 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23))"
   },
   {
    "kind": "first-person cell",
@@ -60542,11 +58943,17 @@
    },
    "views": 28573,
    "drawnIn": [
+    0,
+    2,
+    9,
     10,
     18,
-    26
+    21,
+    26,
+    28,
+    29
    ],
-   "sameAs": "podol-overhead-open-base.png",
+   "sameAs": "zhentil-overhead-open-base.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 28573 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103))"
   },
   {
@@ -63265,11 +61672,17 @@
    },
    "views": 28874,
    "drawnIn": [
+    0,
+    2,
+    9,
     10,
     18,
-    26
+    21,
+    26,
+    28,
+    29
    ],
-   "sameAs": "podol-overhead-open-base.png",
+   "sameAs": "zhentil-overhead-open-base.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 28874 views of map 13 (WALLDEF8 block 17 (tiles 8X8D8 block 17), block 18 (tiles 8X8D8 block 18), nothing)"
   },
   {
@@ -65694,11 +64107,17 @@
    },
    "views": 29896,
    "drawnIn": [
+    0,
+    2,
+    9,
     10,
     18,
-    26
+    21,
+    26,
+    28,
+    29
    ],
-   "sameAs": "podol-overhead-open-base.png",
+   "sameAs": "zhentil-overhead-open-base.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 29896 views of map 14 (WALLDEF3 block 1 (tiles 8X8D3 block 1), block 3 (tiles 8X8D3 block 3), block 5 (tiles 8X8D3 block 5))"
   },
   {
@@ -67136,11 +65555,17 @@
    },
    "views": 44519,
    "drawnIn": [
+    0,
+    2,
+    9,
     10,
     18,
-    26
+    21,
+    26,
+    28,
+    29
    ],
-   "sameAs": "podol-overhead-open-base.png",
+   "sameAs": "zhentil-overhead-open-base.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 44519 views of map 17 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
   },
   {
@@ -68896,519 +67321,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:10fd0886e0431e57ec7e17a59570792e1059f5f7157405b493ce265199ed86da",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:6",
-   "description": "8X8D1 block 202 tile 6, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 3
-   },
-   "views": 9548,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-e.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 9548 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:17aecfacb0ac862291feba2cc4407aa3def3b3919f56e9de997aa729e34681a3",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:8",
-   "description": "8X8D1 block 202 tile 8, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 1,
-    "row": 1
-   },
-   "views": 10576,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-s.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 10576 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:219379cc4da98bf424f77258bb2a0a640f2b73f11a6515fa36e60ffbbea8699f",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:0",
-   "description": "8X8D1 block 202 tile 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-n.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:28ff03b45f311ec95732c83a90db315c0fca1f0670cd7beb1fd2514bad09e147",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:16",
-   "description": "8X8D1 block 202 tile 16, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 4,
-    "row": 1
-   },
-   "views": 11720,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-sw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 11720 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:2d42184c2362ae350c986d8bf540af917a86f15ff43d79f3dd6b7842b9490f06",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:17",
-   "description": "8X8D1 block 202 tile 17, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 1
-   },
-   "views": 1388,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nsw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 1388 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:3ff193416e9b23866c37192f42c52fbc2bb3391d79c9344338de23d8db77ff13",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:15",
-   "description": "8X8D1 block 202 tile 15, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 7,
-    "row": 0
-   },
-   "views": 3108,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-new.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 3108 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:47a669a9430a869565e6f1812f530165e01a58580377493e63aee5a840d7058d",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:12",
-   "description": "8X8D1 block 202 tile 12, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 4,
-    "row": 3
-   },
-   "views": 9548,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-w.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 9548 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:482838757d705ffcec482082f3ff2948d4c7a385d2d9edc89a8169c67c22f3e4",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:19",
-   "description": "8X8D1 block 202 tile 19, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 6,
-    "row": 0
-   },
-   "views": 8200,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nesw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 8200 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:496285be59da9811c312df2a2d2da1c53503c086e3f75710abea664bdf2128e3",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:2",
-   "description": "8X8D1 block 202 tile 2, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "south",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-s.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:55654b98b0904a8baf33013b015c4125b494a17e19566b7bb720eb6555a154b0",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:3",
-   "description": "8X8D1 block 202 tile 3, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "west",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-w.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:5ecdd034c02f06e6a9af46d43ce8fc2810a70f34366a4556c9c7fec783d622ed",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:5",
-   "description": "8X8D1 block 202 tile 5, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 0
-   },
-   "views": 11432,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-n.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 11432 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:7a3417a61ee293c17e3fac0977255633aabb174d9bdb22afdb3dc4c06a4d6c82",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:7",
-   "description": "8X8D1 block 202 tile 7, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 0
-   },
-   "views": 12072,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ne.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 12072 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:84a465df968f8b91c365336f02295a9bf5a02887b59beb26a2763f5efd153216",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:1",
-   "description": "8X8D1 block 202 tile 1, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "east",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-e.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:8a7463159b3cc87236f3702080b428644809d3fabe11818c4cce77feafe61c7d",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:14",
-   "description": "8X8D1 block 202 tile 14, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 1,
-    "row": 8
-   },
-   "views": 888,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ew.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 888 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:9062228b7598045f75a5d60a5540b958c6d17b9d450a5cd9ccd89756906bfa3f",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:10",
-   "description": "8X8D1 block 202 tile 10, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 1
-   },
-   "views": 11720,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-es.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 11720 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:9caaba9389bc7c9c4b5600fa65c80dc0951f8c05a67f7e27cca12fda0f0fe6d5",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:9",
-   "description": "8X8D1 block 202 tile 9, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 6,
-    "row": 1
-   },
-   "views": 888,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ns.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 888 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:ad494b78a51cb097874be17d5e9ad07ce4d108b7cfc0724a9ffb9289f7d11e5f",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:18",
-   "description": "8X8D1 block 202 tile 18, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 9
-   },
-   "views": 3732,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-esw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 3732 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:bf9c0fd1402ac36b11c3e4d34e5623d7603c85da0b4a60007fe9b2bf76c5e1f9",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:11",
-   "description": "8X8D1 block 202 tile 11, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 10,
-    "y": 0,
-    "facing": "north",
-    "column": 10,
-    "row": 1
-   },
-   "views": 1388,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nes.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 1388 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:d8afceb6a1ca80efdc8cbb48c855ae716abf2687808334df576fb5568334ee71",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:13",
-   "description": "8X8D1 block 202 tile 13, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 1,
-    "row": 0
-   },
-   "views": 12072,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 12072 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:03f3fa6f4aa3222c474b7badad5f71aae8ad3ecd23338585c8f21da399432be1",
    "width": 32,
    "height": 32,
@@ -69452,34 +67364,6 @@
    "views": 691,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 691 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "plain sky, horizon and ground",
-   "what": "plain backdrop",
-   "composition": "g8|",
-   "description": "the ground colour 8, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 9
-   },
-   "views": 46277,
-   "drawnIn": [
-    10,
-    18,
-    26
-   ],
-   "sameAs": "podol-overhead-open-base.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 46277 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9))"
   },
   {
    "kind": "first-person cell",
@@ -75128,11 +73012,17 @@
    },
    "views": 26073,
    "drawnIn": [
+    0,
+    2,
+    9,
     10,
     18,
-    26
+    21,
+    26,
+    28,
+    29
    ],
-   "sameAs": "podol-overhead-open-base.png",
+   "sameAs": "zhentil-overhead-open-base.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 26073 views of map 22 (WALLDEF7 block 1 (tiles 8X8D7 block 1), block 3 (tiles 8X8D7 block 3), nothing)"
   },
   {
@@ -76380,11 +74270,17 @@
    },
    "views": 31572,
    "drawnIn": [
+    0,
+    2,
+    9,
     10,
     18,
-    26
+    21,
+    26,
+    28,
+    29
    ],
-   "sameAs": "podol-overhead-open-base.png",
+   "sameAs": "zhentil-overhead-open-base.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 31572 views of map 23 (WALLDEF7 block 1 (tiles 8X8D7 block 1), block 3 (tiles 8X8D7 block 3), nothing)"
   },
   {
@@ -77564,11 +75460,17 @@
    },
    "views": 32081,
    "drawnIn": [
+    0,
+    2,
+    9,
     10,
     18,
-    26
+    21,
+    26,
+    28,
+    29
    ],
-   "sameAs": "podol-overhead-open-base.png",
+   "sameAs": "zhentil-overhead-open-base.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 32081 views of map 24 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5))"
   },
   {
@@ -79869,519 +77771,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:26:10fd0886e0431e57ec7e17a59570792e1059f5f7157405b493ce265199ed86da",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:6",
-   "description": "8X8D1 block 202 tile 6, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 7,
-    "row": 2
-   },
-   "views": 6996,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-e.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 6996 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:17aecfacb0ac862291feba2cc4407aa3def3b3919f56e9de997aa729e34681a3",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:8",
-   "description": "8X8D1 block 202 tile 8, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 1,
-    "row": 0
-   },
-   "views": 14336,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-s.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 14336 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:219379cc4da98bf424f77258bb2a0a640f2b73f11a6515fa36e60ffbbea8699f",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:0",
-   "description": "8X8D1 block 202 tile 0, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-n.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:28ff03b45f311ec95732c83a90db315c0fca1f0670cd7beb1fd2514bad09e147",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:16",
-   "description": "8X8D1 block 202 tile 16, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 6,
-    "row": 2
-   },
-   "views": 4424,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-sw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 4424 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:2d42184c2362ae350c986d8bf540af917a86f15ff43d79f3dd6b7842b9490f06",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:17",
-   "description": "8X8D1 block 202 tile 17, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 6,
-    "row": 3
-   },
-   "views": 5800,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nsw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 5800 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:3ff193416e9b23866c37192f42c52fbc2bb3391d79c9344338de23d8db77ff13",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:15",
-   "description": "8X8D1 block 202 tile 15, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 4
-   },
-   "views": 5828,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-new.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 5828 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:47a669a9430a869565e6f1812f530165e01a58580377493e63aee5a840d7058d",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:12",
-   "description": "8X8D1 block 202 tile 12, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 2
-   },
-   "views": 6804,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-w.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 6804 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:482838757d705ffcec482082f3ff2948d4c7a385d2d9edc89a8169c67c22f3e4",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:19",
-   "description": "8X8D1 block 202 tile 19, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 3
-   },
-   "views": 14436,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nesw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 14436 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:496285be59da9811c312df2a2d2da1c53503c086e3f75710abea664bdf2128e3",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:2",
-   "description": "8X8D1 block 202 tile 2, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 0,
-    "facing": "south",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-s.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:55654b98b0904a8baf33013b015c4125b494a17e19566b7bb720eb6555a154b0",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:3",
-   "description": "8X8D1 block 202 tile 3, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 0,
-    "facing": "west",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-w.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:5ecdd034c02f06e6a9af46d43ce8fc2810a70f34366a4556c9c7fec783d622ed",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:5",
-   "description": "8X8D1 block 202 tile 5, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 1,
-    "row": 1
-   },
-   "views": 16820,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-n.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 16820 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:7a3417a61ee293c17e3fac0977255633aabb174d9bdb22afdb3dc4c06a4d6c82",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:7",
-   "description": "8X8D1 block 202 tile 7, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 7,
-    "row": 1
-   },
-   "views": 4804,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ne.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 4804 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:84a465df968f8b91c365336f02295a9bf5a02887b59beb26a2763f5efd153216",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:1",
-   "description": "8X8D1 block 202 tile 1, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 0,
-    "facing": "east",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-e.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:8a7463159b3cc87236f3702080b428644809d3fabe11818c4cce77feafe61c7d",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:14",
-   "description": "8X8D1 block 202 tile 14, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 9,
-    "facing": "north",
-    "column": 10,
-    "row": 10
-   },
-   "views": 444,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ew.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 444 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:9062228b7598045f75a5d60a5540b958c6d17b9d450a5cd9ccd89756906bfa3f",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:10",
-   "description": "8X8D1 block 202 tile 10, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 2
-   },
-   "views": 4024,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-es.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 4024 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:9caaba9389bc7c9c4b5600fa65c80dc0951f8c05a67f7e27cca12fda0f0fe6d5",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:9",
-   "description": "8X8D1 block 202 tile 9, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 8,
-    "facing": "north",
-    "column": 9,
-    "row": 10
-   },
-   "views": 508,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ns.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 508 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:ad494b78a51cb097874be17d5e9ad07ce4d108b7cfc0724a9ffb9289f7d11e5f",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:18",
-   "description": "8X8D1 block 202 tile 18, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 2
-   },
-   "views": 3484,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-esw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 3484 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:bf9c0fd1402ac36b11c3e4d34e5623d7603c85da0b4a60007fe9b2bf76c5e1f9",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:11",
-   "description": "8X8D1 block 202 tile 11, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 9,
-    "row": 3
-   },
-   "views": 7520,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nes.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 7520 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:26:d8afceb6a1ca80efdc8cbb48c855ae716abf2687808334df576fb5568334ee71",
-   "width": 32,
-   "height": 32,
-   "area": 26,
-   "areaName": "Wilderness, middle",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:13",
-   "description": "8X8D1 block 202 tile 13, shown in area 26 (Wilderness, middle)",
-   "seenAt": {
-    "map": 26,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 1
-   },
-   "views": 4680,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 4680 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:26:0a366a5ddb501c1a57601fbc36c146187a66643c24eb25152b1b1f14a828293a",
    "width": 32,
    "height": 32,
@@ -81909,519 +79298,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:28:10fd0886e0431e57ec7e17a59570792e1059f5f7157405b493ce265199ed86da",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:6",
-   "description": "8X8D1 block 202 tile 6, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 8,
-    "row": 1
-   },
-   "views": 13664,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-e.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 13664 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:17aecfacb0ac862291feba2cc4407aa3def3b3919f56e9de997aa729e34681a3",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:8",
-   "description": "8X8D1 block 202 tile 8, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 4,
-    "row": 2
-   },
-   "views": 6472,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-s.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 6472 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:219379cc4da98bf424f77258bb2a0a640f2b73f11a6515fa36e60ffbbea8699f",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:0",
-   "description": "8X8D1 block 202 tile 0, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-n.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:28ff03b45f311ec95732c83a90db315c0fca1f0670cd7beb1fd2514bad09e147",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:16",
-   "description": "8X8D1 block 202 tile 16, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 1
-   },
-   "views": 5976,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-sw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 5976 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:2d42184c2362ae350c986d8bf540af917a86f15ff43d79f3dd6b7842b9490f06",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:17",
-   "description": "8X8D1 block 202 tile 17, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 0
-   },
-   "views": 2364,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nsw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 2364 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:3ff193416e9b23866c37192f42c52fbc2bb3391d79c9344338de23d8db77ff13",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:15",
-   "description": "8X8D1 block 202 tile 15, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 2
-   },
-   "views": 2652,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-new.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 2652 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:47a669a9430a869565e6f1812f530165e01a58580377493e63aee5a840d7058d",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:12",
-   "description": "8X8D1 block 202 tile 12, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 7,
-    "row": 1
-   },
-   "views": 12456,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-w.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 12456 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:482838757d705ffcec482082f3ff2948d4c7a385d2d9edc89a8169c67c22f3e4",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:19",
-   "description": "8X8D1 block 202 tile 19, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 6,
-    "row": 6
-   },
-   "views": 2040,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nesw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 2040 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:496285be59da9811c312df2a2d2da1c53503c086e3f75710abea664bdf2128e3",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:2",
-   "description": "8X8D1 block 202 tile 2, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "south",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-s.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:55654b98b0904a8baf33013b015c4125b494a17e19566b7bb720eb6555a154b0",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:3",
-   "description": "8X8D1 block 202 tile 3, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "west",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-w.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:5ecdd034c02f06e6a9af46d43ce8fc2810a70f34366a4556c9c7fec783d622ed",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:5",
-   "description": "8X8D1 block 202 tile 5, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 1
-   },
-   "views": 4824,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-n.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 4824 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:7a3417a61ee293c17e3fac0977255633aabb174d9bdb22afdb3dc4c06a4d6c82",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:7",
-   "description": "8X8D1 block 202 tile 7, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 1,
-    "row": 0
-   },
-   "views": 6256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ne.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 6256 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:84a465df968f8b91c365336f02295a9bf5a02887b59beb26a2763f5efd153216",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:1",
-   "description": "8X8D1 block 202 tile 1, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "east",
-    "column": 0,
-    "row": 0
-   },
-   "views": 256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-e.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 256 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:8a7463159b3cc87236f3702080b428644809d3fabe11818c4cce77feafe61c7d",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:14",
-   "description": "8X8D1 block 202 tile 14, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 3
-   },
-   "views": 19412,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ew.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 19412 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:9062228b7598045f75a5d60a5540b958c6d17b9d450a5cd9ccd89756906bfa3f",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:10",
-   "description": "8X8D1 block 202 tile 10, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 1,
-    "row": 1
-   },
-   "views": 5340,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-es.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 5340 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:9caaba9389bc7c9c4b5600fa65c80dc0951f8c05a67f7e27cca12fda0f0fe6d5",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:9",
-   "description": "8X8D1 block 202 tile 9, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 0
-   },
-   "views": 21576,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ns.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 21576 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:ad494b78a51cb097874be17d5e9ad07ce4d108b7cfc0724a9ffb9289f7d11e5f",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:18",
-   "description": "8X8D1 block 202 tile 18, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 6
-   },
-   "views": 2796,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-esw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 2796 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:bf9c0fd1402ac36b11c3e4d34e5623d7603c85da0b4a60007fe9b2bf76c5e1f9",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:11",
-   "description": "8X8D1 block 202 tile 11, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 4,
-    "row": 0
-   },
-   "views": 2364,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nes.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 2364 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:d8afceb6a1ca80efdc8cbb48c855ae716abf2687808334df576fb5568334ee71",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:13",
-   "description": "8X8D1 block 202 tile 13, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 5,
-    "row": 0
-   },
-   "views": 6892,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 6892 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:28:03f3fa6f4aa3222c474b7badad5f71aae8ad3ecd23338585c8f21da399432be1",
    "width": 32,
    "height": 32,
@@ -82465,34 +79341,6 @@
    "views": 1000,
    "drawnIn": [],
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 1000 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:28:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3",
-   "width": 32,
-   "height": 32,
-   "area": 28,
-   "areaName": "Zhentil Keep Outpost",
-   "group": "plain sky, horizon and ground",
-   "what": "plain backdrop",
-   "composition": "g8|",
-   "description": "the ground colour 8, shown in area 28 (Zhentil Keep Outpost)",
-   "seenAt": {
-    "map": 28,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 9
-   },
-   "views": 37564,
-   "drawnIn": [
-    10,
-    18,
-    26
-   ],
-   "sameAs": "podol-overhead-open-base.png",
-   "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 37564 views of map 28 (WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), block 9 (tiles 8X8D6 block 9))"
   },
   {
    "kind": "first-person cell",
@@ -84049,547 +80897,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:29:10fd0886e0431e57ec7e17a59570792e1059f5f7157405b493ce265199ed86da",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:6",
-   "description": "8X8D1 block 202 tile 6, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 4,
-    "row": 1
-   },
-   "views": 17676,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-e.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 17676 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:17aecfacb0ac862291feba2cc4407aa3def3b3919f56e9de997aa729e34681a3",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:8",
-   "description": "8X8D1 block 202 tile 8, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 7,
-    "row": 6
-   },
-   "views": 16276,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-s.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 16276 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:219379cc4da98bf424f77258bb2a0a640f2b73f11a6515fa36e60ffbbea8699f",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:0",
-   "description": "8X8D1 block 202 tile 0, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 0,
-    "row": 0
-   },
-   "views": 512,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-n.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 512 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:4",
-   "description": "8X8D1 block 202 tile 4, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 10,
-    "row": 3
-   },
-   "views": 37912,
-   "drawnIn": [
-    10,
-    18,
-    26
-   ],
-   "sameAs": "podol-overhead-open-base.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 37912 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:28ff03b45f311ec95732c83a90db315c0fca1f0670cd7beb1fd2514bad09e147",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:16",
-   "description": "8X8D1 block 202 tile 16, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 7,
-    "row": 1
-   },
-   "views": 15356,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-sw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 15356 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:2d42184c2362ae350c986d8bf540af917a86f15ff43d79f3dd6b7842b9490f06",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:17",
-   "description": "8X8D1 block 202 tile 17, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 1,
-    "row": 0
-   },
-   "views": 12516,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nsw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 12516 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:3ff193416e9b23866c37192f42c52fbc2bb3391d79c9344338de23d8db77ff13",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:15",
-   "description": "8X8D1 block 202 tile 15, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 4,
-    "row": 0
-   },
-   "views": 8992,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-new.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 8992 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:47a669a9430a869565e6f1812f530165e01a58580377493e63aee5a840d7058d",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:12",
-   "description": "8X8D1 block 202 tile 12, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 5,
-    "row": 1
-   },
-   "views": 19800,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-w.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 19800 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:482838757d705ffcec482082f3ff2948d4c7a385d2d9edc89a8169c67c22f3e4",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:19",
-   "description": "8X8D1 block 202 tile 19, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 7,
-    "row": 7
-   },
-   "views": 9064,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nesw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 9064 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:496285be59da9811c312df2a2d2da1c53503c086e3f75710abea664bdf2128e3",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:2",
-   "description": "8X8D1 block 202 tile 2, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "south",
-    "column": 0,
-    "row": 0
-   },
-   "views": 512,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-s.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 512 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:55654b98b0904a8baf33013b015c4125b494a17e19566b7bb720eb6555a154b0",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:3",
-   "description": "8X8D1 block 202 tile 3, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "west",
-    "column": 0,
-    "row": 0
-   },
-   "views": 512,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-w.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 512 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:5ecdd034c02f06e6a9af46d43ce8fc2810a70f34366a4556c9c7fec783d622ed",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:5",
-   "description": "8X8D1 block 202 tile 5, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 10,
-    "row": 1
-   },
-   "views": 15728,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-n.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 15728 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:7a3417a61ee293c17e3fac0977255633aabb174d9bdb22afdb3dc4c06a4d6c82",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:7",
-   "description": "8X8D1 block 202 tile 7, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 6,
-    "row": 0
-   },
-   "views": 18428,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ne.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 18428 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:84a465df968f8b91c365336f02295a9bf5a02887b59beb26a2763f5efd153216",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:1",
-   "description": "8X8D1 block 202 tile 1, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "east",
-    "column": 0,
-    "row": 0
-   },
-   "views": 512,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-party-e.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 512 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:8a7463159b3cc87236f3702080b428644809d3fabe11818c4cce77feafe61c7d",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:14",
-   "description": "8X8D1 block 202 tile 14, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 4,
-    "row": 2
-   },
-   "views": 8864,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ew.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 8864 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:9062228b7598045f75a5d60a5540b958c6d17b9d450a5cd9ccd89756906bfa3f",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:10",
-   "description": "8X8D1 block 202 tile 10, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 8,
-    "row": 1
-   },
-   "views": 19256,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-es.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 19256 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:9caaba9389bc7c9c4b5600fa65c80dc0951f8c05a67f7e27cca12fda0f0fe6d5",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:9",
-   "description": "8X8D1 block 202 tile 9, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 0
-   },
-   "views": 13456,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-ns.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 13456 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:ad494b78a51cb097874be17d5e9ad07ce4d108b7cfc0724a9ffb9289f7d11e5f",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:18",
-   "description": "8X8D1 block 202 tile 18, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 2,
-    "row": 8
-   },
-   "views": 9708,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-esw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 9708 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:bf9c0fd1402ac36b11c3e4d34e5623d7603c85da0b4a60007fe9b2bf76c5e1f9",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:11",
-   "description": "8X8D1 block 202 tile 11, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 0
-   },
-   "views": 6248,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nes.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 6248 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:d8afceb6a1ca80efdc8cbb48c855ae716abf2687808334df576fb5568334ee71",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "overhead area view, 8X8D1 block 202",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:202:13",
-   "description": "8X8D1 block 202 tile 13, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 29,
-    "x": 0,
-    "y": 0,
-    "facing": "north",
-    "column": 5,
-    "row": 0
-   },
-   "views": 16480,
-   "drawnIn": [
-    10,
-    18
-   ],
-   "sameAs": "podol-overhead-wall-nw.png",
-   "why": "likely: drawn by the overhead area view, which no existing artwork of this area confirms; drawn in 16480 views of map 29 (WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1))"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:31:0a366a5ddb501c1a57601fbc36c146187a66643c24eb25152b1b1f14a828293a",
    "width": 32,
    "height": 32,
@@ -84632,11 +80939,17 @@
    },
    "views": 30575,
    "drawnIn": [
+    0,
+    2,
+    9,
     10,
     18,
-    26
+    21,
+    26,
+    28,
+    29
    ],
-   "sameAs": "podol-overhead-open-base.png",
+   "sameAs": "zhentil-overhead-open-base.png",
    "why": "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day; drawn in 30575 views of map 31 (WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5))"
   },
   {
