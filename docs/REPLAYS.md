@@ -196,6 +196,8 @@ The reviewed narration-log edit in `3e497fec` accepts the preceding renderer's
 capture hashes for that exact script. The original capture hashes are retained.
 The exact wilderness renderer revision also accepts those two capture hashes.
 Its changes are confined to the travel map layer and the status text it shows.
+The reviewed original-files settings revision also preserves these captures.
+It changes the settings panel and its key handling.
 
 The Valhingen wight caller checks take their checkpoints from
 `qa/fixtures/valhingen-wight-ambush/A.json` and
