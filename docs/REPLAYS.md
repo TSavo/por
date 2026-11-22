@@ -299,6 +299,12 @@ notice. The `valhingen-zombie-tower` replay loads its separate checkpoint.
 There, the hair and fur caption holds only the opening portrait until
 Enter. Each route takes `qa/fixtures/<route>/A.json`.
 
+The `valhingen-grave-claws` replay starts at
+`qa/fixtures/valhingen-grave-claws/A.json`. Up opens the held claws caption.
+The native loop has eight timed members. Members 1, 5 and 6 share the
+same pixels, so the visible return to member 1 lasts 230 ms. Member 2
+has a distinct 20 ms pose. Enter advances to the attack illustration.
+
 ## Enhanced artwork fallbacks
 
 Set `POR_TRACE_ENHANCED_FALLBACKS=1` and run

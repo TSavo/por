@@ -102,6 +102,10 @@ const promptId = (cursor: string, caller: string | null) => caller ? `${cursor}/
 // Exact reviewed revisions that preserve the held portrait paint and timing code.
 // This covers narration logging, the wilderness atlas, settings, and Classic palette-only clips.
 const previousRendererProof = new Map<string, string>([
+  // Swapping decoded held cels preserves the bindings, deadlines and panel layout.
+  // Paired Chrome controls cover every prior loop with a distinct 20 ms pose.
+  ["4a5ce4805ccc29ba0770cc0246dc6e35173ba6e789188d5e2500bced96a31584",
+    "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360"],
   // The publisher splash cleanup changes only the Classic title switch.
   ["5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360",
     "e1a9d6795fd9c4c6251e83c8c403bb7032ce22cd05dccca755b8d12298ed2148"],

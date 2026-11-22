@@ -1,27 +1,26 @@
 {
  "schema": 2,
  "heldPortraits": {
-  "verified": 33,
+  "verified": 34,
   "oneShotsVerified": 6,
-  "measured": 39,
+  "measured": 40,
   "total": 235,
-  "scenesMeasured": 61,
-  "scenesVerified": 61,
+  "scenesMeasured": 62,
+  "scenesVerified": 62,
   "unmappedScenes": 0,
-  "remaining": 202
+  "remaining": 201
  },
  "enhancedFallbacks": {
   "frames": 0,
   "presented": 4704,
   "walks": 34,
-  "recordedWalks": 40,
+  "recordedWalks": 39,
   "missingWalks": [
-   "narration-campaign-f",
-   "narration-training-hall-a",
-   "portrait-export-controlled",
-   "portrait-export-normal",
+   "castle-guards",
+   "walk-clerk-offers-bivant",
    "walk-library-cleared",
-   "walk-new-phlan-training"
+   "walk-new-phlan-training",
+   "walk-yarash-pyramid"
   ],
   "aliasedWalks": [
    {

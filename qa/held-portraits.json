@@ -7968,6 +7968,216 @@
           }
         }
       }
+    },
+    {
+      "id": "area:10:ecl:b695:caller:9d5c:PIC4.DAX:11",
+      "producer": "ECL4.DAX:10:9d25",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 710,
+          "viewport": "a6182d8e8b80d7dace496af26eaae0e4833bac22981df5e00157baa69fc25030"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "447bf8a2dd6b5d943b75ee259f9171fab8a5c397c94481d8156ad3742e8d04d0"
+        },
+        {
+          "member": 2,
+          "durationMs": 20,
+          "viewport": "c0f8b4fa1b83d3beb48fe207ea78563290b144c48d97e695af3b91792bc90bd8"
+        },
+        {
+          "member": 3,
+          "durationMs": 310,
+          "viewport": "2a25d219ba2e51d7b824626200b8b1bf5c426ca5de59f250a9b310847faa8a70"
+        },
+        {
+          "member": 4,
+          "durationMs": 310,
+          "viewport": "e1319f4a6ffbe2add39c81cc0676677c6d36325bc8dffbd8cd650a791358b051"
+        },
+        {
+          "member": 5,
+          "durationMs": 210,
+          "viewport": "447bf8a2dd6b5d943b75ee259f9171fab8a5c397c94481d8156ad3742e8d04d0"
+        },
+        {
+          "member": 6,
+          "durationMs": 20,
+          "viewport": "447bf8a2dd6b5d943b75ee259f9171fab8a5c397c94481d8156ad3742e8d04d0"
+        },
+        {
+          "member": 7,
+          "durationMs": 410,
+          "viewport": "50fb7aff1717ee2914b1fc0bd705bd31392a8fadf526b4ed32c273c9708caae6"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "valhingen-grave-claws",
+          "data": "original",
+          "rendererSha256": "4a5ce4805ccc29ba0770cc0246dc6e35173ba6e789188d5e2500bced96a31584",
+          "bindingSha256": "75d842a1ca53de080b9dd35a507a2cd90d951c196eaec8433f9391057776e4b9",
+          "portrait": "portrait:area:10:PIC4.DAX:11:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:10:PIC4.DAX:11:0:0",
+              "atMs": 9.90000002384204
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:1:0",
+              "atMs": 643.2000000238422
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:2:0",
+              "atMs": 843.2000000238422
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:3:0",
+              "atMs": 859.900000023842
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:4:0",
+              "atMs": 1176.5000000238415
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:1:0",
+              "atMs": 1493.1000000238419
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:7:0",
+              "atMs": 1709.9000000238411
+            },
+            {
+              "key": "portrait:area:10:PIC4.DAX:11:0:0",
+              "atMs": 2126.400000023841
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:1:0",
+              "atMs": 2843.200000023842
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:2:0",
+              "atMs": 3043.100000023842
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:3:0",
+              "atMs": 3059.8000000238426
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:4:0",
+              "atMs": 3376.400000023841
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:1:0",
+              "atMs": 3693.100000023842
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:7:0",
+              "atMs": 3909.8000000238426
+            },
+            {
+              "key": "portrait:area:10:PIC4.DAX:11:0:0",
+              "atMs": 4326.400000023841
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:1:0",
+              "atMs": 5043.0000000238415
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:PIC4.DAX:11:0:0": "965af2d4553a2bfa3b8d18996cb45b4e8d009236231dcb12e763c8eaa09bc56f",
+            "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:1:0": "dbe7680409985d9fda5ca3be5e0b400139fdb975b9ff8a233891eb0a137cce20",
+            "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:2:0": "16fe03bdd51e9ae3f5845a30b57b51456aa47c74e47f623f3c8258b394c8283c",
+            "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:3:0": "310280ab07514b1368b1163a6b39bc86b446dccfcbf4f76d4453eb62b2643f59",
+            "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:4:0": "b9089d66dda0db2848c31843f4a82b84fadb58217ef9babedb3420d01291fd0c",
+            "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:7:0": "e783162257ea7e889e3e472610d5bcfe7d190329396518b967472dcd99c6feb1"
+          }
+        },
+        "port": {
+          "route": "valhingen-grave-claws",
+          "data": "port",
+          "rendererSha256": "4a5ce4805ccc29ba0770cc0246dc6e35173ba6e789188d5e2500bced96a31584",
+          "bindingSha256": "75d842a1ca53de080b9dd35a507a2cd90d951c196eaec8433f9391057776e4b9",
+          "portrait": "portrait:area:10:PIC4.DAX:11:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:10:PIC4.DAX:11:0:0",
+              "atMs": 9.899999999999636
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:1:0",
+              "atMs": 676.6000000000004
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:2:0",
+              "atMs": 876.5
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:3:0",
+              "atMs": 909.8999999999996
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:4:0",
+              "atMs": 1209.8999999999996
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:1:0",
+              "atMs": 1526.5
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:7:0",
+              "atMs": 1759.8000000000002
+            },
+            {
+              "key": "portrait:area:10:PIC4.DAX:11:0:0",
+              "atMs": 2159.8999999999996
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:1:0",
+              "atMs": 2876.3999999999996
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:2:0",
+              "atMs": 3076.3999999999996
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:3:0",
+              "atMs": 3109.7999999999993
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:4:0",
+              "atMs": 3409.7999999999993
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:1:0",
+              "atMs": 3726.3999999999996
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:7:0",
+              "atMs": 3959.7000000000007
+            },
+            {
+              "key": "portrait:area:10:PIC4.DAX:11:0:0",
+              "atMs": 4359.700000000001
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:1:0",
+              "atMs": 5076.299999999999
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:PIC4.DAX:11:0:0": "965af2d4553a2bfa3b8d18996cb45b4e8d009236231dcb12e763c8eaa09bc56f",
+            "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:1:0": "dbe7680409985d9fda5ca3be5e0b400139fdb975b9ff8a233891eb0a137cce20",
+            "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:2:0": "16fe03bdd51e9ae3f5845a30b57b51456aa47c74e47f623f3c8258b394c8283c",
+            "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:3:0": "310280ab07514b1368b1163a6b39bc86b446dccfcbf4f76d4453eb62b2643f59",
+            "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:4:0": "b9089d66dda0db2848c31843f4a82b84fadb58217ef9babedb3420d01291fd0c",
+            "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:7:0": "e783162257ea7e889e3e472610d5bcfe7d190329396518b967472dcd99c6feb1"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
@@ -7992,7 +8202,7 @@
           ],
           "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:31searchONTHEGROUNDYOUFINDAPEACEOFPAPERTHATSAYS:Pressbuttonor<return>tocontinue",
           "checkpointSha256": "e31e2768c7c197ccbdbdafc067c3ee36bf9e724e792b6099985ac44de7b7eb9b",
-          "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360"
+          "rendererSha256": "4a5ce4805ccc29ba0770cc0246dc6e35173ba6e789188d5e2500bced96a31584"
         },
         "port": {
           "route": "valjevo-barracks-ground-paper",
@@ -8004,7 +8214,7 @@
           ],
           "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:31searchONTHEGROUNDYOUFINDAPEACEOFPAPERTHATSAYS:Pressbuttonor<return>tocontinue",
           "checkpointSha256": "e31e2768c7c197ccbdbdafc067c3ee36bf9e724e792b6099985ac44de7b7eb9b",
-          "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360"
+          "rendererSha256": "4a5ce4805ccc29ba0770cc0246dc6e35173ba6e789188d5e2500bced96a31584"
         }
       }
     }

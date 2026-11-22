@@ -7875,13 +7875,18 @@ try {
       if (!image?.complete || image.naturalWidth !== 352) return false;
       if (${JSON.stringify(order?.map(key => `/art/${key}`) ?? null)}?.every(path => path !== new URL(image.src).pathname)) return false;
       window.heldPortraitPhases = [];
+      const layer = image.parentElement;
       const record = () => {
-        const phase = image.src;
+        if (state.sequence !== ${held.sequence}) {
+          observer.disconnect();
+          return;
+        }
+        const phase = layer.querySelector(".encounter-portrait")?.src;
         if (phase && window.heldPortraitPhases.at(-1) !== phase) window.heldPortraitPhases.push(phase);
         if (window.heldPortraitPhases.length > ${count}) observer.disconnect();
       };
       const observer = new MutationObserver(record);
-      observer.observe(image, { attributes: true, attributeFilter: ["src"] });
+      observer.observe(layer, { childList: true, subtree: true, attributes: true, attributeFilter: ["src"] });
       record();
       return true;
     })()`));

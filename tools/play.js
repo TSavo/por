@@ -1275,6 +1275,10 @@ async function animateHeldPortrait(image, view) {
   const { phases, phaseTimes } = loop;
   const frames = phases.map(phase => {
     const frame = new Image();
+    frame.alt = image.alt;
+    frame.className = image.className;
+    frame.style.cssText = image.style.cssText;
+    frame.dataset.heldPose = phase;
     frame.src = `/art/${phase}`;
     return frame;
   });
@@ -1291,8 +1295,11 @@ async function animateHeldPortrait(image, view) {
     if (now >= nextPhaseAt) {
       if (state.ready && !posting) {
         index = (index + 1) % frames.length;
-        image.src = frames[index].src;
-        image.dataset.heldPose = phases[index];
+        // Reuse the decoded element. Assigning src on the displayed image
+        // starts another load and can consume an entire short pose.
+        const nextImage = frames[index];
+        image.replaceWith(nextImage);
+        image = nextImage;
         // Keep the guest's cadence when a paint lands between refreshes.
         // After a long stall, give the new pose a full hold.
         nextPhaseAt += hold();
