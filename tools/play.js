@@ -1345,6 +1345,7 @@ async function showScreen() {
         return layer;
       } catch (error) {
         if (layer.matches(".terrain-tile, .battle-tile, .combat-selection, .reward-illustration")) return null;
+        if (layer.matches(".character-sheet-part")) return null;
         if (layer.matches(".combat-effect")) return spriteBackdrop(layer);
         if (layer.matches(".encounter-portrait")) return pictureBackdrop();
         if (layer.matches(".combat-sprite")) return spriteBackdrop(layer);
@@ -1357,6 +1358,25 @@ async function showScreen() {
     };
     const [, decodedLayers] = await Promise.all([nextFrame.decode(), Promise.all(layers.map(decodeLayer))]);
     if (render !== screenRender) return;
+    if (showArt && view.characterSheet) {
+      const firstPart = layers.findIndex(layer => layer.matches(".character-sheet-part"));
+      const partCount = view.characterSheet.length;
+      if (firstPart !== -1 && decodedLayers.slice(firstPart, firstPart + partCount).includes(null)) {
+        // The parts share a painted collar. When either fails, replace just
+        // the portrait as a unit, leaving the Enhanced sheet and text intact.
+        const parts = view.characterSheet;
+        const left = Math.min(...parts.map(([x]) => x));
+        const top = Math.min(...parts.map(([, y]) => y));
+        const right = Math.max(...parts.map(([x, , , width]) => x + width));
+        const bottom = Math.max(...parts.map(([, y, , , height]) => y + height));
+        const box = layers[firstPart];
+        Object.assign(box.style, {
+          left: `${left / 3.2}%`, top: `${top / 2}%`,
+          width: `${(right - left) / 3.2}%`, height: `${(bottom - top) / 2}%`,
+        });
+        decodedLayers.splice(firstPart, partCount, state.classicAvailable ? spriteBackdrop(box) : null);
+      }
+    }
     if (overland) {
       try { overland.renderer.draw(nextFrame); }
       catch (error) {

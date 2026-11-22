@@ -22,6 +22,7 @@
     "verify:art-worklist": "tsx tools/art-worklist.ts --verify",
     "verify:code-wheel": "python tools/verify-code-wheel.py",
     "verify:code-wheel-screen": "node tools/verify-code-wheel-screen.mjs",
+    "verify:character-sheet-fallback": "node tools/verify-character-sheet-fallback.mjs",
     "verify:runes-readable": "node tools/verify-runes-readable.mjs",
     "verify:rune-glyphs": "tsx tools/verify-rune-glyphs.mjs",
     "verify:port-parity": "node tools/verify-port-parity.mjs",

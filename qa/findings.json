@@ -156,8 +156,9 @@
       "title": "A failed character-sheet image drops the whole frame to Classic",
       "detail": "The character-sheet-part layer is not in the page's handled fallback list.",
       "source": "Research pass.",
-      "status": "open",
-      "issue": 87
+      "status": "fixed",
+      "issue": 87,
+      "resolution": "Chrome reproduced the drop to Classic before the fix. With either portrait part missing, the sheet stays Enhanced. GOG 1.3 supplies a cropped native portrait and the bundled build leaves the field empty. The Chrome regression verifies both failures and portrait recovery in both data modes."
     },
     {
       "id": "docs-stale",
