@@ -1191,6 +1191,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:24:ecl:b692:cue:orc-camp-ambush", "WHILEINCAMPYOUARESUDDENLYATTACKEDBYORCS"],
   ["scene-illustration:area:24:ecl:b699:cue:orc-camp-ambush", "WHILEINCAMPYOUARESUDDENLYATTACKEDBYORCS"],
   ["scene-illustration:area:24:ecl:b6a2:cue:orc-camp-ambush", "WHILEINCAMPYOUARESUDDENLYATTACKEDBYORCS"],
+  ["scene-illustration:area:24:ecl:a5cb:cue:temple-gate-patrol-admission", "ASYOUAPPROACHTHEYMOVE,ALLOWINGYOUENTRANCEINTOTHETEMPLE"],
+  ["scene-illustration:area:24:ecl:b0b5:cue:temple-gate-patrol-admission", "ASYOUAPPROACHTHEYMOVE,ALLOWINGYOUENTRANCEINTOTHETEMPLE"],
   ["scene-illustration:area:24:ecl:a6bf:cue:temple-gate-direct-attack", "WILLYOULETHIMTOUCHYOU"],
   ["scene-illustration:area:24:ecl:a6b0:cue:temple-gate-back-off-again", "ASYOUBACKAWAYAGAIN"],
   ["scene-illustration:area:24:ecl:a6bf:cue:temple-gate-back-off-again", "ASYOUBACKAWAYAGAIN"],

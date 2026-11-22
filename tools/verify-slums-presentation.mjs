@@ -2012,6 +2012,13 @@ const illustrationRoutes = new Map([
     prompt: /ALIZARDMANLEADSAPACKOFGIANTLIZARDSONPATROLBEFOREADOORTHATHASBEENNAILEDCLOSED/i,
     continuation: { inputs: ["enter"], prompt: /ABATTLEBEGINS/i },
   }],
+  ["bane-gate-patrol-admission", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "scene-illustration:area:24:ecl:b0b5:cue:temple-gate-patrol-admission",
+    prompt: /ANOLDBLINDDECREPITORC.*EIGHTORCGUARDS.*ALLOWINGYOUENTRANCEINTOTHETEMPLE/i,
+    finalPhaseCapture: "bane-gate-patrol-admission.png",
+    continuation: { inputs: ["up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK.*3,7E|3,7E.*AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["bane-gate-direct-attack", {
     slot: "A", inputs: ["up", "enter", "enter", "a"],
     portraitStops: { 3: "portrait:area:24:PIC1.DAX:4:0:0" },
@@ -12052,7 +12059,7 @@ try {
       writeFileSync(resolve(directory, "bane-temple-approach.png"), Buffer.from(approach.data, "base64"));
       const scenery = frame.tiles;
       await advance("enter");
-      assert.deepEqual(frame.encounter, [48, 32, "encounter:area:24:SPRIT1.DAX:4:0:0", 40, 80]);
+      assert.deepEqual(frame.encounter, [48, 32, "encounter:area:24:ecl:a424:SPRIT1.DAX:4:0:0", 40, 80]);
       assert.deepEqual(frame.tiles, scenery, "The guard must sit over the same gate scenery");
       await verifyTiledView(24, patterns);
       await waitFor("the gatekeeper in the approach view", () => run(`(() => {
