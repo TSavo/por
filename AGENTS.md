@@ -33,7 +33,9 @@ but GitHub and this repository.
   left), then work it down. Existing counts: `npm run qa:visits` (areas and commissions compared),
   `npm run verify:held-portraits` (#131), `npm run verify:enhanced-fallbacks` (#142),
   `npm run qa:narration` (#98), `npm run qa:version-1.3` (the 1.3 measure),
-  `npm run qa:repeat-presses` (replay steps that press until the screen changes, #76).
+  `npm run qa:repeat-presses` (replay steps that press until the screen changes, #76),
+  `npm run qa:instruction-diff` (every translated instruction against the original's bytes under Unicorn,
+  #91; needs `POR_GAMEDATA_1_3` and Python with capstone and unicorn, `~/por-venv` on Battleaxe).
 - Commit messages: a short imperative summary; the body says what was run and seen.
 
 ## Running on Battleaxe

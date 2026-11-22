@@ -147,7 +147,22 @@ rows.push(["Original sound events exact against 1.3", exactEvents, layout.events
   cases.length ? "events 2 to 21, PC speaker and Tandy, against the original interrupt routine under Unicorn"
     : `the comparison did not run: ${(validation.error?.message ?? validation.stderr ?? "").trim().split("\n").at(-1)}`]);
 
-// 4. The host's address bindings: no raw program address may remain in the host files.
+// 4. The translated instructions against the original's: every case the translator emitted for 1.3 runs
+// on random machine states beside the original bytes under Unicorn (tools/qa-instruction-diff.py, #91).
+const instructionReport = join(output, "instruction-diff.json");
+rmSync(instructionReport, { force: true });
+const instructionRun = spawnSync(python, ["tools/qa-instruction-diff.py", target, "--game-version", "1.3",
+  "--work", join(output, "instruction-diff"), "--report", instructionReport, "--node", process.execPath],
+  { encoding: "utf8", maxBuffer: 256 * 1024 * 1024 });
+const instructionDiff = existsSync(instructionReport) ? JSON.parse(readFileSync(instructionReport, "utf8")) as
+  { total: number; checked: number; mismatches: unknown[]; namedDeviations: unknown[]; deadFlagDifferences: unknown[] } : undefined;
+rows.push(["Translated instructions that match the original", instructionDiff ? instructionDiff.checked - instructionDiff.mismatches.length : 0,
+  instructionDiff?.total ?? 1, instructionDiff
+    ? `${instructionDiff.mismatches.length} differ, ${instructionDiff.total - instructionDiff.checked} not run; ` +
+      `${instructionDiff.namedDeviations.length} named deviations and ${instructionDiff.deadFlagDifferences.length} unread flag differences allowed`
+    : `the comparison did not run: ${(instructionRun.error?.message ?? instructionRun.stderr ?? "").trim().split("\n").at(-1)}`]);
+
+// 5. The host's address bindings: no raw program address may remain in the host files.
 const table = new URL("../src/runtime/bindings.ts", import.meta.url);
 const hostFiles = ["tools/live-input.ts", "tools/boot-translated.ts", "tools/native-exploration.ts", "tools/overland-travel.ts",
   "tools/developer-combat.ts", "tools/combat-art.ts", "src/runtime/adventure-log.ts", "src/runtime/ecl-narration-observer.ts",
@@ -162,7 +177,7 @@ const named = (readFileSync(table, "utf8").match(/"1\.3": /g) ?? []).length;
 rows.push(["Host addresses named and mapped for 1.3", named, named + rawAddresses,
   `${rawAddresses} raw addresses remain in ${hostFiles.length} host files`]);
 
-// 5. The checks, run now on version 1.3. Nothing here is read from an earlier run.
+// 6. The checks, run now on version 1.3. Nothing here is read from an earlier run.
 // The Chrome checks need POR_CHROME. --skip-checks leaves them out and counts them as not passed.
 const chrome = process.env.POR_CHROME ?? "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const npmEntry = process.platform === "win32" ? process.env.npm_execpath ??
