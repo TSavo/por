@@ -2105,6 +2105,15 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "bane-hay-bunk-room.png",
     continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["bane-mansion-holy-symbol", {
+    slot: "A", inputs: ["up", "enter", "enter", "c"],
+    portraitStops: { 3: "scene-illustration:area:31:ecl:9b0b:cue:mansion-holy-symbol" },
+    phaseCaptures: { 3: "bane-mansion-orcs-surprised-menu.png" },
+    portrait: "scene-illustration:area:31:ecl:9b2d:cue:mansion-holy-symbol",
+    prompt: /WHOARESURPRISEDTHATYOU.*CONFUSEDLOOKSONTHEIRFACESTHEYSTAREATYOU.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "bane-mansion-orcs-surprised-battle.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS.*MOVEVIEWAIM/i },
+  }],
   ["bane-barracks-ambush", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "scene-illustration:area:31:ecl:a1c8:cue:barracks-ambush",
