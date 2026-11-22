@@ -25,7 +25,9 @@
 // number the game prints. Coordinates, odds and rules are not claims of these kinds; the report counts
 // the notes it left out.
 //
-// Exits 1 while any claim has no match in either source.
+// A claim the data contradicts is a guide's error: qa/guide-errata.json records each, with what the
+// guide says, what the 1.3 data says and where, and the report accepts it as settled while it fails for
+// exactly that reason. Exits 1 while any other claim has no match, or game/ and the 1.3 files differ.
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseDax } from "../src/lib/dax.js";
@@ -440,12 +442,33 @@ if (differ.length) {
     console.log(`  ${claim.scenario}  ${claim.kind}  ${show(claim)}\n      ${sources.map(({ name }, index) => `${name}: ${outcomes[index]!.status}`).join(" | ")}`);
   }
 }
+if (differ.length) process.exitCode = 1;
+
+// The guides' errors (qa/guide-errata.json): a claim the data contradicts is settled while it has no
+// match, in every source, for exactly the reason recorded.
+interface Erratum { scenario: string; kind: string; claim: string; guide: string; data: string; where: string; noMatch: string }
+const errata = (JSON.parse(readFileSync(fromPortRoot("qa", "guide-errata.json"), "utf8")) as { errata: Erratum[] }).errata;
+const erratumFor = (claim: Claim) => errata.find((erratum) => erratum.scenario === claim.scenario && erratum.kind === claim.kind && erratum.claim === claim.text);
 const unmatched = results.filter(({ outcomes }) => outcomes.some(({ status }) => status === "none"));
-if (unmatched.length) {
-  console.log(`\n${unmatched.length} claims with no match in the data (scenario, kind, claim: why):`);
-  for (const { claim, outcomes } of unmatched) console.log(`  ${claim.scenario}  ${claim.kind}  ${show(claim)}\n      ${outcomes.find(({ status }) => status === "none")!.why}`);
+const settled = unmatched.filter(({ claim, outcomes }) => outcomes.every(({ why }) => why === erratumFor(claim)?.noMatch));
+const open = unmatched.filter((result) => !settled.includes(result));
+const stale = errata.filter((erratum) => !settled.some(({ claim }) => erratumFor(claim) === erratum));
+console.log(`\n${settled.length} claims with no match are recorded guide errata (qa/guide-errata.json):`);
+for (const { claim } of settled) {
+  const erratum = erratumFor(claim)!;
+  console.log(`  ${claim.scenario}  ${claim.kind}  the guide: ${erratum.guide}\n      the 1.3 data: ${erratum.data} (${erratum.where})`);
+}
+if (open.length) {
+  console.log(`\n${open.length} claims with no match in the data (scenario, kind, claim: why):`);
+  for (const { claim, outcomes } of open) console.log(`  ${claim.scenario}  ${claim.kind}  ${show(claim)}\n      ${outcomes.find(({ status }) => status === "none")!.why}`);
   process.exitCode = 1;
 }
+if (stale.length) {
+  console.log(`\n${stale.length} errata no longer describe a claim with no match: the claim matches now, is gone, or fails for another reason:`);
+  for (const erratum of stale) console.log(`  ${erratum.scenario}  ${erratum.kind}  ${erratum.claim}`);
+  process.exitCode = 1;
+}
+console.log(`\n${list.length - open.length} of ${list.length} claims match the data or are recorded errata; ${open.length} open.`);
 if (process.argv.includes("--elsewhere")) {
   const elsewhere = results.filter(({ outcomes }) => outcomes.some(({ status }) => status === "elsewhere"));
   console.log(`\n${elsewhere.length} claims the data has only in another area's script:`);

@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "description": "Claims of the walkthroughs (qa/acceptance, from the Lee guide and the SSI Clue Book) that the game's own data contradicts: errors of the guides, not of the port. npm run qa:guide-claims accepts each as settled while its claim still has no match for exactly the reason recorded in noMatch, from the GOG 1.3 files and from game/ (#113).",
+  "errata": [
+    {
+      "scenario": "acceptance.slums.orc-home",
+      "kind": "fight",
+      "claim": "1 ORC LEADER (#15), 3 ORC LEADER (#14), 16 ORC (#4), Morale 70, 412 XP",
+      "guide": "16 ORC (#4) with the orc leaders at location 9 (3,3)",
+      "data": "20 ORC: LOAD MONSTER byte 4, byte 20 after #15 x1 and #14 x3",
+      "where": "ECL2.DAX block 20 at 0xa9fa (0xa9ec, 0xa9f3 for the leaders)",
+      "noMatch": "#4 is loaded 3 or 8 or 20 or 30, not 16"
+    },
+    {
+      "scenario": "acceptance.slums.goblin-guards-alerted",
+      "kind": "fight",
+      "claim": "11 GOBLIN LEADER (#3) + 12 GOBLIN GUARD (#2), Morale 60, 65 XP",
+      "guide": "11 GOBLIN LEADER (#3) with 12 GOBLIN GUARD at location 15 (3,11)",
+      "data": "21 GOBLIN LEADER: LOAD MONSTER byte 3, byte 21 after #2 x12",
+      "where": "ECL2.DAX block 20 at 0xac43 (0xac3c for the guards)",
+      "noMatch": "#3 is loaded 21, not 11"
+    },
+    {
+      "scenario": "acceptance.slums.trolls-and-ogres",
+      "kind": "treasure",
+      "claim": "1 jewelry, 50 pp, 40 gold, 3 random magic items",
+      "guide": "40 gold with 1 jewelry, 50 pp and 3 random magic items at location 20 (0,14)",
+      "data": "30 gold: TREASURE copper 0, silver 0, electrum 0, gold 30, platinum 50, gems 0, jewelry 1, item 131 (3 random)",
+      "where": "ECL2.DAX block 20 at 0xb0fb",
+      "noMatch": "no TREASURE with 40 gold, 50 platinum, 1 jewelry"
+    },
+    {
+      "scenario": "acceptance.kobold-caves.kings-guards",
+      "kind": "fight",
+      "claim": "Location 20: '3 TROLL (#1) [sic]', 3 WILD BOAR, 20 KOBOLD, 4 KOBOLD LEADER, Morale 100, 522 XP.",
+      "guide": "3 TROLL as monster #1 (the digest already marks it [sic])",
+      "data": "the trolls are monster #31: LOAD MONSTER byte 31, byte 3; MON8CHA.DAX #31 is TROLL and #1 is KOBOLD LEADER (loaded 4 at 0xa4b2)",
+      "where": "ECL8.DAX block 13 at 0xa49d; MON8CHA.DAX blocks 1 and 31",
+      "noMatch": "#1 is 'KOBOLD LEADER' in MON8CHA.DAX"
+    },
+    {
+      "scenario": "acceptance.quirks.technical.heap-error-message",
+      "kind": "text",
+      "claim": "TIME TO SAVE YOUR GAME",
+      "guide": "the heap message of versions 1.2 and earlier",
+      "data": "not in version 1.3: no ECL text and no text of START.EXE or GAME.OVR has it",
+      "where": "ECL1-8.DAX, START.EXE, GAME.OVR (1.3)",
+      "noMatch": "no script or program text has it"
+    }
+  ]
+}
