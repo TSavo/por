@@ -892,6 +892,13 @@ Valjevo replays captured terrain before stopping on their expected
 combat art keys. The untouched slots stay in the QA list until the
 arena initialization and later writes account for every visible cell.
 
+The scoped `bane-ogre-commander-combat` replay passed standing and strike
+checks in both GOG 1.3 data modes. All 255 distinct draw records agreed
+in slot, source, flags and position. The original-file trace yielded 51
+nonblank terrain hashes, all bound. The scoped Valjevo hill giant route
+yielded 38 terrain hashes, all bound. It reached the ready pose and
+stopped on its strike assertion.
+
 The battlefield and overland map share the SQRPACI blitter. The
 `POR_BATTLE_DRAW` trace labels the surface from the native caller. On
 GOG 1.3 the overland viewport calls it from overlay `0x1b` at `01e1`,
