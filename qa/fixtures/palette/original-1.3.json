@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "validator": "Unicorn 16-bit x86 execution of the original START.EXE and GAME.OVR palette code",
+  "executableSha256": "d825df2b174675c9088ba1489488bdeebe66ad2a22943f17d3a198e60b6a07bd",
+  "overlaySha256": "872964a32cef0fc32bbf83bab68b15e04ad36d59076f37b00a179dfee7928614",
+  "routines": {
+    "title": {
+      "what": "The title's flash, once: slice 1 0765 to 07d4",
+      "events": [
+        {
+          "int10": {
+            "ah": 16,
+            "al": 0,
+            "bl": 1,
+            "bh": 17
+          }
+        },
+        {
+          "delayMs": 150
+        },
+        {
+          "int10": {
+            "ah": 16,
+            "al": 0,
+            "bl": 1,
+            "bh": 19
+          }
+        },
+        {
+          "delayMs": 100
+        },
+        {
+          "int10": {
+            "ah": 16,
+            "al": 0,
+            "bl": 1,
+            "bh": 23
+          }
+        },
+        {
+          "delayMs": 50
+        },
+        {
+          "int10": {
+            "ah": 16,
+            "al": 0,
+            "bl": 1,
+            "bh": 19
+          }
+        },
+        {
+          "delayMs": 100
+        },
+        {
+          "int10": {
+            "ah": 16,
+            "al": 0,
+            "bl": 1,
+            "bh": 17
+          }
+        },
+        {
+          "delayMs": 150
+        },
+        {
+          "int10": {
+            "ah": 16,
+            "al": 0,
+            "bl": 1,
+            "bh": 1
+          }
+        }
+      ]
+    },
+    "battle": {
+      "what": "Slice 31 00e3, called when a fight begins (START.EXE image 3728)",
+      "events": [
+        {
+          "int10": {
+            "ah": 16,
+            "al": 0,
+            "bl": 0,
+            "bh": 16
+          }
+        },
+        {
+          "int10": {
+            "ah": 16,
+            "al": 0,
+            "bl": 8,
+            "bh": 0
+          }
+        }
+      ]
+    },
+    "restore": {
+      "what": "Slice 31 0105, called when a fight ends (slice 8 0064)",
+      "events": [
+        {
+          "int10": {
+            "ah": 16,
+            "al": 0,
+            "bl": 0,
+            "bh": 0
+          }
+        },
+        {
+          "int10": {
+            "ah": 16,
+            "al": 0,
+            "bl": 8,
+            "bh": 16
+          }
+        }
+      ]
+    }
+  }
+}

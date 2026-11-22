@@ -292,6 +292,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const tracedBattleTerrain = new Set<string>();
   const selectionKeys = new Set((process.env.POR_COMBAT_SELECTION_KEYS ?? "").split(",").filter(Boolean));
   const nativeSelection = browser && standalone && code.combatSelectionDrawResumes ? observeNativeCombatSelection() : undefined;
+  const framePixels = process.env.POR_FRAME_PIXELS === "1";
   const effectKeys = (process.env.POR_COMBAT_EFFECT_KEYS ?? "").split(",").filter(Boolean);
   const nativeEffects = browser && standalone && effectKeys.length ? observeNativeCombatEffects(new Set(effectKeys)) : undefined;
   const matchCombatEffect = loadCombatEffects(effectKeys);
@@ -764,6 +765,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const state = {
         frame: Buffer.from(encodePng(native)).toString("base64"),
         enhancedFrame: Buffer.from(encodePng(enhanced, enhancedPalette)).toString("base64"),
+        // With POR_FRAME_PIXELS=1: the pixel values the game drew, one byte each, for checks that
+        // compare them with the colours a picture shows (npm run verify:palette).
+        pixels: framePixels ? Buffer.from(native.pixels).toString("base64") : undefined,
         scene,
         // Present while the game is inside its code-wheel routine, waiting for the word.
         codeWheel,
