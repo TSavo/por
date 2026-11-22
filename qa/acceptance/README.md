@@ -121,3 +121,12 @@ Every place where the sources disagree is recorded once in `qa/disagreements.jso
 `qa/disagreements-manual.json`. Each entry names the scenarios that carry it and has a status:
 `open` until the game itself has been used to settle it, then `settled`, with what the game does
 and how that was established. `npm run qa:disagreements` prints how many are open and how many settled.
+
+## The claims against the game's data
+
+`npm run qa:guide-claims` (with `POR_GAMEDATA` naming the GOG 1.3 files) takes the concrete claims of
+these files (quoted game text, passwords, journal entries, tavern tales, fights with their monster
+numbers, monster names, treasure) and matches each against the game's own data, from the 1.3 files and
+from `game/`: the area scripts, the treasure and monster item tables, the monster table and the
+program's text (#113). It prints matched / total per kind and source, the claims where `game/` and the
+1.3 files differ, and every claim with no match and why; it exits 1 while any is left.

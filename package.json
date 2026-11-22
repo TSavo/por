@@ -36,6 +36,7 @@
     "qa:replay-checkpoints": "tsx tools/qa-replay-checkpoints.ts",
     "verify:narration-playback": "node tools/verify-narration-playback.mjs",
     "qa:inventory": "tsx tools/qa-inventory.ts",
+    "qa:guide-claims": "tsx tools/guide-claims.ts",
     "qa:pause-callers": "tsx tools/qa-pause-callers.ts",
     "qa:version-1.3": "tsx tools/qa-version-1.3.ts",
     "qa:instruction-diff": "python tools/qa-instruction-diff.py --game-version 1.3",
