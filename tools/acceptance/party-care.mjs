@@ -144,8 +144,9 @@ export async function chooseSpells(game, caster, spell) {
         for (let pages = 0; !onPage(wanted) && /\bNext\b/.test(game.menu()); pages++) await game.press("n", bookMenu, "Next shows the next page.");
         if (!onPage(wanted)) break;
         await game.selectLine(wanted);
-        await game.press("m");
-        // No place left for a spell of this class: the count stays, and the next spell is tried.
+        // With no place left for a spell of this class the game takes nothing and shows nothing
+        // new (#76): the count stays, and the next spell is tried.
+        await game.press("m", undefined, "", { mayChangeNothing: true });
         if (free() !== left - 1) {
           if (spells.length === 1) game.fail("Memorize did not take up one of the spells the caster can memorise.");
           break;
