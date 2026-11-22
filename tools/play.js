@@ -998,7 +998,7 @@ const portraitLoops = [
     /YOUBOARDABOAT/i],
   ["portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:", 3, "portrait:area:0:PIC3.DAX:41:0:0",
     /YOUBOARDABOAT/i],
-  ...["a13f", "a1c6"].map(cursor => [`portrait:area:14:ecl:${cursor}:PIC1.DAX:1:`, 3]),
+  ...["9d66", "a13f", "a1c6", "a3d5"].map(cursor => [`portrait:area:14:ecl:${cursor}:PIC1.DAX:1:`, 3]),
 ].map(([prefix, count, initial, cue]) => ({
   cue,
   phases: Array.from({ length: count }, (_, phase) => (phase === 0 && initial) || `${prefix}${phase}:0`),
