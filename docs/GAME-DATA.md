@@ -181,8 +181,8 @@ verify which artwork those identities select at a particular camera or dialogue 
 - A `tile:` key is the hash of one 8 by 8 first-person cell. The checker reports
   stored tiles, tiles over a solid colour and compiled screen cells separately.
   The worklist computes actual overlaps from wall definitions and the maps that use them.
-- The check takes an area's script to be the ECL block with the area's number. Areas 30, 31 and
-  32 have maps and no block of their own, so keys scoped to them count as unreachable until the
-  area-to-script table is read from the program's data.
+- The check looks for an ECL block with the area's number first. For a map with no same-numbered
+  block it uses the area catalogue's owning script when ownership is unique. The Lizardman Keep,
+  Bane Mansion and Kuto's Well maps 30, 31 and 32 therefore use ECL blocks 16, 24 and 29.
 - Some portrait, encounter and combat lookups still read original picture pixels.
   Those presentations need their own identity-based lookup for the built-in data.

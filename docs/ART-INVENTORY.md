@@ -178,9 +178,8 @@ The two HEAD frames it flagged are `HEAD6.DAX:1:0:0` and
 browser trace files checked for this audit. They stay unlinked pending
 a live draw that identifies the dialogue and matching body.
 
-The Bane ogre commander illustrates the scope of the standalone audit.
-The catalogue flags its ready and strike keys because it cannot associate
-area 31 with its converted ECL. GOG 1.3 Chrome verified both poses at
+The Bane ogre commander's ready and strike keys pass the standalone audit
+through the Bane Mansion map's owning script, ECL1 block 24. GOG 1.3 Chrome verified both poses at
 canonical cursor `9f7b` in native combat. A DOS 1.0 Chrome control loaded
 the same scoped ready pose at `80,32`, where the GOG 1.3 fixture's replay
 expected `104,8`. The control also decoded the strike PNG separately.

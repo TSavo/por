@@ -33,7 +33,7 @@ const read = (path: string) => new Uint8Array(readFileSync(join(portGameRoot, pa
 const data = readGameData(read);
 const records = new Map(data.pictures.map((record) => [`${record.file}:${record.block}`, record]));
 
-// Scripts by area: the block number of a script is the area it runs.
+// Script blocks are the primary area IDs. A script can also load a separate map.
 interface AreaScript { archive: number; block: number; end: number; starts: Set<number>; text: string }
 const scripts = new Map<number, AreaScript>();
 for (const record of data.content) {
@@ -45,6 +45,21 @@ for (const record of data.content) {
     archive: Number(/\d/.exec(record.file)![0]), block: record.block, end: script.base + script.length,
     starts: new Set(instructions.map(({ address }) => address)), text: letters,
   });
+}
+
+const areaCatalogue = JSON.parse(readFileSync(new URL("../src/maps/area-catalog.json", import.meta.url), "utf8")) as {
+  areas: { id: number; maps: { id: number }[] }[];
+};
+const mapOwners = new Map<number, number[]>();
+for (const area of areaCatalogue.areas) {
+  for (const map of area.maps) {
+    if (!scripts.has(map.id)) mapOwners.set(map.id, [...(mapOwners.get(map.id) ?? []), area.id]);
+  }
+}
+for (const [map, owners] of mapOwners) {
+  if (owners.length !== 1) continue;
+  const script = scripts.get(owners[0]!);
+  if (script) scripts.set(map, script);
 }
 
 // Hashes game/ stores, each with the picture it names.
