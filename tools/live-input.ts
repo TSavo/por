@@ -577,7 +577,6 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // A wilderness approach keeps the map while the guest changes to the encounter menu.
       const overlandEncounter = gameMode === 3 && overlandScript && travelPosition !== undefined &&
         (encounter !== undefined || menu === "COMBATWAITFLEEPARLAY");
-      const overlandMap = overlandMenu || overlandEncounter;
       const phlanArrival = overlandScript ? identifyPhlanPrompt(dialogue, menu) : undefined;
       const sokalPrompt = activeEcl === 0 ? identifySokalPrompt(dialogue, menu, harborTicket) : undefined;
       const battlefield = nativeBattlefield || hasBattlefieldBorder(presentation);
@@ -590,6 +589,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const exploration = menu.startsWith("AREACASTVIEWENCAMP") ||
         (area === 1 && menu === "RELEASEANIMALSLEAVE") ||
         (area === 24 && menu === "DESTROYALTARLEAVEIT");
+      // A blocked step and the prompts of a wilderness landmark (the pyramid's door) keep the map too: the
+      // guest is still on the overland screen, its menu hidden or replaced. Bundled data draws that screen
+      // with blank pixels, which equal the blank scenery the guest drew last, so the pixels cannot tell
+      // the map from a first-person view; the guest's own state can.
+      const overlandPrompt = gameMode === 3 && overlandScript && travelPosition !== undefined && !exploration && !iconEditor;
+      const overlandMap = overlandMenu || overlandEncounter || overlandPrompt;
       let perspective = false;
       let tileArea = area;
       let nativeScenery: PresentationAnimationFrame["nativeScenery"];
