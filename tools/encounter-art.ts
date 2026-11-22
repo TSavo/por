@@ -1,10 +1,23 @@
+import { createHash } from "node:crypto";
 import { parseDax } from "../src/lib/dax.js";
 import type { EncounterAnchor } from "../src/lib/assets.js";
 import type { Frame } from "../src/lib/ega.js";
 import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js";
+import type { PictureRecord } from "../src/runtime/game-data.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 
 export const encounterKey = /^encounter:(?:area:(\d{1,3}):(?:ecl:([a-f0-9]{4}):(?:caller:([a-f0-9]{4}):)?)?)?(SPRIT[1-8]\.DAX):(\d{1,3}):(\d{1,3}):(\d{1,3})$/;
+
+export function blankApproachSprites(records: readonly PictureRecord[]): string[] {
+  return records.flatMap(({ file, block, pictures }) => {
+    if (!/^SPRIT[1-8]\.DAX$/.test(file)) return [];
+    return pictures.flatMap(({ width, height, frameHashes }, member) => {
+      const blank = createHash("sha256").update(new Uint8Array(width * height)).digest("hex");
+      return frameHashes.flatMap((hash, index) => hash === blank ? [`${file}:${block}:${member}:${index}`] : []);
+    });
+  });
+}
+
 const legacyAnchors = new Map<string, EncounterAnchor>([
   ["encounter:SPRIT2.DAX:0:0:0", { area: 20, x: 48, y: 32, width: 40, height: 80 }],
   ["encounter:SPRIT2.DAX:0:1:0", { area: 20, x: 56, y: 32, width: 24, height: 65 }],

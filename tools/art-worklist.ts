@@ -32,6 +32,7 @@ import {
 import { encodePng, pngDimensions } from "./png.js";
 import { ExplorationCells as Cells, type Backdrop, type Cell, type CellKind } from "./exploration-cells.js";
 import { explorationMaterialArea } from "./exploration-materials.js";
+import { blankApproachSprites } from "./encounter-art.js";
 
 const repository = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const at = (...parts: string[]) => join(repository, ...parts);
@@ -719,14 +720,6 @@ interface OtherPicture {
   evidence: string;
 }
 
-function blankApproachSprites(data: PortGameData): string[] {
-  return data.pictures.flatMap(({ file, block, pictures }) => /^SPRIT[1-8]\.DAX$/.test(file)
-    ? pictures.flatMap((picture, member) => {
-      const blank = sha256(new Uint8Array(picture.width * picture.height));
-      return picture.frameHashes.flatMap((hash, index) => hash === blank ? [`${file}:${block}:${member}:${index}`] : []);
-    }) : []);
-}
-
 function otherPictures(data: PortGameData, read: (path: string) => Uint8Array): { pictures: OtherPicture[]; error?: string } {
   // The catalogue says which frames no key names. It exits non-zero while any key is unreachable; its file is written first.
   const run = spawnSync(process.execPath, ["--import", "tsx", at("tools", "verify-art-catalogue.ts")], { cwd: repository, encoding: "utf8" });
@@ -978,7 +971,7 @@ function main(): void {
   const committed = existsSync(at(WORKLIST)) ? JSON.parse(readFileSync(at(WORKLIST), "utf8")) as Worklist : undefined;
   // The catalogue takes several seconds and changes nothing that is counted, so the quick modes reuse the committed list.
   const others = verify || check ? { pictures: committed?.otherPicturesNoKeyNames ?? [] } : otherPictures(data, read);
-  const blankSprites = new Set(blankApproachSprites(data));
+  const blankSprites = new Set(blankApproachSprites(data.pictures));
   const otherPicturesNoKeyNames = others.pictures.filter(({ frame }) => !blankSprites.has(frame));
 
   const notEstablished: Record<string, number | string> = {};

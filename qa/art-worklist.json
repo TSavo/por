@@ -35,7 +35,7 @@
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
   "battlefield cells of pictures no artwork shows to have been on a battlefield": 2207,
   "battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain)": "not counted: needs the game's battlefield builder read",
-  "other picture frames no key names (listed below)": 33,
+  "other picture frames no key names (listed below)": 25,
   "screen frame, text window borders and other symbols drawn outside the first-person view: no artwork key form exists for them": "not counted",
   "narrated passages that describe something to see and have no artwork": "will come from npm run qa:narration"
  },
@@ -2489,79 +2489,15 @@
    "keyForm": "none: tools/upgrade-art.ts accepts no key for ICON pictures",
    "pngSize": "-",
    "evidence": "the scripts do not name it; the program draws it, and where has not been read"
-  },
-  {
-   "frame": "SPRIT1.DAX:9:2:0",
-   "width": 32,
-   "height": 57,
-   "what": "an approach sprite",
-   "keyForm": "encounter:SPRIT1.DAX:9:2:0, with its placement under \"encounters\"",
-   "pngSize": "128x228",
-   "evidence": "no PICTURE 9 with a plain number is in a script of archive 1"
-  },
-  {
-   "frame": "SPRIT2.DAX:1:0:0",
-   "width": 40,
-   "height": 80,
-   "what": "an approach sprite",
-   "keyForm": "encounter:SPRIT2.DAX:1:0:0, with its placement under \"encounters\"",
-   "pngSize": "160x320",
-   "evidence": "no PICTURE 1 with a plain number is in a script of archive 2"
-  },
-  {
-   "frame": "SPRIT2.DAX:71:0:0",
-   "width": 48,
-   "height": 73,
-   "what": "an approach sprite",
-   "keyForm": "encounter:SPRIT2.DAX:71:0:0, with its placement under \"encounters\"",
-   "pngSize": "192x292",
-   "evidence": "no PICTURE 71 with a plain number is in a script of archive 2"
-  },
-  {
-   "frame": "SPRIT2.DAX:71:1:0",
-   "width": 40,
-   "height": 65,
-   "what": "an approach sprite",
-   "keyForm": "encounter:SPRIT2.DAX:71:1:0, with its placement under \"encounters\"",
-   "pngSize": "160x260",
-   "evidence": "no PICTURE 71 with a plain number is in a script of archive 2"
-  },
-  {
-   "frame": "SPRIT2.DAX:71:2:0",
-   "width": 24,
-   "height": 57,
-   "what": "an approach sprite",
-   "keyForm": "encounter:SPRIT2.DAX:71:2:0, with its placement under \"encounters\"",
-   "pngSize": "96x228",
-   "evidence": "no PICTURE 71 with a plain number is in a script of archive 2"
-  },
-  {
-   "frame": "SPRIT8.DAX:19:0:0",
-   "width": 24,
-   "height": 80,
-   "what": "an approach sprite",
-   "keyForm": "encounter:SPRIT8.DAX:19:0:0, with its placement under \"encounters\"",
-   "pngSize": "96x320",
-   "evidence": "no PICTURE 19 with a plain number is in a script of archive 8"
-  },
-  {
-   "frame": "SPRIT8.DAX:19:1:0",
-   "width": 24,
-   "height": 65,
-   "what": "an approach sprite",
-   "keyForm": "encounter:SPRIT8.DAX:19:1:0, with its placement under \"encounters\"",
-   "pngSize": "96x260",
-   "evidence": "no PICTURE 19 with a plain number is in a script of archive 8"
-  },
-  {
-   "frame": "SPRIT8.DAX:19:2:0",
-   "width": 16,
-   "height": 49,
-   "what": "an approach sprite",
-   "keyForm": "encounter:SPRIT8.DAX:19:2:0, with its placement under \"encounters\"",
-   "pngSize": "64x196",
-   "evidence": "no PICTURE 19 with a plain number is in a script of archive 8"
   }
+ ],
+ "blankApproachSprites": [
+  "SPRIT6.DAX:10:0:0",
+  "SPRIT6.DAX:67:0:0",
+  "SPRIT6.DAX:74:0:0",
+  "SPRIT6.DAX:119:0:0",
+  "SPRIT8.DAX:113:0:0",
+  "SPRIT8.DAX:116:0:0"
  ],
  "backdrops": {
   "bands": [
