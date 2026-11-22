@@ -20,7 +20,7 @@ import { segment, useGameVersion } from "../src/runtime/bindings.js";
 import {
   blankPictureBytes, contentBytes, dataFiles, GAME_DATA_FORMAT, GAME_DATA_VERSION, overlayFile, overlayStub, programImage,
   type BlobReference, type ContentRecord, type GameDataManifest, type OverlayData, type PictureRecord, type PictureShape,
-  type PortGameData, type ProgramData, type ReadGameData,
+  type PortGameData, type ProgramData, type ReadGameData, type TileFingerprint,
 } from "../src/runtime/game-data.js";
 
 export const repository = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -249,7 +249,7 @@ function buildProgram(original: Map<string, Uint8Array>, map: InstructionMap, ou
 
 /** The colour number the first-person view treats as transparent in a tile. */
 const TRANSPARENT_COLOUR = 13;
-const tileCatalogue = new Map<string, { hash: string; sources: string[]; overColour?: string[] }>();
+const tileCatalogue = new Map<string, TileFingerprint>();
 
 function pictureRecord(file: string, block: number, position: number, packedBytes: number, data: Uint8Array): PictureRecord {
   const shape = (bytes: Uint8Array, selector?: number): PictureShape => {
@@ -276,6 +276,13 @@ function pictureRecord(file: string, block: number, position: number, packedByte
         tile.sources.push(`${file}:${block}:${index}`);
         if (pixels.includes(TRANSPARENT_COLOUR)) {
           tile.overColour ??= Array.from({ length: 16 }, (_, colour) => sha256(pixels.map((pixel) => pixel === TRANSPARENT_COLOUR ? colour : pixel)));
+          if (!tile.transparentMask) {
+            const mask = new Uint8Array(8);
+            pixels.forEach((pixel, index) => {
+              if (pixel === TRANSPARENT_COLOUR) mask[index >> 3]! |= 0x80 >> (index & 7);
+            });
+            tile.transparentMask = hex(mask);
+          }
         }
       }
     }

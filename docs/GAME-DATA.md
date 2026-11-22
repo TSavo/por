@@ -41,7 +41,7 @@ bytes.
 | `content/config.json` | The configuration (POOL.CFG). |
 | `content/saved-games.json`, `content/saved-games.bin` | The two saved games shipped with 1.3. |
 | `pictures.json` | Every picture record: identity, shape and the hash of each frame, and no pixels. |
-| `tiles.json` | Every distinct 8 by 8 wall and scenery tile by hash, where it is stored, and its hash over each solid colour. |
+| `tiles.json` | Every distinct 8 by 8 wall and scenery tile by hash, where it is stored, its transparency mask, and its hash over each solid colour. |
 
 JSON holds structure. A `.bin` file holds only content that is binary: the program bytes, script
 bytecode and the shipped saved games. A JSON entry names its place in a blob as
@@ -126,8 +126,11 @@ records are blank, draws the same dice as from the 1.3 files.
 stored (`archive:block:index`). A tile that has transparent pixels (colour 13) also lists
 `overColour`: the hash of the cell the screen shows when one solid colour is behind the tile, for
 each of the 16 colours. The first-person view draws such tiles over the sky and ground colours,
-and a `tile:` key taken from such a cell carries one of these hashes. 367 of the 1,334 distinct
-tiles have transparent pixels.
+and a `tile:` key taken from such a cell carries one of these hashes. The 367 transparent
+tiles also carry an eight-byte `transparentMask`, one byte per row with bits set where
+the background shows through. With built-in data the WebGL renderer matches the active
+wall definition to these tile identities, selects the installed Enhanced PNGs, and
+applies their cutouts using the masks.
 
 ## Serving the data to the game
 

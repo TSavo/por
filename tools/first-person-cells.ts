@@ -385,8 +385,10 @@ export interface ViewContext {
   slots: WallSlots;
 }
 
+type WallContext = Omit<ViewContext, "map">;
+
 /** The tile a symbol of the loaded wall table draws, or undefined when it draws nothing. */
-function symbolTile(context: ViewContext, symbol: number): TileName | undefined {
+export function symbolTile(context: WallContext, symbol: number): TileName | undefined {
   const { bankBase } = context.world.tables;
   if (symbol <= 0) return;
   // ovl34 0x015d: symbols 1..0x2d are the shared bank, then three banks of 70, then the area view's bank.
@@ -402,7 +404,7 @@ function symbolTile(context: ViewContext, symbol: number): TileName | undefined 
 }
 
 /** The symbol at `index` of wall type 1..15, after the rebasing ovl29 0x0e08 does when it loads a slot. */
-function wallSymbol(context: ViewContext, type: number, index: number): number {
+function wallSymbol(context: WallContext, type: number, index: number): number {
   const slot = Math.floor((type - 1) / 5) + 1;
   const loaded = context.slots.slots[slot];
   if (!loaded) return 0;
@@ -411,6 +413,15 @@ function wallSymbol(context: ViewContext, type: number, index: number): number {
   const { bankBase, rebaseFrom } = context.world.tables;
   // The shift is worked out once for the slot the block was loaded at, so the later sets of a block of several sets store symbols of their own bank.
   return stored >= rebaseFrom ? (stored + bankBase[loaded.loadedAt]! - bankBase[1]!) & 0xff : stored;
+}
+
+/** The frontal piece of each type, in the same order as the live capture. */
+export function frontWallSymbols(context: WallContext): Buffer {
+  const { pieceIndex, pieceColumns, pieceRows } = context.world.tables;
+  const front = 6;
+  const count = pieceColumns[front]! * pieceRows[front]!;
+  return Buffer.from(Array.from({ length: 15 * count }, (_, index) =>
+    wallSymbol(context, Math.floor(index / count) + 1, pieceIndex[front]! + index % count)));
 }
 
 /** Every tile some symbol of the loaded wall definitions names, whether or not a map ever places it. */

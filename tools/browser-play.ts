@@ -5,7 +5,7 @@ import { appendFileSync, readFileSync, readdirSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
 import { join } from "node:path";
-import { readGameFile, requireBrowserGameRoot } from "./gamedata.js";
+import { isPortGameRoot, portGame, readGameFile, requireBrowserGameRoot } from "./gamedata.js";
 import { loadCombatMaterialMasks, loadUpgradeArt } from "./upgrade-art.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
 import { getKey, type CodeWheelQuestion, type PanelFrameStamp, type PresentationAnimationFrame, type TileInventoryCell } from "./live-input.js";
@@ -16,6 +16,8 @@ import type { EncounterPlacement } from "./encounter-art.js";
 import { exactTextNarrations as exactTextUnits, NarrationCatalog, normalizeSpeech, type NarrationTrigger, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
 import { buildNewPhlanMaterials } from "./new-phlan-3d-materials.js";
 import { buildExplorationMaterials } from "./exploration-materials.js";
+import { readWorld } from "./first-person-cells.js";
+import { standaloneGlyphResolver } from "./standalone-exploration.js";
 import type { NativeExploration } from "./native-exploration.js";
 import { loadOverlandTravel, type PhlanApproach, type SokalPrompt, type SokalQuay, type TravelState } from "./overland-travel.js";
 
@@ -28,6 +30,9 @@ const gameRoot = requireBrowserGameRoot();
 // Everything the server reads from the program depends on which build the directory holds.
 const gameBuild = detectGameVersion(readGameFile(gameRoot, "GAME.OVR"));
 useGameVersion(gameBuild);
+const standaloneGlyphs = isPortGameRoot(gameRoot)
+  ? standaloneGlyphResolver(readWorld(portGame(gameRoot).data, file => new Uint8Array(readFileSync(join(gameRoot, file)))))
+  : undefined;
 const planTravel = loadOverlandTravel(gameRoot);
 const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
@@ -106,10 +111,11 @@ function prepareScenery(view: ExplorationFrame) {
   const { x, y, facing, walls, area, mapId } = native;
   const harbor = area === 0 && mapId === 0;
   const materialId = createHash("sha256")
-    .update(JSON.stringify([area,harbor,native.frontSlots,native.glyphs,native.skyColor,native.groundColor])).digest("hex");
+    .update(JSON.stringify([area,harbor,native.frontSlots,native.glyphs,native.skyColor,native.groundColor,
+      ...(standaloneGlyphs ? [mapId] : [])])).digest("hex");
   if (!localMaterialSets.has(materialId)) {
     if (localMaterialSets.size >= 32) localMaterialSets.delete(localMaterialSets.keys().next().value!);
-    const materials = buildExplorationMaterials(native, artwork);
+    const materials = buildExplorationMaterials(native, artwork, standaloneGlyphs?.(native));
     if (harbor) {
       const { water, dockPiling } = newPhlanMaterials();
       localMaterialSets.set(materialId, JSON.stringify({ ...materials, water, dockPiling, layout: "phlan" }));

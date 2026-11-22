@@ -29,6 +29,7 @@ import { loadPortraitArt, matchScriptIllustration, scriptIllustrations } from ".
 import { loadEncounterArt } from "./encounter-art.js";
 import { captureNativeExploration } from "./native-exploration.js";
 import { buildExplorationMaterials } from "./exploration-materials.js";
+import { sha256 } from "./first-person-cells.js";
 
 // The translation of the build in POR_GAMEDATA. The overlay slices are not mounted in these checks,
 // so the script overlay's procedures come from its module.
@@ -428,6 +429,15 @@ function checkExplorationGlyphMask(): void {
   strictEqual(scene.glyphs[2]?.slice(0, 6), "0d000f", "Mask keeps see-through, black and white separate");
   const face = buildExplorationMaterials({ ...scene, area: 0 }, new Map()).wallFaces[0]!;
   deepStrictEqual(face.parts[0]?.art?.pixels?.slice(0, 3), [16, 0, 15]);
+
+  const pixels = Buffer.from(scene.glyphs[2]!, "hex");
+  const overColour = Array.from({ length: 16 }, (_, colour) => sha256(pixels.map(pixel => pixel === 13 ? colour : pixel)));
+  const tile = { hash: sha256(pixels), overColour, sources: [], transparentMask: "8000000000000000" };
+  const artwork = new Map([[`tile:0:${overColour[11]}`, { file: "test-tile.png" }]]);
+  const original = buildExplorationMaterials({ ...scene, area: 0 }, artwork);
+  const blank = { ...scene, area: 0, glyphs: { 2: Buffer.alloc(64).toString("hex") } };
+  const standalone = buildExplorationMaterials(blank, artwork, new Map([[2, tile]]));
+  deepStrictEqual(standalone, original, "Packaged terrain uses the same art and cutout as the original glyph");
 }
 
 // The game calls Turbo Pascal's Randomize once at start. It stores the DOS time as the seed.

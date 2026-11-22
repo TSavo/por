@@ -134,12 +134,20 @@ export interface PictureRecord extends RecordIdentity {
  * of what a screen cell shows when one solid colour is behind it, for each of the 16 colours:
  * the first-person view draws such a tile over the sky or ground colour.
  */
+export interface TileFingerprint {
+  hash: string;
+  sources: string[];
+  overColour?: string[];
+  /** One byte per row, with a set bit where the Enhanced artwork is cut out. */
+  transparentMask?: string;
+}
+
 export interface TileCatalogue {
   format: string;
   formatVersion: number;
   kind: "tiles";
   transparentColour: number;
-  tiles: { hash: string; sources: string[]; overColour?: string[] }[];
+  tiles: TileFingerprint[];
 }
 
 export interface ContentFile { format: string; formatVersion: number; kind: string; records: ContentRecord[] }
