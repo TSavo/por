@@ -129,8 +129,8 @@ function mergePlayback(path: string): void {
   const lines = readFileSync(path, "utf8").split("\n").filter(Boolean).map(line => JSON.parse(line) as Line);
   const run = (lines[0] as Extract<Line, { t: "playback" }>).run;
   const playback = coverage.playback ??= { runs: {}, played: {}, cutOff: {}, overlaps: {} };
-  // A run merged again replaces what that run said about cut-off and overlapping lines.
-  for (const record of [playback.cutOff, playback.overlaps]) {
+  // A run merged again replaces what that run said: the units it played, and its cut-off and overlapping lines.
+  for (const record of [playback.played, playback.cutOff, playback.overlaps]) {
     for (const [key, entry] of Object.entries(record)) if (entry.run === run) delete record[key];
   }
   const count = { legs: 0, lines: 0, toTheEnd: 0, endedByPlayer: 0, cutOff: 0, unfinished: 0, startedLate: 0 };
