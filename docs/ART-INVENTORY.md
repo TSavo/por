@@ -869,6 +869,13 @@ check. The other two emitted terrain traces before stopping on the
 expected combat pose or prompt. This evidence covers the draws captured
 on those routes. Unobserved battlefield archive cells stay in QA.
 
+In GOG 1.3, overlay `0x03` passes `BACPAC`, destination frame 0, and
+count 40 to the terrain bank loader at `0d18` and `1852`. The loader
+in overlay `0x20` copies those frames to the start of the first terrain
+bank. All nine cell hashes of each of the 40 BACPAC frames match the
+corresponding SQRPACI block 1 frame. The worklist keeps both archives
+visible and counts the shared battlefield artwork keys once.
+
 Enable both trace variables on the same replay and redirect its output
 to a UTF-8 log. Add `--battle-draws=PATH_TO_LOG` to the report command
 alongside that replay's `battle-tiles.jsonl`. The JSON includes each

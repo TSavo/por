@@ -720,11 +720,12 @@ function battlefield(data: PortGameData, art: Map<string, Art>, original: Origin
   const items: Item[] = [];
   const reports: BattleReport[] = [];
   const listed = new Set<string>();
+  const unconfirmed = new Set<string>();
   const about: Record<string, string> = {
     "DUNGCOM.DAX": "terrain pictures of fights indoors; the game copies them into the battlefield's picture slots",
     "WILDCOM.DAX": "terrain pictures of fights outdoors; the game copies them into the battlefield's picture slots",
     "SQRPACI.DAX": "the battlefield's two picture slots as stored (overlay 11 loads blocks 1 and 2; the terrain draw takes its frames from them)",
-    "BACPAC.DAX": "40 pictures of 24 by 24 that no artwork key names; where the game draws them is not read yet",
+    "BACPAC.DAX": "40 base terrain pictures loaded into the battlefield slots; their pixels match SQRPACI block 1 frames 0–39",
   };
   for (const archive of ["DUNGCOM.DAX", "WILDCOM.DAX", "SQRPACI.DAX", "BACPAC.DAX"]) {
     const mine = [...frames].filter(([name]) => name.startsWith(archive));
@@ -738,7 +739,11 @@ function battlefield(data: PortGameData, art: Map<string, Art>, original: Origin
         distinct.add(hash);
         if (keyed.has(hash)) { report.withArt++; return; }
         if (random.has(hashes.join())) return;
-        if (!proven.has(hashes.join())) { report.notEstablished++; return; }
+        if (!proven.has(hashes.join())) {
+          report.notEstablished++;
+          unconfirmed.add(hash);
+          return;
+        }
         report.toDo++;
         if (listed.has(hash)) return;
         listed.add(hash);
@@ -756,7 +761,8 @@ function battlefield(data: PortGameData, art: Map<string, Art>, original: Origin
       : "game/ holds no cell hashes for this archive: run npm run art:worklist with POR_GAMEDATA set";
     reports.push(report);
   }
-  return { items, reports, derived, keys: keyed.size, keysThatAreAStoredCell: [...keyed].filter((hash) => holders.has(hash)).length };
+  return { items, reports, derived, unconfirmedCells: [...unconfirmed].filter((hash) => !listed.has(hash)).length,
+    keys: keyed.size, keysThatAreAStoredCell: [...keyed].filter((hash) => holders.has(hash)).length };
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -1059,7 +1065,7 @@ function main(): void {
   const notEstablished: Record<string, number | string> = {};
   for (const report of first.reports) for (const [reason, count] of Object.entries(report.notEstablished)) notEstablished[`first-person ${reason}`] = Number(notEstablished[`first-person ${reason}`] ?? 0) + count;
   notEstablished["first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows"] = "not counted";
-  notEstablished["battlefield cells of pictures no artwork shows to have been on a battlefield"] = battle.reports.reduce((sum, report) => sum + report.notEstablished, 0);
+  notEstablished["distinct battlefield cells of pictures no artwork shows to have been on a battlefield"] = battle.unconfirmedCells;
   notEstablished["battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain)"] = "not counted: needs the game's battlefield builder read";
   notEstablished["other picture frames no key names (listed below)"] = otherPicturesNoKeyNames.length;
   if ("error" in others && others.error) notEstablished["other picture frames: " + others.error] = "?";
