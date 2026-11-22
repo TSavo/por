@@ -140,6 +140,20 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "visit-temple-of-bane (qa/fixtures/visit-temple-of-bane, game/)": {
+   "areas": [
+    0,
+    8,
+    24,
+    26
+   ],
+   "commissions": [
+    "sokal"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
