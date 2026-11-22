@@ -1007,6 +1007,7 @@ const portraitLoops = [
   ["portrait:area:14:ecl:a13f:PIC1.DAX:1:", 3],
   ["portrait:area:14:ecl:a1c6:PIC1.DAX:1:", 3],
   ["portrait:area:14:ecl:a3d5:PIC1.DAX:1:", 3],
+  ["portrait:area:14:ecl:9d66:PIC1.DAX:1:", 3],
 ].map(([prefix, members, initial, cue]) => ({
   cue,
   phases: (Array.isArray(members) ? members : Array.from({ length: members }, (_, index) => index))

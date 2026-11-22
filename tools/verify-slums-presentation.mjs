@@ -1322,6 +1322,7 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:14:ecl:9d66:PIC1.DAX:1:0:0",
     prompt: /VIEW.*POOL/i,
     idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:9d66:PIC1.DAX:1:${phase}:0`),
+    heldPortraitLoop: 3,
     continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /10,9N/i },
   }],
   ["kovel-casket-needle", {
