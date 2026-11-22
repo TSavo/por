@@ -1128,6 +1128,13 @@ respectively, member 2 and frame 0. Each appears at guest coordinates
 (56,32). Native Chrome checkpoint replays confirmed each replacement in
 its encounter and checked that switching modes preserved state and saves.
 
+The Textile House return in `walk-library-locked-temple` checks the redrawn
+far ghoul at (10,5) facing west. Chrome displayed the 96×228 transparent
+sprite at the existing WebGL anchor with both GOG 1.3 and bundled data.
+Its visible bounds remain 48×46 at (28,154) on the PNG. The native prompt
+kept the far sprite still through 120 no-input polls. One Enter led to
+the Textile House ghoul battle illustration in both Enhanced replays.
+
 The Kobold Cave west turn adds two 32×32 floor junction tiles in area 13.
 A native Chrome checkpoint replay checked 242 tile placements across the
 entry view and the west-facing view and compared state across the mode
