@@ -188,14 +188,14 @@ tiles. Use that audit for standalone data work and the original-file
 inventories and browser replays for the current Enhanced coverage.
 See [GAME-DATA.md](GAME-DATA.md).
 
-At `5cd134af`, the same audit resolves 8,986 of 9,050 manifest keys.
+At `38d9d694`, the same audit resolves 10,556 of 10,620 manifest keys.
 The remaining findings comprise 59 scene illustration keys and five
 battlefield tile keys. Across PIC, SPRIT, CPIC, COMSPR, and RANDCOM,
 666 of 833 source frames have a direct key and 124 more share pixels
 with a keyed frame. The other 43 are candidates for live review.
-The tile audit finds 2,374 of 3,007 nonblank original 8×8 rows with a
-32×32 replacement. Rows can share pixels, so the 633 uncovered rows
-do not represent 633 distinct drawings.
+The tile audit finds 2,450 of 3,007 nonblank original 8×8 rows with a
+32×32 replacement. Rows can share pixels, so the 557 uncovered rows
+do not represent 557 distinct drawings.
 
 A GOG 1.3 Chrome run of `diogenes-advice` at `a946cc4b` confirmed
 the silver dragon's departure plate at `area:19:ecl:aeeb:cue:diogenes-advice-departure`.
@@ -261,6 +261,12 @@ The same Chrome replay passed with `POR_GAME_SOURCE=port` at `d47fe2aa`.
 The interiors of the possession threat, Pool recall, and Phlan homecoming
 illustrations matched the original-file Enhanced screenshots pixel for
 pixel. The standalone screenshots still lack the surrounding panel rails.
+
+The `valjevo-pool-return-stairs` Chrome replay passed with the original
+GOG 1.3 files and with `POR_GAME_SOURCE=port`. While the script still
+names area 7, the native map is 3 and the Enhanced walls use area 5
+textures. The WebGL viewport interior matched pixel for pixel in the two
+screenshots. The standalone screenshot still lacks the panel rails.
 
 The Bane ogre commander's ready and strike keys pass the standalone audit
 through the Bane Mansion map's owning script, ECL1 block 24. GOG 1.3 Chrome verified both poses at
