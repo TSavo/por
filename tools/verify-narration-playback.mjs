@@ -28,7 +28,8 @@ import { openChromeCampaignLeg } from "./chrome-campaign-replay.mjs";
 // once, with nothing left sounding or queued, and the next passage's line to start cleanly.
 //
 // --break shows the check red: `ended` drops the player's handling of a recording's end, so the
-// next line never starts; `overlap` lets the queue start a line while another is playing.
+// next line never starts; `overlap` lets the queue start a line while another is playing. A broken
+// run makes pass 1 only.
 // Every failure is printed; the check exits 1 if there is any. Evidence stays in out/.
 
 const chromePath = process.argv[2];
@@ -208,8 +209,8 @@ console.log(`Pass 1: wait for every line to finish before pressing on${broken ? 
 }
 
 // ---- pass 2: press on early ----------------------------------------------------------------------------------------
-console.log("Pass 2: press Enter three seconds into each line, then stop one with another key");
-{
+if (!broken) console.log("Pass 2: press Enter three seconds into each line, then stop one with another key");
+if (!broken) {
   const leg = await openLeg("pressing");
   /** The newest narration, once it has been playing for `seconds`. */
   const playingFor = (seconds) => (log) => log.lines.at(-1)?.position >= seconds && !log.lines.at(-1).outcome;
