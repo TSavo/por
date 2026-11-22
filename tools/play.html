@@ -169,6 +169,9 @@
     #wheel-panel button:hover, #wheel-panel button:focus-visible { background: #3f3121; }
     #wheel-tool-help { font-size: 1.5cqw; color: #cbbd9f; }
     /* Put away at the question, the question's card sits in the empty part of the game's own question screen. */
+    /* Up beside runes, the wheel takes the party roster's corner so the picture and the text window, where the runes are, stay in view. */
+    #code-wheel[data-mode="tool"]:not([hidden]) { inset: 2% 2% 36% 42%; border: 1px solid #c7a36a; box-shadow: 0 6px 18px #000a; }
+    #code-wheel[data-mode="tool"] #wheel { width: auto; height: 100%; max-width: 100%; justify-self: center; }
     #code-wheel[data-mode="away"]:not([hidden]) { inset: 62% 4% 9.5% 4%; display: block; background: none; overflow: visible; }
     #code-wheel[data-mode="away"] #wheel { display: none; }
     #code-wheel[data-mode="away"] #wheel-panel { height: 100%; box-sizing: border-box; display: flex; align-items: center;
@@ -310,8 +313,8 @@
           <output id="wheel-word" data-in="question away" aria-label="Code word"></output>
           <p id="wheel-message" role="alert" data-in="question away"></p>
           <p id="wheel-help" data-in="question">Left and Right, the mouse wheel or a drag turn the inner disc. Type the word and press Enter.</p>
-          <p id="wheel-tool-help" data-in="tool">Left and Right, the mouse wheel or a drag turn the inner disc. To translate a rune, bring it to its TRANSLATE FROM tab and read ring 1, the innermost window, under the dotted path. Translate lines the two tabs up to start from. For a code word, match its two runes and read its path from the inside out.</p>
-          <button id="wheel-translate" type="button" data-in="tool" aria-keyshortcuts="T" title="Line up the two TRANSLATE FROM tabs (T)">Translate</button>
+          <p id="wheel-tool-help" data-in="tool">Left and Right, the mouse wheel or a drag turn the inner disc. To translate a rune, bring it to its TRANSLATE FROM tab and read ring 1, the innermost window, under the dotted path. Type the word as usual: the game takes it with the wheel up. Escape puts the wheel away and brings it back.</p>
+          <button id="wheel-translate" type="button" data-in="tool" title="Line up the two TRANSLATE FROM tabs">Translate</button>
           <button id="wheel-close" type="button" data-in="question tool" aria-keyshortcuts="Escape" title="Put the wheel away (Esc)">Put the wheel away</button>
           <button id="wheel-open" type="button" data-in="away" aria-keyshortcuts="Escape" title="Show the wheel (Esc)">Show the wheel</button>
         </div>

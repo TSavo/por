@@ -1664,13 +1664,10 @@ function codeWheelKey(event) {
     return true;
   }
   if (!codeWheel.ended && !codeWheelAsking()) {
-    // Open as a tool. Keys that are not the wheel's own are dropped here, as the Journal drops
-    // them while it is open, so none reaches the game by accident.
-    const own = event.key.toLowerCase();
-    if (turning) turnCodeWheel(event.key === "ArrowLeft" ? -1 : 1);
-    else if (event.repeat || event.shiftKey) return true;
-    else if (own === "t") codeWheelTranslate();
-    else return true;
+    // Up beside runes on screen. Left and Right turn the disc; every other key goes to the game, so the
+    // player can type the word the runes spell while the wheel is still up.
+    if (!turning) return false;
+    turnCodeWheel(event.key === "ArrowLeft" ? -1 : 1);
     event.preventDefault();
     return true;
   }
@@ -1898,6 +1895,12 @@ window.addEventListener("keydown", (event) => {
   queueMicrotask(() => { keyEndsVoice = undefined; });
   // While the Enhanced code wheel is in view it takes the arrows, the word and Enter.
   // A held arrow keeps turning the disc.
+  // With runes on screen Escape brings the put-away wheel back.
+  if (enhanced && runesOnScreen() && !codeWheelShown() && !codeWheelAsking() && event.key === "Escape" && !event.repeat) {
+    event.preventDefault();
+    toggleCodeWheel();
+    return;
+  }
   if ((codeWheelShown() || codeWheelAsking()) && !event.ctrlKey && !event.metaKey && !event.altKey && codeWheelKey(event)) return;
   if (event.repeat || event.ctrlKey || event.metaKey) return;
   if (!bootWheel.hidden && event.key !== "F10") {
