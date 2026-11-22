@@ -14672,7 +14672,13 @@ try {
       assert.equal(frame.scenery?.area, area);
       await waitForExplorationViewport();
       if (!sceneryAreas.has(area)) {
-        if (area === 7) assert.equal(await run('document.querySelector(".street-viewport")?.dataset.sky'), "valjevo");
+        if (area === 7) {
+          const response = await fetch(`${origin}/exploration-materials/${frame.scenery.materialId}`);
+          assert.ok(response.ok, "Expected the Valjevo WebGL materials");
+          const { wallFaces } = await response.json();
+          assert.ok(wallFaces.some(({ parts }) => parts.some(({ art }) => art?.key.startsWith("tile:7:"))),
+            "Expected Enhanced audience hall wall materials");
+        }
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, `castle-halls-webgl-area-${area}.png`), Buffer.from(shot.data, "base64"));
         sceneryAreas.add(area);
