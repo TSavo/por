@@ -3147,7 +3147,16 @@ const illustrationRoutes = new Map([
       10: "valhingen-grave-claws-phase-4.png",
     },
     finalPhaseCapture: "valhingen-grave-claws-phase-7.png",
-    continuation: { inputs: ["enter"], portrait: "portrait:area:10:ecl:b5c7:PIC4.DAX:11:7:0", prompt: /ABATTLEBEGINS/i },
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:b5c7:cue:grave-claws-attack", prompt: /ABATTLEBEGINS/i },
+  }],
+  ["valhingen-grave-claws-attack", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:10:PIC4.DAX:11:0:0", prompt: /CLAWSRISEFROMTHESOIL/i,
+    continuation: {
+      inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:b5c7:cue:grave-claws-attack",
+      prompt: /CLAWSRISEFROMTHESOILANDATTEMPTTODRAGYOUDOWN.*ABATTLEBEGINS/i,
+      screenshot: "valhingen-grave-claws-attack.png",
+    },
   }],
   ["kobold-white-flag-escort-phase", {
     slot: "B", inputs: ["up", "enter", "enter", "enter", "z", "z", "a"],

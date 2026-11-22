@@ -636,6 +636,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:10:ecl:b5c7:cue:charged-tower-wight-attack", "WIGHTSAPPEARFROMBEHINDTHETOWER"],
   ["scene-illustration:area:10:ecl:b5c7:cue:zombie-patrol-attack", "LUMBERINGFIGURESREACHFORYOU"],
   ["scene-illustration:area:10:ecl:b5c7:cue:zombie-stairs-attack", "ZOMBIESSHUFFLEDOWNTHESTAIRS"],
+  ["scene-illustration:area:10:ecl:b5c7:cue:grave-claws-attack", "CLAWSRISEFROMTHESOILANDATTEMPTTODRAGYOUDOWN"],
   ["scene-illustration:area:10:ecl:a4f8", "NOXIOUSFUMESPOURFROMTHETOWERDOORWAY"],
   ["scene-illustration:area:10:ecl:a4f9", "NOXIOUSFUMESPOURFROMTHETOWERDOORWAY"],
   ["scene-illustration:area:10:ecl:a53e", "NOXIOUSFUMESTEARATYOURTHROAT"],
