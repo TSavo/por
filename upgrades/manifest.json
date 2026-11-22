@@ -15484,6 +15484,8 @@
     "portrait:PIC5.DAX:66:0:0": "bronze-dragon-portrait.png",
     "scene:publisher": "publisher-splash.png",
     "scene:title": "harbor-title.png",
+    "scene:title-name": "title-name.png",
+    "scene:title-edition": "title-edition.png",
     "tile:21:858b73d63eb2439f5d3755fe6002d941fcc99e9a5fdb06fb568a21ff2599262f": "sokal-vault-stones.png",
     "tile:21:72d0fd83d0d2dabd4d37e4737304e2831a18fb8a170a2b3c321d94c87e8f00a1": "sokal-falling-vault-join.png",
     "tile:21:ed11a107e77bf23aaf5e3448407dcf969708c9aeaeedccef7135345f93117730": "sokal-left-recess-edge.png",
