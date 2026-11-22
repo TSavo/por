@@ -151,7 +151,10 @@ export interface TileCatalogue {
 }
 
 export interface ContentFile { format: string; formatVersion: number; kind: string; records: ContentRecord[] }
-export interface PictureFile { format: string; formatVersion: number; kind: string; records: PictureRecord[] }
+export interface PictureFile {
+  format: string; formatVersion: number; kind: string; records: PictureRecord[];
+  partyIconColours?: Record<string, string>;
+}
 
 const fromHex = (hex: string): Uint8Array => {
   const bytes = new Uint8Array(hex.length / 2);
@@ -217,6 +220,12 @@ export interface PortGameData {
   program: ProgramData;
   content: ContentRecord[];
   pictures: PictureRecord[];
+  /**
+   * For each combat party icon the game can compose, "<CHEAD block>:<CBODY block>", the colour numbers its pixels
+   * use, as four hex digits (bit n set when colour n is drawn). The head's bitplanes are ORed onto the body's, so
+   * the set cannot be had from the two blank pictures. The colour remap of a recoloured icon counts only these.
+   */
+  partyIconColours: Record<string, string>;
 }
 
 export function readGameData(read: ReadGameData): PortGameData {
@@ -225,11 +234,13 @@ export function readGameData(read: ReadGameData): PortGameData {
   if (manifest.formatVersion !== GAME_DATA_VERSION) {
     throw new Error(`game/ is format version ${manifest.formatVersion}; this build reads version ${GAME_DATA_VERSION}. Run npm run build:game-data.`);
   }
+  const pictures = json<PictureFile>(read, manifest.pictures);
   return {
     manifest,
     program: json<ProgramData>(read, manifest.program),
     content: manifest.content.flatMap((path) => json<ContentFile>(read, path).records),
-    pictures: json<PictureFile>(read, manifest.pictures).records,
+    pictures: pictures.records,
+    partyIconColours: pictures.partyIconColours ?? {},
   };
 }
 

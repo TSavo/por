@@ -24,14 +24,23 @@ function recordIcon(cpu: Cpu, segment: number, offset: number, recolor: boolean)
   return { head: record(0xbd), body: record(0xbe), size: record(0xc0), palette: palette.join("") };
 }
 
+/** Which colours each party icon draws, from game/ (`partyIconColours`); the framebuffer matcher sees only these. */
+let iconColours: Record<string, string> = {};
+
 function partyIconKey(cpu: Cpu, icon: PartyIcon, pose: number, art: ReadonlySet<string>, materialKeys: ReadonlySet<string>) {
   // The DOS loader adds 64 to both blocks for the tall icon archive.
   const size = cpu.read8(unit.data, data.partyIconSizeSuffix + icon.size);
   if (size !== 0x53 && size !== 0x54) return;
   const tall = size === 0x54 ? 64 : 0;
-  const base = `combat:party:${icon.head + tall}:${icon.body + tall + pose * 128}`;
-  if (icon.palette !== defaultPalette) {
-    const recolored = `${base}:palette:${icon.palette}`;
+  const head = icon.head + tall, body = icon.body + tall + pose * 128;
+  const base = `combat:party:${head}:${body}`;
+  // The record names a colour for every pair, but the original's framebuffer shows only the colours the icon draws:
+  // a colour it never draws keeps its own number in the key. Do the same.
+  const drawn = iconColours[`${head}:${body}`];
+  const palette = drawn === undefined ? icon.palette
+    : [...icon.palette].map((colour, index) => (Number.parseInt(drawn, 16) >> index) & 1 ? colour : defaultPalette[index]).join("");
+  if (palette !== defaultPalette) {
+    const recolored = `${base}:palette:${palette}`;
     if (art.has(recolored) || (art.has(base) && materialKeys.has(base))) return recolored;
   }
   return art.has(base) ? base : undefined;
@@ -56,6 +65,7 @@ export function observeNativeCombatArt(art: ReadonlySet<string>, materialKeys: R
   const poseGroups = new Map<string, string[]>();
   const equivalentPoses = new Map<string, string[]>();
   const root = findGameRoot();
+  iconColours = root ? portGame(root).data.partyIconColours : {};
   for (const { file, block, pictures } of root ? portGame(root).data.pictures : []) {
     const [picture] = pictures;
     if (!/^(?:CPIC[1-8]|ICON)\.DAX$/.test(file) || !picture || pictures.length !== 1 || picture.frameHashes.length !== 1) continue;

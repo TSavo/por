@@ -17,6 +17,7 @@ import { parseDax } from "../src/lib/dax.js";
 import { loadExecutable } from "../src/lib/exepack.js";
 import { decodePicture, frameSlice, isPicture, pictureMembers } from "../src/lib/picture.js";
 import { segment, useGameVersion } from "../src/runtime/bindings.js";
+import { partyCombatPart } from "./combat-art.js";
 import {
   blankPictureBytes, contentBytes, dataFiles, GAME_DATA_FORMAT, GAME_DATA_VERSION, overlayFile, overlayStub, programImage,
   type BlobReference, type ContentRecord, type GameDataManifest, type OverlayData, type PictureRecord, type PictureShape,
@@ -374,6 +375,7 @@ export function buildGameData(gameDirectory: string, map = instructionMap(gameDi
   const blobs = { scripts: new Blob("content/scripts.bin"), saves: new Blob("content/saved-games.bin") };
   const groups = new Map<string, ContentRecord[]>();
   const pictures: PictureRecord[] = [];
+  const heads = new Map<number, Uint8Array>(), bodies = new Map<number, Uint8Array>();
   const add = (file: string, block: number | undefined, position: number | undefined, packedBytes: number | undefined, data: Uint8Array) => {
     const { group, record } = contentRecord(file, block, position, packedBytes, data, blobs);
     groups.set(group, [...(groups.get(group) ?? []), record]);
@@ -384,7 +386,11 @@ export function buildGameData(gameDirectory: string, map = instructionMap(gameDi
     const entries = parseDax(file, bytes).entries;
     if (new Set(entries.map(({ id }) => id)).size !== entries.length) throw new Error(`${file} holds two blocks with one number`);
     for (const [position, { id, data, compSize }] of entries.entries()) {
-      if (PICTURE_ARCHIVE.test(file)) pictures.push(pictureRecord(file, id, position, compSize, data));
+      if (PICTURE_ARCHIVE.test(file)) {
+        pictures.push(pictureRecord(file, id, position, compSize, data));
+        const part = file === "CHEAD.DAX" ? partyCombatPart(data, 10) : file === "CBODY.DAX" ? partyCombatPart(data, 24) : undefined;
+        if (part) (file === "CHEAD.DAX" ? heads : bodies).set(id, part);
+      }
       else add(file, id, position, compSize, data);
     }
   }
@@ -395,7 +401,18 @@ export function buildGameData(gameDirectory: string, map = instructionMap(gameDi
   const header = (kind: string) => ({ format: GAME_DATA_FORMAT, formatVersion: GAME_DATA_VERSION, kind });
   const content = [...groups.keys()].sort().map((group) => `content/${group}.json`);
   for (const [group, records] of groups) out.set(`content/${group}.json`, text({ ...header(group), records }));
-  out.set("pictures.json", text({ ...header("pictures"), records: pictures }));
+  // The colours each head-and-body party icon draws: the guest ORs the head's bitplanes onto the body's.
+  const partyIconColours: Record<string, string> = {};
+  for (const [head, face] of [...heads].sort(([a], [b]) => a - b)) {
+    for (const [body, torso] of [...bodies].sort(([a], [b]) => a - b)) {
+      const pixels = torso.slice();
+      for (const [index, color] of face.entries()) pixels[index] = pixels[index]! | color;
+      let mask = 0;
+      for (const color of pixels) mask |= 1 << color;
+      partyIconColours[`${head}:${body}`] = (mask & 0xffff).toString(16).padStart(4, "0");
+    }
+  }
+  out.set("pictures.json", text({ ...header("pictures"), records: pictures, partyIconColours }));
   out.set("tiles.json", text({ ...header("tiles"), transparentColour: TRANSPARENT_COLOUR,
     tiles: [...tileCatalogue.values()].sort((a, b) => a.hash < b.hash ? -1 : 1) }));
   out.set("program.json", text(program));
@@ -408,7 +425,7 @@ export function buildGameData(gameDirectory: string, map = instructionMap(gameDi
 
   // Every record must come back from the written files byte for byte, pictures blank.
   const read: ReadGameData = (path) => out.get(path)!;
-  const data: PortGameData = { manifest, program, content: [...groups.values()].flat(), pictures };
+  const data: PortGameData = { manifest, program, content: [...groups.values()].flat(), pictures, partyIconColours };
   const served = new Map(dataFiles(data, read).map(({ name, data }) => [name, data]));
   let contentBytesTotal = 0, pictureRecords = 0;
   for (const [file, bytes] of original) {
