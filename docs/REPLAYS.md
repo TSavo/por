@@ -228,3 +228,21 @@ Chrome displayed 163 views per run. The original-data baseline recorded
 15 overland background fallbacks and one Nomad Camp portrait fallback.
 The atlas and scoped portrait fixes brought that count to zero in both
 data modes. The separate runner parity check matched all 152 frames.
+
+## Checkpoints for the presentation replays
+
+`node tools/verify-slums-presentation.mjs <checkpoint> <chrome> <route> [option]` plays one of about 1,250
+routes from a saved game. The checkpoint is a slot file whose `name` and party files carry the slot letter the
+route loads (the route's table says which; a save of another letter is relabelled, see below). Only
+`new-phlan-rolf-approach` starts a fresh game (pass `-`).
+
+`npm run qa:replay-checkpoints` counts the routes that run from a clean checkout: the route is listed in
+`qa/replay-checkpoints.json` (`fresh`, `checkpoints` with the committed save to pass, or `chains` for a route that
+reloads the save another route writes) or a `qa/fixtures/*/README.md` run line names its save. `-- --list` prints
+every route with its table, slot and save. It exits 1 while any route has none. `proved` in the registry lists the
+routes that were run in Chrome from the named file.
+
+`node tools/sweep-replay-checkpoints.mjs <chrome> <results.jsonl>` finds saves: it tries each distinct saved game
+under `qa/fixtures` against each missing route (relabelled to the route's slot letter) and logs every try;
+`--adopt <results.jsonl>` copies each pass into `qa/fixtures/replay-checkpoints/<save id>/<slot>.json` and
+registers it. Run it on Battleaxe with `POR_GAME_SOURCE=port`.
