@@ -9,7 +9,7 @@
    "heard": 66
   },
   "acceptance-new-phlan": {
-   "ledger": "acceptance-new-phlan-training-notice.jsonl",
+   "ledger": "acceptance-new-phlan-council-close-final.jsonl",
    "games": 7,
    "decisions": 521,
    "heard": 106
@@ -660,10 +660,9 @@
   "por.voice.ecl3.b8-af4b": {
    "run": "acceptance-new-phlan",
    "step": 109823999,
-   "withoutArt": {
-    "run": "acceptance-new-phlan",
-    "step": 109823999,
-    "showing": "no picture"
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:8:ecl:af78:caller:9a4a:cue:commissions-closed"
    }
   },
   "por.voice.ecl7.b23-9a70-9afa": {
