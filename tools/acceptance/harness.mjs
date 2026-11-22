@@ -313,6 +313,8 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
         }
         if (value.startsWith("POR_TEXT ")) texts.push(JSON.parse(value.slice("POR_TEXT ".length)).message);
         if (value.startsWith("POR_NARRATION ")) narrations.push(JSON.parse(value.slice("POR_NARRATION ".length)));
+        // The runner reports where the translation stopped on this pipe ("entry: ..."): keep it for the failure.
+        if (value.startsWith("entry:")) errors += value + "\n";
         if (refusal.test(value)) return false;
       }
     },
