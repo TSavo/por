@@ -360,6 +360,25 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "walk-library-cleared": {
+   "areas": [
+    0,
+    2,
+    15,
+    26
+   ],
+   "commissions": [
+    "auction",
+    "kobolds",
+    "kovel",
+    "nomads",
+    "sokal",
+    "textile"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
