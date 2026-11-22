@@ -125,7 +125,10 @@ async function item(name, body, { party = false } = {}) {
       for (const [cell, character] of state.text ?? []) cells[cell] = String.fromCharCode(character);
       return cells.join("").replace(/ +/g, " ");
     })()`);
-    const settled = `(Boolean(state.stopped) || (state.ready && !posting && renderingSequence === undefined)) && !(${hooks.busy})`;
+    // While an approaching encounter plays (Rolf's, in the opening) the page takes no key, as the game
+    // drawing it on DOS took none (#129): a key pressed then is lost, so the check waits for it to end.
+    const settled = `(Boolean(state.stopped) || (state.ready && !posting && renderingSequence === undefined &&
+      !animationFrame?.approach)) && !(${hooks.busy})`;
     // A real key press on the page, given once the page has dealt with the one before.
     const key = async name => {
       await until("the page to be ready for a key", settled);
