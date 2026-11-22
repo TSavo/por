@@ -34,6 +34,22 @@ const read = (path: string) => new Uint8Array(readFileSync(join(portGameRoot, pa
 const data = readGameData(read);
 const records = new Map(data.pictures.map((record) => [`${record.file}:${record.block}`, record]));
 
+const narration = JSON.parse(readFileSync(new URL("../src/audio/voice-master-manifest.json", import.meta.url), "utf8")) as {
+  events: { sourceId: string; source: { archive: string; block: number } }[];
+  units: { triggerSourceId: string; resolution?: string; runtimeVariants?: { text: string }[] }[];
+};
+const narrationSources = new Map(narration.events.map(({ sourceId, source }) => [sourceId, source]));
+const dynamicCaptions = new Map<string, string[]>();
+for (const { triggerSourceId, resolution, runtimeVariants } of narration.units) {
+  if (resolution !== "finite-runtime-variants" || !runtimeVariants?.length) continue;
+  const source = narrationSources.get(triggerSourceId);
+  if (!source) continue;
+  const key = `${source.archive}:${source.block}`;
+  const captions = dynamicCaptions.get(key) ?? [];
+  for (const { text } of runtimeVariants) captions.push(text.toUpperCase().replace(/\s/g, ""));
+  dynamicCaptions.set(key, captions);
+}
+
 // Script blocks are the primary area IDs. A script can also load a separate map.
 interface AreaScript {
   archive: number; block: number; end: number; starts: Set<number>; text: string; captions: string[];
@@ -159,17 +175,19 @@ const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
     if (/:cue:/.test(key)) {
       if (cue === undefined) return "its cue is not defined in tools/portrait-art.ts";
       // A displayed caption can outlast the script that printed it.
-      const { text, captions } = scripts.get(Number(area))!;
+      const { archive, block, text, captions } = scripts.get(Number(area))!;
       // TREASURE prepares rewards; COMBAT opens the engine's loot menu at its resume cursor.
       if (cue === "VIEWTAKEPOOLEXIT" || cue === "VIEWTAKEPOOLSHAREEXIT") {
         const script = scripts.get(Number(scriptArea))!;
         const address = runningScriptAddress(script.archive, script.block, Number.parseInt(cursor, 16), "1.3");
         if (script.treasureMenus.has(address)) return;
       }
-      const matches = typeof cue === "string"
-        ? text.includes(cue.toUpperCase().replace(/[^A-Z0-9.]/g, ""))
-        : cue.test(text) || captions.some(caption => cue.test(caption));
-      if (!matches) return "its cue's text is not in the area's converted script";
+      const variants = dynamicCaptions.get(`ECL${archive}.DAX:${block}`) ?? [];
+      if (typeof cue === "string") {
+        const normalized = cue.toUpperCase().replace(/[^A-Z0-9.]/g, "");
+        if (text.includes(normalized) || variants.some(caption => caption.replace(/[^A-Z0-9.]/g, "").includes(normalized))) return;
+      } else if ([text, ...captions, ...variants].some(caption => cue.test(caption))) return;
+      return "its cue's text is not in the area's converted script or known runtime captions";
     }
   }],
   [/^scene:(title|publisher)$/, () => records.has("TITLE.DAX:1") ? (cover(records.get("TITLE.DAX:1")!, 0, 0), cover(records.get("TITLE.DAX:2") ?? records.get("TITLE.DAX:1")!, 0, 0), undefined) : "TITLE.DAX is not in game/"],
