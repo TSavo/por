@@ -25,6 +25,7 @@
     "verify:code-wheel-screen": "node tools/verify-code-wheel-screen.mjs",
     "verify:character-sheet-fallback": "node tools/verify-character-sheet-fallback.mjs",
     "verify:combat-report-queue": "node --import tsx tools/verify-combat-report-queue.mjs",
+    "verify:developer-combat": "node tools/verify-developer-combat.mjs",
     "verify:runes-readable": "node tools/verify-runes-readable.mjs",
     "verify:rune-glyphs": "tsx tools/verify-rune-glyphs.mjs",
     "verify:port-parity": "node tools/verify-port-parity.mjs",
