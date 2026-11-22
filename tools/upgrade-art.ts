@@ -1,7 +1,7 @@
 import { closeSync, openSync, readFileSync, readSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { lookupOverride, type EncounterAnchor, type OverrideManifest } from "../src/lib/assets.js";
-import { characterSheetPartKey, characterSheetPartPixels, portraitKey, scriptIllustrations } from "./portrait-art.js";
+import { characterSheetPartKey, characterSheetPartPixels, endingPortraitKey, portraitKey, scriptIllustrations } from "./portrait-art.js";
 import { encounterAnchor, encounterKey, encounterPixels, matchesEncounterSource } from "./encounter-art.js";
 import { combatSelectionKey, combatEffectKey, isCombatExtent, monsterCombatKey, partyCombatKey, partyCombatPart, randomCombatKey, randomCombatPixels } from "./combat-art.js";
 import { parseDax } from "../src/lib/dax.js";
@@ -91,8 +91,8 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
         const sheetPart = characterSheetPartKey.exec(id);
         // scene:title-name and scene:title-edition are the game's name and SPECIAL EDITION, each drawn on its own so the page can fade them in over the title art.
         const startupScene = id === "scene:title" || id === "scene:publisher" || id === "scene:title-name" || id === "scene:title-edition";
-        const scriptIllustration = scriptIllustrations.has(id);
-        if (!startupScene && !scriptIllustration && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
+        const illustration = scriptIllustrations.has(id) || endingPortraitKey.test(id);
+        if (!startupScene && !illustration && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
             !/^battle-tile:[a-f0-9]{64}$/.test(id) && !monster && !party && !random && !combatSelection && !effect && !sheetPart && !portraitKey.test(id) && !encounter) {
           reject("Unsupported asset ID or invalid encounter placement.", id);
           continue;
@@ -175,7 +175,7 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
               reject("Character sheet source part is missing or invalid.", id);
               continue;
             }
-          } else if (portraitKey.test(id) || scriptIllustration) sourceWidth = sourceHeight = 88;
+          } else if (portraitKey.test(id) || illustration) sourceWidth = sourceHeight = 88;
           const { width, height } = dimensions;
           if (width !== sourceWidth * 4 || height !== sourceHeight * 4) {
             reject(`Expected ${sourceWidth * 4}×${sourceHeight * 4} PNG, found ${width}×${height}.`, id);

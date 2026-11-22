@@ -28,7 +28,7 @@ import { runningScriptAddress } from "../src/runtime/bindings.js";
 import { contentBytes, readGameData, type PictureRecord, type TileCatalogue } from "../src/runtime/game-data.js";
 import { portGameRoot } from "./gamedata.js";
 import { pngDimensions } from "./png.js";
-import { portraitHoldAction, scriptIllustrations } from "./portrait-art.js";
+import { endingPortraitKey, portraitHoldAction, scriptIllustrations } from "./portrait-art.js";
 import { blankApproachSprites } from "./encounter-art.js";
 import { readExplorationCellHashes } from "./exploration-cells.js";
 import { monsterCombatKey } from "./combat-art.js";
@@ -194,6 +194,10 @@ const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
   [/^combat-effect:(COMSPR\.DAX):(\d{1,3})(?::(?:flip-x|transpose))?$/, ([, file, block]) => frame(file!, block!)],
   [/^combat-selection:(COMSPR\.DAX):(\d{1,3})$/, ([, file, block]) => frame(file!, block!)],
   [/^character-sheet:((?:HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/, ([, file, block]) => frame(file!, block!)],
+  [endingPortraitKey, ([key]) => {
+    const [, , , file, block, member, index] = key.split(":");
+    return frame(file!, block!, member, index);
+  }],
   [new RegExp(`^portrait:${scoped}(PIC\\d\\.DAX):(\\d{1,3}):(\\d{1,3}):(\\d{1,3})$`), ([, area, cursor, caller, file, block, member, index]) =>
     frame(file!, block!, member, index) ?? scope(area, cursor, caller)],
   [new RegExp(`^portrait:${scoped}(HEAD\\d\\.DAX):(\\d{1,3}):(BODY\\d\\.DAX):(\\d{1,3})$`), ([, area, cursor, caller, head, headBlock, body, bodyBlock]) =>

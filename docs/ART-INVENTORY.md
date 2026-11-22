@@ -317,9 +317,15 @@ records covered by that Enhanced sequence. A separate `castle-ending
 --council-finale` checkpoint replay passed in both modes. It verified
 seven WebGL views, the City Hall and proclamations illustrations, the
 clerk’s victory portrait, the XP award, the treasure payout, display
-switching, and a saved journal turn-in. No individual FINAL5 replacement
-is needed for the verified sequence. These paired checkpoint runs do
-not certify a continuous campaign playthrough.
+switching, and a saved journal turn-in.
+
+The continuous ending investigation in [#121](https://github.com/TSavo/por/issues/121)
+also identified two animations that run between those caption frames.
+The Enhanced poses for blocks 2 and 7 are 352×352 portraits bound by
+`portrait:area:7:FINAL5.DAX:<block>:<member>:0`. Each set shares a
+fixed illustrated background with individually drawn spirit poses.
+The Chrome checkpoint checks above cover the caption illustrations and
+council payout. The live animation check follows the intervening native draws.
 
 The `valjevo-pool-return-stairs` Chrome replay passed with the original
 GOG 1.3 files and with `POR_GAME_SOURCE=port`. While the script still

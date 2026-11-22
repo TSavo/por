@@ -31,6 +31,7 @@ import { Frame } from "../src/lib/ega.js";
 import { decodePicture, frameSlice, isPicture, pictureMembers } from "../src/lib/picture.js";
 import { contentBytes, readGameData, type PictureRecord, type PortGameData } from "../src/runtime/game-data.js";
 import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
+import { endingPortraitKey } from "./portrait-art.js";
 import {
   areaViewCells, covered, frontWallSymbols, HORIZON, namedTiles, reachable, readWorld, sha256, symbolTile, viewCells,
   type AreaScript, type Lower, type TileName, type ViewContext, type WallSlots, type WorldData,
@@ -826,18 +827,22 @@ function otherPictures(data: PortGameData, read: (path: string) => Uint8Array): 
       if (!picture) continue;
       const archive = /\d/.exec(file)?.[0];
       const scripts = archive ? shown.get(`${archive}:${block}`) : undefined;
+      const endingKey = `portrait:area:7:${frame}`;
+      const endingAnimation = endingPortraitKey.test(endingKey);
       const [what, keyForm, pngSize] = family === "PIC" ? ["a picture of the 88 by 88 window", `portrait:${file}:${block}:${member}:${index}`, "352x352"]
         : family === "SPRIT" ? ["an approach sprite", `encounter:${file}:${block}:${member}:${index}, with its placement under "encounters"`, `${picture.width * 4}x${picture.height * 4}`]
         : family === "HEAD" ? ["a portrait head", `portrait:${file}:${block}:BODYn.DAX:<body> for each body it is shown with, or character-sheet:${file}:${block}`, "352x352 for a portrait; 352 wide for a sheet part"]
-        : family === "FINAL" ? ["a picture of the ending", "none: tools/upgrade-art.ts accepts no key for FINAL pictures", "-"]
+        : family === "FINAL" ? endingAnimation ? ["an ending animation pose", endingKey, "352x352"]
+          : ["a picture of the ending", "covered by the Enhanced ending illustrations", "-"]
         : family === "ICON" ? ["a 24 by 24 combat icon", `combat:${file}:${block}`, "96x96"]
         : ["a picture", "none known", "-"];
       const evidence = (family === "PIC" || family === "SPRIT")
         ? scripts ? `a PICTURE ${block} is in the script of ${[...new Set(scripts)].slice(0, 4).join(", ")}${Number(member) || Number(index) ? `; this is member ${member} frame ${index} of the record, and which members a PICTURE draws must be seen in play` : ""}`
           : `no PICTURE ${block} with a plain number is in a script of archive ${archive}`
         : family === "ICON" ? "the native combat picture loader loads ICON ready and strike pairs (see docs/ART-INVENTORY.md)"
+        : endingAnimation ? "the original finale draws this animation member during a pause between prompts (see issue #121)"
         : file === "FINAL5.DAX"
-          ? "native placement confirmed by the GOG 1.3 valjevo-dragon-loot draw trace (see docs/ART-INVENTORY.md); Enhanced covers the sequence with scene illustrations, and this frame has no individual binding"
+          ? "native placement confirmed by the GOG 1.3 valjevo-dragon-loot draw trace (see docs/ART-INVENTORY.md); Enhanced covers this part of the sequence with scene illustrations"
           : "the scripts do not name it; the program draws it, and where has not been read";
       pictures.push({ frame, width: picture.width, height: picture.height, what, keyForm, pngSize, evidence });
     }
@@ -1095,8 +1100,13 @@ function main(): void {
     "scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-payout",
   ];
   const endingCovered = endingKeys.every((key) => !missing(art, key, 352, 352));
-  const endingFramesCoveredByIllustrations = endingCovered ? others.pictures.filter(({ frame }) => frame.startsWith("FINAL5.DAX:")) : [];
-  const otherPicturesNoKeyNames = others.pictures.filter((picture) => !blankSprites.has(picture.frame) && !endingFramesCoveredByIllustrations.includes(picture));
+  const unboundPictures = others.pictures.filter(({ frame }) => {
+    const key = `portrait:area:7:${frame}`;
+    return !endingPortraitKey.test(key) || missing(art, key, 352, 352);
+  });
+  const endingFramesCoveredByIllustrations = endingCovered ? unboundPictures.filter(({ frame }) =>
+    frame.startsWith("FINAL5.DAX:") && !endingPortraitKey.test(`portrait:area:7:${frame}`)) : [];
+  const otherPicturesNoKeyNames = unboundPictures.filter((picture) => !blankSprites.has(picture.frame) && !endingFramesCoveredByIllustrations.includes(picture));
 
   const notEstablished: Record<string, number | string> = {};
   for (const report of first.reports) for (const [reason, count] of Object.entries(report.notEstablished)) notEstablished[`first-person ${reason}`] = Number(notEstablished[`first-person ${reason}`] ?? 0) + count;

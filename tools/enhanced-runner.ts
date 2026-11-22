@@ -4,7 +4,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { isPortGameRoot, portGame } from "./gamedata.js";
-import { characterSheetPartKey, portraitKey, scriptIllustrations } from "./portrait-art.js";
+import { characterSheetPartKey, endingPortraitKey, portraitKey, scriptIllustrations } from "./portrait-art.js";
 import { readExplorationCellHashes } from "./exploration-cells.js";
 import { readWorld } from "./first-person-cells.js";
 import { standaloneExploration } from "./standalone-exploration.js";
@@ -24,7 +24,7 @@ export function enhancedArtEnv(artwork: Artwork, materialMasks: ReadonlyMap<stri
     POR_COMBAT_MATERIAL_KEYS: [...materialMasks.keys()].join(","),
     POR_COMBAT_EFFECT_KEYS: keys.filter(key => key.startsWith("combat-effect:")).join(","),
     POR_COMBAT_SELECTION_KEYS: keys.filter(key => key.startsWith("combat-selection:")).join(","),
-    POR_PORTRAIT_ART_KEYS: keys.filter(key => portraitKey.test(key) || scriptIllustrations.has(key)).join(","),
+    POR_PORTRAIT_ART_KEYS: keys.filter(key => portraitKey.test(key) || scriptIllustrations.has(key) || endingPortraitKey.test(key)).join(","),
     POR_CHARACTER_SHEET_ART_KEYS: keys.filter((key) => characterSheetPartKey.test(key)).join(","),
     POR_ENCOUNTER_ART: JSON.stringify(encounters),
   };

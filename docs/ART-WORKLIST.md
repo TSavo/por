@@ -6,8 +6,6 @@
 
 1. **Wall tiles: none. Outdoor fight terrain: none.**
 2. **Pictures: none.**
-**The shipped game (no original files) shows the wrong picture or none in 1 place.** The art exists; the lookup is wrong. These are GitHub issues labelled `shipped-game` (how we coordinate: issue #71). To take one, comment "Taking this" on its issue first, fix it from the game's own draws and state, check it with `npm run verify:port-parity`, and close it with `Fixes #N` in the commit.
-   - #72: From game/ the first Slums random fights show other monster art, in other places, than from the 1.3 files
 3. **Do not draw anything under "Not established".** Those cells are not confirmed to appear. The QA owner is settling them by play and moves each one that proves real into item 1.
 
 The artwork is done when items 1 and 2 are none and nothing is left under "Not established".
@@ -191,20 +189,10 @@ Every picture frame of the 1.3 files outside the tile sets and the battlefield t
 The paired GOG 1.3 Chrome replays verified the illustrated ending and council reward. These archive records remain inventoried for Classic and are covered as a sequence in Enhanced.
 
 - `FINAL5.DAX:1:0:0`
-- `FINAL5.DAX:2:0:0`
-- `FINAL5.DAX:2:1:0`
-- `FINAL5.DAX:2:2:0`
-- `FINAL5.DAX:2:3:0`
 - `FINAL5.DAX:3:0:0`
 - `FINAL5.DAX:4:0:0`
 - `FINAL5.DAX:5:0:0`
 - `FINAL5.DAX:6:0:0`
-- `FINAL5.DAX:7:0:0`
-- `FINAL5.DAX:7:1:0`
-- `FINAL5.DAX:7:2:0`
-- `FINAL5.DAX:7:3:0`
-- `FINAL5.DAX:7:4:0`
-- `FINAL5.DAX:7:5:0`
 - `FINAL5.DAX:8:0:0`
 - `FINAL5.DAX:8:1:0`
 - `FINAL5.DAX:8:2:0`
