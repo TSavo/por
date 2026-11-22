@@ -1235,6 +1235,13 @@ const illustrationRoutes = new Map([
     continuation: { inputs: [choice], clearsPortrait: true,
       prompt: choice === "y" ? /FOUND.*TREASURE.*533.*EXPERIENCEPOINTS/i : /AREACASTVIEWENCAMP/i },
   }]),
+  ["kovel-thieves-ambush", {
+    slot: "A", inputs: ["up", "enter"],
+    portrait: "scene-illustration:area:14:ecl:af5a",
+    prompt: /ASYOUENTERTHEROOMYOUAREAMBUSHEDBYSOMETHIEVES/i,
+    finalPhaseCapture: "kovel-thieves-ambush.png",
+    continuation: { inputs: ["enter", "enter"], clearsPortrait: true, prompt: /THIEF.*HITPOINTS/i },
+  }],
   ["kovel-room-gas", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:14:ecl:9ae8:caller:9a4f",
