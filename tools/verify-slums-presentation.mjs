@@ -3788,6 +3788,13 @@ const illustrationRoutes = new Map([
     prompt: /ASYOUHIKETHROUGHTHEMOUNTAINS,ALARGEDRAGONFLYSABOVEYOU/i,
     finalPhaseCapture: "diogenes-mountain-sighting-phase-1.png",
   }],
+  ["wild-grove-pool-splash", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:26:ecl:a64d:cue:grove-pool-splash",
+    prompt: /SPLASHINGINTHEPOOL.*WILLYOUAPPROACHTHEPOOL/i,
+    finalPhaseCapture: "wild-grove-pool-splash.png",
+    continuation: { inputs: ["a"], clearsPortrait: true, prompt: /SPLASHINGINTHEPOOL/i },
+  }],
   ["wild-grove-western-stench", {
     slot: "A", inputs: ["up", "enter", "enter", "z", "z", "z", "a", "enter"],
     portraitStops: {
