@@ -1951,6 +1951,7 @@ const illustrationRoutes = new Map([
     portraitStops: { 1: "scene-illustration:area:9:ecl:9c63:caller:aa57", 2: "scene-illustration:area:9:ecl:9c63:caller:aabb", 3: null },
     portrait: "scene-illustration:area:9:ecl:9c63:caller:ab63:cue:merchant-at-gate",
     prompt: /AMANWITHAWAGONOFGOODSWHOISTALKINGTOTWOOFTHEBUGBEARS.*THEMANHANDSSOMETHINGTOTHEBUGBEARSANDTHEGATESOPEN/i,
+    phaseCaptures: { 2: "stojanow-gate-bugbear-lookouts.png" },
     finalPhaseCapture: "stojanow-merchant-at-gate.png",
     continuation: { inputs: ["enter"], prompt: /AREA.*VIEW.*ENCAMP/i, clearsPortrait: true },
   }],

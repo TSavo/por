@@ -917,6 +917,11 @@ implements, a central table, and readable metal restraints. The alchemical
 bottles belong on the next page, which describes them. For Stojanow's second
 gate caption, require bugbears visibly lounging by the entrance, with the
 wall and taller twin watchtowers still recognizable behind them.
+The `stojanow-merchant-gate` replay captures this exact caption before
+the predawn merchant exchange. GOG 1.3 Chrome review confirmed three
+clearly visible bugbears at the entrance and two watchtowers above the
+wall in the gameplay-sized picture panel.
+
 
 At the Wild Cave attack announcement, look for both minotaurs directing all
 four giant lizards. The illustration holds through the announcement and
