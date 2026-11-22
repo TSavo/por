@@ -3435,6 +3435,7 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0",
     prompt: /THEDRAGONLOOKSATYOUWITHINTEREST/i,
     idlePortraits: [1, 2].map(phase => `portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:${phase}:0`),
+    heldPortraitLoop: 3,
     continuation: { inputs: ["enter", "enter", ...Array(6).fill("a")], portrait: "portrait:area:7:ecl:a803:PIC5.DAX:66:2:0", prompt: /ABATTLEBEGINS/i },
   }],
   ...[0, 1, 3, 4].map((member, index) => [`tyrmor-prison-displacer-combat-phase-${member}`, {

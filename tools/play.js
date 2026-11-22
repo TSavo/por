@@ -999,6 +999,7 @@ const portraitLoops = [
   ["portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:", 3, "portrait:area:0:PIC3.DAX:41:0:0",
     /YOUBOARDABOAT/i],
   ["portrait:area:18:ecl:9dca:PIC1.DAX:2:", 2],
+  ["portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:", 3],
 ].map(([prefix, count, initial, cue]) => ({
   cue,
   phases: Array.from({ length: count }, (_, phase) => (phase === 0 && initial) || `${prefix}${phase}:0`),
