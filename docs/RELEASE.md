@@ -137,19 +137,28 @@ and `~` is the player's home. The setting is only offered when the launcher name
 Nothing of the folder is copied: it is read where it is, by the runner, and never enters the install
 or the player's data directory.
 
-`node tools/release/check-original-files.mjs <release root> <1.3 folder> <first-release folder>` checks
-all of this on a built release: four starts of its launcher (`POR_OPEN_BROWSER=0`, a throwaway HOME,
-the fixed clock), choosing the folders through the page's own requests in between.
+`node tools/release/check-original-files.mjs <release root> <1.3 folder> <first-release folder> [chrome]`
+checks all of this on a built release: four starts of its launcher (`POR_OPEN_BROWSER=0`, a throwaway
+HOME, the fixed clock), choosing the folders through the page's requests in between; with a Chrome
+executable, the first choice and **Stop using them** are made in the page itself, headless and muted.
 
 Checked on 2026-11-22 on Battleaxe (Linux), with `npm run release:build` and `dist/app` laid out beside
 the port's folders, the GOG 1.3 files (`por-assets/gog-1.3/POOLRAD`) and the first release
-(`por-assets/pool`), HOME in `/dev/shm`: all 24 checks passed. Start 1 (nothing named): no Classic; the
-setting refused another origin (403), the port's own `game/` (*has no START.EXE, GAME.OVR, ECL1.DAX*) and
-a missing folder, writing nothing, and took `gog-1.3` as its `POOLRAD`. Start 2 printed `Original files:
+(`por-assets/pool`), HOME in `/dev/shm`, and the page in headless Chrome (`/usr/bin/google-chrome
+--headless --mute-audio`): all 30 checks passed. Start 1 (nothing named): no Classic; the server
+refused another origin (403), the port's own `game/` and a missing folder, writing nothing. In the page,
+Settings started closed; *Use my original files* said *Not in use: the game runs from its own data, and
+the Classic display is not available.*; `game/` typed into the field and Enter gave *Not saved: …/game
+has no START.EXE, GAME.OVR, ECL1.DAX.*; `gog-1.3` typed and Enter gave *Saved: …/gog-1.3/POOLRAD
+(version 1.3). It takes effect the next time the game starts: close the game and start it again.*, the
+status added *From the next start: …/POOLRAD.*, and none of the keys typed reached the game (its frame
+sequence unchanged). Start 2 printed `Original files:
 …/POOLRAD (version 1.3; Classic available)` and `POR_GAME_DATA original …/POOLRAD`, with Classic. Start 3,
 the first release: `POR_GAME_DATA port <root>/game`, `POR_CLASSIC_PICTURES …/pool 784/784`, Classic,
 and its first Classic frame (the title) the same PNG as start 2's (sha256 `859db41f…`), where the
-shipped game's is blank (`04e64636…`). Start 4, after **Stop using them**: no Classic and no
+shipped game's is blank (`04e64636…`); the page said *In use: …/pool (the first release). The Classic
+display is available (F10), with its pictures; the game is version 1.3.*, and **Stop using them** gave
+*Saved: no original files…* and removed `original-files.json`. Start 4: no Classic and no
 `Original files:` line. No game file was under the player's directory; every start stopped on SIGTERM.
 The first run took 776 of the 784 pictures: for 8 blocks the port's packer could not reach the
 original packed size, so the player's own packing is now kept where it has that size.
@@ -351,4 +360,4 @@ starts it: `./pool-of-radiance` with `env -i`, only HOME, PATH, `POR_OPEN_BROWSE
   console window (its SIGHUP path is checked on the Mac; on Battleaxe the launcher's console could not
   be found as a window from the automation's session).
 - **Use my original files** has been run in the compiled release on Linux only, not yet in the Mac app
-  or a Windows install. The player types or pastes the folder: there is no system folder dialog.
+  or a Windows install (#150). The player types or pastes the folder: there is no system folder dialog.
