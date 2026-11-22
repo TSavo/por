@@ -7913,7 +7913,8 @@ try {
     assert.ok(proof.samples >= 90 && proof.durationMs >= 3650);
     assert.deepEqual(proof.poses, [portrait]);
     const shot = await command("Page.captureScreenshot", { format: "png" });
-    writeFileSync(resolve(directory, `${routeName}-held-portrait.png`), Buffer.from(shot.data, "base64"));
+    const suffix = heldPortraitEvidence.length ? `-${heldPortraitEvidence.length}` : "";
+    writeFileSync(resolve(directory, `${routeName}-held-portrait${suffix}.png`), Buffer.from(shot.data, "base64"));
     if (heldPortraitEvidenceFile) {
       const [renderer, art] = await Promise.all([fetch(origin + "/play.js"), fetch(origin + "/art/" + portrait)]);
       assert.ok(renderer.ok && art.ok);
@@ -13194,10 +13195,12 @@ try {
     }
     await advance("a");
     await waitFor("Al-Hyam at close range", () => run(`window.observedApproach.has(${JSON.stringify(close)})`));
+    if (heldPortraitEvidenceFile) await verifyStaticPortrait(portrait, /YOUSEEAHARMLESS,MIDDLEAGEDMAN\./i, false);
     await advance("p");
     assert.equal(frame.portrait, portrait);
     await waitFor("Al-Hyam's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
+    if (heldPortraitEvidenceFile) await verifyStaticPortrait(portrait, /SPAREMEANDIWILLLEAVE,NEVERTORETURN/i, false);
     if (alHyamRelease) {
       const released = () => frame.journal?.leads.some(({ id }) => id === "castle-al-hyam-released");
       await advance("j");
@@ -13224,16 +13227,24 @@ try {
       await advance("a");
       assert.equal(frame.portrait, "portrait:area:5:ecl:a38a:HEAD5.DAX:55:BODY5.DAX:31");
       await verifyPortraitPanel();
+      if (heldPortraitEvidenceFile) await verifyStaticPortrait(frame.portrait, /I'LLGIVEYOUALLMYNOTES/i, false);
       await advance("j");
       assert.ok(frame.journal && !knows());
       for (const key of ["j", "l"]) await advance(key);
       assert.equal(frame.portrait, "portrait:area:5:ecl:9a5a:caller:a45a:HEAD5.DAX:55:BODY5.DAX:31");
       await verifyPortraitPanel();
       await switchBothWays();
+      if (heldPortraitEvidenceFile) await verifyStaticPortrait(frame.portrait, /YOUARELEFTWITHTHENOTESOFAL-HYAM/i, false);
       await advance("j");
       assert.ok(knows());
       assert.match(frame.journal.objective.nextStep, /Al-Hyam Dhazid's notes.*journal entry 30/i);
-      for (const key of ["j", "enter", "e", "s", "s"]) await advance(key);
+      for (const key of ["j", "enter"]) await advance(key);
+      if (heldPortraitEvidenceFile) {
+        assert.equal(frame.portrait, undefined);
+        await waitFor("Al-Hyam's portrait to clear", () => run(`state.sequence === ${frame.sequence} &&
+          !document.querySelector("#tile-art:not([hidden]) .encounter-portrait")`));
+      }
+      for (const key of ["e", "s", "s"]) await advance(key);
       assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""), /SAVEWHICHGAME/i);
       await advance("c");
       const notesSave = resolve(directory, "C.json");

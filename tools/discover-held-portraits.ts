@@ -180,10 +180,12 @@ const eclCandidates = scripts.flatMap(record => {
       return true;
     });
 
-    // The audience bodyguards use a deliberate HEAD/BODY override. For this measured site,
+    // The audience bodyguards and Al-Hyam use deliberate HEAD/BODY overrides. For these measured sites,
     // confirm the literal write, encounter operand, and reset from the shipped ECL.
     let composedPortrait;
-    if (archive === 5 && scriptBlock === 7 && authored(load.address) === "a56c" && opcode === 0x29) {
+    if (archive === 5 && opcode === 0x29 &&
+        (scriptBlock === 7 && authored(load.address) === "a56c" ||
+         scriptBlock === 5 && authored(load.address) === "a256")) {
       const headWrite = decoded.find(instruction => instruction.next === load.address);
       const headReset = instructions.get(load.next);
       if (headWrite?.opcode === 0x09 && headReset?.opcode === 0x09 &&

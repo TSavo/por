@@ -62,8 +62,8 @@ interface StaticPortraitVariant {
     drawCursor: string;
     members?: number[];
     composed?: ScriptSite["composedPortrait"];
-    battlePanelSha256: string;
-  } | {
+  } & ({ battlePanelSha256: string; clearedPanelSha256?: never } |
+       { battlePanelSha256?: never; clearedPanelSha256: string }) | {
     inheritedFrom: string;
   });
   chrome?: { original: StaticPortraitChromeProof; port: StaticPortraitChromeProof };
@@ -285,7 +285,10 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
         ? native.members === undefined && isDeepStrictEqual(native.composed, site.composedPortrait)
         : native.composed === undefined && isDeepStrictEqual(native.members, [0]);
       if (!sourceMatches) return "native evidence has a different picture source or selector";
-      if (native.battlePanelSha256 !== panel) return "native battle notice must retain the selected picture";
+      if (native.clearedPanelSha256 !== undefined) {
+        if (!site.composedPortrait || !/^[a-f0-9]{64}$/.test(native.clearedPanelSha256) ||
+            native.clearedPanelSha256 === panel) return "native exit must clear the composed picture";
+      } else if (native.battlePanelSha256 !== panel) return "native battle notice must retain the selected picture";
     }
     const fixture = path("qa", "fixtures", checkpoint);
     const image = assets.get(portrait);
@@ -333,7 +336,8 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     const nativeBase = nativeSource &&
       `portrait:area:${site.scriptBlock}:ecl:${cursor}${caller ? `:caller:${caller}` : ""}:${nativeSource}`;
     const illustration = (key: string) => key === scope || key.startsWith(scope + ":cue:");
-    const scoped = (key: string) => illustration(key) || key === nativeBase;
+    const scoped = (key: string) => illustration(key) || key === nativeBase ||
+      (site.composedPortrait && key === `portrait:area:${site.scriptBlock}:${site.composedPortrait.source}`);
     const observedVariants = variants.map(variant => {
       const reason = scoped(variant.portrait) || variant.native.inheritedFrom !== undefined
         ? staticPortraitProblem(site, variant) : "static portrait belongs to a different prompt";
