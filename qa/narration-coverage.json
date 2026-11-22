@@ -62,6 +62,12 @@
    "decisions": 1,
    "heard": 1
   },
+  "sokal-arrival-art": {
+   "ledger": "sokal-arrival-art-verified.jsonl",
+   "games": 1,
+   "decisions": 11,
+   "heard": 3
+  },
   "yarash-alchemical-laboratory-3f2de014": {
    "ledger": "yarash-alchemical-laboratory-3f2de014.jsonl",
    "games": 2,
@@ -126,6 +132,10 @@
     "run": "acceptance-new-phlan",
     "step": 176436906,
     "showing": "no picture"
+   },
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:ae31:caller:9ad2"
    }
   },
   "por.voice.ecl3.b0-9a9d": {
