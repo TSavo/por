@@ -108,19 +108,50 @@ export async function castInCamp(game, caster, spell, target) {
  * something interrupted it: the screen is then whatever interrupted, for the caller to deal with).
  */
 export async function memorizeAndRest(game, caster, spell) {
+  const chosen = await chooseSpells(game, caster, spell);
+  if (!chosen) {
+    await game.press("e", campMenu, "Exit leaves the spell menu.");
+    return { chosen, rested: true };
+  }
+  return { chosen, rested: await restForSpells(game) };
+}
+
+/** The spell book as Memorize lists it. A book longer than one page (a multi-classed caster's) has Next and Prev. */
+const bookMenu = /Choose Spell: Memorize (?:Next )?(?:Prev )?Exit\s*$/;
+
+/**
+ * In camp: `caster` chooses spells to memorise, with Magic, Memorize. `spell` is one pattern or a
+ * list of them; each is chosen as often as the game takes it. The game counts the free places by
+ * class ("Cleric Spells: 3", "Magic-User Spells: 1"), and a spell is taken while the sum of those
+ * counts goes down by one. Returns how many were chosen. Leaves the game on the spell menu
+ * ("Cast Memorize Scribe Display Rest Exit"), with the choice confirmed and nothing rested yet.
+ */
+export async function chooseSpells(game, caster, spell) {
+  const spells = Array.isArray(spell) ? spell : [spell];
   game.expect(campMenu, "Spells are memorised from the Camp menu.");
   await choose(game, caster);
   await game.press("m", magicMenu, "Magic opens the spell menu.");
   await game.press("m");
   let chosen = 0;
-  if (/Choose Spell: Memorize Exit\s*$/.test(game.menu())) {
-    const free = () => +(/Spells: (\d+)/.exec(game.text())?.[1] ?? 0);
-    for (let left = free(); left > 0; left = free()) {
-      if (chosen >= 12) game.fail("The game kept offering to memorise more spells.");
-      await game.selectLine(spell);
-      await game.press("m");
-      if (free() !== left - 1) game.fail("Memorize did not take up one of the spells the caster can memorise.");
-      chosen++;
+  if (bookMenu.test(game.menu())) {
+    const free = () => [...game.text().matchAll(/Spells: (\d+)/g)].reduce((sum, [, count]) => sum + +count, 0);
+    const onPage = (wanted) => game.rows().slice(2, 17).some((row) => wanted.test(row.trim()));
+    for (const wanted of spells) {
+      for (let left = free(); left > 0; left = free()) {
+        if (chosen >= 12) game.fail("The game kept offering to memorise more spells.");
+        // Bring the page with the spell up: back to the first page, then on until it is listed.
+        for (let pages = 0; !onPage(wanted) && /\bPrev\b/.test(game.menu()); pages++) await game.press("p", bookMenu, "Prev shows the page before.");
+        for (let pages = 0; !onPage(wanted) && /\bNext\b/.test(game.menu()); pages++) await game.press("n", bookMenu, "Next shows the next page.");
+        if (!onPage(wanted)) break;
+        await game.selectLine(wanted);
+        await game.press("m");
+        // No place left for a spell of this class: the count stays, and the next spell is tried.
+        if (free() !== left - 1) {
+          if (spells.length === 1) game.fail("Memorize did not take up one of the spells the caster can memorise.");
+          break;
+        }
+        chosen++;
+      }
     }
     await game.press("e");
     // The game lists what is to be memorised, then asks.
@@ -131,17 +162,23 @@ export async function memorizeAndRest(game, caster, spell) {
     if (/Memorize these spells\? Yes No\s*$/.test(game.menu())) await game.press("y", magicMenu, "Yes confirms the spells to memorise.");
   }
   if (!magicMenu.test(game.menu())) game.fail("Memorising did not lead back to the spell menu.");
-  if (!chosen) {
-    await game.press("e", campMenu, "Exit leaves the spell menu.");
-    return { chosen, rested: true };
-  }
+  return chosen;
+}
+
+/**
+ * On the spell menu, after spells were chosen: rest the time the game sets for them, with the
+ * menu's own Rest. Returns true when the rest ran to its end, and then leaves the game on the Camp
+ * menu; false when something interrupted it (the screen is then whatever interrupted).
+ */
+export async function restForSpells(game) {
+  game.expect(magicMenu, "The rest for chosen spells starts from the spell menu.");
   await game.press("r", restMenu, "The spell menu's Rest asks how long, with the time the spells need already set.");
   const time = /Rest Time: (\d\d):(\d\d):(\d\d)/.exec(game.text());
   if (!time || !(+time[1] || +time[2] || +time[3])) game.fail("The game set no rest time for the spells to memorise.");
   await game.press("r");
   const rested = magicMenu.test(game.menu());
   if (rested) await game.press("e", campMenu, "Exit leaves the spell menu.");
-  return { chosen, rested };
+  return rested;
 }
 
 /** In camp: rest so many days, hours and minutes with the Camp menu's Rest. Returns true when the rest ran to its end. */
