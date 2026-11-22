@@ -1,6 +1,6 @@
 # Artwork worklist
 
-**The artwork is done when `npm run verify:art-worklist` reports 0 remaining and nothing is left under "Not established". It reports 316 confirmed cells awaiting art now.**
+**The artwork is done when `npm run verify:art-worklist` reports 0 remaining and nothing is left under "Not established". It reports 159 confirmed cells awaiting art now.**
 
 This file is written by `npm run art:worklist`. Do not edit it or `qa/art-worklist.json` by hand: add art, run the tool, commit what it writes.
 
@@ -48,26 +48,26 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 
 | What | Count |
 | --- | ---: |
-| Remaining, all kinds | 316 |
-| First-person cells to do | 316 |
-|   of which one stored tile | 169 |
-|   of which one tile over a solid colour | 49 |
+| Remaining, all kinds | 159 |
+| First-person cells to do | 159 |
+|   of which one stored tile | 84 |
+|   of which one tile over a solid colour | 17 |
 |   of which plain sky or ground | 0 |
-|   of which several tiles together | 98 |
-|   of which the same pixels already have art of yours in another area | 216 |
+|   of which several tiles together | 58 |
+|   of which the same pixels already have art of yours in another area | 139 |
 | Battlefield cells to do | 0 |
-| Tile keys in the manifests | 7205 |
-|   accounted for by the tool | 7204 |
+| Tile keys in the manifests | 7316 |
+|   accounted for by the tool | 7315 |
 | Battlefield keys in the manifests | 83 |
 |   that are one stored cell of a battlefield picture | 78 |
 | Stored 8 by 8 tiles | 3016 |
 |   blank | 9 |
 |   distinct pictures among the rest | 1333 |
-|   with art in some area, alone or over a solid colour | 2517 |
-|   without (the catalogue's 720 when it was written) | 490 |
+|   with art in some area, alone or over a solid colour | 2553 |
+|   without (the catalogue's 720 when it was written) | 454 |
 |     of those, no map can show | 412 |
 |     of those, shown only together with other tiles, never alone | 6 |
-|     of those, shown alone in some area | 72 |
+|     of those, shown alone in some area | 36 |
 
 ## Where each area stands
 
@@ -76,11 +76,11 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 0 | New Phlan | yes | 406 | 308 | 0 | 321 of 321 (3 as first views of the next area, 10 as WebGL wall materials) |
 | 1 | Buccaneer Base | yes | 385 | 181 | 0 | 184 of 184 (3 as WebGL wall materials) |
 | 2 | Cadorna Textile House | yes | 580 | 382 | 0 | 406 of 406 (5 as first views of the next area, 19 as WebGL wall materials) |
-| 3 | Valjevo Castle | yes | 406 | 221 | 65 | 223 of 223 (2 as WebGL wall materials) |
+| 3 | Valjevo Castle | yes | 406 | 280 | 18 | 282 of 282 (2 as WebGL wall materials) |
 | 4 | Valjevo Castle | yes | 206 | 206 | 0 | 214 of 214 (8 as WebGL wall materials) |
 | 5 | Valjevo Castle | yes | 600 | 313 | 125 | 319 of 319 (6 as WebGL wall materials) |
 | 6 | Valjevo Castle | yes | 182 | 182 | 0 | 190 of 190 (8 as WebGL wall materials) |
-| 7 | Valjevo Castle, the Pool | yes | 368 | 164 | 109 | 164 of 164 |
+| 7 | Valjevo Castle, the Pool | yes | 220 | 216 | 0 | 216 of 216 |
 | 8 | Phlan City Hall | yes | 405 | 295 | 0 | 305 of 305 (10 as WebGL wall materials) |
 | 9 | Stojanow Gate | yes | 287 | 150 | 0 | 150 of 150 |
 | 10 | Valhingen Graveyard | yes | 2452 | 890 | 0 | 902 of 902 (12 as WebGL wall materials) |
@@ -97,7 +97,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 23 | Yarash's Pyramid, lower | yes | 126 | 78 | 0 | 83 of 83 (5 as WebGL wall materials) |
 | 24 | Temple of Bane | yes | 312 | 217 | 0 | 229 of 229 (12 as WebGL wall materials) |
 | 25 | Wilderness, west | not yet | 51 | 22 |  | 22 of 22 |
-| 26 | Wilderness, middle | yes | 302 | 216 | 17 | 285 of 285 (67 as first views of the next area, 2 as WebGL wall materials) |
+| 26 | Wilderness, middle | yes | 301 | 216 | 16 | 285 of 285 (67 as first views of the next area, 2 as WebGL wall materials) |
 | 27 | Wilderness, east | not yet | 50 | 21 |  | 22 of 22 (1 as first views of the next area) |
 | 28 | Zhentil Keep Outpost | yes | 194 | 107 | 0 | 108 of 108 (1 as WebGL wall materials) |
 | 29 | Kuto's Well | yes | 660 | 640 | 0 | 654 of 654 (1 as first views of the next area, 13 as WebGL wall materials) |
@@ -111,19 +111,9 @@ So a cell is one stored tile, one tile over the sky or ground colour, or several
 
 ## To do: first-person cells
 
-### Area 3: Valjevo Castle (65)
+### Area 3: Valjevo Castle (18)
 
 Map 3, 5; WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1); WALLDEF2 block 2 (tiles 8X8D2 block 2), block 4 (tiles 8X8D2 block 4), block 1 (tiles 8X8D2 block 1).
-
-#### tile set 8X8D1 block 203 (5)
-
-| Key (PNG 32x32) | What it is | See it at | Same pixels as |
-| --- | --- | --- | --- |
-| `tile:3:c160536a81efbce52dbc73a8d5328bee3513abea5f2e561966d54bb6ae8d1133` | 8X8D1 block 203 tile 17 over 8X8D5 block 242 tile 49 over sky colour 11 | map 3, square (7,15) facing west, column 4 row 4 | `valjevo-scope3-cell-c160536a81ef.png` (area 4, 5) |
-| `tile:3:cd57c8e86c999742f3503cbefa549789a4b162b4acb03d89889c21f721e52f9c` | 8X8D1 block 203 tile 16 over 8X8D5 block 242 tile 49 over sky colour 11 | map 3, square (5,15) facing east, column 6 row 4 | `valjevo-scope3-cell-cd57c8e86c99.png` (area 4, 5, 6) |
-| `tile:3:d000c870665236a5819b2d5a72183f5b6619476441856af20b49c6968fce6d56` | 8X8D1 block 203 tile 17 over 8X8D5 block 242 tile 49 over sky colour 0 | map 3, square (7,15) facing west, column 4 row 4 | `valjevo-scope3-cell-d000c8706652.png` (area 4, 5) |
-| `tile:3:d2c4a6b5bf49ce6b432362612e67b21c93a35e4acef5c1c63d225fe95bb438bd` | 8X8D1 block 203 tile 16 over 8X8D5 block 242 tile 49 over sky colour 15 | map 3, square (6,0) facing west, column 7 row 3 | `valjevo-scope3-cell-d2c4a6b5bf49.png` (area 4, 5, 6) |
-| `tile:3:f9769bbced9df6b26e4835ee46efdde03db708812b8d4897d09fbb2039c8e6cc` | 8X8D1 block 203 tile 16 over 8X8D5 block 242 tile 49 over sky colour 0 | map 3, square (5,15) facing east, column 6 row 4 | `valjevo-scope3-cell-f9769bbced9d.png` (area 4, 5, 6) |
 
 #### tile set 8X8D2 block 2 (6)
 
@@ -142,68 +132,21 @@ Map 3, 5; WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5
 | --- | --- | --- | --- |
 | `tile:3:7b4217981664a8a19fbe732ce98871e7c7ba760810609049ce8930d96694617e` | 8X8D2 block 4 tile 50 over 8X8D1 block 203 tile 12 | map 3, square (13,11) facing east, column 4 row 5 |  |
 
-#### tile set 8X8D5 block 241 (21)
+#### tile set 8X8D5 block 241 (11)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
-| `tile:3:03b7b3689d973af404e29ffd675b408479753829b6577644ed583ebe98119b16` | 8X8D5 block 241 tile 1 | map 3, square (6,7) facing west, column 3 row 5 | `valjevo-scope5-screen-5-03b7b3689d97.png` (area 5) |
-| `tile:3:0e965427a4d3d1223622c0fbd9e49c897d1ee2a4bc5efcf6dd1c545fb2da8ad7` | 8X8D5 block 241 tile 66 over sky colour 15 | map 3, square (4,4) facing north, column 0 row 0 | `valjevo-scope3-cell-0e965427a4d3.png` (area 5, 6, 7, 20) |
-| `tile:3:258da053516a2e33084c9fb48184e3b9b572aee25dd84fe595c90acac7ac4ed2` | 8X8D5 block 241 tile 47 | map 3, square (6,5) facing north, column 3 row 5 | `valjevo-scope5-screen-5-258da053516a.png` (area 5) |
-| `tile:3:25e491fa08f466868cbcfcb77030d54f34ec724c8d2b1573d4d180cc4bac1826` | 8X8D5 block 241 tile 22 | map 3, square (8,4) facing west, column 5 row 5 | `valjevo-scope3-cell-25e491fa08f4.png` (area 4, 5, 6) |
-| `tile:3:28c3b95442b27c7ac7756e3c54ba8cca11000ad0cad4b237cbec240d1b42b439` | 8X8D5 block 241 tile 8 over sky colour 0 | map 3, square (2,5) facing east, column 10 row 4 | `valjevo-scope5-screen-5-28c3b95442b2.png` (area 5) |
-| `tile:3:38a7f7e2071c42eae25322334c444f461d3c6b385f263cef69fc95218bd5baed` | 8X8D5 block 241 tile 68 | map 3, square (3,7) facing north, column 9 row 9 | `valjevo-scope3-cell-38a7f7e2071c.png` (area 1, 5) |
-| `tile:3:3a86009342f0f32cff93821a0bb036017b2ea178bfaa4e12aec0a24ff3fe39b8` | 8X8D5 block 241 tile 20 | map 3, square (5,5) facing north, column 8 row 7 | `valjevo-scope5-screen-5-3a86009342f0.png` (area 5) |
-| `tile:3:57c1bdcc6540476a155ce02942c42861a04aeb9c75da1973fdd81d072f1a405a` | 8X8D5 block 241 tile 56 | map 3, square (3,7) facing north, column 10 row 1 | `valjevo-scope5-screen-5-57c1bdcc6540.png` (area 5) |
-| `tile:3:6bb42909daeadd70ddc7309be991f4e0ecaa56a91451cb99f8c9c3d3fe0007de` | 8X8D5 block 241 tile 8 over sky colour 11 | map 3, square (2,5) facing east, column 10 row 4 | `valjevo-scope5-screen-5-6bb42909daea.png` (area 5) |
-| `tile:3:710cb137fdb127903fe9e3b52b1140ec2c0a8792e5c17cb7f64029af5a79a496` | 8X8D5 block 241 tile 65 over 8X8D5 block 242 tile 49 over sky colour 0 | map 3, square (10,2) facing east, column 9 row 4 | `valjevo-scope3-cell-710cb137fdb1.png` (area 4, 5, 6) |
-| `tile:3:7cea0473b7274386a81c58a22192153f04b268185154b826d293aa3588e3d018` | 8X8D5 block 241 tile 65 over 8X8D5 block 242 tile 49 over sky colour 15 | map 3, square (13,12) facing south, column 9 row 4 |  |
-| `tile:3:8b54cd3414e3f331db8fee3660c943f741774971e7d44d954dff28b39df79d5c` | 8X8D5 block 241 tile 19 | map 3, square (7,4) facing west, column 5 row 5 | `valjevo-scope3-cell-8b54cd3414e3.png` (area 4, 5, 6) |
-| `tile:3:9024f0f3a0e3fa45705a92d0b6091075bf336ba2afcf78ac7d8081e72c484879` | 8X8D5 block 241 tile 69 | map 3, square (2,5) facing east, column 10 row 5 | `valjevo-scope5-screen-5-9024f0f3a0e3.png` (area 5) |
-| `tile:3:b91faa418bbd6d8238c17ec0746b81d59f523f15de502b0dbf2648b19b6a0c8f` | 8X8D5 block 241 tile 11 | map 3, square (2,9) facing north, column 9 row 6 | `valjevo-scope5-screen-5-b91faa418bbd.png` (area 5) |
-| `tile:3:be3e782c7d9f268631c074a609460b9bbcd3a4ede4e4053836fe388d7fc69c08` | 8X8D5 block 241 tile 66 over 8X8D5 block 242 tile 49 over sky colour 0 | map 3, square (15,2) facing west, column 1 row 4 | `valjevo-scope3-cell-be3e782c7d9f.png` (area 4, 5, 6) |
-| `tile:3:c2a3d1ba70639e474e749be8353382d3d588590c27447609518a37fcd3bb67c8` | 8X8D5 block 241 tile 65 over sky colour 15 | map 3, square (4,4) facing east, column 10 row 3 | `valjevo-scope3-cell-c2a3d1ba7063.png` (area 5, 6, 7, 20) |
-| `tile:3:dafc9490ce053361ce5304378da07b39b97229718e715a1982fca4287acc0442` | 8X8D5 block 241 tile 0 | map 3, square (2,9) facing north, column 9 row 5 | `valjevo-scope5-screen-5-dafc9490ce05.png` (area 5) |
-| `tile:3:e03d589172a3a77b3954c77073c332aaecb326fb713523302d20ac60346acc20` | 8X8D5 block 241 tile 66 over 8X8D5 block 242 tile 49 over sky colour 11 | map 3, square (15,2) facing west, column 1 row 4 | `valjevo-scope3-cell-e03d589172a3.png` (area 4, 5, 6) |
-| `tile:3:e65ea189eb0d265e38db12a794ba62fcbfd5049caae5d59553e335b0fb1ece14` | 8X8D5 block 241 tile 46 | map 3, square (4,5) facing north, column 10 row 5 | `valjevo-scope5-screen-5-e65ea189eb0d.png` (area 5) |
-| `tile:3:eb11634d085d274c72dfe2b3eb84867a29141e02247f4213b9cfb87f0b167333` | 8X8D5 block 241 tile 43 | map 3, square (4,5) facing north, column 10 row 6 | `valjevo-scope5-screen-5-eb11634d085d.png` (area 5) |
-| `tile:3:f1095fe0ba35d2821054bc05b6afe4b5d359f31097285e98c8c561a0e35d2b9e` | 8X8D5 block 241 tile 65 over 8X8D5 block 242 tile 49 over sky colour 11 | map 3, square (10,2) facing east, column 9 row 4 | `valjevo-scope3-cell-f1095fe0ba35.png` (area 4, 5, 6) |
-
-#### tile set 8X8D5 block 242 (32)
-
-| Key (PNG 32x32) | What it is | See it at | Same pixels as |
-| --- | --- | --- | --- |
-| `tile:3:02a5c479e743454f9dd17c3530dd8539987321af225d5cbea1b0a78467bceea0` | 8X8D5 block 242 tile 49 over 8X8D5 block 242 tile 49 over 8X8D1 block 203 tile 17 over sky colour 11 | map 3, square (15,9) facing south, column 2 row 2 | `valjevo-scope3-cell-02a5c479e743.png` (area 5) |
-| `tile:3:0db7c87e510e6c6cef111f2299563211c786f1ebea213f85bb5e20e2c44f7344` | 8X8D5 block 242 tile 19 over sky colour 0 | map 3, square (8,4) facing west, column 2 row 3 | `valjevo-scope3-cell-0db7c87e510e.png` (area 4, 5, 6) |
-| `tile:3:0e0548cc21e50d283a67a28526df1d28ada653da62235cabed3760d055d3e5d8` | 8X8D5 block 242 tile 20 over sky colour 0 | map 3, square (6,4) facing east, column 7 row 3 | `valjevo-scope3-cell-0e0548cc21e5.png` (area 4, 5, 6) |
-| `tile:3:11718963cc1006db99f7bf3e12ee8f53dc3a571bf74d8028aa6998a58ffe721e` | 8X8D5 block 242 tile 52 over 8X8D5 block 242 tile 52 over 8X8D5 block 241 tile 66 over sky colour 0 | map 3, square (12,4) facing east, column 2 row 2 | `valjevo-scope3-cell-11718963cc10.png` (area 4, 5, 6) |
-| `tile:3:12603975147e66ac9c8145af988f1d81749676a25fe6bba255bef5423ae8e54e` | 8X8D5 block 242 tile 18 over 8X8D5 block 241 tile 15 | map 3, square (13,4) facing north, column 1 row 2 | `valjevo-scope3-cell-12603975147e.png` (area 4, 5, 6) |
-| `tile:3:172e0024a263af25489f60756580ce5643482d4d9d8e5457034a57c2c81ffb59` | 8X8D5 block 242 tile 49 over 8X8D5 block 242 tile 49 over 8X8D5 block 241 tile 65 over sky colour 0 | map 3, square (4,9) facing south, column 8 row 2 | `valjevo-scope3-cell-172e0024a263.png` (area 4, 5, 6) |
-| `tile:3:210f9259ebf75e2d9aea8070e48caee0bc244f6f981a7c0a605b5c984c8f1779` | 8X8D5 block 242 tile 49 over 8X8D5 block 242 tile 49 over 8X8D1 block 203 tile 16 over sky colour 11 | map 3, square (15,5) facing north, column 8 row 2 | `valjevo-scope3-cell-210f9259ebf7.png` (area 4, 5, 6) |
-| `tile:3:24c774ef176aab5c5274d158d0b5f9cf177e64a61b50c7f5ba6f3e4ac17d0b11` | 8X8D5 block 242 tile 36 over sky colour 0 | map 3, square (7,4) facing west, column 3 row 3 | `valjevo-scope3-cell-24c774ef176a.png` (area 4, 5, 6) |
-| `tile:3:42114835d24854d3f66b0ed2c0236fc83ce70296dae6ed6890fae925685adcd7` | 8X8D5 block 242 tile 49 over 8X8D5 block 242 tile 49 over 8X8D1 block 203 tile 17 over sky colour 0 | map 3, square (15,9) facing south, column 2 row 2 | `valjevo-scope3-cell-42114835d248.png` (area 5) |
-| `tile:3:487b9fa3c83afa664c4d163c534ce90d5f2d1baab210d849b63f902e00e23bf5` | 8X8D5 block 242 tile 52 over 8X8D5 block 242 tile 52 over 8X8D1 block 203 tile 17 over sky colour 0 | map 3, square (15,4) facing south, column 2 row 2 | `valjevo-scope3-cell-487b9fa3c83a.png` (area 4, 5, 6) |
-| `tile:3:4b8cb127607b024ed014e9f3c749275c7a8ccc42ba8b84ab93ef26000c640424` | 8X8D5 block 242 tile 18 over 8X8D1 block 203 tile 38 | map 3, square (15,5) facing east, column 1 row 2 | `valjevo-scope3-cell-4b8cb127607b.png` (area 4, 5, 6) |
-| `tile:3:4ba2970b30ceb86095e24f129519c66dd25adcb5db5234cf3e99397d8e578ace` | 8X8D5 block 242 tile 17 over sky colour 0 | map 3, square (7,4) facing east, column 10 row 1 | `valjevo-scope3-cell-4ba2970b30ce.png` (area 4, 5, 6) |
-| `tile:3:50315cf1500d49295fc212a7fc41849dc7db64b8e52c8f4c9f83bba2698c2934` | 8X8D5 block 242 tile 36 over 8X8D5 block 242 tile 49 over sky colour 0 | map 3, square (9,5) facing east, column 4 row 4 | `valjevo-scope3-cell-50315cf1500d.png` (area 4, 5, 6) |
-| `tile:3:511e54483eb8fb6615f31c8b9eeeecd4bf1401722cc5e38a36472bab4c27a5ed` | 8X8D5 block 242 tile 52 over 8X8D5 block 242 tile 52 over 8X8D5 block 241 tile 65 over sky colour 11 | map 3, square (13,4) facing west, column 8 row 2 | `valjevo-scope3-cell-511e54483eb8.png` (area 4, 5, 6) |
-| `tile:3:55451057d58b9c1100692597a8d372afc7c38d6d069fefb2363ebe6168364d84` | 8X8D5 block 242 tile 17 over 8X8D1 block 203 tile 39 | map 3, square (15,4) facing east, column 9 row 2 | `valjevo-scope3-cell-55451057d58b.png` (area 4, 5, 6) |
-| `tile:3:55f2e5abaed1f70cfc57e460385f8a42c47796882803f65a7056bc2339623d1a` | 8X8D5 block 242 tile 49 over sky colour 0 | map 3, square (6,4) facing south, column 1 row 2 | `valjevo-scope3-cell-55f2e5abaed1.png` (area 4, 5, 6) |
-| `tile:3:5b942c9b389a385391aa5c3e77212d1597ab8482261c0c864b281d15854ba7d0` | 8X8D5 block 242 tile 52 over 8X8D5 block 242 tile 52 over 8X8D5 block 241 tile 66 over sky colour 11 | map 3, square (12,4) facing east, column 2 row 2 | `valjevo-scope3-cell-5b942c9b389a.png` (area 4, 5, 6) |
-| `tile:3:61d25064ca9963a0a52c46d1787cc6f7fd1f82b402acfb35e53c078aa4005947` | 8X8D5 block 242 tile 49 over 8X8D5 block 242 tile 49 over 8X8D5 block 241 tile 66 over sky colour 0 | map 3, square (6,7) facing north, column 2 row 2 | `valjevo-scope3-cell-61d25064ca99.png` (area 4, 5, 6) |
-| `tile:3:6c4e13fb11a0c88dac947725e023dcb780d5423746ed3d591218ddfc40f3e02f` | 8X8D5 block 242 tile 52 over 8X8D5 block 242 tile 52 over 8X8D1 block 203 tile 16 over sky colour 11 | map 3, square (15,7) facing north, column 8 row 2 | `valjevo-scope3-cell-6c4e13fb11a0.png` (area 5) |
-| `tile:3:6cb82728cd3e45b9475b94aa8311ac97ff9f8e8b75955cde4296304a74ca5bd2` | 8X8D5 block 242 tile 52 over sky colour 0 | map 3, square (6,4) facing south, column 0 row 2 | `valjevo-scope3-cell-6cb82728cd3e.png` (area 4, 5, 6) |
-| `tile:3:7d55aa568fe00da92c17f66f639adbc3ea5d0334fb5f55194e7d8ea52c651bd9` | 8X8D5 block 242 tile 52 over 8X8D5 block 242 tile 52 over 8X8D1 block 203 tile 17 over sky colour 11 | map 3, square (15,4) facing south, column 2 row 2 | `valjevo-scope3-cell-7d55aa568fe0.png` (area 4, 5, 6) |
-| `tile:3:85d885617fca5dfd9091f89813f84645e46523ae68ff3ed9f7c4f8c66011bda9` | 8X8D5 block 242 tile 18 over sky colour 0 | map 3, square (7,4) facing west, column 0 row 1 | `valjevo-scope3-cell-85d885617fca.png` (area 4, 5, 6) |
-| `tile:3:9654f4cba935394e5ee96f4c1c29d1b9d69327b0e674e4f9f0a8bcf4db560329` | 8X8D5 block 242 tile 49 over 8X8D5 block 242 tile 49 over 8X8D5 block 241 tile 66 over sky colour 11 | map 3, square (6,7) facing north, column 2 row 2 | `valjevo-scope3-cell-9654f4cba935.png` (area 4, 5, 6) |
-| `tile:3:a0106bb2967162a9eec5ae4805041abc42253455a09542e1a01efc44ccd06e4e` | 8X8D5 block 242 tile 52 over 8X8D5 block 242 tile 52 over 8X8D1 block 203 tile 16 over sky colour 0 | map 3, square (15,7) facing north, column 8 row 2 | `valjevo-scope3-cell-a0106bb29671.png` (area 5) |
-| `tile:3:ad252d42f91a7ab600f69ada8433d114900953936cf795c3faec3cc5af2b3cb9` | 8X8D5 block 242 tile 49 over 8X8D5 block 242 tile 49 over 8X8D1 block 203 tile 16 over sky colour 0 | map 3, square (15,5) facing north, column 8 row 2 | `valjevo-scope3-cell-ad252d42f91a.png` (area 4, 5, 6) |
-| `tile:3:b53c88b670761d598d1e4ef19e72d60d5b8aad7d3a776d215f599cdb59d6ac75` | 8X8D5 block 242 tile 17 over 8X8D5 block 241 tile 14 | map 3, square (12,4) facing north, column 9 row 2 | `valjevo-scope3-cell-b53c88b67076.png` (area 4, 5, 6) |
-| `tile:3:be5eac9f1eb5ab214bd91c3f9275f7b01ca02d79e625d8959536668e4ff0791e` | 8X8D5 block 242 tile 52 over 8X8D5 block 242 tile 49 over sky colour 0 | map 3, square (6,4) facing south, column 4 row 4 | `valjevo-scope3-cell-be5eac9f1eb5.png` (area 4, 5, 6) |
-| `tile:3:d048a50d90eea12677fb8456e2f971f6e5ab6b8f1e53c8547c5a1b2bf066a09a` | 8X8D5 block 242 tile 52 over 8X8D5 block 242 tile 49 over sky colour 11 | map 3, square (6,4) facing south, column 4 row 4 | `valjevo-scope3-cell-d048a50d90ee.png` (area 4, 5, 6) |
-| `tile:3:d1b971c6c8434806d55194d2600360e1c7a75e6886ebee9f2c434541b7b50e67` | 8X8D5 block 242 tile 52 over 8X8D5 block 242 tile 52 over 8X8D5 block 241 tile 65 over sky colour 0 | map 3, square (13,4) facing west, column 8 row 2 | `valjevo-scope3-cell-d1b971c6c843.png` (area 4, 5, 6) |
-| `tile:3:d4f2932dd9e9681cc3ac2b3c39a34a8fd849042c476400cf9ce14b2aadf51c89` | 8X8D5 block 242 tile 20 over 8X8D5 block 242 tile 49 over sky colour 0 | map 3, square (6,4) facing east, column 10 row 3 | `valjevo-scope3-cell-d4f2932dd9e9.png` (area 4, 5, 6) |
-| `tile:3:f1a0d40c62bb72a61cb372b9c094da9b9b070ff895d9ef9da059dd44821f8368` | 8X8D5 block 242 tile 49 over 8X8D5 block 242 tile 49 over 8X8D5 block 241 tile 65 over sky colour 11 | map 3, square (4,9) facing south, column 8 row 2 | `valjevo-scope3-cell-f1a0d40c62bb.png` (area 4, 5, 6) |
-| `tile:3:f34316599f96e0331ffe513c939ae14c64d03704b1765197a133d334ec229765` | 8X8D5 block 242 tile 21 over sky colour 0 | map 3, square (6,4) facing east, column 8 row 3 | `valjevo-scope3-cell-f34316599f96.png` (area 4, 5, 6) |
+| `tile:3:034c9aa1a85c256022c1df86fc995f479176195907d79789f6c8c6fa12d43155` | 8X8D5 block 241 tile 28 | map 3, square (12,15) facing east, column 6 row 5 | `valjevo-scope7-mounted-backdrop-034c9aa1a85c.png` (area 7) |
+| `tile:3:2476c6733bd22d43e5dbfd05326b339da94727390a45f559d25996e615ddb325` | 8X8D5 block 241 tile 21 | map 3, square (12,15) facing east, column 4 row 5 | `valjevo-scope7-mounted-backdrop-2476c6733bd2.png` (area 7) |
+| `tile:3:58a8bc82501c2a2c01038b3b2b57be050e281f3573030745cd4ba50b03af2376` | 8X8D5 block 241 tile 29 | map 3, square (12,15) facing east, column 5 row 4 | `valjevo-scope7-mounted-backdrop-58a8bc82501c.png` (area 7) |
+| `tile:3:6267250f449a8457fd01a0b0e9c3ce587b836864ffa083666ea5a6f3d2fc7ecd` | 8X8D5 block 241 tile 44 | map 3, square (12,15) facing east, column 4 row 6 | `valjevo-scope7-mounted-backdrop-6267250f449a.png` (area 7) |
+| `tile:3:6a871cd6675ac6159a9b6709cdc5ed76909f31c0410f87c572bb4cc98ddf03f4` | 8X8D5 block 241 tile 38 | map 3, square (12,15) facing east, column 6 row 6 | `valjevo-scope7-mounted-backdrop-6a871cd6675a.png` (area 7) |
+| `tile:3:8c53631ec54614a29a80d0cb7885c189df7a5dc1725f6ee1073b91a81a6e34d2` | 8X8D5 block 241 tile 12 | map 3, square (12,15) facing east, column 4 row 4 | `valjevo-scope7-mounted-backdrop-8c53631ec546.png` (area 7) |
+| `tile:3:8d4aca371c0c1ea560a68503b3da34a410dd93d11b9f421d24d23d067389abb1` | 8X8D5 block 241 tile 42 | map 3, square (12,15) facing east, column 5 row 6 | `valjevo-scope7-mounted-backdrop-8d4aca371c0c.png` (area 7) |
+| `tile:3:a9f5aae2fa4147ba2922034548ff9b28d45ba189a5f7b028e881169968d3891d` | 8X8D5 block 241 tile 45 | map 3, square (12,15) facing east, column 5 row 5 | `valjevo-scope7-mounted-backdrop-a9f5aae2fa41.png` (area 7) |
+| `tile:3:bf1b8bb021057e7adb35e55fb27d2ad59fdf2a1d4fb07c231494bc5ef2c6b76f` | 8X8D5 block 241 tile 36 | map 3, square (13,15) facing north, column 10 row 2 | `valjevo-scope7-mounted-backdrop-bf1b8bb02105.png` (area 5, 7) |
+| `tile:3:e6827fee6b1288beb21d0a9801944af1e05a44a19e3dab5a10d94a0e79fb8a64` | 8X8D5 block 241 tile 13 | map 3, square (12,15) facing east, column 6 row 4 | `valjevo-scope7-mounted-backdrop-e6827fee6b12.png` (area 7) |
+| `tile:3:f3e6242ea3d69e677cf33b98ed7c25d6f5356f7736215cc6c38de1e661d1b9ee` | 8X8D5 block 241 tile 35 | map 3, square (13,15) facing south, column 0 row 2 | `valjevo-scope7-mounted-backdrop-f3e6242ea3d6.png` (area 5, 7) |
 
 ### Area 5: Valjevo Castle (125)
 
@@ -266,14 +209,14 @@ Map 3, 4, 6, 5, 7; WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (ti
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
-| `tile:5:034c9aa1a85c256022c1df86fc995f479176195907d79789f6c8c6fa12d43155` | 8X8D5 block 241 tile 28 | map 3, square (12,15) facing east, column 6 row 5 |  |
+| `tile:5:034c9aa1a85c256022c1df86fc995f479176195907d79789f6c8c6fa12d43155` | 8X8D5 block 241 tile 28 | map 3, square (12,15) facing east, column 6 row 5 | `valjevo-scope7-mounted-backdrop-034c9aa1a85c.png` (area 7) |
 | `tile:5:04836a293e609ba63f00a8ea91daff078a36b261bdfe66c02c4a25dda5f27e1c` | 8X8D5 block 241 tile 39 over sky colour 0 | map 4, square (10,4) facing east, column 10 row 2 | `valjevo-scope6-backdrop-04836a293e60.png` (area 4, 6) |
 | `tile:5:0aac84aaaedf81576bc43833d31b2527a862b0aa25a6092920404ffa90b846cb` | 8X8D5 block 241 tile 40 over 8X8D5 block 241 tile 65 over 8X8D5 block 242 tile 49 over sky colour 15 | map 6, square (4,11) facing north, column 10 row 3 | `valjevo-scope6-backdrop-0aac84aaaedf.png` (area 6) |
-| `tile:5:11f757f6b1489e90bee42a46c92085257733986167a1d214b564b8643c14502b` | 8X8D5 block 241 tile 23 | map 7, square (11,5) facing south, column 6 row 6 |  |
-| `tile:5:13d1f056dd172d3976b57c6b0411beb1e18349fe781899f1aaa39fd5c3e7c5fa` | 8X8D5 block 241 tile 24 | map 7, square (1,8) facing east, column 4 row 6 |  |
+| `tile:5:11f757f6b1489e90bee42a46c92085257733986167a1d214b564b8643c14502b` | 8X8D5 block 241 tile 23 | map 7, square (11,5) facing south, column 6 row 6 | `valjevo-scope7-mounted-backdrop-11f757f6b148.png` (area 7) |
+| `tile:5:13d1f056dd172d3976b57c6b0411beb1e18349fe781899f1aaa39fd5c3e7c5fa` | 8X8D5 block 241 tile 24 | map 7, square (1,8) facing east, column 4 row 6 | `valjevo-scope7-mounted-backdrop-13d1f056dd17.png` (area 7) |
 | `tile:5:176faa53868619eb5587f27886a3c89bcc01851f2e998b0b8328f516e6dd436c` | 8X8D5 block 241 tile 49 over 8X8D5 block 241 tile 49 over 8X8D5 block 241 tile 49 over sky colour 0 | map 4, square (10,4) facing south, column 8 row 2 | `valjevo-scope6-backdrop-176faa538686.png` (area 4, 6) |
 | `tile:5:18a18a72e4859362183cce0d2d9574c7fa26182fd5f5baed8267df085e917cd1` | 8X8D5 block 241 tile 65 over 8X8D5 block 241 tile 40 over sky colour 0 | map 4, square (11,8) facing north, column 6 row 4 | `valjevo-scope6-backdrop-18a18a72e485.png` (area 4, 6) |
-| `tile:5:2476c6733bd22d43e5dbfd05326b339da94727390a45f559d25996e615ddb325` | 8X8D5 block 241 tile 21 | map 3, square (12,15) facing east, column 4 row 5 |  |
+| `tile:5:2476c6733bd22d43e5dbfd05326b339da94727390a45f559d25996e615ddb325` | 8X8D5 block 241 tile 21 | map 3, square (12,15) facing east, column 4 row 5 | `valjevo-scope7-mounted-backdrop-2476c6733bd2.png` (area 7) |
 | `tile:5:24bb00ef62c14720f6b75173096fdbd228709d9ee5ab58b646ab89ed585de4a4` | 8X8D5 block 241 tile 41 over 8X8D5 block 241 tile 41 over 8X8D5 block 241 tile 65 over sky colour 0 | map 4, square (8,5) facing east, column 6 row 4 | `valjevo-scope6-backdrop-24bb00ef62c1.png` (area 4, 6) |
 | `tile:5:24fba682c92cad0205b42b70ca5d40d5fb669da18ffd3bf2eed6f96bf188748f` | 8X8D5 block 241 tile 49 over 8X8D5 block 241 tile 49 over 8X8D5 block 241 tile 65 over sky colour 11 | map 4, square (11,6) facing north, column 8 row 2 | `valjevo-scope4-screen-4-24fba682c92c.png` (area 4, 6) |
 | `tile:5:269390f429db18d5efc50b398fc972456b0d6820a698daa00785aab5c5be39b5` | 8X8D5 block 241 tile 49 over 8X8D5 block 242 tile 36 over 8X8D5 block 242 tile 49 over sky colour 0 | map 4, square (11,4) facing west, column 1 row 4 | `valjevo-scope4-screen-4-269390f429db.png` (area 4) |
@@ -285,222 +228,88 @@ Map 3, 4, 6, 5, 7; WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (ti
 | `tile:5:4a92dcd56b0d6131d823af1fb32cb324a7ff91a8de8a9154eaf7dcfcf152da3b` | 8X8D5 block 241 tile 40 over 8X8D5 block 241 tile 40 over sky colour 11 | map 4, square (10,4) facing south, column 3 row 3 | `valjevo-scope6-cell-4a92dcd56b0d.png` (area 4, 6) |
 | `tile:5:4e7944d1326cb4031b5acc9abf2d42d153ca354493b9aa01be067ab218166e2a` | 8X8D5 block 241 tile 39 over 8X8D5 block 241 tile 41 over sky colour 11 | map 4, square (11,4) facing west, column 3 row 4 | `valjevo-scope4-screen-4-4e7944d1326c.png` (area 4) |
 | `tile:5:55cc844fe94c3cf05f29f885d1e5d466c377e4cc21576ee85238490161b10290` | 8X8D5 block 241 tile 41 over 8X8D5 block 241 tile 41 over 8X8D5 block 242 tile 20 over sky colour 15 | map 6, square (4,10) facing north, column 7 row 3 | `valjevo-scope6-cell-55cc844fe94c.png` (area 4, 6) |
-| `tile:5:58a8bc82501c2a2c01038b3b2b57be050e281f3573030745cd4ba50b03af2376` | 8X8D5 block 241 tile 29 | map 3, square (12,15) facing east, column 5 row 4 |  |
+| `tile:5:58a8bc82501c2a2c01038b3b2b57be050e281f3573030745cd4ba50b03af2376` | 8X8D5 block 241 tile 29 | map 3, square (12,15) facing east, column 5 row 4 | `valjevo-scope7-mounted-backdrop-58a8bc82501c.png` (area 7) |
 | `tile:5:620a6303715d49edcfa38984eb64107d52fd85d1213c89f0b4d2a5c767a3dde7` | 8X8D5 block 241 tile 66 over 8X8D5 block 241 tile 49 over sky colour 11 | map 4, square (13,8) facing north, column 1 row 4 | `valjevo-scope6-cell-620a6303715d.png` (area 4, 6) |
-| `tile:5:6267250f449a8457fd01a0b0e9c3ce587b836864ffa083666ea5a6f3d2fc7ecd` | 8X8D5 block 241 tile 44 | map 3, square (12,15) facing east, column 4 row 6 |  |
-| `tile:5:6a871cd6675ac6159a9b6709cdc5ed76909f31c0410f87c572bb4cc98ddf03f4` | 8X8D5 block 241 tile 38 | map 3, square (12,15) facing east, column 6 row 6 |  |
+| `tile:5:6267250f449a8457fd01a0b0e9c3ce587b836864ffa083666ea5a6f3d2fc7ecd` | 8X8D5 block 241 tile 44 | map 3, square (12,15) facing east, column 4 row 6 | `valjevo-scope7-mounted-backdrop-6267250f449a.png` (area 7) |
+| `tile:5:6a871cd6675ac6159a9b6709cdc5ed76909f31c0410f87c572bb4cc98ddf03f4` | 8X8D5 block 241 tile 38 | map 3, square (12,15) facing east, column 6 row 6 | `valjevo-scope7-mounted-backdrop-6a871cd6675a.png` (area 7) |
 | `tile:5:6acb8ac41337dc063fbb2533600cf31db60ca12aa6e5a6ee18bab5b2addacdaa` | 8X8D5 block 241 tile 40 over 8X8D5 block 241 tile 40 over sky colour 15 | map 6, square (4,10) facing north, column 6 row 3 | `valjevo-scope6-cell-6acb8ac41337.png` (area 4, 6) |
 | `tile:5:790d3be54bb230280d606d25814e04d6a0d1312817cb946b9ca24d5b632f2b12` | 8X8D5 block 241 tile 49 over 8X8D5 block 241 tile 49 over 8X8D5 block 241 tile 40 over sky colour 11 | map 4, square (8,5) facing east, column 4 row 4 | `valjevo-scope4-screen-4-790d3be54bb2.png` (area 4) |
-| `tile:5:7cea0473b7274386a81c58a22192153f04b268185154b826d293aa3588e3d018` | 8X8D5 block 241 tile 65 over 8X8D5 block 242 tile 49 over sky colour 15 | map 3, square (13,12) facing south, column 9 row 4 |  |
+| `tile:5:7cea0473b7274386a81c58a22192153f04b268185154b826d293aa3588e3d018` | 8X8D5 block 241 tile 65 over 8X8D5 block 242 tile 49 over sky colour 15 | map 3, square (13,12) facing south, column 9 row 4 | `valjevo-scope3-map5-cell-7cea0473b727.png` (area 3) |
 | `tile:5:8375772bd10ffc5494e66d81aefee21ce250263b5fdf174bd780dccb389a1e49` | 8X8D5 block 241 tile 41 over sky colour 0 | map 4, square (10,4) facing east, column 9 row 2 | `valjevo-scope6-backdrop-8375772bd10f.png` (area 4, 6) |
 | `tile:5:85a0d3b1281f79e4c87a2b645c822b26f738ca31f2d23007b529617e29a70a04` | 8X8D5 block 241 tile 40 over 8X8D5 block 241 tile 41 over 8X8D5 block 242 tile 49 over sky colour 11 | map 4, square (11,4) facing south, column 10 row 3 | `valjevo-scope4-screen-4-85a0d3b1281f.png` (area 4) |
 | `tile:5:88a4abc41a379d461d579bd14f4baee5e824470bb22f86c7de3d7816f3094826` | 8X8D5 block 241 tile 65 over 8X8D5 block 241 tile 40 over sky colour 11 | map 4, square (11,8) facing north, column 6 row 4 | `valjevo-scope6-cell-88a4abc41a37.png` (area 4, 6) |
-| `tile:5:8c53631ec54614a29a80d0cb7885c189df7a5dc1725f6ee1073b91a81a6e34d2` | 8X8D5 block 241 tile 12 | map 3, square (12,15) facing east, column 4 row 4 |  |
-| `tile:5:8d4aca371c0c1ea560a68503b3da34a410dd93d11b9f421d24d23d067389abb1` | 8X8D5 block 241 tile 42 | map 3, square (12,15) facing east, column 5 row 6 |  |
+| `tile:5:8c53631ec54614a29a80d0cb7885c189df7a5dc1725f6ee1073b91a81a6e34d2` | 8X8D5 block 241 tile 12 | map 3, square (12,15) facing east, column 4 row 4 | `valjevo-scope7-mounted-backdrop-8c53631ec546.png` (area 7) |
+| `tile:5:8d4aca371c0c1ea560a68503b3da34a410dd93d11b9f421d24d23d067389abb1` | 8X8D5 block 241 tile 42 | map 3, square (12,15) facing east, column 5 row 6 | `valjevo-scope7-mounted-backdrop-8d4aca371c0c.png` (area 7) |
 | `tile:5:935f3ee085e1ae67e735ed893428bfa40eea469106fdccf67314fe34db6e17c1` | 8X8D5 block 241 tile 49 over 8X8D5 block 241 tile 49 over 8X8D5 block 241 tile 65 over sky colour 15 | map 6, square (5,11) facing north, column 8 row 2 | `valjevo-scope6-cell-935f3ee085e1.png` (area 4, 6) |
 | `tile:5:995d92c29ba324909e4b9f9955ff22ce714acb560baf17f1b598064198459203` | 8X8D5 block 241 tile 40 over 8X8D5 block 241 tile 40 over sky colour 0 | map 4, square (10,4) facing south, column 3 row 3 | `valjevo-scope6-backdrop-995d92c29ba3.png` (area 4, 6) |
-| `tile:5:9b7ed76ed66cbf56caea2f54128720afb0451c1fab0ffdbee3790abf7dc6e1f7` | 8X8D5 block 241 tile 34 | map 7, square (1,8) facing east, column 4 row 5 |  |
+| `tile:5:9b7ed76ed66cbf56caea2f54128720afb0451c1fab0ffdbee3790abf7dc6e1f7` | 8X8D5 block 241 tile 34 | map 7, square (1,8) facing east, column 4 row 5 | `valjevo-scope7-mounted-backdrop-9b7ed76ed66c.png` (area 7) |
 | `tile:5:9e989607a2760793e5dea1c228a49887cbf26c4c5f53b10f8461239d00a0dff9` | 8X8D5 block 241 tile 39 over sky colour 11 | map 4, square (10,4) facing east, column 10 row 2 | `valjevo-scope6-cell-9e989607a276.png` (area 4, 6) |
 | `tile:5:a1422492a11a323aa967d4b0617604f6c483dddeb3b6869cfed32902326899f1` | 8X8D5 block 241 tile 40 over 8X8D5 block 241 tile 65 over sky colour 11 | map 4, square (10,6) facing north, column 10 row 3 | `valjevo-scope4-screen-4-a1422492a11a.png` (area 4) |
 | `tile:5:a6fd996f7610c94e0bcca55c1e9f45b8e580dab48f3569e0c22575e102a030be` | 8X8D5 block 241 tile 41 over 8X8D5 block 241 tile 41 over 8X8D5 block 241 tile 65 over 8X8D5 block 242 tile 49 over sky colour 15 | map 6, square (5,11) facing north, column 7 row 3 | `valjevo-scope6-cell-a6fd996f7610.png` (area 4, 6) |
-| `tile:5:a9f5aae2fa4147ba2922034548ff9b28d45ba189a5f7b028e881169968d3891d` | 8X8D5 block 241 tile 45 | map 3, square (12,15) facing east, column 5 row 5 |  |
+| `tile:5:a9f5aae2fa4147ba2922034548ff9b28d45ba189a5f7b028e881169968d3891d` | 8X8D5 block 241 tile 45 | map 3, square (12,15) facing east, column 5 row 5 | `valjevo-scope7-mounted-backdrop-a9f5aae2fa41.png` (area 7) |
 | `tile:5:ab8a57f8b7d945c1b2573c5366ab8c7a1549d37e95fee46b92057816163b905a` | 8X8D5 block 241 tile 39 over 8X8D5 block 241 tile 41 over sky colour 0 | map 4, square (11,4) facing west, column 3 row 4 | `valjevo-scope4-screen-4-ab8a57f8b7d9.png` (area 4) |
 | `tile:5:ad6a37d79ac1c91c0ee850a86c0164c2f02d1c72a1c027cabc277d6fed4a0412` | 8X8D5 block 241 tile 39 over 8X8D5 block 241 tile 15 | map 4, square (10,6) facing east, column 3 row 4 | `valjevo-scope6-backdrop-ad6a37d79ac1.png` (area 4, 6) |
 | `tile:5:ae9599a889b5cf5493701142b1abb5c0db263e644d167efddc32054867b55467` | 8X8D5 block 241 tile 39 over 8X8D5 block 241 tile 2 | map 4, square (11,5) facing east, column 10 row 2 | `valjevo-scope4-screen-4-ae9599a889b5.png` (area 4, 6) |
-| `tile:5:b31d87199c37e182e16235c714920239131a1090a9b7b6b1c1790d020121f7f4` | 8X8D5 block 241 tile 31 | map 7, square (6,3) facing west, column 0 row 4 |  |
-| `tile:5:b677fcc530b5df9b7d61c5a59f3ac9fda54c03c38c3f65107bbdd756385116d1` | 8X8D5 block 241 tile 18 | map 7, square (4,3) facing east, column 10 row 4 |  |
+| `tile:5:b31d87199c37e182e16235c714920239131a1090a9b7b6b1c1790d020121f7f4` | 8X8D5 block 241 tile 31 | map 7, square (6,3) facing west, column 0 row 4 | `valjevo-scope7-mounted-backdrop-b31d87199c37.png` (area 7) |
+| `tile:5:b677fcc530b5df9b7d61c5a59f3ac9fda54c03c38c3f65107bbdd756385116d1` | 8X8D5 block 241 tile 18 | map 7, square (4,3) facing east, column 10 row 4 | `valjevo-scope7-mounted-backdrop-b677fcc530b5.png` (area 7) |
 | `tile:5:b736305be4508242c7df967669e77fe01c85e6e9f59e00040c99b688576de57a` | 8X8D5 block 241 tile 49 over 8X8D5 block 241 tile 49 over 8X8D5 block 241 tile 49 over sky colour 11 | map 4, square (10,4) facing south, column 8 row 2 | `valjevo-scope6-cell-b736305be450.png` (area 4, 6) |
 | `tile:5:b81d459ed338a2273d2c6f689df64ecad8685258d813911e7d085ea6091abd30` | 8X8D5 block 241 tile 49 over 8X8D5 block 241 tile 66 over sky colour 0 | map 4, square (10,4) facing south, column 1 row 4 | `valjevo-scope4-screen-4-b81d459ed338.png` (area 4) |
-| `tile:5:c02f21b9af02daeb56935df1520d8b59068755548cea6821e9fa3677ab1600fb` | 8X8D5 block 241 tile 33 | map 7, square (11,5) facing south, column 6 row 5 |  |
+| `tile:5:c02f21b9af02daeb56935df1520d8b59068755548cea6821e9fa3677ab1600fb` | 8X8D5 block 241 tile 33 | map 7, square (11,5) facing south, column 6 row 5 | `valjevo-scope7-mounted-backdrop-c02f21b9af02.png` (area 7) |
 | `tile:5:c3e679bfe667e39d95541e5dacbbb8ae52d77e6b290b50a882022febb75acbcb` | 8X8D5 block 241 tile 49 over 8X8D5 block 242 tile 36 over 8X8D5 block 242 tile 49 over sky colour 11 | map 4, square (11,4) facing west, column 1 row 4 | `valjevo-scope4-screen-4-c3e679bfe667.png` (area 4) |
-| `tile:5:c462f57aac7a3c66ec72ebae802e16b67bb382dc6cc37e351bcf84c092ead44a` | 8X8D5 block 241 tile 30 | map 7, square (6,4) facing west, column 2 row 4 |  |
+| `tile:5:c462f57aac7a3c66ec72ebae802e16b67bb382dc6cc37e351bcf84c092ead44a` | 8X8D5 block 241 tile 30 | map 7, square (6,4) facing west, column 2 row 4 | `valjevo-scope7-mounted-backdrop-c462f57aac7a.png` (area 7) |
 | `tile:5:c68f3a4639479cfeff0d8598fbb18a2ea5ab760c33e435a95c3e509e46d41d02` | 8X8D5 block 241 tile 40 over 8X8D5 block 241 tile 15 | map 4, square (11,6) facing east, column 1 row 2 | `valjevo-scope4-screen-4-c68f3a463947.png` (area 4, 6) |
-| `tile:5:caa98830d5dbff3c5c1c4d9366de5ae53a85197818997646163f0ba25ab0578d` | 8X8D5 block 241 tile 37 | map 7, square (4,4) facing east, column 8 row 4 |  |
+| `tile:5:caa98830d5dbff3c5c1c4d9366de5ae53a85197818997646163f0ba25ab0578d` | 8X8D5 block 241 tile 37 | map 7, square (4,4) facing east, column 8 row 4 | `valjevo-scope7-mounted-backdrop-caa98830d5db.png` (area 7) |
 | `tile:5:cc56e96f5ea85cca8d9edc5798377c216b80d3e75c27e0cc2a9d265d727e10aa` | 8X8D5 block 241 tile 49 over 8X8D5 block 241 tile 49 over 8X8D5 block 241 tile 40 over sky colour 0 | map 4, square (8,5) facing east, column 4 row 4 | `valjevo-scope4-screen-4-cc56e96f5ea8.png` (area 4) |
 | `tile:5:d05e4db7f6564c6aa5a34c452a27fb83c5934c5c35803789cffca5a17f2db32b` | 8X8D5 block 241 tile 49 over 8X8D5 block 241 tile 49 over 8X8D5 block 241 tile 65 over sky colour 0 | map 4, square (11,6) facing north, column 8 row 2 | `valjevo-scope6-backdrop-d05e4db7f656.png` (area 4, 6) |
-| `tile:5:da1f848e66aff5a16fd003945cf2097d752f7a9753bec0cd99590ec2fc87ad25` | 8X8D5 block 241 tile 32 | map 7, square (3,2) facing south, column 1 row 5 |  |
+| `tile:5:da1f848e66aff5a16fd003945cf2097d752f7a9753bec0cd99590ec2fc87ad25` | 8X8D5 block 241 tile 32 | map 7, square (3,2) facing south, column 1 row 5 | `valjevo-scope7-mounted-backdrop-da1f848e66af.png` (area 7) |
 | `tile:5:dc159ae2ed50d75f137fb246b446465802cf2bbc0f827430b4f2817239702db3` | 8X8D5 block 241 tile 40 over 8X8D5 block 241 tile 65 over sky colour 0 | map 4, square (10,6) facing north, column 10 row 3 | `valjevo-scope4-screen-4-dc159ae2ed50.png` (area 4) |
 | `tile:5:de7d955b786d51d9f00a9668a7ef85732749a3c801acca4b6e74dec00ef47892` | 8X8D5 block 241 tile 49 over 8X8D5 block 241 tile 66 over sky colour 11 | map 4, square (10,4) facing south, column 1 row 4 | `valjevo-scope4-screen-4-de7d955b786d.png` (area 4) |
 | `tile:5:e4068d2375541c21af0134e9955f6ff86492a0d6ac66e9bf581ab1e8ce32d329` | 8X8D5 block 241 tile 66 over 8X8D5 block 241 tile 49 over sky colour 0 | map 4, square (13,8) facing north, column 1 row 4 | `valjevo-scope6-backdrop-e4068d237554.png` (area 4, 6) |
 | `tile:5:e4758c39443ea936f87b60a8993992efc39576d67c99d67f80a601a5c794eace` | 8X8D5 block 241 tile 40 over 8X8D5 block 241 tile 41 over 8X8D5 block 242 tile 49 over sky colour 0 | map 4, square (11,4) facing south, column 10 row 3 | `valjevo-scope4-screen-4-e4758c39443e.png` (area 4) |
-| `tile:5:e6827fee6b1288beb21d0a9801944af1e05a44a19e3dab5a10d94a0e79fb8a64` | 8X8D5 block 241 tile 13 | map 3, square (12,15) facing east, column 6 row 4 |  |
+| `tile:5:e6827fee6b1288beb21d0a9801944af1e05a44a19e3dab5a10d94a0e79fb8a64` | 8X8D5 block 241 tile 13 | map 3, square (12,15) facing east, column 6 row 4 | `valjevo-scope7-mounted-backdrop-e6827fee6b12.png` (area 7) |
 | `tile:5:f54344a6151b9aa36fd7f48d79eca6886550a2d1954cc4462e47e37300a018ab` | 8X8D5 block 241 tile 41 over 8X8D5 block 241 tile 41 over 8X8D5 block 241 tile 65 over sky colour 11 | map 4, square (8,5) facing east, column 6 row 4 | `valjevo-scope6-cell-f54344a6151b.png` (area 4, 6) |
 
 #### tile set 8X8D5 block 242 (28)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
-| `tile:5:2b3f05d8a2377ae6f729062ed03ad4a872161392eb6a80b16abf5d167e054931` | 8X8D5 block 242 tile 51 | map 7, square (0,8) facing south, column 0 row 6 |  |
+| `tile:5:2b3f05d8a2377ae6f729062ed03ad4a872161392eb6a80b16abf5d167e054931` | 8X8D5 block 242 tile 51 | map 7, square (0,8) facing south, column 0 row 6 | `valjevo-scope7-mounted-backdrop-2b3f05d8a237.png` (area 7) |
 | `tile:5:354eae2c08d55fef8b662fd965c00640875c2316400d3e7ba8e51dc7106639bb` | 8X8D5 block 242 tile 52 over 8X8D5 block 242 tile 52 over 8X8D5 block 241 tile 49 over sky colour 0 | map 4, square (9,6) facing north, column 8 row 2 | `valjevo-scope4-screen-4-354eae2c08d5.png` (area 4) |
-| `tile:5:3d4d73e210ce3bd3430961fdd993088b59724598dea65c1157875658fa9fac70` | 8X8D5 block 242 tile 54 | map 7, square (1,3) facing south, column 7 row 6 |  |
+| `tile:5:3d4d73e210ce3bd3430961fdd993088b59724598dea65c1157875658fa9fac70` | 8X8D5 block 242 tile 54 | map 7, square (1,3) facing south, column 7 row 6 | `valjevo-scope7-mounted-backdrop-3d4d73e210ce.png` (area 7) |
 | `tile:5:431eff9844ad93a53fef4ef7cfdbb6269b4e939cb491b68b6d44071280f8c7b9` | 8X8D5 block 242 tile 36 over 8X8D5 block 241 tile 40 over sky colour 0 | map 6, square (4,7) facing south, column 4 row 4 | `valjevo-scope6-backdrop-431eff9844ad.png` (area 6) |
 | `tile:5:441d53b35e5fb372342d02edc2f8177ca5d7b0147d9aaa93365865887281960d` | 8X8D5 block 242 tile 20 over 8X8D5 block 241 tile 49 over sky colour 0 | map 6, square (6,7) facing south, column 9 row 4 | `valjevo-scope6-backdrop-441d53b35e5f.png` (area 6) |
-| `tile:5:4a4a7ef1663aff45e1d5e982a3d3007cd8e92e217f3b58ec2996b3272737bad9` | 8X8D5 block 242 tile 43 over sky colour 0 | map 7, square (2,2) facing south, column 1 row 4 |  |
-| `tile:5:4a6d68fa00df0d1406d8784a2fc1b70bac2c6f71664b9b3fbe28f39d4c17b2b9` | 8X8D5 block 242 tile 44 over sky colour 15 | map 7, square (1,4) facing east, column 9 row 4 |  |
-| `tile:5:51f8f4e98ba63527d92d8e60a40a190930302f62dbb3ad083310ab2d483cf7a8` | 8X8D5 block 242 tile 44 over sky colour 0 | map 7, square (1,2) facing south, column 6 row 4 |  |
+| `tile:5:4a4a7ef1663aff45e1d5e982a3d3007cd8e92e217f3b58ec2996b3272737bad9` | 8X8D5 block 242 tile 43 over sky colour 0 | map 7, square (2,2) facing south, column 1 row 4 | `valjevo-scope7-mounted-backdrop-4a4a7ef1663a.png` (area 7) |
+| `tile:5:4a6d68fa00df0d1406d8784a2fc1b70bac2c6f71664b9b3fbe28f39d4c17b2b9` | 8X8D5 block 242 tile 44 over sky colour 15 | map 7, square (1,4) facing east, column 9 row 4 | `valjevo-scope7-mounted-backdrop-4a6d68fa00df.png` (area 7) |
+| `tile:5:51f8f4e98ba63527d92d8e60a40a190930302f62dbb3ad083310ab2d483cf7a8` | 8X8D5 block 242 tile 44 over sky colour 0 | map 7, square (1,2) facing south, column 6 row 4 | `valjevo-scope7-mounted-backdrop-51f8f4e98ba6.png` (area 7) |
 | `tile:5:55f0af6ef38801b9bd8391795ea1ec599907c8f85d9a9d3cfb4372170a6b3cc4` | 8X8D5 block 242 tile 44 over sky colour 11 | map 7, square (1,2) facing south, column 6 row 4 |  |
 | `tile:5:5ccc45237510b55c91bc749a79b69eab42a9472b13cd428546d75b199e0cffdf` | 8X8D5 block 242 tile 36 over 8X8D5 block 241 tile 40 over sky colour 11 | map 6, square (4,7) facing south, column 4 row 4 | `valjevo-scope6-cell-5ccc45237510.png` (area 6) |
-| `tile:5:6829c9458d2fddc78a6561401af3d3b155fde9eccc9d8cf4c254adcc64c06f63` | 8X8D5 block 242 tile 46 | map 7, square (1,2) facing south, column 6 row 5 |  |
-| `tile:5:6a67369f0003a2c06b5cd95263f2506bd134cfe49788903b582c46f21f85dbdd` | 8X8D5 block 242 tile 55 | map 7, square (1,3) facing south, column 8 row 6 |  |
-| `tile:5:72062dfcc876910995691a547ec63cf8fbbce8a57eb381f8ec3d4fc167df6776` | 8X8D5 block 242 tile 57 | map 7, square (2,3) facing south, column 0 row 6 |  |
-| `tile:5:75d2bb200595762b03076322bf2b7aba0a711b7ea784291ea80ac1b160be7cc3` | 8X8D5 block 242 tile 41 | map 7, square (1,3) facing south, column 8 row 3 |  |
+| `tile:5:6829c9458d2fddc78a6561401af3d3b155fde9eccc9d8cf4c254adcc64c06f63` | 8X8D5 block 242 tile 46 | map 7, square (1,2) facing south, column 6 row 5 | `valjevo-scope7-mounted-backdrop-6829c9458d2f.png` (area 7) |
+| `tile:5:6a67369f0003a2c06b5cd95263f2506bd134cfe49788903b582c46f21f85dbdd` | 8X8D5 block 242 tile 55 | map 7, square (1,3) facing south, column 8 row 6 | `valjevo-scope7-mounted-backdrop-6a67369f0003.png` (area 7) |
+| `tile:5:72062dfcc876910995691a547ec63cf8fbbce8a57eb381f8ec3d4fc167df6776` | 8X8D5 block 242 tile 57 | map 7, square (2,3) facing south, column 0 row 6 | `valjevo-scope7-mounted-backdrop-72062dfcc876.png` (area 7) |
+| `tile:5:75d2bb200595762b03076322bf2b7aba0a711b7ea784291ea80ac1b160be7cc3` | 8X8D5 block 242 tile 41 | map 7, square (1,3) facing south, column 8 row 3 | `valjevo-scope7-mounted-backdrop-75d2bb200595.png` (area 7) |
 | `tile:5:75f65bee208a738ee1d7fc821740f5c553dea4fd092f8594d80861be72ea4977` | 8X8D5 block 242 tile 52 over 8X8D5 block 242 tile 52 over 8X8D5 block 241 tile 49 over sky colour 11 | map 4, square (9,6) facing north, column 8 row 2 | `valjevo-scope4-screen-4-75f65bee208a.png` (area 4) |
-| `tile:5:8429eaf9f85531feb526e9e502bb97f723eda6c7a3ac756e81fbae815df4b91d` | 8X8D5 block 242 tile 43 over sky colour 15 | map 7, square (0,4) facing east, column 4 row 4 |  |
-| `tile:5:879a1aabd10d886eaec41590a013f02b5a359035215e7b295a1739f7dc9329d8` | 8X8D5 block 242 tile 38 | map 7, square (3,3) facing south, column 2 row 3 |  |
-| `tile:5:8f2bc5749983e8f9d8a5b425cdf74cd45842af0a4771d9a4798ff309ee003aad` | 8X8D5 block 242 tile 45 | map 7, square (2,2) facing south, column 1 row 5 |  |
-| `tile:5:92e0f8b26352b8acbd960eb0deb05c9a577b03ca7d144847810c07a378c622c8` | 8X8D5 block 242 tile 39 | map 7, square (2,3) facing south, column 0 row 4 |  |
-| `tile:5:939298a275e1154529cf15704cd10a56bf27bc88cd0c3754386d65ed92935c84` | 8X8D5 block 242 tile 24 | map 7, square (2,2) facing east, column 10 row 5 |  |
+| `tile:5:8429eaf9f85531feb526e9e502bb97f723eda6c7a3ac756e81fbae815df4b91d` | 8X8D5 block 242 tile 43 over sky colour 15 | map 7, square (0,4) facing east, column 4 row 4 | `valjevo-scope7-mounted-backdrop-8429eaf9f855.png` (area 7) |
+| `tile:5:879a1aabd10d886eaec41590a013f02b5a359035215e7b295a1739f7dc9329d8` | 8X8D5 block 242 tile 38 | map 7, square (3,3) facing south, column 2 row 3 | `valjevo-scope7-mounted-backdrop-879a1aabd10d.png` (area 7) |
+| `tile:5:8f2bc5749983e8f9d8a5b425cdf74cd45842af0a4771d9a4798ff309ee003aad` | 8X8D5 block 242 tile 45 | map 7, square (2,2) facing south, column 1 row 5 | `valjevo-scope7-mounted-backdrop-8f2bc5749983.png` (area 7) |
+| `tile:5:92e0f8b26352b8acbd960eb0deb05c9a577b03ca7d144847810c07a378c622c8` | 8X8D5 block 242 tile 39 | map 7, square (2,3) facing south, column 0 row 4 | `valjevo-scope7-mounted-backdrop-92e0f8b26352.png` (area 7) |
+| `tile:5:939298a275e1154529cf15704cd10a56bf27bc88cd0c3754386d65ed92935c84` | 8X8D5 block 242 tile 24 | map 7, square (2,2) facing east, column 10 row 5 | `valjevo-scope7-mounted-backdrop-939298a275e1.png` (area 7) |
 | `tile:5:93f135101f9839bcf88b3621daa80d8e845f20bf295e971f59f5219524768669` | 8X8D5 block 242 tile 43 over sky colour 11 | map 7, square (2,2) facing south, column 1 row 4 |  |
-| `tile:5:a11c7f40f392b813c562930b4f33ba32a8c671dae39b936c4c9a4282f90ca573` | 8X8D5 block 242 tile 40 | map 7, square (1,3) facing south, column 7 row 4 |  |
-| `tile:5:a2eecc797cd64c74e57e5115d9b4d12f177b83131b743c8d7e5547e5dce86055` | 8X8D5 block 242 tile 30 | map 7, square (1,2) facing east, column 9 row 5 |  |
-| `tile:5:c009daf0934fc92bb54c121a0c0a91d96802fafd65492bbcb72637341efb04b5` | 8X8D5 block 242 tile 29 | map 7, square (2,3) facing east, column 8 row 5 |  |
+| `tile:5:a11c7f40f392b813c562930b4f33ba32a8c671dae39b936c4c9a4282f90ca573` | 8X8D5 block 242 tile 40 | map 7, square (1,3) facing south, column 7 row 4 | `valjevo-scope7-mounted-backdrop-a11c7f40f392.png` (area 7) |
+| `tile:5:a2eecc797cd64c74e57e5115d9b4d12f177b83131b743c8d7e5547e5dce86055` | 8X8D5 block 242 tile 30 | map 7, square (1,2) facing east, column 9 row 5 | `valjevo-scope7-mounted-backdrop-a2eecc797cd6.png` (area 7) |
+| `tile:5:c009daf0934fc92bb54c121a0c0a91d96802fafd65492bbcb72637341efb04b5` | 8X8D5 block 242 tile 29 | map 7, square (2,3) facing east, column 8 row 5 | `valjevo-scope7-mounted-backdrop-c009daf0934f.png` (area 7) |
 | `tile:5:cd3061c8e2d2b424a42f7ed64dd02c92c02e9cd434262de345e112a81487dc46` | 8X8D5 block 242 tile 20 over 8X8D5 block 241 tile 49 over sky colour 11 | map 6, square (6,7) facing south, column 9 row 4 | `valjevo-scope6-cell-cd3061c8e2d2.png` (area 6) |
-| `tile:5:d0103701afdee200f8a92f470a1e146bdc4efa15b4e8e96cf47119d7218e2874` | 8X8D5 block 242 tile 59 | map 7, square (1,2) facing south, column 6 row 6 |  |
-| `tile:5:d804ca951e4f5802ca25c6327b81e7f2b2ed41fc768c7a2c90e68791a373b371` | 8X8D5 block 242 tile 56 | map 7, square (3,3) facing south, column 2 row 6 |  |
-| `tile:5:e6f2dba83dbe5bcfca34c65f1ccb3c8c8a47e2873dad93672f4dab68e5a660e2` | 8X8D5 block 242 tile 48 | map 7, square (0,8) facing east, column 10 row 6 |  |
+| `tile:5:d0103701afdee200f8a92f470a1e146bdc4efa15b4e8e96cf47119d7218e2874` | 8X8D5 block 242 tile 59 | map 7, square (1,2) facing south, column 6 row 6 | `valjevo-scope7-mounted-backdrop-d0103701afde.png` (area 7) |
+| `tile:5:d804ca951e4f5802ca25c6327b81e7f2b2ed41fc768c7a2c90e68791a373b371` | 8X8D5 block 242 tile 56 | map 7, square (3,3) facing south, column 2 row 6 | `valjevo-scope7-mounted-backdrop-d804ca951e4f.png` (area 7) |
+| `tile:5:e6f2dba83dbe5bcfca34c65f1ccb3c8c8a47e2873dad93672f4dab68e5a660e2` | 8X8D5 block 242 tile 48 | map 7, square (0,8) facing east, column 10 row 6 | `valjevo-scope7-mounted-backdrop-e6f2dba83dbe.png` (area 7) |
 
-### Area 7: Valjevo Castle, the Pool (109)
-
-Map 7, 3; WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1); WALLDEF2 block 2 (tiles 8X8D2 block 2), block 4 (tiles 8X8D2 block 4), block 1 (tiles 8X8D2 block 1).
-
-#### shared tile set 8X8D1 block 203 (13)
-
-| Key (PNG 32x32) | What it is | See it at | Same pixels as |
-| --- | --- | --- | --- |
-| `tile:7:0ae60cf3309accf1a341b5cc07952a90cf121d33ec8c6432d727b57c0c6c20f1` | 8X8D1 block 203 tile 15 over the ground colour 6 | map 7, square (4,3) facing east, column 10 row 7 | `route-0ae60cf3309a.png` (area 0, 2, 3, 4, 5, 6, 8, 9, 11, 14, 15, 16, 18, 20, 21, 22, 23, 29) |
-| `tile:7:202aefe6bbb76257e5a3fdb4ec8e2a102ef8ab28a63b1d507be1d284589ab202` | 8X8D1 block 203 tile 18 over the ground colour 6 | map 3, square (4,0) facing north, column 1 row 9 | `new-phlan-training-paving-0-202aefe6bbb7.png` (area 0, 2, 3, 4, 5, 6, 8, 9, 11, 14, 15, 16, 18, 20, 21, 22, 23, 24, 28, 29, 31) |
-| `tile:7:45f5e38f7219ffc606ba569d2abe5be146d8630bf8dcde674e3c28c3ce4e621a` | 8X8D1 block 203 tile 17 over sky colour 0 | map 3, square (4,0) facing north, column 0 row 0 | `valjevo-scope3-cell-45f5e38f7219.png` (area 0, 2, 3, 4, 5, 6, 9, 10, 14, 15, 18, 20, 29) |
-| `tile:7:699e8b134491518fdbccbf4e9783a7ecde8cec6424c1858827d3cbc005fdbaea` | 8X8D1 block 203 tile 36 over the ground colour 6 | map 7, square (4,4) facing east, column 8 row 8 | `route-699e8b134491.png` (area 0, 2, 3, 4, 5, 6, 8, 9, 11, 14, 15, 16, 18, 20, 21, 22, 23, 29) |
-| `tile:7:6cfeeb3aa25d3f411dae5eec17d7369ca7153e72dcf54bcf4c3daec0f5b21fc7` | 8X8D1 block 203 tile 12 | map 3, square (4,0) facing north, column 0 row 1 | `room-tile-03.png` (area 0, 2, 3, 4, 5, 6, 8, 9, 10, 11, 14, 15, 16, 18, 20, 21, 22, 23, 24, 26, 28, 29, 31) |
-| `tile:7:73f6e7f279141546a9e3ce407ed1f7b44359863cba76f14459bb4147e068ef87` | 8X8D1 block 203 tile 19 over the ground colour 6 | map 3, square (4,0) facing north, column 9 row 9 | `new-phlan-training-paving-0-73f6e7f27914.png` (area 0, 2, 3, 4, 5, 6, 8, 9, 11, 14, 15, 16, 18, 20, 21, 22, 23, 24, 26, 28, 29, 31) |
-| `tile:7:8737539068992377d622a86a6ab259387e19fc5a846d63a4b75effc2a06fae8c` | 8X8D1 block 203 tile 11 | map 3, square (3,2) facing west, column 2 row 6 | `valjevo-scope3-cell-873753906899.png` (area 0, 2, 3, 4, 5, 6, 8, 9, 11, 14, 15, 18, 20, 21, 23, 24, 28, 29, 31) |
-| `tile:7:aa6f4f9ce990cf65ed1292cb8198cd2752df6026bf588a996ef8d667cfafe1a6` | 8X8D1 block 203 tile 38 | map 3, square (4,0) facing east, column 8 row 2 | `new-phlan-stone-reveal-room-tile-05-right.png` (area 0, 2, 3, 4, 5, 6, 8, 9, 10, 11, 14, 15, 16, 18, 20, 21, 22, 23, 24, 26, 28, 29, 31) |
-| `tile:7:b03fbca109ab749692421d27e7e24a728523604f8fd1580a98748b76cb2ce15c` | 8X8D1 block 203 tile 16 over sky colour 0 | map 3, square (4,0) facing north, column 10 row 0 | `valjevo-scope3-cell-b03fbca109ab.png` (area 0, 2, 3, 4, 5, 6, 9, 10, 14, 15, 18, 20, 29) |
-| `tile:7:b505a5db5557ee2f019256d5b39e70aaeaa91433d73e896784e9962672192f85` | 8X8D1 block 203 tile 25 | map 3, square (4,1) facing west, column 1 row 5 | `orc-door-962672192f85.png` (area 2, 3, 4, 5, 6, 9, 10, 14, 15, 16, 18, 20, 21, 23, 24, 28, 29, 31) |
-| `tile:7:bbce287c6ee78ffeb335f96aa0495fd20d9f1188892a017452b2592b0bf1f997` | 8X8D1 block 203 tile 14 over the ground colour 6 | map 7, square (6,3) facing west, column 0 row 7 | `valjevo-scope3-cell-bbce287c6ee7.png` (area 0, 2, 3, 4, 5, 6, 8, 9, 11, 14, 15, 16, 20, 21, 22, 23, 29) |
-| `tile:7:c1703ae17aff024be5fa1603c19a3d65cdfe2b61e20be7cd68214ea1e2a36585` | 8X8D1 block 203 tile 37 over the ground colour 6 | map 7, square (6,4) facing west, column 2 row 8 | `valjevo-scope3-cell-c1703ae17aff.png` (area 0, 2, 3, 4, 5, 6, 8, 9, 11, 14, 15, 16, 20, 21, 22, 23, 29) |
-| `tile:7:ed11a107e77bf23aaf5e3448407dcf969708c9aeaeedccef7135345f93117730` | 8X8D1 block 203 tile 39 | map 3, square (4,0) facing east, column 2 row 2 | `new-phlan-stone-reveal-room-tile-04-left.png` (area 0, 2, 3, 4, 5, 6, 8, 9, 10, 11, 14, 15, 16, 18, 20, 21, 22, 23, 24, 26, 28, 29, 31) |
-
-#### tile set 8X8D5 block 1 (13)
-
-| Key (PNG 32x32) | What it is | See it at | Same pixels as |
-| --- | --- | --- | --- |
-| `tile:7:067e5b585dd24bcac143834da985ebebbcc25446db06ae546aeffaec0d2b9711` | 8X8D5 block 1 tile 51 | map 3, square (2,2) facing south, column 8 row 6 | `orc-door-faec0d2b9711.png` (area 2, 3, 4, 5, 6, 9, 14, 15, 18, 20, 21, 23, 24, 28, 29, 31) |
-| `tile:7:17becf7f46404d6b55c17617c207d9b53707bc1d70bc2e28023728545c3a3447` | 8X8D5 block 1 tile 12 | map 3, square (14,3) facing east, column 4 row 5 | `valjevo-scope3-cell-17becf7f4640.png` (area 2, 3, 4, 5, 6, 9, 14, 15, 18, 21, 24, 29, 31) |
-| `tile:7:194c7a70c05eb9c93cb1a063ea5cf6df0dc6fa2f8de1389233f822c0720703c3` | 8X8D5 block 1 tile 8 | map 3, square (14,3) facing east, column 5 row 6 | `valjevo-scope3-cell-194c7a70c05e.png` (area 2, 3, 4, 5, 6, 9, 14, 15, 18, 21, 24, 29, 31) |
-| `tile:7:265fdfb327afb9171e5a4afaf526a304471572cc2dc02ba16b03a00049e8f541` | 8X8D5 block 1 tile 42 | map 3, square (11,0) facing south, column 2 row 6 | `room-tile-08.png` (area 0, 2, 3, 4, 5, 6, 8, 9, 11, 14, 15, 18, 20, 21, 23, 24, 28, 29, 31) |
-| `tile:7:2d380f67989bef6c1c363c519e7001255f5accd9e8a5b2ad557312990469c7c4` | 8X8D5 block 1 tile 40 | map 3, square (11,0) facing south, column 2 row 5 | `room-tile-06.png` (area 0, 2, 3, 4, 5, 6, 9, 14, 15, 18, 20, 21, 23, 24, 28, 29, 31) |
-| `tile:7:41ea3ceae0f6da8a29151985f9d6f70572dbd7d9e81b672fe759802e75a7d115` | 8X8D5 block 1 tile 50 | map 3, square (11,0) facing south, column 3 row 6 | `room-tile-09.png` (area 0, 2, 3, 4, 5, 6, 9, 14, 15, 18, 20, 21, 23, 24, 28, 29, 31) |
-| `tile:7:4fa7efe3e4e51e6f24a9fc238959e3417c491c59718d3668c99af1a3a648e190` | 8X8D5 block 1 tile 9 | map 3, square (14,3) facing east, column 6 row 6 | `valjevo-scope3-cell-4fa7efe3e4e5.png` (area 2, 3, 4, 5, 6, 9, 14, 15, 18, 21, 24, 29, 31) |
-| `tile:7:54cfe77b0fa031f0e731581bb561e7930676dcaf217f5886e27719bedfc1eb68` | 8X8D5 block 1 tile 21 | map 3, square (13,2) facing east, column 7 row 5 | `valjevo-scope3-cell-54cfe77b0fa0.png` (area 2, 3, 4, 5, 6, 9, 14, 15, 18, 21, 24, 29, 31) |
-| `tile:7:7041882d54734f52b66d2334ec62779d485694e861327c4b4c765326d9fdc613` | 8X8D5 block 1 tile 43 | map 3, square (2,2) facing south, column 8 row 7 | `orc-door-5326d9fdc613.png` (area 0, 2, 3, 4, 5, 6, 8, 9, 11, 14, 15, 18, 20, 21, 23, 24, 28, 29, 31) |
-| `tile:7:7870e9a9d014d5af73d6846dd36c122b941c5efafee1e099b135da968e0216b1` | 8X8D5 block 1 tile 11 | map 3, square (14,3) facing east, column 5 row 5 | `valjevo-scope3-cell-7870e9a9d014.png` (area 2, 3, 4, 5, 6, 9, 14, 15, 18, 21, 24, 29, 31) |
-| `tile:7:e466c34abbd76dc280b14d646164628b5b0fc2ba9cfd40a86f2ae4b8f077dcb3` | 8X8D5 block 1 tile 41 | map 3, square (2,2) facing east, column 3 row 5 | `room-tile-07.png` (area 0, 2, 3, 4, 5, 6, 9, 14, 15, 18, 20, 21, 23, 24, 28, 29, 31) |
-| `tile:7:e661bce0938e73b6610229ae27e6f1e51de4af50b1df92a3ae665507ff3a15f7` | 8X8D5 block 1 tile 10 | map 3, square (14,3) facing east, column 6 row 5 | `valjevo-scope3-cell-e661bce0938e.png` (area 2, 3, 4, 5, 6, 9, 14, 15, 18, 21, 24, 29, 31) |
-| `tile:7:f08f5d405196df228b0f4f6cb5937799da56badb58ba6ff58a9903bb9b1ca142` | 8X8D5 block 1 tile 7 | map 3, square (14,3) facing east, column 4 row 6 | `valjevo-scope3-cell-f08f5d405196.png` (area 2, 3, 4, 5, 6, 9, 14, 15, 18, 21, 24, 29, 31) |
-
-#### tile set 8X8D5 block 241 (34)
-
-| Key (PNG 32x32) | What it is | See it at | Same pixels as |
-| --- | --- | --- | --- |
-| `tile:7:034c9aa1a85c256022c1df86fc995f479176195907d79789f6c8c6fa12d43155` | 8X8D5 block 241 tile 28 | map 7, square (3,3) facing south, column 0 row 5 |  |
-| `tile:7:11f757f6b1489e90bee42a46c92085257733986167a1d214b564b8643c14502b` | 8X8D5 block 241 tile 23 | map 7, square (11,5) facing south, column 6 row 6 |  |
-| `tile:7:13d1f056dd172d3976b57c6b0411beb1e18349fe781899f1aaa39fd5c3e7c5fa` | 8X8D5 block 241 tile 24 | map 7, square (1,8) facing east, column 4 row 6 |  |
-| `tile:7:1ef3775ead88e5e123399cca1bc99a4aa25ce9109774771b82e0d1f6e899a203` | 8X8D5 block 241 tile 17 | map 3, square (2,5) facing south, column 1 row 6 | `valjevo-dungeon-doorway-terrain-1ef3775ead88.png` (area 3, 5) |
-| `tile:7:2476c6733bd22d43e5dbfd05326b339da94727390a45f559d25996e615ddb325` | 8X8D5 block 241 tile 21 | map 7, square (4,3) facing east, column 10 row 5 |  |
-| `tile:7:258da053516a2e33084c9fb48184e3b9b572aee25dd84fe595c90acac7ac4ed2` | 8X8D5 block 241 tile 47 | map 7, square (3,4) facing west, column 0 row 5 | `valjevo-scope5-screen-5-258da053516a.png` (area 5) |
-| `tile:7:25e491fa08f466868cbcfcb77030d54f34ec724c8d2b1573d4d180cc4bac1826` | 8X8D5 block 241 tile 22 | map 7, square (0,3) facing south, column 1 row 5 | `valjevo-scope3-cell-25e491fa08f4.png` (area 4, 5, 6) |
-| `tile:7:3a86009342f0f32cff93821a0bb036017b2ea178bfaa4e12aec0a24ff3fe39b8` | 8X8D5 block 241 tile 20 | map 7, square (3,4) facing west, column 0 row 6 | `valjevo-scope5-screen-5-3a86009342f0.png` (area 5) |
-| `tile:7:58a8bc82501c2a2c01038b3b2b57be050e281f3573030745cd4ba50b03af2376` | 8X8D5 block 241 tile 29 | map 7, square (4,3) facing south, column 2 row 4 |  |
-| `tile:7:6267250f449a8457fd01a0b0e9c3ce587b836864ffa083666ea5a6f3d2fc7ecd` | 8X8D5 block 241 tile 44 | map 7, square (4,3) facing south, column 1 row 6 |  |
-| `tile:7:6a871cd6675ac6159a9b6709cdc5ed76909f31c0410f87c572bb4cc98ddf03f4` | 8X8D5 block 241 tile 38 | map 7, square (3,3) facing south, column 0 row 6 |  |
-| `tile:7:710cb137fdb127903fe9e3b52b1140ec2c0a8792e5c17cb7f64029af5a79a496` | 8X8D5 block 241 tile 65 over 8X8D5 block 242 tile 49 over sky colour 0 | map 3, square (10,2) facing east, column 9 row 4 | `valjevo-scope3-cell-710cb137fdb1.png` (area 4, 5, 6) |
-| `tile:7:7cea0473b7274386a81c58a22192153f04b268185154b826d293aa3588e3d018` | 8X8D5 block 241 tile 65 over 8X8D5 block 242 tile 49 over sky colour 15 | map 3, square (13,12) facing south, column 9 row 4 |  |
-| `tile:7:8b54cd3414e3f331db8fee3660c943f741774971e7d44d954dff28b39df79d5c` | 8X8D5 block 241 tile 19 | map 7, square (1,4) facing south, column 2 row 5 | `valjevo-scope3-cell-8b54cd3414e3.png` (area 4, 5, 6) |
-| `tile:7:8c53631ec54614a29a80d0cb7885c189df7a5dc1725f6ee1073b91a81a6e34d2` | 8X8D5 block 241 tile 12 | map 7, square (4,3) facing south, column 1 row 4 |  |
-| `tile:7:8d4aca371c0c1ea560a68503b3da34a410dd93d11b9f421d24d23d067389abb1` | 8X8D5 block 241 tile 42 | map 7, square (4,3) facing south, column 2 row 6 |  |
-| `tile:7:9b7ed76ed66cbf56caea2f54128720afb0451c1fab0ffdbee3790abf7dc6e1f7` | 8X8D5 block 241 tile 34 | map 7, square (1,8) facing east, column 4 row 5 |  |
-| `tile:7:a8ed6d6150e8b242b1142b13dcee6be84fefbeac21ef725b37b80cd018dea6a6` | 8X8D5 block 241 tile 62 | map 7, square (4,2) facing east, column 9 row 5 | `orc-rubble-0cd018dea6a6.png` (area 0, 3, 4, 5, 6, 8, 11, 20) |
-| `tile:7:a9f5aae2fa4147ba2922034548ff9b28d45ba189a5f7b028e881169968d3891d` | 8X8D5 block 241 tile 45 | map 7, square (4,3) facing south, column 2 row 5 |  |
-| `tile:7:b31d87199c37e182e16235c714920239131a1090a9b7b6b1c1790d020121f7f4` | 8X8D5 block 241 tile 31 | map 7, square (6,3) facing west, column 0 row 4 |  |
-| `tile:7:b677fcc530b5df9b7d61c5a59f3ac9fda54c03c38c3f65107bbdd756385116d1` | 8X8D5 block 241 tile 18 | map 7, square (4,3) facing east, column 10 row 4 |  |
-| `tile:7:b91faa418bbd6d8238c17ec0746b81d59f523f15de502b0dbf2648b19b6a0c8f` | 8X8D5 block 241 tile 11 | map 3, square (2,9) facing north, column 9 row 6 | `valjevo-scope5-screen-5-b91faa418bbd.png` (area 5) |
-| `tile:7:be3e782c7d9f268631c074a609460b9bbcd3a4ede4e4053836fe388d7fc69c08` | 8X8D5 block 241 tile 66 over 8X8D5 block 242 tile 49 over sky colour 0 | map 3, square (15,2) facing west, column 1 row 4 | `valjevo-scope3-cell-be3e782c7d9f.png` (area 4, 5, 6) |
-| `tile:7:bf1b8bb021057e7adb35e55fb27d2ad59fdf2a1d4fb07c231494bc5ef2c6b76f` | 8X8D5 block 241 tile 36 | map 7, square (5,4) facing east, column 10 row 2 | `valjevo-scope5-screen-5-bf1b8bb02105.png` (area 5) |
-| `tile:7:c02f21b9af02daeb56935df1520d8b59068755548cea6821e9fa3677ab1600fb` | 8X8D5 block 241 tile 33 | map 7, square (11,5) facing south, column 6 row 5 |  |
-| `tile:7:c462f57aac7a3c66ec72ebae802e16b67bb382dc6cc37e351bcf84c092ead44a` | 8X8D5 block 241 tile 30 | map 7, square (6,4) facing west, column 2 row 4 |  |
-| `tile:7:caa98830d5dbff3c5c1c4d9366de5ae53a85197818997646163f0ba25ab0578d` | 8X8D5 block 241 tile 37 | map 7, square (4,4) facing east, column 8 row 4 |  |
-| `tile:7:d19468aad32410ff25021a6f3936f59662d70fdd7b1ce79a06629fa3bf859f91` | 8X8D5 block 241 tile 10 | map 3, square (2,5) facing south, column 1 row 5 | `valjevo-dungeon-doorway-terrain-d19468aad324.png` (area 3, 5) |
-| `tile:7:da1f848e66aff5a16fd003945cf2097d752f7a9753bec0cd99590ec2fc87ad25` | 8X8D5 block 241 tile 32 | map 7, square (3,2) facing south, column 1 row 5 |  |
-| `tile:7:dafc9490ce053361ce5304378da07b39b97229718e715a1982fca4287acc0442` | 8X8D5 block 241 tile 0 | map 3, square (3,9) facing north, column 6 row 5 | `valjevo-scope5-screen-5-dafc9490ce05.png` (area 5) |
-| `tile:7:e65ea189eb0d265e38db12a794ba62fcbfd5049caae5d59553e335b0fb1ece14` | 8X8D5 block 241 tile 46 | map 7, square (1,4) facing east, column 10 row 5 | `valjevo-scope5-screen-5-e65ea189eb0d.png` (area 5) |
-| `tile:7:e6827fee6b1288beb21d0a9801944af1e05a44a19e3dab5a10d94a0e79fb8a64` | 8X8D5 block 241 tile 13 | map 7, square (3,3) facing south, column 0 row 4 |  |
-| `tile:7:eb11634d085d274c72dfe2b3eb84867a29141e02247f4213b9cfb87f0b167333` | 8X8D5 block 241 tile 43 | map 7, square (1,4) facing east, column 10 row 6 | `valjevo-scope5-screen-5-eb11634d085d.png` (area 5) |
-| `tile:7:f3e6242ea3d69e677cf33b98ed7c25d6f5356f7736215cc6c38de1e661d1b9ee` | 8X8D5 block 241 tile 35 | map 7, square (5,4) facing west, column 0 row 2 | `valjevo-scope5-screen-5-f3e6242ea3d6.png` (area 5) |
-
-#### tile set 8X8D5 block 242 (49)
-
-| Key (PNG 32x32) | What it is | See it at | Same pixels as |
-| --- | --- | --- | --- |
-| `tile:7:0671c9cef854c857a505d3563e75e5193a67c94acb5f068ed452871bb34e5508` | 8X8D5 block 242 tile 67 | map 3, square (6,4) facing east, column 8 row 4 | `valjevo-dungeon-briar-terrain-05.png` (area 3, 4, 5, 6) |
-| `tile:7:0db7c87e510e6c6cef111f2299563211c786f1ebea213f85bb5e20e2c44f7344` | 8X8D5 block 242 tile 19 over sky colour 0 | map 3, square (8,4) facing west, column 2 row 3 | `valjevo-scope3-cell-0db7c87e510e.png` (area 4, 5, 6) |
-| `tile:7:0e0548cc21e50d283a67a28526df1d28ada653da62235cabed3760d055d3e5d8` | 8X8D5 block 242 tile 20 over sky colour 0 | map 3, square (6,4) facing east, column 7 row 3 | `valjevo-scope3-cell-0e0548cc21e5.png` (area 4, 5, 6) |
-| `tile:7:1131e3b33c1897dc36ef3f052d3e14c5af1d1a21bde6716d2c8e0482bb2aab61` | 8X8D5 block 242 tile 37 | map 3, square (6,4) facing east, column 9 row 2 | `valjevo-dungeon-east-corner-terrain-01.png` (area 3, 4, 5, 6) |
-| `tile:7:15963947cd6dc323654f4395e73488a38fd21e5b07d528f67ca8d4f29500340c` | 8X8D5 block 242 tile 65 | map 3, square (6,4) facing east, column 9 row 4 | `valjevo-dungeon-briar-terrain-12.png` (area 3, 4, 5, 6) |
-| `tile:7:24c774ef176aab5c5274d158d0b5f9cf177e64a61b50c7f5ba6f3e4ac17d0b11` | 8X8D5 block 242 tile 36 over sky colour 0 | map 3, square (7,4) facing west, column 3 row 3 | `valjevo-scope3-cell-24c774ef176a.png` (area 4, 5, 6) |
-| `tile:7:2b3f05d8a2377ae6f729062ed03ad4a872161392eb6a80b16abf5d167e054931` | 8X8D5 block 242 tile 51 | map 7, square (0,8) facing south, column 0 row 6 |  |
-| `tile:7:3a44d0df208c486811e0b93eb75816a53c45fccf72281e35819962165662c040` | 8X8D5 block 242 tile 53 | map 3, square (6,4) facing south, column 8 row 7 | `valjevo-dungeon-briar-terrain-13.png` (area 3, 4, 5, 6) |
-| `tile:7:3d4d73e210ce3bd3430961fdd993088b59724598dea65c1157875658fa9fac70` | 8X8D5 block 242 tile 54 | map 7, square (1,3) facing south, column 7 row 6 |  |
-| `tile:7:4237c285f1899dd2fe96267fbf26054e94748dde58010edba4614281396e87cb` | 8X8D5 block 242 tile 15 | map 3, square (6,4) facing east, column 9 row 3 | `valjevo-dungeon-briar-terrain-04.png` (area 3, 4, 5, 6) |
-| `tile:7:42c91e6a9044311f3d505aff1a1ef27aefe5e068dfc5b4ecb77e4a2f5418d92f` | 8X8D5 block 242 tile 31 | map 3, square (6,4) facing east, column 8 row 5 | `valjevo-dungeon-briar-terrain-14.png` (area 3, 4, 5, 6) |
-| `tile:7:4a4a7ef1663aff45e1d5e982a3d3007cd8e92e217f3b58ec2996b3272737bad9` | 8X8D5 block 242 tile 43 over sky colour 0 | map 7, square (2,2) facing south, column 1 row 4 |  |
-| `tile:7:4a6d68fa00df0d1406d8784a2fc1b70bac2c6f71664b9b3fbe28f39d4c17b2b9` | 8X8D5 block 242 tile 44 over sky colour 15 | map 7, square (1,4) facing east, column 9 row 4 |  |
-| `tile:7:4ba2970b30ceb86095e24f129519c66dd25adcb5db5234cf3e99397d8e578ace` | 8X8D5 block 242 tile 17 over sky colour 0 | map 3, square (7,4) facing east, column 10 row 1 | `valjevo-scope3-cell-4ba2970b30ce.png` (area 4, 5, 6) |
-| `tile:7:51f8f4e98ba63527d92d8e60a40a190930302f62dbb3ad083310ab2d483cf7a8` | 8X8D5 block 242 tile 44 over sky colour 0 | map 7, square (1,2) facing south, column 6 row 4 |  |
-| `tile:7:55f2e5abaed1f70cfc57e460385f8a42c47796882803f65a7056bc2339623d1a` | 8X8D5 block 242 tile 49 over sky colour 0 | map 3, square (6,4) facing south, column 1 row 2 | `valjevo-scope3-cell-55f2e5abaed1.png` (area 4, 5, 6) |
-| `tile:7:6829c9458d2fddc78a6561401af3d3b155fde9eccc9d8cf4c254adcc64c06f63` | 8X8D5 block 242 tile 46 | map 7, square (1,2) facing south, column 6 row 5 |  |
-| `tile:7:6a67369f0003a2c06b5cd95263f2506bd134cfe49788903b582c46f21f85dbdd` | 8X8D5 block 242 tile 55 | map 7, square (1,3) facing south, column 8 row 6 |  |
-| `tile:7:6cb82728cd3e45b9475b94aa8311ac97ff9f8e8b75955cde4296304a74ca5bd2` | 8X8D5 block 242 tile 52 over sky colour 0 | map 3, square (6,4) facing south, column 0 row 2 | `valjevo-scope3-cell-6cb82728cd3e.png` (area 4, 5, 6) |
-| `tile:7:72062dfcc876910995691a547ec63cf8fbbce8a57eb381f8ec3d4fc167df6776` | 8X8D5 block 242 tile 57 | map 7, square (2,3) facing south, column 0 row 6 |  |
-| `tile:7:7561fd89795b93019c59aa3f2845972ec76293d71113a27feb55ef92daa19d05` | 8X8D5 block 242 tile 69 | map 3, square (6,4) facing east, column 8 row 7 | `valjevo-dungeon-briar-terrain-17.png` (area 3, 4, 5, 6) |
-| `tile:7:75d2bb200595762b03076322bf2b7aba0a711b7ea784291ea80ac1b160be7cc3` | 8X8D5 block 242 tile 41 | map 7, square (1,3) facing south, column 8 row 3 |  |
-| `tile:7:7befb7f5e8b497feb0508f160a2f16fffb17bdeda63c888da0dfa86345cb854e` | 8X8D5 block 242 tile 34 | map 3, square (6,4) facing east, column 6 row 6 | `valjevo-dungeon-briar-terrain-28.png` (area 3, 4, 5, 6, 26) |
-| `tile:7:7ddfc9b6c0342eabf84cdc86217cf578dcd68da5371291f0d39601be2343012e` | 8X8D5 block 242 tile 32 | map 3, square (6,4) facing east, column 7 row 7 | `valjevo-dungeon-briar-terrain-22.png` (area 3, 4, 5, 6, 26) |
-| `tile:7:7fa58d10584ec9c662b69570d9e0b6e0b3b1ad3eecfb3a259959f7fc136b792c` | 8X8D5 block 242 tile 60 | map 7, square (2,2) facing south, column 1 row 6 | `valjevo-scope3-cell-7fa58d10584e.png` (area 0, 3, 5, 8, 11) |
-| `tile:7:8429eaf9f85531feb526e9e502bb97f723eda6c7a3ac756e81fbae815df4b91d` | 8X8D5 block 242 tile 43 over sky colour 15 | map 7, square (0,4) facing east, column 4 row 4 |  |
-| `tile:7:85d885617fca5dfd9091f89813f84645e46523ae68ff3ed9f7c4f8c66011bda9` | 8X8D5 block 242 tile 18 over sky colour 0 | map 3, square (7,4) facing west, column 0 row 1 | `valjevo-scope3-cell-85d885617fca.png` (area 4, 5, 6) |
-| `tile:7:877afc2b6549f6e3f546e63c9a5979c27cd67b398ef06f50d5d8b32d345c497c` | 8X8D5 block 242 tile 12 | map 3, square (6,4) facing south, column 0 row 8 | `valjevo-dungeon-briar-terrain-23.png` (area 3, 4, 5, 6, 26) |
-| `tile:7:879a1aabd10d886eaec41590a013f02b5a359035215e7b295a1739f7dc9329d8` | 8X8D5 block 242 tile 38 | map 7, square (3,3) facing south, column 2 row 3 |  |
-| `tile:7:893d4126af27130f16837df9ddeb49f4b0895ea59cf517c7e66edf12043cd6e0` | 8X8D5 block 242 tile 14 | map 3, square (6,4) facing east, column 9 row 8 | `valjevo-dungeon-briar-terrain-07.png` (area 3, 4, 5, 6) |
-| `tile:7:8f2bc5749983e8f9d8a5b425cdf74cd45842af0a4771d9a4798ff309ee003aad` | 8X8D5 block 242 tile 45 | map 7, square (2,2) facing south, column 1 row 5 |  |
-| `tile:7:92e0f8b26352b8acbd960eb0deb05c9a577b03ca7d144847810c07a378c622c8` | 8X8D5 block 242 tile 39 | map 7, square (2,3) facing south, column 0 row 4 |  |
-| `tile:7:939298a275e1154529cf15704cd10a56bf27bc88cd0c3754386d65ed92935c84` | 8X8D5 block 242 tile 24 | map 7, square (2,2) facing east, column 10 row 5 |  |
-| `tile:7:94cf8702405e7f3d23dfdb4aed4040d1a8b0f3400086d67ce8ee4b26d2b8f728` | 8X8D5 block 242 tile 47 | map 3, square (7,4) facing south, column 6 row 3 | `valjevo-dungeon-briar-terrain-06.png` (area 3, 4, 5, 6) |
-| `tile:7:a11c7f40f392b813c562930b4f33ba32a8c671dae39b936c4c9a4282f90ca573` | 8X8D5 block 242 tile 40 | map 7, square (1,3) facing south, column 7 row 4 |  |
-| `tile:7:a21e43542b7ab6d537b618c0858678aa46d03bf9f026b9d219aa953bd4ee6deb` | 8X8D5 block 242 tile 50 | map 3, square (6,4) facing south, column 2 row 6 | `valjevo-dungeon-briar-terrain-19.png` (area 3, 4, 5, 6) |
-| `tile:7:a2eecc797cd64c74e57e5115d9b4d12f177b83131b743c8d7e5547e5dce86055` | 8X8D5 block 242 tile 30 | map 7, square (1,2) facing east, column 9 row 5 |  |
-| `tile:7:a72cd795273e9928eaf87725b5550fff71b45e59ccd15c470831dcc9722049f5` | 8X8D5 block 242 tile 35 | map 3, square (9,4) facing west, column 4 row 6 | `valjevo-dungeon-briar-terrain-27.png` (area 3, 4, 5, 6, 26) |
-| `tile:7:be5eac9f1eb5ab214bd91c3f9275f7b01ca02d79e625d8959536668e4ff0791e` | 8X8D5 block 242 tile 52 over 8X8D5 block 242 tile 49 over sky colour 0 | map 3, square (6,4) facing south, column 4 row 4 | `valjevo-scope3-cell-be5eac9f1eb5.png` (area 4, 5, 6) |
-| `tile:7:c009daf0934fc92bb54c121a0c0a91d96802fafd65492bbcb72637341efb04b5` | 8X8D5 block 242 tile 29 | map 7, square (2,3) facing east, column 8 row 5 |  |
-| `tile:7:cacd64e5955d704bd0be9542e59817e710e8e0735f6fbfec53edfa6c7c9a62a9` | 8X8D5 block 242 tile 16 | map 3, square (6,4) facing east, column 7 row 4 | `valjevo-dungeon-briar-terrain-15.png` (area 3, 4, 5, 6) |
-| `tile:7:d0103701afdee200f8a92f470a1e146bdc4efa15b4e8e96cf47119d7218e2874` | 8X8D5 block 242 tile 59 | map 7, square (1,2) facing south, column 6 row 6 |  |
-| `tile:7:d4f2932dd9e9681cc3ac2b3c39a34a8fd849042c476400cf9ce14b2aadf51c89` | 8X8D5 block 242 tile 20 over 8X8D5 block 242 tile 49 over sky colour 0 | map 3, square (6,4) facing east, column 10 row 3 | `valjevo-scope3-cell-d4f2932dd9e9.png` (area 4, 5, 6) |
-| `tile:7:d804ca951e4f5802ca25c6327b81e7f2b2ed41fc768c7a2c90e68791a373b371` | 8X8D5 block 242 tile 56 | map 7, square (3,3) facing south, column 2 row 6 |  |
-| `tile:7:e6f2dba83dbe5bcfca34c65f1ccb3c8c8a47e2873dad93672f4dab68e5a660e2` | 8X8D5 block 242 tile 48 | map 7, square (0,8) facing east, column 10 row 6 |  |
-| `tile:7:eb039ad14db5712287672fd45f2d2d26a6a33ee522784b04e3a03eac4f04ad69` | 8X8D5 block 242 tile 33 | map 3, square (7,4) facing west, column 1 row 9 | `valjevo-dungeon-briar-terrain-20.png` (area 3, 4, 5, 6, 26) |
-| `tile:7:eb5914b49c7f93740850c50b55f61e79c2387d40b3ba5e638ed2f07bc0d28d43` | 8X8D5 block 242 tile 68 | map 3, square (6,4) facing east, column 9 row 6 | `valjevo-dungeon-briar-terrain-16.png` (area 3, 4, 5, 6) |
-| `tile:7:f34316599f96e0331ffe513c939ae14c64d03704b1765197a133d334ec229765` | 8X8D5 block 242 tile 21 over sky colour 0 | map 3, square (6,4) facing east, column 8 row 3 | `valjevo-scope3-cell-f34316599f96.png` (area 4, 5, 6) |
-| `tile:7:f3538203420ffdd57a5c6b220c7224de270400f6893d8ae4eb5dc058acb02e5b` | 8X8D5 block 242 tile 13 | map 3, square (6,4) facing east, column 9 row 9 | `valjevo-dungeon-briar-terrain-18.png` (area 3, 4, 5, 6, 26) |
-
-### Area 26: Wilderness, middle (17)
+### Area 26: Wilderness, middle (16)
 
 Map 26; WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23).
 
-#### tile set 8X8D7 block 7 (13)
+#### tile set 8X8D7 block 7 (12)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
-| `tile:26:0852506e4ab1c9afeb335b54d670524f4c934ccd10ec2c026e7ecc7adf2aa2f7` | 8X8D7 block 7 tile 2 over 8X8D7 block 7 tile 2 over 8X8D7 block 8 tile 22 over sky colour 11 | map 26, square (8,11) facing west, column 4 row 4 |  |
 | `tile:26:0e6cbe18a8a92ad9b2b9500268f0c182de7131dd3903e5ed916b0e12ba9375ad` | 8X8D7 block 7 tile 19 over the ground colour 8 | map 26, square (10,0) facing north, column 8 row 7 |  |
 | `tile:26:12f52d2b1e182ced19373a8a517c25b13aecd9a617a01fc3a50244efbfef8d5f` | 8X8D7 block 7 tile 45 over 8X8D7 block 7 tile 45 over the ground colour 8 | map 26, square (4,11) facing north, column 4 row 7 |  |
 | `tile:26:1d1f11735aa1abd03b26f8064c9f8703b99503f0984aefa72d7e8dd613c832dd` | 8X8D7 block 7 tile 55 over 8X8D7 block 7 tile 55 over the ground colour 8 | map 26, square (4,11) facing north, column 3 row 7 |  |
@@ -541,9 +350,9 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 
 | What | Count |
 | --- | ---: |
-| first-person cells that show a sky or ground colour no existing artwork of the area shows | 3359 |
+| first-person cells that show a sky or ground colour no existing artwork of the area shows | 3317 |
 | first-person cells of the overhead area view, which no existing artwork of the area confirms | 172 |
-| first-person cells seen only from squares not connected to any square the existing artwork was made from | 192 |
+| first-person cells seen only from squares not connected to any square the existing artwork was made from | 131 |
 | first-person cells of an area whose reading is not confirmed | 273 |
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |
 | battlefield cells of pictures no artwork shows to have been on a battlefield | 2207 |
