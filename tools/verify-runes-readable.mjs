@@ -478,6 +478,12 @@ for (const place of places) {
       await game.key("ArrowRight");
       await game.key("ArrowUp");
       const { x, y } = place.travel;
+      // An arrival message ("YOU SENSE AN ANTI-MAGIC SHELL", at the Lizardman Keep) waits for Return.
+      for (let presses = 0; presses < 6; presses++) {
+        await until("the page to settle after travel", settled);
+        if (!pressReturn.test(await screenText())) break;
+        await game.key("Enter");
+      }
       await until("developer travel to put the party on its square",
         `state.ready && state.exploration?.x === ${x} && state.exploration?.y === ${y}`, 30_000);
     }
