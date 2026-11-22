@@ -762,8 +762,8 @@
    "heard": "The centaurs greet you and you exchange pleasantries.  The centaurs then leave and bid you good day."
   },
   "audio/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v08-soldiers.mp3": {
-   "sha256": "e5b4b1d832737f114a3545594d8519e6ecf867c50fecc797c1109e99e8dd2426",
-   "heard": "The soldiers greet you and you exchange pleasantries."
+   "sha256": "e05a75213b09492f32f286564b5b886106296532abcad9260693df5a715c51f2",
+   "heard": "The soldiers greet you and you exchange pleasantries.  The soldiers then leave and bid you good day."
   },
   "audio/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v09-thieves.mp3": {
    "sha256": "c8b6bec62eb4f9ee8ac74b17c156dc9dc7a0c711de03f84501462aa28f9ba5b4",
@@ -2070,8 +2070,8 @@
    "heard": "You find a book entitled, Discourse on the Nature of Writing."
   },
   "audio/voices/narration/ecl2/block-15/ecl2-b15-a19c.mp3": {
-   "sha256": "a727d233edb5332d7a254e954c20ee9c685a0fcb17d918344ad879364f023b4e",
-   "heard": "You find various books, you find various books which are so filled with myth that you don't find anything useful."
+   "sha256": "f6ad8a5550b60a2a21caf8591d64be8f91144637e2548302476cf8ff6f5c56d0",
+   "heard": "You find various books which are so filled with myth that you don't find anything useful."
   },
   "audio/voices/narration/ecl2/block-15/ecl2-b15-a1f8.mp3": {
    "sha256": "25bd0fc543b49b21ec867475c523594040ab7998368d4242e95bc3415b769d1d",
@@ -2130,24 +2130,24 @@
    "heard": "You find a fighter with battered armor and wild eyes cowering in the corner.  Yai! Mercy! Mercy!  He cries, and then, as suddenly,  Die! Die, you slime from the pit!"
   },
   "audio/voices/narration/ecl2/block-15/ecl2-b15-a926.mp3": {
-   "sha256": "23251cc16f2d7826820563b1e71c32654a9ebbe011c5fd308ae103bbce1c37ba",
-   "heard": "You see, the man is quite mad. Do you take pity and invite him to go with you?  You see, the man is quite mad. Do you take pity and invite him to go with you?  You see, the man is quite mad. Do you take pity and invite him to go with you?"
+   "sha256": "0163fa9b5010559e1d66fb74b47ae1620b46644cd3624e24d280f1dd930dfd4a",
+   "heard": "You see, the man is quite mad. Do you take pity and invite him to go with you?"
   },
   "audio/voices/narration/ecl2/block-15/ecl2-b15-a96c.mp3": {
    "sha256": "78f065dbc8ab193a354fe1cf1dc2ecbb3eb0ac5de49fc3353c4aebc7a38aeb48",
    "heard": "He looks reluctant and says, but his minions are there! He will come too! Do you insist he come?"
   },
   "audio/voices/narration/ecl2/block-15/ecl2-b15-a871.mp3": {
-   "sha256": "7cd6287dd9d5e49b061b1b6fe99d6f78bc1ee1a06f0243496ad56f453f259caf",
-   "heard": "Watching you warily he inches away watching you warily he inches away  Watching you warily he inches away  Watching you warily he inches away  When he is out of swords reach he scrambles to his feet and flees the room"
+   "sha256": "3eed69753355af4feea130319e0f30652e7edcab7869006984a2d146ea661837",
+   "heard": "Watching you warily he inches away when he is out of swords reach he scrambles to his feet and flees the room"
   },
   "audio/voices/narration/ecl2/block-15/ecl2-b15-a9c2.mp3": {
    "sha256": "680fee06f65beb4799a7cddba4f550089eeb43f7bcad5b8449a111cc99b4a5dd",
    "heard": "He stands up, muttering to himself, and joins you."
   },
   "audio/voices/narration/ecl2/block-15/ecl2-b15-a9fd-aa3e-wrapped-in-fire.mp3": {
-   "sha256": "a12d4f470dfb904791e18e55c0477fefe55edef9af53b3950b7a22c5bd208c52",
-   "heard": "The man screams while frothing at the mouth.  The man screams while frothing at the mouth.  The man screams while frothing at the mouth.  He is wrapped in fire and so cruel.  The man screams while frothing at the mouth.  He is wrapped in fire."
+   "sha256": "be481ae0c73f80de0f74ef52c1727621cc5e8e9857ecea883ebb9eb58451a38e",
+   "heard": "The man screams while frothing at the mouth.  He is wrapped in fire and so cruel!"
   },
   "audio/voices/narration/ecl2/block-15/ecl2-b15-a9fd-aa5e-castle-of-flowers.mp3": {
    "sha256": "196d0e40e9421042a712f17f1f015b5dc8d100ed86e5345e506c8d5ba525947b",
@@ -2158,8 +2158,8 @@
    "heard": "The man screams while frothing at the mouth, don't go there, don't go on the hill!"
   },
   "audio/voices/narration/ecl2/block-15/ecl2-b15-a9fd-aac3-not-human.mp3": {
-   "sha256": "a3be33e3bbab0cb891159732012e619c559b356a0604f67e00e51f8b998fb038",
-   "heard": "The man screams while frothing at the mouth.  He is not human, I tell you!  Not at all!  The man screams while frothing at the mouth.  He is not human, I tell you!  Not at all!  The man screams while frothing at the mouth.  He is not..."
+   "sha256": "076d77c8dc13798f8be83e968ea0be81a74b73a1099011ba2af1bee44e14fda1",
+   "heard": "The man screams while frothing at the mouth.  He is not human, I tell you! Not at all!"
   },
   "audio/voices/narration/ecl2/block-15/ecl2-b15-ab18.mp3": {
    "sha256": "66a1a7b84cc5857410f017912e7d799d87201a19e359a3a022ee2f202de7b057",
@@ -2198,8 +2198,8 @@
    "heard": "They plead for mercy."
   },
   "audio/voices/narration/ecl2/block-15/ecl2-b15-ad9b.mp3": {
-   "sha256": "31d3662d23cf7cf16874b5e8902c169d458bc0530be35fd99aeee9d6f3c93b2f",
-   "heard": "One of the Kobolds' spokesperson, one of the Kobolds says,  if you spare our lives, we will tell you all we know about this area.  Will you spare them?"
+   "sha256": "00b157bc0569e1647416615bdbf1c8b90f1576edc55f6a42b46576628075d41c",
+   "heard": "One of the kobolds says if you spare our lives we will tell you all we know about this area will you spare them?"
   },
   "audio/voices/narration/ecl2/block-15/ecl2-b15-adfe.mp3": {
    "sha256": "6f8934a4cd5b6d14fea9bdcc9db30b760a84e05fe54fcc724e05ce81dac0dc59",
@@ -3370,8 +3370,8 @@
    "heard": "When old Flan was overrun, a family treasure was hidden in the western building of the textile complex.  The faithful servant sent to fetch it never returned.  The complex is just south of Podal Plaza. Bring the treasure to me and you will be well rewarded."
   },
   "audio/voices/narration/ecl3/b8-b088-b0ea.mp3": {
-   "sha256": "f3c7d4636748299b1a1f09aaf6b904f0dd3f6104693093d633e9ef3ad523ff01",
-   "heard": "It is imperative that a message be delivered to the gentle outpost.  It is imperative that a message be delivered to the gentle outpost to the west.  I am sending you as diplomatic envoys.  When you get to Gentil Keep, present this packet to its commandant.  Do not break the seals or you will be seized as spies."
+   "sha256": "b3fee6f243238828f79a849d416403e2d8126030ad70201b4d451b7c1342fcd1",
+   "heard": "It is imperative that a message be delivered to the gentile outpost to the west.  I am sending you as diplomatic envoys.  When you get to Gentral Keep, present this packet to its commandant.  Do not break the seals or you will be seized as spies."
   },
   "audio/voices/narration/ecl3/b8-b169-b1fa.mp3": {
    "sha256": "4d673a278c974fa8a07f0faa6ef1c9dac4e5cbc7782f10fed8c7064f476f2c50",
@@ -4342,8 +4342,8 @@
    "heard": "Get lost wimp! If you don't beat it, we'll beat you! Ha! Ha!  The giant leader pokes the giant next to him. Beat it! Beat them! Get it?"
   },
   "audio/voices/narration/ecl5/b4-a547-a559.mp3": {
-   "sha256": "08198b640c97d6388840d651b877f6628c7e817408bbdddc2a09d25f84240444",
-   "heard": "I said get lost!  The giant readies his weapon and advances.  The others follow suit."
+   "sha256": "908f6f6e316e3ddc57dba61645c22a8e238bef26f06cfdcf6ab8f174a0588631",
+   "heard": "I said get lost!\"  The giant readies his weapon and advances.  The others follow suit."
   },
   "audio/voices/narration/ecl5/b4-a592.mp3": {
    "sha256": "ee2aca9ef76d77cf4b5e53c92960ffb0d4464500db174b268bf9bb1ddcd6bdde",
@@ -4710,7 +4710,7 @@
    "heard": "Well then, good luck! Best you leave before you are found here."
   },
   "audio/voices/narration/ecl5/b6-9e28-9e4f.mp3": {
-   "sha256": "b3913398b6d22154fd27f2936571f7e2ebae8b94b1a909def4d09fe6750fe7ac",
+   "sha256": "2cf78745314af863649ad9d9bf132ab96abc45eef5a610ed3a8c96ec54b6944c",
    "heard": "They help you put on the clothes.  Have no fear, we will keep silence."
   },
   "audio/voices/narration/ecl5/b6-9eb6.mp3": {
@@ -5638,16 +5638,16 @@
    "heard": "The biggest, meanest, dirtiest nomad pushes his way to the front of the crowd.  Five other nomads stand around him as if to protect him."
   },
   "audio/voices/narration/ecl7/b17-a435-a494-tomorrow.mp3": {
-   "sha256": "da87c3c74573fd416535b4dbc2d9b4ca7407782da8ed7517f7294d444981ab69",
-   "heard": "The Biggest Nomad. The Biggest Nomad, apparently the Chief or Headman, acknowledges you with a nod.  We will give a feast in your honor tomorrow. Will you join us?  The Biggest Nomad, apparently the Chief or Headman, acknowledges..."
+   "sha256": "e98d52f3e8bd6b91260a567fa14a49a7595cd6627f01f321875c821e175a7196",
+   "heard": "The Biggest Nomad, apparently the Chief or Headman, acknowledges you with a nod.  We will give a feast in your honor tomorrow.  Will you join us?"
   },
   "audio/voices/narration/ecl7/b17-a435-a494-tonight.mp3": {
-   "sha256": "fc0196f4aa9b5d5e027078410794fabf4cb0f96e553a06b769e9fafa1904f40c",
-   "heard": "The Biggest Nomad, apparently the Chief or Headman, acknowledges you with a nod.  We will give a feast in your honor tonight.  Will you join us?  The Biggest Nomad, apparently the Chief or Headman, acknowledges you with a nod."
+   "sha256": "76212d47793cbd664759cbd96a55fcd6bc2d87a814c1cb18cd08308c7ff74658",
+   "heard": "The biggest nomad, apparently the chief or headman, acknowledges you with a nod.  We will give a feast in your honor tonight.  Will you join us?"
   },
   "audio/voices/narration/ecl7/b17-a21a-a2e8.mp3": {
-   "sha256": "8a88fcff3a14371a38d1b1c7f07cfe300fa7e2cf83b071a8c98ba883bfef5225",
-   "heard": "A crowd of scruffy-looking nomads gathers.  A crowd of scruffy-looking nomads gathers as hidden sentries give word of your approach.  There are about an equal number of men and women.  All the nomads hold their swords at the ready, watching you warily.  More nomads appear from out of tents in the camp.  You can see children peering out of the tent openings,  only to be pushed back inside by their mothers.  A crowd of scruffy-looking nomads gathers as hidden sentries give word of your approach.  There are..."
+   "sha256": "1e96f7c1cbb6cdc623e6323863a785fa2a7ce9faf5b3c8ce6b0406f23fc4a1b9",
+   "heard": "A crowd of scruffy-looking nomads gathers as hidden sentries give word of your approach.  There are about an equal number of men and women. All the nomads hold their swords at the ready,  watching you warily. More nomads appear from out of tents in the camp.  You can see children peering out of the tent openings, only to be pushed back inside by their  mothers."
   },
   "audio/voices/narration/ecl7/b17-a4af.mp3": {
    "sha256": "4795479f809e1c73c380050aa780fc8c1d5f015c1293a2fa8ec4ecc3316f3acc",
@@ -5662,8 +5662,8 @@
    "heard": "A guard appears before you.  You must have made a mistake.  Allow me to escort you to your lodging."
   },
   "audio/voices/narration/ecl7/b17-a53e-a5c0.mp3": {
-   "sha256": "dc2dda2d202fe0a83542240b6bb69dbf0d79143cd53632c37f989409eb297613",
-   "heard": "The headman offers lodging with practical hospitality, one continuous arrival at the  hut.  You must be tired from your travels.  We will provide you with lodging.  He leads the way to a hut which is hurriedly being cleared of its occupants.  Here you may rest."
+   "sha256": "876ae0ac5af8ae356e3ca1f8be4ee78a7bf45c9b47e537f3cf8b90bbfeade2b2",
+   "heard": "You must be tired from your travels.  We will provide you with lodging.  He leads the way to a hut which is hurriedly being cleared of its occupants.  Here you may rest.\""
   },
   "audio/voices/narration/ecl7/b17-ab21.mp3": {
    "sha256": "28f5062500f83ba377d1174837d7301223393fa33aa5231cf54e1a2917448b53",
@@ -5718,8 +5718,8 @@
    "heard": "A horde of kobolds is attacking the camp!"
   },
   "audio/voices/narration/ecl7/b17-b146-b2e7.mp3": {
-   "sha256": "c8972cfe9b3e29c671ead16ff36e9310efbbe43a14be2a60bfba05f09adb250e",
-   "heard": "The headman sneers, cowards.  He turns to the two guards, still living, and yells, for Henka.  He turns to the two guards, still living, and yells, for Henka.  He and his two guards charge into the pack.  As they reach the pack, a flurry.  He turns to the two guards, charge into the pack.  As they reach the pack, a flurry of arrows strike them.  Undaunted, they strike.  Kobolds die like flies around these heroes.  A guard falls with a score of wounds.  Within ten minutes, the Kobolds break, half their number dead.  The chief comes back.  I promised you reward for your aid, so it shall be, equal to your honor.  Now leave, we have our wounded to look to.  The headman sneers, cowards.  He turns to the two guards, still living, for Henka."
+   "sha256": "1a8a5320fea1cce9dfa0b618f875d3549925edc778f0aeba4d0a53f14f283a2f",
+   "heard": "The headman sneers, cowards! He turns to the two guards still living and yells,  For Hynka! He and his two guards charge into the pack. As they reach the pack, a flurry of arrows  strike them. Undaunted, they strike. Kobolds die like flies around these heroes. A guard falls  with a score of wounds. Within ten minutes, the Kobolds break, half their number dead.  The chief comes back. I promised you reward for your aid,  so it shall be equal to your honor. Now leave. We have our wounded to look to."
   },
   "audio/voices/narration/ecl7/b17-a609-a928.mp3": {
    "sha256": "193d49fab42e058d412a4a6593ac2b26a6496fa5c0dfd455ce6029f6925f0979",
@@ -5790,8 +5790,8 @@
    "heard": "You throw a rock, suddenly it disappears with a flash."
   },
   "audio/voices/narration/ecl7/b22-9efa-9f61.mp3": {
-   "sha256": "61c96f4e491872321bd52bb12cc8eec5276f0fb6adced7efd6581ec83a603a16",
-   "heard": "You find the corpse search and discovery.  You find the corpse of a man.  The body has been stripped of weapons and armor, as well as any useful gear.  However, you find a book under the body.  It is the Journal of Tearmore.  It is fascinating, and you include much of its information in your journal as entry 26."
+   "sha256": "9a353b004b0675b6101005bd52df08d6ea7cb83b3cea54f48a026aa25a7d718d",
+   "heard": "You find corpse search and discovery of Tirmore's journal.  You find the corpse of a man.  The body has been stripped of weapons and armor, as well as any useful gear.  However, you find a book under the body.  It is the Journal of Tirmore.  It is fascinating, and you include much of its information in your journal as Entry 26."
   },
   "audio/voices/narration/ecl7/b22-a264-operand-10.mp3": {
    "sha256": "4ce7c331629054c36f863ce2b95f9a6586e7c1678cdae12b19ef34f53819c34b",
@@ -5834,8 +5834,8 @@
    "heard": "A secret door is found to your left."
   },
   "audio/voices/narration/ecl7/b23-9c54-9ced.mp3": {
-   "sha256": "e6616e8b5754800af8fa1b5508374c26a7a6b93e1f6903d3c445a0773eb6d1ce",
-   "heard": "You see rocks scattered about the smooth flagstones.  You see rocks scattered about the smooth flagstones.  As you carefully search the room, you feel a strange tingle as you get close to a bare area."
+   "sha256": "7f4666ded786a78862d3f10fe827c1c1a716c5f837224cf2c821caf307d06309",
+   "heard": "You see rocks scattered about the smooth flagstones.  As you carefully search the room,  you feel a strange tingle as you get close to a bare area."
   },
   "audio/voices/narration/ecl7/b23-9d76.mp3": {
    "sha256": "f8cabb9dd6cbf4ce151cd521ff86508f7f3ac1579781ea192a70d532466756ce",
@@ -5910,8 +5910,8 @@
    "heard": "You hear a whining from the pipes. The black liquid is bubbling.  However, not all the equipment is yet destroyed."
   },
   "audio/voices/narration/ecl7/b23-a773-a7a9.mp3": {
-   "sha256": "c72a8905a38e631f682ee38f73357d84687d32eb8e036864e4f6a81cb6bdcad4",
-   "heard": "You have destroyed the last, moving from final impact into released pressure.  You have destroyed the last piece of equipment.  The wine subsides as the pressure is released."
+   "sha256": "8a8af903e5983d7ffed1e7a676287a1e340fb6b3e4817ab90b19184fadf7abd3",
+   "heard": "You have destroyed the last piece of equipment.  The wine subsides as the pressure is released."
   },
   "audio/voices/narration/ecl7/b23-a58f-a5ff.mp3": {
    "sha256": "30fc6855e57a7b2a5c7f4c59753c1cdb1c91c1593ce8b2a3e9f7e2e3fca792d8",
@@ -5930,8 +5930,8 @@
    "heard": "They recoil in fear."
   },
   "audio/voices/narration/ecl7/b23-a8fa-a97b.mp3": {
-   "sha256": "c49df5ba2d34455c16a95397e44f50870bb005adb5bc9973fae5a1483c097e19",
-   "heard": "You have entered a pumping room.  You have entered a pumping room.  Working as slaves in this room are three lizard men,  with whip cuts across their back, who are shackled to the wall by long chains.  Two of them are pouring barrels of the black contaminant into a large vat.  The other is working a bellows of the black contaminant into a large vat.  The other is working a bellows pump.  I feel..."
+   "sha256": "b658153c47eb55efdebcb7448d3bd47ef35091f7d680eae0f2b160e4a11db610",
+   "heard": "You have entered a pumping room.  Working as slaves in this room are three lizard men with whip cuts across their back  who are shackled to the wall by long chains.  Two of them are pouring barrels of the black contaminant into a large vat.  The other is working a bellows pump.  Here's the..."
   },
   "audio/voices/narration/ecl7/b23-a7ee.mp3": {
    "sha256": "d357da7f5ffb9474a03de20e5ee95c2ffcc3bb368b7451822fafaad0855f301f",
@@ -5994,8 +5994,8 @@
    "heard": "You have found a rowboat hidden amongst the reeds.  Will you take it to the pyramid?"
   },
   "audio/voices/narration/ecl7/b23-ad4d-aed0.mp3": {
-   "sha256": "1622682a8c701c428e0a1c92131dc9b42bbe8a0d82495113bd6d36d64ded403a",
-   "heard": "This is the desk of Yarash. On it is a litter of papers. Among the papers on the desk you  find the following and slip them into your journal. This is the desk of Yarash. On it  is a litter of papers. Among the papers on the desk you find the following and slip them  into your journal. A letter from the boss, telling Yarash to join or die.  Entry 33. An unsent reply to this letter. Entry 49. A message to the buccaneers, offering  a bounty for a real suhwaagan. Entry 27. A warning to an agent about the dangers in the  mountains to the northwest. Entry 56. A note to a trapper about kobolds and hobgoblins.  Entry 40. The fu-"
+   "sha256": "99c3f8240dc109693dbf3f135e7f23ffe4def4a000b2969f98f82526dfc1cfd3",
+   "heard": "One continuous examination of Yerash's desk and papers, clearly enumerating each discovered  document. This is the desk of Yerash. On it is a litter of papers. Among the papers on  the desk you find the following and slip them into your journal. A letter from the boss,  telling Yerash to join or die. Entry 33. An unsent reply to this letter.  Entry 49. A message to the buccaneers offering a bounty for a real Sohuagan.  Entry 27. A warning to an agent about the dangers in the mountains to the northwest.  Entry 56. A note to a trapper about kobolds and hobgoblins. Entry 40."
   },
   "audio/voices/narration/ecl7/b26-9f99.mp3": {
    "sha256": "7f8565e219460d23413efaefb7735693b0627c26b4aa397491aa13c3e997ffb2",
@@ -6074,16 +6074,16 @@
    "heard": "Do you want to leave?"
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-9a39.mp3": {
-   "sha256": "84730e7585f02c7f2afe08bf561e9bdff27998f3ae698f760d9b8861ea0cbf62",
-   "heard": "The Princess Fatima consistently as a fierce, confident, young, barbarian noblewoman.  Retain narrator identity for narration.  The Princess says, I shall go my own way now, but you will always be remembered.  Good hunting."
+   "sha256": "440f595181febcff574936e92fcc171a90a02f3119f855d85792b41788526d1c",
+   "heard": "The princess says, I shall go my own way now, but you will always be remembered.  Good hunting!"
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-9b04.mp3": {
    "sha256": "7ae147489c66c04f00072a8f90e79ed0d800a8212d1f03dee1ab33c0056926ae",
    "heard": "You cross over a pit."
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-9b26-9b50-9b71.mp3": {
-   "sha256": "40b9e03b9f25964c596cdadd053a33740d6c6940e81907eff5688cba491ddc7a",
-   "heard": "You find a pile of mine tailings.  In it is a cobold's crude drawing.  You record it in your journal under entry 42.  You record it in your journal."
+   "sha256": "680e80195ff699a7a0920b5c2cca53378bd329c984fbd9f44450dbee08563097",
+   "heard": "You find a pile of mine tailings.  In it is a Cobold's crude drawing.  You record it in your journal under entry 42."
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-9b90.mp3": {
    "sha256": "3dc6be68b280988d433fb322f503d97fa42f92349d4816fc7202e2c8bab6cd84",
@@ -6094,16 +6094,16 @@
    "heard": "I am to escort you to our treasure."
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-9bb5.mp3": {
-   "sha256": "e7cb2366cb7015172b6382f498c47813be5393af6f591ef36691c4fba990741f",
-   "heard": "The Cobold bows and says, you are quite dangerous, we will pay for a truce.  The Cobold bows and says, you are quite dangerous, we will pay for a truce.  The Cobold bows and says, you are quite dangerous.  You"
+   "sha256": "4baf3f8a4c91a2fafcb57c15cc2bcda84453d01525754eb787ef2e8eed9a29b4",
+   "heard": "The kobold bows and says, you are quite dangerous, we will pay for a truce."
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-9d5c.mp3": {
    "sha256": "14743f3492e9230e8d3c4b87c795c73999782242f5e2b7f73a20503583868b29",
    "heard": "You disarm a deadfall trap."
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-9c70-9c9f-9ce1-9d05.mp3": {
-   "sha256": "a1152ec7f88c349f6c0d75ddaf5e12ad19788d3cfc70c17e48550051bcc97ed6",
-   "heard": "The kobold retreats, then strikes the wall.  The kobold retreats, then strikes the wall.  The kobold retreats, then strikes the wall.  The kobold retreats, then strikes the wall.  The kobold cries out, I'll not go alone.  The roof collapses.  Before you recover, kobolds arrive.  the co-"
+   "sha256": "e32ff79ed48c5b532dbe47d3811f1fe00140f0535014aa6c0dd6d989d533df17",
+   "heard": "The Kobold retreats, then strikes the wall. The Kobold cries out,  I'll not go alone! The roof collapses. Before you recover, Kobolds arrive."
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-9d7b.mp3": {
    "sha256": "7b163e1375f82ba0955cebc4b6753ce3fbf3cf970b2a1b6289f0804c396b6f34",
@@ -6138,8 +6138,8 @@
    "heard": "He looks confused.  Oh, the envoys, do you wish an escort to the king?"
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-9f77.mp3": {
-   "sha256": "c88bc50b39b082ccc00305d1080cf751693609adc65f1ca6f6435239740fadd7",
-   "heard": "Then follow me.  Then follow me."
+   "sha256": "bfe798a24e8c1c3309505e7c493a8705082cb80869f6d9dda7c741062d0bdc10",
+   "heard": "Then follow me!"
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-9f91.mp3": {
    "sha256": "d097b8c507fa6d90d7dc99c542e105bd6fa81907aad981a059ec8f8597b05c42",
@@ -6166,8 +6166,8 @@
    "heard": "The men sneer at the king and one says,  let us show you how warriors fight."
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-a07f.mp3": {
-   "sha256": "205a4d7020c0b9bcfb468f251c8274bc2f217ea7175a2cdb876f76d5c2f62707",
-   "heard": "One says,  These men are enemies, defeat them, and my lord shall be most generous.  The one says,  These men are enemies, defeat them, and my lord shall be most generous.  The king looks at him, and then at you.  He smiles and screams,"
+   "sha256": "65547a0354e669b6105f6c49b8a1df6d1704203abcc091cc00c38b3bb9ac37bb",
+   "heard": "One says, these men are enemies, defeat them and my lord shall be most generous.  The king looks at him and then at you. He smiles and screams, kill them!"
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-a230.mp3": {
    "sha256": "e7454d2dd52f458b7bda97ab42ee297c4da03349d5216dc30b3e7e1a2116e188",
@@ -6194,8 +6194,8 @@
    "heard": "You find a secret door in the north wall."
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-a463.mp3": {
-   "sha256": "b9faf814f9bbb9d100c86b3192a12e69dffe95bc9cb1e7df116e8b15faf08bc0",
-   "heard": "You reach the king's quarters and confront his guards.  You reach the king's quarters and confront his guards."
+   "sha256": "7e473103584adfe1b706f27c8b31ab7f93904defc720e85bffa83e0fc80d2076",
+   "heard": "You reach the king's quarters and confront his guards."
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-a4c9.mp3": {
    "sha256": "1a964b91e1e9b584b48045d4f69eea9cfac53d90bc08beac5b14c3288385f1d0",
@@ -6206,16 +6206,16 @@
    "heard": "You see a brass bottle jammed into a crack here."
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-a570-a5c5.mp3": {
-   "sha256": "88add10f52f1331950eba66c9052d80684ceb6f45161f2d7a23acd0a4a5c1bfe",
-   "heard": "As you pull, the stopper comes loose and smoke billows out, forming into a giant reddish humanoid.  As you pull, the stopper comes loose and smoke billows out, forming into a giant reddish humanoid.  As you pull, the stopper comes loose and smoke billows out, forming into a giant reddish humanoid.  I am the Efreeti Samir Ahual. You are not my master.  Master, are you..."
+   "sha256": "9758427b936e75c0b4124b9d305692ff0ca447751122d80b0e5a76d21a4451af",
+   "heard": "As you pull, the stopper comes loose and smoke billows out, forming into a giant, reddish humanoid.  I am the Efreeti Samira Hual. You are not my master. Are you, perchance, vampires?"
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-a633.mp3": {
-   "sha256": "deacbe15c7bc425fd538f2575d94bcd13c56234c52599f8af8e860c7f092d87d",
-   "heard": "Fools, summon me only when a vampire is near or face my wrath.  Fools, summon me only when a vampire is near, or face my wrath.  He returns to the bottle.  Fools, summon me only when a vampire is near, or  or face my wrath,\" he read."
+   "sha256": "efae9e3fcca3a23f1e6146fc5014aff1012480a3f2d9168529314c073519df6b",
+   "heard": "fools summon me only when a vampire is near or face my wrath he returns to the  bottle"
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-a69a.mp3": {
-   "sha256": "b704593bc40584bc7e78b02e389b87bb4d11e68f9ecf1e6c44d40212867af3a2",
-   "heard": "Die, happy fiends, your deaths shall be my proud, powerful ifriti with fiery authority.  Die, happy fiends, your deaths shall be my freedom.  Die, happy fiends, your deaths shall be my freedom."
+   "sha256": "b5f3a41f006306d636acf4073112c29bd40bae54c4bf1a9d6aec696ef17302b2",
+   "heard": "Die, happy fiends! Your death shall be my freedom!"
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-a6e2.mp3": {
    "sha256": "c1ee248a38b6e466bed30faebc5ae7504c47eea897a0ae119fb0eb9a94d0512d",
@@ -6234,12 +6234,12 @@
    "heard": "This was a prison cell.  Broken bindings and six dead cobolds are strewn on the floor."
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-a894.mp3": {
-   "sha256": "7285db5bc6b8eb6feeaaa5135a9efb0f4769617ce936bda94e84a0d4c5256c24",
-   "heard": "She smiles so I shall cut my own way out good hunting  She smiles so I shall cut my own way out good hunting  She smiles so I shall cut my own way out good hunting  She leaves she leaves"
+   "sha256": "d36568ca59142c1a4dc56b9cafc75cd4f88ed4a69a2a1f1a53623742a4751372",
+   "heard": "She smiles, so I shall cut my own way out.  Good hunting, she leaves."
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-a733-a775-a7cd-a7f8-a802.mp3": {
-   "sha256": "42a425d1899a20aaf58aec6506fb1123650ea956390e2e87092779455cb33cb9",
-   "heard": "You hear muffled sounds and turn to investigate.  You hear muffled sounds and turn to investigate.  You hear muffled sounds and turn to investigate.  You hear muffled sounds and turn to investigate.  You hear muffled sounds and turn to investigate.  In this room is a young woman in barbarian finery.  She drops a cobold she was strangling when she sees you.  I am Princess Fatima.  The princess continues.  You record it in your journal under entry 16."
+   "sha256": "fc8f8fc95cff2fbc5eef9caefb53b78b0d5dc7513270f1113d1e61d1517c6b04",
+   "heard": "You hear muffled sounds and turn to investigate.  In this room is a young woman in barbarian finery.  She drops a cobold she was strangling when she sees you.  I am Princess Fatima.  The princess continues.  You record it in your journal under entry 16.  She offers to join your band."
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-a952.mp3": {
    "sha256": "8444f7614ffe320c9e251bacd2f8556f110f97942c8806ad430fa9230a01b583",
@@ -6306,16 +6306,16 @@
    "heard": "You find a trap, but the tunnel is too narrow to avoid it."
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-af93-afc3.mp3": {
-   "sha256": "3adfd66f713e29f6f9bd3d4e11f636ba70a2506b5b9911dc10c7e51909f01ac6",
-   "heard": "The cobalt pauses, idly taps the wall, then proceeds.  The cobalt pauses, idly taps the wall, then proceeds.  The cobalt pauses, idly taps the wall, then proceeds.  A boulder blocks off the passage.  Using a lever, the cobalt dislodges it and proceeds.  Do you?  Do you?"
+   "sha256": "3296b212248d99181cd604afea80b563321b53f1a452f1de7f72b5625bced46d",
+   "heard": "The kobold pauses, idly taps the wall, then proceeds.  A boulder blocks off the passage.  Using a lever, the kobold dislodges it and proceeds.  Do you?"
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-b028-b04b-b07b-b0b0.mp3": {
-   "sha256": "1565665ceac0ece6583189ed47bdf7d46494b448be05b675e962998f6c1ee6b8",
-   "heard": "The cobalt disappears beyond the boulder.  You clamber noisily down a slope of rubble.  The cobalt disappears beyond the boulder.  You clamber noisily down a slope.  The cobalt disappears beyond the boulder.  You clamber noisily down a slope of rubble.  At the bottom, the cobalt dives beneath some rubble.  Just around the corner is our treasure.  Take what you wish and leave us.  Good day."
+   "sha256": "f35f19955a56cf9a3217711d08335d0f8bc6878717f221fdda4639fbc4b9db04",
+   "heard": "The cobalt disappears beyond the boulder.  You clamber noisily down a slope of rubble.  At the bottom, the cobalt dives beneath some rubble.  Just around the corner is our treasure.  Take what you wish and leave us.  Good day."
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-b16b.mp3": {
-   "sha256": "2c510a3ebeeda9e9e56f67059b6a50e221f83e2ff758f2a0e65f65473938ae1d",
-   "heard": "The Kobold calls out, the envoys are here, Great King.  The Kobold calls out, the envoys are here, Great King.  The Kobold calls out, the envoys are here, Great King.  An aged voice replies, send them forward.  Your guide, however, has fallen into a stupor."
+   "sha256": "35183ad366b3f50ac2ffa80d31541d3822e904f46a902e3ad03ac826751c10c0",
+   "heard": "The Kobold calls out, the envoys are here, Great King.  An aged voice replies, send them forward.  Your guide, however, has fallen into a stupor."
   },
   "audio/voices/narration/ecl8/block-13/ecl8-b13-b1f2.mp3": {
    "sha256": "c44fd7d37141b01aa1af41f02de6faccfbef0c25d4c1afde82b2504d85d7a1ea",
@@ -6530,8 +6530,8 @@
    "heard": "Lying here are the partially eaten remains of a halfing."
   },
   "audio/voices/narration/ecl8/block-27/ecl8-b27-a37e.mp3": {
-   "sha256": "b30e1bd2e1f393a8ba8ba735c184718479845fb7883d065515a390621af9b9e5",
-   "heard": "You have found the Wyverns! You have found the Wyverns treasure!"
+   "sha256": "1c148c95e3c1f0c6907542de6f5244b93113d1f4d4599c013e064a6243f0fc65",
+   "heard": "You have found the Wyvern's treasure!"
   },
   "audio/voices/narration/ecl8/block-27/ecl8-b27-a3d2.mp3": {
    "sha256": "9bf286696c5804c14a07e6355e6dc8fd9f5f8d3743a8b8fe067f4900b2c975ef",
@@ -6674,16 +6674,16 @@
    "heard": "The cobalt are trying to sneak off."
   },
   "audio/voices/narration/ecl8/block-29/ecl8-b29-a8be.mp3": {
-   "sha256": "672399fc9fd3b248e5ddbf62382e2d67985b25b2b6acd01c3de73d80a08c2bc1",
-   "heard": "The kobolds collapse into a pathetic, mewing heap.  The kobolds collapse into a pathetic, mewing heap.  The kobolds collapse into a pathetic, mewing heap.  Please, please don't hurt us.  They wail.  We know nothing.  We are poor, lost souls looking for our homes.  The kobolds collapse."
+   "sha256": "68e6613391698479263eb8854d73e62404d9d2e5f62af4cae0bedfb329900244",
+   "heard": "The kobolds collapse into a pathetic, mewing heap.  Please, oh, please don't hurt us, they wail.  We know nothing.  We are poor, lost souls looking for our homes."
   },
   "audio/voices/narration/ecl8/block-29/ecl8-b29-a972.mp3": {
-   "sha256": "f0f06ce464715c031f4104a3cd78fa93c964bc056c37d1c35db755e1f2c13ff1",
-   "heard": "The kobolds scamper quickly away, the kobolds scamper quickly away.  Just before passing out of sight, one turns and raises his hand.  The kobolds scamper quickly away.  Just before passing out of sight, one turns and raises his hand in a gesture  as if to wave farewell."
+   "sha256": "3d10845c8d98c0dd9ea0e24acaa94b30e4dd5befc1fd42886beceb913e33da29",
+   "heard": "The kobalt scamper quickly away.  Just before passing out of sight, one turns and raises his hand in a gesture, as if to wave farewell."
   },
   "audio/voices/narration/ecl8/block-29/ecl8-b29-a773-a80e.mp3": {
-   "sha256": "b439a3581e7e590d391fd946eed20c072af73a65dd340d08fc42cff05d36e2e2",
-   "heard": "The Kobolds fawn on you pathetically.  The Kobolds fawn on you pathetically.  The Kobolds fawn on you pathetically.  The Kobolds fawn on you pathetically.  Please, please, noble ones, don't hurt us, they beg.  We were sent on a scouting mission by our king.  Rumors of a wondrous pool came to him in his lair.  We are all that remains of the mighty band that was sent west to test the tales.  We mean you no harm, we only seek to return to our families.  The Kobolds, we mean you no harm, we only-"
+   "sha256": "f42923fb2fa380520caf7cc25829bdd1146e158c39f7f2ac95257560746afa3a",
+   "heard": "The kobolds fawn on you pathetically.  Please, oh please, noble ones, don't hurt us, they beg.  We were sent on a scouting mission by our king.  Rumors of a wondrous pool came to him in his lair.  We are all that remains of the mighty band that was sent west to test the tales.  We mean you no harm.  We only seek to return to our families."
   },
   "audio/voices/narration/ecl8/block-29/ecl8-b29-a9f7.mp3": {
    "sha256": "c006b43e25ae6c13ebd09876d8d490340c05b429fb39c48a9ae0197cb8cc8daf",
@@ -6714,8 +6714,8 @@
    "heard": "You slowly climb down the slippery rungs."
   },
   "audio/voices/narration/ecl8/block-29/ecl8-b29-aaff-ab8a.mp3": {
-   "sha256": "b2ae7e26d8eb400969068c823c23ab2f838c0fe17efa8dd4aac0c60ec4b56d1e",
-   "heard": "A wide-eyed woman is seated on solemn, urgent, and otherworldly.  A wide-eyed woman is seated on a rug.  At your entry, she stands.  Greetings, bold ones.  I have long awaited your coming.  My time here is short, for the world enters a new age.  An evil spirit from an unholy pool guides your enemies.  It hides behind a fair countenance.  Be not deceived.  With that, the woman is gone.  With that, the woman is gone.  A wide-eyed woman."
+   "sha256": "92e06e9f7b686392583c4d254924480416dfdaf188939e56bf1500791f50a4d2",
+   "heard": "A wide-eyed woman is seated on a rug. At your entry, she stands.  Greetings, bold ones. I have long awaited your coming.  My time here is short, for the world enters a new age.  An evil spirit from an unholy pool guides your enemies.  It hides behind a fair countenance. Be not deceived.  With that, the woman is gone."
   },
   "audio/voices/narration/ecl8/block-29/ecl8-b29-aece.mp3": {
    "sha256": "88c20866999ce936ed37a42e63de32d3fd9483b303360b216564b1b04a324ea9",
