@@ -779,6 +779,20 @@ const illustrationRoutes = new Map([
     portrait: "portrait:HEAD2.DAX:52:BODY2.DAX:31",
     prompt: /THEYSEEMUNAWAREOFYOU.*COMBATWAITFLEEPARLAY/i,
   }],
+  ["bane-mansion-great-hall", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:31:ecl:b0b5:cue:mansion-great-hall",
+    prompt: /^(?!.*YOUFINDATRAPDOOR).*BEFOREYOUISAGREATHALL.*ORCTRASH.*CRUDEBLACKHANDS/i,
+    finalPhaseCapture: "bane-mansion-great-hall.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
+  ["bane-mansion-great-hall-hatch", {
+    slot: "A", inputs: ["s", "up"],
+    portrait: "scene-illustration:area:31:ecl:9e03:cue:mansion-great-hall-hatch",
+    prompt: /BEFOREYOUISAGREATHALL.*ORCTRASH.*CRUDEBLACKHANDS.*YOUFINDATRAPDOOR/i,
+    finalPhaseCapture: "bane-mansion-great-hall-hatch.png",
+    continuation: { inputs: ["l", "down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["bane-rubble-tapestry", {
     slot: "A", inputs: ["s", "up"],
     portrait: "scene-illustration:area:31:ecl:9c10",
