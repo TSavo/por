@@ -302,7 +302,72 @@ function finishAnimation() {
   animationFrame = undefined;
 }
 
-function stopVoice(clearNarrationQueue = true) {
+// The narration playback log: what the page was told to narrate and what the audio element then
+// did. It observes only and never changes what plays. window.porNarrationPlayback() returns it
+// to the Chrome checks. docs/NARRATION-QA.md describes the fields.
+const narrationPlayback = [];
+const voiceLog = new WeakMap();
+const soundingVoices = new Map();
+let shownArtwork = null;
+const playbackSeconds = () => Math.round(performance.now()) / 1000;
+function logNarrationQueued(narration) {
+  const entry = { id: narration.id, unitId: narration.unitId, ...(narration.variantId ? { variantId: narration.variantId } : {}),
+    asset: narration.asset, queuedAt: playbackSeconds(), queuedFrame: state.sequence,
+    // A recording from voices.json is speaking: the page matched it to the text this narration reads.
+    ...(currentVoice && currentVoice.dataset.queuedNarration !== "true" ? { behindVoiceLine: currentVoice.getAttribute("src") } : {}) };
+  narrationPlayback.push(entry);
+  if (narrationPlayback.length > 2048) narrationPlayback.shift();
+  return entry;
+}
+function closeNarrationLog(entry, outcome, reason, voice) {
+  if (!entry || entry.outcome) return;
+  Object.assign(entry, { outcome, ...(reason ? { reason } : {}), endedAt: playbackSeconds(), endFrame: state.sequence,
+    ...(voice ? { position: voice.currentTime } : {}), artAtEnd: shownArtwork });
+}
+function logVoice(voice, entry) {
+  voiceLog.set(voice, entry);
+  voice.addEventListener("playing", () => {
+    const others = [...soundingVoices].filter(([other]) => other !== voice && !other.paused && !other.ended);
+    soundingVoices.set(voice, entry);
+    for (const [, other] of others) if (other && !other.outcome) other.talkedOverBy = entry?.id ?? "a voice line";
+    if (!entry || entry.startedAt !== undefined) return;
+    Object.assign(entry, { startedAt: playbackSeconds(), startFrame: state.sequence, duration: voice.duration,
+      artAtStart: shownArtwork, artSeen: [shownArtwork], artTimes: [0] });
+    if (others.length) entry.startedOver = others.map(([, other]) => other?.id ?? "a voice line");
+  });
+  voice.addEventListener("pause", () => {
+    if (entry && !entry.outcome && !voice.ended) entry.pauses = (entry.pauses ?? 0) + 1;
+  });
+  voice.addEventListener("ended", () => { soundingVoices.delete(voice); closeNarrationLog(entry, "ended", undefined, voice); });
+  voice.addEventListener("error", () => { soundingVoices.delete(voice); closeNarrationLog(entry, "stopped", "load error", voice); });
+}
+function logVoiceStopped(voice, blocked, queued, reason) {
+  const playing = voice && voiceLog.get(voice);
+  if (voice) soundingVoices.delete(voice);
+  if (playing) closeNarrationLog(playing, playing.startedAt === undefined ? "never-started" : "stopped",
+    playing.startedAt === undefined ? `${reason}, before the recording had loaded` : reason, voice);
+  closeNarrationLog(blocked?.log, "never-started", `play() was refused (${blocked?.log?.refused}), then ${reason}`);
+  for (const line of queued) {
+    if (playing && line.log && !line.log.outcome) line.log.behind = playing.id;
+    closeNarrationLog(line.log, "never-started", `queue cleared: ${reason}`);
+  }
+}
+function logShownArtwork(key) {
+  shownArtwork = key;
+  for (const [voice, entry] of soundingVoices) {
+    if (entry && !entry.outcome && !voice.paused && entry.artSeen.at(-1) !== key && entry.artSeen.length < 16) {
+      entry.artSeen.push(key);
+      entry.artTimes.push(Math.round((playbackSeconds() - entry.startedAt) * 1000) / 1000);
+    }
+  }
+}
+window.porNarrationPlayback = () => ({ at: playbackSeconds(), frame: state.sequence, queued: narrationQueue.length,
+  sounding: [...soundingVoices.keys()].filter(voice => !voice.paused && !voice.ended).length,
+  lines: narrationPlayback.map(entry => entry.outcome ? entry
+    : { ...entry, position: [...soundingVoices].find(([, sounding]) => sounding === entry)?.[0].currentTime }) });
+
+function stopVoice(clearNarrationQueue = true, reason = "replaced") {
+  logVoiceStopped(currentVoice, blockedVoice, clearNarrationQueue ? narrationQueue : [], reason);
   if (currentVoice) currentVoice.pause();
   currentVoice = undefined;
   blockedVoice = undefined;
@@ -318,13 +383,15 @@ function beginVoice(line) {
   if (line.queuedNarration) voice.dataset.queuedNarration = "true";
   voice.volume = audioPreferences.muted ? 0 : audioPreferences.master * audioPreferences[line.type];
   currentVoice = voice;
+  logVoice(voice, line.log);
   voice.addEventListener("ended", () => {
     if (currentVoice !== voice) return;
     currentVoice = undefined;
     visibilityPausedVoice = undefined;
     playNextNarration();
   }, { once: true });
-  voice.play().catch(() => {
+  voice.play().catch((error) => {
+    if (line.log && !line.log.outcome) line.log.refused = error?.name ?? "refused";
     if (currentVoice !== voice) return;
     currentVoice = undefined;
     blockedVoice = line;
@@ -332,7 +399,7 @@ function beginVoice(line) {
 }
 
 function playVoice(line) {
-  stopVoice();
+  stopVoice(true, "a voice line replaced it");
   beginVoice(line);
 }
 
@@ -343,7 +410,7 @@ function playNextNarration() {
 }
 
 function enqueueNarration(narration) {
-  narrationQueue.push({ type: "narration", queuedNarration: true,
+  narrationQueue.push({ type: "narration", queuedNarration: true, log: logNarrationQueued(narration),
     url: `/narration/${encodeURIComponent(narration.asset)}` });
   playNextNarration();
 }
@@ -429,7 +496,7 @@ function togglePresentation() {
   renderTravelMap();
   journalToggle.hidden = !enhanced;
   if (!enhanced && !automap.hidden) toggleAutomap();
-  if (!enhanced) stopVoice();
+  if (!enhanced) stopVoice(true, "switched to Classic");
   if (!enhanced && enhancedScorePlaying) stopEffect();
   playTitleCue();
   if (animationFrame) {
@@ -1267,6 +1334,7 @@ async function showScreen() {
   renderTravelMap(view);
   tileArt.replaceChildren(...layers);
   tileArt.hidden = !showArt;
+  logShownArtwork(sceneArt ? view.scene ?? view.art : showArt ? view.portrait ?? view.encounter?.[2] ?? null : null);
   if (view === state && view.ready && view.portrait && !view.automaticCombat) {
     const portrait = tileArt.querySelector(".encounter-portrait");
     if (portrait) void animateHeldPortrait(portrait, view);
@@ -1793,7 +1861,7 @@ window.addEventListener("keydown", (event) => {
   resumeBlockedAudio();
   if (event.key !== "F10" && event.target instanceof HTMLElement && event.target.closest("#audio-settings")) return;
   const advancingCoveredPrint = currentVoice?.dataset.queuedNarration === "true" && ["Enter", " "].includes(event.key);
-  if (currentVoice && event.key !== "F10" && !advancingCoveredPrint) stopVoice();
+  if (currentVoice && event.key !== "F10" && !advancingCoveredPrint) stopVoice(true, `key ${event.key}`);
   // While the Enhanced code wheel is in view it takes the arrows, the word and Enter.
   // A held arrow keeps turning the disc.
   if ((codeWheelShown() || codeWheelAsking()) && !event.ctrlKey && !event.metaKey && !event.altKey && codeWheelKey(event)) return;
