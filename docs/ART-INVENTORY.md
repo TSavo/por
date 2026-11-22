@@ -861,6 +861,14 @@ combat frames and verified its two standing poses and two strikes. After
 matching the loose stones, fallen combatants, and two recolored party
 icons as sprites, all 39 terrain patterns in that trace have replacements.
 
+An original-file GOG 1.3 trace on `de361e34` checked the western boar,
+western giant snake, and eastern wyvern fights. All 46, 52, and 25
+distinct nonblank terrain hashes from their native terrain draws resolve
+to current Enhanced assets. The wyvern replay also passed its strike
+check. The other two emitted terrain traces before stopping on the
+expected combat pose or prompt. This evidence covers the draws captured
+on those routes. Unobserved battlefield archive cells stay in QA.
+
 Enable both trace variables on the same replay and redirect its output
 to a UTF-8 log. Add `--battle-draws=PATH_TO_LOG` to the report command
 alongside that replay's `battle-tiles.jsonl`. The JSON includes each
