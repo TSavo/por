@@ -2354,7 +2354,7 @@
         "Clue Book p.55: 'You may put all characters into quick combat by typing 'Q' during any character's turn' and 'M' toggles 'Magic On' / 'Magic Off'. [P] says Alt-Q and does not mention the M toggle."
       ],
       "coveredBy": [],
-      "notes": "qa/findings.json input-original-control-keys-dropped (accepted, #77): the page keeps Ctrl keys for the browser (Ctrl-S is the page's own sound settings; Ctrl-D and Ctrl-C act only under STING), no key routine uses Tab, and a held key's repeats now reach the game; check that Alt combinations reach the game."
+      "notes": "qa/findings.json input-original-control-keys-dropped (accepted, #77): the page keeps Ctrl keys for the browser (Ctrl-S is the page's own sound settings; Ctrl-D and Ctrl-C act only under STING), no key routine uses Tab, and a held movement key's repeats now reach the game (other keys are one press per hold, so a held Enter cannot skip a passage); check that Alt combinations reach the game."
     },
     {
       "id": "acceptance.mechanics.ui.pool-cfg",

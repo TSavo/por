@@ -2060,11 +2060,16 @@ const keypadDirections = {
   Numpad4: "left", Numpad6: "right",
   Numpad7: "home", Numpad8: "up", Numpad9: "pageup",
 };
-/** True when a held key's repeat goes to the game: never for the page's own windows and shortcuts. */
+/** The keys whose repeats reach the game: moving, turning and stepping through a list. */
+const repeatingKeys = new Set(["up", "down", "left", "right", "home", "end", "pageup", "pagedown"]);
+/**
+ * True when a held key's repeat goes to the game: only a movement key, and never into the page's
+ * own windows. A held Enter is one press: in Chrome, Enter held on Rolf's first passage also
+ * skipped the second the moment it appeared (#77), and the narration of every passage matters.
+ */
 function repeatsToGame(event) {
   if (event.altKey || !bootWheel.hidden || activeTravel || travelExpanded || !automap.hidden || state.journal) return false;
-  if (event.key === "F10" || /^[jm]$/i.test(event.key)) return false;
-  return Boolean(keypadDirections[event.code] ?? commands[event.key] ?? /^[a-z0-9]$/i.test(event.key));
+  return repeatingKeys.has(keypadDirections[event.code] ?? commands[event.key]);
 }
 closeJournal.addEventListener("click", () => send("j"));
 journalToggle.addEventListener("click", () => {
@@ -2106,8 +2111,8 @@ window.addEventListener("keydown", (event) => {
   // Ctrl keys stay with the browser. The original acts on Ctrl-S (sound on and off), which the
   // page's own sound settings offer, and on Ctrl-D and Ctrl-C only when started as STING (#77).
   if (event.ctrlKey || event.metaKey) return;
-  // A held key repeats, as the BIOS repeats it on DOS, when it goes straight to the game. send()
-  // drops a press while one is in flight, so holding a key never stacks presses up (#77).
+  // A held movement key repeats, as the BIOS repeats it on DOS. send() drops a press while one is
+  // in flight, so holding a key never stacks presses up (#77). Other keys are one press per hold.
   if (event.repeat && !repeatsToGame(event)) return;
   if (!bootWheel.hidden && event.key !== "F10") {
     const key = wheelKey(event.key);
