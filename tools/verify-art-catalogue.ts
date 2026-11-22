@@ -29,6 +29,7 @@ import { portGameRoot } from "./gamedata.js";
 import { pngDimensions } from "./png.js";
 import { portraitHoldAction, scriptIllustrations } from "./portrait-art.js";
 import { readExplorationCellHashes } from "./exploration-cells.js";
+import { monsterCombatKey } from "./combat-art.js";
 
 const read = (path: string) => new Uint8Array(readFileSync(join(portGameRoot, path)));
 const data = readGameData(read);
@@ -182,7 +183,7 @@ const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
   }],
   [/^battle-tile:([a-f0-9]{64})$/, ([, hash]) => battleHashes.has(hash!) ? undefined : "its pixels are not one stored cell of the battlefield terrain"],
   [/^combat:party:(\d{1,3}):(\d{1,3})(?::palette:[0-9a-f]{16})?$/, ([, head, body]) => frame("CHEAD.DAX", head!) ?? frame("CBODY.DAX", body!)],
-  [/^combat:(?:area:(\d{1,3}):)?(CPIC[1-8]\.DAX):(\d{1,3})(?::ecl:([a-f0-9]{4}))?$/, ([, area, file, block, cursor]) => frame(file!, block!) ?? scope(area, cursor)],
+  [monsterCombatKey, ([, area, file, block, cursor]) => frame(file!, block!) ?? scope(area, cursor)],
   [/^combat:(RANDCOM\.DAX):(1):(0):([0-5])$/, ([, file, block, member, index]) => frame(file!, block!, member, index)],
   [/^combat-effect:(COMSPR\.DAX):(\d{1,3})(?::(?:flip-x|transpose))?$/, ([, file, block]) => frame(file!, block!)],
   [/^combat-selection:(COMSPR\.DAX):(\d{1,3})$/, ([, file, block]) => frame(file!, block!)],

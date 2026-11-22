@@ -45,7 +45,7 @@ export function observeNativeCombatArt(art: ReadonlySet<string>, materialKeys: R
   const root = findGameRoot();
   for (const { file, block, pictures } of root ? portGame(root).data.pictures : []) {
     const [picture] = pictures;
-    if (!/^CPIC[1-8]\.DAX$/.test(file) || !picture || pictures.length !== 1 || picture.frameHashes.length !== 1) continue;
+    if (!/^(?:CPIC[1-8]|ICON)\.DAX$/.test(file) || !picture || pictures.length !== 1 || picture.frameHashes.length !== 1) continue;
     const signature = `${picture.width}:${picture.height}:${picture.frameHashes[0]}`;
     const group = poseGroups.get(signature) ?? [];
     const source = `${file}:${block}`;
@@ -86,9 +86,12 @@ export function observeNativeCombatArt(art: ReadonlySet<string>, materialKeys: R
       slots.delete(slot);
       const offset = arg(8), segment = arg(10);
       const bank = cpu.read8(cpu.ds, data.combatPictureBank);
-      if (bank < 1 || bank > 8 || cpu.read8(segment, offset) !== 4) return;
+      if (cpu.read8(segment, offset) !== 4) return;
       const name = String.fromCharCode(...[1, 2, 3, 4].map(index => cpu.read8(segment, (offset + index) & 0xffff)));
-      if (name === "CPIC") slots.set(slot, { archive: `CPIC${bank}.DAX`, ready: arg(6) & 255 });
+      if (name === "ICON" || (name === "CPIC" && bank >= 1 && bank <= 8)) {
+        const archive = name === "ICON" ? "ICON.DAX" : `CPIC${bank}.DAX`;
+        slots.set(slot, { archive, ready: arg(6) & 255 });
+      }
     },
     draw(cpu: Cpu) {
       if (cpu.read8(cpu.ds, data.offscreenDraw) !== 1) return;

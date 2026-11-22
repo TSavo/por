@@ -12,7 +12,7 @@ export function combatHighlightPixel(x: number, y: number): number {
   return x < 2 ? 15 : x >= 22 ? 8 : 7;
 }
 
-export const monsterCombatKey = /^combat:(?:area:(\d{1,3}):)?(CPIC[1-8]\.DAX):(\d{1,3})(?::ecl:([a-f0-9]{4}))?$/;
+export const monsterCombatKey = /^combat:(?:area:(\d{1,3}):)?(CPIC[1-8]\.DAX|ICON\.DAX):(\d{1,3})(?::ecl:([a-f0-9]{4}))?$/;
 export const partyCombatKey = /^combat:party:(\d{1,3}):(\d{1,3})(?::palette:(0[1-9a-f]{15}))?$/;
 export const partyRecolorKey = /^(combat:party:\d{1,3}:\d{1,3}):palette:0[0-9a-f]{15}$/;
 export const combatEffectKey = /^combat-effect:(COMSPR\.DAX):(\d{1,3})(?::(flip-x|transpose))?$/;
