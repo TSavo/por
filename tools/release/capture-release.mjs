@@ -173,7 +173,14 @@ try {
   const explorationMenu = /Area Cast View Encamp Search Look/;
   for (let presses = 0; !explorationMenu.test(await screenText()); presses++) {
     if (presses >= 80) throw new Error(`The opening did not reach the exploration menu: ${await screenText()}`);
+    const before = await evaluate("state.sequence");
     await key(/Yes No\s*$/.test((await screenText()).trimEnd()) ? "n" : "Enter");
+    // The page holds a passage until its narration ends (the player waits for the voice): when the key changed
+    // nothing, wait for the voice to finish, as a player would, then press again. It never ending is a finding.
+    if (await evaluate("state.sequence") === before) {
+      await until("the passage's narration to end (the page ignores Enter while it speaks)",
+        `state.sequence !== ${before} || !currentVoice || currentVoice.ended`, 90_000);
+    }
   }
   await until("the first-person view", `Boolean(streetViewport) || streetUnavailable`, 30_000);
   await delay(2500);
