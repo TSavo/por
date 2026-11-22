@@ -438,6 +438,7 @@ if (input && process.env.POR_BROWSER_PLAY === "1") {
       input.nativeCombat?.reset();
       input.nativeSelection?.reset();
       input.nativeBattleTerrain?.reset();
+      input.resetBattleTerrain();
       input.nativeEffects?.reset();
       const mode = cpu.read8(cpu.ds, data.soundMode);
       if (mode !== 0 || !behaviour.startsBattleMusicOnTandy) console.log(`POR_SOUND ${JSON.stringify({ index: 14, mode, step: cpu.steps, enhancedOnly: true })}`);

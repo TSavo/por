@@ -251,6 +251,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     ? observeNativeBattleTerrain(pictures, battleTileKeys, combatKeySet) : undefined;
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
   const battleTerrain = browser && (battleTileKeys.size || traceBattleDraw) ? new Frame(screen.width, screen.height) : undefined;
+  const capturedTerrainKeys = new Map<number, string>();
   const tracedBattleTerrain = new Set<string>();
   const selectionKeys = new Set((process.env.POR_COMBAT_SELECTION_KEYS ?? "").split(",").filter(Boolean));
   const nativeSelection = browser && standalone && code.combatSelectionDrawResumes ? observeNativeCombatSelection() : undefined;
@@ -611,15 +612,18 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
               const start = (y + row) * enhanced.width + x;
               pixels.set(enhanced.pixels.subarray(start, start + 8), row * 8);
             }
-            if (!pixels.some(Boolean)) continue;
-            const key = `battle-tile:${createHash("sha256").update(pixels).digest("hex")}`;
+            const key = pixels.some(Boolean) ? `battle-tile:${createHash("sha256").update(pixels).digest("hex")}` : undefined;
             // The selection bevel is drawn into the guest cell. It remains
             // on screen, but its pixels cannot identify the terrain below it.
-            if (battleTileInventory && !selectionCells.has(y * presentation.width + x) && !selectedActors.some(([left, top, , , , width = 24, height = 24]) =>
+            if (key && battleTileInventory && !selectionCells.has(y * presentation.width + x) && !selectedActors.some(([left, top, , , , width = 24, height = 24]) =>
               x < left + width && x + 8 > left && y < top + height && y + 8 > top)) {
               battleTileInventory.push([x, y, key, pixels.toString("hex")]);
             }
-            if (!nativeBattleTerrain && battleTileKeys.has(key)) battleTiles.push([x, y, key]);
+            if (!nativeBattleTerrain) {
+              // Prefer the guest terrain draw before a target marker or actor covers the cell.
+              const terrainKey = capturedTerrainKeys.get(y * screen.width + x) ?? key;
+              if (terrainKey && battleTileKeys.has(terrainKey)) battleTiles.push([x, y, terrainKey]);
+            }
           }
         }
       }
@@ -980,6 +984,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     nativePicture,
     nativeEncounter,
     nativeEffects,
+    resetBattleTerrain() {
+      capturedTerrainKeys.clear();
+      battleTerrain?.pixels.fill(0);
+    },
     captureBattleTerrain: battleTerrain ? (cpu: Cpu, column: number, row: number, picture: number) => {
       if (column > 18 || row > 18 || column % 3 || row % 3) return;
       const x = 8 + column * 8;
@@ -1004,7 +1012,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           }
         }
       }
-      if (traceBattleDraw) {
+      if (!nativeBattleTerrain || traceBattleDraw) {
         const cells: TileInventoryCell[] = [];
         const pixels = Buffer.alloc(64);
         for (let dy = 0; dy < 24; dy += 8) for (let dx = 0; dx < 24; dx += 8) {
@@ -1012,7 +1020,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
             const start = (y + dy + scan) * screen.width + x + dx;
             pixels.set(battleTerrain.pixels.subarray(start, start + 8), scan * 8);
           }
-          if (pixels.some(Boolean)) cells.push([dx, dy, `battle-tile:${createHash("sha256").update(pixels).digest("hex")}`, pixels.toString("hex")]);
+          const key = `battle-tile:${createHash("sha256").update(pixels).digest("hex")}`;
+          if (!nativeBattleTerrain) capturedTerrainKeys.set((y + dy) * screen.width + x + dx, key);
+          if (traceBattleDraw && pixels.some(Boolean)) cells.push([dx, dy, key, pixels.toString("hex")]);
         }
         const draw = JSON.stringify({ picture, cells });
         if (cells.length && !tracedBattleTerrain.has(draw)) {
