@@ -2,28 +2,28 @@
  "schema": 2,
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
- "remaining": 2172,
+ "remaining": 2169,
  "totals": {
-  "Remaining, all kinds": 2172,
-  "First-person cells to do": 2172,
-  "  of which one stored tile": 472,
+  "Remaining, all kinds": 2169,
+  "First-person cells to do": 2169,
+  "  of which one stored tile": 469,
   "  of which one tile over a solid colour": 232,
   "  of which plain sky or ground": 0,
   "  of which several tiles together": 1468,
   "  of which the same pixels already have art of yours in another area": 791,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 4038,
-  "  accounted for by the tool": 3893,
+  "Tile keys in the manifests": 4051,
+  "  accounted for by the tool": 3906,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
   "  blank": 9,
   "  distinct pictures among the rest": 1333,
-  "  with art in some area, alone or over a solid colour": 2299,
-  "  without (the catalogue's 720 when it was written)": 708,
-  "    of those, no map can show": 447,
+  "  with art in some area, alone or over a solid colour": 2305,
+  "  without (the catalogue's 720 when it was written)": 702,
+  "    of those, no map can show": 444,
   "    of those, shown only together with other tiles, never alone": 10,
-  "    of those, shown alone in some area": 251
+  "    of those, shown alone in some area": 248
  },
  "notEstablished": {
   "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4060,
@@ -450,23 +450,24 @@
    "area": 13,
    "name": "The Kobold Caves",
    "established": true,
-   "why": "all 144 cells that have artwork are among the cells the tool works out",
+   "why": "all 149 cells that have artwork are among the cells the tool works out",
    "maps": [
     13
    ],
    "wallSets": [
     "WALLDEF8 block 17 (tiles 8X8D8 block 17), block 18 (tiles 8X8D8 block 18), nothing"
    ],
-   "existingKeys": 144,
-   "existingKeysAccountedFor": 144,
+   "existingKeys": 149,
+   "existingKeysAccountedFor": 149,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 313,
-   "cellsWithArt": 144,
-   "toDo": 67,
+   "cellsWithArt": 147,
+   "toDo": 64,
    "notEstablished": {
     "cells that show a sky or ground colour no existing artwork of the area shows": 102
-   }
+   },
+   "existingKeysOnlyAsWallMaterials": 2
   },
   {
    "area": 14,
@@ -657,15 +658,15 @@
    "area": 22,
    "name": "Yarash's Pyramid",
    "established": true,
-   "why": "all 70 cells that have artwork are among the cells the tool works out",
+   "why": "all 78 cells that have artwork are among the cells the tool works out",
    "maps": [
     22
    ],
    "wallSets": [
     "WALLDEF7 block 1 (tiles 8X8D7 block 1), block 3 (tiles 8X8D7 block 3), nothing"
    ],
-   "existingKeys": 70,
-   "existingKeysAccountedFor": 70,
+   "existingKeys": 78,
+   "existingKeysAccountedFor": 78,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 140,
@@ -673,7 +674,8 @@
    "toDo": 17,
    "notEstablished": {
     "cells that show a sky or ground colour no existing artwork of the area shows": 53
-   }
+   },
+   "existingKeysOnlyAsWallMaterials": 8
   },
   {
    "area": 23,
@@ -31608,29 +31610,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:13:6251bdc7645b63613e1bfc7cf807e1793f99364d0005c5a14cb55d7d38701f84",
-   "width": 32,
-   "height": 32,
-   "area": 13,
-   "areaName": "The Kobold Caves",
-   "group": "tile set 8X8D8 block 17",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:17:55",
-   "description": "8X8D8 block 17 tile 55, shown in area 13 (The Kobold Caves)",
-   "seenAt": {
-    "map": 13,
-    "x": 13,
-    "y": 9,
-    "facing": "west",
-    "column": 6,
-    "row": 6
-   },
-   "views": 2,
-   "drawnIn": [],
-   "why": "drawn in 2 views of map 13 (WALLDEF8 block 17 (tiles 8X8D8 block 17), block 18 (tiles 8X8D8 block 18), nothing) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:13:62b04d5962f2cea84aa1c4f8931caf77dd4c288da7cff20eaf5f726b598aa658",
    "width": 32,
    "height": 32,
@@ -31835,52 +31814,6 @@
    "views": 3,
    "drawnIn": [],
    "why": "drawn in 3 views of map 13 (WALLDEF8 block 17 (tiles 8X8D8 block 17), block 18 (tiles 8X8D8 block 18), nothing) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:13:892027ab6034ae5ee19aa0e2fc24836b738188c17a8216b8ef3f31002b21e789",
-   "width": 32,
-   "height": 32,
-   "area": 13,
-   "areaName": "The Kobold Caves",
-   "group": "tile set 8X8D8 block 17",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:17:6",
-   "description": "8X8D8 block 17 tile 6, shown in area 13 (The Kobold Caves)",
-   "seenAt": {
-    "map": 13,
-    "x": 13,
-    "y": 9,
-    "facing": "west",
-    "column": 5,
-    "row": 4
-   },
-   "views": 1,
-   "drawnIn": [],
-   "why": "drawn in 1 views of map 13 (WALLDEF8 block 17 (tiles 8X8D8 block 17), block 18 (tiles 8X8D8 block 18), nothing) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:13:8d5ecba5c803351d3cab192d49d6343a4819284966ed2f0b5918d328dea722dd",
-   "width": 32,
-   "height": 32,
-   "area": 13,
-   "areaName": "The Kobold Caves",
-   "group": "tile set 8X8D8 block 17",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:17:54",
-   "description": "8X8D8 block 17 tile 54, shown in area 13 (The Kobold Caves)",
-   "seenAt": {
-    "map": 13,
-    "x": 13,
-    "y": 9,
-    "facing": "west",
-    "column": 6,
-    "row": 5
-   },
-   "views": 2,
-   "drawnIn": [],
-   "why": "drawn in 2 views of map 13 (WALLDEF8 block 17 (tiles 8X8D8 block 17), block 18 (tiles 8X8D8 block 18), nothing) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
