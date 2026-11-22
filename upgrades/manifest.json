@@ -3088,6 +3088,9 @@
   "assets": {
     "combat:ICON.DAX:0": "combat-mounted-guard-ready.png",
     "combat:ICON.DAX:128": "combat-mounted-guard-strike.png",
+    "encounter:SPRIT8.DAX:19:0:0": "archive-shield-bearer-near.png",
+    "encounter:SPRIT8.DAX:19:1:0": "archive-shield-bearer-middle.png",
+    "encounter:SPRIT8.DAX:19:2:0": "archive-shield-bearer-far.png",
     "encounter:SPRIT2.DAX:71:0:0": "archive-ettin-near.png",
     "encounter:SPRIT2.DAX:71:1:0": "archive-ettin-middle.png",
     "encounter:SPRIT2.DAX:71:2:0": "archive-ettin-far.png",
@@ -15483,6 +15486,9 @@
     "combat:RANDCOM.DAX:1:0:3": "combat-flowering-clay-pot.png"
   },
   "encounters": {
+    "encounter:SPRIT8.DAX:19:0:0": {"x": 56, "y": 32, "width": 24, "height": 80},
+    "encounter:SPRIT8.DAX:19:1:0": {"x": 56, "y": 32, "width": 24, "height": 65},
+    "encounter:SPRIT8.DAX:19:2:0": {"x": 56, "y": 32, "width": 16, "height": 49},
     "encounter:SPRIT2.DAX:71:0:0": {"x": 40, "y": 32, "width": 48, "height": 73},
     "encounter:SPRIT2.DAX:71:1:0": {"x": 48, "y": 32, "width": 40, "height": 65},
     "encounter:SPRIT2.DAX:71:2:0": {"x": 56, "y": 32, "width": 24, "height": 57},
