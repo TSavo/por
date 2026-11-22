@@ -183,6 +183,13 @@ The tile audit finds 2,374 of 3,007 nonblank original 8×8 rows with a
 32×32 replacement. Rows can share pixels, so the 633 uncovered rows
 do not represent 633 distinct drawings.
 
+A GOG 1.3 Chrome run of `diogenes-advice` at `a946cc4b` confirmed
+the silver dragon's departure plate at `area:19:ecl:aeeb:cue:diogenes-advice-departure`.
+The static audit flags that key because it compares the cursor to ECL6
+block 19, which ends at `a5a2`. ECL6 block 25 contains the pause at
+`aeeb`, and the replay reaches it with the displayed area already set to 19.
+The replay also checks the Silver Bottle commission in the journal.
+
 The two HEAD frames it flagged are `HEAD6.DAX:1:0:0` and
 `HEAD6.DAX:3:0:0`, both 88 by 40. Neither ID appeared in the local
 browser trace files checked for this audit. They stay unlinked pending
