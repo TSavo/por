@@ -26,8 +26,9 @@ VIAddVersionKey "FileVersion" "${VERSION}"
 
 !define MUI_ICON "${STAGE}/pool-of-radiance.ico"
 !define MUI_UNICON "${STAGE}/pool-of-radiance.ico"
-!define MUI_FINISHPAGE_RUN "$INSTDIR\node\node.exe"
-!define MUI_FINISHPAGE_RUN_PARAMETERS '"$INSTDIR\app\launch.mjs"'
+; Through the Start Menu shortcut and Explorer, so the game does not run with the installer's elevation.
+!define MUI_FINISHPAGE_RUN
+!define MUI_FINISHPAGE_RUN_FUNCTION PlayGame
 !define MUI_FINISHPAGE_RUN_TEXT "Play ${PRODUCT}"
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_COMPONENTS
@@ -47,6 +48,11 @@ FunctionEnd
 
 Function un.onInit
   SetRegView 64
+FunctionEnd
+
+Function PlayGame
+  SetShellVarContext all
+  Exec '"$WINDIR\explorer.exe" "$SMPROGRAMS\${PRODUCT}\${PRODUCT}.lnk"'
 FunctionEnd
 
 Section "${PRODUCT}" SectionGame

@@ -66,6 +66,14 @@ Packing is where nothing of `por-assets` may go in. `release:pack` fails if:
 `src/audio/original-sounds.json` mentions `por-assets` in a note on how the Classic sounds were rendered;
 nothing reads it as a path.
 
+`npx tsx tools/release/pack.ts --check <directory>` runs checks 1 and 2 alone on an unpacked package or
+an install (for the Mac app, its `Contents`). Checked against copies of the Linux folder with one thing
+planted in each, it refused all five: a WAV from `por-assets/original` under another name ("is
+/Users/…/por-assets/original/pc-speaker-01.wav"), an `ECL1.DAX`, a `tandy-03.wav`, one byte added to
+`game/tiles.json`, and an extra file in `game/`; the unchanged copy passed. Before the swap of
+`tools/classic-sounds.ts`, the compiled server held `join("..", "por-assets", "original")`, which
+check 3 refuses.
+
 ## How a player starts it
 
 - **Mac:** open the disk image and drag **Pool of Radiance** to Applications. Opening the app starts the
@@ -83,7 +91,7 @@ is not. It prints the address in case no browser opens. Launched again while the
 browser on the running game. It sets `POR_ROOT` to the install, `POR_RUNNER` to the compiled runner
 and `POR_GAME_SOURCE=port`, and drops every other `POR_` setting it inherits except `POR_CLOCK`,
 `POR_PREGEN_PARTY`, `POR_TRACE_KEYS`, `POR_SAVE_DIR` and `POR_OPEN_BROWSER` (`0`: print the address
-only). The runner names the data it chose on its first line: `POR_GAME_DATA port <install>/game`.
+only). The runner names the data it chose when it starts: `POR_GAME_DATA port <install>/game`.
 
 ## Where saves go
 
@@ -155,12 +163,16 @@ opened with `open --env POR_OPEN_BROWSER=0 --env POR_PREGEN_PARTY=1` and nothing
   console.
 - Quit (the quit Apple event Cmd-Q sends) left no launcher, runner or listener on the port, and removed
   `running.json`.
+- The launcher run from a shell, as the Windows shortcut and the Linux script run it, stopped the server
+  and the runner within 1.3 seconds of SIGINT (Ctrl-C) and of SIGHUP (the terminal closing; Windows
+  sends it when the console window closes).
 
 ## Known gaps
 
-- The page opens in Classic display, which has no pictures without the player's own files; the player
-  presses **Enhanced display** (or F10). The release shape wants Enhanced from the start: that is the
-  page's default in `tools/play.js`.
+- The page opens in Classic display (measured: the page's `data-presentation` was `classic` when it
+  loaded), which draws the original pictures the port's own data does not carry. The check presses
+  **Enhanced display**, as a player must (or F10). The release shape wants Enhanced from the start; the
+  default is the page's, in `tools/play.js`.
 - The publisher screen is not seen: the runner passes it during the 24,000,000 steps it runs before it
   takes input (`POR_LIVE_AT`) with the real clock, and its first frame is the title. `npm run play` does
   the same (measured: its first frame is the title).

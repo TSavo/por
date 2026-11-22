@@ -18,6 +18,9 @@
  *      as any file in it;
  *   2. game/ in a package is not byte for byte the committed game/ (the same files, the same git blobs);
  *   3. the compiled server, runner or launcher contains the string por-assets.
+ *
+ * `npx tsx tools/release/pack.ts --check <directory>` runs checks 1 and 2 alone on an unpacked package
+ * or an install, such as the Contents of an installed Mac app.
  */
 import { execFileSync, execSync } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -35,7 +38,7 @@ const app = join(dist, "app");
 const stages = join(dist, "stage");
 const cache = join(dist, "cache");
 const requested = process.argv.slice(2);
-const platforms = requested.length ? requested : ["mac", "windows", "linux"];
+const platforms = requested[0] === "--check" ? [] : requested.length ? requested : ["mac", "windows", "linux"];
 for (const platform of platforms) {
   if (!["mac", "windows", "linux"].includes(platform)) throw new Error(`Unknown platform ${platform}: use mac, windows or linux`);
 }
@@ -78,49 +81,6 @@ function cloneInto(from: string, to: string): void {
 
 const sha256 = (data: Uint8Array) => createHash("sha256").update(data).digest("hex");
 
-// ---- The payload: the committed files, the compiled app, the icons. ----
-for (const name of compiled) if (!existsSync(join(app, name))) throw new Error(`${join(app, name)} is missing: run npm run release:build`);
-// Check 3: nothing compiled names por-assets.
-for (const name of compiled) {
-  if (readFileSync(join(app, name), "utf8").includes("por-assets")) throw new Error(`Check 3 failed: dist/app/${name} names por-assets`);
-}
-log(`check 3 passed: ${compiled.join(", ")} do not name por-assets`);
-
-rmSync(stages, { recursive: true, force: true });
-const payload = join(stages, "payload");
-mkdirSync(payload, { recursive: true });
-const commit = git("rev-parse", "--short", "HEAD").trim();
-log(`extracting the committed port at ${commit}`);
-execSync(`git -C '${fromPortRoot()}' archive --format=tar HEAD -- ${payloadPaths.map((path) => `'${path}'`).join(" ")} | tar -xf - -C '${payload}'`,
-  { stdio: ["ignore", "inherit", "inherit"] });
-cloneInto(app, join(payload, "app"));
-for (const path of payloadPaths) if (!existsSync(join(payload, path))) throw new Error(`${path} is not in the commit`);
-
-// Icons from the title picture: the middle of the harbour, square.
-const icons = join(stages, "icons");
-mkdirSync(icons, { recursive: true });
-const square = join(icons, "square.png");
-run("sips", ["-c", "800", "800", fromPortRoot("upgrades", "harbor-title.png"), "--out", square]);
-const iconset = join(icons, "AppIcon.iconset");
-mkdirSync(iconset);
-for (const size of [16, 32, 128, 256, 512]) {
-  run("sips", ["-z", String(size), String(size), square, "--out", join(iconset, `icon_${size}x${size}.png`)]);
-  run("sips", ["-z", String(size * 2), String(size * 2), square, "--out", join(iconset, `icon_${size}x${size}@2x.png`)]);
-}
-const icns = join(icons, "AppIcon.icns");
-run("iconutil", ["-c", "icns", iconset, "-o", icns]);
-// A Windows icon holding one 256-pixel PNG.
-const png256 = readFileSync(join(iconset, "icon_256x256.png"));
-const ico = Buffer.alloc(22);
-ico.writeUInt16LE(1, 2);
-ico.writeUInt16LE(1, 4);
-ico.writeUInt16LE(1, 10);
-ico.writeUInt16LE(32, 12);
-ico.writeUInt32LE(png256.length, 14);
-ico.writeUInt32LE(22, 18);
-writeFileSync(join(icons, "pool-of-radiance.ico"), Buffer.concat([ico, png256]));
-copyFileSync(join(iconset, "icon_256x256.png"), join(icons, "pool-of-radiance.png"));
-
 // ---- Check 2: game/ is the committed game/. ----
 const committedGame = new Map(git("ls-tree", "-r", "HEAD", "--", "game").trim().split("\n").map((line) => {
   const [meta, path] = line.split("\t") as [string, string];
@@ -130,7 +90,7 @@ function checkGame(root: string, label: string): void {
   const packaged = files(join(root, "game")).map((path) => join("game", path));
   const extra = packaged.filter((path) => !committedGame.has(path));
   const missing = [...committedGame.keys()].filter((path) => !packaged.includes(path));
-  const changed = packaged.filter((path) => {
+  const changed = packaged.filter((path) => committedGame.has(path)).filter((path) => {
     const data = readFileSync(join(root, path));
     const blob = createHash("sha1").update(`blob ${data.length}\0`).update(data).digest("hex");
     return committedGame.get(path) !== blob;
@@ -185,6 +145,58 @@ function checkNothingOriginal(root: string, label: string, executables: string[]
     : "; no por-assets beside the checkout to compare bytes with";
   log(`check 1 passed in ${label}: no original game file, Classic sound, link or por-assets path${against}`);
 }
+
+// --check <directory>: checks 1 and 2 on an unpacked package or an install.
+if (requested[0] === "--check") {
+  const directory = requested[1];
+  if (!directory) throw new Error("--check needs the directory to check");
+  checkNothingOriginal(directory, directory, ["node/node.exe", "Uninstall.exe"]);
+  checkGame(existsSync(join(directory, "game")) ? directory : join(directory, "Resources"), directory);
+  process.exit(0);
+}
+
+// ---- The payload: the committed files, the compiled app, the icons. ----
+for (const name of compiled) if (!existsSync(join(app, name))) throw new Error(`${join(app, name)} is missing: run npm run release:build`);
+// Check 3: nothing compiled names por-assets.
+for (const name of compiled) {
+  if (readFileSync(join(app, name), "utf8").includes("por-assets")) throw new Error(`Check 3 failed: dist/app/${name} names por-assets`);
+}
+log(`check 3 passed: ${compiled.join(", ")} do not name por-assets`);
+
+rmSync(stages, { recursive: true, force: true });
+const payload = join(stages, "payload");
+mkdirSync(payload, { recursive: true });
+const commit = git("rev-parse", "--short", "HEAD").trim();
+log(`extracting the committed port at ${commit}`);
+execSync(`git -C '${fromPortRoot()}' archive --format=tar HEAD -- ${payloadPaths.map((path) => `'${path}'`).join(" ")} | tar -xf - -C '${payload}'`,
+  { stdio: ["ignore", "inherit", "inherit"] });
+cloneInto(app, join(payload, "app"));
+for (const path of payloadPaths) if (!existsSync(join(payload, path))) throw new Error(`${path} is not in the commit`);
+
+// Icons from the title picture: the middle of the harbour, square.
+const icons = join(stages, "icons");
+mkdirSync(icons, { recursive: true });
+const square = join(icons, "square.png");
+run("sips", ["-c", "800", "800", fromPortRoot("upgrades", "harbor-title.png"), "--out", square]);
+const iconset = join(icons, "AppIcon.iconset");
+mkdirSync(iconset);
+for (const size of [16, 32, 128, 256, 512]) {
+  run("sips", ["-z", String(size), String(size), square, "--out", join(iconset, `icon_${size}x${size}.png`)]);
+  run("sips", ["-z", String(size * 2), String(size * 2), square, "--out", join(iconset, `icon_${size}x${size}@2x.png`)]);
+}
+const icns = join(icons, "AppIcon.icns");
+run("iconutil", ["-c", "icns", iconset, "-o", icns]);
+// A Windows icon holding one 256-pixel PNG.
+const png256 = readFileSync(join(iconset, "icon_256x256.png"));
+const ico = Buffer.alloc(22);
+ico.writeUInt16LE(1, 2);
+ico.writeUInt16LE(1, 4);
+ico.writeUInt16LE(1, 10);
+ico.writeUInt16LE(32, 12);
+ico.writeUInt32LE(png256.length, 14);
+ico.writeUInt32LE(22, 18);
+writeFileSync(join(icons, "pool-of-radiance.ico"), Buffer.concat([ico, png256]));
+copyFileSync(join(iconset, "icon_256x256.png"), join(icons, "pool-of-radiance.png"));
 
 // ---- Node, from nodejs.org, checked against its published sums. ----
 mkdirSync(cache, { recursive: true });
@@ -308,7 +320,8 @@ if (platforms.includes("linux")) {
   checkGame(stage, "the Linux folder");
   const archive = join(dist, `${name}-linux-x64.tar.gz`);
   log("building the Linux archive");
-  run("tar", ["-czf", archive, "-C", dirname(stage), name]);
+  // No macOS extended attributes or AppleDouble files, which tar on Linux warns about.
+  run("tar", ["--no-xattrs", "--no-mac-metadata", "-czf", archive, "-C", dirname(stage), name]);
   log(`${archive} (${size(archive)})`);
   outputs.push(archive);
 }
