@@ -2003,6 +2003,8 @@
     "scene-illustration:area:8:ecl:9b8a:caller:9a4a": "council-clerk-office-guards.png",
     "scene-illustration:area:8:ecl:9c30:caller:9a4a:cue:clerk-reward-check": "council-clerk-reward-check.png",
     "scene-illustration:area:8:ecl:b5c3:caller:9c34:cue:clerk-reward-check": "council-clerk-reward-check.png",
+    "scene-illustration:area:8:ecl:af2c:caller:a891:cue:special-council-summons": "council-special-meeting-summons.png",
+    "scene-illustration:area:8:ecl:b5c3:caller:af36:cue:special-council-summons": "council-special-meeting-summons.png",
     "scene-illustration:area:8:ecl:a83b:caller:9a4a:cue:repeat-commission-offers": "council-clerk-repeat-offers.png",
     "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:repeat-commission-offers": "council-clerk-repeat-offers.png",
     "scene-illustration:area:8:ecl:a7f9:caller:9a4a:cue:commission-papers": "council-clerk-commission-papers.png",

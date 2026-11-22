@@ -6167,7 +6167,7 @@ routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier"
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline", "valjevo-al-hyam-reload");
 routes.push("kovel-chase-no", "valjevo-records-reload", "swamp-approach-reload", "nomad-feast-decline", "kobold-royal-ballista");
-routes.push("assault-council-chamber");
+routes.push("assault-council-chamber", "assault-summons");
 routes.push("valhingen-first-arrival-reload", "kobold-escort-arrival-reload");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
 routes.push("kuto-wide-manual-aim");
@@ -13626,6 +13626,31 @@ try {
     await advance("l");
     assert.equal(frame.portrait, undefined);
     console.log("Verified the Valhingen mystic approach, directions illustration, and state-preserving switches.");
+  } else if (routeName === "assault-summons") {
+    const words = () => frame.text.toSorted(([a], [b]) => a - b).map(([, c]) => String.fromCharCode(c)).join("");
+    for (const key of ["right", "right", "up", "right", "right", "up", "enter", "enter", "enter"]) await advance(key);
+    const summons = "scene-illustration:area:8:ecl:b5c3:caller:af36:cue:special-council-summons";
+    assert.match(words(), /YOUARESUMMONEDTOASPECIALCOUNCILMEETING.*THECITYGUARDSWILLSHOWYOUTHEWAY/i);
+    assert.equal(frame.portrait, summons);
+    await waitFor("the special Council summons illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${summons}"]')?.naturalWidth === 352`));
+    const response = await fetch(`${origin}/art/${summons}`);
+    assert.ok(response.ok);
+    assert.deepEqual(Buffer.from(await response.arrayBuffer()), readFileSync("upgrades/council-special-meeting-summons.png"));
+    await verifyPortraitPanel();
+    await switchBothWays(frame.frame);
+    const screenshot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "council-special-meeting-summons.png"), Buffer.from(screenshot.data, "base64"));
+    await advance("enter");
+    assert.match(words(), /THEGUARDCAPTAINSTEPSFORWARD/i);
+    assert.equal(frame.portrait, "portrait:HEAD3.DAX:57:BODY3.DAX:1");
+    await verifyPortraitPanel();
+    await advance("enter");
+    assert.deepEqual(frame.exploration, { area: 8, x: 5, y: 7, facing: 2 });
+    assert.equal(frame.portrait, undefined);
+    await waitForExplorationViewport();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the special Council summons and its handoff to the guard escort.");
   } else if (assault || routeName === "assault-council-chamber") {
     const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, c]) => String.fromCharCode(c)).join("");
     if (assault) {

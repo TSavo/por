@@ -2206,6 +2206,13 @@ entered Tyranthraxus's dialogue. A separate controlled City Hall checkpoint
 verified Ulrich's 352×352 portrait during the assault briefing. These Chrome
 replays checked that presentation switches preserve the live frame and save.
 
+The `assault-summons` route checks the special Council summons in Chrome
+on DOS 1.0 and GOG 1.3. It starts from a controlled slot A at `5,5 E` with
+the gate reward and earlier commissions already collected. It verifies
+the clerk's dispatch
+illustration, switches display modes without advancing the dialogue, and
+follows the guard captain back to the WebGL view outside the chamber.
+
 The `assault-briefing` route also checks the escort captain's 352×352 portrait
 before Ulrich appears. From a controlled slot A at `5,10 N` with the
 native castle summons set, `assault-council-chamber` checks the assembled
