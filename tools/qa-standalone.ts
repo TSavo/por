@@ -5,8 +5,7 @@ import { parseDax } from "../src/lib/dax.js";
 import { loadExecutable } from "../src/lib/exepack.js";
 import { detectGameVersion } from "../src/runtime/bindings.js";
 import { buildExplorationMaterials } from "./exploration-materials.js";
-import { characterSheetPartKey, portraitKey, scriptIllustrations } from "./portrait-art.js";
-import { loadCombatMaterialMasks, loadUpgradeArt } from "./upgrade-art.js";
+import { loadUpgradeArt } from "./upgrade-art.js";
 import type { NativeExploration } from "./native-exploration.js";
 
 // How far the port is from running with no original file, measured.
@@ -53,33 +52,25 @@ const unmeasured: string[] = [];
 // The play. One trace directory; every runner process the plays start writes into it.
 // ---------------------------------------------------------------------------------------------
 const artwork = loadUpgradeArt(undefined, root);
-// The art keys the server (tools/browser-play.ts) gives the runner. The acceptance tests drive the
-// runner without the server, so the trace run hands the same keys over itself: without them the
-// runner would match no artwork and every picture would count as an original one.
-const materialMasks = loadCombatMaterialMasks(artwork);
-const keys = (test: (key: string) => boolean) => [...artwork.keys()].filter(test).join(",");
-const artEnvironment = {
-  POR_BATTLE_TILE_KEYS: keys(key => key.startsWith("battle-tile:")),
-  POR_TILE_ART_KEYS: keys(key => key.startsWith("tile:")),
-  POR_COMBAT_ART_KEYS: keys(key => key.startsWith("combat:")),
-  POR_COMBAT_MATERIAL_KEYS: [...materialMasks.keys()].join(","),
-  POR_COMBAT_EFFECT_KEYS: keys(key => key.startsWith("combat-effect:")),
-  POR_COMBAT_SELECTION_KEYS: keys(key => key.startsWith("combat-selection:")),
-  POR_PORTRAIT_ART_KEYS: keys(key => portraitKey.test(key) || scriptIllustrations.has(key)),
-  POR_CHARACTER_SHEET_ART_KEYS: keys(key => characterSheetPartKey.test(key)),
-  POR_ENCOUNTER_ART: JSON.stringify(Object.fromEntries([...artwork].flatMap(([id, { encounter }]) => encounter ? [[id, encounter]] : []))),
-};
-const plays: { name: string; covers: string; command: string[]; needsChrome?: boolean }[] = [
+// Two kinds of play. The acceptance tests drive the runner over a pipe, with no server: they cover
+// the files, the program bytes, the font and the sound. The server is what tells the runner which
+// artwork exists, so only the plays that go through the server and Chrome say what Enhanced shows.
+// (Handing the artwork list to the piped runners makes each take minutes to start, and the tests
+// give a game 240 seconds.)
+let openingDirectory: string | undefined;
+const plays: { name: string; covers: string; command: () => string[]; needsChrome?: boolean }[] = [
   { name: "start-up", covers: "the program's start-up to the title screens, 30 million instructions, then the script loader on its own",
-    command: [process.execPath, "--import", "tsx", "tools/boot-translated.ts"] },
+    command: () => [process.execPath, "--import", "tsx", "tools/boot-translated.ts"] },
   { name: "verify:input", covers: "the ready-made party added and the first steps into New Phlan (tools/verify-input.mjs)",
-    command: ["npm", "run", "-s", "verify:input"] },
+    command: () => ["npm", "run", "-s", "verify:input"] },
   { name: "acceptance:new-phlan", covers: "the New Phlan acceptance tests: Rolf's tour, City Hall and the clerk, the dock, the temples, the shops, the tavern, the city watch",
-    command: ["npm", "run", "-s", "acceptance:new-phlan"] },
+    command: () => ["npm", "run", "-s", "acceptance:new-phlan"] },
   { name: "acceptance:slums", covers: "the Slums acceptance tests: the entry from New Phlan, the fight with the orcs, the flee squares",
-    command: ["npm", "run", "-s", "acceptance:slums"] },
+    command: () => ["npm", "run", "-s", "acceptance:slums"] },
   { name: "verify:campaign-opening", covers: "the campaign opening in Chrome through the real server and page: six characters created, trained, equipped and walked to the Slums gate",
-    command: ["npm", "run", "-s", "verify:campaign-opening", "--", chrome], needsChrome: true },
+    command: () => ["npm", "run", "-s", "verify:campaign-opening", "--", chrome], needsChrome: true },
+  { name: "verify:map-journal", covers: "from that opening's save, in Chrome: the Slums gate, the map, the journal, a camp, and both display modes",
+    command: () => ["npm", "run", "-s", "verify:map-journal", "--", chrome, openingDirectory ?? "missing"], needsChrome: true },
 ];
 let traceDirectory = optionValue("--trace");
 const played: { name: string; covers: string; result: string; seconds: number }[] = [];
@@ -89,7 +80,7 @@ if (!traceDirectory && !option("--skip-play")) {
   mkdirSync(traceDirectory, { recursive: true });
   const npmEntry = process.platform === "win32" ? process.env.npm_execpath ??
     join(dirname(process.execPath), "node_modules", "npm", "bin", "npm-cli.js") : undefined;
-  const environment = { ...process.env, ...artEnvironment, POR_GAMEDATA: root, POR_AUDIO_DIR: audio,
+  const environment = { ...process.env, POR_GAMEDATA: root, POR_AUDIO_DIR: audio,
     POR_CAMPAIGN_OUTPUT_DIR: output, POR_TRACE_STANDALONE: traceDirectory,
     PATH: dirname(python) !== "." ? `${dirname(python)}${delimiter}${process.env.PATH ?? ""}` : process.env.PATH };
   for (const [index, play] of plays.entries()) {
@@ -99,13 +90,14 @@ if (!traceDirectory && !option("--skip-play")) {
     }
     const started = Date.now();
     progress(`play ${index + 1}/${plays.length}: ${play.name} ... `);
-    const [program, ...parameters] = play.command;
+    const [program, ...parameters] = play.command();
     const command = program === "npm" && npmEntry ? [process.execPath, npmEntry, ...parameters] : [program!, ...parameters];
     const run = spawnSync(command[0]!, command.slice(1), { encoding: "utf8", env: environment, maxBuffer: 256 * 1024 * 1024 });
     const log = join(output, `${play.name.replace(/[^a-z0-9.]+/gi, "-")}.log`);
     writeFileSync(log, `${run.stdout ?? ""}\n${run.stderr ?? ""}${run.error ? `\n${run.error.message}\n` : ""}`);
     // The start-up run ends by reporting where its instruction budget ran out. That is its normal end.
     const result = run.status === 0 ? "ran to its end" : `stopped early, exit ${run.status} (${log})`;
+    if (play.name === "verify:campaign-opening") openingDirectory = /campaign opening complete: (.+)$/m.exec(run.stdout ?? "")?.[1]?.trim();
     const seconds = Math.round((Date.now() - started) / 1000);
     played.push({ name: play.name, covers: play.covers, result, seconds });
     progress(`${result} in ${seconds} s\n`);
@@ -351,28 +343,31 @@ rows.push(["3. Original picture frames with artwork", linked, inventory.encounte
   "every frame of the scene, encounter and combat picture archives (tools/art-inventory.ts): " +
   inventory.encounterFamilies.map(({ label, frames, unlinked }) => `${label} ${frames - unlinked}/${frames}`).join(", ")]);
 interface Kind { frames: number; framesWithOriginalPixels: number; originalPixels: number; inPanel: number; elsewhere: number }
-interface EnhancedTrace { frames: number; kinds: Record<string, Kind>; scenes: Record<string, number>;
+interface EnhancedTrace { artworkKnown: boolean; frames: number; kinds: Record<string, Kind>; scenes: Record<string, number>;
   pictureArt: Record<string, number>; pictureFallbacks: Record<string, number>; encounters: Record<string, number>;
   scenery: { frames: number; scenery: NativeExploration & { area: number } }[];
   glyphs: Record<string, { drawn: number; captured: number; black: number }>; sounds: Record<string, number> }
-const enhanced = traceFiles(".enhanced.json").map(path => JSON.parse(readFileSync(path, "utf8")) as EnhancedTrace);
-const merged = <T>(pick: (trace: EnhancedTrace) => Record<string, T>, add: (a: T, b: T) => T) => {
+const everyRunner = traceFiles(".enhanced.json").map(path => JSON.parse(readFileSync(path, "utf8")) as EnhancedTrace);
+// What Enhanced shows is counted only where the runner knew the artwork: the plays through the server.
+const enhanced = everyRunner.filter(({ artworkKnown, frames }) => artworkKnown && frames);
+const serverNote = `in the ${enhanced.length} runner processes the server started (the Chrome plays)`;
+const merged = <T>(pick: (trace: EnhancedTrace) => Record<string, T>, add: (a: T, b: T) => T, from = enhanced) => {
   const total = new Map<string, T>();
-  for (const trace of enhanced) for (const [key, value] of Object.entries(pick(trace) ?? {})) total.set(key, total.has(key) ? add(total.get(key)!, value) : value);
+  for (const trace of from) for (const [key, value] of Object.entries(pick(trace) ?? {})) total.set(key, total.has(key) ? add(total.get(key)!, value) : value);
   return total;
 };
 const plus = (a: number, b: number) => a + b;
-const glyphs = merged(trace => trace.glyphs, (a, b) => ({ drawn: a.drawn + b.drawn, captured: a.captured + b.captured, black: a.black + b.black }));
-const sounds = merged(trace => trace.sounds, plus);
+const glyphs = merged(trace => trace.glyphs, (a, b) => ({ drawn: a.drawn + b.drawn, captured: a.captured + b.captured, black: a.black + b.black }), everyRunner);
+const sounds = merged(trace => trace.sounds, plus, everyRunner);
 if (!enhanced.length) {
   for (const part of ["3. Scenes shown in play with artwork", "3. Pictures shown in play with artwork", "3. Wall textures shown in play with artwork",
-    "3. Enhanced frames in play with no original pixel"]) rows.push([part, undefined, undefined, playNote]);
-  unmeasured.push("Part 3: how often Enhanced fell back to an original picture needs the traced play.");
+    "3. Enhanced frames in play with no original pixel"]) rows.push([part, undefined, undefined, "not measured: no traced play went through the server"]);
+  unmeasured.push("Part 3: how often Enhanced fell back to an original picture needs a traced play through the server and Chrome (POR_CHROME).");
 } else {
   const scenes = merged(trace => trace.scenes, plus);
   const scenesWithArt = [...scenes.keys()].filter(scene => artwork.has(scene));
   rows.push(["3. Scenes shown in play with artwork", scenesWithArt.length, scenes.size,
-    `title screens the play showed: ${[...scenes.keys()].map(scene => `${scene}${artwork.has(scene) ? "" : " (original)"}`).join(", ") || "none"}`]);
+    `title screens shown ${serverNote}: ${[...scenes.keys()].map(scene => `${scene}${artwork.has(scene) ? "" : " (original)"}`).join(", ") || "none"}`]);
   const pictureArt = merged(trace => trace.pictureArt, plus), fallbacks = merged(trace => trace.pictureFallbacks, plus);
   rows.push(["3. Pictures shown in play with artwork", pictureArt.size, pictureArt.size + fallbacks.size,
     `distinct pictures in the picture panel; ${fallbacks.size} had no artwork and showed the original (${[...fallbacks.values()].reduce(plus, 0)} frames)`]);
@@ -400,7 +395,7 @@ if (!enhanced.length) {
   const frames = [...kinds.values()].reduce((total, kind) => total + kind.frames, 0);
   const dirty = [...kinds.values()].reduce((total, kind) => total + kind.framesWithOriginalPixels, 0);
   rows.push(["3. Enhanced frames in play with no original pixel", frames - dirty, frames,
-    "frames the runner built for Enhanced; a frame counts as left when a pixel of the game's own drawing is still visible under the page's layers"]);
+    `frames built for Enhanced ${serverNote}; a frame counts as left when a pixel of the game's own drawing is still visible under the page's layers`]);
   details.push("Part 3. Enhanced frames in the traced play, by what they showed (frames, frames with original pixels left, pixels left inside the picture or battle panel, elsewhere):",
     ...[...kinds].sort(([, a], [, b]) => b.frames - a.frames).map(([kind, { frames, framesWithOriginalPixels, inPanel, elsewhere }]) =>
       `  ${kind.padEnd(30)} ${String(frames).padStart(6)} ${String(framesWithOriginalPixels).padStart(6)} ${count(inPanel).padStart(12)} ${count(elsewhere).padStart(12)}`),

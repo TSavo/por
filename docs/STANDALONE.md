@@ -77,7 +77,10 @@ the program's instructions, but it still reads text and tables from the loaded
 image, from the overlay slices and from the data segment. Of is every byte of
 the image and the slices that the translator did not emit as an instruction:
 that is what must ship as converted data. The note gives how many of those
-bytes the traced play read with the value the file gave them. The second row
+bytes the traced play read with the value the file gave them. A byte the game
+wrote before it first read it is not counted, because its value did not come
+from the file. Reads the host makes through the guest's memory (the journal,
+the overlay call tables) are counted with the game's own. The second row
 checks the claim that no instruction is needed as data: left there is the
 number of instruction bytes the play read as data.
 

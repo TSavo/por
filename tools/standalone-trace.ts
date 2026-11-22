@@ -222,6 +222,8 @@ function create(directory: string) {
     if (framesDirty) {
       framesDirty = false;
       writeFileSync(path("enhanced.json"), JSON.stringify({
+        // The server gives the runner the list of artwork. A runner started without it matches no artwork at all.
+        artworkKnown: Boolean(process.env.POR_PORTRAIT_ART_KEYS),
         frames, kinds: Object.fromEntries(kinds), scenes: Object.fromEntries(scenes),
         pictureArt: Object.fromEntries(pictureArt), pictureFallbacks: Object.fromEntries(pictureFallbacks),
         encounters: Object.fromEntries(encounters), scenery: [...scenery.values()],
