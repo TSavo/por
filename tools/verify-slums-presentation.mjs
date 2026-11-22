@@ -3364,7 +3364,11 @@ const illustrationRoutes = new Map([
     prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMESKELETONS/i,
     finalPhaseCapture: "valhingen-skeleton-roam-loop.png",
     heldPortraitLoop: 4,
-    continuation: { inputs: ["c"], portrait: "portrait:area:10:PIC4.DAX:34:0:0", prompt: /ABATTLEBEGINS/i },
+    continuation: {
+      inputs: ["c"], portrait: "scene-illustration:area:10:ecl:b5c7:cue:skeleton-patrol-attack",
+      prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMESKELETONS.*ABATTLEBEGINS/i,
+      screenshot: "valhingen-skeleton-patrol-attack.png",
+    },
   }],
   ["valjevo-medusa-phases", {
     slot: "B", inputs: ["up", "enter", "enter", "enter", ...Array(9).fill("q")],
