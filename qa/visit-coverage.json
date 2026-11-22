@@ -400,6 +400,25 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "walk-clerk-offers-bivant": {
+   "areas": [
+    0,
+    8,
+    26
+   ],
+   "commissions": [
+    "auction",
+    "kobolds",
+    "kovel",
+    "nomads",
+    "river",
+    "sokal",
+    "textile"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
