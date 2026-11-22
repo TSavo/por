@@ -189,20 +189,20 @@ pressing Enter works the same whether the wheel is showing or put away: the same
 same three tries, the same ending. After a wrong word the card shows the new question; the
 game's screen above it still shows the one question the game drew.
 
-W does not bring the wheel back here, because at the question every letter belongs to the word.
+### When the game shows runes
 
-### For the rest of the game
+The wheel is there only when the game needs it. When the game puts runic writing on screen (the
+Sokal Keep parchment, the password papers, the sign in Yarash's pyramid), the wheel comes up by
+itself, as the player of the original would reach for the cardboard. **Escape**, **Put the wheel
+away** or **Code wheel** puts it away and brings it back while the runes are on screen. When the
+runes leave the screen the wheel goes with them. At any other time there is no Code wheel control
+and no shortcut: every key goes to the game. (Until 2026-11-22 a Code wheel control and a W
+shortcut opened the wheel at any time. The owner had asked for the wheel at the right time, not
+always, and they were removed.)
 
-**Code wheel**, beside Journal and Map, opens the wheel at any time as a tool to look at and
-turn. Nothing is asked and nothing is sent to the game. The same control, **Put the wheel away**,
-**W** or **Escape** closes it, and the game screen underneath is exactly as it was.
-
-- **W** is a shortcut the way J and M are: only at the exploration and camp menus, where the game
-  does not use that letter. Everywhere else W goes to the game, and the control still works.
-- Open as a tool, the wheel takes **Left** and **Right** (turn), **T** (translate position), **W**
-  and **Escape** (close). Every other key is dropped while it is open and none reaches the game,
-  which is how the Journal treats keys while it is open. F10 still changes the display.
-  Automatic combat waits while the wheel is open.
+- Up, the wheel takes **Left** and **Right** (turn), **T** (translate position) and **Escape** (put
+  away). Every other key is dropped while it is up, as the Journal drops them. F10 still changes
+  the display.
 - **Translate**, or **T**, turns the inner disc until the two TRANSLATE FROM tabs meet, the
   position the Cluebook starts from. From there each position clockwise brings the next rune to
   the tabs. The player reads the letter in ring 1 under the dotted path. The page does not read

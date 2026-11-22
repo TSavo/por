@@ -1440,7 +1440,6 @@ const codeWheel = {
   /** After start-up: the player has the wheel open as a tool. */
   tool: false,
 };
-const codeWheelShortcut = "w";
 const codeWheelTurnKey = "por.codeWheel.turn";
 try {
   // The disc stays where the player left it. Without storage it starts at the top.
@@ -1466,9 +1465,14 @@ function codeWheelAsking() {
   return Boolean(enhanced && state.codeWheel && codeWheel.data && !state.journal);
 }
 
-/** The wheel is open as a tool, with nothing to answer. */
+/** The game has runic writing on screen: the moment a player of the original reached for the wheel. */
+function runesOnScreen() {
+  return Boolean(state.runes?.length);
+}
+
+/** The wheel is open to translate runes on screen, with nothing to answer. */
 function codeWheelTool() {
-  return Boolean(enhanced && codeWheel.tool && codeWheel.data && !state.codeWheel && !state.journal);
+  return Boolean(enhanced && codeWheel.tool && codeWheel.data && runesOnScreen() && !state.codeWheel && !state.journal);
 }
 
 /** The disc is in view. */
@@ -1476,9 +1480,14 @@ function codeWheelShown() {
   return codeWheel.ended || (codeWheelAsking() ? !codeWheel.away : codeWheelTool());
 }
 
-/** Put the wheel away or bring it back. This is the Code wheel control, W and Escape. */
+/**
+ * Put the wheel away or bring it back. The wheel is there only when the game needs it: at the start-up
+ * question, and while runes are on screen. It comes up by itself at both; the Code wheel control and
+ * Escape put it away and bring it back. At any other time there is no control and no shortcut.
+ */
 function toggleCodeWheel() {
   if (!enhanced || codeWheel.ended || !codeWheel.data) return;
+  if (!state.codeWheel && !runesOnScreen()) return;
   if (state.codeWheel) codeWheel.away = !codeWheel.away;
   else codeWheel.tool = !codeWheel.tool;
   renderCodeWheel();
@@ -1542,11 +1551,16 @@ function renderCodeWheel() {
   } else if (state.codeWheel && !codeWheel.question && codeWheel.data) {
     codeWheel.question = codeWheel.data.questions.find(({ number }) => number === state.codeWheel.number);
   }
-  // Classic has no wheel. Leaving Enhanced closes the tool.
+  // Runes coming onto the screen bring the wheel up by itself; their leaving closes it.
+  const runesNow = runesOnScreen();
+  if (runesNow && !codeWheel.runesSeen) codeWheel.tool = true;
+  if (!runesNow) codeWheel.tool = false;
+  codeWheel.runesSeen = runesNow;
+  // Classic has no wheel.
   if (!enhanced) codeWheel.tool = false;
   const mode = codeWheel.ended ? "ended" : codeWheelAsking() ? (codeWheel.away ? "away" : "question")
     : codeWheelTool() ? "tool" : undefined;
-  wheelToggle.hidden = !enhanced;
+  wheelToggle.hidden = !enhanced || !(codeWheelAsking() || runesOnScreen());
   wheelToggle.disabled = codeWheel.ended || !codeWheel.data || Boolean(state.stopped) || Boolean(state.journal);
   wheelToggle.setAttribute("aria-expanded", String(mode === "question" || mode === "tool"));
   wheelSection.hidden = !mode;
@@ -1650,7 +1664,6 @@ function codeWheelKey(event) {
     const own = event.key.toLowerCase();
     if (turning) turnCodeWheel(event.key === "ArrowLeft" ? -1 : 1);
     else if (event.repeat || event.shiftKey) return true;
-    else if (own === codeWheelShortcut) toggleCodeWheel();
     else if (own === "t") codeWheelTranslate();
     else return true;
     event.preventDefault();
@@ -1941,12 +1954,6 @@ window.addEventListener("keydown", (event) => {
   }
   if (state.journal) {
     if (event.key === "Escape") void send("j");
-    return;
-  }
-  // W opens the code wheel where the menu does not use that letter. Open, it takes its own keys above.
-  if (enhanced && event.key.toLowerCase() === codeWheelShortcut && !event.shiftKey && hostShortcutFree(codeWheelShortcut)) {
-    event.preventDefault();
-    toggleCodeWheel();
     return;
   }
   const key = keypadDirections[event.code] ?? commands[event.key] ?? (/^[a-z0-9]$/i.test(event.key) ? event.key : null);

@@ -29,7 +29,7 @@ $env:POR_GAMEDATA = 'C:\Games\pool'
 
 Open [the local game](http://127.0.0.1:43124) to play the translated game. In Enhanced display, press **J** or select **Journal** to see what the party knows. Select **Track** next to a quest to make it the current objective. Press **J** or **Escape** to return to play. Classic display leaves the original menus and the **J** key to the game.
 
-At start-up the version 1.3 game asks for a word from its translation wheel. Enhanced display shows the wheel and requires the right word; **Escape** puts the wheel away and brings it back. Afterwards **Code wheel**, or **W** at the exploration and camp menus, opens it again for the runes the game shows later; **W** or **Escape** closes it. See [docs/CODE-WHEEL.md](docs/CODE-WHEEL.md). Classic display has no wheel and accepts any word, as the GOG program does.
+At start-up the version 1.3 game asks for a word from its translation wheel. Enhanced display shows the wheel and requires the right word; **Escape** puts the wheel away and brings it back. When the game later shows runes to translate, the wheel comes up again by itself, and **Escape** or **Code wheel** puts it away and brings it back. At any other time there is no wheel. See [docs/CODE-WHEEL.md](docs/CODE-WHEEL.md). Classic display has no wheel and accepts any word, as the GOG program does.
 
 Use **Encamp → Save** and **Load Saved Game** to save and restore the party, its journal, and its discovered map in the same slot. The runner stores slots under `out/saves/` for each game-data directory. Set `POR_SAVE_DIR` to select a different folder.
 
