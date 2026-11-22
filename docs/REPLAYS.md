@@ -105,6 +105,12 @@ The `valhingen-brass-doors-look` replay uses the staged local
 panel fit, and mode switch passed in Chrome with both DOS 1.0 and
 GOG 1.3.
 
+The `kuto-bandit-cache-treasure-phases` replay uses
+`parallel-kuto-bandit-cache-east-J.json`. DOS 1.0 and GOG 1.3 Chrome
+both verified the same Kuto cache illustration when the party discovers
+it and again at the View/Take/Pool/Share menu. The GOG 1.3 decline route
+verified that leaving the treasure still returns to exploration.
+
 
 The host reads which release's script is in memory and reports the first release's numbering in both cases. Use that numbering for New Phlan artwork and narration keys. The artwork replays use the same route names on both editions.
 

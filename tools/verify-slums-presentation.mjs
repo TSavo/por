@@ -2398,9 +2398,9 @@ const illustrationRoutes = new Map([
   ["kuto-bandit-cache-treasure-phases", {
     slot: "J", inputs: ["up", "y", "enter", "enter"],
     portraitStops: { 1: "scene-illustration:area:29:ecl:af80:caller:9fd6", 2: null },
-    portrait: "portrait:PIC1.DAX:1:0:0",
+    portrait: "scene-illustration:area:29:ecl:9ffb",
     prompt: /View.*PoolShare/i,
-    idlePortraits: [1, 2].map(phase => `portrait:PIC1.DAX:1:${phase}:0`),
+    finalPhaseCapture: "kuto-bandit-cache-reward.png",
   }],
   ["kuto-bandit-cache", {
     slot: "J", inputs: ["up"],

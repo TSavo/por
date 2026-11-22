@@ -323,11 +323,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         ? dragonArrival : undefined;
       const scriptKey = `scene-illustration:area:${area}:ecl:${battleCursor?.toString(16)}${portraitCaller === undefined ? "" : `:caller:${portraitCaller.toString(16)}`}`;
       // The final reward uses the upper rows for the XP notice and the
-      // bottom row for the treasure actions.
+      // bottom row for the treasure actions. The Kuto cache uses only that bottom row.
       const illustrationText = scriptKey === "scene-illustration:area:8:ecl:9f3f:caller:9a4a"
         ? glyphs.filter(([cell]) => finalCouncilReward || cell < 640).sort(([a], [b]) => a - b)
           .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase()
-        : dialogue;
+        : scriptKey === "scene-illustration:area:29:ecl:9ffb"
+          ? glyphs.toSorted(([a], [b]) => a - b).map(([, character]) => String.fromCharCode(character)).join("").toUpperCase()
+          : dialogue;
       // The maze watch and Scriptorium guards finish the nod at the same ECL cursor.
       let illustrationScope = finalCouncilReward && illustrationText.includes("VIEWTAKEPOOLSHAREEXIT")
         ? `${scriptKey}:cue:council-victory-payout` : scriptKey;
