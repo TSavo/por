@@ -151,6 +151,12 @@ addresses three bytes later in 1.3: the jeweler, the arms and armor
 shop, the silver shop, and the priests of Tempus. Each still selects
 the same head and body. Browser replays check which art appears at
 each prompt; matching inventory records establish the shared asset set.
+The GOG 1.3 Chrome replays confirmed the jeweler, armorer, and Temple
+of Tempus portraits. The silver shop originally showed the generic
+jeweler art under 1.3 because its dedicated art was bound only to the
+1.0 dialogue and shop cursors. Both sets of cursors now select the same
+silver merchant PNG, verified in Chrome through the buy menu on each
+edition.
 For example, the `new-phlan-rolf-approach` Chrome replay starts with a
 fresh party and checks the enhanced dock, Rolf's approach and all seven
 tour stops, and the return to scenery after the City Hall guard. This

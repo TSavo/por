@@ -3419,8 +3419,12 @@ const illustrationRoutes = new Map([
   ["new-phlan-silver-shop", {
     slot: "A", inputs: ["up", "enter"],
     portrait: "portrait:area:0:ecl:ae69:caller:a99e:HEAD3.DAX:63:BODY3.DAX:34", prompt: /THESHOPSELLSSILVERITEMS/i,
+    alternatePortrait: "portrait:area:0:ecl:ae66:caller:a99b:HEAD3.DAX:63:BODY3.DAX:34",
     continuation: {
-      inputs: ["y"], portrait: "portrait:area:0:ecl:a9cf:HEAD3.DAX:63:BODY3.DAX:34",
+      inputs: ["y"], portraits: [
+        "portrait:area:0:ecl:a9cf:HEAD3.DAX:63:BODY3.DAX:34",
+        "portrait:area:0:ecl:a9cc:HEAD3.DAX:63:BODY3.DAX:34",
+      ],
       prompt: /BUYVIEWPOOLAPPRAISEEXIT/i,
     },
   }],
@@ -8729,7 +8733,8 @@ try {
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the wagon deal and both warnings after reloading slot B in Chrome.");
   } else if (illustration) {
-    const { inputs, portrait, prompt, continuation, journalLead, approachSequence } = illustration;
+    const { inputs, prompt, continuation, journalLead, approachSequence } = illustration;
+    let { portrait } = illustration;
     let alreadyPassedPatrol;
     if (approachSequence) await observeApproach(approachSequence, illustration.requireTiledApproach);
     if (journalLead) {
@@ -8973,6 +8978,9 @@ try {
           writeFileSync(resolve(directory, transient.screenshot), Buffer.from(shot.data, "base64"));
         }
       }
+    }
+    if (illustration.alternatePortrait && frame.portrait === illustration.alternatePortrait) {
+      portrait = illustration.alternatePortrait;
     }
     assert.equal(frame.portrait, portrait);
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), prompt);
