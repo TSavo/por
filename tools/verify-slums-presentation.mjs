@@ -1424,6 +1424,7 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:14:ecl:a2ec:PIC1.DAX:1:0:0",
     prompt: /VIEW.*POOL.*EXIT/i,
     idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:a2ec:PIC1.DAX:1:${phase}:0`),
+    heldPortraitLoop: 3,
     finalPhaseCapture: "kovel-tapestry-reward.png",
     continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /14,14S/i },
   }],
