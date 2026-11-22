@@ -321,10 +321,11 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
     flashed,
     /**
      * With env POR_TRACE_PAUSES=1: every pause through the game's pause routine, in order, as
-     * { returns, via, ms, text, message, rows, shown }: where the call that paused returns to
-     * (`slice 19 +1bbd` or `exe 2d1c`), whether it came through a message routine, the text on screen
-     * ([cell, character] pairs), what of it the page did not already show (`pauseMessage`, also as
-     * rows), and whether that reached the page (`pauseShown`).
+     * { returns, via, ms, text, message, rows, shown, missing }: where the call that paused returns
+     * to (`slice 19 +1bbd` or `exe 2d1c`), whether it came through a message routine, the text on
+     * screen ([cell, character] pairs), what of it the page did not already show (`pauseMessage`),
+     * the screen's rows that holds, whether it reached the page (`pauseShown`), and if not, the
+     * glyphs the page lacked (rows).
      */
     pauses,
     /**
@@ -378,8 +379,11 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
           for (const pause of pendingPauses) {
             const message = pauseMessage(pause, before);
             const asRows = (glyphs) => screenRows({ text: glyphs }).map((row) => row.trimEnd()).filter(Boolean);
+            // The rows the message is on, as the screen showed them.
+            const screen = screenRows(pause);
+            const rows = [...new Set(message.map(([cell]) => Math.floor(cell / 40)))].sort((a, b) => a - b).map((row) => screen[row].trimEnd());
             const missing = pauseMissing(message, game.frame);
-            pauses.push({ ...pause, message, rows: asRows(message), shown: missing.length === 0, missing: asRows(missing) });
+            pauses.push({ ...pause, message, rows, shown: missing.length === 0, missing: asRows(missing) });
           }
           pendingPauses = [];
           return true;
