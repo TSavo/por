@@ -268,6 +268,12 @@ names area 7, the native map is 3 and the Enhanced walls use area 5
 textures. The WebGL viewport interior matched pixel for pixel in the two
 screenshots. The standalone screenshot still lacks the panel rails.
 
+The `valhingen-vampire-trove` Chrome replay at `afa49a2b` selected
+`scene-illustration:area:10:ecl:b373:cue:vampire-treasure` with both
+original GOG 1.3 files and built-in data. The cue is the live treasure
+menu, which the standalone catalogue cannot find in the converted
+scene text. The replay also verifies the treasure items after Take.
+
 The Bane ogre commander's ready and strike keys pass the standalone audit
 through the Bane Mansion map's owning script, ECL1 block 24. GOG 1.3 Chrome verified both poses at
 canonical cursor `9f7b` in native combat. A DOS 1.0 Chrome control loaded
