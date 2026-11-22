@@ -873,8 +873,17 @@ In GOG 1.3, overlay `0x03` passes `BACPAC`, destination frame 0, and
 count 40 to the terrain bank loader at `0d18` and `1852`. The loader
 in overlay `0x20` copies those frames to the start of the first terrain
 bank. All nine cell hashes of each of the 40 BACPAC frames match the
-corresponding SQRPACI block 1 frame. The worklist keeps both archives
-visible and counts the shared battlefield artwork keys once.
+corresponding SQRPACI block 1 frame. The native outdoor battle initializer
+in overlay `0x0a` then copies WILDCOM into slots 0–33 and RANDCOM into
+slots 34–39. The Zhentil trespass replay traced that sequence and
+attributed its combat draws to those two archives. The Moonsea
+Lizardman Keep replay traced BACPAC on the overland surface, where
+Enhanced uses the illustrated map. Both source copies and their slot
+ranges are available under `POR_TRACE_BATTLE_DRAW=1`.
+
+Indoor setup copies DUNGCOM into slots 0–24 and RANDCOM into slots
+34–39. The worklist holds any uncovered BACPAC hashes from the
+remaining slots 25–33 pending evidence of indoor use.
 
 The battlefield and overland map share the SQRPACI blitter. The
 `POR_BATTLE_DRAW` trace labels the surface from the native caller. On
