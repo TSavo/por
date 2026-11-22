@@ -1,6 +1,6 @@
 # Artwork worklist
 
-**The artwork is done when `npm run verify:art-worklist` reports 0 remaining and nothing is left under "Not established". It reports 2169 confirmed cells awaiting art now.**
+**The artwork is done when `npm run verify:art-worklist` reports 0 remaining and nothing is left under "Not established". It reports 2167 confirmed cells awaiting art now.**
 
 This file is written by `npm run art:worklist`. Do not edit it or `qa/art-worklist.json` by hand: add art, run the tool, commit what it writes.
 
@@ -48,35 +48,35 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 
 | What | Count |
 | --- | ---: |
-| Remaining, all kinds | 2169 |
-| First-person cells to do | 2169 |
-|   of which one stored tile | 469 |
+| Remaining, all kinds | 2167 |
+| First-person cells to do | 2167 |
+|   of which one stored tile | 467 |
 |   of which one tile over a solid colour | 232 |
 |   of which plain sky or ground | 0 |
 |   of which several tiles together | 1468 |
 |   of which the same pixels already have art of yours in another area | 791 |
 | Battlefield cells to do | 0 |
-| Tile keys in the manifests | 4051 |
-|   accounted for by the tool | 3906 |
+| Tile keys in the manifests | 4066 |
+|   accounted for by the tool | 3916 |
 | Battlefield keys in the manifests | 83 |
 |   that are one stored cell of a battlefield picture | 78 |
 | Stored 8 by 8 tiles | 3016 |
 |   blank | 9 |
 |   distinct pictures among the rest | 1333 |
-|   with art in some area, alone or over a solid colour | 2305 |
-|   without (the catalogue's 720 when it was written) | 702 |
+|   with art in some area, alone or over a solid colour | 2307 |
+|   without (the catalogue's 720 when it was written) | 700 |
 |     of those, no map can show | 444 |
 |     of those, shown only together with other tiles, never alone | 10 |
-|     of those, shown alone in some area | 248 |
+|     of those, shown alone in some area | 246 |
 
 ## Where each area stands
 
 | Area | Name | Reading confirmed | Cells its views can show | With art | To do | Your keys accounted for |
 | ---: | --- | --- | ---: | ---: | ---: | ---: |
 | 0 | New Phlan | yes | 406 | 248 | 60 | 261 of 261 (3 as first views of the next area, 10 as WebGL wall materials) |
-| 1 | Buccaneer Base | yes | 385 | 129 | 52 | 129 of 129 |
+| 1 | Buccaneer Base | yes | 385 | 131 | 50 | 134 of 134 (3 as WebGL wall materials) |
 | 2 | Cadorna Textile House | yes | 580 | 254 | 128 | 278 of 278 (5 as first views of the next area, 19 as WebGL wall materials) |
-| 3 | Valjevo Castle | not yet | 300 | 74 |  | 74 of 81 |
+| 3 | Valjevo Castle | not yet | 300 | 74 |  | 74 of 86 |
 | 4 | Valjevo Castle | yes | 320 | 59 | 58 | 59 of 59 |
 | 5 | Valjevo Castle | not yet | 393 | 49 |  | 51 of 110 (2 as first views of the next area) |
 | 6 | Valjevo Castle | yes | 310 | 72 | 90 | 72 of 72 |
@@ -94,7 +94,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 20 | The Slums | not yet | 395 | 180 |  | 187 of 188 (7 as WebGL wall materials) |
 | 21 | Sokal Keep | yes | 500 | 85 | 165 | 85 of 85 |
 | 22 | Yarash's Pyramid | yes | 140 | 70 | 17 | 78 of 78 (8 as WebGL wall materials) |
-| 23 | Yarash's Pyramid, lower | yes | 126 | 39 | 39 | 39 of 39 |
+| 23 | Yarash's Pyramid, lower | yes | 126 | 39 | 39 | 44 of 44 (5 as WebGL wall materials) |
 | 24 | Temple of Bane | yes | 312 | 188 | 29 | 188 of 188 |
 | 25 | Wilderness, west | not yet | 51 | 0 |  | 0 of 0 |
 | 26 | Wilderness, middle | yes | 387 | 96 | 137 | 162 of 162 (66 as first views of the next area) |
@@ -200,7 +200,7 @@ Map 0; WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 bloc
 | `tile:0:f396f4ed12b9fd4e0bd9427532c1789a2c7ae498a49246236bcd2f065e323cda` | 8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 0 over 8X8D3 block 103 tile 41 over 8X8D3 block 102 tile 3 | map 0, square (12,14) facing east, column 6 row 5 |  |
 | `tile:0:fda35ec7d9df04aeebd70aad095944df1c6a3e311c4f49c7cb25814d73ad0766` | 8X8D3 block 103 tile 4 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6) | map 0, square (2,0) facing west, column 6 row 5 |  |
 
-### Area 1: Buccaneer Base (52)
+### Area 1: Buccaneer Base (50)
 
 Map 1; WALLDEF6 block 2 (tiles 8X8D6 block 2), block 6 (tiles 8X8D6 block 6), block 6 (tiles 8X8D6 block 6).
 
@@ -210,7 +210,7 @@ Map 1; WALLDEF6 block 2 (tiles 8X8D6 block 2), block 6 (tiles 8X8D6 block 6), bl
 | --- | --- | --- | --- |
 | `tile:1:f1e2c51783bc6780ddd30046cd7aa52da55967ca8bf567fe37eb1ea849c93ee6` | 8X8D6 block 2 tile 58 over 8X8D6 block 6 tile 2 over sky colour 11 | map 1, square (5,0) facing north, column 9 row 1 |  |
 
-#### tile set 8X8D6 block 6 (51)
+#### tile set 8X8D6 block 6 (49)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
@@ -222,7 +222,6 @@ Map 1; WALLDEF6 block 2 (tiles 8X8D6 block 2), block 6 (tiles 8X8D6 block 6), bl
 | `tile:1:11febb08fb13e6d3f4d4623506b42af7e6b10ea2f167a77a3a6c72f4ef9a1adc` | 8X8D6 block 6 tile 33 over 8X8D6 block 6 tile 15 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 1, square (12,4) facing east, column 9 row 5 |  |
 | `tile:1:1521d710601da0b7780dd97277fdec01c2406bdcac6ea53b4732eb90e3b3f793` | 8X8D6 block 6 tile 34 over 8X8D6 block 6 tile 50 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 1, square (12,6) facing east, column 1 row 5 |  |
 | `tile:1:1959cb168649426a6febdb8a33faffad7e3f677b425b1dd2b67c7a81ffce9945` | 8X8D6 block 6 tile 36 over 8X8D1 block 203 tile 24 over the ground colour 6 | map 1, square (12,6) facing north, column 1 row 6 |  |
-| `tile:1:26bcad86c61fced959b9e3e4468d14597252a8f54bc8b6ca7c375f92ac9139f0` | 8X8D6 block 6 tile 51 | map 1, square (7,0) facing north, column 5 row 5 |  |
 | `tile:1:28612dd48ec57d4365251acbdb808a2a92a9c48ffd24c8238aa33f484263801e` | 8X8D6 block 6 tile 35 over 8X8D6 block 6 tile 2 over sky colour 11 | map 1, square (14,6) facing east, column 0 row 3 |  |
 | `tile:1:2e90898843be94884471f0d403caaacc6f0b7f74233f3b5a341a716a9ffe2c50` | 8X8D6 block 6 tile 12 over 8X8D6 block 6 tile 17 | map 1, square (14,6) facing east, column 0 row 6 |  |
 | `tile:1:328f750df6630171a8075d9384cd889bf14996a15e680bc3f4073b4007830500` | 8X8D6 block 6 tile 35 over 8X8D6 block 6 tile 2 over sky colour 0 | map 1, square (14,6) facing east, column 0 row 3 |  |
@@ -231,7 +230,6 @@ Map 1; WALLDEF6 block 2 (tiles 8X8D6 block 2), block 6 (tiles 8X8D6 block 6), bl
 | `tile:1:4cce08e2dfc37e720329a47c243471f38acd2386091c3b60bdebd20a74b85921` | 8X8D6 block 6 tile 34 over 8X8D6 block 6 tile 14 over sky colour 11 | map 1, square (13,6) facing east, column 1 row 4 |  |
 | `tile:1:4f4776b4f8c8421342f9ca62a3a78b24cf90607c32d8c09d9af9f6b02ad0aa84` | 8X8D6 block 6 tile 36 over 8X8D6 block 6 tile 16 | map 1, square (14,6) facing north, column 10 row 4 |  |
 | `tile:1:52a36258e26381b8b7a8dffa40e2f989b565a2a2a68af94c5975a280b2c9fdb9` | 8X8D6 block 6 tile 36 over 8X8D6 block 6 tile 2 over 8X8D6 block 6 tile 7 over sky colour 11 | map 1, square (14,6) facing north, column 10 row 3 |  |
-| `tile:1:541760b2fe1a3b5760a42cecaafd400c9825b25092e7218379e43f50086604ec` | 8X8D6 block 6 tile 3 | map 1, square (7,0) facing north, column 5 row 2 |  |
 | `tile:1:5879f939d4ba099a5e4903f7f0fd0773389c1fff132a18236b085d04aa44c8b3` | 8X8D6 block 6 tile 33 over 8X8D6 block 6 tile 13 over sky colour 0 | map 1, square (13,6) facing north, column 9 row 4 |  |
 | `tile:1:587e9632073682c4f8f34e98223982a74229a32356aa0a2b8298c961c0adeece` | 8X8D6 block 6 tile 33 over 8X8D6 block 2 tile 15 | map 1, square (13,8) facing south, column 1 row 6 |  |
 | `tile:1:58e635182d12ab1cdc459bf064271dde19e5e859a4781c106c7c902c65e21b73` | 8X8D6 block 6 tile 37 over 8X8D6 block 6 tile 13 over sky colour 11 | map 1, square (14,7) facing north, column 9 row 4 |  |
@@ -1393,9 +1391,9 @@ Map 0; WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 bloc
 | `tile:11:a2c41c4f0c4fa31620dac8ca4d42c5425fdd1ba3f700cc05c8471549a309d990` | 8X8D3 block 102 tile 63 | map 0, square (9,13) facing west, column 8 row 4 | `new-phlan-south-market-terrain-0-a2c41c4f0c4f.png` (area 0) |
 | `tile:11:a8ed6d6150e8b242b1142b13dcee6be84fefbeac21ef725b37b80cd018dea6a6` | 8X8D3 block 102 tile 30 | map 0, square (10,1) facing south, column 5 row 5 | `orc-rubble-0cd018dea6a6.png` (area 0, 3, 4, 6, 8, 20) |
 | `tile:11:ad4007119c61bf7d6666c19092a0860486034153aa08a403fd206f9cd1940357` | 8X8D3 block 102 tile 15 | map 0, square (10,8) facing west, column 9 row 8 | `valjevo-merchant-west-terrain-ad4007119c61.png` (area 0, 7) |
-| `tile:11:af4d0380d89a958e265764fe02dcdcba866eb25f25e1950bb6e4aa05ee0bd059` | 8X8D3 block 102 tile 2 | map 0, square (0,0) facing east, column 8 row 3 | `route-af4d0380d89a.png` (area 0, 5, 7, 8, 20) |
+| `tile:11:af4d0380d89a958e265764fe02dcdcba866eb25f25e1950bb6e4aa05ee0bd059` | 8X8D3 block 102 tile 2 | map 0, square (0,0) facing east, column 8 row 3 | `route-af4d0380d89a.png` (area 0, 3, 5, 7, 8, 20) |
 | `tile:11:b8645fd4952e35317fa061a3be9a84e98b48141ba4090c3c1fa13f323d8720d5` | 8X8D3 block 102 tile 1 | map 0, square (13,8) facing west, column 0 row 6 | `slums-trade-row-terrain-b8645fd4952e.png` (area 0, 7, 20) |
-| `tile:11:bd7ebf5b0e105d0f47a6c2dc24787872525ccdbe7e7081220f314f20085c8728` | 8X8D3 block 102 tile 3 | map 0, square (0,0) facing east, column 10 row 3 | `route-bd7ebf5b0e10.png` (area 0, 5, 7, 8, 20) |
+| `tile:11:bd7ebf5b0e105d0f47a6c2dc24787872525ccdbe7e7081220f314f20085c8728` | 8X8D3 block 102 tile 3 | map 0, square (0,0) facing east, column 10 row 3 | `route-bd7ebf5b0e10.png` (area 0, 3, 5, 7, 8, 20) |
 | `tile:11:c109062bae81c00497c44a59d1a66885bdc4315d382df7c88791f17886541ad0` | 8X8D3 block 102 tile 25 | map 0, square (0,0) facing north, column 9 row 8 | `orc-rubble-f17886541ad0.png` (area 0, 3, 4, 5, 6, 7, 8, 20) |
 | `tile:11:c6c238d6832c50eb322fcf219d1ed5b19c1e59e4da05cc0f76e9053155ad4e1d` | 8X8D3 block 102 tile 28 | map 0, square (0,0) facing south, column 1 row 7 | `orc-rubble-053155ad4e1d.png` (area 0, 3, 4, 5, 6, 7, 8, 20) |
 | `tile:11:ceaa1c6a928af7e169014854674189c9cdbdc41645ce50b1a41756218050daf6` | 8X8D3 block 102 tile 43 over the ground colour 6 | map 0, square (9,7) facing east, column 8 row 8 | `valjevo-terra-cotta-floor-ceaa1c6a928a.png` (area 0, 7) |
@@ -2776,7 +2774,7 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 
 Areas not confirmed, and why:
 
-- Area 3 (Valjevo Castle): 7 of the 81 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
+- Area 3 (Valjevo Castle): 12 of the 86 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 5 (Valjevo Castle): 59 of the 110 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 7 (Valjevo Castle, the Pool): 58 of the 131 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 15 (Mendor's Library): 15 of the 185 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.

@@ -2,28 +2,28 @@
  "schema": 2,
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
- "remaining": 2169,
+ "remaining": 2167,
  "totals": {
-  "Remaining, all kinds": 2169,
-  "First-person cells to do": 2169,
-  "  of which one stored tile": 469,
+  "Remaining, all kinds": 2167,
+  "First-person cells to do": 2167,
+  "  of which one stored tile": 467,
   "  of which one tile over a solid colour": 232,
   "  of which plain sky or ground": 0,
   "  of which several tiles together": 1468,
   "  of which the same pixels already have art of yours in another area": 791,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 4051,
-  "  accounted for by the tool": 3906,
+  "Tile keys in the manifests": 4066,
+  "  accounted for by the tool": 3916,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
   "  blank": 9,
   "  distinct pictures among the rest": 1333,
-  "  with art in some area, alone or over a solid colour": 2305,
-  "  without (the catalogue's 720 when it was written)": 702,
+  "  with art in some area, alone or over a solid colour": 2307,
+  "  without (the catalogue's 720 when it was written)": 700,
   "    of those, no map can show": 444,
   "    of those, shown only together with other tiles, never alone": 10,
-  "    of those, shown alone in some area": 248
+  "    of those, shown alone in some area": 246
  },
  "notEstablished": {
   "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4060,
@@ -66,23 +66,24 @@
    "area": 1,
    "name": "Buccaneer Base",
    "established": true,
-   "why": "all 129 cells that have artwork are among the cells the tool works out",
+   "why": "all 134 cells that have artwork are among the cells the tool works out",
    "maps": [
     1
    ],
    "wallSets": [
     "WALLDEF6 block 2 (tiles 8X8D6 block 2), block 6 (tiles 8X8D6 block 6), block 6 (tiles 8X8D6 block 6)"
    ],
-   "existingKeys": 129,
-   "existingKeysAccountedFor": 129,
+   "existingKeys": 134,
+   "existingKeysAccountedFor": 134,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 385,
-   "cellsWithArt": 129,
-   "toDo": 52,
+   "cellsWithArt": 131,
+   "toDo": 50,
    "notEstablished": {
     "cells that show a sky or ground colour no existing artwork of the area shows": 204
-   }
+   },
+   "existingKeysOnlyAsWallMaterials": 3
   },
   {
    "area": 2,
@@ -112,7 +113,7 @@
    "area": 3,
    "name": "Valjevo Castle",
    "established": false,
-   "why": "7 of the 81 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
+   "why": "12 of the 86 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
    "maps": [
     3,
     5
@@ -120,10 +121,15 @@
    "wallSets": [
     "WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)"
    ],
-   "existingKeys": 81,
+   "existingKeys": 86,
    "existingKeysAccountedFor": 74,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [
+    "tile:3:0b2cdc39c1c1a23e17b3d4009917f5d012885b6fa93c00d918a6368495830de9",
+    "tile:3:af4d0380d89a958e265764fe02dcdcba866eb25f25e1950bb6e4aa05ee0bd059",
+    "tile:3:bb979d91f7a0bb1616df770d6abdf88bbe63d259b3172d73c70c75d200020323",
+    "tile:3:bd7ebf5b0e105d0f47a6c2dc24787872525ccdbe7e7081220f314f20085c8728",
+    "tile:3:eeaceede0e47e82b9f553283cc7fe87ba048adbf0680a393e3105aa7ae1e0707",
     "tile:3:f334e30f41ee930aac82e47eb491ecea71cdedabda9b3049ca0fdb3fb08fc912",
     "tile:3:dc92fe92104eb8ca3b7796eee851ea4f5c0583af20e4113308ca5da62b422618",
     "tile:3:471ee36539583f5ea9268a433150630a698dcacf55a4975fadd42d86be9e6447",
@@ -681,15 +687,15 @@
    "area": 23,
    "name": "Yarash's Pyramid, lower",
    "established": true,
-   "why": "all 39 cells that have artwork are among the cells the tool works out",
+   "why": "all 44 cells that have artwork are among the cells the tool works out",
    "maps": [
     23
    ],
    "wallSets": [
     "WALLDEF7 block 1 (tiles 8X8D7 block 1), block 3 (tiles 8X8D7 block 3), nothing"
    ],
-   "existingKeys": 39,
-   "existingKeysAccountedFor": 39,
+   "existingKeys": 44,
+   "existingKeysAccountedFor": 44,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 126,
@@ -697,7 +703,8 @@
    "toDo": 39,
    "notEstablished": {
     "cells that show a sky or ground colour no existing artwork of the area shows": 48
-   }
+   },
+   "existingKeysOnlyAsWallMaterials": 5
   },
   {
    "area": 24,
@@ -4776,29 +4783,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:1:26bcad86c61fced959b9e3e4468d14597252a8f54bc8b6ca7c375f92ac9139f0",
-   "width": 32,
-   "height": 32,
-   "area": 1,
-   "areaName": "Buccaneer Base",
-   "group": "tile set 8X8D6 block 6",
-   "what": "one stored tile",
-   "composition": "-|8X8D6.DAX:6:51",
-   "description": "8X8D6 block 6 tile 51, shown in area 1 (Buccaneer Base)",
-   "seenAt": {
-    "map": 1,
-    "x": 7,
-    "y": 0,
-    "facing": "north",
-    "column": 5,
-    "row": 5
-   },
-   "views": 2,
-   "drawnIn": [],
-   "why": "drawn in 2 views of map 1 (WALLDEF6 block 2 (tiles 8X8D6 block 2), block 6 (tiles 8X8D6 block 6), block 6 (tiles 8X8D6 block 6)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:1:28612dd48ec57d4365251acbdb808a2a92a9c48ffd24c8238aa33f484263801e",
    "width": 32,
    "height": 32,
@@ -4980,29 +4964,6 @@
    "views": 3,
    "drawnIn": [],
    "why": "drawn in 3 views of map 1 (WALLDEF6 block 2 (tiles 8X8D6 block 2), block 6 (tiles 8X8D6 block 6), block 6 (tiles 8X8D6 block 6)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:1:541760b2fe1a3b5760a42cecaafd400c9825b25092e7218379e43f50086604ec",
-   "width": 32,
-   "height": 32,
-   "area": 1,
-   "areaName": "Buccaneer Base",
-   "group": "tile set 8X8D6 block 6",
-   "what": "one stored tile",
-   "composition": "-|8X8D6.DAX:6:3",
-   "description": "8X8D6 block 6 tile 3, shown in area 1 (Buccaneer Base)",
-   "seenAt": {
-    "map": 1,
-    "x": 7,
-    "y": 0,
-    "facing": "north",
-    "column": 5,
-    "row": 2
-   },
-   "views": 12,
-   "drawnIn": [],
-   "why": "drawn in 12 views of map 1 (WALLDEF6 block 2 (tiles 8X8D6 block 2), block 6 (tiles 8X8D6 block 6), block 6 (tiles 8X8D6 block 6)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -29238,6 +29199,7 @@
    "views": 726,
    "drawnIn": [
     0,
+    3,
     5,
     7,
     8,
@@ -29296,6 +29258,7 @@
    "views": 1066,
    "drawnIn": [
     0,
+    3,
     5,
     7,
     8,
