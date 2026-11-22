@@ -163,6 +163,7 @@ interface Context {
   slots: WallSlots;
   wallArchive?: number;
   arrivalFrom?: number;
+  camera?: readonly [x: number, y: number, facing: number];
 }
 interface AreaReport {
   area: number;
@@ -215,7 +216,9 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
         const slots = script.wallSlots.find((known) => known.operands.join() === operands);
         if (!slots) continue;
         const label = !scriptAreas.has(map.block) && existing.has(map.block) ? map.block : script.area;
-        own.push({ label, script, map: map.block, slots });
+        // The Pool script retains scope 7 for one map 3 draw at its west-facing stair exit.
+        const camera = script.area === 7 && map.block === 3 ? [13, 15, 6] as const : undefined;
+        own.push({ label, script, map: map.block, slots, camera });
       }
     }
   }
@@ -224,12 +227,13 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
   const slumsWalls = world.scripts.filter((script) => script.archive === 2)
     .flatMap((script) => script.wallSlots).find((slots) => slots.operands.join() === "2,4,1");
   if (slumsWalls) {
-    const borrowedMaps = [[3, [3]], [5, [3, 4, 5, 6, 7]], [7, [7]]] as const;
+    const borrowedMaps = [[3, [3]], [5, [3, 4, 5, 6, 7]], [7, [7, 3]]] as const;
     for (const [area, maps] of borrowedMaps) {
       const script = world.scripts.find((candidate) => candidate.area === area && candidate.archive === 5);
       if (!script) continue;
       for (const map of maps) {
-        if (world.maps.has(`5:${map}`)) own.push({ label: area, script, map, slots: slumsWalls, wallArchive: 2 });
+        const camera = area === 7 && map === 3 ? [13, 15, 6] as const : undefined;
+        if (world.maps.has(`5:${map}`)) own.push({ label: area, script, map, slots: slumsWalls, wallArchive: 2, camera });
       }
     }
   }
@@ -269,7 +273,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const lizardCellar = lizardKeep && context.map === 30;
     const mendorLibrary = auditReachability && !context.arrivalFrom && context.script.area === 15 && context.map === 15;
     const valjevo = auditReachability && !context.arrivalFrom && context.script.archive === 5
-      && context.script.area === context.map && (context.map === 4 || context.map === 6 || (context.map === 7 && context.wallArchive === 2));
+      && context.script.area === context.map && (context.map === 4 || context.map === 6 || context.map === 7);
     const podolPlaza = auditReachability && !context.arrivalFrom && context.script.area === 18 && context.map === 18;
     const middleWilderness = auditReachability && !context.arrivalFrom && context.script.area === 26 && context.map === 26;
     const auditedPalette = lizardKeep || mendorLibrary || valjevo;
@@ -283,7 +287,9 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const starts = mendorLibrary ? libraryStarts : lizardKeep ? lizardStarts
       : valjevo && context.map === 6 ? [[14, 4]] as const
       : valjevo && context.map === 7 ? [[5, 6]] as const : undefined;
-    const playable = starts && reachable(map, starts.map(([x, y]) => y * 16 + x), context.script.area);
+    const camera = context.camera;
+    const playable = camera ? new Set([camera[1] * 16 + camera[0]])
+      : starts && reachable(map, starts.map(([x, y]) => y * 16 + x), context.script.area);
     const groundAllowed = (ground: number, shaft: boolean) => (!kuto && !auditedPalette) || ground === 6 || (shaft && ground === 1);
     const lowerValues = (shaft: boolean) => lowers.filter(({ line, band, ground }) =>
       groundAllowed(ground, shaft) && (!kuto || (line === 0 && band === (lowerWell ? 8 : 7)))
@@ -294,6 +300,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
         const roofed = covered(map, x, y);
         const shaft = lowerWell && x === 7 && y === 7;
         for (const facing of [0, 2, 4, 6]) {
+          if (camera && facing !== camera[2]) continue;
           const stacks = viewCells(view, x, y, facing);
           const mine = new Set<Agg>();
           let walls = false;
@@ -332,6 +339,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const hashesOf = new Map<Agg, Map<string, string | undefined>>();
     const skies = (roofed: boolean) => {
       if (lizardKeep) return lizardCellar ? [0] : [0, 11];
+      if (middleWilderness && roofed) return [0];
       if (valjevo && context.map === 7) return roofed ? [15] : [0];
       if (mendorLibrary || valjevo) return roofed ? [15] : [0, 11];
       const possible = roofed ? context.script.sky.covered : context.script.sky.open;
