@@ -7,7 +7,9 @@
 // <release root> holds app/launch.mjs beside the port's folders (a package, an install, or a copy of
 // dist/app with them). The launcher runs on the Node that runs this script. With a Chrome executable,
 // the folder is chosen and the setting cleared in the page itself (headless, muted): Settings, the
-// folder typed into its field, Enter, and Stop using them, reading what the page says.
+// folder typed into its field, Enter, and Stop using them, reading what the page says; and the display
+// switch with the 1.3 files, whose Classic picture must be the game's own frame (with POR_CHECK_SHOTS,
+// saved there as classic-title.png). POR_CHECK_TMP is where the throwaway HOME and Chrome profiles go.
 //
 //   1. Nothing named: no Classic. The setting refuses another origin and a folder that is not the
 //      game's, and takes the folder that holds the 1.3 files (GOG keeps them one folder in).
@@ -17,7 +19,7 @@
 //   4. Nothing named again: no Classic. Nothing of either folder is under the player's directory.
 import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
@@ -74,7 +76,11 @@ async function inPage(url, use) {
     await command("Page.navigate", { url });
     await until("the game page", `typeof state === "object" && state.sequence > 0`);
     await until("the Original files setting", `!document.querySelector("#original-files").hidden`);
-    return await use({ evaluate, until, type });
+    const screenshot = async (file) => {
+      mkdirSync(dirname(file), { recursive: true });
+      writeFileSync(file, Buffer.from((await command("Page.captureScreenshot", { format: "png" })).data, "base64"));
+    };
+    return await use({ evaluate, until, type, screenshot });
   } finally {
     socket?.close();
     chrome.kill();
@@ -194,6 +200,22 @@ try {
   expect("2: runs from it", lines(game, /^POR_GAME_DATA original /).some((line) => line.endsWith(version13)), lines(game, /^POR_GAME_DATA/));
   expect("2: Classic available", game.run.classicAvailable === true, game.run.classicAvailable);
   expect("2: in use: 1.3", game.run.setting?.inUse?.release === "1.3" && game.run.setting?.inUse?.folder === version13, game.run.setting);
+  if (chromePath) {
+    // The player: the display switch is there, and it shows the original title.
+    const seen = await inPage(game.run.url, async ({ evaluate, until, screenshot }) => {
+      await until("the display switch", `!document.querySelector("#presentation").hidden`);
+      const startedIn = await evaluate("document.documentElement.dataset.presentation");
+      await evaluate(`document.querySelector("#presentation").click()`);
+      await until("the Classic picture", `document.documentElement.dataset.presentation === "classic" && document.querySelector("#screen").complete && document.querySelector("#screen").naturalWidth > 0`);
+      const shown = await evaluate(`document.querySelector("#screen").src`);
+      if (process.env.POR_CHECK_SHOTS) await screenshot(join(process.env.POR_CHECK_SHOTS, "classic-title.png"));
+      return { startedIn, status: await evaluate(pageText("#original-files-status")),
+        frame: createHash("sha256").update(shown.replace(/^data:image\/png;base64,/, "")).digest("hex") };
+    });
+    expect("2: the page starts in Enhanced and offers the display switch", seen.startedIn === "enhanced", seen.startedIn);
+    expect("2: Classic shows the game's own frame", seen.frame === game.run.frame, seen);
+    expect("2: the page says the 1.3 files are in use", seen.status.startsWith(`In use: ${version13} (version 1.3)`), seen.status);
+  }
   const first = await game.setting({ path: firstRelease });
   expect("2: the first release is taken", first.status === 200 && first.reply?.release === "first", first);
   await game.stop();

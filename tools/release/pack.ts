@@ -1,7 +1,7 @@
 /**
  * npm run release:pack [-- mac windows linux]: build the installers into dist/ from the committed port.
- * Run after npm run release:build (the npm script does both). Needs macOS for its tools: osacompile,
- * hdiutil, lipo, sips, iconutil and codesign come with it. makensis builds the Windows installer: here
+ * Run after npm run release:build (the npm script does both). The Mac app needs macOS for its tools:
+ * osacompile, hdiutil, sips, iconutil and codesign come with it. makensis builds the Windows installer: here
  * when it is installed, else on the machine POR_NSIS_HOST names over ssh (apt-get install nsis there);
  * with neither, the installer is skipped with a message.
  *
@@ -46,9 +46,10 @@ for (const platform of platforms) {
   if (!["mac", "windows", "linux"].includes(platform)) throw new Error(`Unknown platform ${platform}: use mac, windows or linux`);
 }
 const onMac = process.platform === "darwin";
-// The Mac and Windows packages need macOS's own tools (hdiutil, osacompile, sips, iconutil, codesign); the Linux
-// archive alone can be packed elsewhere (the icon is cut with python3 and Pillow).
-if (!onMac && platforms.some((platform) => platform !== "linux")) throw new Error("release:pack for mac and windows uses macOS's own tools; on this machine pack only linux");
+// The Mac app needs macOS's own tools (hdiutil, osacompile, sips, iconutil, codesign). The Windows installer
+// and the Linux archive can be packed elsewhere: their icon is cut with python3 and Pillow, and makensis
+// builds the installer where it is installed (apt-get install nsis).
+if (!onMac && platforms.includes("mac")) throw new Error("release:pack for mac uses macOS's own tools; on this machine pack windows or linux");
 
 const started = Date.now();
 const log = (message: string) => console.log(`[${((Date.now() - started) / 1000).toFixed(0).padStart(4)}s] ${message}`);
