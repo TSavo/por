@@ -99,7 +99,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 7 | Valjevo Castle, the Pool | yes | 220 | 216 | 0 | 216 of 216 |
 | 8 | Phlan City Hall | yes | 405 | 295 | 0 | 305 of 305 (10 as WebGL wall materials) |
 | 9 | Stojanow Gate | yes | 287 | 170 | 0 | 170 of 170 |
-| 10 | Valhingen Graveyard | yes | 2452 | 935 | 72 | 947 of 947 (12 as WebGL wall materials) |
+| 10 | Valhingen Graveyard | yes | 1007 | 935 | 72 | 947 of 947 (12 as WebGL wall materials) |
 | 11 | The Training Hall | yes | 405 | 295 | 0 | 295 of 295 |
 | 13 | The Kobold Caves | yes | 313 | 211 | 0 | 213 of 213 (2 as WebGL wall materials) |
 | 14 | Kovel Mansion | yes | 150 | 90 | 0 | 92 of 92 (2 as WebGL wall materials) |
@@ -236,7 +236,7 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 
 | What | Count |
 | --- | ---: |
-| first-person cells that show a sky or ground colour no existing artwork of the area shows | 2994 |
+| first-person cells that show a sky or ground colour no existing artwork of the area shows | 1549 |
 | first-person cells of an area whose reading is not confirmed | 381 |
 | first-person cells seen only from squares not connected to any square the existing artwork was made from | 7 |
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |

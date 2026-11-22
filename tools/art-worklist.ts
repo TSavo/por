@@ -307,9 +307,19 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const poolLanding = auditReachability && context.script.area === 5 && context.map === 7;
     const playable = camera ? new Set([camera[1] * 16 + camera[0]])
       : starts && reachable(map, starts.map(([x, y]) => y * 16 + x), context.script.area);
-    const groundAllowed = (ground: number, shaft: boolean) => (!kuto && !auditedPalette && !poolLanding) || ground === 6 || (shaft && ground === 1);
+    // An area whose own script writes the horizon band or the ground colour shows those, not what
+    // another area's script left behind: the Graveyard writes both (9a8c, 9aa0), and none of its 922
+    // cells with artwork uses any other. Without this the Graveyard was tried with Kuto's Well's and
+    // the starting values as well, which made 1,542 cells out of a few dozen. Kuto's Well has its own
+    // audited rule below, and a first view on arrival is still drawn under the area just left.
+    const writtenHere = (from: string) => from.startsWith(`area ${context.script.area}'s script`);
+    const ownBands = kuto || context.arrivalFrom ? [] : world.bands.filter(({ from }) => writtenHere(from));
+    const ownGrounds = kuto || context.arrivalFrom ? [] : world.grounds.filter(({ from }) => writtenHere(from));
+    const ownGround = (ground: number) => !ownGrounds.length || ownGrounds.some((known) => known.ground === ground);
+    const ownBand = (line: number, band: number) => !ownBands.length || ownBands.some((known) => known.line === line && known.band === band);
+    const groundAllowed = (ground: number, shaft: boolean) => ownGround(ground) && ((!kuto && !auditedPalette && !poolLanding) || ground === 6 || (shaft && ground === 1));
     const lowerValues = (shaft: boolean) => lowers.filter(({ line, band, ground }) =>
-      groundAllowed(ground, shaft) && (!kuto || (line === 0 && band === (lowerWell ? 8 : 7)))
+      ownBand(line, band) && groundAllowed(ground, shaft) && (!kuto || (line === 0 && band === (lowerWell ? 8 : 7)))
       && (!(auditedPalette || podolPlaza || poolLanding) || (line === 15 && band === 7)));
     for (let y = 0; y < 16; y++) {
       for (let x = 0; x < 16; x++) {

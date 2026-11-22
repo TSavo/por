@@ -28,7 +28,7 @@
   "    of those, shown alone in some area": 17
  },
  "notEstablished": {
-  "first-person cells that show a sky or ground colour no existing artwork of the area shows": 2994,
+  "first-person cells that show a sky or ground colour no existing artwork of the area shows": 1549,
   "first-person cells of an area whose reading is not confirmed": 381,
   "first-person cells seen only from squares not connected to any square the existing artwork was made from": 7,
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
@@ -294,12 +294,10 @@
    "existingKeysAccountedFor": 947,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 2452,
+   "cellsTheViewsCanShow": 1007,
    "cellsWithArt": 935,
    "toDo": 72,
-   "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 1445
-   },
+   "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 12
   },
   {
