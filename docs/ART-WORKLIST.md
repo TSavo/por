@@ -13,6 +13,7 @@ The artwork is done when items 1 and 2 are none and nothing is left under "Not e
 ## The short version
 
 This file covers the first-person view's wall tiles, the outdoor battle terrain, and any picture frame no artwork key names yet.
+The browser draws the Enhanced screen and text-window borders from native rail and stud positions. The paired GOG 1.3 Bane combat replay verifies those borders in both data modes. See `docs/ART-INVENTORY.md`.
 A cell is one 8 by 8 square of the screen, redrawn at 32 by 32. Most cells below are a shape you have already drawn, standing over a different sky or ground colour
 (another hour of the day, another part of the map). So count shapes, not cells:
 
@@ -173,7 +174,7 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 | distinct battlefield cells of pictures no artwork shows to have been on a battlefield | 0 |
 | battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain) | not counted: needs the game's battlefield builder read |
 | other picture frames no key names (listed below) | 0 |
-| screen frame, text window borders and other symbols drawn outside the first-person view: no artwork key form exists for them | not counted |
+| other symbols drawn outside the first-person view | not counted |
 | narrated passages that describe something to see and have no artwork | will come from npm run qa:narration |
 
 Struck off, not held: 115 cells the tool once tried under a sky or ground the area's script shows cannot occur there (`qa/art-worklist-observed.json`):

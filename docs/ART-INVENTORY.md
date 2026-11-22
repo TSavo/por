@@ -46,6 +46,13 @@ with the built-in data at the same ready pose. Both drew 102 terrain
 cells and one combat selector. The matcher still reads the border
 from framebuffer pixels.
 
+Standalone now observes the native border draw calls. The same Bane
+replay passed in both GOG 1.3 data modes at `79318677`. It verified
+225 rail and stud positions in the room and 143 in combat, checked that
+the old room frame clears from inside the combat panel, and verified
+the ready and strike sprites. Both screenshots show the same frame
+around the battlefield, party text and command line.
+
 The browser and inventory both check each PNG's dimensions and chunk
 checksums. A truncated or corrupt export does not count as a replacement.
 When a live illustration falls back to classic art, the browser's

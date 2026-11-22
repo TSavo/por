@@ -891,6 +891,7 @@ function document(list: Worklist): string {
     })(),
     "## The short version", "",
     "This file covers the first-person view's wall tiles, the outdoor battle terrain, and any picture frame no artwork key names yet.",
+    "The browser draws the Enhanced screen and text-window borders from native rail and stud positions. The paired GOG 1.3 Bane combat replay verifies those borders in both data modes. See `docs/ART-INVENTORY.md`.",
     "A cell is one 8 by 8 square of the screen, redrawn at 32 by 32. Most cells below are a shape you have already drawn, standing over a different sky or ground colour",
     "(another hour of the day, another part of the map). So count shapes, not cells:", "",
     "| Area | Cells to do | Distinct shapes | Shapes you have already drawn over another sky or ground | Shapes with no version yet |", "| ---: | ---: | ---: | ---: | ---: |",
@@ -1094,7 +1095,7 @@ function main(): void {
   notEstablished["battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain)"] = "not counted: needs the game's battlefield builder read";
   notEstablished["other picture frames no key names (listed below)"] = otherPicturesNoKeyNames.length;
   if ("error" in others && others.error) notEstablished["other picture frames: " + others.error] = "?";
-  notEstablished["screen frame, text window borders and other symbols drawn outside the first-person view: no artwork key form exists for them"] = "not counted";
+  notEstablished["other symbols drawn outside the first-person view"] = "not counted";
   notEstablished["narrated passages that describe something to see and have no artwork"] = "will come from npm run qa:narration";
 
   const cellItems = first.items;
