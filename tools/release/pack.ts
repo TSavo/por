@@ -366,7 +366,7 @@ if (platforms.includes("linux")) {
   const archive = join(dist, `${name}-linux-x64.tar.gz`);
   log("building the Linux archive");
   // No macOS extended attributes or AppleDouble files, which tar on Linux warns about.
-  run("tar", ["--no-xattrs", "--no-mac-metadata", "-czf", archive, "-C", dirname(stage), name]);
+  run("tar", [...(onMac ? ["--no-xattrs", "--no-mac-metadata"] : []), "-czf", archive, "-C", dirname(stage), name]);
   log(`${archive} (${size(archive)})`);
   outputs.push(archive);
 }

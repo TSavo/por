@@ -26,15 +26,15 @@ installer comes back into `dist/`. With neither, the Windows installer is skippe
 
 | File | What it is |
 | --- | --- |
-| `Pool-of-Radiance-<version>-mac.dmg` | `Pool of Radiance.app` beside an Applications link, to drag across |
+| `Pool-of-Radiance-<version>-mac-arm64.dmg`, `-mac-x64.dmg` | `Pool of Radiance.app` beside an Applications link, to drag across: one image for Apple silicon, one for Intel |
 | `Pool-of-Radiance-<version>-windows-setup.exe` | An NSIS installer to Program Files (skipped when makensis is not installed) |
 | `pool-of-radiance-<version>-linux-x64.tar.gz` | A folder with a start script (an AppImage later) |
 
 The packages are built from the commit checked out (`git archive HEAD`), not from the working tree.
 Node is the official build of the version pinned in `tools/release/pack.ts`, downloaded from nodejs.org
-into `dist/cache/` and checked against its `SHASUMS256.txt`; the Mac app carries one universal binary
-(Apple silicon and Intel, joined with `lipo`). Packing needs macOS's own tools (osacompile, hdiutil,
-lipo, sips, iconutil, codesign). `dist/` is not committed.
+into `dist/cache/` and checked against its `SHASUMS256.txt`; each Mac image carries the Node of its own
+architecture (arm64 or x64). Packing needs macOS's own tools (osacompile, hdiutil,
+sips, iconutil, codesign); the Linux archive alone packs on Linux (`npm run release:pack -- linux`, python3 with Pillow for the icon). `dist/` is not committed.
 
 ## What the package contains
 
@@ -283,5 +283,3 @@ Radiance`, which had not existed, was removed again.
   SmartScreen's prompt, the finish page's Play (through the shortcut and Explorer), and closing the
   console window (its SIGHUP path is checked on the Mac; on Battleaxe the launcher's console could not
   be found as a window from the automation's session). The Linux archive has not been run on Linux.
-- The Mac app holds a universal Node (297 MB); one disk image per architecture would be about 150 MB
-  smaller each.
