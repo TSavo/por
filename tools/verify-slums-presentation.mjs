@@ -723,6 +723,16 @@ const bucketTrapLoop = [
   "portrait:area:3:PIC5.DAX:56:0:0", "portrait:area:3:ecl:a662:PIC5.DAX:56:3:0",
 ];
 const illustrationRoutes = new Map([
+  ["pyramid-vats-mutants-loop", {
+    slot: "A", inputs: ["s", "up"],
+    portrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:0:0",
+    prompt: /POKINGAROUNDINTHEVATS.*TWOOTHERSQUICKLYJOINHIM/i,
+    heldPortraitLoop: [0, 1, 2, 3].map(member => "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:" + member + ":0"),
+    finalPhaseCapture: "pyramid-vats-mutants-held.png",
+    continuation: { inputs: ["enter"], prompt: /ABATTLEBEGINS/i,
+      portraits: [0, 1, 2, 3].map(member => "portrait:area:23:ecl:a23f:PIC7.DAX:57:" + member + ":0"),
+      pressOnPortrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:2:0", retainPose: true },
+  }],
   ["kuto-well-surface-ambush", {
     slot: "J", inputs: ["up", "y", "enter", "enter", "down", "up"],
     portrait: "scene-illustration:area:29:ecl:af2f:caller:a31b",
@@ -7560,6 +7570,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       (routeName === "valjevo-street-giants-loop" ? "4320100" :
         routeName === "valhingen-skeleton-roaming-ambush-loop" || routeName === "valhingen-wight-ambush-loop" ? "4320042" : undefined),
     POR_INPUT_COMPAT: ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
+      routeName === "pyramid-vats-mutants-loop" ||
       routeName === "valhingen-grave-claws" || routeName === "sokal-barracks-ghost-phases" ||
       routeName === "valhingen-wight-ambush-loop" || routeName === "valhingen-spirits-tower-wight-loop" ||
       routeName === "valhingen-skeleton-roaming-ambush-loop" ||

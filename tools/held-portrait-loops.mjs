@@ -154,7 +154,7 @@ const portraitLoops = [
   ["portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:", 4, undefined,
     /MUTILATINGSCUM.*BUTYOUWILLDIEFIRST/i, [210, 210, 210, 210]],
   ["portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:", 4, undefined,
-    /POKINGAROUNDINTHEVATS/i],
+    /POKINGAROUNDINTHEVATS/i, [210, 210, 210, 210]],
   ["portrait:area:23:ecl:aa03:PIC7.DAX:57:", 4, undefined,
     /^(?=.*THEYRECOILINFEAR)(?=.*COMBATWAITFLEEPARLAY)/i, [210, 210, 210, 210]],
   ["portrait:area:24:ecl:aeda:caller:ad99:PIC1.DAX:4:", [0, 1, 2, 1], "portrait:area:24:ecl:aeda:PIC1.DAX:4:0:0",
