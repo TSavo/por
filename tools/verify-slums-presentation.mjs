@@ -966,6 +966,14 @@ const illustrationRoutes = new Map([
     prompt: /THEBUGBEARTAKESTHEMONEYANDTHEGATEOPENS.*YOUPROCEEDTHROUGH/i,
     continuation: { inputs: ["enter", "up"], prompt: /8,4N.*AREACASTVIEWENCAMP|AREACASTVIEWENCAMP.*8,4N/i, clearsPortrait: true },
   }],
+  ["stojanow-tower-arrow-volley", {
+    slot: "B", inputs: stojanowTollApproach.slice(0, -1),
+    portrait: "scene-illustration:area:9:ecl:9c63:caller:a9b2:cue:tower-arrow-volley",
+    prompt: /FROMARROWSLITSINTHETOWERARESHOTACOUPLEARROWS/i,
+    finalPhaseCapture: "stojanow-tower-arrow-volley.png",
+    continuation: { inputs: ["enter", "enter", "enter"],
+      prompt: /(?=.*6,11E).*ishitFOR[1-9]pointsofDamage/i, clearsPortrait: true },
+  }],
   ["stojanow-imposters", {
     slot: "B", inputs: stojanowTollApproach,
     portrait: "scene-illustration:area:9:ecl:a778:cue:bugbear-wagon-imposters",
@@ -9731,7 +9739,7 @@ try {
         assert.equal(frame.portrait, undefined);
         assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join(""), /5,6N/i);
       }
-      if (["stojanow-toll-refused", "wild-grove-western-stench"].includes(routeName)) {
+      if (["stojanow-toll-refused", "stojanow-tower-arrow-volley", "wild-grove-western-stench"].includes(routeName)) {
         assert.ok(!frame.classicPortrait);
         await waitForExplorationViewport();
       }

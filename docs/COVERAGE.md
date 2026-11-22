@@ -1019,6 +1019,10 @@ The `stojanow-toll-refused` Chrome replay starts from the controlled wagon
 checkpoint in slot B at `4,15 N`. The party buys the wagon and declines
 the bugbear's 15-gold toll. GOG 1.3 shows the guard turning the party away
 at the closed gate and returns to WebGL when the party walks on.
+The `stojanow-tower-arrow-volley` Chrome replay on GOG 1.3 starts from the
+controlled wagon checkpoint in slot B at `4,15 N` with the tower on alert.
+It shows the two arrows from the slits, then checks the native damage
+report and return to WebGL exploration along the approach road.
 The `stojanow-gate-rocks` Chrome replay starts from a controlled slot A at
 `8,8 N` near the closed gate. On GOG 1.3 it checks the falling-rock
 illustration and original prompt, followed by damage reports and the
