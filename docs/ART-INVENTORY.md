@@ -413,6 +413,12 @@ The unshielded steel flail uses a 96×96 ready and strike pair with
 matching material masks. The `valjevo-party-flail` Chrome replay checks
 both poses at the same battlefield position and verifies that a custom
 color changes only the selected material without changing transparency.
+The tall swordsman body 64 now has individually drawn ready and strike
+frames for heads 64–77. The scout, azure skirmisher, gilt hammer, copper
+shield, teal traveler, and jade guard also have new pose pairs. All 40
+base frames and their material masks were checked at 96×96. In a Chrome
+replay from the controlled Grishnak checkpoint, GOG 1.3 displayed the
+scout and the blue, plum, and ochre swordsmen in Enhanced combat.
 Kuto's gnoll-watch portrait now includes the first animation phase from
 `PIC8.DAX` block 73, member 1. The replay selected the gnoll roster and
 then used the original Advance and idle inputs. Chrome witnessed the
