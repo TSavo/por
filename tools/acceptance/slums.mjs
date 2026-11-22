@@ -3,10 +3,16 @@
 //   npm run acceptance:slums            every test
 //   npm run acceptance:slums -- orcs    named tests, one after another
 //
-// Each block proves one scenario of that file on the game itself: GOG version 1.3, with SSI's six
-// ready-made characters as they come (armed and armored), normal input and the fixed dice of a
-// replay. Fights are fought with the game's own commands and real dice: a test reacts to what the
-// screen shows and never counts presses, and a lost fight fails the test with the screen.
+// Each block proves one scenario of that file on the game itself: GOG version 1.3, normal input
+// and the fixed dice of a replay. Fights are fought with the game's own commands and real dice: a
+// test reacts to what the screen shows and never counts presses, and a lost fight fails the test
+// with the screen.
+//
+// The first four tests (entry, orcs, flee, goblins) play SSI's six ready-made characters as they
+// come, armed and armored. The test `guide` plays the party the Lee guide tells a player to make,
+// loaded from the saved game in qa/fixtures/guide-party-new-phlan (tools/acceptance/party.mjs),
+// and walks it through the Slums in stages: the orcs, the goblin armsmaster, the stable, the
+// secret treasure room, the kobolds, the hobgoblins and their gold, and the cleric's training.
 //
 // Where an expectation is not the scenario's own, the comment says where it comes from. "The
 // script" is the Slums script, ECL2.DAX block 20, read with src/lib/ecl.ts
@@ -17,8 +23,11 @@
 // room (one draw from 14 numbers, the script at 9b3a), so a walk goes through `walkFighting`.
 
 import assert from "node:assert/strict";
-import { addReadyMadeParty, beginAdventuring, exploring, pressReturn, startGame } from "./harness.mjs";
-import { breakCamp, cureLightWounds, healInCamp, hurt, makeCamp, pool, templeCure } from "./party-care.mjs";
+import { cpSync, mkdirSync, readdirSync } from "node:fs";
+import { join } from "node:path";
+import { addReadyMadeParty, aimMenu, beginAdventuring, combatMenu, exploring, pressReturn, sheet, startGame } from "./harness.mjs";
+import { breakCamp, campMenu, castInCamp, chooseSpells, cureLightWounds, healInCamp, hurt, magicMenu, makeCamp, pool, restForSpells, templeCure, train } from "./party-care.mjs";
+import { guideParty, guideSpells, innToSlums, loadParty, saveGame, takeCoins } from "./party.mjs";
 
 const proved = [];
 const started = Date.now();
@@ -95,9 +104,10 @@ async function leaveFight(game) {
 /**
  * Walk a route in the open Slums. A step can be met by a random encounter: the party fights it
  * (Combat, then Quick for everyone), must win, leaves the treasure and goes on from the square the
- * game left it on. Returns how many encounters were fought.
+ * game left it on. Returns how many encounters were fought. `fightIt`, when given, fights the
+ * encounter in place of Quick: it is called with the fight begun and must leave it won.
  */
-async function walkFighting(game, route) {
+async function walkFighting(game, route, fightIt = (game) => game.win()) {
   let fights = 0;
   for (const heading of route) {
     for (let tries = 0; ; tries++) {
@@ -117,7 +127,7 @@ async function walkFighting(game, route) {
       }
       if (encounterMenu.test(game.menu())) await game.startFight("c");
       if (game.inFight()) {
-        await game.win();
+        await fightIt(game);
         await leaveFight(game);
         fights++;
       }
@@ -635,7 +645,795 @@ async function goblins() {
   }
 }
 
-const tests = { entry, orcs, flee, goblins };
+// ---- The guide's party ------------------------------------------------------------------------
+//
+// The tests above use SSI's six ready-made characters. From here on the party is the one the Lee
+// guide tells a player to make (qa/research/party.md), loaded from the saved game in
+// qa/fixtures/guide-party-new-phlan with the game's own Load: level 1, Modify's scores, the
+// guide's opening purchases, a Sleep in every magic-user place and a cure in every cleric place.
+//
+// The tactics are the guide's too. [P] §5.2: "The strongest combat spell in the early game is
+// Sleep, by far"; §6.3.1: "All but one set combat are easy to win with the help of Sleep spells
+// cast in the midst of clumps of monsters"; §5.1: "Most of the enemies in this game have no ranged
+// attacks. If there is space in between you and them, it is often better to ... let them close
+// distance". §6.3.2: rest is safe "in a room where you have defeated a set encounter".
+
+const sleep = /^Sleep$/;
+/** The guide party's members who cast cures, the pure cleric first. */
+const healers = guideParty.filter(({ classes }) => /Cleric/.test(classes)).map(({ name }) => name).sort((a, b) => (a === "ELSPETH" ? -1 : b === "ELSPETH" ? 1 : 0));
+/** How many Sleeps the fixture's party has in memory after a rest: one for each character with magic-user among the classes. */
+const sleepsAfterRest = guideParty.filter(({ classes }) => /Magic-User/.test(classes)).length;
+
+/**
+ * Cast Sleep where it cannot fall on the party. [P] §5.2: Sleep takes "its square and ... the
+ * eight adjacent squares (including your own low-level characters, so aim properly)". The fight
+ * screen gives no map to read, but Aim prints each combatant's range from the caster, friend and
+ * foe, nearest first. A target whose range differs by two or more from every friend's range (and
+ * from the caster's own square) is at least two squares from each of them, whatever the directions,
+ * so the spell's nine squares hold no friend. The nearest such enemy is chosen, in the spell's own
+ * Aim list, by its place in that order.
+ * Returns the target, or undefined with the combatant's menu up again when the caster has no Sleep
+ * in memory, no enemy stands clear, or the game does not let the spell reach it.
+ */
+async function castSleepClear(game, friends) {
+  const list = await game.combatants();
+  const mine = list.filter(({ name }, place) => place > 0 && friends.includes(name)).map(({ range }) => range);
+  const place = list.findIndex(({ name, range }, index) => index > 0 && !friends.includes(name) && range >= 2 && mine.every((friend) => Math.abs(range - friend) >= 2));
+  if (place < 0) return undefined;
+  await game.press("c", /Choose Spell: Cast Exit\s*$/, "Cast lists the spells in memory.");
+  let at;
+  if (game.rows().some((row) => sleep.test(row.trim()))) {
+    await game.selectLine(sleep);
+    await game.press("c");
+    if (aimMenu.test(game.menu())) at = await game.target((target, index) => index === place && target.name === list[place].name, (target, index) => index > place);
+  }
+  // Leaving the spell list, or Aim with a spell in hand ("Abort Spell?"), back to the combatant's menu.
+  for (let presses = 0; !at && !combatMenu.test(game.menu()); presses++) {
+    if (presses >= 3) game.fail("Leaving the spell did not return to the combatant's menu.");
+    await game.press(/Abort Spell\? Yes No\s*$/.test(game.menu()) ? "y" : "e");
+  }
+  return at;
+}
+
+/** The menu behind Done. Bandage is on it only while a friend lies dying. */
+const doneMenu = /Guard Delay Quit (?:Bandage )?(?:Speed )?Exit\s*$/;
+
+/**
+ * A character at -1 to -9 hit points loses one more each round "until Bandaged" and is dead at -10
+ * (the rule book, Combat; the digest, section 4). The fight screen does not say who is down, but a
+ * friend who has taken no turn for more than a round may be: then the character whose turn it is
+ * opens Done, and bandages if the game offers Bandage. `acted` maps each name to its last turn.
+ * Returns true when the turn was spent bandaging.
+ */
+async function bandageTheDying(game, acted, turns, friends) {
+  const who = game.combatant().name;
+  acted.set(who, turns);
+  const missing = friends.filter((name) => name !== who && turns - (acted.get(name) ?? 0) > friends.length);
+  if (!missing.length) return false;
+  await game.press("d", doneMenu, "Done opens the menu that has Bandage while a friend is dying.");
+  // Asked once for these: a friend who is asleep, unconscious or dead is not bandaged, and is not asked about every turn.
+  for (const name of missing) acted.set(name, turns);
+  if (!/\bBandage\b/.test(game.menu())) {
+    // Nobody is dying: the friend acted late in the order, or sleeps, or is down at exactly 0.
+    await game.press("e", combatMenu, "Exit returns to the combatant's menu.");
+    return false;
+  }
+  await game.press("b");
+  progress(`${who} bandages (no turn from ${missing.join(", ")} for more than a round)`);
+  // If the game leaves the same combatant's menu up, the turn is still to be played.
+  return !(game.fighting() && game.combatant()?.name === who);
+}
+
+/**
+ * One fight by the guide's tactics, every turn with the game's own commands: in the first four
+ * rounds a character who may still have Sleep in memory casts it at the nearest enemy that stands
+ * clear of the party (`castSleepClear`), until `sleeps` have been cast; otherwise the character
+ * attacks the nearest enemy in reach, or guards and lets the enemy come (`playTurn`). When nobody
+ * has had anything to do for three whole rounds (the enemy left is asleep out of reach, or will
+ * not come), the characters are handed to the game's Quick, which walks them to the enemy;
+ * `game.byHand` takes them back when the next fight begins.
+ * Returns { outcome, xp, rounds, cast, turns, quick }; a fight that is not won fails with the screen.
+ */
+async function fightByGuide(game, { sleeps = sleepsAfterRest, label = "fight" } = {}) {
+  const friends = guideParty.map(({ name }) => name);
+  // Who has no Sleep left to try: it was cast, or the spell list showed none.
+  const spent = new Set();
+  const acted = new Map();
+  let cast = 0, idle = 0, turns = 0, quick = false;
+  const result = await game.win({
+    limit: 1500,
+    turn: async (game) => {
+      turns++;
+      if (turns % 30 === 0) progress(`${label}: ${turns} turns, ${cast} Sleeps cast${quick ? ", on Quick" : ""}`);
+      if (quick) return game.press("q");
+      const who = game.combatant().name;
+      if (await bandageTheDying(game, acted, turns, friends)) return;
+      if (cast < sleeps && turns <= 4 * friends.length && /\bCast\b/.test(game.menu()) && !spent.has(who)) {
+        const at = await castSleepClear(game, friends);
+        if (at) {
+          cast++;
+          spent.add(who);
+          idle = 0;
+          return;
+        }
+      }
+      const did = await game.playTurn();
+      idle = did.guarded ? idle + 1 : 0;
+      if (idle >= 3 * friends.length) {
+        quick = true;
+        game.byHand = false;
+      }
+    },
+  });
+  game.byHand = true;
+  return { ...result, cast, turns, quick };
+}
+
+/**
+ * Where the party cannot rest (a street of New Phlan, a lane of the Slums): make camp, let the
+ * healers cast the cures they have in memory on whoever the game shows as hurt, and break camp.
+ * Casting takes no rest. A character the sheet calls Dead fails with the screen: the party's
+ * cures cannot help him. Returns how many cures were cast.
+ */
+async function tendTheHurt(game) {
+  if (!hurt(game).length) return 0;
+  if (standing(game) < game.party().length) {
+    const dead = (await game.sheets()).filter(({ status }) => /dead/i.test(status)).map(({ name, status }) => `${name} is ${status}`);
+    if (dead.length) game.fail(`${dead.join(", ")}: the party's cures cannot bring a dead character back.`);
+  }
+  await makeCamp(game);
+  let cures = 0;
+  for (const healer of healers.filter((name) => game.party().find((member) => member.name === name)?.hp > 0)) {
+    for (let casts = 0; hurt(game).length && casts < 8; casts++) {
+      if (!await castInCamp(game, healer, cureLightWounds, hurt(game)[0].name)) break;
+      cures++;
+    }
+  }
+  await breakCamp(game);
+  return cures;
+}
+
+/**
+ * In camp on a square where rest is safe: the healers cast their cures on whoever the game shows
+ * as hurt, everyone chooses the guide's spells again, and the party rests the time the game sets;
+ * until nobody is hurt and nobody has a spell left to choose. Returns { cures, rests }. A rest
+ * that is interrupted fails with the screen.
+ */
+async function recover(game) {
+  // A character the sheet calls Dead is beyond the party's cures: that is reported, not worked round.
+  if (standing(game) < game.party().length) {
+    const dead = (await game.sheets()).filter(({ status }) => /dead/i.test(status)).map(({ name, status }) => `${name} is ${status}`);
+    if (dead.length) game.fail(`${dead.join(", ")}: the party's cures cannot bring a dead character back.`);
+  }
+  await makeCamp(game);
+  let cures = 0, rests = 0;
+  const up = (name) => game.party().find((member) => member.name === name)?.hp > 0;
+  for (let round = 0; ; round++) {
+    if (round >= 16) game.fail("Sixteen rests did not bring the party back to full strength.");
+    for (const healer of healers.filter(up)) {
+      for (let casts = 0; hurt(game).length && casts < 8; casts++) {
+        if (!await castInCamp(game, healer, cureLightWounds, hurt(game)[0].name)) break;
+        cures++;
+      }
+    }
+    let chosen = 0;
+    for (const { name } of guideParty.filter(({ name }) => up(name))) {
+      chosen += await chooseSpells(game, name, guideSpells);
+      // The last one to choose stays on the spell menu: its Rest sets the time for everything chosen.
+      if (!chosen || name !== guideParty.filter(({ name }) => up(name)).at(-1).name) await game.press("e", campMenu, "Exit leaves the spell menu.");
+    }
+    if (!chosen) {
+      if (hurt(game).length) game.fail("The party is still hurt and nobody can memorise a cure.");
+      break;
+    }
+    if (!magicMenu.test(game.menu())) await game.press("m", magicMenu, "Magic opens the spell menu.");
+    if (!await restForSpells(game)) game.fail("The rest for the chosen spells was interrupted on a square where rest is safe.");
+    rests++;
+  }
+  await breakCamp(game);
+  return { cures, rests };
+}
+
+/**
+ * What a character sheet shows of `xp` experience points: a multi-classed character's sheet shows
+ * the experience of one class, the award divided by the number of classes and rounded down (the
+ * rule book p.4: "his XP are divided up among his classes"; seen on 2026-11-21: 233 points read
+ * 116 on a fighter/magic-user's sheet).
+ */
+const perClass = (name, xp) => Math.floor(xp / guideParty.find((who) => who.name === name).classes.split("/").length);
+
+/** Every member's experience points, { NAME: exp }, read from the character sheets. From a menu that has View. */
+async function experience(game) {
+  return Object.fromEntries((await game.sheets()).map(({ name, exp }) => [name, exp]));
+}
+
+/**
+ * The experience the end of a fight shows, checked against the guide's figure. [P] §6.1:
+ * "Experience awards listed are per character, and assume you have exactly six characters". The
+ * game shares the fight's total among the characters standing at the end, rounded down (the
+ * goblins' test above): so with six standing the screen shows the guide's figure, and with fewer
+ * it shows the share of a total that gives the guide's figure for six.
+ */
+function requireListedExperience(shown, listed, up, what) {
+  if (up === 6) return assert.equal(shown, listed, `${what}: with all six standing each receives the guide's ${listed} experience points.`);
+  const fits = [0, 1, 2, 3, 4, 5].some((extra) => Math.floor((listed * 6 + extra) / up) === shown);
+  assert.ok(fits, `${what}: with ${up} standing each received ${shown}, which is not the share of a total that gives ${listed} for six.`);
+}
+
+/** Load the guide's party from its fixture and walk it from the inn into the Slums. */
+async function enterSlumsAsGuideParty(options = {}) {
+  const game = await loadParty({ seconds: 3000, watch: [clearPoints, orcsFought, randomFights, goblinsFought], ...options });
+  try {
+    game.byHand = true;
+    await innToSlums(game);
+    at(game, 15, 4, "One step west of the New Phlan gate is the Slums entrance.");
+    return game;
+  } catch (error) {
+    game.close();
+    throw error;
+  }
+}
+
+/**
+ * Walk `route` with the guide's party. A random encounter on the way is fought by the guide's
+ * tactics with at most `sleeps` Sleeps. Returns { fights, cast }: how many encounters, and how
+ * many Sleeps they took.
+ */
+async function walkAsGuideParty(game, route, state, label) {
+  let cast = 0;
+  const fights = await walkFighting(game, route, async (game) => {
+    const fight = await fightByGuide(game, { sleeps: Math.min(2, state.sleeps), label: `${label}: random fight` });
+    state.sleeps -= fight.cast;
+    cast += fight.cast;
+    state.random.push({ at: label, xp: fight.xp, turns: fight.turns, cast: fight.cast });
+    progress(`${label}: random fight won in ${fight.turns} turns with ${fight.cast} Sleeps, ${fight.xp} experience points`);
+  });
+  // The fight screens have no party list: who is still standing shows once the party walks again,
+  // and the sheet of anyone at 0 says how he is down.
+  for (const fight of state.random.slice(-fights || state.random.length)) fight.standing ??= standing(game);
+  if (fights) {
+    const down = standing(game) < game.party().length ? (await game.sheets()).filter(({ hp }) => hp <= 0).map(({ name, status }) => `${name} is ${status}`) : [];
+    if (down.length) state.random.at(-1).down = down;
+    progress(`${label}: after ${fights} random fights the party list shows ${game.party().map(({ hp }) => hp).join(" ")}${down.length ? ` (${down.join(", ")})` : ""}`);
+  }
+  return { fights, cast };
+}
+
+/** A route walked backwards: the headings reversed and each turned round. */
+const back = (route) => [...route].reverse().map((heading) => opposite[heading]).join("");
+
+/**
+ * Bring the guide's party from a room where rest is safe to the door of a set fight, fit for it:
+ * nobody hurt and at least `sleeps` Sleeps in memory. A random fight on `route` can leave it less
+ * than that; then it walks back, recovers in the safe room and sets out again.
+ */
+async function arriveFit(game, state, route, sleeps, label) {
+  for (let tries = 0; ; tries++) {
+    if (tries >= 6) game.fail(`Six tries did not bring the party to ${label} fit to fight.`);
+    await walkAsGuideParty(game, route, state, `to ${label}`);
+    if (!hurt(game).length && state.sleeps >= sleeps) return tries;
+    progress(`${label}: the party arrived with ${state.sleeps} Sleeps and ${hurt(game).length} hurt; back to rest`);
+    await walkAsGuideParty(game, back(route), state, `back from ${label}`);
+    const rest = await recover(game);
+    state.sleeps = sleepsAfterRest;
+    progress(`${label}: recovered with ${rest.cures} cures and ${rest.rests} rests`);
+  }
+}
+
+/**
+ * A set fight of the guide's party, from the "press return" under the room's text to the screen
+ * after the fight (the treasure menu, or the exploration menu when there is no treasure):
+ * the combatants Aim lists must be exactly `foes` ({ NAME: count }) and the six characters; the
+ * fight is fought by the guide's tactics with at most `sleeps` Sleeps and must be won; the
+ * experience on screen must be the guide's `listed` figure (see `requireListedExperience`), where
+ * the guide lists one for the fight. Returns { xp, up, turns, cast, party }.
+ */
+async function setFightAsGuideParty(game, state, { label, foes, sleeps, listed }) {
+  game.expect(pressReturn, "The room's text waits for return before the fight.");
+  const before = game.party();
+  game.byHand = true;
+  await game.startFight("enter");
+  const listedFoes = await game.combatants();
+  const counted = {};
+  for (const { name } of listedFoes) if (!before.some((member) => member.name === name)) counted[name] = (counted[name] ?? 0) + 1;
+  assert.deepEqual(counted, foes, `${label}: the fight is against ${JSON.stringify(foes)}; Aim listed ${JSON.stringify(counted)}.`);
+  assert.equal(listedFoes.length - Object.values(counted).reduce((sum, count) => sum + count, 0), before.length, `${label}: apart from the monsters the combatants are the six characters.`);
+  const fight = await fightByGuide(game, { sleeps: Math.min(sleeps, state.sleeps), label });
+  state.sleeps -= fight.cast;
+  await game.press("enter");
+  const up = standing(game);
+  if (!up) game.fail("Nobody is standing after a fight the party won.");
+  // The party list shows 0 for anyone who is down; the sheet says how: Unconscious, Dying or Dead.
+  const down = up < before.length ? (await game.sheets()).filter(({ hp }) => hp <= 0).map(({ name, status }) => `${name} is ${status}`) : [];
+  const party = `${game.party().map(({ name, hp }) => `${name} ${hp}`).join(", ")}${down.length ? ` (${down.join(", ")})` : ""}`;
+  state.losses.push({ fight: label, standing: up, turns: fight.turns, sleeps: fight.cast, xp: fight.xp, party, down });
+  progress(`${label}: won in ${fight.turns} turns with ${fight.cast} Sleeps${fight.quick ? " (finished on Quick)" : ""}; ${up} standing; ${fight.xp} experience points each; ${party}`);
+  if (listed !== undefined) requireListedExperience(fight.xp, listed, up, label);
+  return { ...fight, up, party };
+}
+
+/** Stage: the orcs at (13,1), from the Slums entrance. Ends rested in their room. */
+async function guideOrcs(game, state) {
+  await walkAsGuideParty(game, "WSSSWNNNNNEN", state, "the orcs");
+  at(game, 14, 1, "The square east of the orcs' room is (14,1).");
+  const points = game.variable(clearPoints);
+  await game.face("W");
+  const mark = game.printed.length;
+  await game.press("up");
+  at(game, 13, 1, "Location 1 is (13,1).");
+  printedInOrder(game, mark, ["SEVERAL ORCS ARE ARGUING OVER SOME PAPERS."], "Entering the room prints the orcs' text.");
+  // [P] §6.3.2: 1 ORC (#13) and 3 ORC (#4), 77 XP. Four orcs need no Sleep from this party; one is allowed.
+  await setFightAsGuideParty(game, state, { label: "the orcs", foes: { ORC: 4 }, sleeps: 1, listed: 77 });
+  assert.deepEqual(await collect(game, "ELSPETH"), ["Clerical Scroll With 2 Spells"], "The cleric takes the orcs' scroll.");
+  assert.equal(game.variable(orcsFought), 255, "The script records the orcs' fight as fought.");
+  assert.equal(game.variable(clearPoints), points + 1, "The fight credits exactly one clear point.");
+  const rest = await recover(game);
+  state.sleeps = sleepsAfterRest;
+  progress(`the orcs: recovered in their room with ${rest.cures} cures and ${rest.rests} rests`);
+}
+
+/** On an Items screen: move the highlight to the item at `index` of the list. */
+async function selectItemAt(game, index) {
+  for (let moves = 0; !game.items()[index]?.selected; moves++) {
+    if (moves > game.items().length + 1) game.fail(`Could not move the highlight to item ${index + 1}.`);
+    await game.press("end");
+  }
+}
+
+/**
+ * Stage: the goblin armsmaster at (10,1), from the orcs' room. Proves
+ * acceptance.slums.goblin-armsmaster in full: the text, the nine goblins, a win, the guide's 90
+ * experience points on screen with all six standing, one clear point, and that the one plain
+ * "Leather Armor" of the loot is Leather Armor +1. Ends rested in the goblins' room.
+ */
+async function guideGoblins(game, state) {
+  at(game, 13, 1, "The stage starts in the orcs' room.");
+  await arriveFit(game, state, "ESWWWW", 2, "the goblins' door");
+  at(game, 10, 2, "The square south of the goblins' room is (10,2).");
+  assert.equal(game.variable(goblinsFought), 0, "The goblins have not been fought yet.");
+  const points = game.variable(clearPoints);
+  await game.face("N");
+  const mark = game.printed.length;
+  let bashes = 0;
+  for (; game.here().y !== 1; bashes++) {
+    if (bashes >= 12) game.fail("Twelve tries did not open the door to the goblins' room.");
+    if (!/Locked\. Bash Pick Exit\s*$/.test(game.menu())) await game.press("up", /Locked\. Bash Pick Exit\s*$/, "The door north of (10,2) is locked.");
+    await game.press("b");
+  }
+  at(game, 10, 1, "Location 2 is (10,1).");
+  printedInOrder(game, mark, [goblinText], "Entering the room prints the armsmaster's text.");
+  // [P] §6.3.2: 1 GOBLIN LEADER (#12) and 8 GOBLIN GUARD (#2), Morale 60, 90 XP.
+  const fight = await setFightAsGuideParty(game, state, { label: "the goblins", foes: { "GOBLIN GUARD": 8, "GOBLIN LEADER": 1 }, sleeps: 3, listed: 90 });
+  // 545 in all, shared among those standing (the test `goblins` above found the total): 90 for six.
+  assert.equal(fight.xp, Math.floor(goblinExperience / fight.up), `With ${fight.up} standing each receives ${Math.floor(goblinExperience / fight.up)}: ${goblinExperience} shared.`);
+  assert.equal(fight.up, 6, `The guide's party comes through the goblins' fight with all six standing, so the screen shows the guide's 90: ${fight.party}.`);
+  assert.equal(fight.xp, 90, "Each of six receives 90 experience points.");
+
+  // The thief takes the one plain "Leather Armor" among the goblins' studded leather.
+  const thief = "FINN";
+  const loot = await collect(game, thief, [/^Leather Armor$/]);
+  assert.equal(loot.filter((name) => name === "Leather Armor").length, 1, `The treasure holds one suit of leather armor; the game listed ${JSON.stringify(loot)}.`);
+  assert.equal(game.variable(goblinsFought), 255, "The script records the goblins' fight as fought.");
+  assert.equal(game.variable(clearPoints), points + 1, "The fight credits exactly one clear point.");
+
+  // It is Leather Armor +1 ([P] §6.3.2, "Among the loot is Leather Armor +1"). The game names an
+  // unidentified item by its plain name, so the proof is what it does: the thief wears bought
+  // leather armor, and with the goblins' suit in its place his armor class is one better.
+  const wearing = await game.viewSheet(thief);
+  await game.press("i", /Ready Use Trade Drop Halve Join Exit\s*$/, "Items lists what the thief carries.");
+  const suits = game.items().map((item, index) => ({ ...item, index })).filter(({ name }) => name === "Leather Armor");
+  assert.deepEqual(suits.map(({ ready }) => ready), [true, false], `The thief carries his own leather armor, ready, and the goblins', not ready: ${JSON.stringify(game.items())}`);
+  await selectItemAt(game, suits[0].index);
+  await game.press("r");
+  assert.equal(game.items()[suits[0].index].ready, false, "Ready on the armor he wears takes it off.");
+  await selectItemAt(game, suits[1].index);
+  await game.press("r");
+  assert.equal(game.items()[suits[1].index].ready, true, "Ready on the goblins' leather armor puts it on.");
+  await game.press("e", /View: ?Items/, "Exit leaves the Items screen.");
+  const now = sheet(game.frame);
+  assert.equal(now.armor, "Leather Armor", "The sheet names leather armor as the armor worn.");
+  assert.equal(now.ac, wearing.ac - 1, `With the goblins' leather armor in place of the bought one the thief's armor class is ${wearing.ac - 1}, one better than ${wearing.ac}: the suit is +1.`);
+  await game.press("e", exploring, "Exit leaves the character sheet.");
+
+  const rest = await recover(game);
+  state.sleeps = sleepsAfterRest;
+  progress(`the goblins: ${bashes} bashes; recovered in their room with ${rest.cures} cures and ${rest.rests} rests`);
+}
+
+/** The party's coins and gems, added up over the six character sheets: { Gold: n, Gems: n, ... }. From a menu that has View. */
+async function partyMoney(game) {
+  const total = {};
+  for (const purse of Object.values(await game.purses())) for (const [kind, count] of Object.entries(purse)) total[kind] = (total[kind] ?? 0) + count;
+  return total;
+}
+
+/**
+ * A treasure found without a fight (the script's TREASURE, then its COMBAT with no monsters): the
+ * game shows "The party has found Treasure! Each character receives N experience points." and
+ * then the treasure menu. Requires `xp` on that screen and on every sheet, takes every item for
+ * `taker`, shares the money, and requires the party's purses to have grown by exactly `money`
+ * ({ Gold: 100, Gems: 2 }) and nothing else. Returns the names of the items as the game lists
+ * them. Leaves the game on the exploration menu.
+ */
+async function claimTreasure(game, { taker, xp, money, label }) {
+  game.expect(/The party has found Treasure! Each character receives (\d+) experience points\. press <enter>\/<return> to continue\s*$/, `${label}: the game announces the treasure and its experience.`);
+  const shown = +/Each character receives (\d+) experience points/.exec(game.text())[1];
+  assert.equal(shown, xp, `${label}: each character receives the guide's ${xp} experience points.`);
+  await game.press("enter", treasureMenu, "Return leads to the treasure menu.");
+  // The treasure menu has View: the sheets already show the new experience, and the purses do not yet hold the treasure.
+  const before = { exp: await experience(game), money: await partyMoney(game) };
+  const loot = await collect(game, taker);
+  const after = { exp: await experience(game), money: await partyMoney(game) };
+  const gained = {};
+  for (const kind of new Set([...Object.keys(before.money), ...Object.keys(after.money)])) {
+    const more = (after.money[kind] ?? 0) - (before.money[kind] ?? 0);
+    if (more) gained[kind] = more;
+  }
+  assert.deepEqual(gained, money, `${label}: shared out, the treasure's money is exactly ${JSON.stringify(money)}.`);
+  assert.deepEqual(after.exp, before.exp, `${label}: taking the treasure adds no experience beyond what the screen announced.`);
+  return { loot, exp: after.exp };
+}
+
+/**
+ * Stage: the stable (location 5), from the goblins' room. Proves acceptance.slums.stable-leather-bag:
+ * the stable's text; with Search on, the leather bag and its question; YES; 233 experience points;
+ * 100 gold pieces and 2 gems; a short bow and arrows. The script asks for Search to be on when the
+ * square is entered (ECL2.DAX block 20 at a461: COMPARE 0x6dca, 1) and never offers the bag twice
+ * (0x4acc). Ends rested in the stable.
+ */
+async function guideStable(game, state) {
+  at(game, 10, 1, "The stage starts in the goblins' room.");
+  const before = await experience(game);
+  // South through the goblins' door, west, and into the dirty room south of the stable, (6,3).
+  await walkAsGuideParty(game, "SWWSWW", state, "the stable");
+  at(game, 6, 3, "The room south of the stable is (6,3).");
+  await game.press("s");
+  assert.equal(game.position()?.mode, "search", "S turns Search on: the status line says so.");
+  await game.face("N");
+  const mark = game.printed.length;
+  await game.press("up");
+  at(game, 6, 2, "The stable's east square is (6,2).");
+  printedInOrder(game, mark, [
+    "YOU HAVE ENTERED A VERY UNCLEAN STABLE. THERE IS EVIDENCE THAT A LARGE AND UNTIDY ANIMAL HAD LIVED HERE.",
+    "YOU FIND A LONG LEATHER BAG. WILL YOU OPEN IT?",
+  ], "With Search on, entering the stable prints its text and then finds the bag.");
+  game.expect(/WILL YOU OPEN IT\? Yes No\s*$/, "The bag is offered with YES and NO.");
+  await game.press("y");
+  // [P] §6.3.2: "a leather bag containing 2 gems, 100 gold, 20 Arrows +1, and a Short Bow +1 (233 XP)".
+  const { loot, exp } = await claimTreasure(game, { taker: "FINN", xp: 233, money: { Gold: 100, Gems: 2 }, label: "the stable" });
+  assert.deepEqual([...loot].sort(), ["20 Arrows", "Short Bow"], `The bag holds twenty arrows and a short bow (the game names unidentified magic by its plain name); it listed ${JSON.stringify(loot)}.`);
+  for (const [name, points] of Object.entries(exp)) assert.ok(points >= before[name] + perClass(name, 233), `${name}'s sheet shows at least ${perClass(name, 233)} experience points more than in the goblins' room: ${before[name]} then, ${points} now.`);
+  // The bag is found once: leaving and coming back with Search still on finds nothing.
+  await game.walk("S");
+  const again = game.printed.length;
+  await game.walk("N");
+  printedInOrder(game, again, [], "A second visit with Search on prints nothing: the bag is gone and the stable's text is shown once.");
+  game.expect(exploring);
+  await game.press("s");
+  assert.equal(game.position()?.mode, undefined, "S turns Search off again.");
+  const rest = await recover(game);
+  state.sleeps = sleepsAfterRest;
+  progress(`the stable: loot ${JSON.stringify(loot)}; recovered with ${rest.cures} cures and ${rest.rests} rests`);
+}
+
+/**
+ * Stage: the secret treasure room at (0,0) (location 12), from the stable. Proves
+ * acceptance.slums.secret-treasure-room. The room is entered from (1,0) through what the guide's
+ * map draws as an illusionary wall; the script hands out the treasure on entry, with no Search
+ * (ECL2.DAX block 20 at ab0d to ab42), and only once (0x4ad6). Ends rested in the room.
+ */
+async function guideSecretRoom(game, state) {
+  at(game, 6, 2, "The stage starts in the stable.");
+  const before = await experience(game);
+  // West out of the stable, along the lane at y=2, north through (2,1) and its door to (2,0), west to (1,0).
+  await walkAsGuideParty(game, "WWWWNNW", state, "the secret room");
+  at(game, 1, 0, "The square east of the secret room is (1,0).");
+  await game.face("W");
+  const mark = game.printed.length;
+  await game.press("up");
+  printedInOrder(game, mark, ["YOU HAVE STUMBLED INTO A TREASURE ROOM."], "Walking west from (1,0) prints the treasure room's text: the wall there is no wall.");
+  // [P] §6.3.2: "2 jewelry, 4 gems, 50 platinum, 92 gold, 1000 electrum, 20 Arrows +1, and Short Bow +1 (1173 XP)".
+  const { loot, exp } = await claimTreasure(game, {
+    taker: "DORIAN", xp: 1173, money: { Jewelry: 2, Gems: 4, Platinum: 50, Gold: 92, Electrum: 1000 }, label: "the secret room",
+  });
+  at(game, 0, 0, "Location 12 is (0,0).");
+  assert.deepEqual([...loot].sort(), ["20 Arrows", "Short Bow"], `The room holds twenty arrows and a short bow beside the money; the game listed ${JSON.stringify(loot)}.`);
+  for (const [name, points] of Object.entries(exp)) assert.ok(points >= before[name] + perClass(name, 1173), `${name}'s sheet shows at least ${perClass(name, 1173)} experience points more than in the stable: ${before[name]} then, ${points} now.`);
+  // The treasure is found once.
+  await game.walk("E");
+  const again = game.printed.length;
+  await game.walk("W");
+  printedInOrder(game, again, [], "A second visit prints nothing: the treasure is gone.");
+  game.expect(exploring);
+  const rest = await recover(game);
+  state.sleeps = sleepsAfterRest;
+  progress(`the secret room: loot ${JSON.stringify(loot)}; recovered with ${rest.cures} cures and ${rest.rests} rests`);
+}
+
+const koboldText = "YOU INTERRUPT SOME FEEDING KOBOLDS.";
+
+/**
+ * Stage: the feeding kobolds at (7,0) (location 6), from the secret room. Proves
+ * acceptance.slums.feeding-kobolds: the text, sixteen kobolds, a win, the guide's 289 experience
+ * points, one clear point, and the leader's Bracers AC 6 in the treasure. Ends rested in the room.
+ */
+async function guideKobolds(game, state) {
+  at(game, 0, 0, "The stage starts in the secret room.");
+  // Back east and south to the lane, east to (4,2), north through the room at (4,0) to (6,0).
+  await arriveFit(game, state, "EESSEENNEE", 3, "the kobolds' door");
+  at(game, 6, 0, "The square west of the kobolds' room is (6,0).");
+  const points = game.variable(clearPoints);
+  await game.face("E");
+  const mark = game.printed.length;
+  let bashes = 0;
+  for (; game.here().x !== 7; bashes++) {
+    if (bashes >= 12) game.fail("Twelve tries did not open the way into the kobolds' room.");
+    if (/Locked\. Bash Pick Exit\s*$/.test(game.menu())) await game.press("b");
+    else await game.press("up");
+  }
+  at(game, 7, 0, "Location 6 is (7,0).");
+  printedInOrder(game, mark, [koboldText], "Entering the room prints the kobolds' text.");
+  // [P] §6.3.2: 1 KOBOLD LEADER (#11) and 15 KOBOLD (#0), Morale 60, 289 XP; "The leader carries Bracers AC 6."
+  await setFightAsGuideParty(game, state, { label: "the kobolds", foes: { KOBOLD: 15, "KOBOLD LEADER": 1 }, sleeps: 4, listed: 289 });
+  const thief = "FINN";
+  const loot = await collect(game, thief, [/^Bracers/]);
+  assert.equal(loot.filter((name) => /^Bracers/.test(name)).length, 1, `The treasure holds one pair of bracers; the game listed ${JSON.stringify(loot)}.`);
+  assert.equal(game.variable(clearPoints), points + 1, "The fight credits exactly one clear point.");
+
+  // They are Bracers AC 6. [P] §4.1.2: "A thief should get magical leather armor, or better yet
+  // Bracers of Defense". With his armor off and the bracers on, the thief's armor class is 6 less
+  // the 4 his Dexterity of 19 gives: 2.
+  await game.viewSheet(thief);
+  await game.press("i", /Ready Use Trade Drop Halve Join Exit\s*$/, "Items lists what the thief carries.");
+  const carried = game.items().map((item, index) => ({ ...item, index }));
+  for (const armor of carried.filter(({ name, ready }) => name === "Leather Armor" && ready)) {
+    await selectItemAt(game, armor.index);
+    await game.press("r");
+    assert.equal(game.items()[armor.index].ready, false, "Ready on the armor he wears takes it off.");
+  }
+  const bracers = carried.find(({ name }) => /^Bracers/.test(name));
+  assert.ok(bracers && !bracers.ready, `The thief carries the bracers, not yet ready: ${JSON.stringify(game.items())}`);
+  await selectItemAt(game, bracers.index);
+  await game.press("r");
+  assert.equal(game.items()[bracers.index].ready, true, "Ready puts the bracers on.");
+  await game.press("e", /View: ?Items/, "Exit leaves the Items screen.");
+  assert.equal(sheet(game.frame).ac, 2, "With the bracers and no armor the thief's armor class is 2: 6 from the bracers, less 4 for Dexterity 19.");
+  await game.press("e", exploring, "Exit leaves the character sheet.");
+
+  const rest = await recover(game);
+  state.sleeps = sleepsAfterRest;
+  progress(`the kobolds: ${bashes} tries at the door; loot ${JSON.stringify(loot)}; recovered with ${rest.cures} cures and ${rest.rests} rests`);
+}
+
+const hobgoblinText = "SOME HOBGOBLINS ARE ARGUING OVER A PILE OF GOLD. 'THIEVES!' THEY SCREAM WHEN THEY SEE YOU.";
+
+/**
+ * Stage: the hobgoblins at (0,2) (location 10) and their gold, from the kobolds' room. Proves
+ * acceptance.slums.hobgoblins-gold: the text, five hobgoblins, a win, one clear point; then, with
+ * Search on, "YOU FIND A LARGE NUMBER OF VALUABLES.", 258 experience points, 500 gold and 50
+ * platinum pieces, a ring and a short bow; and that the ring is a Ring of Protection +1. The
+ * script hands out the treasure when the room is entered with Search on after the fight
+ * (ECL2.DAX block 20 at aa8c to aacf). Ends rested in the room.
+ */
+async function guideHobgoblins(game, state) {
+  at(game, 7, 0, "The stage starts in the kobolds' room.");
+  // West and south to the lane at y=2, west to (2,2), north through (2,1) and (2,0), west and south to (0,1).
+  await arriveFit(game, state, "WSWWSWWNNWSW", 2, "the hobgoblins' door");
+  at(game, 0, 1, "The square north of the hobgoblins' room is (0,1).");
+  const points = game.variable(clearPoints);
+  await game.face("S");
+  const mark = game.printed.length;
+  let bashes = 0;
+  for (; game.here().y !== 2; bashes++) {
+    if (bashes >= 12) game.fail("Twelve tries did not open the way into the hobgoblins' room.");
+    if (/Locked\. Bash Pick Exit\s*$/.test(game.menu())) await game.press("b");
+    else await game.press("up");
+  }
+  at(game, 0, 2, "Location 10 is (0,2).");
+  printedInOrder(game, mark, [hobgoblinText], "Entering the room prints the hobgoblins' text.");
+  // [P] §6.3.2: "Fight 5 HOBGOBLIN (#6) (Morale 75)". The guide lists no experience for the fight itself.
+  const fight = await setFightAsGuideParty(game, state, { label: "the hobgoblins", foes: { HOBGOBLIN: 5 }, sleeps: 3 });
+  await leaveFight(game);
+  assert.equal(game.variable(clearPoints), points + 1, "The fight credits exactly one clear point.");
+
+  // "After combat, you can search to find their treasure (258 XP): 50 platinum, 500 gold, Ring of Protection +1, Short Bow +1."
+  await game.walk("N");
+  await game.press("s");
+  assert.equal(game.position()?.mode, "search", "S turns Search on: the status line says so.");
+  await game.face("S");
+  const search = game.printed.length;
+  await game.press("up");
+  printedInOrder(game, search, ["YOU FIND A LARGE NUMBER OF VALUABLES."], "Entering the beaten room with Search on finds the hobgoblins' valuables.");
+  const wearer = "ELSPETH";
+  const { loot } = await claimTreasure(game, { taker: wearer, xp: 258, money: { Gold: 500, Platinum: 50 }, label: "the hobgoblins' gold" });
+  at(game, 0, 2, "The valuables are in the hobgoblins' room.");
+  assert.equal(loot.length, 2, `The valuables hold two items beside the money; the game listed ${JSON.stringify(loot)}.`);
+  assert.ok(loot.includes("Short Bow") && loot.some((name) => /^Ring/.test(name)), `The items are a ring and a short bow; the game listed ${JSON.stringify(loot)}.`);
+  await game.press("s");
+  assert.equal(game.position()?.mode, undefined, "S turns Search off again.");
+
+  // The ring is a Ring of Protection +1: on the cleric's hand her armor class is one better.
+  const without = await game.viewSheet(wearer);
+  await game.press("i", /Ready Use Trade Drop Halve Join Exit\s*$/, "Items lists what the cleric carries.");
+  const ring = game.items().findIndex(({ name }) => /^Ring/.test(name));
+  assert.ok(ring >= 0 && !game.items()[ring].ready, `The cleric carries the ring, not yet ready: ${JSON.stringify(game.items())}`);
+  await selectItemAt(game, ring);
+  await game.press("r");
+  assert.equal(game.items()[ring].ready, true, "Ready puts the ring on.");
+  await game.press("e", /View: ?Items/, "Exit leaves the Items screen.");
+  assert.equal(sheet(game.frame).ac, without.ac - 1, `With the ring on the cleric's armor class is ${without.ac - 1}, one better than ${without.ac}: a Ring of Protection +1.`);
+  await game.press("e", exploring, "Exit leaves the character sheet.");
+
+  const rest = await recover(game);
+  state.sleeps = sleepsAfterRest;
+  progress(`the hobgoblins: ${bashes} tries at the door, ${fight.xp} experience points for the fight; loot ${JSON.stringify(loot)}; recovered with ${rest.cures} cures and ${rest.rests} rests`);
+}
+
+/** Gold pieces to one coin of each kind (200 cp = 20 sp = 2 ep = 1 gp = 1/5 pp); gems and jewelry are not money to a trainer. */
+const goldValue = { Copper: 1 / 200, Silver: 1 / 20, Electrum: 1 / 2, Gold: 1, Platinum: 5 };
+const inGold = (purse) => Math.round(Object.entries(purse).reduce((sum, [kind, count]) => sum + (goldValue[kind] ?? 0) * count, 0) * 200) / 200;
+const templeMenu = /Heal View (?:Take )?Pool (?:Share )?Appraise Exit\s*$/;
+const clericSign = "A SIGN ON THE WALL DIRECTS MAGIC USERS TO GO THROUGH THE EAST DOOR AND CLERICS TO GO THROUGH THE WEST DOOR.";
+/** What the trainer flashes for a character without the price ("Training costs 1000 gp."), named before class or experience is looked at (party-care self-test). */
+const trainingPrice = 1000;
+
+/**
+ * In New Phlan at the gate (0,4): put 1000 gold pieces' worth of platinum and gold in `member`'s
+ * purse at the Temple of Sune (Pool, Take, then Share for the rest), walk to the clerics' trainer
+ * at (5,0) and open his party menu. Returns the purses and sheets read on the way in.
+ */
+async function toClericTrainer(game, member) {
+  at(game, 0, 4, "The trip to the trainer starts at the gate.");
+  await game.walk("EN");
+  await game.press("y", templeMenu, "YES opens the temple menu.");
+  await pool(game);
+  await game.press("t", /Select type of coin Exit\s*$/, "Take lists the pooled coins.");
+  const pooled = Object.fromEntries([...game.rows().join("\n").matchAll(/^\s*(Copper|Silver|Electrum|Gold|Platinum|Gems|Jewelry) +(\d+)\s*$/gm)].map(([, kind, count]) => [kind, +count]));
+  await game.press("e", templeMenu, "Exit leaves the list.");
+  // Platinum first (it weighs a fifth of its worth in gold), then gold to make up the price.
+  const platinum = Math.min(pooled.Platinum ?? 0, trainingPrice / 5);
+  const gold = trainingPrice - platinum * 5;
+  if ((pooled.Gold ?? 0) < gold) game.fail(`The party's pool does not hold ${trainingPrice} gold pieces in platinum and gold: ${JSON.stringify(pooled)}.`);
+  await takeCoins(game, member, { ...(platinum ? { Platinum: platinum } : {}), ...(gold ? { Gold: gold } : {}) });
+  // Share deals the rest out again; the coins just taken stay with the one who took them.
+  await game.press("s", templeMenu, "Share deals out what is left of the pool.");
+  await game.press("e", exploring, "Exit leaves the temple.");
+  const purse = (await game.purses())[member];
+  const before = await game.viewSheet(member);
+  await game.press("e", exploring, "Exit leaves the character sheet.");
+  const mark = game.printed.length;
+  await game.walk("SENNEEEENN");
+  assert.equal(flat(game.printed.slice(mark).at(-1) ?? ""), clericSign, "The square between the two halls, (6,0), has the sign for magic-users and clerics.");
+  await game.walk("W");
+  game.expect(/'WE TRAIN ONLY CLERICS HERE\. DO YOU WANT TO TRAIN\?' Yes No\s*$/, "The trainer at (5,0) trains clerics and asks.");
+  await game.press("y", /Train Character/, "YES opens the trainer's party menu.");
+  return { pooled, purse, before };
+}
+
+/** From the trainer's party menu: BEGIN Adventuring and walk back to the gate at (0,4). */
+async function fromClericTrainer(game) {
+  await game.press("b", exploring, "BEGIN Adventuring leaves the trainer.");
+  at(game, 5, 0, "The clerics' hall is (5,0).");
+  await game.walk("ESSWWWWSSWW");
+  at(game, 0, 4, "The party is back at the gate.");
+}
+
+/**
+ * Stage: training. From the hobgoblins' room the party walks out of the Slums, and the cleric,
+ * who alone has the experience for a second level (a cleric needs 1,501; the others' awards are
+ * divided among two or three classes), trains at the clerics' hall for 1000 gold pieces. [P] §4.3:
+ * "Once a character has enough experience to gain a level, training costs 1000 gold at the
+ * appropriate training hall in town"; the data card: "When your characters have enough experience
+ * points and money, train in the training hall."
+ *
+ * Before she trains, two others carry the price to the same trainer and are refused: the
+ * cleric/fighter/magic-user, who has the class and not the experience, and a fighter/magic-user,
+ * who has not the class. And the trainer's menu has Modify Character: the game refuses it for a
+ * character who has experience points, which settles when Modify stops (qa/disagreements.json).
+ */
+async function guideTrain(game, state) {
+  at(game, 0, 2, "The stage starts in the hobgoblins' room.");
+  // North out of the room, back to the lane at y=2, east along it and down the lane at x=13 to the entrance.
+  await walkAsGuideParty(game, "NENESSEEEESENEEEEEESSSSSENNNE", state, "the way out");
+  at(game, 15, 4, "The Slums entrance is (15,4).");
+  await game.face("E");
+  await game.press("up");
+  at(game, 0, 4, "East from the Slums entrance is the New Phlan gate.");
+  // The city's streets allow no rest, but the cures in memory can be cast.
+  const tended = await tendTheHurt(game);
+  progress(`training: back in New Phlan; ${tended} cures cast at the gate; the party list shows ${game.party().map(({ hp }) => hp).join(" ")}`);
+
+  // What the clerics' trainer answers a character who has the price (the game's own words, seen on
+  // 2026-11-21; the guides quote neither): a cleric short of experience, and a character of another class.
+  const refusals = {};
+  for (const [member, answer] of [["DORIAN", "Not Enough Experience"], ["AELAR", "We don't train that class here"]]) {
+    const { before } = await toClericTrainer(game, member);
+    assert.equal(before.level.replaceAll("1", "").replaceAll("/", ""), "", `${member} is still level 1 in every class: ${before.level}.`);
+    assert.ok(before.exp < 1501, `${member}'s sheet shows less than the 1,501 experience points of a second-level cleric: ${before.exp}.`);
+    refusals[member] = await train(game, member);
+    progress(`training: ${member} (${before.classes}, ${before.exp} experience points on the sheet) with the price in hand: ${JSON.stringify(refusals[member])}`);
+    assert.deepEqual(refusals[member], { refused: answer }, `${member}, ${before.classes}, has the price and is refused with "${answer}".`);
+    await fromClericTrainer(game);
+  }
+
+  const cleric = "ELSPETH";
+  const { purse, before } = await toClericTrainer(game, cleric);
+  assert.equal(before.level, "1", "The cleric is level 1.");
+  assert.ok(before.exp >= 1501 && before.exp < 3001, `The cleric has the experience for level 2 and not for level 3: ${before.exp}.`);
+  // Modify Character is on this menu too. She has experience points and has not gone up a level.
+  await game.press("end");
+  await game.highlight(cleric);
+  let shown = game.flashed.length;
+  await game.press("m", /Choose a function\s*$/, "Modify is refused: the party menu stays up.");
+  assert.deepEqual(flashedSince(game, shown), [`${cleric} can't be modified.`], "Modify Character on a level 1 character who has experience points is refused on the bottom line.");
+  // A character without the price is told the price, whoever it is.
+  assert.deepEqual(await train(game, "FINN"), { refused: `Training costs ${trainingPrice} gp.` }, "A character without 1000 gold pieces is told what training costs.");
+  shown = game.flashed.length;
+  const trained = await train(game, cleric);
+  assert.ok(trained.trained && /ELSPETH will become: a level 2 Cleric Do you wish to train\? Yes No\s*$/.test(trained.text), `The trainer offers the cleric her second level: ${JSON.stringify(trained)}.`);
+  assert.deepEqual(flashedSince(game, shown), ["Congratulations..."], "The trainer congratulates her on the bottom line.");
+  await fromClericTrainer(game);
+  const after = await game.viewSheet(cleric);
+  await game.press("e", exploring, "Exit leaves the character sheet.");
+  const purseAfter = (await game.purses())[cleric];
+  assert.equal(after.level, "2", "She has gained exactly one level.");
+  assert.equal(after.exp, before.exp, "Training leaves her experience points as they were.");
+  // A cleric gains 1 to 8 hit points with a level (the rule book p.4), and 2 more for Constitution 18.
+  assert.ok(after.hp - before.hp >= 3 && after.hp - before.hp <= 10, `She gained ${after.hp - before.hp} hit points: 1 to 8, and 2 for Constitution.`);
+  assert.equal(inGold(purse) - inGold(purseAfter), trainingPrice, `Training took exactly 1000 gold pieces' worth of her coins: ${JSON.stringify(purse)} before, ${JSON.stringify(purseAfter)} after.`);
+  state.training = { refusals, before: { hp: before.hp, exp: before.exp, purse }, after: { hp: after.hp, purse: purseAfter } };
+  progress(`training: ${cleric} is level 2, hit points ${before.hp} to ${after.hp}; purse ${JSON.stringify(purse)} to ${JSON.stringify(purseAfter)}`);
+}
+
+/** The stages of the guide party's walk through the Slums, in the guide's order. Each ends rested on a square where rest is safe, and is saved there in its slot. */
+const guideStages = [
+  { name: "orcs", slot: "B", run: guideOrcs, proves: [] },
+  { name: "goblins", slot: "C", run: guideGoblins, proves: ["acceptance.slums.goblin-armsmaster"] },
+  { name: "stable", slot: "D", run: guideStable, proves: ["acceptance.slums.stable-leather-bag"] },
+  { name: "secret", slot: "E", run: guideSecretRoom, proves: ["acceptance.slums.secret-treasure-room"] },
+  { name: "kobolds", slot: "F", run: guideKobolds, proves: ["acceptance.slums.feeding-kobolds"] },
+  { name: "hobgoblins", slot: "G", run: guideHobgoblins, proves: ["acceptance.slums.hobgoblins-gold"] },
+  { name: "train", slot: "H", run: guideTrain, proves: [] },
+];
+
+/**
+ * The guide's party in the Slums. For working on one stage: POR_SLUMS_GUIDE_KEEP=<dir> copies the
+ * saved games out after each stage, POR_SLUMS_GUIDE_FROM=<stage> with POR_SLUMS_GUIDE_SAVES=<dir>
+ * starts at that stage from the slot the stage before saved, and POR_SLUMS_GUIDE_UNTIL=<stage>
+ * stops after one.
+ */
+async function guide() {
+  const { POR_SLUMS_GUIDE_FROM: from, POR_SLUMS_GUIDE_UNTIL: until, POR_SLUMS_GUIDE_KEEP: keep, POR_SLUMS_GUIDE_SAVES: saves } = process.env;
+  const first = from ? guideStages.findIndex(({ name }) => name === from) : 0;
+  if (first < 0) throw new Error(`No stage named ${from}. The stages are: ${guideStages.map(({ name }) => name).join(", ")}.`);
+  const game = first
+    ? await loadParty({ seconds: 3000, watch: [clearPoints, orcsFought, randomFights, goblinsFought] }, saves, guideStages[first - 1].slot)
+    : await enterSlumsAsGuideParty();
+  const state = { sleeps: sleepsAfterRest, random: [], losses: [] };
+  try {
+    game.byHand = true;
+    for (const stage of guideStages.slice(first)) {
+      progress(`guide: stage ${stage.name}`);
+      await stage.run(game, state);
+      await makeCamp(game);
+      await saveGame(game, stage.slot);
+      await breakCamp(game);
+      if (keep) {
+        mkdirSync(keep, { recursive: true });
+        for (const file of readdirSync(game.saves).filter((name) => name.endsWith(".json"))) cpSync(join(game.saves, file), join(keep, file));
+      }
+      assert.equal(game.discarded, 0, "No key press may be thrown away.");
+      proved.push(...stage.proves);
+      if (stage.name === until) break;
+    }
+    console.log(`guide: set fights ${state.losses.map(({ fight, standing, turns, sleeps, xp }) => `${fight}: ${standing} of 6 standing, ${turns} turns, ${sleeps} Sleeps, ${xp} experience points`).join("; ")}`);
+    console.log(`guide: ${state.random.length} random fights: ${state.random.map(({ at, xp, turns, cast, standing }) => `${at}: ${standing} standing, ${turns} turns, ${cast} Sleeps, ${xp} xp`).join("; ")}`);
+  } finally {
+    game.close();
+  }
+}
+
+const tests = { entry, orcs, flee, goblins, guide };
 const wanted = process.argv.slice(2);
 for (const name of wanted) if (!(name in tests)) throw new Error(`No test named ${name}. The tests are: ${Object.keys(tests).join(", ")}.`);
 if (wanted.length) {

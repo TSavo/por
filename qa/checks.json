@@ -179,7 +179,7 @@
     },
     {
       "id": "acceptance-slums",
-      "title": "Slums walkthrough scenarios on the game itself: the entry from New Phlan, the fight with the orcs at location 1 fought with the game's own commands, their scroll readied and read (with the messages the game flashes on the bottom line), the five flee squares, and the goblin armsmaster at location 2 after healing in camp with the cleric's spells and bashing the locked door",
+      "title": "Slums walkthrough scenarios on the game itself: the entry from New Phlan, the fight with the orcs at location 1 fought with the game's own commands, their scroll readied and read (with the messages the game flashes on the bottom line), the five flee squares, and the goblin armsmaster at location 2 after healing in camp with the cleric's spells and bashing the locked door; and, with the party the Lee guide tells a player to make, the armsmaster again with all six standing and 90 experience points each and his Leather Armor +1, the stable's leather bag, the secret treasure room, the feeding kobolds and the Bracers AC 6, the hobgoblins and their gold with the Ring of Protection +1, and the cleric trained to level 2 for 1000 gold pieces",
       "command": "npm run acceptance:slums",
       "reference": "game-data",
       "needs": [

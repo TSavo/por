@@ -285,7 +285,8 @@ export async function buildParty(game, party = guideParty, log = () => {}) {
 
 // ---- The opening purchases -------------------------------------------------------------------
 
-const shopMenu = /Buy View (?:Take )?Pool (?:Share )?Appraise Exit\s*$/;
+/** A shop's menu, or a temple's, which has Heal where a shop has Buy: both pool, take and share money the same way. */
+const shopMenu = /(?:Buy|Heal) View (?:Take )?Pool (?:Share )?Appraise Exit\s*$/;
 const stockMenu = /Items: Buy (?:Next )?(?:Prev )?Exit\s*$/;
 /** The Items menu: Use is offered outside a shop, Sell and Id inside one. */
 const itemsMenu = /Ready (?:Use )?Trade Drop Halve Join (?:Sell Id )?Exit\s*$/;
@@ -356,32 +357,51 @@ export async function buyItem(game, member, item) {
   return { bought: !said, said };
 }
 
+const coinMenu = /Select type of coin Exit\s*$/;
+/** The pooled coins as the Take list shows them: { Gold: 3, Platinum: 1 }. */
+const coinsListed = (game) => Object.fromEntries([...game.rows().join("\n").matchAll(/^\s*(Copper|Silver|Electrum|Gold|Platinum|Gems|Jewelry) +(\d+)\s*$/gm)].map(([, kind, count]) => [kind, +count]));
+
 /**
- * In a shop whose money is pooled: `member` takes every coin of the pool, kind by kind, with the
- * game's Take command (the data card: "Use the Take command and have one character pick up all the
- * money"). Returns what was taken, { Platinum: 1, Gold: 3 }. Leaves the game on the shop menu,
- * which no longer offers Take.
+ * In a shop or temple whose money is pooled: `member` takes `wanted` ({ Platinum: 100, Gold: 500 })
+ * from the pool with the game's Take command, one kind of coin at a time, and the list must show
+ * the pool that much smaller each time (a character can carry only so much: a take the game
+ * refuses fails with the screen). Leaves the game on the shop menu.
+ */
+export async function takeCoins(game, member, wanted) {
+  game.expect(shopMenu, "Coins are taken from the shop menu.");
+  await game.press("end");
+  await selectMember(game, member);
+  for (const [kind, count] of Object.entries(wanted)) {
+    if (!coinMenu.test(game.menu())) await game.press("t", coinMenu, "Take lists the pooled coins.");
+    const before = coinsListed(game)[kind] ?? 0;
+    if (before < count) game.fail(`The pool holds ${before} ${kind}, not the ${count} to take.`);
+    await game.selectLine(new RegExp(`^${kind} +\\d+$`));
+    // The game writes some kinds in small letters here ("How much silver will you take?").
+    await game.press("enter", new RegExp(`How much ${kind} will you take\\?\\s*$`, "i"), "Choosing a kind of coin asks how much.");
+    for (const digit of String(count)) await game.press(digit);
+    await game.press("enter");
+    // With the pool emptied the list closes; otherwise it shows what is left.
+    const left = coinMenu.test(game.menu()) ? coinsListed(game)[kind] ?? 0 : 0;
+    if (left !== before - count) game.fail(`${member} asked for ${count} ${kind} and the pool went from ${before} to ${left}.`);
+  }
+  if (coinMenu.test(game.menu())) await game.press("e", shopMenu, "Exit leaves the rest in the pool.");
+  game.expect(shopMenu, "Taking leads back to the shop menu.");
+}
+
+/**
+ * In a shop whose money is pooled: `member` takes every coin of the pool (the data card: "Use the
+ * Take command and have one character pick up all the money"). Returns what was taken,
+ * { Platinum: 1, Gold: 3 }. Leaves the game on the shop menu, which no longer offers Take.
  */
 export async function takePool(game, member) {
   game.expect(shopMenu, "The pool is taken from the shop menu.");
-  await game.press("end");
-  await selectMember(game, member);
-  const taken = {};
-  const coinMenu = /Select type of coin Exit\s*$/;
-  if (!/\bTake\b/.test(game.menu())) return taken;
+  if (!/\bTake\b/.test(game.menu())) return {};
   await game.press("t", coinMenu, "Take lists the pooled coins.");
-  for (let kinds = 0; coinMenu.test(game.menu()); kinds++) {
-    if (kinds >= 7) game.fail("The pool did not empty.");
-    const row = await game.selectLine(/^(?:Copper|Silver|Electrum|Gold|Platinum|Gems|Jewelry) +\d+$/);
-    const [kind, count] = row.split(/ +/);
-    await game.press("enter", new RegExp(`How much ${kind} will you take\\?\\s*$`), "Choosing a kind of coin asks how much.");
-    for (const digit of count) await game.press(digit);
-    await game.press("enter");
-    taken[kind] = +count;
-  }
-  game.expect(shopMenu, "With the pool empty the game is back on the shop menu.");
+  const pool = coinsListed(game);
+  await game.press("e", shopMenu, "Exit leaves the list.");
+  await takeCoins(game, member, pool);
   if (/\bTake\b/.test(game.menu())) game.fail("The shop menu still offers Take: the pool is not empty.");
-  return taken;
+  return pool;
 }
 
 /** From the arms shop at (8,11) to the square north of the inn at (4,12), and the step in (the data card: "the inn at 4,12"). */
