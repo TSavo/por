@@ -7506,17 +7506,23 @@ try {
       return { width, height, native: [display.naturalWidth, display.naturalHeight] };
     })()`);
     const before = await latest();
-    await run('document.querySelector("#presentation").click()');
-    await waitFor("classic presentation", () => run('document.querySelector("#game-text").hidden && document.querySelector("#tile-art").hidden'));
-    if (classicFrame) {
-      const nativePng = JSON.stringify(`data:image/png;base64,${classicFrame}`);
-      await waitFor("the captured guest frame in Classic", () => run(`document.querySelector("#screen").src === ${nativePng}`));
+    if (before.classicAvailable === false) {
+      // The bundled game has no Classic bitmaps. Verify its only presentation
+      // and exact game state while running the rest of the same replay.
+      assert.equal(await run('document.querySelector("#presentation").hidden'), true);
+    } else {
+      await run('document.querySelector("#presentation").click()');
+      await waitFor("classic presentation", () => run('document.querySelector("#game-text").hidden && document.querySelector("#tile-art").hidden'));
+      if (classicFrame) {
+        const nativePng = JSON.stringify(`data:image/png;base64,${classicFrame}`);
+        await waitFor("the captured guest frame in Classic", () => run(`document.querySelector("#screen").src === ${nativePng}`));
+      }
+      const classic = await displayGeometry();
+      assert.deepEqual(classic.native, [320, 200]);
+      assert.ok(Math.abs(classic.height - classic.width * 5 / 8) < 1, "Classic should render at 8:5");
+      assert.deepEqual(await latest(), before);
+      await run('window.dispatchEvent(new KeyboardEvent("keydown", { key: "F10" }))');
     }
-    const classic = await displayGeometry();
-    assert.deepEqual(classic.native, [320, 200]);
-    assert.ok(Math.abs(classic.height - classic.width * 5 / 8) < 1, "Classic should render at 8:5");
-    assert.deepEqual(await latest(), before);
-    await run('window.dispatchEvent(new KeyboardEvent("keydown", { key: "F10" }))');
     await waitFor("enhanced text", () => run('!document.querySelector("#game-text").hidden'));
     const enhanced = await displayGeometry();
     assert.ok(Math.abs(enhanced.height - enhanced.width * 3 / 4) < 1, "Enhanced should render at 4:3");
@@ -9469,10 +9475,11 @@ try {
       for (let step = 0; step < 10 && !manualTurn.test(visibleText()); step++) {
         await advance("enter");
         if (enemyScreenshot || !frame.combatArt.some(([x, y, id]) => x === 8 && y === 104 && id === raider)) continue;
-        const stones = frame.combatArt.findIndex(([x, y, id]) => x === 80 && y === 152 && /^combat:RANDCOM\.DAX:1:0:[01]$/.test(id));
-        const raiderOverStones = frame.combatArt.findIndex(([x, y, id]) => x === 80 && y === 152 && id === raider);
+        const layers = [...(frame.battleProps ?? []), ...frame.combatArt];
+        const stones = layers.findIndex(([x, y, id]) => x === 80 && y === 152 && /^combat:RANDCOM\.DAX:1:0:[01]$/.test(id));
+        const raiderOverStones = layers.findIndex(([x, y, id]) => x === 80 && y === 152 && id === raider);
         assert.ok(stones >= 0 && raiderOverStones > stones, "Expected the enhanced standing kobold over the loose stones");
-        const overlappingSprites = [frame.combatArt[stones][2], raider].map(id => "/art/" + id);
+        const overlappingSprites = [layers[stones][2], raider].map(id => "/art/" + id);
         await waitFor("the enhanced stones beneath the raider", () => run(`state.sequence === ${frame.sequence} &&
           JSON.stringify([...document.querySelectorAll(".combat-sprite")].filter(img =>
             img.style.left === "25%" && img.style.top === "76%" && img.naturalWidth === 96 && img.naturalHeight === 96

@@ -430,6 +430,12 @@ retain the prop when a living unit obscures it. Across 198 frames in
 the paired Slums replay, every settled battle prop matched and the
 scripted orc fight had no art differences. Two animation report groups
 still differ on when the prop is shown.
+
+Loose RANDCOM stones now draw from their transparent prop artwork in
+both modes, with frame 0 reflected. They replace the matching component
+tiles and stay behind actors. The paired Slums replay reported no
+loose-stone differences, and the Nomad raid Chrome replay verified the
+prop directly beneath a standing kobold in both data modes.
 Kuto's gnoll-watch portrait now includes the first animation phase from
 `PIC8.DAX` block 73, member 1. The replay selected the gnoll roster and
 then used the original Advance and idle inputs. Chrome witnessed the

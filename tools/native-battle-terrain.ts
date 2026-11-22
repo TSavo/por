@@ -1,24 +1,16 @@
-import { createHash } from "node:crypto";
 import type { Cpu } from "../src/cpu/machine.js";
 import type { PictureRecord } from "../src/runtime/game-data.js";
-import { fallenCombatKey, type CombatArtPlacement } from "./combat-art.js";
+import type { CombatArtPlacement } from "./combat-art.js";
 
 type TerrainPlacement = [x: number, y: number, key: string];
-const blankCell = createHash("sha256").update(Buffer.alloc(64)).digest("hex");
+type TerrainSquare = { cells: readonly string[]; prop?: string; reflected?: boolean };
 
 export function observeNativeBattleTerrain(pictures: readonly PictureRecord[], art: ReadonlySet<string>,
   combatArt: ReadonlySet<string>) {
-  const sheets = new Map(pictures.flatMap(({ file, block, pictures: shapes }) => {
+  const sheets = new Map<string, TerrainSquare[]>(pictures.flatMap(({ file, block, pictures: shapes }) => {
     const shape = shapes[0];
     return shapes.length === 1 && shape?.width === 24 && shape.height === 24 && shape.cellHashes
-      ? [[`${file}:${block}`, shape.cellHashes.map((cells, frame) => {
-        const key = `combat:RANDCOM.DAX:1:0:${frame}`;
-        // The fallen-unit marker has a dedicated transparent sprite, which the
-        // pixel matcher also draws over the battlefield in the original data path.
-        const whole = file === "RANDCOM.DAX" && block === 1 && combatArt.has(key) &&
-          (key === fallenCombatKey || cells.some(hash => hash !== blankCell && !art.has(`battle-tile:${hash}`)));
-        return { cells, prop: whole ? key : undefined, reflected: frame === 0 };
-      })] as const] : [];
+      ? [[`${file}:${block}`, shape.cellHashes.map((cells) => ({ cells }))]] : [];
   }));
   const squares = Array.from({ length: 256 }, (_, picture) => {
     const block = picture < 128 ? 1 : 2;
@@ -26,7 +18,6 @@ export function observeNativeBattleTerrain(pictures: readonly PictureRecord[], a
   });
   const visible = new Map<number, TerrainPlacement>();
   const props = new Map<number, CombatArtPlacement>();
-  const fallen = combatArt.has(fallenCombatKey) ? { cells: [], prop: fallenCombatKey, reflected: false } : undefined;
 
   return {
     copySheet(cpu: Cpu) {
@@ -40,9 +31,11 @@ export function observeNativeBattleTerrain(pictures: readonly PictureRecord[], a
       const start = word(8) & 0xff;
       const count = cpu.read8(word(-0x102), (word(-0x104) + 8) & 0xffff);
       for (let frame = 0; frame < count && start + frame < 128; frame++) {
-        // The original data path does not pass archive metadata. The sheet
-        // copy still identifies the fallen marker when a standing unit hides it.
-        squares[start + frame] = source?.[frame] ?? (name === "RANDCOM" && frame === 5 ? fallen : undefined);
+        // RANDCOM has dedicated transparent prop artwork. A guest sheet
+        // copy identifies it in both modes, even beneath a standing unit.
+        const prop = `combat:RANDCOM.DAX:1:0:${frame}`;
+        squares[start + frame] = name === "RANDCOM" && combatArt.has(prop)
+          ? { cells: [], prop, reflected: frame === 0 } : source?.[frame];
       }
     },
     draw(column: number, row: number, picture: number) {
@@ -53,7 +46,7 @@ export function observeNativeBattleTerrain(pictures: readonly PictureRecord[], a
       for (const [id, [x, y]] of props) {
         if (x < left + 24 && left < x + 24 && y < top + 24 && top < y + 24) props.delete(id);
       }
-      if (source?.prop) props.set(top * 320 + left, [left, top, source.prop, source.reflected]);
+      if (source?.prop) props.set(top * 320 + left, [left, top, source.prop, source.reflected ?? false]);
       for (let dy = 0; dy < 3; dy++) {
         for (let dx = 0; dx < 3; dx++) {
           const x = left + dx * 8, y = top + dy * 8;

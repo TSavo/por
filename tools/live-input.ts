@@ -17,7 +17,7 @@ import type { BiosKey } from "../src/runtime/dos.js";
 import { gameProgress } from "../src/runtime/far.js";
 import { cellWriteMark, journalFrame, screen, visibleGameRunes, visibleGameText, visiblePanelFrame, type PanelFrameStamp } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
-import { combatEffectFlightFamily, loadCombatEffects, combatHighlightPixel, fallenCombatKey, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
+import { combatEffectFlightFamily, loadCombatEffects, combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, randomCombatKey, type CombatArtPlacement } from "./combat-art.js";
 import { loadCharacterSheetArt, loadPortraitArt, matchScriptIllustration } from "./portrait-art.js";
 import { observeNativePictureArt } from "./native-picture-art.js";
 import type { PictureRecord } from "../src/runtime/game-data.js";
@@ -620,14 +620,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const battleTiles: TilePlacement[] = !scene && battlefield && nativeTerrainTiles
         ? nativeBattleTerrain?.placements() ?? [] : [];
       const animationCombat = effect ? combat : attackArt ?? [];
-      const fallbackFallen = !nativeTerrainTiles && !scene && battlefield
-        ? (attack || effect ? animationCombat : combat).filter(([, , key]) => key === fallenCombatKey)
+      const fallbackProps = !nativeTerrainTiles && !scene && battlefield
+        ? (attack || effect ? animationCombat : combat).filter(([, , key]) => randomCombatKey.test(key))
         : [];
-      const liveActors = (placements: CombatArtPlacement[]) => fallbackFallen.length
-        ? placements.filter(([, , key]) => key !== fallenCombatKey) : placements;
+      const liveActors = (placements: CombatArtPlacement[]) => fallbackProps.length
+        ? placements.filter(([, , key]) => !randomCombatKey.test(key)) : placements;
       const observedProps = !scene && battlefield ? nativeBattleTerrain?.propPlacements() ?? [] : undefined;
-      const battleProps = observedProps && [...observedProps, ...fallbackFallen.filter(([x, y]) =>
-        !observedProps.some(([left, top, key]) => key === fallenCombatKey && x === left && y === top))];
+      const battleProps = observedProps && [...observedProps, ...fallbackProps.filter(([x, y]) =>
+        !observedProps.some(([left, top]) => x === left && y === top))];
       const battleTileInventory: TileInventoryCell[] | undefined = traceBattleTiles && !attack ? [] : undefined;
       if (((!nativeTerrainTiles && battleTileKeys.size) || battleTileInventory) && !scene && battlefield) {
         const pixels = Buffer.alloc(64);
@@ -669,7 +669,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
             if (!nativeTerrainTiles) {
               // Prefer the guest terrain draw before a target marker or actor covers the cell.
               const terrainKey = capturedTerrainKeys.get(y * screen.width + x) ?? key;
-              // The standalone marker replaces its underlying 3×3 RANDCOM
+              // The standalone prop replaces its underlying 3×3 RANDCOM
               // artwork, just as it does in the native terrain observer.
               if (terrainKey && battleTileKeys.has(terrainKey) && !battleProps?.some(([left, top]) =>
                 x >= left && x < left + 24 && y >= top && y < top + 24)) battleTiles.push([x, y, terrainKey]);
