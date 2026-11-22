@@ -217,6 +217,7 @@ const encounterRoutes = new Map([
         "portrait:area:18:PIC1.DAX:4:0:0",
         ...[1, 2, 1].map(member => `portrait:area:18:ecl:af2a:PIC1.DAX:4:${member}:0`),
       ],
+      skipLoopCapture: "portrait:area:18:ecl:af2a:PIC1.DAX:4:1:0",
       heldPortrait: "portrait:area:18:ecl:af2a:PIC1.DAX:4:2:0",
     },
   }],
@@ -229,6 +230,7 @@ const encounterRoutes = new Map([
         "portrait:area:20:PIC2.DAX:4:0:0",
         ...[1, 2, 1].map(member => `portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:${member}:0`),
       ],
+      skipLoopCapture: "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:1:0",
       heldPortrait: "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:2:0",
     },
   }],
@@ -7479,7 +7481,7 @@ try {
     })()`), "Enhanced portrait should fill the outer picture panel over an opaque backdrop");
   }
 
-  async function verifyHeldPortraitLoop(expected, screenshotPrefix) {
+  async function verifyHeldPortraitLoop(expected, screenshotPrefix, skipCapture) {
     const order = Array.isArray(expected) ? expected : undefined;
     const count = order?.length ?? expected;
     const held = await latest();
@@ -7518,6 +7520,8 @@ try {
     assert.equal(new Set(images).size, uniquePhases.length, "Every loop phase should display distinct artwork");
     if (screenshotPrefix) {
       for (const [index, phase] of uniquePhases.entries()) {
+        // A one-refresh transition is verified by the observer above.
+        if (new URL(phase).pathname === "/art/" + skipCapture) continue;
         await waitFor("the loaded portrait phase", () => run(`(() => {
           const image = document.querySelector(".encounter-portrait");
           return image?.src === ${JSON.stringify(phase)} && image.complete && image.naturalWidth === 352;
@@ -8912,7 +8916,7 @@ try {
       await advance("j");
     }
     const dialogueSteps = encounterRoute.dialogueSteps ?? (encounterRoute.dialogue ? [encounterRoute.dialogue] : []);
-    for (const { key, keys = [key], portrait, prompt, heldPortrait, heldPortraits, heldPortraitLoop, capture } of dialogueSteps) {
+    for (const { key, keys = [key], portrait, prompt, heldPortrait, heldPortraits, heldPortraitLoop, skipLoopCapture, capture } of dialogueSteps) {
       for (const input of keys) await advance(input);
       assert.equal(frame.encounter, undefined);
       assert.equal(frame.portrait, portrait);
@@ -8926,7 +8930,7 @@ try {
           image.naturalWidth === 352 && image.naturalHeight === 352;
       })()`));
       await verifyPortraitPanel();
-      if (heldPortraitLoop) await verifyHeldPortraitLoop(heldPortraitLoop, routeName);
+      if (heldPortraitLoop) await verifyHeldPortraitLoop(heldPortraitLoop, routeName, skipLoopCapture);
       if (capture) {
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, `${routeName}-dialogue.png`), Buffer.from(shot.data, "base64"));
