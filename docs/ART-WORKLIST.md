@@ -7,7 +7,7 @@ The site inventory comes from static script and native picture discovery. 46 / 4
 Run `npm run verify:held-portraits` for every site and its evidence.
 
 **Enhanced fallbacks (#142).** 16 fallback frames / 2 distinct keys across 163 Chrome views.
-Recorded walks measured in Chrome with GOG 1.3: 1 / 17. Run `npm run verify:enhanced-fallbacks` for the captured keys and walks still to measure.
+Recorded walks measured in Chrome with GOG 1.3: 1 / 19. Run `npm run verify:enhanced-fallbacks` for the captured keys and walks still to measure.
 
 **There is art to do: 2 items.**
 

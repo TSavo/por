@@ -14,7 +14,7 @@
   "frames": 16,
   "presented": 163,
   "walks": 1,
-  "recordedWalks": 17,
+  "recordedWalks": 19,
   "missingWalks": [
    "campaign-castle-approach-leg",
    "campaign-end-leg",
@@ -31,7 +31,9 @@
    "visit-valhingen-graveyard",
    "visit-valjevo-area-4",
    "visit-yarashs-pyramid",
-   "walk-commission-5-taken"
+   "walk-commission-5-reward",
+   "walk-commission-5-taken",
+   "walk-textile-house-cleared"
   ],
   "runs": 1,
   "keys": [
