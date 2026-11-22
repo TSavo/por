@@ -4296,6 +4296,13 @@ const combatPoseRoutes = new Map([
     inputs: ["s", "up", "up", "down", "up", "down", ...Array(4).fill("enter")],
     strikeInputs: ["enter", "enter", "enter"],
   }],
+  ["bane-hay-bunk-raider-combat", {
+    slot: "A", stand: "combat:area:31:CPIC1.DAX:4:ecl:a2bb", strike: "combat:area:31:CPIC1.DAX:132:ecl:a2bb",
+    width: 96, height: 96, standCount: 7, readyPrompt: /ALDAHITPOINTS6AC5HANDAXE/i,
+    excluded: ["combat:area:31:CPIC1.DAX:4", "combat:area:31:CPIC1.DAX:132"],
+    strikeReport: /ORCATTACKSBRINANDMISSES/i,
+    inputs: ["up", "enter", "s", "enter", "enter", "enter"], strikeInputs: ["q", "q", "q", "q"],
+  }],
   ["bane-barrack-guard-combat", {
     slot: "A", stand: "combat:area:31:CPIC1.DAX:4:ecl:a1c8", strike: "combat:area:31:CPIC1.DAX:132:ecl:a1c8",
     width: 96, height: 96, readyPrompt: /ORCHITPOINTS5AC6/i, strikeReflected: false,
