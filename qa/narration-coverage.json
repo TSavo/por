@@ -9,7 +9,7 @@
    "heard": 64
   },
   "acceptance-new-phlan": {
-   "ledger": "acceptance-new-phlan-after-sokal.jsonl",
+   "ledger": "acceptance-new-phlan-after-slums-arrival.jsonl",
    "games": 7,
    "decisions": 521,
    "heard": 106
@@ -79,10 +79,9 @@
   "ecl2-b20-9ab8": {
    "run": "acceptance-new-phlan",
    "step": 60501220,
-   "withoutArt": {
-    "run": "acceptance-new-phlan",
-    "step": 60501220,
-    "showing": "no picture"
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:9b68"
    }
   },
   "ecl2-b20-9c2a-9c43-9c5c": {
