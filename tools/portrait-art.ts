@@ -908,6 +908,10 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:19:ecl:aeeb:cue:diogenes-lair-empty", /AFTERRECOVERINGFROMTHEFIREBALL.*FINDNOTHING/],
   ["scene-illustration:area:8:ecl:9f21:caller:9a4a", "WITHSOKALKEEPINOURHANDS"],
   ["scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:bivant-rescue", "BIVANTWASDELIGHTEDWITHTHECHILD"],
+  ...["a026:caller:9db7", "9efe:caller:9a4a", "9f21:caller:9a4a"].map(scope => [
+    `scene-illustration:area:8:ecl:${scope}:cue:bane-annex-reward`,
+    "YOUHAVECLEAREDTHEAREANEXTTOTHEEVILTEMPLE",
+  ] as const),
   ...["9fae:caller:9db7", "9efe:caller:9a4a", "9f21:caller:9a4a"].map(scope => [
     `scene-illustration:area:8:ecl:${scope}:cue:norris-bonus`,
     "THECOUNCILHASAWARDEDABONUSFORYOURELIMINATINGNORRISTHEGRAY",

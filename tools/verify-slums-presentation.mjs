@@ -1607,6 +1607,14 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kuto-norris-council-bonus.png",
     continuation: { inputs: ["enter"], prompt: /receives1250experiencepoints/i, clearsPortrait: true },
   }],
+  ["bane-annex-council-reward", {
+    slot: "A", inputs: ["right", "right", "up", "right", "right", "up", "enter", "enter"],
+    portraitStops: { 7: "portrait:HEAD3.DAX:24:BODY3.DAX:32" },
+    portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:bane-annex-reward",
+    prompt: /YOUHAVECLEAREDTHEAREANEXTTOTHEEVILTEMPLE/i,
+    finalPhaseCapture: "bane-annex-council-reward.png",
+    continuation: { inputs: ["enter"], prompt: /receives1495experiencepoints/i, clearsPortrait: true },
+  }],
   ["bivant-reward-illustration", {
     slot: "A", inputs: ["right", "right", "up", "right", "right", "up", "enter", "enter"],
     portraitStops: { 7: "portrait:HEAD3.DAX:24:BODY3.DAX:32" },
