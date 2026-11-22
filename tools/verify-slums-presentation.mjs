@@ -1270,6 +1270,11 @@ const illustrationRoutes = new Map([
     slot: "J", inputs: ["up", "enter", "a", "a"],
     portrait: "portrait:area:4:ecl:a289:PIC5.DAX:56:0:0",
     prompt: /THEYCOMERUNNINGTOWARDYOU/i,
+    approachSequence: [
+      [56, 32, "encounter:area:4:ecl:a289:SPRIT5.DAX:56:2:0", 24, 57],
+      [56, 32, "encounter:area:4:SPRIT5.DAX:56:1:0", 32, 73],
+      [48, 32, "encounter:area:4:SPRIT5.DAX:56:0:0", 48, 80],
+    ],
     heldPortraitLoop: [0, 1, 0, 3].map(member => `portrait:area:4:ecl:a289:PIC5.DAX:56:${member}:0`),
     continuation: {
       inputs: ["c"], portrait: "portrait:area:4:ecl:a289:PIC5.DAX:56:0:0",
