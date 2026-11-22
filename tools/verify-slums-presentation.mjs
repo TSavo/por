@@ -2500,6 +2500,7 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:10:PIC4.DAX:35:0:0", prompt: /ZOMBIESSHUFFLEDOWNTHESTAIRS/i,
     alternatePortrait: "portrait:area:10:ecl:b695:caller:9f7a:PIC4.DAX:35:1:0",
+    heldPortraitLoop: 5,
     idlePortraits: [
       ...[1, 2, 3, 4].map(phase => `portrait:area:10:ecl:b695:caller:9f7a:PIC4.DAX:35:${phase}:0`),
       "portrait:area:10:PIC4.DAX:35:0:0",
@@ -3231,16 +3232,12 @@ const illustrationRoutes = new Map([
       prompt: /THESPIRITOFTYRANTHRAXUSFLARESUP/i },
   }],
   ["valhingen-vampire-reveal-phases", {
-    slot: "A", inputs: ["j", "j", "up", "enter", "j", "j", "y", "enter", "enter", ...Array(5).fill("q")],
-    portraitStops: {
-      9: "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0",
-      13: "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:1:0",
-    },
-    portrait: "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:2:0",
+    slot: "A", inputs: ["j", "j", "up", "enter", "j", "j", "y", "enter", "enter"],
+    portrait: "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0",
     prompt: /THECHAMBERLIGHTSUPTOREVEALATALL,PALEMANWITHVERYWHITETEETH/i,
-    phaseCaptures: { 13: "valhingen-vampire-chamber-phase-1.png" },
-    finalPhaseCapture: "valhingen-vampire-chamber-phase-2.png",
-    continuation: { inputs: ["enter"], portrait: "portrait:area:10:ecl:b271:PIC4.DAX:23:2:0", prompt: /ABATTLEBEGINS/i },
+    finalPhaseCapture: "valhingen-vampire-chamber-loop.png",
+    heldPortraitLoop: 3,
+    continuation: { inputs: ["enter"], portrait: "portrait:area:10:ecl:b271:PIC4.DAX:23:0:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["valhingen-skeleton-roam-phases", {
     slot: "A", inputs: ["up", "down", "a", "a"],

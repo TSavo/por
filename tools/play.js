@@ -1000,6 +1000,9 @@ const portraitLoops = [
     /YOUBOARDABOAT/i],
   ["portrait:area:18:ecl:9dca:PIC1.DAX:2:", 2],
   ["portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:", 3],
+  ["portrait:area:10:ecl:b695:caller:9f7a:PIC4.DAX:35:", 5, "portrait:area:10:PIC4.DAX:35:0:0",
+    /ZOMBIESSHUFFLEDOWNTHESTAIRS/i],
+  ["portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:", 3],
 ].map(([prefix, count, initial, cue]) => ({
   cue,
   phases: Array.from({ length: count }, (_, phase) => (phase === 0 && initial) || `${prefix}${phase}:0`),
