@@ -6389,7 +6389,7 @@
       ],
       "classification": "voiced-unit-trigger",
       "unitIds": [
-        "por.voice.ecl5.b6-9df1"
+        "por.voice.ecl5.b6-9df1-9e4f"
       ],
       "sourceDigest": "dd969389da1efaa4d52b2200b02221b1e343f37380b8f14416b7bc19d3da585e"
     },
@@ -6433,9 +6433,10 @@
           "rawText": " WE WILL KEEP SILENCE.'"
         }
       ],
-      "classification": "voiced-unit-continuation",
+      "classification": "voiced-variant-member",
       "unitIds": [
-        "por.voice.ecl5.b6-9e28-9e4f"
+        "por.voice.ecl5.b6-9e28-9e4f",
+        "por.voice.ecl5.b6-9df1-9e4f"
       ],
       "sourceDigest": "1e9a803f6f7101b5279919349574aa7f5429b40d5514606e889caf942f0ba2ca"
     },
@@ -10128,6 +10129,43 @@
       "direction": "Clear measured fantasy narration ending with a direct question",
       "status": "unresolved-dynamic-template",
       "generationEligible": false
+    },
+    {
+      "id": "por.voice.ecl5.b6-9df1-9e4f",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-9df1",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-9df1",
+        "por.review.ecl-5.block-6.at-9e4f"
+      ],
+      "variant": null,
+      "rawSourceTexts": [
+        {
+          "sourceId": "por.review.ecl-5.block-6.at-9df1",
+          "rawText": "'WELL THEN, GOOD LUCK. BEST YOU LEAVE BEFORE YOU ARE FOUND HERE.",
+          "outputParts": [
+            {
+              "operandIndex": 0,
+              "kind": "literal",
+              "rawText": "'WELL THEN, GOOD LUCK. BEST YOU LEAVE BEFORE YOU ARE FOUND HERE."
+            }
+          ]
+        },
+        {
+          "sourceId": "por.review.ecl-5.block-6.at-9e4f",
+          "rawText": " WE WILL KEEP SILENCE.'",
+          "outputParts": [
+            {
+              "operandIndex": 0,
+              "kind": "literal",
+              "rawText": " WE WILL KEEP SILENCE.'"
+            }
+          ]
+        }
+      ],
+      "spokenText": "'WELL THEN, GOOD LUCK. BEST YOU LEAVE BEFORE YOU ARE FOUND HERE. WE WILL KEEP SILENCE.'",
+      "direction": "soft, hurried, low",
+      "status": "qa-resolved",
+      "generationEligible": true
     },
     {
       "id": "por.voice.ecl5.b7-9e74-9eed",
@@ -15646,31 +15684,6 @@
         }
       ],
       "spokenText": "'PLEASE DON'T KILL US,' SHE SAYS. 'IF YOU DON'T WE WILL GIVE YOU THESE CLOTHES TO USE AS A DISGUISE. WE SWEAR WE WON'T SAY ANYTHING!",
-      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech",
-      "status": "qa-resolved",
-      "generationEligible": true
-    },
-    {
-      "id": "por.voice.ecl5.b6-9df1",
-      "triggerSourceId": "por.review.ecl-5.block-6.at-9df1",
-      "coveredSourceIds": [
-        "por.review.ecl-5.block-6.at-9df1"
-      ],
-      "variant": null,
-      "rawSourceTexts": [
-        {
-          "sourceId": "por.review.ecl-5.block-6.at-9df1",
-          "rawText": "'WELL THEN, GOOD LUCK. BEST YOU LEAVE BEFORE YOU ARE FOUND HERE.",
-          "outputParts": [
-            {
-              "operandIndex": 0,
-              "kind": "literal",
-              "rawText": "'WELL THEN, GOOD LUCK. BEST YOU LEAVE BEFORE YOU ARE FOUND HERE."
-            }
-          ]
-        }
-      ],
-      "spokenText": "'WELL THEN, GOOD LUCK. BEST YOU LEAVE BEFORE YOU ARE FOUND HERE.",
       "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech",
       "status": "qa-resolved",
       "generationEligible": true

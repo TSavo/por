@@ -3,6 +3,16 @@
   "sourceReview": "src/audio/ecl5-voice-review.json",
   "items": [
     {
+      "unitId": "por.voice.ecl5.b5-a761",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-a761",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-a761"
+      ],
+      "output": "audio/voices/narration/ecl5/b5-a761.mp3",
+      "text": "'YOU NO HURT THEM. THEM MY BUDDIES!' THEY ARGUE FOR A LITTLE BIT AND THEN ONE SAYS, 'HEY, WHAT WE FIGHTING FOR? IT'S ALL FAULT OF THEM!' 'YEH!' THEY TURN AND ATTACK YOU.",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
       "unitId": "por.voice.ecl5.b5-a7e7",
       "triggerSourceId": "por.review.ecl-5.block-5.at-a7e7",
       "coveredSourceIds": [
@@ -200,16 +210,6 @@
       ],
       "output": "audio/voices/narration/ecl5/b6-9d74.mp3",
       "text": "'PLEASE DON'T KILL US,' SHE SAYS. 'IF YOU DON'T WE WILL GIVE YOU THESE CLOTHES TO USE AS A DISGUISE. WE SWEAR WE WON'T SAY ANYTHING!",
-      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
-    },
-    {
-      "unitId": "por.voice.ecl5.b6-9df1",
-      "triggerSourceId": "por.review.ecl-5.block-6.at-9df1",
-      "coveredSourceIds": [
-        "por.review.ecl-5.block-6.at-9df1"
-      ],
-      "output": "audio/voices/narration/ecl5/b6-9df1.mp3",
-      "text": "'WELL THEN, GOOD LUCK. BEST YOU LEAVE BEFORE YOU ARE FOUND HERE.",
       "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
     },
     {

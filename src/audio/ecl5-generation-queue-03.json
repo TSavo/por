@@ -3,6 +3,16 @@
   "sourceReview": "src/audio/ecl5-voice-review.json",
   "items": [
     {
+      "unitId": "por.voice.ecl5.b3-a267",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-a267",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-a267"
+      ],
+      "output": "audio/voices/narration/ecl5/b3-a267.mp3",
+      "text": "YOU ARE IN A HALL WITH LONG TABLES, BENCHES AND A GREAT HEARTH AT ONE END. IN THE CORNERS ARE HEAPS OF GARBAGE BEING PICKED OVER BY SOME RATS WHICH FLEE AT YOUR ENTRANCE.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
       "unitId": "por.voice.ecl5.b3-a30c",
       "triggerSourceId": "por.review.ecl-5.block-3.at-a30c",
       "coveredSourceIds": [
@@ -390,16 +400,6 @@
       ],
       "output": "audio/voices/narration/ecl5/b3-b26a.mp3",
       "text": "YOU LEAVE. BEHIND YOU ARE HIS SCREAMS, 'INTRUDERS! INTRUDERS!'",
-      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
-    },
-    {
-      "unitId": "por.voice.ecl5.b3-b2a0",
-      "triggerSourceId": "por.review.ecl-5.block-3.at-b2a0",
-      "coveredSourceIds": [
-        "por.review.ecl-5.block-3.at-b2a0"
-      ],
-      "output": "audio/voices/narration/ecl5/b3-b2a0.mp3",
-      "text": "'THANK YOU! THANK YOU! I JUST THOUGHT THAT THE POOL WAS HERE! THERE WAS NOWHERE ELSE TO GO! I HAVE NOWHERE TO GO. TAKE ME WITH YOU?'",
       "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
     }
   ]

@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "c0f103e6eb9b69885a8b537fd16e811c231224d7543c17f6859dc810fc6141fc",
+  "audioSha256": "bb670cbd0229f551ceacb0d576c87bf5419be1016ae3dae00f3c9a477b6b6ceb",
+  "bytes": 88232,
+  "directionSent": "soft, hurried, low",
+  "heardByWhisper": "Well then, good luck. Best you leave before you are found here. We will keep silence.",
+  "generatedAt": "2026-11-22T20:29:02.840Z"
+}

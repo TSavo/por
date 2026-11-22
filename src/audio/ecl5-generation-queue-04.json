@@ -3,6 +3,16 @@
   "sourceReview": "src/audio/ecl5-voice-review.json",
   "items": [
     {
+      "unitId": "por.voice.ecl5.b3-b2a0",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-b2a0",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-b2a0"
+      ],
+      "output": "audio/voices/narration/ecl5/b3-b2a0.mp3",
+      "text": "'THANK YOU! THANK YOU! I JUST THOUGHT THAT THE POOL WAS HERE! THERE WAS NOWHERE ELSE TO GO! I HAVE NOWHERE TO GO. TAKE ME WITH YOU?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
       "unitId": "por.voice.ecl5.b4-99be",
       "triggerSourceId": "por.review.ecl-5.block-4.at-99be",
       "coveredSourceIds": [
@@ -391,16 +401,6 @@
       "output": "audio/voices/narration/ecl5/b4-ac70.mp3",
       "text": "THE SIX SCRIBES DIVE FOR COVER AS THE TWO OFFICERS ATTACK.",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
-    },
-    {
-      "unitId": "por.voice.ecl5.b4-acd9",
-      "triggerSourceId": "por.review.ecl-5.block-4.at-acd9",
-      "coveredSourceIds": [
-        "por.review.ecl-5.block-4.at-acd9"
-      ],
-      "output": "audio/voices/narration/ecl5/b4-acd9.mp3",
-      "text": "YOU ENTER A BUILDING WHICH IS FILLED WITH TABLES AND WRITING SUPPLIES. THOUGH EMPTY, THERE ARE SIGNS THAT WORK HAS BEEN DONE HERE RECENTLY.",
-      "direction": "Measured expressive fantasy narration appropriate to the scene"
     }
   ]
 }

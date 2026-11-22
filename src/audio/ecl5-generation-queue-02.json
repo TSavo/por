@@ -3,6 +3,16 @@
   "sourceReview": "src/audio/ecl5-voice-review.json",
   "items": [
     {
+      "unitId": "por.voice.ecl5.b4-9ffa-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-9ffa",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-9ffa"
+      ],
+      "output": "audio/voices/narration/ecl5/b4-9ffa-operand-9.mp3",
+      "text": "'WHAT ARE YOU DOING HERE?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
       "unitId": "por.voice.ecl5.b4-a255-operand-9",
       "triggerSourceId": "por.review.ecl-5.block-4.at-a255",
       "coveredSourceIds": [
@@ -391,16 +401,6 @@
       "output": "audio/voices/narration/ecl5/b3-a21b.mp3",
       "text": "HE QUICKLY RETREATS THROUGH THE DOOR AND SLAMS IT, YELLING, 'INTRUDERS!'",
       "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
-    },
-    {
-      "unitId": "por.voice.ecl5.b3-a267",
-      "triggerSourceId": "por.review.ecl-5.block-3.at-a267",
-      "coveredSourceIds": [
-        "por.review.ecl-5.block-3.at-a267"
-      ],
-      "output": "audio/voices/narration/ecl5/b3-a267.mp3",
-      "text": "YOU ARE IN A HALL WITH LONG TABLES, BENCHES AND A GREAT HEARTH AT ONE END. IN THE CORNERS ARE HEAPS OF GARBAGE BEING PICKED OVER BY SOME RATS WHICH FLEE AT YOUR ENTRANCE.",
-      "direction": "Measured expressive fantasy narration appropriate to the scene"
     }
   ]
 }

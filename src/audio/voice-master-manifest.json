@@ -30030,7 +30030,7 @@
       "sourceDigest": "dd969389da1efaa4d52b2200b02221b1e343f37380b8f14416b7bc19d3da585e",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "por.voice.ecl5.b6-9df1"
+        "por.voice.ecl5.b6-9df1-9e4f"
       ]
     },
     {
@@ -30078,7 +30078,8 @@
       "sourceDigest": "1e9a803f6f7101b5279919349574aa7f5429b40d5514606e889caf942f0ba2ca",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "por.voice.ecl5.b6-9e28-9e4f"
+        "por.voice.ecl5.b6-9e28-9e4f",
+        "por.voice.ecl5.b6-9df1-9e4f"
       ]
     },
     {
@@ -81602,15 +81603,16 @@
       }
     },
     {
-      "id": "por.voice.ecl5.b6-9df1",
+      "id": "por.voice.ecl5.b6-9df1-9e4f",
       "archive": "ECL5.DAX",
       "triggerSourceId": "por.review.ecl-5.block-6.at-9df1",
       "coveredSourceIds": [
-        "por.review.ecl-5.block-6.at-9df1"
+        "por.review.ecl-5.block-6.at-9df1",
+        "por.review.ecl-5.block-6.at-9e4f"
       ],
       "variant": null,
-      "spokenText": "'WELL THEN, GOOD LUCK. BEST YOU LEAVE BEFORE YOU ARE FOUND HERE.",
-      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech",
+      "spokenText": "'WELL THEN, GOOD LUCK. BEST YOU LEAVE BEFORE YOU ARE FOUND HERE. WE WILL KEEP SILENCE.'",
+      "direction": "soft, hurried, low",
       "characterId": null,
       "sourceParts": [
         {
@@ -81623,12 +81625,23 @@
               "rawText": "'WELL THEN, GOOD LUCK. BEST YOU LEAVE BEFORE YOU ARE FOUND HERE."
             }
           ]
+        },
+        {
+          "sourceId": "por.review.ecl-5.block-6.at-9e4f",
+          "rawText": " WE WILL KEEP SILENCE.'",
+          "outputParts": [
+            {
+              "operandIndex": 0,
+              "kind": "literal",
+              "rawText": " WE WILL KEEP SILENCE.'"
+            }
+          ]
         }
       ],
       "resolution": "resolved",
       "generationEligible": true,
       "model": "eleven_v4",
-      "asset": "voices/narration/ecl5/b6-9df1.mp3",
+      "asset": "voices/narration/ecl5/b6-9df1-9e4f.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,

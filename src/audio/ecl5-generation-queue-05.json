@@ -3,6 +3,16 @@
   "sourceReview": "src/audio/ecl5-voice-review.json",
   "items": [
     {
+      "unitId": "por.voice.ecl5.b4-acd9",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-acd9",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-acd9"
+      ],
+      "output": "audio/voices/narration/ecl5/b4-acd9.mp3",
+      "text": "YOU ENTER A BUILDING WHICH IS FILLED WITH TABLES AND WRITING SUPPLIES. THOUGH EMPTY, THERE ARE SIGNS THAT WORK HAS BEEN DONE HERE RECENTLY.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
       "unitId": "por.voice.ecl5.b4-ad70",
       "triggerSourceId": "por.review.ecl-5.block-4.at-ad70",
       "coveredSourceIds": [
@@ -390,16 +400,6 @@
       ],
       "output": "audio/voices/narration/ecl5/b5-a6f3.mp3",
       "text": "AS THE GIANT TURNS IN TRIUMPH TO HIS COMPANIONS, THE OTHERS PICK UP THEIR CLUBS. 'WHAT THEY KNOW? WE KNOCK DUMB LITTLE MEN'S BRAINS OUT!'",
-      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
-    },
-    {
-      "unitId": "por.voice.ecl5.b5-a761",
-      "triggerSourceId": "por.review.ecl-5.block-5.at-a761",
-      "coveredSourceIds": [
-        "por.review.ecl-5.block-5.at-a761"
-      ],
-      "output": "audio/voices/narration/ecl5/b5-a761.mp3",
-      "text": "'YOU NO HURT THEM. THEM MY BUDDIES!' THEY ARGUE FOR A LITTLE BIT AND THEN ONE SAYS, 'HEY, WHAT WE FIGHTING FOR? IT'S ALL FAULT OF THEM!' 'YEH!' THEY TURN AND ATTACK YOU.",
       "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
     }
   ]
