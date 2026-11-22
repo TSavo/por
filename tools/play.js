@@ -592,12 +592,17 @@ function playAnimation(continues = false) {
   advanceAnimation();
 }
 
+// Enhanced holds each picture of an approaching encounter at least this long. On 1990 hardware the
+// drawing itself took visible time; the port draws at once, and at game speed 1 the scripted pause
+// is 225 ms, too quick to take in (#129). Classic keeps the original's pause exactly.
+const enhancedApproachMs = 800;
 function holdAnimationFrame(view) {
   if (view !== animationFrame || animationTimer !== undefined || !advanceAnimation) return;
+  const ms = view.durationMs ?? 120;
   animationTimer = setTimeout(() => {
     animationTimer = undefined;
     advanceAnimation?.();
-  }, view.durationMs ?? 120);
+  }, enhanced && view.approach ? Math.max(enhancedApproachMs, ms) : ms);
 }
 
 // The shipped game has no original pictures, so it has no Classic switch. The player's own original
@@ -2045,6 +2050,8 @@ async function send(key) {
   if (endsVoice && currentVoice) {
     pendingVoiceStop = { voice: currentVoice, reason: endsVoice, frame: state.frame, queued: [...narrationQueue] };
   }
+  // An approaching encounter plays out: on DOS the game is busy drawing it and acts on no key (#129).
+  if (animationFrame?.approach) return;
   // Asking for more of an animation the game plays by itself leaves the clips playing (#125).
   if (animationFrame && !(key === ":poll" && state.presentationPolling)) {
     finishAnimation();

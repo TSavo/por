@@ -64,6 +64,8 @@ export interface PresentationAnimationFrame {
   durationMs?: number;
   /** True for a message on the bottom line that the game shows for a moment and clears by itself. */
   statusMessage?: boolean;
+  /** True for an encounter picture drawn as it approaches the party (SETUP MONSTER, APPROACH). */
+  approach?: boolean;
 }
 type TilePlacement = [x: number, y: number, key: string];
 export type { PanelFrameStamp } from "../src/runtime/video.js";
@@ -1068,7 +1070,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const before = animation.length;
       const replacement = captureAnimation ? showFrame(undefined, undefined, true)?.[2] : undefined;
       if (animation.length > before) {
-        approachClip = animation.at(-1);
+        approachClip = animation.at(-1)!;
+        approachClip.approach = true;
         approachClipMs = 0;
       }
       if (nativeEncounterDirectory) {
