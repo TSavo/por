@@ -2108,15 +2108,11 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "sokal-barracks-ghosts-phase-1.png",
   }],
   ["sokal-keep-departure-ferry-phases", {
-    slot: "C", inputs: ["up", "up", "enter", "y", "enter", ...Array(19).fill("q")],
-    portraitStops: {
-      5: "portrait:area:21:PIC4.DAX:41:0:0",
-      16: "portrait:area:21:ecl:ae31:caller:9977:PIC4.DAX:41:1:0",
-    },
-    portrait: "portrait:area:21:ecl:ae31:caller:9977:PIC4.DAX:41:2:0",
+    slot: "C", inputs: ["up", "up", "enter", "y", "enter"],
+    portrait: "portrait:area:21:PIC4.DAX:41:0:0",
     prompt: /YOUBOARDABOAT/i,
-    phaseCaptures: { 16: "sokal-keep-departure-ferry-phase-1.png" },
-    finalPhaseCapture: "sokal-keep-departure-ferry-phase-2.png",
+    idlePortraits: [1, 2].map(phase => `portrait:area:21:ecl:ae31:caller:9977:PIC4.DAX:41:${phase}:0`),
+    continuation: { inputs: ["enter", "enter", "enter"], prompt: /15,1W/i, clearsPortrait: true },
   }],
   ["sokal-keep-departure-ferry", {
     slot: "C", inputs: ["up", "up", "enter", "y", "enter"],
