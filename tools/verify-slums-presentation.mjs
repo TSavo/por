@@ -5855,7 +5855,14 @@ const environmentRoutes = new Map([
   }],
 ]);
 const freshRolf = routeName === "new-phlan-rolf-approach";
-const routes = ["yarash-desk-papers-reload", "sokal-floorboard-diary-reload", "buccaneer-empty-manual-aim", "textile-stinking-cloud", "buccaneer-arrow-down", "buccaneer-oil-flask", "buccaneer-sling-shot", "bivant-reward-reload", "tyrmor-journal-reload", "new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
+const mendorCouncilRewards = new Map([
+  ["mendor-records-reward", [37, "lex-geographica", /THESEMAPSSHOULDHELPUS(?:TO)?LOCATE/i, 500]],
+  ["mendor-fyerdetha-discourses-reward", [7, "fyerdetha-discourses-reward", /WEFINDTHESEDISCOURSESVALUABLE/i, 400]],
+  ["mendor-urgund-darkness-reward", [19, "urgund-darkness-reward", /THECOUNCILWILLBEAMUSEDBYTHEDESCRIPTIONS/i, 450]],
+  ["mendor-history-of-the-north-reward", [8, "history-of-the-north-reward", /THESEHISTORIESCONTAINMUCHUSEFULINFORMATION/i, 550]],
+  ["mendor-grand-historian-reward", [21, "grand-historian-reward", /THERECORDSPROVIDEINSIGHTSINTOMUCHTHATWASPUZZLING/i, 600]],
+]);
+const routes = ["yarash-desk-papers-reload", "sokal-floorboard-diary-reload", "buccaneer-empty-manual-aim", "textile-stinking-cloud", "buccaneer-arrow-down", "buccaneer-oil-flask", "buccaneer-sling-shot", "bivant-reward-reload", "tyrmor-journal-reload", "new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
 routes.push("river-passage-reload", "new-phlan-council-reward-reload", "slums-mage-wand", "nomad-headman-rest-reload", "nomad-headman-rest-portrait", "nomad-headman-raid");
 routes.push("nomad-headman-decline-reload");
 routes.push("podal-infirmary-heal");
@@ -5879,7 +5886,7 @@ routes.push("river-return-reload");
 routes.push("swamp-return", "swamp-reward-reload");
 routes.push("slums-potion-booth-reload");
 routes.push("bane-cell-inscription-reload");
-routes.push("mendor-records-reward-reload", "mendor-fyerdetha-discourses-reward");
+routes.push("mendor-records-reward-reload", ...mendorCouncilRewards.keys());
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
   ["bane-interior-atlas", { slot: "A", areas: [24, 31], mapId: 31, file: "temple-of-bane-interior-concept-v1.png" }],
@@ -12734,12 +12741,10 @@ try {
     assert.match(frame.journal.objective.nextStep, /Search the other stacks/i);
     await switchBothWays();
     console.log("Verified the standing records objective and completed atlas handoff after reloading slot A.");
-  } else if (routeName === "mendor-records-reward" || routeName === "mendor-fyerdetha-discourses-reward") {
-    const discourses = routeName === "mendor-fyerdetha-discourses-reward";
-    const recordId = discourses ? "mendor-book-7" : "mendor-book-37";
-    const caption = discourses ? /WEFINDTHESEDISCOURSESVALUABLE/i : /THESEMAPSSHOULDHELPUS(?:TO)?LOCATE/i;
-    const portrait = discourses ? "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:fyerdetha-discourses-reward"
-      : "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:lex-geographica";
+  } else if (mendorCouncilRewards.has(routeName)) {
+    const [entry, cue, caption, experience] = mendorCouncilRewards.get(routeName);
+    const recordId = `mendor-book-${entry}`;
+    const portrait = `scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:${cue}`;
     const text = () => frame.text.toSorted(([left], [right]) => left - right)
       .map(([, character]) => String.fromCharCode(character)).join("");
     const record = () => frame.journal?.leads.find(({ id }) => id === recordId);
@@ -12756,9 +12761,9 @@ try {
     `));
     await switchBothWays();
     await verifyPortraitPanel();
-    if (discourses) {
+    if (entry !== 37) {
       const shot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, "mendor-fyerdetha-discourses-reward.png"), Buffer.from(shot.data, "base64"));
+      writeFileSync(resolve(directory, routeName + ".png"), Buffer.from(shot.data, "base64"));
     }
     await advance("j");
     assert.equal(record()?.status, "reward-pending");
@@ -12767,7 +12772,7 @@ try {
     await advance("j");
     await advance("enter");
     assert.equal(frame.portrait, undefined);
-    assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), discourses ? /receives400experiencepoints/i : /receives500experiencepoints/i);
+    assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), new RegExp(`receives${experience}experiencepoints`, "i"));
     for (const key of ["enter", "enter", "s", "e", "j"]) await advance(key);
     assert.equal(record()?.status, "turned-in");
     assert.equal(frame.journal.leads.find(({ id }) => id === "commission-records")?.status, "offered");
