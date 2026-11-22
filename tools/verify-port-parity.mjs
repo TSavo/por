@@ -302,8 +302,9 @@ function startLeg(options) {
   return startGame({ ...options, pregen: false, saves, seconds: 1200, env: { ...options.env,
     POR_BOOT_KEYS: boot.bootKeys, POR_LIVE_AT: boot.startAt, POR_DEV_COMBAT: boot.developerCombat ? "1" : "0",
     // As the campaign plays it: the key lists include the presses the game used to discard, and the
-    // game asks for each key at the moment the recorded leg asked (docs/REPLAYS.md).
-    POR_INPUT_COMPAT: "discard-poll-prompt", POR_PROMPT_SCHEDULE_IN: join(legDirectory, "prompts.jsonl") } })
+    // game asks for each key at the moment the recorded leg asked (docs/REPLAYS.md). A walk recorded
+    // with normal input (tools/record-walk.mjs) says so in boot.json: "inputCompat": "".
+    POR_INPUT_COMPAT: boot.inputCompat ?? "discard-poll-prompt", POR_PROMPT_SCHEDULE_IN: join(legDirectory, "prompts.jsonl") } })
     .then((game) => {
       const close = game.close;
       game.close = () => { close(); rmSync(saves, { recursive: true, force: true }); };

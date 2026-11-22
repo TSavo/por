@@ -1,0 +1,25 @@
+
+
+                 Name            AC  HP
+
+                 ALDA            10   6
+                 BRIN             8   6
+                 CORA            10   6
+                 DORN            10   8
+                 ENNA             9   6
+                 FENN             9   8
+
+
+
+
+
+                 3,4 S 00:33
+
+ YOU ARE OUTSIDE THE CITY HALL. THE
+ CITY CLERK WAITS INSIDE TO AWARD
+ COMMISSIONS.
+
+
+
+
+Area Cast View Encamp Search Look

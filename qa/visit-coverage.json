@@ -32,6 +32,16 @@
     "trace-leg-9.jsonl",
     "trace-leg-10.jsonl"
    ]
+  },
+  "visit-training-hall (qa/fixtures/visit-training-hall, game/)": {
+   "areas": [
+    0,
+    11
+   ],
+   "commissions": [],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
