@@ -1235,6 +1235,13 @@ const illustrationRoutes = new Map([
     continuation: { inputs: [choice], clearsPortrait: true,
       prompt: choice === "y" ? /FOUND.*TREASURE.*533.*EXPERIENCEPOINTS/i : /AREACASTVIEWENCAMP/i },
   }]),
+  ["kovel-lone-thief", {
+    slot: "A", inputs: ["up", "l", "enter"],
+    portrait: "scene-illustration:area:14:ecl:9c14",
+    prompt: /ATHIEFWITHASWORD.*WHATWILLYOUDO/i,
+    finalPhaseCapture: "kovel-lone-thief.png",
+    continuation: { inputs: ["l", "l"], clearsPortrait: true, prompt: /12,7N/i },
+  }],
   ["kovel-thieves-ambush", {
     slot: "A", inputs: ["up", "enter"],
     portrait: "scene-illustration:area:14:ecl:af5a",
