@@ -35,7 +35,7 @@ export function ovl03_0001(m: Cpu): void {
       case 0x4: {
         // 0004: sub sp, 2
         m.tick(0x4);
-        m.sp = (m.sp - 2) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 2);
         ip = 0x7;
         break;
       }
@@ -878,7 +878,7 @@ export function ovl03_0126(m: Cpu): void {
       case 0x129: {
         // 0129: sub sp, 0x204
         m.tick(0x129);
-        m.sp = (m.sp - 516) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 516);
         ip = 0x12d;
         break;
       }
@@ -1249,7 +1249,7 @@ export function ovl03_01a3(m: Cpu): void {
       case 0x1a6: {
         // 01a6: sub sp, 0xa
         m.tick(0x1a6);
-        m.sp = (m.sp - 10) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 10);
         ip = 0x1a9;
         break;
       }
@@ -1350,7 +1350,7 @@ export function ovl03_01a3(m: Cpu): void {
       case 0x1cb: {
         // 01cb: shl di, 1
         m.tick(0x1cb);
-        { m.cf = (m.di & 0x8000) !== 0; m.di = (m.di << 1) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x1cd;
         break;
       }
@@ -1657,7 +1657,7 @@ export function ovl03_0234(m: Cpu): void {
       case 0x237: {
         // 0237: sub sp, 4
         m.tick(0x237);
-        m.sp = (m.sp - 4) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 4);
         ip = 0x23a;
         break;
       }
@@ -1925,7 +1925,7 @@ export function ovl03_0292(m: Cpu): void {
       case 0x295: {
         // 0295: sub sp, 4
         m.tick(0x295);
-        m.sp = (m.sp - 4) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 4);
         ip = 0x298;
         break;
       }
@@ -2153,7 +2153,7 @@ export function ovl03_02e0(m: Cpu): void {
       case 0x2e3: {
         // 02e3: sub sp, 8
         m.tick(0x2e3);
-        m.sp = (m.sp - 8) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 8);
         ip = 0x2e6;
         break;
       }
@@ -2651,7 +2651,7 @@ export function ovl03_03b4(m: Cpu): void {
       case 0x3b7: {
         // 03b7: sub sp, 2
         m.tick(0x3b7);
-        m.sp = (m.sp - 2) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 2);
         ip = 0x3ba;
         break;
       }
@@ -3036,7 +3036,7 @@ export function ovl03_0450(m: Cpu): void {
       case 0x453: {
         // 0453: sub sp, 0x156
         m.tick(0x453);
-        m.sp = (m.sp - 342) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 342);
         ip = 0x457;
         break;
       }
@@ -5362,7 +5362,7 @@ export function ovl03_0856(m: Cpu): void {
       case 0x859: {
         // 0859: sub sp, 6
         m.tick(0x859);
-        m.sp = (m.sp - 6) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 6);
         ip = 0x85c;
         break;
       }
@@ -6017,7 +6017,7 @@ export function ovl03_0951(m: Cpu): void {
       case 0x954: {
         // 0954: sub sp, 6
         m.tick(0x954);
-        m.sp = (m.sp - 6) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 6);
         ip = 0x957;
         break;
       }
@@ -6217,7 +6217,7 @@ export function ovl03_0994(m: Cpu): void {
       case 0x997: {
         // 0997: sub sp, 0x204
         m.tick(0x997);
-        m.sp = (m.sp - 516) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 516);
         ip = 0x99b;
         break;
       }
@@ -6581,7 +6581,7 @@ export function ovl03_0a09(m: Cpu): void {
       case 0xa0c: {
         // 0a0c: sub sp, 0x100
         m.tick(0xa0c);
-        m.sp = (m.sp - 256) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 256);
         ip = 0xa10;
         break;
       }
@@ -7241,7 +7241,7 @@ export function ovl03_0aed(m: Cpu): void {
       case 0xaf0: {
         // 0af0: sub sp, 0xa
         m.tick(0xaf0);
-        m.sp = (m.sp - 10) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 10);
         ip = 0xaf3;
         break;
       }
@@ -7400,7 +7400,7 @@ export function ovl03_0aed(m: Cpu): void {
       case 0xb27: {
         // 0b27: shl di, 1
         m.tick(0xb27);
-        { m.cf = (m.di & 0x8000) !== 0; m.di = (m.di << 1) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0xb29;
         break;
       }
@@ -7824,7 +7824,7 @@ export function ovl03_0bd1(m: Cpu): void {
       case 0xbd4: {
         // 0bd4: sub sp, 0x104
         m.tick(0xbd4);
-        m.sp = (m.sp - 260) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 260);
         ip = 0xbd8;
         break;
       }
@@ -8267,7 +8267,7 @@ export function ovl03_0c74(m: Cpu): void {
       case 0xc77: {
         // 0c77: sub sp, 0xc
         m.tick(0xc77);
-        m.sp = (m.sp - 12) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 12);
         ip = 0xc7a;
         break;
       }
@@ -8982,14 +8982,14 @@ export function ovl03_0c74(m: Cpu): void {
       case 0xd9e: {
         // 0d9e: shl di, 1
         m.tick(0xd9e);
-        { m.cf = (m.di & 0x8000) !== 0; m.di = (m.di << 1) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0xda0;
         break;
       }
       case 0xda0: {
         // 0da0: shl di, 1
         m.tick(0xda0);
-        { m.cf = (m.di & 0x8000) !== 0; m.di = (m.di << 1) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0xda2;
         break;
       }
@@ -9024,14 +9024,14 @@ export function ovl03_0c74(m: Cpu): void {
       case 0xdaf: {
         // 0daf: shl di, 1
         m.tick(0xdaf);
-        { m.cf = (m.di & 0x8000) !== 0; m.di = (m.di << 1) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0xdb1;
         break;
       }
       case 0xdb1: {
         // 0db1: shl di, 1
         m.tick(0xdb1);
-        { m.cf = (m.di & 0x8000) !== 0; m.di = (m.di << 1) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0xdb3;
         break;
       }
@@ -9181,7 +9181,7 @@ export function ovl03_0def(m: Cpu): void {
       case 0xdf2: {
         // 0df2: sub sp, 8
         m.tick(0xdf2);
-        m.sp = (m.sp - 8) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 8);
         ip = 0xdf5;
         break;
       }
@@ -9502,7 +9502,7 @@ export function ovl03_0e5e(m: Cpu): void {
       case 0xe61: {
         // 0e61: sub sp, 0xa
         m.tick(0xe61);
-        m.sp = (m.sp - 10) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 10);
         ip = 0xe64;
         break;
       }
@@ -9769,7 +9769,7 @@ export function ovl03_0ebc(m: Cpu): void {
       case 0xebf: {
         // 0ebf: sub sp, 8
         m.tick(0xebf);
-        m.sp = (m.sp - 8) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 8);
         ip = 0xec2;
         break;
       }
@@ -9992,7 +9992,7 @@ export function ovl03_0f08(m: Cpu): void {
       case 0xf0b: {
         // 0f0b: sub sp, 0x112
         m.tick(0xf0b);
-        m.sp = (m.sp - 274) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 274);
         ip = 0xf0f;
         break;
       }
@@ -10474,7 +10474,7 @@ export function ovl03_0f08(m: Cpu): void {
       case 0xfc2: {
         // 0fc2: shl di, cl
         m.tick(0xfc2);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0xfc4;
         break;
       }
@@ -11067,7 +11067,7 @@ export function ovl03_10d1(m: Cpu): void {
       case 0x10d4: {
         // 10d4: sub sp, 0x140
         m.tick(0x10d4);
-        m.sp = (m.sp - 320) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 320);
         ip = 0x10d8;
         break;
       }
@@ -11635,7 +11635,7 @@ export function ovl03_10d1(m: Cpu): void {
       case 0x11aa: {
         // 11aa: shl di, cl
         m.tick(0x11aa);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x11ac;
         break;
       }
@@ -11875,7 +11875,7 @@ export function ovl03_10d1(m: Cpu): void {
       case 0x11fa: {
         // 11fa: shl di, cl
         m.tick(0x11fa);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x11fc;
         break;
       }
@@ -12231,7 +12231,7 @@ export function ovl03_125d(m: Cpu): void {
       case 0x1260: {
         // 1260: sub sp, 6
         m.tick(0x1260);
-        m.sp = (m.sp - 6) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 6);
         ip = 0x1263;
         break;
       }
@@ -12495,7 +12495,7 @@ export function ovl03_12c6(m: Cpu): void {
       case 0x12c9: {
         // 12c9: sub sp, 0xc
         m.tick(0x12c9);
-        m.sp = (m.sp - 12) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 12);
         ip = 0x12cc;
         break;
       }
@@ -12820,7 +12820,7 @@ export function ovl03_12c6(m: Cpu): void {
       case 0x135c: {
         // 135c: shl ax, cl
         m.tick(0x135c);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x135e;
         break;
       }
@@ -12855,14 +12855,14 @@ export function ovl03_12c6(m: Cpu): void {
       case 0x1367: {
         // 1367: shl ax, 1
         m.tick(0x1367);
-        { m.cf = (m.ax & 0x8000) !== 0; m.ax = (m.ax << 1) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x1369;
         break;
       }
       case 0x1369: {
         // 1369: shl ax, 1
         m.tick(0x1369);
-        { m.cf = (m.ax & 0x8000) !== 0; m.ax = (m.ax << 1) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x136b;
         break;
       }
@@ -12904,14 +12904,14 @@ export function ovl03_12c6(m: Cpu): void {
       case 0x1376: {
         // 1376: shl ax, 1
         m.tick(0x1376);
-        { m.cf = (m.ax & 0x8000) !== 0; m.ax = (m.ax << 1) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x1378;
         break;
       }
       case 0x1378: {
         // 1378: shl ax, 1
         m.tick(0x1378);
-        { m.cf = (m.ax & 0x8000) !== 0; m.ax = (m.ax << 1) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x137a;
         break;
       }
@@ -12988,14 +12988,14 @@ export function ovl03_12c6(m: Cpu): void {
       case 0x1390: {
         // 1390: shl ax, 1
         m.tick(0x1390);
-        { m.cf = (m.ax & 0x8000) !== 0; m.ax = (m.ax << 1) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x1392;
         break;
       }
       case 0x1392: {
         // 1392: shl ax, 1
         m.tick(0x1392);
-        { m.cf = (m.ax & 0x8000) !== 0; m.ax = (m.ax << 1) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x1394;
         break;
       }
@@ -13446,7 +13446,7 @@ export function ovl03_1435(m: Cpu): void {
       case 0x1438: {
         // 1438: sub sp, 0x1a
         m.tick(0x1438);
-        m.sp = (m.sp - 26) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 26);
         ip = 0x143b;
         break;
       }
@@ -14696,7 +14696,7 @@ export function ovl03_1629(m: Cpu): void {
       case 0x162c: {
         // 162c: sub sp, 0xc
         m.tick(0x162c);
-        m.sp = (m.sp - 12) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 12);
         ip = 0x162f;
         break;
       }
@@ -15097,7 +15097,7 @@ export function ovl03_16c9(m: Cpu): void {
       case 0x16cc: {
         // 16cc: sub sp, 0xa
         m.tick(0x16cc);
-        m.sp = (m.sp - 10) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 10);
         ip = 0x16cf;
         break;
       }
@@ -15699,7 +15699,7 @@ export function ovl03_179b(m: Cpu): void {
       case 0x179e: {
         // 179e: sub sp, 0xa
         m.tick(0x179e);
-        m.sp = (m.sp - 10) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 10);
         ip = 0x17a1;
         break;
       }
@@ -16576,7 +16576,7 @@ export function ovl03_18f8(m: Cpu): void {
       case 0x18fb: {
         // 18fb: sub sp, 6
         m.tick(0x18fb);
-        m.sp = (m.sp - 6) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 6);
         ip = 0x18fe;
         break;
       }
@@ -16990,7 +16990,7 @@ export function ovl03_19b0(m: Cpu): void {
       case 0x19b3: {
         // 19b3: sub sp, 0x174
         m.tick(0x19b3);
-        m.sp = (m.sp - 372) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 372);
         ip = 0x19b7;
         break;
       }
@@ -17119,14 +17119,14 @@ export function ovl03_19b0(m: Cpu): void {
       case 0x19e0: {
         // 19e0: shl di, 1
         m.tick(0x19e0);
-        { m.cf = (m.di & 0x8000) !== 0; m.di = (m.di << 1) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x19e2;
         break;
       }
       case 0x19e2: {
         // 19e2: shl di, 1
         m.tick(0x19e2);
-        { m.cf = (m.di & 0x8000) !== 0; m.di = (m.di << 1) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x19e4;
         break;
       }
@@ -19806,7 +19806,7 @@ export function ovl03_1db1(m: Cpu): void {
       case 0x1db4: {
         // 1db4: sub sp, 0x12
         m.tick(0x1db4);
-        m.sp = (m.sp - 18) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 18);
         ip = 0x1db7;
         break;
       }
@@ -20378,7 +20378,7 @@ export function ovl03_1ef8(m: Cpu): void {
       case 0x1efb: {
         // 1efb: sub sp, 0x450
         m.tick(0x1efb);
-        m.sp = (m.sp - 1104) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 1104);
         ip = 0x1eff;
         break;
       }
@@ -20781,7 +20781,7 @@ export function ovl03_1ef8(m: Cpu): void {
       case 0x1fa7: {
         // 1fa7: shl di, cl
         m.tick(0x1fa7);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x1fa9;
         break;
       }
@@ -20837,7 +20837,7 @@ export function ovl03_1ef8(m: Cpu): void {
       case 0x1fb9: {
         // 1fb9: shl di, cl
         m.tick(0x1fb9);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x1fbb;
         break;
       }
@@ -21317,7 +21317,7 @@ export function ovl03_1ef8(m: Cpu): void {
       case 0x2090: {
         // 2090: shl di, cl
         m.tick(0x2090);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x2092;
         break;
       }
@@ -21476,7 +21476,7 @@ export function ovl03_1ef8(m: Cpu): void {
       case 0x20d0: {
         // 20d0: shl di, cl
         m.tick(0x20d0);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x20d2;
         break;
       }
@@ -21655,7 +21655,7 @@ export function ovl03_1ef8(m: Cpu): void {
       case 0x211b: {
         // 211b: shl di, cl
         m.tick(0x211b);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.di << (n - 1)) & 0x8000) !== 0; m.di = (m.di << n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x211d;
         break;
       }
@@ -24798,7 +24798,7 @@ export function ovl03_25cb(m: Cpu): void {
       case 0x25ce: {
         // 25ce: sub sp, 0x12e
         m.tick(0x25ce);
-        m.sp = (m.sp - 302) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 302);
         ip = 0x25d2;
         break;
       }
@@ -25282,7 +25282,7 @@ export function ovl03_266a(m: Cpu): void {
       case 0x266d: {
         // 266d: sub sp, 0xc
         m.tick(0x266d);
-        m.sp = (m.sp - 12) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 12);
         ip = 0x2670;
         break;
       }
@@ -25772,7 +25772,7 @@ export function ovl03_2775(m: Cpu): void {
       case 0x2778: {
         // 2778: sub sp, 0x3e
         m.tick(0x2778);
-        m.sp = (m.sp - 62) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 62);
         ip = 0x277b;
         break;
       }
@@ -27955,7 +27955,7 @@ export function ovl03_2ac1(m: Cpu): void {
       case 0x2ac4: {
         // 2ac4: sub sp, 2
         m.tick(0x2ac4);
-        m.sp = (m.sp - 2) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 2);
         ip = 0x2ac7;
         break;
       }
@@ -28313,7 +28313,7 @@ export function ovl03_2b33(m: Cpu): void {
       case 0x2b36: {
         // 2b36: sub sp, 0x100
         m.tick(0x2b36);
-        m.sp = (m.sp - 256) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 256);
         ip = 0x2b3a;
         break;
       }
@@ -28583,7 +28583,7 @@ export function ovl03_2b7e(m: Cpu): void {
       case 0x2b81: {
         // 2b81: sub sp, 6
         m.tick(0x2b81);
-        m.sp = (m.sp - 6) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 6);
         ip = 0x2b84;
         break;
       }
@@ -28710,7 +28710,7 @@ export function ovl03_2b7e(m: Cpu): void {
       case 0x2bb0: {
         // 2bb0: shr ax, 1
         m.tick(0x2bb0);
-        { m.cf = (m.ax & 1) !== 0; m.ax = (m.ax >>> 1) & 0xffff; m.zf = m.ax === 0; m.sf = false; }
+        { const n = 1; if (n) { if (n === 1) m.of = (m.ax & 0x8000) !== 0; m.cf = ((m.ax >>> (n - 1)) & 1) !== 0; m.ax = (m.ax >>> n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); } }
         ip = 0x2bb2;
         break;
       }
@@ -28904,7 +28904,7 @@ export function ovl03_2c03(m: Cpu): void {
       case 0x2c06: {
         // 2c06: sub sp, 0xa
         m.tick(0x2c06);
-        m.sp = (m.sp - 10) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 10);
         ip = 0x2c09;
         break;
       }
@@ -29436,7 +29436,7 @@ export function ovl03_2ccf(m: Cpu): void {
       case 0x2cd2: {
         // 2cd2: sub sp, 4
         m.tick(0x2cd2);
-        m.sp = (m.sp - 4) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 4);
         ip = 0x2cd5;
         break;
       }
@@ -30063,7 +30063,7 @@ export function ovl03_2dd3(m: Cpu): void {
       case 0x2dd6: {
         // 2dd6: sub sp, 2
         m.tick(0x2dd6);
-        m.sp = (m.sp - 2) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 2);
         ip = 0x2dd9;
         break;
       }
@@ -30234,7 +30234,7 @@ export function ovl03_2e10(m: Cpu): void {
       case 0x2e13: {
         // 2e13: sub sp, 4
         m.tick(0x2e13);
-        m.sp = (m.sp - 4) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 4);
         ip = 0x2e16;
         break;
       }
@@ -30530,7 +30530,7 @@ export function ovl03_2e7d(m: Cpu): void {
       case 0x2e80: {
         // 2e80: sub sp, 8
         m.tick(0x2e80);
-        m.sp = (m.sp - 8) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 8);
         ip = 0x2e83;
         break;
       }
@@ -33018,7 +33018,7 @@ export function ovl03_31b4(m: Cpu): void {
       case 0x31b7: {
         // 31b7: sub sp, 6
         m.tick(0x31b7);
-        m.sp = (m.sp - 6) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 6);
         ip = 0x31ba;
         break;
       }
@@ -33774,7 +33774,7 @@ export function ovl03_32f8(m: Cpu): void {
       case 0x32fb: {
         // 32fb: sub sp, 2
         m.tick(0x32fb);
-        m.sp = (m.sp - 2) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 2);
         ip = 0x32fe;
         break;
       }

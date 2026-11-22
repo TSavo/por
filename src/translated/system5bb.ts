@@ -68,7 +68,7 @@ export function sys5bb_0000(m: Cpu): void {
       case 0x12: {
         // 0012: shr ax, cl
         m.tick(0x12);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.ax >>> (n - 1)) & 1) !== 0; m.ax = (m.ax >>> n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { if (n === 1) m.of = (m.ax & 0x8000) !== 0; m.cf = ((m.ax >>> (n - 1)) & 1) !== 0; m.ax = (m.ax >>> n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); } }
         ip = 0x14;
         break;
       }
@@ -2724,7 +2724,7 @@ export function sys5bb_0e3a(m: Cpu): void {
       case 0xe3d: {
         // 0e3d: sub sp, 0x20
         m.tick(0xe3d);
-        m.sp = (m.sp - 32) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 32);
         ip = 0xe40;
         break;
       }

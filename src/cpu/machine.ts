@@ -214,6 +214,11 @@ export class Cpu {
     return result;
   }
 
+  /** PF for a result: set when its low byte has an even number of one bits. */
+  parityOf(value: number): boolean {
+    return parity(value);
+  }
+
   setLogicFlags(width: 8 | 16, result: number): void {
     const mask = width === 8 ? 0xff : 0xffff;
     const sign = width === 8 ? 0x80 : 0x8000;

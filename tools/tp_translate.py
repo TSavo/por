@@ -306,8 +306,6 @@ def emit_insn(insn, next_ip: int, proc_name: dict[int, str], falls: bool = True,
         width = 8 if "byte" in parts[1] else 16
         read = "read8" if width == 8 else "read16"
         nxt(f"m.{parts[0]} = m.setAddFlags({width}, m.{parts[0]}, m.{read}({seg}, {off}));")
-    elif mn == "sub" and parts[0] == "sp" and (parts[1].startswith("0x") or parts[1].isdigit()):
-        nxt(f"m.sp = (m.sp - {imm(parts[1])}) & 0xffff;")
     elif mn == "sub" and parts[0] in REG16 and (parts[1].startswith("0x") or parts[1].isdigit()):
         nxt(f"m.{parts[0]} = m.setSubFlags(16, m.{parts[0]}, {imm(parts[1])});")
     elif mn == "sub" and parts[0] in REG16 and parts[1] in REG16:
@@ -330,23 +328,6 @@ def emit_insn(insn, next_ip: int, proc_name: dict[int, str], falls: bool = True,
         nxt(f"m.setSubFlags(8, m.read8({seg}, {off}), {imm(parts[1])});")
     elif mn == "cmp" and parts[0] in REG8 and parts[1] in REG8:
         nxt(f"m.setSubFlags(8, m.{parts[0]}, m.{parts[1]});")
-    elif mn == "shl" and parts[0] in REG16 and parts[1] == "1":
-        nxt(
-            f"{{ m.cf = (m.{parts[0]} & 0x8000) !== 0; m.{parts[0]} = (m.{parts[0]} << 1) & 0xffff; m.zf = m.{parts[0]} === 0; m.sf = (m.{parts[0]} & 0x8000) !== 0; }}"
-        )
-    elif mn == "shl" and parts[0] in REG16 and parts[1] == "cl":
-        nxt(
-            f"{{ const n = m.cl & 31; if (n) {{ m.cf = ((m.{parts[0]} << (n - 1)) & 0x8000) !== 0; m.{parts[0]} = (m.{parts[0]} << n) & 0xffff; m.zf = m.{parts[0]} === 0; m.sf = (m.{parts[0]} & 0x8000) !== 0; }} }}"
-        )
-    elif mn == "shr" and parts[0] in REG16 and parts[1] in ("1", "cl"):
-        if parts[1] == "1":
-            nxt(
-                f"{{ m.cf = (m.{parts[0]} & 1) !== 0; m.{parts[0]} = (m.{parts[0]} >>> 1) & 0xffff; m.zf = m.{parts[0]} === 0; m.sf = false; }}"
-            )
-        else:
-            nxt(
-                f"{{ const n = m.cl & 31; if (n) {{ m.cf = ((m.{parts[0]} >>> (n - 1)) & 1) !== 0; m.{parts[0]} = (m.{parts[0]} >>> n) & 0xffff; m.zf = m.{parts[0]} === 0; m.sf = (m.{parts[0]} & 0x8000) !== 0; }} }}"
-            )
     elif mn == "and" and parts[0] in REG16 and (parts[1].startswith("0x") or parts[1].isdigit()):
         nxt(f"m.{parts[0]} &= {imm(parts[1])}; m.setLogicFlags(16, m.{parts[0]});")
     elif mn == "or" and parts[0] in REG16 and parts[1] in REG16:
@@ -762,7 +743,11 @@ def generic_op(mn: str, op: str, parts: list[str]) -> str | None:
             step = f"{{ const c = m.cf; m.cf = (v & {sign}) !== 0; v = ((v << 1) | (c ? 1 : 0)) & {mask}; }}"
         else:
             step = f"{{ const c = m.cf; m.cf = (v & 1) !== 0; v = ((v >>> 1) | (c ? {sign} : 0)) & {mask}; }}"
-        return f"{{ let v = m.{parts[0]}; const n = {count}; for (let i = 0; i < n; i++) {{ {step} }} m.{parts[0]} = v; }}"
+        # OF is defined for a one-bit rotate: the top bit against the carry (left), or the top two bits (right).
+        overflow = (f"m.of = ((v & {sign}) !== 0) !== m.cf;" if mn in ("rol", "rcl")
+                    else f"m.of = ((v & {sign}) !== 0) !== ((v & {int(sign, 16) >> 1:#x}) !== 0);")
+        return (f"{{ let v = m.{parts[0]}; const n = {count}; for (let i = 0; i < n; i++) {{ {step} }} m.{parts[0]} = v; "
+                f"if (n === 1) {overflow} }}")
     if mn in ("shl", "shr", "sar") and parts[0] in REG8 | REG16:
         width = 8 if parts[0] in REG8 else 16
         sign = "0x80" if width == 8 else "0x8000"
@@ -771,17 +756,21 @@ def generic_op(mn: str, op: str, parts: list[str]) -> str | None:
         if mn == "shl":
             return (
                 f"{{ const n = {count}; if (n) {{ m.cf = ((m.{parts[0]} << (n - 1)) & {sign}) !== 0; "
-                f"m.{parts[0]} = (m.{parts[0]} << n) & {mask}; m.zf = m.{parts[0]} === 0; m.sf = (m.{parts[0]} & {sign}) !== 0; }} }}"
+                f"m.{parts[0]} = (m.{parts[0]} << n) & {mask}; m.zf = m.{parts[0]} === 0; m.sf = (m.{parts[0]} & {sign}) !== 0; "
+                f"m.pf = m.parityOf(m.{parts[0]}); if (n === 1) m.of = m.sf !== m.cf; }} }}"
             )
         if mn == "sar":
             return (
                 f"{{ const n = {count}; if (n) {{ const signed = m.{parts[0]} << {32 - width} >> {32 - width}; "
                 f"m.cf = ((signed >>> (n - 1)) & 1) !== 0; m.{parts[0]} = (signed >> n) & {mask}; "
-                f"m.zf = m.{parts[0]} === 0; m.sf = (m.{parts[0]} & {sign}) !== 0; }} }}"
+                f"m.zf = m.{parts[0]} === 0; m.sf = (m.{parts[0]} & {sign}) !== 0; m.pf = m.parityOf(m.{parts[0]}); "
+                f"if (n === 1) m.of = false; }} }}"
             )
         return (
-            f"{{ const n = {count}; if (n) {{ m.cf = ((m.{parts[0]} >>> (n - 1)) & 1) !== 0; "
-            f"m.{parts[0]} = (m.{parts[0]} >>> n) & {mask}; m.zf = m.{parts[0]} === 0; m.sf = (m.{parts[0]} & {sign}) !== 0; }} }}"
+            f"{{ const n = {count}; if (n) {{ if (n === 1) m.of = (m.{parts[0]} & {sign}) !== 0; "
+            f"m.cf = ((m.{parts[0]} >>> (n - 1)) & 1) !== 0; "
+            f"m.{parts[0]} = (m.{parts[0]} >>> n) & {mask}; m.zf = m.{parts[0]} === 0; m.sf = (m.{parts[0]} & {sign}) !== 0; "
+            f"m.pf = m.parityOf(m.{parts[0]}); }} }}"
         )
     if mn == "not" and parts and parts[0] in REG8 | REG16:
         mask = "0xff" if parts[0] in REG8 else "0xffff"

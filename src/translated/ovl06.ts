@@ -35,7 +35,7 @@ export function ovl06_0030(m: Cpu): void {
       case 0x33: {
         // 0033: sub sp, 0x48
         m.tick(0x33);
-        m.sp = (m.sp - 72) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 72);
         ip = 0x36;
         break;
       }
@@ -1535,7 +1535,7 @@ export function ovl06_0230(m: Cpu): void {
       case 0x233: {
         // 0233: sub sp, 0x14
         m.tick(0x233);
-        m.sp = (m.sp - 20) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 20);
         ip = 0x236;
         break;
       }
@@ -2227,7 +2227,7 @@ export function ovl06_034f(m: Cpu): void {
       case 0x352: {
         // 0352: sub sp, 0x28
         m.tick(0x352);
-        m.sp = (m.sp - 40) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 40);
         ip = 0x355;
         break;
       }
@@ -2981,7 +2981,7 @@ export function ovl06_052a(m: Cpu): void {
       case 0x52d: {
         // 052d: sub sp, 0x8a
         m.tick(0x52d);
-        m.sp = (m.sp - 138) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 138);
         ip = 0x531;
         break;
       }

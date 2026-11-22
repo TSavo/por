@@ -35,7 +35,7 @@ export function ovl33_0004(m: Cpu): void {
       case 0x7: {
         // 0007: sub sp, 0x42a
         m.tick(0x7);
-        m.sp = (m.sp - 1066) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 1066);
         ip = 0xb;
         break;
       }

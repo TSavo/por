@@ -474,7 +474,7 @@ export function exe_00006(m: Cpu): void {
       case 0xfe: {
         // 00fe: sub sp, 0x100
         m.tick(0xfe);
-        m.sp = (m.sp - 256) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 256);
         ip = 0x102;
         break;
       }
@@ -731,7 +731,7 @@ export function exe_000fb(m: Cpu): void {
       case 0xfe: {
         // 00fe: sub sp, 0x100
         m.tick(0xfe);
-        m.sp = (m.sp - 256) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 256);
         ip = 0x102;
         break;
       }
@@ -1033,7 +1033,7 @@ export function exe_01500(m: Cpu): void {
       case 0x1503: {
         // 1503: sub sp, 4
         m.tick(0x1503);
-        m.sp = (m.sp - 4) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 4);
         ip = 0x1506;
         break;
       }
@@ -2047,7 +2047,7 @@ export function exe_01638(m: Cpu): void {
       case 0x163b: {
         // 163b: sub sp, 0xc
         m.tick(0x163b);
-        m.sp = (m.sp - 12) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 12);
         ip = 0x163e;
         break;
       }
@@ -2101,7 +2101,7 @@ export function exe_01638(m: Cpu): void {
       case 0x164f: {
         // 164f: shl ax, cl
         m.tick(0x164f);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x1651;
         break;
       }
@@ -2136,7 +2136,7 @@ export function exe_01638(m: Cpu): void {
       case 0x165b: {
         // 165b: shl ax, cl
         m.tick(0x165b);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x165d;
         break;
       }
@@ -2206,7 +2206,7 @@ export function exe_01638(m: Cpu): void {
       case 0x1670: {
         // 1670: shl ax, 1
         m.tick(0x1670);
-        { m.cf = (m.ax & 0x8000) !== 0; m.ax = (m.ax << 1) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x1672;
         break;
       }
@@ -2288,7 +2288,7 @@ export function exe_01638(m: Cpu): void {
       case 0x168f: {
         // 168f: shl ax, 1
         m.tick(0x168f);
-        { m.cf = (m.ax & 0x8000) !== 0; m.ax = (m.ax << 1) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x1691;
         break;
       }
@@ -2409,7 +2409,7 @@ export function exe_01638(m: Cpu): void {
       case 0x16b5: {
         // 16b5: shl ax, 1
         m.tick(0x16b5);
-        { m.cf = (m.ax & 0x8000) !== 0; m.ax = (m.ax << 1) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x16b7;
         break;
       }
@@ -2780,7 +2780,7 @@ export function exe_01638(m: Cpu): void {
       case 0x172a: {
         // 172a: shl ax, 1
         m.tick(0x172a);
-        { m.cf = (m.ax & 0x8000) !== 0; m.ax = (m.ax << 1) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x172c;
         break;
       }
@@ -2808,7 +2808,7 @@ export function exe_01638(m: Cpu): void {
       case 0x1733: {
         // 1733: shl ax, 1
         m.tick(0x1733);
-        { m.cf = (m.ax & 0x8000) !== 0; m.ax = (m.ax << 1) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x1735;
         break;
       }
@@ -2850,7 +2850,7 @@ export function exe_01638(m: Cpu): void {
       case 0x1740: {
         // 1740: shl ax, cl
         m.tick(0x1740);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x1742;
         break;
       }
@@ -2920,7 +2920,7 @@ export function exe_01638(m: Cpu): void {
       case 0x1755: {
         // 1755: shl ax, cl
         m.tick(0x1755);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x1757;
         break;
       }
@@ -3493,7 +3493,7 @@ export function exe_01810(m: Cpu): void {
       case 0x1813: {
         // 1813: sub sp, 0x2a
         m.tick(0x1813);
-        m.sp = (m.sp - 42) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 42);
         ip = 0x1816;
         break;
       }
@@ -6697,7 +6697,7 @@ export function exe_01e71(m: Cpu): void {
       case 0x1e74: {
         // 1e74: sub sp, 0x104
         m.tick(0x1e74);
-        m.sp = (m.sp - 260) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 260);
         ip = 0x1e78;
         break;
       }
@@ -7145,7 +7145,7 @@ export function exe_01f01(m: Cpu): void {
       case 0x1f04: {
         // 1f04: sub sp, 0x2a
         m.tick(0x1f04);
-        m.sp = (m.sp - 42) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 42);
         ip = 0x1f07;
         break;
       }
@@ -7498,7 +7498,7 @@ export function exe_01f80(m: Cpu): void {
       case 0x1f83: {
         // 1f83: sub sp, 0xc
         m.tick(0x1f83);
-        m.sp = (m.sp - 12) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 12);
         ip = 0x1f86;
         break;
       }
@@ -7739,7 +7739,7 @@ export function exe_01fcb(m: Cpu): void {
       case 0x1fce: {
         // 1fce: sub sp, 0x54
         m.tick(0x1fce);
-        m.sp = (m.sp - 84) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 84);
         ip = 0x1fd1;
         break;
       }
@@ -8195,7 +8195,7 @@ export function exe_02059(m: Cpu): void {
       case 0x205c: {
         // 205c: sub sp, 0xaa
         m.tick(0x205c);
-        m.sp = (m.sp - 170) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 170);
         ip = 0x2060;
         break;
       }
@@ -8513,7 +8513,7 @@ export function exe_020c4(m: Cpu): void {
       case 0x20c7: {
         // 20c7: sub sp, 0x304
         m.tick(0x20c7);
-        m.sp = (m.sp - 772) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 772);
         ip = 0x20cb;
         break;
       }
@@ -9105,7 +9105,7 @@ export function exe_02193(m: Cpu): void {
       case 0x2196: {
         // 2196: sub sp, 0x302
         m.tick(0x2196);
-        m.sp = (m.sp - 770) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 770);
         ip = 0x219a;
         break;
       }
@@ -9762,7 +9762,7 @@ export function exe_0227d(m: Cpu): void {
       case 0x2280: {
         // 2280: sub sp, 6
         m.tick(0x2280);
-        m.sp = (m.sp - 6) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 6);
         ip = 0x2283;
         break;
       }
@@ -10350,7 +10350,7 @@ export function exe_02341(m: Cpu): void {
       case 0x2344: {
         // 2344: sub sp, 0x42e
         m.tick(0x2344);
-        m.sp = (m.sp - 1070) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 1070);
         ip = 0x2348;
         break;
       }
@@ -11297,7 +11297,7 @@ export function exe_02473(m: Cpu): void {
       case 0x2476: {
         // 2476: sub sp, 0x23e
         m.tick(0x2476);
-        m.sp = (m.sp - 574) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 574);
         ip = 0x247a;
         break;
       }
@@ -13257,7 +13257,7 @@ export function exe_026f8(m: Cpu): void {
       case 0x26fb: {
         // 26fb: sub sp, 0x102
         m.tick(0x26fb);
-        m.sp = (m.sp - 258) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 258);
         ip = 0x26ff;
         break;
       }
@@ -13706,7 +13706,7 @@ export function exe_027a6(m: Cpu): void {
       case 0x27a9: {
         // 27a9: sub sp, 2
         m.tick(0x27a9);
-        m.sp = (m.sp - 2) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 2);
         ip = 0x27ac;
         break;
       }
@@ -13808,7 +13808,7 @@ export function exe_027c2(m: Cpu): void {
       case 0x27c5: {
         // 27c5: sub sp, 2
         m.tick(0x27c5);
-        m.sp = (m.sp - 2) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 2);
         ip = 0x27c8;
         break;
       }
@@ -15866,7 +15866,7 @@ export function exe_04e14(m: Cpu): void {
       case 0x4e37: {
         // 4e37: shl ax, cl
         m.tick(0x4e37);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x4e39;
         break;
       }
@@ -15953,7 +15953,7 @@ export function exe_04e45(m: Cpu): void {
       case 0x4e50: {
         // 4e50: shl ax, cl
         m.tick(0x4e50);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x4e52;
         break;
       }
@@ -16019,7 +16019,7 @@ export function exe_04e5e(m: Cpu): void {
       case 0x4e61: {
         // 4e61: sub sp, 2
         m.tick(0x4e61);
-        m.sp = (m.sp - 2) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 2);
         ip = 0x4e64;
         break;
       }
@@ -16238,7 +16238,7 @@ export function exe_04e9d(m: Cpu): void {
       case 0x4ea0: {
         // 4ea0: sub sp, 0xa
         m.tick(0x4ea0);
-        m.sp = (m.sp - 10) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 10);
         ip = 0x4ea3;
         break;
       }
@@ -16329,7 +16329,7 @@ export function exe_04e9d(m: Cpu): void {
       case 0x4ebc: {
         // 4ebc: shl ax, cl
         m.tick(0x4ebc);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x4ebe;
         break;
       }
@@ -16434,7 +16434,7 @@ export function exe_04e9d(m: Cpu): void {
       case 0x4ed9: {
         // 4ed9: shl ax, cl
         m.tick(0x4ed9);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x4edb;
         break;
       }
@@ -17665,14 +17665,14 @@ export function exe_0504b(m: Cpu): void {
       case 0x505c: {
         // 505c: shl bx, 1
         m.tick(0x505c);
-        { m.cf = (m.bx & 0x8000) !== 0; m.bx = (m.bx << 1) & 0xffff; m.zf = m.bx === 0; m.sf = (m.bx & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.bx << (n - 1)) & 0x8000) !== 0; m.bx = (m.bx << n) & 0xffff; m.zf = m.bx === 0; m.sf = (m.bx & 0x8000) !== 0; m.pf = m.parityOf(m.bx); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x505e;
         break;
       }
       case 0x505e: {
         // 505e: shl bx, 1
         m.tick(0x505e);
-        { m.cf = (m.bx & 0x8000) !== 0; m.bx = (m.bx << 1) & 0xffff; m.zf = m.bx === 0; m.sf = (m.bx & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.bx << (n - 1)) & 0x8000) !== 0; m.bx = (m.bx << n) & 0xffff; m.zf = m.bx === 0; m.sf = (m.bx & 0x8000) !== 0; m.pf = m.parityOf(m.bx); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x5060;
         break;
       }
@@ -20079,7 +20079,7 @@ export function exe_05393(m: Cpu): void {
       case 0x539d: {
         // 539d: shl al, cl
         m.tick(0x539d);
-        { const n = (m.cl & 31); if (n) { m.cf = ((m.al << (n - 1)) & 0x80) !== 0; m.al = (m.al << n) & 0xff; m.zf = m.al === 0; m.sf = (m.al & 0x80) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.al << (n - 1)) & 0x80) !== 0; m.al = (m.al << n) & 0xff; m.zf = m.al === 0; m.sf = (m.al & 0x80) !== 0; m.pf = m.parityOf(m.al); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x539f;
         break;
       }
@@ -23106,7 +23106,7 @@ export function exe_056c0(m: Cpu): void {
       case 0x56e4: {
         // 56e4: shl ax, 1
         m.tick(0x56e4);
-        { m.cf = (m.ax & 0x8000) !== 0; m.ax = (m.ax << 1) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x56e6;
         break;
       }
@@ -23539,7 +23539,7 @@ export function exe_05758(m: Cpu): void {
       case 0x575b: {
         // 575b: sub sp, 0x80
         m.tick(0x575b);
-        m.sp = (m.sp - 128) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 128);
         ip = 0x575f;
         break;
       }
@@ -24665,14 +24665,14 @@ export function exe_05879(m: Cpu): void {
       case 0x589f: {
         // 589f: shr ax, cl
         m.tick(0x589f);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.ax >>> (n - 1)) & 1) !== 0; m.ax = (m.ax >>> n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { if (n === 1) m.of = (m.ax & 0x8000) !== 0; m.cf = ((m.ax >>> (n - 1)) & 1) !== 0; m.ax = (m.ax >>> n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); } }
         ip = 0x58a1;
         break;
       }
       case 0x58a1: {
         // 58a1: ror dx, cl
         m.tick(0x58a1);
-        { let v = m.dx; const n = (m.cl & 31); for (let i = 0; i < n; i++) { m.cf = (v & 1) !== 0; v = ((v >>> 1) | (m.cf ? 0x8000 : 0)) & 0xffff; } m.dx = v; }
+        { let v = m.dx; const n = (m.cl & 31); for (let i = 0; i < n; i++) { m.cf = (v & 1) !== 0; v = ((v >>> 1) | (m.cf ? 0x8000 : 0)) & 0xffff; } m.dx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== ((v & 0x4000) !== 0); }
         ip = 0x58a3;
         break;
       }
@@ -24845,7 +24845,7 @@ export function exe_058dc(m: Cpu): void {
       case 0x58e5: {
         // 58e5: rol ax, cl
         m.tick(0x58e5);
-        { let v = m.ax; const n = (m.cl & 31); for (let i = 0; i < n; i++) { m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (m.cf ? 1 : 0)) & 0xffff; } m.ax = v; }
+        { let v = m.ax; const n = (m.cl & 31); for (let i = 0; i < n; i++) { m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (m.cf ? 1 : 0)) & 0xffff; } m.ax = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x58e7;
         break;
       }
@@ -25352,7 +25352,7 @@ export function exe_059e4(m: Cpu): void {
       case 0x59f3: {
         // 59f3: shr dx, cl
         m.tick(0x59f3);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.dx >>> (n - 1)) & 1) !== 0; m.dx = (m.dx >>> n) & 0xffff; m.zf = m.dx === 0; m.sf = (m.dx & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { if (n === 1) m.of = (m.dx & 0x8000) !== 0; m.cf = ((m.dx >>> (n - 1)) & 1) !== 0; m.dx = (m.dx >>> n) & 0xffff; m.zf = m.dx === 0; m.sf = (m.dx & 0x8000) !== 0; m.pf = m.parityOf(m.dx); } }
         ip = 0x59f5;
         break;
       }
@@ -25856,7 +25856,7 @@ export function exe_05a9c(m: Cpu): void {
       case 0x5aa5: {
         // 5aa5: shr ax, cl
         m.tick(0x5aa5);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.ax >>> (n - 1)) & 1) !== 0; m.ax = (m.ax >>> n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { if (n === 1) m.of = (m.ax & 0x8000) !== 0; m.cf = ((m.ax >>> (n - 1)) & 1) !== 0; m.ax = (m.ax >>> n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); } }
         ip = 0x5aa7;
         break;
       }
@@ -26037,7 +26037,7 @@ export function exe_05b05(m: Cpu): void {
       case 0x5b38: {
         // 5b38: shr cx, 1
         m.tick(0x5b38);
-        { m.cf = (m.cx & 1) !== 0; m.cx = (m.cx >>> 1) & 0xffff; m.zf = m.cx === 0; m.sf = false; }
+        { const n = 1; if (n) { if (n === 1) m.of = (m.cx & 0x8000) !== 0; m.cf = ((m.cx >>> (n - 1)) & 1) !== 0; m.cx = (m.cx >>> n) & 0xffff; m.zf = m.cx === 0; m.sf = (m.cx & 0x8000) !== 0; m.pf = m.parityOf(m.cx); } }
         ip = 0x5b3a;
         break;
       }
@@ -26448,7 +26448,7 @@ export function exe_05bb0(m: Cpu): void {
       case 0x5bc2: {
         // 5bc2: shr ax, cl
         m.tick(0x5bc2);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.ax >>> (n - 1)) & 1) !== 0; m.ax = (m.ax >>> n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { if (n === 1) m.of = (m.ax & 0x8000) !== 0; m.cf = ((m.ax >>> (n - 1)) & 1) !== 0; m.ax = (m.ax >>> n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); } }
         ip = 0x5bc4;
         break;
       }
@@ -28406,7 +28406,7 @@ export function exe_05d6c(m: Cpu): void {
       case 0x5d76: {
         // 5d76: shr al, cl
         m.tick(0x5d76);
-        { const n = (m.cl & 31); if (n) { m.cf = ((m.al >>> (n - 1)) & 1) !== 0; m.al = (m.al >>> n) & 0xff; m.zf = m.al === 0; m.sf = (m.al & 0x80) !== 0; } }
+        { const n = (m.cl & 31); if (n) { if (n === 1) m.of = (m.al & 0x80) !== 0; m.cf = ((m.al >>> (n - 1)) & 1) !== 0; m.al = (m.al >>> n) & 0xff; m.zf = m.al === 0; m.sf = (m.al & 0x80) !== 0; m.pf = m.parityOf(m.al); } }
         ip = 0x5d78;
         break;
       }
@@ -28514,7 +28514,7 @@ export function exe_05d73(m: Cpu): void {
       case 0x5d76: {
         // 5d76: shr al, cl
         m.tick(0x5d76);
-        { const n = (m.cl & 31); if (n) { m.cf = ((m.al >>> (n - 1)) & 1) !== 0; m.al = (m.al >>> n) & 0xff; m.zf = m.al === 0; m.sf = (m.al & 0x80) !== 0; } }
+        { const n = (m.cl & 31); if (n) { if (n === 1) m.of = (m.al & 0x80) !== 0; m.cf = ((m.al >>> (n - 1)) & 1) !== 0; m.al = (m.al >>> n) & 0xff; m.zf = m.al === 0; m.sf = (m.al & 0x80) !== 0; m.pf = m.parityOf(m.al); } }
         ip = 0x5d78;
         break;
       }
@@ -29095,14 +29095,14 @@ export function exe_05e44(m: Cpu): void {
       case 0x5e74: {
         // 5e74: rcl cx, 1
         m.tick(0x5e74);
-        { let v = m.cx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.cx = v; }
+        { let v = m.cx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.cx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x5e76;
         break;
       }
       case 0x5e76: {
         // 5e76: rcl bx, 1
         m.tick(0x5e76);
-        { let v = m.bx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.bx = v; }
+        { let v = m.bx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.bx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x5e78;
         break;
       }
@@ -29150,14 +29150,14 @@ export function exe_05e44(m: Cpu): void {
       case 0x5e83: {
         // 5e83: rcl ax, 1
         m.tick(0x5e83);
-        { let v = m.ax; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.ax = v; }
+        { let v = m.ax; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.ax = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x5e85;
         break;
       }
       case 0x5e85: {
         // 5e85: rcl dx, 1
         m.tick(0x5e85);
-        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; }
+        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x5e87;
         break;
       }
@@ -30886,28 +30886,28 @@ export function exe_06145(m: Cpu): void {
       case 0x6150: {
         // 6150: shr si, 1
         m.tick(0x6150);
-        { m.cf = (m.si & 1) !== 0; m.si = (m.si >>> 1) & 0xffff; m.zf = m.si === 0; m.sf = false; }
+        { const n = 1; if (n) { if (n === 1) m.of = (m.si & 0x8000) !== 0; m.cf = ((m.si >>> (n - 1)) & 1) !== 0; m.si = (m.si >>> n) & 0xffff; m.zf = m.si === 0; m.sf = (m.si & 0x8000) !== 0; m.pf = m.parityOf(m.si); } }
         ip = 0x6152;
         break;
       }
       case 0x6152: {
         // 6152: shr si, 1
         m.tick(0x6152);
-        { m.cf = (m.si & 1) !== 0; m.si = (m.si >>> 1) & 0xffff; m.zf = m.si === 0; m.sf = false; }
+        { const n = 1; if (n) { if (n === 1) m.of = (m.si & 0x8000) !== 0; m.cf = ((m.si >>> (n - 1)) & 1) !== 0; m.si = (m.si >>> n) & 0xffff; m.zf = m.si === 0; m.sf = (m.si & 0x8000) !== 0; m.pf = m.parityOf(m.si); } }
         ip = 0x6154;
         break;
       }
       case 0x6154: {
         // 6154: shr si, 1
         m.tick(0x6154);
-        { m.cf = (m.si & 1) !== 0; m.si = (m.si >>> 1) & 0xffff; m.zf = m.si === 0; m.sf = false; }
+        { const n = 1; if (n) { if (n === 1) m.of = (m.si & 0x8000) !== 0; m.cf = ((m.si >>> (n - 1)) & 1) !== 0; m.si = (m.si >>> n) & 0xffff; m.zf = m.si === 0; m.sf = (m.si & 0x8000) !== 0; m.pf = m.parityOf(m.si); } }
         ip = 0x6156;
         break;
       }
       case 0x6156: {
         // 6156: shr si, 1
         m.tick(0x6156);
-        { m.cf = (m.si & 1) !== 0; m.si = (m.si >>> 1) & 0xffff; m.zf = m.si === 0; m.sf = false; }
+        { const n = 1; if (n) { if (n === 1) m.of = (m.si & 0x8000) !== 0; m.cf = ((m.si >>> (n - 1)) & 1) !== 0; m.si = (m.si >>> n) & 0xffff; m.zf = m.si === 0; m.sf = (m.si & 0x8000) !== 0; m.pf = m.parityOf(m.si); } }
         ip = 0x6158;
         break;
       }
@@ -31138,28 +31138,28 @@ export function exe_0617e(m: Cpu): void {
       case 0x61a4: {
         // 61a4: shr di, 1
         m.tick(0x61a4);
-        { m.cf = (m.di & 1) !== 0; m.di = (m.di >>> 1) & 0xffff; m.zf = m.di === 0; m.sf = false; }
+        { const n = 1; if (n) { if (n === 1) m.of = (m.di & 0x8000) !== 0; m.cf = ((m.di >>> (n - 1)) & 1) !== 0; m.di = (m.di >>> n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); } }
         ip = 0x61a6;
         break;
       }
       case 0x61a6: {
         // 61a6: shr di, 1
         m.tick(0x61a6);
-        { m.cf = (m.di & 1) !== 0; m.di = (m.di >>> 1) & 0xffff; m.zf = m.di === 0; m.sf = false; }
+        { const n = 1; if (n) { if (n === 1) m.of = (m.di & 0x8000) !== 0; m.cf = ((m.di >>> (n - 1)) & 1) !== 0; m.di = (m.di >>> n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); } }
         ip = 0x61a8;
         break;
       }
       case 0x61a8: {
         // 61a8: shr di, 1
         m.tick(0x61a8);
-        { m.cf = (m.di & 1) !== 0; m.di = (m.di >>> 1) & 0xffff; m.zf = m.di === 0; m.sf = false; }
+        { const n = 1; if (n) { if (n === 1) m.of = (m.di & 0x8000) !== 0; m.cf = ((m.di >>> (n - 1)) & 1) !== 0; m.di = (m.di >>> n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); } }
         ip = 0x61aa;
         break;
       }
       case 0x61aa: {
         // 61aa: shr di, 1
         m.tick(0x61aa);
-        { m.cf = (m.di & 1) !== 0; m.di = (m.di >>> 1) & 0xffff; m.zf = m.di === 0; m.sf = false; }
+        { const n = 1; if (n) { if (n === 1) m.of = (m.di & 0x8000) !== 0; m.cf = ((m.di >>> (n - 1)) & 1) !== 0; m.di = (m.di >>> n) & 0xffff; m.zf = m.di === 0; m.sf = (m.di & 0x8000) !== 0; m.pf = m.parityOf(m.di); } }
         ip = 0x61ac;
         break;
       }
@@ -31250,28 +31250,28 @@ export function exe_061c7(m: Cpu): void {
       case 0x61cc: {
         // 61cc: shr dx, 1
         m.tick(0x61cc);
-        { m.cf = (m.dx & 1) !== 0; m.dx = (m.dx >>> 1) & 0xffff; m.zf = m.dx === 0; m.sf = false; }
+        { const n = 1; if (n) { if (n === 1) m.of = (m.dx & 0x8000) !== 0; m.cf = ((m.dx >>> (n - 1)) & 1) !== 0; m.dx = (m.dx >>> n) & 0xffff; m.zf = m.dx === 0; m.sf = (m.dx & 0x8000) !== 0; m.pf = m.parityOf(m.dx); } }
         ip = 0x61ce;
         break;
       }
       case 0x61ce: {
         // 61ce: shr dx, 1
         m.tick(0x61ce);
-        { m.cf = (m.dx & 1) !== 0; m.dx = (m.dx >>> 1) & 0xffff; m.zf = m.dx === 0; m.sf = false; }
+        { const n = 1; if (n) { if (n === 1) m.of = (m.dx & 0x8000) !== 0; m.cf = ((m.dx >>> (n - 1)) & 1) !== 0; m.dx = (m.dx >>> n) & 0xffff; m.zf = m.dx === 0; m.sf = (m.dx & 0x8000) !== 0; m.pf = m.parityOf(m.dx); } }
         ip = 0x61d0;
         break;
       }
       case 0x61d0: {
         // 61d0: shr dx, 1
         m.tick(0x61d0);
-        { m.cf = (m.dx & 1) !== 0; m.dx = (m.dx >>> 1) & 0xffff; m.zf = m.dx === 0; m.sf = false; }
+        { const n = 1; if (n) { if (n === 1) m.of = (m.dx & 0x8000) !== 0; m.cf = ((m.dx >>> (n - 1)) & 1) !== 0; m.dx = (m.dx >>> n) & 0xffff; m.zf = m.dx === 0; m.sf = (m.dx & 0x8000) !== 0; m.pf = m.parityOf(m.dx); } }
         ip = 0x61d2;
         break;
       }
       case 0x61d2: {
         // 61d2: shr dx, 1
         m.tick(0x61d2);
-        { m.cf = (m.dx & 1) !== 0; m.dx = (m.dx >>> 1) & 0xffff; m.zf = m.dx === 0; m.sf = false; }
+        { const n = 1; if (n) { if (n === 1) m.of = (m.dx & 0x8000) !== 0; m.cf = ((m.dx >>> (n - 1)) & 1) !== 0; m.dx = (m.dx >>> n) & 0xffff; m.zf = m.dx === 0; m.sf = (m.dx & 0x8000) !== 0; m.pf = m.parityOf(m.dx); } }
         ip = 0x61d4;
         break;
       }
@@ -31302,7 +31302,7 @@ export function exe_061d5(m: Cpu): void {
       case 0x61d7: {
         // 61d7: rol dx, cl
         m.tick(0x61d7);
-        { let v = m.dx; const n = (m.cl & 31); for (let i = 0; i < n; i++) { m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (m.cf ? 1 : 0)) & 0xffff; } m.dx = v; }
+        { let v = m.dx; const n = (m.cl & 31); for (let i = 0; i < n; i++) { m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (m.cf ? 1 : 0)) & 0xffff; } m.dx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x61d9;
         break;
       }
@@ -33223,7 +33223,7 @@ export function exe_0632c(m: Cpu): void {
       case 0x632f: {
         // 632f: sub sp, 0x200
         m.tick(0x632f);
-        m.sp = (m.sp - 512) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 512);
         ip = 0x6333;
         break;
       }
@@ -33539,7 +33539,7 @@ export function exe_06380(m: Cpu): void {
       case 0x6383: {
         // 6383: sub sp, 0x200
         m.tick(0x6383);
-        m.sp = (m.sp - 512) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 512);
         ip = 0x6387;
         break;
       }
@@ -34198,7 +34198,7 @@ export function exe_0640f(m: Cpu): void {
       case 0x641f: {
         // 641f: shr bx, cl
         m.tick(0x641f);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.bx >>> (n - 1)) & 1) !== 0; m.bx = (m.bx >>> n) & 0xffff; m.zf = m.bx === 0; m.sf = (m.bx & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { if (n === 1) m.of = (m.bx & 0x8000) !== 0; m.cf = ((m.bx >>> (n - 1)) & 1) !== 0; m.bx = (m.bx >>> n) & 0xffff; m.zf = m.bx === 0; m.sf = (m.bx & 0x8000) !== 0; m.pf = m.parityOf(m.bx); } }
         ip = 0x6421;
         break;
       }
@@ -34226,7 +34226,7 @@ export function exe_0640f(m: Cpu): void {
       case 0x6428: {
         // 6428: shl al, cl
         m.tick(0x6428);
-        { const n = (m.cl & 31); if (n) { m.cf = ((m.al << (n - 1)) & 0x80) !== 0; m.al = (m.al << n) & 0xff; m.zf = m.al === 0; m.sf = (m.al & 0x80) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.al << (n - 1)) & 0x80) !== 0; m.al = (m.al << n) & 0xff; m.zf = m.al === 0; m.sf = (m.al & 0x80) !== 0; m.pf = m.parityOf(m.al); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x642a;
         break;
       }
@@ -34326,7 +34326,7 @@ export function exe_06430(m: Cpu): void {
       case 0x644a: {
         // 644a: shr bx, cl
         m.tick(0x644a);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.bx >>> (n - 1)) & 1) !== 0; m.bx = (m.bx >>> n) & 0xffff; m.zf = m.bx === 0; m.sf = (m.bx & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { if (n === 1) m.of = (m.bx & 0x8000) !== 0; m.cf = ((m.bx >>> (n - 1)) & 1) !== 0; m.bx = (m.bx >>> n) & 0xffff; m.zf = m.bx === 0; m.sf = (m.bx & 0x8000) !== 0; m.pf = m.parityOf(m.bx); } }
         ip = 0x644c;
         break;
       }
@@ -34354,7 +34354,7 @@ export function exe_06430(m: Cpu): void {
       case 0x6453: {
         // 6453: shl al, cl
         m.tick(0x6453);
-        { const n = (m.cl & 31); if (n) { m.cf = ((m.al << (n - 1)) & 0x80) !== 0; m.al = (m.al << n) & 0xff; m.zf = m.al === 0; m.sf = (m.al & 0x80) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.al << (n - 1)) & 0x80) !== 0; m.al = (m.al << n) & 0xff; m.zf = m.al === 0; m.sf = (m.al & 0x80) !== 0; m.pf = m.parityOf(m.al); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x6455;
         break;
       }
@@ -34368,7 +34368,7 @@ export function exe_06430(m: Cpu): void {
       case 0x6458: {
         // 6458: rol al, 1
         m.tick(0x6458);
-        { let v = m.al; const n = 1; for (let i = 0; i < n; i++) { m.cf = (v & 0x80) !== 0; v = ((v << 1) | (m.cf ? 1 : 0)) & 0xff; } m.al = v; }
+        { let v = m.al; const n = 1; for (let i = 0; i < n; i++) { m.cf = (v & 0x80) !== 0; v = ((v << 1) | (m.cf ? 1 : 0)) & 0xff; } m.al = v; if (n === 1) m.of = ((v & 0x80) !== 0) !== m.cf; }
         ip = 0x645a;
         break;
       }
@@ -34548,7 +34548,7 @@ export function exe_06484(m: Cpu): void {
       case 0x6494: {
         // 6494: shr bx, cl
         m.tick(0x6494);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.bx >>> (n - 1)) & 1) !== 0; m.bx = (m.bx >>> n) & 0xffff; m.zf = m.bx === 0; m.sf = (m.bx & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { if (n === 1) m.of = (m.bx & 0x8000) !== 0; m.cf = ((m.bx >>> (n - 1)) & 1) !== 0; m.bx = (m.bx >>> n) & 0xffff; m.zf = m.bx === 0; m.sf = (m.bx & 0x8000) !== 0; m.pf = m.parityOf(m.bx); } }
         ip = 0x6496;
         break;
       }
@@ -34576,7 +34576,7 @@ export function exe_06484(m: Cpu): void {
       case 0x649d: {
         // 649d: shl al, cl
         m.tick(0x649d);
-        { const n = (m.cl & 31); if (n) { m.cf = ((m.al << (n - 1)) & 0x80) !== 0; m.al = (m.al << n) & 0xff; m.zf = m.al === 0; m.sf = (m.al & 0x80) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.al << (n - 1)) & 0x80) !== 0; m.al = (m.al << n) & 0xff; m.zf = m.al === 0; m.sf = (m.al & 0x80) !== 0; m.pf = m.parityOf(m.al); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x649f;
         break;
       }
@@ -35240,7 +35240,7 @@ export function exe_0660a(m: Cpu): void {
       case 0x6644: {
         // 6644: rcr al, 1
         m.tick(0x6644);
-        { let v = m.al; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 1) !== 0; v = ((v >>> 1) | (c ? 0x80 : 0)) & 0xff; } } m.al = v; }
+        { let v = m.al; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 1) !== 0; v = ((v >>> 1) | (c ? 0x80 : 0)) & 0xff; } } m.al = v; if (n === 1) m.of = ((v & 0x80) !== 0) !== ((v & 0x40) !== 0); }
         ip = 0x6646;
         break;
       }
@@ -35274,21 +35274,21 @@ export function exe_0660a(m: Cpu): void {
       case 0x664e: {
         // 664e: rcr dx, 1
         m.tick(0x664e);
-        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 1) !== 0; v = ((v >>> 1) | (c ? 0x8000 : 0)) & 0xffff; } } m.dx = v; }
+        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 1) !== 0; v = ((v >>> 1) | (c ? 0x8000 : 0)) & 0xffff; } } m.dx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== ((v & 0x4000) !== 0); }
         ip = 0x6650;
         break;
       }
       case 0x6650: {
         // 6650: rcr bx, 1
         m.tick(0x6650);
-        { let v = m.bx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 1) !== 0; v = ((v >>> 1) | (c ? 0x8000 : 0)) & 0xffff; } } m.bx = v; }
+        { let v = m.bx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 1) !== 0; v = ((v >>> 1) | (c ? 0x8000 : 0)) & 0xffff; } } m.bx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== ((v & 0x4000) !== 0); }
         ip = 0x6652;
         break;
       }
       case 0x6652: {
         // 6652: rcr ah, 1
         m.tick(0x6652);
-        { let v = m.ah; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 1) !== 0; v = ((v >>> 1) | (c ? 0x80 : 0)) & 0xff; } } m.ah = v; }
+        { let v = m.ah; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 1) !== 0; v = ((v >>> 1) | (c ? 0x80 : 0)) & 0xff; } } m.ah = v; if (n === 1) m.of = ((v & 0x80) !== 0) !== ((v & 0x40) !== 0); }
         ip = 0x6654;
         break;
       }
@@ -35308,7 +35308,7 @@ export function exe_0660a(m: Cpu): void {
       case 0x6658: {
         // 6658: rcl cl, 1
         m.tick(0x6658);
-        { let v = m.cl; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x80) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xff; } } m.cl = v; }
+        { let v = m.cl; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x80) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xff; } } m.cl = v; if (n === 1) m.of = ((v & 0x80) !== 0) !== m.cf; }
         ip = 0x665a;
         break;
       }
@@ -35355,28 +35355,28 @@ export function exe_0660a(m: Cpu): void {
       case 0x6667: {
         // 6667: rcr cl, 1
         m.tick(0x6667);
-        { let v = m.cl; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 1) !== 0; v = ((v >>> 1) | (c ? 0x80 : 0)) & 0xff; } } m.cl = v; }
+        { let v = m.cl; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 1) !== 0; v = ((v >>> 1) | (c ? 0x80 : 0)) & 0xff; } } m.cl = v; if (n === 1) m.of = ((v & 0x80) !== 0) !== ((v & 0x40) !== 0); }
         ip = 0x6669;
         break;
       }
       case 0x6669: {
         // 6669: rcl ah, 1
         m.tick(0x6669);
-        { let v = m.ah; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x80) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xff; } } m.ah = v; }
+        { let v = m.ah; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x80) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xff; } } m.ah = v; if (n === 1) m.of = ((v & 0x80) !== 0) !== m.cf; }
         ip = 0x666b;
         break;
       }
       case 0x666b: {
         // 666b: rcl bx, 1
         m.tick(0x666b);
-        { let v = m.bx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.bx = v; }
+        { let v = m.bx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.bx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x666d;
         break;
       }
       case 0x666d: {
         // 666d: rcl dx, 1
         m.tick(0x666d);
-        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; }
+        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x666f;
         break;
       }
@@ -35530,7 +35530,7 @@ export function exe_06687(m: Cpu): void {
       case 0x6695: {
         // 6695: sub sp, 4
         m.tick(0x6695);
-        m.sp = (m.sp - 4) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 4);
         ip = 0x6698;
         break;
       }
@@ -35632,7 +35632,7 @@ export function exe_06687(m: Cpu): void {
       case 0x66b3: {
         // 66b3: rcl al, 1
         m.tick(0x66b3);
-        { let v = m.al; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x80) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xff; } } m.al = v; }
+        { let v = m.al; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x80) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xff; } } m.al = v; if (n === 1) m.of = ((v & 0x80) !== 0) !== m.cf; }
         ip = 0x66b5;
         break;
       }
@@ -35652,21 +35652,21 @@ export function exe_06687(m: Cpu): void {
       case 0x66b9: {
         // 66b9: shl ah, 1
         m.tick(0x66b9);
-        { const n = 1; if (n) { m.cf = ((m.ah << (n - 1)) & 0x80) !== 0; m.ah = (m.ah << n) & 0xff; m.zf = m.ah === 0; m.sf = (m.ah & 0x80) !== 0; } }
+        { const n = 1; if (n) { m.cf = ((m.ah << (n - 1)) & 0x80) !== 0; m.ah = (m.ah << n) & 0xff; m.zf = m.ah === 0; m.sf = (m.ah & 0x80) !== 0; m.pf = m.parityOf(m.ah); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x66bb;
         break;
       }
       case 0x66bb: {
         // 66bb: rcl bx, 1
         m.tick(0x66bb);
-        { let v = m.bx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.bx = v; }
+        { let v = m.bx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.bx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x66bd;
         break;
       }
       case 0x66bd: {
         // 66bd: rcl dx, 1
         m.tick(0x66bd);
-        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; }
+        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x66bf;
         break;
       }
@@ -35753,21 +35753,21 @@ export function exe_06687(m: Cpu): void {
       case 0x66d5: {
         // 66d5: shl ah, 1
         m.tick(0x66d5);
-        { const n = 1; if (n) { m.cf = ((m.ah << (n - 1)) & 0x80) !== 0; m.ah = (m.ah << n) & 0xff; m.zf = m.ah === 0; m.sf = (m.ah & 0x80) !== 0; } }
+        { const n = 1; if (n) { m.cf = ((m.ah << (n - 1)) & 0x80) !== 0; m.ah = (m.ah << n) & 0xff; m.zf = m.ah === 0; m.sf = (m.ah & 0x80) !== 0; m.pf = m.parityOf(m.ah); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x66d7;
         break;
       }
       case 0x66d7: {
         // 66d7: rcl bx, 1
         m.tick(0x66d7);
-        { let v = m.bx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.bx = v; }
+        { let v = m.bx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.bx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x66d9;
         break;
       }
       case 0x66d9: {
         // 66d9: rcl dx, 1
         m.tick(0x66d9);
-        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; }
+        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x66db;
         break;
       }
@@ -35820,7 +35820,7 @@ export function exe_06687(m: Cpu): void {
       case 0x66e8: {
         // 66e8: rcl si, 1
         m.tick(0x66e8);
-        { let v = m.si; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.si = v; }
+        { let v = m.si; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.si = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x66ea;
         break;
       }
@@ -35875,28 +35875,28 @@ export function exe_06687(m: Cpu): void {
       case 0x66f4: {
         // 66f4: rcr si, 1
         m.tick(0x66f4);
-        { let v = m.si; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 1) !== 0; v = ((v >>> 1) | (c ? 0x8000 : 0)) & 0xffff; } } m.si = v; }
+        { let v = m.si; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 1) !== 0; v = ((v >>> 1) | (c ? 0x8000 : 0)) & 0xffff; } } m.si = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== ((v & 0x4000) !== 0); }
         ip = 0x66f6;
         break;
       }
       case 0x66f6: {
         // 66f6: rcl ah, 1
         m.tick(0x66f6);
-        { let v = m.ah; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x80) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xff; } } m.ah = v; }
+        { let v = m.ah; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x80) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xff; } } m.ah = v; if (n === 1) m.of = ((v & 0x80) !== 0) !== m.cf; }
         ip = 0x66f8;
         break;
       }
       case 0x66f8: {
         // 66f8: rcl bx, 1
         m.tick(0x66f8);
-        { let v = m.bx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.bx = v; }
+        { let v = m.bx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.bx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x66fa;
         break;
       }
       case 0x66fa: {
         // 66fa: rcl dx, 1
         m.tick(0x66fa);
-        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; }
+        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x66fc;
         break;
       }
@@ -36475,14 +36475,14 @@ export function exe_0679c(m: Cpu): void {
       case 0x67cb: {
         // 67cb: shr dx, 1
         m.tick(0x67cb);
-        { m.cf = (m.dx & 1) !== 0; m.dx = (m.dx >>> 1) & 0xffff; m.zf = m.dx === 0; m.sf = false; }
+        { const n = 1; if (n) { if (n === 1) m.of = (m.dx & 0x8000) !== 0; m.cf = ((m.dx >>> (n - 1)) & 1) !== 0; m.dx = (m.dx >>> n) & 0xffff; m.zf = m.dx === 0; m.sf = (m.dx & 0x8000) !== 0; m.pf = m.parityOf(m.dx); } }
         ip = 0x67cd;
         break;
       }
       case 0x67cd: {
         // 67cd: rcr ax, 1
         m.tick(0x67cd);
-        { let v = m.ax; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 1) !== 0; v = ((v >>> 1) | (c ? 0x8000 : 0)) & 0xffff; } } m.ax = v; }
+        { let v = m.ax; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 1) !== 0; v = ((v >>> 1) | (c ? 0x8000 : 0)) & 0xffff; } } m.ax = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== ((v & 0x4000) !== 0); }
         ip = 0x67cf;
         break;
       }
@@ -37006,21 +37006,21 @@ export function exe_06893(m: Cpu): void {
       case 0x68a1: {
         // 68a1: shl cx, 1
         m.tick(0x68a1);
-        { m.cf = (m.cx & 0x8000) !== 0; m.cx = (m.cx << 1) & 0xffff; m.zf = m.cx === 0; m.sf = (m.cx & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.cx << (n - 1)) & 0x8000) !== 0; m.cx = (m.cx << n) & 0xffff; m.zf = m.cx === 0; m.sf = (m.cx & 0x8000) !== 0; m.pf = m.parityOf(m.cx); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x68a3;
         break;
       }
       case 0x68a3: {
         // 68a3: shl cx, 1
         m.tick(0x68a3);
-        { m.cf = (m.cx & 0x8000) !== 0; m.cx = (m.cx << 1) & 0xffff; m.zf = m.cx === 0; m.sf = (m.cx & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.cx << (n - 1)) & 0x8000) !== 0; m.cx = (m.cx << n) & 0xffff; m.zf = m.cx === 0; m.sf = (m.cx & 0x8000) !== 0; m.pf = m.parityOf(m.cx); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x68a5;
         break;
       }
       case 0x68a5: {
         // 68a5: shl cx, 1
         m.tick(0x68a5);
-        { m.cf = (m.cx & 0x8000) !== 0; m.cx = (m.cx << 1) & 0xffff; m.zf = m.cx === 0; m.sf = (m.cx & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.cx << (n - 1)) & 0x8000) !== 0; m.cx = (m.cx << n) & 0xffff; m.zf = m.cx === 0; m.sf = (m.cx & 0x8000) !== 0; m.pf = m.parityOf(m.cx); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x68a7;
         break;
       }
@@ -37048,14 +37048,14 @@ export function exe_06893(m: Cpu): void {
       case 0x68ad: {
         // 68ad: shl bx, 1
         m.tick(0x68ad);
-        { m.cf = (m.bx & 0x8000) !== 0; m.bx = (m.bx << 1) & 0xffff; m.zf = m.bx === 0; m.sf = (m.bx & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.bx << (n - 1)) & 0x8000) !== 0; m.bx = (m.bx << n) & 0xffff; m.zf = m.bx === 0; m.sf = (m.bx & 0x8000) !== 0; m.pf = m.parityOf(m.bx); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x68af;
         break;
       }
       case 0x68af: {
         // 68af: shl bx, 1
         m.tick(0x68af);
-        { m.cf = (m.bx & 0x8000) !== 0; m.bx = (m.bx << 1) & 0xffff; m.zf = m.bx === 0; m.sf = (m.bx & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.bx << (n - 1)) & 0x8000) !== 0; m.bx = (m.bx << n) & 0xffff; m.zf = m.bx === 0; m.sf = (m.bx & 0x8000) !== 0; m.pf = m.parityOf(m.bx); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x68b1;
         break;
       }
@@ -37083,7 +37083,7 @@ export function exe_06893(m: Cpu): void {
       case 0x68b7: {
         // 68b7: shl bx, cl
         m.tick(0x68b7);
-        { const n = m.cl & 31; if (n) { m.cf = ((m.bx << (n - 1)) & 0x8000) !== 0; m.bx = (m.bx << n) & 0xffff; m.zf = m.bx === 0; m.sf = (m.bx & 0x8000) !== 0; } }
+        { const n = (m.cl & 31); if (n) { m.cf = ((m.bx << (n - 1)) & 0x8000) !== 0; m.bx = (m.bx << n) & 0xffff; m.zf = m.bx === 0; m.sf = (m.bx & 0x8000) !== 0; m.pf = m.parityOf(m.bx); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x68b9;
         break;
       }
@@ -37589,14 +37589,14 @@ export function exe_06952(m: Cpu): void {
       case 0x6983: {
         // 6983: shl ax, 1
         m.tick(0x6983);
-        { m.cf = (m.ax & 0x8000) !== 0; m.ax = (m.ax << 1) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x6985;
         break;
       }
       case 0x6985: {
         // 6985: rcl dx, 1
         m.tick(0x6985);
-        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; }
+        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x6987;
         break;
       }
@@ -37617,28 +37617,28 @@ export function exe_06952(m: Cpu): void {
       case 0x6989: {
         // 6989: shl ax, 1
         m.tick(0x6989);
-        { m.cf = (m.ax & 0x8000) !== 0; m.ax = (m.ax << 1) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x698b;
         break;
       }
       case 0x698b: {
         // 698b: rcl dx, 1
         m.tick(0x698b);
-        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; }
+        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x698d;
         break;
       }
       case 0x698d: {
         // 698d: shl ax, 1
         m.tick(0x698d);
-        { m.cf = (m.ax & 0x8000) !== 0; m.ax = (m.ax << 1) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x698f;
         break;
       }
       case 0x698f: {
         // 698f: rcl dx, 1
         m.tick(0x698f);
-        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; }
+        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x6991;
         break;
       }
@@ -37889,14 +37889,14 @@ export function exe_06952(m: Cpu): void {
       case 0x69d9: {
         // 69d9: shl ax, 1
         m.tick(0x69d9);
-        { m.cf = (m.ax & 0x8000) !== 0; m.ax = (m.ax << 1) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; }
+        { const n = 1; if (n) { m.cf = ((m.ax << (n - 1)) & 0x8000) !== 0; m.ax = (m.ax << n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; m.pf = m.parityOf(m.ax); if (n === 1) m.of = m.sf !== m.cf; } }
         ip = 0x69db;
         break;
       }
       case 0x69db: {
         // 69db: rcl dx, 1
         m.tick(0x69db);
-        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; }
+        { let v = m.dx; const n = 1; for (let i = 0; i < n; i++) { { const c = m.cf; m.cf = (v & 0x8000) !== 0; v = ((v << 1) | (c ? 1 : 0)) & 0xffff; } } m.dx = v; if (n === 1) m.of = ((v & 0x8000) !== 0) !== m.cf; }
         ip = 0x69dd;
         break;
       }
@@ -37974,7 +37974,7 @@ export function exe_069ea(m: Cpu): void {
       case 0x69ed: {
         // 69ed: sub sp, 0x20
         m.tick(0x69ed);
-        m.sp = (m.sp - 32) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 32);
         ip = 0x69f0;
         break;
       }
@@ -42701,7 +42701,7 @@ export function exe_06eb8(m: Cpu): void {
       case 0x6ebb: {
         // 6ebb: sub sp, 0x20
         m.tick(0x6ebb);
-        m.sp = (m.sp - 32) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 32);
         ip = 0x6ebe;
         break;
       }
@@ -42999,7 +42999,7 @@ export function exe_06f10(m: Cpu): void {
       case 0x6f13: {
         // 6f13: sub sp, 0x20
         m.tick(0x6f13);
-        m.sp = (m.sp - 32) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 32);
         ip = 0x6f16;
         break;
       }
@@ -46460,7 +46460,7 @@ export function exe_071f3(m: Cpu): void {
       case 0x71f6: {
         // 71f6: sub sp, 0x50
         m.tick(0x71f6);
-        m.sp = (m.sp - 80) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 80);
         ip = 0x71f9;
         break;
       }
@@ -47384,7 +47384,7 @@ export function exe_07301(m: Cpu): void {
       case 0x7304: {
         // 7304: sub sp, 0x80
         m.tick(0x7304);
-        m.sp = (m.sp - 128) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 128);
         ip = 0x7308;
         break;
       }
@@ -47671,7 +47671,7 @@ export function exe_07352(m: Cpu): void {
       case 0x7355: {
         // 7355: sub sp, 0x80
         m.tick(0x7355);
-        m.sp = (m.sp - 128) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 128);
         ip = 0x7359;
         break;
       }
@@ -47867,7 +47867,7 @@ export function exe_07393(m: Cpu): void {
       case 0x7396: {
         // 7396: sub sp, 0x80
         m.tick(0x7396);
-        m.sp = (m.sp - 128) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 128);
         ip = 0x739a;
         break;
       }
@@ -47942,7 +47942,7 @@ export function exe_073a8(m: Cpu): void {
       case 0x73ab: {
         // 73ab: sub sp, 0x80
         m.tick(0x73ab);
-        m.sp = (m.sp - 128) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 128);
         ip = 0x73af;
         break;
       }

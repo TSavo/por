@@ -35,7 +35,7 @@ export function ovl27_0000(m: Cpu): void {
       case 0x3: {
         // 0003: sub sp, 2
         m.tick(0x3);
-        m.sp = (m.sp - 2) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 2);
         ip = 0x6;
         break;
       }
@@ -555,7 +555,7 @@ export function ovl27_00cb(m: Cpu): void {
       case 0xce: {
         // 00ce: sub sp, 2
         m.tick(0xce);
-        m.sp = (m.sp - 2) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 2);
         ip = 0xd1;
         break;
       }
@@ -713,7 +713,7 @@ export function ovl27_0104(m: Cpu): void {
       case 0x107: {
         // 0107: sub sp, 2
         m.tick(0x107);
-        m.sp = (m.sp - 2) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 2);
         ip = 0x10a;
         break;
       }
@@ -871,7 +871,7 @@ export function ovl27_013d(m: Cpu): void {
       case 0x140: {
         // 0140: sub sp, 2
         m.tick(0x140);
-        m.sp = (m.sp - 2) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 2);
         ip = 0x143;
         break;
       }
@@ -1055,7 +1055,7 @@ export function ovl27_0181(m: Cpu): void {
       case 0x184: {
         // 0184: sub sp, 4
         m.tick(0x184);
-        m.sp = (m.sp - 4) & 0xffff;
+        m.sp = m.setSubFlags(16, m.sp, 4);
         ip = 0x187;
         break;
       }
