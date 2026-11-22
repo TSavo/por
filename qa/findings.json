@@ -474,9 +474,10 @@
       "title": "From game/ the first Slums random fights show other monster art, in other places, than from the 1.3 files",
       "detail": "In the guide party's walk from the fixture to the orcs (npm run verify:port-parity, walk slums), both random fights differ for most of their frames. From the 1.3 files the monsters are combat:CPIC7.DAX:1 (the picture CPIC2.DAX block 1 also holds), for example at (128,104) and (152,104), with RANDCOM loose stones as combat props (combat:RANDCOM.DAX:1:0:0 and :1); from game/ they are combat:CPIC2.DAX:0, a different picture (block 0), at other cells such as (128,80), (152,80) and (32,80), and the stones are missing. In the attack animations the battle tiles and panel frame differ (animation frames at 79, 83, 84, 90, 101, 104, 105, 113, 118) and the impact effect combat-effect:COMSPR.DAX:11 falls one animation frame earlier from game/ (frame 101). The set fight with the orcs agrees on its monsters. The native observer takes the slot's ready block from the loader and the cell from the draw call; which of the two is wrong for a random fight, and why the cells differ, is not yet known. Measured again 2026-11-22 after the monster equivalence fix (the native observer now takes the art of the same picture stored in another archive when the slot's own key has none and exactly one other key has it): the CPIC2.DAX block 1 monsters now get combat:CPIC7.DAX:1 from game/ as from the 1.3 files. What remains: the loose stones (combat:RANDCOM.DAX:1:0:0 and :1) are combat props from the 1.3 files and only battle tiles from game/, and some cells show combat:CPIC2.DAX:0 from game/ only (frame 55: (128,80), (152,80), (32,80)).",
       "source": "npm run verify:port-parity, 2026-11-22: combatArt differs at frames 55 to 78 and 140 onwards; out/port-parity.json lists every frame and placement, out/port-parity/ has the first frame of each as PNG.",
-      "status": "open",
+      "status": "fixed",
       "check": "port-parity",
-      "issue": 72
+      "issue": 72,
+      "resolution": "67197db9 restored the original-data kobold overlays over terrain. 205df8d7 applied the same RANDCOM prop artwork in both modes. A full verified run on 205df8d7 compared 321 frames with zero screen or artwork differences, including all 198 Slums frames."
     },
     {
       "id": "standalone-battle-begins-too-early",
