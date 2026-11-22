@@ -37,7 +37,7 @@ const resolvedUnitVariants = {
   "por.voice.ecl3.b0-a413-a438": Array.from({ length: 24 }, (_, index) => `YOU OVERHEAR TAVERN TALE ${index + 1}`),
   "por.voice.ecl3.b0-ac22-ac8a-ac96": ["CI.", "CXXVI AND CX.", "CXXXIV.", "CLIV.", "CXIV.", "CCIV.", "CXXIX.", "CCI."].map(value => `PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATION${value}`),
   "por.voice.ecl3.b8-9e4a-9e68": ["LIBRARY.'", "PODAL PLAZA.'", "CADORNA TEXTILE HOUSE.'"].map(value => `'THERE IS A REWARD FOR CLEARING THE ${value}`),
-  "por.voice.ecl3.b11-a00e-a021": ["'WE TRAIN ONLY FIGHTERS HERE. DO YOU WANT TO TRAIN?'", "'WE TRAIN ONLY THIEVES HERE. DO YOU WANT TO TRAIN?'"],
+  "por.voice.ecl3.b11-a00e-a021": ["'WE TRAIN ONLY FIGHTERS HERE. DO YOU WANT TO TRAIN?'", "'WE TRAIN ONLY THIEVES HERE. DO YOU WANT TO TRAIN?'", "'WE TRAIN ONLY CLERICS HERE. DO YOU WANT TO TRAIN?'", "'WE TRAIN ONLY MAGIC USERS HERE. DO YOU WANT TO TRAIN?'"],
   "por.voice.ecl3.b11-9eab-9ed8": [
     "'THERE IS A FINE ACOLYTE WHO WILL JOIN YOU FOR 1 SHARE. IS THIS ACCEPTABLE?'",
     "'THERE IS A FINE WARRIOR WHO WILL JOIN YOU FOR 1 SHARE. IS THIS ACCEPTABLE?'",
@@ -56,7 +56,7 @@ const valuesByUnit: Record<string, Array<{ value: string; condition: string; tex
   "por.voice.ecl3.b0-a413-a438": (resolvedUnitVariants["por.voice.ecl3.b0-a413-a438"] ?? []).map((text, index) => ({ value: String(index + 1), condition: `0x6e7e == ${index + 1}`, text })),
   "por.voice.ecl3.b0-ac22-ac8a-ac96": (resolvedUnitVariants["por.voice.ecl3.b0-ac22-ac8a-ac96"] ?? []).map((text, index) => ({ value: ["CI.", "CXXVI AND CX.", "CXXXIV.", "CLIV.", "CXIV.", "CCIV.", "CXXIX.", "CCI."][index]!, condition: `0x985e == ${JSON.stringify(["CI.", "CXXVI AND CX.", "CXXXIV.", "CLIV.", "CXIV.", "CCIV.", "CXXIX.", "CCI."][index])}`, text })),
   "por.voice.ecl3.b8-9e4a-9e68": (resolvedUnitVariants["por.voice.ecl3.b8-9e4a-9e68"] ?? []).map((text, index) => ({ value: ["LIBRARY.'", "PODAL PLAZA.'", "CADORNA TEXTILE HOUSE.'"][index]!, condition: `0x9890 == ${JSON.stringify(["LIBRARY.'", "PODAL PLAZA.'", "CADORNA TEXTILE HOUSE.'"][index])}`, text })),
-  "por.voice.ecl3.b11-a00e-a021": (resolvedUnitVariants["por.voice.ecl3.b11-a00e-a021"] ?? []).map((text, index) => ({ value: ["FIGHTERS ", "THIEVES "][index]!, condition: `0x982c == ${JSON.stringify(["FIGHTERS ", "THIEVES "][index])}`, text })),
+  "por.voice.ecl3.b11-a00e-a021": (resolvedUnitVariants["por.voice.ecl3.b11-a00e-a021"] ?? []).map((text, index) => ({ value: ["FIGHTERS ", "THIEVES ", "CLERICS ", "MAGIC USERS "][index]!, condition: `0x982c == ${JSON.stringify(["FIGHTERS ", "THIEVES ", "CLERICS ", "MAGIC USERS "][index])}`, text })),
   "por.voice.ecl3.b11-9eab-9ed8": (resolvedUnitVariants["por.voice.ecl3.b11-9eab-9ed8"] ?? []).map((text, index) => ({ value: ["ACOLYTE", "WARRIOR", "EVOKER", "SWORDSMAN", "ROBBER", "CURATE", "HERO", "THEURGIST"][index]!, condition: `companion candidate index 0x6e7a == ${index}`, text }))
 };
 

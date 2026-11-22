@@ -20,7 +20,7 @@
     "resolvedUnits": 1432,
     "unresolvedDynamicUnits": 0,
     "finiteRuntimeVariantFamilies": 69,
-    "finiteRuntimeVariantAssets": 377
+    "finiteRuntimeVariantAssets": 379
   },
   "dynamicResolution": {
     "source": "src/audio/dynamic-voice-resolution.json",
@@ -63867,6 +63867,24 @@
           "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech",
           "model": "eleven_v4",
           "asset": "voices/narration/dynamic-resolved/ecl3-b11-a00e-a021-v02-thieves.mp3"
+        },
+        {
+          "id": "por.voice.ecl3.b11-a00e-a021.variant-03-clerics",
+          "condition": "0x982c == \"CLERICS \"",
+          "dynamicValue": "CLERICS ",
+          "text": "'WE TRAIN ONLY CLERICS HERE. DO YOU WANT TO TRAIN?'",
+          "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech",
+          "model": "eleven_v4",
+          "asset": "voices/narration/dynamic-resolved/ecl3-b11-a00e-a021-v03-clerics.mp3"
+        },
+        {
+          "id": "por.voice.ecl3.b11-a00e-a021.variant-04-magic-users",
+          "condition": "0x982c == \"MAGIC USERS \"",
+          "dynamicValue": "MAGIC USERS ",
+          "text": "'WE TRAIN ONLY MAGIC USERS HERE. DO YOU WANT TO TRAIN?'",
+          "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech",
+          "model": "eleven_v4",
+          "asset": "voices/narration/dynamic-resolved/ecl3-b11-a00e-a021-v04-magic-users.mp3"
         }
       ],
       "playback": {

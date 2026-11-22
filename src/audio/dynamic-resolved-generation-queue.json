@@ -2,7 +2,7 @@
   "schema": 1,
   "model": "eleven_v4",
   "sourceResolution": "src/audio/dynamic-voice-resolution.json",
-  "itemCount": 377,
+  "itemCount": 379,
   "items": [
     {
       "id": "por.voice.ecl3.b0-a413-a438.variant-01-1",
@@ -530,6 +530,36 @@
       "dynamicValue": "THIEVES ",
       "output": "audio/voices/narration/dynamic-resolved/ecl3-b11-a00e-a021-v02-thieves.mp3",
       "text": "'WE TRAIN ONLY THIEVES HERE. DO YOU WANT TO TRAIN?'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "id": "por.voice.ecl3.b11-a00e-a021.variant-03-clerics",
+      "sourceUnitId": "por.voice.ecl3.b11-a00e-a021",
+      "triggerSourceId": "por.review.ecl-3.block-11.at-a00e",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-11.at-a00e",
+        "por.review.ecl-3.block-11.at-a01d",
+        "por.review.ecl-3.block-11.at-a021"
+      ],
+      "condition": "0x982c == \"CLERICS \"",
+      "dynamicValue": "CLERICS ",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b11-a00e-a021-v03-clerics.mp3",
+      "text": "'WE TRAIN ONLY CLERICS HERE. DO YOU WANT TO TRAIN?'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "id": "por.voice.ecl3.b11-a00e-a021.variant-04-magic-users",
+      "sourceUnitId": "por.voice.ecl3.b11-a00e-a021",
+      "triggerSourceId": "por.review.ecl-3.block-11.at-a00e",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-11.at-a00e",
+        "por.review.ecl-3.block-11.at-a01d",
+        "por.review.ecl-3.block-11.at-a021"
+      ],
+      "condition": "0x982c == \"MAGIC USERS \"",
+      "dynamicValue": "MAGIC USERS ",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b11-a00e-a021-v04-magic-users.mp3",
+      "text": "'WE TRAIN ONLY MAGIC USERS HERE. DO YOU WANT TO TRAIN?'",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
     {

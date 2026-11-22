@@ -131,7 +131,9 @@
     ],
     "por.voice.ecl3.b11-a00e-a021": [
       "'WE TRAIN ONLY FIGHTERS HERE. DO YOU WANT TO TRAIN?'",
-      "'WE TRAIN ONLY THIEVES HERE. DO YOU WANT TO TRAIN?'"
+      "'WE TRAIN ONLY THIEVES HERE. DO YOU WANT TO TRAIN?'",
+      "'WE TRAIN ONLY CLERICS HERE. DO YOU WANT TO TRAIN?'",
+      "'WE TRAIN ONLY MAGIC USERS HERE. DO YOU WANT TO TRAIN?'"
     ],
     "por.voice.ecl3.b11-9eab-9ed8": [
       "'THERE IS A FINE ACOLYTE WHO WILL JOIN YOU FOR 1 SHARE. IS THIS ACCEPTABLE?'",
@@ -336,6 +338,16 @@
         "value": "THIEVES ",
         "condition": "0x982c == \"THIEVES \"",
         "text": "'WE TRAIN ONLY THIEVES HERE. DO YOU WANT TO TRAIN?'"
+      },
+      {
+        "value": "CLERICS ",
+        "condition": "0x982c == \"CLERICS \"",
+        "text": "'WE TRAIN ONLY CLERICS HERE. DO YOU WANT TO TRAIN?'"
+      },
+      {
+        "value": "MAGIC USERS ",
+        "condition": "0x982c == \"MAGIC USERS \"",
+        "text": "'WE TRAIN ONLY MAGIC USERS HERE. DO YOU WANT TO TRAIN?'"
       }
     ],
     "por.voice.ecl3.b11-9eab-9ed8": [
@@ -2244,7 +2256,7 @@
       }
     ]
   },
-  "newlyQueueableVariantCount": 377,
+  "newlyQueueableVariantCount": 379,
   "finiteSlotValuesByScope": {
     "ECL2.DAX:block-20:0x9890": [
       " KOBOLDS. ",
