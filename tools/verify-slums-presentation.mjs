@@ -808,6 +808,16 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "bane-mansion-great-hall-hatch.png",
     continuation: { inputs: ["l", "down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["bane-mansion-great-hall-cache", {
+    slot: "A", inputs: ["s", "up"],
+    portrait: "scene-illustration:area:31:ecl:9e03:cue:mansion-great-hall-hatch",
+    prompt: /BEFOREYOUISAGREATHALL.*YOUFINDATRAPDOOR/i,
+    continuation: {
+      inputs: ["o", "enter", "enter"], portrait: "scene-illustration:area:31:ecl:aa47:cue:great-hall-cache",
+      prompt: /VIEW.*POOL.*EXIT/i, capture: "bane-mansion-great-hall-cache.png",
+      lootCaption: /LOOTCLERICALSCROLLPOTIONRINGITEMS/i,
+    },
+  }],
   ["bane-rubble-tapestry", {
     slot: "A", inputs: ["s", "up"],
     portrait: "scene-illustration:area:31:ecl:9c10",

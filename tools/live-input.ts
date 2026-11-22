@@ -187,7 +187,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let finalCouncilReward = false;
   let baneCacheCue: string | undefined;
   const baneCacheCues = new Map<number, string>([
-    [8, "northern-cache"], [9, "southern-cache"], [17, "eastern-cache"],
+    [6, "great-hall-cache"], [8, "northern-cache"], [9, "southern-cache"], [17, "eastern-cache"],
   ]);
 
   function captureEclContext(cpu: Cpu) {
@@ -203,7 +203,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     baneCacheCue = undefined;
     const archive = cpu.read8(dataSegment, data.eclArchive), block = cpu.read8(dataSegment, data.eclBlock);
     const councilPayout = archive === 3 && block === 8 && battleCursor === 0x9f3f && portraitCaller === 0x9a4a;
-    const baneTreasure = archive === 1 && block === 24 && battleCursor === 0xaa47;
+    const baneTreasure = archive === 1 && (block === 24 || block === 31) && battleCursor === 0xaa47;
     if (councilPayout || baneTreasure) {
       // These treasure routines share their picture pauses. The ECL's 6E79
       // selector identifies the reward at each pause.
