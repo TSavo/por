@@ -2,6 +2,7 @@ import type { Cpu } from "../src/cpu/machine.js";
 import type { Frame } from "../src/lib/ega.js";
 import { data, segment as unit } from "../src/runtime/bindings.js";
 import { isCombatExtent, type CombatArtPlacement } from "./combat-art.js";
+import { findGameRoot, portGame } from "./gamedata.js";
 
 const defaultPalette = "0123456789abcdef";
 
@@ -37,6 +38,35 @@ function partyPose(cpu: Cpu, slot: number, pose: number, art: ReadonlySet<string
 }
 
 export function observeNativeCombatArt(art: ReadonlySet<string>, materialKeys: ReadonlySet<string>) {
+  // The same cel can be stored in several archives. The original framebuffer matcher
+  // sees the same pixels for each copy. Preserve that equivalence within a battle.
+  const poseGroups = new Map<string, string[]>();
+  const equivalentPoses = new Map<string, string[]>();
+  const root = findGameRoot();
+  for (const { file, block, pictures } of root ? portGame(root).data.pictures : []) {
+    const [picture] = pictures;
+    if (!/^CPIC[1-8]\.DAX$/.test(file) || !picture || pictures.length !== 1 || picture.frameHashes.length !== 1) continue;
+    const signature = `${picture.width}:${picture.height}:${picture.frameHashes[0]}`;
+    const group = poseGroups.get(signature) ?? [];
+    const source = `${file}:${block}`;
+    group.push(source);
+    poseGroups.set(signature, group);
+    equivalentPoses.set(source, group);
+  }
+
+  function monsterArt(source: string, area?: number, cursor?: number) {
+    const areaPrefix = `combat:area:${area}:`;
+    const battleSuffix = `:ecl:${cursor?.toString(16).padStart(4, "0")}`;
+    for (const suffix of cursor === undefined ? [""] : [battleSuffix, ""]) {
+      const direct = areaPrefix + source + suffix;
+      if (art.has(direct)) return direct;
+      const equivalents = (equivalentPoses.get(source) ?? [])
+        .map(other => areaPrefix + other + suffix).filter(key => art.has(key));
+      if (equivalents.length === 1) return equivalents[0];
+    }
+    const global = `combat:${source}`;
+    return art.has(global) ? global : undefined;
+  }
   const slots = new Map<number, { archive: string; ready: number }>();
   const draws = new Map<string, {
     x: number; y: number; width: number; height: number; monster?: string; party?: string; reflected: boolean;
@@ -89,9 +119,7 @@ export function observeNativeCombatArt(art: ReadonlySet<string>, materialKeys: R
     placements(frame: Frame, area?: number, cursor?: number): CombatArtPlacement[] {
       const result: CombatArtPlacement[] = [];
       for (const { x, y, width, height, monster, party, reflected } of draws.values()) {
-        const local = `combat:area:${area}:${monster}`;
-        const scoped = `${local}:ecl:${cursor?.toString(16).padStart(4, "0")}`;
-        const key = party ?? [scoped, local, `combat:${monster}`].find(id => art.has(id));
+        const key = party ?? (monster && monsterArt(monster, area, cursor));
         if (key) result.push([x, y, key, reflected, frame.get(x, y) === 15, width, height]);
       }
       return result;

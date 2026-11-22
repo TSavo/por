@@ -5503,7 +5503,7 @@ const combatPoseRoutes = new Map([
     slot: "A", stand: "combat:area:13:CPIC2.DAX:0:ecl:a2a4", strike: "combat:area:13:CPIC2.DAX:128:ecl:a2a4",
     width: 96, height: 96,
     inputs: ["up", ...Array(4).fill("enter")],
-    strikeInputs: [...Array(3).fill("enter"), ...Array(16).fill("q")],
+    strikeInputs: [...Array(3).fill("enter"), ...Array(40).fill("q")], stopAtStrike: true,
   }],
   ["kobold-envoy-ready", {
     slot: "A", stand: "combat:area:13:CPIC8.DAX:11:ecl:a2a4", strike: "combat:area:13:CPIC8.DAX:139:ecl:a2a4",
