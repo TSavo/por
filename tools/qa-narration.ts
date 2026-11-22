@@ -301,7 +301,7 @@ rows.push({ part: "Units cut off or never started (must be 0)", left: cutOff.len
   note: cutOff.length ? `${cutOff.filter(({ what }) => what === "cut off").length} cut off, ${cutOff.filter(({ what }) => what === "never started").length} never started, with no key from the player to end them`
     : "no line stopped early or was dropped without a key from the player",
   list: cutOff.map(entry => `${entry.what}: ${where(entry.unitId)}: ${entry.reason}` +
-    `${entry.at === undefined ? "" : `, at ${entry.at}s of ${entry.of}s (${entry.lost}s lost)`}` +
+    `${entry.of === undefined ? ", all of it lost" : `, at ${entry.at}s of ${entry.of}s (${entry.lost}s lost)`}` +
     `${entry.behind ? `, waiting behind ${entry.behind}` : ""}; ${entry.run} ${entry.leg}, frame ${entry.frame}`) });
 const overlaps = Object.values(playback.overlaps);
 rows.push({ part: "Lines that started while another was still playing (must be 0)", left: overlaps.length,
