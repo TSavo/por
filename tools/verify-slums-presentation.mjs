@@ -7612,6 +7612,7 @@ try {
         run(`window.heldPortraitPaints.length >= ${2 * count + 2} && window.heldPortraitPaints`));
       heldPortraitEvidence.push({
         route: routeName, data: held.classicAvailable === false ? "port" : "original",
+        rendererSha256: createHash("sha256").update(readFileSync("tools/play.js", "utf8").replace(/\r\n/g, "\n")).digest("hex"),
         portrait: held.portrait, paints,
         sha256: Object.fromEntries(uniquePhases.map((path, index) => [
           new URL(path).pathname.slice(5), createHash("sha256").update(images[index], "base64").digest("hex"),

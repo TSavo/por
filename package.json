@@ -20,6 +20,7 @@
     "verify:art-files": "tsx tools/verify-art-files.ts",
     "art:worklist": "tsx tools/art-worklist.ts",
     "verify:art-worklist": "tsx tools/art-worklist.ts --verify",
+    "verify:held-portraits": "tsx tools/qa-held-portraits.ts",
     "verify:code-wheel": "python tools/verify-code-wheel.py",
     "verify:code-wheel-screen": "node tools/verify-code-wheel-screen.mjs",
     "verify:character-sheet-fallback": "node tools/verify-character-sheet-fallback.mjs",

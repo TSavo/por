@@ -1,5 +1,36 @@
 {
  "schema": 2,
+ "heldPortraits": {
+  "verified": 0,
+  "total": 6,
+  "remaining": [
+   {
+    "id": "area:20:ecl:9e02:PIC2.DAX:0",
+    "reason": "paired Chrome evidence is missing"
+   },
+   {
+    "id": "area:22:ecl:a2f9:PIC7.DAX:0",
+    "reason": "paired Chrome evidence is missing"
+   },
+   {
+    "id": "area:22:ecl:a2f9:PIC7.DAX:57",
+    "reason": "original visible cycle took 883 ms, expected 840 ms"
+   },
+   {
+    "id": "area:22:ecl:a2f9:PIC7.DAX:68",
+    "reason": "paired Chrome evidence is missing"
+   },
+   {
+    "id": "area:22:ecl:a32f:PIC7.DAX:61",
+    "reason": "paired Chrome evidence is missing"
+   },
+   {
+    "id": "area:4:ecl:a36b:PIC5.DAX:56",
+    "reason": "port visible cycle took 883 ms, expected 840 ms"
+   }
+  ],
+  "enumerationComplete": false
+ },
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
  "remaining": 0,

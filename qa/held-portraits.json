@@ -1,0 +1,384 @@
+{
+  "about": "Native held-menu cycles measured with GOG 1.3 by POR_HELD_PORTRAIT_TRACE, with paired Chrome evidence where available. This is a growing inventory of measured scenes.",
+  "enumerationComplete": false,
+  "scenes": [
+    {
+      "id": "area:20:ecl:9e02:PIC2.DAX:0",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ]
+    },
+    {
+      "id": "area:22:ecl:a2f9:PIC7.DAX:0",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ]
+    },
+    {
+      "id": "area:22:ecl:a2f9:PIC7.DAX:57",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "23d56c7c7cc28878887ed0709df68230589317bc294ce1fbd4137ffd4b7ba13a"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "d7e2dbd9fdb05b653da924ebf7d908c35163734da32993168b2b4f0051b0da46"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "241352ef99b2096ee6a8746d9404db0c545c5f1bc0f6abb3a2e45e3b3f349f59"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "tyrmor-prison-lizardfolk-loop",
+          "data": "original",
+          "rendererSha256": "05806a5c8d4bb1c2424a5d1134d6a3896c2d245ea64b242cb3048f726f12a554",
+          "portrait": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:0:0",
+              "atMs": 2.9000000119194738
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:1:0",
+              "atMs": 169.6000000119202
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:2:0",
+              "atMs": 403.00000001192166
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:3:0",
+              "atMs": 619.6000000119202
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:0:0",
+              "atMs": 836.2000000119224
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:1:0",
+              "atMs": 1052.9000000119195
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:2:0",
+              "atMs": 1269.6000000119202
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:3:0",
+              "atMs": 1469.5000000119217
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:0:0",
+              "atMs": 1686.2000000119224
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:1:0",
+              "atMs": 1902.9000000119195
+            }
+          ],
+          "sha256": {
+            "portrait:area:22:ecl:a2f9:PIC7.DAX:57:0:0": "7c31709b9bfae0fd384a7520eecf654b3cb3e6440c6231c5fab781bd2988458e",
+            "portrait:area:22:ecl:a2f9:PIC7.DAX:57:1:0": "f0c3af7febded41e3b3072e672a76e79d2a15f00a40eff1224af412c8ffd4f36",
+            "portrait:area:22:ecl:a2f9:PIC7.DAX:57:2:0": "9ebcbbf7a9b4dfa08d776f64a303ad5446fa89c9f86182678ec0b5719b3d2e05",
+            "portrait:area:22:ecl:a2f9:PIC7.DAX:57:3:0": "d645f3888d9ba7ad52cc854ed693fca449e9fbcaf560b260fc03c259c81fb477"
+          }
+        },
+        "port": {
+          "route": "tyrmor-prison-lizardfolk-loop",
+          "data": "port",
+          "rendererSha256": "05806a5c8d4bb1c2424a5d1134d6a3896c2d245ea64b242cb3048f726f12a554",
+          "portrait": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:0:0",
+              "atMs": -2.3999999880797986
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:1:0",
+              "atMs": 214.20000001192057
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:2:0",
+              "atMs": 430.9000000119213
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:3:0",
+              "atMs": 647.6000000119202
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:0:0",
+              "atMs": 864.2000000119206
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:1:0",
+              "atMs": 1080.9000000119213
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:2:0",
+              "atMs": 1280.800000011921
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:3:0",
+              "atMs": 1497.6000000119202
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:0:0",
+              "atMs": 1714.2000000119224
+            },
+            {
+              "key": "portrait:area:22:ecl:a2f9:PIC7.DAX:57:1:0",
+              "atMs": 1930.800000011921
+            }
+          ],
+          "sha256": {
+            "portrait:area:22:ecl:a2f9:PIC7.DAX:57:0:0": "7c31709b9bfae0fd384a7520eecf654b3cb3e6440c6231c5fab781bd2988458e",
+            "portrait:area:22:ecl:a2f9:PIC7.DAX:57:1:0": "f0c3af7febded41e3b3072e672a76e79d2a15f00a40eff1224af412c8ffd4f36",
+            "portrait:area:22:ecl:a2f9:PIC7.DAX:57:2:0": "9ebcbbf7a9b4dfa08d776f64a303ad5446fa89c9f86182678ec0b5719b3d2e05",
+            "portrait:area:22:ecl:a2f9:PIC7.DAX:57:3:0": "d645f3888d9ba7ad52cc854ed693fca449e9fbcaf560b260fc03c259c81fb477"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:22:ecl:a2f9:PIC7.DAX:68",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 110,
+          "viewport": "9b97b5318b63418613258cfc854679b8844adcac9faf91478c81ef93714fdecb"
+        },
+        {
+          "member": 1,
+          "durationMs": 110,
+          "viewport": "6e680320ccc49892ce29445b21cf12739d9ebef8810510d5fcb3ce49a8de5259"
+        },
+        {
+          "member": 2,
+          "durationMs": 110,
+          "viewport": "7a13e6e427355f9a19c591e8602312e63f51d59bd4fc5ace71f09f02bf249dcd"
+        },
+        {
+          "member": 3,
+          "durationMs": 110,
+          "viewport": "ca075b236914fb897b49f106c0c94e189bca2f1876b4d78b2815cb5d067bb269"
+        },
+        {
+          "member": 4,
+          "durationMs": 110,
+          "viewport": "fb2eb2b49682b2988e16aca74605bef0a379d95e3fa0ba50d1aad464daf098b3"
+        },
+        {
+          "member": 5,
+          "durationMs": 110,
+          "viewport": "ca075b236914fb897b49f106c0c94e189bca2f1876b4d78b2815cb5d067bb269"
+        },
+        {
+          "member": 6,
+          "durationMs": 110,
+          "viewport": "7a13e6e427355f9a19c591e8602312e63f51d59bd4fc5ace71f09f02bf249dcd"
+        },
+        {
+          "member": 7,
+          "durationMs": 110,
+          "viewport": "6e680320ccc49892ce29445b21cf12739d9ebef8810510d5fcb3ce49a8de5259"
+        }
+      ]
+    },
+    {
+      "id": "area:22:ecl:a32f:PIC7.DAX:61",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 20,
+          "viewport": "d5b6207d6efbb0fe825cc9bc3948eb12548a67f2991dd30d65f40d600b1ea450"
+        },
+        {
+          "member": 1,
+          "durationMs": 20,
+          "viewport": "c46cde4f3facecb32e5a8adf481d6c05108111cec7831119124c5adbf639ca30"
+        }
+      ]
+    },
+    {
+      "id": "area:4:ecl:a36b:PIC5.DAX:56",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "6be9d5f19a4d06829ff517ced4ec7a99273adbad5caff3712041be25a3bec1d2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e1ae5b82a25359dfa6e4d4fee152caadf5efb7934e1a2064c8cbae1545adf35f"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "6be9d5f19a4d06829ff517ced4ec7a99273adbad5caff3712041be25a3bec1d2"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "9e312f5b83be8e1746c7d84c8a7e8284d608f84f9eec15923768afc276515323"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "valjevo-fire-giant-loop",
+          "data": "original",
+          "rendererSha256": "05806a5c8d4bb1c2424a5d1134d6a3896c2d245ea64b242cb3048f726f12a554",
+          "portrait": "portrait:area:4:PIC5.DAX:56:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:4:PIC5.DAX:56:0:0",
+              "atMs": -5.099999952316466
+            },
+            {
+              "key": "portrait:area:4:ecl:a36b:PIC5.DAX:56:1:0",
+              "atMs": 178.20000004768372
+            },
+            {
+              "key": "portrait:area:4:PIC5.DAX:56:0:0",
+              "atMs": 394.90000004768353
+            },
+            {
+              "key": "portrait:area:4:ecl:a36b:PIC5.DAX:56:3:0",
+              "atMs": 594.8000000476841
+            },
+            {
+              "key": "portrait:area:4:PIC5.DAX:56:0:0",
+              "atMs": 811.5000000476839
+            },
+            {
+              "key": "portrait:area:4:ecl:a36b:PIC5.DAX:56:1:0",
+              "atMs": 1028.2000000476837
+            },
+            {
+              "key": "portrait:area:4:PIC5.DAX:56:0:0",
+              "atMs": 1244.9000000476835
+            },
+            {
+              "key": "portrait:area:4:ecl:a36b:PIC5.DAX:56:3:0",
+              "atMs": 1461.500000047684
+            },
+            {
+              "key": "portrait:area:4:PIC5.DAX:56:0:0",
+              "atMs": 1678.2000000476837
+            },
+            {
+              "key": "portrait:area:4:ecl:a36b:PIC5.DAX:56:1:0",
+              "atMs": 1894.800000047684
+            }
+          ],
+          "sha256": {
+            "portrait:area:4:PIC5.DAX:56:0:0": "949e613c0870b8f8ab9b73e3b47e7dcbe4a9284da7946d6d522c88c168979322",
+            "portrait:area:4:ecl:a36b:PIC5.DAX:56:1:0": "25fa54ed316a395531b42e96c01e697aded23c62acbcdc0cf7a85739c0709b40",
+            "portrait:area:4:ecl:a36b:PIC5.DAX:56:3:0": "b29e4087e0fb7713a8b1ec93d76d91b91a6932d11f5bccb281a0af9a91f1ab68"
+          }
+        },
+        "port": {
+          "route": "valjevo-fire-giant-loop",
+          "data": "port",
+          "rendererSha256": "05806a5c8d4bb1c2424a5d1134d6a3896c2d245ea64b242cb3048f726f12a554",
+          "portrait": "portrait:area:4:PIC5.DAX:56:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:4:PIC5.DAX:56:0:0",
+              "atMs": 8.499999988079253
+            },
+            {
+              "key": "portrait:area:4:ecl:a36b:PIC5.DAX:56:1:0",
+              "atMs": 141.79999998807943
+            },
+            {
+              "key": "portrait:area:4:PIC5.DAX:56:0:0",
+              "atMs": 358.49999998807925
+            },
+            {
+              "key": "portrait:area:4:ecl:a36b:PIC5.DAX:56:3:0",
+              "atMs": 575.0999999880787
+            },
+            {
+              "key": "portrait:area:4:PIC5.DAX:56:0:0",
+              "atMs": 791.7999999880794
+            },
+            {
+              "key": "portrait:area:4:ecl:a36b:PIC5.DAX:56:1:0",
+              "atMs": 1008.4999999880793
+            },
+            {
+              "key": "portrait:area:4:PIC5.DAX:56:0:0",
+              "atMs": 1225.0999999880787
+            },
+            {
+              "key": "portrait:area:4:ecl:a36b:PIC5.DAX:56:3:0",
+              "atMs": 1441.699999988079
+            },
+            {
+              "key": "portrait:area:4:PIC5.DAX:56:0:0",
+              "atMs": 1658.399999988079
+            },
+            {
+              "key": "portrait:area:4:ecl:a36b:PIC5.DAX:56:1:0",
+              "atMs": 1891.699999988079
+            }
+          ],
+          "sha256": {
+            "portrait:area:4:PIC5.DAX:56:0:0": "949e613c0870b8f8ab9b73e3b47e7dcbe4a9284da7946d6d522c88c168979322",
+            "portrait:area:4:ecl:a36b:PIC5.DAX:56:1:0": "25fa54ed316a395531b42e96c01e697aded23c62acbcdc0cf7a85739c0709b40",
+            "portrait:area:4:ecl:a36b:PIC5.DAX:56:3:0": "b29e4087e0fb7713a8b1ec93d76d91b91a6932d11f5bccb281a0af9a91f1ab68"
+          }
+        }
+      }
+    }
+  ]
+}
