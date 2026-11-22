@@ -6,22 +6,14 @@
  *   runner.mjs   tools/boot-translated.ts
  *   launch.mjs   tools/release/launch.ts
  *
- * tools/classic-sounds.ts, which names the checkout's por-assets, is replaced by
- * tools/release/no-classic-sounds.ts. The build fails if any output still names por-assets.
+ * The build fails if any output names por-assets.
  */
-import { build, type Plugin } from "esbuild";
+import { build } from "esbuild";
 import { readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { fromPortRoot } from "../port-root.js";
 
 const appOutput = fromPortRoot("dist", "app");
-
-const noClassicSounds: Plugin = {
-  name: "no-classic-sounds",
-  setup(context) {
-    context.onResolve({ filter: /\/classic-sounds\.js$/ }, () => ({ path: fromPortRoot("tools", "release", "no-classic-sounds.ts") }));
-  },
-};
 
 rmSync(appOutput, { recursive: true, force: true });
 const entries = { server: "tools/browser-play.ts", runner: "tools/boot-translated.ts", launch: "tools/release/launch.ts" };
@@ -37,7 +29,6 @@ await build({
   // Constant branches are dropped; names are kept as written.
   minifySyntax: true,
   legalComments: "none",
-  plugins: [noClassicSounds],
   logLevel: "warning",
 });
 for (const name of Object.keys(entries)) {

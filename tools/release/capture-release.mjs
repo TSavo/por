@@ -113,13 +113,21 @@ try {
   await evaluate(`if (!enhanced) document.querySelector("#presentation").click(); undefined`);
   report.openedIn = openedIn;
 
+  // The game's own publisher frame, or the page's publisher splash shown before the title.
   const scene = () => evaluate("state.scene ?? null");
-  if (await scene() === "scene:publisher") {
-    await delay(1500);
+  const splash = `(() => { const image = document.querySelector("#publisher-splash");
+    return Boolean(image && !image.hidden && image.complete && image.naturalWidth && getComputedStyle(image).opacity === "1"); })()`;
+  const sceneWhenThePageLoaded = await scene();
+  let publisher;
+  for (const deadline = Date.now() + 15_000; !publisher && Date.now() < deadline; await delay(50)) {
+    if (await evaluate(splash)) publisher = "the page's splash";
+    else if (await scene() === "scene:publisher") publisher = "the game's frame";
+  }
+  if (publisher) {
     await shot("1-publisher.png");
-    note("publisher", { scene: await scene(), art: await evaluate("state.art ?? null") });
-    await key("Enter");
-  } else note("publisher", { seen: false, sceneWhenThePageLoaded: await scene() });
+    note("publisher", { shownBy: publisher, sceneWhenThePageLoaded });
+    if (publisher === "the game's frame") await key("Enter");
+  } else note("publisher", { seen: false, sceneWhenThePageLoaded });
 
   await until("the title", `state.ready && state.scene === "scene:title"`);
   await until("the title's name and SPECIAL EDITION to fade in",

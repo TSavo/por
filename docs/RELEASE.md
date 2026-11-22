@@ -41,7 +41,7 @@ applet's own `Scripts/main.scpt`, `applet.rsrc` and icon, with Node in `Contents
 | `app/` | `launch.mjs`, `server.mjs` and `runner.mjs`: the launcher, the game server and the runner, compiled. The runner holds the translated game program. |
 | `game/` | The port's own game data (16 files): the program image and overlays with every instruction blank, the scripts, maps, monsters, items, characters, saved-game templates, walls, tiles and picture shapes, converted from version 1.3 by `npm run build:game-data`. The game's text is in it. |
 | `upgrades/` | The Enhanced artwork: 13,454 PNGs, `manifest.json` and `slums/manifest.json` that bind them, the code wheel (`codewheel/`), the atlas plates (`maps/`), the Geist font (`font.woff2`) and its licence (`Geist-OFL.txt`), and `README.md`. |
-| `audio/` | `voices/`: the narration, 1,755 MP3s, with 1,748 transcript `.txt` files, 849 `.json` records, one WAV and a README. `enhanced/`: the Enhanced score and sounds, 38 WAVs, 2 MP3s and 19 `.json` records. |
+| `audio/` | `voices/`: the narration, 1,755 MP3s, with 1,748 transcript `.txt` files, 849 `.json` records, one WAV and a README. `enhanced/`: the Enhanced score and sounds, 38 WAVs, 2 MP3s and 19 `.json` records. `classic/`: the Classic sounds, the game's 20 sound events for the PC speaker and for the Tandy chip (40 WAVs, 91 MB), the port's own renders of the original driver, with a README on how each was made. |
 | `src/` | The data the server and runner read: `audio/voices.json`, `audio/voice-master-manifest.json` (the narration's text), `audio/original-sounds.json`, `maps/atlas.json`, `maps/geography-model.json`, `codewheel/wheel.json`. |
 | `qa/` | `art-worklist-cells.json`, the exploration cells the server draws from the port's own data. |
 | `tools/` | The game page: `play.html`, `play.js`, `new-phlan-webgl.js`, `code-wheel.html`, `code-wheel.js`, `code-wheel-draw.js`. |
@@ -53,15 +53,16 @@ applet's own `Scripts/main.scpt`, `applet.rsrc` and icon, with Node in `Contents
 Packing is where nothing of `por-assets` may go in. `release:pack` fails if:
 
 1. A file in a package is an original game file (`START.EXE`, `GAME.OVR`, `POOL.CFG`, `*.DAX`,
-   `*.OVR`, `*.EX_`, `*.PIC`, `*.CMP`, or any `.exe` but Node's), a Classic sound (`pc-speaker-NN.wav`,
-   `tandy-NN.wav`: Classic sound will come only from the player's own files), a link, or a path naming
-   `por-assets`; or, where a `por-assets` directory sits beside the checkout, a file has the same bytes
-   as any file in it.
+   `*.OVR`, `*.EX_`, `*.PIC`, `*.CMP`, or any `.exe` but Node's), a link, or a path naming
+   `por-assets`. Or it is a Classic sound (`pc-speaker-NN.wav`, `tandy-NN.wav`) or, where a
+   `por-assets` directory sits beside the checkout, has the same bytes as any file in it, and is not
+   the committed file at its own path in `audio/classic/`, blob for blob. The Classic sounds ship as the
+   committed `audio/classic/`; the same WAV taken from `por-assets/original` and put anywhere else, or
+   changed, is refused.
 2. `game/` in a package is not the committed `game/`: the same 16 files, each the same git blob. What
    `game/` holds is checked by `npm run verify:game-data`: no instruction bytes and no original pixels.
-3. The compiled `server.mjs`, `runner.mjs` or `launch.mjs` contains the string `por-assets`.
-   `npm run release:build` swaps `tools/classic-sounds.ts`, the checkout's one default that names
-   `por-assets`, for `tools/release/no-classic-sounds.ts`, and fails the same way.
+3. The compiled `server.mjs`, `runner.mjs` or `launch.mjs` contains the string `por-assets`
+   (`npm run release:build` fails the same way).
 
 `src/audio/original-sounds.json` mentions `por-assets` in a note on how the Classic sounds were rendered;
 nothing reads it as a path.
@@ -70,9 +71,7 @@ nothing reads it as a path.
 an install (for the Mac app, its `Contents`). Checked against copies of the Linux folder with one thing
 planted in each, it refused all five: a WAV from `por-assets/original` under another name ("is
 /Users/…/por-assets/original/pc-speaker-01.wav"), an `ECL1.DAX`, a `tandy-03.wav`, one byte added to
-`game/tiles.json`, and an extra file in `game/`; the unchanged copy passed. Before the swap of
-`tools/classic-sounds.ts`, the compiled server held `join("..", "por-assets", "original")`, which
-check 3 refuses.
+`game/tiles.json`, and an extra file in `game/`; the unchanged copy passed.
 
 ## How a player starts it
 

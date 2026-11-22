@@ -1,8 +1,9 @@
 /**
  * npm run release:pack [-- mac windows linux]: build the installers into dist/ from the committed port.
  * Run after npm run release:build (the npm script does both). Needs macOS for its tools: osacompile,
- * hdiutil, lipo, sips, iconutil and codesign come with it; makensis (brew install makensis) builds the
- * Windows installer and is skipped, with a message, when it is not installed.
+ * hdiutil, lipo, sips, iconutil and codesign come with it. makensis builds the Windows installer: here
+ * when it is installed, else on the machine POR_NSIS_HOST names over ssh (apt-get install nsis there);
+ * with neither, the installer is skipped with a message.
  *
  *   dist/Pool-of-Radiance-<version>-mac.dmg             Pool of Radiance.app, to drag to Applications
  *   dist/Pool-of-Radiance-<version>-windows-setup.exe   NSIS installer to Program Files
@@ -13,9 +14,10 @@
  *
  * Packing is where nothing of por-assets may go in. The build fails if:
  *   1. a file in a package is an original game file (START.EXE, GAME.OVR, *.DAX, POOL.CFG and the other
- *      kinds .gitignore keeps out), a Classic sound (pc-speaker-NN.wav, tandy-NN.wav), a link, or a path
- *      naming por-assets; or, where a por-assets directory sits beside the checkout, has the same bytes
- *      as any file in it;
+ *      kinds .gitignore keeps out), a link, or a path naming por-assets; or a Classic sound
+ *      (pc-speaker-NN.wav, tandy-NN.wav) or, where a por-assets directory sits beside the checkout, a file
+ *      with the bytes of any file in it, unless it is the committed file at its own path in audio/classic
+ *      (the port's own renders of the Classic sounds, which ship);
  *   2. game/ in a package is not byte for byte the committed game/ (the same files, the same git blobs);
  *   3. the compiled server, runner or launcher contains the string por-assets.
  *
@@ -81,20 +83,25 @@ function cloneInto(from: string, to: string): void {
 
 const sha256 = (data: Uint8Array) => createHash("sha256").update(data).digest("hex");
 
+/** The git blob of each file the commit holds under `directory`, by path. */
+function committedBlobs(directory: string): Map<string, string> {
+  return new Map(git("ls-tree", "-r", "HEAD", "--", directory).trim().split("\n").filter(Boolean).map((line) => {
+    const [meta, path] = line.split("\t") as [string, string];
+    return [path, meta.split(" ")[2]!];
+  }));
+}
+function gitBlob(file: string): string {
+  const data = readFileSync(file);
+  return createHash("sha1").update(`blob ${data.length}\0`).update(data).digest("hex");
+}
+
 // ---- Check 2: game/ is the committed game/. ----
-const committedGame = new Map(git("ls-tree", "-r", "HEAD", "--", "game").trim().split("\n").map((line) => {
-  const [meta, path] = line.split("\t") as [string, string];
-  return [path, meta.split(" ")[2]!];
-}));
+const committedGame = committedBlobs("game");
 function checkGame(root: string, label: string): void {
   const packaged = files(join(root, "game")).map((path) => join("game", path));
   const extra = packaged.filter((path) => !committedGame.has(path));
   const missing = [...committedGame.keys()].filter((path) => !packaged.includes(path));
-  const changed = packaged.filter((path) => committedGame.has(path)).filter((path) => {
-    const data = readFileSync(join(root, path));
-    const blob = createHash("sha1").update(`blob ${data.length}\0`).update(data).digest("hex");
-    return committedGame.get(path) !== blob;
-  });
+  const changed = packaged.filter((path) => committedGame.has(path) && committedGame.get(path) !== gitBlob(join(root, path)));
   if (extra.length || missing.length || changed.length) {
     throw new Error(`Check 2 failed in ${label}: game/ differs from the commit (extra ${extra.join(", ") || "none"}; ` +
       `missing ${missing.join(", ") || "none"}; changed ${changed.join(", ") || "none"})`);
@@ -118,19 +125,27 @@ if (existsSync(porAssets)) {
   }
 }
 const assetHashes = new Map<string, string>();
+// The Classic sounds are the port's own renders and ship in audio/classic. A packaged file passes as one
+// only when it is the committed file at its own path, blob for blob; the same sound anywhere else, or
+// changed, is refused.
+const committedClassic = committedBlobs("audio/classic");
 function checkNothingOriginal(root: string, label: string, executables: string[]): void {
   const problems: string[] = [];
-  let compared = 0;
+  let compared = 0, classic = 0;
   for (const path of files(root)) {
     const full = join(root, path);
     const name = basename(path);
+    // Inside the Mac app the port's files are under Resources.
+    const payloadPath = path.startsWith("Resources/") ? path.slice("Resources/".length) : path;
+    const committedClassicSound = committedClassic.has(payloadPath) && committedClassic.get(payloadPath) === gitBlob(full);
+    if (committedClassicSound) classic++;
     if (lstatSync(full).isSymbolicLink()) problems.push(`${path} is a link`);
     if (/por-assets/i.test(path)) problems.push(`${path} names por-assets`);
     if (originalName.test(name)) problems.push(`${path} is an original game file`);
     if (/\.exe$/i.test(name) && !executables.includes(path)) problems.push(`${path} is a program`);
-    if (classicSound.test(name)) problems.push(`${path} is a Classic sound`);
+    if (classicSound.test(name) && !committedClassicSound) problems.push(`${path} is a Classic sound that is not the committed audio/classic file`);
     const candidates = assetsBySize.get(statSync(full).size);
-    if (candidates) {
+    if (candidates && !committedClassicSound) {
       const hash = sha256(readFileSync(full));
       for (const candidate of candidates) {
         compared++;
@@ -141,9 +156,10 @@ function checkNothingOriginal(root: string, label: string, executables: string[]
   }
   if (problems.length) throw new Error(`Check 1 failed in ${label}:\n  ${problems.join("\n  ")}`);
   const against = existsSync(porAssets)
-    ? `; no file has the bytes of any of por-assets' files (${compared} same-size comparisons)`
+    ? `; no other file has the bytes of any of por-assets' files (${compared} same-size comparisons)`
     : "; no por-assets beside the checkout to compare bytes with";
-  log(`check 1 passed in ${label}: no original game file, Classic sound, link or por-assets path${against}`);
+  log(`check 1 passed in ${label}: no original game file, link or por-assets path; ${classic} files are the committed ` +
+    `audio/classic, and no other is a Classic sound${against}`);
 }
 
 // --check <directory>: checks 1 and 2 on an unpacked package or an install.
@@ -280,14 +296,32 @@ if (platforms.includes("windows")) {
   checkGame(stage, "the Windows install");
   let makensis: string | undefined;
   try { makensis = run("sh", ["-c", "command -v makensis"]).trim(); } catch { makensis = undefined; }
-  if (!makensis) log("makensis is not installed (brew install makensis): the Windows installer was not built");
-  else {
-    const setup = join(dist, `Pool-of-Radiance-${version}-windows-setup.exe`);
+  const nsisHost = process.env.POR_NSIS_HOST;
+  const script = fromPortRoot("tools", "release", "windows-installer.nsi");
+  const setup = join(dist, `Pool-of-Radiance-${version}-windows-setup.exe`);
+  if (makensis) {
     log("building the Windows installer");
-    run(makensis, ["-V2", `-DSTAGE=${stage}`, `-DOUTFILE=${setup}`, `-DVERSION=${version}`, fromPortRoot("tools", "release", "windows-installer.nsi")]);
+    run(makensis, ["-V2", `-DSTAGE=${stage}`, `-DOUTFILE=${setup}`, `-DVERSION=${version}`, script]);
+  } else if (nsisHost) {
+    // makensis on another machine (apt-get install nsis): the stage goes to its /dev/shm, the installer comes back.
+    if (!/^[\w.@-]+$/.test(nsisHost)) throw new Error(`POR_NSIS_HOST ${nsisHost} is not a host name`);
+    const remote = `/dev/shm/por-nsis-${process.pid}`;
+    log(`building the Windows installer on ${nsisHost}`);
+    execSync(`tar --no-xattrs --no-mac-metadata -cf - -C '${stage}' . | ssh -o BatchMode=yes ${nsisHost} ` +
+      `'rm -rf ${remote} && mkdir -p ${remote}/stage && tar -xf - -C ${remote}/stage'`, { stdio: ["ignore", "inherit", "inherit"] });
+    run("scp", ["-q", "-o", "BatchMode=yes", script, `${nsisHost}:${remote}/windows-installer.nsi`]);
+    try {
+      run("ssh", ["-n", "-o", "BatchMode=yes", nsisHost,
+        `makensis -V2 -DSTAGE=${remote}/stage -DOUTFILE=${remote}/setup.exe -DVERSION=${version} ${remote}/windows-installer.nsi`]);
+      run("scp", ["-q", "-o", "BatchMode=yes", `${nsisHost}:${remote}/setup.exe`, setup]);
+    } finally {
+      run("ssh", ["-n", "-o", "BatchMode=yes", nsisHost, `rm -rf ${remote}`]);
+    }
+  }
+  if (makensis || nsisHost) {
     log(`${setup} (${size(setup)})`);
     outputs.push(setup);
-  }
+  } else log("makensis is not installed and POR_NSIS_HOST is not set: the Windows installer was not built");
 }
 
 if (platforms.includes("linux")) {
