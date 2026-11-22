@@ -1135,6 +1135,12 @@ Its visible bounds remain 48×46 at (28,154) on the PNG. The native prompt
 kept the far sprite still through 120 no-input polls. One Enter led to
 the Textile House ghoul battle illustration in both Enhanced replays.
 
+The `textile-ghoul-combat` replay uses the recovered slot B at
+`qa/fixtures/replay-checkpoints/098c21a3e705/B.json`. Both Chrome data
+modes loaded five 96×96 ready poses and painted the first reflected strike
+at guest (152,104). Eight Enters and fourteen Quick inputs after the ready
+frame reproduce the strike and its damage report.
+
 The Kobold Cave west turn adds two 32×32 floor junction tiles in area 13.
 A native Chrome checkpoint replay checked 242 tile placements across the
 entry view and the west-facing view and compared state across the mode

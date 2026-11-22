@@ -5847,9 +5847,10 @@ const combatPoseRoutes = new Map([
   }],
   ["textile-ghoul-combat", {
     slot: "B", stand: "combat:area:2:CPIC4.DAX:72", strike: "combat:area:2:CPIC4.DAX:200",
-    readyPrompt: /GHOULHITPOINTS10/i,
+    readyPrompt: /GHOULHITPOINTS10/i, standAnchor: [80, 152, true], standCount: 5, standSelected: true,
+    strikeAnchor: [152, 104], strikeReflected: true,
     width: 96, height: 96, inputs: ["s", "up", "up", "down", "up", "down", "enter", "enter"],
-    strikeInputs: [...Array(8).fill("enter"), ...Array(15).fill("q")],
+    strikeInputs: [...Array(8).fill("enter"), ...Array(14).fill("q")],
   }],
   ["textile-wight-combat", {
     slot: "B", stand: "combat:area:2:CPIC4.DAX:20", strike: "combat:area:2:CPIC4.DAX:148",
