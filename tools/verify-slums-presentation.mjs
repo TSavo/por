@@ -3144,9 +3144,9 @@ const illustrationRoutes = new Map([
     portraitStops: {
       1: "scene-illustration:area:10:ecl:b6a8:caller:a676:cue:zombie-tower-exterior",
       2: null,
-      3: "portrait:area:10:PIC4.DAX:35:0:0",
+      3: "scene-illustration:area:10:ecl:b695:caller:a67a",
     },
-    phaseCaptures: { 1: "valhingen-zombie-tower-exterior.png" },
+    phaseCaptures: { 1: "valhingen-zombie-tower-exterior.png", 3: "valhingen-zombie-tower-door-opening.png" },
     approachStops: { 2: [56, 32, "encounter:area:10:SPRIT4.DAX:35:0:0", 32, 80] },
     portrait: "scene-illustration:area:10:ecl:b5c7:cue:zombie-tower-attack",
     prompt: /THETOWERDOORSWINGSOPENANDASMALLARMYOFZOMBIESSHUFFLESOUT.*LOCKSFALLINGINTOPLACE/i,
