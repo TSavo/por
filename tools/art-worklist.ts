@@ -168,6 +168,7 @@ interface AreaReport {
   existingKeysAccountedFor: number;
   existingKeysOnlyAsArrivalViews: number;
   existingKeysOnlyAsWallMaterials?: number;
+  existingKeysOnlyInUnreachableViews?: number;
   unaccountedKeys: string[];
   cellsTheViewsCanShow: number;
   cellsWithArt: number;
@@ -225,7 +226,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
   const usual = (lower: Lower) => lower.line === HORIZON.line && lower.band === HORIZON.band && lower.ground === HORIZON.ground;
 
   /** Every cell a context can show, with where. */
-  const enumerate = (context: Context, have: Set<string>) => {
+  const enumerate = (context: Context, have: Set<string>, auditReachability = true) => {
     const map = world.maps.get(`${context.script.archive}:${context.map}`)!;
     const view: ViewContext = { world, script: context.script, map, slots: context.slots };
     const aggs = new Map<string, Agg>();
@@ -235,11 +236,20 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     // drawing the surface. The two maps use different horizon bands.
     const kuto = context.script.area === 29 && (context.map === 29 || context.map === 32);
     const lowerWell = kuto && context.map === 32;
-    const groundAllowed = (ground: number, shaft: boolean) => !kuto || ground === 6 || (shaft && ground === 1);
+    const lizardKeep = auditReachability && !context.arrivalFrom && context.script.area === 16 && (context.map === 16 || context.map === 30);
+    const lizardCellar = lizardKeep && context.map === 30;
+    // ECL16's descents enter a roofed component. Its relocations all land in
+    // that component. The surface starts include the entrance and stair returns.
+    const lizardStarts: readonly (readonly [number, number])[] = lizardCellar ? [[1, 7], [13, 1], [4, 15], [4, 5], [10, 4], [7, 10], [10, 8]]
+      : [[8, 14], [10, 4], [9, 6], [6, 6], [3, 7], [5, 12], [7, 9], [9, 8]];
+    const playable = lizardKeep ? reachable(map, lizardStarts.map(([x, y]) => y * 16 + x), context.script.area) : undefined;
+    const groundAllowed = (ground: number, shaft: boolean) => (!kuto && !lizardKeep) || ground === 6 || (shaft && ground === 1);
     const lowerValues = (shaft: boolean) => lowers.filter(({ line, band, ground }) =>
-      groundAllowed(ground, shaft) && (!kuto || (line === 0 && band === (lowerWell ? 8 : 7))));
+      groundAllowed(ground, shaft) && (!kuto || (line === 0 && band === (lowerWell ? 8 : 7)))
+      && (!lizardKeep || (line === 15 && band === 7)));
     for (let y = 0; y < 16; y++) {
       for (let x = 0; x < 16; x++) {
+        if (playable && !playable.has(y * 16 + x)) continue;
         const roofed = covered(map, x, y);
         const shaft = lowerWell && x === 7 && y === 7;
         for (const facing of [0, 2, 4, 6]) {
@@ -280,7 +290,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const entries = new Map<string, Entry[]>();
     const hashesOf = new Map<Agg, Map<string, string | undefined>>();
     const skies = (roofed: boolean) => (roofed ? context.script.sky.covered : context.script.sky.open)
-      .filter((sky) => !kuto || sky === 0 || sky === 11 || (!lowerWell && sky === 12));
+      .filter((sky) => (!lizardKeep || sky === 0 || (!lizardCellar && sky === 11)) && (!kuto || sky === 0 || sky === 11 || (!lowerWell && sky === 12)));
     const backdropsOf = (agg: Agg): Backdrop[] => !agg.open ? ["-"]
       : agg.rc === 0 ? skies(agg.roofed).map(skyBack)
       : agg.rc === 2 ? world.grounds.filter(({ ground }) => groundAllowed(ground, agg.shaft)).map(({ ground }) => `g${ground}`)
@@ -314,7 +324,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       }
     }
     for (const [hash, entry] of overhead) entries.set(hash, [...(entries.get(hash) ?? []), entry]);
-    return { entries, stoodOn, map };
+    return { entries, stoodOn, map, playable };
   };
 
   const items: Item[] = [];
@@ -336,9 +346,18 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
 
     const seen = new Map<string, Entry[]>();
     const wallMaterials = new Set<string>();
+    const unreachableHashes = new Set<string>();
+    const auditedContexts = new Set<Context>();
     const walkable = new Map<Context, Set<number>>();
     for (const context of mine) {
-      const { entries, stoodOn, map } = enumerate(context, have);
+      const { entries, stoodOn, map, playable } = enumerate(context, have);
+      if (playable) {
+        auditedContexts.add(context);
+        // Keep existing files traceable without counting the unreachable views as playable.
+        for (const hash of enumerate(context, have, false).entries.keys()) {
+          if (!entries.has(hash) && have.has(hash)) unreachableHashes.add(hash);
+        }
+      }
       for (const [hash, list] of entries) seen.set(hash, [...(seen.get(hash) ?? []), ...list]);
       // WebGL samples the uncomposited foreground of each wall present on the map.
       const wallContext = { world, script: context.script, slots: context.slots };
@@ -352,7 +371,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       // Squares connected to ones stood on are taken as reachable, unless another area's script uses the
       // same map: there a door may lead into the other area, so only the squares stood on count.
       const shared = world.scripts.filter((script) => script.archive === context.script.archive && script.maps.some((known) => known.block === context.map)).length > 1;
-      walkable.set(context, shared ? stoodOn : reachable(map, [...stoodOn], context.script.area));
+      walkable.set(context, playable ?? (shared ? stoodOn : reachable(map, [...stoodOn], context.script.area)));
     }
     for (const list of seen.values()) for (const { cell } of list) {
       for (const tile of cell.tiles) shownTiles.add(tile);
@@ -370,7 +389,10 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
         report.existingKeysAccountedFor++;
         report.existingKeysOnlyAsWallMaterials = (report.existingKeysOnlyAsWallMaterials ?? 0) + 1;
       } else if (arrivalHashes.has(hash)) { report.existingKeysAccountedFor++; report.existingKeysOnlyAsArrivalViews++; }
-      else report.unaccountedKeys.push(`tile:${label}:${hash}`);
+      else if (unreachableHashes.has(hash)) {
+        report.existingKeysAccountedFor++;
+        report.existingKeysOnlyInUnreachableViews = (report.existingKeysOnlyInUnreachableViews ?? 0) + 1;
+      } else report.unaccountedKeys.push(`tile:${label}:${hash}`);
     }
 
     const note = (reason: string, count = 1) => { report.notEstablished[reason] = (report.notEstablished[reason] ?? 0) + count; };
@@ -401,7 +423,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       if (have.has(hash)) continue;
       if (!report.established) { note("cells of an area whose reading is not confirmed"); continue; }
       const reached = list.filter((entry) => [...entry.squares].some((square) => walkable.get(entry.context)!.has(square)));
-      const certain = reached.filter((entry) => entry.areaView ? overheadConfirmed : backdropOk(entry.cell.backdrop));
+      const certain = reached.filter((entry) => entry.areaView ? overheadConfirmed : auditedContexts.has(entry.context) || backdropOk(entry.cell.backdrop));
       if (!certain.length) {
         if (list.every((entry) => entry.areaView)) note("cells of the overhead area view, which no existing artwork of the area confirms");
         else if (!reached.length) note("cells seen only from squares not connected to any square the existing artwork was made from");
@@ -684,10 +706,11 @@ function document(list: Worklist): string {
     const extra = [
       area.existingKeysOnlyAsArrivalViews && `${area.existingKeysOnlyAsArrivalViews} as first views of the next area`,
       area.existingKeysOnlyAsWallMaterials && `${area.existingKeysOnlyAsWallMaterials} as WebGL wall materials`,
+      area.existingKeysOnlyInUnreachableViews && `${area.existingKeysOnlyInUnreachableViews} only in unreachable views`,
     ].filter(Boolean).join(", ");
     add(`| ${area.area} | ${area.name} | ${area.established ? "yes" : "not yet"} | ${area.cellsTheViewsCanShow} | ${area.cellsWithArt} | ${area.established ? area.toDo : ""} | ${area.existingKeysAccountedFor} of ${area.existingKeys}${extra ? ` (${extra})` : ""} |`);
   }
-  add("", "\"Cells its views can show\" counts every cell from every square of the map under every sky the script can set, including squares that may be out of reach.",
+  add("", "\"Cells its views can show\" counts every cell from every square of the map under every sky the script can set, including squares whose reachability is still unverified.",
     "A cell is listed to do only when it shows from a square connected to squares your existing art already covers, under a sky and ground colour your existing art of the area shows.", "",
     "How a cell is keyed: the view is 11 by 11 cells. Rows 0 to 4 are sky, row 5 holds the horizon, rows 6 to 10 are ground. The game stamps wall pieces over that, far ones first, and colour 13 of a tile lets what is behind show.",
     "So a cell is one stored tile, one tile over the sky or ground colour, or several tiles over each other; each distinct result is one key.", "",
