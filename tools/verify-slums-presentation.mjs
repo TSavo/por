@@ -930,6 +930,13 @@ const illustrationRoutes = new Map([
       lootCaption: /LOOTCLERICALSCROLLPOTIONRINGITEMS/i,
     },
   }],
+  ["bane-rubble-room", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:31:ecl:b0b5:cue:rubble-room",
+    prompt: /YOUAREINAROOMFILLEDWITHRUBBLEANDWASTE\./i,
+    finalPhaseCapture: "bane-rubble-room.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["bane-rubble-tapestry", {
     slot: "A", inputs: ["s", "up"],
     portrait: "scene-illustration:area:31:ecl:9c10",
