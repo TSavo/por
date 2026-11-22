@@ -339,7 +339,7 @@
       "source": "npm run qa:narration-transcripts; docs/AUDIO.md, 'Every take is listened to'.",
       "status": "fixed",
       "check": "narration-transcripts",
-      "resolution": "narration-transcripts"
+      "resolution": "The generator sends only a plain manner (src/audio/direction-tags.json, tools/narration-direction.ts), transcribes every take and keeps it only if it says its script; all 142 takes were re-recorded and a fresh sweep of the library hears none repeating, adding or cutting."
     }
   ]
 }
