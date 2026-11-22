@@ -22,6 +22,24 @@ interface OpenFile {
 
 export type DosFileClosed = (name: string, data: Uint8Array, written: boolean) => void;
 
+/**
+ * What the game asked DOS to do with a file. `found` is false for an open of a name that is not
+ * mounted. A read reports where it started and how many bytes the game got.
+ */
+export interface DosFileEvent {
+  kind: "open" | "create" | "read" | "write" | "delete";
+  name: string;
+  found?: boolean;
+  offset?: number;
+  bytes?: number;
+}
+
+/** Observers of the game's file calls. They are told what happened and cannot change it. */
+export const dosFileObservers = new Set<(event: DosFileEvent) => void>();
+function observeFile(event: DosFileEvent): void {
+  for (const observer of dosFileObservers) observer(event);
+}
+
 export const dosLog: string[] = [];
 export let consoleText = "";
 
@@ -237,6 +255,7 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
         byName.set(name, { data: new Uint8Array() });
       }
       const file = byName.get(name);
+      if (dosFileObservers.size) observeFile({ kind: ah === 0x3c ? "create" : "open", name, found: file !== undefined });
       const hex = Array.from({ length: 64 }, (_, i) => cpu.read8(cpu.ds, cpu.dx - 0x30 + i).toString(16).padStart(2, "0")).join("");
       dosLog.push(file ? `open ${name}` : `miss ${JSON.stringify(name)} ds ${cpu.ds.toString(16)}:${cpu.dx.toString(16)} at ${cpu.cs.toString(16)}:${cpu.ip.toString(16)} rec ${hex}`);
       if (!file) {
@@ -265,6 +284,7 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
         if (companions) mountCompanions(companions);
       }
       file.read ||= count > 0;
+      if (dosFileObservers.size) observeFile({ kind: "read", name: file.name, offset: file.pos, bytes: count });
       for (let i = 0; i < count; i++) cpu.write8(cpu.ds, cpu.dx + i, file.file.data[file.pos + i] ?? 0);
       file.pos += count;
       cpu.ax = count;
@@ -283,6 +303,7 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
         cpu.cf = true;
         return;
       }
+      if (dosFileObservers.size) observeFile({ kind: "write", name: file.name, offset: file.pos, bytes: cpu.cx });
       const end = file.pos + cpu.cx;
       const size = cpu.cx ? Math.max(end, file.file.data.length) : end;
       if (size > 0x1000000) {
@@ -303,6 +324,7 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
     if (ah === 0x41) {
       const name = canonical(readAsciiz(cpu.ds, cpu.dx));
       cpu.cf = !byName.delete(name);
+      if (dosFileObservers.size) observeFile({ kind: "delete", name, found: !cpu.cf });
       cpu.ax = cpu.cf ? 2 : 0;
       if (!cpu.cf) fileDeleted?.(name);
       return;

@@ -15,6 +15,12 @@ const glyphs = new Uint8Array(40 * 25);
 const attrs = new Uint8Array(40 * 25);
 const gameText = new Map<number, [number, number]>();
 
+/**
+ * Observers of each character the game draws with its own font: the character code, its colour,
+ * and whether the host captured it as text for the page to draw. They cannot change what is drawn.
+ */
+export const glyphObservers = new Set<(character: number, color: number, captured: boolean) => void>();
+
 export function visibleGameText(): [number, number, number][] {
   return [...gameText].map(([cell, [character, color]]) => [cell, character, color]);
 }
@@ -114,6 +120,7 @@ export function attachPlanarVideo(cpu: Cpu): void {
         const color = cpu.read8(cpu.ss, cpu.bp + 0xc) & 15;
         if (character > 32 && character < 127 && color) gameText.set(cell, [character, color]);
         else gameText.delete(cell);
+        for (const observer of glyphObservers) observer(character, color, gameText.has(cell));
       }
       for (let x = 0; x < 8; x++) {
         let color = 0;

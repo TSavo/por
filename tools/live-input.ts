@@ -18,6 +18,7 @@ import { loadEncounterArt, type EncounterPlacement } from "./encounter-art.js";
 import { canWinDeveloperCombat, developerVictoryCommand, winDeveloperCombat } from "./developer-combat.js";
 import type { Automap, ExploredPosition } from "./automap.js";
 import { authoredScriptPosition, code, data, eclGlobalOffset, isAt, returnsTo, segment as unit } from "../src/runtime/bindings.js";
+import { standaloneTrace } from "./standalone-trace.js";
 
 const controls: Record<string, number> = {
   enter: 0x1c0d, escape: 0x011b, up: 0x4800, down: 0x5000, left: 0x4b00, right: 0x4d00,
@@ -93,6 +94,8 @@ export function getKey(command: string): number | undefined {
 }
 
 function readCommand(): string | undefined {
+  // POR_TRACE_STANDALONE: the runner is killed while it waits here, so the trace is written before each wait.
+  standaloneTrace?.flush();
   const byte = Buffer.alloc(1);
   let line = "";
   while (readSync(0, byte, 0, 1, null) === 1) {
@@ -588,6 +591,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         journal: leads && { objective: currentObjective(leads, trackedId), leads,
           trackedId: trackedJournalObjective(leads, trackedId) },
       };
+      // POR_TRACE_STANDALONE: count what this frame still shows of the original pictures. Observes only.
+      standaloneTrace?.frame({
+        enhanced, journal: Boolean(leads), codeWheelPrompt: codeWheelQuestion !== undefined, scene, battlefield, portrait,
+        classicPortrait: Array.isArray(picture) ? { area, cursor: portraitCursor, caller: pictureCaller, sources: picture } : undefined,
+        characterSheet: Boolean(characterSheet), overlandMap: Boolean(state.overlandMap),
+        travelMap: Boolean(state.travelPosition) && !(attack || captureApproach || effect || captureIllustration),
+        perspective, nativeScenery,
+        encounter: encounter?.[2], combatArt: combat.length, battleTiles, combatSelections, panelFrame: state.panelFrame,
+      });
       if (attack || captureApproach || effect || captureIllustration) {
         if (animation.length >= 12) {
           const flight = animation.findIndex(flightFrame);

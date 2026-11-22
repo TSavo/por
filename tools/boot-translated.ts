@@ -23,6 +23,7 @@ import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
 import { behaviour, code, codeSegment, data, far, previousRandomSeed, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit, startupInput } from "../src/runtime/bindings.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
+import { standaloneTrace } from "./standalone-trace.js";
 
 // The browser server reads frames from this process's stdout pipe. Node writes
 // to a pipe asynchronously on macOS and Linux, and this process blocks reading
@@ -73,6 +74,8 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const ovr = files.find((f) => f.name.toUpperCase() === "GAME.OVR");
   if (!exe || !ovr) throw new Error("START.EXE and GAME.OVR are required");
   const boot = installProgram(cpu, exe.data, ovr.data);
+  // POR_TRACE_STANDALONE: record which bytes of the loaded program the game reads. Observes only.
+  standaloneTrace?.traceMemory(cpu, boot, unit.data, loadedSlices);
   const capturePresentationDelay = input?.capturePresentationDelay;
   const capturePerspective = input?.capturePerspective;
   const captureEncounterDraw = input?.captureEncounterDraw;
@@ -249,7 +252,10 @@ if (browserSound) {
   narrationObserver = narration;
 }
 const soundRecorder = soundTracePath || browserSound ? new OriginalSoundTraceRecorder(cpu, browserSound
-  ? (call) => console.log(`POR_SOUND ${JSON.stringify(call)}`) : undefined) : undefined;
+  ? (call) => {
+    standaloneTrace?.sound(call.index);
+    console.log(`POR_SOUND ${JSON.stringify(call)}`);
+  } : undefined) : undefined;
 let soundTraceWritten = false;
 function writeSoundTrace(): void {
   if (!soundTracePath || !soundRecorder || soundTraceWritten) return;
