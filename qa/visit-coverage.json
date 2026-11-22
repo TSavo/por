@@ -323,6 +323,26 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "walk-library-locked-temple": {
+   "areas": [
+    0,
+    2,
+    8,
+    15,
+    26
+   ],
+   "commissions": [
+    "auction",
+    "kobolds",
+    "kovel",
+    "nomads",
+    "sokal",
+    "textile"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
