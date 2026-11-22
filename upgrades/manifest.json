@@ -3090,6 +3090,8 @@
     "combat:ICON.DAX:128": "combat-mounted-guard-strike.png",
     "combat:ICON.DAX:1": "combat-mounted-trooper-ready.png",
     "combat:ICON.DAX:129": "combat-mounted-trooper-strike.png",
+    "combat:ICON.DAX:2": "combat-mounted-lancer-ready.png",
+    "combat:ICON.DAX:130": "combat-mounted-lancer-strike.png",
     "encounter:SPRIT1.DAX:9:2:0": "archive-ogre-far.png",
     "encounter:SPRIT2.DAX:1:0:0": "archive-goblin-near.png",
     "encounter:SPRIT8.DAX:19:0:0": "archive-shield-bearer-near.png",
