@@ -5632,6 +5632,11 @@ const combatPoseRoutes = new Map([
     width: 96, height: 96, readyPrompt: /CORPORAL/i, strikeReflected: true,
     inputs: ["down", "enter", "s", "enter"], strikeInputs: ["enter", ...Array(46).fill("q")],
   }],
+  ["zhentil-trespass-battle-terrain", {
+    slot: "A", stand: "combat:area:25:CPIC6.DAX:11:ecl:a06b",
+    width: 96, height: 96, readyPrompt: /CORPORAL/i,
+    inputs: ["down", "enter", "s", "enter"], strikeInputs: [],
+  }],
   ["nomad-warrior-combat", {
     slot: "A", stand: "combat:area:17:CPIC7.DAX:12", strike: "combat:area:17:CPIC7.DAX:140",
     width: 96, height: 96, strikeReflected: true,
@@ -9105,6 +9110,30 @@ try {
     await waitFor("the ready combat sprite", () => run(standInAnimation ? "window.standLoaded" : `state.sequence === ${frame.sequence} &&
       [...document.querySelectorAll(".combat-sprite")].some(image => image.src.endsWith(${JSON.stringify(stand)}) &&
         image.naturalWidth === ${width} && image.naturalHeight === ${height})`));
+    if (routeName === "zhentil-trespass-battle-terrain") {
+      const manifest = JSON.parse(readFileSync("upgrades/manifest.json", "utf8")).assets;
+      const hawthorn = Object.keys(manifest).filter(key => /^wildcom-hawthorn-\d\.png$/.test(manifest[key]));
+      assert.equal(hawthorn.length, 7);
+      const drawn = new Set(frame.battleTiles?.map(([, , key]) => key));
+      assert.deepEqual(hawthorn.filter(key => !drawn.has(key)), []);
+      await waitFor("the assembled WILDCOM hawthorn tiles", () => run(`state.sequence === ${frame.sequence} &&
+        ${JSON.stringify(hawthorn)}.every(key => [...document.querySelectorAll('.battle-tile')].some(tile =>
+          tile.getAttribute('src') === '/art/' + key && tile.naturalWidth === 32 && tile.naturalHeight === 32))`));
+      const backdropColors = await run(`(() => {
+        const screen = document.querySelector('#screen');
+        const key = ${JSON.stringify(hawthorn.find(id => manifest[id] === "wildcom-hawthorn-1.png"))};
+        const tile = [...document.querySelectorAll('.battle-tile')].find(img => img.getAttribute('src') === '/art/' + key);
+        const canvas = new OffscreenCanvas(screen.naturalWidth, screen.naturalHeight);
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(screen, 0, 0);
+        const bare = [...ctx.getImageData(20, 20, 1, 1).data];
+        ctx.drawImage(tile, 0, 0);
+        return [bare, [...ctx.getImageData(0, 0, 1, 1).data]];
+      })()`);
+      assert.deepEqual(backdropColors, [[15, 14, 18, 255], [15, 14, 18, 255]]);
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "zhentil-trespass-battle-terrain.png"), Buffer.from(shot.data, "base64"));
+    }
     if (routeName === "bane-hay-bunk-raider-combat") {
       assert.equal(frame.panelFrame?.length, 143);
       assert.deepEqual(frame.panelFrame.filter(([, , kind]) => kind === "stud"), [
