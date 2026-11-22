@@ -9141,7 +9141,11 @@ try {
     await checkScrollPortrait("b6c6:caller:afab", /DOYOUREADTHESCROLL/i, false);
     await advance(declineCryptScroll ? "n" : "y");
     if (!declineCryptScroll) {
-      await checkScrollPortrait("b695:caller:afe3", /THESCROLLISPLACEDINYOURJOURNALASENTRY43/i, true);
+      await checkScrollPortrait("b695:caller:afe3", /THESCROLLISPLACEDINYOURJOURNALASENTRY43/i, true,
+        "valhingen-crypt-scroll-journal.png");
+      const journalPlate = await fetch(`${origin}/art/scene-illustration:area:10:ecl:b695:caller:afe3`);
+      assert.ok(journalPlate.ok);
+      assert.deepEqual(Buffer.from(await journalPlate.arrayBuffer()), readFileSync("upgrades/valhingen-crypt-scroll-journal.png"));
       await advance("enter");
     }
     await checkScrollPortrait("b6c6:caller:b00b", /DOYOUWANTTODOANYTHINGWITHTHECOFFIN/i, !declineCryptScroll,
