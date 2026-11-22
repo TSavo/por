@@ -1103,7 +1103,7 @@
     "key": "scene-illustration:area:6:ecl:9d68"
    }
   },
-  "por.voice.ecl5.b6-9df1": {
+  "por.voice.ecl5.b6-9df1-9e4f": {
    "run": "walk-valjevo-g1",
    "step": 261183324,
    "art": {
@@ -1525,20 +1525,7 @@
    "unitId": "por.voice.ecl7.b23-9a70-9afa"
   }
  },
- "silent": {
-  "covered-without-trigger | por.review.ecl-5.block-6.at-9e4f | ": {
-   "kind": "covered-without-trigger",
-   "sourceId": "por.review.ecl-5.block-6.at-9e4f",
-   "archive": "ECL5.DAX",
-   "block": 6,
-   "runs": {
-    "walk-valjevo-g1": {
-     "count": 1,
-     "step": 261302635
-    }
-   }
-  }
- },
+ "silent": {},
  "playback": {
   "runs": {
    "campaign-full": {
