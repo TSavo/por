@@ -15,7 +15,7 @@ import type { Cpu } from "../src/cpu/machine.js";
 import { currentObjective, isOpenObjective, kovelJournalTransition, trackedJournalObjective, type JournalLead } from "../src/runtime/adventure-log.js";
 import type { BiosKey } from "../src/runtime/dos.js";
 import { gameProgress } from "../src/runtime/far.js";
-import { journalFrame, screen, visibleGameRunes, visibleGameText, visiblePanelFrame, type PanelFrameStamp } from "../src/runtime/video.js";
+import { cellWriteMark, journalFrame, screen, visibleGameRunes, visibleGameText, visiblePanelFrame, type PanelFrameStamp } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 import { combatEffectFlightFamily, loadCombatEffects, combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
 import { loadCharacterSheetArt, loadPortraitArt, matchScriptIllustration } from "./portrait-art.js";
@@ -229,10 +229,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if (baneTreasure) baneCacheCue = baneCacheCues.get(treasure);
     }
   }
-  let drawnPerspective: { pixels: Buffer; localEcl?: number; native?: NativeExploration } | undefined;
+  let drawnPerspective: { pixels: Buffer; mark: number; localEcl?: number; native?: NativeExploration } | undefined;
   let lastLocalPerspective: typeof drawnPerspective;
   let priorPerspectiveDraw: Buffer | undefined;
-  let previousPerspective: { area: number; pixels: Buffer } | undefined;
+  let previousPerspective: { area: number; pixels: Buffer; mark: number } | undefined;
+  // From the port's own data the scenery's pictures are blank, and so is a menu, a list or a sheet
+  // the game draws over the viewport: equal pixels do not say the scenery is still there. In
+  // standalone the viewport's cells must also be unwritten since (cellWriteMark).
+  const viewportMark = () => cellWriteMark(3, 3, 11, 11);
+  const viewportUntouched = (mark: number) => !standalone || mark === viewportMark();
   const browser = process.env.POR_BROWSER_PLAY === "1";
   const developerCombat = process.env.POR_DEV_COMBAT === "1";
   // Replays recorded before 2026-11-21 answered the game's discard polls with a key press.
@@ -490,7 +495,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const pixels = perspectivePixels();
         // The original game can redraw scenery while the menu is hidden,
         // including mid-transition at a doorway.
-        const nativeDraw = drawnPerspective?.pixels.equals(pixels) ? drawnPerspective : undefined;
+        const nativeDraw = drawnPerspective?.pixels.equals(pixels) && viewportUntouched(drawnPerspective.mark) ? drawnPerspective : undefined;
         // At Podal's west boundary the destination ECL draws the scenery
         // before the guest copies that area's number into the area record.
         if ((area === 18 && nativeDraw?.localEcl === 26) || (area === 26 && nativeDraw?.localEcl === 18)) {
@@ -502,7 +507,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         // still points to West or East Overland.
         if ((area === 26 || area === 27) && nativeDraw?.localEcl === 0) tileArea = 0;
         perspective = Boolean(encounter || exploration || nativeDraw ||
-          (previousPerspective?.area === area && previousPerspective.pixels.equals(pixels)));
+          (previousPerspective?.area === area && previousPerspective.pixels.equals(pixels) && viewportUntouched(previousPerspective.mark)));
         let native = nativeDraw ?? (drawnPerspective?.localEcl === tileArea ? drawnPerspective : undefined);
         // The actor blit replaces the viewport capture but does not carry camera metadata.
         // Reuse the camera only if removing the actor restores the entire native view.
@@ -520,7 +525,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           }
           nativeScenery = { ...native.native, area: arrivalPosition?.area ?? tileArea ?? area };
         }
-        if (!leads) previousPerspective = perspective ? { area, pixels } : undefined;
+        if (!leads) previousPerspective = perspective ? { area, pixels, mark: viewportMark() } : undefined;
       } else if (!leads) {
         previousPerspective = undefined;
       }
@@ -1062,7 +1067,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       nativeEncounter?.clear();
       const pixels = perspectivePixels();
       if (drawnPerspective && !drawnPerspective.pixels.equals(pixels)) priorPerspectiveDraw = drawnPerspective.pixels;
-      drawnPerspective = { pixels, localEcl: localScenery ? cpu.read8(unit.data, data.eclBlock) : undefined,
+      drawnPerspective = { pixels, mark: viewportMark(), localEcl: localScenery ? cpu.read8(unit.data, data.eclBlock) : undefined,
         native: localScenery ? captureNativeExploration(cpu, standalone) : undefined };
       if (drawnPerspective.native && !drawnPerspective.native.areaView) lastLocalPerspective = drawnPerspective;
     } : undefined,

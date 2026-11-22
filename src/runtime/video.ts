@@ -15,6 +15,20 @@ const glyphs = new Uint8Array(40 * 25);
 const attrs = new Uint8Array(40 * 25);
 const gameText = new Map<number, [number, number]>();
 
+/**
+ * How often the game has written to each 8 by 8 cell of the visible screen. From the port's own
+ * data every picture is blank, so a draw over a picture can leave its pixels as they were; the
+ * count still changes. Observers that hold a picture's identity use it to know it was drawn over.
+ */
+const cellWrites = new Uint32Array(40 * 25);
+
+/** A number that changes whenever the game writes to any cell of the given rectangle of cells. */
+export function cellWriteMark(column: number, row: number, columns: number, rows: number): number {
+  let mark = 0;
+  for (let y = row; y < row + rows; y++) for (let x = column; x < column + columns; x++) mark += cellWrites[y * 40 + x]!;
+  return mark;
+}
+
 export type PanelFrameStamp = [x: number, y: number, kind: "rail-x" | "rail-y" | "stud"];
 const panelFrame = new Map<number, PanelFrameStamp[2]>();
 
@@ -66,6 +80,7 @@ function resetPlanarVideo(): void {
   gameText.clear();
   gameRunes.clear();
   panelFrame.clear();
+  for (let cell = 0; cell < cellWrites.length; cell++) cellWrites[cell]!++;
   for (const plane of planes) plane.fill(0);
   latches.fill(0);
   graphics.fill(0);
@@ -137,6 +152,7 @@ export function attachPlanarVideo(cpu: Cpu): void {
     }
     if (offset < 8000) {
       const cell = Math.floor(offset / 320) * 40 + offset % 40;
+      cellWrites[cell]!++;
       if (panelFrame.size) panelFrame.delete(cell);
       const glyphWrite = isAt(cpu, cpu.ip, code.glyphStoreA) || isAt(cpu, cpu.ip, code.glyphStoreB);
       const glyphRepeat = isAt(cpu, cpu.ip, code.glyphRepeatA) || isAt(cpu, cpu.ip, code.glyphRepeatB);
