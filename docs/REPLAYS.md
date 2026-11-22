@@ -33,6 +33,24 @@ follows it. `POR_REPLAY_SCHEDULES=off` ignores the committed records and
 falls back to the old rule, which asks at a poll once a million
 instructions have passed since the last key.
 
+On a busy machine Chrome can take a long time to answer the harness
+(#176). The harness waits for an answer and fails only when Chrome is:
+- dead: it exited, its page crashed, or its debug connection closed. This
+  fails at once.
+- hung: in the last 300 s (`POR_CHROME_STALL_SECONDS`), Chrome's renderers and
+  the game server, with its runner, used under 0.5 s of CPU between them; the
+  game server read and wrote nothing on storage; and none of them waited on the
+  disk.
+- slow past 900 s (`POR_CHROME_LONGEST_SECONDS`).
+
+The error starts with "Chrome is dead", "Chrome is hung" or "Chrome is slow
+past the limit". An answer that took more than 10 s is logged in the leg's
+`runner.log`, with what the harness saw while it waited.
+`POR_CHROME_HARNESS_TRACE=1` logs every look. `npm run verify:chrome-harness --
+<chrome>` checks the three cases against a real Chrome on Linux: a page busy
+for 25 s, stopped renderers, and a killed Chrome. `-- --load N <chrome>`
+instead opens a leg while N CPU burners run, and stops them when it is done.
+
 ## Where the committed records came from
 
 The campaign key lists were written against the first release under the

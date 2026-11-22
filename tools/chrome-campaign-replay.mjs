@@ -7,6 +7,58 @@ import { basename, join, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { observeEnhancedFallbacks } from "./chrome-enhanced-fallbacks.mjs";
 
+// How long Chrome may take to answer (#176). On a busy machine an answer can take far longer than the
+// 10 s that used to fail a run, though nothing is wrong with the game. A command now fails only when
+// Chrome is dead (it exited, its page crashed or its debug connection closed: at once), hung (neither
+// Chrome's renderers nor the game server used CPU_FLOOR s of CPU time in STALL_SECONDS), or slow past
+// LONGEST_SECONDS.
+const SLOW_SECONDS = 10;
+// Read for each command, so a test can shorten it for one command (tools/verify-chrome-harness.mjs).
+// Long: under load the game page's Page.navigate took 89 s in which its renderers and the game server
+// used 0.1 s of CPU between them (Battleaxe, 2026-11-22). A dead Chrome fails at once regardless.
+const STALL_SECONDS = () => Number(process.env.POR_CHROME_STALL_SECONDS) || 300;
+const LONGEST_SECONDS = Number(process.env.POR_CHROME_LONGEST_SECONDS) || 900;
+const CPU_FLOOR = 0.5;
+
+/**
+ * What `pids` and, for `tree`, all their descendants are doing, from /proc: the CPU seconds each has
+ * used, the bytes they have read from and written to storage, and whether one of them is waiting
+ * on the disk (state D). Undefined where there is no /proc.
+ */
+function processActivity(pids, { tree = false } = {}) {
+  let entries;
+  try { entries = readdirSync("/proc").filter((name) => /^\d+$/.test(name)); } catch { return undefined; }
+  const parent = new Map(), seconds = new Map(), state = new Map();
+  for (const name of entries) {
+    let stat;
+    try { stat = readFileSync(`/proc/${name}/stat`, "utf8"); } catch { continue; }
+    // After the command name in parentheses: state, ppid, ..., utime (12th), stime (13th).
+    const fields = stat.slice(stat.lastIndexOf(")") + 2).split(" ");
+    parent.set(Number(name), Number(fields[1]));
+    state.set(Number(name), fields[0]);
+    seconds.set(Number(name), (Number(fields[11]) + Number(fields[12])) / 100);
+  }
+  const roots = new Set(pids.filter((pid) => seconds.has(pid)));
+  if (!roots.size) return undefined;
+  const cpu = new Map();
+  let io = 0, disk = false;
+  for (const [pid] of seconds) {
+    for (let up = pid; up > 1; up = tree ? parent.get(up) ?? 0 : 0) {
+      if (!roots.has(up)) continue;
+      cpu.set(pid, seconds.get(pid));
+      disk ||= state.get(pid) === "D";
+      // Storage only: an idle game server still exchanges about 500 bytes in 5 s over its pipes and
+      // sockets with nobody making progress (a stopped page, measured on Battleaxe, #176).
+      try {
+        const counts = readFileSync(`/proc/${pid}/io`, "utf8");
+        io += Number(/^read_bytes: (\d+)/m.exec(counts)?.[1] ?? 0) + Number(/^write_bytes: (\d+)/m.exec(counts)?.[1] ?? 0);
+      } catch { /* not readable */ }
+      break;
+    }
+  }
+  return { cpu, io, disk };
+}
+
 async function freePort() {
   const probe = createServer().listen(0, "127.0.0.1");
   await once(probe, "listening");
@@ -65,8 +117,17 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
   });
   let childError;
   for (const child of [server, chrome]) child.on("error", (error) => { childError = error; });
-  let socket;
+  let socket, browserSocket;
   let messageId = 0;
+  // Commands sent to the page and not yet answered, and requests to Chrome's browser process.
+  const pending = new Map();
+  const browserPending = new Map();
+  const failPending = (why) => { for (const entry of [...pending.values()]) entry.dead(why); };
+  let chromeExit;
+  chrome.once("exit", (code, signal) => {
+    chromeExit = signal ? `signal ${signal}` : `code ${code}`;
+    failPending(`it exited (${chromeExit})`);
+  });
   let lastSequence = -1;
   let observingFallbacks = false;
 
@@ -84,23 +145,105 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
     throw new Error(`Timed out waiting for ${description}`);
   }
 
-  function command(method, params = {}, timeout = 10_000) {
+  /**
+   * Chrome's renderers, as its browser process reports them: their process ids and the CPU seconds
+   * they have used. Only the renderers: the browser and GPU processes keep using a little CPU while a
+   * stopped page does nothing (0.3 s in 5 s, measured with SIGSTOPped renderers on Battleaxe, #176).
+   */
+  function chromeRenderers() {
+    if (browserSocket?.readyState !== WebSocket.OPEN) return Promise.resolve(undefined);
     const id = ++messageId;
-    return new Promise((done, reject) => {
-      const timer = setTimeout(() => {
-        socket.removeEventListener("message", receive);
-        reject(new Error(`Chrome did not respond to ${method}`));
-      }, timeout);
-      function receive(event) {
-        const message = JSON.parse(event.data);
-        if (message.id !== id) return;
+    return new Promise((done) => {
+      const timer = setTimeout(() => { browserPending.delete(id); done(undefined); }, 30_000);
+      browserPending.set(id, (message) => {
         clearTimeout(timer);
-        socket.removeEventListener("message", receive);
-        if (message.error) reject(new Error(message.error.message));
-        else done(message.result);
-      }
-      socket.addEventListener("message", receive);
+        const renderers = message.result?.processInfo?.filter(({ type }) => type === "renderer");
+        done(renderers && { pids: renderers.map(({ id: pid }) => pid), cpu: new Map(renderers.map(({ id: pid, cpuTime }) => [pid, cpuTime])) });
+      });
+      browserSocket.send(JSON.stringify({ id, method: "SystemInfo.getProcessInfo" }));
+    });
+  }
+
+  /**
+   * Send `method` to the page and wait for its answer however long a busy machine makes it. Fail at
+   * once when Chrome is dead, and otherwise only when it is hung or slow past LONGEST_SECONDS. From
+   * SLOW_SECONDS on, every 5 s, Chrome's renderers and the game server (with the runner it starts) are
+   * looked at. They are hung when, over the last STALL_SECONDS, they used less than CPU_FLOOR s of CPU
+   * between them, the game server read and wrote nothing on storage, and none of them waited on the disk.
+   */
+  function command(method, params = {}) {
+    const id = ++messageId;
+    const started = Date.now();
+    const stallSeconds = STALL_SECONDS();
+    const waited = () => ((Date.now() - started) / 1000).toFixed(1);
+    // What was seen while waiting: CPU seconds, bytes the game server read and wrote, looks with a disk wait.
+    const seen = { looks: 0, cpu: 0, io: 0, disk: 0 };
+    const describe = () => `${seen.looks} looks saw ${seen.cpu.toFixed(1)} s of renderer and game-server CPU, ` +
+      `${seen.io} bytes of game-server storage I/O and ${seen.disk} disk waits`;
+    return new Promise((done, reject) => {
+      let watchdog;
+      const finish = () => { clearTimeout(watchdog); pending.delete(id); };
+      const entry = {
+        answer(message) {
+          finish();
+          if ((Date.now() - started) / 1000 > SLOW_SECONDS) {
+            log.write(`[chrome-harness] Chrome answered ${method} after ${waited()} s: slow, not dead (#176); ${describe()}\n`);
+          }
+          if (message.error) reject(new Error(message.error.message));
+          else done(message.result);
+        },
+        dead(why) {
+          finish();
+          reject(new Error(`Chrome is dead: ${why} while ${method} waited ${waited()} s`));
+        },
+      };
+      pending.set(id, entry);
+      if (chromeExit) return entry.dead(`it exited (${chromeExit})`);
+      if (socket.readyState !== WebSocket.OPEN) return entry.dead("its debug connection is closed");
       socket.send(JSON.stringify({ id, method, params }));
+      // One entry per look: { at, cpu: CPU seconds used since the look before, active: I/O or disk wait }.
+      const samples = [];
+      const lastCpu = new Map();
+      let lastIo, watchedSince;
+      const check = async () => {
+        const renderers = await chromeRenderers();
+        if (!pending.has(id)) return;
+        const game = processActivity([server.pid], { tree: true });
+        const now = Date.now();
+        // Each process's own increase: renderers come and go (a navigation replaces one).
+        let cpu = 0;
+        for (const [pid, seconds] of [...(renderers?.cpu ?? []), ...(game?.cpu ?? [])]) {
+          if (lastCpu.has(pid)) cpu += Math.max(0, seconds - lastCpu.get(pid));
+          lastCpu.set(pid, seconds);
+        }
+        // Serving the page is I/O, not CPU; and on Battleaxe's USB disk one read can take many seconds,
+        // for the game server or for any of Chrome's processes (a navigation starts new ones).
+        const io = lastIo !== undefined && game ? Math.max(0, game.io - lastIo) : 0;
+        const disk = Boolean(game?.disk) || Boolean(processActivity([chrome.pid], { tree: true })?.disk);
+        lastIo = game?.io;
+        if (watchedSince === undefined) watchedSince = now;
+        else {
+          samples.push({ at: now, cpu, active: io > 0 || disk });
+          Object.assign(seen, { looks: seen.looks + 1, cpu: seen.cpu + cpu, io: seen.io + io, disk: seen.disk + Number(disk) });
+        }
+        if (process.env.POR_CHROME_HARNESS_TRACE === "1") {
+          log.write(`[chrome-harness] ${method} at ${waited()} s: renderers ${JSON.stringify([...(renderers?.cpu ?? [])])}, ` +
+            `cpu +${cpu.toFixed(2)} s, game-server io +${io}, disk ${disk}\n`);
+        }
+        while (samples.length && now - samples[0].at > stallSeconds * 1000) samples.shift();
+        const used = samples.reduce((sum, sample) => sum + sample.cpu, 0);
+        if (now - watchedSince >= stallSeconds * 1000 && used < CPU_FLOOR && !samples.some((sample) => sample.active)) {
+          finish();
+          reject(new Error(`Chrome is hung: no answer to ${method} in ${waited()} s, and in the last ${stallSeconds} s ` +
+            `Chrome's renderers and the game server used ${used.toFixed(2)} s of CPU, the game server read and wrote nothing on storage ` +
+            `and none of them waited on the disk${renderers === undefined ? " (Chrome's browser process did not report)" : ""}; ${describe()}`));
+        } else if (now - started >= LONGEST_SECONDS * 1000) {
+          finish();
+          reject(new Error(`Chrome is slow past the limit: no answer to ${method} in ${waited()} s, though Chrome's ` +
+            `renderers and the game server kept working; ${describe()}`));
+        } else watchdog = setTimeout(check, 5_000);
+      };
+      watchdog = setTimeout(check, SLOW_SECONDS * 1000);
     });
   }
 
@@ -139,6 +282,7 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
       }
     }
     await writeNarrationPlayback();
+    browserSocket?.close();
     if (socket?.readyState === WebSocket.OPEN) {
       socket.send(JSON.stringify({ id: ++messageId, method: "Browser.close" }));
       socket.close();
@@ -156,12 +300,27 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
     });
     const pages = await fetch(`http://127.0.0.1:${debuggerPort}/json/list`).then((response) => response.json());
     socket = new WebSocket(pages.find(({ type }) => type === "page").webSocketDebuggerUrl);
-    await waitFor("Chrome's debug connection", () => socket.readyState === WebSocket.OPEN);
+    socket.addEventListener("message", (event) => {
+      const message = JSON.parse(event.data);
+      if (message.id !== undefined) pending.get(message.id)?.answer(message);
+      else if (message.method === "Inspector.targetCrashed") failPending("its page crashed");
+    });
+    socket.addEventListener("close", () => failPending("its debug connection closed"));
+    // The browser process answers while a page is busy: it reports how much CPU Chrome is using.
+    const { webSocketDebuggerUrl } = await fetch(`http://127.0.0.1:${debuggerPort}/json/version`).then((response) => response.json());
+    browserSocket = new WebSocket(webSocketDebuggerUrl);
+    browserSocket.addEventListener("message", (event) => {
+      const message = JSON.parse(event.data);
+      browserPending.get(message.id)?.(message);
+      browserPending.delete(message.id);
+    });
+    await waitFor("Chrome's debug connection", () => socket.readyState === WebSocket.OPEN && browserSocket.readyState === WebSocket.OPEN);
+    await command("Inspector.enable");
     // The server inventories the artwork before listening. A cold checkout can take longer
     // than the browser's normal per-frame wait to open every asset header.
     await waitFor("the game server", () => fetch(origin).then((response) => response.ok, () => false), 360_000);
     // The page starts in Enhanced; the checks were written for a page that starts in Classic.
-    await command("Page.navigate", { url: `${origin}/?display=classic` }, 60_000);
+    await command("Page.navigate", { url: `${origin}/?display=classic` });
     // The game's 320 by 200 picture; or, from the port's own data (no Classic), any first picture.
     // The runner starts once the server has loaded the artwork and must then boot to startAt before its
     // first frame, so the wait grows with the leg's boot: a second for each million steps beyond 30 s.
@@ -251,6 +410,7 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
       },
       close,
       evaluate,
+      processes: { chrome: chrome.pid, server: server.pid },
       /** A PNG of the page as Chrome paints it, or of `clip` ({ x, y, width, height } in page pixels). */
       async screenshot(clip) {
         const { data } = await command("Page.captureScreenshot",

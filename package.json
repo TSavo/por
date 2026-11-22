@@ -30,6 +30,7 @@
     "verify:runes-readable": "node tools/verify-runes-readable.mjs",
     "verify:rune-glyphs": "tsx tools/verify-rune-glyphs.mjs",
     "verify:port-parity": "node tools/verify-port-parity.mjs",
+    "verify:chrome-harness": "node tools/verify-chrome-harness.mjs",
     "verify:palette": "node --import tsx tools/verify-palette.mjs",
     "verify:title-flash": "node tools/verify-title-flash.mjs",
     "qa:visits": "tsx tools/visit-coverage.ts",
