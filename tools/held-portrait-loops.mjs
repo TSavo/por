@@ -59,7 +59,6 @@ const portraitLoops = [
     /GUARDSRUNTOINTERCEPTYOU/i, [1510, 20, 710, 20]],
   ["portrait:area:20:ecl:9e02:PIC2.DAX:0:", [0, 1, 2, 1], undefined,
     /^(?!.*ABATTLEBEGINS).*YOUHAVESURPRISEDAPARTYOFKOBOLDS/i, [210, 210, 210, 210]],
-  ["portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:", 3],
   ["portrait:area:5:ecl:9ff9:PIC5.DAX:31:", [0, 1, 2, 3, 4, 3, 2, 1], "portrait:area:5:PIC5.DAX:31:0:0",
     /^(?!.*ABATTLEBEGINS).*YOUSEEAPACKOFTROLLS.*THEYSEEMUNAWAREOFYOU/i, [1310, 20, 20, 20, 510, 110, 110, 210]],
   ["portrait:area:9:ecl:a945:PIC2.DAX:63:", [0, 1, 2, 1], "portrait:area:9:PIC2.DAX:63:0:0",

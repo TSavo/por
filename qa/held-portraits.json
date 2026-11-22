@@ -8123,6 +8123,258 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL5.DAX:7:a637",
+      "prompt": "995f/a6a7",
+      "variants": [
+        {
+          "caption": "THE DRAGON LOOKS AT YOU WITH INTEREST. 'YOU ARE INDEED MIGHTY WARRIORS. EVEN SO, THERE IS NO HOPE OF YOUR SUCCESS. BUT YOU INTEREST ME.' Press button or return to continue",
+          "checkpoint": "campaign-full/leg-10/H.json",
+          "portrait": "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0",
+          "native": {
+            "drawCursor": "a63a",
+            "members": [
+              0
+            ],
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 FENN 4 8 S 03:35 THE DRAGON LOOKS AT YOU WITH INTEREST. 'YOU ARE INDEED MIGHTY WARRIORS. EVEN SO, THERE IS NO HOPE OF YOUR SUCCESS. BUT YOU INTEREST ME.' Press button or return to continue",
+            "idlePolls": 120,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              }
+            ],
+            "battlePanelSha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+          },
+          "chrome": {
+            "original": {
+              "route": "tyranthraxus-static-portraits",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN48S03:35THEDRAGONLOOKSATYOUWITHINTEREST.'YOUAREINDEEDMIGHTYWARRIORS.EVENSO,THEREISNOHOPEOFYOURSUCCESS.BUTYOUINTERESTME.'Pressbuttonorreturntocontinue",
+              "portrait": "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0",
+              "checkpointSha256": "4db606854eb5b0289eb1e39f8c4f1f4bfc792a143ae1b735decfcaec532d15ad",
+              "artSha256": "8e2588ead43d39b98cc1dbd3392b9942248336873646c032709fe7f4a276dc5a",
+              "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3656,
+              "samples": 221,
+              "poses": [
+                "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "tyranthraxus-static-portraits",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN48S03:35THEDRAGONLOOKSATYOUWITHINTEREST.'YOUAREINDEEDMIGHTYWARRIORS.EVENSO,THEREISNOHOPEOFYOURSUCCESS.BUTYOUINTERESTME.'Pressbuttonorreturntocontinue",
+              "portrait": "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0",
+              "checkpointSha256": "4db606854eb5b0289eb1e39f8c4f1f4bfc792a143ae1b735decfcaec532d15ad",
+              "artSha256": "8e2588ead43d39b98cc1dbd3392b9942248336873646c032709fe7f4a276dc5a",
+              "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3662,
+              "samples": 221,
+              "poses": [
+                "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL5.DAX:7:a637",
+      "prompt": "995f/a718",
+      "variants": [
+        {
+          "caption": "IF YOU JOIN ME I WILL MAKE YOU THE COMMANDERS OF THE ARMIES THAT WILL SWEEP THE MOONSEA. I CAN NOT BE DEFEATED, YOU KNOW. WILL YOU JOIN ME?' Press button or return to continue",
+          "checkpoint": "campaign-full/leg-10/H.json",
+          "portrait": "portrait:area:7:ecl:995f:caller:a718:PIC5.DAX:66:0:0",
+          "native": {
+            "drawCursor": "a63a",
+            "members": [
+              0
+            ],
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 FENN 4 8 S 03:35 'IF YOU JOIN ME I WILL MAKE YOU THE COMMANDERS OF THE ARMIES THAT WILL SWEEP THE MOONSEA. I CAN NOT BE DEFEATED, YOU KNOW. WILL YOU JOIN ME?' Press button or return to continue",
+            "idlePolls": 120,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              }
+            ],
+            "battlePanelSha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+          },
+          "chrome": {
+            "original": {
+              "route": "tyranthraxus-static-portraits",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN48S03:35'IFYOUJOINMEIWILLMAKEYOUTHECOMMANDERSOFTHEARMIESTHATWILLSWEEPTHEMOONSEA.ICANNOTBEDEFEATED,YOUKNOW.WILLYOUJOINME?'Pressbuttonorreturntocontinue",
+              "portrait": "portrait:area:7:ecl:995f:caller:a718:PIC5.DAX:66:0:0",
+              "checkpointSha256": "4db606854eb5b0289eb1e39f8c4f1f4bfc792a143ae1b735decfcaec532d15ad",
+              "artSha256": "e8071b1d1d14ff07540eed7d240b838977fb88402d57fe35309a3b6bffb98b11",
+              "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3664,
+              "samples": 220,
+              "poses": [
+                "portrait:area:7:ecl:995f:caller:a718:PIC5.DAX:66:0:0"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "tyranthraxus-static-portraits",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN48S03:35'IFYOUJOINMEIWILLMAKEYOUTHECOMMANDERSOFTHEARMIESTHATWILLSWEEPTHEMOONSEA.ICANNOTBEDEFEATED,YOUKNOW.WILLYOUJOINME?'Pressbuttonorreturntocontinue",
+              "portrait": "portrait:area:7:ecl:995f:caller:a718:PIC5.DAX:66:0:0",
+              "checkpointSha256": "4db606854eb5b0289eb1e39f8c4f1f4bfc792a143ae1b735decfcaec532d15ad",
+              "artSha256": "e8071b1d1d14ff07540eed7d240b838977fb88402d57fe35309a3b6bffb98b11",
+              "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3660,
+              "samples": 221,
+              "poses": [
+                "portrait:area:7:ecl:995f:caller:a718:PIC5.DAX:66:0:0"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL5.DAX:7:a637",
+      "prompt": "a768",
+      "variants": [
+        {
+          "caption": "ALDA HOW DO YOU VOTE? Attack Join tyranthraxus",
+          "checkpoint": "campaign-full/leg-10/H.json",
+          "portrait": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+          "native": {
+            "drawCursor": "a63a",
+            "members": [
+              0
+            ],
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 FENN 4 8 S 03:35 ALDA HOW DO YOU VOTE? Attack Join tyranthraxus",
+            "idlePolls": 120,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+              }
+            ],
+            "battlePanelSha256": "0fabd1e3f83cb3fea7e89a12d5a1e62c7ec889bd734c5f350c3c590a2d66797c"
+          },
+          "chrome": {
+            "original": {
+              "route": "tyranthraxus-static-portraits",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN48S03:35ALDAHOWDOYOUVOTE?AttackJointyranthraxus",
+              "portrait": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+              "checkpointSha256": "4db606854eb5b0289eb1e39f8c4f1f4bfc792a143ae1b735decfcaec532d15ad",
+              "artSha256": "1cd98c455df30351c0f029fc7aa0751399c2b14135e96e724dccfe121b88fdbf",
+              "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3658,
+              "samples": 220,
+              "poses": [
+                "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "tyranthraxus-static-portraits",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN48S03:35ALDAHOWDOYOUVOTE?AttackJointyranthraxus",
+              "portrait": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+              "checkpointSha256": "4db606854eb5b0289eb1e39f8c4f1f4bfc792a143ae1b735decfcaec532d15ad",
+              "artSha256": "1cd98c455df30351c0f029fc7aa0751399c2b14135e96e724dccfe121b88fdbf",
+              "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3652,
+              "samples": 220,
+              "poses": [
+                "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
     }
   ]
 }

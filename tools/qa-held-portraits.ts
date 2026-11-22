@@ -299,13 +299,16 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     }
     const [cursor, caller] = prompt.split("/");
     const scope = "scene-illustration:area:" + site.scriptBlock + ":ecl:" + cursor + (caller ? ":caller:" + caller : "");
-    const scoped = (key: string) => key === scope || key.startsWith(scope + ":cue:");
+    const nativeBase = site.block === null ? undefined :
+      `portrait:area:${site.scriptBlock}:ecl:${cursor}${caller ? `:caller:${caller}` : ""}:${site.pictureArchive}:${site.block}:0:0`;
+    const illustration = (key: string) => key === scope || key.startsWith(scope + ":cue:");
+    const scoped = (key: string) => illustration(key) || key === nativeBase;
     const observedVariants = variants.map(variant => {
       const reason = scoped(variant.portrait) ? staticPortraitProblem(site, variant) : "static portrait belongs to a different prompt";
       return { id: variant.portrait, producer, verified: reason === null, reason, remainingCues: undefined };
     });
     // One caller can choose multiple cue illustrations. Every registered cue needs its own proof.
-    const complete = [...assets.keys()].filter(scoped).every(key => witnessed.has(key));
+    const complete = [...assets.keys()].filter(illustration).every(key => witnessed.has(key));
     evidence.set(prompt, { scenes: observedVariants, verified: complete && observedVariants.every(scene => scene.verified) });
     staticBySite.set(site, evidence);
     allScenes.push(...observedVariants);
