@@ -5,6 +5,14 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "tile:20:a2439eed0238008528692279bf8976c8764d245e57b881860dc3eace49d8cd2c": "slums-trade-row-terrain-78b9ac2bd200.png",
+    "tile:20:2c65b932021c45dcfb745142c790c949400881d72c4694d94fd2f59d26417b81": "slums-shop-frontage-terrain-5795b1b70c9b.png",
+    "tile:20:7989fd05003cc689ef110230f67f431b433aab8466d691b9d05d9ad9e1aee965": "slums-trade-row-terrain-f6f788d5dc8b.png",
+    "tile:20:3c07cc96383e51ec7fff1b4dea4d6596878feaed2de3ba0343c42ede17ab2f87": "podal-west-boundary-terrain-5b52670be92c.png",
+    "tile:20:2f7439721d4efb828caf1d57119a74ff6664fd1175b1d11fef981214aa454478": "podal-west-boundary-terrain-92ccb4f65a1e.png",
+    "tile:20:9fcdf0ff6bdfd2b832cfd91e6160e494b4f67ec897064204ba4dc3a869b31c4d": "podal-west-boundary-terrain-9fcdf0ff6bdf.png",
+    "tile:20:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739": "podal-west-boundary-terrain-0264796f9fa2.png",
+    "tile:20:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae": "podal-west-boundary-terrain-f5d7a245e0ac.png",
     "tile:20:1088d6557216a9adfe98f6d24bbb2cea583000ed4da0cc56195aa19793665b3a": "slums-arcade-jamb-1088d6557216.png",
     "tile:20:c70ac85636cdfff2c2cec418716e7771d4ee6acd7f18b3e22ac0faf6e7c351d7": "slums-arcade-jamb-c70ac85636cd.png",
     "scene-illustration:area:29:ecl:9e50": "kuto-norris-entry-50.png",

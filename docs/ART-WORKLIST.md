@@ -56,8 +56,8 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 |   of which several tiles together | 1467 |
 |   of which the same pixels already have art of yours in another area | 794 |
 | Battlefield cells to do | 0 |
-| Tile keys in the manifests | 3958 |
-|   accounted for by the tool | 3813 |
+| Tile keys in the manifests | 3966 |
+|   accounted for by the tool | 3821 |
 | Battlefield keys in the manifests | 83 |
 |   that are one stored cell of a battlefield picture | 78 |
 | Stored 8 by 8 tiles | 3016 |
@@ -91,7 +91,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 16 | The Lizardman Keep | yes | 856 | 158 | 105 | 158 of 158 |
 | 17 | The Nomad Camp | yes | 186 | 164 | 0 | 164 of 164 |
 | 18 | Podol Plaza | not yet | 337 | 161 |  | 189 of 194 (28 as first views of the next area) |
-| 20 | The Slums | not yet | 395 | 177 |  | 179 of 180 (2 as WebGL wall materials) |
+| 20 | The Slums | not yet | 395 | 180 |  | 187 of 188 (7 as WebGL wall materials) |
 | 21 | Sokal Keep | yes | 500 | 85 | 165 | 85 of 85 |
 | 22 | Yarash's Pyramid | yes | 140 | 70 | 17 | 70 of 70 |
 | 23 | Yarash's Pyramid, lower | yes | 126 | 39 | 39 | 39 of 39 |
@@ -444,13 +444,13 @@ Map 4; WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 bl
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
-| `tile:4:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739` | 8X8D5 block 1 tile 14 | map 4, square (0,3) facing south, column 10 row 3 | `podal-west-boundary-terrain-0264796f9fa2.png` (area 2, 9, 10, 15, 18, 26, 29, 31) |
+| `tile:4:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739` | 8X8D5 block 1 tile 14 | map 4, square (0,3) facing south, column 10 row 3 | `podal-west-boundary-terrain-0264796f9fa2.png` (area 2, 9, 10, 15, 18, 20, 26, 29, 31) |
 | `tile:4:1a0dfab20ddd54d612ffb12175d632859d32e97be62e6eb473715674473547de` | 8X8D5 block 1 tile 56 | map 4, square (0,6) facing north, column 4 row 6 | `slums-courtyard-joins-1a0dfab20ddd.png` (area 9, 14, 15, 20, 22, 29) |
 | `tile:4:23ade102018548cabe2a52d3a65ad144116cddbcf45ae2414102faaa74d4b7d4` | 8X8D5 block 1 tile 55 | map 4, square (0,5) facing north, column 3 row 4 | `route-23ade1020185.png` (area 2, 9, 14, 15, 20, 22, 29) |
-| `tile:4:9fcdf0ff6bdfd2b832cfd91e6160e494b4f67ec897064204ba4dc3a869b31c4d` | 8X8D5 block 1 tile 13 | map 4, square (0,3) facing north, column 0 row 3 | `podal-west-boundary-terrain-9fcdf0ff6bdf.png` (area 2, 9, 15, 18, 26, 29, 31) |
+| `tile:4:9fcdf0ff6bdfd2b832cfd91e6160e494b4f67ec897064204ba4dc3a869b31c4d` | 8X8D5 block 1 tile 13 | map 4, square (0,3) facing north, column 0 row 3 | `podal-west-boundary-terrain-9fcdf0ff6bdf.png` (area 2, 9, 15, 18, 20, 26, 29, 31) |
 | `tile:4:ca1a1292cdd484da405ff32f0a76c0246e016d31ae63e7506cf401b0d243a84e` | 8X8D5 block 1 tile 52 | map 4, square (0,5) facing north, column 3 row 5 | `route-ca1a1292cdd4.png` (area 0, 2, 8, 9, 10, 14, 15, 16, 20, 22, 29) |
 | `tile:4:e0a3abc3b4a8d171ac804ef60ea102f382d0189b8cd2be1c2a616fc8c2e8d86a` | 8X8D5 block 1 tile 57 | map 4, square (0,9) facing south, column 6 row 6 | `route-e0a3abc3b4a8.png` (area 2, 9, 15, 20, 22, 29) |
-| `tile:4:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae` | 8X8D5 block 1 tile 15 | map 4, square (0,3) facing west, column 5 row 6 | `podal-west-boundary-terrain-f5d7a245e0ac.png` (area 2, 9, 15, 18, 26, 29, 31) |
+| `tile:4:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae` | 8X8D5 block 1 tile 15 | map 4, square (0,3) facing west, column 5 row 6 | `podal-west-boundary-terrain-f5d7a245e0ac.png` (area 2, 9, 15, 18, 20, 26, 29, 31) |
 
 #### tile set 8X8D5 block 241 (14)
 
@@ -541,7 +541,7 @@ Map 6; WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 bl
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
-| `tile:6:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739` | 8X8D5 block 1 tile 14 | map 6, square (3,0) facing north, column 3 row 4 | `podal-west-boundary-terrain-0264796f9fa2.png` (area 2, 9, 10, 15, 18, 26, 29, 31) |
+| `tile:6:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739` | 8X8D5 block 1 tile 14 | map 6, square (3,0) facing north, column 3 row 4 | `podal-west-boundary-terrain-0264796f9fa2.png` (area 2, 9, 10, 15, 18, 20, 26, 29, 31) |
 | `tile:6:17becf7f46404d6b55c17617c207d9b53707bc1d70bc2e28023728545c3a3447` | 8X8D5 block 1 tile 12 | map 6, square (3,1) facing north, column 4 row 5 | `kuto-podal-side-streets-kuto-terrain-17becf7f4640.png` (area 2, 4, 15, 18, 29, 31) |
 | `tile:6:194c7a70c05eb9c93cb1a063ea5cf6df0dc6fa2f8de1389233f822c0720703c3` | 8X8D5 block 1 tile 8 | map 6, square (3,1) facing north, column 5 row 6 | `kuto-earth-chamber-joins-194c7a70c05e.png` (area 2, 4, 15, 18, 29, 31) |
 | `tile:6:1a0dfab20ddd54d612ffb12175d632859d32e97be62e6eb473715674473547de` | 8X8D5 block 1 tile 56 | map 6, square (9,0) facing east, column 4 row 6 | `slums-courtyard-joins-1a0dfab20ddd.png` (area 9, 14, 15, 20, 22, 29) |
@@ -552,12 +552,12 @@ Map 6; WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 bl
 | `tile:6:54cfe77b0fa031f0e731581bb561e7930676dcaf217f5886e27719bedfc1eb68` | 8X8D5 block 1 tile 21 | map 6, square (9,0) facing east, column 4 row 5 | `kuto-podal-side-streets-kuto-terrain-54cfe77b0fa0.png` (area 2, 4, 9, 14, 15, 18, 29, 31) |
 | `tile:6:7870e9a9d014d5af73d6846dd36c122b941c5efafee1e099b135da968e0216b1` | 8X8D5 block 1 tile 11 | map 6, square (3,1) facing north, column 5 row 5 | `kuto-earth-chamber-joins-7870e9a9d014.png` (area 2, 4, 15, 18, 29, 31) |
 | `tile:6:85b030277ef782597e0905e1f528dc419436fb4c80e649f5a0ba20d492065e2b` | 8X8D5 block 1 tile 53 | map 6, square (5,0) facing west, column 7 row 5 | `route-85b030277ef7.png` (area 0, 2, 8, 9, 10, 15, 16, 20, 22, 29) |
-| `tile:6:9fcdf0ff6bdfd2b832cfd91e6160e494b4f67ec897064204ba4dc3a869b31c4d` | 8X8D5 block 1 tile 13 | map 6, square (3,0) facing north, column 7 row 4 | `podal-west-boundary-terrain-9fcdf0ff6bdf.png` (area 2, 9, 15, 18, 26, 29, 31) |
+| `tile:6:9fcdf0ff6bdfd2b832cfd91e6160e494b4f67ec897064204ba4dc3a869b31c4d` | 8X8D5 block 1 tile 13 | map 6, square (3,0) facing north, column 7 row 4 | `podal-west-boundary-terrain-9fcdf0ff6bdf.png` (area 2, 9, 15, 18, 20, 26, 29, 31) |
 | `tile:6:ca1a1292cdd484da405ff32f0a76c0246e016d31ae63e7506cf401b0d243a84e` | 8X8D5 block 1 tile 52 | map 6, square (5,0) facing west, column 8 row 5 | `route-ca1a1292cdd4.png` (area 0, 2, 8, 9, 10, 14, 15, 16, 20, 22, 29) |
 | `tile:6:e0a3abc3b4a8d171ac804ef60ea102f382d0189b8cd2be1c2a616fc8c2e8d86a` | 8X8D5 block 1 tile 57 | map 6, square (13,0) facing west, column 6 row 6 | `route-e0a3abc3b4a8.png` (area 2, 9, 15, 20, 22, 29) |
 | `tile:6:e661bce0938e73b6610229ae27e6f1e51de4af50b1df92a3ae665507ff3a15f7` | 8X8D5 block 1 tile 10 | map 6, square (3,1) facing north, column 6 row 5 | `kuto-podal-side-streets-kuto-terrain-e661bce0938e.png` (area 2, 4, 15, 18, 29, 31) |
 | `tile:6:f08f5d405196df228b0f4f6cb5937799da56badb58ba6ff58a9903bb9b1ca142` | 8X8D5 block 1 tile 7 | map 6, square (3,1) facing north, column 4 row 6 | `kuto-earth-chamber-joins-f08f5d405196.png` (area 2, 4, 15, 18, 29, 31) |
-| `tile:6:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae` | 8X8D5 block 1 tile 15 | map 6, square (3,0) facing north, column 5 row 6 | `podal-west-boundary-terrain-f5d7a245e0ac.png` (area 2, 9, 15, 18, 26, 29, 31) |
+| `tile:6:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae` | 8X8D5 block 1 tile 15 | map 6, square (3,0) facing north, column 5 row 6 | `podal-west-boundary-terrain-f5d7a245e0ac.png` (area 2, 9, 15, 18, 20, 26, 29, 31) |
 
 #### tile set 8X8D5 block 241 (25)
 
@@ -1581,18 +1581,18 @@ Map 14; WALLDEF3 block 1 (tiles 8X8D3 block 1), block 3 (tiles 8X8D3 block 3), b
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
-| `tile:14:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739` | 8X8D3 block 1 tile 14 | map 14, square (3,0) facing north, column 10 row 4 | `podal-west-boundary-terrain-0264796f9fa2.png` (area 2, 9, 10, 15, 18, 26, 29, 31) |
+| `tile:14:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739` | 8X8D3 block 1 tile 14 | map 14, square (3,0) facing north, column 10 row 4 | `podal-west-boundary-terrain-0264796f9fa2.png` (area 2, 9, 10, 15, 18, 20, 26, 29, 31) |
 | `tile:14:17becf7f46404d6b55c17617c207d9b53707bc1d70bc2e28023728545c3a3447` | 8X8D3 block 1 tile 12 | map 14, square (2,1) facing north, column 10 row 5 | `kuto-podal-side-streets-kuto-terrain-17becf7f4640.png` (area 2, 4, 15, 18, 29, 31) |
 | `tile:14:194c7a70c05eb9c93cb1a063ea5cf6df0dc6fa2f8de1389233f822c0720703c3` | 8X8D3 block 1 tile 8 | map 14, square (3,1) facing north, column 8 row 6 | `kuto-earth-chamber-joins-194c7a70c05e.png` (area 2, 4, 15, 18, 29, 31) |
 | `tile:14:3df247a59ff18323be4631a63c96cf8ab98193f543ef4003a72a7c1e856e15f8` | 8X8D3 block 1 tile 54 | map 14, square (3,0) facing east, column 2 row 4 | `route-3df247a59ff1.png` (area 2, 9, 15, 20, 22, 29) |
 | `tile:14:4fa7efe3e4e51e6f24a9fc238959e3417c491c59718d3668c99af1a3a648e190` | 8X8D3 block 1 tile 9 | map 14, square (3,1) facing north, column 9 row 6 | `kuto-earth-chamber-joins-4fa7efe3e4e5.png` (area 2, 4, 15, 18, 29, 31) |
 | `tile:14:7870e9a9d014d5af73d6846dd36c122b941c5efafee1e099b135da968e0216b1` | 8X8D3 block 1 tile 11 | map 14, square (3,1) facing north, column 8 row 5 | `kuto-earth-chamber-joins-7870e9a9d014.png` (area 2, 4, 15, 18, 29, 31) |
 | `tile:14:85b030277ef782597e0905e1f528dc419436fb4c80e649f5a0ba20d492065e2b` | 8X8D3 block 1 tile 53 | map 14, square (3,0) facing east, column 2 row 5 | `route-85b030277ef7.png` (area 0, 2, 8, 9, 10, 15, 16, 20, 22, 29) |
-| `tile:14:9fcdf0ff6bdfd2b832cfd91e6160e494b4f67ec897064204ba4dc3a869b31c4d` | 8X8D3 block 1 tile 13 | map 14, square (4,0) facing north, column 7 row 4 | `podal-west-boundary-terrain-9fcdf0ff6bdf.png` (area 2, 9, 15, 18, 26, 29, 31) |
+| `tile:14:9fcdf0ff6bdfd2b832cfd91e6160e494b4f67ec897064204ba4dc3a869b31c4d` | 8X8D3 block 1 tile 13 | map 14, square (4,0) facing north, column 7 row 4 | `podal-west-boundary-terrain-9fcdf0ff6bdf.png` (area 2, 9, 15, 18, 20, 26, 29, 31) |
 | `tile:14:e0a3abc3b4a8d171ac804ef60ea102f382d0189b8cd2be1c2a616fc8c2e8d86a` | 8X8D3 block 1 tile 57 | map 14, square (6,0) facing west, column 6 row 6 | `route-e0a3abc3b4a8.png` (area 2, 9, 15, 20, 22, 29) |
 | `tile:14:e661bce0938e73b6610229ae27e6f1e51de4af50b1df92a3ae665507ff3a15f7` | 8X8D3 block 1 tile 10 | map 14, square (3,1) facing north, column 9 row 5 | `kuto-podal-side-streets-kuto-terrain-e661bce0938e.png` (area 2, 4, 15, 18, 29, 31) |
 | `tile:14:f08f5d405196df228b0f4f6cb5937799da56badb58ba6ff58a9903bb9b1ca142` | 8X8D3 block 1 tile 7 | map 14, square (2,1) facing north, column 10 row 6 | `kuto-earth-chamber-joins-f08f5d405196.png` (area 2, 4, 15, 18, 29, 31) |
-| `tile:14:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae` | 8X8D3 block 1 tile 15 | map 14, square (4,0) facing north, column 5 row 6 | `podal-west-boundary-terrain-f5d7a245e0ac.png` (area 2, 9, 15, 18, 26, 29, 31) |
+| `tile:14:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae` | 8X8D3 block 1 tile 15 | map 14, square (4,0) facing north, column 5 row 6 | `podal-west-boundary-terrain-f5d7a245e0ac.png` (area 2, 9, 15, 18, 20, 26, 29, 31) |
 
 #### tile set 8X8D3 block 3 (3)
 
@@ -1762,7 +1762,7 @@ Map 21; WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), b
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
-| `tile:21:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739` | 8X8D4 block 1 tile 14 | map 21, square (0,8) facing south, column 10 row 3 | `podal-west-boundary-terrain-0264796f9fa2.png` (area 2, 9, 10, 15, 18, 26, 29, 31) |
+| `tile:21:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739` | 8X8D4 block 1 tile 14 | map 21, square (0,8) facing south, column 10 row 3 | `podal-west-boundary-terrain-0264796f9fa2.png` (area 2, 9, 10, 15, 18, 20, 26, 29, 31) |
 | `tile:21:17becf7f46404d6b55c17617c207d9b53707bc1d70bc2e28023728545c3a3447` | 8X8D4 block 1 tile 12 | map 21, square (6,14) facing south, column 1 row 5 | `kuto-podal-side-streets-kuto-terrain-17becf7f4640.png` (area 2, 4, 15, 18, 29, 31) |
 | `tile:21:194c7a70c05eb9c93cb1a063ea5cf6df0dc6fa2f8de1389233f822c0720703c3` | 8X8D4 block 1 tile 8 | map 21, square (15,8) facing south, column 5 row 6 | `kuto-earth-chamber-joins-194c7a70c05e.png` (area 2, 4, 15, 18, 29, 31) |
 | `tile:21:1a0dfab20ddd54d612ffb12175d632859d32e97be62e6eb473715674473547de` | 8X8D4 block 1 tile 56 | map 21, square (9,14) facing west, column 1 row 6 | `slums-courtyard-joins-1a0dfab20ddd.png` (area 9, 14, 15, 20, 22, 29) |
@@ -1785,7 +1785,7 @@ Map 21; WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), b
 | `tile:21:8218bb2fd3cff1bb3b55dfb4d8626f1ef9eacf4084120b071ace691afcc06449` | 8X8D4 block 1 tile 3 | map 21, square (0,15) facing north, column 2 row 7 | `kuto-border-fountain-terrain-8218bb2fd3cf.png` (area 18, 29) |
 | `tile:21:85b030277ef782597e0905e1f528dc419436fb4c80e649f5a0ba20d492065e2b` | 8X8D4 block 1 tile 53 | map 21, square (0,8) facing south, column 7 row 5 | `route-85b030277ef7.png` (area 0, 2, 8, 9, 10, 15, 16, 20, 22, 29) |
 | `tile:21:94baea60a43c4a3789f6665ce0721e7bbdd8cc4fef7adce250e8f48d3344efe8` | 8X8D4 block 1 tile 33 | map 21, square (0,15) facing north, column 7 row 6 | `kuto-border-fountain-terrain-94baea60a43c.png` (area 18, 29) |
-| `tile:21:9fcdf0ff6bdfd2b832cfd91e6160e494b4f67ec897064204ba4dc3a869b31c4d` | 8X8D4 block 1 tile 13 | map 21, square (0,8) facing north, column 0 row 3 | `podal-west-boundary-terrain-9fcdf0ff6bdf.png` (area 2, 9, 15, 18, 26, 29, 31) |
+| `tile:21:9fcdf0ff6bdfd2b832cfd91e6160e494b4f67ec897064204ba4dc3a869b31c4d` | 8X8D4 block 1 tile 13 | map 21, square (0,8) facing north, column 0 row 3 | `podal-west-boundary-terrain-9fcdf0ff6bdf.png` (area 2, 9, 15, 18, 20, 26, 29, 31) |
 | `tile:21:a98541eb98d04b70525e398883915b338262458223739687d40ba50900a89567` | 8X8D4 block 1 tile 60 | map 21, square (0,15) facing east, column 0 row 10 | `kuto-packed-earth-a98541eb98d0.png` (area 18, 29) |
 | `tile:21:ad321803c7cb77e1053d5ace43e19ea6adcd8cf1f35674112d057c9a3419b2d8` | 8X8D4 block 1 tile 62 | map 21, square (0,15) facing west, column 9 row 9 | `kuto-earth-chamber-joins-ad321803c7cb.png` (area 18, 29) |
 | `tile:21:bb5fbe0659195461417a3592db18801edb797dd01b778f2ec9e18ec474d39347` | 8X8D4 block 1 tile 36 | map 21, square (0,15) facing north, column 2 row 8 | `kuto-packed-earth-bb5fbe065919.png` (area 18, 29) |
@@ -1800,7 +1800,7 @@ Map 21; WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), b
 | `tile:21:e9ecbb72d30b0993e242f5c1ff9562df7dd7c28db20be6a0917234d9679aa17a` | 8X8D4 block 1 tile 31 | map 21, square (0,15) facing north, column 3 row 6 | `kuto-border-fountain-terrain-e9ecbb72d30b.png` (area 18, 29) |
 | `tile:21:ebbb3407ad7721eaf32a9756092057bad2e2ccc5c7411838a50c8a7fc95ca0ee` | 8X8D4 block 1 tile 1 | map 21, square (0,15) facing north, column 4 row 6 | `kuto-border-fountain-terrain-ebbb3407ad77.png` (area 18, 29) |
 | `tile:21:f08f5d405196df228b0f4f6cb5937799da56badb58ba6ff58a9903bb9b1ca142` | 8X8D4 block 1 tile 7 | map 21, square (15,8) facing south, column 4 row 6 | `kuto-earth-chamber-joins-f08f5d405196.png` (area 2, 4, 15, 18, 29, 31) |
-| `tile:21:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae` | 8X8D4 block 1 tile 15 | map 21, square (0,8) facing west, column 5 row 6 | `podal-west-boundary-terrain-f5d7a245e0ac.png` (area 2, 9, 15, 18, 26, 29, 31) |
+| `tile:21:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae` | 8X8D4 block 1 tile 15 | map 21, square (0,8) facing west, column 5 row 6 | `podal-west-boundary-terrain-f5d7a245e0ac.png` (area 2, 9, 15, 18, 20, 26, 29, 31) |
 
 #### tile set 8X8D4 block 5 (102)
 
@@ -2024,16 +2024,16 @@ Map 24; WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), b
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
-| `tile:24:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739` | 8X8D1 block 1 tile 14 | map 24, square (15,4) facing north, column 10 row 3 | `podal-west-boundary-terrain-0264796f9fa2.png` (area 2, 9, 10, 15, 18, 26, 29, 31) |
+| `tile:24:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739` | 8X8D1 block 1 tile 14 | map 24, square (15,4) facing north, column 10 row 3 | `podal-west-boundary-terrain-0264796f9fa2.png` (area 2, 9, 10, 15, 18, 20, 26, 29, 31) |
 | `tile:24:17becf7f46404d6b55c17617c207d9b53707bc1d70bc2e28023728545c3a3447` | 8X8D1 block 1 tile 12 | map 24, square (14,4) facing east, column 4 row 5 | `kuto-podal-side-streets-kuto-terrain-17becf7f4640.png` (area 2, 4, 15, 18, 29, 31) |
 | `tile:24:194c7a70c05eb9c93cb1a063ea5cf6df0dc6fa2f8de1389233f822c0720703c3` | 8X8D1 block 1 tile 8 | map 24, square (14,4) facing east, column 5 row 6 | `kuto-earth-chamber-joins-194c7a70c05e.png` (area 2, 4, 15, 18, 29, 31) |
 | `tile:24:4fa7efe3e4e51e6f24a9fc238959e3417c491c59718d3668c99af1a3a648e190` | 8X8D1 block 1 tile 9 | map 24, square (14,4) facing east, column 6 row 6 | `kuto-earth-chamber-joins-4fa7efe3e4e5.png` (area 2, 4, 15, 18, 29, 31) |
 | `tile:24:54cfe77b0fa031f0e731581bb561e7930676dcaf217f5886e27719bedfc1eb68` | 8X8D1 block 1 tile 21 | map 24, square (13,4) facing east, column 5 row 5 | `kuto-podal-side-streets-kuto-terrain-54cfe77b0fa0.png` (area 2, 4, 9, 14, 15, 18, 29, 31) |
 | `tile:24:7870e9a9d014d5af73d6846dd36c122b941c5efafee1e099b135da968e0216b1` | 8X8D1 block 1 tile 11 | map 24, square (14,4) facing east, column 5 row 5 | `kuto-earth-chamber-joins-7870e9a9d014.png` (area 2, 4, 15, 18, 29, 31) |
-| `tile:24:9fcdf0ff6bdfd2b832cfd91e6160e494b4f67ec897064204ba4dc3a869b31c4d` | 8X8D1 block 1 tile 13 | map 24, square (15,4) facing east, column 7 row 4 | `podal-west-boundary-terrain-9fcdf0ff6bdf.png` (area 2, 9, 15, 18, 26, 29, 31) |
+| `tile:24:9fcdf0ff6bdfd2b832cfd91e6160e494b4f67ec897064204ba4dc3a869b31c4d` | 8X8D1 block 1 tile 13 | map 24, square (15,4) facing east, column 7 row 4 | `podal-west-boundary-terrain-9fcdf0ff6bdf.png` (area 2, 9, 15, 18, 20, 26, 29, 31) |
 | `tile:24:e661bce0938e73b6610229ae27e6f1e51de4af50b1df92a3ae665507ff3a15f7` | 8X8D1 block 1 tile 10 | map 24, square (14,4) facing east, column 6 row 5 | `kuto-podal-side-streets-kuto-terrain-e661bce0938e.png` (area 2, 4, 15, 18, 29, 31) |
 | `tile:24:f08f5d405196df228b0f4f6cb5937799da56badb58ba6ff58a9903bb9b1ca142` | 8X8D1 block 1 tile 7 | map 24, square (14,4) facing east, column 4 row 6 | `kuto-earth-chamber-joins-f08f5d405196.png` (area 2, 4, 15, 18, 29, 31) |
-| `tile:24:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae` | 8X8D1 block 1 tile 15 | map 24, square (15,4) facing east, column 5 row 6 | `podal-west-boundary-terrain-f5d7a245e0ac.png` (area 2, 9, 15, 18, 26, 29, 31) |
+| `tile:24:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae` | 8X8D1 block 1 tile 15 | map 24, square (15,4) facing east, column 5 row 6 | `podal-west-boundary-terrain-f5d7a245e0ac.png` (area 2, 9, 15, 18, 20, 26, 29, 31) |
 
 #### tile set 8X8D1 block 3 (2)
 
@@ -2777,7 +2777,7 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 | --- | ---: |
 | first-person cells that show a sky or ground colour no existing artwork of the area shows | 4060 |
 | first-person cells of the overhead area view, which no existing artwork of the area confirms | 152 |
-| first-person cells of an area whose reading is not confirmed | 1548 |
+| first-person cells of an area whose reading is not confirmed | 1545 |
 | first-person cells seen only from squares not connected to any square the existing artwork was made from | 720 |
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |
 | battlefield cells of pictures no artwork shows to have been on a battlefield | 2207 |
@@ -2793,7 +2793,7 @@ Areas not confirmed, and why:
 - Area 7 (Valjevo Castle, the Pool): 58 of the 131 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 15 (Mendor's Library): 15 of the 185 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 18 (Podol Plaza): 5 of the 194 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
-- Area 20 (The Slums): 1 of the 180 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
+- Area 20 (The Slums): 1 of the 188 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 25 (Wilderness, west): only 0 cells of this area have artwork so far, too few to confirm the tool's reading of its maps and wall sets against.
 - Area 27 (Wilderness, east): only 19 cells of this area have artwork so far, too few to confirm the tool's reading of its maps and wall sets against.
 
