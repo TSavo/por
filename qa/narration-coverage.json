@@ -9,7 +9,7 @@
    "heard": 64
   },
   "acceptance-new-phlan": {
-   "ledger": "acceptance-new-phlan.jsonl",
+   "ledger": "acceptance-new-phlan-after-sokal.jsonl",
    "games": 7,
    "decisions": 521,
    "heard": 106
@@ -128,11 +128,6 @@
   "por.narration.sokal.ecl4-b21-9aae": {
    "run": "acceptance-new-phlan",
    "step": 176436906,
-   "withoutArt": {
-    "run": "acceptance-new-phlan",
-    "step": 176436906,
-    "showing": "no picture"
-   },
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:0:ecl:ae31:caller:9ad2"
@@ -593,14 +588,14 @@
   "por.voice.ecl3.b8-9b3c": {
    "run": "acceptance-new-phlan",
    "step": 100561036,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:8:ecl:9b8a:caller:9a4a"
+   },
    "withoutArt": {
     "run": "acceptance-new-phlan",
     "step": 100561036,
     "showing": "no picture"
-   },
-   "art": {
-    "kind": "portrait",
-    "key": "scene-illustration:area:8:ecl:9b8a:caller:9a4a"
    }
   },
   "por.voice.ecl3.b8-9bb8": {
