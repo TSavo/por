@@ -29,7 +29,7 @@ export interface DosCallSite {
 type Half = "h" | "l" | "w";
 type Want = { slot?: undefined; reg: string; half: Half } | { slot: number; half: Half };
 
-interface Step {
+export interface Step {
   at: number;
   mnemonic: string;
   operands: string[];
@@ -39,7 +39,7 @@ interface Step {
   calls?: { module: string; entry: number; far: boolean };
 }
 
-interface Procedure {
+export interface Procedure {
   module: string;
   name: string;
   entry: number;
@@ -158,11 +158,20 @@ interface Callee {
   pops: number | undefined;
 }
 
-export function dosCallSites(directory: string): DosCallSite[] {
+/**
+ * Every procedure of a translation (`exe` and the overlay slices `ovlNN`), its instructions as the
+ * comments give them, and where each goes next.
+ */
+export function readTranslation(directory: string): Procedure[] {
   const procedures: Procedure[] = [];
   for (const file of readdirSync(directory).filter((name) => /^(exe|ovl\d+)\.ts$/.test(name)).sort()) {
     procedures.push(...parseModule(file.replace(/\.ts$/, ""), readFileSync(join(directory, file), "utf8")));
   }
+  return procedures;
+}
+
+export function dosCallSites(directory: string): DosCallSite[] {
+  const procedures = readTranslation(directory);
   const byEntry = new Map(procedures.map((p) => [`${p.module}:${p.entry}`, p]));
   const callers = new Map<string, { procedure: Procedure; step: Step }[]>();
   for (const procedure of procedures) {
