@@ -196,6 +196,16 @@
         "python + capstone",
         "Chrome"
       ]
+    },
+    {
+      "id": "game-data",
+      "title": "The port's own data files are the converter's output, hold no instruction byte, and play the same game as the 1.3 files: same text on every frame, same dice, same saved game",
+      "command": "npm run verify:game-data",
+      "reference": "original",
+      "needs": [
+        "game files",
+        "python + capstone"
+      ]
     }
   ]
 }
