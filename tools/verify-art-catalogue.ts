@@ -34,20 +34,28 @@ const read = (path: string) => new Uint8Array(readFileSync(join(portGameRoot, pa
 const data = readGameData(read);
 const records = new Map(data.pictures.map((record) => [`${record.file}:${record.block}`, record]));
 
+interface CaptionPart { kind: string; rawText?: string }
 const narration = JSON.parse(readFileSync(new URL("../src/audio/voice-master-manifest.json", import.meta.url), "utf8")) as {
-  events: { sourceId: string; source: { archive: string; block: number } }[];
-  units: { triggerSourceId: string; resolution?: string; runtimeVariants?: { text: string }[] }[];
+  events: { sourceId: string; source: { archive: string; block: number }; outputParts?: CaptionPart[] }[];
+  units: {
+    triggerSourceId: string; resolution?: string; runtimeVariants?: { text: string }[];
+    sourceParts?: { sourceId: string; outputParts?: CaptionPart[] }[];
+  }[];
 };
-const narrationSources = new Map(narration.events.map(({ sourceId, source }) => [sourceId, source]));
-const dynamicCaptions = new Map<string, string[]>();
-for (const { triggerSourceId, resolution, runtimeVariants } of narration.units) {
-  if (resolution !== "finite-runtime-variants" || !runtimeVariants?.length) continue;
-  const source = narrationSources.get(triggerSourceId);
+const narrationSources = new Map(narration.events.map(event => [event.sourceId, event]));
+const runtimeCaptions = new Map<string, string[]>();
+for (const { triggerSourceId, resolution, runtimeVariants, sourceParts } of narration.units) {
+  const source = narrationSources.get(triggerSourceId)?.source;
   if (!source) continue;
+  const output = sourceParts?.flatMap(part => part.outputParts ?? narrationSources.get(part.sourceId)?.outputParts ?? [{ kind: "unresolved" }]) ?? [];
+  const texts = resolution === "finite-runtime-variants" ? runtimeVariants?.map(({ text }) => text)
+    : resolution === "resolved" && output.length > 1 && output.every(part => part.kind === "literal" && part.rawText !== undefined)
+      ? [output.map(part => part.rawText).join("")] : undefined;
+  if (!texts?.length) continue;
   const key = `${source.archive}:${source.block}`;
-  const captions = dynamicCaptions.get(key) ?? [];
-  for (const { text } of runtimeVariants) captions.push(text.toUpperCase().replace(/\s/g, ""));
-  dynamicCaptions.set(key, captions);
+  const captions = runtimeCaptions.get(key) ?? [];
+  for (const text of texts) captions.push(text.toUpperCase().replace(/\s/g, ""));
+  runtimeCaptions.set(key, captions);
 }
 
 // Script blocks are the primary area IDs. A script can also load a separate map.
@@ -189,7 +197,7 @@ const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
       }
       for (const captionArea of new Set([area, scriptArea])) {
         const { archive, block, text, captions } = scripts.get(Number(captionArea))!;
-        const variants = dynamicCaptions.get(`ECL${archive}.DAX:${block}`) ?? [];
+        const variants = runtimeCaptions.get(`ECL${archive}.DAX:${block}`) ?? [];
         if (typeof cue === "string") {
           const normalized = cue.toUpperCase().replace(/[^A-Z0-9.]/g, "");
           if (text.includes(normalized) || variants.some(caption => caption.replace(/[^A-Z0-9.]/g, "").includes(normalized))) return;
