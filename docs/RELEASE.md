@@ -76,7 +76,10 @@ nothing reads it as a path.
 an install (for the Mac app, its `Contents`). Checked against copies of the Linux folder with one thing
 planted in each, it refused all five: a WAV from `por-assets/original` under another name ("is
 /Users/…/por-assets/original/pc-speaker-01.wav"), an `ECL1.DAX`, a `tandy-03.wav`, one byte added to
-`game/tiles.json`, and an extra file in `game/`; the unchanged copy passed.
+`game/tiles.json`, and an extra file in `game/`; the unchanged copy passed. With `audio/classic/`
+committed, `git archive HEAD -- game audio` passed (41 files the committed `audio/classic`), and three
+copies were refused: `por-assets/original/tandy-05.wav` put in `audio/enhanced/`, the same WAV renamed
+there, and `audio/classic/pc-speaker-02.wav` with a byte added.
 
 ## How a player starts it
 
@@ -150,21 +153,23 @@ wheel question, the word read off the wheel, the ready-made party (start the rel
 `POR_PREGEN_PARTY=1`), and the first-person view of New Phlan, reporting whether the page drew it with
 WebGL or fell back. It saves a screenshot of each and `report.json`.
 
-Checked on 2026-11-22 on an Intel Mac (macOS 26.3), with the 742 MB disk image of `2efe7d33`: mounted
-with `hdiutil attach`, the app (985 MB) copied to a scratch Applications folder outside the checkout,
-opened with `open --env POR_OPEN_BROWSER=0 --env POR_PREGEN_PARTY=1` and nothing set that names
-`por-assets`:
+Checked on 2026-11-22 on an Intel Mac (macOS 26.3), last with the packages of `05f97892` (disk image
+749 MB, Windows installer 680 MB, Linux archive 694 MB, all three packed in 291 seconds): the disk image
+mounted with `hdiutil attach`, the app (1.0 GB) copied to a scratch Applications folder outside the
+checkout, opened with `open --env POR_OPEN_BROWSER=0 --env POR_PREGEN_PARTY=1` and nothing set that
+names `por-assets`:
 
 - `codesign --verify --strict`: valid; `spctl --assess`: rejected (no Developer ID, as above).
 - Its log: `POR_GAME_DATA port <app>/Contents/Resources/game`; saves in
   `~/Library/Application Support/Pool of Radiance/saves` (created by the launch, `roster.json` in it).
-- The server answered 16 to 23 seconds after the app opened, most of it loading the artwork.
-- The title with POOL OF RADIANCE and SPECIAL EDITION faded in; the code wheel's question (2, 3, 5 and 7
-  in different runs: the dice roll on the real clock); its word, read off `src/codewheel/wheel.json`,
-  reached the main menu; the six ready-made characters (Thrender Grone, Bakshi, Rhiannon, Brother Sean,
-  Darkstar, Phineas) added from Add Character; the tour to the first exploration menu in New Phlan, drawn
-  with WebGL (ANGLE Metal on the Intel UHD 630), with no "WebGL exploration is unavailable" in the
-  console.
+- The server answered 15 to 23 seconds after the app opened, most of it loading the artwork.
+- The page opened in Enhanced, with the display switch hidden (no original files); the publisher
+  screen, which the page shows before the title; the title with POOL OF RADIANCE and SPECIAL EDITION
+  faded in; the code wheel's question (2, 3, 5, 7 and 8 in different runs: the dice roll on the real
+  clock); its word, read off `src/codewheel/wheel.json`, reached the main menu; the six ready-made
+  characters (Thrender Grone, Bakshi, Rhiannon, Brother Sean, Darkstar, Phineas) added from Add
+  Character; the tour to the first exploration menu in New Phlan, drawn with WebGL (ANGLE Metal on the
+  Intel UHD 630), with no "WebGL exploration is unavailable" in the console.
 - Quit (the quit Apple event Cmd-Q sends) left no launcher, runner or listener on the port, and removed
   `running.json`.
 - The launcher run from a shell, as the Windows shortcut and the Linux script run it, stopped the server
@@ -173,14 +178,7 @@ opened with `open --env POR_OPEN_BROWSER=0 --env POR_PREGEN_PARTY=1` and nothing
 
 ## Known gaps
 
-- The page opens in Classic display (measured: the page's `data-presentation` was `classic` when it
-  loaded), which draws the original pictures the port's own data does not carry. The check presses
-  **Enhanced display**, as a player must (or F10). The release shape wants Enhanced from the start; the
-  default is the page's, in `tools/play.js`.
-- The publisher screen is not seen: the runner passes it during the 24,000,000 steps it runs before it
-  takes input (`POR_LIVE_AT`) with the real clock, and its first frame is the title. `npm run play` does
-  the same (measured: its first frame is the title).
-- The Windows installer is built but has not been run: install, shortcuts, the console window closing
-  the game, and the uninstaller are untested. The Linux archive has not been run on Linux.
+- The Windows installer: see the Windows check above for what was run and what was not. The Linux
+  archive has not been run on Linux.
 - The Mac app holds a universal Node (297 MB); one disk image per architecture would be about 150 MB
   smaller each.
