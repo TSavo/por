@@ -2463,6 +2463,18 @@ const illustrationRoutes = new Map([
       prompt: /ASMALLARMYOFSKELETONSRUSHESFROMTHETOWER/i,
     },
   }],
+  ["valhingen-skeleton-tower-fumes", {
+    slot: "A", inputs: ["l", "enter", "up"],
+    portraitStops: {
+      1: "scene-illustration:area:10:ecl:b695:caller:a446",
+      2: "scene-illustration:area:10:ecl:a4f9",
+    },
+    phaseCaptures: { 2: "valhingen-skeleton-tower-fumes-door.png" },
+    portrait: "scene-illustration:area:10:ecl:a549",
+    prompt: /NOXIOUSFUMESTEARATYOURTHROAT.*DRIEDBONES.*ISHITFOR10POINTSOFDAMAGE/i,
+    finalPhaseCapture: "valhingen-skeleton-tower-fumes-interior.png",
+    continuation: { inputs: ["enter", "l", "down", "up"], clearsPortrait: true, prompt: /VIEWENCAMP.*LOOK/i },
+  }],
   ["valhingen-charged-tower", {
     slot: "A", inputs: ["l", "enter", "enter"],
     portraitStops: { 1: "scene-illustration:area:10:ecl:b6b3:caller:a927:cue:charged-tower", 2: null },
