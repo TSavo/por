@@ -5511,6 +5511,13 @@ const combatPoseRoutes = new Map([
     width: 96, height: 96, readyPrompt: /Hitpoints/i, strikeInputs: [],
     inputs: ["up", ...Array(7).fill("enter"), ...Array(11).fill("q")],
   }],
+  ["kobold-envoy-strike", {
+    slot: "A", stand: "combat:area:13:CPIC8.DAX:11:ecl:a2a4",
+    strike: "combat:area:13:CPIC8.DAX:139:ecl:a2a4",
+    width: 96, height: 96, readyPrompt: /Hitpoints/i,
+    inputs: ["up", ...Array(7).fill("enter"), ...Array(11).fill("q")],
+    strikeInputs: Array(100).fill("q"), stopAtStrike: true,
+  }],
   ["kobold-fatima-combat", {
     excluded: ["combat:area:13:CPIC8.DAX:11:ecl:a2a4"],
     slot: "B", stand: "combat:area:13:CPIC8.DAX:11:ecl:a856", strike: "combat:area:13:CPIC8.DAX:139:ecl:a856",
@@ -8839,7 +8846,7 @@ try {
   } else if (combatPose) {
     const { stand, strike, width, height, inputs, strikeInputs = ["q"], strikeReflected, strikeReport,
       journalLead, excluded, readyPrompt, standAnchor, standCount, standSelected, strikeAnchor,
-      followingStrikeReport, standInAnimation } = combatPose;
+      followingStrikeReport, standInAnimation, stopAtStrike } = combatPose;
     function verifyCombatScope() {
       if (!excluded) return;
       for (const view of [frame, ...(frame.animation ?? [])]) {
@@ -8973,15 +8980,17 @@ try {
       await advance("j");
     }
     if (strikeInputs.length) {
-      for (const key of strikeInputs) {
-        await advance(key);
-        verifyCombatScope();
-      }
-      const strikeAnimation = frame.animation?.findIndex(({ combatArt, text }) =>
+      const findStrikeAnimation = () => frame.animation?.findIndex(({ combatArt, text }) =>
         combatArt?.some(([x, y, id, reflected]) =>
           id === strike && (strikeReflected === undefined || reflected === strikeReflected) &&
           (!strikeAnchor || (x === strikeAnchor[0] && y === strikeAnchor[1]))) &&
         (!strikeReport || strikeReport.test(text.map(([, char]) => String.fromCharCode(char)).join("")))) ?? -1;
+      for (const key of strikeInputs) {
+        await advance(key);
+        verifyCombatScope();
+        if (stopAtStrike && findStrikeAnimation() >= 0) break;
+      }
+      const strikeAnimation = findStrikeAnimation();
       assert.ok(strikeAnimation >= 0, `Expected the native ${strike} strike animation`);
       if (followingStrikeReport) {
         assert.ok(frame.animation.slice(strikeAnimation + 1).some(({ text }) =>
