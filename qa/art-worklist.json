@@ -12,8 +12,8 @@
  },
  "enhancedFallbacks": {
   "frames": 0,
-  "presented": 763,
-  "walks": 8,
+  "presented": 767,
+  "walks": 9,
   "recordedWalks": 31,
   "missingWalks": [
    "campaign-castle-approach-leg",
@@ -21,7 +21,6 @@
    "campaign-ending-leg",
    "campaign-full/leg-10",
    "campaign-full/leg-11",
-   "campaign-full/leg-2",
    "campaign-full/leg-3",
    "campaign-full/leg-4",
    "campaign-full/leg-5",
@@ -40,7 +39,7 @@
    "walk-kovel-and-nomads",
    "walk-textile-house-cleared"
   ],
-  "runs": 8,
+  "runs": 9,
   "keys": []
  },
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
