@@ -5,6 +5,7 @@ import { dirname, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
+const takeScatteredObjects = routeName === "valhingen-scattered-objects" && option === "--take";
 const towerSave = routeName === "valjevo-tower-save";
 const towerReload = routeName === "valjevo-tower-reload";
 const dungeonSave = routeName === "valjevo-dungeon-save";
@@ -2598,7 +2599,9 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:10:ecl:b6c6:caller:a07f",
     prompt: /VARIOUSOBJECTSARESCATTEREDABOUT.WILLYOUPICKTHEMUP/i,
     finalPhaseCapture: "valhingen-scattered-objects.png",
-    continuation: { inputs: ["n"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+    continuation: takeScatteredObjects
+      ? { inputs: ["y"], clearsPortrait: true, prompt: /THEPARTYHASFOUNDTREASURE/i }
+      : { inputs: ["n"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
   ["valhingen-black-marble-crypt-return", {
     slot: "A", inputs: ["up", "enter", "enter"],
@@ -6578,7 +6581,8 @@ const refuseNomadDismissal = routeName === "nomad-feast-decline" && option === "
 assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait ||
   ogreApproachOnly || councilFinale || (halls && option === "--webgl") || verifyApproachTravel || verifyDistrictTravel ||
   declineDirten || declineRestal || declineKoboldGuide || declineFatima || declineCryptScroll || declineKutoCache ||
-  declineSmithyHammer || declineValjevoDisguise || fightNorris || refuseNomadDismissal || takePaladinTreasure, "Option does not apply to this route");
+  declineSmithyHammer || declineValjevoDisguise || fightNorris || refuseNomadDismissal || takePaladinTreasure ||
+  takeScatteredObjects, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const outputDirectory = resolve(process.env.POR_PRESENTATION_OUTPUT_DIR || "out");
@@ -10319,21 +10323,24 @@ try {
       assert.ok(checkpoint.leads.some(({ id }) => id === "river-tyrmor-journal"));
       console.log("Tyrmor journal checkpoint:", saved);
     }
-    if (routeName === "valhingen-vampire-trove") {
+    if (routeName === "valhingen-vampire-trove" || takeScatteredObjects) {
       await advance("enter");
       assert.equal(frame.portrait, undefined);
       await advance("enter");
-      const loot = "scene-illustration:area:10:ecl:b373:cue:vampire-treasure";
+      const loot = takeScatteredObjects ? "scene-illustration:area:10:ecl:a09f:cue:scattered-treasure"
+        : "scene-illustration:area:10:ecl:b373:cue:vampire-treasure";
       assert.equal(frame.portrait, loot);
-      await waitFor("the vampire's treasure illustration", () => run(`state.sequence === ${frame.sequence} &&
+      await waitFor("the Valhingen treasure illustration", () => run(`state.sequence === ${frame.sequence} &&
         document.querySelector('.encounter-portrait[src="/art/${loot}"]')?.naturalWidth === 352`));
       await verifyPortraitPanel();
       await switchBothWays(frame.frame);
       const shot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, "valhingen-vampire-trove-equipment.png"), Buffer.from(shot.data, "base64"));
+      const screenshot = takeScatteredObjects ? "valhingen-scattered-objects-loot.png" : "valhingen-vampire-trove-equipment.png";
+      writeFileSync(resolve(directory, screenshot), Buffer.from(shot.data, "base64"));
       for (const key of ["t", "i"]) await advance(key);
       const items = frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
-      assert.match(items, /WAND3POTIONSCLERICALSCROLLWITH2SPELLSSHIELD(?:CLERICALSCROLLWITH2SPELLS){4}/i);
+      assert.match(items, takeScatteredObjects ? /POTIONWAND(?:CLERICALSCROLLWITH2SPELLS){2}/i
+        : /WAND3POTIONSCLERICALSCROLLWITH2SPELLSSHIELD(?:CLERICALSCROLLWITH2SPELLS){4}/i);
     }
     console.log(`Verified ${routeName} illustration, panel fit, and mode switching in Chrome.`);
   } else if (routeName === "pyramid-lizardfolk-vats") {
