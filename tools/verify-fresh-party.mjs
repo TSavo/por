@@ -2889,7 +2889,7 @@ if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"]
     assert.ok(frame.journal.leads.some(({ id }) => id === "textile-confrontation"));
     assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-handoff"));
   };
-  const trained = /thrender grone.*fighter.*platinum 14.*level 2 exp 2388.*hp 23/;
+  const trained = /alda.*fighter.*platinum 133.*level 2 exp 2800.*hp 10/;
   await replay(loadSlot(opened ? "1265" : "2064"), "85000000", [
     (text) => assert.match(text, /12,14 s/),
     "j", (_text, frame) => {
@@ -2931,29 +2931,30 @@ if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"]
       "j", checkUnpaid, "j",
       ["enter", /area cast view encamp/, 6], "e", "s", "s", "f",
     ] : [
-      "left", "up", "up", ["enter", /view take pool share exit/, 10],
+      "left", "up", "up", presses("enter", 4, /view take pool share exit/),
       "j", (_text, frame) => assert.equal(textile(frame)?.status, "reward-pending"), "j",
       "s", "e", "enter", "j", (_text, frame) => assert.equal(textile(frame)?.status, "turned-in"),
     ]),
     ...(trainAfterReward ? [
-      "j", ["enter", /area cast view encamp/, 14],
-      "v", "v", (text) => assert.match(text, /thrender grone.*level 1 exp 2388/), "e",
-      // Walk from the council clerk to the Temple of Tyr and sell gems.
+      "j", presses("enter", 4, /area cast view encamp/),
+      "v", "v", (text) => assert.match(text, /alda.*level 1 exp 2800/), "e",
+      // Walk from the council clerk to the Temple of Tyr. Alda (qa/fixtures/textile-return, the
+      // walkthrough's six dwarves) sells his four gems and his jewel, the party pools its money, and he
+      // takes the 200 platinum the fighters' school asks.
       "right", "right", "up", "right", "up", "up", "enter", "enter", "right", ...Array(6).fill("up"),
       "left", "up", "right", "up", "right", "up", "enter", "enter", "y",
-      ...Array(5).fill("home"), "a", ...Array(4).fill(["g", "s"]).flat(),
-      "p", "t", "end", "end", "end", "enter",
-      (text) => assert.match(text, /how much gems will you take/),
-      "4", "enter", "e", "a", ...Array(4).fill(["g", "s"]).flat(), "p", "t", "end", "end", "enter",
-      (text) => assert.match(text, /platinum 283.*how much platinum will you take/),
+      ...Array(5).fill("home"), "a", ...Array(4).fill(["g", "s"]).flat(), "j", "s",
+      // The pool holds every coin: copper, silver, electrum, gold, then platinum.
+      "p", "t", ...Array(4).fill("end"), "enter",
+      (text) => assert.match(text, /platinum 908 gems 16 jewelry 2 how much platinum will you take/),
       "2", "0", "0", "enter", "e", "s", "e",
       // The first school is for rogues. The fighter school is one door west.
       "right", "right", "up", "left", "up", "right", "up", "up", "left", "up",
       "enter", "enter", "enter", "n", "left", "up", "right", "up", "right", "up", "enter", "enter",
       (text) => assert.match(text, /we train only fighters here/),
-      "y", "t", (text) => assert.match(text, /thrender grone will become: a level 2 fighter/),
+      "y", "t", (text) => assert.match(text, /alda will become: a level 2 fighter/),
       "y", "v", "v", (text) => assert.match(text, trained), "e", "s", "s", "f",
-    ] : opened ? [] : ["j", ["enter", /area cast view encamp/, 14], "e", "s", "s", "f"]),
+    ] : opened ? [] : ["j", presses("enter", 4, /area cast view encamp/), "e", "s", "s", "f"]),
   ]);
   if (opened) {
     await replay(loadSlot("2166"), "85000000", ["j", checkUnpaid]);
@@ -2989,7 +2990,7 @@ if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"]
           assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-handoff"));
         },
       ]);
-      console.log("Sold gems, paid for Thrender Grone's level-two training, and reloaded the result:", trainedSlot);
+      console.log("Sold Alda's gems and jewel, paid for his level-two training, and reloaded the result:", trainedSlot);
     }
   }
   process.exit(0);
