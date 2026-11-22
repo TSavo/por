@@ -8,8 +8,8 @@
     "queue": "newly reached standalone unit plays after current narration"
   },
   "eventCount": 277,
-  "narrationUnitCount": 181,
-  "readyUnitCount": 163,
+  "narrationUnitCount": 183,
+  "readyUnitCount": 165,
   "unresolvedUnitCount": 18,
   "characters": [
     {
@@ -476,7 +476,7 @@
       "classification": "voiced-narration",
       "reason": "manually reviewed narration source",
       "narrationUnitIds": [
-        "ecl8-b13-9c70-9c9f-9ce1-9d05"
+        "ecl8-b13-9c70"
       ]
     },
     {
@@ -500,7 +500,7 @@
       "classification": "voiced-narration",
       "reason": "manually reviewed narration source",
       "narrationUnitIds": [
-        "ecl8-b13-9c70-9c9f-9ce1-9d05"
+        "ecl8-b13-9c9f"
       ]
     },
     {
@@ -524,7 +524,7 @@
       "classification": "voiced-narration",
       "reason": "manually reviewed narration source",
       "narrationUnitIds": [
-        "ecl8-b13-9c70-9c9f-9ce1-9d05"
+        "ecl8-b13-9ce1-9d05"
       ]
     },
     {
@@ -548,7 +548,7 @@
       "classification": "voiced-narration",
       "reason": "manually reviewed narration source",
       "narrationUnitIds": [
-        "ecl8-b13-9c70-9c9f-9ce1-9d05"
+        "ecl8-b13-9ce1-9d05"
       ]
     },
     {
@@ -7029,24 +7029,50 @@
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
     {
-      "id": "ecl8-b13-9c70-9c9f-9ce1-9d05",
+      "id": "ecl8-b13-9c70",
       "block": 13,
       "triggerSourceId": "por.review.ecl-8.block-13.at-9c70",
       "coveredSourceIds": [
-        "por.review.ecl-8.block-13.at-9c70",
-        "por.review.ecl-8.block-13.at-9c9f",
-        "por.review.ecl-8.block-13.at-9ce1",
-        "por.review.ecl-8.block-13.at-9d05"
+        "por.review.ecl-8.block-13.at-9c70"
       ],
       "sourceTextParts": [
         {
           "sourceId": "por.review.ecl-8.block-13.at-9c70",
           "rawText": "THE KOBOLD RETREATS, THEN STRIKES THE WALL."
-        },
+        }
+      ],
+      "spokenText": "THE KOBOLD RETREATS, THEN STRIKES THE WALL.",
+      "status": "ready",
+      "characterId": "kobold-guide",
+      "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-9c9f",
+      "block": 13,
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9c9f",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9c9f"
+      ],
+      "sourceTextParts": [
         {
           "sourceId": "por.review.ecl-8.block-13.at-9c9f",
           "rawText": "THE KOBOLD CRIES OUT, 'I'LL NOT GO ALONE!'"
-        },
+        }
+      ],
+      "spokenText": "THE KOBOLD CRIES OUT, 'I'LL NOT GO ALONE!'",
+      "status": "ready",
+      "characterId": "kobold-guide",
+      "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-9ce1-9d05",
+      "block": 13,
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9ce1",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9ce1",
+        "por.review.ecl-8.block-13.at-9d05"
+      ],
+      "sourceTextParts": [
         {
           "sourceId": "por.review.ecl-8.block-13.at-9ce1",
           "rawText": "THE ROOF COLLAPSES."
@@ -7056,7 +7082,7 @@
           "rawText": "BEFORE YOU RECOVER, KOBOLDS ARRIVE."
         }
       ],
-      "spokenText": "THE KOBOLD RETREATS, THEN STRIKES THE WALL. THE KOBOLD CRIES OUT, 'I'LL NOT GO ALONE!' THE ROOF COLLAPSES. BEFORE YOU RECOVER, KOBOLDS ARRIVE.",
+      "spokenText": "THE ROOF COLLAPSES. BEFORE YOU RECOVER, KOBOLDS ARRIVE.",
       "status": "ready",
       "characterId": "kobold-guide",
       "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"

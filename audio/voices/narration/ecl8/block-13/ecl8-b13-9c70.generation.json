@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "b87b6463d24bc001da545d98083d230715c7a2bc53082beeb084ca7f8656f2a8",
+  "audioSha256": "bcbb649235b6a480ff26a497fc47f9d769a3cba5c89407173cd6653cfcdce15a",
+  "bytes": 51034,
+  "directionSent": "nervous, deferential, cunning",
+  "heardByWhisper": "The kobold retreats, then strikes the wall.",
+  "generatedAt": "2026-11-22T22:49:59.142Z"
+}

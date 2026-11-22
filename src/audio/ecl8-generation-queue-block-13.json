@@ -18,16 +18,34 @@
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
     {
-      "id": "ecl8-b13-9c70-9c9f-9ce1-9d05",
+      "id": "ecl8-b13-9c70",
       "triggerSourceId": "por.review.ecl-8.block-13.at-9c70",
       "coveredSourceIds": [
-        "por.review.ecl-8.block-13.at-9c70",
-        "por.review.ecl-8.block-13.at-9c9f",
+        "por.review.ecl-8.block-13.at-9c70"
+      ],
+      "output": "audio/voices/narration/ecl8/block-13/ecl8-b13-9c70.mp3",
+      "text": "THE KOBOLD RETREATS, THEN STRIKES THE WALL.",
+      "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-9c9f",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9c9f",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9c9f"
+      ],
+      "output": "audio/voices/narration/ecl8/block-13/ecl8-b13-9c9f.mp3",
+      "text": "THE KOBOLD CRIES OUT, 'I'LL NOT GO ALONE!'",
+      "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-9ce1-9d05",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9ce1",
+      "coveredSourceIds": [
         "por.review.ecl-8.block-13.at-9ce1",
         "por.review.ecl-8.block-13.at-9d05"
       ],
-      "output": "audio/voices/narration/ecl8/block-13/ecl8-b13-9c70-9c9f-9ce1-9d05.mp3",
-      "text": "THE KOBOLD RETREATS, THEN STRIKES THE WALL. THE KOBOLD CRIES OUT, 'I'LL NOT GO ALONE!' THE ROOF COLLAPSES. BEFORE YOU RECOVER, KOBOLDS ARRIVE.",
+      "output": "audio/voices/narration/ecl8/block-13/ecl8-b13-9ce1-9d05.mp3",
+      "text": "THE ROOF COLLAPSES. BEFORE YOU RECOVER, KOBOLDS ARRIVE.",
       "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
     },
     {

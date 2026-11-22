@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "1b2b5c16396f4a9db403a0378fe0652109162c95a49d3565974cbba3e8b0ab12",
+  "audioSha256": "a27f3f40ccf6e8b453d8a2b118cc051a7bc065716bf12605820ed0d923896e49",
+  "bytes": 51034,
+  "directionSent": "nervous, deferential, cunning",
+  "heardByWhisper": "The kobold cries out, I'll not go alone!",
+  "generatedAt": "2026-11-22T22:50:00.785Z"
+}

@@ -16,8 +16,8 @@
     "classifiedEvents": 2025,
     "voicedSourceEvents": 1688,
     "unvoicedEvents": 337,
-    "narrationUnits": 1432,
-    "resolvedUnits": 1432,
+    "narrationUnits": 1434,
+    "resolvedUnits": 1434,
     "unresolvedDynamicUnits": 0,
     "finiteRuntimeVariantFamilies": 70,
     "finiteRuntimeVariantAssets": 384
@@ -45417,7 +45417,7 @@
       "sourceDigest": "a2bd6c82dc0225912c8c73c40fbbb52a30ce9077aae2bfa036f1aaea7626e7de",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "ecl8-b13-9c70-9c9f-9ce1-9d05"
+        "ecl8-b13-9c70"
       ]
     },
     {
@@ -45441,7 +45441,7 @@
       "sourceDigest": "b942b6f360101222dfe5e0137f867ae7d8de23d3cd0b0e0deae813fa91863958",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "ecl8-b13-9c70-9c9f-9ce1-9d05"
+        "ecl8-b13-9c9f"
       ]
     },
     {
@@ -45465,7 +45465,7 @@
       "sourceDigest": "bc9b9d1aa4b2374036e22f05d54c24b05c09b077f7517c9d619794a55c984791",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "ecl8-b13-9c70-9c9f-9ce1-9d05"
+        "ecl8-b13-9ce1-9d05"
       ]
     },
     {
@@ -45489,7 +45489,7 @@
       "sourceDigest": "6d1024fa3577959b5d206980bcde2cef3fc165e76bf8ba82b05f391eb60e38eb",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "ecl8-b13-9c70-9c9f-9ce1-9d05"
+        "ecl8-b13-9ce1-9d05"
       ]
     },
     {
@@ -96772,28 +96772,72 @@
       }
     },
     {
-      "id": "ecl8-b13-9c70-9c9f-9ce1-9d05",
+      "id": "ecl8-b13-9c70",
       "archive": "ECL8.DAX",
       "triggerSourceId": "por.review.ecl-8.block-13.at-9c70",
       "coveredSourceIds": [
-        "por.review.ecl-8.block-13.at-9c70",
-        "por.review.ecl-8.block-13.at-9c9f",
-        "por.review.ecl-8.block-13.at-9ce1",
-        "por.review.ecl-8.block-13.at-9d05"
+        "por.review.ecl-8.block-13.at-9c70"
       ],
       "variant": null,
-      "spokenText": "THE KOBOLD RETREATS, THEN STRIKES THE WALL. THE KOBOLD CRIES OUT, 'I'LL NOT GO ALONE!' THE ROOF COLLAPSES. BEFORE YOU RECOVER, KOBOLDS ARRIVE.",
+      "spokenText": "THE KOBOLD RETREATS, THEN STRIKES THE WALL.",
       "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration",
       "characterId": "kobold-guide",
       "sourceParts": [
         {
           "sourceId": "por.review.ecl-8.block-13.at-9c70",
           "rawText": "THE KOBOLD RETREATS, THEN STRIKES THE WALL."
-        },
+        }
+      ],
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/ecl8/block-13/ecl8-b13-9c70.mp3",
+      "runtimeVariants": [],
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      }
+    },
+    {
+      "id": "ecl8-b13-9c9f",
+      "archive": "ECL8.DAX",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9c9f",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9c9f"
+      ],
+      "variant": null,
+      "spokenText": "THE KOBOLD CRIES OUT, 'I'LL NOT GO ALONE!'",
+      "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration",
+      "characterId": "kobold-guide",
+      "sourceParts": [
         {
           "sourceId": "por.review.ecl-8.block-13.at-9c9f",
           "rawText": "THE KOBOLD CRIES OUT, 'I'LL NOT GO ALONE!'"
-        },
+        }
+      ],
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/ecl8/block-13/ecl8-b13-9c9f.mp3",
+      "runtimeVariants": [],
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      }
+    },
+    {
+      "id": "ecl8-b13-9ce1-9d05",
+      "archive": "ECL8.DAX",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9ce1",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9ce1",
+        "por.review.ecl-8.block-13.at-9d05"
+      ],
+      "variant": null,
+      "spokenText": "THE ROOF COLLAPSES. BEFORE YOU RECOVER, KOBOLDS ARRIVE.",
+      "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration",
+      "characterId": "kobold-guide",
+      "sourceParts": [
         {
           "sourceId": "por.review.ecl-8.block-13.at-9ce1",
           "rawText": "THE ROOF COLLAPSES."
@@ -96806,7 +96850,7 @@
       "resolution": "resolved",
       "generationEligible": true,
       "model": "eleven_v4",
-      "asset": "voices/narration/ecl8/block-13/ecl8-b13-9c70-9c9f-9ce1-9d05.mp3",
+      "asset": "voices/narration/ecl8/block-13/ecl8-b13-9ce1-9d05.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,

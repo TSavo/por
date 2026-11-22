@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "36146b406998e4f9e5f979b1156f2935540514af4d5ad33439f78f3653b25877",
+  "audioSha256": "bef9387ec7e322d7f2d4d54b7dfbdbe8642421ff8ddedebd17075fecddf11c4a",
+  "bytes": 69006,
+  "directionSent": "nervous, deferential, cunning",
+  "heardByWhisper": "The roof collapses. Before you recover, cobalt's arrive.",
+  "generatedAt": "2026-11-22T22:50:02.802Z"
+}

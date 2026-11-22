@@ -44,7 +44,8 @@ const addUnit = (block: number, addresses: string[], options: { variant?: string
 addUnit(13, ["0x9ab7", "0x9abb"], { status: "unresolved-dynamic" });
 addUnit(13, ["0x9ad7", "0x9af2"], { status: "unresolved-dynamic" });
 addUnit(13, ["0x9b26", "0x9b50", "0x9b71"]);
-addUnit(13, ["0x9c70", "0x9c9f", "0x9ce1", "0x9d05"]);
+// 9c70 and 9c9f are two ways in, each alone; both go on to 9ce1, as 9cca does by itself (#172).
+addUnit(13, ["0x9ce1", "0x9d05"]);
 addUnit(13, ["0xa570", "0xa5c5"]);
 addUnit(13, ["0xa733", "0xa775", "0xa7cd", "0xa7f8", "0xa802"]);
 addUnit(13, ["0xab75", "0xabaa", "0xabb4"]);
