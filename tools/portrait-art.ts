@@ -729,6 +729,10 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:9:ecl:a689", "YOUHAVESLAINTHEGARRISON"],
   ["scene-illustration:area:9:ecl:a6fb", "YOUHAVETAKENTHEGATE"],
   ["scene-illustration:area:9:ecl:a709", "YOUHAVETAKENTHEGATE"],
+  ...["ac32", "a0a7"].map(scope => [
+    `scene-illustration:area:9:ecl:${scope}:cue:bugbear-toll-refused`,
+    "ALLRIGHT,GETOUTOFHERETHEN.COMEBACKWHENYOU'VELEARNEDTHERULES",
+  ] as const),
   ["scene-illustration:area:9:ecl:a0a7:cue:bugbear-dismissal", "NOWBEATITBEFOREWEGETSERIOUS"],
   ["scene-illustration:area:9:ecl:a7a2:cue:bugbear-alarm", "ANALARMSTARTSRINGING"],
   ["scene-illustration:area:9:ecl:a7a3:cue:bugbear-alarm", "ANALARMSTARTSRINGING"],

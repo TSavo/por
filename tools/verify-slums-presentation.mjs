@@ -674,6 +674,11 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const swampPoolDive = ["s", "up", "up", "y", "enter", "up", "up", "left", "up", "up", "y"];
+const stojanowTollApproach = [
+  "up", "enter", "enter", "p", "n", "t", "enter", "enter", "enter",
+  "up", "up", "enter", "enter", "up", "right", "up", "up", "enter",
+];
+
 const illustrationRoutes = new Map([
   ["swamp-drythh-followers-wait-base", {
     slot: "A", inputs: ["up", "b", "p", "enter", ..."savior", "enter", "y", "enter", "enter", "n", "enter", "enter", "enter"],
@@ -955,14 +960,19 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
   ["stojanow-bugbear-gate-payment", {
-    slot: "B", inputs: [
-      "up", "enter", "enter", "p", "n", "t", "enter", "enter", "enter",
-      "up", "up", "enter", "enter", "up", "right", "up", "up", "enter", "y", "enter", "y",
-    ],
-    portraitStops: { 20: "portrait:area:9:PIC2.DAX:63:0:0" },
+    slot: "B", inputs: [...stojanowTollApproach, "y"],
+    portraitStops: { 18: "portrait:area:9:PIC2.DAX:63:0:0" },
     portrait: "scene-illustration:area:9:ecl:acb7",
     prompt: /THEBUGBEARTAKESTHEMONEYANDTHEGATEOPENS.*YOUPROCEEDTHROUGH/i,
     continuation: { inputs: ["enter", "up"], prompt: /8,4N.*AREACASTVIEWENCAMP|AREACASTVIEWENCAMP.*8,4N/i, clearsPortrait: true },
+  }],
+  ["stojanow-toll-refused", {
+    slot: "B", inputs: [...stojanowTollApproach, "n"],
+    portraitStops: { 18: "portrait:area:9:PIC2.DAX:63:0:0" },
+    portrait: "scene-illustration:area:9:ecl:a0a7:cue:bugbear-toll-refused",
+    prompt: /6,11E.*ALLRIGHT,GETOUTOFHERETHEN.*COMEBACKWHENYOU'VELEARNEDTHERULES/i,
+    finalPhaseCapture: "stojanow-bugbear-toll-refused.png",
+    continuation: { inputs: ["up"], prompt: /7,11E.*AREACASTVIEWENCAMP|AREACASTVIEWENCAMP.*7,11E/i, clearsPortrait: true },
   }],
   ["stojanow-mage-barracks-alarm", {
     slot: "A", inputs: ["up", "enter", "enter", "enter", "enter", "c"],
@@ -9684,7 +9694,7 @@ try {
         assert.equal(frame.portrait, undefined);
         assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join(""), /5,6N/i);
       }
-      if (routeName === "wild-grove-western-stench") {
+      if (["stojanow-toll-refused", "wild-grove-western-stench"].includes(routeName)) {
         assert.ok(!frame.classicPortrait);
         await waitForExplorationViewport();
       }
