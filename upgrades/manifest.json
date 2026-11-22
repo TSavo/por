@@ -2026,6 +2026,8 @@
     "scene-illustration:area:8:ecl:b5c3:caller:af36:cue:special-council-summons": "council-special-meeting-summons.png",
     "scene-illustration:area:8:ecl:a83b:caller:9a4a:cue:repeat-commission-offers": "council-clerk-repeat-offers.png",
     "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:repeat-commission-offers": "council-clerk-repeat-offers.png",
+    "scene-illustration:area:8:ecl:a9af:caller:a891:cue:records-commission-offer": "council-clerk-records-offer.png",
+    "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:records-commission-offer": "council-clerk-records-offer.png",
     "scene-illustration:area:8:ecl:a91b:caller:a891:cue:sokal-commission-offer": "council-clerk-sokal-offer.png",
     "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:sokal-commission-offer": "council-clerk-sokal-offer.png",
     "scene-illustration:area:8:ecl:a8eb:caller:a891:cue:slums-commission-offer": "council-clerk-slums-offer.png",

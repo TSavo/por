@@ -679,6 +679,8 @@ const stojanowTollApproach = [
   "up", "up", "enter", "enter", "up", "right", "up", "up", "enter",
 ];
 
+const councilClerkApproach = ["right", "right", "up", "right", "right", "up", "enter", "enter"];
+
 const illustrationRoutes = new Map([
   ["swamp-drythh-followers-wait-base", {
     slot: "A", inputs: ["up", "b", "p", "enter", ..."savior", "enter", "y", "enter", "enter", "n", "enter", "enter", "enter"],
@@ -2232,7 +2234,7 @@ const illustrationRoutes = new Map([
     verifyImageSwap: true,
   }],
   ["council-slums-offer", {
-    slot: "A", inputs: ["right", "right", "up", "right", "right", "up", "enter", "enter", "enter"],
+    slot: "A", inputs: [...councilClerkApproach, "enter"],
     portraitStops: {
       7: "scene-illustration:area:8:ecl:b5c3:caller:9c34:cue:clerk-reward-check",
       8: "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:commission-papers",
@@ -2242,6 +2244,17 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "council-clerk-slums-offer.png",
     continuation: { inputs: ["enter"], portrait: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:sokal-commission-offer",
       prompt: /SOKALKEEPONTHORNISLANDMUSTBECLEARED/i },
+  }],
+  ["council-records-offer", {
+    slot: "A", inputs: [...councilClerkApproach, "enter", "enter", "enter"],
+    portraitStops: {
+      9: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:slums-commission-offer",
+      10: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:sokal-commission-offer",
+    },
+    portrait: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:records-commission-offer",
+    prompt: /THECOUNCILISOFFERINGAREWARDFORBOOKS,MAPS,TOMES.*THEREWARDISTIEDTOTHEVALUEOFTHEINFORMATION/i,
+    finalPhaseCapture: "council-clerk-records-offer.png",
+    continuation: { inputs: ["enter"], prompt: /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i, clearsPortrait: true },
   }],
   ["new-phlan-council-entry", {
     slot: "A", inputs: [...Array(8).fill("enter"), "right", "right", "up", "up", "up",
@@ -9879,7 +9892,7 @@ try {
         assert.equal(frame.portrait, undefined);
         assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join(""), /5,6N/i);
       }
-      if (["stojanow-merchant-gate", "stojanow-toll-refused", "stojanow-tower-arrow-volley",
+      if (["council-records-offer", "stojanow-merchant-gate", "stojanow-toll-refused", "stojanow-tower-arrow-volley",
         "stojanow-trader-no-money", "wild-grove-western-stench"].includes(routeName)) {
         assert.ok(!frame.classicPortrait);
         await waitForExplorationViewport();
