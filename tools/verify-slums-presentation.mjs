@@ -3165,17 +3165,12 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter"], portrait: "portrait:area:10:ecl:b271:PIC4.DAX:23:2:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["valhingen-skeleton-roam-phases", {
-    slot: "A", inputs: ["up", "down", "a", "a", ...Array(14).fill("q")],
-    portraitStops: {
-      4: "portrait:area:10:ecl:b50b:PIC4.DAX:34:0:0",
-      12: "portrait:area:10:ecl:b50b:PIC4.DAX:34:2:0",
-      13: "portrait:area:10:ecl:b50b:PIC4.DAX:34:3:0",
-    },
-    portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:34:1:0",
+    slot: "A", inputs: ["up", "down", "a", "a"],
+    portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:34:0:0",
     prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMESKELETONS/i,
-    phaseCaptures: { 12: "valhingen-skeleton-roam-phase-2.png", 13: "valhingen-skeleton-roam-phase-3.png" },
-    finalPhaseCapture: "valhingen-skeleton-roam-phase-1.png",
-    continuation: { inputs: ["c"], portrait: "portrait:area:10:ecl:b5c7:PIC4.DAX:34:1:0", prompt: /ABATTLEBEGINS/i },
+    finalPhaseCapture: "valhingen-skeleton-roam-loop.png",
+    heldPortraitLoop: 4,
+    continuation: { inputs: ["c"], portrait: "portrait:area:10:PIC4.DAX:34:0:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["valjevo-medusa-phases", {
     slot: "B", inputs: ["up", "enter", "enter", "enter", ...Array(9).fill("q")],
@@ -3432,16 +3427,12 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:62:1:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["valhingen-wight-roam-phases", {
-    slot: "A", inputs: ["up", "down", "up", ...Array(7).fill("q")],
-    portraitStops: {
-      3: "portrait:area:10:ecl:b50b:PIC4.DAX:20:0:0",
-      9: "portrait:area:10:ecl:b50b:PIC4.DAX:20:1:0",
-    },
-    portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:20:2:0",
+    slot: "A", inputs: ["up", "down", "up"],
+    portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:20:0:0",
     prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMEWIGHTS/i,
-    phaseCaptures: { 9: "valhingen-wight-roam-phase-1.png" },
-    finalPhaseCapture: "valhingen-wight-roam-phase-2.png",
-    continuation: { inputs: ["c"], portrait: "portrait:area:10:ecl:b5c7:PIC4.DAX:20:2:0", prompt: /ABATTLEBEGINS/i },
+    finalPhaseCapture: "valhingen-wight-roam-loop.png",
+    heldPortraitLoop: 3,
+    continuation: { inputs: ["c"], portrait: "portrait:PIC4.DAX:20:0:0", prompt: /ABATTLEBEGINS/i },
   }],
   ...[[0, 0], [1, 2], [2, 3]].map(([member, holds]) => [`pyramid-lizardfolk-patrol-combat-phase-${member}`, {
     slot: "A", inputs: ["up", "enter", "enter", "enter", ...Array(holds).fill("q"), "c"],
@@ -6648,6 +6639,27 @@ try {
     })()`), "Enhanced portrait should fill the outer picture panel over an opaque backdrop");
   }
 
+  async function verifyHeldPortraitLoop(count) {
+    const held = await latest();
+    await run(`(() => {
+      window.heldPortraitPhases = [];
+      const image = document.querySelector(".encounter-portrait");
+      const record = () => {
+        const phase = image.getAttribute("src")?.split(":").at(-2);
+        if (phase && window.heldPortraitPhases.at(-1) !== phase) window.heldPortraitPhases.push(phase);
+      };
+      record();
+      const observer = new MutationObserver(record);
+      observer.observe(image, { attributes: true, attributeFilter: ["src"] });
+      setTimeout(() => observer.disconnect(), 5000);
+    })()`);
+    const cycle = await waitFor("the portrait to loop without input", () =>
+      run(`window.heldPortraitPhases.length > ${count} && window.heldPortraitPhases`));
+    assert.equal(new Set(cycle.slice(0, count)).size, count);
+    assert.equal(cycle[0], cycle[count]);
+    assert.deepEqual(await latest(), held);
+  }
+
   async function switchBothWays(classicFrame) {
     const displayGeometry = () => run(`(() => {
       const display = document.querySelector("#screen");
@@ -8754,24 +8766,7 @@ try {
       phases.add(match[1]);
     }
     assert.deepEqual([...phases].sort(), ["0", "1", "2", "3", "4"]);
-    const held = await latest();
-    await run(`(() => {
-      window.heldPortraitPhases = [];
-      const image = document.querySelector(".encounter-portrait");
-      const record = () => {
-        const phase = image.getAttribute("src")?.split(":").at(-2);
-        if (phase && window.heldPortraitPhases.at(-1) !== phase) window.heldPortraitPhases.push(phase);
-      };
-      record();
-      const observer = new MutationObserver(record);
-      observer.observe(image, { attributes: true, attributeFilter: ["src"] });
-      setTimeout(() => observer.disconnect(), 5000);
-    })()`);
-    const cycle = await waitFor("the zombie portrait to loop without input", () =>
-      run("window.heldPortraitPhases.length >= 6 && window.heldPortraitPhases"));
-    assert.equal(new Set(cycle.slice(0, 5)).size, 5);
-    assert.equal(cycle[0], cycle[5]);
-    assert.deepEqual(await latest(), held);
+    await verifyHeldPortraitLoop(5);
     await switchBothWays();
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified all five native roaming zombie portrait phases in Chrome:", directory);
@@ -9394,6 +9389,7 @@ try {
       }
       assert.deepEqual([...phases.keys()], []);
     }
+    if (illustration.heldPortraitLoop) await verifyHeldPortraitLoop(illustration.heldPortraitLoop);
     if (illustration.finalPhaseCapture) {
       const phaseShot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, illustration.finalPhaseCapture), Buffer.from(phaseShot.data, "base64"));

@@ -987,6 +987,8 @@ function drawPanelFrame(stamps) {
 
 const portraitLoops = new Map([
   ["portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:", [0, 1, 2, 3, 4]],
+  ["portrait:area:10:ecl:b50b:PIC4.DAX:34:", [0, 1, 2, 3]],
+  ["portrait:area:10:ecl:b50b:PIC4.DAX:20:", [0, 1, 2]],
 ]);
 
 async function animateHeldPortrait(image, id) {
