@@ -55,7 +55,8 @@ interface StaticPortraitVariant {
   portrait: string;
   native: {
     drawCursor: string;
-    members: number[];
+    members?: number[];
+    composed?: ScriptSite["composedPortrait"];
     heldCaption: string;
     idlePolls: number;
     panelSamples: { idlePolls: number; sha256: string }[];
@@ -251,12 +252,16 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     }
     const samples = native.panelSamples;
     const panel = samples[0]?.sha256;
-    if (!panel || !/^[a-f0-9]{64}$/.test(panel) || !isDeepStrictEqual(native.members, [0]) ||
+    const sourceMatches = site.composedPortrait
+      ? native.members === undefined && isDeepStrictEqual(native.composed, site.composedPortrait)
+      : native.composed === undefined && isDeepStrictEqual(native.members, [0]);
+    if (!sourceMatches) return "native evidence has a different picture source or selector";
+    if (!panel || !/^[a-f0-9]{64}$/.test(panel) ||
         native.idlePolls <= 0 || samples[0]?.idlePolls !== 0 || samples.at(-1)?.idlePolls !== native.idlePolls ||
         samples.some((sample, index) => sample.sha256 !== panel ||
           (index > 0 && sample.idlePolls <= samples[index - 1]!.idlePolls)) ||
         native.battlePanelSha256 !== panel) {
-      return "native samples must hold member 0 through the prompt and battle notice";
+      return "native samples must hold the selected picture through the prompt and battle notice";
     }
     const fixture = path("qa", "fixtures", checkpoint);
     const image = assets.get(portrait);
@@ -299,8 +304,10 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     }
     const [cursor, caller] = prompt.split("/");
     const scope = "scene-illustration:area:" + site.scriptBlock + ":ecl:" + cursor + (caller ? ":caller:" + caller : "");
-    const nativeBase = site.block === null ? undefined :
-      `portrait:area:${site.scriptBlock}:ecl:${cursor}${caller ? `:caller:${caller}` : ""}:${site.pictureArchive}:${site.block}:0:0`;
+    const nativeSource = site.composedPortrait?.source ??
+      (site.block === null ? undefined : `${site.pictureArchive}:${site.block}:0:0`);
+    const nativeBase = nativeSource &&
+      `portrait:area:${site.scriptBlock}:ecl:${cursor}${caller ? `:caller:${caller}` : ""}:${nativeSource}`;
     const illustration = (key: string) => key === scope || key.startsWith(scope + ":cue:");
     const scoped = (key: string) => illustration(key) || key === nativeBase;
     const observedVariants = variants.map(variant => {
@@ -336,7 +343,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       !unmeasured.length && held.every(scene => scene.verified) && evidence.every(({ scene }) => scene.verified);
     return {
       id,
-      source: `${site.pictureArchive}:${site.block ?? `selector ${site.selector.address?.toString(16) ?? "unknown"}`}`,
+      source: site.composedPortrait?.source ?? `${site.pictureArchive}:${site.block ?? `selector ${site.selector.address?.toString(16) ?? "unknown"}`}`,
       measured, verified, unmeasured, scenes: [...evidence.map(({ scene }) => scene.id), ...held.map(scene => scene.id)],
       reason: oneShot ? oneShotReason ?? "single native draw, paired Chrome checks passed" :
         site.block === null ? "selector unresolved" : scenery.size ? "paired Chrome checks confirmed scenery at " + [...scenery].join(", ") :

@@ -180,9 +180,30 @@ const eclCandidates = scripts.flatMap(record => {
       return true;
     });
 
+    // The audience bodyguards use a deliberate HEAD/BODY override. For this measured site,
+    // confirm the literal write, encounter operand, and reset from the shipped ECL.
+    let composedPortrait;
+    if (archive === 5 && scriptBlock === 7 && authored(load.address) === "a56c" && opcode === 0x29) {
+      const headWrite = decoded.find(instruction => instruction.next === load.address);
+      const headReset = instructions.get(load.next);
+      if (headWrite?.opcode === 0x09 && headReset?.opcode === 0x09 &&
+          memory(headWrite.operands[1]!) === 0x6de1 && memory(headReset.operands[1]!) === 0x6de1 &&
+          literal(headReset.operands[0]!) === 0xff && portrait.literal !== null) {
+        const head = literal(headWrite.operands[0]!);
+        if (head !== null && head >= 0 && head < 0xff && portrait.literal >= 0 && portrait.literal <= 0xff) {
+          composedPortrait = {
+            source: `HEAD${archive}.DAX:${head}:BODY${archive}.DAX:${portrait.literal}`,
+            headWrite: authored(headWrite.address), headSlot: "6de1", bodyOperand: 2,
+            headReset: authored(headReset.address),
+          };
+        }
+      }
+    }
+
     return [{
       kind: "ecl", status: "candidate", scriptArchive: record.file, scriptBlock, address: authored(load.address),
       next: authored(load.next), opcode, name: load.name, pictureArchive, block, selector: portrait, possiblePictures,
+      composedPortrait,
       ...(direct ? {} : { approachSelectors: { sprite: selector(operands[0]!), distance: selector(operands[1]!) } }),
       approachSites: [...approaches].sort(),
       immediateCombat: scope.length && opcode === 0x0c ? immediateCombatAfter(load) : null,

@@ -1,21 +1,28 @@
 {
  "schema": 2,
  "heldPortraits": {
-  "verified": 32,
+  "verified": 33,
   "oneShotsVerified": 6,
-  "measured": 38,
+  "measured": 39,
   "total": 235,
-  "scenesMeasured": 60,
-  "scenesVerified": 60,
+  "scenesMeasured": 61,
+  "scenesVerified": 61,
   "unmappedScenes": 0,
-  "remaining": 203
+  "remaining": 202
  },
  "enhancedFallbacks": {
   "frames": 0,
   "presented": 4704,
   "walks": 34,
-  "recordedWalks": 34,
-  "missingWalks": [],
+  "recordedWalks": 40,
+  "missingWalks": [
+   "narration-campaign-f",
+   "narration-training-hall-a",
+   "portrait-export-controlled",
+   "portrait-export-normal",
+   "walk-library-cleared",
+   "walk-new-phlan-training"
+  ],
   "aliasedWalks": [
    {
     "walk": "campaign-sokal-leg",

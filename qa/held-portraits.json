@@ -8599,6 +8599,94 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL5.DAX:7:a56c",
+      "prompt": "a5d8",
+      "variants": [
+        {
+          "caption": "TWO GUARDS MOVE TO BAR YOUR PATH. THE DRAGON LOOKS AT YOU WITH MALEVOLENCE. 'GUARDS, KILL THESE PESTS.' Combat Wait Flee Parlay",
+          "checkpoint": "campaign-full/leg-10/H.json",
+          "portrait": "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1",
+          "native": {
+            "drawCursor": "a5d8",
+            "composed": {
+              "source": "HEAD5.DAX:12:BODY5.DAX:1",
+              "headWrite": "a566",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a5d8"
+            },
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 FENN 4 8 S 03:34 TWO GUARDS MOVE TO BAR YOUR PATH. THE DRAGON LOOKS AT YOU WITH MALEVOLENCE. 'GUARDS, KILL THESE PESTS.' Combat Wait Flee Parlay",
+            "idlePolls": 120,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "f35e8f9f5f279a8f748b4d722bf6dbeae6b509cf03221357d53862f6a0c9aef9"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "f35e8f9f5f279a8f748b4d722bf6dbeae6b509cf03221357d53862f6a0c9aef9"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "f35e8f9f5f279a8f748b4d722bf6dbeae6b509cf03221357d53862f6a0c9aef9"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "f35e8f9f5f279a8f748b4d722bf6dbeae6b509cf03221357d53862f6a0c9aef9"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "f35e8f9f5f279a8f748b4d722bf6dbeae6b509cf03221357d53862f6a0c9aef9"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "f35e8f9f5f279a8f748b4d722bf6dbeae6b509cf03221357d53862f6a0c9aef9"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "f35e8f9f5f279a8f748b4d722bf6dbeae6b509cf03221357d53862f6a0c9aef9"
+              }
+            ],
+            "battlePanelSha256": "f35e8f9f5f279a8f748b4d722bf6dbeae6b509cf03221357d53862f6a0c9aef9"
+          },
+          "chrome": {
+            "original": {
+              "route": "tyranthraxus-static-portraits",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN48S03:34TWOGUARDSMOVETOBARYOURPATH.THEDRAGONLOOKSATYOUWITHMALEVOLENCE.'GUARDS,KILLTHESEPESTS.'CombatWaitFleeParlay",
+              "portrait": "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1",
+              "checkpointSha256": "4db606854eb5b0289eb1e39f8c4f1f4bfc792a143ae1b735decfcaec532d15ad",
+              "artSha256": "c36cf26829e7493f6f82d033f0715e2c8d884b96551d57780e1d4c71c0bb0bb5",
+              "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3652,
+              "samples": 219,
+              "poses": [
+                "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "tyranthraxus-static-portraits",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN48S03:34TWOGUARDSMOVETOBARYOURPATH.THEDRAGONLOOKSATYOUWITHMALEVOLENCE.'GUARDS,KILLTHESEPESTS.'CombatWaitFleeParlay",
+              "portrait": "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1",
+              "checkpointSha256": "4db606854eb5b0289eb1e39f8c4f1f4bfc792a143ae1b735decfcaec532d15ad",
+              "artSha256": "c36cf26829e7493f6f82d033f0715e2c8d884b96551d57780e1d4c71c0bb0bb5",
+              "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3666,
+              "samples": 221,
+              "poses": [
+                "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
     }
   ]
 }
