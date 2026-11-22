@@ -14016,7 +14016,16 @@ try {
     assert.ok(knows(door) && !knows("river-fountain"));
     assert.match(frame.journal.objective.nextStep, /through the secret door/);
     for (const key of ["j", "e", "enter", "enter"]) await advance(key);
-    await waitFor("the pyramid entrance view", () => run(`state.sequence === ${frame.sequence}`));
+    assert.equal(frame.scenery?.mapId, 22);
+    await waitForExplorationViewport();
+    const entranceMaterials = await fetch(`${origin}/exploration-materials/${frame.scenery.materialId}`);
+    assert.ok(entranceMaterials.ok, "Expected the pyramid WebGL materials");
+    const { wallFaces, sky, ground } = await entranceMaterials.json();
+    const paintedMaterials = [sky, ground, ...wallFaces.flatMap(({ parts }) => parts.map(({ art }) => art))]
+      .flatMap(material => material?.key.startsWith("tile:") ? [material.key] : []);
+    assert.ok(paintedMaterials.length > 0, "Expected Enhanced textures in the pyramid entrance");
+    assert.ok(paintedMaterials.every(key => key.startsWith("tile:22:")),
+      `Expected pyramid textures, got ${[...new Set(paintedMaterials)].join(", ")}`);
     const screenshot = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, "pyramid-entrance.png"), Buffer.from(screenshot.data, "base64"));
     await advance("j");
