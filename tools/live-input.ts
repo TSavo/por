@@ -524,6 +524,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       let attackArt = attack;
       if (nativeMarkers) {
         const selected = ([left, top, , , , width = 24, height = 24]: CombatArtPlacement) =>
+          // Manual Aim highlights a single cell even inside a large creature.
+          !(aimCell && (width > 24 || height > 24)) &&
           nativeMarkers.some(([x, y]) => x >= left && x < left + width && y >= top && y < top + height);
         for (const actor of combat) actor[4] = selected(actor);
         if (attackArt) {
