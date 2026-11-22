@@ -706,6 +706,9 @@ const illustrationRoutes = new Map([
   }],
   ["new-phlan-city-hall-entrance", {
     slot: "A", inputs: ["right", "right", "up", "up", "up", "enter", "up"],
+    portraitStops: { 5: "scene-illustration:area:0:ecl:af3f:caller:ac22" },
+    phasePrompts: { 5: /OUTSIDETHECITYHALL.*CITYCLERKWAITSINSIDETOAWARDCOMMISSIONS/i },
+    phaseCaptures: { 5: "new-phlan-city-hall-exterior.png" },
     portrait: "scene-illustration:area:0:ecl:9a4f",
     heldPortrait: "scene-illustration:area:0:ecl:9a4f",
     prompt: /YOUENTERTHECITYHALL.*YOUSEEAGUARDEDDOOR/i,
@@ -7552,7 +7555,10 @@ try {
     }
     for (const key of ["enter", "right", "right", "up", "up", "up"]) await advance(key);
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /OUTSIDETHECITYHALL/i);
-    assert.equal(await verifyTiledView(0, tourPatterns), 1);
+    assert.equal(frame.portrait, "scene-illustration:area:0:ecl:af3f:caller:ac22");
+    assert.equal(frame.scenery?.mapId, 0);
+    await waitFor("the City Hall exterior illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await verifyPortraitPanel();
     for (const key of ["up", "enter", "up"]) await advance(key);
     assert.equal(await verifyTiledView(0, tourPatterns), 1);
     await switchBothWays();
@@ -8664,7 +8670,8 @@ try {
       }
       for (const key of ["enter", "right", "right", "up", "up", "up"]) await advance(key);
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /OUTSIDETHECITYHALL/i);
-      await verifyScriptedView();
+      assert.equal(frame.portrait, "scene-illustration:area:0:ecl:af3f:caller:ac22");
+      assert.equal(frame.scenery?.mapId, 0);
       for (const key of ["up", "enter", "up"]) await advance(key);
       await verifyScriptedView();
       await switchBothWays();

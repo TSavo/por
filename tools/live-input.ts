@@ -421,7 +421,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       let tileArea = area;
       let nativeScenery: PresentationAnimationFrame["nativeScenery"];
       let arrivalPosition: typeof explorationPosition;
-      if (area !== undefined && !scene && !overlandMap && !iconEditor && picture === undefined && !battlefield) {
+      const harborRoadSign = activeEcl === 0 && (
+        dialogue === "YOUAREOUTSIDETHECITYHALL.THECITYCLERKWAITSINSIDETOAWARDCOMMISSIONS." ||
+        dialogue === "YOUAREBYTHEGATEWAYTOTHEUNSETTLEDAREAS.THECITYWATCHEYESYOUSUSPICIOUSLY.");
+      // The street remains navigable while a landmark illustration covers its view.
+      const illustratedRoad = harborRoadSign && illustration !== undefined;
+      if (area !== undefined && !scene && !overlandMap && !iconEditor && (picture === undefined || illustratedRoad) && !battlefield) {
         const pixels = perspectivePixels();
         // The original game can redraw scenery while the menu is hidden,
         // including mid-transition at a doorway.
@@ -549,9 +554,6 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
       }
       const travelFrame = !scene && !battlefield && !leads && !attack;
-      const harborRoadSign = activeEcl === 0 && (
-        dialogue === "YOUAREOUTSIDETHECITYHALL.THECITYCLERKWAITSINSIDETOAWARDCOMMISSIONS." ||
-        dialogue === "YOUAREBYTHEGATEWAYTOTHEUNSETTLEDAREAS.THECITYWATCHEYESYOUSUSPICIOUSLY.");
       const districtRoad = travelFrame && (!dialogue || harborRoadSign) && !encounter && menu === "AREACASTVIEWENCAMPSEARCHLOOK" &&
         travelRoadAreas.has(activeEcl) && nativeScenery?.mapId === activeEcl;
       const quay = activeEcl === 0 && nativeScenery?.mapId === 0 && nativeScenery.y === 1 &&

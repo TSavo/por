@@ -9,7 +9,7 @@
    "heard": 66
   },
   "acceptance-new-phlan": {
-   "ledger": "acceptance-new-phlan-passenger-dock.jsonl",
+   "ledger": "acceptance-new-phlan-city-hall-exterior.jsonl",
    "games": 7,
    "decisions": 521,
    "heard": 106
@@ -328,9 +328,13 @@
   "por.voice.ecl3.b0-abd2": {
    "run": "acceptance-new-phlan",
    "step": 94996755,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:af3f:caller:ac22"
+   },
    "withoutArt": {
     "run": "acceptance-new-phlan",
-    "step": 94996755,
+    "step": 126003310,
     "showing": "no picture"
    }
   },
