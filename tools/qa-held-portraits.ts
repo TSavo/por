@@ -19,6 +19,7 @@ interface HeldPortraitInventory {
     approachChrome?: { original: ApproachProof; port: ApproachProof };
   }[];
   sceneryPrompts?: SceneryPrompt[];
+  staticPortraitPrompts?: StaticPortraitPrompt[];
 }
 
 interface SceneryProof {
@@ -37,6 +38,36 @@ interface SceneryPrompt {
   checkpoint: string;
   position: [number, number, number];
   chrome: { original: SceneryProof; port: SceneryProof };
+}
+
+interface StaticPortraitChromeProof extends Omit<OneShotProof, "producer"> {
+  caption: string;
+  checkpointSha256: string;
+  durationMs: number;
+  samples: number;
+  poses: string[];
+  replaced: boolean;
+}
+
+interface StaticPortraitVariant {
+  caption: string;
+  checkpoint: string;
+  portrait: string;
+  native: {
+    drawCursor: string;
+    members: number[];
+    heldCaption: string;
+    idlePolls: number;
+    panelSamples: { idlePolls: number; sha256: string }[];
+    battlePanelSha256: string;
+  };
+  chrome?: { original: StaticPortraitChromeProof; port: StaticPortraitChromeProof };
+}
+
+interface StaticPortraitPrompt {
+  producer: string;
+  prompt: string;
+  variants: StaticPortraitVariant[];
 }
 
 interface ApproachProof {
@@ -211,6 +242,75 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     });
   }
 
+  function staticPortraitProblem(site: ScriptSite, variant: StaticPortraitVariant): string | null {
+    const { caption, checkpoint, portrait, native, chrome } = variant;
+    const expectedCaption = normalizeCaption(caption);
+    if (!normalizeCaption(native.heldCaption).includes(expectedCaption)) return "native evidence has a different caption";
+    if (native.drawCursor !== site.next && !site.approachSites.includes(native.drawCursor)) {
+      return "native draw cursor no longer matches the measured producer";
+    }
+    const samples = native.panelSamples;
+    const panel = samples[0]?.sha256;
+    if (!panel || !/^[a-f0-9]{64}$/.test(panel) || !isDeepStrictEqual(native.members, [0]) ||
+        native.idlePolls <= 0 || samples[0]?.idlePolls !== 0 || samples.at(-1)?.idlePolls !== native.idlePolls ||
+        samples.some((sample, index) => sample.sha256 !== panel ||
+          (index > 0 && sample.idlePolls <= samples[index - 1]!.idlePolls)) ||
+        native.battlePanelSha256 !== panel) {
+      return "native samples must hold member 0 through the prompt and battle notice";
+    }
+    const fixture = path("qa", "fixtures", checkpoint);
+    const image = assets.get(portrait);
+    if (!existsSync(fixture) || !image || !existsSync(image)) return "missing static portrait art or checkpoint";
+    const checkpointSha = digest(readFileSync(fixture));
+    const artSha = digest(readFileSync(image));
+    const bindingSha = digest(portraitLoopSignature(portrait));
+    if (!chrome) return "paired Chrome evidence is missing";
+    const { original, port } = chrome;
+    if (original.route !== port.route) return "Chrome replays disagree";
+    for (const data of ["original", "port"] as const) {
+      const proof = chrome[data];
+      if (proof.data !== data || !matchesRenderer(proof.rendererSha256) || proof.bindingSha256 !== bindingSha ||
+          proof.checkpointSha256 !== checkpointSha || proof.artSha256 !== artSha) {
+        return "Chrome proof predates the renderer, binding, artwork, or checkpoint";
+      }
+      if (!normalizeCaption(proof.caption).includes(expectedCaption) ||
+          proof.portrait !== portrait || proof.replaced !== false || !(proof.durationMs >= 3000) ||
+          !(proof.samples >= 90) || !isDeepStrictEqual(proof.poses, [portrait])) {
+        return "Chrome did not hold the expected portrait and caption";
+      }
+    }
+    return null;
+  }
+
+  type StaticEvidence = { scenes: typeof scenes; verified: boolean };
+  const staticBySite = new Map<ScriptSite, Map<string, StaticEvidence>>();
+  const allScenes = [...scenes];
+  for (const { producer, prompt, variants } of inventory.staticPortraitPrompts ?? []) {
+    const site = eclCandidates.find(candidate => scriptSiteId(candidate) === producer);
+    if (!site?.promptCandidates.some(lead => promptId(lead.next, lead.caller) === prompt)) {
+      throw new Error("Unknown static portrait prompt " + producer + "/" + prompt);
+    }
+    const evidence = staticBySite.get(site) ?? new Map<string, StaticEvidence>();
+    const captions = variants.map(variant => normalizeCaption(variant.caption));
+    const witnessed = new Set(variants.map(variant => variant.portrait));
+    if (evidence.has(prompt) || !variants.length || captions.some(caption => !caption) ||
+        new Set(captions).size !== variants.length || witnessed.size !== variants.length) {
+      throw new Error("Missing or duplicate static portrait variants at " + producer + "/" + prompt);
+    }
+    const [cursor, caller] = prompt.split("/");
+    const scope = "scene-illustration:area:" + site.scriptBlock + ":ecl:" + cursor + (caller ? ":caller:" + caller : "");
+    const scoped = (key: string) => key === scope || key.startsWith(scope + ":cue:");
+    const observedVariants = variants.map(variant => {
+      const reason = scoped(variant.portrait) ? staticPortraitProblem(site, variant) : "static portrait belongs to a different prompt";
+      return { id: variant.portrait, producer, verified: reason === null, reason, remainingCues: undefined };
+    });
+    // One caller can choose multiple cue illustrations. Every registered cue needs its own proof.
+    const complete = [...assets.keys()].filter(scoped).every(key => witnessed.has(key));
+    evidence.set(prompt, { scenes: observedVariants, verified: complete && observedVariants.every(scene => scene.verified) });
+    staticBySite.set(site, evidence);
+    allScenes.push(...observedVariants);
+  }
+
   const sites = eclCandidates.map(site => {
     const id = scriptSiteId(site);
     const oneShot = oneShotByProducer.get(id);
@@ -218,20 +318,23 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     const evidence = observed.get(site) ?? [];
     const prompts = [...new Set(site.promptCandidates.map(({ next, caller }) => promptId(next, caller)))];
     const scenery = new Set(prompts.filter(prompt => verifiedSceneryPrompt(id, prompt)));
+    const staticEvidence = staticBySite.get(site);
+    const held = staticEvidence ? [...staticEvidence.values()].flatMap(proof => proof.scenes) : [];
     // One instruction can display several captions at the same cursor.
     const unmeasured = [
-      ...prompts.filter(prompt => !scenery.has(prompt) && !evidence.some(entry => entry.prompt === prompt)),
+      ...prompts.filter(prompt => !scenery.has(prompt) && !staticEvidence?.get(prompt)?.verified &&
+        !evidence.some(entry => entry.prompt === prompt)),
       ...new Set(evidence.flatMap(({ scene }) => scene.remainingCues ?? [])),
     ];
-    const measured = evidence.length > 0 || oneShot !== undefined;
+    const measured = evidence.length > 0 || held.length > 0 || oneShot !== undefined;
     // A variable selector may feed several portraits into the same prompt.
     // Observing one portrait cannot discharge the other possible selections.
-    const verified = oneShot ? oneShotReason === null : site.block !== null && evidence.length > 0 &&
-      !unmeasured.length && evidence.every(({ scene }) => scene.verified);
+    const verified = oneShot ? oneShotReason === null : site.block !== null && measured &&
+      !unmeasured.length && held.every(scene => scene.verified) && evidence.every(({ scene }) => scene.verified);
     return {
       id,
       source: `${site.pictureArchive}:${site.block ?? `selector ${site.selector.address?.toString(16) ?? "unknown"}`}`,
-      measured, verified, unmeasured, scenes: evidence.map(({ scene }) => scene.id),
+      measured, verified, unmeasured, scenes: [...evidence.map(({ scene }) => scene.id), ...held.map(scene => scene.id)],
       reason: oneShot ? oneShotReason ?? "single native draw, paired Chrome checks passed" :
         site.block === null ? "selector unresolved" : scenery.size ? "paired Chrome checks confirmed scenery at " + [...scenery].join(", ") :
           prompts.length ? null : "no prompt lead resolved",
@@ -248,11 +351,11 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     oneShotsVerified: sites.filter(site => site.verified && oneShotByProducer.has(site.id)).length,
     measured: sites.filter(site => site.measured).length,
     total: sites.length,
-    scenesMeasured: scenes.length,
-    scenesVerified: scenes.filter(scene => scene.verified).length,
+    scenesMeasured: allScenes.length,
+    scenesVerified: allScenes.filter(scene => scene.verified).length,
     unmappedScenes: unmapped.length,
   };
-  return { ...summary, remaining: summary.total - summary.verified, sites, scenes, unmapped };
+  return { ...summary, remaining: summary.total - summary.verified, sites, scenes: allScenes, unmapped };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

@@ -4,14 +4,20 @@
   ],
   "checkpoints": {
     "armorer": "qa/fixtures/replay-checkpoints/290582c2f29f/A.json",
+    "valhingen-giant-skeleton-alone": "qa/fixtures/valhingen-giant-skeleton-alone/A.json",
+    "valhingen-giant-skeleton-retainers": "qa/fixtures/valhingen-giant-skeleton-retainers/A.json",
     "valhingen-skeleton-roaming-ambush-loop": "qa/fixtures/valhingen-skeleton-roaming-ambush/A.json",
+    "valhingen-skeleton-tower-bones": "qa/fixtures/valhingen-skeleton-tower-bones/A.json",
     "valhingen-spirits-tower-wight-loop": "qa/fixtures/valhingen-spirits-tower-wights/A.json",
     "valhingen-wight-ambush-loop": "qa/fixtures/valhingen-wight-ambush/A.json"
   },
   "chains": {},
   "proved": [
     "armorer",
+    "valhingen-giant-skeleton-alone",
+    "valhingen-giant-skeleton-retainers",
     "valhingen-skeleton-roaming-ambush-loop",
+    "valhingen-skeleton-tower-bones",
     "valhingen-spirits-tower-wight-loop",
     "valhingen-wight-ambush-loop"
   ]

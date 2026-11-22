@@ -3308,6 +3308,7 @@ const illustrationRoutes = new Map([
       2: null,
       3: "scene-illustration:area:10:ecl:b695:caller:a490",
     },
+    staticPortraitStop: { index: 3, caption: /ASMALLARMYOFSKELETONSRUSHESFROMTHETOWER/i },
     phaseCaptures: { 1: "valhingen-skeleton-tower-bone-heaps.png" },
     approachStops: { 2: [48, 32, "encounter:area:10:SPRIT4.DAX:34:0:0", 40, 80] },
     portrait: "scene-illustration:area:10:ecl:b5c7:cue:skeleton-tower-rush",
@@ -3397,6 +3398,8 @@ const illustrationRoutes = new Map([
       3: `scene-illustration:area:10:ecl:b695:caller:9e3a:cue:giant-skeleton-${kind}`,
     },
     approachStops: { 2: [48, 32, "encounter:area:10:SPRIT4.DAX:34:0:0", 40, 80] },
+    staticPortraitStop: { index: 3, caption: kind === "alone" ?
+      /YOUFINDAGIANTSKELETON(?!ANDITSRETAINERS)/i : /YOUFINDAGIANTSKELETONANDITSRETAINERS/i },
     portrait: `scene-illustration:area:10:ecl:9e52:cue:giant-skeleton-${kind}`,
     prompt,
     finalPhaseCapture: `valhingen-giant-skeleton-${kind}-attack.png`,
@@ -7760,6 +7763,67 @@ try {
     })()`), "Enhanced portrait should fill the outer picture panel over an opaque backdrop");
   }
 
+  async function verifyStaticPortrait(portrait, expectedCaption) {
+    assert.ok(portrait && frame.awaitsKey);
+    const caption = frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join("");
+    assert.match(caption, expectedCaption);
+    assert.match(caption, /PRESS<ENTER>\/<RETURN>TOCONTINUE/i);
+    assert.doesNotMatch(caption, /ABATTLEBEGINS/i);
+    const portraitPath = JSON.stringify("/art/" + portrait);
+    await waitFor("the held static illustration", () => run(`(() => {
+      const image = document.querySelector("#tile-art:not([hidden]) .encounter-portrait");
+      return state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined &&
+        image?.complete && image.naturalWidth === 352 && new URL(image.src).pathname === ${portraitPath};
+    })()`));
+    await verifyPortraitPanel();
+    // Observe longer than the adjacent PIC4 block 34 loop, without sending a key.
+    const { result, exceptionDetails } = await command("Runtime.evaluate", {
+      awaitPromise: true, returnByValue: true,
+      expression: `new Promise(resolve => {
+        const start = performance.now();
+        const poses = new Set();
+        let samples = 0, replaced = false;
+        function sample(now) {
+          const image = document.querySelector("#tile-art:not([hidden]) .encounter-portrait");
+          if (state.sequence !== ${frame.sequence} || animationFrame || !image?.complete ||
+              image.naturalWidth !== 352 || image.getBoundingClientRect().width <= 0 || image.dataset.heldPose) {
+            replaced = true;
+          } else {
+            poses.add(new URL(image.src).pathname.slice(5));
+          }
+          samples++;
+          if (now - start < 3650) requestAnimationFrame(sample);
+          else resolve({ durationMs: Math.round(now - start), samples, poses: [...poses], replaced });
+        }
+        requestAnimationFrame(sample);
+      })`,
+    });
+    assert.ok(!exceptionDetails, exceptionDetails?.text);
+    const proof = result.value;
+    assert.equal(proof.replaced, false);
+    assert.ok(proof.samples >= 90 && proof.durationMs >= 3650);
+    assert.deepEqual(proof.poses, [portrait]);
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, `${routeName}-held-portrait.png`), Buffer.from(shot.data, "base64"));
+    if (heldPortraitEvidenceFile) {
+      const [renderer, art] = await Promise.all([fetch(origin + "/play.js"), fetch(origin + "/art/" + portrait)]);
+      assert.ok(renderer.ok && art.ok);
+      const { result, exceptionDetails } = await command("Runtime.evaluate", {
+        awaitPromise: true, returnByValue: true,
+        expression: `portraitLoopBindings.then(module => module.portraitLoopSignature(${JSON.stringify(portrait)}))`,
+      });
+      assert.ok(!exceptionDetails, exceptionDetails?.text);
+      heldPortraitEvidence.push({
+        route: routeName, data: frame.classicAvailable === false ? "port" : "original", caption, portrait,
+        checkpointSha256: createHash("sha256").update(readFileSync(checkpoint)).digest("hex"),
+        artSha256: createHash("sha256").update(Buffer.from(await art.arrayBuffer())).digest("hex"),
+        rendererSha256: createHash("sha256").update((await renderer.text()).replace(/\r\n/g, "\n")).digest("hex"),
+        bindingSha256: createHash("sha256").update(result.value).digest("hex"),
+        ...proof,
+      });
+    }
+  }
+
   async function verifyHeldPortraitLoop(expected, screenshotPrefix, skipCapture) {
     const order = Array.isArray(expected) ? expected : undefined;
     const count = order?.length ?? expected;
@@ -10778,6 +10842,9 @@ try {
           if (illustration.approachTerrainArea !== undefined) {
             assert.equal(await verifyTiledView(illustration.approachTerrainArea, new Set()), 1);
           }
+        }
+        if (illustration.staticPortraitStop?.index === index) {
+          await verifyStaticPortrait(interimPortrait, illustration.staticPortraitStop.caption);
         }
         await advance(key);
         if (illustration.oneShotProducer && frame.animation?.some(phase => phase.approach)) {
@@ -16335,7 +16402,7 @@ try {
   if (environmentTrace && existsSync(environmentTrace)) console.log("Environment tile trace:", environmentTrace);
   if (battleFrame) console.log(`Battlefield artwork trace (${battleFrame} frames):`, battleTrace);
   if (heldPortraitEvidenceFile) {
-    assert.ok(heldPortraitEvidence.length, "The replay did not visit a held portrait loop");
+    assert.ok(heldPortraitEvidence.length, "The replay did not visit a measured portrait prompt");
     writeFileSync(heldPortraitEvidenceFile, JSON.stringify(heldPortraitEvidence, null, 2) + "\n");
   }
 } finally {

@@ -262,6 +262,15 @@ Its saved slot is `qa/fixtures/valhingen-skeleton-roaming-ambush/A.json`.
 Run `valhingen-skeleton-roaming-ambush-loop` to check the six native beats and
 the selected pose at the battle notice.
 
+The Valhingen giant skeleton alone, giant with retainers, and skeleton tower
+rush use the routes `valhingen-giant-skeleton-alone`,
+`valhingen-giant-skeleton-retainers`, and `valhingen-skeleton-tower-bones`.
+Each route takes `qa/fixtures/<route>/A.json` at the default fixed clock.
+Native member 0 stays visible for all 120 idle polls and through the battle
+notice in each scene. The Chrome replays hold their individual captions
+for 3.65 seconds before advancing to the battle notice. Set
+`POR_HELD_PORTRAIT_CHROME_TRACE` to save the held evidence for the census.
+
 ## Enhanced artwork fallbacks
 
 Set `POR_TRACE_ENHANCED_FALLBACKS=1` and run
