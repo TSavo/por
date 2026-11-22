@@ -3088,6 +3088,7 @@
   "assets": {
     "combat:ICON.DAX:0": "combat-mounted-guard-ready.png",
     "combat:ICON.DAX:128": "combat-mounted-guard-strike.png",
+    "encounter:SPRIT1.DAX:9:2:0": "archive-ogre-far.png",
     "encounter:SPRIT2.DAX:1:0:0": "archive-goblin-near.png",
     "encounter:SPRIT8.DAX:19:0:0": "archive-shield-bearer-near.png",
     "encounter:SPRIT8.DAX:19:1:0": "archive-shield-bearer-middle.png",
@@ -15487,6 +15488,7 @@
     "combat:RANDCOM.DAX:1:0:3": "combat-flowering-clay-pot.png"
   },
   "encounters": {
+    "encounter:SPRIT1.DAX:9:2:0": {"x": 56, "y": 32, "width": 32, "height": 57},
     "encounter:SPRIT2.DAX:1:0:0": {"x": 48, "y": 32, "width": 40, "height": 80},
     "encounter:SPRIT8.DAX:19:0:0": {"x": 56, "y": 32, "width": 24, "height": 80},
     "encounter:SPRIT8.DAX:19:1:0": {"x": 56, "y": 32, "width": 24, "height": 65},
