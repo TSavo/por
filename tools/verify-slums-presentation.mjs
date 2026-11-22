@@ -5506,9 +5506,9 @@ const combatPoseRoutes = new Map([
     strikeInputs: [...Array(3).fill("enter"), ...Array(16).fill("q")],
   }],
   ["kobold-envoy-ready", {
-    slot: "A", stand: "combat:area:13:CPIC8.DAX:11:ecl:a2a4",
+    slot: "A", stand: "combat:area:13:CPIC8.DAX:11:ecl:a2a4", strike: "combat:area:13:CPIC8.DAX:139:ecl:a2a4",
     excluded: ["combat:area:13:CPIC8.DAX:11:ecl:a856", "combat:area:13:CPIC8.DAX:139:ecl:a856"],
-    width: 96, height: 96, strikeInputs: [],
+    width: 96, height: 96, readyPrompt: /Hitpoints/i, strikeInputs: [],
     inputs: ["up", ...Array(7).fill("enter"), ...Array(11).fill("q")],
   }],
   ["kobold-fatima-combat", {
@@ -5518,7 +5518,8 @@ const combatPoseRoutes = new Map([
     inputs: ["up", "enter", "enter", "enter", "a", "enter", "enter", "enter", ...Array(3).fill("q")],
   }],
   ["nomad-veteran-ready", {
-    slot: "A", stand: "combat:area:17:CPIC7.DAX:13", width: 96, height: 96, strikeInputs: [],
+    slot: "A", stand: "combat:area:17:CPIC7.DAX:13", strike: "combat:area:17:CPIC7.DAX:141:ecl:a1a6",
+    width: 96, height: 96, readyPrompt: /Hitpoints/i, strikeInputs: [],
     inputs: ["up", "down", "enter", "enter", "c", ...Array(4).fill("enter"), ...Array(11).fill("q")],
   }],
   ["nomad-shaman-ready", {
