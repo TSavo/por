@@ -31,7 +31,7 @@
   "first-person cells seen only from squares not connected to any square the existing artwork was made from": 7,
   "first-person cells of an area whose reading is not confirmed": 40,
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
-  "battlefield cells of pictures no artwork shows to have been on a battlefield": 2207,
+  "distinct battlefield cells of pictures no artwork shows to have been on a battlefield": 1906,
   "battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain)": "not counted: needs the game's battlefield builder read",
   "other picture frames no key names (listed below)": 0,
   "screen frame, text window borders and other symbols drawn outside the first-person view: no artwork key form exists for them": "not counted",
@@ -710,7 +710,7 @@
   },
   {
    "archive": "BACPAC.DAX",
-   "what": "40 pictures of 24 by 24 that no artwork key names; where the game draws them is not read yet",
+   "what": "40 base terrain pictures loaded into the battlefield slots; their pixels match SQRPACI block 1 frames 0–39",
    "frames": 40,
    "cells": 360,
    "distinctCells": 301,

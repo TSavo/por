@@ -146,7 +146,7 @@ The battlefield is drawn from 24 by 24 pictures, each nine cells. SQRPACI.DAX ho
 | DUNGCOM.DAX | terrain pictures of fights indoors; the game copies them into the battlefield's picture slots | 25 | 59 | 59 | 0 | 0 |
 | WILDCOM.DAX | terrain pictures of fights outdoors; the game copies them into the battlefield's picture slots | 34 | 239 | 0 | 0 | 239 |
 | SQRPACI.DAX | the battlefield's two picture slots as stored (overlay 11 loads blocks 1 and 2; the terrain draw takes its frames from them) | 256 | 1667 | 0 | 0 | 1667 |
-| BACPAC.DAX | 40 pictures of 24 by 24 that no artwork key names; where the game draws them is not read yet | 40 | 301 | 0 | 0 | 301 |
+| BACPAC.DAX | 40 base terrain pictures loaded into the battlefield slots; their pixels match SQRPACI block 1 frames 0–39 | 40 | 301 | 0 | 0 | 301 |
 
 ## Not established
 
@@ -157,7 +157,7 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 | first-person cells seen only from squares not connected to any square the existing artwork was made from | 7 |
 | first-person cells of an area whose reading is not confirmed | 40 |
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |
-| battlefield cells of pictures no artwork shows to have been on a battlefield | 2207 |
+| distinct battlefield cells of pictures no artwork shows to have been on a battlefield | 1906 |
 | battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain) | not counted: needs the game's battlefield builder read |
 | other picture frames no key names (listed below) | 0 |
 | screen frame, text window borders and other symbols drawn outside the first-person view: no artwork key form exists for them | not counted |
