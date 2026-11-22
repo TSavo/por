@@ -8750,6 +8750,24 @@ try {
       phases.add(match[1]);
     }
     assert.deepEqual([...phases].sort(), ["0", "1", "2", "3", "4"]);
+    const held = await latest();
+    await run(`(() => {
+      window.heldPortraitPhases = [];
+      const image = document.querySelector(".encounter-portrait");
+      const record = () => {
+        const phase = image.getAttribute("src")?.split(":").at(-2);
+        if (phase && window.heldPortraitPhases.at(-1) !== phase) window.heldPortraitPhases.push(phase);
+      };
+      record();
+      const observer = new MutationObserver(record);
+      observer.observe(image, { attributes: true, attributeFilter: ["src"] });
+      setTimeout(() => observer.disconnect(), 5000);
+    })()`);
+    const cycle = await waitFor("the zombie portrait to loop without input", () =>
+      run("window.heldPortraitPhases.length >= 6 && window.heldPortraitPhases"));
+    assert.equal(new Set(cycle.slice(0, 5)).size, 5);
+    assert.equal(cycle[0], cycle[5]);
+    assert.deepEqual(await latest(), held);
     await switchBothWays();
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified all five native roaming zombie portrait phases in Chrome:", directory);

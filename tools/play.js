@@ -985,6 +985,36 @@ function drawPanelFrame(stamps) {
   return canvas;
 }
 
+const portraitLoops = new Map([
+  ["portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:", [0, 1, 2, 3, 4]],
+]);
+
+async function animateHeldPortrait(image, id) {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const match = /^(.*:)([0-9]+):0$/.exec(id);
+  const phases = match && portraitLoops.get(match[1]);
+  if (!phases) return;
+  const frames = phases.map(phase => {
+    const frame = new Image();
+    frame.src = `/art/${match[1]}${phase}:0`;
+    return frame;
+  });
+  try {
+    await Promise.all(frames.map(frame => frame.decode()));
+  } catch {
+    return;
+  }
+  let index = phases.indexOf(Number(match[2]));
+  const interval = setInterval(() => {
+    if (!image.isConnected || tileArt.hidden) {
+      clearInterval(interval);
+      return;
+    }
+    index = (index + 1) % frames.length;
+    image.src = frames[index].src;
+  }, 400);
+}
+
 async function showScreen() {
   if (!state.frame) return;
   const render = ++screenRender;
@@ -1203,6 +1233,10 @@ async function showScreen() {
   renderTravelMap(view);
   tileArt.replaceChildren(...layers);
   tileArt.hidden = !showArt;
+  if (view === state && view.ready && view.portrait && !view.automaticCombat) {
+    const portrait = tileArt.querySelector(".encounter-portrait");
+    if (portrait) void animateHeldPortrait(portrait, view.portrait);
+  }
   gameText.hidden = !useEnhanced || Boolean(sceneArt);
   if (!gameText.hidden) {
     gameText.replaceChildren(...(view.text ?? []).map(([cell, character, color]) => {
