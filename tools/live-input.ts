@@ -182,6 +182,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let battleCursor: number | undefined;
   let portraitCaller: number | undefined;
   let finalCouncilReward = false;
+  let southernBaneCache = false;
 
   function captureEclContext(cpu: Cpu) {
     const dataSegment = unit.data;
@@ -193,13 +194,18 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     const segment = cpu.read16(dataSegment, data.eclReturn + 2);
     portraitCaller = segment === 0 ? undefined : authoredScriptPosition(cpu, cpu.read16(segment, offset));
     finalCouncilReward = false;
+    southernBaneCache = false;
     const archive = cpu.read8(dataSegment, data.eclArchive), block = cpu.read8(dataSegment, data.eclBlock);
-    if (archive === 3 && block === 8 && battleCursor === 0x9f3f && portraitCaller === 0x9a4a) {
-      // The Council shares this treasure routine across rewards. Its 6E79 selector
-      // is 20 for the castle finale and resides in the ECL string-variable region.
+    const councilPayout = archive === 3 && block === 8 && battleCursor === 0x9f3f && portraitCaller === 0x9a4a;
+    const baneTreasure = archive === 1 && block === 24 && battleCursor === 0xaa47;
+    if (councilPayout || baneTreasure) {
+      // These treasure routines share their picture pauses. The ECL's 6E79
+      // selector distinguishes the castle finale (20) and southern cache (9).
       const strings = cpu.read16(dataSegment, data.eclStrings + 2);
       const base = cpu.read16(dataSegment, data.eclStrings);
-      finalCouncilReward = cpu.read16(strings, (base + (0x6e79 - 0x6b00) * 2) & 0xffff) === 20;
+      const treasure = cpu.read16(strings, (base + (0x6e79 - 0x6b00) * 2) & 0xffff);
+      finalCouncilReward = councilPayout && treasure === 20;
+      southernBaneCache = baneTreasure && treasure === 9;
     }
   }
   let drawnPerspective: { pixels: Buffer; localEcl?: number; native?: NativeExploration } | undefined;
@@ -328,7 +334,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const illustrationText = scriptKey === "scene-illustration:area:8:ecl:9f3f:caller:9a4a"
         ? glyphs.filter(([cell]) => finalCouncilReward || cell < 640).sort(([a], [b]) => a - b)
           .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase()
-        : scriptKey === "scene-illustration:area:29:ecl:9ffb" || scriptKey === "scene-illustration:area:10:ecl:a3e4" ||
+        : southernBaneCache || scriptKey === "scene-illustration:area:29:ecl:9ffb" || scriptKey === "scene-illustration:area:10:ecl:a3e4" ||
           scriptKey === "scene-illustration:area:10:ecl:ad29" || scriptKey === "scene-illustration:area:10:ecl:b373" ||
           scriptKey === "scene-illustration:area:10:ecl:a09f"
           ? [...glyphs].sort(([a], [b]) => a - b).map(([, character]) => String.fromCharCode(character)).join("").toUpperCase()
@@ -336,6 +342,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // The maze watch and Scriptorium guards finish the nod at the same ECL cursor.
       let illustrationScope = finalCouncilReward && illustrationText.includes("VIEWTAKEPOOLSHAREEXIT")
         ? `${scriptKey}:cue:council-victory-payout` : scriptKey;
+      if (southernBaneCache) illustrationScope = `${scriptKey}:cue:southern-cache`;
       if (area === 4 && battleCursor === 0x9b63 && explorationPosition) {
         const { x, y } = explorationPosition;
         if (x === 4 && y === 2) illustrationScope = "scene-illustration:area:4:ecl:9ed5:caller:a08a";

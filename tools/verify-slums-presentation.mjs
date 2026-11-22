@@ -798,7 +798,10 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:24:ecl:a8af:caller:a802",
     prompt: /9,12S.*ONTHEFLOORYOUFINDATRAPDOOR\.WILLYOUOPENIT\?/i,
     finalPhaseCapture: "bane-south-trapdoor.png",
-    continuation: { inputs: ["o", "enter", "enter"], portrait: "portrait:PIC1.DAX:1:0:0", prompt: /VIEW.*POOL.*EXIT/i },
+    continuation: {
+      inputs: ["o", "enter", "enter"], portrait: "scene-illustration:area:24:ecl:aa47:cue:southern-cache",
+      prompt: /VIEW.*POOL.*EXIT/i,
+    },
   }],
   ["bane-hidden-trapdoor", {
     slot: "A", inputs: ["right", "up", "right", "s", "up"],
@@ -9957,6 +9960,12 @@ try {
         await switchBothWays(frame.frame);
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, continuation.screenshot), Buffer.from(shot.data, "base64"));
+      }
+      if (routeName === "bane-south-trapdoor") {
+        await verifyPortraitPanel();
+        await switchBothWays(frame.frame);
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "bane-southern-cache.png"), Buffer.from(shot.data, "base64"));
       }
       if (routeName === "kovel-lone-thief-attack") {
         const thief = "combat:area:14:CPIC3.DAX:12:ecl:9c92";
