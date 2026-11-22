@@ -6963,6 +6963,11 @@ const valhingenBrassDoorBattle = {
   afterBattle: /9,1W.*AREACASTVIEWENCAMPSEARCHLOOK/i,
 };
 const controlledBattleIllustrations = new Map([
+  ["zhentil-quarters-second-wave", {
+    slot: "A", inputs: ["up", "enter", "s", "enter", "enter", "enter"],
+    portrait: "scene-illustration:area:28:ecl:a5b5",
+    caption: /ASYOUDEFEATTHEGUARDSSOMEMOREMENRUNINANDATTACK/i,
+  }],
   ["kuto-well-kobold-reinforcements", {
     slot: "J", inputs: ["up", "y", "enter", "enter", "down", "up"],
     portrait: "scene-illustration:area:29:ecl:a3b9",
@@ -9888,6 +9893,9 @@ try {
         assert.match(text(), /14,8W/i);
         await waitForExplorationViewport();
       }
+    } else if (routeName === "zhentil-quarters-second-wave") {
+      await step("enter");
+      assert.notEqual(frame.portrait, portrait);
     } else {
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-courtyard-note"));
