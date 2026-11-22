@@ -122,6 +122,14 @@ bytes that shape needs), and 59 `battle-tile:` artwork keys are the hash of an 8
 DUNGCOM frame, which only pixels can give. A fight in the Slums played from `game/`, where these
 records are blank, draws the same dice as from the 1.3 files.
 
+The blank picture records also affect combat art. The `kobold-envoy-ready`
+Chrome replay at `dc53657c`, run with `POR_GAME_SOURCE=port`, reaches
+Dorn's combat turn with an empty `combatArt` list. The same checkpoint
+with the original 1.3 files selects the Enhanced Envoy key. The current
+combat matcher samples rendered pixels, so a blank CPIC record gives it
+no sprite to match. Standalone combat needs the active picture identity,
+position and facing from the native draw to select Enhanced art.
+
 `tiles.json` lists each distinct tile of the 8X8D sets once, by that hash, with every place it is
 stored (`archive:block:index`). A tile that has transparent pixels (colour 13) also lists
 `overColour`: the hash of the cell the screen shows when one solid colour is behind the tile, for
