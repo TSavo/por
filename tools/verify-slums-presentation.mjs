@@ -5879,7 +5879,7 @@ routes.push("river-return-reload");
 routes.push("swamp-return", "swamp-reward-reload");
 routes.push("slums-potion-booth-reload");
 routes.push("bane-cell-inscription-reload");
-routes.push("mendor-records-reward-reload");
+routes.push("mendor-records-reward-reload", "mendor-fyerdetha-discourses-reward");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
   ["bane-interior-atlas", { slot: "A", areas: [24, 31], mapId: 31, file: "temple-of-bane-interior-concept-v1.png" }],
@@ -12734,28 +12734,40 @@ try {
     assert.match(frame.journal.objective.nextStep, /Search the other stacks/i);
     await switchBothWays();
     console.log("Verified the standing records objective and completed atlas handoff after reloading slot A.");
-  } else if (routeName === "mendor-records-reward") {
-    const record = () => frame.journal?.leads.find(({ id }) => id === "mendor-book-37");
+  } else if (routeName === "mendor-records-reward" || routeName === "mendor-fyerdetha-discourses-reward") {
+    const discourses = routeName === "mendor-fyerdetha-discourses-reward";
+    const recordId = discourses ? "mendor-book-7" : "mendor-book-37";
+    const caption = discourses ? /WEFINDTHESEDISCOURSESVALUABLE/i : /THESEMAPSSHOULDHELPUS(?:TO)?LOCATE/i;
+    const portrait = discourses ? "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:fyerdetha-discourses-reward"
+      : "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:lex-geographica";
+    const text = () => frame.text.toSorted(([left], [right]) => left - right)
+      .map(([, character]) => String.fromCharCode(character)).join("");
+    const record = () => frame.journal?.leads.find(({ id }) => id === recordId);
     await advance("j");
     assert.equal(record()?.status, "ready-to-report");
     assert.match(frame.journal.objective.nextStep, /council clerk at City Hall/);
-    for (const key of ["j", "right", "right", "up", "right", "right", "up", "enter", "enter"]) await advance(key);
-    assert.match(frame.text.toSorted(([left], [right]) => left - right)
-      .map(([, character]) => String.fromCharCode(character)).join(""), /THESEMAPSSHOULDHELPUSLOCATE|THESEMAPSSHOULDHELPUSTOLOCATE/i);
-    const atlasPortrait = "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:lex-geographica";
-    assert.equal(frame.portrait, atlasPortrait);
-    await waitFor("the Lex Geographica illustration", () => run(`
-      document.querySelector('.encounter-portrait[src="/art/${atlasPortrait}"]')?.naturalWidth === 352`));
+    for (const key of ["j", "right", "right", "up", "right", "right", "up", "enter"]) await advance(key);
+    if (!caption.test(text())) await advance("enter");
+    assert.match(text(), caption);
+    assert.equal(frame.portrait, portrait);
+    await waitFor("the Council acknowledgment illustration", () => run(`
+      state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352
+    `));
     await switchBothWays();
     await verifyPortraitPanel();
+    if (discourses) {
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "mendor-fyerdetha-discourses-reward.png"), Buffer.from(shot.data, "base64"));
+    }
     await advance("j");
     assert.equal(record()?.status, "reward-pending");
-    assert.equal(frame.journal.trackedId, "mendor-book-37");
+    assert.equal(frame.journal.trackedId, recordId);
     assert.match(frame.journal.objective.nextStep, /Finish collecting the council reward/);
     await advance("j");
     await advance("enter");
     assert.equal(frame.portrait, undefined);
-    assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /receives500experiencepoints/i);
+    assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), discourses ? /receives400experiencepoints/i : /receives500experiencepoints/i);
     for (const key of ["enter", "enter", "s", "e", "j"]) await advance(key);
     assert.equal(record()?.status, "turned-in");
     assert.equal(frame.journal.leads.find(({ id }) => id === "commission-records")?.status, "offered");
@@ -12764,7 +12776,7 @@ try {
     for (const key of ["j", "enter", "e", "s", "s", "a"]) await advance(key);
     assert.equal(JSON.parse(readFileSync(saved, "utf8")).tracked, "commission-records");
     console.log("Mendor records checkpoint:", saved);
-    console.log("Verified the clerk acknowledgment for Lex Geographica in Chrome.");
+    console.log(`Verified the clerk acknowledgment for ${recordId} in Chrome.`);
   } else if (routeName === "bane-cell-inscription-reload") {
     await advance("j");
     const inscription = frame.journal?.leads.find(({ id }) => id === "bane-cell-scratched-message");
