@@ -1003,9 +1003,10 @@
           "checks": [
             "code-wheel",
             "code-wheel-screen",
-            "runes-readable"
+            "runes-readable",
+            "rune-glyphs"
           ],
-          "gap": "Checked on version 1.3. The first release never asks the question at start-up, so the screen is not exercised there. The runes the game writes during play are checked at all five places, Sokal Keep by play and the four in Valjevo Castle and Yarash's pyramid by developer travel with a level 1 party. Not established: that the game takes HARASH and LUX where it asks for them (the check types SHESTNI, NOKNOK and RHODIA), the same five places on the first release, and that every rune on screen matches its tile on the wheel (looked at for two Dethek runes only)."
+          "gap": "Checked on version 1.3. The first release never asks the question at start-up, so the screen is not exercised there. The runes the game writes during play are checked at all five places, Sokal Keep by play and the four in Valjevo Castle and Yarash's pyramid by developer travel with a level 1 party. Not established: that the game takes HARASH and LUX where it asks for them (the check types SHESTNI, NOKNOK and RHODIA), and the same five places on the first release. The table from glyph code to the wheel's rune picture is proved against the 13 questions and the six words in the scripts, and every glyph of the game's rune font is its picture pixel for pixel (rune-glyphs, with the original files)."
         }
       ]
     }

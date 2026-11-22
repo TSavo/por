@@ -170,6 +170,15 @@
       ]
     },
     {
+      "id": "rune-glyphs",
+      "title": "The table the page draws runes from names each of the wheel's 70 rune pictures once, each read as its letter at the translate position; the game's 13 start-up questions draw the wheel's runes; the scripts' rune strings spell LUX, SAMOSUD, SHESTNI, HARASH, RHODIA and NOKNOK; and, with the original files, every glyph of the game's rune font is its picture pixel for pixel",
+      "command": "npm run verify:rune-glyphs",
+      "reference": "game-data",
+      "needs": [
+        "game data"
+      ]
+    },
+    {
       "id": "acceptance-harness",
       "title": "The acceptance harness and its party-care helpers on the game itself: prompts, dice trace, position, a fight by the game's own commands; then what the game offers a party: the Camp menu (no Fix), the cleric's spells in memory, the temple's price and refusal, the trainer's 1000 gp refusal, buying from pooled money",
       "command": "npm run acceptance:harness",
