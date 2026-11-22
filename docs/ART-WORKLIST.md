@@ -56,8 +56,8 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 |   of which several tiles together | 1734 |
 |   of which the same pixels already have art of yours in another area | 755 |
 | Battlefield cells to do | 0 |
-| Tile keys in the manifests | 4553 |
-|   accounted for by the tool | 4397 |
+| Tile keys in the manifests | 4556 |
+|   accounted for by the tool | 4400 |
 | Battlefield keys in the manifests | 83 |
 |   that are one stored cell of a battlefield picture | 78 |
 | Stored 8 by 8 tiles | 3016 |
@@ -90,7 +90,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 15 | Mendor's Library | not yet | 436 | 185 |  | 190 of 205 (5 as WebGL wall materials) |
 | 16 | The Lizardman Keep | yes | 856 | 182 | 205 | 196 of 196 (14 as WebGL wall materials) |
 | 17 | The Nomad Camp | yes | 186 | 164 | 0 | 175 of 175 (11 as WebGL wall materials) |
-| 18 | Podol Plaza | not yet | 337 | 161 |  | 194 of 199 (28 as first views of the next area, 5 as WebGL wall materials) |
+| 18 | Podol Plaza | not yet | 337 | 162 |  | 197 of 202 (28 as first views of the next area, 7 as WebGL wall materials) |
 | 20 | The Slums | not yet | 395 | 180 |  | 187 of 188 (7 as WebGL wall materials) |
 | 21 | Sokal Keep | yes | 500 | 119 | 134 | 141 of 141 (22 as WebGL wall materials) |
 | 22 | Yarash's Pyramid | yes | 140 | 70 | 17 | 78 of 78 (8 as WebGL wall materials) |
@@ -2984,7 +2984,7 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 | --- | ---: |
 | first-person cells that show a sky or ground colour no existing artwork of the area shows | 4065 |
 | first-person cells of the overhead area view, which no existing artwork of the area confirms | 152 |
-| first-person cells of an area whose reading is not confirmed | 1454 |
+| first-person cells of an area whose reading is not confirmed | 1453 |
 | first-person cells seen only from squares not connected to any square the existing artwork was made from | 200 |
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |
 | battlefield cells of pictures no artwork shows to have been on a battlefield | 2207 |
@@ -2999,7 +2999,7 @@ Areas not confirmed, and why:
 - Area 5 (Valjevo Castle): 62 of the 161 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 7 (Valjevo Castle, the Pool): 58 of the 131 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 15 (Mendor's Library): 15 of the 205 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
-- Area 18 (Podol Plaza): 5 of the 199 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
+- Area 18 (Podol Plaza): 5 of the 202 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 20 (The Slums): 1 of the 188 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 25 (Wilderness, west): only 13 cells of this area have artwork so far, too few to confirm the tool's reading of its maps and wall sets against.
 - Area 27 (Wilderness, east): only 20 cells of this area have artwork so far, too few to confirm the tool's reading of its maps and wall sets against.

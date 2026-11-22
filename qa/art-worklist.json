@@ -12,8 +12,8 @@
   "  of which several tiles together": 1734,
   "  of which the same pixels already have art of yours in another area": 755,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 4553,
-  "  accounted for by the tool": 4397,
+  "Tile keys in the manifests": 4556,
+  "  accounted for by the tool": 4400,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
@@ -28,7 +28,7 @@
  "notEstablished": {
   "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4065,
   "first-person cells of the overhead area view, which no existing artwork of the area confirms": 152,
-  "first-person cells of an area whose reading is not confirmed": 1454,
+  "first-person cells of an area whose reading is not confirmed": 1453,
   "first-person cells seen only from squares not connected to any square the existing artwork was made from": 200,
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
   "battlefield cells of pictures no artwork shows to have been on a battlefield": 2207,
@@ -599,15 +599,15 @@
    "area": 18,
    "name": "Podol Plaza",
    "established": false,
-   "why": "5 of the 199 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
+   "why": "5 of the 202 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
    "maps": [
     18
    ],
    "wallSets": [
     "WALLDEF1 block 1 (tiles 8X8D1 block 1), block 3 (tiles 8X8D1 block 3), block 5 (tiles 8X8D1 block 5)"
    ],
-   "existingKeys": 199,
-   "existingKeysAccountedFor": 194,
+   "existingKeys": 202,
+   "existingKeysAccountedFor": 197,
    "existingKeysOnlyAsArrivalViews": 28,
    "unaccountedKeys": [
     "tile:18:3f5c91cb0f492dabf7ba2d09ad7c6da460f8b208d9e0c6afabfcafb191ba0025",
@@ -617,12 +617,12 @@
     "tile:18:3fa6cf4676a48932c9e325a5f64128f1b4af9dc7398d0422955dbe43d3669f03"
    ],
    "cellsTheViewsCanShow": 337,
-   "cellsWithArt": 161,
+   "cellsWithArt": 162,
    "toDo": 0,
    "notEstablished": {
-    "cells of an area whose reading is not confirmed": 176
+    "cells of an area whose reading is not confirmed": 175
    },
-   "existingKeysOnlyAsWallMaterials": 5
+   "existingKeysOnlyAsWallMaterials": 7
   },
   {
    "area": 20,

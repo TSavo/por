@@ -439,13 +439,15 @@ function checkExplorationGlyphMask(): void {
   const standalone = buildExplorationMaterials(blank, artwork, new Map([[2, tile]]));
   deepStrictEqual(standalone, original, "Packaged terrain uses the same art and cutout as the original glyph");
 
-  const podolKey = `tile:18:${tile.hash}`;
-  const kutoKey = `tile:29:${tile.hash}`;
-  const transitionArtwork = new Map([[podolKey, { file: "podol.png" }], [kutoKey, { file: "kuto.png" }]]);
-  const arrival = buildExplorationMaterials({ ...scene, area: 29, mapId: 18 }, transitionArtwork);
-  strictEqual(arrival.wallFaces[0]?.parts[0]?.art?.key, podolKey, "Podol's map uses Podol art during the handoff");
-  const departure = buildExplorationMaterials({ ...scene, area: 29, mapId: 29 }, transitionArtwork);
-  strictEqual(departure.wallFaces[0]?.parts[0]?.art?.key, kutoKey, "Kuto's map uses its own art");
+  for (const [source, destination] of [[29, 18], [22, 23], [23, 22]] as const) {
+    const sourceKey = `tile:${source}:${tile.hash}`;
+    const destinationKey = `tile:${destination}:${tile.hash}`;
+    const transitionArtwork = new Map([[sourceKey, { file: "source.png" }], [destinationKey, { file: "destination.png" }]]);
+    const arrival = buildExplorationMaterials({ ...scene, area: source, mapId: destination }, transitionArtwork);
+    strictEqual(arrival.wallFaces[0]?.parts[0]?.art?.key, destinationKey, "The destination map uses its own art during the handoff");
+    const departure = buildExplorationMaterials({ ...scene, area: source, mapId: source }, transitionArtwork);
+    strictEqual(departure.wallFaces[0]?.parts[0]?.art?.key, sourceKey, "The source map uses its own art before the handoff");
+  }
 }
 
 // The game calls Turbo Pascal's Randomize once at start. It stores the DOS time as the seed.
