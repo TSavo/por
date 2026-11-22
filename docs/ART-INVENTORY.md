@@ -274,6 +274,12 @@ original GOG 1.3 files and built-in data. The cue is the live treasure
 menu, which the standalone catalogue cannot find in the converted
 scene text. The replay also verifies the treasure items after Take.
 
+The `bane-goblins` GOG 1.3 Chrome replay resolves the captive goblin
+to its existing `SPRIT1.DAX` block 2 artwork in both original-file and
+standalone modes. Standalone identifies the native animation member
+by its loaded picture pointer and checks its declared frame dimensions
+against the packaged catalogue. No original pixel data is needed.
+
 The Bane ogre commander's ready and strike keys pass the standalone audit
 through the Bane Mansion map's owning script, ECL1 block 24. GOG 1.3 Chrome verified both poses at
 canonical cursor `9f7b` in native combat. A DOS 1.0 Chrome control loaded

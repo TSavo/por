@@ -423,8 +423,15 @@ if (input && process.env.POR_BROWSER_PLAY === "1") {
   const observe = farCallObservers.get(cpu);
   farCallObservers.set(cpu, (segment, offset) => {
     observe?.(segment, offset);
-    if (input.nativePicture && isAt(cpu, cpu.ip, code.pictureMember)) input.nativePicture.load(cpu);
-    if (input.nativePicture && isAt(cpu, cpu.ip, code.pictureMemberRelease)) input.nativePicture.release(cpu);
+    if ((input.nativePicture || input.nativeEncounter) && isAt(cpu, cpu.ip, code.pictureMember)) {
+      input.nativePicture?.load(cpu);
+      input.nativeEncounter?.load(cpu);
+    }
+    if (input.nativeEncounter && isAt(cpu, cpu.ip, code.encounterPictureDraw)) input.nativeEncounter.draw(cpu);
+    if ((input.nativePicture || input.nativeEncounter) && isAt(cpu, cpu.ip, code.pictureMemberRelease)) {
+      input.nativePicture?.release(cpu);
+      input.nativeEncounter?.release(cpu);
+    }
     // The clear before the battle music branch runs in every hardware mode.
     // Where the game itself asks for event 14, on Tandy in the first release, it is not sent twice.
     if (isAt(cpu, cpu.ip, code.battleBegins) && isFar(segment, offset, far.clearText)) {

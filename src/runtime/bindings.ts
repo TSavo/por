@@ -297,7 +297,9 @@ export const code = resolve({
   /** Where FlushKeys and GetKey resume after a poll whose only purpose is to discard keys. */
   flushPollResumes: { "1.0": { segment: 0x26b, at: 0x27b1 }, "1.3": { segment: 0x899, at: 0x8aa1 } },
   drainPollResumes: { "1.0": { segment: 0x26b, at: 0x278b }, "1.3": { segment: 0x899, at: 0x8a79 } },
-  /** An encounter picture has been drawn at a new distance. */
+  /** The encounter routine calls the masked blitter for its selected member. */
+  encounterPictureDraw: { "1.0": { slice: 0x1d, at: 0x779 }, "1.3": { slice: 0x1c, at: 0x7ac } },
+  /** The encounter member has been copied to the displayed viewport. */
   encounterDrawn: { "1.0": { slice: 0x1d, at: 0x78a }, "1.3": { slice: 0x1c, at: 0x7bd } },
   /** The battlefield terrain routine: its entry, and the point where a tile is in the offscreen picture. */
   terrainEntry: { "1.0": { slice: 0x21, at: 0xf1 }, "1.3": { slice: 0x20, at: 0xf1 } },

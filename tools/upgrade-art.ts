@@ -6,7 +6,7 @@ import { encounterAnchor, encounterKey, encounterPixels } from "./encounter-art.
 import { combatSelectionKey, combatEffectKey, isCombatExtent, monsterCombatKey, partyCombatKey, partyCombatPart, randomCombatKey, randomCombatPixels } from "./combat-art.js";
 import { parseDax } from "../src/lib/dax.js";
 import { decodePicture, isPicture } from "../src/lib/picture.js";
-import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
+import { findGameRoot, isPortGameRoot, listGameFiles, portGame, readGameFile } from "./gamedata.js";
 import { pngDimensions } from "./png.js";
 
 interface LoadedArtwork {
@@ -57,6 +57,9 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
   const artwork = new Map<string, LoadedArtwork>();
   const gameFiles = new Map(gameRoot ? listGameFiles(gameRoot).map(file => [file.toUpperCase(), file]) : []);
   const archives = new Map<string, ReturnType<typeof parseDax>>();
+  const packagedPictures = gameRoot && isPortGameRoot(gameRoot)
+    ? new Map(portGame(gameRoot).data.pictures.map(record => [`${record.file}:${record.block}`, record.pictures]))
+    : undefined;
   function originalArchive(name: string) {
     const file = gameFiles.get(name);
     if (!file || !gameRoot) return;
@@ -108,8 +111,13 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
           let sourceWidth = 8;
           let sourceHeight = 8;
           if (encounter) {
-            const archive = originalArchive(encounterKey.exec(id)![4]!);
-            if (!archive || !encounterPixels(archive, id, encounter)) {
+            const [, , , , name, block, member, frame] = encounterKey.exec(id)!;
+            const archive = packagedPictures ? undefined : originalArchive(name!);
+            const shape = packagedPictures?.get(`${name}:${block}`)?.[Number(member)];
+            const validSource = packagedPictures
+              ? shape?.width === encounter.width && shape.height === encounter.height && Number(frame) < shape.frames
+              : archive && encounterPixels(archive, id, encounter);
+            if (!validSource) {
               reject("Encounter source frame does not match its placement.", id);
               continue;
             }

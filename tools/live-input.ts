@@ -1,5 +1,6 @@
 import { appendFileSync, mkdtempSync, readFileSync, readSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { observeNativeEncounterArt } from "./native-encounter-art.js";
 import { captureNativeExploration, type NativeExploration } from "./native-exploration.js";
 import { observeNativeCombatArt } from "./native-combat-art.js";
 import { nativeSelectionKey, observeNativeCombatSelection } from "./native-combat-selection.js";
@@ -301,6 +302,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   }
   const nativePicture = browser && standalone && pictures && portraitKeys.length
     ? observeNativePictureArt(new Set(portraitKeys), pictures, perspectivePixels) : undefined;
+  const nativeEncounter = browser && standalone && hasEncounterArtwork
+    ? observeNativeEncounterArt(encounterPlacements, perspectivePixels) : undefined;
   let codeWheelQuestion: number | undefined;
   let codeWheelAttempt: number | undefined;
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false,
@@ -421,8 +424,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       }
       // The next encounter can be drawn while the guest still shows the room description.
       const entranceIllustration = /:cue:(?:roofless-ruin|l-shaped-ruin|charged-tower|zombie-tower-exterior)$/.test(illustration ?? "");
-      const encounter = encounterArt(presentation, enhanced, !scene && (picture === undefined || entranceIllustration) ? area : undefined,
-        !captureApproach, battleCursor, [drawnPerspective?.pixels, priorPerspectiveDraw], portraitCaller);
+      const encounterArea = !scene && (picture === undefined || entranceIllustration) ? area : undefined;
+      if (nativeBattleActive || (picture !== undefined && !entranceIllustration)) nativeEncounter?.clear();
+      const encounter = nativeEncounter?.match(encounterArea, battleCursor, portraitCaller) ??
+        encounterArt(presentation, enhanced, encounterArea, !captureApproach, battleCursor,
+          [drawnPerspective?.pixels, priorPerspectiveDraw], portraitCaller);
       if (entranceIllustration && encounter) picture = undefined;
       const portrait = typeof picture === "string" ? picture : undefined;
       if (captureApproach) {
@@ -934,6 +940,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     },
     captureEncounterDraw: browser && (nativeEncounterDirectory || hasEncounterArtwork) ? (cpu: Cpu) => {
       nativePicture?.clear();
+      nativeEncounter?.presented();
       const captureAnimation = hasEncounterArtwork && animation.length < 12;
       if (scene || area === undefined || (!nativeEncounterDirectory && !captureAnimation)) return;
       captureEclContext(cpu);
@@ -964,6 +971,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     nativeSelection,
     nativeBattleTerrain,
     nativePicture,
+    nativeEncounter,
     nativeEffects,
     captureBattleTerrain: battleTerrain ? (cpu: Cpu, column: number, row: number, picture: number) => {
       if (column > 18 || row > 18 || column % 3 || row % 3) return;
@@ -1008,6 +1016,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     } : undefined,
     capturePerspective: browser ? (cpu: Cpu, localScenery: boolean) => {
       nativePicture?.clear();
+      nativeEncounter?.clear();
       const pixels = perspectivePixels();
       if (drawnPerspective && !drawnPerspective.pixels.equals(pixels)) priorPerspectiveDraw = drawnPerspective.pixels;
       drawnPerspective = { pixels, localEcl: localScenery ? cpu.read8(unit.data, data.eclBlock) : undefined,
