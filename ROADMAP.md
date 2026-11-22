@@ -139,10 +139,10 @@ What that takes:
 - Retire the first-release translation: with the game always 1.3, nothing
   runs it.
 
-`npm run qa:standalone` (to be built first) measures how far the port is
-from running with no original file: every original file and byte the game
-reads, sorted into picture and non-picture, and every place Enhanced still
-shows an original picture.
+`npm run qa:standalone` measures how far the port is from running with no
+original file: every original file and byte the game reads, sorted into
+picture and non-picture, and every place Enhanced still shows an original
+picture. [How to read it](docs/STANDALONE.md).
 
 ### Version 1.3
 
