@@ -9,7 +9,7 @@
    "heard": 66
   },
   "acceptance-new-phlan": {
-   "ledger": "acceptance-new-phlan-city-hall-exterior.jsonl",
+   "ledger": "acceptance-new-phlan-training-notice.jsonl",
    "games": 7,
    "decisions": 521,
    "heard": 106
@@ -421,10 +421,9 @@
   "por.voice.ecl3.b11-9a74": {
    "run": "acceptance-new-phlan",
    "step": 73997475,
-   "withoutArt": {
-    "run": "acceptance-new-phlan",
-    "step": 73997475,
-    "showing": "no picture"
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:9af0"
    }
   },
   "por.voice.ecl3.b11-9af8": {

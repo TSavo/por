@@ -684,6 +684,14 @@ const councilClerkApproach = ["right", "right", "up", "right", "right", "up", "e
 const fightersDoorApproach = ["left", "up", "right", "up", "enter", "n", "n", "up"];
 
 const illustrationRoutes = new Map([
+  ["new-phlan-training-entrance-notice", {
+    slot: "A", inputs: ["right", "right", "up", "up", "left", "up", "up", "right", "up", "up", "up", "up"],
+    portrait: "scene-illustration:area:0:ecl:9af0",
+    heldPortrait: "scene-illustration:area:0:ecl:9af0",
+    prompt: /NOTICESFORTEACHERSANDSTUDENTS.*MAGICUSERSANDCLERICSTOGONORTHANDFIGHTERSAND.ROGUES.TOGOEAST/i,
+    continuation: { inputs: ["left", "up", "up"], portrait: "scene-illustration:area:11:ecl:9b56",
+      prompt: /MAGICUSERSTOGOTHROUGHTHEEASTDOORANDCLERICSTOGOTHROUGHTHEWESTDOOR/i },
+  }],
   ["new-phlan-training-fighters-door", {
     slot: "A", inputs: fightersDoorApproach,
     portrait: "scene-illustration:area:11:ecl:9f8a",
@@ -7020,7 +7028,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       ["slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
         "new-phlan-training-duels", "new-phlan-training-north-junction", "new-phlan-training-fighters-door",
-        "new-phlan-training-rogues-door"].includes(routeName) ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
+        "new-phlan-training-rogues-door", "new-phlan-training-entrance-notice"].includes(routeName) ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
   },
   stdio: ["ignore", "ignore", "inherit"],
 });
