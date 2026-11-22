@@ -34,16 +34,18 @@ const data = readGameData(read);
 const records = new Map(data.pictures.map((record) => [`${record.file}:${record.block}`, record]));
 
 // Script blocks are the primary area IDs. A script can also load a separate map.
-interface AreaScript { archive: number; block: number; end: number; starts: Set<number>; text: string }
+interface AreaScript { archive: number; block: number; end: number; starts: Set<number>; text: string; captions: string[] }
 const scripts = new Map<number, AreaScript>();
 for (const record of data.content) {
   if (record.kind !== "script" || record.block === undefined) continue;
   const script = scriptFromBlock(contentBytes(record, read));
   const { instructions } = disassemble(script);
-  const letters = instructions.flatMap(({ operands }) => operands.map(({ text }) => text ?? "")).join("").toUpperCase().replace(/[^A-Z0-9.]/g, "");
+  const captions = instructions.flatMap(({ operands }) =>
+    operands.flatMap(({ text }) => text ? [text.toUpperCase().replace(/\s/g, "")] : []));
+  const letters = captions.join("").replace(/[^A-Z0-9.]/g, "");
   scripts.set(record.block, {
     archive: Number(/\d/.exec(record.file)![0]), block: record.block, end: script.base + script.length,
-    starts: new Set(instructions.map(({ address }) => address)), text: letters,
+    starts: new Set(instructions.map(({ address }) => address)), text: letters, captions,
   });
 }
 
@@ -143,8 +145,11 @@ const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
     const cue = scriptIllustrations.get(key);
     if (/:cue:/.test(key)) {
       if (cue === undefined) return "its cue is not defined in tools/portrait-art.ts";
-      const text = scripts.get(Number(area))!.text;
-      if (typeof cue === "string" ? !text.includes(cue.toUpperCase().replace(/[^A-Z0-9.]/g, "")) : !cue.test(text)) return "its cue's text is not in the area's converted script";
+      const { text, captions } = scripts.get(Number(area))!;
+      const matches = typeof cue === "string"
+        ? text.includes(cue.toUpperCase().replace(/[^A-Z0-9.]/g, ""))
+        : cue.test(text) || captions.some(caption => cue.test(caption));
+      if (!matches) return "its cue's text is not in the area's converted script";
     }
   }],
   [/^scene:(title|publisher)$/, () => records.has("TITLE.DAX:1") ? (cover(records.get("TITLE.DAX:1")!, 0, 0), cover(records.get("TITLE.DAX:2") ?? records.get("TITLE.DAX:1")!, 0, 0), undefined) : "TITLE.DAX is not in game/"],
