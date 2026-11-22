@@ -354,6 +354,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // The maze watch and Scriptorium guards finish the nod at the same ECL cursor.
       let illustrationScope = finalCouncilReward && illustrationText.includes("VIEWTAKEPOOLSHAREEXIT")
         ? `${scriptKey}:cue:council-victory-payout` : scriptKey;
+      const wellDaylight = "scene-illustration:area:29:ecl:afa1:cue:daylight";
+      if (scriptKey === "scene-illustration:area:29:ecl:afa1" &&
+          drawnPerspective?.native?.skyColor === 11 && portraitKeys.includes(wellDaylight)) {
+        illustrationScope = wellDaylight;
+      }
       if (baneCacheCue) illustrationScope = `${scriptKey}:cue:${baneCacheCue}`;
       if (area === 4 && battleCursor === 0x9b63 && explorationPosition) {
         const { x, y } = explorationPosition;

@@ -707,6 +707,13 @@ const illustrationRoutes = new Map([
     prompt: /SOURCEOFWATERINALLSEASONS/i,
     continuation: { inputs: ["right"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMP/i },
   }],
+  ["kuto-well-surface-daylight", {
+    slot: "J", inputs: ["l"],
+    portrait: "scene-illustration:area:29:ecl:afa1:cue:daylight",
+    heldPortrait: "scene-illustration:area:29:ecl:afa1:cue:daylight",
+    prompt: /SOURCEOFWATERINALLSEASONS/i,
+    continuation: { inputs: ["right"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMP/i },
+  }],
   ["new-phlan-gateway-watch-from-city", {
     slot: "A", inputs: ["right", "right", "up", "right", "right", "up"],
     portrait: "scene-illustration:area:0:ecl:ab23",
