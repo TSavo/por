@@ -2,28 +2,28 @@
  "schema": 2,
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
- "remaining": 2225,
+ "remaining": 2220,
  "totals": {
-  "Remaining, all kinds": 2225,
-  "First-person cells to do": 2225,
-  "  of which one stored tile": 486,
-  "  of which one tile over a solid colour": 233,
+  "Remaining, all kinds": 2220,
+  "First-person cells to do": 2220,
+  "  of which one stored tile": 482,
+  "  of which one tile over a solid colour": 232,
   "  of which plain sky or ground": 0,
   "  of which several tiles together": 1506,
-  "  of which the same pixels already have art of yours in another area": 785,
+  "  of which the same pixels already have art of yours in another area": 784,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 3931,
-  "  accounted for by the tool": 3767,
+  "Tile keys in the manifests": 3936,
+  "  accounted for by the tool": 3772,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
   "  blank": 9,
   "  distinct pictures among the rest": 1333,
-  "  with art in some area, alone or over a solid colour": 2287,
-  "  without (the catalogue's 720 when it was written)": 720,
-  "    of those, no map can show": 449,
+  "  with art in some area, alone or over a solid colour": 2290,
+  "  without (the catalogue's 720 when it was written)": 717,
+  "    of those, no map can show": 448,
   "    of those, shown only together with other tiles, never alone": 10,
-  "    of those, shown alone in some area": 261
+  "    of those, shown alone in some area": 259
  },
  "notEstablished": {
   "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4060,
@@ -553,20 +553,20 @@
    "area": 17,
    "name": "The Nomad Camp",
    "established": true,
-   "why": "all 120 cells that have artwork are among the cells the tool works out",
+   "why": "all 125 cells that have artwork are among the cells the tool works out",
    "maps": [
     17
    ],
    "wallSets": [
     "WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)"
    ],
-   "existingKeys": 120,
-   "existingKeysAccountedFor": 120,
+   "existingKeys": 125,
+   "existingKeysAccountedFor": 125,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 186,
-   "cellsWithArt": 120,
-   "toDo": 44,
+   "cellsWithArt": 125,
+   "toDo": 39,
    "notEstablished": {
     "cells that show a sky or ground colour no existing artwork of the area shows": 22
    }
@@ -16930,7 +16930,10 @@
     "row": 6
    },
    "views": 5,
-   "drawnIn": [],
+   "drawnIn": [
+    17
+   ],
+   "sameAs": "nomad-rail-sand-edge-1e7a6c09a5e7.png",
    "why": "drawn in 5 views of map 9 (WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), block 23 (tiles 8X8D2 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -36143,29 +36146,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:17:6271e2b56d8ed39f6f91f3e04494ec47ae843e8ba717e75a8f8f8de57caae4ec",
-   "width": 32,
-   "height": 32,
-   "area": 17,
-   "areaName": "The Nomad Camp",
-   "group": "tile set 8X8D7 block 7",
-   "what": "one tile over a solid colour",
-   "composition": "s11|8X8D7.DAX:7:2",
-   "description": "8X8D7 block 7 tile 2 over sky colour 11, shown in area 17 (The Nomad Camp)",
-   "seenAt": {
-    "map": 17,
-    "x": 7,
-    "y": 3,
-    "facing": "east",
-    "column": 10,
-    "row": 2
-   },
-   "views": 407,
-   "drawnIn": [],
-   "why": "drawn in 407 views of map 17 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:17:657a4944c4dce97784193c5f78d0fedff70af67ede53772169ef40934c8e7ef4",
    "width": 32,
    "height": 32,
@@ -36422,33 +36402,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:17:0e7dd89cde56c7c25c582fcbd3763f80d927d7f2a4d1e357632549017cca5b9c",
-   "width": 32,
-   "height": 32,
-   "area": 17,
-   "areaName": "The Nomad Camp",
-   "group": "tile set 8X8D7 block 23",
-   "what": "one stored tile",
-   "composition": "-|8X8D7.DAX:23:31",
-   "description": "8X8D7 block 23 tile 31, shown in area 17 (The Nomad Camp)",
-   "seenAt": {
-    "map": 17,
-    "x": 11,
-    "y": 0,
-    "facing": "south",
-    "column": 3,
-    "row": 6
-   },
-   "views": 61,
-   "drawnIn": [
-    9,
-    15
-   ],
-   "sameAs": "mendor-library-waterfront-terrain-0e7dd89cde56.png",
-   "why": "drawn in 61 views of map 17 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:17:0f50b0074f577d5099c87b8b08f02755b11064f41c415ba31075f0a798ec7b83",
    "width": 32,
    "height": 32,
@@ -36492,83 +36445,6 @@
    "views": 1,
    "drawnIn": [],
    "why": "drawn in 1 views of map 17 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:17:191cd6264eeb5f3b184e3df9c455bbbf0b8231c51790d9c48769ac83a24c6c3a",
-   "width": 32,
-   "height": 32,
-   "area": 17,
-   "areaName": "The Nomad Camp",
-   "group": "tile set 8X8D7 block 23",
-   "what": "one stored tile",
-   "composition": "-|8X8D7.DAX:23:48",
-   "description": "8X8D7 block 23 tile 48, shown in area 17 (The Nomad Camp)",
-   "seenAt": {
-    "map": 17,
-    "x": 11,
-    "y": 0,
-    "facing": "south",
-    "column": 2,
-    "row": 6
-   },
-   "views": 49,
-   "drawnIn": [
-    9,
-    15
-   ],
-   "sameAs": "mendor-library-waterfront-terrain-191cd6264eeb.png",
-   "why": "drawn in 49 views of map 17 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:17:1e7a6c09a5e78304b5e46f4064f3e7de19c4437e10189e92324c83e29f832c6b",
-   "width": 32,
-   "height": 32,
-   "area": 17,
-   "areaName": "The Nomad Camp",
-   "group": "tile set 8X8D7 block 23",
-   "what": "one stored tile",
-   "composition": "-|8X8D7.DAX:23:5",
-   "description": "8X8D7 block 23 tile 5, shown in area 17 (The Nomad Camp)",
-   "seenAt": {
-    "map": 17,
-    "x": 10,
-    "y": 0,
-    "facing": "south",
-    "column": 4,
-    "row": 6
-   },
-   "views": 31,
-   "drawnIn": [],
-   "why": "drawn in 31 views of map 17 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:17:32a0d474531c347b6c403cb208acbfb96df18c624677ca00057be714ccbab318",
-   "width": 32,
-   "height": 32,
-   "area": 17,
-   "areaName": "The Nomad Camp",
-   "group": "tile set 8X8D7 block 23",
-   "what": "one stored tile",
-   "composition": "-|8X8D7.DAX:23:32",
-   "description": "8X8D7 block 23 tile 32, shown in area 17 (The Nomad Camp)",
-   "seenAt": {
-    "map": 17,
-    "x": 11,
-    "y": 0,
-    "facing": "south",
-    "column": 2,
-    "row": 7
-   },
-   "views": 49,
-   "drawnIn": [
-    9,
-    15
-   ],
-   "sameAs": "mendor-library-waterfront-terrain-32a0d474531c.png",
-   "why": "drawn in 49 views of map 17 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -44289,7 +44165,10 @@
     "row": 4
    },
    "views": 815,
-   "drawnIn": [],
+   "drawnIn": [
+    17
+   ],
+   "sameAs": "nomad-tent-canvas-daylight-edge-6271e2b56d8e.png",
    "why": "drawn in 815 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
