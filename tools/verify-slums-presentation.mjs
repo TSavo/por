@@ -15296,8 +15296,12 @@ try {
       if (courtyard) {
         assert.ok(frame.battleTiles.length > 0);
         await waitFor("all matched 4× battle terrain tiles", () => run(`state.sequence === ${frame.sequence} &&
+          !animationFrame &&
           document.querySelectorAll(".battle-tile").length === ${frame.battleTiles.length} &&
-          [...document.querySelectorAll(".battle-tile")].every(tile => tile.naturalWidth === 32 && tile.naturalHeight === 32)`));
+          ${JSON.stringify(frame.battleTiles)}.every(([x, y, id]) => [...document.querySelectorAll(".battle-tile")].some(tile =>
+            tile.getAttribute("src") === "/art/" + id && tile.naturalWidth === 32 && tile.naturalHeight === 32 &&
+            parseFloat(tile.style.left) === x / 3.2 && parseFloat(tile.style.top) === y / 2))`));
+        if (battleTrace) writeFileSync(resolve(directory, "courtyard-battle-placements.json"), JSON.stringify(frame.battleTiles) + "\n");
       }
       await switchBothWays();
       const shot = await command("Page.captureScreenshot", { format: "png" });

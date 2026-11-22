@@ -722,7 +722,9 @@ With GOG 1.3, the updated replay passed with both bundled and original
 files. It verified 23 WebGL views and checked the undead withdrawal plate
 when it replaced the viewport. The patrol, withdrawal, and final two
 approach viewports matched pixel for pixel between the data sources.
-The battle captures differ. The five courtyard bindings whose hashes
+At the first checked combat prompt, Chrome drew 67 matching terrain
+placements with both data sources and six additional placements with bundled data,
+all within the 24×24 square at `(152,56)`. The five courtyard bindings whose hashes
 are absent from stored terrain cells were also absent from the three
 bundled and 40 original-file battlefield trace frames.
 The replay also renders a captured attack against a simulated next prompt
