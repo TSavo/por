@@ -1,6 +1,6 @@
 # Artwork worklist
 
-**The artwork is done when `npm run verify:art-worklist` reports 0 remaining and nothing is left under "Not established". It reports 2141 confirmed cells awaiting art now.**
+**The artwork is done when `npm run verify:art-worklist` reports 0 remaining and nothing is left under "Not established". It reports 2252 confirmed cells awaiting art now.**
 
 This file is written by `npm run art:worklist`. Do not edit it or `qa/art-worklist.json` by hand: add art, run the tool, commit what it writes.
 
@@ -48,26 +48,26 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 
 | What | Count |
 | --- | ---: |
-| Remaining, all kinds | 2141 |
-| First-person cells to do | 2141 |
-|   of which one stored tile | 441 |
-|   of which one tile over a solid colour | 232 |
+| Remaining, all kinds | 2252 |
+| First-person cells to do | 2252 |
+|   of which one stored tile | 446 |
+|   of which one tile over a solid colour | 252 |
 |   of which plain sky or ground | 0 |
-|   of which several tiles together | 1468 |
-|   of which the same pixels already have art of yours in another area | 779 |
+|   of which several tiles together | 1554 |
+|   of which the same pixels already have art of yours in another area | 841 |
 | Battlefield cells to do | 0 |
-| Tile keys in the manifests | 4160 |
-|   accounted for by the tool | 4010 |
+| Tile keys in the manifests | 4199 |
+|   accounted for by the tool | 4049 |
 | Battlefield keys in the manifests | 83 |
 |   that are one stored cell of a battlefield picture | 78 |
 | Stored 8 by 8 tiles | 3016 |
 |   blank | 9 |
 |   distinct pictures among the rest | 1333 |
-|   with art in some area, alone or over a solid colour | 2360 |
-|   without (the catalogue's 720 when it was written) | 647 |
+|   with art in some area, alone or over a solid colour | 2370 |
+|   without (the catalogue's 720 when it was written) | 637 |
 |     of those, no map can show | 428 |
 |     of those, shown only together with other tiles, never alone | 7 |
-|     of those, shown alone in some area | 212 |
+|     of those, shown alone in some area | 202 |
 
 ## Where each area stands
 
@@ -88,7 +88,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 13 | The Kobold Caves | yes | 313 | 147 | 64 | 149 of 149 (2 as WebGL wall materials) |
 | 14 | Kovel Mansion | yes | 150 | 67 | 19 | 69 of 69 (2 as WebGL wall materials) |
 | 15 | Mendor's Library | not yet | 436 | 185 |  | 190 of 205 (5 as WebGL wall materials) |
-| 16 | The Lizardman Keep | yes | 856 | 160 | 103 | 169 of 169 (9 as WebGL wall materials) |
+| 16 | The Lizardman Keep | yes | 856 | 182 | 205 | 196 of 196 (14 as WebGL wall materials) |
 | 17 | The Nomad Camp | yes | 186 | 164 | 0 | 175 of 175 (11 as WebGL wall materials) |
 | 18 | Podol Plaza | not yet | 337 | 161 |  | 194 of 199 (28 as first views of the next area, 5 as WebGL wall materials) |
 | 20 | The Slums | not yet | 395 | 180 |  | 187 of 188 (7 as WebGL wall materials) |
@@ -100,7 +100,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 26 | Wilderness, middle | yes | 387 | 96 | 137 | 162 of 162 (66 as first views of the next area) |
 | 27 | Wilderness, east | not yet | 50 | 19 |  | 19 of 19 |
 | 28 | Zhentil Keep Outpost | yes | 194 | 81 | 16 | 82 of 82 (1 as WebGL wall materials) |
-| 29 | Kuto's Well | yes | 1241 | 305 | 428 | 316 of 316 (11 as WebGL wall materials) |
+| 29 | Kuto's Well | yes | 1241 | 315 | 437 | 328 of 328 (13 as WebGL wall materials) |
 | 31 | Temple of Bane, interior | yes | 142 | 77 | 14 | 77 of 77 |
 
 "Cells its views can show" counts every cell from every square of the map under every sky the script can set, including squares that may be out of reach.
@@ -1585,16 +1585,17 @@ Map 14; WALLDEF3 block 1 (tiles 8X8D3 block 1), block 3 (tiles 8X8D3 block 3), b
 | `tile:14:6c7ec11bfc006585332f2495cbe7d713d38a049d7b8374177334f0c5c0af5f1d` | 8X8D3 block 3 tile 32 | map 14, square (11,0) facing west, column 1 row 6 | `kuto-earth-chamber-joins-6c7ec11bfc00.png` (area 2, 18, 29) |
 | `tile:14:b6d8cf528e84d3abaa95a41f2d778e406ae1cd4a82c6e801321904894f13fe13` | 8X8D3 block 3 tile 51 | map 14, square (8,0) facing south, column 2 row 5 | `kuto-south-passage-terrain-b6d8cf528e84.png` (area 2, 18, 24, 29, 31) |
 
-### Area 16: The Lizardman Keep (103)
+### Area 16: The Lizardman Keep (205)
 
 Map 16, 30; WALLDEF8 block 9 (tiles 8X8D8 block 9), block 20 (tiles 8X8D8 block 20), block 23 (tiles 8X8D8 block 23); WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23).
 
-#### shared tile set 8X8D1 block 203 (4)
+#### shared tile set 8X8D1 block 203 (5)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
 | `tile:16:0ae60cf3309accf1a341b5cc07952a90cf121d33ec8c6432d727b57c0c6c20f1` | 8X8D1 block 203 tile 15 over the ground colour 6 | map 16, square (7,15) facing east, column 7 row 7 | `route-0ae60cf3309a.png` (area 2, 9, 15, 18, 20, 22, 29) |
 | `tile:16:699e8b134491518fdbccbf4e9783a7ecde8cec6424c1858827d3cbc005fdbaea` | 8X8D1 block 203 tile 36 over the ground colour 6 | map 16, square (7,15) facing east, column 8 row 8 | `route-699e8b134491.png` (area 2, 9, 15, 20, 22, 29) |
+| `tile:16:79f10a451d41cdb7f5f72757c36094300c7dcb298ee8adea8d79a034bc93259e` | 8X8D1 block 203 tile 1 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 30, square (8,0) facing south, column 0 row 5 |  |
 | `tile:16:bbce287c6ee78ffeb335f96aa0495fd20d9f1188892a017452b2592b0bf1f997` | 8X8D1 block 203 tile 14 over the ground colour 6 | map 16, square (9,15) facing west, column 3 row 7 | `new-phlan-harbor-paving-joins-0-bbce287c6ee7.png` (area 0, 2, 8, 9, 14, 15, 20, 22, 29) |
 | `tile:16:c1703ae17aff024be5fa1603c19a3d65cdfe2b61e20be7cd68214ea1e2a36585` | 8X8D1 block 203 tile 37 over the ground colour 6 | map 16, square (9,15) facing west, column 2 row 8 | `new-phlan-harbor-paving-joins-0-c1703ae17aff.png` (area 0, 2, 8, 9, 15, 20, 22, 29) |
 
@@ -1633,6 +1634,110 @@ Map 16, 30; WALLDEF8 block 9 (tiles 8X8D8 block 9), block 20 (tiles 8X8D8 block 
 | `tile:16:f59a8b4ef53dca4b588a04b05a81d1c5a38fb9fa2354b6e64a4853bbbf7ad8f3` | 8X8D8 block 9 tile 46 | map 16, square (8,14) facing east, column 9 row 3 | `stojanow-guard-wing-terrain-f59a8b4ef53d.png` (area 9, 21) |
 | `tile:16:fc85e701ce21521a7c912ea59856be8e5876bb6a37598db60faf2fed8b5027ba` | 8X8D8 block 9 tile 41 over 8X8D8 block 9 tile 15 | map 16, square (6,15) facing east, column 4 row 5 |  |
 | `tile:16:fd5111f010b1eb27874d7173f3f881527f0a97a68535e574937a39274ae5fb87` | 8X8D8 block 9 tile 48 | map 16, square (7,0) facing east, column 0 row 4 | `stojanow-tower-lanes-terrain-fd5111f010b1.png` (area 9, 21) |
+
+#### tile set 8X8D8 block 17 (99)
+
+| Key (PNG 32x32) | What it is | See it at | Same pixels as |
+| --- | --- | --- | --- |
+| `tile:16:0117291b71193cfdb0364507184c25d468b9eac43b7d68a5e3a87aab78cff103` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 33 | map 30, square (1,1) facing south, column 1 row 6 | `kobold-escort-rib-end.png` (area 13) |
+| `tile:16:01a60dfea8fac365c1ea014064cbf2b1b38da1bc8a6866c5ec275a19839c51dc` | 8X8D8 block 17 tile 41 over the ground colour 6 | map 30, square (1,1) facing east, column 10 row 7 | `kobold-escort-floor-inset-east.png` (area 13) |
+| `tile:16:04a5f8a88df073af060bcd31139f0ec52dc5c0d221c1743aa3db2df8de5f4919` | 8X8D8 block 17 tile 16 over 8X8D8 block 17 tile 17 | map 30, square (9,4) facing north, column 0 row 2 | `kobold-south-loop-terrain-04a5f8a88df0.png` (area 13) |
+| `tile:16:0800ea58a6066c1e883fcc3e57d75b77e2a7b9bb57a35284e716763ac63b924d` | 8X8D8 block 17 tile 43 over the ground colour 6 | map 30, square (14,1) facing west, column 8 row 8 | `kobold-escort-floor-rib-return.png` (area 13) |
+| `tile:16:0d3e568fb2163918ecf6326d8d70eb5df743f25ab6db29e8253ef3b23fc25fc9` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 32 | map 30, square (5,6) facing north, column 9 row 6 | `kobold-return-far-floor-join.png` (area 13) |
+| `tile:16:0dd1ae7bf511694e0c52fa3f1ec5f18df62709224d5dc013272ae431abf0f289` | 8X8D8 block 17 tile 7 over 8X8D8 block 17 tile 67 over sky colour 11 | map 30, square (1,3) facing east, column 3 row 4 |  |
+| `tile:16:0e73b6c23972aec306a67d3db48c5fa02483ce482cac7c5cc62c80c9f0f69ab5` | 8X8D8 block 17 tile 7 over 8X8D8 block 17 tile 30 | map 30, square (8,5) facing north, column 8 row 6 | `kobold-return-inner-rib-foot.png` (area 13) |
+| `tile:16:0fe2248bf92bca927be490c4a509808d89c899691ef5c820f7a10bcf64b81346` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 17 | map 30, square (3,2) facing south, column 9 row 3 | `kobold-south-loop-terrain-0fe2248bf92b.png` (area 13) |
+| `tile:16:147435d63e84181798e0e6d15a8df3f8431d4b9418443cde8304f4029d9e40ed` | 8X8D8 block 17 tile 18 over 8X8D8 block 23 tile 20 | map 30, square (3,3) facing north, column 1 row 6 |  |
+| `tile:16:14d354c6a3f14f18b4535b024ca84fbea91764bed81262f83cdbaab8d4f308f0` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 28 | map 30, square (2,2) facing east, column 9 row 8 | `kobold-pool-spur-terrain-14d354c6a3f1.png` (area 13) |
+| `tile:16:1753dce0841ba4f89faf8d8829826dbfc27a39edd34525647eecbf7990912927` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 67 over sky colour 11 | map 30, square (1,3) facing north, column 9 row 4 |  |
+| `tile:16:1859274033985102470e1249f099fef6dd0e2c2398b3e1f3b0cf030727f962b4` | 8X8D8 block 17 tile 58 over 8X8D8 block 17 tile 29 | map 30, square (4,2) facing west, column 4 row 5 | `kobold-caves-terrain-185927403398.png` (area 13) |
+| `tile:16:1d5e729c23d88554c77209bbbcb52c46e789e13696353dd01dcae98cf6435d8c` | 8X8D8 block 17 tile 14 over 8X8D1 block 203 tile 1 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 30, square (0,4) facing north, column 10 row 5 |  |
+| `tile:16:258658fce1fff47650816643fb158e3d336ff80f9a3b571ac41f6b2349a3ee48` | 8X8D8 block 17 tile 14 over sky colour 11 | map 30, square (1,3) facing north, column 9 row 3 |  |
+| `tile:16:268c60bb531e3f161b603c7f9d9c5d363b1ffae3ac6b3ac9153755994391095f` | 8X8D8 block 17 tile 18 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 30, square (0,1) facing south, column 0 row 5 |  |
+| `tile:16:3122eabc010c7bbfaf5ca6691cfc49cf064c86c8e4567e01b9620ed7d8249382` | 8X8D8 block 17 tile 18 over the ground colour 6 | map 30, square (0,1) facing south, column 0 row 6 | `kobold-return-edge-foot.png` (area 13) |
+| `tile:16:34653d0854f43f4416ce6c818c183ade3143c551f10f14f4cb4151a7fa962cee` | 8X8D8 block 17 tile 16 over 8X8D8 block 17 tile 2 | map 30, square (2,2) facing west, column 0 row 2 | `kobold-west-gallery-terrain-34653d0854f4.png` (area 13) |
+| `tile:16:34ed26aafef210f1b996b53c377ea963355e37cf97e759f016295372d69419fb` | 8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 47 | map 30, square (1,1) facing east, column 10 row 4 | `kobold-escort-rib-left-upper.png` (area 13) |
+| `tile:16:3d4b40ddeb8af9963ad9c349eb9a5afed54abe3b219c6e48b43ed21fac3afc1a` | 8X8D8 block 17 tile 57 | map 30, square (13,1) facing west, column 10 row 9 |  |
+| `tile:16:3d50c00ab8fecfed3d90ff96c851bd86cbe3d21673449efc3a6c007b61b61fb0` | 8X8D8 block 17 tile 16 over 8X8D8 block 17 tile 16 over 8X8D8 block 17 tile 36 | map 30, square (8,10) facing east, column 7 row 3 |  |
+| `tile:16:40c2f4c05764725d651ce2d18a31119dc093d840599c18f916a7112797c3c260` | 8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 0 | map 30, square (1,3) facing east, column 2 row 4 | `kobold-return-outer-rib-mid.png` (area 13) |
+| `tile:16:414b4a63bb6ca1989f22a4f5c5f69e289a0a94229235919eab50e7eeb4d0fba9` | 8X8D8 block 17 tile 50 over the ground colour 6 | map 30, square (4,1) facing west, column 1 row 6 | `kobold-silt-joins-414b4a63bb6c.png` (area 13) |
+| `tile:16:41dea904bf1f7df40b00b2a1f22e3d64be4e9deef1eacb667771432b80d92497` | 8X8D8 block 17 tile 16 over 8X8D8 block 17 tile 16 over 8X8D8 block 17 tile 47 | map 30, square (8,4) facing east, column 3 row 3 | `kobold-pool-passage-terrain-41dea904bf1f.png` (area 13) |
+| `tile:16:4265f90431329d71e0ac99e66c9e3e2da7572e345139af65732e654e0cf316ca` | 8X8D8 block 17 tile 7 over 8X8D8 block 17 tile 1 | map 30, square (1,2) facing east, column 8 row 3 | `kobold-escort-rib-right-crown.png` (area 13) |
+| `tile:16:4904837be10d035aade38224813dd8b21d6b452097656994981b9146cc9d4bdb` | 8X8D8 block 17 tile 56 | map 30, square (13,1) facing east, column 0 row 9 |  |
+| `tile:16:4a17e8fa31dbf667601fa08c8fe8249a9d8cd4acd7065c63e19b323c95011eea` | 8X8D8 block 17 tile 4 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 30, square (12,1) facing east, column 2 row 5 |  |
+| `tile:16:4a2fa38c70e4304e02feb6631a514da2cd87af42ed5cd7759652a6a573580fa1` | 8X8D8 block 17 tile 5 over 8X8D8 block 17 tile 19 | map 30, square (3,6) facing north, column 9 row 5 |  |
+| `tile:16:4b01f851d279b7a5d7228c68254bd3729179a9dce07a5ca2ed9462de014e3497` | 8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 29 | map 30, square (1,1) facing east, column 10 row 5 | `kobold-escort-rib-left-shaft.png` (area 13) |
+| `tile:16:4df0f4402919582202cd1f1d1417985e4aaa8433ec86ae11d2dbc4ab3b412ac2` | 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 19 | map 30, square (1,2) facing south, column 1 row 5 | `kobold-west-gallery-terrain-4df0f4402919.png` (area 13) |
+| `tile:16:4ee02821c898575f957239991b32aa0d6bd3d46038790165a09dc9f5425ae654` | 8X8D8 block 17 tile 45 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 30, square (14,3) facing north, column 3 row 5 |  |
+| `tile:16:526f124a5cbb7de82cb6aae1adb6f3e439dc28142f3fbea2f0a33a7ea974437e` | 8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 19 | map 30, square (3,2) facing west, column 2 row 5 | `kobold-cave-exit-west-meeting-joint.png` (area 13) |
+| `tile:16:58e2df47c41000a23ceb290895df77049fb54735e6891f6bd158ec718cb11917` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 34 | map 30, square (3,2) facing south, column 9 row 6 |  |
+| `tile:16:5c5ff46751ec31ddaa4b4c3baf0ec7326884e1f5b9bc8d173fd62d9dc5c1b996` | 8X8D8 block 17 tile 11 | map 30, square (12,1) facing east, column 3 row 7 | `kobold-silt-joins-5c5ff46751ec.png` (area 13) |
+| `tile:16:5d0f245e35a35e50e94c2e74147f73ae987b02d644eab4f9e3c43a98b18ca6a5` | 8X8D8 block 17 tile 34 | map 30, square (3,0) facing north, column 9 row 6 | `kobold-cave-silt-5d0f245e35a3.png` (area 13, 29) |
+| `tile:16:60fabf9d7676a7487c45a00a48aadd3ace071373918ded746964863507357843` | 8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 30 | map 30, square (8,5) facing north, column 7 row 6 | `kobold-return-outer-rib-foot.png` (area 13) |
+| `tile:16:612e9c6b4133e442a8fb430800a9647436109d286a1ddb3eacdb62d483c0c40b` | 8X8D8 block 17 tile 27 | map 30, square (2,0) facing south, column 7 row 6 | `wild-cave-chamber-612e9c6b4133.png` (area 13, 27, 29) |
+| `tile:16:63d1d7ce16dc81313aede5c5278ac4d60f69e145a0660c04247679f435760ddf` | 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 28 | map 30, square (2,2) facing west, column 1 row 8 | `kobold-west-gallery-terrain-63d1d7ce16dc.png` (area 13) |
+| `tile:16:65d6bb97e1ae8c5ee2df62a2e30413660dce61f0a6fc97b7dc92517113ff034a` | 8X8D8 block 17 tile 33 | map 30, square (2,0) facing south, column 1 row 6 | `wild-cave-minotaur-65d6bb97e1ae.png` (area 13, 27, 29) |
+| `tile:16:6813dd72c66b17eb4da89b009952d72f12490ba07f186f3270f23fa7a26381c3` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 3 | map 30, square (2,2) facing east, column 9 row 5 | `kobold-pool-passage-terrain-6813dd72c66b.png` (area 13) |
+| `tile:16:6e239abd10bbb3ceb51e3976e4e816233cbba9dd9cba5ef642bda9d3339c4a00` | 8X8D8 block 17 tile 5 over sky colour 11 | map 30, square (12,1) facing east, column 3 row 4 |  |
+| `tile:16:6ebfac4e621c82065e04712a06b3b924b71ff39a170c1d910e5f9ced4ff618df` | 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 32 | map 30, square (2,1) facing south, column 6 row 6 | `kobold-cave-silt-6ebfac4e621c.png` (area 13) |
+| `tile:16:737a315cbcaf507e797dfa6d777081e785f010a937663cdbd05d8ffb71c32709` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 47 | map 30, square (3,2) facing south, column 9 row 4 |  |
+| `tile:16:75b02ecc37ae684cf4db0022ad94e1bead3974aaa98939471d9390a705780e8a` | 8X8D8 block 17 tile 8 over sky colour 11 | map 30, square (1,3) facing east, column 2 row 3 |  |
+| `tile:16:7cf72af40c233e9369dce6ee1dbcad381e8833f78f1ab073d644c9d0f9d45318` | 8X8D8 block 17 tile 12 | map 30, square (14,1) facing west, column 7 row 7 |  |
+| `tile:16:84b82e53b886dbb2dd0fdd93a29b758588e0bbcb775b209f19db0e86a26d7e33` | 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 36 | map 30, square (9,3) facing west, column 1 row 3 | `kobold-cave-exit-west-spur-crest.png` (area 13) |
+| `tile:16:84bd9f932d01acd7802f14ad00019ab825662ed48286b3faa9a33c37557bdafb` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 19 | map 30, square (2,2) facing south, column 2 row 5 | `kobold-south-loop-terrain-84bd9f932d01.png` (area 13) |
+| `tile:16:85552df26e60810012bc746f79958ed21cfac414be828a681a557d8f5a69ac83` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 1 | map 30, square (5,6) facing north, column 9 row 3 | `kobold-return-wide-face-crown.png` (area 13) |
+| `tile:16:881d7b56c623eaa0db5b4074349cadf6ae994c2113b75d72b32b236ffed6421f` | 8X8D8 block 17 tile 40 over the ground colour 6 | map 30, square (3,1) facing west, column 0 row 7 | `kobold-caves-terrain-881d7b56c623.png` (area 13) |
+| `tile:16:8869d6c43d92e6692557abcbec2a1a9eb7089d2e979c3de9144e230c441f88dc` | 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 30 | map 30, square (9,4) facing north, column 1 row 7 | `kobold-west-gallery-terrain-8869d6c43d92.png` (area 13) |
+| `tile:16:901bb0a0cdefda412230f4dc0aa5eeef7fc2cc701335562f7ca75a059abaa5bb` | 8X8D8 block 17 tile 16 over 8X8D8 block 17 tile 1 | map 30, square (9,3) facing west, column 0 row 3 | `kobold-south-loop-terrain-901bb0a0cdef.png` (area 13) |
+| `tile:16:93578d621fc2b1971332d5aec3acb4550908084cee97cca0719404aba2c8fdc3` | 8X8D8 block 17 tile 14 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 30, square (4,1) facing south, column 10 row 5 |  |
+| `tile:16:93e0d24299f4f009fb5a9226e1fccd627d38910bb502b608add84c53ff6d61fd` | 8X8D8 block 17 tile 32 | map 30, square (2,0) facing south, column 6 row 6 | `wild-cave-chamber-93e0d24299f4.png` (area 13, 27, 29) |
+| `tile:16:9466b0967e96d56bee7ca80b53dd1ec9a110a1f86fca35439959f14250ea644a` | 8X8D8 block 17 tile 48 | map 30, square (3,1) facing west, column 0 row 3 | `kobold-caves-terrain-9466b0967e96.png` (area 13) |
+| `tile:16:9ca74205126cf6c661c2e2c31dd0cb0f4426665e9dcc4822ad1bf6cbd975791a` | 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 35 | map 30, square (8,5) facing east, column 1 row 6 |  |
+| `tile:16:9eb8999a6731352266f87fd46b92f21f0ce98dd7046bdb2e850132c0e9abbbac` | 8X8D8 block 17 tile 7 over 8X8D8 block 17 tile 47 | map 30, square (1,2) facing east, column 8 row 4 | `kobold-escort-rib-right-upper.png` (area 13) |
+| `tile:16:a2fd65729327cc7c2411302751caa1e8b2907fe0c101ca599873a1bac2e604fd` | 8X8D8 block 17 tile 49 over 8X8D8 block 17 tile 36 | map 30, square (1,1) facing east, column 10 row 3 | `kobold-escort-rib-left-crown.png` (area 13) |
+| `tile:16:a46e5434e8f85141bd5a773d4e0787dc436ce13222a6f15abee7758c8177ccbd` | 8X8D8 block 17 tile 7 over 8X8D8 block 17 tile 0 | map 30, square (3,1) facing west, column 0 row 4 | `kobold-caves-terrain-a46e5434e8f8.png` (area 13) |
+| `tile:16:a60d20d873eb57acae0fd1e25105211bca6132b89287fcc49ae119367d950dac` | 8X8D8 block 17 tile 14 over the ground colour 6 | map 30, square (3,1) facing south, column 7 row 6 | `kobold-cave-silt-a60d20d873eb.png` (area 13) |
+| `tile:16:a6bde3cfae4c8aadc2991d888c483b1b8ed93520dd1b475edf3de3f99425a620` | 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 1 | map 30, square (2,2) facing south, column 2 row 2 | `kobold-pool-passage-terrain-a6bde3cfae4c.png` (area 13) |
+| `tile:16:aa8526e1ed071d69c2ac166bdde29f7d19edb547902097e0ffb59667c1390f2a` | 8X8D8 block 17 tile 58 over 8X8D8 block 17 tile 19 | map 30, square (0,1) facing east, column 9 row 5 | `kobold-cave-exit-outer-slab.png` (area 13) |
+| `tile:16:ae337ef64c6c5b5e365cc6868affafecbe58d8c65c9e1cbed1ee88653a7e004c` | 8X8D8 block 17 tile 8 over the ground colour 6 | map 30, square (3,2) facing west, column 2 row 7 | `kobold-caves-terrain-ae337ef64c6c.png` (area 13) |
+| `tile:16:b065e3c5ce60a1a2345e3fbc95bfe44ba3027d9104e7f56305c1888333759776` | 8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 28 | map 30, square (1,1) facing east, column 10 row 6 | `kobold-escort-rib-left-base.png` (area 13) |
+| `tile:16:b41d4656ebe51f0f92604274c4f462943cd6d3affe22758c9a4504998a144eb1` | 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 33 | map 30, square (9,9) facing west, column 1 row 6 | `kobold-return-near-column.png` (area 13) |
+| `tile:16:bd5cb1a28f45cba9ca06a9a506c9eab644fe1d9319cd840ba07222a67acc2e40` | 8X8D8 block 17 tile 44 | map 30, square (13,2) facing north, column 5 row 5 |  |
+| `tile:16:bd9ea1901d9b6de036f5842777a04222c7e67c37d2dc248bca7016a8ccea01f5` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 30 | map 30, square (8,4) facing east, column 2 row 7 | `kobold-pool-passage-terrain-bd9ea1901d9b.png` (area 13) |
+| `tile:16:be4566a59e158942a3eb34fbc5c44badfab885f494f447cc5d9cb9c1b939d64f` | 8X8D8 block 17 tile 58 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 30, square (0,0) facing south, column 1 row 5 |  |
+| `tile:16:beaac85f48dbd5508ec60f0601492b0a105a0e60c1d3ffdd55e63e912aa7aca6` | 8X8D8 block 17 tile 15 over sky colour 11 | map 30, square (0,1) facing east, column 9 row 3 |  |
+| `tile:16:bfae91a5b6216d39e1390b44f91c6472952c8b868c07ded7ec0b8b63abddd4c6` | 8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 1 | map 30, square (3,2) facing west, column 2 row 3 | `kobold-cave-exit-west-meeting-rib.png` (area 13) |
+| `tile:16:c0b1186296f774376cf3e28e4b94cd8be6c7b9c2e1440f22f3ce61a6cf3bab6f` | 8X8D8 block 17 tile 46 over 8X8D8 block 17 tile 29 | map 30, square (15,1) facing west, column 6 row 5 |  |
+| `tile:16:c34fec648f462c1d4b85cab1cd42638c53bb8e15a4dabe41b5b279eada2f0348` | 8X8D8 block 17 tile 35 | map 30, square (2,0) facing south, column 0 row 7 | `kobold-cave-silt-c34fec648f46.png` (area 13, 29) |
+| `tile:16:c52e8d1b619bdf358a9cff41324f1cb008826bd8c3d3731a7495695c00d77b42` | 8X8D8 block 17 tile 49 over 8X8D8 block 17 tile 17 | map 30, square (6,5) facing east, column 9 row 3 |  |
+| `tile:16:c5ccd45d08c65587436bcef3cabe12dfcc83b7d08879b6a3d442862f1d69ed68` | 8X8D8 block 17 tile 7 over the ground colour 6 | map 30, square (1,2) facing east, column 8 row 7 | `kobold-escort-floor-inset-west.png` (area 13) |
+| `tile:16:c9a3f3528a0a0113efdb4bff45defc3aca51e73aeb8facd73fa4301b90deb2ff` | 8X8D8 block 17 tile 18 over sky colour 11 | map 30, square (1,2) facing south, column 1 row 3 |  |
+| `tile:16:cc932c5b2c7ca162b09b0762fbeb1a4c011aa5ccb8b9a4c0f47064ccff3fc9a7` | 8X8D8 block 17 tile 4 over the ground colour 6 | map 30, square (12,1) facing east, column 2 row 6 | `kobold-silt-joins-cc932c5b2c7c.png` (area 13) |
+| `tile:16:cd50a53d3c1ff76d29e020a02159a8744214a221e121c8b0dd4a23421c1e5a45` | 8X8D8 block 17 tile 16 over sky colour 11 | map 30, square (1,1) facing south, column 2 row 3 |  |
+| `tile:16:cf54e1993881e2dc8aaba4da672c2701e10601892fc137082f6dc14c35a60bfd` | 8X8D8 block 17 tile 47 | map 30, square (2,0) facing east, column 9 row 4 | `wild-cave-minotaur-cf54e1993881.png` (area 13, 27, 29) |
+| `tile:16:d11f67c9a802f42a762b109c45cab63f885f512f7e97dad63b29729de5d77cc4` | 8X8D8 block 17 tile 46 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 30, square (15,2) facing west, column 9 row 5 |  |
+| `tile:16:d22007dbcda0ff82aa0379a2a3da5afeafeb05e090932660f51d07feca8e5aa3` | 8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 17 | map 30, square (6,6) facing east, column 2 row 3 | `kobold-return-outer-rib-head.png` (area 13) |
+| `tile:16:d4731d2c85b6cee14876895097463ec94420cb59b6ad24c8fd45750895875f2b` | 8X8D8 block 17 tile 36 | map 30, square (2,0) facing east, column 7 row 3 | `wild-cave-minotaur-d4731d2c85b6.png` (area 13, 27, 29) |
+| `tile:16:d5dd561a755316e3b5e425928c6150770623b55acd123912cf05e5188593588a` | 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 47 | map 30, square (2,3) facing east, column 1 row 4 | `kobold-cave-exit-lower-spur-corner.png` (area 13) |
+| `tile:16:d66b6691a62a1c10af5820513f2107d4f6e4ca223d1395cc03a98b331dd8ba75` | 8X8D8 block 17 tile 7 over 8X8D8 block 17 tile 19 | map 30, square (1,2) facing east, column 8 row 5 | `kobold-escort-rib-right-shaft.png` (area 13) |
+| `tile:16:d68bf49023c075ee580564621c08d031dd660736ece6d29cbf3f2696335d4aa4` | 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 18 over 8X8D8 block 23 tile 14 | map 30, square (2,3) facing north, column 8 row 6 |  |
+| `tile:16:d7347e754bf49b2cabb7576abd32842036e1dc45579a746ab26e48e5d2ac7864` | 8X8D8 block 17 tile 67 over sky colour 11 | map 30, square (0,0) facing south, column 1 row 4 |  |
+| `tile:16:daf45dfae200642c3b1ef6d0a67ae4bc331c3a05f3b006d757837e2826d801f5` | 8X8D8 block 17 tile 4 over sky colour 11 | map 30, square (12,1) facing east, column 2 row 3 |  |
+| `tile:16:dda5a8482681ed15b1aabb9de4b4701f152dd812bc71a4a50d078b008e7fe5a1` | 8X8D8 block 17 tile 5 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 30, square (12,1) facing east, column 3 row 5 |  |
+| `tile:16:ddefb9dc375773174835a079a2b247bfdd6fba94874b355596fcc7cb17130b11` | 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 34 | map 30, square (6,4) facing south, column 6 row 6 | `kobold-cave-silt-ddefb9dc3757.png` (area 13) |
+| `tile:16:e156e3b75f1bd9aa8ae5fedb9896234aac1d9bdef7a587539ff52d3c1054b598` | 8X8D8 block 17 tile 5 over the ground colour 6 | map 30, square (12,1) facing east, column 3 row 6 |  |
+| `tile:16:e270e53d7eec3394d611df23d149d9293787bf9773f32f132e5ba379a8818e33` | 8X8D8 block 17 tile 51 over the ground colour 6 | map 30, square (0,1) facing east, column 9 row 6 | `kobold-escort-masonry-foot.png` (area 13) |
+| `tile:16:e510f228d95b25f5d705e4d02985f39ae32d54a283dfbb38d8c0a6bcd74fc740` | 8X8D8 block 17 tile 49 over 8X8D8 block 17 tile 1 | map 30, square (2,2) facing east, column 9 row 3 | `kobold-pool-spur-terrain-e510f228d95b.png` (area 13) |
+| `tile:16:e7ff8184a4253df64b373c0c5dda8b4a912aed6edc10fc1b47168c03358dcb7e` | 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 67 over sky colour 11 | map 30, square (1,2) facing south, column 1 row 4 |  |
+| `tile:16:e9fdb7054409a114274d22b98c3bd30972c7d88486be0d8f714060aa5723aa2c` | 8X8D8 block 17 tile 4 over 8X8D8 block 17 tile 29 | map 30, square (2,6) facing north, column 10 row 5 |  |
+| `tile:16:f226637561a669e2196796d0815ff7829a1d095df55c82efd7f9a4fcc3ecfe31` | 8X8D8 block 17 tile 7 over 8X8D8 block 17 tile 28 | map 30, square (3,1) facing west, column 0 row 6 | `kobold-escort-rib-right-base.png` (area 13) |
+| `tile:16:f25dd951d3af0ad8f6f3309ad874e6c600d4b22022aeb8f4d2eab811a2bb66b6` | 8X8D8 block 17 tile 14 over 8X8D8 block 23 tile 21 | map 30, square (1,3) facing north, column 9 row 6 |  |
+| `tile:16:fa0785a9edf76eac267235316aff7e86ad5957c9b8155a09bf25193d7b2b6e90` | 8X8D8 block 17 tile 5 over 8X8D8 block 17 tile 5 over 8X8D8 block 17 tile 29 | map 30, square (4,6) facing north, column 6 row 5 |  |
+| `tile:16:fa8c0ce1c541b2af2f53e5309d502256317e3a0b116a9d8f33dec598bef0f29f` | 8X8D8 block 17 tile 42 over the ground colour 6 | map 30, square (12,1) facing east, column 2 row 8 | `kobold-silt-joins-fa8c0ce1c541.png` (area 13) |
+| `tile:16:fb089b8ff7a102450c65e507f291b6b165a0ea49342abf990afb315bee1127ed` | 8X8D8 block 17 tile 7 over 8X8D8 block 17 tile 29 | map 30, square (3,1) facing west, column 0 row 5 | `kobold-cave-exit-recess-edge.png` (area 13) |
+| `tile:16:fc3fa1490fa932744f194d3d32a5aac1bcc9d2c5ffcb677eee5c17afc02e127b` | 8X8D8 block 17 tile 16 over 8X8D8 block 17 tile 3 | map 30, square (2,2) facing east, column 10 row 2 | `kobold-pool-spur-terrain-fc3fa1490fa9.png` (area 13) |
+| `tile:16:ff895827d85d886bb33f9c2f77b12a063130cf5089a6c383c9ac3b55ec22efa1` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 29 | map 30, square (1,1) facing south, column 1 row 5 | `kobold-pool-passage-terrain-ff895827d85d.png` (area 13) |
+| `tile:16:ff913b0f012f5419137db19c5e072d3b4b6d5d867ad1c85270a3f7f85a426645` | 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 17 | map 30, square (9,4) facing north, column 0 row 1 | `kobold-south-loop-terrain-ff913b0f012f.png` (area 13) |
 
 #### tile set 8X8D8 block 20 (34)
 
@@ -1673,7 +1778,7 @@ Map 16, 30; WALLDEF8 block 9 (tiles 8X8D8 block 9), block 20 (tiles 8X8D8 block 
 | `tile:16:ef495687915380f440f5501931b8b57585eb33cf8ff39b3261a64ce3eee59506` | 8X8D8 block 20 tile 49 over 8X8D8 block 23 tile 39 | map 16, square (1,0) facing west, column 10 row 7 |  |
 | `tile:16:f8f7ba95fbd312c31db1a44b5bab013451197d98b79e2b76f157e666ff09e7f5` | 8X8D8 block 20 tile 26 over 8X8D8 block 23 tile 35 | map 16, square (6,1) facing north, column 3 row 6 |  |
 
-#### tile set 8X8D8 block 23 (34)
+#### tile set 8X8D8 block 23 (36)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
@@ -1703,9 +1808,11 @@ Map 16, 30; WALLDEF8 block 9 (tiles 8X8D8 block 9), block 20 (tiles 8X8D8 block 
 | `tile:16:b1032cce1b6a60957562192fff39836dcd3220379c70016a7fa2131c9446abb8` | 8X8D8 block 23 tile 44 over 8X8D1 block 203 tile 39 | map 16, square (11,0) facing west, column 9 row 5 |  |
 | `tile:16:ba5801c7d6d98a5fd0d859f2f97c869a7d8d78615f7fc52a17fd0f5270349fc7` | 8X8D8 block 23 tile 45 over 8X8D1 block 203 tile 12 | map 16, square (11,0) facing west, column 10 row 5 |  |
 | `tile:16:babc640b6f7d148642c90ade0c0d417f4ed83a55d6875fdae42531fd1a088056` | 8X8D8 block 23 tile 43 over 8X8D8 block 20 tile 30 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 16, square (10,0) facing east, column 2 row 5 |  |
+| `tile:16:bc40ea3be142942d5e433d5b75d7dace8cc2aa0c544f4123b7056a5a69d7977e` | 8X8D8 block 23 tile 21 | map 30, square (5,0) facing north, column 9 row 6 |  |
 | `tile:16:bd02818637eddbcdc983313c9e95908421925b13365587ff74cecf4ef14674ad` | 8X8D8 block 23 tile 44 over 8X8D8 block 20 tile 33 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6) | map 16, square (0,5) facing south, column 7 row 5 |  |
 | `tile:16:c659139ba5d9072517ca8bfbbc326f94f3f5ba99dfcadb64bb0998d29b5d690d` | 8X8D8 block 23 tile 44 over 8X8D1 block 203 tile 29 | map 16, square (11,0) facing east, column 0 row 5 |  |
 | `tile:16:cb89b09371a9d88c823626eb88e979c39b4bc5fc59d31ce8969ca50418f10033` | 8X8D8 block 23 tile 45 over 8X8D8 block 23 tile 45 over 8X8D1 block 203 tile 29 | map 16, square (11,0) facing north, column 4 row 5 |  |
+| `tile:16:d326cc9fabded3214b6092f46a582ccf73115a244f08ec2e00172fefe1c7f137` | 8X8D8 block 23 tile 20 | map 30, square (4,0) facing north, column 10 row 6 |  |
 | `tile:16:dd03c2abc68d0f5e0f683edfdc06835035c340badeac07bbde4ffec00e60293d` | 8X8D8 block 23 tile 43 over 8X8D8 block 9 tile 43 | map 16, square (6,0) facing north, column 9 row 5 |  |
 | `tile:16:e3230531e76860359e9202576e32d158bfeadc898c35a646d92b5ea57a23af95` | 8X8D8 block 23 tile 45 over 8X8D8 block 9 tile 52 | map 16, square (7,0) facing east, column 1 row 5 |  |
 | `tile:16:e8235671c4df093d6aedd0d234f64bb1e83a873fc759cc83cea2b1eb6f28236f` | 8X8D8 block 23 tile 43 over 8X8D8 block 9 tile 10 | map 16, square (0,8) facing west, column 9 row 5 |  |
@@ -2192,15 +2299,15 @@ Map 26; WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), b
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
-| `tile:26:09be3b9182cb135aef97064a69cd744e59c825c702e2d88caab6f8dff3de11cf` | 8X8D7 block 23 tile 15 | map 26, square (4,3) facing south, column 3 row 8 | `mendor-webgl-fountain-basin-middle-a-09be3b9182cb.png` (area 15) |
-| `tile:26:40f46157dc277243cf905276f1a16a2bd6d3f448351dbc9f69fe86602ec97b07` | 8X8D7 block 23 tile 16 | map 26, square (4,3) facing south, column 8 row 8 | `mendor-webgl-fountain-basin-right-40f46157dc27.png` (area 15) |
-| `tile:26:6fcc88dfcbdd1381aa173a4930d0f43707657b86b987875de37d432aaf94f778` | 8X8D7 block 23 tile 19 | map 26, square (4,3) facing south, column 8 row 7 | `mendor-webgl-fountain-rim-right-6fcc88dfcbdd.png` (area 15) |
-| `tile:26:82e8199099381a8c28943b20dddb6ed93932475f5ced4d14f5c14f1a87fa7900` | 8X8D7 block 23 tile 14 | map 26, square (4,2) facing south, column 5 row 6 | `mendor-webgl-fountain-basin-middle-b-82e819909938.png` (area 15) |
-| `tile:26:aa725e51a9d8e9a8abe3cefa68561d19a4b06c6f1526e46e3a55a23aef753c73` | 8X8D7 block 23 tile 69 | map 26, square (4,3) facing south, column 3 row 7 | `mendor-webgl-fountain-water-aa725e51a9d8.png` (area 15) |
+| `tile:26:09be3b9182cb135aef97064a69cd744e59c825c702e2d88caab6f8dff3de11cf` | 8X8D7 block 23 tile 15 | map 26, square (4,3) facing south, column 3 row 8 | `lizardman-lower-pool-09be3b9182cb.png` (area 15, 16) |
+| `tile:26:40f46157dc277243cf905276f1a16a2bd6d3f448351dbc9f69fe86602ec97b07` | 8X8D7 block 23 tile 16 | map 26, square (4,3) facing south, column 8 row 8 | `lizardman-lower-pool-40f46157dc27.png` (area 15, 16) |
+| `tile:26:6fcc88dfcbdd1381aa173a4930d0f43707657b86b987875de37d432aaf94f778` | 8X8D7 block 23 tile 19 | map 26, square (4,3) facing south, column 8 row 7 | `lizardman-lower-pool-6fcc88dfcbdd.png` (area 15, 16) |
+| `tile:26:82e8199099381a8c28943b20dddb6ed93932475f5ced4d14f5c14f1a87fa7900` | 8X8D7 block 23 tile 14 | map 26, square (4,2) facing south, column 5 row 6 | `lizardman-lower-pool-82e819909938.png` (area 15, 16) |
+| `tile:26:aa725e51a9d8e9a8abe3cefa68561d19a4b06c6f1526e46e3a55a23aef753c73` | 8X8D7 block 23 tile 69 | map 26, square (4,3) facing south, column 3 row 7 | `lizardman-lower-pool-aa725e51a9d8.png` (area 15, 16) |
 | `tile:26:bc40ea3be142942d5e433d5b75d7dace8cc2aa0c544f4123b7056a5a69d7977e` | 8X8D7 block 23 tile 21 | map 26, square (4,2) facing south, column 6 row 6 |  |
-| `tile:26:bd497db7487c7813e1fe44ab57327e1071fa3e599e97eb77c229dbc490b75a6a` | 8X8D7 block 23 tile 17 | map 26, square (3,3) facing east, column 9 row 8 | `mendor-webgl-fountain-basin-left-bd497db7487c.png` (area 15) |
+| `tile:26:bd497db7487c7813e1fe44ab57327e1071fa3e599e97eb77c229dbc490b75a6a` | 8X8D7 block 23 tile 17 | map 26, square (3,3) facing east, column 9 row 8 | `lizardman-lower-pool-bd497db7487c.png` (area 15, 16) |
 | `tile:26:d326cc9fabded3214b6092f46a582ccf73115a244f08ec2e00172fefe1c7f137` | 8X8D7 block 23 tile 20 | map 26, square (4,2) facing south, column 4 row 6 |  |
-| `tile:26:dc6d9f29883b9f1e1de252ff78bd42c32bd7eaa18fcd20f058ade6e6b40e2053` | 8X8D7 block 23 tile 18 | map 26, square (3,3) facing east, column 9 row 7 | `mendor-webgl-fountain-rim-left-dc6d9f29883b.png` (area 15) |
+| `tile:26:dc6d9f29883b9f1e1de252ff78bd42c32bd7eaa18fcd20f058ade6e6b40e2053` | 8X8D7 block 23 tile 18 | map 26, square (3,3) facing east, column 9 row 7 | `lizardman-lower-pool-dc6d9f29883b.png` (area 15, 16) |
 
 ### Area 28: Zhentil Keep Outpost (16)
 
@@ -2227,7 +2334,7 @@ Map 28; WALLDEF6 block 1 (tiles 8X8D6 block 1), block 2 (tiles 8X8D6 block 2), b
 | `tile:28:f59a8b4ef53dca4b588a04b05a81d1c5a38fb9fa2354b6e64a4853bbbf7ad8f3` | 8X8D6 block 9 tile 46 | map 28, square (7,0) facing west, column 9 row 3 | `stojanow-guard-wing-terrain-f59a8b4ef53d.png` (area 9, 21) |
 | `tile:28:fd5111f010b1eb27874d7173f3f881527f0a97a68535e574937a39274ae5fb87` | 8X8D6 block 9 tile 48 | map 28, square (7,0) facing east, column 3 row 4 | `stojanow-tower-lanes-terrain-fd5111f010b1.png` (area 9, 21) |
 
-### Area 29: Kuto's Well (428)
+### Area 29: Kuto's Well (437)
 
 Map 29, 32; WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1); WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1).
 
@@ -2361,7 +2468,7 @@ Map 29, 32; WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 
 | `tile:29:c5ccd45d08c65587436bcef3cabe12dfcc83b7d08879b6a3d442862f1d69ed68` | 8X8D8 block 17 tile 7 over the ground colour 6 | map 32, square (9,3) facing east, column 8 row 7 | `kobold-escort-floor-inset-west.png` (area 13) |
 | `tile:29:c7d9693190a9651a5128fc1b7400d4acc9cab4f33714ae6c27fe593e8e79803b` | 8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 8 over sky colour 12 | map 32, square (1,4) facing south, column 5 row 3 |  |
 | `tile:29:c9b031524b7b7f1ea5671507dd690b184fecddd5d9c354103f870216a3da7ca6` | 8X8D8 block 17 tile 9 over the ground colour 6 | map 32, square (3,4) facing west, column 1 row 6 |  |
-| `tile:29:d070699df8508a4b3d4b8d2a56813eae1b30e556f24d4a1dfb3e3ac468d12b77` | 8X8D8 block 17 tile 10 | map 32, square (7,11) facing north, column 6 row 6 |  |
+| `tile:29:d070699df8508a4b3d4b8d2a56813eae1b30e556f24d4a1dfb3e3ac468d12b77` | 8X8D8 block 17 tile 10 | map 32, square (6,6) facing north, column 9 row 6 |  |
 | `tile:29:d5dd561a755316e3b5e425928c6150770623b55acd123912cf05e5188593588a` | 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 47 | map 32, square (9,3) facing south, column 1 row 4 | `kobold-cave-exit-lower-spur-corner.png` (area 13) |
 | `tile:29:dd26f1da22db9cf676da64012f5ca445f97bea617519b57ce34391056b3b4167` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 35 | map 32, square (9,2) facing south, column 1 row 6 | `kobold-cave-silt-dd26f1da22db.png` (area 13) |
 | `tile:29:ddefb9dc375773174835a079a2b247bfdd6fba94874b355596fcc7cb17130b11` | 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 34 | map 32, square (10,4) facing north, column 8 row 8 | `kobold-cave-silt-ddefb9dc3757.png` (area 13) |
@@ -2375,11 +2482,13 @@ Map 29, 32; WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 
 | `tile:29:ff895827d85d886bb33f9c2f77b12a063130cf5089a6c383c9ac3b55ec22efa1` | 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 29 | map 32, square (9,2) facing south, column 1 row 5 | `kobold-pool-passage-terrain-ff895827d85d.png` (area 13) |
 | `tile:29:ff913b0f012f5419137db19c5e072d3b4b6d5d867ad1c85270a3f7f85a426645` | 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 17 | map 32, square (9,3) facing south, column 1 row 3 | `kobold-south-loop-terrain-ff913b0f012f.png` (area 13) |
 
-#### tile set 8X8D8 block 18 (62)
+#### tile set 8X8D8 block 18 (71)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
 | `tile:29:009457037d142fe80695a8e8261c64128344bd8452f96804deb7ab6d68fea5c0` | 8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 30 | map 32, square (2,0) facing west, column 0 row 6 |  |
+| `tile:29:05b7c82f95121f752ef17e32a019e9d7308c016b4b1426f30c4d3ce61b872dd4` | 8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 0 over the horizon row (three rows of sky 0, one of 0, two of 8, two of ground 6) | map 32, square (6,6) facing east, column 7 row 5 |  |
+| `tile:29:0663f607216b93d7cec9238923c75cf2d902bf04da87e1dd56e81445fb9532f0` | 8X8D8 block 18 tile 0 over 8X8D8 block 17 tile 58 over the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 6) | map 32, square (12,6) facing north, column 1 row 5 |  |
 | `tile:29:08cb32f676a62ead288633d89fe93ca21aced20bd8ec83096f28bd37be13dadb` | 8X8D8 block 18 tile 16 over the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 6) | map 32, square (0,0) facing east, column 10 row 5 |  |
 | `tile:29:0b6e8d0d3d2e5349ee4523e6def2a8ef82c187ac5ea867b13404740fb1396a3d` | 8X8D8 block 18 tile 16 over sky colour 0 | map 32, square (14,0) facing west, column 2 row 4 |  |
 | `tile:29:0bde341558510cfc07def5297d79e127a39a76a3969941153115379ea5b59f3f` | 8X8D8 block 18 tile 16 over 8X8D8 block 17 tile 30 | map 32, square (2,0) facing east, column 10 row 6 |  |
@@ -2387,58 +2496,65 @@ Map 29, 32; WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 
 | `tile:29:1205eca1c45885591e198d1a9193a726cb5d6b1df3e77e9d2bcffb75c0bd9645` | 8X8D8 block 18 tile 16 over 8X8D8 block 17 tile 29 | map 32, square (1,0) facing east, column 10 row 5 |  |
 | `tile:29:2056f5cea302ca19385f0e21c500b27c2ee1362ccf4d49eedb05231d320dbca6` | 8X8D8 block 18 tile 15 | map 32, square (1,0) facing east, column 0 row 7 |  |
 | `tile:29:2698b864d63d3cb18622284e96556bd60c59fb7745cfca7774741c48bd9cd9d9` | 8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 59 | map 32, square (0,3) facing south, column 3 row 5 |  |
+| `tile:29:2a5780df0c4274674e448c3c01ea2ab66175f08fed8588fd8023fc709707fc4b` | 8X8D8 block 18 tile 0 over 8X8D8 block 17 tile 59 | map 32, square (5,2) facing east, column 9 row 5 |  |
+| `tile:29:2ad6769ee9e48d3665297951de9d39a399bcbc3f76a4f150dd946d29fc9a7023` | 8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 18 over the ground colour 6 | map 32, square (11,5) facing north, column 3 row 6 |  |
 | `tile:29:2b773089d5ffe93efc12c1aa483a40dd92429aa223d156809005dede4e96b1e7` | 8X8D8 block 18 tile 65 | map 32, square (7,7) facing north, column 0 row 0 |  |
-| `tile:29:2dda4c6e81ecef7d02edf271ed30ab6f993148b468e7cab9322c67c0c34c9015` | 8X8D8 block 18 tile 17 over 8X8D8 block 18 tile 17 over 8X8D8 block 18 tile 13 | map 32, square (7,7) facing north, column 3 row 4 |  |
+| `tile:29:2dda4c6e81ecef7d02edf271ed30ab6f993148b468e7cab9322c67c0c34c9015` | 8X8D8 block 18 tile 17 over 8X8D8 block 18 tile 13 | map 32, square (6,6) facing south, column 3 row 4 |  |
 | `tile:29:2e0e87fe312523847fab662707d009f69ce675e93c8558afc78d80817634bda3` | 8X8D8 block 18 tile 32 | map 32, square (7,7) facing north, column 0 row 4 |  |
 | `tile:29:317bbd2618bded3bacbc7385a578eda445a5a778b6741a582988f3e622d3fea2` | 8X8D8 block 18 tile 16 over 8X8D8 block 17 tile 0 | map 32, square (11,0) facing south, column 2 row 4 |  |
 | `tile:29:34d24cc5b84e9321ee3c1b1f0903c59fcea111373f2f40f8ff9c2461107bac4c` | 8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 29 | map 32, square (3,0) facing west, column 0 row 5 |  |
-| `tile:29:432de07bd14c8bc66c4bba6c84fdbe61f9cef64e4bb8c7365c0a587ce8c24fee` | 8X8D8 block 18 tile 56 | map 32, square (7,7) facing north, column 6 row 3 |  |
+| `tile:29:3fbe081602a2b165b03ca7bd472c89d231f8f9eb3b557d703bbcbbb68391bdbd` | 8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 0 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6) | map 32, square (6,6) facing east, column 7 row 5 |  |
+| `tile:29:41b1206010535ac8532b44731142432d3593e4d693b16e67eedc1e48e8ea88c0` | 8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 58 over the horizon row (three rows of sky 0, one of 0, two of 8, two of ground 6) | map 32, square (11,6) facing north, column 3 row 5 |  |
 | `tile:29:4992acde087854d8bb2229efb9f1bb5d0288c32e9f93c8fd3cf68a13fd708db3` | 8X8D8 block 18 tile 57 | map 32, square (7,7) facing north, column 0 row 3 |  |
 | `tile:29:4c7154f71485783702cbbe3dd607060a7585afa44a13efb9504059f849d79822` | 8X8D8 block 18 tile 16 over 8X8D8 block 17 tile 19 | map 32, square (2,0) facing east, column 10 row 5 |  |
 | `tile:29:4d0525e6cabbfd8da7638b4769585dd603eff4d590c6fcd6844d8b8d7f99200f` | 8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 28 | map 32, square (3,6) facing south, column 0 row 6 |  |
 | `tile:29:4e45b797cd2bbe3b73dd4a389004e771721b0c3c3e9a12a8df491924a1874543` | 8X8D8 block 18 tile 16 over 8X8D8 block 17 tile 47 | map 32, square (4,6) facing south, column 2 row 4 |  |
-| `tile:29:62101ecf19cbe531a15115f8aa04372039e130558e3185e139c2e84e44b25231` | 8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 15 over 8X8D8 block 17 tile 0 | map 32, square (3,11) facing south, column 8 row 4 |  |
-| `tile:29:64f1b6b3192784286aee3114c0319a3a74107b311479575df654ae76042b374f` | 8X8D8 block 18 tile 24 | map 32, square (0,0) facing south, column 0 row 5 | `kobold-cave-exit-exit-reveal.png` (area 13) |
+| `tile:29:62101ecf19cbe531a15115f8aa04372039e130558e3185e139c2e84e44b25231` | 8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 15 over sky colour 0 | map 32, square (6,3) facing east, column 8 row 4 |  |
 | `tile:29:686aa8b7830905484a2c9cf072b0a106119cbc1ff7b527d9678b23926b33ae1a` | 8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 31 | map 32, square (6,2) facing west, column 0 row 6 |  |
 | `tile:29:6becd41d8a655f8b79fa4c8cabba69583219a15d992f3c4d09ec225c8bb301e0` | 8X8D8 block 18 tile 12 | map 32, square (0,0) facing east, column 10 row 3 |  |
 | `tile:29:6c05ac92be404bafb97f6356732b0802a48b82a7d006bff95b3420098386dbac` | 8X8D8 block 18 tile 17 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6) | map 32, square (1,0) facing east, column 0 row 5 |  |
+| `tile:29:6dd17651a70357c78d28d7c279c21fcaa919dab9b2c5813e455fab224b7bdc1f` | 8X8D8 block 18 tile 17 over 8X8D8 block 18 tile 21 | map 32, square (6,6) facing south, column 3 row 6 |  |
 | `tile:29:6f8e23c2437e766bb9985e39846a50cfe404d002109ea8a60c9428596f2874a9` | 8X8D8 block 18 tile 47 | map 32, square (7,7) facing north, column 10 row 0 |  |
+| `tile:29:78cc5dc61068ff43ebd5ad4e8593e46ca6cf11960f3c6913096473d9801f53a7` | 8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 0 over the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 6) | map 32, square (6,6) facing east, column 7 row 5 |  |
 | `tile:29:7c8aec2bc303ec85f939bc1f851934470684f4378845e85982aeaa5993eb7f6b` | 8X8D8 block 18 tile 33 | map 32, square (7,7) facing north, column 10 row 4 |  |
+| `tile:29:839c6baef859137756b7fae31a558b6a8c50e5f96e5127810e13a58807de4464` | 8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 21 | map 32, square (7,6) facing north, column 10 row 6 |  |
 | `tile:29:87413a53a88e8fe3d60f052ab15e7f24d8e81341ee71c7b08d55c0c53aa1495b` | 8X8D8 block 18 tile 0 over the horizon row (three rows of sky 12, one of 0, two of 7, two of ground 6) | map 32, square (5,10) facing north, column 9 row 5 |  |
 | `tile:29:900ccf83fda933b82f4ec7bc7e51e4fc3dcefd727435bb1eaf7b8b46e8903273` | 8X8D8 block 18 tile 16 over 8X8D8 block 17 tile 28 | map 32, square (12,0) facing east, column 7 row 6 |  |
-| `tile:29:9360a858be8db8bb3c21622f82cdf0b9aa0b8fdcb33e1f73a92e97933ff58516` | 8X8D8 block 18 tile 31 | map 32, square (7,7) facing north, column 6 row 4 |  |
+| `tile:29:91c4ff7fc228e55f3dde9edbe84a280bef987c521247c2cb587a883b65d1aac3` | 8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 58 over the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 6) | map 32, square (11,6) facing north, column 3 row 5 |  |
 | `tile:29:9393090ead9749a8e407dea14a7fc6e15ed203e2eb579c9b2bf6c3e308dbe2ba` | 8X8D8 block 18 tile 0 over the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 6) | map 32, square (0,0) facing north, column 9 row 5 |  |
-| `tile:29:97c5edfee5b51b1a35e3d78a3a3c915a316c056d30e667fffad1bd9287740d10` | 8X8D8 block 18 tile 30 | map 32, square (7,7) facing north, column 5 row 4 |  |
 | `tile:29:97eec8857be5c78f4d6431d24c8c64e61ea3f42d3c15221aab5cd4c3a57495f1` | 8X8D8 block 18 tile 16 over 8X8D8 block 17 tile 62 | map 32, square (6,3) facing west, column 2 row 6 |  |
 | `tile:29:9dff001660f1020e15c2ef88665e8c1acd97a86155201ef933d74f3c118ee3f2` | 8X8D8 block 18 tile 16 over 8X8D8 block 17 tile 31 | map 32, square (6,2) facing east, column 10 row 6 |  |
 | `tile:29:a1c574e1bb10f89feb09315bd6b689d58f1e4def083c07a470af93fb291c89c2` | 8X8D8 block 18 tile 17 over sky colour 0 | map 32, square (1,0) facing east, column 0 row 4 |  |
+| `tile:29:a1c821d7ec2a55bd815d198c0279e78439954fd9eedd336480a9f09d5195c834` | 8X8D8 block 18 tile 16 over 8X8D8 block 17 tile 59 | map 32, square (5,3) facing east, column 7 row 5 |  |
 | `tile:29:a3283ba8cd1e45e8d2477ee9651de21ff7d3795b8095517d0b1e0206c594da49` | 8X8D8 block 18 tile 58 | map 32, square (7,7) facing north, column 10 row 3 |  |
-| `tile:29:a5a870487b1c927fdba74101cbe350ef5082e90954745fca01a5b92d5b3a3136` | 8X8D8 block 18 tile 46 | map 32, square (7,7) facing north, column 5 row 1 |  |
-| `tile:29:ab51e3d8672bbf3e0b2b1beca02d34e786c1f9e85301489000a9d178eaff21f5` | 8X8D8 block 18 tile 44 | map 32, square (7,7) facing north, column 4 row 1 |  |
-| `tile:29:acb90703131789cf429ff3d682446ef119f35be6a490bc5934772253575bd017` | 8X8D8 block 18 tile 55 | map 32, square (7,7) facing north, column 5 row 3 |  |
 | `tile:29:b1cec1a99821922e1abba533486bdbc0b10c5ce881d1cfb0973cbf911e54f572` | 8X8D8 block 18 tile 17 over the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 6) | map 32, square (1,0) facing east, column 0 row 5 |  |
 | `tile:29:b31a196da8a2d930efe595783983ac9e214812278e7c5f9c4e6fccc8a65e3eb6` | 8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 47 | map 32, square (2,0) facing west, column 0 row 4 |  |
-| `tile:29:b4f1ee5c11b4713b4e2424950f183423ce2bd0938c9419ee717ed2a0448778c7` | 8X8D8 block 18 tile 45 | map 32, square (7,7) facing north, column 6 row 1 |  |
-| `tile:29:b605eb2aa208fe8072bf88d13a52e498d5530add7315dddce313c7664e06d519` | 8X8D8 block 18 tile 29 | map 32, square (7,7) facing north, column 4 row 4 |  |
-| `tile:29:bc3fabd62051e7bd22ce959d9616dc3d1dbf2b85363b51cc10b0a5da41772c79` | 8X8D8 block 18 tile 17 over 8X8D8 block 18 tile 24 | map 32, square (6,8) facing east, column 3 row 6 |  |
+| `tile:29:b5ff9c6f7ba757d25d32c52a3e25a097a4fc15c0fb1a28c3bb43ce2e1d611a04` | 8X8D8 block 18 tile 0 over 8X8D8 block 17 tile 58 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6) | map 32, square (12,6) facing north, column 1 row 5 |  |
+| `tile:29:b802c96e161598810d40ee2ad554a410aeb7c204bee5722c7a596c7bf762cbd0` | 8X8D8 block 18 tile 17 over 8X8D8 block 18 tile 46 | map 32, square (6,6) facing east, column 8 row 4 |  |
+| `tile:29:b95adf1bba5611909888c2025bda58491bee76ac7ee539de05dd4e6aa65246b6` | 8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 58 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6) | map 32, square (11,6) facing north, column 3 row 5 |  |
+| `tile:29:bc3fabd62051e7bd22ce959d9616dc3d1dbf2b85363b51cc10b0a5da41772c79` | 8X8D8 block 18 tile 17 over 8X8D8 block 18 tile 24 | map 32, square (8,5) facing west, column 0 row 6 |  |
 | `tile:29:bf140a1b5f168745e0149d0c3d0b5f094973bff98342b751ff4cafa082530540` | 8X8D8 block 18 tile 18 | map 32, square (12,0) facing west, column 0 row 10 | `kobold-silt-joins-bf140a1b5f16.png` (area 13) |
 | `tile:29:c0b1186296f774376cf3e28e4b94cd8be6c7b9c2e1440f22f3ce61a6cf3bab6f` | 8X8D8 block 18 tile 0 over 8X8D8 block 17 tile 29 | map 32, square (1,0) facing east, column 9 row 5 |  |
 | `tile:29:c194c6db43e0e2784ca6cd0bc4a51d1f14b0cd3956fd5af1b3dd35befa2850d7` | 8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 19 | map 32, square (2,0) facing west, column 0 row 5 |  |
 | `tile:29:c36767cd6c974d99c3184efb6551686a9674782fd856e2d0b57b4afff25b60c2` | 8X8D8 block 18 tile 0 over the horizon row (three rows of sky 0, one of 0, two of 8, two of ground 6) | map 32, square (0,0) facing north, column 9 row 5 |  |
-| `tile:29:c44ec59d9feb309948881eee3028714fe98d5f9b580f3fce1d45f99fa8bf0d6c` | 8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 46 | map 32, square (6,8) facing east, column 2 row 4 |  |
+| `tile:29:c44ec59d9feb309948881eee3028714fe98d5f9b580f3fce1d45f99fa8bf0d6c` | 8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 46 | map 32, square (8,6) facing west, column 2 row 4 |  |
+| `tile:29:c49c6bb735774ae1b34bd0319b7b4e01830d164012a08ba5e5a1eb241678ca26` | 8X8D8 block 18 tile 0 over 8X8D8 block 17 tile 19 | map 32, square (15,0) facing south, column 9 row 5 |  |
 | `tile:29:c746d703104c8f7b0ad5b540853fe6475904bfd257b843dd2e1148ab95865287` | 8X8D8 block 18 tile 35 over the ground colour 6 | map 32, square (0,0) facing east, column 9 row 6 |  |
 | `tile:29:c747902d490c8651566f0044d5054b5377fe2939d6a9656e8d6a7b518bee16b1` | 8X8D8 block 18 tile 19 | map 32, square (12,0) facing east, column 10 row 10 | `kobold-silt-joins-c747902d490c.png` (area 13) |
+| `tile:29:c850db4bb584fcccbbf8891326a16160109bea702716dcf91052487681569235` | 8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 10 | map 32, square (6,6) facing south, column 2 row 6 |  |
 | `tile:29:cfbfd520ee1fb9140fa73dcc649955957e214bd5148e506d6286dc9f0168e54d` | 8X8D8 block 18 tile 13 | map 32, square (0,0) facing south, column 0 row 4 | `kobold-cave-thresholds-terrain-cfbfd520ee1f.png` (area 13) |
 | `tile:29:d883d899fee78af6d7fa2f57125dcceafe319f67edd6fef7abc283205b33aea8` | 8X8D8 block 18 tile 16 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6) | map 32, square (0,0) facing east, column 10 row 5 |  |
 | `tile:29:d8ef61f1d5bf78fd1ee381686a427847b24ee7d13ae40a19b89eb65efb119107` | 8X8D8 block 18 tile 0 over the horizon row (three rows of sky 12, one of 15, two of 7, two of ground 6) | map 32, square (5,10) facing north, column 9 row 5 |  |
 | `tile:29:dadafd53b400497073e72587ebfa0959a9c1257fc40612826b7c1caadb5c274d` | 8X8D8 block 18 tile 17 over the horizon row (three rows of sky 0, one of 0, two of 8, two of ground 6) | map 32, square (1,0) facing east, column 0 row 5 |  |
 | `tile:29:dd93f53ce96bf6e80f293c994120201a652bde05aa235fe5d69756c162375a4a` | 8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 67 over sky colour 0 | map 32, square (8,2) facing south, column 3 row 4 |  |
-| `tile:29:e0ce7a229d6caedd953d55b93b29c9231e5eaeee6aa628029376f3a36ec87ee7` | 8X8D8 block 18 tile 54 | map 32, square (7,7) facing north, column 4 row 3 |  |
 | `tile:29:e6aff60be262a7801a0a779c909dda8f93e56dd4d455ed694be80d8e71ced9c7` | 8X8D8 block 18 tile 34 over the ground colour 6 | map 32, square (0,0) facing east, column 1 row 6 |  |
 | `tile:29:e767ec39af5753538fba3c45ac0670931e256a0bbb166fbd01b47b2650872352` | 8X8D8 block 18 tile 16 over 8X8D8 block 17 tile 15 over sky colour 0 | map 32, square (6,3) facing west, column 2 row 4 |  |
+| `tile:29:e7dddf6c92781e352e467cbdb99fe21e9e010e8f97e9fcba036bdd5cd187984e` | 8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 24 | map 32, square (6,6) facing east, column 7 row 6 |  |
 | `tile:29:ecb0682eac09c6ea09be110b306e20682de0db7dee154559ff38070568acf057` | 8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 0 | map 32, square (3,0) facing west, column 0 row 4 |  |
+| `tile:29:ee174e4ebfbf804733cd0c1139bb483b4d7ac8f17a2fcad9dfee81979b011f7c` | 8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 18 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6) | map 32, square (11,5) facing north, column 3 row 5 |  |
 | `tile:29:f086b2fe6ed2698954c685a6a823085384835d51ba9acc7f04ffee8b1493392a` | 8X8D8 block 18 tile 16 over the horizon row (three rows of sky 0, one of 0, two of 8, two of ground 6) | map 32, square (0,0) facing east, column 10 row 5 |  |
 | `tile:29:f2bd820fbc1933119e79e1e7e5df7023f699c8f34c1723527f9f10f927fcf1c5` | 8X8D8 block 18 tile 17 over the ground colour 6 | map 32, square (1,0) facing east, column 0 row 6 |  |
+| `tile:29:f7a279e4ec795fd86c99cf774ff04fdbfcb67f920f9ea1410753ed84fc56b133` | 8X8D8 block 18 tile 0 over 8X8D8 block 17 tile 58 over the horizon row (three rows of sky 0, one of 0, two of 8, two of ground 6) | map 32, square (12,6) facing north, column 1 row 5 |  |
 | `tile:29:f9dc096b972e26c610fec4b272468112d783f7303b836ac464d1c1081db99a1b` | 8X8D8 block 18 tile 0 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6) | map 32, square (0,0) facing north, column 9 row 5 |  |
 | `tile:29:ffd3ce3f21b19722b8ba818d7ba97be7f4b10a0a24b3cb524002ac7e914df481` | 8X8D8 block 18 tile 16 over the ground colour 6 | map 32, square (0,0) facing east, column 10 row 6 |  |
 
@@ -2735,10 +2851,10 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 
 | What | Count |
 | --- | ---: |
-| first-person cells that show a sky or ground colour no existing artwork of the area shows | 4060 |
+| first-person cells that show a sky or ground colour no existing artwork of the area shows | 4259 |
 | first-person cells of the overhead area view, which no existing artwork of the area confirms | 152 |
 | first-person cells of an area whose reading is not confirmed | 1530 |
-| first-person cells seen only from squares not connected to any square the existing artwork was made from | 717 |
+| first-person cells seen only from squares not connected to any square the existing artwork was made from | 375 |
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |
 | battlefield cells of pictures no artwork shows to have been on a battlefield | 2207 |
 | battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain) | not counted: needs the game's battlefield builder read |
