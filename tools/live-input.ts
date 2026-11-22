@@ -328,7 +328,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         ? glyphs.filter(([cell]) => finalCouncilReward || cell < 640).sort(([a], [b]) => a - b)
           .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase()
         : scriptKey === "scene-illustration:area:29:ecl:9ffb"
-          ? glyphs.toSorted(([a], [b]) => a - b).map(([, character]) => String.fromCharCode(character)).join("").toUpperCase()
+          ? [...glyphs].sort(([a], [b]) => a - b).map(([, character]) => String.fromCharCode(character)).join("").toUpperCase()
           : dialogue;
       // The maze watch and Scriptorium guards finish the nod at the same ECL cursor.
       let illustrationScope = finalCouncilReward && illustrationText.includes("VIEWTAKEPOOLSHAREEXIT")
