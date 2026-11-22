@@ -157,14 +157,18 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
             sourceWidth = sourceHeight = 24;
           }
           else if (sheetPart) {
-            const entry = originalArchive(sheetPart[1]!)?.entries.find(({ id }) => id === Number(sheetPart[3]));
-            const pixels = entry && characterSheetPartPixels(entry.data, sheetPart[2]!);
-            if (!pixels?.some(Boolean)) {
+            sourceWidth = 88;
+            sourceHeight = sheetPart[2] === "HEAD" ? 40 : 48;
+            const shapes = packagedPictures?.get(`${sheetPart[1]}:${sheetPart[3]}`);
+            const shape = shapes?.[0];
+            const entry = packagedPictures ? undefined : originalArchive(sheetPart[1]!)?.entries.find(({ id }) => id === Number(sheetPart[3]));
+            const valid = packagedPictures
+              ? shapes?.length === 1 && shape?.width === sourceWidth && shape.height === sourceHeight && shape.frames === 1
+              : entry && characterSheetPartPixels(entry.data, sheetPart[2]!)?.some(Boolean);
+            if (!valid) {
               reject("Character sheet source part is missing or invalid.", id);
               continue;
             }
-            sourceWidth = 88;
-            sourceHeight = pixels.length / sourceWidth;
           } else if (portraitKey.test(id) || scriptIllustration) sourceWidth = sourceHeight = 88;
           const { width, height } = dimensions;
           if (width !== sourceWidth * 4 || height !== sourceHeight * 4) {

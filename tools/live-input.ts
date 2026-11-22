@@ -272,7 +272,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let lastApproach: string | undefined;
   const portraitKeys = (process.env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean);
   const portraitArt = loadPortraitArt(portraitKeys, browser);
-  const characterSheetArt = loadCharacterSheetArt((process.env.POR_CHARACTER_SHEET_ART_KEYS ?? "").split(",").filter(Boolean));
+  const characterSheetKeys = (process.env.POR_CHARACTER_SHEET_ART_KEYS ?? "").split(",").filter(Boolean);
+  const characterSheetArt = loadCharacterSheetArt(characterSheetKeys);
   const encounterPlacements = JSON.parse(process.env.POR_ENCOUNTER_ART ?? "{}") as Record<string, EncounterAnchor>;
   const hasEncounterArtwork = Object.keys(encounterPlacements).length > 0;
   let encounterTrace = process.env.POR_ENCOUNTER_TRACE_FILE;
@@ -302,8 +303,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     }
     return pixels;
   }
-  const nativePicture = browser && standalone && pictures && portraitKeys.length
-    ? observeNativePictureArt(new Set(portraitKeys), pictures, perspectivePixels) : undefined;
+  const nativePicture = browser && standalone && pictures && (portraitKeys.length || characterSheetKeys.length)
+    ? observeNativePictureArt(new Set(portraitKeys), new Set(characterSheetKeys), pictures, perspectivePixels) : undefined;
   const nativeEncounter = browser && standalone && hasEncounterArtwork
     ? observeNativeEncounterArt(encounterPlacements, perspectivePixels) : undefined;
   let codeWheelQuestion: number | undefined;
@@ -415,7 +416,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       let picture = scene ? undefined : illustration ?? arrivalPicture ??
         nativePicture?.match(area, portraitCursor, pictureCaller) ??
         portraitArt(screen, area, portraitCursor, pictureCaller);
-      const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
+      // Standalone data omits the original border pixels that identify the portrait picker.
+      const characterSheet = !scene && !picture ?
+        (menu === "HEADBODYKEEP" ? nativePicture?.matchSheet(screen) : undefined) ?? characterSheetArt(screen) : undefined;
       const enhanced = new Frame(presentation.width, presentation.height);
       enhanced.pixels.set(presentation.pixels);
       for (const [x, y, , width, height] of characterSheet ?? []) {

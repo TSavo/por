@@ -1,7 +1,8 @@
 import type { Cpu } from "../src/cpu/machine.js";
+import type { Frame } from "../src/lib/ega.js";
 import { data } from "../src/runtime/bindings.js";
 import type { PictureRecord } from "../src/runtime/game-data.js";
-import { usesPortraitDelta } from "./portrait-art.js";
+import { usesPortraitDelta, type CharacterSheetPart } from "./portrait-art.js";
 
 const pictureAddress = (segment: number, offset: number) => ((segment << 4) + offset) & 0xfffff;
 
@@ -18,10 +19,23 @@ interface PortraitPart {
 
 type VisiblePicture = { pixels: Buffer } & ({ picture: PictureMember } | { head: string; body: string });
 
-export function observeNativePictureArt(art: ReadonlySet<string>, records: readonly PictureRecord[], viewport: () => Buffer) {
+const sheetX = 224, sheetY = 8, pictureSize = 88, headHeight = 40;
+
+function sheetPixels(frame: Frame) {
+  const pixels = Buffer.alloc(pictureSize * pictureSize);
+  for (let row = 0; row < pictureSize; row++) {
+    const start = (sheetY + row) * frame.width + sheetX;
+    pixels.set(frame.pixels.subarray(start, start + pictureSize), row * pictureSize);
+  }
+  return pixels;
+}
+
+export function observeNativePictureArt(art: ReadonlySet<string>, sheetArt: ReadonlySet<string>,
+  records: readonly PictureRecord[], viewport: () => Buffer) {
   // The loader allocates a separate far pointer for each animation member.
   const members = new Map<number, PictureMember>();
   let visible: VisiblePicture | undefined;
+  let sheet: { head: string; body: string; pixels: Buffer } | undefined;
   let head: PortraitPart | undefined;
   let body: PortraitPart | undefined;
   const aliases = new Map<string, string[]>();
@@ -92,15 +106,32 @@ export function observeNativePictureArt(art: ReadonlySet<string>, records: reado
       if (isHead) head = part;
       else body = part;
     },
-    composed(cpu: Cpu) {
+    composed(cpu: Cpu, frame: Frame) {
       const arg = (offset: number) => cpu.read8(cpu.ss, (cpu.bp + offset) & 0xffff);
-      if (!arg(6) || arg(8) !== 3 || arg(10) !== 3) return;
-      visible = head && body && head.address === partAddress(cpu, data.portraitHead) &&
-        body.address === partAddress(cpu, data.portraitBody)
-        ? { head: head.source, body: body.source, pixels: viewport() } : undefined;
+      const row = arg(8), column = arg(10);
+      const portraitPanel = row === 3 && column === 3;
+      const sheetPanel = row === 1 && column === 28;
+      if (!arg(6) || (!portraitPanel && !sheetPanel)) return;
+      const parts = head && body && head.address === partAddress(cpu, data.portraitHead) &&
+        body.address === partAddress(cpu, data.portraitBody) ? { head: head.source, body: body.source } : undefined;
+      if (sheetPanel) sheet = parts && { ...parts, pixels: sheetPixels(frame) };
+      else visible = parts && { ...parts, pixels: viewport() };
     },
     clear() {
       visible = undefined;
+    },
+    matchSheet(frame: Frame): CharacterSheetPart[] | undefined {
+      if (!sheet) return;
+      if (!sheet.pixels.equals(sheetPixels(frame))) {
+        sheet = undefined;
+        return;
+      }
+      const key = (source: string) => sources(source).map(id => `character-sheet:${id}`).find(id => sheetArt.has(id));
+      const headKey = key(sheet.head), bodyKey = key(sheet.body);
+      if (headKey && bodyKey) return [
+        [sheetX, sheetY, headKey, pictureSize, headHeight],
+        [sheetX, sheetY + headHeight, bodyKey, pictureSize, pictureSize - headHeight],
+      ];
     },
     match(area?: number, cursor?: number, caller?: number) {
       if (!visible) return;

@@ -169,6 +169,11 @@ the viewport changes. The portrait helper also records the HEAD and BODY
 blocks it draws together, so the standalone mode can select the existing
 composed artwork. The original-file renderer matches its native framebuffer.
 
+Character creation uses the same native HEAD and BODY draws in the sheet at
+`(224, 8)`. The standalone artwork loader validates each piece against its
+packaged source dimensions. The Head / Body / Keep menu shows the two Enhanced
+pieces as the guest changes them and clears them on entering the icon editor.
+
 `tiles.json` lists each distinct tile of the 8X8D sets once, by that hash, with every place it is
 stored (`archive:block:index`). A tile that has transparent pixels (colour 13) also lists
 `overColour`: the hash of the cell the screen shows when one solid colour is behind the tile, for

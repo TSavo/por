@@ -125,7 +125,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       if (headLoaded && at === headLoaded.at && isAt(this, at, headLoaded)) nativePicture?.partLoaded(this, true);
       if (bodyLoaded && at === bodyLoaded.at && isAt(this, at, bodyLoaded)) nativePicture?.partLoaded(this, false);
       if (portraitPresentation && at === portraitPresentation.at && isAt(this, at, portraitPresentation)) {
-        nativePicture?.composed(this);
+        nativePicture?.composed(this, screen);
       }
       if (codeWheel && isAt(this, at, codeWheel.beforeRead)) {
         input?.setCodeWheelQuestion(
