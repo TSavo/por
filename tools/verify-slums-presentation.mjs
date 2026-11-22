@@ -3728,6 +3728,11 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "valhingen-shadow-beyond-brass-doors-battle-prompt.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS\d+AC\d+.*MOVEVIEWAIM/i },
   }],
+  ["valhingen-brass-doors-look", {
+    slot: "A", inputs: ["l"],
+    portrait: "scene-illustration:area:10:ecl:b695:caller:ab91", prompt: /INTHEENTRYISSETAHUGEPAIROFBRASSDOORS/i,
+    finalPhaseCapture: "valhingen-brass-doors-look.png",
+  }],
   ["valhingen-tower-wight-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:PIC4.DAX:20:0:0", prompt: /WIGHTSAPPEARFROMBEHINDTHETOWER/i,
