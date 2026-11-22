@@ -49,7 +49,7 @@ const scriptSiteId = (site: ScriptSite) => `${site.scriptArchive}:${site.scriptB
 const promptId = (cursor: string, caller: string | null) => caller ? `${cursor}/${caller}` : cursor;
 
 // Exact reviewed revisions that preserve the held portrait paint and timing code.
-// The changes affect narration logging, wilderness map layering, and the settings panel.
+// This covers narration logging, the wilderness atlas, settings, and Classic palette-only clips.
 const previousRendererProof = new Map<string, string>([
   ["a25fa97665544a065cee8986d0cf43dc3e5cebeb91ef17d5734051a801fb1d06",
     "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521"],
@@ -57,6 +57,8 @@ const previousRendererProof = new Map<string, string>([
     "a25fa97665544a065cee8986d0cf43dc3e5cebeb91ef17d5734051a801fb1d06"],
   ["122ca5ba2735a1293db688ad12ab6f7b67ce92a7d4edbe30fb76edc33403f901",
     "40e3b6aa3c316d2d8e093b2ccbe82e167c15a73da050b955a6e6e948c2d2eaf4"],
+  ["e1a9d6795fd9c4c6251e83c8c403bb7032ce22cd05dccca755b8d12298ed2148",
+    "122ca5ba2735a1293db688ad12ab6f7b67ce92a7d4edbe30fb76edc33403f901"],
 ]);
 
 export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.meta.url))) {

@@ -307,3 +307,6 @@ to keep a replay for each load of the saved slot. Run `verify:campaign`
 against each numbered leg, then record its Chrome fallbacks as above.
 The leg includes the initial saves, the runner commands, the prompt schedule
 and the last screen.
+When the recording stays outside the repository, pass its numbered source
+directory after the Chrome capture in `verify:enhanced-fallbacks -- --record NAME CHROME_LEG SOURCE_LEG`.
+The importer checks its commands and final screen before adding it to the census.

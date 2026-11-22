@@ -1,36 +1,34 @@
 {
  "schema": 2,
  "heldPortraits": {
-  "verified": 0,
-  "oneShotsVerified": 0,
+  "verified": 25,
+  "oneShotsVerified": 6,
   "measured": 34,
   "total": 235,
   "scenesMeasured": 48,
-  "scenesVerified": 0,
+  "scenesVerified": 48,
   "unmappedScenes": 0,
-  "remaining": 235
+  "remaining": 210
  },
  "enhancedFallbacks": {
   "frames": 0,
-  "presented": 1883,
-  "walks": 18,
+  "presented": 2347,
+  "walks": 20,
   "recordedWalks": 31,
   "missingWalks": [
    "campaign-full/leg-10",
    "campaign-full/leg-11",
-   "campaign-full/leg-6",
    "campaign-full/leg-7",
    "campaign-full/leg-8",
    "campaign-full/leg-9",
    "campaign-sokal-leg",
    "campaign-tower-leg",
-   "visit-kobold-caves",
    "walk-commission-5-reward",
    "walk-commission-5-taken",
    "walk-kovel-and-nomads",
    "walk-textile-house-cleared"
   ],
-  "runs": 18,
+  "runs": 22,
   "keys": []
  },
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",

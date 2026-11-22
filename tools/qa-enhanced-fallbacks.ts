@@ -72,7 +72,7 @@ export function enhancedFallbackCoverage(root: string) {
 
 function main(): void {
   const root = process.cwd();
-  const [command, name, directory] = process.argv.slice(2);
+  const [command, name, directory, sourceDirectory] = process.argv.slice(2);
   if (command === "--record") {
     assert.ok(name && /^[a-z0-9][a-z0-9-]*(?:\/[a-z0-9][a-z0-9-]*)*$/.test(name) && directory,
       "Pass a recording name and the completed Chrome leg directory");
@@ -87,35 +87,39 @@ function main(): void {
         new Set(frame.keys).size === frame.keys.length && frame.keys.every(key => typeof key === "string" && key.length),
       "The Chrome fallback capture is missing a frame's distinct keys");
     }
-    const fixture = join(root, "qa", "fixtures", name);
+    const fixture = sourceDirectory ? resolve(sourceDirectory) : join(root, "qa", "fixtures", name);
+    assert.ok(existsSync(join(fixture, "commands.jsonl")),
+      "Pass the recorded source leg directory for a walk kept outside qa/fixtures");
+    if (sourceDirectory) {
+      assert.ok(existsSync(join(fixture, "last-screen.txt")) || existsSync(join(fixture, "end-frame.json")),
+        "The recorded source leg must include its expected final screen");
+    }
     const read = (directory: string, name: string) => readFileSync(join(directory, name), "utf8").replace(/\r\n/g, "\n");
-    let fixtureSha256: string | undefined;
-    if (existsSync(join(fixture, "commands.jsonl"))) {
-      assert.equal(read(directory, "commands.jsonl").trim(), read(fixture, "commands.jsonl").trim(),
-        "The Chrome replay did not consume all of the fixture commands");
-      if (existsSync(join(fixture, "end-frame.json"))) {
-        assert.deepEqual(JSON.parse(read(directory, "end-frame.json")), JSON.parse(read(fixture, "end-frame.json")),
-          "The Chrome replay ended on a different frame from the recorded campaign leg");
-      }
-      if (existsSync(join(fixture, "last-screen.txt"))) {
-        const normalize = (text: string) => text.replace(/\s+/g, " ").trim().toLowerCase();
-        const final = JSON.parse(read(directory, "end-frame.json")) as { text: [number, number][] };
-        const cells = Array<string>(1000).fill(" ");
-        for (const [cell, character] of final.text) cells[cell] = String.fromCharCode(character);
-        assert.equal(normalize(cells.join("")), normalize(read(fixture, "last-screen.txt")),
-          "The Chrome replay ended on a different screen from the recorded walk");
-      }
-      fixtureSha256 = fixtureDigest(fixture);
+    assert.equal(read(directory, "commands.jsonl").trim(), read(fixture, "commands.jsonl").trim(),
+      "The Chrome replay did not consume all of the fixture commands");
+    if (existsSync(join(fixture, "end-frame.json"))) {
+      assert.deepEqual(JSON.parse(read(directory, "end-frame.json")), JSON.parse(read(fixture, "end-frame.json")),
+        "The Chrome replay ended on a different frame from the recorded campaign leg");
+    }
+    if (existsSync(join(fixture, "last-screen.txt"))) {
+      const normalize = (text: string) => text.replace(/\s+/g, " ").trim().toLowerCase();
+      const final = JSON.parse(read(directory, "end-frame.json")) as { text: [number, number][] };
+      const cells = Array<string>(1000).fill(" ");
+      for (const [cell, character] of final.text) cells[cell] = String.fromCharCode(character);
+      assert.equal(normalize(cells.join("")), normalize(read(fixture, "last-screen.txt")),
+        "The Chrome replay ended on a different screen from the recorded walk");
     }
     const ledger = readLedger(root);
-    ledger.runs[name] = { presented, frames, fixtureSha256 };
+    ledger.runs[name] = { presented, frames, fixtureSha256: fixtureDigest(fixture) };
     ledger.runs = Object.fromEntries(Object.entries(ledger.runs).sort(([a], [b]) => a.localeCompare(b)));
     writeFileSync(join(root, file), JSON.stringify(ledger, null, 1) + "\n");
-  } else assert.ok(command === undefined, "Usage: verify:enhanced-fallbacks [--record NAME CHROME_LEG]");
+  } else assert.ok(command === undefined, "Usage: verify:enhanced-fallbacks [--record NAME CHROME_LEG [SOURCE_LEG]]");
 
   const coverage = enhancedFallbackCoverage(root);
   console.log(`Enhanced artwork: ${coverage.frames} fallback frames / ${coverage.keys.length} distinct keys across ${coverage.presented} presented views.`);
   console.log(`Recorded walks measured: ${coverage.walks} / ${coverage.recordedWalks}.`);
+  const additionalReplays = coverage.runs - coverage.walks;
+  if (additionalReplays) console.log(`${additionalReplays} additional replay captures are included.`);
   for (const { key, frames } of coverage.keys) console.log(`  ${frames}  ${key}`);
   if (coverage.missingWalks.length) console.log(`Awaiting Chrome captures: ${coverage.missingWalks.join(", ")}`);
   if (coverage.frames || coverage.missingWalks.length) process.exitCode = 1;

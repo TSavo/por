@@ -41,6 +41,26 @@
    "frames": [],
    "fixtureSha256": "414c242df335fac34963a172dea0f93275414a699e8d2e65a59349ef23711c8d"
   },
+  "campaign-full/leg-6": {
+   "presented": 3,
+   "frames": [],
+   "fixtureSha256": "7db416ae1b2234dcedb9187f72d3904594c50130884f02359e6868b2350e584c"
+  },
+  "narration/campaign-f": {
+   "presented": 145,
+   "frames": [],
+   "fixtureSha256": "05d8a46f9ed4fae0af5d492d058c7ffddb3ffe76a4bc691a5ff2c074b1637006"
+  },
+  "narration/training-hall-a": {
+   "presented": 218,
+   "frames": [],
+   "fixtureSha256": "98eef0995eefb87dae769c3509e0ac105be541f0bae47fe1c73fc8b8d062a5b9"
+  },
+  "visit-kobold-caves": {
+   "presented": 98,
+   "frames": [],
+   "fixtureSha256": "13358faad08a82c19a49cd45a8e1c659dc1519cdd071854ef3befbfbbae80355"
+  },
   "visit-kovel-mansion": {
    "presented": 58,
    "frames": [],
