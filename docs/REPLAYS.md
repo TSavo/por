@@ -114,8 +114,9 @@ records the casket-dart unit `ECL3.DAX:14:a86f` followed by the dart
 illustration at `a8df`. It records Yarash's torture-room unit
 `ECL7.DAX:23:a01e` followed by the torture panel at `9a04:caller:a08a`,
 then the laboratory unit `a08a` followed by the laboratory panel at
-`a0fd`. The pearl unit `ECL3.DAX:14:a82f` precedes an unillustrated
-frame and the three pearl menu phases at `a862`. The ledger establishes
+`a0fd`. The pearl unit `ECL3.DAX:14:a82f` originally preceded an unillustrated
+frame. The replay now verifies the transient pearl caption illustration
+at `a84f` before the three pearl menu phases at `a862`. The ledger establishes
 selection order and does not measure when audio was heard in Chrome.
 
 

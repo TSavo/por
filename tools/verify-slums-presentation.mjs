@@ -1402,6 +1402,10 @@ const illustrationRoutes = new Map([
       5: null, 6: null, 7: null, 8: null,
     },
     phaseCaptures: { 4: "kovel-casket-d-darts.png" },
+    transientPortraits: { 7: {
+      id: "scene-illustration:area:14:ecl:a84f",
+      prompt: /THECASKETISFILLEDWITHTINYPEARLS/i, screenshot: "kovel-casket-d-pearl-discovery.png",
+    } },
     portrait: "portrait:area:14:ecl:a862:PIC1.DAX:1:0:0",
     prompt: /VIEW.*POOL.*SHARE/i,
     idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:a862:PIC1.DAX:1:${phase}:0`),
