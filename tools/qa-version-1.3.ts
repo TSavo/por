@@ -178,8 +178,8 @@ const checks: { name: string; command: () => string[] }[] = [
   { name: "verify:code-wheel-screen", command: () => ["npm", "run", "-s", "verify:code-wheel-screen", "--", chrome] },
   { name: "verify:campaign-opening", command: () => ["npm", "run", "-s", "verify:campaign-opening", "--", chrome] },
   { name: "verify:map-journal", command: () => ["npm", "run", "-s", "verify:map-journal", "--", chrome, openingDirectory ?? "missing"] },
-  { name: "a save from the first release loads and plays on 1.3",
-    command: () => ["npm", "run", "-s", "verify:map-journal", "--", chrome, resolve("qa", "fixtures", "first-release-slums-gate")] },
+  // No check loads a save from the first release: the owner ruled on 2026-11-21 that there are no
+  // legacy saves to support.
   { name: "verify:campaign --full", command: () => ["npm", "run", "-s", "verify:campaign", "--", chrome, "--full"] },
 ];
 const skip = process.argv.includes("--skip-checks");
