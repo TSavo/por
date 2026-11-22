@@ -2,34 +2,34 @@
  "schema": 2,
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
- "remaining": 2229,
+ "remaining": 2215,
  "totals": {
-  "Remaining, all kinds": 2229,
-  "First-person cells to do": 2229,
-  "  of which one stored tile": 423,
-  "  of which one tile over a solid colour": 252,
+  "Remaining, all kinds": 2215,
+  "First-person cells to do": 2215,
+  "  of which one stored tile": 404,
+  "  of which one tile over a solid colour": 254,
   "  of which plain sky or ground": 0,
-  "  of which several tiles together": 1554,
-  "  of which the same pixels already have art of yours in another area": 818,
+  "  of which several tiles together": 1557,
+  "  of which the same pixels already have art of yours in another area": 801,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 4241,
-  "  accounted for by the tool": 4091,
+  "Tile keys in the manifests": 4276,
+  "  accounted for by the tool": 4126,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
   "  blank": 9,
   "  distinct pictures among the rest": 1333,
-  "  with art in some area, alone or over a solid colour": 2370,
-  "  without (the catalogue's 720 when it was written)": 637,
+  "  with art in some area, alone or over a solid colour": 2374,
+  "  without (the catalogue's 720 when it was written)": 633,
   "    of those, no map can show": 428,
   "    of those, shown only together with other tiles, never alone": 7,
-  "    of those, shown alone in some area": 202
+  "    of those, shown alone in some area": 198
  },
  "notEstablished": {
-  "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4259,
+  "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4267,
   "first-person cells of the overhead area view, which no existing artwork of the area confirms": 152,
   "first-person cells of an area whose reading is not confirmed": 1530,
-  "first-person cells seen only from squares not connected to any square the existing artwork was made from": 372,
+  "first-person cells seen only from squares not connected to any square the existing artwork was made from": 357,
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
   "battlefield cells of pictures no artwork shows to have been on a battlefield": 2207,
   "battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain)": "not counted: needs the game's battlefield builder read",
@@ -149,24 +149,25 @@
    "area": 4,
    "name": "Valjevo Castle",
    "established": true,
-   "why": "all 59 cells that have artwork are among the cells the tool works out",
+   "why": "all 84 cells that have artwork are among the cells the tool works out",
    "maps": [
     4
    ],
    "wallSets": [
     "WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)"
    ],
-   "existingKeys": 59,
-   "existingKeysAccountedFor": 59,
+   "existingKeys": 84,
+   "existingKeysAccountedFor": 84,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 320,
-   "cellsWithArt": 59,
-   "toDo": 58,
+   "cellsWithArt": 76,
+   "toDo": 46,
    "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 123,
-    "cells seen only from squares not connected to any square the existing artwork was made from": 80
-   }
+    "cells that show a sky or ground colour no existing artwork of the area shows": 129,
+    "cells seen only from squares not connected to any square the existing artwork was made from": 69
+   },
+   "existingKeysOnlyAsWallMaterials": 8
   },
   {
    "area": 5,
@@ -257,24 +258,25 @@
    "area": 6,
    "name": "Valjevo Castle",
    "established": true,
-   "why": "all 72 cells that have artwork are among the cells the tool works out",
+   "why": "all 82 cells that have artwork are among the cells the tool works out",
    "maps": [
     6
    ],
    "wallSets": [
     "WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)"
    ],
-   "existingKeys": 72,
-   "existingKeysAccountedFor": 72,
+   "existingKeys": 82,
+   "existingKeysAccountedFor": 82,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 310,
-   "cellsWithArt": 72,
-   "toDo": 90,
+   "cellsWithArt": 76,
+   "toDo": 88,
    "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 137,
-    "cells seen only from squares not connected to any square the existing artwork was made from": 11
-   }
+    "cells that show a sky or ground colour no existing artwork of the area shows": 139,
+    "cells seen only from squares not connected to any square the existing artwork was made from": 7
+   },
+   "existingKeysOnlyAsWallMaterials": 6
   },
   {
    "area": 7,
@@ -8883,6 +8885,38 @@
   },
   {
    "kind": "first-person cell",
+   "key": "tile:4:0ae60cf3309accf1a341b5cc07952a90cf121d33ec8c6432d727b57c0c6c20f1",
+   "width": 32,
+   "height": 32,
+   "area": 4,
+   "areaName": "Valjevo Castle",
+   "group": "shared tile set 8X8D1 block 203",
+   "what": "one tile over a solid colour",
+   "composition": "g6|8X8D1.DAX:203:15",
+   "description": "8X8D1 block 203 tile 15 over the ground colour 6, shown in area 4 (Valjevo Castle)",
+   "seenAt": {
+    "map": 4,
+    "x": 0,
+    "y": 10,
+    "facing": "south",
+    "column": 7,
+    "row": 7
+   },
+   "views": 6,
+   "drawnIn": [
+    2,
+    9,
+    15,
+    18,
+    20,
+    22,
+    29
+   ],
+   "sameAs": "route-0ae60cf3309a.png",
+   "why": "drawn in 6 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
    "key": "tile:4:5b52670be92caf50b8a456a072b22f8a06279387eb20120d464ce4c70a50931e",
    "width": 32,
    "height": 32,
@@ -8900,7 +8934,7 @@
     "column": 6,
     "row": 7
    },
-   "views": 12,
+   "views": 15,
    "drawnIn": [
     0,
     2,
@@ -8916,7 +8950,38 @@
     31
    ],
    "sameAs": "new-phlan-harbor-paving-joins-0-5b52670be92c.png",
-   "why": "drawn in 12 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 15 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:4:699e8b134491518fdbccbf4e9783a7ecde8cec6424c1858827d3cbc005fdbaea",
+   "width": 32,
+   "height": 32,
+   "area": 4,
+   "areaName": "Valjevo Castle",
+   "group": "shared tile set 8X8D1 block 203",
+   "what": "one tile over a solid colour",
+   "composition": "g6|8X8D1.DAX:203:36",
+   "description": "8X8D1 block 203 tile 36 over the ground colour 6, shown in area 4 (Valjevo Castle)",
+   "seenAt": {
+    "map": 4,
+    "x": 0,
+    "y": 10,
+    "facing": "south",
+    "column": 8,
+    "row": 8
+   },
+   "views": 3,
+   "drawnIn": [
+    2,
+    9,
+    15,
+    20,
+    22,
+    29
+   ],
+   "sameAs": "route-699e8b134491.png",
+   "why": "drawn in 3 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -9028,53 +9093,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:4:f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b",
-   "width": 32,
-   "height": 32,
-   "area": 4,
-   "areaName": "Valjevo Castle",
-   "group": "shared tile set 8X8D1 block 203",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:203:13",
-   "description": "8X8D1 block 203 tile 13, shown in area 4 (Valjevo Castle)",
-   "seenAt": {
-    "map": 4,
-    "x": 0,
-    "y": 3,
-    "facing": "north",
-    "column": 0,
-    "row": 4
-   },
-   "views": 146,
-   "drawnIn": [
-    0,
-    1,
-    2,
-    3,
-    5,
-    7,
-    8,
-    9,
-    10,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    20,
-    21,
-    24,
-    26,
-    27,
-    29,
-    31
-   ],
-   "sameAs": "new-phlan-gate-31a92759fb4b.png",
-   "why": "drawn in 146 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:4:73fca805c559f76cbe3313cb1c587758426d3cd915fd5ad36da8f6224c9c6e94",
    "width": 32,
    "height": 32,
@@ -9090,6 +9108,29 @@
     "y": 1,
     "facing": "east",
     "column": 1,
+    "row": 4
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:4:c160536a81efbce52dbc73a8d5328bee3513abea5f2e561966d54bb6ae8d1133",
+   "width": 32,
+   "height": 32,
+   "area": 4,
+   "areaName": "Valjevo Castle",
+   "group": "tile set 8X8D1 block 203",
+   "what": "several tiles together",
+   "composition": "s11|8X8D5.DAX:242:49,8X8D1.DAX:203:17",
+   "description": "8X8D1 block 203 tile 17 over 8X8D5 block 242 tile 49 over sky colour 11, shown in area 4 (Valjevo Castle)",
+   "seenAt": {
+    "map": 4,
+    "x": 0,
+    "y": 11,
+    "facing": "north",
+    "column": 4,
     "row": 4
    },
    "views": 1,
@@ -9144,43 +9185,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:4:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739",
-   "width": 32,
-   "height": 32,
-   "area": 4,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:1:14",
-   "description": "8X8D5 block 1 tile 14, shown in area 4 (Valjevo Castle)",
-   "seenAt": {
-    "map": 4,
-    "x": 0,
-    "y": 3,
-    "facing": "south",
-    "column": 10,
-    "row": 3
-   },
-   "views": 8,
-   "drawnIn": [
-    2,
-    9,
-    10,
-    14,
-    15,
-    18,
-    20,
-    21,
-    24,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "bane-side-galleries-terrain-0264796f9fa2.png",
-   "why": "drawn in 8 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:4:1a0dfab20ddd54d612ffb12175d632859d32e97be62e6eb473715674473547de",
    "width": 32,
    "height": 32,
@@ -9229,7 +9233,7 @@
     "column": 3,
     "row": 4
    },
-   "views": 4,
+   "views": 7,
    "drawnIn": [
     2,
     9,
@@ -9240,43 +9244,73 @@
     29
    ],
    "sameAs": "route-23ade1020185.png",
-   "why": "drawn in 4 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 7 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:4:9fcdf0ff6bdfd2b832cfd91e6160e494b4f67ec897064204ba4dc3a869b31c4d",
+   "key": "tile:4:3df247a59ff18323be4631a63c96cf8ab98193f543ef4003a72a7c1e856e15f8",
    "width": 32,
    "height": 32,
    "area": 4,
    "areaName": "Valjevo Castle",
    "group": "tile set 8X8D5 block 1",
    "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:1:13",
-   "description": "8X8D5 block 1 tile 13, shown in area 4 (Valjevo Castle)",
+   "composition": "-|8X8D5.DAX:1:54",
+   "description": "8X8D5 block 1 tile 54, shown in area 4 (Valjevo Castle)",
    "seenAt": {
     "map": 4,
     "x": 0,
-    "y": 3,
-    "facing": "north",
-    "column": 0,
-    "row": 3
+    "y": 10,
+    "facing": "south",
+    "column": 7,
+    "row": 4
    },
-   "views": 8,
+   "views": 6,
    "drawnIn": [
     2,
     9,
-    14,
     15,
-    18,
     20,
-    21,
-    24,
-    26,
-    29,
-    31
+    22,
+    29
    ],
-   "sameAs": "bane-side-galleries-terrain-9fcdf0ff6bdf.png",
-   "why": "drawn in 8 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
+   "sameAs": "route-3df247a59ff1.png",
+   "why": "drawn in 6 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:4:85b030277ef782597e0905e1f528dc419436fb4c80e649f5a0ba20d492065e2b",
+   "width": 32,
+   "height": 32,
+   "area": 4,
+   "areaName": "Valjevo Castle",
+   "group": "tile set 8X8D5 block 1",
+   "what": "one stored tile",
+   "composition": "-|8X8D5.DAX:1:53",
+   "description": "8X8D5 block 1 tile 53, shown in area 4 (Valjevo Castle)",
+   "seenAt": {
+    "map": 4,
+    "x": 0,
+    "y": 10,
+    "facing": "south",
+    "column": 7,
+    "row": 5
+   },
+   "views": 12,
+   "drawnIn": [
+    0,
+    2,
+    8,
+    9,
+    10,
+    15,
+    16,
+    20,
+    22,
+    29
+   ],
+   "sameAs": "route-85b030277ef7.png",
+   "why": "drawn in 12 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -9297,7 +9331,7 @@
     "column": 3,
     "row": 5
    },
-   "views": 8,
+   "views": 17,
    "drawnIn": [
     0,
     2,
@@ -9312,7 +9346,7 @@
     29
    ],
    "sameAs": "route-ca1a1292cdd4.png",
-   "why": "drawn in 8 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 17 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -9344,42 +9378,6 @@
    ],
    "sameAs": "route-e0a3abc3b4a8.png",
    "why": "drawn in 3 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:4:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae",
-   "width": 32,
-   "height": 32,
-   "area": 4,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:1:15",
-   "description": "8X8D5 block 1 tile 15, shown in area 4 (Valjevo Castle)",
-   "seenAt": {
-    "map": 4,
-    "x": 0,
-    "y": 3,
-    "facing": "west",
-    "column": 5,
-    "row": 6
-   },
-   "views": 6,
-   "drawnIn": [
-    2,
-    9,
-    14,
-    15,
-    18,
-    20,
-    21,
-    24,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "bane-side-galleries-terrain-f5d7a245e0ac.png",
-   "why": "drawn in 6 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -9708,33 +9706,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:4:0671c9cef854c857a505d3563e75e5193a67c94acb5f068ed452871bb34e5508",
-   "width": 32,
-   "height": 32,
-   "area": 4,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 242",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:242:67",
-   "description": "8X8D5 block 242 tile 67, shown in area 4 (Valjevo Castle)",
-   "seenAt": {
-    "map": 4,
-    "x": 0,
-    "y": 4,
-    "facing": "east",
-    "column": 5,
-    "row": 5
-   },
-   "views": 2353,
-   "drawnIn": [
-    3,
-    6
-   ],
-   "sameAs": "valjevo-dungeon-briar-terrain-05.png",
-   "why": "drawn in 2353 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:4:0d64c1aba3330ac2faecf1c01d1f76ab69a04f1098002e698c370bc81a5cc4f3",
    "width": 32,
    "height": 32,
@@ -9759,60 +9730,6 @@
    ],
    "sameAs": "valjevo-dungeon-briar-terrain-24.png",
    "why": "drawn in 206 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:4:1131e3b33c1897dc36ef3f052d3e14c5af1d1a21bde6716d2c8e0482bb2aab61",
-   "width": 32,
-   "height": 32,
-   "area": 4,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 242",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:242:37",
-   "description": "8X8D5 block 242 tile 37, shown in area 4 (Valjevo Castle)",
-   "seenAt": {
-    "map": 4,
-    "x": 1,
-    "y": 4,
-    "facing": "east",
-    "column": 8,
-    "row": 3
-   },
-   "views": 353,
-   "drawnIn": [
-    3,
-    6
-   ],
-   "sameAs": "valjevo-dungeon-east-corner-terrain-01.png",
-   "why": "drawn in 353 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:4:15963947cd6dc323654f4395e73488a38fd21e5b07d528f67ca8d4f29500340c",
-   "width": 32,
-   "height": 32,
-   "area": 4,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 242",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:242:65",
-   "description": "8X8D5 block 242 tile 65, shown in area 4 (Valjevo Castle)",
-   "seenAt": {
-    "map": 4,
-    "x": 0,
-    "y": 4,
-    "facing": "east",
-    "column": 7,
-    "row": 5
-   },
-   "views": 1686,
-   "drawnIn": [
-    3,
-    6
-   ],
-   "sameAs": "valjevo-dungeon-briar-terrain-12.png",
-   "why": "drawn in 1686 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -9897,87 +9814,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:4:3a44d0df208c486811e0b93eb75816a53c45fccf72281e35819962165662c040",
-   "width": 32,
-   "height": 32,
-   "area": 4,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 242",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:242:53",
-   "description": "8X8D5 block 242 tile 53, shown in area 4 (Valjevo Castle)",
-   "seenAt": {
-    "map": 4,
-    "x": 0,
-    "y": 4,
-    "facing": "east",
-    "column": 5,
-    "row": 6
-   },
-   "views": 1261,
-   "drawnIn": [
-    3,
-    6
-   ],
-   "sameAs": "valjevo-dungeon-briar-terrain-13.png",
-   "why": "drawn in 1261 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:4:4237c285f1899dd2fe96267fbf26054e94748dde58010edba4614281396e87cb",
-   "width": 32,
-   "height": 32,
-   "area": 4,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 242",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:242:15",
-   "description": "8X8D5 block 242 tile 15, shown in area 4 (Valjevo Castle)",
-   "seenAt": {
-    "map": 4,
-    "x": 0,
-    "y": 4,
-    "facing": "east",
-    "column": 3,
-    "row": 3
-   },
-   "views": 2087,
-   "drawnIn": [
-    3,
-    6
-   ],
-   "sameAs": "valjevo-dungeon-briar-terrain-04.png",
-   "why": "drawn in 2087 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:4:42c91e6a9044311f3d505aff1a1ef27aefe5e068dfc5b4ecb77e4a2f5418d92f",
-   "width": 32,
-   "height": 32,
-   "area": 4,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 242",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:242:31",
-   "description": "8X8D5 block 242 tile 31, shown in area 4 (Valjevo Castle)",
-   "seenAt": {
-    "map": 4,
-    "x": 0,
-    "y": 4,
-    "facing": "east",
-    "column": 8,
-    "row": 5
-   },
-   "views": 1555,
-   "drawnIn": [
-    3,
-    6
-   ],
-   "sameAs": "valjevo-dungeon-briar-terrain-14.png",
-   "why": "drawn in 1555 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:4:6b7842c0cd5ea68901e8e859608b02c78e4eeeff56dcf65fb093668fe3216446",
    "width": 32,
    "height": 32,
@@ -10002,33 +9838,6 @@
    ],
    "sameAs": "valjevo-dungeon-briar-terrain-10.png",
    "why": "drawn in 1315 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:4:7561fd89795b93019c59aa3f2845972ec76293d71113a27feb55ef92daa19d05",
-   "width": 32,
-   "height": 32,
-   "area": 4,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 242",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:242:69",
-   "description": "8X8D5 block 242 tile 69, shown in area 4 (Valjevo Castle)",
-   "seenAt": {
-    "map": 4,
-    "x": 0,
-    "y": 4,
-    "facing": "east",
-    "column": 4,
-    "row": 7
-   },
-   "views": 1164,
-   "drawnIn": [
-    3,
-    6
-   ],
-   "sameAs": "valjevo-dungeon-briar-terrain-17.png",
-   "why": "drawn in 1164 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -10086,33 +9895,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:4:877afc2b6549f6e3f546e63c9a5979c27cd67b398ef06f50d5d8b32d345c497c",
-   "width": 32,
-   "height": 32,
-   "area": 4,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 242",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:242:12",
-   "description": "8X8D5 block 242 tile 12, shown in area 4 (Valjevo Castle)",
-   "seenAt": {
-    "map": 4,
-    "x": 0,
-    "y": 4,
-    "facing": "east",
-    "column": 3,
-    "row": 8
-   },
-   "views": 830,
-   "drawnIn": [
-    3,
-    6
-   ],
-   "sameAs": "valjevo-dungeon-briar-terrain-23.png",
-   "why": "drawn in 830 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:4:893d4126af27130f16837df9ddeb49f4b0895ea59cf517c7e66edf12043cd6e0",
    "width": 32,
    "height": 32,
@@ -10137,60 +9919,6 @@
    ],
    "sameAs": "valjevo-dungeon-briar-terrain-07.png",
    "why": "drawn in 971 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:4:94cf8702405e7f3d23dfdb4aed4040d1a8b0f3400086d67ce8ee4b26d2b8f728",
-   "width": 32,
-   "height": 32,
-   "area": 4,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 242",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:242:47",
-   "description": "8X8D5 block 242 tile 47, shown in area 4 (Valjevo Castle)",
-   "seenAt": {
-    "map": 4,
-    "x": 0,
-    "y": 4,
-    "facing": "east",
-    "column": 6,
-    "row": 3
-   },
-   "views": 773,
-   "drawnIn": [
-    3,
-    6
-   ],
-   "sameAs": "valjevo-dungeon-briar-terrain-06.png",
-   "why": "drawn in 773 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:4:a21e43542b7ab6d537b618c0858678aa46d03bf9f026b9d219aa953bd4ee6deb",
-   "width": 32,
-   "height": 32,
-   "area": 4,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 242",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:242:50",
-   "description": "8X8D5 block 242 tile 50, shown in area 4 (Valjevo Castle)",
-   "seenAt": {
-    "map": 4,
-    "x": 0,
-    "y": 4,
-    "facing": "north",
-    "column": 10,
-    "row": 9
-   },
-   "views": 520,
-   "drawnIn": [
-    3,
-    6
-   ],
-   "sameAs": "valjevo-dungeon-briar-terrain-19.png",
-   "why": "drawn in 520 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -10329,33 +10057,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:4:cacd64e5955d704bd0be9542e59817e710e8e0735f6fbfec53edfa6c7c9a62a9",
-   "width": 32,
-   "height": 32,
-   "area": 4,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 242",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:242:16",
-   "description": "8X8D5 block 242 tile 16, shown in area 4 (Valjevo Castle)",
-   "seenAt": {
-    "map": 4,
-    "x": 0,
-    "y": 4,
-    "facing": "east",
-    "column": 4,
-    "row": 3
-   },
-   "views": 1391,
-   "drawnIn": [
-    3,
-    6
-   ],
-   "sameAs": "valjevo-dungeon-briar-terrain-15.png",
-   "why": "drawn in 1391 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:4:d048a50d90eea12677fb8456e2f971f6e5ab6b8f1e53c8547c5a1b2bf066a09a",
    "width": 32,
    "height": 32,
@@ -10430,61 +10131,6 @@
    ],
    "sameAs": "valjevo-dungeon-briar-terrain-20.png",
    "why": "drawn in 686 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:4:eb5914b49c7f93740850c50b55f61e79c2387d40b3ba5e638ed2f07bc0d28d43",
-   "width": 32,
-   "height": 32,
-   "area": 4,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 242",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:242:68",
-   "description": "8X8D5 block 242 tile 68, shown in area 4 (Valjevo Castle)",
-   "seenAt": {
-    "map": 4,
-    "x": 0,
-    "y": 4,
-    "facing": "east",
-    "column": 8,
-    "row": 6
-   },
-   "views": 1364,
-   "drawnIn": [
-    3,
-    6
-   ],
-   "sameAs": "valjevo-dungeon-briar-terrain-16.png",
-   "why": "drawn in 1364 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:4:f3538203420ffdd57a5c6b220c7224de270400f6893d8ae4eb5dc058acb02e5b",
-   "width": 32,
-   "height": 32,
-   "area": 4,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 242",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:242:13",
-   "description": "8X8D5 block 242 tile 13, shown in area 4 (Valjevo Castle)",
-   "seenAt": {
-    "map": 4,
-    "x": 0,
-    "y": 4,
-    "facing": "east",
-    "column": 2,
-    "row": 8
-   },
-   "views": 1183,
-   "drawnIn": [
-    3,
-    6,
-    26
-   ],
-   "sameAs": "waystone-boundary-terrain-f3538203420f.png",
-   "why": "drawn in 1183 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -10989,53 +10635,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:6:f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b",
-   "width": 32,
-   "height": 32,
-   "area": 6,
-   "areaName": "Valjevo Castle",
-   "group": "shared tile set 8X8D1 block 203",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:203:13",
-   "description": "8X8D1 block 203 tile 13, shown in area 6 (Valjevo Castle)",
-   "seenAt": {
-    "map": 6,
-    "x": 3,
-    "y": 0,
-    "facing": "north",
-    "column": 4,
-    "row": 4
-   },
-   "views": 226,
-   "drawnIn": [
-    0,
-    1,
-    2,
-    3,
-    5,
-    7,
-    8,
-    9,
-    10,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    20,
-    21,
-    24,
-    26,
-    27,
-    29,
-    31
-   ],
-   "sameAs": "new-phlan-gate-31a92759fb4b.png",
-   "why": "drawn in 226 views of map 6 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:6:73fca805c559f76cbe3313cb1c587758426d3cd915fd5ad36da8f6224c9c6e94",
    "width": 32,
    "height": 32,
@@ -11125,43 +10724,6 @@
    "views": 4,
    "drawnIn": [],
    "why": "drawn in 4 views of map 6 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:6:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739",
-   "width": 32,
-   "height": 32,
-   "area": 6,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:1:14",
-   "description": "8X8D5 block 1 tile 14, shown in area 6 (Valjevo Castle)",
-   "seenAt": {
-    "map": 6,
-    "x": 3,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 4
-   },
-   "views": 19,
-   "drawnIn": [
-    2,
-    9,
-    10,
-    14,
-    15,
-    18,
-    20,
-    21,
-    24,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "bane-side-galleries-terrain-0264796f9fa2.png",
-   "why": "drawn in 19 views of map 6 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -11488,42 +11050,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:6:9fcdf0ff6bdfd2b832cfd91e6160e494b4f67ec897064204ba4dc3a869b31c4d",
-   "width": 32,
-   "height": 32,
-   "area": 6,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:1:13",
-   "description": "8X8D5 block 1 tile 13, shown in area 6 (Valjevo Castle)",
-   "seenAt": {
-    "map": 6,
-    "x": 3,
-    "y": 0,
-    "facing": "north",
-    "column": 7,
-    "row": 4
-   },
-   "views": 19,
-   "drawnIn": [
-    2,
-    9,
-    14,
-    15,
-    18,
-    20,
-    21,
-    24,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "bane-side-galleries-terrain-9fcdf0ff6bdf.png",
-   "why": "drawn in 19 views of map 6 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:6:ca1a1292cdd484da405ff32f0a76c0246e016d31ae63e7506cf401b0d243a84e",
    "width": 32,
    "height": 32,
@@ -11650,42 +11176,6 @@
    ],
    "sameAs": "kuto-earth-chamber-joins-f08f5d405196.png",
    "why": "drawn in 9 views of map 6 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:6:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae",
-   "width": 32,
-   "height": 32,
-   "area": 6,
-   "areaName": "Valjevo Castle",
-   "group": "tile set 8X8D5 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D5.DAX:1:15",
-   "description": "8X8D5 block 1 tile 15, shown in area 6 (Valjevo Castle)",
-   "seenAt": {
-    "map": 6,
-    "x": 3,
-    "y": 0,
-    "facing": "north",
-    "column": 5,
-    "row": 6
-   },
-   "views": 8,
-   "drawnIn": [
-    2,
-    9,
-    14,
-    15,
-    18,
-    20,
-    21,
-    24,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "bane-side-galleries-terrain-f5d7a245e0ac.png",
-   "why": "drawn in 8 views of map 6 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -12669,6 +12159,29 @@
   },
   {
    "kind": "first-person cell",
+   "key": "tile:6:9654f4cba935394e5ee96f4c1c29d1b9d69327b0e674e4f9f0a8bcf4db560329",
+   "width": 32,
+   "height": 32,
+   "area": 6,
+   "areaName": "Valjevo Castle",
+   "group": "tile set 8X8D5 block 242",
+   "what": "several tiles together",
+   "composition": "s11|8X8D5.DAX:241:66,8X8D5.DAX:242:49,8X8D5.DAX:242:49",
+   "description": "8X8D5 block 242 tile 49 over 8X8D5 block 242 tile 49 over 8X8D5 block 241 tile 66 over sky colour 11, shown in area 6 (Valjevo Castle)",
+   "seenAt": {
+    "map": 6,
+    "x": 15,
+    "y": 11,
+    "facing": "west",
+    "column": 2,
+    "row": 2
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 6 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
    "key": "tile:6:a935cfd5653e067413370e19a2f013bd8067d2e08ec0ea24fe27ed4345c09b84",
    "width": 32,
    "height": 32,
@@ -12827,6 +12340,29 @@
    "views": 1347,
    "drawnIn": [],
    "why": "drawn in 1347 views of map 6 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:6:e26c67c9c1129c9d8b59cad5dc9e33bd4a949c11874c9d5eae469e96fcbdd5cd",
+   "width": 32,
+   "height": 32,
+   "area": 6,
+   "areaName": "Valjevo Castle",
+   "group": "tile set 8X8D5 block 242",
+   "what": "several tiles together",
+   "composition": "s15|8X8D5.DAX:241:66,8X8D5.DAX:242:49,8X8D5.DAX:242:49",
+   "description": "8X8D5 block 242 tile 49 over 8X8D5 block 242 tile 49 over 8X8D5 block 241 tile 66 over sky colour 15, shown in area 6 (Valjevo Castle)",
+   "seenAt": {
+    "map": 6,
+    "x": 15,
+    "y": 11,
+    "facing": "west",
+    "column": 2,
+    "row": 2
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 6 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -45979,6 +45515,7 @@
    "views": 464,
    "drawnIn": [
     3,
+    4,
     6
    ],
    "sameAs": "valjevo-dungeon-briar-terrain-23.png",
