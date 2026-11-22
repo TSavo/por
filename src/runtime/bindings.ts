@@ -100,6 +100,8 @@ export const data = resolve({
   skyColor: { "1.0": 0x69be, "1.3": 0x6a60 },
   /** The colour drawn below the horizon. */
   groundColor: { "1.0": 0x69c1, "1.3": 0x6a63 },
+  /** Whether the native local Area viewport is active. */
+  areaViewActive: { "1.0": 0x6a0a, "1.3": 0x6aac },
   /** The party's column on the map being shown. The row and the facing follow it. */
   cameraX: { "1.0": 0x6a0b, "1.3": 0x6aad },
   cameraY: { "1.0": 0x6a0c, "1.3": 0x6aae },

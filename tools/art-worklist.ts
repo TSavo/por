@@ -467,8 +467,9 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const graveyardArrivalBackdrops = label === 26 ? new Set([
       cells.cell("g8", []).hash, cells.cell("h0.0.8.8", []).hash,
     ]) : undefined;
+    const podolAreaFill = label === 18 ? cells.cell("g8", []).hash : undefined;
     for (const [hash, list] of seen) {
-      if (!have.has(hash) || graveyardArrivalBackdrops?.has(hash)) continue;
+      if (!have.has(hash) || hash === podolAreaFill || graveyardArrivalBackdrops?.has(hash)) continue;
       const backdrops = new Set(list.filter((entry) => !entry.areaView).map((entry) => entry.cell.backdrop));
       if (backdrops.size === 1) confirmed.add([...backdrops][0]!);
     }

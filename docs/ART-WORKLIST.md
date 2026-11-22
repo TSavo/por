@@ -56,18 +56,18 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 |   of which several tiles together | 0 |
 |   of which the same pixels already have art of yours in another area | 0 |
 | Battlefield cells to do | 0 |
-| Tile keys in the manifests | 7420 |
-|   accounted for by the tool | 7415 |
+| Tile keys in the manifests | 7460 |
+|   accounted for by the tool | 7455 |
 | Battlefield keys in the manifests | 83 |
 |   that are one stored cell of a battlefield picture | 78 |
 | Stored 8 by 8 tiles | 3016 |
 |   blank | 9 |
 |   distinct pictures among the rest | 1333 |
-|   with art in some area, alone or over a solid colour | 2553 |
-|   without (the catalogue's 720 when it was written) | 454 |
+|   with art in some area, alone or over a solid colour | 2572 |
+|   without (the catalogue's 720 when it was written) | 435 |
 |     of those, no map can show | 412 |
 |     of those, shown only together with other tiles, never alone | 6 |
-|     of those, shown alone in some area | 36 |
+|     of those, shown alone in some area | 17 |
 
 ## Where each area stands
 
@@ -83,14 +83,14 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 7 | Valjevo Castle, the Pool | yes | 220 | 216 | 0 | 216 of 216 |
 | 8 | Phlan City Hall | yes | 405 | 295 | 0 | 305 of 305 (10 as WebGL wall materials) |
 | 9 | Stojanow Gate | yes | 287 | 150 | 0 | 150 of 150 |
-| 10 | Valhingen Graveyard | yes | 2452 | 890 | 0 | 902 of 902 (12 as WebGL wall materials) |
+| 10 | Valhingen Graveyard | yes | 2452 | 910 | 0 | 922 of 922 (12 as WebGL wall materials) |
 | 11 | The Training Hall | yes | 405 | 295 | 0 | 295 of 295 |
 | 13 | The Kobold Caves | yes | 313 | 211 | 0 | 213 of 213 (2 as WebGL wall materials) |
 | 14 | Kovel Mansion | yes | 150 | 90 | 0 | 92 of 92 (2 as WebGL wall materials) |
 | 15 | Mendor's Library | yes | 254 | 254 | 0 | 274 of 274 (15 as first views of the next area, 5 as WebGL wall materials) |
 | 16 | The Lizardman Keep | yes | 419 | 419 | 0 | 440 of 440 (14 as WebGL wall materials, 7 only in unreachable views) |
 | 17 | The Nomad Camp | yes | 186 | 164 | 0 | 175 of 175 (11 as WebGL wall materials) |
-| 18 | Podol Plaza | yes | 326 | 253 | 0 | 286 of 286 (26 as first views of the next area, 7 as WebGL wall materials) |
+| 18 | Podol Plaza | yes | 326 | 273 | 0 | 306 of 306 (26 as first views of the next area, 7 as WebGL wall materials) |
 | 20 | The Slums | not yet | 395 | 180 |  | 187 of 188 (7 as WebGL wall materials) |
 | 21 | Sokal Keep | yes | 500 | 253 | 0 | 275 of 275 (22 as WebGL wall materials) |
 | 22 | Yarash's Pyramid | yes | 140 | 87 | 0 | 95 of 95 (8 as WebGL wall materials) |
@@ -131,8 +131,8 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 
 | What | Count |
 | --- | ---: |
-| first-person cells that show a sky or ground colour no existing artwork of the area shows | 3221 |
-| first-person cells of the overhead area view, which no existing artwork of the area confirms | 172 |
+| first-person cells that show a sky or ground colour no existing artwork of the area shows | 3219 |
+| first-person cells of the overhead area view, which no existing artwork of the area confirms | 134 |
 | first-person cells of an area whose reading is not confirmed | 381 |
 | first-person cells seen only from squares not connected to any square the existing artwork was made from | 111 |
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |
