@@ -9147,7 +9147,11 @@ try {
     await checkScrollPortrait("b695:caller:af92", /INSIDETHERUINSOFABLACKMARBLECRYPT/i, false,
       "valhingen-black-marble-crypt.png");
     await advance("enter");
-    await checkScrollPortrait("b6c6:caller:afab", /DOYOUREADTHESCROLL/i, false);
+    await checkScrollPortrait("b6c6:caller:afab", /DOYOUREADTHESCROLL/i, false,
+      "valhingen-crypt-scroll-choice.png");
+    const choicePlate = await fetch(`${origin}/art/scene-illustration:area:10:ecl:b6c6:caller:afab`);
+    assert.ok(choicePlate.ok);
+    assert.deepEqual(Buffer.from(await choicePlate.arrayBuffer()), readFileSync("upgrades/valhingen-crypt-scroll-choice.png"));
     await advance(declineCryptScroll ? "n" : "y");
     if (!declineCryptScroll) {
       await checkScrollPortrait("b695:caller:afe3", /THESCROLLISPLACEDINYOURJOURNALASENTRY43/i, true,
