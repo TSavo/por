@@ -149,12 +149,15 @@ const addUnit = (archive: string, unit: ReviewUnit) => {
     model: unit.model ?? (asset || runtimeVariants.length ? "eleven_v4" : null),
     asset: asset ?? null,
     runtimeVariants,
+    ...(dynamicResolution.unitSelectors?.[unit.id] ? { selector: dynamicResolution.unitSelectors[unit.id] } : {}),
     playback: { attachOnlyToTrigger: true, queueAfterCurrentNarration: true }
   });
 };
 for (const review of reviews) for (const unit of review.units) addUnit(review.archive, unit);
 for (const unit of sokal.units) addUnit("ECL4.DAX", unit);
 for (const id of dynamicVariantsByUnit.keys()) if (!unitIds.has(id)) throw new Error(`unknown dynamic unit ${id}`);
+for (const id of Object.keys(dynamicResolution.unitSelectors ?? {}))
+  if (!dynamicVariantsByUnit.has(id)) throw new Error(`a selector names ${id}, which has no variants`);
 
 const reviewedEventIds = new Set<string>();
 for (const review of reviews) {

@@ -373,6 +373,8 @@ export class EclNarrationObserver {
   /** The one changing output part that tells a unit's variants apart, when there is exactly one such slot. */
   private unitDynamicPart(unit: ObserverManifest["units"][number] | undefined): SourcePart | undefined {
     if (!unit?.runtimeVariants?.length) return undefined;
+    // A unit whose variants no printed slot tells apart names the slot that does.
+    if (unit.selector) return { operandIndex: -1, kind: unit.selector.kind, address: unit.selector.address };
     const parts = unit.coveredSourceIds.flatMap(id => (this.eventsById.get(id)?.outputParts ?? [])
       .filter(part => part.kind === "dynamic-string" || part.kind === "dynamic-value"));
     // An authored recording can replace a count while still varying by the displayed noun.

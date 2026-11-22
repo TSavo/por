@@ -15,6 +15,12 @@ export interface RuntimeNarrationUnit {
   resolution: string;
   variant?: string | null;
   runtimeVariants?: RuntimeNarrationVariant[];
+  /**
+   * The slot whose value is a variant's `dynamicValue`, when it is not a slot the unit prints: the
+   * vote at Tyranthraxus prints the voter's typed name and is told apart by the voter's place in
+   * the party. Without it the observer selects on the one changing slot the unit prints.
+   */
+  selector?: { kind: "dynamic-value" | "dynamic-string"; address: string };
 }
 
 export interface RuntimeNarrationManifest {
