@@ -194,3 +194,18 @@ the opening portrait, and the served art hashes against each Chrome
 capture. Editing a binding for a different portrait keeps that capture valid.
 The reviewed narration-log edit in `3e497fec` accepts the preceding renderer's
 capture hashes for that exact script. The original capture hashes are retained.
+
+## Enhanced artwork fallbacks
+
+Set `POR_TRACE_ENHANCED_FALLBACKS=1` and run
+`npm run verify:campaign -- <chrome> --replay-leg qa/fixtures/wilderness-walk`.
+The Chrome replay saves `enhanced-fallbacks.json` in its leg directory.
+It records the art keys from committed picture layers and counts each
+displayed view once, including the views within an animation.
+
+Use GOG 1.3 for the census and rerun with `POR_GAME_SOURCE=port` to check the
+bundled display. Run `npm run verify:enhanced-fallbacks -- --record wilderness-walk <chrome-leg>`
+on the completed GOG replay and regenerate the worklist with `npm run art:worklist`.
+The verifier reports the measured walks, their fallback frames and their
+distinct keys. It exits with status 1 while a recorded walk needs a
+capture or a captured fallback remains.

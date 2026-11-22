@@ -40,6 +40,7 @@ import { encodePng, pngDimensions } from "./png.js";
 import { ExplorationCells as Cells, type Backdrop, type Cell, type CellKind } from "./exploration-cells.js";
 import { explorationMaterialArea } from "./exploration-materials.js";
 import { blankApproachSprites } from "./encounter-art.js";
+import { enhancedFallbackCoverage } from "./qa-enhanced-fallbacks.js";
 import { heldPortraitCoverage } from "./qa-held-portraits.js";
 
 const repository = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -857,6 +858,7 @@ function otherPictures(data: PortGameData, read: (path: string) => Uint8Array): 
 interface Worklist {
   schema: 2;
   heldPortraits: Omit<ReturnType<typeof heldPortraitCoverage>, "sites" | "scenes" | "unmapped">;
+  enhancedFallbacks: ReturnType<typeof enhancedFallbackCoverage>;
   about: string;
   done: string;
   remaining: number;
@@ -882,6 +884,9 @@ function document(list: Worklist): string {
     `**Held portrait animations (#131).** ${list.heldPortraits.verified} / ${list.heldPortraits.total} picture sites verified (measured ${list.heldPortraits.measured}, one-shot ${list.heldPortraits.oneShotsVerified}). R = ${list.heldPortraits.remaining}.`,
     `The site inventory comes from static script and native picture discovery. ${list.heldPortraits.scenesVerified} / ${list.heldPortraits.scenesMeasured} captured native prompts passed paired Chrome checks.`,
     "Run `npm run verify:held-portraits` for every site and its evidence.",
+    "",
+    `**Enhanced fallbacks (#142).** ${list.enhancedFallbacks.frames} fallback frames / ${list.enhancedFallbacks.keys.length} distinct keys across ${list.enhancedFallbacks.presented} Chrome views.`,
+    `Recorded walks measured in Chrome with GOG 1.3: ${list.enhancedFallbacks.walks} / ${list.enhancedFallbacks.recordedWalks}. Run \`npm run verify:enhanced-fallbacks\` for the captured keys and walks still to measure.`,
     "",
     ...(() => {
       // Requests the owner has made that no tool can find (qa/art-requests.json): open ones are work.
@@ -1150,11 +1155,13 @@ function main(): void {
     "    of those, shown alone in some area": first.stored.withoutArtShownAlone,
   };
   const { sites: _sites, scenes: _scenes, unmapped: _unmapped, ...heldPortraits } = heldPortraitCoverage(repository);
+  const enhancedFallbacks = enhancedFallbackCoverage(repository);
   const list: Worklist = {
     schema: 2,
     heldPortraits,
+    enhancedFallbacks,
     about: "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
-    done: "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
+    done: "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining, no invalid tile artwork and zero Enhanced fallbacks across the recorded walks. The artwork is done when, as well, nothing is left under notEstablished.",
     remaining: items.length, totals, notEstablished, areas: first.reports, battlefield: battle.reports,
     battlefieldStruckOff: { cells: battle.struckIndoorCells, reason: "distinct BACPAC cells of slots 25–33 that no battlefield draws. Outdoor setup replaces all 40 slots. "
       + "Indoors every battlefield draw (overlay 0x1f at 0206, 067d, 06de and 0966) takes its slot from the kind table at DS:2747, and the indoor builder "
@@ -1186,6 +1193,7 @@ function main(): void {
       if (JSON.stringify(committed.heldPortraits) !== JSON.stringify(list.heldPortraits)) {
         problems.push("The held portrait counts changed");
       }
+      if (JSON.stringify(committed.enhancedFallbacks) !== JSON.stringify(list.enhancedFallbacks)) problems.push("The Enhanced fallback counts changed");
       for (const key of now) if (!before.has(key)) problems.push(`${key} is needed and is not in ${WORKLIST}`);
       for (const item of committed.items) if (!now.has(item.key) && missing(art, item.key, item.width, item.height)) problems.push(`${item.key} is in ${WORKLIST}, has no art, and the tool no longer lists it`);
     }
@@ -1210,10 +1218,11 @@ function main(): void {
       return issue ? [`${key}: ${issue}`] : [];
     });
     console.log(`\nverify:art-worklist: ${items.length} confirmed cells remaining (${Date.now() - started} ms).`);
+    console.log(`Enhanced artwork: ${enhancedFallbacks.frames} fallback frames / ${enhancedFallbacks.keys.length} distinct keys. Recorded walks measured: ${enhancedFallbacks.walks} / ${enhancedFallbacks.recordedWalks}.`);
     if (invalidTiles.length) console.error(`Invalid tile artwork (first ${Math.min(invalidTiles.length, 10)} of ${invalidTiles.length}):\n${invalidTiles.slice(0, 10).join("\n")}`);
     const pending = Object.entries(notEstablished).filter(([, count]) => typeof count === "number" && count > 0);
     if (pending.length) console.log(`Not counted, not established (see ${DOCUMENT}): ${pending.map(([what, count]) => `${count} ${what}`).join("; ")}`);
-    process.exit(items.length || invalidTiles.length ? 1 : 0);
+    process.exit(items.length || invalidTiles.length || enhancedFallbacks.frames || enhancedFallbacks.missingWalks.length ? 1 : 0);
   }
   if (args.includes("--held")) {
     // Not committed: out/ is the scratch directory. One row per held cell and backdrop, with a square and facing that shows it.

@@ -10,8 +10,43 @@
   "unmappedScenes": 0,
   "remaining": 212
  },
+ "enhancedFallbacks": {
+  "frames": 16,
+  "presented": 163,
+  "walks": 1,
+  "recordedWalks": 17,
+  "missingWalks": [
+   "campaign-castle-approach-leg",
+   "campaign-end-leg",
+   "campaign-ending-leg",
+   "campaign-sokal-leg",
+   "campaign-tower-leg",
+   "visit-kobold-caves",
+   "visit-kovel-mansion",
+   "visit-lizardman-keep",
+   "visit-mendors-library",
+   "visit-temple-of-bane",
+   "visit-textile-house",
+   "visit-training-hall",
+   "visit-valhingen-graveyard",
+   "visit-valjevo-area-4",
+   "visit-yarashs-pyramid",
+   "walk-commission-5-taken"
+  ],
+  "runs": 1,
+  "keys": [
+   {
+    "key": "portrait:area:17:ecl:9c49:PIC7.DAX:30:0:0",
+    "frames": 1
+   },
+   {
+    "key": "surface:overland",
+    "frames": 15
+   }
+  ]
+ },
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
- "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
+ "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining, no invalid tile artwork and zero Enhanced fallbacks across the recorded walks. The artwork is done when, as well, nothing is left under notEstablished.",
  "remaining": 0,
  "totals": {
   "Remaining, all kinds": 0,

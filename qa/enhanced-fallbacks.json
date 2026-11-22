@@ -1,0 +1,123 @@
+{
+ "schema": 1,
+ "runs": {
+  "wilderness-walk": {
+   "presented": 163,
+   "frames": [
+    {
+     "sequence": 47,
+     "animation": false,
+     "keys": [
+      "surface:overland"
+     ]
+    },
+    {
+     "sequence": 48,
+     "animation": true,
+     "keys": [
+      "surface:overland"
+     ]
+    },
+    {
+     "sequence": 51,
+     "animation": false,
+     "keys": [
+      "surface:overland"
+     ]
+    },
+    {
+     "sequence": 52,
+     "animation": true,
+     "keys": [
+      "surface:overland"
+     ]
+    },
+    {
+     "sequence": 76,
+     "animation": false,
+     "keys": [
+      "portrait:area:17:ecl:9c49:PIC7.DAX:30:0:0"
+     ]
+    },
+    {
+     "sequence": 111,
+     "animation": false,
+     "keys": [
+      "surface:overland"
+     ]
+    },
+    {
+     "sequence": 112,
+     "animation": false,
+     "keys": [
+      "surface:overland"
+     ]
+    },
+    {
+     "sequence": 113,
+     "animation": false,
+     "keys": [
+      "surface:overland"
+     ]
+    },
+    {
+     "sequence": 114,
+     "animation": false,
+     "keys": [
+      "surface:overland"
+     ]
+    },
+    {
+     "sequence": 115,
+     "animation": false,
+     "keys": [
+      "surface:overland"
+     ]
+    },
+    {
+     "sequence": 116,
+     "animation": false,
+     "keys": [
+      "surface:overland"
+     ]
+    },
+    {
+     "sequence": 117,
+     "animation": false,
+     "keys": [
+      "surface:overland"
+     ]
+    },
+    {
+     "sequence": 118,
+     "animation": false,
+     "keys": [
+      "surface:overland"
+     ]
+    },
+    {
+     "sequence": 119,
+     "animation": false,
+     "keys": [
+      "surface:overland"
+     ]
+    },
+    {
+     "sequence": 120,
+     "animation": false,
+     "keys": [
+      "surface:overland"
+     ]
+    },
+    {
+     "sequence": 121,
+     "animation": false,
+     "keys": [
+      "surface:overland"
+     ]
+    }
+   ],
+   "fixtureSha256": "9d46b32434cec35075991e34a89a9f80654388636c551ab8566b2147d71907b8"
+  }
+ }
+}

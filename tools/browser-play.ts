@@ -188,6 +188,8 @@ interface FrameState extends ExplorationFrame {
   classicPortraitCursor?: number;
   classicPortraitCaller?: number;
   perspective?: boolean;
+  prompt?: "read" | "poll";
+  awaitsKey?: boolean;
   exploration?: { area: number; mapId?: number; x: number; y: number; facing: number; cameraX?: number; cameraY?: number;
     walls?: [number, number, number, number] };
   encounter?: EncounterPlacement;
@@ -518,8 +520,10 @@ const server = createServer(async (req, res) => {
     const track = /^track ([1-9]\d{0,2})$/.exec(command);
     const validTrack = frame.journal && (command === "track auto" ||
       (track && Number(track[1]) <= frame.journal.leads.filter(isOpenObjective).length));
+    // Recorded walks also keep the nonblocking polls sent by the pipe harness outside travel.
+    const recordedPoll = process.env.POR_PROMPT_SCHEDULE_IN && frame.prompt === "poll" && !frame.awaitsKey;
     const validPoll = expected === String(sequence) && (command === ":poll" && (frame.automaticCombat || frame.presentationPolling) ||
-      command === ":travel-poll" && frame.travelPolling);
+      command === ":travel-poll" && (frame.travelPolling || recordedPoll));
     // While the game plays an animation by itself it takes no key: the page only asks for more of it.
     if (frame.presentationPolling && !validPoll) { res.writeHead(409).end(); return; }
     const validDeveloperVictory = command === developerVictoryCommand && expected === String(sequence) &&

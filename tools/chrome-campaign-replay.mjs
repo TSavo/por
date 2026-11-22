@@ -5,6 +5,7 @@ import { appendFileSync, copyFileSync, createWriteStream, mkdirSync, readFileSyn
 import { createServer } from "node:net";
 import { basename, join, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
+import { observeEnhancedFallbacks } from "./chrome-enhanced-fallbacks.mjs";
 
 async function freePort() {
   const probe = createServer().listen(0, "127.0.0.1");
@@ -24,12 +25,13 @@ export function copyCampaignSaves(from, to) {
 // spent each time the game emptied its keyboard buffer, and their key lists include those
 // presses. Pass "" for a replay that presses each key once.
 export async function openChromeCampaignLeg({ chromePath, directory, checkpointDir, bootKeys, startAt, developerCombat = false,
-  inputCompat = "discard-poll-prompt", schedule, pregenParty = false }) {
+  inputCompat = "discard-poll-prompt", schedule, pregenParty = false,
+  traceEnhancedFallbacks = process.env.POR_TRACE_ENHANCED_FALLBACKS === "1" }) {
   mkdirSync(directory);
   // The guest overwrites slots during a campaign. Preserve the input saves
   // and commands for each leg, including host-side journal commands.
   copyCampaignSaves(checkpointDir, directory);
-  writeFileSync(join(directory, "boot.json"), JSON.stringify({ bootKeys, startAt, developerCombat }) + "\n");
+  writeFileSync(join(directory, "boot.json"), JSON.stringify({ bootKeys, startAt, developerCombat, inputCompat }) + "\n");
   const commands = join(directory, "commands.jsonl");
   writeFileSync(commands, "");
   const log = createWriteStream(join(directory, "runner.log"));
@@ -127,6 +129,14 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
   }
 
   async function close() {
+    if (traceEnhancedFallbacks && socket?.readyState === WebSocket.OPEN) {
+      try {
+        const trace = await evaluate("window.porEnhancedFallbacks()");
+        writeFileSync(join(directory, "enhanced-fallbacks.json"), JSON.stringify(trace, null, 2) + "\n");
+      } catch (error) {
+        console.error("Could not read the Chrome artwork fallback capture", error);
+      }
+    }
     await writeNarrationPlayback();
     if (socket?.readyState === WebSocket.OPEN) {
       socket.send(JSON.stringify({ id: ++messageId, method: "Browser.close" }));
@@ -159,6 +169,7 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
       return typeof send === "function" && (document.querySelector("#screen").naturalWidth === 320 ||
         (state.classicAvailable === false && document.querySelector("#screen").naturalWidth > 0));
     })()`), 30_000 + (Number(startAt) || 0) / 1000);
+    if (traceEnhancedFallbacks) await evaluate(`(${observeEnhancedFallbacks})()`);
     await evaluate(`(() => {
       if (!enhanced) document.querySelector("#presentation").click();
       const sendKey = send;
@@ -194,6 +205,7 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
           if (!state.ready || state.sequence <= ${lastSequence} || renderingSequence === state.sequence) return;
           // A frame of an animation the game plays by itself is not a prompt: the page goes on by itself.
           if (state.presentationPolling) return;
+          if (${traceEnhancedFallbacks} && animationFrame) return;
           if (document.documentElement.dataset.presentation !== "enhanced") throw new Error("Expected Enhanced mode");
           return { sequence: state.sequence, text: state.text, journal: state.journal };
         })()`), 180_000);
