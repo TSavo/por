@@ -2454,6 +2454,14 @@ const illustrationRoutes = new Map([
     requireTiledApproach: false,
     portrait: "portrait:area:10:ecl:a022:PIC4.DAX:35:0:0", prompt: /AZOMBIEWITHGRAY,LEATHERY.HARDSKIN/i,
   }],
+  ["valhingen-black-marble-crypt-return", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portraitStops: { 1: "scene-illustration:area:10:ecl:b109", 2: null },
+    phaseCaptures: { 1: "valhingen-black-marble-crypt-return.png" },
+    approachStops: { 2: [56, 32, "encounter:area:10:SPRIT4.DAX:23:0:0", 32, 80] },
+    portrait: "portrait:PIC4.DAX:23:0:0",
+    prompt: /THEREISAVAMPIREHERE/i,
+  }],
   ["valhingen-crypt-overturn", {
     slot: "A", inputs: ["up", "down", "up", "enter", "n", "y", "o"],
     portraitStops: { 6: "scene-illustration:area:10:ecl:b04e" },
