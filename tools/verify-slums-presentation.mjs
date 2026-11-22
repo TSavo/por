@@ -7333,7 +7333,7 @@ try {
   // With --disable-gpu, headless Chrome (157 measured) has no WebGL unless software WebGL is allowed,
   // and the page then draws the first-person view from tiles: no .street-viewport (issue #123).
   chrome = spawn(chromePath, [
-    "--headless", "--no-first-run", "--disable-gpu", "--enable-unsafe-swiftshader", "--remote-debugging-port=0",
+    "--headless", "--no-first-run", "--mute-audio", "--disable-gpu", "--enable-unsafe-swiftshader", "--remote-debugging-port=0",
     `--user-data-dir=${profile}`, "about:blank",
   ], { stdio: "ignore" });
   const debugPort = await waitFor("Chrome's debug port", () =>
