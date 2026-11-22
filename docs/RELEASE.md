@@ -327,12 +327,28 @@ window on the game; closing the windows stopped everything in 7 seconds; the ope
 Party in a new one, with `SAVE\CHARLIST.TXT` saved empty (#119). After the run `%APPDATA%\Pool of
 Radiance`, which had not existed, was removed again.
 
+The Linux archive of `00e281a2` (`pool-of-radiance-0.1.0-linux-x64.tar.gz`, 706 MB) was packed on Battleaxe
+(`npm run release:pack -- linux`, 24 seconds in /dev/shm; checks 1 to 3 passed, Node v26.13.1 checked against
+SHASUMS256.txt; packing off macOS needed #107's change: the icon cut with python3 Pillow, GNU tar flags: a
+first run failed with `tar: unrecognized option '--no-mac-metadata'`), unpacked under /dev/shm and started as a player
+starts it: `./pool-of-radiance` with `env -i`, only HOME, PATH, `POR_OPEN_BROWSER=0` and `POR_PREGEN_PARTY=1`.
+
+- It printed `POR_GAME_DATA port <folder>/game`, listened on 127.0.0.1:43124, and made
+  `~/.local/share/pool-of-radiance/{saves,out,running.json}`.
+- `capture-release.mjs` with `/usr/bin/google-chrome` (headless, muted) saw the publisher splash, the title with
+  both names, code wheel question 7 (JUNGLE), the main menu, the six ready-made characters added, and then New
+  Phlan's first-person view (Rolf's greeting, 15,1 W); it opened in Enhanced with the display switch hidden and no console
+  errors. The script itself reported FAILED, having pressed Enter 80 times without reaching the first exploration
+  menu while Rolf's tour was still talking (the Mac run got through): the view was reached, the menu was not.
+- SIGINT (Ctrl-C) to the start script: the launcher and runner were gone and the port free in 1.0 second,
+  `running.json` removed, `roster.json` left in `saves/`.
+
 ## Known gaps
 
 - Windows, not yet run: an elevated install to Program Files, the Start Menu and desktop shortcuts and
   the uninstall entry (the unelevated run cannot write the all-users places, so none were made),
   SmartScreen's prompt, the finish page's Play (through the shortcut and Explorer), and closing the
   console window (its SIGHUP path is checked on the Mac; on Battleaxe the launcher's console could not
-  be found as a window from the automation's session). The Linux archive has not been run on Linux.
+  be found as a window from the automation's session).
 - **Use my original files** has been run in the compiled release on Linux only, not yet in the Mac app
   or a Windows install. The player types or pastes the folder: there is no system folder dialog.
