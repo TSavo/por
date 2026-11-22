@@ -6020,6 +6020,11 @@ const valhingenBrassDoorBattle = {
   afterBattle: /9,1W.*AREACASTVIEWENCAMPSEARCHLOOK/i,
 };
 const controlledBattleIllustrations = new Map([
+  ["mendor-basilisk-loot", {
+    slot: "B", inputs: ["s", "up", "enter", "enter", "c", "enter"],
+    portrait: "portrait:area:15:ecl:a5a3:PIC1.DAX:1:0:0",
+    caption: /VIEWTAKEPOOLEXIT/i,
+  }],
   ["kovel-ambush-guild-files", {
     slot: "A", inputs: ["up", "enter", "enter", "enter"],
     afterBattle: /8,13N.*AREACASTVIEWENCAMP/i,
@@ -8596,6 +8601,15 @@ try {
       await step("enter");
       assert.match(text(), /VIEWTAKEPOOLEXIT/i);
       assert.equal(frame.portrait, "portrait:PIC1.DAX:1:0:0");
+    } else if (routeName === "mendor-basilisk-loot") {
+      await step("t");
+      assert.match(text(), /LOOTHANDAXEPOTIONPOTIONCLOAKCLERICALSCROLLWITH2SPELLS/i);
+      for (let item = 0; item < 5; item++) await step("enter");
+      assert.match(text(), /VIEWPOOLEXIT/i);
+      await step("e");
+      assert.equal(frame.portrait, undefined);
+      assert.match(text(), /4,3N.*AREACASTVIEWENCAMP/i);
+      await waitForExplorationViewport();
     } else if (routeName === "kovel-ambush-guild-files") {
       await step("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === "kovel-thief-ambush-cleared"));
