@@ -7099,6 +7099,7 @@ routes.push("valjevo-records-revisit");
 routes.push("river-pumping-hostile");
 routes.push("river-return-reload");
 routes.push("swamp-return", "swamp-reward-reload");
+routes.push("swamp-elder-friend-wheel");
 routes.push("slums-potion-booth-reload");
 routes.push("bane-cell-inscription-reload", "kovel-reward", "podal-reward", "textile-reward", "slums-reward", "stojanow-gate-reward");
 routes.push("mendor-records-reward-reload", ...mendorCouncilRewards.keys());
@@ -13741,6 +13742,37 @@ try {
     await advance("enter");
     assert.equal(frame.portrait, undefined);
     console.log("Verified Urslingen's Stojanow Gate briefing portrait and state-preserving switches.");
+  } else if (routeName === "swamp-elder-friend-wheel") {
+    for (const key of ["up", "b", "p", "enter"]) await advance(key);
+    assert.equal(frame.codeWheelHint, 9, "The elder's word prompt should name Journal Entry 35's card");
+    const question = JSON.parse(readFileSync("src/codewheel/wheel.json", "utf8")).questions.find(({ number }) => number === 9);
+    const cardImages = [
+      ["#wheel-espruar", `/code-wheel/${question.espruar}.png`],
+      ["#wheel-dethek", `/code-wheel/${question.dethek}.png`],
+      ["#wheel-path", `/code-wheel/path-${question.path}.png`],
+    ];
+    const cardVisible = `(() => {
+      const panel = document.querySelector("#code-wheel");
+      return !panel.hidden && panel.dataset.mode === "tool" && ${JSON.stringify(cardImages)}.every(([id, path]) => {
+        const image = document.querySelector(id);
+        return image.getAttribute("src") === path && image.complete && image.naturalWidth > 0;
+      });
+    })()`;
+    await waitFor("the friend-word wheel to open automatically with its rune card", () => run(cardVisible));
+    await run("screen.focus({ preventScroll: true })");
+    const playerEscape = async () => {
+      const key = { key: "Escape", code: "Escape", windowsVirtualKeyCode: 27 };
+      await command("Input.dispatchKeyEvent", { type: "keyDown", ...key });
+      await command("Input.dispatchKeyEvent", { type: "keyUp", ...key });
+    };
+    await playerEscape();
+    await waitFor("Escape to hide the friend-word wheel", () => run('document.querySelector("#code-wheel").hidden'));
+    await playerEscape();
+    await waitFor("Escape to reopen the same friend-word rune card", () => run(cardVisible));
+    assert.deepEqual(await latest(), frame, "The wheel should leave the guest on the same prompt");
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "swamp-elder-friend-wheel.png"), Buffer.from(shot.data, "base64"));
+    console.log("Verified the friend-word wheel opens automatically, shows the correct runes, and toggles with Escape.");
   } else if (routeName === "swamp-elder" || routeName === "swamp-elder-decline") {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
     const terrain = new Set();
