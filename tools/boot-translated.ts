@@ -4,7 +4,7 @@
  * place the translation still stops.
  */
 import { createHash } from "node:crypto";
-import { mkdirSync, readFileSync, realpathSync, writeFileSync } from "node:fs";
+import { appendFileSync, mkdirSync, readFileSync, realpathSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { Cpu } from "../src/cpu/machine.js";
 import { openAutomap } from "./automap.js";
@@ -20,7 +20,7 @@ import { stagePregenParty } from "./pregen-party.js";
 import { isPartyFile, openSaveSlots, saveSlotLetter } from "./save-slots.js";
 import { callTrace, exeByImage, farCall, farCallObservers, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installImage, installProgram, loadedSlices } from "../src/runtime/overlay.js";
-import { behaviour, code, codeSegment, data, far, previousRandomSeed, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit, panelFrameDraw, startupInput } from "../src/runtime/bindings.js";
+import { behaviour, code, codeSegment, data, eclGlobalOffset, far, previousRandomSeed, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit, panelFrameDraw, startupInput } from "../src/runtime/bindings.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 import { standaloneTrace } from "./standalone-trace.js";
@@ -336,7 +336,25 @@ const rosterClosed: DosFileClosed = (name, data, written) => { if (written) save
 let slotClosed = rosterClosed;
 let loadingSlot = false;
 const mountedFiles = saves ? [...saves.mountRoster(files), ...saves.files] : files;
-const cpu = fresh(input?.requestKey, (name, data, written) => slotClosed(name, data, written), mountedFiles,
+// POR_TRACE_VISITS=<file>: the area the party is in and the commissions the journal knows, one line
+// each time either changes, for npm run qa:visits (#130). Observes only.
+const visitTrace = input && process.env.POR_TRACE_VISITS;
+let lastVisit = "";
+const requestKey = input && visitTrace ? (machine: Cpu, keys: BiosKey[], blocking: boolean) => {
+  if (machine.steps >= liveStep && blocking) {
+    const segment = machine.read16(unit.data, data.eclGlobals + 2), offset = machine.read16(unit.data, data.eclGlobals);
+    const area = segment || offset ? machine.read16(segment, (offset + eclGlobalOffset(0x49f2)) & 0xffff) : undefined;
+    const commissions = journal().filter(({ id }) => id.startsWith("commission-"))
+      .map(({ id, status }) => `${id}:${status ?? ""}`).sort();
+    const visit = JSON.stringify({ area, commissions });
+    if (visit !== lastVisit) {
+      appendFileSync(visitTrace, visit + "\n");
+      lastVisit = visit;
+    }
+  }
+  input.requestKey(machine, keys, blocking);
+} : input?.requestKey;
+const cpu = fresh(requestKey, (name, data, written) => slotClosed(name, data, written), mountedFiles,
   (name) => { if (slotClosed === rosterClosed) saves?.saveRoster(name); },
   (name) => loadingSlot && saveSlotLetter(name) ? saves?.partyFiles(name) ?? [] : undefined);
 const soundTracePath = process.env.POR_SOUND_TRACE;
