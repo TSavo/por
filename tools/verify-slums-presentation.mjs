@@ -1311,7 +1311,6 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:14:ecl:9d66:PIC1.DAX:1:0:0",
     prompt: /VIEW.*POOL/i,
     idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:9d66:PIC1.DAX:1:${phase}:0`),
-    heldPortraitLoop: 3,
     continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /10,9N/i },
   }],
   ["kovel-casket-needle", {
@@ -1462,7 +1461,6 @@ const illustrationRoutes = new Map([
     portrait: `portrait:area:14:ecl:${cursor}:PIC1.DAX:1:0:0`,
     prompt: /VIEW.*POOL.*SHARE/i,
     idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:${cursor}:PIC1.DAX:1:${phase}:0`),
-    heldPortraitLoop: 3,
     finalPhaseCapture: `kovel-cabinet-${metal}-reward.png`,
     continuation: { inputs: ["e", "n"], portrait: "scene-illustration:area:14:ecl:9dbb:cue:three-cabinets",
       prompt: /WHICHONEWILLYOUEXAMINE/i },
@@ -1498,7 +1496,6 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:14:ecl:a3d5:PIC1.DAX:1:0:0",
     prompt: /VIEW.*POOL.*EXIT/i,
     idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:a3d5:PIC1.DAX:1:${phase}:0`),
-    heldPortraitLoop: 3,
     finalPhaseCapture: "kovel-open-scroll-cabinet.png",
     continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /3,13W/i },
   }],
@@ -2026,6 +2023,7 @@ const illustrationRoutes = new Map([
     slot: "I", inputs: ["up", "up", "up", "left", "up", "up", "left", "up", "up", "left", "up", "up", "enter"],
     portrait: "portrait:area:18:ecl:9dca:PIC1.DAX:2:0:0", prompt: /THEMONSTERSSTANDREADY/i,
     idlePortraits: ["portrait:area:18:ecl:9dca:PIC1.DAX:2:1:0"],
+    heldPortraitLoop: 2,
   }],
   ["textile-skullcrusher-body", {
     slot: "B", inputs: ["up"],
@@ -6738,7 +6736,7 @@ try {
       window.heldPortraitPhases = [];
       const image = document.querySelector(".encounter-portrait");
       const record = () => {
-        const phase = image.getAttribute("src")?.split(":").at(-2);
+        const phase = image.src;
         if (phase && window.heldPortraitPhases.at(-1) !== phase) window.heldPortraitPhases.push(phase);
       };
       record();
@@ -6750,6 +6748,12 @@ try {
       run(`window.heldPortraitPhases.length > ${count} && window.heldPortraitPhases`));
     assert.equal(new Set(cycle.slice(0, count)).size, count);
     assert.equal(cycle[0], cycle[count]);
+    const images = await Promise.all(cycle.slice(0, count).map(async path => {
+      const response = await fetch(new URL(path, origin));
+      assert.ok(response.ok, `Could not load portrait phase ${path}`);
+      return Buffer.from(await response.arrayBuffer()).toString("base64");
+    }));
+    assert.equal(new Set(images).size, count, "Every loop phase should display distinct artwork");
     assert.deepEqual(await latest(), held);
   }
 
