@@ -1470,9 +1470,13 @@ function codeWheelAsking() {
   return Boolean(enhanced && state.codeWheel && codeWheel.data && !state.journal);
 }
 
-/** The game has runic writing on screen: the moment a player of the original reached for the wheel. */
+/**
+ * The game has runic writing to translate: runes on screen, or a word the game asks for that the
+ * printed Journal gives only in runes (state.codeWheelHint). The moments a player of the original
+ * reached for the wheel.
+ */
 function runesOnScreen() {
-  return Boolean(state.runes?.length);
+  return Boolean(state.runes?.length || Number.isInteger(state.codeWheelHint));
 }
 
 /** The wheel is open to translate runes on screen, with nothing to answer. */
@@ -1556,6 +1560,10 @@ function renderCodeWheel() {
   } else if (state.codeWheel && !codeWheel.question && codeWheel.data) {
     codeWheel.question = codeWheel.data.questions.find(({ number }) => number === state.codeWheel.number);
   }
+  // A word the Journal gives in runes: the card shows those runes and their path.
+  if (!state.codeWheel && Number.isInteger(state.codeWheelHint) && codeWheel.data) {
+    codeWheel.question = codeWheel.data.questions.find(({ number }) => number === state.codeWheelHint);
+  }
   // Runes coming onto the screen bring the wheel up by itself; their leaving closes it.
   const runesNow = runesOnScreen();
   if (runesNow && !codeWheel.runesSeen) codeWheel.tool = true;
@@ -1579,6 +1587,8 @@ function renderCodeWheel() {
   document.querySelector("#wheel-panel").hidden = codeWheel.ended;
   if (codeWheel.ended) return;
   paintCodeWheel();
+  document.querySelector("#wheel-question").style.display = codeWheel.question ? "" : "none";
+  document.querySelector("#wheel-hint").style.display = mode === "tool" && codeWheel.question ? "" : "none";
   if (!codeWheel.question) return;
   const { espruar, dethek, path } = codeWheel.question;
   for (const [id, source] of [["#wheel-espruar", codeWheelArt("espruar", espruar)],

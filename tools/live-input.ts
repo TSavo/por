@@ -194,6 +194,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let battleCursor: number | undefined;
   let portraitCaller: number | undefined;
   let finalCouncilReward = false;
+  /** The old lizard man is asking for the tribal friend-word (ECL8 block 16, "WHAT IS IT?"): Journal Entry 35 spells it in runes. */
+  let friendWordPrompt = false;
   let baneCacheCue: string | undefined;
   let nativeBattleActive = false;
   const baneCacheCues = new Map<number, string>([
@@ -213,6 +215,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     finalCouncilReward = false;
     baneCacheCue = undefined;
     const archive = cpu.read8(dataSegment, data.eclArchive), block = cpu.read8(dataSegment, data.eclBlock);
+    // The script waits for the typed word between "WHAT IS IT?" (a0bd) and "DO YOU REALLY MEAN" (a0cf).
+    friendWordPrompt = archive === 8 && block === 16 && battleCursor > 0xa0bd && battleCursor <= 0xa0cf;
     const councilPayout = archive === 3 && block === 8 && battleCursor === 0x9f3f && portraitCaller === 0x9a4a;
     const baneTreasure = archive === 1 && (block === 24 || block === 31) && battleCursor === 0xaa47;
     if (councilPayout || baneTreasure) {
@@ -670,6 +674,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         text,
         // The rune glyphs on screen (cell, glyph code, colour). They are in both pictures.
         runes: runes.length ? runes : undefined,
+        // The code-wheel question whose runes and path the game has the player translate from the printed
+        // Journal: 9 (SAVIOR) is Journal Entry 35's, which the old lizard man asks for.
+        codeWheelHint: friendWordPrompt ? 9 : undefined,
         portrait,
         characterSheet,
         classicPortrait: Array.isArray(picture),
