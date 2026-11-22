@@ -4,9 +4,9 @@
   "verified": 0,
   "measured": 5,
   "total": 235,
-  "scenesMeasured": 12,
-  "scenesVerified": 2,
-  "unmappedScenes": 0,
+  "scenesMeasured": 14,
+  "scenesVerified": 5,
+  "unmappedScenes": 1,
   "remaining": 235
  },
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",

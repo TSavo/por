@@ -1330,18 +1330,26 @@ async function animateHeldPortrait(image, view) {
     return;
   }
   let index = loop.entryAliases?.get(id) ?? phases.indexOf(id);
-  function scheduleNextPhase() {
-    setTimeout(() => {
-      if (view !== state || !image.isConnected || tileArt.hidden) return;
+  const hold = () => phaseTimes?.[index] ?? 400;
+  let nextPhaseAt = performance.now() + hold();
+  function paintPhase(now) {
+    if (view !== state || !image.isConnected || tileArt.hidden) return;
+    if (now >= nextPhaseAt) {
       if (state.ready && !posting) {
         index = (index + 1) % frames.length;
         image.src = frames[index].src;
         image.dataset.heldPose = phases[index];
+        // Keep the guest's cadence when a paint lands between refreshes.
+        // After a long stall, give the new pose a full hold.
+        nextPhaseAt += hold();
+        if (nextPhaseAt <= now) nextPhaseAt = now + hold();
+      } else {
+        nextPhaseAt = now + hold();
       }
-      scheduleNextPhase();
-    }, phaseTimes?.[index] ?? 400);
+    }
+    requestAnimationFrame(paintPhase);
   }
-  scheduleNextPhase();
+  requestAnimationFrame(paintPhase);
 }
 
 async function showScreen() {
