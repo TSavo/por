@@ -61,6 +61,15 @@ The `FINAL` loader and its own timed loop are recorded as
 `outside-held-menu`. Neither of these last two rows contributes to the
 native candidate count.
 
-Use [Held portrait timing](REPLAYS.md#held-portrait-timing) to confirm a
-candidate. The candidate counts must stay separate from the verified
-coverage count on the art worklist.
+Run `npm run verify:held-portraits` for the worklist's site census. Every
+script producer and native restore candidate contributes one row. The
+report maps a captured prompt to a producer by script block, picture source,
+cursor, and caller. Ambiguous matches are listed for investigation.
+A site is measured once it has native evidence at one of its prompts. It
+passes when the fixed picture source and all listed prompt leads have
+paired Chrome evidence for the current art, order, and cadence. Variable
+selectors and unresolved prompt leads remain open.
+
+Use [Held portrait timing](REPLAYS.md#held-portrait-timing) to record a
+candidate. Multiple measured prompts can belong to the same site. The
+number of captured prompts appears separately from the site total.

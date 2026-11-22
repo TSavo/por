@@ -856,7 +856,7 @@ function otherPictures(data: PortGameData, read: (path: string) => Uint8Array): 
 
 interface Worklist {
   schema: 2;
-  heldPortraits: ReturnType<typeof heldPortraitCoverage>;
+  heldPortraits: Omit<ReturnType<typeof heldPortraitCoverage>, "sites" | "scenes" | "unmapped">;
   about: string;
   done: string;
   remaining: number;
@@ -879,11 +879,9 @@ function document(list: Worklist): string {
   const cellItems = list.items.filter((item) => item.kind === "first-person cell"), battleItems = list.items.filter((item) => item.kind === "battlefield cell");
   add("# Artwork worklist", "",
     "## What to do now", "",
-    `**Held portrait animations (#131).** ${list.heldPortraits.verified} / ${list.heldPortraits.total} measured scenes verified. R = ${list.heldPortraits.remaining.length}.`,
-    ...(list.heldPortraits.enumerationComplete ? [] : [
-      `The full native scene count is still open. Static discovery has ${list.heldPortraits.discovery.eclCandidates} script candidates and ${list.heldPortraits.discovery.nativeCandidates} native candidates.`,
-    ]),
-    "Run `npm run verify:held-portraits` for unverified scenes or use `-- --candidates` to see the script and native leads.",
+    `**Held portrait animations (#131).** ${list.heldPortraits.verified} / ${list.heldPortraits.total} picture sites verified (measured ${list.heldPortraits.measured}). R = ${list.heldPortraits.remaining}.`,
+    `The site inventory comes from static script and native picture discovery. ${list.heldPortraits.scenesVerified} / ${list.heldPortraits.scenesMeasured} captured native prompts passed paired Chrome checks.`,
+    "Run `npm run verify:held-portraits` for every site and its evidence.",
     "",
     ...(() => {
       // Requests the owner has made that no tool can find (qa/art-requests.json): open ones are work.
@@ -1151,9 +1149,10 @@ function main(): void {
     "    of those, shown only together with other tiles, never alone": first.stored.withoutArtShownOnlyWithOthers,
     "    of those, shown alone in some area": first.stored.withoutArtShownAlone,
   };
+  const { sites: _sites, scenes: _scenes, unmapped: _unmapped, ...heldPortraits } = heldPortraitCoverage(repository);
   const list: Worklist = {
     schema: 2,
-    heldPortraits: heldPortraitCoverage(repository),
+    heldPortraits,
     about: "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
     done: "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
     remaining: items.length, totals, notEstablished, areas: first.reports, battlefield: battle.reports,

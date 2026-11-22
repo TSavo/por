@@ -1,6 +1,5 @@
 {
-  "about": "Native held-menu cycles measured with GOG 1.3 by POR_HELD_PORTRAIT_TRACE, with paired Chrome evidence where available. This is a growing inventory of measured scenes.",
-  "enumerationComplete": false,
+  "about": "Native held-menu cycles measured with GOG 1.3 by POR_HELD_PORTRAIT_TRACE, with paired Chrome evidence where available. The script and native picture sites in tools/discover-held-portraits.ts define the coverage total.",
   "scenes": [
     {
       "id": "area:20:ecl:9e02:PIC2.DAX:0",
