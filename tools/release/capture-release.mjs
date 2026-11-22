@@ -147,15 +147,16 @@ try {
   note("main menu", { text: (await screenText()).trim() });
 
   // Add Character to Party, then each of the six ready-made characters: add the one highlighted
-  // (the list marks those in the party with *), move down to the next.
+  // (the list marks those in the party with *), then End, which moves a Gold Box list to the next.
   await key("a");
   let addMenu = "";
   for (let added = 0; added < 6; added++) {
     await key("a");
     addMenu = (await screenText()).trim();
-    await key("ArrowDown");
+    await key("End");
   }
-  await key("e");
+  // With all six in the party the list closes by itself; else leave it.
+  if (/Add a character/.test(await screenText())) await key("e");
   note("party", { addMenu, afterAdding: (await screenText()).trim() });
   await key("b");
   const explorationMenu = /Area Cast View Encamp Search Look/;

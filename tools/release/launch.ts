@@ -14,8 +14,8 @@
  *
  *   POR_OPEN_BROWSER=0   print the address without opening a browser
  */
-import { execFile } from "node:child_process";
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { execFile, spawn } from "node:child_process";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { request } from "node:http";
 import { createServer } from "node:net";
 import { homedir } from "node:os";
@@ -71,8 +71,18 @@ function openBrowser(url: string): void {
   };
   // The game is made for Chrome. Where Chrome is installed it is used.
   if (process.platform === "darwin") execFile("open", ["-a", "Google Chrome", url], fallback);
-  else if (process.platform === "win32") execFile("cmd", ["/c", "start", "", "chrome", url], { windowsHide: true }, fallback);
-  else fallback(new Error("xdg-open"));
+  else if (process.platform === "win32") {
+    // Not `start chrome`, which shows an error dialog where Chrome is not installed.
+    const chrome = [process.env.PROGRAMFILES, process.env["PROGRAMFILES(X86)"], process.env.LOCALAPPDATA]
+      .filter((directory): directory is string => Boolean(directory))
+      .map((directory) => join(directory, "Google", "Chrome", "Application", "chrome.exe")).find((path) => existsSync(path));
+    if (chrome) {
+      // Chrome stays open after the game stops.
+      const browser = spawn(chrome, [url], { detached: true, stdio: "ignore" });
+      browser.on("error", fallback);
+      browser.unref();
+    } else fallback(new Error("No Chrome"));
+  } else fallback(new Error("xdg-open"));
 }
 
 const dataDirectory = userDataDirectory();

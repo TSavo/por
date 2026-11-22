@@ -137,3 +137,33 @@ headless Chrome with its own profile: the publisher screen, the title with its f
 wheel question, the word read off the wheel, the ready-made party (start the release with
 `POR_PREGEN_PARTY=1`), and the first-person view of New Phlan, reporting whether the page drew it with
 WebGL or fell back. It saves a screenshot of each and `report.json`.
+
+Checked on 2026-11-22 on an Intel Mac (macOS 26.3), with the 742 MB disk image of `2efe7d33`: mounted
+with `hdiutil attach`, the app (985 MB) copied to a scratch Applications folder outside the checkout,
+opened with `open --env POR_OPEN_BROWSER=0 --env POR_PREGEN_PARTY=1` and nothing set that names
+`por-assets`:
+
+- `codesign --verify --strict`: valid; `spctl --assess`: rejected (no Developer ID, as above).
+- Its log: `POR_GAME_DATA port <app>/Contents/Resources/game`; saves in
+  `~/Library/Application Support/Pool of Radiance/saves` (created by the launch, `roster.json` in it).
+- The server answered 16 to 23 seconds after the app opened, most of it loading the artwork.
+- The title with POOL OF RADIANCE and SPECIAL EDITION faded in; the code wheel's question (2 in one run,
+  5 in another: the dice roll on the real clock); its word, read off `src/codewheel/wheel.json`, reached
+  the main menu; the ready-made characters on Add Character; the tour to the first exploration menu in
+  New Phlan, drawn with WebGL (ANGLE Metal on the Intel UHD 630), with no "WebGL exploration is
+  unavailable" in the console.
+- Quit (the quit Apple event Cmd-Q sends) left no launcher, runner or listener on the port, and removed
+  `running.json`.
+
+## Known gaps
+
+- The page opens in Classic display, which has no pictures without the player's own files; the player
+  presses **Enhanced display** (or F10). The release shape wants Enhanced from the start: that is the
+  page's default in `tools/play.js`.
+- The publisher screen is not seen: the runner passes it during the 24,000,000 steps it runs before it
+  takes input (`POR_LIVE_AT`) with the real clock, and its first frame is the title. `npm run play` does
+  the same (measured: its first frame is the title).
+- The Windows installer is built but has not been run: install, shortcuts, the console window closing
+  the game, and the uninstaller are untested. The Linux archive has not been run on Linux.
+- The Mac app holds a universal Node (297 MB); one disk image per architecture would be about 150 MB
+  smaller each.
