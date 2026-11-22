@@ -167,26 +167,30 @@ const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
     frame(file!, block!, member, index) ?? scope(area, cursor, caller)],
   [/^scene-illustration:area:(\d{1,3}):ecl:([a-f0-9]{4})(?::caller:([a-f0-9]{4}))?(?::cue:[a-z0-9-]+)?$/, (match) => {
     const [key, area, cursor, caller] = match;
-    // These replays change the displayed area to 19 before ECL6 block 25 returns.
-    const scriptArea = /^scene-illustration:area:19:ecl:aeeb:cue:diogenes-(?:advice-departure|bottle-departure|lair-empty)$/.test(key) ? "25" : area;
+    // These transitions can leave the displayed area and active script on opposite sides of the handoff.
+    let scriptArea = area;
+    if (/^scene-illustration:area:19:ecl:aeeb:cue:diogenes-(?:advice-departure|bottle-departure|lair-empty)$/.test(key)) scriptArea = "25";
+    if (/^scene-illustration:area:25:ecl:(?:b624:caller:(?:9d4d|9da7|9e0e|9bd9|9bfc)|b5ec|b6a0|(?:9bd5|9bf8|9c00):caller:9af6)(?::cue:|$)/.test(key)) scriptArea = "28";
     const missing = scope(area, cursor, caller, scriptArea);
     if (missing) return missing;
     const cue = scriptIllustrations.get(key);
     if (/:cue:/.test(key)) {
       if (cue === undefined) return "its cue is not defined in tools/portrait-art.ts";
       // A displayed caption can outlast the script that printed it.
-      const { archive, block, text, captions } = scripts.get(Number(area))!;
       // TREASURE prepares rewards; COMBAT opens the engine's loot menu at its resume cursor.
       if (cue === "VIEWTAKEPOOLEXIT" || cue === "VIEWTAKEPOOLSHAREEXIT") {
         const script = scripts.get(Number(scriptArea))!;
         const address = runningScriptAddress(script.archive, script.block, Number.parseInt(cursor, 16), "1.3");
         if (script.treasureMenus.has(address)) return;
       }
-      const variants = dynamicCaptions.get(`ECL${archive}.DAX:${block}`) ?? [];
-      if (typeof cue === "string") {
-        const normalized = cue.toUpperCase().replace(/[^A-Z0-9.]/g, "");
-        if (text.includes(normalized) || variants.some(caption => caption.replace(/[^A-Z0-9.]/g, "").includes(normalized))) return;
-      } else if ([text, ...captions, ...variants].some(caption => cue.test(caption))) return;
+      for (const captionArea of new Set([area, scriptArea])) {
+        const { archive, block, text, captions } = scripts.get(Number(captionArea))!;
+        const variants = dynamicCaptions.get(`ECL${archive}.DAX:${block}`) ?? [];
+        if (typeof cue === "string") {
+          const normalized = cue.toUpperCase().replace(/[^A-Z0-9.]/g, "");
+          if (text.includes(normalized) || variants.some(caption => caption.replace(/[^A-Z0-9.]/g, "").includes(normalized))) return;
+        } else if ([text, ...captions, ...variants].some(caption => cue.test(caption))) return;
+      }
       return "its cue's text is not in the area's converted script or known runtime captions";
     }
   }],
