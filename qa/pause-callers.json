@@ -1,0 +1,510 @@
+{
+ "about": "Evidence for npm run qa:pause-callers (#81): for each call that pauses through the game's pause routine, a replayed pause from the 1.3 files (original) and from game/ (port), its text, and whether that text reached the page. Written by node tools/record-pause-callers.mjs --merge.",
+ "calls": {
+  "exe 2f3b": {
+   "original": {
+    "walk": "acceptance slums orcs",
+    "text": [
+     " BROTHER SEAN",
+     " is fully healed"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "acceptance slums orcs",
+    "text": [
+     " BROTHER SEAN",
+     " is fully healed"
+    ],
+    "shown": true
+   }
+  },
+  "exe 3256": {
+   "original": {
+    "walk": "qa/fixtures/visit-kobold-caves",
+    "text": [
+     "Guarding"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/visit-kobold-caves",
+    "text": [
+     "Guarding"
+    ],
+    "shown": true
+   }
+  },
+  "slice 3 +2726": {
+   "original": {
+    "walk": "qa/fixtures/visit-yarashs-pyramid",
+    "text": [
+     "                     6"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/visit-yarashs-pyramid",
+    "text": [
+     "                     6"
+    ],
+    "shown": true
+   }
+  },
+  "slice 4 +1e3": {
+   "original": {
+    "walk": "acceptance slums goblins",
+    "text": [
+     "Not enough mon y."
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "acceptance slums goblins",
+    "text": [
+     "Not enough money."
+    ],
+    "shown": true
+   }
+  },
+  "slice 8 +92d": {
+   "original": {
+    "walk": "acceptance slums goblins",
+    "text": [
+     "You  Teammate  s Dying"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "acceptance slums goblins",
+    "text": [
+     "Your Teammate is Dying"
+    ],
+    "shown": true
+   }
+  },
+  "slice 8 +1081": {
+   "original": {
+    "walk": "acceptance slums guide",
+    "text": [
+     "                       BRENNAN",
+     "                       is bandaged"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "acceptance slums guide",
+    "text": [
+     "                       BRENNAN",
+     "                       is bandaged"
+    ],
+    "shown": true
+   }
+  },
+  "slice 10 +1e64": {
+   "original": {
+    "walk": "qa/fixtures/visit-kobold-caves",
+    "text": [
+     "                  3      02",
+     " A SCREAMING HORDE OF KOBOLDS ATTACKS",
+     " THE PARTY."
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/visit-kobold-caves",
+    "text": [
+     "                  3      02",
+     " A SCREAMING HORDE OF KOBOLDS ATTACKS",
+     " THE PARTY."
+    ],
+    "shown": true
+   }
+  },
+  "slice 13 +544": {
+   "original": {
+    "walk": "qa/fixtures/visit-valhingen-graveyard",
+    "text": [
+     "                       BRIN",
+     "                       Attacks",
+     "                       SKELETON",
+     "                       Hitting for 2",
+     "                       points of damage"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/visit-valhingen-graveyard",
+    "text": [
+     "                       BRIN",
+     "                       Attacks",
+     "                       SKELETON",
+     "                       Hitting for 2",
+     "                       points of damage"
+    ],
+    "shown": true
+   }
+  },
+  "slice 13 +54b": {
+   "original": {
+    "walk": "qa/fixtures/visit-valhingen-graveyard",
+    "text": [
+     "                       ALDA",
+     "                                 6",
+     "                          5",
+     "                       ALDA",
+     "                       Attacks",
+     "                       SKELETON",
+     "                       and Misses"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/visit-valhingen-graveyard",
+    "text": [
+     "                       ALDA",
+     "                                 6",
+     "                          5",
+     "                       ALDA",
+     "                       Attacks",
+     "                       SKELETON",
+     "                       and Misses"
+    ],
+    "shown": true
+   }
+  },
+  "slice 15 +551": {
+   "original": {
+    "walk": "acceptance slums guide",
+    "text": [
+     "                                      9",
+     " ELSPETH",
+     " has no spells memorized"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "acceptance slums guide",
+    "text": [
+     "                 DORIAN           3   9",
+     " ELSPETH",
+     " has no spells memorized"
+    ],
+    "shown": true
+   }
+  },
+  "slice 16 +20da": {
+   "original": {
+    "walk": "acceptance slums guide",
+    "text": [
+     "ELSPETH can't be modified."
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "acceptance slums guide",
+    "text": [
+     "ELSPETH can't be modified."
+    ],
+    "shown": true
+   }
+  },
+  "slice 16 +2a14": {
+   "original": {
+    "walk": "qa/fixtures/visit-training-hall",
+    "text": [
+     "Training costs 1000 gp."
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/visit-training-hall",
+    "text": [
+     "Training costs 1000 gp."
+    ],
+    "shown": true
+   }
+  },
+  "slice 16 +2cd2": {
+   "original": {
+    "walk": "acceptance slums guide",
+    "text": [
+     "We don't train that class here"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "acceptance slums guide",
+    "text": [
+     "We don't train that class here"
+    ],
+    "shown": true
+   }
+  },
+  "slice 16 +2d00": {
+   "original": {
+    "walk": "acceptance slums guide",
+    "text": [
+     "Not Enough Experience"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "acceptance slums guide",
+    "text": [
+     "Not Enough Experience"
+    ],
+    "shown": true
+   }
+  },
+  "slice 16 +2eb3": {
+   "original": {
+    "walk": "acceptance slums guide",
+    "text": [
+     "C ngratulations..."
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "acceptance slums guide",
+    "text": [
+     "Congratulations..."
+    ],
+    "shown": true
+   }
+  },
+  "slice 19 +12d3": {
+   "original": {
+    "walk": "acceptance slums orcs",
+    "text": [
+     "Must be Readied"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "acceptance slums orcs",
+    "text": [
+     "Must be Readied"
+    ],
+    "shown": true
+   }
+  },
+  "slice 19 +170d": {
+   "original": {
+    "walk": "acceptance slums orcs",
+    "text": [
+     "Your hands are full!"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "acceptance slums orcs",
+    "text": [
+     "Your hands are full!"
+    ],
+    "shown": true
+   }
+  },
+  "slice 20 +904": {
+   "original": {
+    "walk": "acceptance slums orcs",
+    "text": [
+     "                                      6",
+     "                0 0",
+     " The Whole Party Is Healed"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "acceptance slums orcs",
+    "text": [
+     "                 BROTHER SEAN     2   6",
+     " Rest Time: 02:00:00",
+     " The Whole Party Is Healed"
+    ],
+    "shown": true
+   }
+  },
+  "slice 20 +e3b": {
+   "original": {
+    "walk": "acceptance new-phlan walk shops temples tavern street training gate",
+    "text": [
+     " Rest Time: 00:00:55",
+     " The Party is rudely interrupted!"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "acceptance new-phlan walk shops temples tavern street training gate",
+    "text": [
+     " Rest Time: 00:00:55",
+     " The Party is rudely interrupted!"
+    ],
+    "shown": true
+   }
+  },
+  "slice 22 +f10": {
+   "original": {
+    "walk": "acceptance slums guide",
+    "text": [
+     "Spell Aborted"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "acceptance slums guide",
+    "text": [
+     "Spell Aborted"
+    ],
+    "shown": true
+   }
+  },
+  "slice 22 +3356": {
+   "original": {
+    "walk": "acceptance slums goblins",
+    "text": [
+     "                       DARKSTAR",
+     "                       Hitpoints 5",
+     "                       AC 7",
+     "                       DARKSTAR",
+     "                       Casts a Spell"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "acceptance slums goblins",
+    "text": [
+     "                       DARKSTAR",
+     "                       Hitpoints 5",
+     "                       AC 7",
+     "                       DARKSTAR",
+     "                       Casts a Spell"
+    ],
+    "shown": true
+   }
+  },
+  "slice 22 +3403": {
+   "original": {
+    "walk": "acceptance slums goblins",
+    "text": [
+     " BROTHER SEAN casts",
+     " Cure Light Wounds"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "acceptance slums goblins",
+    "text": [
+     " BROTHER SEAN casts",
+     " Cure Light Wounds"
+    ],
+    "shown": true
+   }
+  },
+  "slice 24 +f5d": {
+   "original": {
+    "walk": "acceptance slums flee",
+    "text": [
+     "                       O C",
+     "                                 5",
+     "                          6",
+     "                       ORC",
+     "                       Surrenders"
+    ],
+    "shown": false,
+    "missing": [
+     "                                 5"
+    ]
+   },
+   "port": {
+    "walk": "acceptance slums flee",
+    "text": [
+     "                       ORC",
+     "                       Hitpoints 5",
+     "                       AC 6",
+     "                       ORC",
+     "                       Surrenders"
+    ],
+    "shown": false,
+    "missing": [
+     "                                 5"
+    ],
+    "pageHad": [
+     "                       Hitpoints 1"
+    ]
+   }
+  },
+  "slice 24 +16b0": {
+   "original": {
+    "walk": "qa/fixtures/campaign-ending-leg",
+    "text": [
+     "                       BRIN",
+     "                       is Unaffected"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/campaign-ending-leg",
+    "text": [
+     "                       BRIN",
+     "                       is Unaffected"
+    ],
+    "shown": true
+   }
+  },
+  "slice 24 +1915": {
+   "original": {
+    "walk": "acceptance slums goblins",
+    "text": [
+     " BAKSHI",
+     " gets back up"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "acceptance slums goblins",
+    "text": [
+     " BAKSHI",
+     " gets back up"
+    ],
+    "shown": true
+   }
+  },
+  "slice 31 +1013": {
+   "original": {
+    "walk": "qa/fixtures/visit-valhingen-graveyard",
+    "text": [
+     "                       ALDA",
+     "                                 6",
+     "                          5",
+     "                       ALDA",
+     "                       Attacks",
+     "                       SKELETON",
+     "                       and Misses",
+     "                       SKELETON",
+     "                       goes down",
+     "                       SKELETON",
+     "                       is killed"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/visit-valhingen-graveyard",
+    "text": [
+     "                       ALDA",
+     "                                 6",
+     "                          5",
+     "                       ALDA",
+     "                       Attacks",
+     "                       SKELETON",
+     "                       and Misses",
+     "                       SKELETON",
+     "                       goes down",
+     "                       SKELETON",
+     "                       is killed"
+    ],
+    "shown": true
+   }
+  }
+ }
+}
