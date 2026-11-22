@@ -234,9 +234,19 @@ let automapRevision = -1;
 let narrationId = 0;
 const narrations: Array<{ id: number; step: number; unitId: string; variantId?: string;
   sourceId: string; coveredSourceIds: string[]; asset: string; text: string }> = [];
+// The runner names a narration the moment the script prints its passage, which is before the game
+// has drawn the screen and stopped for the player. Sent at once, the page spoke each line under the
+// previous picture (measured in Chrome on Rolf's tour: every line began before its own picture, by
+// seconds on a busy machine). A narration is therefore held here and given to the page with the next
+// frame the game sends, so the narrator speaks when the picture he describes is up.
+const heldNarrations: typeof narrations = [];
 createInterface({ input: runner.stdout }).on("line", (line) => {
   if (line.startsWith("POR_FRAME ")) {
     frame = JSON.parse(line.slice("POR_FRAME ".length)) as FrameState;
+    if (heldNarrations.length) {
+      narrations.push(...heldNarrations.splice(0));
+      while (narrations.length > 256) narrations.shift();
+    }
     if (frame.travelPosition) {
       const { x, y, sector } = frame.travelPosition;
       frame.travel = { x, y, sector, routes: planTravel(frame.travelPosition) };
@@ -304,7 +314,7 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
     const exact = [...new Map((exactTextNarrations.get(normalized) ?? []).map(unit => [unit.id, unit])).values()];
     if (!text.fromEclText && !handledByExplicitVoice && exact.length === 1) {
       const unit = exact[0]!;
-      narrations.push({ id: ++narrationId, step: text.step, unitId: unit.id,
+      heldNarrations.push({ id: ++narrationId, step: text.step, unitId: unit.id,
         sourceId: unit.triggerSourceId, coveredSourceIds: unit.coveredSourceIds,
         asset: unit.asset!, text: unit.spokenText });
       if (narrations.length > 256) narrations.shift();
@@ -314,7 +324,7 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
     const resolved = narrationCatalog.resolve(event);
     if (resolved.status === "resolved") {
       const narration = resolved.narration;
-      narrations.push({ id: ++narrationId, step: event.step ?? 0, unitId: narration.unitId,
+      heldNarrations.push({ id: ++narrationId, step: event.step ?? 0, unitId: narration.unitId,
         ...(narration.variantId ? { variantId: narration.variantId } : {}), sourceId: narration.triggerSourceId,
         coveredSourceIds: narration.coveredSourceIds, asset: narration.asset, text: narration.text });
       if (narrations.length > 256) narrations.shift();
