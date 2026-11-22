@@ -7,7 +7,7 @@ import type { EncounterPlacement } from "./encounter-art.js";
 const address = (segment: number, offset: number) => ((segment << 4) + offset) & 0xfffff;
 
 export function observeNativeEncounterArt(anchors: Record<string, EncounterAnchor>, viewport: () => Buffer,
-  pictures: readonly PictureRecord[]) {
+  pictures: readonly PictureRecord[], viewportMark: () => number) {
   // Different SPRIT banks can store the exact same cel. The original
   // framebuffer matcher can find the area's artwork for any such copy.
   const bySignature = new Map<string, string[]>();
@@ -27,7 +27,7 @@ export function observeNativeEncounterArt(anchors: Record<string, EncounterAncho
   }
   const members = new Map<number, string>();
   let drawn: string | undefined;
-  let visible: { member: string; pixels: Buffer } | undefined;
+  let visible: { member: string; pixels: Buffer; mark: number } | undefined;
   return {
     load(cpu: Cpu) {
       const argument = (offset: number) => cpu.read16(cpu.ss, (cpu.sp + offset) & 0xffff);
@@ -55,7 +55,7 @@ export function observeNativeEncounterArt(anchors: Record<string, EncounterAncho
       drawn = members.get(address(sourceSegment, sourceOffset));
     },
     presented() {
-      visible = drawn ? { member: drawn, pixels: viewport() } : undefined;
+      visible = drawn ? { member: drawn, pixels: viewport(), mark: viewportMark() } : undefined;
       drawn = undefined;
     },
     clear() {
@@ -63,7 +63,8 @@ export function observeNativeEncounterArt(anchors: Record<string, EncounterAncho
     },
     match(area?: number, cursor?: number, caller?: number): EncounterPlacement | undefined {
       if (!visible || area === undefined) return;
-      if (!visible.pixels.equals(viewport())) {
+      // The bundled viewport can stay byte-identical when the guest clears the encounter.
+      if (visible.mark !== viewportMark() || !visible.pixels.equals(viewport())) {
         visible = undefined;
         return;
       }

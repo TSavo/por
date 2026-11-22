@@ -370,7 +370,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     ? observeNativePictureArt(new Set(), new Set(), pictures ?? [], perspectivePixels) : undefined);
   let lastPortraitDraw: ReturnType<NonNullable<typeof pictureObserver>["presented"]>;
   const nativeEncounter = browser && standalone && pictures && hasEncounterArtwork
-    ? observeNativeEncounterArt(encounterPlacements, perspectivePixels, pictures) : undefined;
+    ? observeNativeEncounterArt(encounterPlacements, perspectivePixels, pictures, viewportMark) : undefined;
   let codeWheelQuestion: number | undefined;
   let codeWheelAttempt: number | undefined;
   const combatPlacements = (battlefield: boolean) => [
