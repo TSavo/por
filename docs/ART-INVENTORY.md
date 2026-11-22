@@ -284,6 +284,14 @@ The interiors of the possession threat, Pool recall, and Phlan homecoming
 illustrations matched the original-file Enhanced screenshots pixel for
 pixel. The standalone screenshots still lack the surrounding panel rails.
 
+The Chrome replay was repeated with both GOG 1.3 files and the bundled
+data at `77fd39fc`. Both runs passed the possession threat, Pool recall,
+castle departure, Phlan homecoming, display switching, and return to
+WebGL. The bundled captures show the three Enhanced illustrations filling
+the panel with one set of surrounding rails. Keep the individual FINAL5
+records deferred for those beats. This checkpoint replay ends on the
+return to exploration, before the final council reward.
+
 The `valjevo-pool-return-stairs` Chrome replay passed with the original
 GOG 1.3 files and with `POR_GAME_SOURCE=port`. While the script still
 names area 7, the native map is 3 and the Enhanced walls use area 5
