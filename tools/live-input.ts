@@ -339,7 +339,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let codeWheelAttempt: number | undefined;
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false,
     durationMs?: number, effect?: { placement: TilePlacement; clean: Frame }, captureIllustration = false,
-    statusMessage = false) => {
+    message?: "status" | "combat") => {
     const native = screen;
     const presentation = effect?.clean ?? native;
     if (browser) {
@@ -439,7 +439,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // The overland map shares the native viewport blit and omits Area.
       const overlandMap = menu === "CASTVIEWENCAMPSEARCHLOOK";
       // Menu and battle-state changes can precede the actual viewport redraw.
-      if (!captureApproach && !attack && !effect && !captureIllustration && !statusMessage &&
+      if (!captureApproach && !attack && !effect && !captureIllustration && !message &&
           overlandMap) nativePicture?.clear();
       // Runes the game writes in the picture box (the Sokal parchment, after CLEAR BOX) take the
       // place of its picture. The shipped game's pictures and runes are blank, so the held
@@ -760,19 +760,20 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         enhanced, journal: Boolean(leads), codeWheelPrompt: codeWheelQuestion !== undefined, scene, battlefield, portrait,
         classicPortrait: Array.isArray(picture) ? { area, cursor: portraitCursor, caller: pictureCaller, sources: picture } : undefined,
         characterSheet: Boolean(characterSheet), overlandMap: Boolean(state.overlandMap),
-        travelMap: Boolean(state.travelPosition) && !(attack || captureApproach || effect || captureIllustration || statusMessage),
+        travelMap: Boolean(state.travelPosition) && !(attack || captureApproach || effect || captureIllustration || message),
         perspective, nativeScenery,
         encounter: encounter?.[2], combatArt: combat.length, battleTiles, combatSelections, panelFrame: state.panelFrame,
       });
       // POR_NARRATION_LEDGER: the artwork this frame resolved, for pairing with the narration. Observes only.
-      narrationLedger?.frame({ awaitsKey: awaitsKey && !(attack || captureApproach || effect || captureIllustration || statusMessage), scene, portrait, encounter: encounter?.[2],
+      narrationLedger?.frame({ awaitsKey: awaitsKey && !(attack || captureApproach || effect || captureIllustration || message), scene, portrait, encounter: encounter?.[2],
         classicPortrait: Array.isArray(picture) ? { area, cursor: portraitCursor, caller: pictureCaller } : undefined });
-      if (statusMessage) {
+      if (message === "status") {
         // A message the game shows on the bottom line and clears by itself: the whole screen as it
         // stands during the pause, for as long as the game pauses.
         animation.push({ ...state, durationMs, statusMessage: true });
       } else if (attack || captureApproach || effect || captureIllustration) {
-        if (animation.length >= 12) {
+        // Reports and status lines can be the only visible record of a game action.
+        if (message !== "combat" && animation.length >= 12) {
           const flight = animation.findIndex(flightFrame);
           if (flight < 0) return;
           animation.splice(flight, 1);
@@ -1135,7 +1136,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         // "Must be Readied" and the like: on the bottom line for the length of the pause, then gone
         // before the game next asks for a key. Without this frame the player never sees it.
         captureEclContext(cpu);
-        showFrame(undefined, undefined, false, false, messageMs, undefined, false, true);
+        showFrame(undefined, undefined, false, false, messageMs, undefined, false, "status");
         return;
       }
       if (scene) return;
@@ -1202,8 +1203,18 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           return;
         }
       }
-      if (animation.length >= 12 && !animation.some(flightFrame)) return;
       captureEclContext(cpu);
+      const queueFull = animation.length >= 12 && !animation.some(flightFrame);
+      const battlefield = (nativeBattleActive && hasBattlefieldFrame()) || hasBattlefieldBorder(screen);
+      // Combat prints action and result text below the actor's stats in
+      // the right-hand panel. The guest clears it before the next key read.
+      const battleGlyphs = battlefield ? visibleGameText() : [];
+      const reportGlyphs = battleGlyphs
+        .filter(([cell, char]) => cell >= 423 && cell < 860 && cell % 40 >= 23 && char > 32)
+        .sort(([a], [b]) => a - b);
+      const report = reportGlyphs.map(([cell, char]) => `${cell}:${char}`).join(",");
+      const newReport = report.length > 0 && report !== lastCombatReport;
+      if (queueFull && !newReport) return;
       // These captions can clear within a single input.
       const kovelIllustration = area === 14 && (battleCursor === 0xa238 || battleCursor === 0x9e63 ||
         battleCursor === 0x9d52 || battleCursor === 0xa2d9 || battleCursor === 0xa585 || battleCursor === 0xa6a5 ||
@@ -1213,25 +1224,17 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const koboldTruce = area === 13 && portraitCaller === 0xaf11 && (battleCursor === 0xb06f || battleCursor === 0xb0a5);
       const councilClosing = area === 8 && battleCursor === 0xaf78 &&
         (portraitCaller === 0xa891 || portraitCaller === 0x9a4a);
-      if (kovelIllustration || mendorReading || koboldTruce || councilClosing) {
+      if (!queueFull && (kovelIllustration || mendorReading || koboldTruce || councilClosing)) {
         showFrame(undefined, undefined, false, false, 1200, undefined, true);
         return;
       }
-      const battlefield = (nativeBattleActive && hasBattlefieldFrame()) || hasBattlefieldBorder(screen);
       const placements = [
         ...combatArt(screen, undefined, area, battleCursor, battlefield ? battleTerrain : undefined),
         ...(battlefield ? nativeCombat?.placements(screen, area, battleCursor) ?? [] : []),
       ];
       const attacks = placements.filter(([, , key]) => attackKeys.has(key) || attackKeys.has(partyRecolorKey.exec(key)?.[1] ?? ""));
       const signature = attacks.length ? JSON.stringify(attacks) : "";
-      // Combat prints action and result text below the actor's stats in
-      // the right-hand panel. The guest clears it before the next key read.
-      const battleGlyphs = battlefield ? visibleGameText() : [];
-      const reportGlyphs = battleGlyphs
-        .filter(([cell, char]) => cell >= 423 && cell < 860 && cell % 40 >= 23 && char > 32)
-        .sort(([a], [b]) => a - b);
-      const report = reportGlyphs.map(([cell, char]) => `${cell}:${char}`).join(",");
-      if (report && report !== lastCombatReport) {
+      if (newReport) {
         const wandPose = "combat:area:20:CPIC2.DAX:222:ecl:a0b4";
         const reportText = battleGlyphs.filter(([, char]) => char > 32)
           .sort(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
@@ -1242,7 +1245,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
             return key === "combat:area:20:CPIC2.DAX:94:ecl:a0b4" && selected
               ? [x, y, wandPose, reflected, selected, width, height] : placement;
           }) : placements;
-        showFrame(undefined, actionArt, false, false, 1000);
+        showFrame(undefined, actionArt, false, false, 1000, undefined, false, "combat");
       } else if (signature && signature !== lastAttack) {
         showFrame(undefined, placements);
       } else if (!signature && !report && area !== undefined) {
