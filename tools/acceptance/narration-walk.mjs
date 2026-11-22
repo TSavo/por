@@ -48,7 +48,10 @@ const roll = (n) => {
 const headings = { N: [0, -1], E: [1, 0], S: [0, 1], W: [-1, 0] };
 const order = ["N", "E", "S", "W"];
 /** Words of a menu that never lead anywhere new: leaving the game, camping, looking at the party. */
-const never = /^(?:Exit|Quit|Encamp|View|Cast|Area|Look|Search|Camp|Save|Alter|Magic|Rest|Drop|Trade|Items|Pool|Share|Take|Order|Speed|Detect)$/i;
+const never = /^(?:Quit|Encamp|View|Cast|Area|Look|Search|Camp|Save|Alter|Magic|Rest|Drop|Trade|Items|Pool|Share|Take|Order|Speed|Detect)$/i;
+/** The way out of a shop, a temple or a list: taken first once a screen has held the walk this many answers. */
+const leaveAfter = 12;
+const leaving = /^(?:Exit|Leave)$/i;
 
 const copy = mkdtempSync(join(tmpdir(), "por-narration-walk-"));
 for (const file of readdirSync(saves).filter((name) => /^(?:[A-J]|roster)\.json$/.test(name))) cpSync(join(saves, file), join(copy, file));
@@ -75,8 +78,10 @@ async function resolveScreen(limit = 120) {
     const menu = game.menu();
     const text = game.text();
     if (exploring.test(text)) return true;
-    if (/Create New Character|Exit to DOS/.test(text) && /Load Saved Game/.test(text)) return false;
-    if (/party has been destroyed/.test(text)) return false;
+    if ((/Create New Character|Exit to DOS/.test(text) && /Load Saved Game/.test(text)) || /party has been destroyed/.test(text)) {
+      log(`the game ended: ${text.replace(/\s+/g, " ").trim().slice(0, 120)}`);
+      return false;
+    }
     if (game.frame.developerVictoryAvailable) { note(":win-combat"); await game.send(":win-combat"); await game.settle(); continue; }
     // A combatant's own menu with no developer victory on offer: end the turn on guard.
     if (game.fighting()) { note("d"); await game.press("d"); if (/Guard/.test(game.menu())) await game.press("g"); continue; }
@@ -88,7 +93,9 @@ async function resolveScreen(limit = 120) {
     if (/\bYes No\s*$/.test(text)) { const answer = roll(2) ? "y" : "n"; note(answer); await game.press(answer); continue; }
     const words = menu.replace(/^[^:]*:\s*/, "").split(" ").filter((word) => /^[A-Za-z]{2,}$/.test(word) && !never.test(word));
     if (words.length) {
-      const word = words[roll(words.length)];
+      // A temple's healing list or a shop can hold the walk round and round: after a while, leave.
+      const out = presses >= leaveAfter ? words.find((word) => leaving.test(word)) : undefined;
+      const word = out ?? words[roll(words.length)];
       const letter = (/[A-Z]/.exec(word.slice(1))?.[0] ?? word[0]).toLowerCase();
       note(letter);
       await game.press(letter);
