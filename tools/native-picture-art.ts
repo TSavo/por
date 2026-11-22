@@ -23,6 +23,7 @@ type VisiblePicture = { pixels: Buffer; mark: number } & ({ picture: PictureMemb
 const sheetX = 224, sheetY = 8, pictureSize = 88, headHeight = 40;
 // These native members repeat the same picture with separate hold times.
 const repeatedPictureMembers = new Map<string, readonly number[]>([
+  ["PIC4.DAX:11", [0, 1, 2, 3, 4, 1, 1, 7]],
   ["PIC5.DAX:31", [0, 1, 2, 3, 4, 3, 2, 1]],
   ["PIC6.DAX:117", [0, 1, 2, 3, 4, 5, 2]],
   ["PIC6.DAX:118", [0, 1, 2, 3, 4, 3, 2, 1]],

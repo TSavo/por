@@ -2793,11 +2793,14 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
   ["sokal-barracks-ghost-phases", {
-    slot: "C", inputs: ["up", "enter", "a", "a", "q", "q", "q"],
-    portraitStops: { 4: "portrait:area:21:PIC4.DAX:17:0:0" },
-    portrait: "portrait:area:21:ecl:a316:PIC4.DAX:17:1:0",
+    slot: "C", inputs: ["up", "enter", "a"],
+    portrait: "portrait:area:21:PIC4.DAX:17:0:0",
     prompt: /GHOSTLYSHAPESSCREECHOUTADREADFULKEENINGHOWL/i,
-    finalPhaseCapture: "sokal-barracks-ghosts-phase-1.png",
+    heldPortraitLoop: [
+      "portrait:area:21:PIC4.DAX:17:0:0",
+      ...[1, 2].map(member => `portrait:area:21:ecl:a316:PIC4.DAX:17:${member}:0`),
+    ],
+    continuation: { inputs: ["c"], clearsPortrait: true, prompt: /THEFIGURESCRYPITEOUSLY/i },
   }],
   ["sokal-keep-departure-ferry-phases", {
     slot: "C", inputs: ["up", "up", "enter", "y", "enter"],
@@ -3297,22 +3300,12 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["y"], prompt: /THEPARTYHASFOUNDTREASURE/i, clearsPortrait: true },
   }],
   ["valhingen-grave-claws", {
-    slot: "A", inputs: ["up", "enter", "enter", ...Array(10).fill("z")],
-    portraitStops: {
-      3: "portrait:area:10:PIC4.DAX:11:0:0",
-      7: "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:1:0",
-      8: "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:2:0",
-      9: "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:3:0",
-      10: "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:4:0",
-    },
-    portrait: "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:7:0", prompt: /CLAWSRISEFROMTHESOIL/i,
-    phaseCaptures: {
-      7: "valhingen-grave-claws-phase-1.png",
-      8: "valhingen-grave-claws-phase-2.png",
-      9: "valhingen-grave-claws-phase-3.png",
-      10: "valhingen-grave-claws-phase-4.png",
-    },
-    finalPhaseCapture: "valhingen-grave-claws-phase-7.png",
+    slot: "A", inputs: ["up"],
+    portrait: "portrait:area:10:PIC4.DAX:11:0:0", prompt: /CLAWSRISEFROMTHESOIL/i,
+    heldPortraitLoop: [
+      "portrait:area:10:PIC4.DAX:11:0:0",
+      ...[1, 2, 3, 4, 1, 7].map(member => `portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:${member}:0`),
+    ],
     continuation: { inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:b5c7:cue:grave-claws-attack", prompt: /ABATTLEBEGINS/i },
   }],
   ["valhingen-grave-claws-attack", {
@@ -7289,6 +7282,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
+      routeName === "valhingen-grave-claws" || routeName === "sokal-barracks-ghost-phases" ||
       routeName === "old-phlan-lizard-patrol-phases" || routeName === "valjevo-tower-troll-phases" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||

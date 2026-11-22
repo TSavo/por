@@ -380,6 +380,12 @@ The Old Phlan lizard patrol cycles through four poses at 210 ms each.
 Chrome verified the exact displayed loops for the trolls and patrol on
 both data sources, then opened their battle introductions with one key.
 
+The Valhingen grave claws play seven visible holds across eight native
+draws. The consecutive repeated draws share a 230 ms hold. Sokal's
+barracks ghosts cycle through three degrees of visibility. Chrome
+verified both loops on each data source and followed their prompts
+through the battle introduction and the ghosts' departure respectively.
+
 At `708d1dcd`, the `kobold-cave-wyvern-approach` GOG 1.3 Chrome
 replay passed with both data sources. It checks all three native SPRIT
 members, their positions over WebGL, and the switch into the dialogue

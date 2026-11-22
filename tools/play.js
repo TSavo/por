@@ -1134,6 +1134,8 @@ const portraitLoops = [
   // Two empty members restore the base. Native member 7 repeats member 3.
   ["portrait:area:21:ecl:ae31:caller:a613:PIC4.DAX:18:", [0, 1, 0, 3, 0, 5, 6, 3], "portrait:area:21:PIC4.DAX:18:0:0",
     /^(?!.*ABATTLEBEGINS).*THEINTERIORISOVERRUNWITHINSECTS/i, Array(8).fill(210), [[7, 7]]],
+  ["portrait:area:21:ecl:a316:PIC4.DAX:17:", 3, "portrait:area:21:PIC4.DAX:17:0:0",
+    /GHOSTLYSHAPESSCREECHOUTADREADFULKEENINGHOWL/i, [410, 910, 20]],
   ["portrait:area:21:ecl:ae31:caller:9977:PIC4.DAX:41:", 3, "portrait:area:21:PIC4.DAX:41:0:0",
     /YOUBOARDABOAT/i],
   ["portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:", 3, "portrait:area:0:PIC3.DAX:41:0:0",
@@ -1163,6 +1165,9 @@ const portraitLoops = [
   ["portrait:area:10:ecl:b695:caller:9f7a:PIC4.DAX:35:", 5, "portrait:area:10:PIC4.DAX:35:0:0",
     /ZOMBIESSHUFFLEDOWNTHESTAIRS/i],
   ["portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:", 3],
+  // Successive native members 5 and 6 share the same picture.
+  ["portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:", [0, 1, 2, 3, 4, 1, 7], "portrait:area:10:PIC4.DAX:11:0:0",
+    /^(?!.*ABATTLEBEGINS).*CLAWSRISEFROMTHESOIL/i, [710, 210, 20, 310, 310, 230, 410]],
   ["portrait:area:10:ecl:a5bb:PIC4.DAX:17:", 2],
   ["portrait:area:10:ecl:a7b9:PIC4.DAX:17:", 2],
   ["portrait:area:10:ecl:aad6:PIC4.DAX:17:", 2],
