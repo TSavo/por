@@ -7,7 +7,13 @@ import { portraitLoopSignature } from "./held-portrait-loops.mjs";
 import { verifyHeldPortraitPaint, type ChromeProof, type Pose } from "./verify-held-portrait-paint.js";
 
 interface HeldPortraitInventory {
-  scenes: { id: string; producer?: string; poses: Pose[]; chrome?: { original: ChromeProof; port: ChromeProof } }[];
+  scenes: {
+    id: string;
+    producer?: string;
+    poses: Pose[];
+    chrome?: { original: ChromeProof; port: ChromeProof };
+    remainingCues?: string[];
+  }[];
 }
 
 interface OneShotProof {
@@ -46,8 +52,8 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       if (id.startsWith("portrait:") || id.startsWith("scene-illustration:")) assets.set(id, path(dirname(name), file));
     }
   }
-  const scenes = inventory.scenes.map(({ id, producer, poses, chrome }) => {
-    const result = (reason: string | null) => ({ id, producer, verified: reason === null, reason });
+  const scenes = inventory.scenes.map(({ id, producer, poses, chrome, remainingCues }) => {
+    const result = (reason: string | null) => ({ id, producer, verified: reason === null, reason, remainingCues });
     if (!chrome) return result("paired Chrome evidence is missing");
     try {
       for (const proof of [chrome.original, chrome.port]) {
@@ -118,7 +124,11 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     const oneShotReason = oneShot ? oneShotProblem(site, oneShot) : null;
     const evidence = observed.get(site) ?? [];
     const prompts = [...new Set(site.promptCandidates.map(({ next, caller }) => promptId(next, caller)))];
-    const unmeasured = prompts.filter(prompt => !evidence.some(entry => entry.prompt === prompt));
+    // One instruction can display several captions at the same cursor.
+    const unmeasured = [
+      ...prompts.filter(prompt => !evidence.some(entry => entry.prompt === prompt)),
+      ...new Set(evidence.flatMap(({ scene }) => scene.remainingCues ?? [])),
+    ];
     const measured = evidence.length > 0 || oneShot !== undefined;
     // A variable selector may feed several portraits into the same prompt.
     // Observing one portrait cannot discharge the other possible selections.

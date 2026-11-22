@@ -127,7 +127,7 @@ const portraitLoops = [
   ["portrait:area:22:ecl:a32f:PIC7.DAX:61:", 2, undefined,
     /THEYFLYTOWARDYOUCOMBATWAITFLEEPARLAY/i, [20, 20]],
   ["portrait:area:23:ecl:9f04:PIC7.DAX:57:", 4, undefined,
-    /THEYAREWARYBUTNOTHOSTILE/i],
+    /THEYAREWARYBUTNOTHOSTILE/i, [210, 210, 210, 210]],
   ["portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:", 4, undefined,
     /MUTILATINGSCUM.*BUTYOUWILLDIEFIRST/i, [210, 210, 210, 210]],
   ["portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:", 4, undefined,

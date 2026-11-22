@@ -2944,6 +2944,286 @@
       }
     },
     {
+      "id": "area:23:ecl:9a04:caller:9fef:PIC7.DAX:57",
+      "producer": "ECL7.DAX:23:9e76",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "23d56c7c7cc28878887ed0709df68230589317bc294ce1fbd4137ffd4b7ba13a"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "d7e2dbd9fdb05b653da924ebf7d908c35163734da32993168b2b4f0051b0da46"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "241352ef99b2096ee6a8746d9404db0c545c5f1bc0f6abb3a2e45e3b3f349f59"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "pyramid-lizardfolk-patrol-combat-phase-0",
+          "data": "original",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "329f8b44a99c59697a05de67aa8b6cc0e51af7cbfc31bcd76689be7c52a7ef11",
+          "portrait": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:0:0",
+              "atMs": 10.800000011920929
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:1:0",
+              "atMs": 160.80000001192093
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:2:0",
+              "atMs": 377.50000001192075
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:3:0",
+              "atMs": 577.5000000119207
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:0:0",
+              "atMs": 794.1000000119211
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:1:0",
+              "atMs": 1010.8000000119209
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:2:0",
+              "atMs": 1210.800000011921
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:3:0",
+              "atMs": 1427.4000000119213
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:0:0",
+              "atMs": 1627.4000000119213
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:1:0",
+              "atMs": 1844.1000000119202
+            }
+          ],
+          "sha256": {
+            "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:0:0": "37a7094c98bd01eb04a38786fe9cd830e58c6448058f9b2672bed932a95c5acb",
+            "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:1:0": "7216e83fcc6351809fbd416ae703a010411b9a2a642a494b16e373923a0dc9ca",
+            "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:2:0": "cbbc79356a91722b50944b7a7a383a37e70d1e667f1be5042e52e8a73f810867",
+            "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:3:0": "4309deb2e90fc57436f426ace2d69a87a990bdd45bdcb7079cbcb3d7681615cb"
+          }
+        },
+        "port": {
+          "route": "pyramid-lizardfolk-patrol-combat-phase-0",
+          "data": "port",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "329f8b44a99c59697a05de67aa8b6cc0e51af7cbfc31bcd76689be7c52a7ef11",
+          "portrait": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:0:0",
+              "atMs": -1.300000035762423
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:1:0",
+              "atMs": 181.99999996423685
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:2:0",
+              "atMs": 398.5999999642372
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:3:0",
+              "atMs": 598.5999999642372
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:0:0",
+              "atMs": 815.299999964237
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:1:0",
+              "atMs": 1031.9999999642368
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:2:0",
+              "atMs": 1231.8999999642374
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:3:0",
+              "atMs": 1448.5999999642372
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:0:0",
+              "atMs": 1648.4999999642368
+            },
+            {
+              "key": "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:1:0",
+              "atMs": 1865.1999999642376
+            }
+          ],
+          "sha256": {
+            "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:0:0": "37a7094c98bd01eb04a38786fe9cd830e58c6448058f9b2672bed932a95c5acb",
+            "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:1:0": "7216e83fcc6351809fbd416ae703a010411b9a2a642a494b16e373923a0dc9ca",
+            "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:2:0": "cbbc79356a91722b50944b7a7a383a37e70d1e667f1be5042e52e8a73f810867",
+            "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:3:0": "4309deb2e90fc57436f426ace2d69a87a990bdd45bdcb7079cbcb3d7681615cb"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:23:ecl:9f04:PIC7.DAX:57",
+      "producer": "ECL7.DAX:23:9e76",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "23d56c7c7cc28878887ed0709df68230589317bc294ce1fbd4137ffd4b7ba13a"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "d7e2dbd9fdb05b653da924ebf7d908c35163734da32993168b2b4f0051b0da46"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "241352ef99b2096ee6a8746d9404db0c545c5f1bc0f6abb3a2e45e3b3f349f59"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "pyramid-lizardfolk-patrol",
+          "data": "original",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "df739e9d60f946df2991fbf6bb38f86647e8daf7a97b706a2c71a489497c77dd",
+          "portrait": "portrait:area:23:ecl:9f04:PIC7.DAX:57:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:0:0",
+              "atMs": 14.100000047683807
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:1:0",
+              "atMs": 147.40000004768353
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:2:0",
+              "atMs": 364.0000000476839
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:3:0",
+              "atMs": 564.0000000476839
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:0:0",
+              "atMs": 780.7000000476837
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:1:0",
+              "atMs": 980.7000000476837
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:2:0",
+              "atMs": 1197.300000047684
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:3:0",
+              "atMs": 1414.000000047684
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:0:0",
+              "atMs": 1614.000000047684
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:1:0",
+              "atMs": 1830.7000000476837
+            }
+          ],
+          "sha256": {
+            "portrait:area:23:ecl:9f04:PIC7.DAX:57:0:0": "37a7094c98bd01eb04a38786fe9cd830e58c6448058f9b2672bed932a95c5acb",
+            "portrait:area:23:ecl:9f04:PIC7.DAX:57:1:0": "7216e83fcc6351809fbd416ae703a010411b9a2a642a494b16e373923a0dc9ca",
+            "portrait:area:23:ecl:9f04:PIC7.DAX:57:2:0": "cbbc79356a91722b50944b7a7a383a37e70d1e667f1be5042e52e8a73f810867",
+            "portrait:area:23:ecl:9f04:PIC7.DAX:57:3:0": "4309deb2e90fc57436f426ace2d69a87a990bdd45bdcb7079cbcb3d7681615cb"
+          }
+        },
+        "port": {
+          "route": "pyramid-lizardfolk-patrol",
+          "data": "port",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "df739e9d60f946df2991fbf6bb38f86647e8daf7a97b706a2c71a489497c77dd",
+          "portrait": "portrait:area:23:ecl:9f04:PIC7.DAX:57:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:0:0",
+              "atMs": 6.29999998807898
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:1:0",
+              "atMs": 156.29999998807898
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:2:0",
+              "atMs": 356.299999988079
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:3:0",
+              "atMs": 572.8999999880789
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:0:0",
+              "atMs": 789.5999999880787
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:1:0",
+              "atMs": 989.5999999880787
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:2:0",
+              "atMs": 1206.2999999880794
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:3:0",
+              "atMs": 1406.2999999880794
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:0:0",
+              "atMs": 1622.899999988079
+            },
+            {
+              "key": "portrait:area:23:ecl:9f04:PIC7.DAX:57:1:0",
+              "atMs": 1839.5999999880787
+            }
+          ],
+          "sha256": {
+            "portrait:area:23:ecl:9f04:PIC7.DAX:57:0:0": "37a7094c98bd01eb04a38786fe9cd830e58c6448058f9b2672bed932a95c5acb",
+            "portrait:area:23:ecl:9f04:PIC7.DAX:57:1:0": "7216e83fcc6351809fbd416ae703a010411b9a2a642a494b16e373923a0dc9ca",
+            "portrait:area:23:ecl:9f04:PIC7.DAX:57:2:0": "cbbc79356a91722b50944b7a7a383a37e70d1e667f1be5042e52e8a73f810867",
+            "portrait:area:23:ecl:9f04:PIC7.DAX:57:3:0": "4309deb2e90fc57436f426ace2d69a87a990bdd45bdcb7079cbcb3d7681615cb"
+          }
+        }
+      },
+      "remainingCues": [
+        "You must be the servants of Yarash!",
+        "Foul servants of Yarash!"
+      ]
+    },
+    {
       "id": "area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117",
       "producer": "ECL6.DAX:19:a142",
       "poses": [
@@ -3638,6 +3918,144 @@
             "portrait:PIC8.DAX:41:0:0": "e0429afa208d02b42b690caf148b50914ed2ad169e89c5da6dceaed4b84835d3",
             "portrait:area:27:ecl:9e4b:PIC8.DAX:41:1:0": "0ec6574c5b51515f4239f0896bd789632b32dea720edd33194ba2672b40c8e82",
             "portrait:area:27:ecl:9e4b:PIC8.DAX:41:2:0": "10f8ea1314a881f53a5c27e45cb5872b15dd31e88b737d0c285396e1bb0f44de"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57",
+      "producer": "ECL8.DAX:29:a9f0",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "23d56c7c7cc28878887ed0709df68230589317bc294ce1fbd4137ffd4b7ba13a"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "d7e2dbd9fdb05b653da924ebf7d908c35163734da32993168b2b4f0051b0da46"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "241352ef99b2096ee6a8746d9404db0c545c5f1bc0f6abb3a2e45e3b3f349f59"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "old-phlan-lizard-patrol-phases",
+          "data": "original",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "2e76e4f92dec3492d47c54b79a9976e5619afe3ea1bdd884c80924e39dbc9cab",
+          "portrait": "portrait:area:29:PIC8.DAX:57:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:PIC8.DAX:57:0:0",
+              "atMs": 1.300000011920929
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:1:0",
+              "atMs": 151.30000001192093
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:2:0",
+              "atMs": 367.9000000119213
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:3:0",
+              "atMs": 567.9000000119213
+            },
+            {
+              "key": "portrait:area:29:PIC8.DAX:57:0:0",
+              "atMs": 784.6000000119211
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:1:0",
+              "atMs": 1001.2000000119206
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:2:0",
+              "atMs": 1201.2000000119206
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:3:0",
+              "atMs": 1417.9000000119213
+            },
+            {
+              "key": "portrait:area:29:PIC8.DAX:57:0:0",
+              "atMs": 1617.9000000119213
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:1:0",
+              "atMs": 1834.600000011921
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:PIC8.DAX:57:0:0": "c2f7c2b372c13d029a1fdedebb8b1c68a6597d584b8abd76d011c82162fe8112",
+            "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:1:0": "3e61911510c45ad5a5ba1a0a6f6d0440539c5e0e97e2295daea63466af9a6e0f",
+            "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:2:0": "04f1b6b2b9611d0e769353e98ba14a85b985cc44592abf3d50c159b575c4b8f8",
+            "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:3:0": "09366c050eb19a1c0590dbe1d510fd4d491e34cfb4a0c7fff4aed89f7132ed66"
+          }
+        },
+        "port": {
+          "route": "old-phlan-lizard-patrol-phases",
+          "data": "port",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "2e76e4f92dec3492d47c54b79a9976e5619afe3ea1bdd884c80924e39dbc9cab",
+          "portrait": "portrait:area:29:PIC8.DAX:57:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:PIC8.DAX:57:0:0",
+              "atMs": 14.500000011920747
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:1:0",
+              "atMs": 197.9000000119213
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:2:0",
+              "atMs": 414.50000001192075
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:3:0",
+              "atMs": 614.4000000119213
+            },
+            {
+              "key": "portrait:area:29:PIC8.DAX:57:0:0",
+              "atMs": 831.2000000119206
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:1:0",
+              "atMs": 1031.2000000119206
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:2:0",
+              "atMs": 1247.800000011921
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:3:0",
+              "atMs": 1464.4000000119213
+            },
+            {
+              "key": "portrait:area:29:PIC8.DAX:57:0:0",
+              "atMs": 1664.4000000119213
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:1:0",
+              "atMs": 1881.100000011921
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:PIC8.DAX:57:0:0": "c2f7c2b372c13d029a1fdedebb8b1c68a6597d584b8abd76d011c82162fe8112",
+            "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:1:0": "3e61911510c45ad5a5ba1a0a6f6d0440539c5e0e97e2295daea63466af9a6e0f",
+            "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:2:0": "04f1b6b2b9611d0e769353e98ba14a85b985cc44592abf3d50c159b575c4b8f8",
+            "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:3:0": "09366c050eb19a1c0590dbe1d510fd4d491e34cfb4a0c7fff4aed89f7132ed66"
           }
         }
       }
@@ -4861,6 +5279,230 @@
             "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:0:0": "bea5f3fd74cededc651c688ebe4d89361dc7248e5157ddaa3b88b515b270418a",
             "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:1:0": "7afff22bcd0e9d25ed4dee95b9a207f341f39e86e396d1ac358f27790f2e628b",
             "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:3:0": "26896f94971edc14aeb46ae02e632a43e8df77f13270295751707d4a821835f6"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:5:ecl:9ff9:PIC5.DAX:31",
+      "producer": "ECL5.DAX:5:9fb4",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1310,
+          "viewport": "c6404b5abd321a42244b6a8f7496349b5c6faa4b1549879fc3841900a79ef79c"
+        },
+        {
+          "member": 1,
+          "durationMs": 20,
+          "viewport": "a9d2dd0c8e83b3b55f02c79dc7f54bd1600b3f11de8717a24c542705f92fa8b7"
+        },
+        {
+          "member": 2,
+          "durationMs": 20,
+          "viewport": "21391ec4fb35ff5e50e6df443602e08de3109bb61d65c42e904080da92fec196"
+        },
+        {
+          "member": 3,
+          "durationMs": 20,
+          "viewport": "9e52467148839db4c794f02b76034d64d7e3818832f9c631a113b9d25583cbdd"
+        },
+        {
+          "member": 4,
+          "durationMs": 510,
+          "viewport": "6094935aab3860ba6f3694c02b3531a23525b175ec332480f00935ea07816187"
+        },
+        {
+          "member": 5,
+          "durationMs": 110,
+          "viewport": "9e52467148839db4c794f02b76034d64d7e3818832f9c631a113b9d25583cbdd"
+        },
+        {
+          "member": 6,
+          "durationMs": 110,
+          "viewport": "21391ec4fb35ff5e50e6df443602e08de3109bb61d65c42e904080da92fec196"
+        },
+        {
+          "member": 7,
+          "durationMs": 210,
+          "viewport": "a9d2dd0c8e83b3b55f02c79dc7f54bd1600b3f11de8717a24c542705f92fa8b7"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "valjevo-tower-troll-phases",
+          "data": "original",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "c7e1205d50831e3017ecb2ed715cbdca4b724f69f6e06d1b653b4996da29c04c",
+          "portrait": "portrait:area:5:PIC5.DAX:31:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:5:PIC5.DAX:31:0:0",
+              "atMs": 5.300000000000182
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:1:0",
+              "atMs": 1255.2000000000007
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:2:0",
+              "atMs": 1271.7999999999993
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:3:0",
+              "atMs": 1288.5
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:4:0",
+              "atMs": 1321.7999999999993
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:3:0",
+              "atMs": 1821.7999999999993
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:2:0",
+              "atMs": 1938.3999999999996
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:1:0",
+              "atMs": 2038.5
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:31:0:0",
+              "atMs": 2255.2000000000007
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:1:0",
+              "atMs": 3571.7000000000007
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:2:0",
+              "atMs": 3588.3999999999996
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:3:0",
+              "atMs": 3605.1000000000004
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:4:0",
+              "atMs": 3621.7000000000007
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:3:0",
+              "atMs": 4138.4
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:2:0",
+              "atMs": 4238.299999999999
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:1:0",
+              "atMs": 4355
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:31:0:0",
+              "atMs": 4571.700000000001
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:1:0",
+              "atMs": 5871.700000000001
+            }
+          ],
+          "sha256": {
+            "portrait:area:5:PIC5.DAX:31:0:0": "7ecaeb2c84a30a6c63717eaaa22677c989862a2f25ef5490d113928eda192123",
+            "portrait:area:5:ecl:9ff9:PIC5.DAX:31:1:0": "ef200383f29393b85b7e9d0d61bdaa6b3902a67041c31a8c7daea53d9c691928",
+            "portrait:area:5:ecl:9ff9:PIC5.DAX:31:2:0": "75318129c24ec0a26a11ad32aba185dac61d15d5823ac42479dad069c11d18ea",
+            "portrait:area:5:ecl:9ff9:PIC5.DAX:31:3:0": "c1ec5049c3dfb86e0715b06826f16fd44d53a8f81ee3c23449b470cae4d67b69",
+            "portrait:area:5:ecl:9ff9:PIC5.DAX:31:4:0": "4324a0eb9169d2750ea34108ef3ed27531bab30f5a68d5011bf060f8a7f2057e"
+          }
+        },
+        "port": {
+          "route": "valjevo-tower-troll-phases",
+          "data": "port",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "c7e1205d50831e3017ecb2ed715cbdca4b724f69f6e06d1b653b4996da29c04c",
+          "portrait": "portrait:area:5:PIC5.DAX:31:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:5:PIC5.DAX:31:0:0",
+              "atMs": 8.49999996423685
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:1:0",
+              "atMs": 1208.3999999642374
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:2:0",
+              "atMs": 1241.799999964237
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:3:0",
+              "atMs": 1258.3999999642374
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:4:0",
+              "atMs": 1275.0999999642372
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:3:0",
+              "atMs": 1791.6999999642376
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:2:0",
+              "atMs": 1891.6999999642376
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:1:0",
+              "atMs": 2008.3999999642365
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:31:0:0",
+              "atMs": 2208.3999999642365
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:1:0",
+              "atMs": 3524.999999964237
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:2:0",
+              "atMs": 3541.6999999642376
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:3:0",
+              "atMs": 3558.3999999642365
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:4:0",
+              "atMs": 3591.6999999642376
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:3:0",
+              "atMs": 4091.6999999642376
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:2:0",
+              "atMs": 4208.3999999642365
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:1:0",
+              "atMs": 4308.299999964238
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:31:0:0",
+              "atMs": 4524.8999999642365
+            },
+            {
+              "key": "portrait:area:5:ecl:9ff9:PIC5.DAX:31:1:0",
+              "atMs": 5841.599999964237
+            }
+          ],
+          "sha256": {
+            "portrait:area:5:PIC5.DAX:31:0:0": "7ecaeb2c84a30a6c63717eaaa22677c989862a2f25ef5490d113928eda192123",
+            "portrait:area:5:ecl:9ff9:PIC5.DAX:31:1:0": "ef200383f29393b85b7e9d0d61bdaa6b3902a67041c31a8c7daea53d9c691928",
+            "portrait:area:5:ecl:9ff9:PIC5.DAX:31:2:0": "75318129c24ec0a26a11ad32aba185dac61d15d5823ac42479dad069c11d18ea",
+            "portrait:area:5:ecl:9ff9:PIC5.DAX:31:3:0": "c1ec5049c3dfb86e0715b06826f16fd44d53a8f81ee3c23449b470cae4d67b69",
+            "portrait:area:5:ecl:9ff9:PIC5.DAX:31:4:0": "4324a0eb9169d2750ea34108ef3ed27531bab30f5a68d5011bf060f8a7f2057e"
           }
         }
       }
