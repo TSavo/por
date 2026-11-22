@@ -2150,6 +2150,25 @@ const illustrationRoutes = new Map([
       prompt: /BEFOREHECANATTACKTHEOTHERSGRABHIM/i,
     },
   }],
+  ...[
+    ["intro", ["up"], "9a5a:caller:a540", /THEMLOOKSMART.*THEMTELLUS/i, true],
+    ["question", ["up", "enter"], "a59f", /FROGSANDTOADSNOTSAMETHING.*MERIGHT/i, true],
+    ["triumph", ["up", "enter", "y"], "9a5a:caller:a761", /THEGIANTTURNSINTRIUMPHTOHISCOMPANIONS/i],
+    ["attack", ["up", "enter", "y", "enter"], "9a5a:caller:a82a", /THEYTURNANDATTACKYOU/i],
+    ["refuted", ["up", "enter", "n"], "9a5a:caller:a69a", /YOULIE.*ISMASHYOU/i],
+    ["restrained", ["up", "enter", "n", "enter"], "a6e7", /BEFOREHECANATTACKTHEOTHERSGRABHIM/i],
+  ].map(([name, inputs, scope, prompt, shared]) => {
+    const prefix = `portrait:area:5:ecl:${scope}:PIC5.DAX:56:`;
+    const portrait = shared ? "portrait:area:5:PIC5.DAX:56:0:0" : prefix + "0:0";
+    const heldPortraitLoop = [portrait, prefix + "1:0", portrait, prefix + "3:0"];
+    return [`valjevo-tower-giants-${name}-loop`, {
+      slot: "B", inputs, prompt, portrait, heldPortraitLoop,
+      ...(name === "attack" ? { continuation: {
+        inputs: ["enter"], prompt: /ABATTLEBEGINS/i,
+        portrait: "portrait:area:5:PIC5.DAX:56:0:0",
+      } } : {}),
+    }];
+  }),
   ["valhingen-wight-roam-dialogue", {
     slot: "A", inputs: ["up", "down", "up"],
     portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:20:0:0",
@@ -7406,6 +7425,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valjevo-fire-giant-loop" ||
       routeName === "valjevo-fire-giant-refusal-loop" ||
       routeName === "valjevo-fire-giant-intruder-loop" ||
+      routeName.startsWith("valjevo-tower-giants-") ||
       /^valjevo-giant-barracks-password-(haughty|sly)-loop$/.test(routeName) ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||

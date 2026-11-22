@@ -1,6 +1,8 @@
 // Block 41's final member repeats the second painting on all four ferries.
 const ferryPoseOrder = [0, 1, 2, 1];
 const ferryPoseTimes = [2010, 1510, 2010, 1510];
+const towerGiantPoseOrder = [0, 1, 0, 3];
+const towerGiantPoseTimes = [210, 210, 210, 210];
 const portraitLoops = [
   ["portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:", 5],
   ["portrait:area:10:ecl:b50b:PIC4.DAX:34:", 4],
@@ -66,6 +68,18 @@ const portraitLoops = [
   ["portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:", [0, 1, 0, 3], undefined,
     /THISPAPERHASTHEPASSWORDS|LETSSEEIFYOUCANREADTODAYSLIST/i, [210, 210, 210, 210],
     [["scene-illustration:area:4:ecl:9a5a:caller:a442", 0]]],
+  ["portrait:area:5:ecl:9a5a:caller:a540:PIC5.DAX:56:", towerGiantPoseOrder, "portrait:area:5:PIC5.DAX:56:0:0",
+    /THEMLOOKSMARTTHEMTELLUS/i, towerGiantPoseTimes],
+  ["portrait:area:5:ecl:a59f:PIC5.DAX:56:", towerGiantPoseOrder, "portrait:area:5:PIC5.DAX:56:0:0",
+    /FROGSANDTOADSNOTSAMETHING.*MERIGHT/i, towerGiantPoseTimes],
+  ["portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:", towerGiantPoseOrder, undefined,
+    /YOULIE.*ISMASHYOU/i, towerGiantPoseTimes],
+  ["portrait:area:5:ecl:a6e7:PIC5.DAX:56:", towerGiantPoseOrder, undefined,
+    /BEFOREHECANATTACKTHEOTHERSGRABHIM/i, towerGiantPoseTimes],
+  ["portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:", towerGiantPoseOrder, undefined,
+    /THEGIANTTURNSINTRIUMPHTOHISCOMPANIONS/i, towerGiantPoseTimes],
+  ["portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:", towerGiantPoseOrder, undefined,
+    /^(?!.*ABATTLEBEGINS).*(?:THEYTURNANDATTACKYOU|THEYPICKUPTHEIRCLUBSANDATTACK)/i, towerGiantPoseTimes],
   ["portrait:area:7:ecl:9e1a:PIC5.DAX:49:", [0, 1, 2, 3, 4, 2, 1, 7], "portrait:area:7:PIC5.DAX:49:0:0",
     /AMEDUSACOMESRUNNINGTOWARDYOU.*COMBATWAITFLEEPARLAY/i, [210, 210, 210, 410, 110, 110, 210, 210]],
   ["portrait:area:13:ecl:9c10:PIC8.DAX:0:", [0, 1, 2, 1], undefined,

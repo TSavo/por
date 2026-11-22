@@ -1,13 +1,13 @@
 {
  "schema": 2,
  "heldPortraits": {
-  "verified": 8,
-  "measured": 16,
+  "verified": 10,
+  "measured": 17,
   "total": 235,
-  "scenesMeasured": 28,
-  "scenesVerified": 21,
+  "scenesMeasured": 29,
+  "scenesVerified": 28,
   "unmappedScenes": 0,
-  "remaining": 227
+  "remaining": 225
  },
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",

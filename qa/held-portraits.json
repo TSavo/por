@@ -2197,6 +2197,230 @@
       }
     },
     {
+      "id": "area:25:ecl:a991:PIC6.DAX:118",
+      "producer": "ECL6.DAX:25:a92f",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1510,
+          "viewport": "673507edce778305836ece8c65ded8af306e2ae969810103e22f102221c0d7ae"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "b57e14e261ee8534863c8ffd23f1c82fe07073ac5a63dde10af1bfd01e9e8e11"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "a5640fee477adc3af7bce242cd56096cd60a30c4f71fead15127b43fe33600a3"
+        },
+        {
+          "member": 3,
+          "durationMs": 110,
+          "viewport": "bcbe056b8c50784c60e45a440e8c8cfd55b69b4735f189dfdd45ed3a634f4265"
+        },
+        {
+          "member": 4,
+          "durationMs": 610,
+          "viewport": "cc71ba03bbcabb2edae6971d3f43b9672099e0b2346adb6d55008d095b3640d8"
+        },
+        {
+          "member": 5,
+          "durationMs": 20,
+          "viewport": "bcbe056b8c50784c60e45a440e8c8cfd55b69b4735f189dfdd45ed3a634f4265"
+        },
+        {
+          "member": 6,
+          "durationMs": 20,
+          "viewport": "a5640fee477adc3af7bce242cd56096cd60a30c4f71fead15127b43fe33600a3"
+        },
+        {
+          "member": 7,
+          "durationMs": 20,
+          "viewport": "b57e14e261ee8534863c8ffd23f1c82fe07073ac5a63dde10af1bfd01e9e8e11"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "wild-cave-thri-kreen-two-guards-phases",
+          "data": "original",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "5bcef03916f19fe54c450a90683df1b598668bf81d43cf0b7062f938a424d0d1",
+          "portrait": "portrait:area:25:ecl:a991:PIC6.DAX:118:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:0:0",
+              "atMs": 2.9000000119212928
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:1:0",
+              "atMs": 1452.800000011921
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:2:0",
+              "atMs": 1669.5000000119217
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:3:0",
+              "atMs": 1869.6000000119202
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:4:0",
+              "atMs": 1986.2000000119206
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:3:0",
+              "atMs": 2586.10000001192
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:2:0",
+              "atMs": 2619.5000000119217
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:1:0",
+              "atMs": 2636.10000001192
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:0:0",
+              "atMs": 2652.800000011921
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:1:0",
+              "atMs": 4169.400000011921
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:2:0",
+              "atMs": 4369.400000011921
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:3:0",
+              "atMs": 4586.10000001192
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:4:0",
+              "atMs": 4686.10000001192
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:3:0",
+              "atMs": 5302.700000011921
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:2:0",
+              "atMs": 5319.400000011921
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:1:0",
+              "atMs": 5336.000000011922
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:0:0",
+              "atMs": 5369.400000011921
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:1:0",
+              "atMs": 6869.300000011921
+            }
+          ],
+          "sha256": {
+            "portrait:area:25:ecl:a991:PIC6.DAX:118:0:0": "9ea65e27378a4b9c6b70cafd88b8caf4ea2778b2a9a5e98f721571deb2216030",
+            "portrait:area:25:ecl:a991:PIC6.DAX:118:1:0": "4b09c321780d8b87920cc0d778a33039ec46152c0cc830475b93aca9cab4f0c9",
+            "portrait:area:25:ecl:a991:PIC6.DAX:118:2:0": "990858a7303529118d054f3e78fe9c4881dbeebdfb67c947c709d0717cd9a605",
+            "portrait:area:25:ecl:a991:PIC6.DAX:118:3:0": "51afea2773a3814af30dd4c15e8b1862ba7ed28ec5e0e300c0949908f032c7a4",
+            "portrait:area:25:ecl:a991:PIC6.DAX:118:4:0": "3ddf81c5ac5d367997f589dfeb9847317d3ede670e5bc7443a676b07e0962ed9"
+          }
+        },
+        "port": {
+          "route": "wild-cave-thri-kreen-two-guards-phases",
+          "data": "port",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "5bcef03916f19fe54c450a90683df1b598668bf81d43cf0b7062f938a424d0d1",
+          "portrait": "portrait:area:25:ecl:a991:PIC6.DAX:118:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:0:0",
+              "atMs": 8.699999988079071
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:1:0",
+              "atMs": 1458.5999999880787
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:2:0",
+              "atMs": 1675.2999999880794
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:3:0",
+              "atMs": 1875.2999999880794
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:4:0",
+              "atMs": 1991.9999999880793
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:3:0",
+              "atMs": 2591.89999998808
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:2:0",
+              "atMs": 2625.199999988079
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:1:0",
+              "atMs": 2641.89999998808
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:0:0",
+              "atMs": 2658.4999999880783
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:1:0",
+              "atMs": 4175.199999988079
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:2:0",
+              "atMs": 4375.099999988079
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:3:0",
+              "atMs": 4591.799999988079
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:4:0",
+              "atMs": 4691.799999988079
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:3:0",
+              "atMs": 5308.499999988078
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:2:0",
+              "atMs": 5325.099999988079
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:1:0",
+              "atMs": 5341.799999988079
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:0:0",
+              "atMs": 5375.099999988079
+            },
+            {
+              "key": "portrait:area:25:ecl:a991:PIC6.DAX:118:1:0",
+              "atMs": 6874.999999988078
+            }
+          ],
+          "sha256": {
+            "portrait:area:25:ecl:a991:PIC6.DAX:118:0:0": "9ea65e27378a4b9c6b70cafd88b8caf4ea2778b2a9a5e98f721571deb2216030",
+            "portrait:area:25:ecl:a991:PIC6.DAX:118:1:0": "4b09c321780d8b87920cc0d778a33039ec46152c0cc830475b93aca9cab4f0c9",
+            "portrait:area:25:ecl:a991:PIC6.DAX:118:2:0": "990858a7303529118d054f3e78fe9c4881dbeebdfb67c947c709d0717cd9a605",
+            "portrait:area:25:ecl:a991:PIC6.DAX:118:3:0": "51afea2773a3814af30dd4c15e8b1862ba7ed28ec5e0e300c0949908f032c7a4",
+            "portrait:area:25:ecl:a991:PIC6.DAX:118:4:0": "3ddf81c5ac5d367997f589dfeb9847317d3ede670e5bc7443a676b07e0962ed9"
+          }
+        }
+      }
+    },
+    {
       "id": "area:26:ecl:a098:PIC7.DAX:41",
       "producer": "ECL7.DAX:26:a034",
       "poses": [
@@ -3034,7 +3258,118 @@
           "durationMs": 210,
           "viewport": "9e312f5b83be8e1746c7d84c8a7e8284d608f84f9eec15923768afc276515323"
         }
-      ]
+      ],
+      "producer": "ECL5.DAX:5:a490",
+      "chrome": {
+        "original": {
+          "route": "valjevo-tower-giants-intro-loop",
+          "data": "original",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "268b9aa4e0217a8a8b31ae116d8accd1ea819fe363e1a5db7618ced59cc77a98",
+          "portrait": "portrait:area:5:PIC5.DAX:56:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 0.9999999880792529
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a540:PIC5.DAX:56:1:0",
+              "atMs": 167.5999999880787
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 384.29999998807943
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a540:PIC5.DAX:56:3:0",
+              "atMs": 584.2999999880794
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 800.8999999880789
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a540:PIC5.DAX:56:1:0",
+              "atMs": 1000.8999999880789
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 1217.5999999880787
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a540:PIC5.DAX:56:3:0",
+              "atMs": 1434.2999999880794
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 1634.199999988079
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a540:PIC5.DAX:56:1:0",
+              "atMs": 1850.899999988079
+            }
+          ],
+          "sha256": {
+            "portrait:area:5:PIC5.DAX:56:0:0": "3001173415ee77537a83798a872de265772f233da54ba8b50105818dcec5a75a",
+            "portrait:area:5:ecl:9a5a:caller:a540:PIC5.DAX:56:1:0": "205d3e8f192a754d7f3d2fc6ead2b67d7c3ab30b7728a2625b0baa394fa34c71",
+            "portrait:area:5:ecl:9a5a:caller:a540:PIC5.DAX:56:3:0": "e39721a14d833dfa2b2ca26abcb26b71d97ccca398a453d11ffdc0199d0d4d99"
+          }
+        },
+        "port": {
+          "route": "valjevo-tower-giants-intro-loop",
+          "data": "port",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "268b9aa4e0217a8a8b31ae116d8accd1ea819fe363e1a5db7618ced59cc77a98",
+          "portrait": "portrait:area:5:PIC5.DAX:56:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 5.600000035762605
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a540:PIC5.DAX:56:1:0",
+              "atMs": 138.9000000357628
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 355.50000003576315
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a540:PIC5.DAX:56:3:0",
+              "atMs": 555.4000000357628
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 772.200000035763
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a540:PIC5.DAX:56:1:0",
+              "atMs": 988.8000000357624
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 1188.8000000357624
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a540:PIC5.DAX:56:3:0",
+              "atMs": 1405.5000000357632
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 1605.4000000357628
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a540:PIC5.DAX:56:1:0",
+              "atMs": 1822.1000000357626
+            }
+          ],
+          "sha256": {
+            "portrait:area:5:PIC5.DAX:56:0:0": "3001173415ee77537a83798a872de265772f233da54ba8b50105818dcec5a75a",
+            "portrait:area:5:ecl:9a5a:caller:a540:PIC5.DAX:56:1:0": "205d3e8f192a754d7f3d2fc6ead2b67d7c3ab30b7728a2625b0baa394fa34c71",
+            "portrait:area:5:ecl:9a5a:caller:a540:PIC5.DAX:56:3:0": "e39721a14d833dfa2b2ca26abcb26b71d97ccca398a453d11ffdc0199d0d4d99"
+          }
+        }
+      }
     },
     {
       "id": "area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56",
@@ -3059,7 +3394,118 @@
           "durationMs": 210,
           "viewport": "9e312f5b83be8e1746c7d84c8a7e8284d608f84f9eec15923768afc276515323"
         }
-      ]
+      ],
+      "producer": "ECL5.DAX:5:a490",
+      "chrome": {
+        "original": {
+          "route": "valjevo-tower-giants-refuted-loop",
+          "data": "original",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "33fee92bc99c65c0dc7e872e51fc6179bbf2f7f2a951ae184b7521a9e9ab0547",
+          "portrait": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:0:0",
+              "atMs": 10.799999976157778
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:1:0",
+              "atMs": 160.79999997615778
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:0:0",
+              "atMs": 377.4999999761585
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:3:0",
+              "atMs": 594.1999999761574
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:0:0",
+              "atMs": 794.1999999761574
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:1:0",
+              "atMs": 1010.7999999761578
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:0:0",
+              "atMs": 1210.7999999761578
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:3:0",
+              "atMs": 1427.3999999761581
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:0:0",
+              "atMs": 1644.0999999761589
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:1:0",
+              "atMs": 1844.0999999761589
+            }
+          ],
+          "sha256": {
+            "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:0:0": "44e9549ec6207afd3703dfefb10d8d12e07de410782afbaacf327e9c4fdfd163",
+            "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:1:0": "46fb25b64b66994b9b0f2a7b037fbf5d6f6464407b0919cceb9f34639d6993a1",
+            "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:3:0": "1769e10d88acd26960764ef79f7edf82c8ace320772d7bbee980d9796d981a4f"
+          }
+        },
+        "port": {
+          "route": "valjevo-tower-giants-refuted-loop",
+          "data": "port",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "33fee92bc99c65c0dc7e872e51fc6179bbf2f7f2a951ae184b7521a9e9ab0547",
+          "portrait": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:0:0",
+              "atMs": 5.59999997615796
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:1:0",
+              "atMs": 172.29999997615778
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:0:0",
+              "atMs": 388.89999997615814
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:3:0",
+              "atMs": 605.599999976158
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:0:0",
+              "atMs": 805.4999999761585
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:1:0",
+              "atMs": 1022.1999999761583
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:0:0",
+              "atMs": 1222.1999999761583
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:3:0",
+              "atMs": 1438.8999999761581
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:0:0",
+              "atMs": 1655.4999999761585
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:1:0",
+              "atMs": 1855.4999999761585
+            }
+          ],
+          "sha256": {
+            "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:0:0": "44e9549ec6207afd3703dfefb10d8d12e07de410782afbaacf327e9c4fdfd163",
+            "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:1:0": "46fb25b64b66994b9b0f2a7b037fbf5d6f6464407b0919cceb9f34639d6993a1",
+            "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:3:0": "1769e10d88acd26960764ef79f7edf82c8ace320772d7bbee980d9796d981a4f"
+          }
+        }
+      }
     },
     {
       "id": "area:5:ecl:9a5a:caller:a761:PIC5.DAX:56",
@@ -3084,7 +3530,118 @@
           "durationMs": 210,
           "viewport": "9e312f5b83be8e1746c7d84c8a7e8284d608f84f9eec15923768afc276515323"
         }
-      ]
+      ],
+      "producer": "ECL5.DAX:5:a490",
+      "chrome": {
+        "original": {
+          "route": "valjevo-tower-giants-triumph-loop",
+          "data": "original",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "c31052485a1588c1f38d69db22708b2fd149f814998fb00a810edb49c910a865",
+          "portrait": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:0:0",
+              "atMs": 3.699999964237577
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:1:0",
+              "atMs": 153.79999996423794
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:0:0",
+              "atMs": 370.3999999642365
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:3:0",
+              "atMs": 570.3999999642365
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:0:0",
+              "atMs": 787.0999999642372
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:1:0",
+              "atMs": 1003.6999999642376
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:0:0",
+              "atMs": 1203.6999999642376
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:3:0",
+              "atMs": 1420.299999964238
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:0:0",
+              "atMs": 1620.299999964238
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:1:0",
+              "atMs": 1836.8999999642365
+            }
+          ],
+          "sha256": {
+            "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:0:0": "1ca0e548e312d002bb9506dbb6c1a0a4c3c5a0e368b7b1b07e373ab6d772c653",
+            "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:1:0": "1ed9de9c18fadac431d5bb9283d7af3b6a5a8941bbd08ab314396c56bb62d994",
+            "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:3:0": "a4e3289a3e62f8df8cdb7000914d296b2fa74d4069ef67fc8e641ef5a2037869"
+          }
+        },
+        "port": {
+          "route": "valjevo-tower-giants-triumph-loop",
+          "data": "port",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "c31052485a1588c1f38d69db22708b2fd149f814998fb00a810edb49c910a865",
+          "portrait": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:0:0",
+              "atMs": 5
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:1:0",
+              "atMs": 121.60000000000036
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:0:0",
+              "atMs": 338.3000000000002
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:3:0",
+              "atMs": 555
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:0:0",
+              "atMs": 755
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:1:0",
+              "atMs": 971.6999999999998
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:0:0",
+              "atMs": 1171.6000000000004
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:3:0",
+              "atMs": 1388.1999999999998
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:0:0",
+              "atMs": 1604.8999999999996
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:1:0",
+              "atMs": 1805
+            }
+          ],
+          "sha256": {
+            "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:0:0": "1ca0e548e312d002bb9506dbb6c1a0a4c3c5a0e368b7b1b07e373ab6d772c653",
+            "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:1:0": "1ed9de9c18fadac431d5bb9283d7af3b6a5a8941bbd08ab314396c56bb62d994",
+            "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:3:0": "a4e3289a3e62f8df8cdb7000914d296b2fa74d4069ef67fc8e641ef5a2037869"
+          }
+        }
+      }
     },
     {
       "id": "area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56",
@@ -3109,7 +3666,118 @@
           "durationMs": 210,
           "viewport": "9e312f5b83be8e1746c7d84c8a7e8284d608f84f9eec15923768afc276515323"
         }
-      ]
+      ],
+      "producer": "ECL5.DAX:5:a490",
+      "chrome": {
+        "original": {
+          "route": "valjevo-tower-giants-attack-loop",
+          "data": "original",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "28fb66051eb8cd9b3fd8bc99b40ce180f77e1bf36a2adec86ef29bdf88066de2",
+          "portrait": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:0:0",
+              "atMs": 9.399999952316648
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:1:0",
+              "atMs": 142.69999995231592
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:0:0",
+              "atMs": 342.59999995231556
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:3:0",
+              "atMs": 559.2999999523163
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:0:0",
+              "atMs": 759.2999999523163
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:1:0",
+              "atMs": 975.999999952317
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:0:0",
+              "atMs": 1192.5999999523156
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:3:0",
+              "atMs": 1392.5999999523156
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:0:0",
+              "atMs": 1609.2999999523163
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:1:0",
+              "atMs": 1809.2999999523163
+            }
+          ],
+          "sha256": {
+            "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:0:0": "bea5f3fd74cededc651c688ebe4d89361dc7248e5157ddaa3b88b515b270418a",
+            "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:1:0": "7afff22bcd0e9d25ed4dee95b9a207f341f39e86e396d1ac358f27790f2e628b",
+            "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:3:0": "26896f94971edc14aeb46ae02e632a43e8df77f13270295751707d4a821835f6"
+          }
+        },
+        "port": {
+          "route": "valjevo-tower-giants-attack-loop",
+          "data": "port",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "28fb66051eb8cd9b3fd8bc99b40ce180f77e1bf36a2adec86ef29bdf88066de2",
+          "portrait": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:0:0",
+              "atMs": 8.09999997615796
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:1:0",
+              "atMs": 107.9999999761585
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:0:0",
+              "atMs": 324.6999999761583
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:3:0",
+              "atMs": 524.6999999761583
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:0:0",
+              "atMs": 741.3999999761581
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:1:0",
+              "atMs": 957.9999999761585
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:0:0",
+              "atMs": 1157.9999999761585
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:3:0",
+              "atMs": 1374.6999999761583
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:0:0",
+              "atMs": 1574.599999976158
+            },
+            {
+              "key": "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:1:0",
+              "atMs": 1791.2999999761578
+            }
+          ],
+          "sha256": {
+            "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:0:0": "bea5f3fd74cededc651c688ebe4d89361dc7248e5157ddaa3b88b515b270418a",
+            "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:1:0": "7afff22bcd0e9d25ed4dee95b9a207f341f39e86e396d1ac358f27790f2e628b",
+            "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:3:0": "26896f94971edc14aeb46ae02e632a43e8df77f13270295751707d4a821835f6"
+          }
+        }
+      }
     },
     {
       "id": "area:5:ecl:a59f:PIC5.DAX:56",
@@ -3134,7 +3802,118 @@
           "durationMs": 210,
           "viewport": "9e312f5b83be8e1746c7d84c8a7e8284d608f84f9eec15923768afc276515323"
         }
-      ]
+      ],
+      "producer": "ECL5.DAX:5:a490",
+      "chrome": {
+        "original": {
+          "route": "valjevo-tower-giants-question-loop",
+          "data": "original",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "268b9aa4e0217a8a8b31ae116d8accd1ea819fe363e1a5db7618ced59cc77a98",
+          "portrait": "portrait:area:5:PIC5.DAX:56:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 8.49999996423685
+            },
+            {
+              "key": "portrait:area:5:ecl:a59f:PIC5.DAX:56:1:0",
+              "atMs": 108.3999999642374
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 325.0999999642372
+            },
+            {
+              "key": "portrait:area:5:ecl:a59f:PIC5.DAX:56:3:0",
+              "atMs": 525.0999999642372
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 741.799999964237
+            },
+            {
+              "key": "portrait:area:5:ecl:a59f:PIC5.DAX:56:1:0",
+              "atMs": 958.4999999642368
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 1158.4999999642368
+            },
+            {
+              "key": "portrait:area:5:ecl:a59f:PIC5.DAX:56:3:0",
+              "atMs": 1375.0999999642372
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 1575.0999999642372
+            },
+            {
+              "key": "portrait:area:5:ecl:a59f:PIC5.DAX:56:1:0",
+              "atMs": 1791.6999999642376
+            }
+          ],
+          "sha256": {
+            "portrait:area:5:PIC5.DAX:56:0:0": "3001173415ee77537a83798a872de265772f233da54ba8b50105818dcec5a75a",
+            "portrait:area:5:ecl:a59f:PIC5.DAX:56:1:0": "205d3e8f192a754d7f3d2fc6ead2b67d7c3ab30b7728a2625b0baa394fa34c71",
+            "portrait:area:5:ecl:a59f:PIC5.DAX:56:3:0": "e39721a14d833dfa2b2ca26abcb26b71d97ccca398a453d11ffdc0199d0d4d99"
+          }
+        },
+        "port": {
+          "route": "valjevo-tower-giants-question-loop",
+          "data": "port",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "268b9aa4e0217a8a8b31ae116d8accd1ea819fe363e1a5db7618ced59cc77a98",
+          "portrait": "portrait:area:5:PIC5.DAX:56:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 7.200000047683716
+            },
+            {
+              "key": "portrait:area:5:ecl:a59f:PIC5.DAX:56:1:0",
+              "atMs": 190.6000000476838
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 407.3000000476836
+            },
+            {
+              "key": "portrait:area:5:ecl:a59f:PIC5.DAX:56:3:0",
+              "atMs": 607.3000000476841
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 823.9000000476835
+            },
+            {
+              "key": "portrait:area:5:ecl:a59f:PIC5.DAX:56:1:0",
+              "atMs": 1023.9000000476835
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 1240.500000047684
+            },
+            {
+              "key": "portrait:area:5:ecl:a59f:PIC5.DAX:56:3:0",
+              "atMs": 1457.2000000476837
+            },
+            {
+              "key": "portrait:area:5:PIC5.DAX:56:0:0",
+              "atMs": 1657.2000000476837
+            },
+            {
+              "key": "portrait:area:5:ecl:a59f:PIC5.DAX:56:1:0",
+              "atMs": 1873.9000000476835
+            }
+          ],
+          "sha256": {
+            "portrait:area:5:PIC5.DAX:56:0:0": "3001173415ee77537a83798a872de265772f233da54ba8b50105818dcec5a75a",
+            "portrait:area:5:ecl:a59f:PIC5.DAX:56:1:0": "205d3e8f192a754d7f3d2fc6ead2b67d7c3ab30b7728a2625b0baa394fa34c71",
+            "portrait:area:5:ecl:a59f:PIC5.DAX:56:3:0": "e39721a14d833dfa2b2ca26abcb26b71d97ccca398a453d11ffdc0199d0d4d99"
+          }
+        }
+      }
     },
     {
       "id": "area:5:ecl:a6e7:PIC5.DAX:56",
@@ -3159,7 +3938,118 @@
           "durationMs": 210,
           "viewport": "9e312f5b83be8e1746c7d84c8a7e8284d608f84f9eec15923768afc276515323"
         }
-      ]
+      ],
+      "producer": "ECL5.DAX:5:a490",
+      "chrome": {
+        "original": {
+          "route": "valjevo-tower-giants-restrained-loop",
+          "data": "original",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "32a53a47fa393ce3e10e2bd812d34f2c3d283395dcb130867d0af41e8c13c5b9",
+          "portrait": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:0:0",
+              "atMs": 10.100000023841858
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:1:0",
+              "atMs": 160.0000000238415
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:0:0",
+              "atMs": 376.7000000238422
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:3:0",
+              "atMs": 576.7000000238422
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:0:0",
+              "atMs": 793.4000000238411
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:1:0",
+              "atMs": 1010.0000000238415
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:0:0",
+              "atMs": 1210.0000000238415
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:3:0",
+              "atMs": 1426.7000000238422
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:0:0",
+              "atMs": 1626.7000000238422
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:1:0",
+              "atMs": 1843.4000000238411
+            }
+          ],
+          "sha256": {
+            "portrait:area:5:ecl:a6e7:PIC5.DAX:56:0:0": "0fe3a2788c91496d144e271e37fbc0eef550ea637f7d238348484d4aca5af4c5",
+            "portrait:area:5:ecl:a6e7:PIC5.DAX:56:1:0": "0ab407979ba27ae003922c5825572fec481c064fedae39b5af22bac6996dd3b1",
+            "portrait:area:5:ecl:a6e7:PIC5.DAX:56:3:0": "f7c2d7edcd23f5107fb0f18e85fbe26680e2ccc000ee1080e1886b84f1354d5b"
+          }
+        },
+        "port": {
+          "route": "valjevo-tower-giants-restrained-loop",
+          "data": "port",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "32a53a47fa393ce3e10e2bd812d34f2c3d283395dcb130867d0af41e8c13c5b9",
+          "portrait": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:0:0",
+              "atMs": 3.4999999523161023
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:1:0",
+              "atMs": 153.4999999523161
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:0:0",
+              "atMs": 370.1999999523159
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:3:0",
+              "atMs": 570.1999999523159
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:0:0",
+              "atMs": 786.7999999523163
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:1:0",
+              "atMs": 1003.3999999523166
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:0:0",
+              "atMs": 1203.3999999523166
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:3:0",
+              "atMs": 1420.199999952316
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:0:0",
+              "atMs": 1620.0999999523165
+            },
+            {
+              "key": "portrait:area:5:ecl:a6e7:PIC5.DAX:56:1:0",
+              "atMs": 1836.699999952316
+            }
+          ],
+          "sha256": {
+            "portrait:area:5:ecl:a6e7:PIC5.DAX:56:0:0": "0fe3a2788c91496d144e271e37fbc0eef550ea637f7d238348484d4aca5af4c5",
+            "portrait:area:5:ecl:a6e7:PIC5.DAX:56:1:0": "0ab407979ba27ae003922c5825572fec481c064fedae39b5af22bac6996dd3b1",
+            "portrait:area:5:ecl:a6e7:PIC5.DAX:56:3:0": "f7c2d7edcd23f5107fb0f18e85fbe26680e2ccc000ee1080e1886b84f1354d5b"
+          }
+        }
+      }
     }
   ]
 }
