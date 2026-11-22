@@ -44,6 +44,14 @@ const travelRoadAreas = new Set([0, 2, 9, 18]);
 const travelRoadArrivals = new Map([[0, [8, 11, 20, 21]], [2, [15]], [8, [0]], [9, [6]], [18, [9, 29]], [20, [0]]]);
 const travelRoadScripts = new Set([...travelRoadAreas, ...[...travelRoadArrivals.values()].flat()]);
 const kutoWellLookFacing = new Map([["7,8", 0], ["6,7", 2], ["7,6", 4], ["8,7", 6]]);
+// The completed PRINTCLEAR cursors of captions the guest clears before its next usable prompt.
+// Use the loaded script's area so the artwork follows the print during district transitions.
+const transientScriptIllustrations = new Map([
+  ["7:26:9be2", "scene-illustration:area:26:ecl:9be2"],
+  ["8:13:ad39", "scene-illustration:area:13:ecl:ad39"],
+  ["8:16:aab7", "scene-illustration:area:16:ecl:aab7"],
+  ["8:27:9c50", "scene-illustration:area:27:ecl:9c50"],
+]);
 export interface PresentationAnimationFrame {
   portrait?: string;
   frame: string;
@@ -1372,13 +1380,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       paletteClip = animation.at(-1);
     } : undefined,
     captureCompletedScriptText: browser ? (cpu: Cpu) => {
-      // ECL7 block 26 clears the abandoned camp caption before its next keyboard prompt.
-      // The loaded wilderness script still owns the caption when the party leaves the inhabited camp.
-      const scope = "scene-illustration:area:26:ecl:9be2";
-      if (!portraitKeys.includes(scope) || cpu.read8(unit.data, data.eclArchive) !== 7 ||
-          cpu.read8(unit.data, data.eclBlock) !== 26) return;
+      const archive = cpu.read8(unit.data, data.eclArchive);
+      const block = cpu.read8(unit.data, data.eclBlock);
       const cursor = authoredScriptPosition(cpu, cpu.read16(unit.data, data.eclCursor), unit.data);
-      if (cursor === 0x9be2) showFrame(undefined, undefined, false, false, 1200, undefined, scope);
+      const scope = transientScriptIllustrations.get(`${archive}:${block}:${cursor.toString(16)}`);
+      if (scope && portraitKeys.includes(scope)) showFrame(undefined, undefined, false, false, 1200, undefined, scope);
     } : undefined,
     capturePresentationDelay: browser ? (cpu: Cpu, effectDelay = false, messageMs?: number, pauseMs?: number) => {
       // The game pauses on the encounter picture it just drew (DELAY between APPROACHes, Rolf's
