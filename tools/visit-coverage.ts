@@ -7,8 +7,8 @@
  * walk goes, so this counts what the walks have reached and names the rest.
  *
  * qa/visit-coverage.json holds, for each walk, what the runner's visit trace saw on a run of it:
- * POR_TRACE_VISITS=<file> makes the runner write the area the party is in (the area record, script
- * variable 0x49f2) and the journal's commissions with their status each time either changes.
+ * POR_TRACE_VISITS=<file> makes the runner write the script in memory (its ECLn.DAX archive and block,
+ * which name the area) and the journal's commissions with their status each time either changes.
  *
  *   tsx tools/visit-coverage.ts --record <walk> <trace.jsonl>...   adds a walk (or replaces it)
  *   tsx tools/visit-coverage.ts                                     reports; exit 1 while any is unvisited
@@ -24,7 +24,7 @@ interface Walk { areas: number[]; commissions: string[]; traces: string[] }
 interface Coverage { schema: 1; note: string; walks: Record<string, Walk> }
 
 const coveragePath = fromPortRoot("qa", "visit-coverage.json");
-const catalog = JSON.parse(readFileSync(fromPortRoot("src", "maps", "area-catalog.json"), "utf8")) as { areas: { id: number; name: string }[] };
+const catalog = JSON.parse(readFileSync(fromPortRoot("src", "maps", "area-catalog.json"), "utf8")) as { areas: { id: number; name: string; scriptArchive: string }[] };
 const done = new Set(["ready-to-report", "reward-pending", "turned-in"]);
 const read = (): Coverage => existsSync(coveragePath) ? JSON.parse(readFileSync(coveragePath, "utf8")) as Coverage
   : { schema: 1, note: "What each walk's runner visit trace (POR_TRACE_VISITS) saw. Written by tsx tools/visit-coverage.ts --record. Read by npm run qa:visits.", walks: {} };
@@ -35,8 +35,11 @@ if (flag === "--record") {
   const areas = new Set<number>(), finished = new Set<string>();
   for (const trace of traces) {
     for (const line of readFileSync(trace, "utf8").split("\n").filter(Boolean)) {
-      const visit = JSON.parse(line) as { area?: number; commissions: string[] };
-      if (typeof visit.area === "number") areas.add(visit.area);
+      // An area is its script: the catalog's id is the block, in the archive the catalog names. The
+      // menus before a game is loaded leave a script of another archive in memory, which counts for none.
+      const visit = JSON.parse(line) as { archive: number; block: number; commissions: string[] };
+      const area = catalog.areas.find(({ id, scriptArchive }) => id === visit.block && scriptArchive === `ECL${visit.archive}.DAX`);
+      if (area) areas.add(area.id);
       for (const entry of visit.commissions) {
         const [id, status] = entry.split(":");
         if (done.has(status ?? "")) finished.add(id!.replace(/^commission-/, ""));

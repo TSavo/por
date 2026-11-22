@@ -20,7 +20,7 @@ import { stagePregenParty } from "./pregen-party.js";
 import { isPartyFile, openSaveSlots, saveSlotLetter } from "./save-slots.js";
 import { callTrace, exeByImage, farCall, farCallObservers, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installImage, installProgram, loadedSlices } from "../src/runtime/overlay.js";
-import { behaviour, code, codeSegment, data, eclGlobalOffset, far, previousRandomSeed, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit, panelFrameDraw, startupInput } from "../src/runtime/bindings.js";
+import { behaviour, code, codeSegment, data, far, previousRandomSeed, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit, panelFrameDraw, startupInput } from "../src/runtime/bindings.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 import { standaloneTrace } from "./standalone-trace.js";
@@ -345,11 +345,12 @@ const visitTrace = input && process.env.POR_TRACE_VISITS;
 let lastVisit = "";
 const requestKey = input && visitTrace ? (machine: Cpu, keys: BiosKey[], blocking: boolean) => {
   if (machine.steps >= liveStep && blocking) {
-    const segment = machine.read16(unit.data, data.eclGlobals + 2), offset = machine.read16(unit.data, data.eclGlobals);
-    const area = segment || offset ? machine.read16(segment, (offset + eclGlobalOffset(0x49f2)) & 0xffff) : undefined;
+    // The script in memory names the area: its archive (ECLn.DAX) and block. The area record
+    // (script variable 0x49f2) follows only once the new area's script has run.
+    const archive = machine.read8(unit.data, data.eclArchive), block = machine.read8(unit.data, data.eclBlock);
     const commissions = journal().filter(({ id }) => id.startsWith("commission-"))
       .map(({ id, status }) => `${id}:${status ?? ""}`).sort();
-    const visit = JSON.stringify({ area, commissions });
+    const visit = JSON.stringify({ archive, block, commissions });
     if (visit !== lastVisit) {
       appendFileSync(visitTrace, visit + "\n");
       lastVisit = visit;
