@@ -3088,6 +3088,9 @@
   "assets": {
     "combat:ICON.DAX:0": "combat-mounted-guard-ready.png",
     "combat:ICON.DAX:128": "combat-mounted-guard-strike.png",
+    "encounter:SPRIT2.DAX:71:0:0": "archive-ettin-near.png",
+    "encounter:SPRIT2.DAX:71:1:0": "archive-ettin-middle.png",
+    "encounter:SPRIT2.DAX:71:2:0": "archive-ettin-far.png",
     "tile:10:0230c354d077c94bb067a1518e3459f59368028b79fe83911e301c14668682c0": "valhingen-amber-wall-0230c354d077.png",
     "tile:10:0bad0e2b5d2af6051d106ce3a43b168927a95c02b1aac68d63c451fccaa39716": "valhingen-amber-wall-0bad0e2b5d2a.png",
     "tile:10:0efbe0884a485057021b14952eaf5d70eff53d31d842fc2bfe0b3b0ae8a2ae6e": "valhingen-amber-wall-0efbe0884a48.png",
@@ -15480,6 +15483,9 @@
     "combat:RANDCOM.DAX:1:0:3": "combat-flowering-clay-pot.png"
   },
   "encounters": {
+    "encounter:SPRIT2.DAX:71:0:0": {"x": 40, "y": 32, "width": 48, "height": 73},
+    "encounter:SPRIT2.DAX:71:1:0": {"x": 48, "y": 32, "width": 40, "height": 65},
+    "encounter:SPRIT2.DAX:71:2:0": {"x": 56, "y": 32, "width": 24, "height": 57},
     "encounter:area:24:SPRIT1.DAX:2:0:0": { "area": 24, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:24:SPRIT1.DAX:6:0:0": { "area": 24, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:24:SPRIT1.DAX:8:0:0": { "area": 24, "x": 48, "y": 32, "width": 40, "height": 73 },

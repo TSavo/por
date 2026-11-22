@@ -57,7 +57,7 @@ export function observeNativeEncounterArt(anchors: Record<string, EncounterAncho
       for (const scope of scopes) {
         const key = `encounter:${scope}${visible.member}`;
         const anchor = anchors[key];
-        if (!anchor || anchor.area !== area) continue;
+        if (!anchor || (anchor.area !== undefined && anchor.area !== area)) continue;
         const { x, y, width, height, webglYOffset } = anchor;
         return webglYOffset ? [x, y, key, width, height, webglYOffset] : [x, y, key, width, height];
       }

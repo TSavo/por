@@ -28,7 +28,8 @@ export interface OverrideManifest {
 }
 
 export interface EncounterAnchor {
-  area: number;
+  /** Omit for an unscoped key that requires a native draw of the named member. */
+  area?: number;
   x: number;
   y: number;
   width: number;
