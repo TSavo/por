@@ -87,6 +87,20 @@ harbor checkpoints start from different positions or quest states. The canonical
 `phlan-priest-tempus` replay also passes on 1.3 with `parallel-priest-tempus-A.json`
 and verifies that the portrait persists through the healing menu.
 
+The canonical New Phlan replays below also passed in GOG 1.3 Chrome at
+`6f6aaa26`. These checkpoint files are local test data.
+
+| Replay coverage | Checkpoint |
+| --- | --- |
+| Harbor City Watch portrait, fighter and auxiliary standing and strike poses, aide standing pose | `combat-agent-watch-mage-durable-A.json` |
+| Tempus line fighter standing pose | `combat-agent-tempus-watch-A.json` |
+| Tavern brawl illustration and approach | `parallel-portrait-phlan-tavern-A.json` |
+| Tavern Watch arrival and Stay branch after controlled victory | `combat-agent-tavern-deep-durable-A.json` |
+
+The harbor aide strike replay reached the canonical `ae09` placement at a
+Move/Attack prompt and failed its turn assertion before the strike. The
+separate standing replay verified that placement in Chrome.
+
 The host reads which release's script is in memory and reports the first release's numbering in both cases. Use that numbering for New Phlan artwork and narration keys. The artwork replays use the same route names on both editions.
 
 Saves from the first release are not a supported player feature. A replay for 1.3 should make its checkpoint on 1.3.
