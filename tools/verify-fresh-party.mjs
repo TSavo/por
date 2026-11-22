@@ -2974,12 +2974,13 @@ async function verifyCastleEnding(fromCastleGuards, { saveAtWestGate = false, co
       (text) => assert.match(text, /audience hall of tyranthraxus/),
       "enter", (text) => assert.match(text, /ancient bronze dragon.*fiery aura/),
       "enter", "enter", "c", "enter",
-      (text) => assert.match(text, continuous ? /hitpoints \d+ ac/ : /8th lvl fighter hitpoints/),
-      ":win-combat", presses("q", continuous ? 7 : undefined, /continue battle:yes no/), "n",
+      // A combatant's turn. Both start from the full campaign's party (slot H, or castle-guards' B).
+      (text) => assert.match(text, /hitpoints \d+ ac/),
+      ":win-combat", presses("q", 7, /continue battle:yes no/), "n",
       (text) => assert.match(text, /the party has won.*experience points/),
       "enter", "enter", "enter", "s", "e", "n", "enter", "enter", "enter",
       (text) => assert.match(text, /how do you vote.*attack join tyranthraxus/),
-      presses("a", continuous ? 6 : undefined, /a battle begins/), "a",
+      presses("a", 6, /a battle begins/), "a",
     ] : [
       "right", ...Array(4).fill("up"),
       (text) => assert.match(text, /audience hall of tyranthraxus/),
@@ -2988,7 +2989,7 @@ async function verifyCastleEnding(fromCastleGuards, { saveAtWestGate = false, co
       ...Array(6).fill("a"), "enter", "enter", "q",
     ]),
     (text) => assert.match(text, continuous ? /hitpoints \d+ ac/ : /tyrani?thraxus hitpoints 80 ac -4/),
-    ...(fromCastleGuards ? [":win-combat", presses("q", continuous ? 1 : undefined, /continue battle:yes no/)] : Array(32).fill("q")),
+    ...(fromCastleGuards ? [":win-combat", presses("q", 1, /continue battle:yes no/)] : Array(32).fill("q")),
     (text) => assert.match(text, /continue battle:yes no/),
     "n", (text) => assert.match(text, fromCastleGuards
       ? /the party has won.*receives \d+ experience points/
@@ -3077,6 +3078,9 @@ if (process.argv[2] === "--castle-ending-checkpoint" || campaign && campaignOpti
   assert.ok(campaign || !process.argv[4] || saveAtWestGate, "Expected --save-at-west-gate.");
   assert.ok(source, "Pass a save outside Tyranthraxus's audience hall with the assault assigned.");
   copyFileSync(source, join(saveDir, "B.json"));
+  // qa/fixtures/castle-guards/B.json is the full campaign's slot H saved again in slot B, so with it the
+  // ending plays as the full campaign's legs 10 and 11 do and follows their prompt records (#151).
+  if (fromCastleGuards) campaignLeg = 9;
   await verifyCastleEnding(fromCastleGuards, { saveAtWestGate });
   process.exit(0);
 }
