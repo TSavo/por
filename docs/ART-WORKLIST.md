@@ -56,18 +56,18 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 |   of which several tiles together | 1557 |
 |   of which the same pixels already have art of yours in another area | 801 |
 | Battlefield cells to do | 0 |
-| Tile keys in the manifests | 4276 |
-|   accounted for by the tool | 4126 |
+| Tile keys in the manifests | 4306 |
+|   accounted for by the tool | 4150 |
 | Battlefield keys in the manifests | 83 |
 |   that are one stored cell of a battlefield picture | 78 |
 | Stored 8 by 8 tiles | 3016 |
 |   blank | 9 |
 |   distinct pictures among the rest | 1333 |
-|   with art in some area, alone or over a solid colour | 2374 |
-|   without (the catalogue's 720 when it was written) | 633 |
+|   with art in some area, alone or over a solid colour | 2390 |
+|   without (the catalogue's 720 when it was written) | 617 |
 |     of those, no map can show | 428 |
 |     of those, shown only together with other tiles, never alone | 7 |
-|     of those, shown alone in some area | 198 |
+|     of those, shown alone in some area | 182 |
 
 ## Where each area stands
 
@@ -76,9 +76,9 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 0 | New Phlan | yes | 406 | 248 | 60 | 261 of 261 (3 as first views of the next area, 10 as WebGL wall materials) |
 | 1 | Buccaneer Base | yes | 385 | 131 | 50 | 134 of 134 (3 as WebGL wall materials) |
 | 2 | Cadorna Textile House | yes | 580 | 254 | 128 | 278 of 278 (5 as first views of the next area, 19 as WebGL wall materials) |
-| 3 | Valjevo Castle | not yet | 300 | 74 |  | 74 of 86 |
+| 3 | Valjevo Castle | not yet | 300 | 95 |  | 95 of 110 |
 | 4 | Valjevo Castle | yes | 320 | 76 | 46 | 84 of 84 (8 as WebGL wall materials) |
-| 5 | Valjevo Castle | not yet | 393 | 49 |  | 51 of 110 (2 as first views of the next area) |
+| 5 | Valjevo Castle | not yet | 393 | 52 |  | 54 of 116 (2 as first views of the next area) |
 | 6 | Valjevo Castle | yes | 310 | 76 | 88 | 82 of 82 (6 as WebGL wall materials) |
 | 7 | Valjevo Castle, the Pool | not yet | 269 | 33 |  | 73 of 131 (40 as first views of the next area) |
 | 8 | Phlan City Hall | yes | 405 | 163 | 129 | 173 of 173 (10 as WebGL wall materials) |
@@ -1350,19 +1350,19 @@ Map 0; WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 bloc
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
-| `tile:11:14ba42f38a9f3edda8214f1dec22d94f520717c59573aa456e72854416d753d4` | 8X8D3 block 102 tile 10 | map 0, square (10,8) facing north, column 5 row 5 | `new-phlan-harbor-lane-terrain-14ba42f38a9f.png` (area 0, 5, 7, 8, 20) |
-| `tile:11:15450d2266965cb35a6f45fd06dbf087e58bdd114e2cf88e56dba3e596898eb1` | 8X8D3 block 102 tile 52 | map 0, square (13,8) facing south, column 2 row 4 | `new-phlan-south-market-terrain-0-15450d226696.png` (area 0, 7, 8, 20) |
+| `tile:11:14ba42f38a9f3edda8214f1dec22d94f520717c59573aa456e72854416d753d4` | 8X8D3 block 102 tile 10 | map 0, square (10,8) facing north, column 5 row 5 | `valjevo-hedge-corner-terrain-14ba42f38a9f.png` (area 0, 3, 5, 7, 8, 20) |
+| `tile:11:15450d2266965cb35a6f45fd06dbf087e58bdd114e2cf88e56dba3e596898eb1` | 8X8D3 block 102 tile 52 | map 0, square (13,8) facing south, column 2 row 4 | `valjevo-merchant-wing-terrain-15450d226696.png` (area 0, 5, 7, 8, 20) |
 | `tile:11:1930bf3912f12f181acb825e6e35b4935e2fbbcf9c15b721db739476417319a4` | 8X8D3 block 102 tile 19 | map 0, square (10,8) facing west, column 10 row 7 | `new-phlan-south-market-terrain-0-1930bf3912f1.png` (area 0) |
 | `tile:11:2c07b5fab1efd528ab309be6c35e564bb46750de4ff813de5ff640b6ee22c2bf` | 8X8D3 block 102 tile 17 | map 0, square (13,8) facing west, column 1 row 6 | `slums-trade-row-terrain-2c07b5fab1ef.png` (area 0, 7, 20) |
 | `tile:11:34c8e1f49742be249357aba1a5180b7fbd7dff4350ff758ba579534fcd9cdb70` | 8X8D3 block 102 tile 57 | map 0, square (13,8) facing east, column 10 row 3 | `slums-shop-frontage-terrain-34c8e1f49742.png` (area 0, 7, 20) |
 | `tile:11:377420f76a2a02743aa7246fe5abc2356c698f47930ac0cbead1e1b62d2f1e44` | 8X8D3 block 102 tile 29 | map 0, square (8,8) facing south, column 8 row 5 | `valjevo-merchant-branch-terrain-377420f76a2a.png` (area 0, 5, 7) |
 | `tile:11:39cc1df080453d41cc72fbb1070c6f88e040bb5e36b16cb6cd948bd07b1180f5` | 8X8D3 block 102 tile 6 | map 0, square (10,8) facing west, column 10 row 4 | `new-phlan-south-market-terrain-0-39cc1df08045.png` (area 0) |
-| `tile:11:491c0e9a5a1fe2680ecad326e5a4a7920df0f9e348ad8b993c763c95cf886194` | 8X8D3 block 102 tile 46 | map 0, square (13,8) facing east, column 10 row 7 | `new-phlan-building-paving-joins-0-491c0e9a5a1f.png` (area 0, 7, 8, 20) |
+| `tile:11:491c0e9a5a1fe2680ecad326e5a4a7920df0f9e348ad8b993c763c95cf886194` | 8X8D3 block 102 tile 46 | map 0, square (13,8) facing east, column 10 row 7 | `valjevo-merchant-wing-terrain-491c0e9a5a1f.png` (area 0, 5, 7, 8, 20) |
 | `tile:11:4e24210255ed185eb54a70dc98aae7c1beeeb78e5107d1d01b5a931dcae9a8ae` | 8X8D3 block 102 tile 59 | map 0, square (15,8) facing south, column 10 row 4 | `slums-worn-courtyard-4e24210255ed.png` (area 0, 7, 20) |
 | `tile:11:5073fed19218b31e25fe949a437664fe32b7c96cbaa20c93e5e796af062a2ecb` | 8X8D3 block 102 tile 31 | map 0, square (0,0) facing east, column 6 row 6 | `route-5073fed19218.png` (area 0, 4, 5, 6, 7, 8, 20) |
 | `tile:11:542aa3de288bfb705a13cf971acc398ce6f17f10c113a97d2339053598b2cce3` | 8X8D3 block 102 tile 26 | map 0, square (0,0) facing north, column 9 row 7 | `orc-rubble-053598b2cce3.png` (area 0, 3, 4, 5, 6, 7, 8, 20) |
 | `tile:11:582935262251c3c3b53ec076d372c7bebfc34f9076968d8314e319ea8cca75bd` | 8X8D3 block 102 tile 18 | map 0, square (8,8) facing south, column 7 row 5 | `valjevo-merchant-west-terrain-582935262251.png` (area 0, 7) |
-| `tile:11:5b786e63e19e9e670c1f1c5e88c35e2a13f2d0706d213c1aae0f2473145467ca` | 8X8D3 block 102 tile 7 | map 0, square (9,8) facing north, column 9 row 5 | `new-phlan-harbor-lane-terrain-5b786e63e19e.png` (area 0, 5, 7, 8, 20) |
+| `tile:11:5b786e63e19e9e670c1f1c5e88c35e2a13f2d0706d213c1aae0f2473145467ca` | 8X8D3 block 102 tile 7 | map 0, square (9,8) facing north, column 9 row 5 | `valjevo-lower-trim-5b786e63e19e.png` (area 0, 3, 5, 7, 8, 20) |
 | `tile:11:624c54394650999904d165e8083586d2c5d9dea1cfb089dcbb22e946cbbf6f37` | 8X8D3 block 102 tile 58 | map 0, square (13,8) facing east, column 9 row 3 | `slums-shop-frontage-terrain-624c54394650.png` (area 0, 7, 20) |
 | `tile:11:6350a67cee5ed480bf0c6c1c98180dff777b31313ae09d346fa708c132025c0a` | 8X8D3 block 102 tile 60 | map 0, square (9,13) facing west, column 7 row 4 | `new-phlan-south-market-terrain-0-6350a67cee5e.png` (area 0) |
 | `tile:11:6a31f8112a44a50377f8425ac2fde4f502b684c316174a4bdbd9d61f4c2b2d4b` | 8X8D3 block 102 tile 33 over sky colour 11 | map 0, square (0,0) facing south, column 2 row 2 | `valjevo-dungeon-doorway-terrain-6a31f8112a44.png` (area 0, 3, 4, 5, 6, 8, 20) |
@@ -2266,7 +2266,7 @@ Map 26; WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), b
 | `tile:26:40f46157dc277243cf905276f1a16a2bd6d3f448351dbc9f69fe86602ec97b07` | 8X8D7 block 23 tile 16 | map 26, square (4,3) facing south, column 8 row 8 | `lizardman-lower-pool-40f46157dc27.png` (area 15, 16) |
 | `tile:26:6fcc88dfcbdd1381aa173a4930d0f43707657b86b987875de37d432aaf94f778` | 8X8D7 block 23 tile 19 | map 26, square (4,3) facing south, column 8 row 7 | `lizardman-lower-pool-6fcc88dfcbdd.png` (area 15, 16) |
 | `tile:26:82e8199099381a8c28943b20dddb6ed93932475f5ced4d14f5c14f1a87fa7900` | 8X8D7 block 23 tile 14 | map 26, square (4,2) facing south, column 5 row 6 | `lizardman-lower-pool-82e819909938.png` (area 15, 16) |
-| `tile:26:aa725e51a9d8e9a8abe3cefa68561d19a4b06c6f1526e46e3a55a23aef753c73` | 8X8D7 block 23 tile 69 | map 26, square (4,3) facing south, column 3 row 7 | `lizardman-lower-pool-aa725e51a9d8.png` (area 15, 16) |
+| `tile:26:aa725e51a9d8e9a8abe3cefa68561d19a4b06c6f1526e46e3a55a23aef753c73` | 8X8D7 block 23 tile 69 | map 26, square (4,3) facing south, column 3 row 7 | `mendor-webgl-fountain-water-aa725e51a9d8.png` (area 3, 15, 16) |
 | `tile:26:bc40ea3be142942d5e433d5b75d7dace8cc2aa0c544f4123b7056a5a69d7977e` | 8X8D7 block 23 tile 21 | map 26, square (4,2) facing south, column 6 row 6 |  |
 | `tile:26:bd497db7487c7813e1fe44ab57327e1071fa3e599e97eb77c229dbc490b75a6a` | 8X8D7 block 23 tile 17 | map 26, square (3,3) facing east, column 9 row 8 | `lizardman-lower-pool-bd497db7487c.png` (area 15, 16) |
 | `tile:26:d326cc9fabded3214b6092f46a582ccf73115a244f08ec2e00172fefe1c7f137` | 8X8D7 block 23 tile 20 | map 26, square (4,2) facing south, column 4 row 6 |  |
@@ -2816,7 +2816,7 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 | --- | ---: |
 | first-person cells that show a sky or ground colour no existing artwork of the area shows | 4267 |
 | first-person cells of the overhead area view, which no existing artwork of the area confirms | 152 |
-| first-person cells of an area whose reading is not confirmed | 1530 |
+| first-person cells of an area whose reading is not confirmed | 1506 |
 | first-person cells seen only from squares not connected to any square the existing artwork was made from | 357 |
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |
 | battlefield cells of pictures no artwork shows to have been on a battlefield | 2207 |
@@ -2827,8 +2827,8 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 
 Areas not confirmed, and why:
 
-- Area 3 (Valjevo Castle): 12 of the 86 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
-- Area 5 (Valjevo Castle): 59 of the 110 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
+- Area 3 (Valjevo Castle): 15 of the 110 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
+- Area 5 (Valjevo Castle): 62 of the 116 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 7 (Valjevo Castle, the Pool): 58 of the 131 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 15 (Mendor's Library): 15 of the 205 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 18 (Podol Plaza): 5 of the 199 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
