@@ -115,8 +115,13 @@ When the game asks for a picture record, the reader hands it a blank picture of 
 same headers and zero pixels.
 
 This classification of files into picture data, other content and program was made here from the
-file formats. `npm run qa:standalone` is to classify them too; when it lands, the two are to be
-reconciled.
+file formats. `npm run qa:standalone` (docs/STANDALONE.md) classifies them too, and the two agree
+except on DUNGCOM.DAX and WILDCOM.DAX, which that check calls battle maps of tile numbers and
+this converter treats as pictures. Their records have the picture header (24 by 24 pixels, 25 and
+34 frames, and exactly the bytes that shape needs), and 59 `battle-tile:` artwork keys are the
+hash of an 8 by 8 cell of a DUNGCOM frame, which only pixels can give. A fight in the Slums
+played from `game/`, where these records are blank, draws the same dice as from the 1.3 files.
+The two tools still have to be brought to one answer.
 
 `tiles.json` lists each distinct tile of the 8X8D sets once, by that hash, with every place it is
 stored (`archive:block:index`). A tile that has transparent pixels (colour 13) also lists
