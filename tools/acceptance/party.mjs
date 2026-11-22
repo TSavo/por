@@ -475,7 +475,7 @@ export async function loadParty(options = {}, saves = guidePartyFixture, slot = 
   game.close = () => { close(); rmSync(copy, { recursive: true, force: true }); };
   try {
     game.expect(/Load Saved Game/, "The first menu offers to load a saved game.");
-    await game.press("l", /Load Which Game: A/, "L asks which saved game to load.");
+    await game.press("l", /Load Which Game: [A-J]/, "L asks which saved game to load.");
     await game.press(slot.toLowerCase(), exploring, `${slot} loads that slot and puts the party on the map.`);
     return game;
   } catch (error) {
