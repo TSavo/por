@@ -6040,7 +6040,7 @@ routes.push("river-pumping-hostile");
 routes.push("river-return-reload");
 routes.push("swamp-return", "swamp-reward-reload");
 routes.push("slums-potion-booth-reload");
-routes.push("bane-cell-inscription-reload", "kovel-reward");
+routes.push("bane-cell-inscription-reload", "kovel-reward", "podal-reward");
 routes.push("mendor-records-reward-reload", ...mendorCouncilRewards.keys());
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -6228,6 +6228,9 @@ const councilReward = {
   "kovel-reward": ["commission-kovel", /ELIMINATIONOFTHETHIEVESINKOVELMANSION/i,
     { portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kovel-reward", xp: 1150,
       capture: "kovel-council-reward.png" }],
+  "podal-reward": ["commission-auction", /YOURSUCCESSATPODALPLAZAISNOTED/i,
+    { portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:podal-reward", xp: 1250,
+      capture: "podal-council-reward.png" }],
 }[swampReturn ? "swamp-reward" : routeName];
 const envoyReturn = routeName === "zhentil-return";
 const riverApproach = routeName === "river-approach";
@@ -13187,7 +13190,7 @@ try {
       assert.equal(checkpointAfterReward.leads.find(({ id }) => id === commission)?.status, "turned-in");
       console.log("Bivant reward checkpoint:", saved);
     }
-    if (routeName === "kobold-king-reward" || routeName === "kovel-reward") {
+    if (["kobold-king-reward", "kovel-reward", "podal-reward"].includes(routeName)) {
       for (const key of ["j", "enter", "e", "s", "s", "a"]) await advance(key);
       const checkpointAfterReward = JSON.parse(readFileSync(saved, "utf8"));
       assert.equal(checkpointAfterReward.leads.find(({ id }) => id === commission)?.status, "turned-in");
