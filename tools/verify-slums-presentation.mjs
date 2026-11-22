@@ -2422,6 +2422,21 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0",
     prompt: /THECHAMBERLIGHTSUPTOREVEALATALL,PALEMAN/i,
   }],
+  ...[
+    ["leave", { inputs: ["y"], clearsPortrait: true, prompt: /VIEWENCAMP.*LOOK/i }],
+    ["stay", { inputs: ["n", "enter", "enter"], portrait: "portrait:PIC4.DAX:20:0:0", prompt: /YOUAREATTACKEDBYWIGHTS/i }],
+  ].map(([choice, continuation]) => [`valhingen-spirits-tower-${choice}`, {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portraitStops: {
+      1: "scene-illustration:area:10:ecl:b695:caller:a19b",
+      2: "scene-illustration:area:10:ecl:b695:caller:a1f0",
+    },
+    phaseCaptures: { 2: "valhingen-spirits-tower-warning.png" },
+    portrait: "scene-illustration:area:10:ecl:b6c6:caller:a201",
+    prompt: /DOYOULEAVE\?/i,
+    finalPhaseCapture: "valhingen-spirits-tower-choice.png",
+    continuation,
+  }]),
   ["valhingen-marble-chest", {
     slot: "A", inputs: ["l"],
     portrait: "scene-illustration:area:10:ecl:b6c6:caller:9e99",
