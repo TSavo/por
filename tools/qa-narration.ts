@@ -49,6 +49,7 @@ const selectors = manifest.staticSelectors ?? [];
 type Art = { kind: "portrait" | "encounter" | "scene" | "view" | "runes"; key: string };
 const firstPersonView = "the first-person view";
 const runePage = "runes in the picture window";
+const notKnown = "not known: the ledger did not record the first-person view";
 interface Coverage {
   schema: 1;
   about: string;
@@ -184,6 +185,11 @@ function mergeLedger(path: string): void {
   const header = lines.find((line): line is Extract<Line, { t: "run" }> => line.t === "run");
   if (!header) throw new Error(`${path} has no run line: not a narration ledger`);
   const run = header.run;
+  // A ledger written before 2026-11-22 does not record the first-person view: on its frames the view
+  // and a blank screen look alike, so a passage it saw with neither is not known to have had no picture.
+  // Ledgers written between 0d8a1a18 and the `records` field record the view but do not say so.
+  const seesView = Boolean((header as { records?: string[] }).records?.includes("view") ||
+    lines.some(line => line.t === "f" && (line.view || line.runes)));
   // Rebuild failures recorded by this run, preserving failures from other runs.
   for (const entry of Object.values(coverage.units)) {
     if (entry.withoutArt?.run === run) delete entry.withoutArt;
@@ -199,9 +205,13 @@ function mergeLedger(path: string): void {
   const close = (session: number) => {
     for (const waiting of open.get(session) ?? []) {
       const entry = coverage.units[waiting.unitId]!;
-      if (waiting.art && (!entry.art || (entry.art.kind === "view" && waiting.art.kind !== "view"))) entry.art = waiting.art;
-      else entry.withoutArt ??= { run, step: waiting.step,
-        showing: !waiting.frames ? "not observed: the run ended first" : waiting.classic ? "the original picture" : "no picture" };
+      if (waiting.art) {
+        if (!entry.art || (entry.art.kind === "view" && waiting.art.kind !== "view")) entry.art = waiting.art;
+        // A ledger that sees the view showed this passage with its picture: an earlier unknown is settled.
+        if (entry.withoutArt?.showing === notKnown) delete entry.withoutArt;
+      } else entry.withoutArt ??= { run, step: waiting.step,
+        showing: !waiting.frames ? "not observed: the run ended first" : waiting.classic ? "the original picture"
+          : seesView ? "no picture" : notKnown };
     }
     open.delete(session);
   };
@@ -359,7 +369,8 @@ rows.push({ part: "Selected passages with their artwork showing", done: withArt.
     `(${withArt.filter(unit => coverage.units[unit.id]!.art?.kind === "view").length} by the first-person view, ` +
     `${withArt.filter(unit => coverage.units[unit.id]!.art?.kind === "runes").length} by runes in the picture window); ` +
     `${withoutArt.filter(unit => coverage.units[unit.id]!.withoutArt?.showing === "the original picture").length} showed only the original picture, ` +
-    `${withoutArt.filter(unit => coverage.units[unit.id]!.withoutArt?.showing === "no picture").length} no picture`,
+    `${withoutArt.filter(unit => coverage.units[unit.id]!.withoutArt?.showing === "no picture").length} no picture, ` +
+    `${withoutArt.filter(unit => coverage.units[unit.id]!.withoutArt?.showing === notKnown).length} not known (heard only by ledgers that did not record the view)`,
   list: withoutArt.map(unit => {
     const entry = coverage.units[unit.id]!;
     return `${scriptOf(unit.triggerSourceId)} ${address(unit.triggerSourceId)} ${say(unit.spokenText || unit.runtimeVariants?.[0]?.text || "")}: ` +

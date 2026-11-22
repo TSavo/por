@@ -113,8 +113,9 @@ function create(path: string) {
       encounter ? [[id, encounter]] : [])));
     artwork = "loaded by the ledger";
   }
+  // `records` names what the frame lines can say beyond the artwork keys, so a merge can tell an old ledger's silence from a blank screen.
   write({ t: "run", s: session, run: process.env.POR_NARRATION_RUN ?? basename(path).replace(/\.jsonl$/, ""), artwork,
-    clock: process.env.POR_CLOCK ?? "fixed" });
+    clock: process.env.POR_CLOCK ?? "fixed", records: ["view", "runes"] });
 
   let catalog: NarrationCatalog | undefined;
   let exact: ReturnType<typeof exactTextNarrations> | undefined;
