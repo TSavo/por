@@ -9,7 +9,7 @@
    "heard": 66
   },
   "acceptance-new-phlan": {
-   "ledger": "acceptance-new-phlan-city-hall-entrance.jsonl",
+   "ledger": "acceptance-new-phlan-tavern-art.jsonl",
    "games": 7,
    "decisions": 521,
    "heard": 106
@@ -208,28 +208,25 @@
   "por.voice.ecl3.b0-a2d7": {
    "run": "acceptance-new-phlan",
    "step": 137864900,
-   "withoutArt": {
-    "run": "acceptance-new-phlan",
-    "step": 137864900,
-    "showing": "no picture"
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:af3f:caller:a328"
    }
   },
   "por.voice.ecl3.b0-a3eb": {
    "run": "acceptance-new-phlan",
    "step": 138367137,
-   "withoutArt": {
-    "run": "acceptance-new-phlan",
-    "step": 138367137,
-    "showing": "no picture"
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:ae69:caller:a407"
    }
   },
   "por.voice.ecl3.b0-a413-a438": {
    "run": "acceptance-new-phlan",
    "step": 195271342,
-   "withoutArt": {
-    "run": "acceptance-new-phlan",
-    "step": 195271342,
-    "showing": "no picture"
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:af3f:caller:a440"
    }
   },
   "por.voice.ecl3.b0-a45b": {
