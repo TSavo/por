@@ -683,6 +683,14 @@ const stojanowTollApproach = [
 const councilClerkApproach = ["right", "right", "up", "right", "right", "up", "enter", "enter"];
 
 const illustrationRoutes = new Map([
+  ["new-phlan-training-duels", {
+    slot: "A", inputs: ["left", "up", "right", "up"],
+    portrait: "scene-illustration:area:11:ecl:a167:caller:9be2",
+    heldPortrait: "scene-illustration:area:11:ecl:a167:caller:9be2",
+    prompt: /THEROOMISFILLEDWITHDUELINGPAIRS/i,
+    continuation: { inputs: ["enter"], portrait: "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+      prompt: /THEARENAMASTERASKSIFYOUWISHTODUEL.*DOYOUDUEL/i },
+  }],
   ["new-phlan-passenger-dock-sign", {
     slot: "B", inputs: ["left", "up", "right", "up"],
     portrait: "scene-illustration:area:0:ecl:9e07",
@@ -6971,7 +6979,8 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel ||
       ["slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance",
-        "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign"].includes(routeName) ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
+        "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
+        "new-phlan-training-duels"].includes(routeName) ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
   },
   stdio: ["ignore", "ignore", "inherit"],
 });
