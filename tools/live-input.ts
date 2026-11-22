@@ -341,7 +341,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
       }
       // The next encounter can be drawn while the guest still shows the room description.
-      const entranceIllustration = /:cue:(?:roofless-ruin|l-shaped-ruin)$/.test(illustration ?? "");
+      const entranceIllustration = /:cue:(?:roofless-ruin|l-shaped-ruin|charged-tower)$/.test(illustration ?? "");
       const encounter = encounterArt(presentation, enhanced, !scene && (picture === undefined || entranceIllustration) ? area : undefined,
         !captureApproach, battleCursor, [drawnPerspective?.pixels, priorPerspectiveDraw], portraitCaller);
       if (entranceIllustration && encounter) picture = undefined;

@@ -2457,6 +2457,14 @@ const illustrationRoutes = new Map([
       prompt: /ASMALLARMYOFSKELETONSRUSHESFROMTHETOWER/i,
     },
   }],
+  ["valhingen-charged-tower", {
+    slot: "A", inputs: ["l", "enter", "enter"],
+    portraitStops: { 1: "scene-illustration:area:10:ecl:b6b3:caller:a927:cue:charged-tower", 2: null },
+    phaseCaptures: { 1: "valhingen-charged-tower.png" },
+    approachStops: { 2: [48, 32, "encounter:area:10:SPRIT4.DAX:20:0:0", 40, 80] },
+    portrait: "portrait:PIC4.DAX:20:0:0",
+    prompt: /STATICELECTRICITYANDBALLLIGHTNING.*WIGHTSAPPEARFROMBEHINDTHETOWER/i,
+  }],
   ["valhingen-marble-chest", {
     slot: "A", inputs: ["l"],
     portrait: "scene-illustration:area:10:ecl:b6c6:caller:9e99",
