@@ -815,6 +815,20 @@ const illustrationRoutes = new Map([
     portrait: "portrait:HEAD2.DAX:52:BODY2.DAX:31",
     prompt: /THEYSEEMUNAWAREOFYOU.*COMBATWAITFLEEPARLAY/i,
   }],
+  ["bane-mansion-victims-room", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:31:ecl:b0b5:cue:victims-room",
+    prompt: /^(?!.*YOUFINDSOMEJEWELRY).*FILLEDWITHTHEDEADBODIESOFTHEORC'SPREVIOUSVICTIMS/i,
+    finalPhaseCapture: "bane-mansion-victims-room.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
+  ["bane-mansion-victims-jewelry", {
+    slot: "A", inputs: ["s", "up"],
+    portrait: "scene-illustration:area:31:ecl:9ed7:cue:victims-jewelry",
+    prompt: /DEADBODIESOFTHEORC'SPREVIOUSVICTIMS.*YOUFINDSOMEJEWELRY.*WILLYOUTAKEIT/i,
+    finalPhaseCapture: "bane-mansion-victims-jewelry.png",
+    continuation: { inputs: ["l", "down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["bane-mansion-great-hall", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:31:ecl:b0b5:cue:mansion-great-hall",
