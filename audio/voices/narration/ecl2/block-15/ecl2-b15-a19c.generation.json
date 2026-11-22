@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "d0a8773ad4034d67d8374e840775e4b181bb9580057f010fc5dfa62c57983122",
+  "audioSha256": "f6ad8a5550b60a2a21caf8591d64be8f91144637e2548302476cf8ff6f5c56d0",
+  "bytes": 88232,
+  "directionSent": "expressive fantasy narration, quoted speech in character",
+  "heardByWhisper": "You find various books which are so filled with myth that you don't find anything useful.",
+  "generatedAt": "2026-11-22T04:21:18.212Z"
+}

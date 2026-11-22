@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "3fd08db8b0ae823168660e6afb5da5a7801b079eaf8e62f2dc1097b337ae5fdc",
+  "audioSha256": "00b157bc0569e1647416615bdbf1c8b90f1576edc55f6a42b46576628075d41c",
+  "bytes": 116235,
+  "directionSent": "nervous, eager to please, wary",
+  "heardByWhisper": "One of the kobolds says if you spare our lives we will tell you all we know about this area will you spare them?",
+  "generatedAt": "2026-11-22T04:21:32.448Z"
+}

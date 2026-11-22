@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "5f8a838436374901656e5c50569bfcc089a96f7f417f555932973f8db392f9a4",
+  "audioSha256": "0163fa9b5010559e1d66fb74b47ae1620b46644cd3624e24d280f1dd930dfd4a",
+  "bytes": 72767,
+  "directionSent": "terrified, unstable, abrupt emotional turns",
+  "heardByWhisper": "You see, the man is quite mad. Do you take pity and invite him to go with you?",
+  "generatedAt": "2026-11-22T04:21:27.387Z"
+}

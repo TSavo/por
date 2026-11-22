@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "f13613d9e24b22baffac4ace60c2505fb9a305e05193cfb26d131b86448a4930",
+  "audioSha256": "3eed69753355af4feea130319e0f30652e7edcab7869006984a2d146ea661837",
+  "bytes": 111220,
+  "directionSent": "terrified, unstable, abrupt emotional turns",
+  "heardByWhisper": "Watching you warily he inches away when he is out of swords reach he scrambles to his feet and flees the room",
+  "generatedAt": "2026-11-22T04:21:23.035Z"
+}
