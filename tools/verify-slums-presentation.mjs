@@ -2538,6 +2538,23 @@ const illustrationRoutes = new Map([
       portrait: "scene-illustration:area:10:ecl:b6c6:caller:b1bd", prompt: /WOODENSTAIRSLEADINTOAPIT/i,
     },
   }],
+  ...[
+    ["alone", /YOUFINDAGIANTSKELETON(?!ANDITSRETAINERS).*ABATTLEBEGINS/i,
+      { inputs: ["enter"], clearsPortrait: true, prompt: /GIANTSKELETONHITPOINTS/i }],
+    ["retainers", /YOUFINDAGIANTSKELETONANDITSRETAINERS.*ABATTLEBEGINS/i],
+  ].map(([kind, prompt, continuation]) => [`valhingen-giant-skeleton-${kind}`, {
+    slot: "A", inputs: ["l", "enter", "enter", "enter"],
+    portraitStops: {
+      1: `scene-illustration:area:10:ecl:b69d:caller:9e36:cue:giant-skeleton-${kind}`,
+      2: null,
+      3: `scene-illustration:area:10:ecl:b695:caller:9e3a:cue:giant-skeleton-${kind}`,
+    },
+    approachStops: { 2: [48, 32, "encounter:area:10:SPRIT4.DAX:34:0:0", 40, 80] },
+    portrait: `scene-illustration:area:10:ecl:9e52:cue:giant-skeleton-${kind}`,
+    prompt,
+    finalPhaseCapture: `valhingen-giant-skeleton-${kind}.png`,
+    continuation,
+  }]),
   ["valhingen-marble-chest", {
     slot: "A", inputs: ["l"],
     portrait: "scene-illustration:area:10:ecl:b6c6:caller:9e99",
