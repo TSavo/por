@@ -91,12 +91,17 @@ for id, size in art.items():
 # rune of the same alphabet clearly more. Measured on 2026-11-21: a reference against a thickened
 # enlargement of itself scores 0.89 to 0.96; against a different rune, 0.42 at the median.
 def likeness():
-    references = Path(os.environ.get("POR_CODEWHEEL_REFERENCE", root.parent / "por-assets" / "codewheel" / "runes"))
+    requested_reference = os.environ.get("POR_CODEWHEEL_REFERENCE")
+    references = Path(requested_reference or root.parent / "por-assets" / "codewheel" / "runes")
     if not references.is_dir():
+        if requested_reference:
+            problems.append(f"POR_CODEWHEEL_REFERENCE does not name a directory: {references}")
         return "likeness not checked: the reference runes are not at " + str(references)
     try:
         from PIL import Image
     except ImportError:
+        if requested_reference:
+            problems.append("Pillow is required to check POR_CODEWHEEL_REFERENCE")
         return "likeness not checked: Pillow is not installed"
     grid = (64, 32)
 
