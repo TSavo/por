@@ -4318,6 +4318,10 @@ leaving its source to be discovered in the game.
 The `council-lizardfolk-offer` replay marks the river commission fulfilled
 in the controlled slot. It checks the original warning beside the new
 marsh scene, then returns to exploration on GOG 1.3.
+The `council-bivant-offer` replay marks the lizardfolk commission
+fulfilled in a controlled slot. It checks the original rescue request,
+the new illustration of the missing heir, and the return to exploration
+on GOG 1.3.
 
 The `stojanow-gate-reward` Chrome replay on GOG 1.3 checks the Council
 clerk's artwork as she checks for a reward, sorts the remaining
