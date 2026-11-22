@@ -1,7 +1,9 @@
 // What the Enhanced display hands the runner, and what it adds to the runner's frames, shared by the
 // browser server (tools/browser-play.ts) and the check that compares the two data sources
 // (tools/verify-port-parity.mjs), so that the check runs the game exactly as the shipped one runs.
-import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { existsSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { isPortGameRoot, portGame } from "./gamedata.js";
 import { characterSheetPartKey, endingPortraitKey, portraitKey, scriptIllustrations } from "./portrait-art.js";
@@ -13,8 +15,27 @@ import type { loadUpgradeArt } from "./upgrade-art.js";
 
 type Artwork = ReturnType<typeof loadUpgradeArt>;
 
-/** The environment that tells the runner which artwork keys exist, as the browser server starts it. */
+/**
+ * The environment that tells the runner which artwork keys exist, as the browser server starts it.
+ *
+ * The keys do not fit in the environment itself: Linux allows 128 KiB per variable, and the tile keys
+ * alone are over 500 KiB, so the runner could not be started there (spawn E2BIG, #146). They go into a
+ * file named by its contents in the system's temporary directory, and the environment carries only
+ * its path, POR_ENHANCED_ART_FILE; the runner reads it before anything else (tools/enhanced-art-env.ts).
+ */
 export function enhancedArtEnv(artwork: Artwork, materialMasks: ReadonlyMap<string, unknown>): Record<string, string> {
+  const text = JSON.stringify(enhancedArtKeys(artwork, materialMasks));
+  const file = join(tmpdir(), `por-enhanced-art-${createHash("sha256").update(text).digest("hex").slice(0, 16)}.json`);
+  if (!existsSync(file)) {
+    const pending = `${file}.${process.pid}.tmp`;
+    writeFileSync(pending, text);
+    renameSync(pending, file);
+  }
+  return { POR_ENHANCED_ART_FILE: file };
+}
+
+/** The artwork keys the runner may resolve, each list as the variable the runner reads. */
+export function enhancedArtKeys(artwork: Artwork, materialMasks: ReadonlyMap<string, unknown>): Record<string, string> {
   const keys = [...artwork.keys()];
   const encounters = Object.fromEntries([...artwork].flatMap(([id, { encounter }]) => encounter ? [[id, encounter]] : []));
   return {

@@ -3,6 +3,8 @@
  * procedure, against the game files in POR_GAMEDATA. Prints the first
  * place the translation still stops.
  */
+// First: the artwork keys the server hands over in a file (#146), before any module reads them.
+import "./enhanced-art-env.js";
 import { createHash } from "node:crypto";
 import { appendFileSync, mkdirSync, readFileSync, realpathSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
