@@ -16,7 +16,7 @@
  * The runner is killed while it waits for its next command, so the files are rewritten before each
  * wait when something has changed, and once more when the process exits by itself.
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, renameSync, writeFileSync as writeFile } from "node:fs";
 import { join } from "node:path";
 import type { Cpu } from "../src/cpu/machine.js";
 import type { Frame } from "../src/lib/ega.js";
@@ -58,6 +58,12 @@ export interface EnhancedFrameFacts {
 }
 
 const width = 320, height = 200;
+
+/** The runner can be killed in the middle of a write. Write beside the file and rename, so a reader never sees half of one. */
+function writeFileSync(path: string, content: string | Uint8Array): void {
+  writeFile(`${path}.tmp`, content);
+  renameSync(`${path}.tmp`, path);
+}
 
 function ranges(seen: Uint8Array): [number, number][] {
   const found: [number, number][] = [];
@@ -107,17 +113,26 @@ function create(directory: string) {
   const written = new Uint8Array(0x100000);
   let memoryDirty = false;
   let layout: object | undefined;
+  const lowReaders: Record<string, string> = {};
   const traceMemory = (cpu: Cpu, boot: { ss: number; sp: number }, dataSegment: number,
     slices: readonly { index: number; fileOffset: number; loadPara: number; codeBytes: number }[]) => {
     if (layout) return;
     layout = { dataSegment, stackSegment: boot.ss, stackPointer: boot.sp || 0xfffe,
-      slices: slices.map(({ index, fileOffset, loadPara, codeBytes }) => ({ index, fileOffset, loadPara, codeBytes })) };
+      slices: slices.map(({ index, fileOffset, loadPara, codeBytes }) => ({ index, fileOffset, loadPara, codeBytes })), lowReaders };
     writeFileSync(path("memory.json"), JSON.stringify(layout) + "\n");
     const read8 = cpu.read8, write8 = cpu.write8;
     cpu.read8 = function (segment, offset) {
       const address = ((segment << 4) + (offset & 0xffff)) & 0xfffff;
       // The first read decides: 3 when nothing had been written there yet, 1 otherwise.
-      if (memory[address] === 0) { memory[address] = written[address] ? 1 : 3; memoryDirty = true; }
+      if (memory[address] === 0) {
+        memory[address] = written[address] ? 1 : 3;
+        memoryDirty = true;
+        // The program is loaded at address 0, so its first bytes share their addresses with the
+        // interrupt vectors and the BIOS variables. Note who read each one first: segment:offset read, from CS:IP.
+        if (address < 0x500 && !written[address]) {
+          lowReaders[address.toString(16)] = `${segment.toString(16)}:${(offset & 0xffff).toString(16)} from ${this.cs.toString(16)}:${this.ip.toString(16)}`;
+        }
+      }
       return read8.call(this, segment, offset);
     };
     cpu.write8 = function (segment, offset, value) {
@@ -218,6 +233,7 @@ function create(directory: string) {
     if (memoryDirty) {
       memoryDirty = false;
       writeFileSync(path("memory.bin"), memory);
+      writeFileSync(path("memory.json"), JSON.stringify(layout) + "\n");
     }
     if (framesDirty) {
       framesDirty = false;

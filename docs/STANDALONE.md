@@ -62,7 +62,7 @@ what the game uses, never totals.
 **1. Content files converted.** Every file of the 1.3 directory is put in one of
 three classes. *Picture*: every block decodes as picture data, which Enhanced
 replaces with artwork. *Content*: scripts, maps, wall definitions, monsters,
-items, battle maps, ready-made characters, saved-game templates and the
+items, combat data, ready-made characters, saved games shipped with the release and the
 configuration file, which the game cannot run without and which must become the
 port's own data. *Program*: `START.EXE` and `GAME.OVR`. A file whose name says
 content but which holds picture blocks is *unclassified* and counts as left.

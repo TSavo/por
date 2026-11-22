@@ -140,11 +140,11 @@ const families: [RegExp, FileClass, string, string][] = [
   [/^WALLDEF\d\.DAX$/, "content", "wall definitions", "tables of tile numbers that compose each wall face from the 8X8D tiles; no pixels"],
   [/^MON\d(CHA|ITM|SPC)\.DAX$/, "content", "monsters", "monster character records, their items and special abilities, in the saved-character layout"],
   [/^ITEM\d\.DAX$/, "content", "items", "item records the scripts hand out"],
-  [/^ITEMS$/, "content", "item table", "the item name and property table; not a DAX archive"],
-  [/^(DUNGCOM|WILDCOM)\.DAX$/, "content", "battle maps", "the tile layout of each battlefield; tile numbers, no pixels"],
+  [/^ITEMS$/, "content", "item table", "a table of 16-byte item property records; not a DAX archive"],
+  [/^(DUNGCOM|WILDCOM)\.DAX$/, "content", "combat data", "named for dungeon and wilderness combat; the blocks do not decode as pictures; what they hold is not established here"],
   [/^CHRDAT[A-Z]\d\.(SAV|ITM|SPC)$/, "content", "ready-made characters", "character records with their items and abilities, in the saved-character layout"],
-  [/^SAVGAM[A-Z]\.DAT$/, "content", "saved-game templates", "saved games shipped with the release, in the game's own save layout"],
-  [/^POOL\.CFG$/, "content", "configuration", "four text lines: sound, display, data path, save path"],
+  [/^SAVGAM[A-Z]\.DAT$/, "content", "saved-game templates", "two saved games (slots A and J) shipped in the directory, in the game's own save layout"],
+  [/^POOL\.CFG$/, "content", "configuration", "text lines: one-letter settings, the data path and the save path"],
 ];
 const formatsByFile = new Map(inventory.archives.map(({ file, entries }) => [file.toUpperCase(), entries.map(({ format }) => format)]));
 const gameFiles: GameFile[] = readdirSync(root).filter(name => statSync(join(root, name)).isFile() && !name.startsWith(".")).sort()
@@ -288,10 +288,14 @@ if (!existsSync(mapPath)) {
   // The traced reads. 3 marks a byte read before anything was written to it: its value came from the file.
   const memory = new Uint8Array(0x100000);
   let layout: { stackSegment: number; stackPointer: number; slices: { index: number; fileOffset: number; loadPara: number; codeBytes: number }[] } | undefined;
+  // Who first read each address below 0x500, as "segment:offset from CS:IP".
+  const lowReaders = new Map<string, string>();
   for (const path of traceFiles(".memory.bin")) {
     const bytes = readFileSync(path);
     for (let at = 0; at < memory.length; at++) memory[at]! |= bytes[at]!;
-    layout ??= JSON.parse(readFileSync(path.replace(/\.bin$/, ".json"), "utf8"));
+    const described = JSON.parse(readFileSync(path.replace(/\.bin$/, ".json"), "utf8")) as NonNullable<typeof layout> & { lowReaders?: Record<string, string> };
+    layout ??= described;
+    for (const [address, reader] of Object.entries(described.lowReaders ?? {})) if (!lowReaders.has(address)) lowReaders.set(address, reader);
   }
   let note = `image ${count(image.length)} bytes: ${count(imageInstructions)} instructions, ${count(stubBytes)} overlay call tables, ` +
     `${count(residentOther)} other resident bytes, ${count(dataBytes)} data segment. ` +
@@ -312,7 +316,14 @@ if (!existsSync(mapPath)) {
       }
     }
     const imageInstructionRead = readOf(1);
-    imageClass.forEach((byte, at) => { if (byte === 1 && original(at)) instructionReads.push(`image ${at.toString(16)}`); });
+    // "0:6 from e246:11b" names the reading code by where it was loaded. Say which slice that is.
+    const reader = (at: number) => {
+      const found = /^(\S+) from ([0-9a-f]+):([0-9a-f]+)$/.exec(lowReaders.get(at.toString(16)) ?? "");
+      if (!found) return "";
+      const slice = layout!.slices.find(({ loadPara }) => loadPara === Number.parseInt(found[2]!, 16));
+      return ` (read as ${found[1]} by ${slice ? `slice ${slice.index}+${found[3]}` : `resident ${found[2]}:${found[3]}`})`;
+    };
+    imageClass.forEach((byte, at) => { if (byte === 1 && original(at)) instructionReads.push(`image ${at.toString(16)}${reader(at)}`); });
     const observed = readOf(2) + readOf(3) + readOf(4) + sliceRead;
     note += `. Read as data ${playNote}, with the value the file gave them: ${count(observed)} of these bytes ` +
       `(${count(readOf(2))} call tables, ${count(readOf(3))} other resident, ${count(readOf(4))} data segment, ${count(sliceRead)} in slices)`;
@@ -327,7 +338,8 @@ if (!existsSync(mapPath)) {
       `${count(blank)} were read before the game wrote them, and need only be zero.`,
       `  GAME.OVR is ${count(map.overlayFileBytes)} bytes: ${count(sliceBytes)} slice code, ` +
       `${count(map.slices.reduce((total, { relocationBytes }) => total + relocationBytes, 0))} relocation tables the port does not use, the rest headers.`);
-    if (list && instructionReads.length) details.push(`  Instruction bytes read as data: ${instructionReads.join(" ")}`);
+    if (instructionReads.length) details.push(`  Instruction bytes read as data: ${instructionReads.slice(0, list ? undefined : 12).join(", ")}${!list && instructionReads.length > 12 ? ", ..." : ""}`,
+      "  The port loads the image at address 0. A read through segment 0 is the game following an empty pointer or reading an interrupt vector; on DOS it would not reach the program at all.");
   } else {
     rows.push(["2. Program bytes that are not instructions, converted", 0, notInstructions, `${note}. Bytes read as data: ${playNote}`]);
     rows.push(["2. Bytes read as data that are not instructions", undefined, undefined, playNote]);
@@ -339,6 +351,13 @@ if (!existsSync(mapPath)) {
 // Part 3. Places Enhanced shows an original picture.
 // ---------------------------------------------------------------------------------------------
 const linked = inventory.encounterTotals.frames - inventory.encounterTotals.remaining;
+// The inventory totals artwork for the scene, encounter and combat archives only.
+const counted = new Set(inventory.encounterCoverage.map(({ file }) => file.toUpperCase()));
+const uncounted = inventory.archives.filter(({ file, entries }) => !counted.has(file.toUpperCase()) &&
+  entries.length && entries.every(({ format }) => pictureFormats.has(format)));
+unmeasured.push(`Part 3: how many pictures of the other ${uncounted.length} picture archives have artwork ` +
+  `(${uncounted.reduce((total, { entries }) => total + entries.length, 0)} blocks: title and ending, portrait heads and bodies, wall and battle tiles, icons, the font). ` +
+  "The art inventory keeps no total for them. For those, only what the traced play showed is counted.");
 rows.push(["3. Original picture frames with artwork", linked, inventory.encounterTotals.frames,
   "every frame of the scene, encounter and combat picture archives (tools/art-inventory.ts): " +
   inventory.encounterFamilies.map(({ label, frames, unlinked }) => `${label} ${frames - unlinked}/${frames}`).join(", ")]);
@@ -373,7 +392,7 @@ if (!enhanced.length) {
     `distinct pictures in the picture panel; ${fallbacks.size} had no artwork and showed the original (${[...fallbacks.values()].reduce(plus, 0)} frames)`]);
   if (list) details.push("  Pictures shown from the original files:", ...[...fallbacks].map(([key, frames]) => `    ${frames} frames ${key}`));
   // The 3D view builds each wall from the tiles the game composed. A tile with no artwork is sent as original pixels.
-  const withArt = new Set<string>(), original = new Set<string>();
+  const withArt = new Set<string>(), original = new Set<string>(), flat = new Set<string>();
   const seenScenery = new Set<string>();
   for (const trace of enhanced) {
     for (const { scenery } of trace.scenery) {
@@ -383,12 +402,16 @@ if (!enhanced.length) {
       const materials = buildExplorationMaterials(scenery, artwork);
       for (const material of [materials.ground, materials.sky, ...materials.wallFaces.flatMap(({ parts }) => parts.map(({ art }) => art))]) {
         if (!material) continue;
-        (material.pixels ? original : withArt).add(material.pixels ? `${scenery.area}:${material.key}` : material.key);
+        // A texture of one colour is a fill the game asked for (sky, ground), not a picture.
+        if (material.pixels && new Set(material.pixels).size === 1) flat.add(`${scenery.area}:${material.key}`);
+        else (material.pixels ? original : withArt).add(material.pixels ? `${scenery.area}:${material.key}` : material.key);
       }
     }
   }
   rows.push(["3. Wall textures shown in play with artwork", withArt.size, withArt.size + original.size,
-    `distinct 8 by 8 textures of the 3D first-person view, sky and ground included, in ${seenScenery.size} wall sets; the rest are sent to the page as original pixels`]);
+    `distinct 8 by 8 textures of the 3D first-person view in ${seenScenery.size} wall sets (areas ${[...new Set([...seenScenery].map(key => (JSON.parse(key) as [number])[0]))].sort((a, b) => a - b).join(", ")}); ` +
+    `the rest are sent to the page as original pixels. ${flat.size} single-colour fills are not counted`]);
+  if (list) details.push("  Wall textures sent as original pixels (area:key):", ...[...original].sort().map(key => `    ${key}`));
   const kinds = merged(trace => trace.kinds, (a, b) => ({ frames: a.frames + b.frames,
     framesWithOriginalPixels: a.framesWithOriginalPixels + b.framesWithOriginalPixels, originalPixels: a.originalPixels + b.originalPixels,
     inPanel: a.inPanel + b.inPanel, elsewhere: a.elsewhere + b.elsewhere }));
