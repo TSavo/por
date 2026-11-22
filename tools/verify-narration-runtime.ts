@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { Cpu } from "../src/cpu/machine.js";
+import { data } from "../src/runtime/bindings.js";
 import { EclNarrationObserver, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 import { NarrationCatalog, NarrationQueue, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
 
@@ -255,6 +256,17 @@ for (let index = 1; index < votes.length; index++)
   assert.notEqual(votes[index]?.asset, votes[index - 1]?.asset, `voters ${index} and ${index + 1} hear different lines`);
 selectCpu.write16(variableSegment, variableOffset(0x9800), 0);
 console.log("verified each voter at Tyranthraxus' offer is asked with a different line than the one before");
+
+// The secret door at Valjevo (ECL5.DAX block 7, 9b89 ON GOSUB [0xc04d]) is announced on the side the
+// party faces. The game keeps the facing as 0, 2, 4, 6 and its script variable 0xc04d is that halved
+// (1.3 ovl07 0f1b shr ax, 1; the first release divides by 2): facing east is index 1, "TO YOUR LEFT." (#133).
+for (const [facing, side] of [[0, "9ba0"], [2, "9bb0"], [4, "9bbe"], [6, "9bcb"]] as const) {
+  loadBlock(5, 7);
+  selectCpu.write8(selectCpu.ds, data.cameraX + 2, facing);
+  assert.equal(reach(0x9b74, 0x12)?.unitId, `por.voice.ecl5.b7-9b74-${side}`, `facing ${facing} names the side the script prints`);
+}
+selectCpu.write8(selectCpu.ds, data.cameraX + 2, 0);
+console.log("verified the secret door at Valjevo names the side the script prints, for each facing");
 
 loadBlock(1, 18);
 for (const group of ["goblins", "orcs", "hobgoblins", "ogres"]) {

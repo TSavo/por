@@ -359,6 +359,9 @@ export class EclNarrationObserver {
   }
 
   private readEclValue(cpu: Cpu, address: number): number {
+    // The party's square and facing, as the script reads them. The game keeps the facing as 0, 2, 4, 6
+    // and gives it to the script halved, 0 to 3 (1.3 ovl07 0f1b: shr ax, 1; the first release divides by 2).
+    if (address === 0xc04d) return cpu.read8(cpu.ds, data.cameraX + 2) >> 1;
     if (address >= 0xc04b && address <= 0xc04d) return cpu.read8(cpu.ds, data.cameraX + address - 0xc04b);
     const { segment, offset, stride } = this.eclStorage(cpu, address);
     return stride === 2 ? cpu.read16(segment, offset) : cpu.read8(segment, offset);
