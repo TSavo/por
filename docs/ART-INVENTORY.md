@@ -410,6 +410,11 @@ a noninitial pose and verify the pose through the notice, display
 switching and battlefield entry. The Valhingen grave claws replay
 verifies the transition to its separate battle illustration.
 
+Drythh's followers in the Lizardman Keep use four poses at 210 ms each.
+Chrome reaches the encounter through the normal dialogue and presses Wait
+on the fourth pose. The battle notice uses another key for the same
+painting, and the renderer keeps the visible pose through that change.
+
 At `708d1dcd`, the `kobold-cave-wyvern-approach` GOG 1.3 Chrome
 replay passed with both data sources. It checks all three native SPRIT
 members, their positions over WebGL, and the switch into the dialogue

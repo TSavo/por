@@ -1220,6 +1220,8 @@ const portraitLoops = [
     /THEYPLEADFORMERCY/i, [210, 210, 210, 210]],
   ["portrait:area:15:ecl:9987:caller:adf9:PIC2.DAX:0:", [0, 1, 2, 1], "portrait:area:15:PIC2.DAX:0:0:0",
     /WILLYOUSPARETHEM/i, [210, 210, 210, 210]],
+  ["portrait:area:16:ecl:a535:PIC8.DAX:57:", 4, undefined,
+    /COMBATWAITFLEEPARLAY/i, [210, 210, 210, 210]],
   // The blank third member holds the preceding pose for 20 ms.
   ["portrait:area:22:ecl:a2f9:PIC7.DAX:69:", [0, 1, 3, 4, 5, 6, 7], undefined,
     /ONELICKSITSLIPSCOMBATWAITFLEEPARLAY/i, [210, 530, 20, 20, 20, 710, 310]],
@@ -2075,7 +2077,9 @@ async function poll() {
     if (changed) {
       // The guest leaves its picture in place for this notice. Keep the pose the player acted on.
       const previousPose = heldPoseAtInput ?? battleNoticePose;
-      const battleNotice = previousPose && next.portrait === state.portrait &&
+      const samePortrait = next.portrait === state.portrait ||
+        (state.portraitAssetKey && next.portraitAssetKey === state.portraitAssetKey);
+      const battleNotice = previousPose && samePortrait &&
         /^ABATTLEBEGINS[.!]*$/i.test(next.text?.filter(([cell]) => cell >= 960)
           .map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, ""));
       battleNoticePose = battleNotice ? previousPose : undefined;

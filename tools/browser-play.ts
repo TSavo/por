@@ -91,6 +91,8 @@ const gameFont = (() => {
   }
 })();
 const artwork = loadUpgradeArt(undefined, gameRoot);
+const portraitAssetKeys = new Map([...artwork]
+  .filter(([id]) => id.startsWith("portrait:")).map(([id, art]) => [art.path, id]));
 const materialMasks = loadCombatMaterialMasks(artwork);
 let streetMaterials: ReturnType<typeof buildNewPhlanMaterials> | undefined;
 const localMaterialSets = new Map<string, string>();
@@ -479,9 +481,11 @@ const server = createServer(async (req, res) => {
       res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({ superseded: true, sequence, ready: false }));
       return;
     }
+    const portraitAsset = frame.portrait ? artwork.get(frame.portrait) : undefined;
     const snapshot = req.url === `/state?after=${sequence}` ? {} : {
       ...frame,
       reflectedTiles,
+      portraitAssetKey: portraitAsset && portraitAssetKeys.get(portraitAsset.path),
       art: frame.scene && artwork.has(frame.scene) ? `/art/${frame.scene}` : undefined,
     };
     res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({

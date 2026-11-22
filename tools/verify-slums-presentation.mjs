@@ -832,9 +832,14 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMP/i },
   }],
   ["swamp-drythh-followers-wait-base", {
-    slot: "A", inputs: ["up", "b", "p", "enter", ..."savior", "enter", "y", "enter", "enter", "n", "enter", "enter", "enter"],
+    slot: "A", inputs: ["up", "b", "p", "enter", ..."savior", "enter", "y", "enter", "enter", "n", "enter"],
     portrait: "portrait:area:16:ecl:a535:PIC8.DAX:57:0:0", prompt: /COMBATWAITFLEEPARLAY/i,
-    continuation: { inputs: ["w"], portrait: "portrait:area:16:ecl:a560:PIC8.DAX:57:0:0", prompt: /ABATTLEBEGINS/i },
+    heldPortraitLoop: [0, 1, 2, 3].map(member => `portrait:area:16:ecl:a535:PIC8.DAX:57:${member}:0`),
+    continuation: {
+      inputs: ["w"], portrait: "portrait:area:16:ecl:a560:PIC8.DAX:57:0:0", prompt: /ABATTLEBEGINS/i,
+      pressOnPortrait: "portrait:area:16:ecl:a535:PIC8.DAX:57:3:0",
+      retainPose: true,
+    },
   }],
   ["swamp-drythh-followers-wait-early", {
     slot: "A", inputs: ["up", "b", "p", "enter", ..."savior", "enter", "y", "enter", "enter", "n", "enter", "enter", "enter", "z"],
@@ -7287,6 +7292,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "mendor-storeroom-kobold-phases" || routeName === "mendor-storeroom-mercy-loop" ||
       routeName === "kobold-white-flag-envoy" || routeName === "kobold-white-flag-escort-phase" ||
       routeName === "valjevo-medusa-phases" || routeName === "valhingen-mummy-sarcophagi-phases" ||
+      routeName === "swamp-drythh-followers-wait-base" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       ["sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
