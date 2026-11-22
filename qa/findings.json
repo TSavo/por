@@ -444,7 +444,8 @@
       "detail": "In the guide party's walk from the fixture to the orcs (npm run verify:port-parity, walk slums), both random fights differ for most of their frames. From the 1.3 files the monsters are combat:CPIC7.DAX:1 (the picture CPIC2.DAX block 1 also holds), for example at (128,104) and (152,104), with RANDCOM loose stones as combat props (combat:RANDCOM.DAX:1:0:0 and :1); from game/ they are combat:CPIC2.DAX:0, a different picture (block 0), at other cells such as (128,80), (152,80) and (32,80), and the stones are missing. In the attack animations the battle tiles and panel frame differ (animation frames at 79, 83, 84, 90, 101, 104, 105, 113, 118) and the impact effect combat-effect:COMSPR.DAX:11 falls one animation frame earlier from game/ (frame 101). The set fight with the orcs agrees on its monsters. The native observer takes the slot's ready block from the loader and the cell from the draw call; which of the two is wrong for a random fight, and why the cells differ, is not yet known. Measured again 2026-11-22 after the monster equivalence fix (the native observer now takes the art of the same picture stored in another archive when the slot's own key has none and exactly one other key has it): the CPIC2.DAX block 1 monsters now get combat:CPIC7.DAX:1 from game/ as from the 1.3 files. What remains: the loose stones (combat:RANDCOM.DAX:1:0:0 and :1) are combat props from the 1.3 files and only battle tiles from game/, and some cells show combat:CPIC2.DAX:0 from game/ only (frame 55: (128,80), (152,80), (32,80)).",
       "source": "npm run verify:port-parity, 2026-11-22: combatArt differs at frames 55 to 78 and 140 onwards; out/port-parity.json lists every frame and placement, out/port-parity/ has the first frame of each as PNG.",
       "status": "open",
-      "check": "port-parity"
+      "check": "port-parity",
+      "issue": 72
     },
     {
       "id": "standalone-battle-begins-too-early",
@@ -462,8 +463,9 @@
       "title": "From game/ the fallen marker is missing in the orcs' fight",
       "detail": "From the 1.3 files a defeated orc's cell at (152,104) shows combat:RANDCOM.DAX:1:0:5, the marker the game draws for a fallen unit, for the rest of the fight (frames 185 to 193); from game/ the cell has nothing.",
       "source": "npm run verify:port-parity, 2026-11-22, walk slums.",
-      "status": "open",
-      "check": "port-parity"
+      "status": "fixed",
+      "check": "port-parity",
+      "resolution": "Fixed by the artist's b6386171, e24fa7bf and 3a2b04ce. verify:port-parity's slums walk on 67197db9 shows no difference in the orcs' fight or after it."
     },
     {
       "id": "standalone-slums-entry-tile-area",
@@ -471,8 +473,9 @@
       "title": "On the step from New Phlan into the Slums one frame's tiles name a different area from game/",
       "detail": "At the first frame in the Slums (frame 40, the exploration menu at 15,4) every tile has the same hash from both sources but the 1.3 files key it tile:0:<hash> (New Phlan's artwork for that cell) and game/ tile:20:<hash> (the Slums'). From the 1.3 files the tile area is the party's area record, which still says New Phlan; from game/ it is the area of the native scenery just drawn. game/ looks right; the original-file path is the one to check.",
       "source": "npm run verify:port-parity, 2026-11-22, walk slums.",
-      "status": "open",
-      "check": "port-parity"
+      "status": "fixed",
+      "check": "port-parity",
+      "resolution": "Fixed by the artist's 6aff37b9 (#67), 'Use the destination art scope on the first town transition frame'. verify:port-parity's slums walk on 67197db9 shows no difference on the step into the Slums."
     }
   ]
 }

@@ -885,6 +885,16 @@ function document(list: Worklist): string {
         `2. **Pictures: ${keyable.length ? `${keyable.length} frames to draw` : "none"}.**${keyable.length ? ` Listed under "Other pictures no key names", each with its key form.` : ""}` +
           (ending.length ? ` The ${ending.length} ending frames under "Other pictures no key names" are not work: no key can name them, and the Enhanced ending covers those beats with its scene illustrations (docs/ART-INVENTORY.md). Whether the very last beat, the final council reward, is covered is still to be checked.` : ""),
         ...(requests.length ? [`**Asked for by the owner (qa/art-requests.json): ${requests.length}.**`, ...requests.map((request) => `   - \`${request.key}\` (${request.file}): ${request.what}`)] : []),
+        ...(() => {
+          // Pictures the shipped game shows wrongly or not at all although the art exists: found by
+          // npm run verify:port-parity and the owner's own play, recorded in qa/findings.json.
+          const findings = (JSON.parse(readFileSync(at("qa", "findings.json"), "utf8")) as { findings: { id: string; title: string; status: string; issue?: number }[] })
+            .findings.filter((finding) => finding.status === "open" && finding.id.startsWith("standalone-"));
+          return findings.length ? [
+            `**The shipped game (no original files) shows the wrong picture or none in ${findings.length} place${findings.length === 1 ? "" : "s"}.** The art exists; the lookup is wrong. These are GitHub issues labelled \`shipped-game\` (how we coordinate: issue #71). To take one, comment "Taking this" on its issue first, fix it from the game's own draws and state, check it with \`npm run verify:port-parity\`, and close it with \`Fixes #N\` in the commit.`,
+            ...findings.map((finding) => `   - ${finding.issue ? `#${finding.issue}` : `\`${finding.id}\``}: ${finding.title}`),
+          ] : [];
+        })(),
         `3. **Do not draw anything under "Not established".** Those cells are not confirmed to appear. The QA owner is settling them by play and moves each one that proves real into item 1.`, "",
         "The artwork is done when items 1 and 2 are none and nothing is left under \"Not established\".", "",
       ];
