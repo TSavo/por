@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "tile:10:6532950137f84536e1f0c2e2305a3da79eebdfd8baadb065813f8f9dd5e5090f": "graveyard-moon-path-267a17fa8632.png",
+    "tile:10:6942e8a1822c21d7c2693a90f2107d503886d0e898ca3827d19462302c5ee859": "graveyard-slate-vault-joins-d03f3b18a7e2.png",
     "tile:1:06f55b1554b35d395a9baf4ea74720c58e3906d8fe33d4296cc77f62067690dc": "buccaneer-shell-hardpack-515946b77d7e.png",
     "tile:1:26bcad86c61fced959b9e3e4468d14597252a8f54bc8b6ca7c375f92ac9139f0": "buccaneer-webgl-palisade-ironwork-26bcad86c61f.png",
     "tile:1:28c8013e3b7eb9c3172c89def786d5e644775308c1651517b447842f493c898f": "buccaneer-base-terrain-7c5e1530507e.png",
