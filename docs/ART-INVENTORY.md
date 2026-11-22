@@ -257,6 +257,11 @@ In 1.3, overlay `0x12` draws blocks 1 and 3–6 at `038e`, `0402`,
 at `006a` and presents the composed panel at `006f`. Overlay `0x1c`
 draws and presents the subsequent animation phases at `002f` and `0034`.
 
+The same Chrome replay passed with `POR_GAME_SOURCE=port` at `d47fe2aa`.
+The interiors of the possession threat, Pool recall, and Phlan homecoming
+illustrations matched the original-file Enhanced screenshots pixel for
+pixel. The standalone screenshots still lack the surrounding panel rails.
+
 The Bane ogre commander's ready and strike keys pass the standalone audit
 through the Bane Mansion map's owning script, ECL1 block 24. GOG 1.3 Chrome verified both poses at
 canonical cursor `9f7b` in native combat. A DOS 1.0 Chrome control loaded
