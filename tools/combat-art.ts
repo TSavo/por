@@ -20,6 +20,7 @@ export const randomCombatKey = /^combat:(RANDCOM\.DAX):(1):(0):([0-5])$/;
 export const combatSelectionKey = /^combat-selection:(COMSPR\.DAX):(25|153)$/;
 const fallenCombatKey = "combat:RANDCOM.DAX:1:0:5";
 const partyMaterialIndices = new Set([1, 2, 3, 4, 6, 7, 9, 10, 11, 12, 14, 15]);
+const smallHeadAliasSources = new Map([[11, 0], [12, 1], [13, 2]]);
 
 export function randomCombatPixels(data: Uint8Array, frame: number) {
   if (!isPicture(data)) return;
@@ -284,10 +285,20 @@ function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys
       };
       const heads = parts("CHEAD.DAX", 10);
       const bodies = parts("CBODY.DAX", 24);
+      const partyKeySet = new Set(partyKeys.map(({ key }) => key));
       for (const { key, head, body, palette } of partyKeys) {
         const face = heads.get(head);
         const torso = bodies.get(body);
         if (!face || !torso) continue;
+        // Identical small heads share their art. The framebuffer cannot distinguish
+        // them, so register one pose. The native matcher still uses the chosen head.
+        const sourceHead = smallHeadAliasSources.get(head);
+        if (sourceHead !== undefined) {
+          const source = heads.get(sourceHead);
+          const sourceKey = `combat:party:${sourceHead}:${body}${palette ? `:palette:${palette}` : ""}`;
+          if (partyKeySet.has(sourceKey) && source?.length === face.length &&
+              source.every((color, index) => color === face[index])) continue;
+        }
         const pixels = torso.slice();
         // The guest combines the head and body bitplanes before applying the palette.
         for (const [index, color] of face.entries()) pixels[index] = pixels[index]! | color;
