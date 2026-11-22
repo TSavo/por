@@ -18,7 +18,8 @@
       "title": "The replays press a key until the screen changes, which hides swallowed keys",
       "detail": "tools/verify-fresh-party.mjs uses [key, until, limit] actions, and tools/verify-slums-presentation.mjs has `if still on the area menu, press E again`. An acceptance step must press once and assert. Measured on 2026-11-21: 101 discarded presses across the 11 legs of the full campaign replay. The older harnesses now set POR_INPUT_COMPAT=discard-poll-prompt and stay on the old input mode until each replay is re-recorded with one press per input. The presentation replays are unmeasured.",
       "source": "Code reading.",
-      "status": "open"
+      "status": "open",
+      "issue": 76
     },
     {
       "id": "input-j-swallowed-enhanced",
@@ -46,7 +47,8 @@
       "title": "The original's Ctrl key commands never reach the game",
       "detail": "The game's key routine (START.EXE image 26f8) acts on Ctrl-S (sound on and off), Ctrl-D and Ctrl-C. The page drops every Ctrl combination. Tab and key auto-repeat are dropped too, and the numeric keypad can never send digits.",
       "source": "Code reading.",
-      "status": "open"
+      "status": "open",
+      "issue": 77
     },
     {
       "id": "input-phantom-enter",
@@ -54,7 +56,8 @@
       "title": "A blocking key read with nothing queued returns Enter",
       "detail": "src/runtime/dos.ts answers 0x1c0d when no key is waiting. In live play the runner always supplies a key first, so this only fires before the live step. It still needs a check that it cannot fire in play.",
       "source": "Code reading.",
-      "status": "open"
+      "status": "open",
+      "issue": 78
     },
     {
       "id": "display-portrait-in-portrait",
@@ -62,7 +65,8 @@
       "title": "A portrait sometimes shows inside another portrait",
       "detail": "The Enhanced portrait layer has had an opaque backdrop since 9f9098dd. The fresh-party Rolf replay at 0adc165e passed on DOS 1.0 and GOG 1.3: all three approach sprites over WebGL, the single full-panel greeting, all seven tour stops, and the City Hall guard transition. A separate old tour checkpoint did not reach the greeting. The GOG 1.3 Rhetoric stacks replay verified panel geometry and display switching, with identical picture pixels before and after the change. The reported Zhentil overnight ambush still needs a live reproduction: the short replay with zhentil-quarters-A.json returned to exploration at 6,0 E, and the envoy replay with parallel-cadorna-envoy-A.json stopped before its first expected portrait.",
       "source": "Owner report.",
-      "status": "open"
+      "status": "open",
+      "issue": 79
     },
     {
       "id": "display-animated-portraits-loop",
@@ -70,7 +74,8 @@
       "title": "Every frame of an animated portrait must play as a loop in Chrome",
       "detail": "GOG 1.3 Chrome replay valhingen-zombie-roam-animation at f34b0904 displayed all five native roaming zombie phases with Enhanced art filling a single panel. Captures show consistent framing across the five phases. The held zombie prompt now cycles through all five frames in Enhanced mode. The GOG 1.3 Chrome replay observed every frame and a wraparound without input, checked unchanged game state, and switched display modes. The skeleton and wight approach replays likewise verified their four- and three-frame loops and the transition to the separate battle-start portrait. The Sokal undead patrol replay verified its four-frame loop without input. Its rejected-password replay verified the separate combat-intro art and handoff. Valhingen's skeleton enclave and tower wights also loop in Chrome on their exact dialogue captions. Both New Phlan and Sokal ferry boardings verified their three-frame loops on DOS 1.0 and GOG 1.3 in Chrome, then cleared the artwork on arrival. The Podal goblin patrol now loops two distinct PNGs in GOG 1.3 Chrome. The Kovel silver and gold cabinets each have three distinct lighting phases, verified in Chrome on DOS 1.0 and GOG 1.3 using kovel-three-cabinets-A.json. The Kovel scroll cabinet and tarnished loot also have three distinct lighting phases, verified in Chrome on DOS 1.0 and GOG 1.3 using kovel-cabinet-A.json and kovel-loot-A.json. The Kovel tapestry reward and all four casket rewards have distinct lighting loops verified in GOG 1.3 Chrome. Kovel reward keys that still share one illustration per prompt remain static. The loop replay now checks that observed phases serve different image bytes. Tyranthraxus's appraisal cycles through its three distinct PNGs on DOS 1.0 and GOG 1.3. Both Chrome replays also advanced to the separate battle portrait. The Valhingen stair zombies and vampire reveal passed five- and three-frame idle loops in GOG 1.3 Chrome. The vampire replay then advanced to its separate battle prompt. Valjevo's sleeping giants loop their three distinct members (0, 1, 3) and advance to the waking scene in GOG 1.3 Chrome with parallel-native-sleeping-giants-0-B.json. Other animated portrait families still require live verification.",
       "source": "Owner requirement.",
-      "status": "open"
+      "status": "open",
+      "issue": 80
     },
     {
       "id": "combat-messages-shown",
@@ -78,7 +83,8 @@
       "title": "Every combat message must appear",
       "detail": "Combat messages went missing in the past. Believed fixed, never proven. 2026-11-21: one cause found and fixed (see classic-scroll-use-shows-nothing). Messages the game shows through its two message routines and clears by itself now reach the page and the acceptance harness: in the Slums fights the harness sees \"Guarding\" and \"Your Teammate is Dying\". Still not proven: the messages drawn by the pause routine's 27 other callers.",
       "source": "Owner report.",
-      "status": "open"
+      "status": "open",
+      "issue": 81
     },
     {
       "id": "classic-palette-changes-ignored",
@@ -86,7 +92,8 @@
       "title": "The original's palette changes are ignored",
       "detail": "int 10h AH=10h has no case in src/runtime/video.ts. The game calls it from the title sequence and from combat effects (START.EXE image 4f59, slices 1 and 32). Display-page selection (AH=05h) is ignored too.",
       "source": "Research pass over the platform layer.",
-      "status": "open"
+      "status": "open",
+      "issue": 82
     },
     {
       "id": "classic-sound-not-in-release",
@@ -94,7 +101,8 @@
       "title": "The reproduced Classic sound WAV files are not in this repository",
       "detail": "They are in TSavo/por-assets under original/. A release of this repository alone is silent in Classic.",
       "source": "Owner reminder and code reading.",
-      "status": "open"
+      "status": "fixed",
+      "resolution": "Fixed by 1c9635e9: the 40 reproduced Classic WAVs ship in audio/classic."
     },
     {
       "id": "classic-copy-protection",
@@ -112,7 +120,8 @@
       "title": "Three DOS calls in the translated code would stop the game if reached",
       "detail": "Set Date, Set Time and Rename (int 21h AH=2Bh, 2Dh, 56h). No translated caller was found.",
       "source": "Research pass.",
-      "status": "open"
+      "status": "open",
+      "issue": 83
     },
     {
       "id": "audio-silent-hardware-mutes-enhanced",
@@ -120,7 +129,8 @@
       "title": "Choosing Silent for Classic hardware also silences Enhanced effects",
       "detail": "tools/play.js returns before checking for an Enhanced replacement.",
       "source": "Research pass.",
-      "status": "open"
+      "status": "open",
+      "issue": 84
     },
     {
       "id": "audio-dialogue-slider-unused",
@@ -128,7 +138,8 @@
       "title": "The Dialogue volume slider controls nothing",
       "detail": "Every voice line and queued clip is typed narration.",
       "source": "Research pass.",
-      "status": "open"
+      "status": "open",
+      "issue": 85
     },
     {
       "id": "audio-voice-content-type",
@@ -136,7 +147,8 @@
       "title": "The Rolf tour MP3 files are served as audio/wav",
       "detail": "tools/browser-play.ts /voice/ route.",
       "source": "Research pass.",
-      "status": "open"
+      "status": "open",
+      "issue": 86
     },
     {
       "id": "display-character-sheet-fallback",
@@ -144,7 +156,8 @@
       "title": "A failed character-sheet image drops the whole frame to Classic",
       "detail": "The character-sheet-part layer is not in the page's handled fallback list.",
       "source": "Research pass.",
-      "status": "open"
+      "status": "open",
+      "issue": 87
     },
     {
       "id": "docs-stale",
@@ -152,7 +165,8 @@
       "title": "Documents that no longer match the code",
       "detail": "upgrades/README.md describes a viewport key the loader rejects and a 59-tile Slums pack. README.md says the keypad needs Num Lock off. docs/ecl.md and src/lib/ecl.ts give the Curse of the Azure Bonds opcode table; the real dispatch handles 0x00 to 0x3D except 0x1F. docs/AUDIO.md says 1,745 recordings where the manifest has 1,739 files.",
       "source": "Research passes.",
-      "status": "open"
+      "status": "open",
+      "issue": 88
     },
     {
       "id": "guides-describe-v1-3",
@@ -160,7 +174,8 @@
       "title": "The walkthrough describes version 1.3; the supplied program is an earlier build",
       "detail": "The Stephen S. Lee guide (v2.00, 2026-04-02) is written for IBM v1.3. Compared with a v1.3 copy (Internet Archive POR_POR), all 113 shared data files are identical and 28 of 29 script blocks are identical. The New Phlan script (ECL3 block 0) is 3 bytes longer in v1.3. START.EXE and GAME.OVR differ, and v1.3 uses a different overlay format. Our credits show no version, which the guide says means v1.0. So scripted steps apply except for one New Phlan edit still to be located, and every engine-level claim in the guide must be confirmed against our program.",
       "source": "Guide research, qa/research/guides-digest.md.",
-      "status": "open"
+      "status": "fixed",
+      "resolution": "Resolved: the port now runs version 1.3, the version the walkthrough describes."
     },
     {
       "id": "classic-sting-mode",
@@ -168,7 +183,8 @@
       "title": "The original's STING start-up mode is part of the program",
       "detail": "Launching the original with the argument STING enables Ctrl-C quit, Ctrl-D hit-point debug, Alt-X win combat and J to train for free, and skips the intro and copy protection. That explains the J in the party menu's key set. Decide whether the port exposes it, and check that J does nothing at the party menu without it.",
       "source": "Guide research and the strings in START.EXE.",
-      "status": "open"
+      "status": "open",
+      "issue": 89
     },
     {
       "id": "checkpoints-not-in-repo",
@@ -176,7 +192,8 @@
       "title": "1,045 presentation replays need checkpoint saves that are not in the repository",
       "detail": "Only new-phlan-rolf-approach runs from a fresh game. No code maps a replay to the command that produces its checkpoint.",
       "source": "qa/research/existing-checks.md.",
-      "status": "open"
+      "status": "open",
+      "issue": 90
     },
     {
       "id": "no-check-against-original",
@@ -184,7 +201,8 @@
       "title": "No check compares the translated game's behaviour with the original program",
       "detail": "Every replay compares against expectations the port wrote, the original data files, or its own earlier recording. The one check that runs original code covers the sound driver only.",
       "source": "qa/research/existing-checks.md.",
-      "status": "open"
+      "status": "open",
+      "issue": 91
     },
     {
       "id": "commissions-never-asserted",
@@ -192,7 +210,8 @@
       "title": "Three commissions are asserted by no replay",
       "detail": "commission-graveyard, commission-gate and commission-cadorna. The full campaign replay asserts only sokal and castle.",
       "source": "qa/research/existing-checks.md.",
-      "status": "open"
+      "status": "open",
+      "issue": 92
     },
     {
       "id": "classic-tavern-tale-24",
@@ -200,7 +219,8 @@
       "title": "Our build can announce Tavern Tale 24, which does not exist",
       "detail": "New Phlan's tavern code draws 1 to 24. Version 1.3 draws 1 to 23, matching the 23 tales in the Adventurer's Journal. Version 1.3 picks from 23 tales (RANDOM 16 at a429 where the first release has RANDOM 17), so this is specific to the first release.",
       "source": "qa/research/version-1.3-differences.md.",
-      "status": "open"
+      "status": "open",
+      "issue": 93
     },
     {
       "id": "target-version-1-3",
@@ -208,7 +228,8 @@
       "title": "Translate version 1.3 and make it the game the port runs",
       "detail": "Owner decision on 2026-11-21. Version 1.3 is what GOG sells and what the walkthrough documents. 73% of our procedures are the same or nearly the same in it, the scripts differ in one place, and the data is identical. The work: translator support for EXEPACK and the FBOV overlay file, a named table of every code and data address the host uses, and the same checks passing on 1.3. Hard requirement from the owner: the narration and artwork work must carry over intact. Measured: of 8,063 artwork keys, 4,023 are keyed by pixels and 2,160 by data files, both identical in 1.3; 1,880 are keyed by script position, and only 60 of those are New Phlan positions after the edit and must move by 3. Of 1,432 narration units, 35 touch the 49 New Phlan source events after the edit; the 1,745 recordings themselves do not change. The journal's 333 text triggers match the game's own words, which are identical. Sound is part of the requirement: the 1.3 sound driver code and most of its data differ from the earlier program, so the 20 Classic events must be decoded, rendered and verified again. Progress is measured by `npm run qa:version-1.3`, which counted 1,044 left on 2026-11-21. On 2026-11-21 npm run qa:version-1.3 exited 0: 846 procedures translated, all artwork keys and narration units working, the sound exact, and ten checks passing on 1.3 including the full campaign. Still to do: make 1.3 the default and retire the first release.",
       "source": "qa/research/version-1.3-differences.md.",
-      "status": "open"
+      "status": "fixed",
+      "resolution": "The port runs GOG 1.3: `npm run qa:version-1.3` exits 0 (qa/evidence/version-1.3-measure-2026-11-22*.txt)."
     },
     {
       "id": "classic-dice-seed-fixed",
@@ -226,7 +247,8 @@
       "title": "Saves made on the earlier build have not been tried on version 1.3",
       "detail": "The save layout looks the same: SAVGAM is 13,137 bytes in both, and character, item and effect records are 285, 63 and 9 bytes in both. But a save carries a copy of the current area's script, so one made in New Phlan holds the earlier script, and it may hold addresses into the program's data. Loading an earlier save on 1.3 is untested. The 1,045 presentation replays start from checkpoint saves made on the earlier build, and those saves are not in the repository, so they will have to be made again on 1.3 in any case. Checked on 2026-11-21: a slot saved by the first release at the Slums gate loads on 1.3, the party walks, labels a tile, saves and reloads (qa/fixtures/first-release-slums-gate, run by npm run qa:version-1.3).",
       "source": "Side-agent note on 2026-11-21; sizes measured the same day.",
-      "status": "open"
+      "status": "open",
+      "issue": 95
     },
     {
       "id": "translation-crt-delay",
@@ -252,7 +274,8 @@
       "title": "Running from the watch after a night break-in leaves the party one square past the flee square",
       "detail": "In New Phlan, running from the watch after breaking in at (10,10) at night left the party on (3,12) facing south. The walkthrough's flee square is (3,11). The script does not cancel the interrupted step on that path, so this may be the original's behaviour or a fault in the port. Three acceptance scenarios stay open on it: flee-squares, guard-run and guard-trigger-closed-building.",
       "source": "Found by the New Phlan acceptance tests on version 1.3, 2026-11-21. Not yet compared with the original program.",
-      "status": "open"
+      "status": "open",
+      "issue": 96
     },
     {
       "id": "classic-shop-list-scrolled-after-load",
@@ -260,7 +283,8 @@
       "title": "In a loaded game the first shop Buy list opens scrolled down one item",
       "detail": "After loading a saved game, the first shop Buy list opens one item down with Prev showing. In a game that was not loaded it opens at the top. The campaign replay already carries a workaround for this ('After the first purchase, the last shop page starts one row later'). Whether the original does the same is not established. 2026-11-21, more places where a list opens with the highlight off its first row, all in a new game that was never loaded: the general store's Buy list opened with its second row highlighted, and the cleric's list of spells in memory (Camp, Magic, Cast) opened with its last row highlighted. The acceptance harness therefore finds the highlighted row by its colour and never counts rows. Not compared with the original.",
       "source": "Found by the New Phlan acceptance tests on version 1.3, 2026-11-21. Not yet compared with the original program.",
-      "status": "open"
+      "status": "open",
+      "issue": 97
     },
     {
       "id": "classic-scroll-use-shows-nothing",
@@ -297,7 +321,8 @@
       "title": "No check proves that each of the 1,432 narration units is heard at its moment in play",
       "detail": "The narration is the feature that carries the story: one narrator reads the game's own text as a dungeon master does, in step with the screen. The existing checks prove that every unit is well formed and that every recording exists. None proves that a unit fires when the game reaches its passage, that it starts on its first print and is not restarted by the prints it covers, or that the next unit waits its turn. The requirement is that every narrated passage is narrated audibly. The measure to build: a count of units heard in play out of 1,432, which stays red until all are. Measured 2026-11-21: the measure exists: `npm run qa:narration` (docs/NARRATION-QA.md), fed by ledgers from runs started with POR_NARRATION_LEDGER. It counts units chosen at their trigger and lists what is unheard by script. It records what the play server is told to play; that the page plays it, and that the next unit waits its turn, is still not measured in play.",
       "source": "QA review with the owner, 2026-11-21.",
-      "status": "open"
+      "status": "open",
+      "issue": 98
     },
     {
       "id": "narration-dynamic-variants-not-proved",
@@ -305,7 +330,8 @@
       "title": "The 392 dynamic narration variants are selected by conditions that no check exercises",
       "detail": "69 passages have text that changes at run time (which monsters appear, the tavern tale rolled, proclamation numbers, composed strings). Each case has its own recording, chosen by a condition on the game's state such as: the string in slot 0x9800 is ' GOBLINS'. All 392 variants have a recording on disk (377 files, 8 shared). What is not proved is that each condition matches in play. A condition that never matches is silence at the moment the narrator should say what turned up. 43 more passages defer playback until a later print shows which branch was taken; those need the same proof. The measure to build: variants heard in play out of 392, and deferred selectors resolved out of 43. Measured 2026-11-21: `npm run qa:narration` counts variants selected in play from run ledgers, and `npm run acceptance:narration-dynamic` drives three families until they fire. Defects found so far. (1) Training halls, ECL3.DAX block 11 at a00e, \"'WE TRAIN ONLY <class> HERE. DO YOU WANT TO TRAIN?'\": the family has two variants, 0x982c == \"FIGHTERS \" and 0x982c == \"THIEVES \". Proved in play: in the clerics' hall at (5,0) the slot held \"CLERICS \" and in the magic users' hall at (7,0) it held \"MAGIC USERS \" (the script saves them at 9b73 and 9ba0 and jumps to the same print). No variant matched and the trainer's line was not narrated, in two of four firings; fighters and thieves were. Two recordings are missing. (2) Hirelings, ECL3.DAX block 11 at 9eab, \"'THERE IS A FINE <title> WHO WILL JOIN YOU FOR <price>. IS THIS ACCEPTABLE?'\" (8 variants): the passage prints two changing slots, 0x982c (title) and 0x9890 (price). Proved in play 2026-11-21 (`npm run acceptance:narration-dynamic -- hirelings`, 1.3): 24 offers in three stays at the hiring hall (7,1), none narrated; the ledger says selector-required every time, because the observer read a family's slot only when there was exactly one. FIXED in the observer: a family that prints several string slots is selected on the whole sentence the passage prints (its literal texts and both slots, read at the trigger, by which time the script has saved both), and the variant recorded with exactly that sentence is taken. The same 24 offers after the fix: 18 narrated by the recording of the sentence on the screen (ACOLYTE, WARRIOR, EVOKER, ROBBER, CURATE), 6 silent because the sentence has no recording. What the script can produce: it rolls the title (RANDOM 250 at 9d03: ACOLYTE below 20, WARRIOR below 70, EVOKER below 110, SWORDSMAN below 140, ROBBER below 170, CURATE below 195, HERO below 220, THEURGIST below 240, otherwise 'THERE IS NO ONE WHO WILL GO WITH YOU') and sets the price from the title alone (9e3a to 9e9e), so exactly eight sentences can occur: ACOLYTE and WARRIOR for 1 SHARE, EVOKER for 2 SHARES, ROBBER and CURATE for 3 SHARES PLUS A PICK OF SPECIAL ITEMS, and SWORDSMAN for '3 SHARES ', HERO and THEURGIST for '4 SHARES ' with no pick of items. For a SWORDSMAN the script never saves the pick; for a HERO and a THEURGIST it saves ' PLUS A PICK OF SPECIAL ITEMS' at 0x9898 and then '4 SHARES ' over 0x9890, whose end mark cuts the pick off. SWORDSMAN and THEURGIST were seen so in play; HERO is from the script (the same path as THEURGIST) and was not rolled. STILL OPEN, three recordings needed, worded as the game prints them: \"'THERE IS A FINE SWORDSMAN WHO WILL JOIN YOU FOR 3 SHARES . IS THIS ACCEPTABLE?'\", \"'THERE IS A FINE HERO WHO WILL JOIN YOU FOR 4 SHARES . IS THIS ACCEPTABLE?'\" and \"'THERE IS A FINE THEURGIST WHO WILL JOIN YOU FOR 4 SHARES . IS THIS ACCEPTABLE?'\". The existing recordings variant-04-swordsman, variant-07-hero and variant-08-theurgist say 'PLUS A PICK OF SPECIAL ITEMS', which the game never prints for those titles: they cannot occur and are no longer selected, so these three offers are silent until re-recorded. The builder's list (tools/build-dynamic-voice-resolution.ts) still holds the three old sentences; when the recordings are made, correct it and take the sentences out of `unrecordedOffers` in tools/acceptance/narration-dynamic.mjs, which until then requires those offers to be silent. (3) Proclamations, ECL3.DAX block 0 at ac22 (8 variants on 0x985e): reported from the 1.3 script as the observer reading the slot at the trigger, before the script saves the number. DOES NOT REPRODUCE: the trigger has a static selector on 0x4ac1, the count of rewards the clerk has paid, which names the number itself for each count, so the observer never reads 0x985e there. Proved 2026-11-21 with no change to the observer: `npm run verify-narration-runtime` sets 0x4ac1 to 1 to 9 with another proclamation's number left in 0x985e and gets the recording for the count each time (CI., CXXVI AND CX., CXXXIV., CLIV., CXIV., CCIV., CXXIX., CCI., CXIV.), and the fixed text for 0. In play (`npm run acceptance:narration-dynamic -- proclamations`) a new party read the wall three times (it is read once per stay in New Phlan, arriving at (3,4) from the west) with 0x4ac1 = 0 and the fixed recording b0-ac22-ac9b was chosen each time, matching the screen. NOT reached in play: the single-number branch, which needs a reward collected from the clerk (the script at ECL3.DAX block 8 adds to 0x4ac1). The defect was in the measure: its row 'Slots read before the script fills them' assumed the slot is always read at the trigger. It now accepts a selector at the trigger whose values are exactly the ones the print can show, and lists any that differ. Not yet seen: what the screen puts between 'PROCLAMATION' and the number; the eight recordings' texts read 'PROCLAMATIONCI.' with no space. Not established: the monster tables of 44 of the 58 string-slot families, most of them random encounters whose script fills the slot in one run and prints it in a later one. Tavern tales, Slums encounters and the fighters' and thieves' halls selected a variant every time they fired.",
       "source": "QA review with the owner, 2026-11-21. Counts from src/audio/voice-master-manifest.json.",
-      "status": "open"
+      "status": "open",
+      "issue": 99
     },
     {
       "id": "narration-and-picture-not-paired",
@@ -313,7 +339,8 @@
       "title": "Nothing checks that a passage's picture and its narration arrive together",
       "detail": "The narrator says what the party sees and the new artwork shows it: the two are the same moment. The artwork replays check that the right picture appears at each prompt, and the narration checks cover the recordings, but nothing confirms that the picture for a passage is on screen when its narration starts, that both are the same variant where a passage has variants, or that no narrated description lacks a picture. The measure to build: for each narrated passage heard in play, was its artwork showing, and the list of narrated passages with no artwork. Measured 2026-11-21: `npm run qa:narration` records, for each passage heard in play, the artwork key the Enhanced display resolved between the narration starting and the next key wait, and lists the passages heard with none. It does not yet compare the artwork's variant with the narration's variant.",
       "source": "QA review with the owner, 2026-11-21.",
-      "status": "open"
+      "status": "open",
+      "issue": 100
     },
     {
       "id": "narration-tavern-tales-enumerated-for-first-release",
@@ -321,7 +348,8 @@
       "title": "The tavern tale narration was enumerated from the first release's 24 tales",
       "detail": "src/audio/voice-master-manifest.json lists tale numbers 1 to 24, with the evidence 'RANDOM 23 followed by ADD 1'. Version 1.3, which the port now always runs, rolls 23. All 23 are covered and the recording for tale 24 is never used. No passage goes unnarrated; the note and the unused recording are out of date.",
       "source": "Read from the manifest and the 1.3 script, 2026-11-21.",
-      "status": "open"
+      "status": "open",
+      "issue": 101
     },
     {
       "id": "narration-temple-question-silent-at-sune-and-tyr",
@@ -329,7 +357,8 @@
       "title": "'DO YOU SEEK HEALING?' is narrated in the Temple of Tempus and silent in the Temples of Sune and Tyr",
       "detail": "The three temples of New Phlan greet the party with their own line and then all jump to one shared print, \"' DO YOU SEEK HEALING?'\" (ECL3.DAX block 0, aa13 in the manifest's numbering). The manifest gives that print to one unit only, por.voice.ecl3.b0-a9ef-aa13, whose trigger is the Tempus greeting at a9ef: its recording says both sentences. The greetings of Sune (a0d0, 'YOU ARE WELCOMED BY PRIESTESS JOY OF SUNE.') and Tyr ('THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE.') are units of their own that cover only the greeting, so in those two temples the question appears on screen and is never spoken. Found by the narration ledger: in `npm run acceptance:new-phlan` the print at aa13 was reached four times with none of its covering units started (twice after the Sune greeting, twice after Tyr's) and twice correctly as a continuation of the Tempus unit. `npm run qa:narration` lists it under silent cases as covered-without-trigger. The fix is in the manifest and recordings: the Sune and Tyr units must cover the question, or the question needs a unit of its own.",
       "source": "Narration ledger of acceptance:new-phlan, 2026-11-21; ECL3.DAX block 0 read with src/lib/ecl.ts.",
-      "status": "open"
+      "status": "fixed",
+      "resolution": "Fixed by c18e8c50: 'Do you seek healing?' is narrated at the temples of Tyr and Sune."
     },
     {
       "id": "narration-takes-repeated-or-spoke-their-direction",
@@ -387,7 +416,8 @@
       "title": "A replay cannot be the evidence that a passage was heard: it presses on without waiting and its keys never reach the page's key handling",
       "detail": "The Chrome replays send keys through the page's send(), not as key presses, so the page never stops or keeps a voice because of them, and they move on as soon as the game is ready. In the campaign opening (six legs, 15 narrations sent to Chrome) 5 played to the end, 0 were ended by a key, 7 were cut off or never started (the Rolf's tour defects) and 3 were still playing or queued when the leg closed its page. None of the 5 had one artwork on screen from start to end: the replay moved to the next screen under the line (the kobold surprise changed picture 2.7s into a 3.1s line; the arms shop line started on a screen with no artwork). A replay shows that a recording loads and runs to its end in Chrome. Proof that each passage is heard whole, at its moment, with its picture needs runs that wait for each line, as verify:narration-playback does for the tour. The recordings total 9,905s for the 1,362 units with one recording and 1,573s for the 379 variant recordings (ffprobe): about 2 hours 50 minutes of speech to hear each of the 1,432 units once, 3 hours 11 minutes for every recording, before any time spent reaching the passages.",
       "source": "Playback log of npm run verify:campaign-opening in Chrome, merged into qa/narration-coverage.json; ffprobe over audio/voices, 2026-11-21.",
-      "status": "open"
+      "status": "open",
+      "issue": 102
     },
     {
       "id": "narration-sent-seconds-before-its-picture",
@@ -395,7 +425,8 @@
       "title": "A tour passage's narration is spoken and finished before its text and picture are drawn: the frame reaches the page 13 to 22 seconds after the narration",
       "detail": "It happens in live play, not only under the harness. Measured three ways on 2026-11-21, after the voices.json lines were retired. (1) The play server started as `npm run play` starts it (real clock, no replay schedule), driven over HTTP with no browser: on Rolf's tour the unit appears in /state 0.03 to 2.9s after Enter and the frame that prints the passage is ready 13.4 to 22.1s after the unit (b0b6 14.0, b1c2 17.3, b257 20.5, b2f3 17.2, b36a 22.1, b400 19.2); in the replay input mode 13.4 to 19.7s. The page cannot draw a frame it has not been sent, so a person pressing keys gets the same. (2) In Chrome, verify:narration-playback pass 1: every one of the eight units started within 0.02s of being queued and played to its end under the previous passage's picture; its own picture was drawn 7.4 to 14.8s after the line had ended (b0b6 7.4, b1c2 9.5, b257 14.8, b2f3 10.7, b36a 11.3, b400 8.4, b48f 10.7, b51c 14.0). The game takes no key in that time. (3) The runner alone (tools/boot-translated.ts with POR_BROWSER_PLAY=1, with and without the portrait artwork list) prints the frame 0.2 to 1.2s after the narration. So the delay is in what the play server adds to the runner or does with the frame, not in the game's script; which, is not established. The machine was busy during all three (load 10 to 30); the earlier harness figure was 7.6 to 10.7s. The owner's requirement is the picture there when the narrator speaks. Either the frame must reach the page as fast as the runner alone produces it, or the page must hold a narration until the frame that prints it is drawn. The measure's row 'Played with their artwork on screen from start to end' now requires the passage's own artwork (from the ledger), so these lines no longer count as having it.",
       "source": "tools/browser-play.ts driven over HTTP; playback log of npm run verify:narration-playback in Chrome; tools/boot-translated.ts timed alone; all 2026-11-21.",
-      "status": "open"
+      "status": "fixed",
+      "resolution": "Fixed by b8535ed1: the server holds a narration and gives it to the page with the frame that follows it."
     },
     {
       "id": "enhanced-runes-drawn-as-letters",
