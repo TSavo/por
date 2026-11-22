@@ -77,6 +77,14 @@ function carries(archive: string, block: number, address: number): boolean {
   const there = runningScriptAddress(Number(/\d+/.exec(archive)?.[0]), block, address, "1.3");
   const ours = instructions(current, archive, block).get(address), theirs = instructions(target, archive, block).get(there);
   if (ours || theirs) return ours?.opcode === theirs?.opcode;
+  // Inside an instruction (the script cursor stands on an operand while the game draws a picture): the
+  // same instruction, at the same distance into it. Comparing the byte there would fail where the operand
+  // is a jump target the 1.3 script moved, though the picture comes up at the same moment in both.
+  const containing = (map: Map<number, { opcode: number }>, at: number) => {
+    for (let start = at - 1; start >= Math.max(0x9900, at - 64); start--) if (map.has(start)) return { start, opcode: map.get(start)!.opcode };
+  };
+  const ownStart = containing(instructions(current, archive, block), address), theirStart = containing(instructions(target, archive, block), there);
+  if (ownStart && theirStart) return ownStart.opcode === theirStart.opcode && address - ownStart.start === there - theirStart.start;
   // Not an instruction the linear walk reaches: compare the bytes. A block starts with a two-byte length.
   const before = script(current, archive, block), after = script(target, archive, block);
   return before[address - 0x9900 + 2] === after[there - 0x9900 + 2];
