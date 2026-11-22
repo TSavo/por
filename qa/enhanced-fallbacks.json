@@ -131,6 +131,21 @@
    "frames": [],
    "fixtureSha256": "d1d53cb1de05e616850117aa700abeb23697d16d67fe7d1078a0dabd1950ec00"
   },
+  "walk-clerk-pays-three": {
+   "presented": 117,
+   "frames": [],
+   "fixtureSha256": "54682a3acac0a35c73cd4679d8ed7b1305dfa85faab57ed1b177285cc2ba803b"
+  },
+  "walk-commission-5-reward": {
+   "presented": 97,
+   "frames": [],
+   "fixtureSha256": "34235b0c0a5718a18efee6f612ebd138be3b336076535be006b80cf6736eea4f"
+  },
+  "walk-commission-5-taken": {
+   "presented": 135,
+   "frames": [],
+   "fixtureSha256": "08e3075d51b254f63d92b69eb14020968532dad4ebaafda471a7f385161b6b8a"
+  },
   "walk-kobold-king": {
    "presented": 333,
    "frames": [],
