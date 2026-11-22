@@ -289,6 +289,21 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "walk-kobold-king": {
+   "areas": [
+    13,
+    26,
+    27
+   ],
+   "commissions": [
+    "auction",
+    "sokal",
+    "textile"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
