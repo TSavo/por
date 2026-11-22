@@ -2,18 +2,18 @@
  "schema": 2,
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
- "remaining": 2252,
+ "remaining": 2229,
  "totals": {
-  "Remaining, all kinds": 2252,
-  "First-person cells to do": 2252,
-  "  of which one stored tile": 446,
+  "Remaining, all kinds": 2229,
+  "First-person cells to do": 2229,
+  "  of which one stored tile": 423,
   "  of which one tile over a solid colour": 252,
   "  of which plain sky or ground": 0,
   "  of which several tiles together": 1554,
-  "  of which the same pixels already have art of yours in another area": 841,
+  "  of which the same pixels already have art of yours in another area": 818,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 4199,
-  "  accounted for by the tool": 4049,
+  "Tile keys in the manifests": 4241,
+  "  accounted for by the tool": 4091,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
@@ -29,7 +29,7 @@
   "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4259,
   "first-person cells of the overhead area view, which no existing artwork of the area confirms": 152,
   "first-person cells of an area whose reading is not confirmed": 1530,
-  "first-person cells seen only from squares not connected to any square the existing artwork was made from": 375,
+  "first-person cells seen only from squares not connected to any square the existing artwork was made from": 372,
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
   "battlefield cells of pictures no artwork shows to have been on a battlefield": 2207,
   "battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain)": "not counted: needs the game's battlefield builder read",
@@ -644,26 +644,26 @@
    "area": 21,
    "name": "Sokal Keep",
    "established": true,
-   "why": "all 99 cells that have artwork are among the cells the tool works out",
+   "why": "all 141 cells that have artwork are among the cells the tool works out",
    "maps": [
     21
    ],
    "wallSets": [
     "WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)"
    ],
-   "existingKeys": 99,
-   "existingKeysAccountedFor": 99,
+   "existingKeys": 141,
+   "existingKeysAccountedFor": 141,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 500,
-   "cellsWithArt": 93,
-   "toDo": 157,
+   "cellsWithArt": 119,
+   "toDo": 134,
    "notEstablished": {
     "cells that show a sky or ground colour no existing artwork of the area shows": 124,
-    "cells seen only from squares not connected to any square the existing artwork was made from": 107,
+    "cells seen only from squares not connected to any square the existing artwork was made from": 104,
     "cells of the overhead area view, which no existing artwork of the area confirms": 19
    },
-   "existingKeysOnlyAsWallMaterials": 6
+   "existingKeysOnlyAsWallMaterials": 22
   },
   {
    "area": 22,
@@ -9063,6 +9063,7 @@
     17,
     18,
     20,
+    21,
     24,
     26,
     27,
@@ -9169,6 +9170,7 @@
     15,
     18,
     20,
+    21,
     24,
     26,
     29,
@@ -9267,6 +9269,7 @@
     15,
     18,
     20,
+    21,
     24,
     26,
     29,
@@ -9369,6 +9372,7 @@
     15,
     18,
     20,
+    21,
     24,
     26,
     29,
@@ -11020,6 +11024,7 @@
     17,
     18,
     20,
+    21,
     24,
     26,
     27,
@@ -11149,6 +11154,7 @@
     15,
     18,
     20,
+    21,
     24,
     26,
     29,
@@ -11507,6 +11513,7 @@
     15,
     18,
     20,
+    21,
     24,
     26,
     29,
@@ -11671,6 +11678,7 @@
     15,
     18,
     20,
+    21,
     24,
     26,
     29,
@@ -38238,7 +38246,7 @@
     "column": 10,
     "row": 7
    },
-   "views": 62,
+   "views": 64,
    "drawnIn": [
     0,
     2,
@@ -38254,7 +38262,7 @@
     31
    ],
    "sameAs": "new-phlan-harbor-paving-joins-0-5b52670be92c.png",
-   "why": "drawn in 62 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 64 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -38343,7 +38351,7 @@
     "column": 0,
     "row": 7
    },
-   "views": 62,
+   "views": 64,
    "drawnIn": [
     0,
     2,
@@ -38359,7 +38367,7 @@
     31
    ],
    "sameAs": "new-phlan-harbor-paving-joins-0-92ccb4f65a1e.png",
-   "why": "drawn in 62 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 64 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -38485,52 +38493,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "shared tile set 8X8D1 block 203",
-   "what": "one stored tile",
-   "composition": "-|8X8D1.DAX:203:13",
-   "description": "8X8D1 block 203 tile 13, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 8,
-    "facing": "north",
-    "column": 0,
-    "row": 4
-   },
-   "views": 459,
-   "drawnIn": [
-    0,
-    1,
-    2,
-    3,
-    5,
-    7,
-    8,
-    9,
-    10,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    20,
-    24,
-    26,
-    27,
-    29,
-    31
-   ],
-   "sameAs": "new-phlan-gate-31a92759fb4b.png",
-   "why": "drawn in 459 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:c61703df5658b60ae2c2d23bd0d584030969fdbbc10fbe56b531b48e6348378b",
    "width": 32,
    "height": 32,
@@ -38580,42 +38542,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:14",
-   "description": "8X8D4 block 1 tile 14, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 8,
-    "facing": "south",
-    "column": 10,
-    "row": 3
-   },
-   "views": 22,
-   "drawnIn": [
-    2,
-    9,
-    10,
-    14,
-    15,
-    18,
-    20,
-    24,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "bane-side-galleries-terrain-0264796f9fa2.png",
-   "why": "drawn in 22 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:17becf7f46404d6b55c17617c207d9b53707bc1d70bc2e28023728545c3a3447",
    "width": 32,
    "height": 32,
@@ -38627,13 +38553,13 @@
    "description": "8X8D4 block 1 tile 12, shown in area 21 (Sokal Keep)",
    "seenAt": {
     "map": 21,
-    "x": 6,
-    "y": 14,
-    "facing": "south",
-    "column": 1,
+    "x": 15,
+    "y": 9,
+    "facing": "north",
+    "column": 4,
     "row": 5
    },
-   "views": 7,
+   "views": 10,
    "drawnIn": [
     2,
     4,
@@ -38643,7 +38569,7 @@
     31
    ],
    "sameAs": "kuto-podal-side-streets-kuto-terrain-17becf7f4640.png",
-   "why": "drawn in 7 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 10 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -38726,7 +38652,7 @@
     "column": 8,
     "row": 4
    },
-   "views": 10,
+   "views": 17,
    "drawnIn": [
     2,
     9,
@@ -38737,34 +38663,7 @@
     29
    ],
    "sameAs": "route-23ade1020185.png",
-   "why": "drawn in 10 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:24496d3a08d097a18184cf1e0ed7f714e985ff1ec84640cc8ef2251081b8ac14",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:30",
-   "description": "8X8D4 block 1 tile 30, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 15,
-    "facing": "north",
-    "column": 8,
-    "row": 7
-   },
-   "views": 1,
-   "drawnIn": [
-    18,
-    29
-   ],
-   "sameAs": "kuto-border-fountain-terrain-24496d3a08d0.png",
-   "why": "drawn in 1 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 17 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -38795,60 +38694,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:35bc16c225d0188de6e4d787bb7cc94cea1ed7739c1190f0db6a1915c6e4d4b5",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:32",
-   "description": "8X8D4 block 1 tile 32, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 15,
-    "facing": "north",
-    "column": 7,
-    "row": 7
-   },
-   "views": 1,
-   "drawnIn": [
-    18,
-    29
-   ],
-   "sameAs": "kuto-border-fountain-terrain-35bc16c225d0.png",
-   "why": "drawn in 1 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:38edb1790223ef81914551f6f0b9eea6a21f7e86fbe0515ddae1a08662aff9e7",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:0",
-   "description": "8X8D4 block 1 tile 0, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 15,
-    "facing": "north",
-    "column": 5,
-    "row": 5
-   },
-   "views": 3,
-   "drawnIn": [
-    18,
-    29
-   ],
-   "sameAs": "kuto-border-fountain-terrain-38edb1790223.png",
-   "why": "drawn in 3 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:3df247a59ff18323be4631a63c96cf8ab98193f543ef4003a72a7c1e856e15f8",
    "width": 32,
    "height": 32,
@@ -38866,7 +38711,7 @@
     "column": 7,
     "row": 4
    },
-   "views": 10,
+   "views": 17,
    "drawnIn": [
     2,
     9,
@@ -38876,61 +38721,7 @@
     29
    ],
    "sameAs": "route-3df247a59ff1.png",
-   "why": "drawn in 10 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:3fee7e855b9465a3ca932316bcc9135e8d669a7b0c7fc89640598ecd55cf01f2",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:37",
-   "description": "8X8D4 block 1 tile 37, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 15,
-    "facing": "north",
-    "column": 8,
-    "row": 8
-   },
-   "views": 1,
-   "drawnIn": [
-    18,
-    29
-   ],
-   "sameAs": "kuto-packed-earth-3fee7e855b94.png",
-   "why": "drawn in 1 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:4347bf08046f39d7f4d4575c1b1fa5398cfd24a85e0b2cf75942ff5b761a722e",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:27",
-   "description": "8X8D4 block 1 tile 27, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 15,
-    "facing": "north",
-    "column": 5,
-    "row": 6
-   },
-   "views": 3,
-   "drawnIn": [
-    18,
-    29
-   ],
-   "sameAs": "kuto-border-fountain-terrain-4347bf08046f.png",
-   "why": "drawn in 3 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 17 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -38946,12 +38737,12 @@
    "seenAt": {
     "map": 21,
     "x": 15,
-    "y": 9,
-    "facing": "north",
+    "y": 8,
+    "facing": "south",
     "column": 6,
     "row": 6
    },
-   "views": 9,
+   "views": 11,
    "drawnIn": [
     2,
     4,
@@ -38961,7 +38752,7 @@
     31
    ],
    "sameAs": "kuto-earth-chamber-joins-4fa7efe3e4e5.png",
-   "why": "drawn in 9 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 11 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -38998,33 +38789,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:5abd3cf4bfe6373c05e073bd3b979b4ef00d2434076f6a621e27f9ae8b59c885",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:28",
-   "description": "8X8D4 block 1 tile 28, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 15,
-    "facing": "north",
-    "column": 4,
-    "row": 7
-   },
-   "views": 3,
-   "drawnIn": [
-    18,
-    29
-   ],
-   "sameAs": "kuto-border-fountain-terrain-5abd3cf4bfe6.png",
-   "why": "drawn in 3 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:5d21f80204f885adf8274dc902585aabba14856ffc8e683b696965fdd68ea226",
    "width": 32,
    "height": 32,
@@ -39052,60 +38816,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:707a3661de40639856880d5863eb5fb241f95ab8c7a4e035fac140a7fb8c7f6b",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:29",
-   "description": "8X8D4 block 1 tile 29, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 15,
-    "facing": "north",
-    "column": 8,
-    "row": 6
-   },
-   "views": 1,
-   "drawnIn": [
-    18,
-    29
-   ],
-   "sameAs": "kuto-border-fountain-terrain-707a3661de40.png",
-   "why": "drawn in 1 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:780874fdade2d4968354973a6e45e373900cf2f360aaaee9048eff7760f1f294",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:25",
-   "description": "8X8D4 block 1 tile 25, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 15,
-    "facing": "north",
-    "column": 2,
-    "row": 6
-   },
-   "views": 1,
-   "drawnIn": [
-    18,
-    29
-   ],
-   "sameAs": "kuto-border-fountain-terrain-780874fdade2.png",
-   "why": "drawn in 1 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:7870e9a9d014d5af73d6846dd36c122b941c5efafee1e099b135da968e0216b1",
    "width": 32,
    "height": 32,
@@ -39123,7 +38833,7 @@
     "column": 5,
     "row": 5
    },
-   "views": 8,
+   "views": 10,
    "drawnIn": [
     2,
     4,
@@ -39133,7 +38843,7 @@
     31
    ],
    "sameAs": "kuto-earth-chamber-joins-7870e9a9d014.png",
-   "why": "drawn in 8 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 10 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -39164,33 +38874,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:8218bb2fd3cff1bb3b55dfb4d8626f1ef9eacf4084120b071ace691afcc06449",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:3",
-   "description": "8X8D4 block 1 tile 3, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 15,
-    "facing": "north",
-    "column": 2,
-    "row": 7
-   },
-   "views": 1,
-   "drawnIn": [
-    18,
-    29
-   ],
-   "sameAs": "kuto-border-fountain-terrain-8218bb2fd3cf.png",
-   "why": "drawn in 1 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:85b030277ef782597e0905e1f528dc419436fb4c80e649f5a0ba20d492065e2b",
    "width": 32,
    "height": 32,
@@ -39208,7 +38891,7 @@
     "column": 7,
     "row": 5
    },
-   "views": 33,
+   "views": 40,
    "drawnIn": [
     0,
     2,
@@ -39222,69 +38905,7 @@
     29
    ],
    "sameAs": "route-85b030277ef7.png",
-   "why": "drawn in 33 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:94baea60a43c4a3789f6665ce0721e7bbdd8cc4fef7adce250e8f48d3344efe8",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:33",
-   "description": "8X8D4 block 1 tile 33, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 15,
-    "facing": "north",
-    "column": 7,
-    "row": 6
-   },
-   "views": 1,
-   "drawnIn": [
-    18,
-    29
-   ],
-   "sameAs": "kuto-border-fountain-terrain-94baea60a43c.png",
-   "why": "drawn in 1 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:9fcdf0ff6bdfd2b832cfd91e6160e494b4f67ec897064204ba4dc3a869b31c4d",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:13",
-   "description": "8X8D4 block 1 tile 13, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 8,
-    "facing": "north",
-    "column": 0,
-    "row": 3
-   },
-   "views": 20,
-   "drawnIn": [
-    2,
-    9,
-    14,
-    15,
-    18,
-    20,
-    24,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "bane-side-galleries-terrain-9fcdf0ff6bdf.png",
-   "why": "drawn in 20 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 40 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -39342,33 +38963,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:bb5fbe0659195461417a3592db18801edb797dd01b778f2ec9e18ec474d39347",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:36",
-   "description": "8X8D4 block 1 tile 36, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 15,
-    "facing": "north",
-    "column": 2,
-    "row": 8
-   },
-   "views": 1,
-   "drawnIn": [
-    18,
-    29
-   ],
-   "sameAs": "kuto-packed-earth-bb5fbe065919.png",
-   "why": "drawn in 1 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:c3a7b97b50237ff17eef35dcda2aa23700f0e0264180893885f504ca1c19148d",
    "width": 32,
    "height": 32,
@@ -39413,7 +39007,7 @@
     "column": 8,
     "row": 5
    },
-   "views": 33,
+   "views": 40,
    "drawnIn": [
     0,
     2,
@@ -39428,7 +39022,7 @@
     29
    ],
    "sameAs": "route-ca1a1292cdd4.png",
-   "why": "drawn in 33 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 40 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -39459,33 +39053,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:d5e0eedcfbae2634ac60516275495ad735e7ff952e0fb335b1181d29e4d2879f",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:20",
-   "description": "8X8D4 block 1 tile 20, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 15,
-    "facing": "north",
-    "column": 5,
-    "row": 4
-   },
-   "views": 3,
-   "drawnIn": [
-    18,
-    29
-   ],
-   "sameAs": "kuto-border-fountain-terrain-d5e0eedcfbae.png",
-   "why": "drawn in 3 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:d9b51cc9360d17737eebf2fc825d7cc895e96ea1d6f2020a5a7c8d54e5228dea",
    "width": 32,
    "height": 32,
@@ -39509,33 +39076,6 @@
     29
    ],
    "sameAs": "kuto-court-junctions-terrain-d9b51cc9360d.png",
-   "why": "drawn in 1 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:db642afd69e7f1462ea1b65b8fda171ed215e5158c5dc2d0e8c0912c01cae65a",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:58",
-   "description": "8X8D4 block 1 tile 58, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 15,
-    "facing": "north",
-    "column": 3,
-    "row": 7
-   },
-   "views": 1,
-   "drawnIn": [
-    18,
-    29
-   ],
-   "sameAs": "kuto-border-fountain-terrain-db642afd69e7.png",
    "why": "drawn in 1 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -39582,13 +39122,13 @@
    "description": "8X8D4 block 1 tile 10, shown in area 21 (Sokal Keep)",
    "seenAt": {
     "map": 21,
-    "x": 6,
-    "y": 14,
+    "x": 15,
+    "y": 8,
     "facing": "south",
-    "column": 0,
+    "column": 6,
     "row": 5
    },
-   "views": 7,
+   "views": 10,
    "drawnIn": [
     2,
     4,
@@ -39598,61 +39138,7 @@
     31
    ],
    "sameAs": "kuto-podal-side-streets-kuto-terrain-e661bce0938e.png",
-   "why": "drawn in 7 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:e9ecbb72d30b0993e242f5c1ff9562df7dd7c28db20be6a0917234d9679aa17a",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:31",
-   "description": "8X8D4 block 1 tile 31, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 15,
-    "facing": "north",
-    "column": 3,
-    "row": 6
-   },
-   "views": 1,
-   "drawnIn": [
-    18,
-    29
-   ],
-   "sameAs": "kuto-border-fountain-terrain-e9ecbb72d30b.png",
-   "why": "drawn in 1 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:ebbb3407ad7721eaf32a9756092057bad2e2ccc5c7411838a50c8a7fc95ca0ee",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:1",
-   "description": "8X8D4 block 1 tile 1, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 15,
-    "facing": "north",
-    "column": 4,
-    "row": 6
-   },
-   "views": 2,
-   "drawnIn": [
-    18,
-    29
-   ],
-   "sameAs": "kuto-border-fountain-terrain-ebbb3407ad77.png",
-   "why": "drawn in 2 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 10 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -39673,7 +39159,7 @@
     "column": 4,
     "row": 6
    },
-   "views": 9,
+   "views": 11,
    "drawnIn": [
     2,
     4,
@@ -39683,42 +39169,7 @@
     31
    ],
    "sameAs": "kuto-earth-chamber-joins-f08f5d405196.png",
-   "why": "drawn in 9 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 1",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:1:15",
-   "description": "8X8D4 block 1 tile 15, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 0,
-    "y": 8,
-    "facing": "west",
-    "column": 5,
-    "row": 6
-   },
-   "views": 9,
-   "drawnIn": [
-    2,
-    9,
-    14,
-    15,
-    18,
-    20,
-    24,
-    26,
-    29,
-    31
-   ],
-   "sameAs": "bane-side-galleries-terrain-f5d7a245e0ac.png",
-   "why": "drawn in 9 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 11 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -39925,35 +39376,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:21:0c7732f13856e8cd20061031338abf4be17558ae34803b8dfbca4e1290e7f397",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 5",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:5:4",
-   "description": "8X8D4 block 5 tile 4, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 6,
-    "y": 0,
-    "facing": "north",
-    "column": 3,
-    "row": 3
-   },
-   "views": 69,
-   "drawnIn": [
-    0,
-    8,
-    18,
-    24
-   ],
-   "sameAs": "podal-shrine-side-lanes-terrain-0c7732f13856.png",
-   "why": "drawn in 69 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:21:0e85ae50ca9229200061641963f7876c217ce7f4dc88a393a1b5b0ae696d96ac",
    "width": 32,
    "height": 32,
@@ -39974,35 +39396,6 @@
    "views": 2,
    "drawnIn": [],
    "why": "drawn in 2 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:10bf12baf29408481a0c53115f209c404df6eddaef8a075361781014dbc213e7",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 5",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:5:8",
-   "description": "8X8D4 block 5 tile 8, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 6,
-    "y": 0,
-    "facing": "north",
-    "column": 4,
-    "row": 8
-   },
-   "views": 31,
-   "drawnIn": [
-    0,
-    8,
-    18,
-    24
-   ],
-   "sameAs": "podal-shrine-side-lanes-terrain-10bf12baf294.png",
-   "why": "drawn in 31 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -40165,33 +39558,6 @@
    ],
    "sameAs": "podal-workshop-lanes-terrain-1df4f051066f.png",
    "why": "drawn in 10 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:207b7f4830988664ddd5cfc189fd50c2e5b758129da008159a4d9731d8d2b576",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 5",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:5:44",
-   "description": "8X8D4 block 5 tile 44, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 7,
-    "y": 6,
-    "facing": "east",
-    "column": 7,
-    "row": 4
-   },
-   "views": 201,
-   "drawnIn": [
-    18,
-    24
-   ],
-   "sameAs": "podal-shrine-side-lanes-terrain-207b7f483098.png",
-   "why": "drawn in 201 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -40497,35 +39863,6 @@
    "views": 3,
    "drawnIn": [],
    "why": "drawn in 3 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:21:3bd06c2cb3cf105fcfcb7999d9c82c401a31a2c874ad4e8fe2b8d70e3c0ba8e0",
-   "width": 32,
-   "height": 32,
-   "area": 21,
-   "areaName": "Sokal Keep",
-   "group": "tile set 8X8D4 block 5",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:5:58",
-   "description": "8X8D4 block 5 tile 58, shown in area 21 (Sokal Keep)",
-   "seenAt": {
-    "map": 21,
-    "x": 6,
-    "y": 0,
-    "facing": "north",
-    "column": 5,
-    "row": 7
-   },
-   "views": 30,
-   "drawnIn": [
-    0,
-    8,
-    18,
-    24
-   ],
-   "sameAs": "podal-workshop-lanes-terrain-3bd06c2cb3cf.png",
-   "why": "drawn in 30 views of map 21 (WALLDEF4 block 1 (tiles 8X8D4 block 1), block 5 (tiles 8X8D4 block 5), block 9 (tiles 8X8D4 block 9)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
