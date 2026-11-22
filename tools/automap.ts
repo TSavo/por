@@ -1,5 +1,5 @@
-import { readdirSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { readFileSync } from "node:fs";
+import { listGameFiles, readGameFile } from "./gamedata.js";
 import { parseDax } from "../src/lib/dax.js";
 import { parseGeo } from "../src/lib/world.js";
 
@@ -75,8 +75,8 @@ export function cleanAutomap(input: unknown): AutomapData {
  */
 export function openAutomap(root: string) {
   const geometry = new Map<number, ReturnType<typeof parseGeo>>();
-  for (const name of readdirSync(root).filter(name => /^GEO\d+\.DAX$/i.test(name))) {
-    for (const entry of parseDax(name, new Uint8Array(readFileSync(join(root, name)))).entries) {
+  for (const name of listGameFiles(root).filter(name => /^GEO\d+\.DAX$/i.test(name))) {
+    for (const entry of parseDax(name, readGameFile(root, name)).entries) {
       if (entry.rawSize === 0x402) geometry.set(entry.id, parseGeo(entry.data, entry.id));
     }
   }

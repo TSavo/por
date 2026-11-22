@@ -1,8 +1,6 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
+import { gameProgram, readGameFile } from "./gamedata.js";
 import type { Cpu } from "../src/cpu/machine.js";
 import { parseDax } from "../src/lib/dax.js";
-import { loadExecutable } from "../src/lib/exepack.js";
 import { data, eclGlobalOffset, segment as unit } from "../src/runtime/bindings.js";
 
 const width = 44;
@@ -118,7 +116,7 @@ const phlanCrossroads = new Set([...eastApproach, ...westApproach].map(([x, y]) 
 
 export function loadOverlandTravel(root: string) {
   // The overland overlay reads the world terrain table from the data segment. START.EXE initializes it.
-  const { image } = loadExecutable(new Uint8Array(readFileSync(join(root, "START.EXE"))));
+  const { image } = gameProgram(root);
   const mapOffset = unit.data * 16 + data.overlandTerrain;
   const terrain = image.subarray(mapOffset, mapOffset + width * height);
   const nativeBarrier = new Set([0x4e, 0x7e, 0x7f, 0x80, 0x82, 0x83, 0x84, 0xa8, 0xa9, 0xaa, 0xab, 0xac,
@@ -126,7 +124,7 @@ export function loadOverlandTravel(root: string) {
     0x66, 0x67, 0x68, 0x69, 0x6a, 0x6b, 0x6c, 0x72]);
   const scripts = sectors.map(({ area, archive }) => {
     const name = `ECL${archive}.DAX`;
-    return parseDax(name, readFileSync(join(root, name))).entries.find(entry => entry.id === area)?.data;
+    return parseDax(name, readGameFile(root, name)).entries.find(entry => entry.id === area)?.data;
   });
   const readBlocked = (script: Uint8Array | undefined, address: number, length: number) =>
     new Set(script?.subarray(address - 0x98fe, address - 0x98fe + length));

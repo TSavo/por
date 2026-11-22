@@ -4,7 +4,7 @@
  * place the translation still stops.
  */
 import { createHash } from "node:crypto";
-import { mkdirSync, readdirSync, readFileSync, realpathSync, statSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, realpathSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { Cpu } from "../src/cpu/machine.js";
 import { openAutomap } from "./automap.js";
@@ -12,14 +12,14 @@ import { attachDos, consoleText, dosLog, noon, timeOfDay, type BiosKey, type Dos
 import { intrCounts } from "../src/runtime/intr.js";
 import { journalFrame, screen, videoSummary } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
-import { findGameRoot, mountValjevoWallPieces, usePortPaths } from "./gamedata.js";
+import { findGameRoot, gameFiles as readGameFiles, isPortGameRoot, mountValjevoWallPieces, portGame, usePortPaths } from "./gamedata.js";
 import { currentObjective, journalInventoryLeads, observeAdventureLog, questProgress, type JournalLead } from "../src/runtime/adventure-log.js";
 import { liveInput } from "./live-input.js";
 import { openJournalProfile } from "./journal-profile.js";
 import { stagePregenParty } from "./pregen-party.js";
 import { isPartyFile, openSaveSlots, saveSlotLetter } from "./save-slots.js";
 import { callTrace, exeByImage, farCall, farCallObservers, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
-import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
+import { installImage, installProgram, loadedSlices } from "../src/runtime/overlay.js";
 import { behaviour, code, codeSegment, data, far, previousRandomSeed, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit, startupInput } from "../src/runtime/bindings.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
@@ -34,9 +34,10 @@ import { standaloneTrace } from "./standalone-trace.js";
 
 const root = findGameRoot();
 if (!root) throw new Error("Pool of Radiance game data not found");
-const gameFiles = usePortPaths(mountValjevoWallPieces(readdirSync(root, { recursive: true, encoding: "utf8" })
-  .filter((name) => !name.startsWith(".") && statSync(join(root, name)).isFile())
-  .map((name) => ({ name, data: new Uint8Array(readFileSync(join(root, name))) }))));
+// With no original files supplied the game runs from the port's own data, which holds no program file:
+// the memory image comes from it directly.
+const portProgram = isPortGameRoot(root) ? portGame(root).program : undefined;
+const gameFiles = usePortPaths(mountValjevoWallPieces(readGameFiles(root)));
 const files = process.env.POR_PREGEN_PARTY === "1" ? stagePregenParty(gameFiles) : gameFiles;
 
 const overlayFile = files.find((f) => f.name.toUpperCase() === "GAME.OVR");
@@ -72,8 +73,8 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const cpu = new Cpu();
   const exe = files.find((f) => f.name.toUpperCase() === "START.EXE");
   const ovr = files.find((f) => f.name.toUpperCase() === "GAME.OVR");
-  if (!exe || !ovr) throw new Error("START.EXE and GAME.OVR are required");
-  const boot = installProgram(cpu, exe.data, ovr.data);
+  if (!ovr || (!exe && !portProgram)) throw new Error("START.EXE and GAME.OVR are required");
+  const boot = portProgram ? installImage(cpu, portProgram, ovr.data) : installProgram(cpu, exe!.data, ovr.data);
   // POR_TRACE_STANDALONE: record which bytes of the loaded program the game reads. Observes only.
   standaloneTrace?.traceMemory(cpu, boot, unit.data, loadedSlices);
   const capturePresentationDelay = input?.capturePresentationDelay;

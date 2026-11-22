@@ -1,6 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { parseDax, type DaxEntry } from "../src/lib/dax.js";
+import { loadExecutable, type LoadImage } from "../src/lib/exepack.js";
+import { GAME_DATA_FORMAT, loadPortGame, type PortGame } from "../src/runtime/game-data.js";
 
 const GAME_FILE = /\.(dax|exe|ovr|ex_|pic)$/i;
 
@@ -101,8 +104,49 @@ export function mountValjevoWallPieces(files: readonly { name: string; data: Uin
   });
 }
 
+/** The port's own game data, converted from version 1.3 by tools/build-game-data.ts. */
+export const portGameRoot = fileURLToPath(new URL("../game", import.meta.url));
+
+/** True when `dir` holds the port's own data files rather than the original game. */
+export function isPortGameRoot(dir: string): boolean {
+  const manifest = path.join(dir, "manifest.json");
+  if (!fs.existsSync(manifest)) return false;
+  try {
+    return (JSON.parse(fs.readFileSync(manifest, "utf8")) as { format?: string }).format === GAME_DATA_FORMAT;
+  } catch {
+    return false;
+  }
+}
+
+const portGames = new Map<string, PortGame>();
+
+/** Everything the runner needs from a directory of the port's own data. */
+export function portGame(root: string): PortGame {
+  const key = path.resolve(root);
+  let game = portGames.get(key);
+  if (!game) {
+    game = loadPortGame((file) => new Uint8Array(fs.readFileSync(path.join(key, file))));
+    portGames.set(key, game);
+  }
+  return game;
+}
+
+/**
+ * Which data to run from. POR_GAME_SOURCE=port uses the port's own data even when original files
+ * are present. POR_GAME_SOURCE=original never falls back to it. Unset, original files win when a
+ * directory of them is supplied, and the port's own data is used when none is.
+ */
+function gameSource(): "port" | "original" | undefined {
+  const source = process.env.POR_GAME_SOURCE;
+  if (source === undefined || source === "") return undefined;
+  if (source !== "port" && source !== "original") throw new Error("POR_GAME_SOURCE must be port or original");
+  return source;
+}
+
 function hasGameFiles(dir: string): boolean {
-  return fs.readdirSync(dir).some((name) => GAME_FILE.test(name));
+  const source = gameSource();
+  if (isPortGameRoot(dir)) return source !== "original";
+  return source !== "port" && fs.readdirSync(dir).some((name) => GAME_FILE.test(name));
 }
 
 const defaultGameRoots = () => [path.resolve("gamedata"), "/workspace/gamedata", "/workspace/uploads/pool"];
@@ -123,10 +167,11 @@ export function findGameRoot(explicit?: string): string | null {
   for (const directory of gameDirectories([explicit, process.env.POR_GAMEDATA, ...defaultGameRoots()])) {
     if (hasGameFiles(directory)) return directory;
   }
-  return null;
+  return gameSource() !== "original" && isPortGameRoot(portGameRoot) ? portGameRoot : null;
 }
 
 export function listGameFiles(root: string): string[] {
+  if (isPortGameRoot(root)) return portGame(root).files.map(({ name }) => name).sort((a, b) => a.localeCompare(b));
   return fs
     .readdirSync(root)
     .filter((name) => fs.statSync(path.join(root, name)).isFile())
@@ -137,7 +182,16 @@ export function requireBrowserGameRoot(): string {
   const explicit = process.env.POR_GAMEDATA;
   const required = ["START.EXE", "GAME.OVR", "ECL1.DAX"];
   let incomplete: { root: string; missing: string[] } | undefined;
+  if (gameSource() === "port") {
+    const found = findGameRoot();
+    if (found) return path.resolve(found);
+    throw new Error("The port's own game data was not found under game/. Run npm run build:game-data.");
+  }
   for (const directory of gameDirectories(explicit ? [explicit] : defaultGameRoots())) {
+    if (isPortGameRoot(directory)) {
+      if (gameSource() === "original") continue;
+      return path.resolve(directory);
+    }
     const names = new Set(listGameFiles(directory).map(name => name.toUpperCase()));
     const missing = required.filter(name => !names.has(name));
     if (!missing.length) return path.resolve(directory);
@@ -148,12 +202,33 @@ export function requireBrowserGameRoot(): string {
   if (incomplete) {
     throw new Error(`Incomplete Pool of Radiance data in ${incomplete.root}. Missing ${incomplete.missing.join(", ")}. Use the complete unpacked DOS game directory.`);
   }
+  // With no original files supplied, the game runs from the port's own data.
+  if (!explicit && gameSource() !== "original" && isPortGameRoot(portGameRoot)) return portGameRoot;
   const location = explicit ? ` in ${path.resolve(explicit)}` : "";
   throw new Error(`Pool of Radiance data not found${location}. Set POR_GAMEDATA to the unpacked DOS game directory or place it under gamedata/.`);
 }
 
+/** Every file the game can open, by name. From the port's own data, archives are re-packed and pictures are blank. */
+export function gameFiles(root: string): { name: string; data: Uint8Array }[] {
+  if (isPortGameRoot(root)) return portGame(root).files.map(({ name, data }) => ({ name, data }));
+  return fs.readdirSync(root, { recursive: true, encoding: "utf8" })
+    .filter((name) => !name.startsWith(".") && fs.statSync(path.join(root, name)).isFile())
+    .map((name) => ({ name, data: new Uint8Array(fs.readFileSync(path.join(root, name))) }));
+}
+
+/** The program as it sits in memory. The port's own data holds it with every instruction blank. */
+export function gameProgram(root: string): LoadImage {
+  if (isPortGameRoot(root)) return portGame(root).program;
+  return loadExecutable(readGameFile(root, "START.EXE"));
+}
+
 export function readGameFile(root: string, name: string): Uint8Array {
   const safe = path.basename(name);
+  if (isPortGameRoot(root)) {
+    const file = portGame(root).files.find((file) => file.name === safe.toUpperCase());
+    if (!file) throw new Error(`${safe} is not among the port's game data. The program file is not: use gameProgram.`);
+    return file.data;
+  }
   const bytes = fs.readFileSync(path.join(root, safe));
   return new Uint8Array(bytes.buffer, bytes.byteOffset, bytes.byteLength);
 }

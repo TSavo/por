@@ -5,7 +5,7 @@ import { appendFileSync, readFileSync, readdirSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
 import { join } from "node:path";
-import { requireBrowserGameRoot } from "./gamedata.js";
+import { readGameFile, requireBrowserGameRoot } from "./gamedata.js";
 import { loadCombatMaterialMasks, loadUpgradeArt } from "./upgrade-art.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
 import { getKey, type CodeWheelQuestion, type PanelFrameStamp, type PresentationAnimationFrame, type TileInventoryCell } from "./live-input.js";
@@ -26,7 +26,7 @@ if (!Number.isInteger(port) || port < 1 || port > 65535) {
 const origin = `http://127.0.0.1:${port}`;
 const gameRoot = requireBrowserGameRoot();
 // Everything the server reads from the program depends on which build the directory holds.
-const gameBuild = detectGameVersion(new Uint8Array(readFileSync(join(gameRoot, "GAME.OVR"))));
+const gameBuild = detectGameVersion(readGameFile(gameRoot, "GAME.OVR"));
 useGameVersion(gameBuild);
 const planTravel = loadOverlandTravel(gameRoot);
 const page = readFileSync(new URL("./play.html", import.meta.url));

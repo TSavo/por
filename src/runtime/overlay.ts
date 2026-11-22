@@ -1,5 +1,5 @@
 import type { Cpu } from "../cpu/machine.js";
-import { loadExecutable } from "../lib/exepack.js";
+import { loadExecutable, type LoadImage } from "../lib/exepack.js";
 import { setStubDispatch, type FarFn } from "./far.js";
 
 /**
@@ -46,7 +46,11 @@ let pendingModules: SliceModule[] = [];
 export function installProgram(m: Cpu, exeFile: Uint8Array, ovr: Uint8Array): { cs: number; ip: number; ss: number; sp: number } {
   if (exeFile[0] !== 0x4d || exeFile[1] !== 0x5a) throw new Error("START.EXE is not an MZ file");
   // Version 1.3 ships packed with EXEPACK. Either way the program goes in as it sits in memory.
-  const program = loadExecutable(exeFile);
+  return installImage(m, loadExecutable(exeFile), ovr);
+}
+
+/** Install a program already in its load form: the image goes in at paragraph 0. */
+export function installImage(m: Cpu, program: LoadImage, ovr: Uint8Array): { cs: number; ip: number; ss: number; sp: number } {
   const image = program.image;
   m.mem.set(image, 0);
 
