@@ -107,11 +107,12 @@ try {
   report.firstState = await fetch(new URL("state", url)).then((response) => response.json())
     .then(({ ready, scene, sequence }) => ({ ready, scene: scene ?? null, sequence }));
   await command("Page.navigate", { url });
-  await until("the game page", `typeof send === "function" && document.querySelector("#screen").naturalWidth === 320`);
-  // The page opens in Classic display. The release runs in Enhanced.
-  const openedIn = await evaluate("document.documentElement.dataset.presentation ?? (enhanced ? 'enhanced' : 'classic')");
+  await until("the game page", `typeof send === "function" && typeof state === "object" && state.sequence > 0`);
+  // The release runs in Enhanced; an older page opened in Classic and is switched.
+  const openedIn = await evaluate("enhanced ? 'enhanced' : 'classic'");
   await evaluate(`if (!enhanced) document.querySelector("#presentation").click(); undefined`);
   report.openedIn = openedIn;
+  report.displaySwitchShown = await evaluate(`Boolean(document.querySelector("#presentation")?.getClientRects().length)`);
 
   // The game's own publisher frame, or the page's publisher splash shown before the title.
   const scene = () => evaluate("state.scene ?? null");
