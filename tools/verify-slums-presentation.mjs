@@ -13191,6 +13191,8 @@ try {
   } else if (councilReward) {
     const [commission, originalDialogue, art] = councilReward;
     const journalStatus = () => frame.journal?.leads.find(({ id }) => id === commission)?.status;
+    const visibleText = () => frame.text.toSorted(([a], [b]) => a - b)
+      .map(([, character]) => String.fromCharCode(character)).join("");
     await advance("j");
     assert.equal(journalStatus(), "ready-to-report");
     if (commission === "commission-lizardmen") {
@@ -13202,8 +13204,6 @@ try {
     if (routeName === "nomad-reward") assert.match(frame.journal.objective.nextStep, /report what happened at the Nomad Camp/);
     if (swampReturn) {
       assert.match(frame.journal.objective.nextStep, /south drawbridge.*East Overland ferry/i);
-      const visibleText = () => frame.text.toSorted(([a], [b]) => a - b)
-        .map(([, character]) => String.fromCharCode(character)).join("");
       for (const key of ["j", "right", "right", "up", "left", "up", "right", ...Array(6).fill("up"),
         "left", "up", "up", "up", "right", ...Array(6).fill("up"), "enter", "enter"]) await advance(key);
       assert.match(visibleText(), /WILLYOUENTERTHERUINEDCASTLE/i);
@@ -13251,7 +13251,22 @@ try {
       const xp = swampReturn ? 2960 : art.xp;
       assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), new RegExp(`receives${xp}experiencepoints`, "i"));
     }
-    for (const key of ["enter", "enter", "s", "e", "j"]) await advance(key);
+    for (const key of ["enter", "enter", "s", "e"]) await advance(key);
+    if (routeName === "stojanow-gate-reward") {
+      const clerkPapers = "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:commission-papers";
+      assert.match(visibleText(), /THECLERKSHUFFLESTHROUGHHERPAPERS.*ICANOFFERTHEFOLLOWING/i);
+      assert.equal(frame.portrait, clerkPapers);
+      await waitFor("the illustrated council commission preface", () => run(`
+        state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${clerkPapers}"]')?.naturalWidth === 352`));
+      const response = await fetch(`${origin}/art/${clerkPapers}`);
+      assert.ok(response.ok);
+      assert.deepEqual(Buffer.from(await response.arrayBuffer()), readFileSync("upgrades/council-clerk-commission-papers.png"));
+      await verifyPortraitPanel();
+      const screenshot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "council-clerk-commission-papers.png"), Buffer.from(screenshot.data, "base64"));
+    }
+    await advance("j");
     if (routeName === "bivant-reward") {
       assert.equal(journalStatus(), "reward-pending");
       assert.match(frame.journal.objective.nextStep, /choose Take.*then Exit/i);
@@ -13293,7 +13308,12 @@ try {
       console.log("Bivant reward checkpoint:", saved);
     }
     if (["kobold-king-reward", "kovel-reward", "podal-reward", "textile-reward", "slums-reward", "stojanow-gate-reward"].includes(routeName)) {
-      for (const key of ["j", "enter", "e", "s", "s", "a"]) await advance(key);
+      for (const key of ["j", "enter"]) await advance(key);
+      if (routeName === "stojanow-gate-reward") {
+        assert.match(visibleText(), /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i);
+        assert.equal(frame.portrait, undefined);
+      }
+      for (const key of ["e", "s", "s", "a"]) await advance(key);
       const checkpointAfterReward = JSON.parse(readFileSync(saved, "utf8"));
       assert.equal(checkpointAfterReward.leads.find(({ id }) => id === commission)?.status, "turned-in");
       if (routeName === "kobold-king-reward") assert.ok(checkpointAfterReward.leads.some(({ id }) => id === "kobold-king-fell"));

@@ -4247,6 +4247,11 @@ same council portrait pause. Each selects its own installed illustration
 and falls back when that art is unavailable. The finale cue is tested
 separately from the ordinary reward variants.
 
+The `stojanow-gate-reward` Chrome replay on GOG 1.3 continues through
+the Council clerk's commission preface. It verifies the native dialogue,
+the full-panel illustration of the clerk sorting papers, and the return
+to exploration after the party dismisses the prompt.
+
 The Grand Historian's Records discovery at Mendor's Library uses its
 own illustration. Chrome ran the original search from a local Library
 checkpoint, confirmed the art cleared at Take It, and checked entry 21
