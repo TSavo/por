@@ -26,7 +26,7 @@ import { decodePicture, frameSlice, isPicture, pictureMembers } from "../src/lib
 import { contentBytes, readGameData, type PictureRecord, type PortGameData } from "../src/runtime/game-data.js";
 import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
 import {
-  areaViewCells, covered, HORIZON, namedTiles, reachable, readWorld, sha256, viewCells,
+  areaViewCells, covered, frontWallSymbols, HORIZON, namedTiles, reachable, readWorld, sha256, symbolTile, viewCells,
   type AreaScript, type Lower, type TileName, type ViewContext, type WallSlots, type WorldData,
 } from "./first-person-cells.js";
 import { encodePng, pngDimensions } from "./png.js";
@@ -166,6 +166,7 @@ interface AreaReport {
   existingKeys: number;
   existingKeysAccountedFor: number;
   existingKeysOnlyAsArrivalViews: number;
+  existingKeysOnlyAsWallMaterials?: number;
   unaccountedKeys: string[];
   cellsTheViewsCanShow: number;
   cellsWithArt: number;
@@ -182,6 +183,7 @@ interface Entry { cell: Cell; context: Context; views: number; squares: Set<numb
 function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
   const existing = new Map<number, Set<string>>();
   const drawnIn = new Map<string, number[]>(), sameAs = new Map<string, string>();
+  const tilesBySource = new Map(world.catalogue.tiles.flatMap(tile => tile.sources.map(source => [source, tile] as const)));
   for (const [key, { file }] of art) {
     const tile = /^tile:(\d{1,3}):([a-f0-9]{64})$/.exec(key);
     if (!tile) continue;
@@ -305,6 +307,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
 
   const items: Item[] = [];
   const reports: AreaReport[] = [];
+  const faceSize = world.tables.pieceColumns[6]! * world.tables.pieceRows[6]!;
   /** Tiles that show in some cell of some context, from any square. */
   const shownTiles = new Set<TileName>(), shownAlone = new Set<TileName>();
   const labels = [...new Set([...own.map((context) => context.label), ...existing.keys()])].sort((a, b) => a - b);
@@ -320,10 +323,20 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     if (!mine.length) { report.why = "the tool found no script and map that draw under this area number"; report.unaccountedKeys = [...have].map((hash) => `tile:${label}:${hash}`); continue; }
 
     const seen = new Map<string, Entry[]>();
+    const wallMaterials = new Set<string>();
     const walkable = new Map<Context, Set<number>>();
     for (const context of mine) {
       const { entries, stoodOn, map } = enumerate(context, have);
       for (const [hash, list] of entries) seen.set(hash, [...(seen.get(hash) ?? []), ...list]);
+      // WebGL samples the uncomposited foreground of each wall present on the map.
+      const wallContext = { world, script: context.script, slots: context.slots };
+      const types = new Set(map.walls);
+      frontWallSymbols(wallContext).forEach((symbol, index) => {
+        if (!types.has(Math.floor(index / faceSize) + 1)) return;
+        const source = symbolTile(wallContext, symbol);
+        const tile = source && tilesBySource.get(source);
+        if (tile && tile.transparentMask !== "ffffffffffffffff") wallMaterials.add(tile.hash);
+      });
       // Squares connected to ones stood on are taken as reachable, unless another area's script uses the
       // same map: there a door may lead into the other area, so only the squares stood on count.
       const shared = world.scripts.filter((script) => script.archive === context.script.archive && script.maps.some((known) => known.block === context.map)).length > 1;
@@ -335,13 +348,16 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     }
     const arrivalHashes = new Set<string>();
     for (const context of arrivals.filter((arrival) => arrival.label === label)) {
-      if ([...have].every((hash) => seen.has(hash) || arrivalHashes.has(hash))) break;
+      if ([...have].every((hash) => seen.has(hash) || wallMaterials.has(hash) || arrivalHashes.has(hash))) break;
       for (const hash of enumerate(context, have).entries.keys()) arrivalHashes.add(hash);
     }
     report.cellsTheViewsCanShow = seen.size;
     for (const hash of have) {
       if (seen.has(hash)) { report.existingKeysAccountedFor++; report.cellsWithArt++; }
-      else if (arrivalHashes.has(hash)) { report.existingKeysAccountedFor++; report.existingKeysOnlyAsArrivalViews++; }
+      else if (wallMaterials.has(hash)) {
+        report.existingKeysAccountedFor++;
+        report.existingKeysOnlyAsWallMaterials = (report.existingKeysOnlyAsWallMaterials ?? 0) + 1;
+      } else if (arrivalHashes.has(hash)) { report.existingKeysAccountedFor++; report.existingKeysOnlyAsArrivalViews++; }
       else report.unaccountedKeys.push(`tile:${label}:${hash}`);
     }
 
@@ -653,7 +669,11 @@ function document(list: Worklist): string {
     "| Area | Name | Reading confirmed | Cells its views can show | With art | To do | Your keys accounted for |",
     "| ---: | --- | --- | ---: | ---: | ---: | ---: |");
   for (const area of list.areas) {
-    add(`| ${area.area} | ${area.name} | ${area.established ? "yes" : "not yet"} | ${area.cellsTheViewsCanShow} | ${area.cellsWithArt} | ${area.established ? area.toDo : ""} | ${area.existingKeysAccountedFor} of ${area.existingKeys}${area.existingKeysOnlyAsArrivalViews ? ` (${area.existingKeysOnlyAsArrivalViews} as first views of the next area)` : ""} |`);
+    const extra = [
+      area.existingKeysOnlyAsArrivalViews && `${area.existingKeysOnlyAsArrivalViews} as first views of the next area`,
+      area.existingKeysOnlyAsWallMaterials && `${area.existingKeysOnlyAsWallMaterials} as WebGL wall materials`,
+    ].filter(Boolean).join(", ");
+    add(`| ${area.area} | ${area.name} | ${area.established ? "yes" : "not yet"} | ${area.cellsTheViewsCanShow} | ${area.cellsWithArt} | ${area.established ? area.toDo : ""} | ${area.existingKeysAccountedFor} of ${area.existingKeys}${extra ? ` (${extra})` : ""} |`);
   }
   add("", "\"Cells its views can show\" counts every cell from every square of the map under every sky the script can set, including squares that may be out of reach.",
     "A cell is listed to do only when it shows from a square connected to squares your existing art already covers, under a sky and ground colour your existing art of the area shows.", "",
