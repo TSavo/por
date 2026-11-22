@@ -14,7 +14,7 @@ import type { Cpu } from "../src/cpu/machine.js";
 import { currentObjective, isOpenObjective, kovelJournalTransition, trackedJournalObjective, type JournalLead } from "../src/runtime/adventure-log.js";
 import type { BiosKey } from "../src/runtime/dos.js";
 import { gameProgress } from "../src/runtime/far.js";
-import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
+import { journalFrame, screen, visibleGameText, visiblePanelFrame, type PanelFrameStamp } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 import { combatEffectFlightFamily, loadCombatEffects, combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
 import { loadCharacterSheetArt, loadPortraitArt, matchScriptIllustration } from "./portrait-art.js";
@@ -64,7 +64,7 @@ export interface PresentationAnimationFrame {
   statusMessage?: boolean;
 }
 type TilePlacement = [x: number, y: number, key: string];
-export type PanelFrameStamp = [x: number, y: number, kind: "rail-x" | "rail-y" | "stud"];
+export type { PanelFrameStamp } from "../src/runtime/video.js";
 export type TileInventoryCell = [x: number, y: number, key: string, indices: string];
 
 const panelStamps = {
@@ -669,7 +669,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         combatEffect: effect?.placement,
         battleTiles,
         battleTileInventory,
-        panelFrame: scene ? undefined : matchPanelFrame(screen),
+        panelFrame: scene ? undefined : standalone ? visiblePanelFrame() : matchPanelFrame(screen),
         tileInventory,
         textColors: enhancedPalette,
         codeWheelQuestion,

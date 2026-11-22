@@ -10,7 +10,7 @@ import { Cpu } from "../src/cpu/machine.js";
 import { openAutomap } from "./automap.js";
 import { attachDos, consoleText, dosLog, noon, timeOfDay, type BiosKey, type DosFile, type DosFileClosed } from "../src/runtime/dos.js";
 import { intrCounts } from "../src/runtime/intr.js";
-import { journalFrame, screen, videoSummary } from "../src/runtime/video.js";
+import { journalFrame, screen, stampPanelFrame, videoSummary, type PanelFrameStamp } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 import { findGameRoot, gameFiles as readGameFiles, isPortGameRoot, mountValjevoWallPieces, portGame, usePortPaths } from "./gamedata.js";
 import { currentObjective, journalInventoryLeads, observeAdventureLog, questProgress, type JournalLead } from "../src/runtime/adventure-log.js";
@@ -20,7 +20,7 @@ import { stagePregenParty } from "./pregen-party.js";
 import { isPartyFile, openSaveSlots, saveSlotLetter } from "./save-slots.js";
 import { callTrace, exeByImage, farCall, farCallObservers, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installImage, installProgram, loadedSlices } from "../src/runtime/overlay.js";
-import { behaviour, code, codeSegment, data, far, previousRandomSeed, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit, startupInput } from "../src/runtime/bindings.js";
+import { behaviour, code, codeSegment, data, far, previousRandomSeed, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit, panelFrameDraw, startupInput } from "../src/runtime/bindings.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 import { standaloneTrace } from "./standalone-trace.js";
@@ -92,14 +92,30 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const nativeBattleTerrain = input?.nativeBattleTerrain;
   const nativeSelection = input?.nativeSelection;
   const selectionReturn = code.combatSelectionDrawResumes;
+  const panelStamp = portProgram && input && process.env.POR_BROWSER_PLAY === "1" ? panelFrameDraw.stamp : undefined;
+  let pendingPanelStamp: { resume: number; x: number; y: number; kind: PanelFrameStamp[2] } | undefined;
   const codeWheel = input && process.env.POR_BROWSER_PLAY === "1" ? startupInput.codeWheel : undefined;
   if (capturePresentationDelay || capturePerspective || traceBattleDraw || captureBattleTerrain ||
-      codeWheel || nativeCombat || nativeSelection || nativeBattleTerrain || nativePicture || nativeEffects) {
+      codeWheel || nativeCombat || nativeSelection || nativeBattleTerrain || nativePicture || nativeEffects || panelStamp) {
     const tick = cpu.tick;
     const terrainDraws = new Set<string>();
     // Above the pause routine's return address sit its argument, its saved BP and its own return address.
     const deathReturnDepth = 8;
     cpu.tick = function (at) {
+      if (panelStamp && this.cs === panelStamp.callerSegment) {
+        if (pendingPanelStamp && at === pendingPanelStamp.resume) {
+          stampPanelFrame(pendingPanelStamp.x, pendingPanelStamp.y, pendingPanelStamp.kind);
+          pendingPanelStamp = undefined;
+        }
+        if (panelStamp.sites.includes(at)) {
+          // The five glyph arguments are on the stack just before the far call pushes its return address.
+          const arg = (displacement: number) => this.read16(this.ss, (this.sp + displacement) & 0xffff);
+          const kind = (["stud", "rail-y", "rail-x"] as const)[arg(4) - 0x114];
+          if (kind && (arg(0) & 0xff) === 0 && (arg(2) & 0xff) === 0) {
+            pendingPanelStamp = { resume: at + 5, x: arg(8) & 0xff, y: arg(6) & 0xff, kind };
+          }
+        }
+      }
       if (picturePresentation && at === picturePresentation.at && isAt(this, at, picturePresentation)) {
         nativePicture?.presented(this);
       }

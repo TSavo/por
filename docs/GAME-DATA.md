@@ -152,6 +152,12 @@ checks all four art variants and the defeat marker in both data modes.
 Standalone identifies the marker by its source pointer in the combat
 picture cache. Both effects clear after playback.
 
+For Enhanced panel borders, standalone observes the guest's frame glyph draws
+for the studs and horizontal and vertical rails from 8X8D1 block 202. Screen
+writes and video resets remove overwritten stamps. The original-file browser
+identifies the same glyphs in the EGA framebuffer. The Bane hay-bunk replay
+checks the illustrated room's frame and its replacement by the battle frame.
+
 In standalone mode, the PIC animation loader supplies the archive, block and
 member for each native picture allocation. The renderer resolves existing
 Enhanced portrait keys when the guest presents that member in the 88×88

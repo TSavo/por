@@ -362,6 +362,14 @@ export const code = resolve({
   codeWheelQuestionDrawn: { "1.0": { slice: 0x2, at: 0x116 }, "1.3": { slice: 0x2, at: 0x116 } },
 });
 
+/** Direct draws from the resident panel rectangle routine using 8X8D1 block 202. */
+export const panelFrameDraw = resolve({
+  stamp: {
+    "1.0": undefined,
+    "1.3": { callerSegment: 0x3f1, sites: [0x3f48, 0x3f62, 0x3f7c, 0x3f96, 0x3fc9, 0x3fe2, 0x401c, 0x4034] },
+  },
+});
+
 /** Version 1.3 passes the selected question into its native line input. */
 export const startupInput = resolve({
   codeWheel: {

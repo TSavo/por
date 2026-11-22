@@ -15,6 +15,19 @@ const glyphs = new Uint8Array(40 * 25);
 const attrs = new Uint8Array(40 * 25);
 const gameText = new Map<number, [number, number]>();
 
+export type PanelFrameStamp = [x: number, y: number, kind: "rail-x" | "rail-y" | "stud"];
+const panelFrame = new Map<number, PanelFrameStamp[2]>();
+
+export function stampPanelFrame(x: number, y: number, kind: PanelFrameStamp[2]): void {
+  if (x < 40 && y < 25) panelFrame.set(y * 40 + x, kind);
+}
+
+export function visiblePanelFrame(): PanelFrameStamp[] | undefined {
+  if (![...panelFrame.values()].includes("stud")) return;
+  return [...panelFrame].sort(([a], [b]) => a - b)
+    .map(([cell, kind]) => [(cell % 40) * 8, Math.floor(cell / 40) * 8, kind]);
+}
+
 /**
  * Observers of each character the game draws with its own font: the character code, its colour,
  * and whether the host captured it as text for the page to draw. They cannot change what is drawn.
@@ -39,6 +52,7 @@ let mapMask = 15;
 
 function resetPlanarVideo(): void {
   gameText.clear();
+  panelFrame.clear();
   for (const plane of planes) plane.fill(0);
   latches.fill(0);
   graphics.fill(0);
@@ -110,6 +124,7 @@ export function attachPlanarVideo(cpu: Cpu): void {
     }
     if (offset < 8000) {
       const cell = Math.floor(offset / 320) * 40 + offset % 40;
+      if (panelFrame.size) panelFrame.delete(cell);
       const glyphWrite = isAt(cpu, cpu.ip, code.glyphStoreA) || isAt(cpu, cpu.ip, code.glyphStoreB);
       const glyphRepeat = isAt(cpu, cpu.ip, code.glyphRepeatA) || isAt(cpu, cpu.ip, code.glyphRepeatB);
       if (glyphRepeat) {
@@ -205,6 +220,7 @@ function glyphRows(ch: number): string[] | null {
 
 function putPixel(x: number, y: number, color: number): void {
   if (x < 0 || y < 0 || x >= 320 || y >= 200) return;
+  if (panelFrame.size) panelFrame.delete((y >> 3) * 40 + (x >> 3));
   screen.pixels[y * 320 + x] = color & 0x0f;
 }
 

@@ -8932,6 +8932,10 @@ try {
     for (const [index, key] of inputs.entries()) {
       await advance(key);
       verifyCombatScope();
+      if (routeName === "bane-hay-bunk-raider-combat" && index === 0) {
+        assert.equal(frame.panelFrame?.length, 225);
+        assert.ok(frame.panelFrame.some(([x, y, kind]) => x === 16 && y === 16 && kind === "stud"));
+      }
       if (slumsOrc && index === 1) {
         assert.deepEqual(frame.encounter, slumsOrc);
         assert.deepEqual(frame.animation?.flatMap(({ encounter }) => encounter ? [encounter] : []), [slumsOrc]);
@@ -8992,6 +8996,21 @@ try {
     await waitFor("the ready combat sprite", () => run(standInAnimation ? "window.standLoaded" : `state.sequence === ${frame.sequence} &&
       [...document.querySelectorAll(".combat-sprite")].some(image => image.src.endsWith(${JSON.stringify(stand)}) &&
         image.naturalWidth === ${width} && image.naturalHeight === ${height})`));
+    if (routeName === "bane-hay-bunk-raider-combat") {
+      assert.equal(frame.panelFrame?.length, 143);
+      assert.deepEqual(frame.panelFrame.filter(([, , kind]) => kind === "stud"), [
+        [0, 0, "stud"], [176, 0, "stud"], [312, 0, "stud"],
+        [0, 176, "stud"], [176, 176, "stud"], [312, 176, "stud"],
+      ]);
+      await waitFor("the remapped battle frame and cleared room frame in Chrome", () => run(`(() => {
+        if (state.sequence !== ${frame.sequence} || animationFrame) return false;
+        const frame = document.querySelector(".panel-frame")?.getContext("2d");
+        return frame?.getImageData(720, 720, 1, 1).data[3] === 255 &&
+          frame.getImageData(80, 80, 1, 1).data[3] === 0;
+      })()`));
+      const battleFrame = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "bane-hay-bunk-panel-frame.png"), Buffer.from(battleFrame.data, "base64"));
+    }
     await switchBothWays();
     if (routeName === "new-phlan-rolf-tour") {
       async function verifyScriptedView() {
