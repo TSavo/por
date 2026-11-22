@@ -25,6 +25,8 @@ const portraitLoops = [
   // Two empty members restore the base. Native member 7 repeats member 3.
   ["portrait:area:21:ecl:ae31:caller:a613:PIC4.DAX:18:", [0, 1, 0, 3, 0, 5, 6, 3], "portrait:area:21:PIC4.DAX:18:0:0",
     /^(?!.*ABATTLEBEGINS).*THEINTERIORISOVERRUNWITHINSECTS/i, Array(8).fill(210), [[7, 7]]],
+  ["portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:", [0, 1, 0, 3, 0, 5, 6, 3], undefined,
+    /^(?!.*ABATTLEBEGINS).*SCORPIONSAPPROACHHUNGRILY/i, Array(8).fill(210), [[7, 7]]],
   ["portrait:area:21:ecl:a316:PIC4.DAX:17:", 3, "portrait:area:21:PIC4.DAX:17:0:0",
     /GHOSTLYSHAPESSCREECHOUTADREADFULKEENINGHOWL/i, [410, 910, 20]],
   ["portrait:area:21:ecl:ae31:caller:9977:PIC4.DAX:41:", ferryPoseOrder, "portrait:area:21:PIC4.DAX:41:0:0",
