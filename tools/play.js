@@ -540,7 +540,10 @@ function playAnimation(continues = false) {
     const now = performance.now();
     const next = typeof state.presentationPolling === "number" ? state.presentationPolling : frames.length;
     const perPicture = frames.length ? (now - (selfPlayingBatchAt ?? now)) / frames.length : 0;
-    const spread = frames.length ? Math.min(900, perPicture * next / frames.length) : 0;
+    // Poses cost the runner unevenly (each is drawn as many times as the original holds it), so a batch
+    // can take half as long again as the last one foretold: spreading by that much more keeps the
+    // pictures running into the next batch, at the cost of a slower animation, never a stop.
+    const spread = frames.length ? Math.min(900, 1.5 * perPicture * next / frames.length) : 0;
     selfPlayingBatchAt = state.presentationPolling ? now : undefined;
     frames = frames.map(frame => ({ ...frame, durationMs: Math.max(frame.durationMs ?? 120, spread) }));
   }
