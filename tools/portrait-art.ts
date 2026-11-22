@@ -1014,6 +1014,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:8:ecl:af78:caller:9a4a:cue:commissions-closed", "THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE"],
   ["scene-illustration:area:8:ecl:a559:caller:9db7:cue:cadorna-traitor-proclamation", "CADORNAISATRAITORTOTHECITY"],
   ["scene-illustration:area:8:ecl:b5c3:caller:a55d:cue:cadorna-traitor-proclamation", "CADORNAISATRAITORTOTHECITY"],
+  ["scene-illustration:area:8:ecl:ae95:caller:a891:cue:urslingen-referral", "LORDURSLINGENWISHESURGENTLYTOSPEAKWITHYOU"],
+  ["scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:urslingen-referral", "LORDURSLINGENWISHESURGENTLYTOSPEAKWITHYOU"],
   ...["ae1e:caller:a891", "b5c3:caller:a89e"].map(scope => [
     `scene-illustration:area:8:ecl:${scope}:cue:zhentil-packet-offer`,
     "WENEEDYOUTODELIVERAMESSAGETOTHEZHENTILKEEP",

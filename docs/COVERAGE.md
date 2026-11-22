@@ -4322,6 +4322,12 @@ The `council-bivant-offer` replay marks the lizardfolk commission
 fulfilled in a controlled slot. It checks the original rescue request,
 the new illustration of the missing heir, and the return to exploration
 on GOG 1.3.
+The **council-urslingen-referral** replay loads a Council checkpoint with the
+Zhentil dispatch already issued and Stojanow Gate still held by the enemy.
+It checks the original urgent instruction to go through the south door of
+Cadorna's old quarters, the separate clerk illustration, and the return to
+exploration.
+
 The **council-cadorna-traitor-proclamation** replay uses the same controlled
 Council save as the Zhentil dispatch. It verifies the clerk's accusation of
 Cadorna with its own illustration before the commission papers appear.

@@ -2685,6 +2685,20 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter"], prompt: /THECLERKSHUFFLESTHROUGHHERPAPERS/i,
       portrait: "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:commission-papers" },
   }],
+  ["council-urslingen-referral", {
+    slot: "A", inputs: [...councilClerkApproach, "enter", "enter", "enter", "enter"],
+    portraitStops: {
+      8: "scene-illustration:area:8:ecl:b5c3:caller:a55d:cue:cadorna-traitor-proclamation",
+      9: "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:commission-papers",
+      10: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:slums-commission-offer",
+      11: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:braccio-temple-referral",
+    },
+    portrait: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:urslingen-referral",
+    prompt: /URSLINGENWISHESURGENTLYTOSPEAKWITHYOU.*THESOUTHDOOROFTHETRAITORCADORNA'SOLDQUARTERS/i,
+    finalPhaseCapture: "council-urslingen-referral.png",
+    continuation: { inputs: ["enter"], prompt: /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i, clearsPortrait: true,
+      transientPortrait: "scene-illustration:area:8:ecl:af78:caller:a891:cue:commissions-closed" },
+  }],
   ["council-zhentil-packet", {
     slot: "A", inputs: [...councilClerkApproach, "enter", "enter", "enter", "enter"],
     portraitStops: {
@@ -10479,7 +10493,7 @@ try {
       if (["council-records-offer", "council-podal-offer", "council-cadorna-referral", "council-braccio-referral",
         "council-kovel-offer", "council-nomad-offer", "council-kobold-offer", "council-river-offer",
         "council-lizardfolk-offer", "council-bivant-offer", "council-cadorna-south-referral",
-        "council-zhentil-packet", "stojanow-merchant-gate",
+        "council-zhentil-packet", "council-urslingen-referral", "stojanow-merchant-gate",
         "stojanow-toll-refused", "stojanow-tower-arrow-volley",
         "stojanow-trader-no-money", "wild-grove-western-stench"].includes(routeName)) {
         assert.ok(!frame.classicPortrait);
