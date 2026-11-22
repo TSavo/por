@@ -85,10 +85,12 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
   const captureBattleTerrain = input?.captureBattleTerrain;
   const nativeCombat = input?.nativeCombat;
+  const nativeBattleTerrain = input?.nativeBattleTerrain;
   const nativeSelection = input?.nativeSelection;
   const selectionReturn = code.combatSelectionDrawResumes;
   const codeWheel = input && process.env.POR_BROWSER_PLAY === "1" ? startupInput.codeWheel : undefined;
-  if (capturePresentationDelay || capturePerspective || traceBattleDraw || captureBattleTerrain || codeWheel || nativeCombat || nativeSelection) {
+  if (capturePresentationDelay || capturePerspective || traceBattleDraw || captureBattleTerrain ||
+      codeWheel || nativeCombat || nativeSelection || nativeBattleTerrain) {
     const tick = cpu.tick;
     const terrainDraws = new Set<string>();
     // Above the pause routine's return address sit its argument, its saved BP and its own return address.
@@ -107,6 +109,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       }
       if (nativeSelection && selectionReturn && this.steps >= liveStep && isAt(this, at, code.combatPictureDraw) &&
           returnsTo(this, 0, selectionReturn)) nativeSelection.draw(this);
+      if (nativeBattleTerrain && isAt(this, at, code.battleTerrainSheetCopied)) nativeBattleTerrain.copySheet(this);
       // The first-person draw has finished writing the viewport.
       if (capturePerspective && isAt(this, at, code.viewportDrawn)) {
         capturePerspective(this, returnsTo(this, 0, code.localSceneryResumes));
@@ -133,14 +136,16 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       // Some approach sequences refresh several native distances between inputs.
       if (captureEncounterDraw && isAt(this, at, code.encounterDrawn) && this.steps >= liveStep) captureEncounterDraw(this);
       // The terrain routine writes to the guest's offscreen EGA surface.
-      if ((captureBattleTerrain || nativeCombat || nativeSelection) && isAt(this, at, code.terrainDrawn) &&
+      if ((captureBattleTerrain || nativeCombat || nativeSelection || nativeBattleTerrain) && isAt(this, at, code.terrainDrawn) &&
           this.steps >= liveStep && this.read8(this.ds, data.offscreenDraw) === 1) {
         const column = this.read8(this.ss, (this.sp + 10) & 0xffff);
         const row = this.read8(this.ss, (this.sp + 8) & 0xffff);
+        const picture = this.read8(this.ss, (this.sp + 6) & 0xffff);
         nativeCombat?.overwriteTile(column, row);
         nativeSelection?.overwriteTile(column, row);
+        nativeBattleTerrain?.draw(column, row, picture);
         if (captureBattleTerrain && this.read8(this.ss, (this.sp + 4) & 0xffff) === 1) {
-          captureBattleTerrain(this, column, row, this.read8(this.ss, (this.sp + 6) & 0xffff));
+          captureBattleTerrain(this, column, row, picture);
         }
       }
       // The far entry draws a frame from one of the two SQRPACI blocks.
@@ -246,7 +251,7 @@ if (process.env.POR_BROWSER_PLAY === "1") narrationLedger?.open();
 const input = liveAt === undefined ? undefined : liveInput(liveStep, () => {
   const known = journal();
   return [...known, ...journalInventoryLeads(cpu, known, unit.data)];
-}, recording, automap, Boolean(portProgram));
+}, recording, automap, Boolean(portProgram), portProgram ? portGame(root).data.pictures : undefined);
 const saves = input && openSaveSlots(process.env.POR_SAVE_DIR ??
   join("out", "saves", createHash("sha256").update(realpathSync(root)).digest("hex").slice(0, 16)));
 const rosterClosed: DosFileClosed = (name, data, written) => { if (written) saves?.saveRoster(name, data); };
@@ -386,6 +391,7 @@ if (input && process.env.POR_BROWSER_PLAY === "1") {
     if (isAt(cpu, cpu.ip, code.battleBegins) && isFar(segment, offset, far.clearText)) {
       input.nativeCombat?.reset();
       input.nativeSelection?.reset();
+      input.nativeBattleTerrain?.reset();
       const mode = cpu.read8(cpu.ds, data.soundMode);
       if (mode !== 0 || !behaviour.startsBattleMusicOnTandy) console.log(`POR_SOUND ${JSON.stringify({ index: 14, mode, step: cpu.steps, enhancedOnly: true })}`);
     }

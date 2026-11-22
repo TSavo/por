@@ -122,6 +122,14 @@ bytes that shape needs), and 59 `battle-tile:` artwork keys are the hash of an 8
 DUNGCOM frame, which only pixels can give. A fight in the Slums played from `game/`, where these
 records are blank, draws the same dice as from the 1.3 files.
 
+Standalone Enhanced battlefields track the guest's replacement sheets in
+the SQRPACI cache and place existing tile art from their packaged hashes.
+GOG 1.3 Chrome comparisons verified wall placement and redraw order in
+the Kobold Envoy and Bane hay-bunk fights. All nonblank DUNGCOM cells have
+tile mappings. RANDCOM has partial cell coverage. WILDCOM and untouched
+SQRPACI cells still need Enhanced tile mappings. DUNGCOM frame 22 is
+blank in the original battlefields.
+
 The standalone browser resolves Enhanced monster sprites from the native
 CPIC load and draw calls. The loader identifies each slot's archive and
 ready block. The draw call supplies the pose, position, facing, and

@@ -3,6 +3,8 @@ import { join } from "node:path";
 import { captureNativeExploration, type NativeExploration } from "./native-exploration.js";
 import { observeNativeCombatArt } from "./native-combat-art.js";
 import { nativeSelectionKey, observeNativeCombatSelection } from "./native-combat-selection.js";
+import { observeNativeBattleTerrain } from "./native-battle-terrain.js";
+import type { PictureRecord } from "../src/runtime/game-data.js";
 import { captureOverlandTravel, identifyPhlanPrompt, identifySokalPrompt, isQuayDialogue, isSokalBoatHandoff,
   type SokalQuay, type TravelState } from "./overland-travel.js";
 import { createHash } from "node:crypto";
@@ -166,7 +168,7 @@ function menuTimeLimit(cpu: Cpu): boolean {
 
 /** Terminal control for the translated runner. Journal input stays on the host. */
 export function liveInput(startAt: number, journal: () => JournalLead[], recording?: string, automap?: Automap,
-  standalone = false) {
+  standalone = false, pictures?: readonly PictureRecord[]) {
   let nextPrompt = startAt;
   let trackedId: string | undefined;
   let scene: string | undefined;
@@ -239,6 +241,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let scriptVariables: Record<string, number> | undefined;
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
   const battleTileKeys = new Set((process.env.POR_BATTLE_TILE_KEYS ?? "").split(",").filter(Boolean));
+  const nativeBattleTerrain = browser && pictures && battleTileKeys.size
+    ? observeNativeBattleTerrain(pictures, battleTileKeys) : undefined;
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
   const battleTerrain = browser && (battleTileKeys.size || traceBattleDraw) ? new Frame(screen.width, screen.height) : undefined;
   const tracedBattleTerrain = new Set<string>();
@@ -554,9 +558,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           }
         }
       }
-      const battleTiles: TilePlacement[] = [];
+      const battleTiles: TilePlacement[] = !scene && battlefield ? nativeBattleTerrain?.placements() ?? [] : [];
       const battleTileInventory: TileInventoryCell[] | undefined = traceBattleTiles && !attack ? [] : undefined;
-      if ((battleTileKeys.size || battleTileInventory) && !scene && battlefield) {
+      if (((!nativeBattleTerrain && battleTileKeys.size) || battleTileInventory) && !scene && battlefield) {
         const pixels = Buffer.alloc(64);
         const selectedActors = battleTileInventory ? combat.filter(([, , , , highlighted]) => highlighted) : [];
         const selectionCells = new Set<number>();
@@ -594,7 +598,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
               x < left + width && x + 8 > left && y < top + height && y + 8 > top)) {
               battleTileInventory.push([x, y, key, pixels.toString("hex")]);
             }
-            if (battleTileKeys.has(key)) battleTiles.push([x, y, key]);
+            if (!nativeBattleTerrain && battleTileKeys.has(key)) battleTiles.push([x, y, key]);
           }
         }
       }
@@ -948,6 +952,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     } : undefined,
     nativeCombat,
     nativeSelection,
+    nativeBattleTerrain,
     captureBattleTerrain: battleTerrain ? (cpu: Cpu, column: number, row: number, picture: number) => {
       if (column > 18 || row > 18 || column % 3 || row % 3) return;
       const x = 8 + column * 8;
