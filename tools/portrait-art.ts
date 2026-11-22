@@ -392,6 +392,8 @@ export function usesPortraitDelta(key: string) {
 
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
 export const scriptIllustrations = new Map<string, string | RegExp>([
+  ["scene-illustration:area:23:ecl:a33a:cue:research-notebook", "YOUFINDANOTEBOOK.ATYPICALENTRYREADS"],
+  ["scene-illustration:area:23:ecl:a344:cue:research-notebook", "YOUFINDANOTEBOOK.ATYPICALENTRYREADS"],
   ["scene-illustration:area:23:ecl:a469:cue:password-sign", "SIXDWARVISHRUNES"],
   ["scene-illustration:area:23:ecl:9a04:caller:a479:cue:password-sign", "SIXDWARVISHRUNES"],
   ["scene-illustration:area:23:ecl:a4a0:cue:password-entry", "YOUQUICKLYTRANSLATETHEMANDSAY"],
