@@ -5188,6 +5188,7 @@
     "combat:area:27:CPIC8.DAX:73": "wild-cave-gnoll-stand.png",
     "combat:area:27:CPIC8.DAX:201": "wild-cave-gnoll-strike.png",
     "portrait:PIC4.DAX:72:0:0": "valhingen-ghoul-ambush.png",
+    "scene-illustration:area:10:ecl:b3de": "valhingen-ghoul-ambush-attack.png",
     "tile:0:8737539068992377d622a86a6ab259387e19fc5a846d63a4b75effc2a06fae8c": "new-phlan-harbor-paving-joins-0-873753906899.png",
     "tile:0:f4869b3d1f02f79ce7120b1c9055fa9a11e07c1eca7c209525c7d6731fdc53f8": "new-phlan-building-paving-joins-0-f4869b3d1f02.png",
     "tile:0:c9fef07a3a27e1df3aa7274c13835fc6346adacf4e92322f51f648ff0c88809b": "new-phlan-street-paving-joins-0-c9fef07a3a27.png",

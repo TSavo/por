@@ -749,6 +749,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:9:ecl:a7a2:cue:bugbear-alarm", "ANALARMSTARTSRINGING"],
   ["scene-illustration:area:9:ecl:a7a3:cue:bugbear-alarm", "ANALARMSTARTSRINGING"],
   ["scene-illustration:area:10:ecl:b6c6:caller:b353", "YOUFINDTHEVAMPIRE'STREASURETROVE"],
+  ["scene-illustration:area:10:ecl:b3de", "APACKOFHUNGRYGHOULSLOPESTOWARDYOU"],
   ["scene-illustration:area:10:ecl:b373:cue:vampire-treasure", "VIEWTAKEPOOLSHAREEXIT"],
   ["scene-illustration:area:10:ecl:9e95", "YOUFINDAMARBLECHEST.OPENIT?"],
   ["scene-illustration:area:10:ecl:b6c6:caller:9e99", "YOUFINDAMARBLECHEST.OPENIT?"],

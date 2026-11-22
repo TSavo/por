@@ -4002,6 +4002,11 @@ const illustrationRoutes = new Map([
   ["valhingen-ghoul-ambush", {
     slot: "A", inputs: ["e", "enter", "r", "y", ...Array(10).fill("i"), "r", "enter", "enter"],
     portrait: "portrait:PIC4.DAX:72:0:0", prompt: /APACKOFHUNGRYGHOULSLOPESTOWARDYOU/i,
+    continuation: {
+      inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:b3de",
+      prompt: /APACKOFHUNGRYGHOULSLOPESTOWARDYOU.*ABATTLEBEGINS/i,
+      screenshot: "valhingen-ghoul-ambush-attack.png",
+    },
   }],
   ["valhingen-shadow-beyond-brass-doors", {
     slot: "A", inputs: ["left", "up", "up", "left", "up", "enter"],
