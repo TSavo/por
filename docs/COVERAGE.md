@@ -4311,6 +4311,10 @@ the original return to exploration on GOG 1.3.
 The `council-kobold-offer` replay uses the same controlled slot with the
 Nomad work fulfilled. It checks the next Council warning, the picture
 of a recruiter addressing the tribe, and the return to exploration.
+The `council-river-offer` Chrome replay marks the Kobold commission
+fulfilled and checks the briefing to find the source of the Stojonow
+River's pollution. The illustration shows the contaminated water while
+leaving its source to be discovered in the game.
 
 The `stojanow-gate-reward` Chrome replay on GOG 1.3 checks the Council
 clerk's artwork as she checks for a reward, sorts the remaining
