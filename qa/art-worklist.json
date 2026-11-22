@@ -2,34 +2,34 @@
  "schema": 2,
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
- "remaining": 2141,
+ "remaining": 2252,
  "totals": {
-  "Remaining, all kinds": 2141,
-  "First-person cells to do": 2141,
-  "  of which one stored tile": 441,
-  "  of which one tile over a solid colour": 232,
+  "Remaining, all kinds": 2252,
+  "First-person cells to do": 2252,
+  "  of which one stored tile": 446,
+  "  of which one tile over a solid colour": 252,
   "  of which plain sky or ground": 0,
-  "  of which several tiles together": 1468,
-  "  of which the same pixels already have art of yours in another area": 779,
+  "  of which several tiles together": 1554,
+  "  of which the same pixels already have art of yours in another area": 841,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 4160,
-  "  accounted for by the tool": 4010,
+  "Tile keys in the manifests": 4199,
+  "  accounted for by the tool": 4049,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
   "  blank": 9,
   "  distinct pictures among the rest": 1333,
-  "  with art in some area, alone or over a solid colour": 2360,
-  "  without (the catalogue's 720 when it was written)": 647,
+  "  with art in some area, alone or over a solid colour": 2370,
+  "  without (the catalogue's 720 when it was written)": 637,
   "    of those, no map can show": 428,
   "    of those, shown only together with other tiles, never alone": 7,
-  "    of those, shown alone in some area": 212
+  "    of those, shown alone in some area": 202
  },
  "notEstablished": {
-  "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4060,
+  "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4259,
   "first-person cells of the overhead area view, which no existing artwork of the area confirms": 152,
   "first-person cells of an area whose reading is not confirmed": 1530,
-  "first-person cells seen only from squares not connected to any square the existing artwork was made from": 717,
+  "first-person cells seen only from squares not connected to any square the existing artwork was made from": 375,
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
   "battlefield cells of pictures no artwork shows to have been on a battlefield": 2207,
   "battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain)": "not counted: needs the game's battlefield builder read",
@@ -541,7 +541,7 @@
    "area": 16,
    "name": "The Lizardman Keep",
    "established": true,
-   "why": "all 169 cells that have artwork are among the cells the tool works out",
+   "why": "all 196 cells that have artwork are among the cells the tool works out",
    "maps": [
     16,
     30
@@ -550,18 +550,18 @@
     "WALLDEF8 block 9 (tiles 8X8D8 block 9), block 20 (tiles 8X8D8 block 20), block 23 (tiles 8X8D8 block 23)",
     "WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)"
    ],
-   "existingKeys": 169,
-   "existingKeysAccountedFor": 169,
+   "existingKeys": 196,
+   "existingKeysAccountedFor": 196,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 856,
-   "cellsWithArt": 160,
-   "toDo": 103,
+   "cellsWithArt": 182,
+   "toDo": 205,
    "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 319,
-    "cells seen only from squares not connected to any square the existing artwork was made from": 274
+    "cells that show a sky or ground colour no existing artwork of the area shows": 465,
+    "cells seen only from squares not connected to any square the existing artwork was made from": 4
    },
-   "existingKeysOnlyAsWallMaterials": 9
+   "existingKeysOnlyAsWallMaterials": 14
   },
   {
    "area": 17,
@@ -829,7 +829,7 @@
    "area": 29,
    "name": "Kuto's Well",
    "established": true,
-   "why": "all 316 cells that have artwork are among the cells the tool works out",
+   "why": "all 328 cells that have artwork are among the cells the tool works out",
    "maps": [
     29,
     32
@@ -838,19 +838,19 @@
     "WALLDEF8 block 3 (tiles 8X8D8 block 3), block 20 (tiles 8X8D8 block 20), block 1 (tiles 8X8D8 block 1)",
     "WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)"
    ],
-   "existingKeys": 316,
-   "existingKeysAccountedFor": 316,
+   "existingKeys": 328,
+   "existingKeysAccountedFor": 328,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 1241,
-   "cellsWithArt": 305,
-   "toDo": 428,
+   "cellsWithArt": 315,
+   "toDo": 437,
    "notEstablished": {
-    "cells that show a sky or ground colour no existing artwork of the area shows": 408,
+    "cells that show a sky or ground colour no existing artwork of the area shows": 461,
     "cells of the overhead area view, which no existing artwork of the area confirms": 19,
-    "cells seen only from squares not connected to any square the existing artwork was made from": 81
+    "cells seen only from squares not connected to any square the existing artwork was made from": 9
    },
-   "existingKeysOnlyAsWallMaterials": 11
+   "existingKeysOnlyAsWallMaterials": 13
   },
   {
    "area": 31,
@@ -33169,6 +33169,29 @@
   },
   {
    "kind": "first-person cell",
+   "key": "tile:16:79f10a451d41cdb7f5f72757c36094300c7dcb298ee8adea8d79a034bc93259e",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "shared tile set 8X8D1 block 203",
+   "what": "several tiles together",
+   "composition": "h11.15.7.6|8X8D1.DAX:203:1",
+   "description": "8X8D1 block 203 tile 1 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6), shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 8,
+    "y": 0,
+    "facing": "south",
+    "column": 0,
+    "row": 5
+   },
+   "views": 11,
+   "drawnIn": [],
+   "why": "drawn in 11 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
    "key": "tile:16:bbce287c6ee78ffeb335f96aa0495fd20d9f1188892a017452b2592b0bf1f997",
    "width": 32,
    "height": 32,
@@ -33719,12 +33742,12 @@
     "column": 10,
     "row": 2
    },
-   "views": 2,
+   "views": 3,
    "drawnIn": [
     9
    ],
    "sameAs": "stojanow-upper-gate-terrain-9a4ac03bffe8.png",
-   "why": "drawn in 2 views of map 16 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 20 (tiles 8X8D8 block 20), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 3 views of map 16 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 20 (tiles 8X8D8 block 20), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -33821,12 +33844,12 @@
     "column": 0,
     "row": 2
    },
-   "views": 2,
+   "views": 3,
    "drawnIn": [
     9
    ],
    "sameAs": "stojanow-west-rampart-terrain-abf4a264e674.png",
-   "why": "drawn in 2 views of map 16 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 20 (tiles 8X8D8 block 20), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 3 views of map 16 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 20 (tiles 8X8D8 block 20), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -33847,12 +33870,12 @@
     "column": 3,
     "row": 4
    },
-   "views": 5,
+   "views": 6,
    "drawnIn": [
     9
    ],
    "sameAs": "stojanow-west-rampart-terrain-b38bb090ffc6.png",
-   "why": "drawn in 5 views of map 16 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 20 (tiles 8X8D8 block 20), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 6 views of map 16 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 20 (tiles 8X8D8 block 20), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -34040,6 +34063,2484 @@
    ],
    "sameAs": "stojanow-tower-lanes-terrain-fd5111f010b1.png",
    "why": "drawn in 4 views of map 16 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 20 (tiles 8X8D8 block 20), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:0117291b71193cfdb0364507184c25d468b9eac43b7d68a5e3a87aab78cff103",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:33,8X8D8.DAX:17:14",
+   "description": "8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 33, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 1,
+    "facing": "south",
+    "column": 1,
+    "row": 6
+   },
+   "views": 12,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-escort-rib-end.png",
+   "why": "drawn in 12 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:01a60dfea8fac365c1ea014064cbf2b1b38da1bc8a6866c5ec275a19839c51dc",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "g6|8X8D8.DAX:17:41",
+   "description": "8X8D8 block 17 tile 41 over the ground colour 6, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 1,
+    "facing": "east",
+    "column": 10,
+    "row": 7
+   },
+   "views": 13,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-escort-floor-inset-east.png",
+   "why": "drawn in 13 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:04a5f8a88df073af060bcd31139f0ec52dc5c0d221c1743aa3db2df8de5f4919",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:17,8X8D8.DAX:17:16",
+   "description": "8X8D8 block 17 tile 16 over 8X8D8 block 17 tile 17, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 9,
+    "y": 4,
+    "facing": "north",
+    "column": 0,
+    "row": 2
+   },
+   "views": 6,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-south-loop-terrain-04a5f8a88df0.png",
+   "why": "drawn in 6 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:0800ea58a6066c1e883fcc3e57d75b77e2a7b9bb57a35284e716763ac63b924d",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "g6|8X8D8.DAX:17:43",
+   "description": "8X8D8 block 17 tile 43 over the ground colour 6, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 14,
+    "y": 1,
+    "facing": "west",
+    "column": 8,
+    "row": 8
+   },
+   "views": 31,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-escort-floor-rib-return.png",
+   "why": "drawn in 31 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:0d3e568fb2163918ecf6326d8d70eb5df743f25ab6db29e8253ef3b23fc25fc9",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:32,8X8D8.DAX:17:14",
+   "description": "8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 32, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 5,
+    "y": 6,
+    "facing": "north",
+    "column": 9,
+    "row": 6
+   },
+   "views": 2,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-return-far-floor-join.png",
+   "why": "drawn in 2 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:0dd1ae7bf511694e0c52fa3f1ec5f18df62709224d5dc013272ae431abf0f289",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "s11|8X8D8.DAX:17:67,8X8D8.DAX:17:7",
+   "description": "8X8D8 block 17 tile 7 over 8X8D8 block 17 tile 67 over sky colour 11, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 3,
+    "facing": "east",
+    "column": 3,
+    "row": 4
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:0e73b6c23972aec306a67d3db48c5fa02483ce482cac7c5cc62c80c9f0f69ab5",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:30,8X8D8.DAX:17:7",
+   "description": "8X8D8 block 17 tile 7 over 8X8D8 block 17 tile 30, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 8,
+    "y": 5,
+    "facing": "north",
+    "column": 8,
+    "row": 6
+   },
+   "views": 3,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-return-inner-rib-foot.png",
+   "why": "drawn in 3 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:0fe2248bf92bca927be490c4a509808d89c899691ef5c820f7a10bcf64b81346",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:17,8X8D8.DAX:17:14",
+   "description": "8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 17, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 3,
+    "y": 2,
+    "facing": "south",
+    "column": 9,
+    "row": 3
+   },
+   "views": 6,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-south-loop-terrain-0fe2248bf92b.png",
+   "why": "drawn in 6 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:147435d63e84181798e0e6d15a8df3f8431d4b9418443cde8304f4029d9e40ed",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:23:20,8X8D8.DAX:17:18",
+   "description": "8X8D8 block 17 tile 18 over 8X8D8 block 23 tile 20, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 3,
+    "y": 3,
+    "facing": "north",
+    "column": 1,
+    "row": 6
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:14d354c6a3f14f18b4535b024ca84fbea91764bed81262f83cdbaab8d4f308f0",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:28,8X8D8.DAX:17:14",
+   "description": "8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 28, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 2,
+    "facing": "east",
+    "column": 9,
+    "row": 8
+   },
+   "views": 11,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-pool-spur-terrain-14d354c6a3f1.png",
+   "why": "drawn in 11 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:1753dce0841ba4f89faf8d8829826dbfc27a39edd34525647eecbf7990912927",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "s11|8X8D8.DAX:17:67,8X8D8.DAX:17:14",
+   "description": "8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 67 over sky colour 11, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 3,
+    "facing": "north",
+    "column": 9,
+    "row": 4
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:1859274033985102470e1249f099fef6dd0e2c2398b3e1f3b0cf030727f962b4",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:29,8X8D8.DAX:17:58",
+   "description": "8X8D8 block 17 tile 58 over 8X8D8 block 17 tile 29, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 4,
+    "y": 2,
+    "facing": "west",
+    "column": 4,
+    "row": 5
+   },
+   "views": 5,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-caves-terrain-185927403398.png",
+   "why": "drawn in 5 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:1d5e729c23d88554c77209bbbcb52c46e789e13696353dd01dcae98cf6435d8c",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "h11.15.7.6|8X8D1.DAX:203:1,8X8D8.DAX:17:14",
+   "description": "8X8D8 block 17 tile 14 over 8X8D1 block 203 tile 1 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6), shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 0,
+    "y": 4,
+    "facing": "north",
+    "column": 10,
+    "row": 5
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:258658fce1fff47650816643fb158e3d336ff80f9a3b571ac41f6b2349a3ee48",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "s11|8X8D8.DAX:17:14",
+   "description": "8X8D8 block 17 tile 14 over sky colour 11, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 3,
+    "facing": "north",
+    "column": 9,
+    "row": 3
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:268c60bb531e3f161b603c7f9d9c5d363b1ffae3ac6b3ac9153755994391095f",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "h11.15.7.6|8X8D8.DAX:17:18",
+   "description": "8X8D8 block 17 tile 18 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6), shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 0,
+    "y": 1,
+    "facing": "south",
+    "column": 0,
+    "row": 5
+   },
+   "views": 2,
+   "drawnIn": [],
+   "why": "drawn in 2 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:3122eabc010c7bbfaf5ca6691cfc49cf064c86c8e4567e01b9620ed7d8249382",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "g6|8X8D8.DAX:17:18",
+   "description": "8X8D8 block 17 tile 18 over the ground colour 6, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 0,
+    "y": 1,
+    "facing": "south",
+    "column": 0,
+    "row": 6
+   },
+   "views": 44,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-return-edge-foot.png",
+   "why": "drawn in 44 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:34653d0854f43f4416ce6c818c183ade3143c551f10f14f4cb4151a7fa962cee",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:2,8X8D8.DAX:17:16",
+   "description": "8X8D8 block 17 tile 16 over 8X8D8 block 17 tile 2, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 2,
+    "facing": "west",
+    "column": 0,
+    "row": 2
+   },
+   "views": 3,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-west-gallery-terrain-34653d0854f4.png",
+   "why": "drawn in 3 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:34ed26aafef210f1b996b53c377ea963355e37cf97e759f016295372d69419fb",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:47,8X8D8.DAX:17:8",
+   "description": "8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 47, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 1,
+    "facing": "east",
+    "column": 10,
+    "row": 4
+   },
+   "views": 9,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-escort-rib-left-upper.png",
+   "why": "drawn in 9 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:3d4b40ddeb8af9963ad9c349eb9a5afed54abe3b219c6e48b43ed21fac3afc1a",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one stored tile",
+   "composition": "-|8X8D8.DAX:17:57",
+   "description": "8X8D8 block 17 tile 57, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 13,
+    "y": 1,
+    "facing": "west",
+    "column": 10,
+    "row": 9
+   },
+   "views": 6,
+   "drawnIn": [],
+   "why": "drawn in 6 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:3d50c00ab8fecfed3d90ff96c851bd86cbe3d21673449efc3a6c007b61b61fb0",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:36,8X8D8.DAX:17:16,8X8D8.DAX:17:16",
+   "description": "8X8D8 block 17 tile 16 over 8X8D8 block 17 tile 16 over 8X8D8 block 17 tile 36, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 8,
+    "y": 10,
+    "facing": "east",
+    "column": 7,
+    "row": 3
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:40c2f4c05764725d651ce2d18a31119dc093d840599c18f916a7112797c3c260",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:0,8X8D8.DAX:17:8",
+   "description": "8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 0, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 3,
+    "facing": "east",
+    "column": 2,
+    "row": 4
+   },
+   "views": 2,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-return-outer-rib-mid.png",
+   "why": "drawn in 2 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:414b4a63bb6ca1989f22a4f5c5f69e289a0a94229235919eab50e7eeb4d0fba9",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "g6|8X8D8.DAX:17:50",
+   "description": "8X8D8 block 17 tile 50 over the ground colour 6, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 4,
+    "y": 1,
+    "facing": "west",
+    "column": 1,
+    "row": 6
+   },
+   "views": 8,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-silt-joins-414b4a63bb6c.png",
+   "why": "drawn in 8 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:41dea904bf1f7df40b00b2a1f22e3d64be4e9deef1eacb667771432b80d92497",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:47,8X8D8.DAX:17:16,8X8D8.DAX:17:16",
+   "description": "8X8D8 block 17 tile 16 over 8X8D8 block 17 tile 16 over 8X8D8 block 17 tile 47, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 8,
+    "y": 4,
+    "facing": "east",
+    "column": 3,
+    "row": 3
+   },
+   "views": 6,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-pool-passage-terrain-41dea904bf1f.png",
+   "why": "drawn in 6 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:4265f90431329d71e0ac99e66c9e3e2da7572e345139af65732e654e0cf316ca",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:1,8X8D8.DAX:17:7",
+   "description": "8X8D8 block 17 tile 7 over 8X8D8 block 17 tile 1, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 2,
+    "facing": "east",
+    "column": 8,
+    "row": 3
+   },
+   "views": 4,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-escort-rib-right-crown.png",
+   "why": "drawn in 4 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:4904837be10d035aade38224813dd8b21d6b452097656994981b9146cc9d4bdb",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one stored tile",
+   "composition": "-|8X8D8.DAX:17:56",
+   "description": "8X8D8 block 17 tile 56, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 13,
+    "y": 1,
+    "facing": "east",
+    "column": 0,
+    "row": 9
+   },
+   "views": 6,
+   "drawnIn": [],
+   "why": "drawn in 6 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:4a17e8fa31dbf667601fa08c8fe8249a9d8cd4acd7065c63e19b323c95011eea",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "h11.15.7.6|8X8D8.DAX:17:4",
+   "description": "8X8D8 block 17 tile 4 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6), shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 12,
+    "y": 1,
+    "facing": "east",
+    "column": 2,
+    "row": 5
+   },
+   "views": 8,
+   "drawnIn": [],
+   "why": "drawn in 8 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:4a2fa38c70e4304e02feb6631a514da2cd87af42ed5cd7759652a6a573580fa1",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:19,8X8D8.DAX:17:5",
+   "description": "8X8D8 block 17 tile 5 over 8X8D8 block 17 tile 19, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 3,
+    "y": 6,
+    "facing": "north",
+    "column": 9,
+    "row": 5
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:4b01f851d279b7a5d7228c68254bd3729179a9dce07a5ca2ed9462de014e3497",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:29,8X8D8.DAX:17:8",
+   "description": "8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 29, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 1,
+    "facing": "east",
+    "column": 10,
+    "row": 5
+   },
+   "views": 9,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-escort-rib-left-shaft.png",
+   "why": "drawn in 9 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:4df0f4402919582202cd1f1d1417985e4aaa8433ec86ae11d2dbc4ab3b412ac2",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:19,8X8D8.DAX:17:18",
+   "description": "8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 19, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 2,
+    "facing": "south",
+    "column": 1,
+    "row": 5
+   },
+   "views": 12,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-west-gallery-terrain-4df0f4402919.png",
+   "why": "drawn in 12 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:4ee02821c898575f957239991b32aa0d6bd3d46038790165a09dc9f5425ae654",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "h11.15.7.6|8X8D8.DAX:17:45",
+   "description": "8X8D8 block 17 tile 45 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6), shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 14,
+    "y": 3,
+    "facing": "north",
+    "column": 3,
+    "row": 5
+   },
+   "views": 3,
+   "drawnIn": [],
+   "why": "drawn in 3 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:526f124a5cbb7de82cb6aae1adb6f3e439dc28142f3fbea2f0a33a7ea974437e",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:19,8X8D8.DAX:17:8",
+   "description": "8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 19, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 3,
+    "y": 2,
+    "facing": "west",
+    "column": 2,
+    "row": 5
+   },
+   "views": 4,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-cave-exit-west-meeting-joint.png",
+   "why": "drawn in 4 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:58e2df47c41000a23ceb290895df77049fb54735e6891f6bd158ec718cb11917",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:34,8X8D8.DAX:17:14",
+   "description": "8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 34, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 3,
+    "y": 2,
+    "facing": "south",
+    "column": 9,
+    "row": 6
+   },
+   "views": 4,
+   "drawnIn": [],
+   "why": "drawn in 4 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:5c5ff46751ec31ddaa4b4c3baf0ec7326884e1f5b9bc8d173fd62d9dc5c1b996",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one stored tile",
+   "composition": "-|8X8D8.DAX:17:11",
+   "description": "8X8D8 block 17 tile 11, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 12,
+    "y": 1,
+    "facing": "east",
+    "column": 3,
+    "row": 7
+   },
+   "views": 6,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-silt-joins-5c5ff46751ec.png",
+   "why": "drawn in 6 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:5d0f245e35a35e50e94c2e74147f73ae987b02d644eab4f9e3c43a98b18ca6a5",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one stored tile",
+   "composition": "-|8X8D8.DAX:17:34",
+   "description": "8X8D8 block 17 tile 34, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 3,
+    "y": 0,
+    "facing": "north",
+    "column": 9,
+    "row": 6
+   },
+   "views": 534,
+   "drawnIn": [
+    13,
+    29
+   ],
+   "sameAs": "kobold-cave-silt-5d0f245e35a3.png",
+   "why": "drawn in 534 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:60fabf9d7676a7487c45a00a48aadd3ace071373918ded746964863507357843",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:30,8X8D8.DAX:17:8",
+   "description": "8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 30, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 8,
+    "y": 5,
+    "facing": "north",
+    "column": 7,
+    "row": 6
+   },
+   "views": 2,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-return-outer-rib-foot.png",
+   "why": "drawn in 2 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:612e9c6b4133e442a8fb430800a9647436109d286a1ddb3eacdb62d483c0c40b",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one stored tile",
+   "composition": "-|8X8D8.DAX:17:27",
+   "description": "8X8D8 block 17 tile 27, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 0,
+    "facing": "south",
+    "column": 7,
+    "row": 6
+   },
+   "views": 532,
+   "drawnIn": [
+    13,
+    27,
+    29
+   ],
+   "sameAs": "wild-cave-chamber-612e9c6b4133.png",
+   "why": "drawn in 532 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:63d1d7ce16dc81313aede5c5278ac4d60f69e145a0660c04247679f435760ddf",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:28,8X8D8.DAX:17:18",
+   "description": "8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 28, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 2,
+    "facing": "west",
+    "column": 1,
+    "row": 8
+   },
+   "views": 7,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-west-gallery-terrain-63d1d7ce16dc.png",
+   "why": "drawn in 7 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:65d6bb97e1ae8c5ee2df62a2e30413660dce61f0a6fc97b7dc92517113ff034a",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one stored tile",
+   "composition": "-|8X8D8.DAX:17:33",
+   "description": "8X8D8 block 17 tile 33, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 0,
+    "facing": "south",
+    "column": 1,
+    "row": 6
+   },
+   "views": 663,
+   "drawnIn": [
+    13,
+    27,
+    29
+   ],
+   "sameAs": "wild-cave-minotaur-65d6bb97e1ae.png",
+   "why": "drawn in 663 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:6813dd72c66b17eb4da89b009952d72f12490ba07f186f3270f23fa7a26381c3",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:3,8X8D8.DAX:17:14",
+   "description": "8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 3, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 2,
+    "facing": "east",
+    "column": 9,
+    "row": 5
+   },
+   "views": 9,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-pool-passage-terrain-6813dd72c66b.png",
+   "why": "drawn in 9 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:6e239abd10bbb3ceb51e3976e4e816233cbba9dd9cba5ef642bda9d3339c4a00",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "s11|8X8D8.DAX:17:5",
+   "description": "8X8D8 block 17 tile 5 over sky colour 11, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 12,
+    "y": 1,
+    "facing": "east",
+    "column": 3,
+    "row": 4
+   },
+   "views": 5,
+   "drawnIn": [],
+   "why": "drawn in 5 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:6ebfac4e621c82065e04712a06b3b924b71ff39a170c1d910e5f9ced4ff618df",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:32,8X8D8.DAX:17:18,8X8D8.DAX:17:18",
+   "description": "8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 32, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 1,
+    "facing": "south",
+    "column": 6,
+    "row": 6
+   },
+   "views": 8,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-cave-silt-6ebfac4e621c.png",
+   "why": "drawn in 8 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:737a315cbcaf507e797dfa6d777081e785f010a937663cdbd05d8ffb71c32709",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:47,8X8D8.DAX:17:14",
+   "description": "8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 47, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 3,
+    "y": 2,
+    "facing": "south",
+    "column": 9,
+    "row": 4
+   },
+   "views": 6,
+   "drawnIn": [],
+   "why": "drawn in 6 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:75b02ecc37ae684cf4db0022ad94e1bead3974aaa98939471d9390a705780e8a",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "s11|8X8D8.DAX:17:8",
+   "description": "8X8D8 block 17 tile 8 over sky colour 11, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 3,
+    "facing": "east",
+    "column": 2,
+    "row": 3
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:7cf72af40c233e9369dce6ee1dbcad381e8833f78f1ab073d644c9d0f9d45318",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one stored tile",
+   "composition": "-|8X8D8.DAX:17:12",
+   "description": "8X8D8 block 17 tile 12, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 14,
+    "y": 1,
+    "facing": "west",
+    "column": 7,
+    "row": 7
+   },
+   "views": 9,
+   "drawnIn": [],
+   "why": "drawn in 9 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:84b82e53b886dbb2dd0fdd93a29b758588e0bbcb775b209f19db0e86a26d7e33",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:36,8X8D8.DAX:17:18",
+   "description": "8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 36, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 9,
+    "y": 3,
+    "facing": "west",
+    "column": 1,
+    "row": 3
+   },
+   "views": 2,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-cave-exit-west-spur-crest.png",
+   "why": "drawn in 2 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:84bd9f932d01acd7802f14ad00019ab825662ed48286b3faa9a33c37557bdafb",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:19,8X8D8.DAX:17:14,8X8D8.DAX:17:14",
+   "description": "8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 19, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 2,
+    "facing": "south",
+    "column": 2,
+    "row": 5
+   },
+   "views": 12,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-south-loop-terrain-84bd9f932d01.png",
+   "why": "drawn in 12 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:85552df26e60810012bc746f79958ed21cfac414be828a681a557d8f5a69ac83",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:1,8X8D8.DAX:17:14",
+   "description": "8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 1, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 5,
+    "y": 6,
+    "facing": "north",
+    "column": 9,
+    "row": 3
+   },
+   "views": 4,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-return-wide-face-crown.png",
+   "why": "drawn in 4 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:881d7b56c623eaa0db5b4074349cadf6ae994c2113b75d72b32b236ffed6421f",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "g6|8X8D8.DAX:17:40",
+   "description": "8X8D8 block 17 tile 40 over the ground colour 6, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 3,
+    "y": 1,
+    "facing": "west",
+    "column": 0,
+    "row": 7
+   },
+   "views": 9,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-caves-terrain-881d7b56c623.png",
+   "why": "drawn in 9 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:8869d6c43d92e6692557abcbec2a1a9eb7089d2e979c3de9144e230c441f88dc",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:30,8X8D8.DAX:17:18",
+   "description": "8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 30, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 9,
+    "y": 4,
+    "facing": "north",
+    "column": 1,
+    "row": 7
+   },
+   "views": 11,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-west-gallery-terrain-8869d6c43d92.png",
+   "why": "drawn in 11 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:901bb0a0cdefda412230f4dc0aa5eeef7fc2cc701335562f7ca75a059abaa5bb",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:1,8X8D8.DAX:17:16",
+   "description": "8X8D8 block 17 tile 16 over 8X8D8 block 17 tile 1, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 9,
+    "y": 3,
+    "facing": "west",
+    "column": 0,
+    "row": 3
+   },
+   "views": 10,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-south-loop-terrain-901bb0a0cdef.png",
+   "why": "drawn in 10 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:93578d621fc2b1971332d5aec3acb4550908084cee97cca0719404aba2c8fdc3",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "h11.15.7.6|8X8D8.DAX:17:14",
+   "description": "8X8D8 block 17 tile 14 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6), shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 4,
+    "y": 1,
+    "facing": "south",
+    "column": 10,
+    "row": 5
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:93e0d24299f4f009fb5a9226e1fccd627d38910bb502b608add84c53ff6d61fd",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one stored tile",
+   "composition": "-|8X8D8.DAX:17:32",
+   "description": "8X8D8 block 17 tile 32, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 0,
+    "facing": "south",
+    "column": 6,
+    "row": 6
+   },
+   "views": 677,
+   "drawnIn": [
+    13,
+    27,
+    29
+   ],
+   "sameAs": "wild-cave-chamber-93e0d24299f4.png",
+   "why": "drawn in 677 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:9466b0967e96d56bee7ca80b53dd1ec9a110a1f86fca35439959f14250ea644a",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one stored tile",
+   "composition": "-|8X8D8.DAX:17:48",
+   "description": "8X8D8 block 17 tile 48, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 3,
+    "y": 1,
+    "facing": "west",
+    "column": 0,
+    "row": 3
+   },
+   "views": 18,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-caves-terrain-9466b0967e96.png",
+   "why": "drawn in 18 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:9ca74205126cf6c661c2e2c31dd0cb0f4426665e9dcc4822ad1bf6cbd975791a",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:35,8X8D8.DAX:17:18",
+   "description": "8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 35, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 8,
+    "y": 5,
+    "facing": "east",
+    "column": 1,
+    "row": 6
+   },
+   "views": 3,
+   "drawnIn": [],
+   "why": "drawn in 3 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:9eb8999a6731352266f87fd46b92f21f0ce98dd7046bdb2e850132c0e9abbbac",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:47,8X8D8.DAX:17:7",
+   "description": "8X8D8 block 17 tile 7 over 8X8D8 block 17 tile 47, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 2,
+    "facing": "east",
+    "column": 8,
+    "row": 4
+   },
+   "views": 6,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-escort-rib-right-upper.png",
+   "why": "drawn in 6 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:a2fd65729327cc7c2411302751caa1e8b2907fe0c101ca599873a1bac2e604fd",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:36,8X8D8.DAX:17:49",
+   "description": "8X8D8 block 17 tile 49 over 8X8D8 block 17 tile 36, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 1,
+    "facing": "east",
+    "column": 10,
+    "row": 3
+   },
+   "views": 8,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-escort-rib-left-crown.png",
+   "why": "drawn in 8 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:a46e5434e8f85141bd5a773d4e0787dc436ce13222a6f15abee7758c8177ccbd",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:0,8X8D8.DAX:17:7",
+   "description": "8X8D8 block 17 tile 7 over 8X8D8 block 17 tile 0, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 3,
+    "y": 1,
+    "facing": "west",
+    "column": 0,
+    "row": 4
+   },
+   "views": 6,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-caves-terrain-a46e5434e8f8.png",
+   "why": "drawn in 6 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:a60d20d873eb57acae0fd1e25105211bca6132b89287fcc49ae119367d950dac",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "g6|8X8D8.DAX:17:14",
+   "description": "8X8D8 block 17 tile 14 over the ground colour 6, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 3,
+    "y": 1,
+    "facing": "south",
+    "column": 7,
+    "row": 6
+   },
+   "views": 46,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-cave-silt-a60d20d873eb.png",
+   "why": "drawn in 46 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:a6bde3cfae4c8aadc2991d888c483b1b8ed93520dd1b475edf3de3f99425a620",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:1,8X8D8.DAX:17:18,8X8D8.DAX:17:18",
+   "description": "8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 1, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 2,
+    "facing": "south",
+    "column": 2,
+    "row": 2
+   },
+   "views": 19,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-pool-passage-terrain-a6bde3cfae4c.png",
+   "why": "drawn in 19 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:aa8526e1ed071d69c2ac166bdde29f7d19edb547902097e0ffb59667c1390f2a",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:19,8X8D8.DAX:17:58",
+   "description": "8X8D8 block 17 tile 58 over 8X8D8 block 17 tile 19, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 0,
+    "y": 1,
+    "facing": "east",
+    "column": 9,
+    "row": 5
+   },
+   "views": 2,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-cave-exit-outer-slab.png",
+   "why": "drawn in 2 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:ae337ef64c6c5b5e365cc6868affafecbe58d8c65c9e1cbed1ee88653a7e004c",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "g6|8X8D8.DAX:17:8",
+   "description": "8X8D8 block 17 tile 8 over the ground colour 6, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 3,
+    "y": 2,
+    "facing": "west",
+    "column": 2,
+    "row": 7
+   },
+   "views": 13,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-caves-terrain-ae337ef64c6c.png",
+   "why": "drawn in 13 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:b065e3c5ce60a1a2345e3fbc95bfe44ba3027d9104e7f56305c1888333759776",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:28,8X8D8.DAX:17:8",
+   "description": "8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 28, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 1,
+    "facing": "east",
+    "column": 10,
+    "row": 6
+   },
+   "views": 10,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-escort-rib-left-base.png",
+   "why": "drawn in 10 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:b41d4656ebe51f0f92604274c4f462943cd6d3affe22758c9a4504998a144eb1",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:33,8X8D8.DAX:17:18",
+   "description": "8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 33, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 9,
+    "y": 9,
+    "facing": "west",
+    "column": 1,
+    "row": 6
+   },
+   "views": 1,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-return-near-column.png",
+   "why": "drawn in 1 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:bd5cb1a28f45cba9ca06a9a506c9eab644fe1d9319cd840ba07222a67acc2e40",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one stored tile",
+   "composition": "-|8X8D8.DAX:17:44",
+   "description": "8X8D8 block 17 tile 44, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 13,
+    "y": 2,
+    "facing": "north",
+    "column": 5,
+    "row": 5
+   },
+   "views": 12,
+   "drawnIn": [],
+   "why": "drawn in 12 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:bd9ea1901d9b6de036f5842777a04222c7e67c37d2dc248bca7016a8ccea01f5",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:30,8X8D8.DAX:17:14,8X8D8.DAX:17:14",
+   "description": "8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 30, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 8,
+    "y": 4,
+    "facing": "east",
+    "column": 2,
+    "row": 7
+   },
+   "views": 4,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-pool-passage-terrain-bd9ea1901d9b.png",
+   "why": "drawn in 4 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:be4566a59e158942a3eb34fbc5c44badfab885f494f447cc5d9cb9c1b939d64f",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "h11.15.7.6|8X8D8.DAX:17:58",
+   "description": "8X8D8 block 17 tile 58 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6), shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 0,
+    "y": 0,
+    "facing": "south",
+    "column": 1,
+    "row": 5
+   },
+   "views": 10,
+   "drawnIn": [],
+   "why": "drawn in 10 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:beaac85f48dbd5508ec60f0601492b0a105a0e60c1d3ffdd55e63e912aa7aca6",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "s11|8X8D8.DAX:17:15",
+   "description": "8X8D8 block 17 tile 15 over sky colour 11, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 0,
+    "y": 1,
+    "facing": "east",
+    "column": 9,
+    "row": 3
+   },
+   "views": 19,
+   "drawnIn": [],
+   "why": "drawn in 19 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:bfae91a5b6216d39e1390b44f91c6472952c8b868c07ded7ec0b8b63abddd4c6",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:1,8X8D8.DAX:17:8",
+   "description": "8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 1, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 3,
+    "y": 2,
+    "facing": "west",
+    "column": 2,
+    "row": 3
+   },
+   "views": 3,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-cave-exit-west-meeting-rib.png",
+   "why": "drawn in 3 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:c0b1186296f774376cf3e28e4b94cd8be6c7b9c2e1440f22f3ce61a6cf3bab6f",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:29,8X8D8.DAX:17:46",
+   "description": "8X8D8 block 17 tile 46 over 8X8D8 block 17 tile 29, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 15,
+    "y": 1,
+    "facing": "west",
+    "column": 6,
+    "row": 5
+   },
+   "views": 2,
+   "drawnIn": [],
+   "why": "drawn in 2 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:c34fec648f462c1d4b85cab1cd42638c53bb8e15a4dabe41b5b279eada2f0348",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one stored tile",
+   "composition": "-|8X8D8.DAX:17:35",
+   "description": "8X8D8 block 17 tile 35, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 0,
+    "facing": "south",
+    "column": 0,
+    "row": 7
+   },
+   "views": 564,
+   "drawnIn": [
+    13,
+    29
+   ],
+   "sameAs": "kobold-cave-silt-c34fec648f46.png",
+   "why": "drawn in 564 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:c52e8d1b619bdf358a9cff41324f1cb008826bd8c3d3731a7495695c00d77b42",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:17,8X8D8.DAX:17:49",
+   "description": "8X8D8 block 17 tile 49 over 8X8D8 block 17 tile 17, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 6,
+    "y": 5,
+    "facing": "east",
+    "column": 9,
+    "row": 3
+   },
+   "views": 2,
+   "drawnIn": [],
+   "why": "drawn in 2 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:c5ccd45d08c65587436bcef3cabe12dfcc83b7d08879b6a3d442862f1d69ed68",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "g6|8X8D8.DAX:17:7",
+   "description": "8X8D8 block 17 tile 7 over the ground colour 6, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 2,
+    "facing": "east",
+    "column": 8,
+    "row": 7
+   },
+   "views": 16,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-escort-floor-inset-west.png",
+   "why": "drawn in 16 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:c9a3f3528a0a0113efdb4bff45defc3aca51e73aeb8facd73fa4301b90deb2ff",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "s11|8X8D8.DAX:17:18",
+   "description": "8X8D8 block 17 tile 18 over sky colour 11, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 2,
+    "facing": "south",
+    "column": 1,
+    "row": 3
+   },
+   "views": 2,
+   "drawnIn": [],
+   "why": "drawn in 2 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:cc932c5b2c7ca162b09b0762fbeb1a4c011aa5ccb8b9a4c0f47064ccff3fc9a7",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "g6|8X8D8.DAX:17:4",
+   "description": "8X8D8 block 17 tile 4 over the ground colour 6, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 12,
+    "y": 1,
+    "facing": "east",
+    "column": 2,
+    "row": 6
+   },
+   "views": 17,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-silt-joins-cc932c5b2c7c.png",
+   "why": "drawn in 17 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:cd50a53d3c1ff76d29e020a02159a8744214a221e121c8b0dd4a23421c1e5a45",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "s11|8X8D8.DAX:17:16",
+   "description": "8X8D8 block 17 tile 16 over sky colour 11, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 1,
+    "facing": "south",
+    "column": 2,
+    "row": 3
+   },
+   "views": 2,
+   "drawnIn": [],
+   "why": "drawn in 2 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:cf54e1993881e2dc8aaba4da672c2701e10601892fc137082f6dc14c35a60bfd",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one stored tile",
+   "composition": "-|8X8D8.DAX:17:47",
+   "description": "8X8D8 block 17 tile 47, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 0,
+    "facing": "east",
+    "column": 9,
+    "row": 4
+   },
+   "views": 1363,
+   "drawnIn": [
+    13,
+    27,
+    29
+   ],
+   "sameAs": "wild-cave-minotaur-cf54e1993881.png",
+   "why": "drawn in 1363 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:d11f67c9a802f42a762b109c45cab63f885f512f7e97dad63b29729de5d77cc4",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "h11.15.7.6|8X8D8.DAX:17:46",
+   "description": "8X8D8 block 17 tile 46 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6), shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 15,
+    "y": 2,
+    "facing": "west",
+    "column": 9,
+    "row": 5
+   },
+   "views": 2,
+   "drawnIn": [],
+   "why": "drawn in 2 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:d22007dbcda0ff82aa0379a2a3da5afeafeb05e090932660f51d07feca8e5aa3",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:17,8X8D8.DAX:17:8",
+   "description": "8X8D8 block 17 tile 8 over 8X8D8 block 17 tile 17, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 6,
+    "y": 6,
+    "facing": "east",
+    "column": 2,
+    "row": 3
+   },
+   "views": 1,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-return-outer-rib-head.png",
+   "why": "drawn in 1 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:d4731d2c85b6cee14876895097463ec94420cb59b6ad24c8fd45750895875f2b",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one stored tile",
+   "composition": "-|8X8D8.DAX:17:36",
+   "description": "8X8D8 block 17 tile 36, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 0,
+    "facing": "east",
+    "column": 7,
+    "row": 3
+   },
+   "views": 557,
+   "drawnIn": [
+    13,
+    27,
+    29
+   ],
+   "sameAs": "wild-cave-minotaur-d4731d2c85b6.png",
+   "why": "drawn in 557 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:d5dd561a755316e3b5e425928c6150770623b55acd123912cf05e5188593588a",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:47,8X8D8.DAX:17:18",
+   "description": "8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 47, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 3,
+    "facing": "east",
+    "column": 1,
+    "row": 4
+   },
+   "views": 5,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-cave-exit-lower-spur-corner.png",
+   "why": "drawn in 5 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:d66b6691a62a1c10af5820513f2107d4f6e4ca223d1395cc03a98b331dd8ba75",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:19,8X8D8.DAX:17:7",
+   "description": "8X8D8 block 17 tile 7 over 8X8D8 block 17 tile 19, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 2,
+    "facing": "east",
+    "column": 8,
+    "row": 5
+   },
+   "views": 7,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-escort-rib-right-shaft.png",
+   "why": "drawn in 7 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:d68bf49023c075ee580564621c08d031dd660736ece6d29cbf3f2696335d4aa4",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:23:14,8X8D8.DAX:17:18,8X8D8.DAX:17:18",
+   "description": "8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 18 over 8X8D8 block 23 tile 14, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 3,
+    "facing": "north",
+    "column": 8,
+    "row": 6
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:d7347e754bf49b2cabb7576abd32842036e1dc45579a746ab26e48e5d2ac7864",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "s11|8X8D8.DAX:17:67",
+   "description": "8X8D8 block 17 tile 67 over sky colour 11, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 0,
+    "y": 0,
+    "facing": "south",
+    "column": 1,
+    "row": 4
+   },
+   "views": 87,
+   "drawnIn": [],
+   "why": "drawn in 87 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:daf45dfae200642c3b1ef6d0a67ae4bc331c3a05f3b006d757837e2826d801f5",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "s11|8X8D8.DAX:17:4",
+   "description": "8X8D8 block 17 tile 4 over sky colour 11, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 12,
+    "y": 1,
+    "facing": "east",
+    "column": 2,
+    "row": 3
+   },
+   "views": 7,
+   "drawnIn": [],
+   "why": "drawn in 7 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:dda5a8482681ed15b1aabb9de4b4701f152dd812bc71a4a50d078b008e7fe5a1",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "h11.15.7.6|8X8D8.DAX:17:5",
+   "description": "8X8D8 block 17 tile 5 over the horizon row (three rows of sky 11, one of 15, two of 7, two of ground 6), shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 12,
+    "y": 1,
+    "facing": "east",
+    "column": 3,
+    "row": 5
+   },
+   "views": 9,
+   "drawnIn": [],
+   "why": "drawn in 9 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:ddefb9dc375773174835a079a2b247bfdd6fba94874b355596fcc7cb17130b11",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:34,8X8D8.DAX:17:18,8X8D8.DAX:17:18",
+   "description": "8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 34, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 6,
+    "y": 4,
+    "facing": "south",
+    "column": 6,
+    "row": 6
+   },
+   "views": 8,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-cave-silt-ddefb9dc3757.png",
+   "why": "drawn in 8 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:e156e3b75f1bd9aa8ae5fedb9896234aac1d9bdef7a587539ff52d3c1054b598",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "g6|8X8D8.DAX:17:5",
+   "description": "8X8D8 block 17 tile 5 over the ground colour 6, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 12,
+    "y": 1,
+    "facing": "east",
+    "column": 3,
+    "row": 6
+   },
+   "views": 16,
+   "drawnIn": [],
+   "why": "drawn in 16 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:e270e53d7eec3394d611df23d149d9293787bf9773f32f132e5ba379a8818e33",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "g6|8X8D8.DAX:17:51",
+   "description": "8X8D8 block 17 tile 51 over the ground colour 6, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 0,
+    "y": 1,
+    "facing": "east",
+    "column": 9,
+    "row": 6
+   },
+   "views": 12,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-escort-masonry-foot.png",
+   "why": "drawn in 12 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:e510f228d95b25f5d705e4d02985f39ae32d54a283dfbb38d8c0a6bcd74fc740",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:1,8X8D8.DAX:17:49",
+   "description": "8X8D8 block 17 tile 49 over 8X8D8 block 17 tile 1, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 2,
+    "facing": "east",
+    "column": 9,
+    "row": 3
+   },
+   "views": 6,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-pool-spur-terrain-e510f228d95b.png",
+   "why": "drawn in 6 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:e7ff8184a4253df64b373c0c5dda8b4a912aed6edc10fc1b47168c03358dcb7e",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "s11|8X8D8.DAX:17:67,8X8D8.DAX:17:18",
+   "description": "8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 67 over sky colour 11, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 2,
+    "facing": "south",
+    "column": 1,
+    "row": 4
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:e9fdb7054409a114274d22b98c3bd30972c7d88486be0d8f714060aa5723aa2c",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:29,8X8D8.DAX:17:4",
+   "description": "8X8D8 block 17 tile 4 over 8X8D8 block 17 tile 29, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 6,
+    "facing": "north",
+    "column": 10,
+    "row": 5
+   },
+   "views": 5,
+   "drawnIn": [],
+   "why": "drawn in 5 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:f226637561a669e2196796d0815ff7829a1d095df55c82efd7f9a4fcc3ecfe31",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:28,8X8D8.DAX:17:7",
+   "description": "8X8D8 block 17 tile 7 over 8X8D8 block 17 tile 28, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 3,
+    "y": 1,
+    "facing": "west",
+    "column": 0,
+    "row": 6
+   },
+   "views": 8,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-escort-rib-right-base.png",
+   "why": "drawn in 8 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:f25dd951d3af0ad8f6f3309ad874e6c600d4b22022aeb8f4d2eab811a2bb66b6",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:23:21,8X8D8.DAX:17:14",
+   "description": "8X8D8 block 17 tile 14 over 8X8D8 block 23 tile 21, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 3,
+    "facing": "north",
+    "column": 9,
+    "row": 6
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:fa0785a9edf76eac267235316aff7e86ad5957c9b8155a09bf25193d7b2b6e90",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:29,8X8D8.DAX:17:5,8X8D8.DAX:17:5",
+   "description": "8X8D8 block 17 tile 5 over 8X8D8 block 17 tile 5 over 8X8D8 block 17 tile 29, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 4,
+    "y": 6,
+    "facing": "north",
+    "column": 6,
+    "row": 5
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:fa8c0ce1c541b2af2f53e5309d502256317e3a0b116a9d8f33dec598bef0f29f",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "one tile over a solid colour",
+   "composition": "g6|8X8D8.DAX:17:42",
+   "description": "8X8D8 block 17 tile 42 over the ground colour 6, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 12,
+    "y": 1,
+    "facing": "east",
+    "column": 2,
+    "row": 8
+   },
+   "views": 24,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-silt-joins-fa8c0ce1c541.png",
+   "why": "drawn in 24 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:fb089b8ff7a102450c65e507f291b6b165a0ea49342abf990afb315bee1127ed",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:29,8X8D8.DAX:17:7",
+   "description": "8X8D8 block 17 tile 7 over 8X8D8 block 17 tile 29, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 3,
+    "y": 1,
+    "facing": "west",
+    "column": 0,
+    "row": 5
+   },
+   "views": 6,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-cave-exit-recess-edge.png",
+   "why": "drawn in 6 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:fc3fa1490fa932744f194d3d32a5aac1bcc9d2c5ffcb677eee5c17afc02e127b",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:3,8X8D8.DAX:17:16",
+   "description": "8X8D8 block 17 tile 16 over 8X8D8 block 17 tile 3, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 2,
+    "y": 2,
+    "facing": "east",
+    "column": 10,
+    "row": 2
+   },
+   "views": 4,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-pool-spur-terrain-fc3fa1490fa9.png",
+   "why": "drawn in 4 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:ff895827d85d886bb33f9c2f77b12a063130cf5089a6c383c9ac3b55ec22efa1",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:29,8X8D8.DAX:17:14",
+   "description": "8X8D8 block 17 tile 14 over 8X8D8 block 17 tile 29, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 1,
+    "y": 1,
+    "facing": "south",
+    "column": 1,
+    "row": 5
+   },
+   "views": 26,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-pool-passage-terrain-ff895827d85d.png",
+   "why": "drawn in 26 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:ff913b0f012f5419137db19c5e072d3b4b6d5d867ad1c85270a3f7f85a426645",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 17",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:17,8X8D8.DAX:17:18",
+   "description": "8X8D8 block 17 tile 18 over 8X8D8 block 17 tile 17, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 9,
+    "y": 4,
+    "facing": "north",
+    "column": 0,
+    "row": 1
+   },
+   "views": 5,
+   "drawnIn": [
+    13
+   ],
+   "sameAs": "kobold-south-loop-terrain-ff913b0f012f.png",
+   "why": "drawn in 5 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -35432,6 +37933,29 @@
   },
   {
    "kind": "first-person cell",
+   "key": "tile:16:bc40ea3be142942d5e433d5b75d7dace8cc2aa0c544f4123b7056a5a69d7977e",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 23",
+   "what": "one stored tile",
+   "composition": "-|8X8D8.DAX:23:21",
+   "description": "8X8D8 block 23 tile 21, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 5,
+    "y": 0,
+    "facing": "north",
+    "column": 9,
+    "row": 6
+   },
+   "views": 73,
+   "drawnIn": [],
+   "why": "drawn in 73 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
    "key": "tile:16:bd02818637eddbcdc983313c9e95908421925b13365587ff74cecf4ef14674ad",
    "width": 32,
    "height": 32,
@@ -35498,6 +38022,29 @@
    "views": 10,
    "drawnIn": [],
    "why": "drawn in 10 views of map 16 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 20 (tiles 8X8D8 block 20), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:16:d326cc9fabded3214b6092f46a582ccf73115a244f08ec2e00172fefe1c7f137",
+   "width": 32,
+   "height": 32,
+   "area": 16,
+   "areaName": "The Lizardman Keep",
+   "group": "tile set 8X8D8 block 23",
+   "what": "one stored tile",
+   "composition": "-|8X8D8.DAX:23:20",
+   "description": "8X8D8 block 23 tile 20, shown in area 16 (The Lizardman Keep)",
+   "seenAt": {
+    "map": 30,
+    "x": 4,
+    "y": 0,
+    "facing": "north",
+    "column": 10,
+    "row": 6
+   },
+   "views": 66,
+   "drawnIn": [],
+   "why": "drawn in 66 views of map 30 (WALLDEF8 block 9 (tiles 8X8D8 block 9), block 17 (tiles 8X8D8 block 17), block 23 (tiles 8X8D8 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -45206,9 +47753,10 @@
    },
    "views": 9,
    "drawnIn": [
-    15
+    15,
+    16
    ],
-   "sameAs": "mendor-webgl-fountain-basin-middle-a-09be3b9182cb.png",
+   "sameAs": "lizardman-lower-pool-09be3b9182cb.png",
    "why": "drawn in 9 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -45232,9 +47780,10 @@
    },
    "views": 6,
    "drawnIn": [
-    15
+    15,
+    16
    ],
-   "sameAs": "mendor-webgl-fountain-basin-right-40f46157dc27.png",
+   "sameAs": "lizardman-lower-pool-40f46157dc27.png",
    "why": "drawn in 6 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -45258,9 +47807,10 @@
    },
    "views": 6,
    "drawnIn": [
-    15
+    15,
+    16
    ],
-   "sameAs": "mendor-webgl-fountain-rim-right-6fcc88dfcbdd.png",
+   "sameAs": "lizardman-lower-pool-6fcc88dfcbdd.png",
    "why": "drawn in 6 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -45284,9 +47834,10 @@
    },
    "views": 15,
    "drawnIn": [
-    15
+    15,
+    16
    ],
-   "sameAs": "mendor-webgl-fountain-basin-middle-b-82e819909938.png",
+   "sameAs": "lizardman-lower-pool-82e819909938.png",
    "why": "drawn in 15 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -45310,9 +47861,10 @@
    },
    "views": 29,
    "drawnIn": [
-    15
+    15,
+    16
    ],
-   "sameAs": "mendor-webgl-fountain-water-aa725e51a9d8.png",
+   "sameAs": "lizardman-lower-pool-aa725e51a9d8.png",
    "why": "drawn in 29 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -45359,9 +47911,10 @@
    },
    "views": 8,
    "drawnIn": [
-    15
+    15,
+    16
    ],
-   "sameAs": "mendor-webgl-fountain-basin-left-bd497db7487c.png",
+   "sameAs": "lizardman-lower-pool-bd497db7487c.png",
    "why": "drawn in 8 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -45408,9 +47961,10 @@
    },
    "views": 8,
    "drawnIn": [
-    15
+    15,
+    16
    ],
-   "sameAs": "mendor-webgl-fountain-rim-left-dc6d9f29883b.png",
+   "sameAs": "lizardman-lower-pool-dc6d9f29883b.png",
    "why": "drawn in 8 views of map 26 (WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), block 23 (tiles 8X8D7 block 23)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -48498,15 +51052,15 @@
    "description": "8X8D8 block 17 tile 10, shown in area 29 (Kuto's Well)",
    "seenAt": {
     "map": 32,
-    "x": 7,
-    "y": 11,
+    "x": 6,
+    "y": 6,
     "facing": "north",
-    "column": 6,
+    "column": 9,
     "row": 6
    },
-   "views": 3,
+   "views": 5,
    "drawnIn": [],
-   "why": "drawn in 3 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 5 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -48839,6 +51393,52 @@
   },
   {
    "kind": "first-person cell",
+   "key": "tile:29:05b7c82f95121f752ef17e32a019e9d7308c016b4b1426f30c4d3ce61b872dd4",
+   "width": 32,
+   "height": 32,
+   "area": 29,
+   "areaName": "Kuto's Well",
+   "group": "tile set 8X8D8 block 18",
+   "what": "several tiles together",
+   "composition": "h0.0.8.6|8X8D8.DAX:18:0,8X8D8.DAX:18:16,8X8D8.DAX:18:16",
+   "description": "8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 0 over the horizon row (three rows of sky 0, one of 0, two of 8, two of ground 6), shown in area 29 (Kuto's Well)",
+   "seenAt": {
+    "map": 32,
+    "x": 6,
+    "y": 6,
+    "facing": "east",
+    "column": 7,
+    "row": 5
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:29:0663f607216b93d7cec9238923c75cf2d902bf04da87e1dd56e81445fb9532f0",
+   "width": 32,
+   "height": 32,
+   "area": 29,
+   "areaName": "Kuto's Well",
+   "group": "tile set 8X8D8 block 18",
+   "what": "several tiles together",
+   "composition": "h0.0.7.6|8X8D8.DAX:17:58,8X8D8.DAX:18:0",
+   "description": "8X8D8 block 18 tile 0 over 8X8D8 block 17 tile 58 over the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 6), shown in area 29 (Kuto's Well)",
+   "seenAt": {
+    "map": 32,
+    "x": 12,
+    "y": 6,
+    "facing": "north",
+    "column": 1,
+    "row": 5
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
    "key": "tile:29:08cb32f676a62ead288633d89fe93ca21aced20bd8ec83096f28bd37be13dadb",
    "width": 32,
    "height": 32,
@@ -48948,9 +51548,9 @@
     "column": 10,
     "row": 5
    },
-   "views": 55,
+   "views": 58,
    "drawnIn": [],
-   "why": "drawn in 55 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 58 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -49000,6 +51600,52 @@
   },
   {
    "kind": "first-person cell",
+   "key": "tile:29:2a5780df0c4274674e448c3c01ea2ab66175f08fed8588fd8023fc709707fc4b",
+   "width": 32,
+   "height": 32,
+   "area": 29,
+   "areaName": "Kuto's Well",
+   "group": "tile set 8X8D8 block 18",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:59,8X8D8.DAX:18:0",
+   "description": "8X8D8 block 18 tile 0 over 8X8D8 block 17 tile 59, shown in area 29 (Kuto's Well)",
+   "seenAt": {
+    "map": 32,
+    "x": 5,
+    "y": 2,
+    "facing": "east",
+    "column": 9,
+    "row": 5
+   },
+   "views": 8,
+   "drawnIn": [],
+   "why": "drawn in 8 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:29:2ad6769ee9e48d3665297951de9d39a399bcbc3f76a4f150dd946d29fc9a7023",
+   "width": 32,
+   "height": 32,
+   "area": 29,
+   "areaName": "Kuto's Well",
+   "group": "tile set 8X8D8 block 18",
+   "what": "several tiles together",
+   "composition": "g6|8X8D8.DAX:17:18,8X8D8.DAX:18:17",
+   "description": "8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 18 over the ground colour 6, shown in area 29 (Kuto's Well)",
+   "seenAt": {
+    "map": 32,
+    "x": 11,
+    "y": 5,
+    "facing": "north",
+    "column": 3,
+    "row": 6
+   },
+   "views": 2,
+   "drawnIn": [],
+   "why": "drawn in 2 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
    "key": "tile:29:2b773089d5ffe93efc12c1aa483a40dd92429aa223d156809005dede4e96b1e7",
    "width": 32,
    "height": 32,
@@ -49030,19 +51676,19 @@
    "areaName": "Kuto's Well",
    "group": "tile set 8X8D8 block 18",
    "what": "several tiles together",
-   "composition": "-|8X8D8.DAX:18:13,8X8D8.DAX:18:17,8X8D8.DAX:18:17",
-   "description": "8X8D8 block 18 tile 17 over 8X8D8 block 18 tile 17 over 8X8D8 block 18 tile 13, shown in area 29 (Kuto's Well)",
+   "composition": "-|8X8D8.DAX:18:13,8X8D8.DAX:18:17",
+   "description": "8X8D8 block 18 tile 17 over 8X8D8 block 18 tile 13, shown in area 29 (Kuto's Well)",
    "seenAt": {
     "map": 32,
-    "x": 7,
-    "y": 7,
-    "facing": "north",
+    "x": 6,
+    "y": 6,
+    "facing": "south",
     "column": 3,
     "row": 4
    },
-   "views": 2,
+   "views": 3,
    "drawnIn": [],
-   "why": "drawn in 2 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 3 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -49109,32 +51755,55 @@
     "column": 0,
     "row": 5
    },
-   "views": 53,
+   "views": 56,
    "drawnIn": [],
-   "why": "drawn in 53 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 56 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:29:432de07bd14c8bc66c4bba6c84fdbe61f9cef64e4bb8c7365c0a587ce8c24fee",
+   "key": "tile:29:3fbe081602a2b165b03ca7bd472c89d231f8f9eb3b557d703bbcbbb68391bdbd",
    "width": 32,
    "height": 32,
    "area": 29,
    "areaName": "Kuto's Well",
    "group": "tile set 8X8D8 block 18",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:18:56",
-   "description": "8X8D8 block 18 tile 56, shown in area 29 (Kuto's Well)",
+   "what": "several tiles together",
+   "composition": "h0.15.7.6|8X8D8.DAX:18:0,8X8D8.DAX:18:16,8X8D8.DAX:18:16",
+   "description": "8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 0 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6), shown in area 29 (Kuto's Well)",
    "seenAt": {
     "map": 32,
-    "x": 7,
-    "y": 7,
-    "facing": "north",
-    "column": 6,
-    "row": 3
+    "x": 6,
+    "y": 6,
+    "facing": "east",
+    "column": 7,
+    "row": 5
    },
-   "views": 3,
+   "views": 1,
    "drawnIn": [],
-   "why": "drawn in 3 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 1 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:29:41b1206010535ac8532b44731142432d3593e4d693b16e67eedc1e48e8ea88c0",
+   "width": 32,
+   "height": 32,
+   "area": 29,
+   "areaName": "Kuto's Well",
+   "group": "tile set 8X8D8 block 18",
+   "what": "several tiles together",
+   "composition": "h0.0.8.6|8X8D8.DAX:17:58,8X8D8.DAX:18:17",
+   "description": "8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 58 over the horizon row (three rows of sky 0, one of 0, two of 8, two of ground 6), shown in area 29 (Kuto's Well)",
+   "seenAt": {
+    "map": 32,
+    "x": 11,
+    "y": 6,
+    "facing": "north",
+    "column": 3,
+    "row": 5
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -49178,9 +51847,9 @@
     "column": 10,
     "row": 5
    },
-   "views": 40,
+   "views": 41,
    "drawnIn": [],
-   "why": "drawn in 40 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 41 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -49224,9 +51893,9 @@
     "column": 2,
     "row": 4
    },
-   "views": 3,
+   "views": 4,
    "drawnIn": [],
-   "why": "drawn in 3 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 4 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -49237,45 +51906,19 @@
    "areaName": "Kuto's Well",
    "group": "tile set 8X8D8 block 18",
    "what": "several tiles together",
-   "composition": "-|8X8D8.DAX:17:0,8X8D8.DAX:17:15,8X8D8.DAX:18:17",
-   "description": "8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 15 over 8X8D8 block 17 tile 0, shown in area 29 (Kuto's Well)",
+   "composition": "s0|8X8D8.DAX:17:15,8X8D8.DAX:18:17",
+   "description": "8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 15 over sky colour 0, shown in area 29 (Kuto's Well)",
    "seenAt": {
     "map": 32,
-    "x": 3,
-    "y": 11,
-    "facing": "south",
+    "x": 6,
+    "y": 3,
+    "facing": "east",
     "column": 8,
     "row": 4
    },
-   "views": 1,
+   "views": 10,
    "drawnIn": [],
-   "why": "drawn in 1 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:64f1b6b3192784286aee3114c0319a3a74107b311479575df654ae76042b374f",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "tile set 8X8D8 block 18",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:18:24",
-   "description": "8X8D8 block 18 tile 24, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 32,
-    "x": 0,
-    "y": 0,
-    "facing": "south",
-    "column": 0,
-    "row": 5
-   },
-   "views": 563,
-   "drawnIn": [
-    13
-   ],
-   "sameAs": "kobold-cave-exit-exit-reveal.png",
-   "why": "drawn in 563 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 10 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -49319,9 +51962,9 @@
     "column": 10,
     "row": 3
    },
-   "views": 241,
+   "views": 248,
    "drawnIn": [],
-   "why": "drawn in 241 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 248 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -49348,6 +51991,29 @@
   },
   {
    "kind": "first-person cell",
+   "key": "tile:29:6dd17651a70357c78d28d7c279c21fcaa919dab9b2c5813e455fab224b7bdc1f",
+   "width": 32,
+   "height": 32,
+   "area": 29,
+   "areaName": "Kuto's Well",
+   "group": "tile set 8X8D8 block 18",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:18:21,8X8D8.DAX:18:17",
+   "description": "8X8D8 block 18 tile 17 over 8X8D8 block 18 tile 21, shown in area 29 (Kuto's Well)",
+   "seenAt": {
+    "map": 32,
+    "x": 6,
+    "y": 6,
+    "facing": "south",
+    "column": 3,
+    "row": 6
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
    "key": "tile:29:6f8e23c2437e766bb9985e39846a50cfe404d002109ea8a60c9428596f2874a9",
    "width": 32,
    "height": 32,
@@ -49371,6 +52037,29 @@
   },
   {
    "kind": "first-person cell",
+   "key": "tile:29:78cc5dc61068ff43ebd5ad4e8593e46ca6cf11960f3c6913096473d9801f53a7",
+   "width": 32,
+   "height": 32,
+   "area": 29,
+   "areaName": "Kuto's Well",
+   "group": "tile set 8X8D8 block 18",
+   "what": "several tiles together",
+   "composition": "h0.0.7.6|8X8D8.DAX:18:0,8X8D8.DAX:18:16,8X8D8.DAX:18:16",
+   "description": "8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 0 over the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 6), shown in area 29 (Kuto's Well)",
+   "seenAt": {
+    "map": 32,
+    "x": 6,
+    "y": 6,
+    "facing": "east",
+    "column": 7,
+    "row": 5
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
    "key": "tile:29:7c8aec2bc303ec85f939bc1f851934470684f4378845e85982aeaa5993eb7f6b",
    "width": 32,
    "height": 32,
@@ -49391,6 +52080,29 @@
    "views": 18,
    "drawnIn": [],
    "why": "drawn in 18 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:29:839c6baef859137756b7fae31a558b6a8c50e5f96e5127810e13a58807de4464",
+   "width": 32,
+   "height": 32,
+   "area": 29,
+   "areaName": "Kuto's Well",
+   "group": "tile set 8X8D8 block 18",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:18:21,8X8D8.DAX:18:16",
+   "description": "8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 21, shown in area 29 (Kuto's Well)",
+   "seenAt": {
+    "map": 32,
+    "x": 7,
+    "y": 6,
+    "facing": "north",
+    "column": 10,
+    "row": 6
+   },
+   "views": 3,
+   "drawnIn": [],
+   "why": "drawn in 3 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -49440,26 +52152,26 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:29:9360a858be8db8bb3c21622f82cdf0b9aa0b8fdcb33e1f73a92e97933ff58516",
+   "key": "tile:29:91c4ff7fc228e55f3dde9edbe84a280bef987c521247c2cb587a883b65d1aac3",
    "width": 32,
    "height": 32,
    "area": 29,
    "areaName": "Kuto's Well",
    "group": "tile set 8X8D8 block 18",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:18:31",
-   "description": "8X8D8 block 18 tile 31, shown in area 29 (Kuto's Well)",
+   "what": "several tiles together",
+   "composition": "h0.0.7.6|8X8D8.DAX:17:58,8X8D8.DAX:18:17",
+   "description": "8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 58 over the horizon row (three rows of sky 0, one of 0, two of 7, two of ground 6), shown in area 29 (Kuto's Well)",
    "seenAt": {
     "map": 32,
-    "x": 7,
-    "y": 7,
+    "x": 11,
+    "y": 6,
     "facing": "north",
-    "column": 6,
-    "row": 4
+    "column": 3,
+    "row": 5
    },
-   "views": 15,
+   "views": 1,
    "drawnIn": [],
-   "why": "drawn in 15 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 1 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -49483,29 +52195,6 @@
    "views": 419,
    "drawnIn": [],
    "why": "drawn in 419 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:97c5edfee5b51b1a35e3d78a3a3c915a316c056d30e667fffad1bd9287740d10",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "tile set 8X8D8 block 18",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:18:30",
-   "description": "8X8D8 block 18 tile 30, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 32,
-    "x": 7,
-    "y": 7,
-    "facing": "north",
-    "column": 5,
-    "row": 4
-   },
-   "views": 15,
-   "drawnIn": [],
-   "why": "drawn in 15 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -49578,6 +52267,29 @@
   },
   {
    "kind": "first-person cell",
+   "key": "tile:29:a1c821d7ec2a55bd815d198c0279e78439954fd9eedd336480a9f09d5195c834",
+   "width": 32,
+   "height": 32,
+   "area": 29,
+   "areaName": "Kuto's Well",
+   "group": "tile set 8X8D8 block 18",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:59,8X8D8.DAX:18:16",
+   "description": "8X8D8 block 18 tile 16 over 8X8D8 block 17 tile 59, shown in area 29 (Kuto's Well)",
+   "seenAt": {
+    "map": 32,
+    "x": 5,
+    "y": 3,
+    "facing": "east",
+    "column": 7,
+    "row": 5
+   },
+   "views": 5,
+   "drawnIn": [],
+   "why": "drawn in 5 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
    "key": "tile:29:a3283ba8cd1e45e8d2477ee9651de21ff7d3795b8095517d0b1e0206c594da49",
    "width": 32,
    "height": 32,
@@ -49593,75 +52305,6 @@
     "y": 7,
     "facing": "north",
     "column": 10,
-    "row": 3
-   },
-   "views": 3,
-   "drawnIn": [],
-   "why": "drawn in 3 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:a5a870487b1c927fdba74101cbe350ef5082e90954745fca01a5b92d5b3a3136",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "tile set 8X8D8 block 18",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:18:46",
-   "description": "8X8D8 block 18 tile 46, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 32,
-    "x": 7,
-    "y": 7,
-    "facing": "north",
-    "column": 5,
-    "row": 1
-   },
-   "views": 6,
-   "drawnIn": [],
-   "why": "drawn in 6 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:ab51e3d8672bbf3e0b2b1beca02d34e786c1f9e85301489000a9d178eaff21f5",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "tile set 8X8D8 block 18",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:18:44",
-   "description": "8X8D8 block 18 tile 44, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 32,
-    "x": 7,
-    "y": 7,
-    "facing": "north",
-    "column": 4,
-    "row": 1
-   },
-   "views": 6,
-   "drawnIn": [],
-   "why": "drawn in 6 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:29:acb90703131789cf429ff3d682446ef119f35be6a490bc5934772253575bd017",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "tile set 8X8D8 block 18",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:18:55",
-   "description": "8X8D8 block 18 tile 55, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 32,
-    "x": 7,
-    "y": 7,
-    "facing": "north",
-    "column": 5,
     "row": 3
    },
    "views": 3,
@@ -49710,55 +52353,78 @@
     "column": 0,
     "row": 4
    },
-   "views": 48,
+   "views": 53,
    "drawnIn": [],
-   "why": "drawn in 48 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 53 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:29:b4f1ee5c11b4713b4e2424950f183423ce2bd0938c9419ee717ed2a0448778c7",
+   "key": "tile:29:b5ff9c6f7ba757d25d32c52a3e25a097a4fc15c0fb1a28c3bb43ce2e1d611a04",
    "width": 32,
    "height": 32,
    "area": 29,
    "areaName": "Kuto's Well",
    "group": "tile set 8X8D8 block 18",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:18:45",
-   "description": "8X8D8 block 18 tile 45, shown in area 29 (Kuto's Well)",
+   "what": "several tiles together",
+   "composition": "h0.15.7.6|8X8D8.DAX:17:58,8X8D8.DAX:18:0",
+   "description": "8X8D8 block 18 tile 0 over 8X8D8 block 17 tile 58 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6), shown in area 29 (Kuto's Well)",
    "seenAt": {
     "map": 32,
-    "x": 7,
-    "y": 7,
+    "x": 12,
+    "y": 6,
     "facing": "north",
-    "column": 6,
-    "row": 1
+    "column": 1,
+    "row": 5
    },
-   "views": 6,
+   "views": 1,
    "drawnIn": [],
-   "why": "drawn in 6 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 1 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
-   "key": "tile:29:b605eb2aa208fe8072bf88d13a52e498d5530add7315dddce313c7664e06d519",
+   "key": "tile:29:b802c96e161598810d40ee2ad554a410aeb7c204bee5722c7a596c7bf762cbd0",
    "width": 32,
    "height": 32,
    "area": 29,
    "areaName": "Kuto's Well",
    "group": "tile set 8X8D8 block 18",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:18:29",
-   "description": "8X8D8 block 18 tile 29, shown in area 29 (Kuto's Well)",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:18:46,8X8D8.DAX:18:17",
+   "description": "8X8D8 block 18 tile 17 over 8X8D8 block 18 tile 46, shown in area 29 (Kuto's Well)",
    "seenAt": {
     "map": 32,
-    "x": 7,
-    "y": 7,
-    "facing": "north",
-    "column": 4,
+    "x": 6,
+    "y": 6,
+    "facing": "east",
+    "column": 8,
     "row": 4
    },
-   "views": 15,
+   "views": 1,
    "drawnIn": [],
-   "why": "drawn in 15 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 1 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:29:b95adf1bba5611909888c2025bda58491bee76ac7ee539de05dd4e6aa65246b6",
+   "width": 32,
+   "height": 32,
+   "area": 29,
+   "areaName": "Kuto's Well",
+   "group": "tile set 8X8D8 block 18",
+   "what": "several tiles together",
+   "composition": "h0.15.7.6|8X8D8.DAX:17:58,8X8D8.DAX:18:17",
+   "description": "8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 58 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6), shown in area 29 (Kuto's Well)",
+   "seenAt": {
+    "map": 32,
+    "x": 11,
+    "y": 6,
+    "facing": "north",
+    "column": 3,
+    "row": 5
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -49773,15 +52439,15 @@
    "description": "8X8D8 block 18 tile 17 over 8X8D8 block 18 tile 24, shown in area 29 (Kuto's Well)",
    "seenAt": {
     "map": 32,
-    "x": 6,
-    "y": 8,
-    "facing": "east",
-    "column": 3,
+    "x": 8,
+    "y": 5,
+    "facing": "west",
+    "column": 0,
     "row": 6
    },
-   "views": 2,
+   "views": 6,
    "drawnIn": [],
-   "why": "drawn in 2 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 6 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -49891,15 +52557,38 @@
    "description": "8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 46, shown in area 29 (Kuto's Well)",
    "seenAt": {
     "map": 32,
-    "x": 6,
-    "y": 8,
-    "facing": "east",
+    "x": 8,
+    "y": 6,
+    "facing": "west",
     "column": 2,
     "row": 4
    },
-   "views": 2,
+   "views": 6,
    "drawnIn": [],
-   "why": "drawn in 2 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 6 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:29:c49c6bb735774ae1b34bd0319b7b4e01830d164012a08ba5e5a1eb241678ca26",
+   "width": 32,
+   "height": 32,
+   "area": 29,
+   "areaName": "Kuto's Well",
+   "group": "tile set 8X8D8 block 18",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:17:19,8X8D8.DAX:18:0",
+   "description": "8X8D8 block 18 tile 0 over 8X8D8 block 17 tile 19, shown in area 29 (Kuto's Well)",
+   "seenAt": {
+    "map": 32,
+    "x": 15,
+    "y": 0,
+    "facing": "south",
+    "column": 9,
+    "row": 5
+   },
+   "views": 3,
+   "drawnIn": [],
+   "why": "drawn in 3 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -49952,6 +52641,29 @@
   },
   {
    "kind": "first-person cell",
+   "key": "tile:29:c850db4bb584fcccbbf8891326a16160109bea702716dcf91052487681569235",
+   "width": 32,
+   "height": 32,
+   "area": 29,
+   "areaName": "Kuto's Well",
+   "group": "tile set 8X8D8 block 18",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:18:10,8X8D8.DAX:18:16",
+   "description": "8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 10, shown in area 29 (Kuto's Well)",
+   "seenAt": {
+    "map": 32,
+    "x": 6,
+    "y": 6,
+    "facing": "south",
+    "column": 2,
+    "row": 6
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
    "key": "tile:29:cfbfd520ee1fb9140fa73dcc649955957e214bd5148e506d6286dc9f0168e54d",
    "width": 32,
    "height": 32,
@@ -49969,12 +52681,12 @@
     "column": 0,
     "row": 4
    },
-   "views": 493,
+   "views": 536,
    "drawnIn": [
     13
    ],
    "sameAs": "kobold-cave-thresholds-terrain-cfbfd520ee1f.png",
-   "why": "drawn in 493 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 536 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -50070,29 +52782,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:29:e0ce7a229d6caedd953d55b93b29c9231e5eaeee6aa628029376f3a36ec87ee7",
-   "width": 32,
-   "height": 32,
-   "area": 29,
-   "areaName": "Kuto's Well",
-   "group": "tile set 8X8D8 block 18",
-   "what": "one stored tile",
-   "composition": "-|8X8D8.DAX:18:54",
-   "description": "8X8D8 block 18 tile 54, shown in area 29 (Kuto's Well)",
-   "seenAt": {
-    "map": 32,
-    "x": 7,
-    "y": 7,
-    "facing": "north",
-    "column": 4,
-    "row": 3
-   },
-   "views": 3,
-   "drawnIn": [],
-   "why": "drawn in 3 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:29:e6aff60be262a7801a0a779c909dda8f93e56dd4d455ed694be80d8e71ced9c7",
    "width": 32,
    "height": 32,
@@ -50133,9 +52822,32 @@
     "column": 2,
     "row": 4
    },
-   "views": 10,
+   "views": 11,
    "drawnIn": [],
-   "why": "drawn in 10 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 11 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:29:e7dddf6c92781e352e467cbdb99fe21e9e010e8f97e9fcba036bdd5cd187984e",
+   "width": 32,
+   "height": 32,
+   "area": 29,
+   "areaName": "Kuto's Well",
+   "group": "tile set 8X8D8 block 18",
+   "what": "several tiles together",
+   "composition": "-|8X8D8.DAX:18:24,8X8D8.DAX:18:16",
+   "description": "8X8D8 block 18 tile 16 over 8X8D8 block 18 tile 24, shown in area 29 (Kuto's Well)",
+   "seenAt": {
+    "map": 32,
+    "x": 6,
+    "y": 6,
+    "facing": "east",
+    "column": 7,
+    "row": 6
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -50159,6 +52871,29 @@
    "views": 96,
    "drawnIn": [],
    "why": "drawn in 96 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:29:ee174e4ebfbf804733cd0c1139bb483b4d7ac8f17a2fcad9dfee81979b011f7c",
+   "width": 32,
+   "height": 32,
+   "area": 29,
+   "areaName": "Kuto's Well",
+   "group": "tile set 8X8D8 block 18",
+   "what": "several tiles together",
+   "composition": "h0.15.7.6|8X8D8.DAX:17:18,8X8D8.DAX:18:17",
+   "description": "8X8D8 block 18 tile 17 over 8X8D8 block 17 tile 18 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6), shown in area 29 (Kuto's Well)",
+   "seenAt": {
+    "map": 32,
+    "x": 11,
+    "y": 5,
+    "facing": "north",
+    "column": 3,
+    "row": 5
+   },
+   "views": 6,
+   "drawnIn": [],
+   "why": "drawn in 6 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -50205,6 +52940,29 @@
    "views": 89,
    "drawnIn": [],
    "why": "drawn in 89 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:29:f7a279e4ec795fd86c99cf774ff04fdbfcb67f920f9ea1410753ed84fc56b133",
+   "width": 32,
+   "height": 32,
+   "area": 29,
+   "areaName": "Kuto's Well",
+   "group": "tile set 8X8D8 block 18",
+   "what": "several tiles together",
+   "composition": "h0.0.8.6|8X8D8.DAX:17:58,8X8D8.DAX:18:0",
+   "description": "8X8D8 block 18 tile 0 over 8X8D8 block 17 tile 58 over the horizon row (three rows of sky 0, one of 0, two of 8, two of ground 6), shown in area 29 (Kuto's Well)",
+   "seenAt": {
+    "map": 32,
+    "x": 12,
+    "y": 6,
+    "facing": "north",
+    "column": 1,
+    "row": 5
+   },
+   "views": 1,
+   "drawnIn": [],
+   "why": "drawn in 1 views of map 32 (WALLDEF8 block 18 (tiles 8X8D8 block 18), block 17 (tiles 8X8D8 block 17), block 1 (tiles 8X8D8 block 1)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
