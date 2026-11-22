@@ -132,9 +132,14 @@ const places = [
     id: "friend-word", title: "The Lizardman Keep, the old lizard man's friend-word (Journal Entry 35)", script: ["ecl-8", 16],
     runeInstructions: [], passage: ["a049", "a0bd"], words: [],
     // Location 1 is (4,3). The old lizard man comes only to a party that freed his people (bit 1 of 4a52, ECL8 16 at 9f01).
-    travel: { archive: 8, block: 16, x: 4, y: 4, facing: 0, set: { 0x4a52: 1 } },
+    // The keep's script puts an arriving party at its gate, (0,4) facing east, whatever square it was sent to.
+    travel: { archive: 8, block: 16, x: 0, y: 4, facing: 1, set: { 0x4a52: 1 } },
     async reach(game) {
-      await game.key("ArrowUp");
+      for (const heading of "EEEEN") {
+        if (/OLD LIZARDMAN APPEARS/.test(await game.screenText())) break;
+        await game.step(heading, { read: false });
+        for (let presses = 0; presses < 6 && pressReturn.test(await game.screenText()) && !/OLD LIZARDMAN/.test(await game.screenText()); presses++) await game.key("Enter");
+      }
       await game.expect(/OLD LIZARDMAN APPEARS/, "The old lizard man meets the party at (4,3)");
       for (let presses = 0; presses < 8 && !/\bParlay\b/i.test(await game.screenText()); presses++) await game.key("Enter");
       await game.key("p");
