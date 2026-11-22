@@ -1337,6 +1337,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:10:ecl:acb8", "YOUMUSTTAKEMYGIFTSTOBETTERFIGHTTHEEVILTHATHASCOMETOTHECITY"],
   ["scene-illustration:area:10:ecl:b695:caller:acbc", "YOUMUSTTAKEMYGIFTSTOBETTERFIGHTTHEEVILTHATHASCOMETOTHECITY"],
   ["scene-illustration:area:10:ecl:ad16", "ABODYRISESFROMITSRESTINGPLACETOLAYWEAPONSBEFORETHEPARTY"],
+  ["scene-illustration:area:10:ecl:ad29:cue:knight-gifts", "VIEWTAKEPOOLEXIT"],
   ["scene-illustration:area:10:ecl:ac51", "PANELOFAPOWERFULKNIGHTFIGHTINGSEVERALUNDEAD"],
   ["scene-illustration:area:10:ecl:ac52", "PANELOFAPOWERFULKNIGHTFIGHTINGSEVERALUNDEAD"],
   ["scene-illustration:area:28:ecl:a2f4:cue:garrison-aftermath", "AFTERKILLINGTHECOMMANDANTTHERESTOFTHEOUTPOSTEITHERSURRENDERSORRUNSAWAY"],

@@ -9032,7 +9032,16 @@ try {
       await step("enter");
       await step("enter");
       assert.match(text(), /VIEWTAKEPOOLEXIT/i);
-      assert.equal(frame.portrait, "portrait:PIC1.DAX:1:0:0");
+      const gifts = "scene-illustration:area:10:ecl:ad29:cue:knight-gifts";
+      assert.equal(frame.portrait, gifts);
+      await waitFor("the Valhingen knight's gifts illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${gifts}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays(frame.frame);
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "valhingen-knight-gift-equipment.png"), Buffer.from(shot.data, "base64"));
+      await step("t");
+      assert.match(text(), /PLATEMAILLONGSWORDRINGSHIELD(?:CLERICALSCROLLWITH2SPELLS){4}/i);
     } else if (routeName === "bane-hay-bunk-aftermath") {
       for (const key of ["down", "up"]) await step(key);
       assert.equal(frame.portrait, undefined);
