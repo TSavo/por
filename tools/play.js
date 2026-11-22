@@ -1004,6 +1004,7 @@ const portraitLoops = [
     /ZOMBIESSHUFFLEDOWNTHESTAIRS/i],
   ["portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:", 3],
   ["portrait:area:3:ecl:a6c8:PIC5.DAX:56:", [0, 1, 3]],
+  ["portrait:area:14:ecl:a13f:PIC1.DAX:1:", 3],
 ].map(([prefix, members, initial, cue]) => ({
   cue,
   phases: (Array.isArray(members) ? members : Array.from({ length: members }, (_, index) => index))
