@@ -239,7 +239,9 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const lizardKeep = auditReachability && !context.arrivalFrom && context.script.area === 16 && (context.map === 16 || context.map === 30);
     const lizardCellar = lizardKeep && context.map === 30;
     const mendorLibrary = auditReachability && !context.arrivalFrom && context.script.area === 15 && context.map === 15;
-    const audited = lizardKeep || mendorLibrary;
+    const valjevo = auditReachability && !context.arrivalFrom && context.script.archive === 5
+      && context.script.area === context.map && (context.map === 4 || context.map === 6);
+    const auditedPalette = lizardKeep || mendorLibrary || valjevo;
     // ECL16's descents enter a roofed component. Its relocations all land in
     // that component. The surface starts include the entrance and stair returns.
     const lizardStarts: readonly (readonly [number, number])[] = lizardCellar ? [[1, 7], [13, 1], [4, 15], [4, 5], [10, 4], [7, 10], [10, 8]]
@@ -247,12 +249,13 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     // Library entrances and ECL15's scripted relocations cannot cross into
     // the five sealed cells at map 15's masonry corners.
     const libraryStarts: readonly (readonly [number, number])[] = [[1, 4], [8, 3], [14, 7], [4, 10], [7, 9], [5, 5], [9, 9], [9, 11]];
-    const starts = mendorLibrary ? libraryStarts : lizardStarts;
-    const playable = audited ? reachable(map, starts.map(([x, y]) => y * 16 + x), context.script.area) : undefined;
-    const groundAllowed = (ground: number, shaft: boolean) => (!kuto && !audited) || ground === 6 || (shaft && ground === 1);
+    const starts = mendorLibrary ? libraryStarts : lizardKeep ? lizardStarts
+      : valjevo && context.map === 6 ? [[14, 4]] as const : undefined;
+    const playable = starts && reachable(map, starts.map(([x, y]) => y * 16 + x), context.script.area);
+    const groundAllowed = (ground: number, shaft: boolean) => (!kuto && !auditedPalette) || ground === 6 || (shaft && ground === 1);
     const lowerValues = (shaft: boolean) => lowers.filter(({ line, band, ground }) =>
       groundAllowed(ground, shaft) && (!kuto || (line === 0 && band === (lowerWell ? 8 : 7)))
-      && (!audited || (line === 15 && band === 7)));
+      && (!auditedPalette || (line === 15 && band === 7)));
     for (let y = 0; y < 16; y++) {
       for (let x = 0; x < 16; x++) {
         if (playable && !playable.has(y * 16 + x)) continue;
@@ -297,7 +300,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const hashesOf = new Map<Agg, Map<string, string | undefined>>();
     const skies = (roofed: boolean) => {
       if (lizardKeep) return lizardCellar ? [0] : [0, 11];
-      if (mendorLibrary) return roofed ? [15] : [0, 11];
+      if (mendorLibrary || valjevo) return roofed ? [15] : [0, 11];
       const possible = roofed ? context.script.sky.covered : context.script.sky.open;
       // Paired native captures of the Podol healer route show canopy colour 12.
       if (roofed && context.script.area === 18 && context.map === 18) return [...new Set([...possible, 12])];
@@ -336,7 +339,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       }
     }
     for (const [hash, entry] of overhead) entries.set(hash, [...(entries.get(hash) ?? []), entry]);
-    return { entries, stoodOn, map, playable };
+    return { entries, stoodOn, map, playable, auditedPalette };
   };
 
   const items: Item[] = [];
@@ -362,8 +365,8 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const auditedContexts = new Set<Context>();
     const walkable = new Map<Context, Set<number>>();
     for (const context of mine) {
-      const { entries, stoodOn, map, playable } = enumerate(context, have);
-      if (playable) {
+      const { entries, stoodOn, map, playable, auditedPalette } = enumerate(context, have);
+      if (auditedPalette) {
         auditedContexts.add(context);
         // Keep existing files traceable without counting the unreachable views as playable.
         for (const hash of enumerate(context, have, false).entries.keys()) {
