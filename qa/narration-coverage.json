@@ -3,10 +3,10 @@
  "about": "What play has heard of the narration. Written by `npm run qa:narration -- --merge <ledgers>`; see docs/NARRATION-QA.md.",
  "runs": {
   "acceptance-narration-dynamic": {
-   "ledger": "acceptance-narration-dynamic-training-doors.jsonl",
-   "games": 3,
-   "decisions": 350,
-   "heard": 66
+   "ledger": "acceptance-narration-dynamic.jsonl",
+   "games": 5,
+   "decisions": 765,
+   "heard": 149
   },
   "acceptance-new-phlan": {
    "ledger": "acceptance-new-phlan-council-close-final.jsonl",
@@ -431,6 +431,11 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:0:ecl:9af0"
+   },
+   "withoutArt": {
+    "run": "acceptance-narration-dynamic",
+    "step": 99840376,
+    "showing": "no picture"
    }
   },
   "por.voice.ecl3.b11-9af8": {
@@ -465,12 +470,42 @@
     "key": "portrait:HEAD3.DAX:9:BODY3.DAX:1"
    }
   },
+  "por.voice.ecl3.b11-9d61": {
+   "run": "acceptance-narration-dynamic",
+   "step": 125818203,
+   "withoutArt": {
+    "run": "acceptance-narration-dynamic",
+    "step": 125818203,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl3.b11-9eab-9ed8": {
+   "run": "acceptance-narration-dynamic",
+   "step": 111843915,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+   }
+  },
+  "por.voice.ecl3.b11-9f23": {
+   "run": "acceptance-narration-dynamic",
+   "step": 110817166,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+   }
+  },
   "por.voice.ecl3.b11-9f66": {
    "run": "acceptance-narration-dynamic",
    "step": 111123471,
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:11:ecl:9f8a"
+   },
+   "withoutArt": {
+    "run": "acceptance-narration-dynamic",
+    "step": 111123471,
+    "showing": "no picture"
    }
   },
   "por.voice.ecl3.b11-9fe5": {
@@ -479,6 +514,11 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:11:ecl:a007"
+   },
+   "withoutArt": {
+    "run": "acceptance-narration-dynamic",
+    "step": 133614916,
+    "showing": "no picture"
    }
   },
   "por.voice.ecl3.b11-a00e-a021": {
@@ -787,6 +827,36 @@
    "slot": "0x6e7e",
    "value": "21"
   },
+  "por.voice.ecl3.b11-9eab-9ed8.variant-01-acolyte": {
+   "run": "acceptance-narration-dynamic",
+   "step": 194876049,
+   "slot": "0x982c+0x9890",
+   "value": "ACOLYTE"
+  },
+  "por.voice.ecl3.b11-9eab-9ed8.variant-02-warrior": {
+   "run": "acceptance-narration-dynamic",
+   "step": 117838044,
+   "slot": "0x982c+0x9890",
+   "value": "WARRIOR"
+  },
+  "por.voice.ecl3.b11-9eab-9ed8.variant-03-evoker": {
+   "run": "acceptance-narration-dynamic",
+   "step": 113843800,
+   "slot": "0x982c+0x9890",
+   "value": "EVOKER"
+  },
+  "por.voice.ecl3.b11-9eab-9ed8.variant-05-robber": {
+   "run": "acceptance-narration-dynamic",
+   "step": 156352896,
+   "slot": "0x982c+0x9890",
+   "value": "ROBBER"
+  },
+  "por.voice.ecl3.b11-9eab-9ed8.variant-06-curate": {
+   "run": "acceptance-narration-dynamic",
+   "step": 111843915,
+   "slot": "0x982c+0x9890",
+   "value": "CURATE"
+  },
   "por.voice.ecl3.b11-a00e-a021.variant-01-fighters": {
    "run": "acceptance-narration-dynamic",
    "step": 115978062,
@@ -831,5 +901,84 @@
    "unitId": "por.voice.ecl7.b23-9a70-9afa"
   }
  },
- "silent": {}
+ "silent": {
+  "covered-without-trigger | por.review.ecl-3.block-11.at-9ebb | ": {
+   "kind": "covered-without-trigger",
+   "sourceId": "por.review.ecl-3.block-11.at-9ebb",
+   "archive": "ECL3.DAX",
+   "block": 11,
+   "runs": {
+    "acceptance-narration-dynamic": {
+     "count": 1,
+     "step": 109872396
+    }
+   }
+  },
+  "covered-without-trigger | por.review.ecl-3.block-11.at-9ebf | ": {
+   "kind": "covered-without-trigger",
+   "sourceId": "por.review.ecl-3.block-11.at-9ebf",
+   "archive": "ECL3.DAX",
+   "block": 11,
+   "runs": {
+    "acceptance-narration-dynamic": {
+     "count": 1,
+     "step": 109888458
+    }
+   }
+  },
+  "covered-without-trigger | por.review.ecl-3.block-11.at-9ed4 | ": {
+   "kind": "covered-without-trigger",
+   "sourceId": "por.review.ecl-3.block-11.at-9ed4",
+   "archive": "ECL3.DAX",
+   "block": 11,
+   "runs": {
+    "acceptance-narration-dynamic": {
+     "count": 1,
+     "step": 109930579
+    }
+   }
+  },
+  "covered-without-trigger | por.review.ecl-3.block-11.at-9ed8 | ": {
+   "kind": "covered-without-trigger",
+   "sourceId": "por.review.ecl-3.block-11.at-9ed8",
+   "archive": "ECL3.DAX",
+   "block": 11,
+   "runs": {
+    "acceptance-narration-dynamic": {
+     "count": 1,
+     "step": 109946720
+    }
+   }
+  },
+  "no-variant | por.review.ecl-3.block-11.at-9eab | 'THERE IS A FINE SWORDSMAN WHO WILL JOIN YOU FOR 3 SHARES . IS THIS ACCEPTABLE?'": {
+   "kind": "no-variant",
+   "sourceId": "por.review.ecl-3.block-11.at-9eab",
+   "archive": "ECL3.DAX",
+   "block": 11,
+   "slot": "0x982c+0x9890",
+   "value": "'THERE IS A FINE SWORDSMAN WHO WILL JOIN YOU FOR 3 SHARES . IS THIS ACCEPTABLE?'",
+   "status": "not-found",
+   "runs": {
+    "acceptance-narration-dynamic": {
+     "count": 4,
+     "step": 109838434
+    }
+   }
+  },
+  "no-variant | por.review.ecl-3.block-11.at-9eab | 'THERE IS A FINE THEURGIST WHO WILL JOIN YOU FOR 4 SHARES . IS THIS ACCEPTABLE?'": {
+   "kind": "no-variant",
+   "sourceId": "por.review.ecl-3.block-11.at-9eab",
+   "archive": "ECL3.DAX",
+   "block": 11,
+   "slot": "0x982c+0x9890",
+   "value": "'THERE IS A FINE THEURGIST WHO WILL JOIN YOU FOR 4 SHARES . IS THIS ACCEPTABLE?'",
+   "status": "not-found",
+   "runs": {
+    "acceptance-narration-dynamic": {
+     "count": 2,
+     "step": 154354326
+    }
+   }
+  }
+ }
 }
