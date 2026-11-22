@@ -51,6 +51,39 @@ swallowed under `POR_INPUT_COMPAT=discard-poll-prompt`. Version 1.3's
 the game calls `FlushKeys`. New replays should use normal input and hold no
 extra presses.
 
+## One key, one input (#76)
+
+A replay presses each key once and checks the screen that key should
+produce. It never presses a key again until the screen changes: a key the
+game swallowed would leave the screen as it was, and pressing again would
+hide it.
+
+- In `tools/verify-fresh-party.mjs` a step that presses one key several
+  times says how many: `presses(key, count, until)`. Before each press the
+  screen must not yet show `until`, and after the last press it must. The
+  older form `[key, until, limit]` is refused. `acceptSokalPatrol` takes the
+  number of keys its walk needs in the same way.
+- `POR_REPLAY_RECOUNT=1` measures those counts: each counted step presses
+  until `until` and prints `POR_REPLAY_COUNT leg <n> <step>: <count>`,
+  with the count written in the source when it differs. Use it to write a
+  count after the game or a route changes; a run in that mode checks
+  nothing about swallowed keys. The counts in the full campaign were
+  measured on 2026-11-22 from `game/` in Chrome with the committed prompt
+  records. They are counts of inputs, and include the legacy presses that
+  `POR_INPUT_COMPAT=discard-poll-prompt` drops.
+- The acceptance harness (`tools/acceptance/harness.mjs`) fails a press
+  after which the game shows exactly what it showed before: the same text
+  and colours, the same picture and square, and nothing printed, narrated
+  or flashed on the way. Its loops press through it, so none of them can
+  make up for a swallowed key.
+- `POR_SWALLOW_KEY=n` makes the runner swallow the n-th key it is given (in
+  each runner it starts), as if the game had read it and done nothing: the
+  runner shows the same screen again and asks again at the same moment.
+  This is how a replay is shown to fail on a swallowed key.
+- `npm run qa:repeat-presses` counts the replay steps that still press a key
+  until the screen changes, by file and line, and exits 1 while any is
+  left.
+
 ## Character icon editor
 
 Run `node tools/verify-character-icon-editor.mjs <Chrome executable>`

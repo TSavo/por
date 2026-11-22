@@ -257,6 +257,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   // They set this until each is re-recorded with one press per input.
   const promptAtDiscardPolls = process.env.POR_INPUT_COMPAT === "discard-poll-prompt";
   const traceKeys = process.env.POR_TRACE_KEYS === "1";
+  // POR_SWALLOW_KEY=n, for testing the replays only: the n-th key this runner is given (counted
+  // from 1, commands such as ":poll" and the journal's "j" not counted) is swallowed, as if the
+  // game had read it and done nothing. The runner shows the same screen again and asks again at the
+  // same moment. A replay that checks the screen each key should produce fails there (#76).
+  const swallowKey = Number(process.env.POR_SWALLOW_KEY) || 0;
+  let keysGiven = 0;
   // POR_WATCH_ECL=4abb,4a80 makes each frame report the value of those script variables. Only the
   // variables the scripts keep in the saved game (0x4900 to 0x4cff) can be watched. Read only.
   const watchedVariables = (process.env.POR_WATCH_ECL ?? "").split(",").filter(Boolean).map((text) => {
@@ -1048,6 +1054,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const key = getKey(gameCommand);
       if (key === undefined) {
         console.log("Enter a letter, digit, arrow name, home, pageup, end, pagedown, enter, space, escape, tab, or backspace.");
+        continue;
+      }
+      if (!developerVictory && !enableCodeWheel && ++keysGiven === swallowKey) {
+        console.error(`POR_KEY ${JSON.stringify(command)} swallowed (POR_SWALLOW_KEY=${swallowKey})`);
+        showFrame(undefined, undefined, false, automaticCombat);
         continue;
       }
       if (developerVictory) {

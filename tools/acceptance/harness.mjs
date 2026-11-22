@@ -40,6 +40,14 @@ export function screenText(frame) {
   return screenRows(frame).join("").replace(/ +/g, " ").trim();
 }
 
+/**
+ * Everything a frame shows the player, as one string: the text with its colours, the picture, and
+ * where the party stands. Two frames with the same look show the same screen.
+ */
+function look(frame) {
+  return JSON.stringify([frame?.text, frame?.frame, frame?.exploration, frame?.scene]);
+}
+
 /** The bottom line of the screen, where the game puts its menu. */
 export function menuLine(frame) {
   return screenRows(frame)[24].replace(/ +/g, " ").trim();
@@ -241,6 +249,8 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
     const draw = /^POR_DICE \d+ (.+) range (\d+)(?: value (\d+))?$/.exec(line);
     if (draw) dice.push({ caller: draw[1], range: +draw[2], value: draw[3] === undefined ? undefined : +draw[3] });
     else if (/^POR_KEY .* discarded$/.test(line)) discarded++;
+    // A key POR_SWALLOW_KEY made the runner swallow: say so, as a test of that is reading.
+    else if (/^POR_KEY .* swallowed /.test(line)) console.error(line);
     else if (!line.startsWith("POR_KEY ")) errors += line + "\n";
   });
   const lines = createInterface({ input: runner.stdout })[Symbol.asyncIterator]();
@@ -343,16 +353,30 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
         if (!await game.send(takeControl ? "space" : ":travel-poll")) game.fail("The runner refused to go on at a frame that does not wait for a key.");
       }
     },
-    /** Press one key and return the frame the game shows when it next waits for the player. */
+    /**
+     * Press one key and return the frame the game shows when it next waits for the player.
+     * Every key is one input: a press after which the game shows exactly what it showed before
+     * (the same text and colours, the same picture and square, nothing printed, narrated or
+     * flashed on the way) was swallowed, and fails. So no loop of presses here can make up for a
+     * swallowed key by pressing again (#76).
+     */
     async press(key, expected, why = "") {
+      const before = { look: look(game.frame), printed: texts.length, narrated: narrations.length, flashed: flashed.length };
       if (!await game.send(key)) game.fail(`The runner does not know the key ${JSON.stringify(key)}.`);
       await game.settle();
       // POR_ACCEPTANCE_TRACE=1 prints every key and the screen that followed, for writing a new test.
       if (process.env.POR_ACCEPTANCE_TRACE === "1") console.error(`[${key}]\n${game.rows().map((row) => row.trimEnd()).filter(Boolean).join("\n")}`);
+      if (look(game.frame) === before.look && texts.length === before.printed && narrations.length === before.narrated &&
+        flashed.length === before.flashed) {
+        game.fail(`${why}\nThe game swallowed ${JSON.stringify(key)}: after the press it shows what it showed before.`.trim());
+      }
       if (expected &&!expected.test(game.text())) game.fail(`${why}\nAfter one press of ${key} the screen does not show ${expected}.`.trim());
       return game.frame;
     },
-    /** Press `key` until the screen matches `pattern`. Fails after `limit` presses. `key` may be a function of the screen text. */
+    /**
+     * Press `key` until the screen matches `pattern`. Fails after `limit` presses. `key` may be a
+     * function of the screen text. Each press must change what the game shows (see `press`).
+     */
     async pressUntil(key, pattern, limit = 40) {
       for (let presses = 0; !pattern.test(game.text()); presses++) {
         if (presses >= limit) game.fail(`${limit} presses did not reach ${pattern}.`);
@@ -390,7 +414,8 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
         purses[name] = coins(game.frame);
         await game.press("e");
         if (game.menu() !== menu) game.fail(`Leaving ${name}'s character sheet did not return to "${menu}".`);
-        await game.press("end");
+        // End moves to the next member; alone in the party, there is none and End changes nothing.
+        if (names.length > 1) await game.press("end");
       }
       return purses;
     },
@@ -430,7 +455,7 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
         found.set(shown.name, shown);
         await game.press("e");
         if (game.menu() !== menu) game.fail(`Leaving ${shown.name}'s character sheet did not return to "${menu}".`);
-        await game.press("end");
+        if (names.length > 1) await game.press("end");
       }
       return names.map((name) => found.get(name));
     },

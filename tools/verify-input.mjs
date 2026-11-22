@@ -9,7 +9,9 @@
 // original game files and no saved game or browser.
 //
 // Set POR_INPUT_COMPAT=discard-poll-prompt to see it fail on the old
-// behaviour, where a press was spent on each of those moments.
+// behaviour, where a press was spent on each of those moments, and
+// POR_SWALLOW_KEY=n to see it fail when the n-th key is swallowed: no key
+// here is pressed again until the screen changes (#76).
 
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
@@ -63,15 +65,17 @@ try {
   await press("a", /Add a character: Add Exit/, "A opens the list of characters to add.");
   await press("a", /\* \w+.*Add a character: Add Exit/s, "A adds the highlighted character and marks it.");
   await press("e", /Create New Character/, "E leaves the list and returns to the party menu.");
-  // Begin Adventuring: one press leaves the party menu.
-  await press("b", /^(?!.*Create New Character)/s, "B begins the adventure with one press.");
-  // Walk the opening to the first exploration menu, answering only what the game asks.
-  for (let presses = 0; !/Area Cast View Encamp Search Look/.test(text(frame)); presses++) {
-    assert.ok(presses < 40, `The opening did not reach the exploration menu:\n${text(frame)}`);
-    const screen = text(frame);
-    runner.stdin.write((/Yes No\s*$/.test(screen) ? "n" : "enter") + "\n");
-    frame = await nextFrame();
+  // Begin Adventuring: one press leaves the party menu, and Rolf's tour follows. Each Enter brings
+  // up the next stop of the tour: a press the game swallowed would leave the stop on screen (#76).
+  await press("b", /15,1 W .*I AM ROLF.*Press <enter>\/<return> to continue$/, "B begins the adventure with one press.");
+  const tour = [
+    /11,2 S .*TEMPLE OF TYR/, /11,2 N .*PASSENGER DOCK/, /5,2 E .*SPECIAL TRAINING SCHOOLS/, /4,3 S .*CITY HALL/,
+    /1,4 W .*SUNE'S TEMPLE/, /0,4 W .*MONSTER- RIDDEN AREAS/, /0,4 W .*OUR TOUR IS ENDED/,
+  ];
+  for (const stop of tour) {
+    await press("enter", new RegExp(`${stop.source}.*Press <enter>/<return> to continue$`), "Enter goes on to the next stop of the tour.");
   }
+  await press("enter", /OUR TOUR IS ENDED.*Area Cast View Encamp Search Look$/, "Enter after the last stop leaves the party free to walk.");
   // Each of these is one press in the original.
   await press("e", /Camp: Save View Magic Rest Alter Exit/, "E opens the Camp menu with one press.");
   await press("s", /Save Which Game: A B C D E F G H I J/, "S opens the save menu with one press.");
@@ -80,7 +84,7 @@ try {
   await press("e", /Area Cast View Encamp Search Look/, "E leaves camp with one press.");
   await press("s", /search.*Area Cast View Encamp Search Look/s, "S turns on search with one press.");
   assert.equal(discarded, 0, "No key press may be given to the game at a moment when it only discards keys.");
-  console.log("verified one press is one input from the party menu through Begin Adventuring, Camp, Save, and Search");
+  console.log("verified one press is one input from the party menu through Begin Adventuring, Rolf's tour, Camp, Save, and Search");
 } finally {
   clearTimeout(timer);
   runner.kill();

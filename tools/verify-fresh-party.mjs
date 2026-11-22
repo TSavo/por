@@ -101,21 +101,67 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
   }
 }
 
+// Each key in a replay is one input, and a replay checks the screen it should produce (#76).
+// A step that has to press one key several times says how many: `presses(key, count, until)`.
+// Before each of its presses the screen must not yet show `until`, and after the last it must,
+// so a press the game swallows leaves the replay one input behind and the step fails. Pressing a
+// key until the screen changes would hide that press, and replayActions refuses such a step.
+//
+// POR_REPLAY_RECOUNT=1 measures the counts: there a counted step presses until `until` (at most
+// 2,000 times) and prints "POR_REPLAY_COUNT" with the count to write. A run in that mode checks
+// nothing about swallowed keys; it is how a count is written after the game or a route changes.
+const recount = process.env.POR_REPLAY_RECOUNT === "1";
+
+/** Press `key` exactly `count` times; the last press, and only the last, brings up `until`. */
+function presses(key, count, until) {
+  assert.ok(recount || Number.isInteger(count) && count >= 0, `presses(${key}) needs a count: measure it with POR_REPLAY_RECOUNT=1.`);
+  return { presses: key, count, until };
+}
+
+function describeUntil(until) {
+  return typeof until === "function" ? until.toString().replace(/\s+/g, " ").slice(0, 160) : String(until);
+}
+
+function reportCount(what, measured, written) {
+  console.log(`POR_REPLAY_COUNT leg ${campaignChrome ? campaignLeg : "pipe"} ${what}: ${measured}` +
+    (written === measured ? "" : ` (written ${written ?? "none"})`));
+}
+
+async function pressCounted(frame, { presses: key, count, until }, send) {
+  const reached = typeof until === "function" ? until : (current) => until.test(visibleText(current));
+  if (recount) {
+    let measured = 0;
+    for (; measured < 2000 && !reached(frame); measured++) frame = await send(key);
+    reportCount(`presses(${JSON.stringify(key)}, ${describeUntil(until)})`, measured, count);
+    assert.ok(reached(frame), `2000 presses of ${key} did not bring up ${describeUntil(until)}:\n${visibleText(frame)}`);
+    return frame;
+  }
+  for (let press = 1; press <= count; press++) {
+    assert.ok(!reached(frame), `Press ${press} of ${count} of ${key}: the screen already shows ${describeUntil(until)}. ` +
+      `The step needs fewer presses (measure with POR_REPLAY_RECOUNT=1):\n${visibleText(frame)}`);
+    frame = await send(key);
+  }
+  assert.ok(reached(frame), `After ${count} presses of ${key} the screen does not show ${describeUntil(until)}. ` +
+    `A press was swallowed, or the route needs another (measure with POR_REPLAY_RECOUNT=1):\n${visibleText(frame)}`);
+  return frame;
+}
+
 async function replayActions(frame, actions, stopAt, send) {
   for (const action of actions) {
-    if (Array.isArray(action)) {
-      const [command, until, limit] = action;
-      const reached = typeof until === "function" ? until : (current) => until.test(visibleText(current));
-      for (let attempt = 0; attempt < limit && !reached(frame); attempt++) {
-        frame = await send(command);
-      }
-      if (typeof until === "function") assert.ok(reached(frame), `Could not select the expected row with ${command}: ${visibleText(frame)}`);
-      else assert.match(visibleText(frame), until);
+    const step = typeof action === "function" ? action(visibleText(frame), frame) : action;
+    if (Array.isArray(step)) {
+      const [key, until, limit] = step;
+      assert.ok(recount, `The step [${JSON.stringify(key)}, ${describeUntil(until)}, ${limit}] presses ${key} until the screen ` +
+        `changes, which hides a swallowed key. Write presses(key, count, until); POR_REPLAY_RECOUNT=1 measures the count.`);
+      frame = await pressCounted(frame, { presses: key, count: undefined, until }, send);
       continue;
     }
-    const key = typeof action === "function" ? action(visibleText(frame), frame) : action;
-    if (typeof key !== "string") continue;
-    frame = await send(key);
+    if (step?.presses !== undefined) {
+      frame = await pressCounted(frame, step, send);
+      continue;
+    }
+    if (typeof step !== "string") continue;
+    frame = await send(step);
     if (stopAt?.test(visibleText(frame))) break;
   }
   return frame;
@@ -2878,11 +2924,11 @@ async function verifyCastleEnding(fromCastleGuards, { saveAtWestGate = false, co
       "enter", (text) => assert.match(text, /ancient bronze dragon.*fiery aura/),
       "enter", "enter", "c", "enter",
       (text) => assert.match(text, continuous ? /hitpoints \d+ ac/ : /8th lvl fighter hitpoints/),
-      ":win-combat", ["q", /continue battle:yes no/, 60], "n",
+      ":win-combat", presses("q", continuous ? 7 : undefined, /continue battle:yes no/), "n",
       (text) => assert.match(text, /the party has won.*experience points/),
       "enter", "enter", "enter", "s", "e", "n", "enter", "enter", "enter",
       (text) => assert.match(text, /how do you vote.*attack join tyranthraxus/),
-      ["a", /a battle begins/, 8], "a",
+      presses("a", continuous ? 6 : undefined, /a battle begins/), "a",
     ] : [
       "right", ...Array(4).fill("up"),
       (text) => assert.match(text, /audience hall of tyranthraxus/),
@@ -2891,7 +2937,7 @@ async function verifyCastleEnding(fromCastleGuards, { saveAtWestGate = false, co
       ...Array(6).fill("a"), "enter", "enter", "q",
     ]),
     (text) => assert.match(text, continuous ? /hitpoints \d+ ac/ : /tyrani?thraxus hitpoints 80 ac -4/),
-    ...(fromCastleGuards ? [":win-combat", ["q", /continue battle:yes no/, 60]] : Array(32).fill("q")),
+    ...(fromCastleGuards ? [":win-combat", presses("q", continuous ? 1 : undefined, /continue battle:yes no/)] : Array(32).fill("q")),
     (text) => assert.match(text, /continue battle:yes no/),
     "n", (text) => assert.match(text, fromCastleGuards
       ? /the party has won.*receives \d+ experience points/
@@ -3147,7 +3193,7 @@ async function verifyFreshSlumsVictory() {
     (text) => assert.match(text, /surprised a party of kobolds/),
     "c", "enter",
     (text) => assert.match(text, /hand axe.*move view aim use quick done/),
-    ["q", /continue battle|the party has been destroyed/, 200],
+    presses("q", 13, /continue battle|the party has been destroyed/),
     (text) => assert.match(text, /continue battle/),
     "n",
     (text) => assert.match(text, /the party has won.*receives 5 experience points/),
@@ -3175,14 +3221,26 @@ if (campaignOpening) {
   process.exit(0);
 }
 
-function acceptSokalPatrol(destination, password) {
+/**
+ * Walk to `destination` ("10,10 n") through Sokal Keep's patrols, answering each with `password`.
+ * Each key is chosen from the screen, and the walk takes exactly `keys` of them: arriving sooner
+ * or later fails, so a key the game swallows is not answered by pressing it again (#76).
+ * POR_REPLAY_RECOUNT=1 measures `keys`.
+ */
+function acceptSokalPatrol(destination, password, keys) {
+  assert.ok(recount || Number.isInteger(keys), `acceptSokalPatrol(${destination}) needs a key count: measure it with POR_REPLAY_RECOUNT=1.`);
   let letter = 0;
+  let sent = 0;
   const arrived = new RegExp(`\\b${destination}.*area cast view encamp`);
   const [, goalX, goalY, goalFacing] = /^(\d+),(\d+) ([nesw])$/.exec(destination);
   const directions = "nesw";
   return [
-    ...Array(30).fill((text) => {
-      if (arrived.test(text)) return;
+    ...Array(recount ? 60 : keys).fill((text) => {
+      if (arrived.test(text)) {
+        assert.ok(recount, `Arrived at ${destination} after ${sent} of ${keys} keys.`);
+        return;
+      }
+      sent++;
       if (/do you give the password/.test(text)) return "y";
       if (/what do you say\?/.test(text)) return password[letter++] ?? "enter";
       if (/haughty sly nice meek abusive/.test(text)) { letter = 0; return "n"; }
@@ -3196,7 +3254,10 @@ function acceptSokalPatrol(destination, password) {
       const turnsRight = (directions.indexOf(nextFacing) - directions.indexOf(facing) + 4) % 4;
       return ["up", "right", "right", "left"][turnsRight];
     }),
-    (text) => assert.match(text, arrived),
+    (text) => {
+      if (recount) reportCount(`acceptSokalPatrol(${JSON.stringify(destination)}, ${JSON.stringify(password)})`, sent, keys);
+      assert.match(text, arrived, `${keys} keys did not reach ${destination}: a key was swallowed, or the walk needs another.`);
+    },
   ];
 }
 
@@ -3214,13 +3275,13 @@ async function verifyCampaignSokal() {
     (text) => assert.match(text, /6,13 w.*last part is eaten away/),
     // Walk around the west of the keep and enter the courtyard.
     "right", "right", "up", "up", "left", "up", "up", "right", "up", "up", "left",
-    ...acceptSokalPatrol("10,10 n", "shestni"), "right", "right",
-    ...acceptSokalPatrol("10,11 s", "shestni"), "right",
-    ...acceptSokalPatrol("4,11 w", "shestni"), "right",
-    ...acceptSokalPatrol("4,5 n", "shestni"), "right",
-    ...acceptSokalPatrol("6,5 e", "shestni"), "up",
-    ["enter", /orc hitpoints/, 8],
-    ":win-combat", ["q", /continue battle:yes no/, 60], "n",
+    ...acceptSokalPatrol("10,10 n", "shestni", 1), "right", "right",
+    ...acceptSokalPatrol("10,11 s", "shestni", 1), "right",
+    ...acceptSokalPatrol("4,11 w", "shestni", 21), "right",
+    ...acceptSokalPatrol("4,5 n", "shestni", 12), "right",
+    ...acceptSokalPatrol("6,5 e", "shestni", 5), "up",
+    presses("enter", 5, /orc hitpoints/),
+    ":win-combat", presses("q", 21, /continue battle:yes no/), "n",
     (text) => assert.match(text, /the party has won.*experience points/),
     "enter", "enter", "s", "e", "n",
     (text) => assert.match(text, /on a hobgoblin body.*as entry 57/),
@@ -3231,16 +3292,16 @@ async function verifyCampaignSokal() {
     "e", "s", "s", "e", "n", "e",
     // Leave with Ferran's password and collect the city's reward.
     "left", "left", "up", "right", "up", "left", "up", "left", "up", "right",
-    ...acceptSokalPatrol("8,5 n", "samosud"), "right",
-    ...acceptSokalPatrol("10,5 e", "samosud"), "right", ...acceptSokalPatrol("10,11 s", "samosud"),
-    "right", ...acceptSokalPatrol("8,11 w", "samosud"), "left",
-    ...acceptSokalPatrol("8,15 s", "samosud"), "up", "enter", "y",
-    ["enter", /15,1 w.*area cast view encamp/, 8],
+    ...acceptSokalPatrol("8,5 n", "samosud", 3), "right",
+    ...acceptSokalPatrol("10,5 e", "samosud", 2), "right", ...acceptSokalPatrol("10,11 s", "samosud", 21),
+    "right", ...acceptSokalPatrol("8,11 w", "samosud", 2), "left",
+    ...acceptSokalPatrol("8,15 s", "samosud", 7), "up", "enter", "y",
+    presses("enter", 4, /15,1 w.*area cast view encamp/),
     ...Array(4).fill("up"), "left", "up", "right", "up", "left", "up", "right",
     ...Array(6).fill("up"), "left", "up", "up", "left", "up", "left", "up", "up",
-    ["enter", /with sokal keep in our hands.*here is your reward/, 5],
-    ["enter", /view take pool share exit/, 5], "s", "e",
-    ["enter", /5,5 e.*area cast view encamp/, 15],
+    presses("enter", 1, /with sokal keep in our hands.*here is your reward/),
+    presses("enter", 3, /view take pool share exit/), "s", "e",
+    presses("enter", 4, /5,5 e.*area cast view encamp/),
     "j", (_text, frame) => assert.equal(frame.journal.leads.find(({ id }) => id === "commission-sokal")?.status, "turned-in"), "j",
     "e", "s", "s", "f",
   ], saveDir, undefined, true);
@@ -3269,16 +3330,16 @@ async function verifyCampaignCastleApproach() {
       if (hour >= 5) hoursUntilWagon = 26 - hour;
     },
     () => hoursUntilWagon ? "e" : undefined,
-    ["r", (frame) => !hoursUntilWagon || /rest time:.*hours mins inc/.test(visibleText(frame)), 4],
+    () => hoursUntilWagon ? presses("r", 2, /rest time:.*hours mins inc/) : undefined,
     () => hoursUntilWagon ? "h" : undefined,
     ...Array.from({ length: 21 }, (_, hour) => () => hour < hoursUntilWagon ? "i" : undefined),
     () => hoursUntilWagon ? "r" : undefined,
-    ["n", (frame) => !hoursUntilWagon || /camp: save view magic rest alter exit(?! journal)/.test(visibleText(frame)), 8],
+    () => hoursUntilWagon ? presses("n", 1, /camp: save view magic rest alter exit(?! journal)/) : undefined,
     () => hoursUntilWagon ? "e" : undefined,
-    "up", ["enter", /combat wait flee parlay/, 6], "c",
+    "up", presses("enter", 2, /combat wait flee parlay/), "c",
     (text) => assert.match(text, /grab his wagon/),
     "up", "up", "enter", "enter", "up", "right", "up", "up",
-    ["enter", /do you pay him/, 6], "y",
+    presses("enter", 2, /do you pay him/), "y",
     (text) => assert.match(text, /8,5 n.*gate opens/),
     "up", "left", ...Array(4).fill("up"), "right", ...Array(5).fill("up"), "enter", "up", "enter",
     (text) => assert.match(text, /\bn \d+:\d+.*area cast view encamp/),

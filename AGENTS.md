@@ -32,7 +32,8 @@ but GitHub and this repository.
 - Measure, don't list: for a class of defect, build the count first (done / total, red while anything is
   left), then work it down. Existing counts: `npm run qa:visits` (areas and commissions compared),
   `npm run verify:held-portraits` (#131), `npm run verify:enhanced-fallbacks` (#142),
-  `npm run qa:narration` (#98), `npm run qa:version-1.3` (the 1.3 measure).
+  `npm run qa:narration` (#98), `npm run qa:version-1.3` (the 1.3 measure),
+  `npm run qa:repeat-presses` (replay steps that press until the screen changes, #76).
 - Commit messages: a short imperative summary; the body says what was run and seen.
 
 ## Running on Battleaxe
