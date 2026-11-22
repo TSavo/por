@@ -433,6 +433,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:22:ecl:9a06:caller:a213:cue:gaunt-thieves", "YOUARESURPRISEDBYSOMEGAUNTMENINPOORLYFITTINGLEATHER"],
   ["scene-illustration:area:0:ecl:a818:cue:tavern-watch-arrival", "THECITYWATCHCHARGESIN"],
   ["scene-illustration:area:0:ecl:a828:cue:tavern-watch-arrival", "THECITYWATCHCHARGESIN"],
+  ["scene-illustration:area:0:ecl:a815:cue:tavern-watch-arrival", "THECITYWATCHCHARGESIN"],
+  ["scene-illustration:area:0:ecl:a825:cue:tavern-watch-arrival", "THECITYWATCHCHARGESIN"],
   ["scene-illustration:area:22:ecl:a20f:cue:displacer-ambush", "YOUARESURPRISEDBYDISPLACERBEASTS"],
   ["scene-illustration:area:22:ecl:9a06:caller:a213:cue:displacer-ambush", "YOUARESURPRISEDBYDISPLACERBEASTS"],
   ["scene-illustration:area:22:ecl:a20f:cue:human-fighters", "YOUARESURPRISEDBYABANDOFHUMANFIGHTERS"],

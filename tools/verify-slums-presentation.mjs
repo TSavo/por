@@ -6062,6 +6062,11 @@ const controlledBattleIllustrations = new Map([
     portrait: "scene-illustration:area:24:ecl:b0b5:cue:cleric-dispatch",
     caption: /ONTHEDEADBODYOFTHEHALF-ORCCLERIC.*ENTRY25/i,
   }],
+  ...[["new-phlan-tavern-watch-arrival", "a828"], ["new-phlan-tavern-watch-arrival-13", "a825"]].map(([route, cursor]) => [route, {
+    slot: "A", inputs: ["up", "enter", "enter", "n", ...Array(5).fill("enter")],
+    portrait: `scene-illustration:area:0:ecl:${cursor}:cue:tavern-watch-arrival`,
+    caption: /THECITYWATCHCHARGESIN.*DOYOURUNAWAYORSTAY/i,
+  }]),
   ["mendor-basilisk-loot", {
     slot: "B", inputs: ["s", "up", "enter", "enter", "c", "enter"],
     portrait: "portrait:area:15:ecl:a5a3:PIC1.DAX:1:0:0",
@@ -8624,7 +8629,10 @@ try {
     const shot = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, `${routeName}.png`), Buffer.from(shot.data, "base64"));
     await switchBothWays();
-    if (routeName === "kuto-norris-entry-50") {
+    if (routeName.startsWith("new-phlan-tavern-watch-arrival")) {
+      await step("r");
+      assert.notEqual(frame.portrait, portrait);
+    } else if (routeName === "kuto-norris-entry-50") {
       await step("enter");
       assert.match(text(), /YOUHAVEDEFEATEDTHEDREADEDBANDITGANG/i);
       assert.notEqual(frame.portrait, portrait);
