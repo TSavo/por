@@ -297,7 +297,14 @@ export function readWorld(data: PortGameData, read: ReadGameData): WorldData {
     if (loading.length) loads.push({ at: position, maps: loading });
     for (const map of result.maps) {
       const near = new Set<string>();
-      for (const load of loads) if (load.maps.includes(map.block)) for (const piece of pieces) if (Math.abs(piece.at - load.at) <= 2) near.add(piece.operands);
+      for (const load of loads) {
+        if (!load.maps.includes(map.block)) continue;
+        for (const piece of pieces) {
+          const first = Math.min(piece.at, load.at), last = Math.max(piece.at, load.at);
+          // An EXIT ends this invocation, even when the next branch starts with a map load.
+          if (last - first <= 2 && !instructions.slice(first + 1, last).some((step) => step.name === "EXIT")) near.add(piece.operands);
+        }
+      }
       // A map loaded with no LOAD PIECES beside it is drawn with whichever wall sets the script has loaded.
       map.wallLoads = near.size ? [...near] : result.wallSlots.map((slots) => slots.operands.join());
     }

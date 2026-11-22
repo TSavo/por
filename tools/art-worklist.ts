@@ -31,6 +31,7 @@ import {
 } from "./first-person-cells.js";
 import { encodePng, pngDimensions } from "./png.js";
 import { ExplorationCells as Cells, type Backdrop, type Cell, type CellKind } from "./exploration-cells.js";
+import { explorationMaterialArea } from "./exploration-materials.js";
 
 const repository = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const at = (...parts: string[]) => join(repository, ...parts);
@@ -177,7 +178,7 @@ interface AreaReport {
 const FACING: Record<number, string> = { 0: "north", 2: "east", 4: "south", 6: "west" };
 const slotText = (context: Context) => `WALLDEF${context.script.archive} ${context.slots.slots.slice(1).map((slot) => slot ? `block ${slot.wallBlock}${slot.set ? ` set ${slot.set + 1}` : ""} (tiles 8X8D${context.script.archive} block ${slot.tileBlock})` : "nothing").join(", ")}`;
 
-interface Agg { rc: 0 | 1 | 2; roofed: boolean; tiles: TileName[]; open: boolean; views: number; squares: Set<number>; first: Item["seenAt"] }
+interface Agg { rc: 0 | 1 | 2; roofed: boolean; shaft: boolean; tiles: TileName[]; open: boolean; views: number; squares: Set<number>; first: Item["seenAt"] }
 interface Entry { cell: Cell; context: Context; views: number; squares: Set<number>; first: Item["seenAt"]; areaView: boolean }
 
 function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
@@ -212,8 +213,10 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
   // the first view of the area it starts is drawn, and keyed, under the number of the area left.
   const arrivals: Context[] = [];
   for (const script of world.scripts) {
-    for (const target of script.leadsTo) {
-      for (const context of own) if (context.script.area === target && context.label !== script.area) arrivals.push({ ...context, label: script.area, arrivalFrom: script.area });
+    for (const context of own) {
+      if (context.label === script.area) continue;
+      const observed = explorationMaterialArea({ area: script.area, mapId: context.map }) === context.label;
+      if (script.leadsTo.includes(context.script.area) || observed) arrivals.push({ ...context, label: script.area, arrivalFrom: script.area });
     }
   }
 
@@ -226,11 +229,19 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const map = world.maps.get(`${context.script.archive}:${context.map}`)!;
     const view: ViewContext = { world, script: context.script, map, slots: context.slots };
     const aggs = new Map<string, Agg>();
-    const views: { square: number; roofed: boolean; aggs: Agg[]; walls: boolean }[] = [];
+    const views: { square: number; roofed: boolean; shaft: boolean; aggs: Agg[]; walls: boolean }[] = [];
     const overhead = new Map<string, Entry>();
+    // ECL29 sets water under the ladder at (7,7) and restores dry ground before
+    // drawing the surface. The two maps use different horizon bands.
+    const kuto = context.script.area === 29 && (context.map === 29 || context.map === 32);
+    const lowerWell = kuto && context.map === 32;
+    const groundAllowed = (ground: number, shaft: boolean) => !kuto || ground === 6 || (shaft && ground === 1);
+    const lowerValues = (shaft: boolean) => lowers.filter(({ line, band, ground }) =>
+      groundAllowed(ground, shaft) && (!kuto || (line === 0 && band === (lowerWell ? 8 : 7))));
     for (let y = 0; y < 16; y++) {
       for (let x = 0; x < 16; x++) {
         const roofed = covered(map, x, y);
+        const shaft = lowerWell && x === 7 && y === 7;
         for (const facing of [0, 2, 4, 6]) {
           const stacks = viewCells(view, x, y, facing);
           const mine = new Set<Agg>();
@@ -239,18 +250,18 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
             const row = Math.floor(index / 11);
             const rc = row < 5 ? 0 : row === 5 ? 1 : 2;
             if (stack.length) walls = true;
-            const key = `${rc}${roofed ? 1 : 0}|${stack.join(",")}`;
+            const key = `${rc}${roofed ? 1 : 0}${shaft ? 1 : 0}|${stack.join(",")}`;
             let agg = aggs.get(key);
             if (!agg) {
               const { tiles, open } = cells.prune(stack);
-              agg = { rc, roofed, tiles, open, views: 0, squares: new Set(), first: { map: context.map, x, y, facing: FACING[facing]!, column: index % 11, row } };
+              agg = { rc, roofed, shaft, tiles, open, views: 0, squares: new Set(), first: { map: context.map, x, y, facing: FACING[facing]!, column: index % 11, row } };
               aggs.set(key, agg);
             }
             agg.views++;
             agg.squares.add(y * 16 + x);
             mine.add(agg);
           });
-          views.push({ square: y * 16 + x, roofed, aggs: [...mine], walls });
+          views.push({ square: y * 16 + x, roofed, shaft, aggs: [...mine], walls });
           if (context.script.areaView && !context.arrivalFrom) {
             areaViewCells(view, x, y, facing).forEach((stack, index) => {
               const { tiles } = cells.prune(stack);
@@ -268,11 +279,12 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     // Each aggregate under each backdrop it can have.
     const entries = new Map<string, Entry[]>();
     const hashesOf = new Map<Agg, Map<string, string | undefined>>();
-    const skies = (roofed: boolean) => roofed ? context.script.sky.covered : context.script.sky.open;
+    const skies = (roofed: boolean) => (roofed ? context.script.sky.covered : context.script.sky.open)
+      .filter((sky) => !kuto || sky === 0 || sky === 11 || (!lowerWell && sky === 12));
     const backdropsOf = (agg: Agg): Backdrop[] => !agg.open ? ["-"]
       : agg.rc === 0 ? skies(agg.roofed).map(skyBack)
-      : agg.rc === 2 ? world.grounds.map(({ ground }) => `g${ground}`)
-      : skies(agg.roofed).flatMap((sky) => lowers.map((lower) => `h${sky}.${lower.line}.${lower.band}.${lower.ground}`));
+      : agg.rc === 2 ? world.grounds.filter(({ ground }) => groundAllowed(ground, agg.shaft)).map(({ ground }) => `g${ground}`)
+      : skies(agg.roofed).flatMap((sky) => lowerValues(agg.shaft).map((lower) => `h${sky}.${lower.line}.${lower.band}.${lower.ground}`));
     for (const agg of aggs.values()) {
       const byBackdrop = new Map<string, string | undefined>();
       hashesOf.set(agg, byBackdrop);
@@ -288,10 +300,10 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     // A square where some view with a wall in it is wholly covered by existing art, under one sky
     // and one set of colours below it, was stood on when that art was made.
     const stoodOn = new Set<number>();
-    for (const { square, roofed, aggs: mine, walls } of views) {
+    for (const { square, roofed, shaft, aggs: mine, walls } of views) {
       if (!walls || stoodOn.has(square)) continue;
       search: for (const sky of skies(roofed)) {
-        for (const lower of lowers) {
+        for (const lower of lowerValues(shaft)) {
           const ok = mine.every((agg) => {
             const backdrop = !agg.open ? "-" : agg.rc === 0 ? skyBack(sky) : agg.rc === 2 ? `g${lower.ground}` : `h${sky}.${lower.line}.${lower.band}.${lower.ground}`;
             const hash = hashesOf.get(agg)!.get(backdrop);

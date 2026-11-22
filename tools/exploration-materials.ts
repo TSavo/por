@@ -28,7 +28,7 @@ const arrivalTerrainAreas = new Map([
   ["29:20", 20], // Kuto's Well to the Slums
 ]);
 
-export function explorationMaterialArea({ area, mapId }: NativeExploration & { area: number }) {
+export function explorationMaterialArea({ area, mapId }: Pick<NativeExploration, "mapId"> & { area: number }) {
   return arrivalTerrainAreas.get(`${area}:${mapId}`) ?? area;
 }
 
