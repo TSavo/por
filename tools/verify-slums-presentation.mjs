@@ -2952,6 +2952,11 @@ const illustrationRoutes = new Map([
     approachStops: { 2: [48, 32, "encounter:area:10:SPRIT4.DAX:20:0:0", 40, 80] },
     portrait: "portrait:PIC4.DAX:20:0:0",
     prompt: /STATICELECTRICITYANDBALLLIGHTNING.*WIGHTSAPPEARFROMBEHINDTHETOWER/i,
+    continuation: {
+      inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:b5c7:cue:charged-tower-wight-attack",
+      prompt: /WIGHTSAPPEARFROMBEHINDTHETOWER.*ABATTLEBEGINS/i,
+      screenshot: "valhingen-charged-tower-wight-attack.png",
+    },
   }],
   ["valhingen-zombie-tower", {
     slot: "A", inputs: ["l", "enter", "enter", "enter"],
@@ -4158,6 +4163,11 @@ const illustrationRoutes = new Map([
     portrait: "portrait:PIC4.DAX:20:0:0", prompt: /WIGHTSAPPEARFROMBEHINDTHETOWER/i,
     idlePortraits: [1, 2].map(phase => `portrait:area:10:ecl:b695:caller:a92b:PIC4.DAX:20:${phase}:0`),
     heldPortraitLoop: 3,
+    continuation: {
+      inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:b5c7:cue:charged-tower-wight-attack",
+      prompt: /WIGHTSAPPEARFROMBEHINDTHETOWER.*ABATTLEBEGINS/i,
+      screenshot: "valhingen-charged-tower-wight-attack.png",
+    },
   }],
   ["valhingen-paladin-wraith-dialogue", {
     slot: "A", inputs: ["up", "b"],
