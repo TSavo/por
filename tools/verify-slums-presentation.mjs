@@ -2466,6 +2466,13 @@ const illustrationRoutes = new Map([
     requireTiledApproach: false,
     portrait: "portrait:area:10:ecl:a022:PIC4.DAX:35:0:0", prompt: /AZOMBIEWITHGRAY,LEATHERY.HARDSKIN/i,
   }],
+  ["valhingen-scattered-objects", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:10:ecl:b6c6:caller:a07f",
+    prompt: /VARIOUSOBJECTSARESCATTEREDABOUT.WILLYOUPICKTHEMUP/i,
+    finalPhaseCapture: "valhingen-scattered-objects.png",
+    continuation: { inputs: ["n"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["valhingen-black-marble-crypt-return", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portraitStops: { 1: "scene-illustration:area:10:ecl:b109", 2: null },
