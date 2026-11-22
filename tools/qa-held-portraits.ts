@@ -106,6 +106,9 @@ const promptId = (cursor: string, caller: string | null) => caller ? `${cursor}/
 // Exact reviewed revisions that preserve the held portrait paint and timing code.
 // This covers narration logging, the wilderness atlas, settings, and Classic palette-only clips.
 const previousRendererProof = new Map<string, string>([
+  // The Slums secret cache uses the existing full-screen reward layout.
+  ["db6e5267e6521bc9737d197ed4eca705e396fdc5a1e0f4253f6bff07487724d0",
+    "4a5ce4805ccc29ba0770cc0246dc6e35173ba6e789188d5e2500bced96a31584"],
   // Swapping decoded held cels preserves the bindings, deadlines and panel layout.
   // Paired Chrome controls cover every prior loop with a distinct 20 ms pose.
   ["4a5ce4805ccc29ba0770cc0246dc6e35173ba6e789188d5e2500bced96a31584",

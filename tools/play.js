@@ -1384,9 +1384,11 @@ async function showScreen() {
     placements.push([head[0], head[1] + 6, head[2], undefined, undefined, head[3], head[4]]);
   }
   // The treasure screen keeps the native reward text above the illustration.
-  const councilVictoryAward = view.portrait === "scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-award";
+  const rewardIllustration =
+    view.portrait === "scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-award" ||
+    view.portrait === "scene-illustration:area:20:ecl:ab42";
   if (view.portrait) {
-    const [x, y] = councilVictoryAward ? [100, 72] : [8, 8];
+    const [x, y] = rewardIllustration ? [100, 72] : [8, 8];
     placements.push([x, y, portraitId, undefined, undefined, 120, 120]);
   }
   if (view.encounter) placements.push(view.encounter.slice(0, 3));
@@ -1400,7 +1402,7 @@ async function showScreen() {
       tile.alt = "";
       const terrainTile = id.startsWith("tile:");
       if (terrainTile) tile.className = "terrain-tile";
-      if (id === portraitId) tile.className = councilVictoryAward ? "reward-illustration" : "encounter-portrait";
+      if (id === portraitId) tile.className = rewardIllustration ? "reward-illustration" : "encounter-portrait";
       if (id.startsWith("character-sheet:")) tile.className = "character-sheet-part";
       if (id === view.encounter?.[2]) {
         tile.className = "encounter-sprite";
@@ -1451,7 +1453,7 @@ async function showScreen() {
     if (view.panelFrame?.length) {
       const panelFrame = drawPanelFrame(view.panelFrame);
       // The expanded view fills the outer panel, including its native inner frame.
-      if ((view.portrait && !councilVictoryAward) || view.classicPortrait || perspective || streetCanvas) {
+      if ((view.portrait && !rewardIllustration) || view.classicPortrait || perspective || streetCanvas) {
         panelFrame.getContext("2d").clearRect(8 * 4, 8 * 4, 120 * 4, 120 * 4);
       }
       layers.push(panelFrame);
