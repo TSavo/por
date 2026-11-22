@@ -70,7 +70,18 @@ async function begin() {
 await begin();
 
 const heardSoFar = () => readFileSync(ledger, "utf8").split("\n").filter((line) => line.includes('"outcome":"heard"')).length;
-const where = () => game.square() ?? undefined;
+/**
+ * Where the party stands. Where an illustration covers the view at the exploration menu (New
+ * Phlan's gateway, a landmark), the frame has no live square: the status line under the party list
+ * still gives the square and the facing, and the area is the last one walked.
+ */
+let lastArea;
+const where = () => {
+  const square = game.square();
+  if (square) { lastArea = square.area; return square; }
+  const shown = game.here();
+  return shown && lastArea !== undefined ? { area: lastArea, x: shown.x, y: shown.y, facing: shown.facing } : undefined;
+};
 const keyOf = (square) => `${square.area}:${square.x},${square.y}`;
 
 /** Answer whatever the game shows until it is back on the exploration menu. Returns false when the game ended. */
@@ -203,12 +214,20 @@ async function stepToward(heading) {
 let lastReport = 0;
 let errors = 0;
 let deaths = 0;
+let blind = 0;
 try {
   if (!(await resolveScreen())) throw new Error("The saved game did not come to the exploration menu.");
   for (;;) {
     if (Date.now() - started > minutes * 60_000) { log("time is up"); break; }
     const here = where();
-    if (!here) { if (!(await resolveScreen())) break; continue; }
+    if (!here) {
+      // On the exploration menu with no square to read at all: step forward and look again, a few times.
+      if (!(await resolveScreen())) break;
+      if (++blind > 20) { log("the game shows no square to walk from"); break; }
+      if (!where()) await press("up");
+      continue;
+    }
+    blind = 0;
     visit(here);
     const route = nextGoal(here);
     if (!route) { log("every way out of every square reached has been tried"); break; }
