@@ -277,7 +277,8 @@
       "title": "Running from the watch after a night break-in leaves the party one square past the flee square",
       "detail": "In New Phlan, running from the watch after breaking in at (10,10) at night left the party on (3,12) facing south. The walkthrough's flee square is (3,11). The script does not cancel the interrupted step on that path, so this may be the original's behaviour or a fault in the port. Three acceptance scenarios stay open on it: flee-squares, guard-run and guard-trigger-closed-building.",
       "source": "Found by the New Phlan acceptance tests on version 1.3, 2026-11-21. Not yet compared with the original program.",
-      "status": "open",
+      "status": "accepted",
+      "resolution": "Not a defect; the original's own order, settled on 2026-11-22 from the 1.3 bytes and a trace. The main loop runs the script's step event (GAME.OVR slice 3 +0x3453) and then the move routine (slice 3 +0x348d, slice 14 0xd6d), which moves from the position and facing as they are then unless the script set 0x6dc9 to 255. RUN (ECL3.DAX block 0 at aef7) sets a flee square and a random facing and leaves 0x6dc9 alone, so the interrupted step is completed from the flee square in that facing. Traced: RUN, the move routine entered at (3,11) facing north, the party ended on (3,10); the run reported here drew south and ended on (3,12). A run that interrupts a step ends on a flee square or one square beyond it; the notes of acceptance.new-phlan.guard-trigger-closed-building and flee-squares say so.",
       "issue": 96
     },
     {

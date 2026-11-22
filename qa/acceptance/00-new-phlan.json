@@ -487,7 +487,7 @@
       ],
       "disagreements": [],
       "coveredBy": [],
-      "notes": "[P] describes Run as going 'to a random location'; the four flee squares are the stated candidates. The four squares are the script's table (ECL3.DAX block 0, x at b61a: 3, 10, 2, 12; y at b61e: 11, 10, 0, 3), with a random facing (aef7). See guard-trigger-closed-building for a run that ended one square beyond (3,11)."
+      "notes": "[P] describes Run as going 'to a random location'; the four flee squares are the stated candidates. The four squares are the script's table (ECL3.DAX block 0, x at b61a: 3, 10, 2, 12; y at b61e: 11, 10, 0, 3), with a random facing (aef7). A run that interrupts a step (the night break-in) then completes that step from the flee square in the new facing, the original's own order (#96, see guard-trigger-closed-building)."
     },
     {
       "id": "acceptance.new-phlan.guard-trigger-resting-outside",
@@ -542,7 +542,7 @@
       ],
       "disagreements": [],
       "coveredBy": [],
-      "notes": "The digest does not say whether a successful break-in opens the shop. 'THE WAY IS BLOCKED.' in the City Hall block (0x9964) is the likely night message there; its trigger is not described in the digest. Seen in the port on 2026-11-21, not yet in a test: at night, stepping from (10,10) west into the general store door gives the prompt; NO leaves the party where it is; YES then RUN put the party on (3,12) facing south, one square south of the flee square (3,11). The script does not cancel the interrupted step on this path (block 0 sets 0x6dc9 to 255 only for NO, at 99e4), so the step may be carried out from the flee square in the new facing. Whether the original does the same has not been checked; do not assert the end square until it has."
+      "notes": "The digest does not say whether a successful break-in opens the shop. 'THE WAY IS BLOCKED.' in the City Hall block (0x9964) is the likely night message there; its trigger is not described in the digest. Seen in the port on 2026-11-21, not yet in a test: at night, stepping from (10,10) west into the general store door gives the prompt; NO leaves the party where it is; YES then RUN put the party on (3,12) facing south, one square south of the flee square (3,11). The script does not cancel the interrupted step on this path (block 0 sets 0x6dc9 to 255 only for NO, at 99e4). Settled on 2026-11-22 (#96) as the original's own behaviour: the main loop runs the script's step event (GAME.OVR slice 3 +0x3453, call 0x3171) and then the move routine (slice 3 +0x348d, lcall 0072:0025 to slice 14 0xd6d), which moves from the party's position and facing as they are then (slice 14 +0xd92 reads 6aad, 6aae, 6aaf) unless the script set 0x6dc9 to 255. RUN (aef7) sets a flee square and a random facing and leaves 0x6dc9 alone, so the step the party was taking is completed from the flee square in that facing, unless a wall stops it. Traced in the port: RUN, then the move routine entered at (3,11) facing north and the party ended on (3,10); the earlier run drew south and ended on (3,12). So a run that interrupts a step ends on a flee square or one square beyond it."
     },
     {
       "id": "acceptance.new-phlan.guard-trigger-forcing-braccio",
