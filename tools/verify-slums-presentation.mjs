@@ -2126,6 +2126,17 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "bane-mansion-orcs-surprised-battle.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS.*MOVEVIEWAIM/i },
   }],
+  ["bane-altar-after-mace", {
+    slot: "A", inputs: ["up", "d"],
+    portraitStops: { 1: "scene-illustration:area:24:ecl:a92f" },
+    portrait: "scene-illustration:area:24:ecl:b0b5:cue:altar-after-mace",
+    prompt: /YOUDESTROYTHEEVILALTARANDTHEUNEASYFEELINGLEAVESYOU.*AREACASTVIEWENCAMPSEARCHLOOK/i,
+    finalPhaseCapture: "bane-altar-after-mace.png",
+    continuation: {
+      inputs: ["enter", "up"], portrait: "scene-illustration:area:24:ecl:b0b5:cue:shattered-altar",
+      prompt: /THEREMAINSOFANEVILALTARARENEARBY/i,
+    },
+  }],
   ["bane-camp-orc-ambush", {
     slot: "A", inputs: ["e", "enter", "r", "h", ...Array(6).fill("i"), "r", "enter", "enter"],
     portraitStops: {

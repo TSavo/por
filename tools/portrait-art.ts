@@ -1191,6 +1191,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:31:ecl:b0b5:cue:captive-release", "YOULETTHEGOBLINSGO"],
   ["scene-illustration:area:31:ecl:a306:cue:searched-hay-bunks", "NOTHINGBUTLICEANDHAIR"],
   ["scene-illustration:area:31:ecl:b0b5:cue:searched-hay-bunks", "NOTHINGBUTLICEANDHAIR"],
+  ["scene-illustration:area:24:ecl:aa01:cue:altar-after-mace", "YOUDESTROYTHEEVILALTARANDTHEUNEASYFEELINGLEAVESYOU"],
+  ["scene-illustration:area:24:ecl:b0b5:cue:altar-after-mace", "YOUDESTROYTHEEVILALTARANDTHEUNEASYFEELINGLEAVESYOU"],
   ["scene-illustration:area:24:ecl:aa2c:cue:shattered-altar", "THEREMAINSOFANEVILALTARARENEARBY"],
   ["scene-illustration:area:24:ecl:b0b5:cue:shattered-altar", "THEREMAINSOFANEVILALTARARENEARBY"],
   ...["ac29", "ac2a", "ac2b", "b0b5"].map(cursor => [
