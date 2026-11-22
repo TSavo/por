@@ -1814,8 +1814,8 @@
    "heard": "As you enter the room, you see six orcs led by a large ogre. They lunge forward and attack!"
   },
   "audio/voices/narration/ecl1/block-24/ecl1-b24-9f8f.mp3": {
-   "sha256": "1afb5f4e48b39220330ecabe06f04ee56ff2a56d64eff0494ef563c14c04de3e",
-   "heard": "You find a piece of paper on the floor in the room."
+   "sha256": "df2c2ad065842567d9292a0cc41fc4f353c74ad8ee7749f91643dca615e9b6a6",
+   "heard": "You find a piece of paper on the floor in the room.  You place it in your journal under entry 53."
   },
   "audio/voices/narration/ecl1/block-24/ecl1-b24-9ff9.mp3": {
    "sha256": "24062ed48d634b78f24d538b1ad9478d058d3476a500e609697517e26cd46815",
@@ -2222,24 +2222,24 @@
    "heard": "You go back out the door."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-a054.mp3": {
-   "sha256": "20a5f06bdfb4055826d0f9afab794f10b8f9627ff7937435fec7a9674f82c89d",
-   "heard": "You presume too much, controlled, superior, and calculating.  You presume too much, the man says.  You presume too much, the man says quietly.  He gestures."
+   "sha256": "2fd3a2da60703a31904e842f0efd024b0bda679ead1a3a1a85ab273ae6005305",
+   "heard": "You presume too much,\" the man says quietly. He gestures."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-9f46.mp3": {
-   "sha256": "dba92192e8707b3a38873a820e254215666762cef264a936e8bed2a4669b69d7",
-   "heard": "You burst into an elegantly, you burst into an elegantly paneled room.  You burst into an elegantly paneled room. You burst into an elegantly paneled room.  A small man sits hunched over a table by the east wall.  He sets down his pen and gazes sternly at you.  Well? He demands. Burst!"
+   "sha256": "4a99621b97038600ab001c1fdeae8d7b8ef166593104932ac0ded0f71e6789a4",
+   "heard": "You burst into an elegantly paneled room.  A small man sits hunched over a table by the east wall.  He sets down his pen and gazes sternly at you.  Well, he demands."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-a0c3.mp3": {
-   "sha256": "f9c96e512cdb037cc12abaf5b23f1341f4331b783ac3fdd4da338372cfa209ca",
-   "heard": "Olo consistently, controlled, superior, and calculating.  I have no time for the likes of you, the man says eerily. Be gone!"
+   "sha256": "ef44113e481db7d9bfe5714657ea11c6e6521e96f5e2ffb711ee227f728c43be",
+   "heard": "I have no time for the likes of you, the man says eerily.  Be gone!"
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-a1e9.mp3": {
    "sha256": "6eb36321a056f3bd361e5af8540610ff9a98aeba021a7162846894de9485af4b",
    "heard": "Olo consistently, controlled, superior, and calculating.  It waits in a booth in the old rope guild, but a short distance to the southeast from  where you now stand.  Speak my name, Olo."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-a25b.mp3": {
-   "sha256": "39167028d9883c8bd34af02f2d29bf328323d830f9e6ad11e889325d3b81f296",
-   "heard": "You have done well, you have done well, you have done well.  Give me the potion and calculating, keep narrator identity for attribution.  You have done well, give me the potion and"
+   "sha256": "cc8a5e30943dbd8f0bfe96a50591142b303f4d5ee87830be690acf0b6506c04e",
+   "heard": "You have done well.  Give me the potion and you will be rewarded."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-a12f.mp3": {
    "sha256": "6a71852badb28c65c339fc3cb4ca8a7a879c5b174a09cbcc9eba9e4e5ae812c4",
@@ -2254,8 +2254,8 @@
    "heard": "The room is dirty and has a strong and unpleasant odor."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-a2d4.mp3": {
-   "sha256": "ccf14db0f15cfe9fa4b9d00e715a43d2ef870708e36ff0eba9ac442910680b76",
-   "heard": "You have returned. You have returned empty-handed, he quotes.  You have returned empty-handed, he observes.  You have returned empty-handed, he observes.  You have no time for you now. He waves his hand."
+   "sha256": "a108ad86bb363f61717bb5cf2223150f693c2e603bb6b1bcb09924f781f9de9a",
+   "heard": "You have returned empty-handed, he observes.  I have no time for you now, he waves his hand."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-a401.mp3": {
    "sha256": "ca8e4d3eb05a5d76a172ac6c75fcc60badacce7d90d3f2604baa6f75852d4c45",
@@ -2286,20 +2286,20 @@
    "heard": "There is a secret treasure room in the northwest corner."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-a783.mp3": {
-   "sha256": "09328979dc9fc0c511bf66d01003b94c18c176fd56b7c1044ac4eab616170474",
-   "heard": "Perform the ragged fortune teller consistently.  Shift only where the source explicitly describes her transformation.  You leave the shop."
+   "sha256": "f782315bba13b599e69299807fca4d98ff70dfe8a3ac6cceac90c10d8fde4df7",
+   "heard": "You leave the shop."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-a651.mp3": {
-   "sha256": "b044ac52ba94a3c12124b4eef88f81bbdd9d1539c09a023408d704d24352c8fb",
-   "heard": "Perform the ragged fortune teller consistently.  Shift only where the source explicitly describes her transformation.  Seated at a table is a ragged old woman.  She greets you.  Welcome.  For the price of a few coppers, I will tell your fortune."
+   "sha256": "8d9fe25962484dfb468845e8ef0983b541cbb1240bac004891e90e3f10cd9686",
+   "heard": "Seated at a table is a ragged old woman.  She greets you.  Welcome.  For the price of a few coppers, I will tell your fortune."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-a6e7.mp3": {
-   "sha256": "13fa5cee7ba9a0b7ba0c8b11ac5e4625e011569353dbb276a7f34fb22cd43a86",
-   "heard": "Perform the ragged fortune teller consistently.  Shift only where the source explicitly describes her transformation.  You easily murder the old woman.  Except for a few copper pieces, you find nothing of value.  The gods have noted your actions."
+   "sha256": "570a7111eb45749966fb9b9301af3fba17bf73ddd30060170b0253075894ebac",
+   "heard": "You easily murder the old woman.  Except for a few copper pieces, you find nothing of value.  The gods have noted your actions."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-a79d.mp3": {
-   "sha256": "66dcf86859ebf51d6341a9f7710a1d9fe220f66354f752789faa205d356abb7d",
-   "heard": "Perform the ragged fortune teller consistently.  Shift only where the source explicitly describes her transformation.  The woman's hands make mystic passages while she mutters some words.  Her voice undergoes a strange transformation."
+   "sha256": "568c24b1dec316ebfbfe8941f76d061c9eebb1583a06ad822544cf581c5fb4c6",
+   "heard": "The woman's hands make mystic passages while she mutters some words.  Her voice undergoes a strange transformation."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-a818.mp3": {
    "sha256": "ca0289fa2e657f1d9535e06fee27a1f1da775a19f1691a27897dce4194a32e32",
@@ -2314,8 +2314,8 @@
    "heard": "The time is nigh when the paths you have trod will empty, and you must seek new ways.  The riddle's answer is great evil, using great good for great evil."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-a953.mp3": {
-   "sha256": "75c5cb3cb8371e612e860367aa00e61fc43c4450509851689393494a3b3ee7d7",
-   "heard": "Perform the ragged fortune teller consistently.  Shift only where the source explicitly describes her transformation.  The telling is finished."
+   "sha256": "466043addbbb3ee9777f8b85a33e34d144c3390d32527a64f4e1a976c9ec0742",
+   "heard": "The telling is finished."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-a9a5.mp3": {
    "sha256": "cd3dc9753e35981e2acad0a02355c3805611c98e1243b5e1159427fb98033fad",
@@ -2370,12 +2370,12 @@
    "heard": "Rope Guild Boothman.  I'm sorry, but I have nothing to sell now.  Come back some other time."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-ae7c.mp3": {
-   "sha256": "8ffa68d7707e607d13db1a4ad9fd8d3f2a0ca0cd4dcfe75afe3e0719f8dc91d7",
-   "heard": "Ropeguild Boothman. Retain narrator identity for attribution.  A man hurries forward. I am sorry, noble ones, but I have nothing to sell."
+   "sha256": "70fc4e32298e24e35c2443d277407b2a5f8c3c375a09a10c5f5bd2dfc04bf732",
+   "heard": "A man hurries forward.  I am sorry, noble ones, but I have nothing to sell."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-af13.mp3": {
-   "sha256": "329283562c95fdcf9f748edd3c63f28d5e927d9b4633e5f8b5e2ce9509a47f76",
-   "heard": "Rope Guild Boothman. Retain narrator identity for attributes.  The man runs screaming into the back of the booth."
+   "sha256": "58e164a4aa43baae88021051cc6d548b8049e6b59d3f3f375a4aeb59202d9be7",
+   "heard": "The man runs screaming into the back of the booth."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-afb6.mp3": {
    "sha256": "f5b2c6c6bde0a7081c1a2e276d583297f35556ccae4973f670a3935ef390c12a",
@@ -2398,8 +2398,8 @@
    "heard": "The monsters respond, the boss don't like yous guys, give us something and maybe we'll forget we seen yous."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-b3cf.mp3": {
-   "sha256": "5e45d04ccac977d28f6f713c5a088b690b80d681c88b9535b950c4e501ac0b73",
-   "heard": "What a bunch of cheapskates!  What a bunch of cheapskates!  What a bunch of cheapskates!  The leader complains.  Let him have it, boys!"
+   "sha256": "c56889a7e0fafa0ae9fbe0a927101b24576ee069520a8897a4f1819114362323",
+   "heard": "What a bunch of cheapskates, the leader complains.  Let him have it, boys."
   },
   "audio/voices/narration/ecl2/block-20/ecl2-b20-b40f.mp3": {
    "sha256": "f8f224d46c0bab71973aed605c2e1e09d7affb196b526fe25a9cd61732ce0ee9",
@@ -2542,8 +2542,8 @@
    "heard": "The group of bug bears come over. We warned you! What's the matter? Can't you understand common?  I guess I'll have to teach you. The leader swings at you."
   },
   "audio/voices/narration/ecl2/block-9/ecl2-b9-a959.mp3": {
-   "sha256": "1f130e4826ffd43aa9c9011d8d0bcebfc088c98356e5fcaf3376baa194c66494",
-   "heard": "Now beat it before we get serious, now beat it before we get serious, now beat it before  we get serious."
+   "sha256": "e817795a7dadfa0aed34e0fa1f831f140480a5f11b15ef9379476b6ea5ec6989",
+   "heard": "Now beat it before we get serious."
   },
   "audio/voices/narration/ecl2/block-9/ecl2-b9-a981.mp3": {
    "sha256": "72dddc3ba625b03a41c505d7ab4a9a660eff7223d222c584c76817bc56085cc6",
@@ -3134,8 +3134,8 @@
    "heard": "You deactivate the trap!"
   },
   "audio/voices/narration/ecl3/b14-b4f3.mp3": {
-   "sha256": "976dff2b5246811be83b1040e2e85242ff200df3dfd02b1419d0e18eaea2e2a0",
-   "heard": "attacked by three thieves with slings. They launched their bullets at the party and then"
+   "sha256": "572a4bbb68da6fc94e1dd2544597c0f950908bb44fe0f8d3de328c01fe585ada",
+   "heard": "While in camp, you are suddenly attacked by three thieves with slings.  They launch their bullets at the party and then run, disappearing from sight."
   },
   "audio/voices/narration/ecl3/b8-9964.mp3": {
    "sha256": "456578f3a210c02c7ba2dcaf32854f9f686838abe0b494e989d3f35fa4088291",
@@ -3202,8 +3202,8 @@
    "heard": "These maps should help us to locate several legendary buildings."
   },
   "audio/voices/narration/ecl3/b8-a0e7.mp3": {
-   "sha256": "8baa2b0311e7792343cfb7ef08293c1a8377e9be9a3b434fe3063825be137d2a",
-   "heard": "These histories contain much useful information.  These histories contain much useful..."
+   "sha256": "6c4eef40cf111aeec9f1b8d29da7d0df0f8581cff81ac7e02dc24ee610e439b6",
+   "heard": "These histories contain much useful information."
   },
   "audio/voices/narration/ecl3/b8-a10f.mp3": {
    "sha256": "7a7bef6d3d7a38a21173f14bc3c27ece62b6eca9810f80bfcd26dafeeb7d1c88",
@@ -3214,8 +3214,8 @@
    "heard": "This material is of small value."
   },
   "audio/voices/narration/ecl3/b8-a15a.mp3": {
-   "sha256": "18cce53c2a00383b25455c3d38e1cf61163e9270d19d91a86335100b1adfad49",
-   "heard": "Your success at Podal Plaza is noted.  Your success at Podal Plaza is noted.  Your success at Podal Plaza is noted."
+   "sha256": "5791ced2a353bbf7e135f8930d9181df4b516a34cc62281d42a1e75c563b47f4",
+   "heard": "Your success at Podal Plaza is noted."
   },
   "audio/voices/narration/ecl3/b8-a183.mp3": {
    "sha256": "3e034aeac2139babbbc8469e2d4886833fbb37361a70bcc3f494bae57d9bd4a9",
@@ -3250,16 +3250,16 @@
    "heard": "Councilman Kedorna left this payment for some service you had rendered."
   },
   "audio/voices/narration/ecl3/b8-a3cb.mp3": {
-   "sha256": "c4d230a7f00881cbd7971a06a03f8cf473951cefc333101fbabc5504657555c3",
-   "heard": "You're taking the gate will enable our forces to assault the enemy stronghold return there to lead the attack  You're taking the gate will enable our forces to assault the"
+   "sha256": "0673f050c82f9a11fb8ca838c0976341ad4d81fabe8f619ecf311328ef7fd431",
+   "heard": "Your taking the gate will enable our forces to assault the enemy stronghold.  Return there to lead the attack."
   },
   "audio/voices/narration/ecl3/b8-a421.mp3": {
    "sha256": "38188b56f1013b1c398fee3b4bf931e419c93213d6bc015ff2c25eb1b8fffa54",
    "heard": "Congratulations! Your quest is over!  Tyranthraxus is defeated! Flann is free!  If you wish, you may continue to help us clear any remaining monsters.  All Flann salutes you!"
   },
   "audio/voices/narration/ecl3/b8-a4a6.mp3": {
-   "sha256": "465b27657ce33e9f8d203a84350fa32b9949dcf973168dd631bbb8dce282f735",
-   "heard": "Your clearing of the slum areas permits us to expand.  Your clearing of the slum areas permits us to expand."
+   "sha256": "882ea0a2cd2994221a5a985b363463b1be61ce37232cd0be12ee041a67dc5cae",
+   "heard": "Your clearing of the slum areas permits us to expand."
   },
   "audio/voices/narration/ecl3/b8-a4dc.mp3": {
    "sha256": "47f949d445bb3f158e003e6c2b295b7141e0edf39a6f067514f7deb5bf8dd352",
@@ -3278,8 +3278,8 @@
    "heard": "Yundead from the graveyard have grown more dangerous than all of the other forces which confront us."
   },
   "audio/voices/narration/ecl3/b8-a6fe.mp3": {
-   "sha256": "5554312885d8341e93ac55f8c4e56de98c5ce11f0991c2b10ad4edfe900bfc89",
-   "heard": "I have been authorized to give you an enchanted weapon, if you accept the commission to end the graveyard menace. Do you accept?  I have been authorized to give you an enchanted weapon, if you accept..."
+   "sha256": "87a24226cf810f5d3cc99493dec564ad1247643f1fefd9391ab8a15db3b81c8b",
+   "heard": "I have been authorized to give you an enchanted weapon  if you accept the commission to end the Graveyard Menace.  Do you accept?"
   },
   "audio/voices/narration/ecl3/b8-a5c2-a62a.mp3": {
    "sha256": "0b2fe3b346d2dffb74427cf8f112d9cb1a30526ba50652ae8147f25e6e283654",
@@ -3294,8 +3294,8 @@
    "heard": "The clerk shuffles through her papers.  On the matter of commission, she says,  I can offer the following."
   },
   "audio/voices/narration/ecl3/b8-a80f.mp3": {
-   "sha256": "e6e9fbccfbd8b7acc1d5473246b3ad495c805727edd9e3fec1da5e0ab1e09fe2",
-   "heard": "Back so soon? I can only repeat the earlier offers.  Back so soon? I can only..."
+   "sha256": "25ca5927013ea5061dd94b9775283d883d4913542dab031760dadb0fa0e60207",
+   "heard": "Back so soon? I can only repeat the earlier offers."
   },
   "audio/voices/narration/ecl3/b8-a8b6.mp3": {
    "sha256": "525bdafe7972159063a85d0b72c050522eb087a3b82fa2f4e9308d95cb46ba1d",
@@ -3310,8 +3310,8 @@
    "heard": "The Council is offering a reward for books, maps, tomes, etc., which provide useful information about flan before the fall.  The reward is tied to the value of the information."
   },
   "audio/voices/narration/ecl3/b8-a9bb.mp3": {
-   "sha256": "2c4000f6013643827280a4d538d5af35d0bfe4df59dff5fcc6953c4b0c116a39",
-   "heard": "A weapon of great power is to be auctioned to our enemies.  This auction is to be held in Podal Plaza.  Find out what the weapon is and return.  This auction is to be held in Podal Plaza.  Find out what the weapon is and return it to our enemies."
+   "sha256": "44ac33959618524487697a3fbc3b074831757d96c2fa51e32d5a963ac33175ad",
+   "heard": "A weapon of great power is to be auctioned to our enemies.  This auction is to be held in Podal Plaza.  Find out what the weapon is and return."
   },
   "audio/voices/narration/ecl3/b8-aa52.mp3": {
    "sha256": "857ccc498b9737c3066df4629492eff4ec2a0f046ecbc0933f8a77544ad07869",
@@ -3358,8 +3358,8 @@
    "heard": "Lord Urslingen wishes urgently to speak with you.  Go through the south door of the Traitor Kedorna's old quarters."
   },
   "audio/voices/narration/ecl3/b8-aec6.mp3": {
-   "sha256": "ebf791422755df5def04995ee311e7cbd3808e2cdceadacba0d018345ce0e6c4",
-   "heard": "You are summoned to a special council meeting.  You are summoned to a special council meeting.  You are to be awarded a valuable commission.  The city guards will show you the way."
+   "sha256": "ed777bcf4504a5b1f922f4f13d8b7876f8762196172cc77e53989e26c71822e1",
+   "heard": "You are summoned to a special council meeting.  You are to be awarded a valuable commission.  The city guards will show you the way."
   },
   "audio/voices/narration/ecl3/b8-af4b.mp3": {
    "sha256": "036ce6a969001212e486327d43318651ca8b5a0b5f628e1a170726a8539d7806",
@@ -3398,8 +3398,8 @@
    "heard": "The sky darkens. Fierce gusts of wind howl past, and the ground shakes as peals of thunder  rock the land. The swirling murk hides what lies ahead."
   },
   "audio/voices/narration/ecl4/block-10/ecl4-b10-9c45.mp3": {
-   "sha256": "e0a2c76e61e1268929e9a1c8c2442f13d0e80c32f21b62af1cb610e39677c4f2",
-   "heard": "until an explosion of lightning reveals the nightmare"
+   "sha256": "89b68364efdfc5d62d00822adef66a5dc26312867ed62be28b77c7b586e8afbd",
+   "heard": "until an explosion of lightning reveals the nightmare scene of a graveyard turned upside down."
   },
   "audio/voices/narration/ecl4/block-10/ecl4-b10-9cf0.mp3": {
    "sha256": "26e41a08d5c28d060a8024c0f526f9322678d37b8209656298d50e178ccb204a",
@@ -3554,16 +3554,16 @@
    "heard": "You are approached by a man clad in mystic robes.  Hail noble adventurers, he calls.  I would ask you to help me end this foul undead curse.  Do you let him join the party or send him away?"
   },
   "audio/voices/narration/ecl4/block-10/ecl4-b10-ae8d.mp3": {
-   "sha256": "9d7c8881cfa6e3f4752593ae3534dc13236cc2b755b5ae9014371c8fae914178",
-   "heard": "Your party is too large for me to join.  Your party is too large for me to join.  Your party is too large for me to join.  Your party is too large for me to join."
+   "sha256": "a13fb83e3104b71f353b746236a165a7b0272fe0d2ffac89216ca337042eeda5",
+   "heard": "Your party is too large for me to join."
   },
   "audio/voices/narration/ecl4/block-10/ecl4-b10-aeb5.mp3": {
-   "sha256": "a26a4d14702ca2fb524a5a2ab2c111f5bc05cb1a2897b61a3526e54963125335",
-   "heard": "Then die you scum the man spits then die you scum  The man then die you scum the die you scum then die you scum the man spits  Then die"
+   "sha256": "f7d178497c7aac35ed77ae3c4c6a6dbf67c2cd454b17f6e09c809cda930518c9",
+   "heard": "Then die, you scum! The man spits."
   },
   "audio/voices/narration/ecl4/block-10/ecl4-b10-ae2e.mp3": {
-   "sha256": "36f42e833a3bdb1d4899c8f17ff44b310c0371ac92ab110f02f9b4493c4bb05c",
-   "heard": "The undead are controlled by a vampire.  The undead are controlled by a vampire.  The undead are controlled by a vampire who lurks in the northeast corner of the graveyard.  The man says, The undead are controlled by a vampire who lurks in—"
+   "sha256": "c016d5893201413ea0e826b58003e5be8c64e427be31874419d43fe8be2fdd8c",
+   "heard": "The undead are controlled by a vampire who lurks in the northeast corner of the graveyard, the man says."
   },
   "audio/voices/narration/ecl4/block-10/ecl4-b10-af0e-af92.mp3": {
    "sha256": "c4da707be2854b8c528ced0aa66fdd128f761b9534a171242d54d0c42c63faca",
@@ -3622,8 +3622,8 @@
    "heard": "A pack of hungry ghouls lopes toward you."
   },
   "audio/voices/narration/ecl4/block-10/ecl4-b10-b3eb.mp3": {
-   "sha256": "1d1efe5957825b11c48c497ce7788e5d83675bbc14882a77fd82b8636d7ce58e",
-   "heard": "The Mystic Man speaks. The vampire is behind the northern wall.  The Mystic Man speaks. The vampire is behind the northern wall.  The Mystic Man speaks. The vampire is behind the northern wall."
+   "sha256": "b77f9da26dbdc16cb218865fadcafcb2a07919dd8d5d79e00a5b48986ed699ce",
+   "heard": "The Mystic Man speaks. The vampire is behind the northern wall."
   },
   "audio/voices/narration/ecl4/block-10/ecl4-b10-b523.mp3": {
    "sha256": "d6e83972d4b1fbb3d0e56c2cd74cd226b782c161cb46ad895d0c7f33dee474ed",
@@ -3742,8 +3742,8 @@
    "heard": "You are in a very small dark room. There is a free man here. What do you do?"
   },
   "audio/voices/narration/ecl4/block-2/ecl4-b2-a109-prisoner-gone.mp3": {
-   "sha256": "79aad9206e60ccb80fb0aef86dbc5f807b3253f7284ad0b72e1cfacb4c62cbeb",
-   "heard": "You are in a very small, dark room.  You are in a very small, dark room.  You are in a very small..."
+   "sha256": "8245999a7f8faebb90dd4d4d9fde08f4d7f2fed94215a887dca308b282702d46",
+   "heard": "You are in a very small dark room."
   },
   "audio/voices/narration/ecl4/block-2/ecl4-b2-a1f2.mp3": {
    "sha256": "b237bf34690dc40d9d920873177a1646c2404ba9f15425926b33629f994140ef",
@@ -3754,8 +3754,8 @@
    "heard": "You have no key to unlock the padlocks."
   },
   "audio/voices/narration/ecl4/block-2/ecl4-b2-a26c.mp3": {
-   "sha256": "2686f156ebd59e0e1d9f9394ae2b5a814f9d23d4fdb5c45e7a82836e9d122eba",
-   "heard": "The brass key you found opens all of the padlocks.  The brass key you found opens all of the padlocks.  The brass key you found opens all of the padlocks.  The brass key you found..."
+   "sha256": "4fa507e0119e05819accd26f851d624479dfc670cacf6d758e7557edd7ce5511",
+   "heard": "The brass key you found opens all of the padlocks."
   },
   "audio/voices/narration/ecl4/block-2/ecl4-b2-a29f.mp3": {
    "sha256": "43aaa2903ed7bd841fdfc72cf7e7e7ab9e913ee950f55f15776ad7f710d4ab8c",
@@ -3782,20 +3782,20 @@
    "heard": "I almost killed the leader of these scummy hobgoblins, but the rest jumped me."
   },
   "audio/voices/narration/ecl4/block-2/ecl4-b2-a3b6.mp3": {
-   "sha256": "d3e68dd8a57fb595ed11ddde0fa8bc7efb119cd85b77cdd41dc970f98c8ecca2",
-   "heard": "free me and I'll help you free me and I'll help you free me and I'll help you"
+   "sha256": "211111fc6c049a089a370bb223ba5e1188b63ddf1736f3562f6fcecdffec2a38",
+   "heard": "Free me and I'll help you!"
   },
   "audio/voices/narration/ecl4/block-2/ecl4-b2-a3d3.mp3": {
-   "sha256": "97bafe2dc6c2cf4a1d2ebdb1b274e1bb5772d2b9f1cf1a28cc9ba28b0489bb8c",
-   "heard": "Words don't break chains. He snarls. Words don't break chains. He snarls. Words don't break chains. He snarls"
+   "sha256": "0b6d0ff1f0f90e9b978edc2a21bd00bdc345377921c86af4203a786db7b7b63a",
+   "heard": "Words don't break chains, he snarls."
   },
   "audio/voices/narration/ecl4/block-2/ecl4-b2-a473.mp3": {
    "sha256": "29b3983091b7d23f062f15bdea40f08a167bf600c3e385fb1fc12a6435a6177d",
    "heard": "The man waits impatiently."
   },
   "audio/voices/narration/ecl4/block-2/ecl4-b2-a48e.mp3": {
-   "sha256": "a288b72387013445acc2efd679cb537eb907c75ec6d90fdb592c5d2c4f94dfe9",
-   "heard": "You flee the room you flee the room you flee the room  You flee the room you flee the room you flee the room you flee the room you flee the room"
+   "sha256": "7778923e90a7c1d26b28ebb75a233d1b16cb73151bdd2710725bcdf964e2e105",
+   "heard": "YOU FLEE THE ROOM!"
   },
   "audio/voices/narration/ecl4/block-2/ecl4-b2-a4d2-a500.mp3": {
    "sha256": "75023f7d3e358c1c26aab997562972b0cfce75340b3b4a391093b285f2080e63",
@@ -3886,20 +3886,20 @@
    "heard": "Your friend floats out of the well."
   },
   "audio/voices/narration/ecl4/block-2/ecl4-b2-adfa.mp3": {
-   "sha256": "8deeeb3a49ed3bfa6fe459ed5b3de545bb9ab74f435b924e63dfdb145728d7b0",
-   "heard": "Here is a laughing thief.  Here is a laughing thief.  Here is a laughing thief.  Here is a laughing thief.  Here is a laughing thief.  Here is a laughing thief.  Here is a laughing thief.  Here is a laughing thief.  Here is a laughing thief.  Here is a laughing thief.  Here is a laughing thief.  Here is a laughing thief.  Here is a laughing thief.  Here is a laughing thief.  Here is a laughing thief.  Here is a laughing thief.  Here is a laughing thief.  Here is a laughing thief.  Here is a laughing thief."
+   "sha256": "7887fdb509abbd1a37951c3b0b949955deb251cb7c68a0d3771c5b8a1beb5c50",
+   "heard": "Here is a laughing thief!"
   },
   "audio/voices/narration/ecl4/block-2/ecl4-b2-af12.mp3": {
    "sha256": "bd5f79d60725fba023398f620c491698956506f4250606d248a203a2f4648729",
    "heard": "The old thief laughs. Perhaps we shall meet again."
   },
   "audio/voices/narration/ecl4/block-2/ecl4-b2-ae1d.mp3": {
-   "sha256": "8a32d39ee26b6c3f3e4cf286f2c6656c53dbdd7ffea889db4ead7ed7656be73d",
-   "heard": "An old thief stands here, an old thief stands here, an old thief stands here.  Welcome to my guild. I am Restel. An old thief stands here.  Welcome to my guild. I am Restel. He bows low."
+   "sha256": "8b729f990f5bc6f49de0725238f9135b3be7ccc3b2039223d2e75d39bc609d8f",
+   "heard": "An old thief stands here.  Welcome to my guild.  I am Restel, he bows low."
   },
   "audio/voices/narration/ecl4/block-2/ecl4-b2-ae87.mp3": {
-   "sha256": "5db624c2dddd9db2896b14e59bc20146da6df984c01e6a959090d0e4828f6e89",
-   "heard": "We can duplicate the seal on that chest.  Interested?  We can duplicate the seal."
+   "sha256": "fec2674ab8eb6a28a8d0c04294a29c45258b5940b98b8aca6a4b036aff8829d7",
+   "heard": "We can duplicate the seal on that chest for half the treasure no one will ever know.  Interested?"
   },
   "audio/voices/narration/ecl4/block-2/ecl4-b2-af4b.mp3": {
    "sha256": "03949e082999500e69f9fbb96b54dabf897220caad36d70b389c1e137a3f285d",
@@ -3910,12 +3910,12 @@
    "heard": "An alarm is sounding!"
   },
   "audio/voices/narration/ecl4/block-2/ecl4-b2-afbf.mp3": {
-   "sha256": "a412d87c7647b8e6515c7c17e7ac4ad936924ebec66dd033c3329d85a42f511f",
-   "heard": "Rastal consistently, an older, amused, confident thieves' guildmaster.  A rope is tossed up and the rest of the party comes down.  A rope is tossed up and the rest of the party comes down.  The old thief says,  Our rules require you to be blindfolded in our guild house, okay?"
+   "sha256": "a2b7a55c52278c186d074eae863bfad0a17e3929520771109a1ebf11b05d26ea",
+   "heard": "A rope is tossed up, and the rest of the party comes down.  The old thief says, our rules require you to be blindfolded in our guild house, okay?"
   },
   "audio/voices/narration/ecl4/block-2/ecl4-b2-b049-b0e6.mp3": {
-   "sha256": "7aa21a0815257b04303e84970db9e283395a9312a71c3b79d79d283f031ee381",
-   "heard": "You are blindfolded and taken on a long, twisting walk.  You are blindfolded and taken on a long, twisting walk.  You are blindfolded and taken on a long, twisting walk, then up a ladder.  Only meet us at the main well.  He points his ring at you, and you rise up and out the well.  You poo-"
+   "sha256": "aa9c72a080a9883c3df088c26517061410f8bdce5d7e09150cc6c67eb50782b2",
+   "heard": "You are blindfolded and taken on a long, twisting walk, then up a ladder, only meet us at the  main well. He points his ring at you, and you rise up and out the well."
   },
   "audio/voices/narration/ecl5/b3-99e0.mp3": {
    "sha256": "38f8185f5b96144271519c44aebcb3834a418d0cfedfef5411fc6a5a4f7db514",
@@ -4342,8 +4342,8 @@
    "heard": "Get lost wimp! If you don't beat it, we'll beat you! Ha! Ha!  The giant leader pokes the giant next to him. Beat it! Beat them! Get it?"
   },
   "audio/voices/narration/ecl5/b4-a547-a559.mp3": {
-   "sha256": "6b9a746299a634713d59f114896b714774846251754fc1726e88ef09f33a2672",
-   "heard": "I said get lost!  The giant readies his weapon and advances.  The others follow suit.  I said get lost!  The giant readies his weapon and advances.  The others follow suit."
+   "sha256": "08198b640c97d6388840d651b877f6628c7e817408bbdddc2a09d25f84240444",
+   "heard": "I said get lost!  The giant readies his weapon and advances.  The others follow suit."
   },
   "audio/voices/narration/ecl5/b4-a592.mp3": {
    "sha256": "ee2aca9ef76d77cf4b5e53c92960ffb0d4464500db174b268bf9bb1ddcd6bdde",
@@ -4710,8 +4710,8 @@
    "heard": "Well then, good luck! Best you leave before you are found here."
   },
   "audio/voices/narration/ecl5/b6-9e28-9e4f.mp3": {
-   "sha256": "c34849c785158fd04399b969e879780fe7ec17eec231fdf10348b4f1a4df6e9a",
-   "heard": "The half-orc woman reassures the party softly while the disguise is fitted.  They help you put on the clothes.  Have no fear, we will keep silence."
+   "sha256": "b3913398b6d22154fd27f2936571f7e2ebae8b94b1a909def4d09fe6750fe7ac",
+   "heard": "They help you put on the clothes.  Have no fear, we will keep silence."
   },
   "audio/voices/narration/ecl5/b6-9eb6.mp3": {
    "sha256": "2d520e8c4c0eae28b8bb5b01e49c25b9b9768896e236515d2bf0445249d94991",
@@ -4994,28 +4994,28 @@
    "heard": "You are in the Merchants' Camp area."
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-9f6f.mp3": {
-   "sha256": "f39033600f0d1a623d87fa80f0562f827ac780c4f2dcfb4eecd95eb5d9d1589d",
-   "heard": "You punch the merchant in the nose, and he falls to the ground, badly bleeding.  You punch the merchant in the nose, and he falls to the ground, badly.  You punch the merchant in the nose, and he falls to the ground, badly bleeding.  The merchant yells for his guards, and they come running."
+   "sha256": "92ded9a6f04007b0c95a61373d71a1b10a9524af4a79cae703e35725916c2e05",
+   "heard": "You punch the merchant in the nose and he falls to the ground, badly bleeding.  The merchant yells for his guards and they come running."
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-a00d-a0a0.mp3": {
    "sha256": "46932ecc4e5f511a6a6c3aa02f8bba44cdba866c1dfe7fc37ff5ce80c20c598c",
    "heard": "Perform the slave merchant consistently, oily, avaricious, cowardly, and unpleasant.  After you defeat the guards, you see a crowd has formed.  From within the crowd, a large man in gleaming chain mail steps out.  He says, that was amusing, but do not cause any more trouble.  The man then leaves, and before you is the sleazy merchant.  He begs forgiveness, then whimpers away."
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-9dcb-9e66-9eda.mp3": {
-   "sha256": "3aa6911f5cf8d33828415ef355bcc74a1c5cfb8105fbfe562c9963181fd7dcbb",
-   "heard": "You are just outside a pen for holding slaves.  The people here are worn and beaten, destined to a life of slavery.  You are just outside a pen for holding slaves.  The people here are worn and beaten, destined to a life of slavery.  Around the pen there are many guards and sleazy merchants looking at the slaves.  You see a boy that has a heart-shaped birthmark on his left shoulder.  As you stare at the boy, a sleazy fat merchant approaches you and says,  That young boy will bring a good price at gentle keep.  I think I shall buy him.  You are just outside a pen for holding slaves.  That young boy will bring a-"
+   "sha256": "7ae041256d8c4b76f24448fb7d0efe9cfb7c50eb59bef1d803e27201d39850d3",
+   "heard": "You are just outside a pen for holding slaves.  The people here are worn and beaten, destined to a life of slavery.  Around the pen, there are many guards and sleazy merchants looking at the slaves.  You see a boy that has a heart-shaped birthmark on his left shoulder.  As you stare at the boy, a sleazy fat merchant approaches you and says,  That young boy will bring a good price at gentle keep. I think I shall buy him."
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-a0f1.mp3": {
-   "sha256": "7477145e488bb4a5f8fd80918897361833c093172d7915058fb942f99a8bf50d",
-   "heard": "You run away from the battle back to the merchant's area from behind you run away from the battle back to the merchant's area  You run away from the battle back to the merchant's area  From behind you hear people calling you names like pansy and wimp  You run away from the battle back to the merchant's area"
+   "sha256": "ccd2dc24b3e32acfb90c3767b6854e95ee8079f2c90cbf102e84e0fab7fefd05",
+   "heard": "You run away from the battle back to the merchant's area.  From behind you hear people calling you names like Pansy and Wimp."
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-a169.mp3": {
-   "sha256": "2a98283927c8173f15124753e3c48720e79526cd05aa056622f788630a6e94c9",
-   "heard": "You agree with the merchant that the young boy is valuable.  The merchant laughs, then says, you'll have to outbid me for the waf.  You agree with the merchant that the young boy is valuable.  The merchant laughs then says, you'll have to outbid me for the waf.  The sleazy merchant then walks away.  You agree with the merch"
+   "sha256": "1201f7a3994a622e3c74e949483ac036d9ae3b90fe9f524c7dd47a153fb6ee09",
+   "heard": "You agree with the merchant that the young boy is valuable.  The merchant laughs, then says,  you'll have to outbid me for the waif.  The sleazy merchant then walks away."
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-a1ef.mp3": {
-   "sha256": "0d282f0964d362632790c0c0d99fbbb5f63562bdb6f75ae931c0d2187a05e615",
-   "heard": "You ignore the sleazy merchant and concentrate, oily, avaricious, cowardly, and unpleasant.  Retain narrator identity.  You ignore the sleazy merchant and concentrate on rescuing the boy."
+   "sha256": "f8432c633cef0deadcb17039da48c78571717d7e692ccf5fee449e624d91dda0",
+   "heard": "You ignore the sleazy merchant and concentrate on rescuing the boy."
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-a27c.mp3": {
    "sha256": "67fb16539003ff505a7b5be19eab659bb2606962bd848e765b88af88cb5cd601",
@@ -5042,16 +5042,16 @@
    "heard": "After defeating the last, wave you see another wave attack from the south of the compound."
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-a667.mp3": {
-   "sha256": "85117cffa742b803eae28011bac2febd0c6cfd2616335019f7836514faeb2652",
-   "heard": "The Captain says, you have chosen wisely.  The Captain says you have chosen wisely.  The Captain says you have chosen wisely.  The Captain says you have chosen wisely.  Some of the Buccaneers come forward and strip you of some of your items and  money, they escort you out of the compound.  The captain says, you have chosen"
+   "sha256": "815dbfdc5524b58c7f53815fa1f2ada1d26e5f3511156ba5b53ed9a2e11105c2",
+   "heard": "The captain says, you have chosen wisely.  Some of the buccaneers come forward and strip you of some of your items and money.  They escort you out of the compound."
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-a6f0.mp3": {
-   "sha256": "520571073573af5cd68fa67c313605f6740435d2c1a5534a563c913910c38e89",
-   "heard": "You throw caution to the wind and attack the captain smiles and then rushes to battle  You throw caution to the wind and attack the captain smiles and then rushes to battle  You throw caution to the wind and attack the captain smiles and then rushes to battle"
+   "sha256": "db85425275806fbc82ef509dc7c018d742258025aef9c30addf513c811120149",
+   "heard": "You throw caution to the wind and attack.  The captain smiles and then rushes to battle."
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-a562-a5fb.mp3": {
-   "sha256": "4ede41b46edd1498cdbc4d25c2cff3a9a26b57f5332a5f02967f96b73da03700",
-   "heard": "The slaves cheer your victory.  A large, commanding, battle-hardened, and confident.  Retain narrator identity for attribution.  The slaves cheer your victory.  A large group of buccaneers stands in disbelief.  The buccaneers part as a large man  in gleaming chain mail steps forth.  The slaves fall silent.  The captain says, you have fought well.  You may ransom yourselves or die.  What will you do?  The slaves cheer your victory.  The slaves cheer your victory.  A large, commanding, battle-hardened, and confident."
+   "sha256": "2f8906fb58f8a4a368929cc38b18bcb1436e3d95938104f81293faa6a329c831",
+   "heard": "The slaves cheer your victory.  A large group of buccaneers stands in disbelief.  The buccaneers part as a large man in gleaming chain mail steps forth.  The slaves fall silent.  The captain says, you have fought well.  You may ransom yourselves or die.  What will you do?"
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-a7d4.mp3": {
    "sha256": "c61695e0bbfe734beba53cd3577c00a2557dcbde9d484b9ddee5515a6c2456b8",
@@ -5062,8 +5062,8 @@
    "heard": "You run from the battle and out the outpost gate.  The young boy could not keep up and was left behind."
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-a75d.mp3": {
-   "sha256": "8cda2c72998d680f116ff404ca9efd762727516535f9aad92ebda384c439113f",
-   "heard": "After defeating the last of the Buccaneers, large, commanding, battle-hardened, and confident,  retain narrator identity for attribution.  After defeating the last of the Buccaneers, the rest surrender or flee.  You rescue the slaves and capture the fort."
+   "sha256": "434cd815ba34ffb5379012976f900a7827cc40f62005b31f23ce8ef972ff1ccf",
+   "heard": "After defeating the last of the buccaneers, the rest surrender or flee.  You rescue the slaves and capture the fort."
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-a872.mp3": {
    "sha256": "1889bbfe6ed1d84e49fb76670f70c89ab7e05f2487b996b4b7053aa33464b03e",
@@ -5110,20 +5110,20 @@
    "heard": "You kill the captain."
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-ac44-acca.mp3": {
-   "sha256": "8f315123f7cb26fbe12d08d383de7f629fea0ca4dee4dfd2b0164a0c0bf5f68e",
-   "heard": "You enter a room with four guards in gleaming chain mail.  As you enter, one of them goes through the south door and returns.  You enter a room with four guards in gleaming chain mail.  As you enter, one of them goes through the south door and returns with the buccaneer captain.  The captain looks you over and says,  WHAT DO YOU WANT?  You enter a room with four guards in gleaming chain mail."
+   "sha256": "0c995e5f227ed6dca1a05b761faf11ba5181d15b8c4d04e60356efbfea69eafa",
+   "heard": "You enter a room with four guards in gleaning chain mail.  As you enter, one of them goes through the south door and returns with the  Buccaneer Captain. The Captain looks you over and says,  What do you want?"
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-ad28.mp3": {
-   "sha256": "774c5c415ddfd32ddff2529e769b6bb28a54cb8b30d648896cbfe4669c05c60d",
-   "heard": "You draw your weapons and attack the greatest military captain large  commanding battle hardened and confident  You draw your weapons and attack the captain draws his sword and yells for his guards  You draw your weapons and attack the captain draws his sword"
+   "sha256": "cece7de9a248df90347be044308300cd6fc283da359e2d4faa100777a78b2dad",
+   "heard": "You draw your weapons and attack the captain draws his sword and yells for his guards to attack"
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-adc9.mp3": {
-   "sha256": "892858da773b1003af8001758c8912b9a883be50fedce6c061301fa7ffb0074a",
-   "heard": "You have run outside the captain's quarters an alarm commanding battle hardened and confident  You have run outside the captain's quarters  You have run outside the captain's quarters an alarm goes off in the distance  You see a large group of angry buccaneers charging toward you"
+   "sha256": "47fc69a6b918cad9389dced895605ab487d32bdb8ca32319fcd7b9919c946891",
+   "heard": "You have run outside the captain's quarters.  An alarm goes off in the distance.  You see a large group of angry buccaneers charging toward you."
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-ae3c.mp3": {
-   "sha256": "92136d422a13f8fc3dcfb53dd12a55a8c0d4785fc24ae6c56cb9e6d067a00929",
-   "heard": "You mentioned the young boy in the slave pen, and large, commanding, battle-hardened, and confident.  Retain narrator identity for attribution.  You mentioned the young boy in the slave pen, and the captain seems interested.  He says, I can let you buy the young boy, but it will cost you a lot.  What will you do?"
+   "sha256": "9b874e84240c5fb7b74917f585e8e106c4cc2c0ccc20666177e996b17b68b61b",
+   "heard": "You mention the young boy in the slave pen and the captain seems interested.  He says, I can let you buy the young boy, but it will cost you a lot.  What will you do?"
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-afc5.mp3": {
    "sha256": "8de699d924d0f2a45707fcbcc32c3e4c361e72e1a145a548c5156e4d694f12d6",
@@ -5142,8 +5142,8 @@
    "heard": "The Tower Guards attack!"
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-aedf-af52.mp3": {
-   "sha256": "318cc54021dc0a6e3a90d102421f465dee258387edc5f795a1e3acec35e783a2",
-   "heard": "The captain says, you have made a good deal.  After talking, the captain battle hardened and confident.  The captain says, you have made a good deal.  After talking, the captain makes a motion and the boy is brought to you.  The captain says, you have made a good deal.  After talking, the captain makes a motion and the boy is brought to you.  The captain then leaves the room."
+   "sha256": "0e63b63ec00f6d46ab9b51642e6ffc369421a4f8dd47db18cae9f280b86d4a96",
+   "heard": "The captain says, you have made a good deal.  After talking, the captain makes a motion and the boy is brought to you.  The captain then leaves the room and you are escorted back outside."
   },
   "audio/voices/narration/ecl6/block-1/ecl6-b1-b15b.mp3": {
    "sha256": "d0e9592a99e18421d89ce6b9b0ba653959bb5aaa3567c08d0809adeccfc13340",
@@ -5210,48 +5210,48 @@
    "heard": "You enter the enormous cave. Search it and find nothing of interest. You then leave."
   },
   "audio/voices/narration/ecl6/block-19/ecl6-b19-999c.mp3": {
-   "sha256": "887e2e72970efe02590a5690ed29750534f77225b339325c16a29093bb225370",
-   "heard": "Perform Diogenes consistently as a huge, noble, silver dragon with a deep, resonant, booming voice.  As you are entering the cave, a magic mouth appears on one of the walls.  As you are entering the cave, a magic mouth appears on one of the walls.  In a booming voice it says,  Who enters the home of Diogenes?  Speak now and declare your in-"
+   "sha256": "6fc3b9c2ef773632c0a1c83d13f8b1ddc7affd028a8ca82434dc9903e0fe9adb",
+   "heard": "As you are entering the cave, a magic mouth appears on one of the walls.  In a booming voice it says,  Who enters the home of Diogenes?  Speak now and declare your intent!"
   },
   "audio/voices/narration/ecl6/block-19/ecl6-b19-9a4a.mp3": {
-   "sha256": "24a54f88147f9c1919453897359bbc0a8541917fb1b3c06c09a8fcb00b7f9ca6",
-   "heard": "What will you say is your reason for being here?  What will you say is your reason for being here?  What will you say is your reason for being here?  What will you say is your reason for being here?  What will you say is your reason for being here?  What will you say is your reason for being here?  What will you say is your reason for being here?  What will you say is your reason for being here?  What will you say is your reason for being here?  What will you say is your reason for being here?"
+   "sha256": "a8eff6dd4e9c5607f41006b385433cc9bbd7da61fef61b9754f800bf19d93a64",
+   "heard": "What will you say is your reason for being here?"
   },
   "audio/voices/narration/ecl6/block-19/ecl6-b19-9aef-9b70-9c11-pledge.mp3": {
-   "sha256": "f7da10ed6f0bc52867d4eb14e00943435a13a9f92ab3a0668e0fb32a19added6",
-   "heard": "You hear a great flapping sound a strong whoosh of air comes down upon the cabled  You hear a great flapping sound a strong whoosh of air comes down upon the adventurers  You hear a great flapping sound a strong whoosh of air comes down upon the adventurers a  large silver dragon stands before you in a booming voice it says I  I accept your pledge. For your first duty, I command you to recover a powerful magical  bottle from a kobold settlement in the hills far to the east. Then return to me and I shall  give you another task.\" After speaking, the dragon flies through  an opening in the ceiling of the cave. You exit the cave to continue your quest.  The dragon flies through an opening in the hills far to the east."
+   "sha256": "018941974ac8c9de2668f0fe013d4ec0e271a4333bbe65c855818cc43b99c962",
+   "heard": "You hear a great flapping sound. A strong whoosh of air comes down upon the adventurers.  A large silver dragon stands before you. In a booming voice it says,  I accept your pledge. For your first duty, I command you to recover a powerful magical  bottle from a kobold settlement in the hills far to the east. Then return to me and I shall  give you another task. After speaking, the dragon flies through an opening in the ceiling  of the cave. You exit the cave to continue your quest."
   },
   "audio/voices/narration/ecl6/block-19/ecl6-b19-9c80-9d07.mp3": {
-   "sha256": "653becba4e73137683eff28134c9ece688701ab2e996a382896ccff7f2b73485",
-   "heard": "You hear a roar, then a great flapping sound.  You hear a roar, then a great flapping sound.  You hear a roar, then a great flapping sound.  You hear a roar, then a great flapping sound.  A strong rush of air batters the party as a large silver dragon lands before the adventurers.  In a booming voice it says,  You fools! I am a good silver dragon, not the evil leader of Flan.  Don't you know that we metallic dragons are good creatures?  What will you do?  What will you do?"
+   "sha256": "587deb1fd02e1e6e9592a25e460b3a6a5b5e3114eb2f233652bef5cced28d2ea",
+   "heard": "You hear a roar, then a great flapping sound.  A strong rush of air batters the party as a large silver dragon lands before the adventurers.  In a booming voice it says,  You fools! I am a good silver dragon, not the evil leader of Flan.  Don't you know that we metallic dragons are good creatures?  What will you do?"
   },
   "audio/voices/narration/ecl6/block-19/ecl6-b19-9da0-9e28-9c11-apology.mp3": {
-   "sha256": "61844ab18b5f759ca35c6da04ca8060d2564b642ce2ed9427402f61db6c91f4d",
-   "heard": "After hearing your apology, the dragon says,  Though you are foolish, I believe your acts are noble.  After hearing your apology, the dragon says,  Though you are foolish, I believe your acts are noble.  After hearing your apology, the dragon says,  Though you are foolish, I believe your acts are noble.  I will help you with your quest to cleanse the city of Flann from evil.  Far to the east there is a large Kobold community.  They have possession of a powerful silver bottle.  This bottle will help you rid the city of its undead problem.  Get the bottle, then return to me.  After speaking, the dragon flies through an opening in the ceiling of the cave.  You exit the cave to continue your quest."
+   "sha256": "d3f15acb636df86286d46e61f64fd77fe06ec1e6fb068bae6434bc296526fd67",
+   "heard": "After hearing your apology, the dragon says,  though you are foolish, I believe your acts are noble.  I will help you with your quest to cleanse the city of Flan from evil.  Far to the east, there is a large kobold community.  They have possession of a powerful silver bottle.  This bottle will help you rid the city of its undead problem.  Get the bottle, then return to me.  After speaking, the dragon flies through an opening in the ceiling of the cave.  You exit the cave to continue your quest."
   },
   "audio/voices/narration/ecl6/block-19/ecl6-b19-9ec4-9f43.mp3": {
-   "sha256": "1d764a5b0923a3d17711dbbfac33074dc246107a6bae8220a750d52a5e0c36f7",
-   "heard": "As you ready your weapons to attack, the dragon takes flight and roars.  Evil creatures, begone from my lair.  As you ready your weapons to attack, the dragon takes flight and roars.  Evil creatures, begone from my lair.  He then flies up through a hole in the ceiling.  You may easily follow the dragon by climbing up a wall and then through the hole in the ceiling.  What will you do?  As you ready your weapons to attack, the dragon takes flight and roars.  Evil creatures, begone from my lair."
+   "sha256": "10dd71fd079a8a84016d8b52fc35061b36f9f01dcdb8fde7fa4d8363c7783848",
+   "heard": "As you ready your weapons to attack, the dragon takes flight and roars.  Evil creatures, begone from my lair.  He then flies up through a hole in the ceiling.  You may easily follow the dragon by climbing up a wall  and then through the hole in the ceiling.  What will you do?"
   },
   "audio/voices/narration/ecl6/block-19/ecl6-b19-a046.mp3": {
-   "sha256": "1b604e6c68ec712f9ba849d36e50dd44705c9c09b04b4b0b09b0ab9a27a3e670",
-   "heard": "You try to attack the dragon, but seem to be frozen in time  You try to attack the dragon, but seem to be frozen in time  You try to attack the dragon, but seem to be frozen in time  You try to attack the dragon, but seem to be frozen in time  The dragon throws a fireball in the middle of the party and then disappears  You have a strange feeling that you just made a big mistake  You"
+   "sha256": "246914ec34bce4c6e570df94a58df5c10515166a66a070e770ff0038f8c73922",
+   "heard": "You try to attack the dragon, but seem to be frozen in time.  The dragon throws a fireball in the middle of the party and then disappears.  You have a strange feeling that you just made a big mistake."
   },
   "audio/voices/narration/ecl6/block-19/ecl6-b19-9fc1.mp3": {
-   "sha256": "7ba333c37719309576682efc1f8c1104cfc28dcc7e6c4d619224dffbee81d1ea",
-   "heard": "You climb to the second level of the huge, noble, silver dragon with a deep, resonant, booming voice.  You climb to the second level of the dragon's den.  You climb to the second level of the dragon's den.  There is the dragon waiting for you.  He looks extremely mad! What will you do?  You climb."
+   "sha256": "848b7879ce124d83c6373aa740aa6859a24de88b5b23b52a07ebebdc2e848ae5",
+   "heard": "You climb to the second level of the dragon's den.  There is the dragon waiting for you.  He looks extremely mad.  What will you do?"
   },
   "audio/voices/narration/ecl6/block-19/ecl6-b19-a0ea.mp3": {
-   "sha256": "0652b5e992913901169d539effd2e912432bd5448a593cfc12018194daba626e",
-   "heard": "After recovering from the fireball you search the rest of the silver dragon with a deep, resonant, booming voice.  After recovering from the fireball, you search the rest of the lair and find nothing of interest.  After recovering from the fireball you search the rest of the lair and find n-"
+   "sha256": "8e63c44eb5bfdad586f67d94c89c0d33f7de1440240b9d84ebd816a2396c3e2a",
+   "heard": "After recovering from the fireball, you search the rest of the lair and find nothing of interest."
   },
   "audio/voices/narration/ecl6/block-19/ecl6-b19-a145-a1e5-9c11-ask-advice.mp3": {
-   "sha256": "7425e410f1af2ee2891ad729c1035b311d2183e7ff95353c8364a0447bdcbf37",
-   "heard": "The characters hear a loud flapping noise.  The characters hear a loud flapping noise and then a warm rush of air.  The characters hear a loud flapping noise and then a warm rush of air hits their faces.  The characters hear a loud flapping noise and then a warm rush of air hits their faces.  Standing before you now is a great silver dragon.  He says, you are wise to seek my counsel, and I can help you.  Far to the east, there is a large kobold complex.  There is a silver bottle of great power there that will help you on your quest.  Retrieve that bottle, then return, and I will send you on another quest.  After speaking, the dragon flies through an opening in the ceiling of the cave.  You exit the cave to continue your quest.  The characters hear a loud flapping noise."
+   "sha256": "96a33b5f2ff46ff1b177cb5ab139e4575b0b62301aa92b0e281d9340dd834793",
+   "heard": "The characters hear a loud flapping noise, and then a warm rush of air hits their faces.  Standing before you now is a great silver dragon. He says,  You are wise to seek my counsel, and I can help you.  Far to the east there is a large kobold complex. There is a silver bottle of great power there that  will help you on your quest. Retrieve that bottle, then return, and I will send you on another quest.  After speaking, the dragon flies through an opening in the ceiling of the cave.  You exit the cave to continue your quest."
   },
   "audio/voices/narration/ecl6/block-19/ecl6-b19-a288-a2f6-a378-9c11-offer-gift.mp3": {
-   "sha256": "f2f9c8564ffe9237295379169d04b7da94c2c637de85bed5d1ba30a77a50930b",
-   "heard": "The characters hear a loud flapping noise and then feel a warm jet of air.  The characters hear a loud flapping noise and then feel a warm jet of air.  The characters hear a loud flapping noise and then feel a warm jet of air hit their faces.  A huge silver dragon flies down to meet them.  The dragon lands, looks the party over, then says,  You have nothing that interests me.  If you wish to appease me, then go east and destroy the Kobold community there.  There you shall find a magical bottle which will help you in cleansing old flan of its evil.  There you shall find a magical bottle which will help you in cleansing old flan of its evil.  After speaking, the dragon flies through an opening in the ceiling of the cave.  You exit the cave to continue your quest."
+   "sha256": "9f3ecfc7632fcd217fe4ea2de19049823490ee3cdbcfac8dcad74e6395a78f54",
+   "heard": "The characters hear a loud flapping noise and then feel a warm jet of air hit their faces.  A huge silver dragon flies down to meet them.  The dragon lands, looks the party over, then says,  You have nothing that interests me.  If you wish to appease me, then go east and destroy the Kobold community there.  There you shall find a magical bottle which will help you in cleansing old flan of its evil.  After speaking, the dragon flies through an opening in the ceiling of the cave.  You exit the cave to continue your quest."
   },
   "audio/voices/narration/ecl6/block-25/ecl6-b25-9b3d.mp3": {
    "sha256": "e0902335a15a1c59cb61743add7fdae12ebace2c28186460d65f571b89d4901b",
@@ -5266,8 +5266,8 @@
    "heard": "You enter the cave."
   },
   "audio/voices/narration/ecl6/block-19/ecl6-b19-a3c7-a44c-a4cc.mp3": {
-   "sha256": "537f38f90c95c09ff710ffb150e298eee46942f178faae7082687fc1b8c24b39",
-   "heard": "As you enter the cave, you are greeted by Diogenes, the Silver Dragon, with a deep, resonant, booming voice.  As you enter the cave, you are greeted by Diogenes, the attribution and action.  As you enter the cave, you are greeted by Diogenes, the Silver Dragon.  He says, I see you have recovered the silver bottle from the Cobold Caves. I congratulate you.  That bottle contains a powerful Efreet, who was summoned to kill vampires.  He will be a valuable ally in old Flan. In Valhingen Graveyard, there is a vampire.  When you meet the vampire, use the bottle, and you may have a chance in defeating him.  I wish you luck.  After speaking, Diogenes flies through a hole in the ceiling and disappears."
+   "sha256": "479802fe440d1df13e733a3045948aa3343ff1e282c6357dc68a587273389a8c",
+   "heard": "As you enter the cave, you are greeted by Diogenes, the Silver Dragon.  He says, I see you have recovered the silver bottle from the Cobold Caves.  I congratulate you.  That bottle contains a powerful efreet who was summoned to kill vampires.  He will be a valuable ally in old Flan.  In Valhingan graveyard, there is a vampire.  When you meet the vampire, use the bottle and you may have a chance in defeating him.  I wish you luck.  After speaking, Diogenes flies through a hole in the ceiling and disappears."
   },
   "audio/voices/narration/ecl6/block-25/ecl6-b25-9ccf.mp3": {
    "sha256": "6c97b03802538d4a96487c3e48abe5a17d0b0c8b4c80a0d361409fa94e6b035d",
@@ -5470,100 +5470,100 @@
    "heard": "You are in your quarters. Will you walk around or will you just relax until dinner?"
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-a84e.mp3": {
-   "sha256": "7a1bc04ce4b6afdc465132da38b3170096f675a5ac2e15c01b741ae6690423f6",
-   "heard": "Perform the gentle commandant consistently.  Controlled, cordial, probing, and politically calculating.  Retain narrator identity for narration.  Are you going to talk about new or old flan?"
+   "sha256": "8f8b9707308c104c0797b2c137e7aeae7a8c37dc568300c194664c091c53a2ed",
+   "heard": "Are you going to talk about new or old flan?"
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-a6eb-a74e-a7c2.mp3": {
    "sha256": "90419a85add727a1a63a647ff1c762df27e164884d4f0699b86cf3299198c88a",
    "heard": "perform the gentle commandant consistently.  Controlled, cordial, probing, and politically calculating.  Retain narrator identity for narration.  At dusk, a guard comes by to escort you to dinner.  You arrive at the officer's mess and  are seated with the commandant and his advisors.  A fine meal of roast boar is served with a hearty red wine.  The commandant turns to one of the characters and says, so, how's everything in  flan?  What will you talk about?"
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-a89a.mp3": {
-   "sha256": "2d0b44e42db0e63fecc4af5b7bbbbb1d51a78e84c1c30c6832939ef7b80056d3",
-   "heard": "performed the gentile commandant consistently, controlled, cordial,  probing, and politically calculating.  The conversation begins to die down.  The commandant starts a conversation by saying, well,  are you having much trouble with the creatures from old flan?"
+   "sha256": "dce8ae475fe934e8c8f85b49edd6bddea4a4d0255a70eae92e7b630763602fae",
+   "heard": "The conversation begins to die down.  The Comandant starts a conversation by saying, well,  are you having much trouble with the creatures from Old Flan?"
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-a93b.mp3": {
-   "sha256": "db65fa325755f056976026d68eec4c288445d62a24b90cf5d9dc2818d0380aff",
-   "heard": "Perform the gentile commandant consistently.  Controlled, cordial, probing, and politically calculating.  Retain narrator identity for narration.  The conversation completely dies and everyone is staring at each other.  The commandant excuses himself and leaves.  A guard takes you back to your quarters."
+   "sha256": "d08ca421a742110a8c87ed1539628323b2007d7b0bd14bd6f23a77c03055492a",
+   "heard": "The conversation completely dies, and everyone is staring at each other.  The commandant excuses himself and leaves.  A guard takes you back to your quarters."
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-a9b8.mp3": {
-   "sha256": "72f38be2958a716fd432099be43f116f3d349b90f4afaeb13c13276b81307801",
-   "heard": "Perform the gentle commandant consistently.  Controlled, cordial, probing, and politically calculating.  Retain narrator identity for narration.  The commandant says, I expect there would be trouble.  I've heard Tyranthraxus is a powerful fire demon.  Your city's defenses must be quite strong.  How strong are they?"
+   "sha256": "421bf4b59dbf6275dc39d0ee938500555e58259cb7e800e4fd1808d5284d445d",
+   "heard": "The Commandant says, I expect there would be trouble.  I've heard Tyrantheraxis is a powerful fire demon.  Your city's defenses must be quite strong.  How strong are they?"
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-aa70.mp3": {
-   "sha256": "5bc763986c9e76aed41a4d29c14bf64c5e0666c9a6d97398ffda24c4583d2520",
-   "heard": "Perform the gentile commandant consistently.  Controlled, cordial, probing, and politically calculating.  The commandant is surprised that your city is having no trouble with  Tyrantraxus.  He then says, your town defenses must be strong in order to handle him.  How strong are they?"
+   "sha256": "7615e6a3b32eb554b4ab92bdf7f4bf2860194083e50a0f2ba26ad0b1edeaf571",
+   "heard": "The commandant is surprised that your city is having no trouble with Tyron Thraxus.  He then says, your town defenses must be strong in order to handle him.  How strong are they?"
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-ab41.mp3": {
-   "sha256": "e2397937f7efb1b344889270d0f770befa1a73810792124f940e51d4f14c3ffe",
-   "heard": "Perform the gentile commandant consistently.  Controlled, cordial, probing, and politically calculating.  Retain narrator identity for narration.  As you talk about new flan, the commandant listens carefully.  The commandant says, is it true that the real power in new flan is Bishop Bracio?"
+   "sha256": "16a77d9e70c5ce20f6b35677b86deeb921ccdd4c71cb10bb05fe970a3abec46b",
+   "heard": "As you talk about Newfoundland, the Commandant listens carefully.  The Commandant says, is it true that the real power in Newfoundland is Bishop Bratio?"
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-abdb.mp3": {
-   "sha256": "8e2fb9d6efdf955bde7aae662e28ce69b714e84cbfc9e3ee60c7eae68706843c",
-   "heard": "performed the gentile commandant consistently.  Controlled, cordial, probing, and politically calculating.  Retain narrator identity for narration.  You say that Bishop Braccio is the real power in Flan, and  the commandant responds by saying, Flan must be a city of fools if  a bishop of Tyr has power."
+   "sha256": "758c611a688a0eba45d18217de0a9fad19c78a0c35f3d019d6a15321f7ff7ab9",
+   "heard": "You say that Bishop Braccio is the real power in Flan, and the commandant responds by saying,  Flan must be a city of fools if a bishop of Tyr has power."
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-ac56.mp3": {
-   "sha256": "0aa1b6847afb6674fd244d95e451ad26ac4b8dc66875e137b7026d21bb65da9b",
-   "heard": "perform the genteel commandant consistently, controlled, cordial, probing, and politically  calculating. You say that Bishop Braccio is not the real power in flan, and the commandant responds  by saying, the citizens of flan are wise to not follow an idiot from the temple of Tear."
+   "sha256": "7d0f7a382283cbac9de859ecaa2e136eaaca42738890663caddc28ab707f8918",
+   "heard": "You say that Bishop Braccio is not the real power in Flan, and the Commandant responds by saying,  the citizens of Flan are wise to not follow an idiot from the Temple of Tyr."
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-ace1.mp3": {
-   "sha256": "b2de58f246e3260f646363b984a61d71c22ff38b12777d7ff39361d07d6f7555",
-   "heard": "Perform the genteel commandant consistently.  Controlled, cordial, probing, and politically calculating.  Retain narrator identity for narration.  You say that you don't know anything about that matter, and  the commandant responds by saying, yes, of course you don't."
+   "sha256": "23b87f55fc8c294382c124fcef3287313664d85bfe755b3b81671720022e11a0",
+   "heard": "You say that you don't know anything about that matter, and  the Commandant responds by saying, yes, of course you don't."
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-ad53-ade4.mp3": {
-   "sha256": "4bbfd92f522491080768a9cc5923c18d99b1db5167865284c6bf022ff19150d9",
-   "heard": "perform the gentile commandant consistently.  Controlled, cordial, probing, and politically calculating.  Retain narrator identity for narration.  As you talk about old Flan's inhabitants, the commandant says,  I know a legend about a fire being called Tyranticus.  I believe that Tyranticus and Tyranthraxus are one and the same.  You continue to talk about old Flan, and the commandant says,  is new Flan having any trouble with Tyrantraxus?"
+   "sha256": "dc656298df2efbea84e576d96ef4e77463e05f06642f117861280a07414cf072",
+   "heard": "As you talk about old Flan's inhabitants, the Commandant says,  I know a legend about a fire being called Tyranticus.  I believe that Tyranticus and Tyranthraxis are one and the same.  You continue to talk about old Flan, and the Commandant says,  is new Flan having any trouble with Tyranthraxis?"
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-ae7e.mp3": {
-   "sha256": "506fc7d1fe1b012bf6c57bf19191ca8ae458d348e3c22e8186ee1731bd67e2d5",
-   "heard": "Perform the gentile commandant consistently.  Controlled, cordial, probing, and politically calculating.  Retain narrator identity for narration.  One of the commandant's advisors asks you if you've heard of any unique magical items or places?"
+   "sha256": "3238e34e2ebdf38fd593793e68794d536d8a19df1df835906b2bfadea0246342",
+   "heard": "One of the commandant's advisors asks you if you've heard of any unique magical items or places"
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-af12.mp3": {
-   "sha256": "e5671c35b3cec5134286044b15c75ac4233fa4261e120ee647fe6ef2a503f43d",
-   "heard": "Perform the genteel commandant consistently.  Controlled, cordial, probing, and politically calculating.  Retain narrator identity for narration.  As you mentioned politics, the commandant says,  I've heard that Flan's town council is corrupt,  specifically Ulrich Eberhard.  Is this true?"
+   "sha256": "d06608aaf781cf5508724154b53d6eaead5a51cbf65542cb81d90860f0feb5cb",
+   "heard": "As you mentioned politics, the commandant says I've heard that Flan's town council is corrupt,  specifically Ulvik Eberhard. Is this true?"
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-b012.mp3": {
-   "sha256": "b068503f7230f7b01c2d179dc9634b898444a02d4985c60f21be0270a69654c9",
-   "heard": "perform the gentile commandant consistently, controlled, cordial, probing, and politically  calculating. You say that Ulrich Eberhart is a loyal, honest man. The commandant smirks  and says, Yes, of course he is."
+   "sha256": "b297c084826952c82bebc09ac4e8caf021ccb6398e1707055d8e2584212e94d0",
+   "heard": "You say that Ulrich Eberhard is a loyal, honest man.  The commandant smirks and says, yes, of course he is."
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-afa5.mp3": {
-   "sha256": "c756d77236ce8e45beef0af39bc9f6710b5272dd46922f6f9472f25b8441e510",
-   "heard": "perform the gentel commandant consistently, controlled, cordial, probing, and politically  calculating.  You say that Ulrich Eberhard is corrupt, and he responds by saying, I would advise you  to be careful when dealing with the town council."
+   "sha256": "606e3a3bb048f61c647f3d3c2ecf7a4cff859803b8195eb07cecba7e7630ed54",
+   "heard": "You say that Ulrich Eberhard is corrupt, and he responds by saying,  I would advise you to be careful when dealing with the town council.  You say-"
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-b178.mp3": {
-   "sha256": "910bf512af3837e49b11c2575c88d5e42afa99e126d3979cde5ed7d2e61b945a",
-   "heard": "Perform the genteel commandant consistently, controlled, cordial,  probing, and politically calculating.  You tell the commandant that New Flann's forces are weak.  He smiles and says, I hope that Flann can defend itself."
+   "sha256": "9935be92423c865f914d846c292a11f68171be1d376701a529abfa1b9f182ff1",
+   "heard": "You tell the Commandant that New Flann's forces are weak.  He smiles and says, I hope that Flann can defend itself."
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-b06a.mp3": {
-   "sha256": "bbbae0d6d7c413da73923aa422af386c0a6ba2c0205a3a82911fecfa007366b9",
-   "heard": "Perform the Zhentil Commandant consistently.  Controlled, cordial, probing, and politically calculating.  You tell the Commandant that New Flann's forces are strong.  He seems impressed and says,  it sounds like your city can handle that fire demon, Tyranthraxus."
+   "sha256": "b4c6f54cf43fdc308694dfbf5793189fa0509f3b372ec31af028445d6f0c8caf",
+   "heard": "You tell the commandant that New Fland's forces are strong.  He seems impressed and says,  it sounds like your city can handle that fire demon, Tyrantheraxis."
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-b0e6.mp3": {
-   "sha256": "36d529cea7fa21bcdf73bcb4af94a0a44330991af60dc2f4047f5c80f62a6fe8",
-   "heard": "perform the gentle commandant consistently.  Controlled, cordial, probing, and politically calculating.  You tell the commandant that New Flann's forces are capable.  He looks at you and says, I hope for your sake that your city's forces can  defend themselves from TyrantHraxis' horde."
+   "sha256": "bcb9792f7ef804ece9dbe706b1967204cdfce9e8e0ed56915cdefe619444b18d",
+   "heard": "You tell the Commandant that New Flann's forces are capable.  He looks at you and says,  I hope, for your sake, that your city's forces can defend themselves from Tyrant Thraxus' horde."
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-b240.mp3": {
-   "sha256": "efd7cb818b0e1084cf6be68b745b3838063a5ecc0ef26be3a6dd465d96cf0789",
-   "heard": "Perform the gentile commandant consistently.  Controlled, cordial, probing, and politically calculating.  You make up stories about wonderful magical items and places.  You captivate everyone sitting around you."
+   "sha256": "6f8504779fa590cb56c551843060d1d488c00a4f0ee65e478b60a2e362ea0e34",
+   "heard": "You make up stories about wonderful magical items and places.  You captivate everyone sitting around you."
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-b1d7.mp3": {
-   "sha256": "3c6f0dbf6b582d368b545f6505a606547c1d1f6353846c6fbc23b6b0ec42e32f",
-   "heard": "Perform the gentile commandant consistently.  Controlled, cordial, probing, and politically calculating.  Retain narrator identity for narration.  As you don't answer the last question, the commandant smiles slightly and says,  I see that you are not foolish and loose-tongued."
+   "sha256": "650e81aea4fa2af3c21cac11e9e671217fbfdd0ec4160779ba5d8c2359c07c58",
+   "heard": "As you don't answer the last question, the commandant smiles slightly and says,  I see that you are not foolish and loose-tongued."
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-b296.mp3": {
-   "sha256": "e5ce0e20ca157cccc7f359de3a6cb48618f766e8b1d8a232dbe34bd3c755c0b5",
-   "heard": "Perform the gentle commandant consistently.  Controlled, cordial, probing, and politically calculating.  As you mention the pool of radiance,  the commandant tells you a story about that very pool.  You enjoy the story and copy it into your journal under entry 46."
+   "sha256": "3bd5270e0d744952adc6f1cd2c1875b93fe453ea98fd48c070a03f953bbc8ec4",
+   "heard": "As you mention the Pool of Radiance, the Commandant tells you a story about that very pool.  You enjoy the story and copy it into your journal under entry 46."
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-b322.mp3": {
-   "sha256": "834399672e5622f6fb111012b0af326aad2f561d737cc992d5c3d87844ccf9bf",
-   "heard": "Perform the gentile commandant consistently.  Controlled, cordial, probing, and politically calculating.  Retain narrator identity for narration.  You continue your conversation with the commandant.  What will be your next topic of discussion?"
+   "sha256": "04494d7422dd3f16a437b9b970559ac87af200efe8f056aa341230b311fa1619",
+   "heard": "You continue your conversation with the Commandant.  What will be your next topic of discussion?"
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-b3db.mp3": {
-   "sha256": "bc892f7412d535471ef0e74582f9e1eb988502f67d0950be700291048ef23530",
-   "heard": "performed the gentile commandant consistently, controlled, cordial,  probing, and politically calculating.  You talk a little while longer than the commandant states that he has other duties to attend to.  He bids you good night."
+   "sha256": "29c6218a97f448445f79d76963b5d0a7abf34e7d303a4e5917c5ad2d28758d63",
+   "heard": "You talk a little while longer than the Commandant states that he has other duties to attend to.  He bids you good night."
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-b37a.mp3": {
-   "sha256": "d39faf4d0d06ab5466918c25c700febfe4d57474b0b9e5f28265c0dd693fac36",
-   "heard": "Perform the gentile commandant consistently, controlled, cordial,  probing, and politically calculating.  Retain narrator identity for narration.  The conversation goes stale and the commandant excuses himself from the table.  You are escorted back to your quarters."
+   "sha256": "141ded2331c3b6f4d234c968251890c19a624b494e904cdc3314fdaf650f346b",
+   "heard": "The conversation goes stale and the Commandant excuses himself from the table.  You are escorted back to your quarters."
   },
   "audio/voices/narration/ecl6/block-28/ecl6-b28-b48b.mp3": {
    "sha256": "0d51e18003f99cce47d1ba15e2b2eaa48c048b4243229f971e2e07079e96183f",
@@ -5978,8 +5978,8 @@
    "heard": "You have stumbled upon a large nomad camp. Will you enter it?"
   },
   "audio/voices/narration/ecl7/b26-9c65.mp3": {
-   "sha256": "be958e3f06257cfa2f8ab53107f9baf6192ce01ed07a3c9acf96bcbe486e269c",
-   "heard": "You are on the north edge of the city."
+   "sha256": "7643239cb0b49b85fab7d89f8bc3f625572adc9bd15f16ce4b6aebdcadf3df11",
+   "heard": "You are on the north edge of the city.  Will you enter the northern city gates or enter the graveyard?"
   },
   "audio/voices/narration/ecl7/b26-9d26.mp3": {
    "sha256": "8e8e6928ebf10b51dfc38ddffc970c0d2c2b9fa493fe134ca849b357b593ced1",
@@ -6374,36 +6374,36 @@
    "heard": "You find some treasure!"
   },
   "audio/voices/narration/ecl8/block-16/ecl8-b16-9f0f.mp3": {
-   "sha256": "3f9be66d17b8301f98c696c19b76c5dbe4d8e0423db3baab24651abfaa455e2f",
-   "heard": "An old lizard man consistently as aged, deliberate, dignified, and tribal.  An old lizard man appears before you, hand raised in a gesture of peace."
+   "sha256": "4cd0f37063b12cf56eca3f6b17460089382c1d26a90e1a6d8be3bb9472e786e4",
+   "heard": "An old lizard man appears before you, hand raised in a gesture of peace."
   },
   "audio/voices/narration/ecl8/block-16/ecl8-b16-9f49-operand-9.mp3": {
-   "sha256": "66b31721de39afbbe105c7e6d4b66dee34a91224dad3c32bc8bb5eb3ad0f1005",
-   "heard": "He looks at you patiently, he looks at you patiently."
+   "sha256": "f5c770fdfb306d032646f454a0addd126b954bc0b3d9823ade294c637a074d2f",
+   "heard": "He looks, he looks at you patiently."
   },
   "audio/voices/narration/ecl8/block-16/ecl8-b16-a0bd.mp3": {
-   "sha256": "95fd7e9663e42cf6888e888831801fc46390ce97ad354db75627d9a05393faa3",
-   "heard": "What is it?  What is it?  What is it?  What is it?"
+   "sha256": "a3b1fa73f702039be3171ff3b93f58045375eec5b0da6c8cd0f2f8f047d3eef4",
+   "heard": "What is it?"
   },
   "audio/voices/narration/ecl8/block-16/ecl8-b16-9f8d.mp3": {
-   "sha256": "4087d4524606d59386dff41eff2b5487580483e22a081299d95550414605db88",
-   "heard": "You lash out with your weapon, dealing one swift, deadly, dignified, and tribal.  Retain narrator identity for narration.  You lash out with your weapon, dealing one swift, deadly blow.  The old lizard man totters for a moment with a surprised look on his face and then collapses."
+   "sha256": "cd61d182a5f6eb92ea22e662f2ecf9980885f4347641e384b0f70388bc5dab42",
+   "heard": "You lash out with your weapon, dealing one swift, deadly blow.  The old lizard man taught us for a moment with a surprised look on his face, and then collapses."
   },
   "audio/voices/narration/ecl8/block-16/ecl8-b16-a049.mp3": {
-   "sha256": "c51203d5224b3a49618ce0b556cd1b5c1d9866005d2ac6553dc542aacbefca03",
-   "heard": "A group of humans were described to me by three of our people whom they rescued.  If you are they, you will have been shown our tribal friend.  A group of humans were described to me by three of our people whom they rescued.  If you are they, you will have been shown our tribal friend word."
+   "sha256": "64524590fcff25bf5c475469b74b5b2b9e6763aa422c0ffaf4e7ef1e97e0b0ce",
+   "heard": "A group of humans were described to me by three of our people whom they rescued.  If you are they, you will have been shown our tribal friend-word."
   },
   "audio/voices/narration/ecl8/block-16/ecl8-b16-a1e3.mp3": {
    "sha256": "b6bb3f155d9907d87d1e97b22f67eafa612e12c914c56d4451edafa5bef6c049",
    "heard": "One of you busily scribble it into the journal as entry 31."
   },
   "audio/voices/narration/ecl8/block-16/ecl8-b16-a102.mp3": {
-   "sha256": "4e9d3baa1005f081e1e0478cf659d8c523e1a6546deb8809ae960117bc771b7f",
-   "heard": "You are not they who rescued my children, but are murderous pirates.  Then you are not they who rescued my children, but are murderous pirates.  You are not they who rescued my children, but are murderous pirates.  Then you are not safe here.\"  He disappears with amazing speed into the wilderness around you.  Flashback"
+   "sha256": "68ba61b36216b64466c58b25b116f7a4c088170a29f7cb6890d4c7f08d0daeda",
+   "heard": "You are not they who rescued my children, but are murderous pirates!  Then you are not safe here!\"  He disappears with amazing speed into the wilderness around you."
   },
   "audio/voices/narration/ecl8/block-16/ecl8-b16-a184.mp3": {
-   "sha256": "3b0b1d3624f0828fe7d90d9822a051f1ad7e4a5f997dcf6c047cb1294c580ff1",
-   "heard": "The Old Lizard Man consistently as aged, deliberate, dignified, and tribal.  Retain narrator identity for narration.  The Old Lizard Man recognizes the word and his lips part in a toothy grin.  You all gather close as he begins his story."
+   "sha256": "56aebfee1f6d7037fd0a10248b0cb14775760db7b51effcf6cfaf1ad8d2c4bf8",
+   "heard": "The old lizard man recognizes the word and his lips part in a toothy grin.  You all gather close as he begins his story."
   },
   "audio/voices/narration/ecl8/block-16/ecl8-b16-a320.mp3": {
    "sha256": "adb167bd91c8a200e70582ad24139e3aa3ae10070b4802735c6b2184605842a0",
@@ -6414,16 +6414,16 @@
    "heard": "Drith turns to his confident followers.  Kill them!"
   },
   "audio/voices/narration/ecl8/block-16/ecl8-b16-a217-a287.mp3": {
-   "sha256": "87b4c7e29c4e8423ae70217e1f4ed06cc57d80f45e7225987e45410d8d683a31",
-   "heard": "From nearby, Lid Lizard Man consistently, as aged, deliberate, dignified, and tribal,  retain narrator identity for narration. From nearby, a group of lizard men appear.  One larger than the rest moves to the front.  Your time is through, old one. Your claws are blunt. Face me or find some fool to champion you.  The old lizard man turns to you and says,  ''Our cause is won. Will you champion me?''"
+   "sha256": "b48a70bb1e087f728d85aad434ddf35c917c3572f689202393f846f641371523",
+   "heard": "From nearby, a group of lizard men appear. One larger than the rest moves to the front.  Your time is through, old one. Your claws are blunt.  Face me or find some fool to champion you!  The old lizard man turns to you and says,  Our cause is won. Will you champion me?"
   },
   "audio/voices/narration/ecl8/block-16/ecl8-b16-a493.mp3": {
    "sha256": "ff4720a81f93cfcb30e8099e7fd27e49136bc444eb93f29f1bd8dbbae6f080da",
    "heard": "Then I must fight him myself.  The combat is extremely short in duration.  When it is finished, Drith turns to his followers.  Kill them!"
   },
   "audio/voices/narration/ecl8/block-16/ecl8-b16-a368-a3f6.mp3": {
-   "sha256": "18808ffc4fcba6da9577436e2c807d343ed8b188ee199a3735b4ce08f779824b",
-   "heard": "Seeing their leader fall, the other lizard men withdraw.  The seeing their leader fall, the other lizard men turns to you.  Seeing their leader fall, the other lizard men turns to you.  You have done me great service.  Rest assured that my people will not join Tyranthraxus.  Still, my people still are hostile to strangers.  I think it is best if you leave.\"  He turns and disappears into the wilderness.  Seeing their leader fall, the other lizard men turns to you.  You have done me great service.  Rest assured."
+   "sha256": "5934dcc210f75e77663b9f2542ad7b33cf919f0b2247b8ec6647186e5f2feb08",
+   "heard": "Seeing their leader fall, the other lizard men withdraw.  The old lizard man turns to you.  You have done me great service.  Rest assured that my people will not join Tyrant Thraxus.  Still, my people still are hostile to strangers.  I think it is best if you leave.  He turns and disappears into the wilderness."
   },
   "audio/voices/narration/ecl8/block-16/ecl8-b16-a57a.mp3": {
    "sha256": "a7a741635f64b4365f46a66ae20f3dd77b1617ca9e1e2d00ef4d8b8998ab1177",
@@ -6846,8 +6846,8 @@
    "heard": "A loud commotion rises from the courtyard.  Bashing open the door, a large force of orcs and hog goblins rushes you."
   },
   "audio/voices/narration/sokal-keep/ecl4-b21-a3d2-a463.mp3": {
-   "sha256": "b5f12af8acd150071afea2e815e57a5c3fe10f3457854b87e06bb37d4edc4536",
-   "heard": "The haunts burst into a chorus of howls, moans, complaints, wails.  The haunts burst into a chorus of howls, moans, complaints, wails, and other lamentations  over their fate and the fate of their families.  The haunts burst into a chorus of howls, moans, complaints, wails, and other lamentations  over their fate and the fate of their families.  They were the original defenders of the Keep, before the cleric's spells inadvertently  bound them to this place.  One spirit's voice rises above the rest.  An account of our trials is within the diary."
+   "sha256": "3232496963e43fd3b4a7dc5d790a8524daab82b3ea9f5e4665fdd86db06e58a5",
+   "heard": "The haunts burst into a chorus of howls, moans, complaints, wails, and other lamentations  over their fate and the fate of their families.  They were the original defenders of the Keep, before the cleric's spells inadvertently  bound them to this place.  One spirit's voice rises above the rest.  An account of our trials is within the diary.  He points to a floorboard."
   },
   "audio/voices/narration/sokal-keep/ecl4-b21-a6d9.mp3": {
    "sha256": "eb46758b746df779ee0509a27416c3ead5242a07d7b8aa8b28c04dc9427ed72e",
@@ -6894,12 +6894,12 @@
    "heard": "The outline of a sad-faced man wavers and fades away."
   },
   "audio/voices/narration/sokal-keep/ecl4-b21-ab98.mp3": {
-   "sha256": "e61fd96c55b09e093a3c7865ce1dc04e6cd89f6e00cf79057a53a9eef9850627",
-   "heard": "You lie, you lie, the spirit moans as it fades away.  You lie, the spirit moans as it fades away.  You lie."
+   "sha256": "a3bc4b7455965042d4c7e640b3bd8970dd8a8c18f5779cc5dce2cb486d0fb5fb",
+   "heard": "You lie, the spirit moans as it fades away."
   },
   "audio/voices/narration/sokal-keep/ecl4-b21-aad6.mp3": {
-   "sha256": "ecab9d823e3fc166273b18fd5ce6b9106f7fee9b04b8c98027a195c6afde047c",
-   "heard": "The Shape speaks. The Shape speaks. I am the life form of Faron Martinez,  bound with the undead spirits of all. The Shape speaks. I am the life form of Faron Martinez,  bound with the undead spirits of all who die within these walls to guard the Keep.  Tell me, has the city been freed?"
+   "sha256": "7e4423783d53e1fe9208d639af45040d1da6ba925d1aaa6b139c28f561751c33",
+   "heard": "The shape speaks. I am the life form of Ferran Martinez, bound with the  undead spirits of all who die within these walls to guard the keep. Tell me, has the city been freed?"
   },
   "audio/voices/narration/sokal-keep/ecl4-b21-acf1.mp3": {
    "sha256": "b2424430012e2ab58874018581d1d9fdc57413d61ce746d341ad864355bf45c0",
@@ -6918,8 +6918,8 @@
    "heard": "As you move, you overhear some say,  do you think he'll really show up?  The boss, I mean?"
   },
   "audio/voices/narration/sokal-keep/ecl4-b21-ad42.mp3": {
-   "sha256": "be8dbe4fdcc25fcce70849d47007478d42bf1cd40fd0897a62515fc7a64a3940",
-   "heard": "To pass my guards on the way out, speak the word.  To pass my guards on the way out, speak the word Samosud.  Now we are freed, our duty done.  Ferran fades away.  Ferran-"
+   "sha256": "c3d273f91f198ef00bc4dc1b270768b707a92cc0d2184fa2d623dace78f504fa",
+   "heard": "To pass my guards on the way out, speak the word Samosud.  Now we are freed, our duty done!  Faran fades away."
   },
   "audio/voices/narration/static-resolved/ecl1-b18-a14a-a165-a169-a1c8.mp3": {
    "sha256": "2cc3fe82d796b7a3635e1c361351b9e3438750fdd25659bce4606b4ed7647be7",
