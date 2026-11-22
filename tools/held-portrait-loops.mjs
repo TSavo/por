@@ -10,10 +10,10 @@ const portraitLoops = [
   ["portrait:area:10:ecl:b50b:PIC4.DAX:20:", [0, 1, 2, 1], undefined,
     /YOUHAVEMANAGEDTOSNEAKUPONSOMEWIGHTS/i, [1010, 210, 610, 210]],
   ["portrait:area:21:ecl:9e40:PIC4.DAX:34:", 4, "portrait:area:21:PIC4.DAX:34:0:0"],
-  ["portrait:area:10:ecl:b695:caller:9db8:PIC4.DAX:34:", 4, "portrait:area:10:PIC4.DAX:34:0:0",
-    /THEENCLAVEISGUARDEDBYASKELETONARMY/i],
-  ["portrait:area:10:ecl:b695:caller:a92b:PIC4.DAX:20:", 3, "portrait:PIC4.DAX:20:0:0",
-    /WIGHTSAPPEARFROMBEHINDTHETOWER/i],
+  ["portrait:area:10:ecl:b695:caller:9db8:PIC4.DAX:34:", [0, 1, 2, 3, 2, 1], "portrait:area:10:PIC4.DAX:34:0:0",
+    /THEENCLAVEISGUARDEDBYASKELETONARMY/i, [1310, 110, 110, 910, 110, 110]],
+  ["portrait:area:10:ecl:b695:caller:a92b:PIC4.DAX:20:", [0, 1, 2, 1], "portrait:PIC4.DAX:20:0:0",
+    /WIGHTSAPPEARFROMBEHINDTHETOWER/i, [1010, 210, 610, 210]],
   // Two empty members restore the base. Native member 7 repeats member 3.
   ["portrait:area:21:ecl:ae31:caller:a613:PIC4.DAX:18:", [0, 1, 0, 3, 0, 5, 6, 3], "portrait:area:21:PIC4.DAX:18:0:0",
     /^(?!.*ABATTLEBEGINS).*THEINTERIORISOVERRUNWITHINSECTS/i, Array(8).fill(210), [[7, 7]]],
@@ -62,7 +62,7 @@ const portraitLoops = [
   ["portrait:area:10:ecl:a5bb:PIC4.DAX:17:", 2],
   ["portrait:area:10:ecl:a7b9:PIC4.DAX:17:", 2],
   ["portrait:area:10:ecl:aad6:PIC4.DAX:17:", 2],
-  ["portrait:area:3:ecl:a6c8:PIC5.DAX:56:", [0, 1, 3]],
+  ["portrait:area:3:ecl:a6c8:PIC5.DAX:56:", [0, 1, 0, 3], undefined, /SLEEPINGGIANTS/i, [210, 210, 210, 210]],
   // The barracks uses the same cycle at the confrontation, intruder and Stay/Leave menus.
   // Its third native member restores the opening image.
   ["portrait:area:4:ecl:a36b:PIC5.DAX:56:", [0, 1, 0, 3], "portrait:area:4:PIC5.DAX:56:0:0",

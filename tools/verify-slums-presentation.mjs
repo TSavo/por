@@ -3914,7 +3914,7 @@ const illustrationRoutes = new Map([
     slot: "B", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:3:ecl:a6c8:PIC5.DAX:56:0:0", prompt: /SLEEPINGGIANTS/i,
     idlePortraits: [1, 3].map(phase => `portrait:area:3:ecl:a6c8:PIC5.DAX:56:${phase}:0`),
-    heldPortraitLoop: 3,
+    heldPortraitLoop: [0, 1, 0, 3].map(member => `portrait:area:3:ecl:a6c8:PIC5.DAX:56:${member}:0`),
     continuation: { inputs: ["a"], portrait: "scene-illustration:area:3:ecl:9a5a:caller:a732:cue:waking-fire-giants",
       prompt: /LOOSEBOARDCREAKS.*GIANTSGETTOTHEIRFEET/i },
   }],
@@ -4344,8 +4344,8 @@ const illustrationRoutes = new Map([
       [48, 32, "encounter:area:10:SPRIT4.DAX:34:0:0", 40, 80],
     ],
     portrait: "portrait:area:10:PIC4.DAX:34:0:0", prompt: /THEENCLAVEISGUARDEDBYASKELETONARMY/i,
-    idlePortraits: [1, 2, 3].map(phase => `portrait:area:10:ecl:b695:caller:9db8:PIC4.DAX:34:${phase}:0`),
-    heldPortraitLoop: 4,
+    heldPortraitLoop: ["portrait:area:10:PIC4.DAX:34:0:0",
+      ...[1, 2, 3, 2, 1].map(phase => `portrait:area:10:ecl:b695:caller:9db8:PIC4.DAX:34:${phase}:0`)],
   }],
   ["sokal-ceiling-insects", {
     slot: "C", inputs: ["up", "enter", "enter"],
@@ -4586,8 +4586,8 @@ const illustrationRoutes = new Map([
   ["valhingen-tower-wight-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:PIC4.DAX:20:0:0", prompt: /WIGHTSAPPEARFROMBEHINDTHETOWER/i,
-    idlePortraits: [1, 2].map(phase => `portrait:area:10:ecl:b695:caller:a92b:PIC4.DAX:20:${phase}:0`),
-    heldPortraitLoop: 3,
+    heldPortraitLoop: ["portrait:PIC4.DAX:20:0:0",
+      ...[1, 2, 1].map(phase => `portrait:area:10:ecl:b695:caller:a92b:PIC4.DAX:20:${phase}:0`)],
     continuation: {
       inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:b5c7:cue:charged-tower-wight-attack",
       prompt: /WIGHTSAPPEARFROMBEHINDTHETOWER.*ABATTLEBEGINS/i,
@@ -10635,6 +10635,10 @@ try {
           await waitFor("the complete encounter approach", () => run(`
             state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined
           `));
+        }
+        if (routeName === "valhingen-skeleton-enclave" && index === 1) {
+          await waitFor("both Enhanced skeleton enclave approach distances", () =>
+            run(`window.observedApproach.size === ${approachSequence.length}`));
         }
         for (const transient of [].concat(illustration.transientPortraits?.[index + 1] ?? [])) {
           assert.ok(frame.animation?.some(phase => phase.portrait === transient.id &&
