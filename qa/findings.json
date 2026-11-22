@@ -452,8 +452,9 @@
       "title": "From game/ \"A battle begins...\" is treated as the battlefield before the game draws it",
       "detail": "From the 1.3 files the frame that says \"A battle begins...\" still shows the 3D view, its tiles and the approaching monsters (encounter:SPRIT2.DAX:0:1:0, :4:1:0) at a Slums random fight; from game/ it shows none of them (frames 52 and 140). At the orcs' fight the same moment shows battle tiles and the battle panel frame from game/ only (frame 184). From game/ the host takes the game's combat state (data.gameState 5) for the battlefield; from the 1.3 files it waits for the battle frame's border in the pixels.",
       "source": "npm run verify:port-parity, 2026-11-22, walk slums.",
-      "status": "open",
-      "check": "port-parity"
+      "status": "fixed",
+      "check": "port-parity",
+      "resolution": "From game/ the fight is on screen once the game's own frame-glyph draws have put the battle frame's border up (studs at 176,0, 176,176 and 0,176 and the rail at 176,88), the border hasBattlefieldBorder reads from the original pixels. Frames 52, 140 and 184 agree; the Slums walk went from 38 differing kinds to 23, with none new."
     },
     {
       "id": "standalone-fallen-marker-missing",

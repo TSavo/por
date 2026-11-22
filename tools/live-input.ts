@@ -160,6 +160,15 @@ function hasBattlefieldBorder(frame: Frame): boolean {
 }
 
 /**
+ * The same border from the game's own frame-glyph draws, for the port's own data, where the screen
+ * has no pixels: the studs at (176,0), (176,176) and (0,176) and the rail at (176,88).
+ */
+function hasBattlefieldFrame(stamps = visiblePanelFrame()): boolean {
+  const at = (x: number, y: number, kind: string) => stamps?.some(([sx, sy, sk]) => sx === x && sy === y && sk === kind);
+  return Boolean(at(176, 0, "stud") && at(176, 176, "stud") && at(0, 176, "stud") && at(176, 88, "rail-y"));
+}
+
+/**
  * True while the menu routine is counting down to a default answer. Version 1.3's menu routine
  * compares the time since it opened with a 32-bit limit and answers for the player once a
  * positive limit has passed; the first release has no such limit.
@@ -453,7 +462,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // The next encounter can be drawn while the guest still shows the room description.
       const entranceIllustration = /:cue:(?:roofless-ruin|l-shaped-ruin|charged-tower|zombie-tower-exterior)$/.test(illustration ?? "");
       const encounterArea = !scene && (picture === undefined || entranceIllustration) ? area : undefined;
-      if (nativeBattleActive || (picture !== undefined && !entranceIllustration)) nativeEncounter?.clear();
+      // From the game's own data the fight is on screen once the game has drawn its battle frame, as
+      // from the original files: "A battle begins..." still shows the approach over the scenery.
+      const nativeBattlefield = nativeBattleActive && hasBattlefieldFrame();
+      if (nativeBattlefield || (picture !== undefined && !entranceIllustration)) nativeEncounter?.clear();
       const encounter = nativeEncounter?.match(encounterArea, battleCursor, portraitCaller) ??
         encounterArt(presentation, enhanced, encounterArea, !captureApproach, battleCursor,
           [drawnPerspective?.pixels, priorPerspectiveDraw], portraitCaller);
@@ -470,7 +482,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const overlandScript = activeEcl >= 25 && activeEcl <= 27;
       const phlanArrival = overlandScript ? identifyPhlanPrompt(dialogue, menu) : undefined;
       const sokalPrompt = activeEcl === 0 ? identifySokalPrompt(dialogue, menu, harborTicket) : undefined;
-      const battlefield = nativeBattleActive || hasBattlefieldBorder(presentation);
+      const battlefield = nativeBattlefield || hasBattlefieldBorder(presentation);
       // The icon editor also uses the viewport blit. Its two preview labels
       // stay in place while the player changes parts, palette, and size.
       const iconEditor = text.filter(([cell]) =>
@@ -1188,7 +1200,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         showFrame(undefined, undefined, false, false, 1200, undefined, true);
         return;
       }
-      const battlefield = nativeBattleActive || hasBattlefieldBorder(screen);
+      const battlefield = (nativeBattleActive && hasBattlefieldFrame()) || hasBattlefieldBorder(screen);
       const placements = [
         ...combatArt(screen, undefined, area, battleCursor, battlefield ? battleTerrain : undefined),
         ...(battlefield ? nativeCombat?.placements(screen, area, battleCursor) ?? [] : []),
