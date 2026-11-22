@@ -1273,6 +1273,12 @@ const illustrationRoutes = new Map([
     slot: "J", inputs: ["up", "enter", "a", "a"],
     portrait: "portrait:area:4:ecl:a289:PIC5.DAX:56:0:0",
     prompt: /THEYCOMERUNNINGTOWARDYOU/i,
+    // Far and middle each finish on their own Advance menu. The next replay
+    // input must wait for that placement, as interactive input does.
+    approachStops: {
+      2: [56, 32, "encounter:area:4:ecl:a289:SPRIT5.DAX:56:2:0", 24, 57],
+      3: [56, 32, "encounter:area:4:SPRIT5.DAX:56:1:0", 32, 73],
+    },
     approachSequence: [
       [56, 32, "encounter:area:4:ecl:a289:SPRIT5.DAX:56:2:0", 24, 57],
       [56, 32, "encounter:area:4:SPRIT5.DAX:56:1:0", 32, 73],
