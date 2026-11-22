@@ -20,7 +20,9 @@ const arrivalTerrainAreas = new Map([
   ["23:22", 22], // Yarash's Pyramid back to the upper floor
   ["25:1", 1],   // Western wilderness to Buccaneer Base
   ["25:28", 28], // Western wilderness to Zhentil Keep
+  ["26:22", 22], // Wilderness rowboat to Yarash's Pyramid
   ["27:13", 13], // Eastern wilderness to the Kobold Caves
+  ["27:16", 16], // Eastern marshes to the Lizardman Keep
   ["29:18", 18], // Kuto's Well to Podol Plaza
   ["29:20", 20], // Kuto's Well to the Slums
 ]);
