@@ -241,6 +241,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const mendorLibrary = auditReachability && !context.arrivalFrom && context.script.area === 15 && context.map === 15;
     const valjevo = auditReachability && !context.arrivalFrom && context.script.archive === 5
       && context.script.area === context.map && (context.map === 4 || context.map === 6);
+    const podolPlaza = auditReachability && !context.arrivalFrom && context.script.area === 18 && context.map === 18;
     const middleWilderness = auditReachability && !context.arrivalFrom && context.script.area === 26 && context.map === 26;
     const auditedPalette = lizardKeep || mendorLibrary || valjevo;
     // ECL16's descents enter a roofed component. Its relocations all land in
@@ -256,7 +257,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const groundAllowed = (ground: number, shaft: boolean) => (!kuto && !auditedPalette) || ground === 6 || (shaft && ground === 1);
     const lowerValues = (shaft: boolean) => lowers.filter(({ line, band, ground }) =>
       groundAllowed(ground, shaft) && (!kuto || (line === 0 && band === (lowerWell ? 8 : 7)))
-      && (!auditedPalette || (line === 15 && band === 7)));
+      && (!(auditedPalette || podolPlaza) || (line === 15 && band === 7)));
     for (let y = 0; y < 16; y++) {
       for (let x = 0; x < 16; x++) {
         if (playable && !playable.has(y * 16 + x)) continue;
@@ -341,7 +342,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       }
     }
     for (const [hash, entry] of overhead) entries.set(hash, [...(entries.get(hash) ?? []), entry]);
-    return { entries, stoodOn, map, playable, auditedPalette, narrowedPalette: middleWilderness };
+    return { entries, stoodOn, map, playable, auditedPalette, narrowedPalette: middleWilderness || podolPlaza };
   };
 
   const items: Item[] = [];
