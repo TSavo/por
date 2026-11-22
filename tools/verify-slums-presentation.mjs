@@ -2512,6 +2512,13 @@ const illustrationRoutes = new Map([
     portrait: "portrait:PIC4.DAX:23:0:0",
     prompt: /THEREISAVAMPIREHERE/i,
   }],
+  ["valhingen-crypt-examine", {
+    slot: "A", inputs: ["up", "down", "up", "enter", "n", "y", "e"],
+    portraitStops: { 6: "scene-illustration:area:10:ecl:b04e" },
+    portrait: "scene-illustration:area:10:ecl:b06e", prompt: /YOUFINDNOTHING/i,
+    finalPhaseCapture: "valhingen-coffin-empty-search.png",
+    continuation: { inputs: ["up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["valhingen-crypt-overturn", {
     slot: "A", inputs: ["up", "down", "up", "enter", "n", "y", "o"],
     portraitStops: { 6: "scene-illustration:area:10:ecl:b04e" },

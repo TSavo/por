@@ -610,6 +610,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:10:ecl:b6c6:caller:b00b", "DOYOUWANTTODOANYTHINGWITHTHECOFFIN"],
   ["scene-illustration:area:10:ecl:b030", "WHATDOYOUWANTTODOTOIT"],
   ["scene-illustration:area:10:ecl:b04e", "WHATDOYOUWANTTODOTOIT"],
+  ["scene-illustration:area:10:ecl:b06e", "YOUFINDNOTHING."],
   ["scene-illustration:area:10:ecl:b0a4", "YOUSCATTERTHEDUSTANDPLACEWHATHOLYITEMS"],
   ["scene-illustration:area:10:ecl:b0ca", "THECOFFINMAKESAMESSONTHEFLOOR"],
   ["scene-illustration:area:10:ecl:b0cb", "THECOFFINMAKESAMESSONTHEFLOOR"],
