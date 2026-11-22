@@ -22,6 +22,14 @@ YOU HAD RENDERED. HERE IS YOUR REWARD." (833 experience each, Share, Exit). She 
 Slums), #3 (the records) and #6 (the Bishop of Tyr). Encamp, Save in slot I (No to Quit to DOS),
 Exit. 95 commands. Commission #5 turned in.
 
+The prompt before the watch's message is the 1.3 script's own order (#147). Stepping on (11,2) with
+the box held (0x4ac8 = 1), ECL3.DAX block 0 goes 9b4c (ON GOTO on 0x9800, entry 3) to 9dd5 and on
+to ab26: `02 01 1f af`, GOSUB af1f, the one-item HORIZONTAL MENU "PRESS <RETURN> OR BUTTON TO
+CONTINUE", and only then ab2a, `12 80 ...`, the PRINTCLEAR of the message. ab26 is shared with the
+gateway square's entry (aad8), where it follows "YOU ARE BY THE GATEWAY TO THE UNSETTLED AREAS...";
+reached from the dock square nothing has been printed, so the prompt stands over an empty window.
+The block's bytes are the same in the 1.3 files and in `game/`.
+
 #13 is not offered here. The clerk names only the first three unresolved commissions whose
 conditions hold (her count 0x4a05 stops the list at three; a resolved or ineligible entry is skipped
 at a89e), and #13 is entry 13 of ECL3.DAX block 8 (ad01 to ae24): it comes only once all but two of
