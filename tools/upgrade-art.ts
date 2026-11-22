@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from "node:fs";
+import { closeSync, openSync, readFileSync, readSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { lookupOverride, type EncounterAnchor, type OverrideManifest } from "../src/lib/assets.js";
 import { characterSheetPartKey, characterSheetPartPixels, portraitKey, scriptIllustrations } from "./portrait-art.js";
@@ -7,7 +7,7 @@ import { combatSelectionKey, combatEffectKey, isCombatExtent, monsterCombatKey, 
 import { parseDax } from "../src/lib/dax.js";
 import { decodePicture, isPicture } from "../src/lib/picture.js";
 import { findGameRoot, isPortGameRoot, listGameFiles, portGame, readGameFile } from "./gamedata.js";
-import { pngDimensions } from "./png.js";
+import { pngDimensions, pngHeaderDimensions } from "./png.js";
 import { fromWorkingRoot } from "./port-root.js";
 
 interface LoadedArtwork {
@@ -104,8 +104,12 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
         }
         try {
           const path = join(dirname(manifestPath), file);
-          const png = readFileSync(path);
-          const dimensions = pngDimensions(png);
+          // Only the header is read now: start-up reading all 480 MB took 16 seconds. The picture is read
+          // from disk when it is asked for (the getter below).
+          const header = Buffer.alloc(33);
+          const descriptor = openSync(path, "r");
+          try { readSync(descriptor, header, 0, header.length, 0); } finally { closeSync(descriptor); }
+          const dimensions = pngHeaderDimensions(header);
           if (!dimensions) {
             reject("Invalid PNG header.", id);
             continue;
@@ -178,7 +182,7 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
             continue;
           }
           const explorationTile = id.startsWith("tile:");
-          artwork.set(id, { file, path, png, encounter, width, height,
+          artwork.set(id, { file, path, get png() { return readFileSync(path); }, encounter, width, height,
             reflected: explorationTile && reflectedTiles.has(id) || undefined,
             screenCellOnly: explorationTile && screenCellsOnly.has(id) || undefined });
         } catch (error) {

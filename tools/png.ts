@@ -60,6 +60,17 @@ export function encodePng(frame: Frame, palette = EGA_RGB): Uint8Array {
   return png;
 }
 
+/**
+ * Dimensions from a PNG's first 33 bytes: its signature and IHDR. It does not check the rest of the
+ * file; npm run verify:art-files checks every committed PNG whole.
+ */
+export function pngHeaderDimensions(header: Buffer) {
+  if (header.length < 33 || !header.subarray(0, 8).equals(signature) ||
+      header.readUInt32BE(8) !== 13 || header.toString("ascii", 12, 16) !== "IHDR") return;
+  const width = header.readUInt32BE(16), height = header.readUInt32BE(20);
+  return width && height ? { width, height } : undefined;
+}
+
 /** Read dimensions only from a complete PNG with intact chunks. */
 export function pngDimensions(png: Buffer) {
   if (png.length < 33 || !png.subarray(0, 8).equals(signature) ||
