@@ -1345,6 +1345,13 @@ function renderJournal() {
 //
 // None of this changes the game. The game still holds the one question it drew. A new question
 // after a wrong word is drawn here, on the page, and the game is sent a word only once it is right.
+//
+// The wheel behaves like the cardboard one beside the keyboard. At the question it can be put
+// away, which leaves the game's own question screen in view with the question's card on it, and
+// brought back. For the rest of the game the Code wheel control, or W at the menus where the
+// game does not use that letter, opens it as a tool with nothing to answer: the game shows
+// runes to translate more than once (qa/research/code-wheel.md). Open as a tool it takes Left,
+// Right, T, W and Escape, and every other key is dropped, as it is while the Journal is open.
 const codeWheel = {
   /** src/codewheel/wheel.json. */
   data: undefined,
@@ -1367,12 +1374,24 @@ const codeWheel = {
   /** True while keys are on their way to the game. */
   busy: false,
   message: "",
+  /** At the question: the player has put the wheel away. */
+  away: false,
+  /** After start-up: the player has the wheel open as a tool. */
+  tool: false,
 };
+const codeWheelShortcut = "w";
+const codeWheelTurnKey = "por.codeWheel.turn";
+try {
+  // The disc stays where the player left it. Without storage it starts at the top.
+  const kept = Number(localStorage.getItem(codeWheelTurnKey));
+  if (Number.isInteger(kept) && kept >= 0 && kept < 36) codeWheel.turn = kept;
+} catch { /* Storage is a convenience. */ }
 const codeWheelTries = 3;
 const codeWheelLetters = 6;
 const wheelSection = document.querySelector("#code-wheel");
 const wheel = document.querySelector("#wheel");
 const wheelCanvas = document.querySelector("#wheel-canvas");
+const wheelToggle = document.querySelector("#wheel-toggle");
 // The wheel is drawn by the code the standalone /code-wheel page uses.
 void import("/code-wheel-draw.js").then(async ({ loadCodeWheel, wheelPainter }) => {
   const { layout, pictures } = await loadCodeWheel();
@@ -1381,8 +1400,45 @@ void import("/code-wheel-draw.js").then(async ({ loadCodeWheel, wheelPainter }) 
   renderCodeWheel();
 }).catch(() => { /* Without the wheel's layout the game's own prompt stays in view. */ });
 
+/** The game is asking its question, and the page takes the word. */
+function codeWheelAsking() {
+  return Boolean(enhanced && state.codeWheel && codeWheel.data && !state.journal);
+}
+
+/** The wheel is open as a tool, with nothing to answer. */
+function codeWheelTool() {
+  return Boolean(enhanced && codeWheel.tool && codeWheel.data && !state.codeWheel && !state.journal);
+}
+
+/** The disc is in view. */
 function codeWheelShown() {
-  return codeWheel.ended || Boolean(enhanced && state.codeWheel && codeWheel.data && !state.journal);
+  return codeWheel.ended || (codeWheelAsking() ? !codeWheel.away : codeWheelTool());
+}
+
+/** Put the wheel away or bring it back. This is the Code wheel control, W and Escape. */
+function toggleCodeWheel() {
+  if (!enhanced || codeWheel.ended || !codeWheel.data) return;
+  if (state.codeWheel) codeWheel.away = !codeWheel.away;
+  else codeWheel.tool = !codeWheel.tool;
+  renderCodeWheel();
+  screen.focus({ preventScroll: true });
+}
+
+/**
+ * Turn the inner disc until the two TRANSLATE FROM tabs meet, the position the Cluebook starts
+ * translating from. The player turns on from there and reads the wheel: nothing is read out.
+ */
+function codeWheelTranslate() {
+  const { outer, inner } = codeWheel.data;
+  turnCodeWheel(outer.runes.indexOf("translate-tab") - inner.runes.indexOf("translate-tab") - codeWheel.turn);
+}
+
+function codeWheelStatus() {
+  if (codeWheelAsking()) {
+    return codeWheel.away ? "Type the code word and press Enter. Esc shows the wheel."
+      : "Left and Right turn the inner disc. Type the code word and press Enter. Esc puts the wheel away.";
+  }
+  return codeWheelTool() ? "Left and Right turn the inner disc. T lines up the tabs. W or Esc puts the wheel away." : undefined;
 }
 
 /** The address of the picture for a slot of one disc. Each disc has one slot that is its tab. */
@@ -1415,23 +1471,35 @@ function turnCodeWheel(positions) {
   const all = codeWheel.data.positions;
   codeWheel.turn = (((codeWheel.turn + positions) % all) + all) % all;
   paintCodeWheel();
+  try { localStorage.setItem(codeWheelTurnKey, String(codeWheel.turn)); } catch { /* Storage is a convenience. */ }
 }
 
 function renderCodeWheel() {
   if (!state.codeWheel && !codeWheel.ended) {
     // The prompt is over. The next one starts afresh.
-    Object.assign(codeWheel, { question: undefined, word: "", tries: 0, forwarded: 0, message: "" });
+    Object.assign(codeWheel, { question: undefined, word: "", tries: 0, forwarded: 0, message: "", away: false });
   } else if (state.codeWheel && !codeWheel.question && codeWheel.data) {
     codeWheel.question = codeWheel.data.questions.find(({ number }) => number === state.codeWheel.number);
   }
-  const shown = codeWheelShown();
-  wheelSection.hidden = !shown;
-  if (!shown) return;
+  // Classic has no wheel. Leaving Enhanced closes the tool.
+  if (!enhanced) codeWheel.tool = false;
+  const mode = codeWheel.ended ? "ended" : codeWheelAsking() ? (codeWheel.away ? "away" : "question")
+    : codeWheelTool() ? "tool" : undefined;
+  wheelToggle.hidden = !enhanced;
+  wheelToggle.disabled = codeWheel.ended || !codeWheel.data || Boolean(state.stopped) || Boolean(state.journal);
+  wheelToggle.setAttribute("aria-expanded", String(mode === "question" || mode === "tool"));
+  wheelSection.hidden = !mode;
+  if (!mode) {
+    delete wheelSection.dataset.mode;
+    return;
+  }
+  wheelSection.dataset.mode = mode;
   document.querySelector("#wheel-ended").hidden = !codeWheel.ended;
   wheel.hidden = codeWheel.ended;
   document.querySelector("#wheel-panel").hidden = codeWheel.ended;
-  if (codeWheel.ended || !codeWheel.question) return;
+  if (codeWheel.ended) return;
   paintCodeWheel();
+  if (!codeWheel.question) return;
   const { espruar, dethek, path } = codeWheel.question;
   for (const [id, source] of [["#wheel-espruar", codeWheelArt("espruar", espruar)],
     ["#wheel-dethek", codeWheelArt("dethek", dethek)], ["#wheel-path", `/code-wheel/path-${path}.png`]]) {
@@ -1439,6 +1507,8 @@ function renderCodeWheel() {
     if (image.getAttribute("src") === source) continue;
     image.src = source;
   }
+  // Put away, the card says whether its runes are the ones on the game's screen above it.
+  document.querySelector("#wheel-asked").textContent = codeWheel.tries ? "A new question:" : "The question:";
   document.querySelector("#wheel-word").textContent = codeWheel.word;
   document.querySelector("#wheel-message").textContent = codeWheel.message;
 }
@@ -1497,13 +1567,36 @@ async function submitCodeWord() {
   }
 }
 
-/** A key pressed while the wheel is in view. Returns true when the wheel took it. */
+/**
+ * A key pressed while the wheel is in view, or while the page is taking the code word with the
+ * wheel put away. Returns true when the wheel took it.
+ */
 function codeWheelKey(event) {
   if (event.target instanceof HTMLButtonElement && ["Enter", " "].includes(event.key)) return false;
+  // F10 still changes the display.
+  if (event.key === "F10") return false;
   const turning = event.key === "ArrowLeft" || event.key === "ArrowRight";
   const letter = /^[a-z0-9]$/i.test(event.key);
-  // No other key reaches the game's input line from here. F10 still changes the display.
-  if (!turning && !letter && event.key !== "Backspace" && event.key !== "Enter") return event.key !== "F10";
+  if (!codeWheel.ended && event.key === "Escape") {
+    // Escape puts the wheel away. At the question, where every letter belongs to the word, it also brings it back.
+    event.preventDefault();
+    if (!event.repeat) toggleCodeWheel();
+    return true;
+  }
+  if (!codeWheel.ended && !codeWheelAsking()) {
+    // Open as a tool. Keys that are not the wheel's own are dropped here, as the Journal drops
+    // them while it is open, so none reaches the game by accident.
+    const own = event.key.toLowerCase();
+    if (turning) turnCodeWheel(event.key === "ArrowLeft" ? -1 : 1);
+    else if (event.repeat || event.shiftKey) return true;
+    else if (own === codeWheelShortcut) toggleCodeWheel();
+    else if (own === "t") codeWheelTranslate();
+    else return true;
+    event.preventDefault();
+    return true;
+  }
+  // No other key reaches the game's input line from here.
+  if (!turning && !letter && event.key !== "Backspace" && event.key !== "Enter") return true;
   event.preventDefault();
   if (codeWheel.ended || codeWheel.busy || !codeWheel.question) return true;
   if (turning) turnCodeWheel(event.key === "ArrowLeft" ? -1 : 1);
@@ -1513,6 +1606,14 @@ function codeWheelKey(event) {
   if (!turning) renderCodeWheel();
   return true;
 }
+
+for (const control of ["#wheel-toggle", "#wheel-close", "#wheel-open"]) {
+  document.querySelector(control).addEventListener("click", toggleCodeWheel);
+}
+document.querySelector("#wheel-translate").addEventListener("click", () => {
+  codeWheelTranslate();
+  screen.focus({ preventScroll: true });
+});
 
 {
   // Dragging turns the inner disc with the pointer, and it settles on the nearest position.
@@ -1619,7 +1720,7 @@ async function poll() {
           (state.animation ?? []).reduce((total, frame) => total + (frame.durationMs ?? 120), 0);
       }
     }
-    if (state.automaticCombat && !state.journal && state.ready && !animationFrame && performance.now() >= quickPollAfter) {
+    if (state.automaticCombat && !state.journal && !codeWheelTool() && state.ready && !animationFrame && performance.now() >= quickPollAfter) {
       void send(":poll");
     }
     followTravel();
@@ -1630,7 +1731,7 @@ async function poll() {
     playPendingNarration();
     status.textContent = state.stopped ?? state.notice ??
       (codeWheel.ended ? "The game has ended. Reload the page to start again." : undefined) ??
-      (codeWheelShown() ? "Left and Right turn the inner disc. Type the code word and press Enter." : undefined) ??
+      codeWheelStatus() ??
       (waitingForFerryPayer(activeTravel) ? "Choose who pays 1 platinum for Sokal Keep. Esc to stop travel." : undefined) ??
       (activeTravel && `Traveling toward ${activeTravel.label}… Esc to stop.`) ??
       (!travelMap.hidden && state.ready ? "Select a highlighted destination or use the arrow keys." : undefined) ??
@@ -1695,7 +1796,7 @@ window.addEventListener("keydown", (event) => {
   if (currentVoice && event.key !== "F10" && !advancingCoveredPrint) stopVoice();
   // While the Enhanced code wheel is in view it takes the arrows, the word and Enter.
   // A held arrow keeps turning the disc.
-  if (codeWheelShown() && !event.ctrlKey && !event.metaKey && !event.altKey && codeWheelKey(event)) return;
+  if ((codeWheelShown() || codeWheelAsking()) && !event.ctrlKey && !event.metaKey && !event.altKey && codeWheelKey(event)) return;
   if (event.repeat || event.ctrlKey || event.metaKey) return;
   if (!bootWheel.hidden && event.key !== "F10") {
     const key = wheelKey(event.key);
@@ -1756,6 +1857,12 @@ window.addEventListener("keydown", (event) => {
   }
   if (state.journal) {
     if (event.key === "Escape") void send("j");
+    return;
+  }
+  // W opens the code wheel where the menu does not use that letter. Open, it takes its own keys above.
+  if (enhanced && event.key.toLowerCase() === codeWheelShortcut && !event.shiftKey && hostShortcutFree(codeWheelShortcut)) {
+    event.preventDefault();
+    toggleCodeWheel();
     return;
   }
   const key = keypadDirections[event.code] ?? commands[event.key] ?? (/^[a-z0-9]$/i.test(event.key) ? event.key : null);

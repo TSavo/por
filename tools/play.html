@@ -158,6 +158,21 @@
     #wheel-ended { grid-column: 1 / -1; display: grid; place-content: center; gap: 1rem; padding: 2rem;
       background: #17120de6; text-align: center; font: 1.25rem / 1.4 Georgia, serif; }
     #wheel-ended p { margin: 0; }
+    /* Each part of the panel names the views it belongs to: the question, the question with the wheel put away, the tool. */
+    #code-wheel[data-mode="question"] [data-in]:not([data-in~="question"]),
+    #code-wheel[data-mode="away"] [data-in]:not([data-in~="away"]),
+    #code-wheel[data-mode="tool"] [data-in]:not([data-in~="tool"]) { display: none; }
+    #wheel-panel button { padding: .35em .8em; border: 1px solid #c7a36a; border-radius: .3em; background: #2a2118;
+      color: inherit; font: inherit; cursor: pointer; }
+    #wheel-panel button:hover, #wheel-panel button:focus-visible { background: #3f3121; }
+    #wheel-tool-help { font-size: 1.5cqw; color: #cbbd9f; }
+    /* Put away at the question, the question's card sits in the empty part of the game's own question screen. */
+    #code-wheel[data-mode="away"]:not([hidden]) { inset: 62% 4% 9.5% 4%; display: block; background: none; overflow: visible; }
+    #code-wheel[data-mode="away"] #wheel { display: none; }
+    #code-wheel[data-mode="away"] #wheel-panel { height: 100%; box-sizing: border-box; display: flex; align-items: center;
+      justify-content: space-evenly; gap: 1.5cqw; padding: 1cqw 1.5cqw; border: 1px solid #c7a36a; background: #17120df2; }
+    #code-wheel[data-mode="away"] #wheel-question { display: flex; align-items: center; width: auto; gap: 1.5cqw; }
+    #code-wheel[data-mode="away"] #wheel-message { min-height: 0; max-width: 20cqw; }
     #objective { border-left: 3px solid #edca79; padding-left: 12px; }
     #objective p, li p { margin: .35rem 0 .75rem; }
     ul { list-style: none; padding: 0; }
@@ -199,6 +214,7 @@
         <button id="audio-toggle" type="button" aria-expanded="false">Audio</button>
         <button id="journal-toggle" type="button" aria-keyshortcuts="J" hidden>Journal</button>
         <button id="map-toggle" type="button" aria-expanded="false" aria-keyshortcuts="M" hidden>Map</button>
+        <button id="wheel-toggle" type="button" aria-expanded="false" aria-keyshortcuts="W" hidden>Code wheel</button>
         <button id="travel-art-toggle" type="button" aria-pressed="true" hidden>Travel art</button>
         <button id="presentation" type="button" aria-pressed="false" aria-keyshortcuts="F10">Enhanced display</button>
       </nav>
@@ -281,17 +297,22 @@
           <canvas id="wheel-canvas" width="900" height="900"></canvas>
         </div>
         <div id="wheel-panel">
-          <h2>Translation wheel</h2>
-          <p>Match these runes and read the word under this path, from the inside out.</p>
-          <div id="wheel-question">
+          <h2 data-in="question tool">Translation wheel</h2>
+          <p data-in="question">Match these runes and read the word under this path, from the inside out.</p>
+          <p id="wheel-asked" data-in="away"></p>
+          <div id="wheel-question" data-in="question away">
             <img id="wheel-espruar" alt="Espruar rune, on the outer disc">
             <img id="wheel-dethek" alt="Dethek rune, on the inner disc">
             <img id="wheel-path" alt="Path">
           </div>
-          <p>INPUT THE CODE WORD:</p>
-          <output id="wheel-word" aria-label="Code word"></output>
-          <p id="wheel-message" role="alert"></p>
-          <p id="wheel-help">Left and Right, the mouse wheel or a drag turn the inner disc. Type the word and press Enter.</p>
+          <p data-in="question">INPUT THE CODE WORD:</p>
+          <output id="wheel-word" data-in="question away" aria-label="Code word"></output>
+          <p id="wheel-message" role="alert" data-in="question away"></p>
+          <p id="wheel-help" data-in="question">Left and Right, the mouse wheel or a drag turn the inner disc. Type the word and press Enter.</p>
+          <p id="wheel-tool-help" data-in="tool">Left and Right, the mouse wheel or a drag turn the inner disc. To translate a rune, bring it to its TRANSLATE FROM tab and read ring 1, the innermost window, under the dotted path. Translate lines the two tabs up to start from. For a code word, match its two runes and read its path from the inside out.</p>
+          <button id="wheel-translate" type="button" data-in="tool" aria-keyshortcuts="T" title="Line up the two TRANSLATE FROM tabs (T)">Translate</button>
+          <button id="wheel-close" type="button" data-in="question tool" aria-keyshortcuts="Escape" title="Put the wheel away (Esc)">Put the wheel away</button>
+          <button id="wheel-open" type="button" data-in="away" aria-keyshortcuts="Escape" title="Show the wheel (Esc)">Show the wheel</button>
         </div>
         <div id="wheel-ended" role="alert" hidden>
           <p>Sorry, that's incorrect.</p>
