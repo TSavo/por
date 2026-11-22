@@ -5276,6 +5276,142 @@
       }
     },
     {
+      "id": "area:3:ecl:9a5a:caller:a732:PIC5.DAX:56",
+      "producer": "ECL5.DAX:3:a671",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "6be9d5f19a4d06829ff517ced4ec7a99273adbad5caff3712041be25a3bec1d2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e1ae5b82a25359dfa6e4d4fee152caadf5efb7934e1a2064c8cbae1545adf35f"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "6be9d5f19a4d06829ff517ced4ec7a99273adbad5caff3712041be25a3bec1d2"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "9e312f5b83be8e1746c7d84c8a7e8284d608f84f9eec15923768afc276515323"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "valjevo-waking-fire-giants-loop",
+          "data": "original",
+          "rendererSha256": "122ca5ba2735a1293db688ad12ab6f7b67ce92a7d4edbe30fb76edc33403f901",
+          "bindingSha256": "0344c4a2bd408efee0bc38ba85fece30864bb64687c42ee4a6569c18dde17ddc",
+          "portrait": "scene-illustration:area:3:ecl:9a5a:caller:a732:cue:waking-fire-giants",
+          "paints": [
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:1:0",
+              "atMs": 9.100000000000364
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:0:0",
+              "atMs": 159.10000000000036
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:3:0",
+              "atMs": 359.10000000000036
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:0:0",
+              "atMs": 575.7999999999993
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:1:0",
+              "atMs": 792.3999999999996
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:0:0",
+              "atMs": 992.3999999999996
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:3:0",
+              "atMs": 1209
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:0:0",
+              "atMs": 1409.1000000000004
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:1:0",
+              "atMs": 1625.7000000000007
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:0:0",
+              "atMs": 1842.3999999999996
+            }
+          ],
+          "sha256": {
+            "portrait:area:3:ecl:a6d2:PIC5.DAX:56:1:0": "cb6f1d183708d943e60b8526c59c0a1014927c45eb9ff34a125f4a8d639d933c",
+            "portrait:area:3:ecl:a6d2:PIC5.DAX:56:0:0": "882253d94117797279a52698ea71efe8f56286a09c4580d8847f481ee96eee5f",
+            "portrait:area:3:ecl:a6d2:PIC5.DAX:56:3:0": "3b84cdbf10c924aac63c6c59ac63b7578fb6276b8b53867a5946a8f6ce1a1d31"
+          }
+        },
+        "port": {
+          "route": "valjevo-waking-fire-giants-loop",
+          "data": "port",
+          "rendererSha256": "122ca5ba2735a1293db688ad12ab6f7b67ce92a7d4edbe30fb76edc33403f901",
+          "bindingSha256": "0344c4a2bd408efee0bc38ba85fece30864bb64687c42ee4a6569c18dde17ddc",
+          "portrait": "scene-illustration:area:3:ecl:9a5a:caller:a732:cue:waking-fire-giants",
+          "paints": [
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:1:0",
+              "atMs": 4.200000047683716
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:0:0",
+              "atMs": 137.60000004768335
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:3:0",
+              "atMs": 354.2000000476837
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:0:0",
+              "atMs": 554.2000000476837
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:1:0",
+              "atMs": 770.8000000476841
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:0:0",
+              "atMs": 970.9000000476835
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:3:0",
+              "atMs": 1187.500000047684
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:0:0",
+              "atMs": 1404.2000000476837
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:1:0",
+              "atMs": 1604.1000000476834
+            },
+            {
+              "key": "portrait:area:3:ecl:a6d2:PIC5.DAX:56:0:0",
+              "atMs": 1820.800000047684
+            }
+          ],
+          "sha256": {
+            "portrait:area:3:ecl:a6d2:PIC5.DAX:56:1:0": "cb6f1d183708d943e60b8526c59c0a1014927c45eb9ff34a125f4a8d639d933c",
+            "portrait:area:3:ecl:a6d2:PIC5.DAX:56:0:0": "882253d94117797279a52698ea71efe8f56286a09c4580d8847f481ee96eee5f",
+            "portrait:area:3:ecl:a6d2:PIC5.DAX:56:3:0": "3b84cdbf10c924aac63c6c59ac63b7578fb6276b8b53867a5946a8f6ce1a1d31"
+          }
+        }
+      }
+    },
+    {
       "id": "area:4:ecl:9a5a:caller:a442:PIC5.DAX:56",
       "poses": [
         {
