@@ -2429,6 +2429,13 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "bane-hay-bunk-room.png",
     continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["bane-mansion-hostile-warband", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "scene-illustration:area:31:ecl:9b2d:cue:mansion-hostile-warband",
+    prompt: /LARGEGROUPOFFOULORCS.*THEYSNARLATYOUANDATTACK.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "bane-mansion-hostile-warband.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS.*MOVEVIEWAIM/i },
+  }],
   ["bane-mansion-holy-symbol", {
     slot: "A", inputs: ["up", "enter", "enter", "c"],
     portraitStops: { 3: "scene-illustration:area:31:ecl:9b0b:cue:mansion-holy-symbol" },

@@ -1290,6 +1290,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:31:ecl:9aed:cue:mansion-holy-symbol", "WHOARESURPRISEDTHATYOU"],
   ["scene-illustration:area:31:ecl:9b0b:cue:mansion-holy-symbol", "WHOARESURPRISEDTHATYOU"],
   ["scene-illustration:area:31:ecl:9b2d:cue:mansion-holy-symbol", "WHOARESURPRISEDTHATYOU"],
+  ["scene-illustration:area:31:ecl:9a79:cue:mansion-hostile-warband", "THEYSNARLATYOUANDATTACK"],
+  ["scene-illustration:area:31:ecl:9b2d:cue:mansion-hostile-warband", "THEYSNARLATYOUANDATTACK"],
   ["scene-illustration:area:31:ecl:9ec6:cue:victims-jewelry", /DEADBODIES.*YOUFINDSOMEJEWELRY/],
   ["scene-illustration:area:31:ecl:9ed7:cue:victims-jewelry", /DEADBODIES.*YOUFINDSOMEJEWELRY/],
   ["scene-illustration:area:31:ecl:9eff:cue:victims-jewelry-reward", "VIEWTAKEPOOLSHAREEXIT"],
