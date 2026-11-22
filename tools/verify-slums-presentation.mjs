@@ -3489,11 +3489,14 @@ const illustrationRoutes = new Map([
   ["wild-cave-feral-kobolds", {
     slot: "B", inputs: [...Array.from({ length: 7 }, () => ["up", "enter", "down", "up", "down"]).flat(),
       "up", "enter", "down"],
+    oneShotProducer: "ECL8.DAX:27:a788",
     approachSequence: [
       [56, 32, "encounter:area:27:SPRIT8.DAX:0:1:0", 24, 65],
       [48, 32, "encounter:area:27:SPRIT8.DAX:0:0:0", 40, 80],
     ],
     portrait: "portrait:area:27:PIC8.DAX:0:0:0", prompt: /YOUAREATTACKEDBYAGROUPOFMADKOBOLDS/i,
+    finalPhaseCapture: "wild-cave-feral-kobolds.png",
+    continuation: { inputs: ["enter", "enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
   ["tyrmor-prison-human-fighters-north-dialogue", {
     slot: "B", inputs: ["s", ...Array.from({ length: 6 }, () => ["up", "enter", "down"]).flat(),
@@ -10627,6 +10630,12 @@ try {
           }
         }
         await advance(key);
+        if (illustration.oneShotProducer && frame.animation?.some(phase => phase.approach)) {
+          // HTTP replay keys bypass the page's input guard during an encounter approach.
+          await waitFor("the complete encounter approach", () => run(`
+            state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined
+          `));
+        }
         for (const transient of [].concat(illustration.transientPortraits?.[index + 1] ?? [])) {
           assert.ok(frame.animation?.some(phase => phase.portrait === transient.id &&
             transient.prompt.test(phase.text.toSorted(([a], [b]) => a - b)

@@ -91,5 +91,36 @@
         "artSha256": "561fbf7a466ab433215984d9db2a689cb0d4fed59704dd64ba9610c94263ef6f"
       }
     }
+  },
+  {
+    "producer": "ECL8.DAX:27:a788",
+    "combat": "a7f5",
+    "native": {
+      "drawCursor": "a78f",
+      "members": [
+        0
+      ],
+      "evidence": "https://github.com/TSavo/por/issues/80#issuecomment-7084066811"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL8.DAX:27:a788",
+        "route": "wild-cave-feral-kobolds",
+        "data": "original",
+        "portrait": "portrait:area:27:PIC8.DAX:0:0:0",
+        "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "2f4b88b58fa7002b5dc8cc20e1885fb50bcf9a0bf93b0b0993663c1e01cea111"
+      },
+      "port": {
+        "producer": "ECL8.DAX:27:a788",
+        "route": "wild-cave-feral-kobolds",
+        "data": "port",
+        "portrait": "portrait:area:27:PIC8.DAX:0:0:0",
+        "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "2f4b88b58fa7002b5dc8cc20e1885fb50bcf9a0bf93b0b0993663c1e01cea111"
+      }
+    }
   }
 ]
