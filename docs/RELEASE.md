@@ -352,6 +352,16 @@ starts it: `./pool-of-radiance` with `env -i`, only HOME, PATH, `POR_OPEN_BROWSE
 - SIGINT (Ctrl-C) to the start script: the launcher and runner were gone and the port free in 1.0 second,
   `running.json` removed, `roster.json` left in `saves/`.
 
+The Mac images of `da41aabb` (one run of `npm run release:pack -- mac` on the Intel Mac, 359 seconds; checks 1
+to 3 passed for both): `Pool-of-Radiance-0.1.0-mac-arm64.dmg` 717 MB and `-mac-x64.dmg` 719 MB (the universal
+image was 749 MB: the images are compressed, so the saving is about 30 MB each, not the 150 MB of the Node
+binary, which is 147 MB per architecture against 297 MB joined). `lipo -info` on `Contents/MacOS/node`: arm64
+in the arm64 image, x86_64 in the x64 one. The x64 image was mounted, its app copied to a scratch folder
+outside the checkout, `codesign --verify --strict` valid, opened with `open --env POR_OPEN_BROWSER=0`: the
+log read `POR_GAME_DATA port <app>/Contents/Resources/game`, the server answered 200 on 127.0.0.1:43124
+within about 20 seconds, and the quit Apple event left no process and no listener. The arm64 image was
+checked by its binaries only (it cannot run on this Intel Mac).
+
 ## Known gaps
 
 - Windows, not yet run: an elevated install to Program Files, the Start Menu and desktop shortcuts and
