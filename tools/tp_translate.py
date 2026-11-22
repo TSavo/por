@@ -217,6 +217,12 @@ def parse_mem(text: str) -> tuple[str, str]:
     return default, off
 
 
+def string_source(op: str) -> str:
+    """The segment MOVS reads from: DS, unless its source operand names another."""
+    source = op.split(",")[-1]
+    return next((f"m.{seg}" for seg in ("cs", "es", "ss") if f"{seg}:" in source), "m.ds")
+
+
 def imm(text: str) -> int:
     text = text.strip()
     if text.startswith("0x"):
@@ -528,11 +534,11 @@ def emit_insn(insn, next_ip: int, proc_name: dict[int, str], falls: bool = True,
         nxt(f"m.ax = m.read16({src}, m.si); m.si = (m.si + (m.df ? -2 : 2)) & 0xffff;")
     elif mn == "movsw":
         nxt(
-            "m.write16(m.es, m.di, m.read16(m.ds, m.si)); m.si = (m.si + (m.df ? -2 : 2)) & 0xffff; m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;"
+            "m.write16(m.es, m.di, m.read16(m.ds, m.si)); m.si = (m.si + (m.df ? -2 : 2)) & 0xffff; m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;".replace("m.ds", string_source(op))
         )
     elif mn == "movsb":
         nxt(
-            "m.write8(m.es, m.di, m.read8(m.ds, m.si)); m.si = (m.si + (m.df ? -1 : 1)) & 0xffff; m.di = (m.di + (m.df ? -1 : 1)) & 0xffff;"
+            "m.write8(m.es, m.di, m.read8(m.ds, m.si)); m.si = (m.si + (m.df ? -1 : 1)) & 0xffff; m.di = (m.di + (m.df ? -1 : 1)) & 0xffff;".replace("m.ds", string_source(op))
         )
     elif mn.startswith("rep") and "stosb" in f"{mn} {op}":
         nxt(
@@ -544,7 +550,7 @@ def emit_insn(insn, next_ip: int, proc_name: dict[int, str], falls: bool = True,
         )
     elif mn.startswith("rep") and "movsw" in f"{mn} {op}":
         nxt(
-            "while (m.cx) { m.write16(m.es, m.di, m.read16(m.ds, m.si)); m.si = (m.si + (m.df ? -2 : 2)) & 0xffff; m.di = (m.di + (m.df ? -2 : 2)) & 0xffff; m.cx = (m.cx - 1) & 0xffff; }"
+            "while (m.cx) { m.write16(m.es, m.di, m.read16(m.ds, m.si)); m.si = (m.si + (m.df ? -2 : 2)) & 0xffff; m.di = (m.di + (m.df ? -2 : 2)) & 0xffff; m.cx = (m.cx - 1) & 0xffff; }".replace("m.ds", string_source(op))
         )
     elif "cmpsw" in f"{mn} {op}":
         body = (
@@ -592,7 +598,7 @@ def emit_insn(insn, next_ip: int, proc_name: dict[int, str], falls: bool = True,
             nxt(body)
     elif mn.startswith("rep") and "movsb" in f"{mn} {op}":
         nxt(
-            "while (m.cx) { m.write8(m.es, m.di, m.read8(m.ds, m.si)); m.si = (m.si + (m.df ? -1 : 1)) & 0xffff; m.di = (m.di + (m.df ? -1 : 1)) & 0xffff; m.cx = (m.cx - 1) & 0xffff; }"
+            "while (m.cx) { m.write8(m.es, m.di, m.read8(m.ds, m.si)); m.si = (m.si + (m.df ? -1 : 1)) & 0xffff; m.di = (m.di + (m.df ? -1 : 1)) & 0xffff; m.cx = (m.cx - 1) & 0xffff; }".replace("m.ds", string_source(op))
         )
     elif mn == "div" and "ptr" in parts[0]:
         seg, off = parse_mem(parts[0].split("ptr", 1)[1])

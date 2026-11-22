@@ -30985,28 +30985,28 @@ export function exe_06169(m: Cpu): void {
       case 0x616e: {
         // 616e: movsw word ptr es:[di], word ptr es:[si]
         m.tick(0x616e);
-        m.write16(m.es, m.di, m.read16(m.ds, m.si)); m.si = (m.si + (m.df ? -2 : 2)) & 0xffff; m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        m.write16(m.es, m.di, m.read16(m.es, m.si)); m.si = (m.si + (m.df ? -2 : 2)) & 0xffff; m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
         ip = 0x6170;
         break;
       }
       case 0x6170: {
         // 6170: movsw word ptr es:[di], word ptr es:[si]
         m.tick(0x6170);
-        m.write16(m.es, m.di, m.read16(m.ds, m.si)); m.si = (m.si + (m.df ? -2 : 2)) & 0xffff; m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        m.write16(m.es, m.di, m.read16(m.es, m.si)); m.si = (m.si + (m.df ? -2 : 2)) & 0xffff; m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
         ip = 0x6172;
         break;
       }
       case 0x6172: {
         // 6172: movsw word ptr es:[di], word ptr es:[si]
         m.tick(0x6172);
-        m.write16(m.es, m.di, m.read16(m.ds, m.si)); m.si = (m.si + (m.df ? -2 : 2)) & 0xffff; m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        m.write16(m.es, m.di, m.read16(m.es, m.si)); m.si = (m.si + (m.df ? -2 : 2)) & 0xffff; m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
         ip = 0x6174;
         break;
       }
       case 0x6174: {
         // 6174: movsw word ptr es:[di], word ptr es:[si]
         m.tick(0x6174);
-        m.write16(m.es, m.di, m.read16(m.ds, m.si)); m.si = (m.si + (m.df ? -2 : 2)) & 0xffff; m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        m.write16(m.es, m.di, m.read16(m.es, m.si)); m.si = (m.si + (m.df ? -2 : 2)) & 0xffff; m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
         ip = 0x6176;
         break;
       }
