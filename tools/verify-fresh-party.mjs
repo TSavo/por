@@ -1142,7 +1142,8 @@ async function verifySokalReinforcement(fightToEnd = false) {
     (text) => assert.match(text, /brin hitpoints 6 ac 1.*move view aim use quick done/),
     "alt-q", "z",
     (text) => assert.match(text, /hobgoblin hitpoints 6 ac 5.*move\/attack/),
-    ...(fightToEnd ? [["q", /the monsters rejoice for the party has been destroyed/, 1400]] : []),
+    // Not measured: the fixed Quick and Space above no longer reach Alda's turn (#166).
+    ...(fightToEnd ? [presses("q", undefined, /the monsters rejoice for the party has been destroyed/)] : []),
   ]);
   console.log("Equipped and recruited the party, then verified manual sword and bow attacks at Sokal:", join(saveDir, "J.json"));
   if (fightToEnd) console.log("The first courtyard fight reached the original defeat screen.");
@@ -1287,7 +1288,8 @@ async function verifySokalPatrolVictory({ rejectedWord = false, equipped = false
     (text) => assert.match(text, /pack of undead suddenly appears.*combat wait flee parlay/),
     ...(rejectedWord ? ["p", "n", ..."zzz", "enter",
       (text) => assert.match(text, /they didn't like that word/)] : ["c"]),
-    "enter", "enter", "enter", ["q", /continue battle|party has been destroyed/, 650],
+    // Quick to the end of the fight: 134 presses in all four variants (measured in the pipe, #151).
+    "enter", "enter", "enter", presses("q", 134, /continue battle|party has been destroyed/),
     (text) => assert.match(text, /continue battle/),
     "n", (text) => assert.match(text, /the party has won.*receives 40 experience points/),
     "enter", "enter", "e",
@@ -1314,7 +1316,7 @@ async function verifySokalPatrolVictory({ rejectedWord = false, equipped = false
     "j", (_text, frame) => assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-patrol-passed")), "j",
     "up", "left", "up", "right", "up", "left",
     (text) => assert.match(text, /croaking rises in volume/),
-    "w", "enter", ["q", /continue battle|party has been destroyed/, 350],
+    "w", "enter", presses("q", 22, /continue battle|party has been destroyed/),
     (text) => assert.match(text, /continue battle/),
     "n", (text) => assert.match(text, /the party has won.*receives 31 experience points/),
     "enter", "enter", "e", "left", "up",
@@ -2043,7 +2045,7 @@ async function verifySokalTrackedAmbush(replenishCurate = false) {
     "j", checkAmbush(true), "j",
     "enter", "enter", "enter",
     ...(replenishCurate ? [] : [
-      ["space", /brin hitpoints 6 ac 1 mace move view aim use quick done/, 20],
+      presses("space", 12, /brin hitpoints 6 ac 1 mace move view aim use quick done/),
       "space", (text) => assert.match(text, /brin hitpoints 6 ac 1 mace move view aim use quick done/),
       "a", "n", "n", "n",
       (text) => {
@@ -2061,7 +2063,7 @@ async function verifySokalTrackedAmbush(replenishCurate = false) {
       "space",
       (text) => assert.match(text, /curate hitpoints 25 ac 2 mace move\/attack/),
     ]),
-    ["q", /the monsters rejoice for the party has been destroyed/, 1400],
+    presses("q", replenishCurate ? undefined : 588, /the monsters rejoice for the party has been destroyed/),
   ]);
   assert.deepEqual(readFileSync(landingSave), savedLanding);
   await replay(loadSlot("246a"), "85000000", [
@@ -2145,11 +2147,11 @@ if (process.argv[2] === "--sokal-recovered-courtyard-checkpoint") {
     "left", "up", "up", "y", "y", "up", "enter",
     (text) => assert.match(text, /8,5 w.*large force of orcs and hobgoblins rushes you/),
     "enter", "enter", "enter", ...(hireTwo ? [
-      ["q", /theurgist hitpoints 13 ac 8 dagger/, 100],
-      ["q", /warrior hitpoints 13 ac 3 silver battle axe/, 40],
-      ["q", /party has been destroyed/, 1400],
-    ] : [["q", /evoker hitpoints 6 ac 9/, 100]]),
-    ...(finishEvokerFight ? [["q", /the monsters rejoice for the party has been destroyed/, 1400]] : []),
+      presses("q", 68, /theurgist hitpoints 13 ac 8 dagger/),
+      presses("q", 17, /warrior hitpoints 13 ac 3 silver battle axe/),
+      presses("q", undefined, /party has been destroyed/),
+    ] : [presses("q", 78, /evoker hitpoints 6 ac 9/)]),
+    ...(finishEvokerFight ? [presses("q", undefined, /the monsters rejoice for the party has been destroyed/)] : []),
   ]);
   if (finishEvokerFight) {
     await replay(loadSlot("2368"), "85000000", [
@@ -2219,7 +2221,7 @@ if (process.argv[2] === "--sokal-restored-arena-checkpoint") {
     "enter", "enter", "enter", "n", "left", "up", "right", "up", "up", "enter", "enter",
     (text) => assert.match(text, /7,1 w.*arena master asks if you wish to duel/),
     "y", (text) => assert.match(text, /who will duel/),
-    ...Array(7).fill("home"), "enter", "enter", "enter", ["q", /continue battle:yes no/, 100],
+    ...Array(7).fill("home"), "enter", "enter", "enter", presses("q", undefined, /continue battle:yes no/),
     "n", (text) => assert.match(text, /you have won the duel.*duelist receives 100 experience points/),
     "enter", "enter", "s", "e", "n", "e", "s", "s", "h",
     (text) => assert.match(text, /7,1 w.*quit to dos/),
@@ -3193,7 +3195,8 @@ async function verifyFreshSlumsVictory() {
     (text) => assert.match(text, /surprised a party of kobolds/),
     "c", "enter",
     (text) => assert.match(text, /hand axe.*move view aim use quick done/),
-    presses("q", 13, /continue battle|the party has been destroyed/),
+    // Chrome follows the leg's recorded prompts; the pipe run does not, and takes fewer (#151).
+    presses("q", campaignChrome ? 13 : 10, /continue battle|the party has been destroyed/),
     (text) => assert.match(text, /continue battle/),
     "n",
     (text) => assert.match(text, /the party has won.*receives 5 experience points/),

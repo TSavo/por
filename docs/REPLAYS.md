@@ -70,7 +70,15 @@ hide it.
   nothing about swallowed keys. The counts in the full campaign were
   measured on 2026-11-22 from `game/` in Chrome with the committed prompt
   records. They are counts of inputs, and include the legacy presses that
-  `POR_INPUT_COMPAT=discard-poll-prompt` drops.
+  `POR_INPUT_COMPAT=discard-poll-prompt` drops. A count depends on the mode
+  that runs the step: the Chrome legs follow the recorded prompts and the
+  pipe runs do not (Quick in the first Slums fight takes 13 presses in
+  Chrome and 10 in the pipe), and a step shared by several variants of a
+  check is measured in each (`verifySokalPatrolVictory`'s four variants all
+  take 134 and 22). A mode whose count is not measured has none, and fails
+  at the step. The Sokal checkpoint modes' counts were measured from a save
+  chain in the pipe (#151); the modes left are waiting on #166 (a fight
+  that needs recording again) and #167 (saves no mode produces).
 - The acceptance harness (`tools/acceptance/harness.mjs`) fails a press
   after which the game shows exactly what it showed before: the same frame
   (text and colours, both pictures and the artwork placed on them, the
