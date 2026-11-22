@@ -88,7 +88,8 @@ export function observeNativePictureArt(art: ReadonlySet<string>, sheetArt: Read
       const offset = cpu.read16(cpu.ss, (cpu.sp + 4) & 0xffff);
       const segment = cpu.read16(cpu.ss, (cpu.sp + 6) & 0xffff);
       const address = pictureAddress(cpu.read16(segment, offset + 2), cpu.read16(segment, offset));
-      if (visible && "picture" in visible && members.get(address) === visible.picture) visible = undefined;
+      // Freeing the source buffer does not erase pixels the blit already presented.
+      // match() checks the saved viewport before that picture is used again.
       members.delete(address);
     },
     presented(cpu: Cpu) {

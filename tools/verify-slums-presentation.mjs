@@ -2413,6 +2413,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "textile-graffiti-room.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /YOUENCOUNTERHOBGOBLINS.*COMBATWAITFLEEPARLAY/i },
   }],
+  ["textile-altar-portrait-release", {
+    slot: "I", inputs: ["up", "enter"],
+    portrait: "portrait:PIC4.DAX:9:0:0", prompt: /IAMTHEMIGHTYGRISHNAK.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "textile-altar-portrait-release.png",
+    continuation: { inputs: ["q"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
   ["textile-crude-temple", {
     slot: "B", inputs: ["up", "down", "up"],
     portraitStops: { 0: null, 1: "scene-illustration:area:2:ecl:a76b", 2: "scene-illustration:area:2:ecl:a76b" },
@@ -7260,7 +7266,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel ||
-      ["slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
+      ["textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
         "new-phlan-training-duels", "new-phlan-training-north-junction", "new-phlan-training-fighters-door",
         "new-phlan-training-rogues-door", "new-phlan-training-entrance-notice",
