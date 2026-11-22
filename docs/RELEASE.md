@@ -176,9 +176,25 @@ names `por-assets`:
   and the runner within 1.3 seconds of SIGINT (Ctrl-C) and of SIGHUP (the terminal closing; Windows
   sends it when the console window closes).
 
+The Windows installer of `05f97892` was run on Battleaxe (Windows under its WSL), from PowerShell,
+without elevation: the installer asks for administrator, so it ran as the user (`__COMPAT_LAYER=RunAsInvoker`)
+with `/S /D=D:\por-release-test\install` (C: had too little space; a first try there stopped at 599 MB
+with exit 2 when the disk filled):
+
+- Installed in 22 seconds, exit 0: 17,949 files, 824 MB, with `node\node.exe` (v26.13.1), `app\`,
+  `game\`, `upgrades\`, `audio\classic\`, `tools\`, the icon and `Uninstall.exe`.
+- The installed game, started as its shortcut starts it (`node.exe app\launch.mjs` in a console of its
+  own): `POR_GAME_DATA port D:\por-release-test\install\game`; the page answered 200 at
+  `http://127.0.0.1:43124/`; saves in `%APPDATA%\Pool of Radiance\saves`.
+- Ctrl-C sent to that console stopped both Node processes (launcher and runner) and freed the port.
+- `Uninstall.exe /S` exited 0 and removed everything but itself (run in place with `_?=`, as a test
+  must); the saves stayed.
+
 ## Known gaps
 
-- The Windows installer: see the Windows check above for what was run and what was not. The Linux
-  archive has not been run on Linux.
+- Windows, not yet run: an elevated install to Program Files, the Start Menu and desktop shortcuts and
+  the uninstall entry (the unelevated run cannot write the all-users places, so none were made),
+  SmartScreen's prompt, the finish page's Play (through the shortcut and Explorer), and closing the
+  console window (its SIGHUP path is checked on the Mac). The Linux archive has not been run on Linux.
 - The Mac app holds a universal Node (297 MB); one disk image per architecture would be about 150 MB
   smaller each.
