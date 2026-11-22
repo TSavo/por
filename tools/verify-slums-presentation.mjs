@@ -7941,6 +7941,14 @@ try {
     }
     if (readyPrompt) assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), readyPrompt);
     const readyPlacements = standInAnimation ? frame.animation?.flatMap(({ combatArt }) => combatArt ?? []) : frame.combatArt;
+    if (routeName === "tempus-temple-line-fighter-ready-13") {
+      for (const block of [12, 16]) {
+        const id = `combat:area:0:CPIC3.DAX:${block}:ecl:aac4`;
+        assert.ok(readyPlacements?.some(([, , asset]) => asset === id), `Missing Tempus Watch ready pose ${id}`);
+        await waitFor("the Tempus Watch ready pose in Chrome", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.combat-sprite[src="/art/${id}"]')?.naturalWidth === 96`));
+      }
+    }
     if (standCount !== undefined) {
       assert.equal(readyPlacements?.filter(([, , id]) => id === stand).length, standCount);
     }
