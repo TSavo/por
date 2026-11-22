@@ -119,9 +119,9 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 22 | Yarash's Pyramid | yes | 87 | 87 | 0 | 95 of 95 (8 as WebGL wall materials) |
 | 23 | Yarash's Pyramid, lower | yes | 78 | 78 | 0 | 83 of 83 (5 as WebGL wall materials) |
 | 24 | Temple of Bane | yes | 244 | 244 | 0 | 256 of 256 (12 as WebGL wall materials) |
-| 25 | Wilderness, west | not yet | 42 | 22 |  | 22 of 22 |
+| 25 | Wilderness, west | not yet | 22 | 22 |  | 22 of 22 |
 | 26 | Wilderness, middle | yes | 214 | 214 | 0 | 285 of 285 (69 as first views of the next area, 2 as WebGL wall materials) |
-| 27 | Wilderness, east | not yet | 41 | 21 |  | 22 of 22 (1 as first views of the next area) |
+| 27 | Wilderness, east | not yet | 21 | 21 |  | 22 of 22 (1 as first views of the next area) |
 | 28 | Zhentil Keep Outpost | yes | 127 | 127 | 0 | 128 of 128 (1 as WebGL wall materials) |
 | 29 | Kuto's Well | yes | 660 | 660 | 0 | 674 of 674 (1 as first views of the next area, 13 as WebGL wall materials) |
 | 31 | Temple of Bane, interior | yes | 94 | 94 | 0 | 94 of 94 |
@@ -155,7 +155,6 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 | What | Count |
 | --- | ---: |
 | first-person cells seen only from squares not connected to any square the existing artwork was made from | 7 |
-| first-person cells of an area whose reading is not confirmed | 40 |
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |
 | distinct battlefield cells of pictures no artwork shows to have been on a battlefield | 72 |
 | battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain) | not counted: needs the game's battlefield builder read |

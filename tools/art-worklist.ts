@@ -317,6 +317,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       && context.script.area === context.map && (context.map === 4 || context.map === 6 || context.map === 7);
     const podolPlaza = auditReachability && !context.arrivalFrom && context.script.area === 18 && context.map === 18;
     const middleWilderness = auditReachability && !context.arrivalFrom && context.script.area === 26 && context.map === 26;
+    const wildernessEncounter = context.script.area === context.map && context.map >= 25 && context.map <= 27;
     const sokalKeep = auditReachability && !context.arrivalFrom && context.script.area === 21 && context.map === 21;
     const auditedPalette = lizardKeep || mendorLibrary || valjevo || sokalKeep;
     // ECL16's descents enter a roofed component. Its relocations all land in
@@ -388,9 +389,9 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
             mine.add(agg);
           });
           views.push({ square: y * 16 + x, roofed, shaft, aggs: [...mine], walls });
-          // The middle wilderness enables AREA only while loading the overland
-          // map. Its local encounter map keeps the native Area command disabled.
-          if (context.script.areaView && !context.arrivalFrom && !(context.script.area === 26 && context.map === 26)) {
+          // ECL6/7/8 set 0x49fb to 255 when restoring GEO blocks 25/26/27.
+          // The branches that enable Area load different maps for the caves.
+          if (context.script.areaView && !context.arrivalFrom && !wildernessEncounter) {
             areaViewCells(view, x, y, facing).forEach((stack, index) => {
               const { tiles } = cells.prune(stack);
               const cell = cells.cell("-", tiles);
