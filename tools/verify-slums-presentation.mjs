@@ -2447,6 +2447,16 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "valhingen-spirits-tower-choice.png",
     continuation,
   }]),
+  ["valhingen-skeleton-tower-bones", {
+    slot: "A", inputs: ["l"],
+    portrait: "scene-illustration:area:10:ecl:b695:caller:a446",
+    prompt: /ATOWERSTANDSCLEARLYABOVEALLCRYPTS.*HUGEPILESOFHUMANBONES/i,
+    finalPhaseCapture: "valhingen-skeleton-tower-bone-heaps.png",
+    continuation: {
+      inputs: ["enter", "enter"], portrait: "portrait:area:10:PIC4.DAX:34:0:0",
+      prompt: /ASMALLARMYOFSKELETONSRUSHESFROMTHETOWER/i,
+    },
+  }],
   ["valhingen-marble-chest", {
     slot: "A", inputs: ["l"],
     portrait: "scene-illustration:area:10:ecl:b6c6:caller:9e99",
