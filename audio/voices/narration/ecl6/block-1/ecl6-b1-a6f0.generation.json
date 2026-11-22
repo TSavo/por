@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "a5300a995761c19d6775206c633e4f528b0346cbdb0726f7d6c2ec6b583753fd",
+  "audioSha256": "db85425275806fbc82ef509dc7c018d742258025aef9c30addf513c811120149",
+  "bytes": 100771,
+  "directionSent": "large, commanding, battle-hardened, confident",
+  "heardByWhisper": "You throw caution to the wind and attack.  The captain smiles and then rushes to battle.",
+  "generatedAt": "2026-11-22T04:08:01.910Z"
+}

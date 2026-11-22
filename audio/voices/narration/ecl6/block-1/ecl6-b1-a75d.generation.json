@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "276530d1ff5a87ff29013ecd991fb9be8f4f0199fde9fa78176f7b57b1b5e77b",
+  "audioSha256": "434cd815ba34ffb5379012976f900a7827cc40f62005b31f23ce8ef972ff1ccf",
+  "bytes": 113727,
+  "directionSent": "large, commanding, battle-hardened, confident",
+  "heardByWhisper": "After defeating the last of the buccaneers, the rest surrender or flee.  You rescue the slaves and capture the fort.",
+  "generatedAt": "2026-11-22T04:08:07.694Z"
+}

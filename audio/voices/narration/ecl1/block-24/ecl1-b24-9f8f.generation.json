@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "9f0992fef76234a5f472ff61c3b6d574e12bbad81ce58dd6a27a0e995a22b212",
+  "audioSha256": "df2c2ad065842567d9292a0cc41fc4f353c74ad8ee7749f91643dca615e9b6a6",
+  "bytes": 107458,
+  "directionSent": "measured dramatic fantasy narration",
+  "heardByWhisper": "You find a piece of paper on the floor in the room.  You place it in your journal under entry 53.",
+  "generatedAt": "2026-11-22T04:08:39.747Z"
+}

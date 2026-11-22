@@ -4,9 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "045cc731d68bc1f09c6d22698bba5dac8b086d8545919d943ab2a82749d9c110",
-  "audioSha256": "9929d064e7d29ef73f0d4fb435d69a247e771bd6edd1ebc33fe09e95c7ef2226",
-  "bytes": 81545,
-  "directionSent": "consistent narrator-performed character: rope-guild-booth-man",
+  "audioSha256": "70fc4e32298e24e35c2443d277407b2a5f8c3c375a09a10c5f5bd2dfc04bf732",
+  "bytes": 80291,
+  "directionSent": "brisk, businesslike, slightly bored",
   "heardByWhisper": "A man hurries forward.  I am sorry, noble ones, but I have nothing to sell.",
-  "generatedAt": "2026-11-22T03:52:37.361Z"
+  "generatedAt": "2026-11-22T04:05:08.936Z"
 }

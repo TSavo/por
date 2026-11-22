@@ -4,9 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "e081ba0ffbe696437ef7341d7c174cb9f788e16c2c86928a6f1a233328361a70",
-  "audioSha256": "2e8381514aee0526f603aaa0d2abc9f5e52796ceb09dcac55c45f4f7b425d39e",
-  "bytes": 147164,
-  "directionSent": "the ragged fortune teller",
-  "heardByWhisper": "Seated at a table is a ragged old woman. She greets you welcome for the price of a few coppers  I will tell your fortune",
-  "generatedAt": "2026-11-22T03:52:04.654Z"
+  "audioSha256": "8d9fe25962484dfb468845e8ef0983b541cbb1240bac004891e90e3f10cd9686",
+  "bytes": 148418,
+  "directionSent": "ragged, old, wheedling, knowing",
+  "heardByWhisper": "Seated at a table is a ragged old woman.  She greets you.  Welcome.  For the price of a few coppers, I will tell your fortune.",
+  "generatedAt": "2026-11-22T04:04:35.708Z"
 }

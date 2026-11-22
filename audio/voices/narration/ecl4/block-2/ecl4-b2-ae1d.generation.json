@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "4e1e8b0f5ce7b40e1476ed660b10c35ce22c4df8ab9ddb5df87af9deb47e39be",
+  "audioSha256": "8b729f990f5bc6f49de0725238f9135b3be7ccc3b2039223d2e75d39bc609d8f",
+  "bytes": 109966,
+  "directionSent": "older, amused, confident, sly",
+  "heardByWhisper": "An old thief stands here.  Welcome to my guild.  I am Restel, he bows low.",
+  "generatedAt": "2026-11-22T04:12:37.013Z"
+}

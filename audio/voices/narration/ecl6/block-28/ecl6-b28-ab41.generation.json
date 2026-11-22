@@ -4,9 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "2250b0729949c6afe544279fd2132c6c9b96c2d998b3ea913077d790a7e37287",
-  "audioSha256": "f58bff6680078de434b47a9f6dd080de9fa8aa5bdfcda56fba7a5bca6020d957",
-  "bytes": 157195,
-  "directionSent": "controlled, cordial, probing, and politically calculating",
-  "heardByWhisper": "As you talk about Newflan, the Commandant listens carefully.  The Commandant says, is it true that the real power in Newflan is Bishop Bracio?",
-  "generatedAt": "2026-11-22T03:56:26.436Z"
+  "audioSha256": "16a77d9e70c5ce20f6b35677b86deeb921ccdd4c71cb10bb05fe970a3abec46b",
+  "bytes": 154687,
+  "directionSent": "controlled, cordial, probing, politically calculating",
+  "heardByWhisper": "As you talk about Newfoundland, the Commandant listens carefully.  The Commandant says, is it true that the real power in Newfoundland is Bishop Bratio?",
+  "generatedAt": "2026-11-22T04:07:24.195Z"
 }

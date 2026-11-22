@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "6bc31ee9c37d79e750611c9b10d3bd2dc8853efb8a830b43845d563cdfd71c1f",
+  "audioSha256": "572a4bbb68da6fc94e1dd2544597c0f950908bb44fe0f8d3de328c01fe585ada",
+  "bytes": 129192,
+  "directionSent": "Urgent dramatic fantasy narration with clear action and danger",
+  "heardByWhisper": "While in camp, you are suddenly attacked by three thieves with slings.  They launch their bullets at the party and then run, disappearing from sight.",
+  "generatedAt": "2026-11-22T04:08:33.924Z"
+}

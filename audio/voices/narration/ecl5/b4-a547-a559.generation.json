@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "42307d985a21665bd7e3836a78bc6ccb31cc26d3b323051516b174a6750f50a0",
+  "audioSha256": "08198b640c97d6388840d651b877f6628c7e817408bbdddc2a09d25f84240444",
+  "bytes": 112474,
+  "directionSent": "",
+  "heardByWhisper": "I said get lost!  The giant readies his weapon and advances.  The others follow suit.",
+  "generatedAt": "2026-11-22T04:13:08.503Z"
+}

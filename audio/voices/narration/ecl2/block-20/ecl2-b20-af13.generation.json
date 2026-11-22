@@ -4,9 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "3361327e942ade079fe83a3d9df8771a8b2851f9a923a61b2fad9395acdd87eb",
-  "audioSha256": "7a341a9e70a0de3591a38fa3fd467132882090b7e1f9e855c97f7c4e05a619e5",
-  "bytes": 46018,
-  "directionSent": "consistent narrator-performed character: rope-guild-booth-man",
+  "audioSha256": "58e164a4aa43baae88021051cc6d548b8049e6b59d3f3f375a4aeb59202d9be7",
+  "bytes": 43510,
+  "directionSent": "brisk, businesslike, slightly bored",
   "heardByWhisper": "The man runs screaming into the back of the booth.",
-  "generatedAt": "2026-11-22T03:52:40.830Z"
+  "generatedAt": "2026-11-22T04:05:14.306Z"
 }

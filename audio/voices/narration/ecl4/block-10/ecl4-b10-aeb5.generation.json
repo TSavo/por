@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "2ab32ca82809722aa7ac6fbd8552fe9a8ef3a5b4df4f3927ddf6b0f694339957",
+  "audioSha256": "f7d178497c7aac35ed77ae3c4c6a6dbf67c2cd454b17f6e09c809cda930518c9",
+  "bytes": 58557,
+  "directionSent": "grave, urgent, controlled",
+  "heardByWhisper": "Then die, you scum! The man spits.",
+  "generatedAt": "2026-11-22T04:08:59.200Z"
+}

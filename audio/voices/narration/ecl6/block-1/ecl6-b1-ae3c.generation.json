@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "87ebafc9f7825e3ae6b9e58f4f17d2cb2b3ad3524b136bb4a6f2118318d2f971",
+  "audioSha256": "9b874e84240c5fb7b74917f585e8e106c4cc2c0ccc20666177e996b17b68b61b",
+  "bytes": 153434,
+  "directionSent": "large, commanding, battle-hardened, confident",
+  "heardByWhisper": "You mention the young boy in the slave pen and the captain seems interested.  He says, I can let you buy the young boy, but it will cost you a lot.  What will you do?",
+  "generatedAt": "2026-11-22T04:08:24.269Z"
+}

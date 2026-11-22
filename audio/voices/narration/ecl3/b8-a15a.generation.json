@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "8ff34ce00ef8fec4a2392cd6acd86178834073d03564c5d972abbcb31c13a70a",
+  "audioSha256": "5791ced2a353bbf7e135f8930d9181df4b516a34cc62281d42a1e75c563b47f4",
+  "bytes": 54795,
+  "directionSent": "measured civic narration, council speech with formal authority",
+  "heardByWhisper": "Your success at Podal Plaza is noted.",
+  "generatedAt": "2026-11-22T04:11:09.952Z"
+}

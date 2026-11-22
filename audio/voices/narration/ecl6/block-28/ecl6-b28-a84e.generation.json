@@ -4,9 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "fd7917f458ba08f638ab69206f72fc2e1d042c816765dab4a68de2a3a8cde385",
-  "audioSha256": "60606575fc8bb79cb7f8c48184d7d90dbf6017f903514632c4b9754d2f7454d2",
-  "bytes": 57303,
-  "directionSent": "controlled, cordial, probing, and politically calculating",
+  "audioSha256": "8f8b9707308c104c0797b2c137e7aeae7a8c37dc568300c194664c091c53a2ed",
+  "bytes": 56049,
+  "directionSent": "controlled, cordial, probing, politically calculating",
   "heardByWhisper": "Are you going to talk about new or old flan?",
-  "generatedAt": "2026-11-22T03:55:49.890Z"
+  "generatedAt": "2026-11-22T04:06:51.205Z"
 }

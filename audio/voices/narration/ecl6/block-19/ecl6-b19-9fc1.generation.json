@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "26e496210864667b50086928b8afb5e3caaae9ecd9466c5e9fa72c76a85f126b",
-  "audioSha256": "7ba333c37719309576682efc1f8c1104cfc28dcc7e6c4d619224dffbee81d1ea",
-  "bytes": 358234,
-  "generatedAt": "2026-11-19T04:43:21.006Z"
+  "audioSha256": "848b7879ce124d83c6373aa740aa6859a24de88b5b23b52a07ebebdc2e848ae5",
+  "bytes": 158449,
+  "directionSent": "deep, resonant, booming, noble and ancient",
+  "heardByWhisper": "You climb to the second level of the dragon's den.  There is the dragon waiting for you.  He looks extremely mad.  What will you do?",
+  "generatedAt": "2026-11-22T04:10:51.320Z"
 }

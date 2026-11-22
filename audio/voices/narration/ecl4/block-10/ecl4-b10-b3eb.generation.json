@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "6d04060d8605bcdfbd22396aa351df8699e38199a0f43c0381a9f1a084aa9656",
+  "audioSha256": "b77f9da26dbdc16cb218865fadcafcb2a07919dd8d5d79e00a5b48986ed699ce",
+  "bytes": 79037,
+  "directionSent": "grave, urgent, controlled",
+  "heardByWhisper": "The Mystic Man speaks. The vampire is behind the northern wall.",
+  "generatedAt": "2026-11-22T04:09:04.199Z"
+}

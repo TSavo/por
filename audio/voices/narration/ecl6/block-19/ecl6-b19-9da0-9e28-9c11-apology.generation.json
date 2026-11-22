@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "b01c3eeda9fed7f86735f27af7c3377f4d2405a42a9580c5b0bc3091b38057d6",
-  "audioSha256": "61844ab18b5f759ca35c6da04ca8060d2564b642ce2ed9427402f61db6c91f4d",
-  "bytes": 899491,
-  "generatedAt": "2026-11-19T04:42:21.736Z"
+  "audioSha256": "d3f15acb636df86286d46e61f64fd77fe06ec1e6fb068bae6434bc296526fd67",
+  "bytes": 552585,
+  "directionSent": "deep, resonant, booming, noble and ancient",
+  "heardByWhisper": "After hearing your apology, the dragon says,  though you are foolish, I believe your acts are noble.  I will help you with your quest to cleanse the city of Flan from evil.  Far to the east, there is a large kobold community.  They have possession of a powerful silver bottle.  This bottle will help you rid the city of its undead problem.  Get the bottle, then return to me.  After speaking, the dragon flies through an opening in the ceiling of the cave.  You exit the cave to continue your quest.",
+  "generatedAt": "2026-11-22T04:09:47.043Z"
 }

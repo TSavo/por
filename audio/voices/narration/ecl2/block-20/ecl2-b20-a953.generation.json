@@ -4,9 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "682349f7a6c88a341156f8c6584ddcfea5bab249fcdff7d7074676742a0468f4",
-  "audioSha256": "157cc5195240734ab8eec3b5da7597010493df0029a5fa19f4e56f4fb778fb1e",
-  "bytes": 35569,
-  "directionSent": "the ragged fortune teller",
+  "audioSha256": "466043addbbb3ee9777f8b85a33e34d144c3390d32527a64f4e1a976c9ec0742",
+  "bytes": 36823,
+  "directionSent": "ragged, old, wheedling, knowing",
   "heardByWhisper": "The telling is finished.",
-  "generatedAt": "2026-11-22T03:52:32.930Z"
+  "generatedAt": "2026-11-22T04:05:02.933Z"
 }

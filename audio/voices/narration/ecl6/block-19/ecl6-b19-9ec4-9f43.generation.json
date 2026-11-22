@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "f515bb2a6349bfc31780b384dc98d2e8eafd4795b181676aedee31be8a68e140",
-  "audioSha256": "1d764a5b0923a3d17711dbbfac33074dc246107a6bae8220a750d52a5e0c36f7",
-  "bytes": 570557,
-  "generatedAt": "2026-11-19T04:42:29.367Z"
+  "audioSha256": "10dd71fd079a8a84016d8b52fc35061b36f9f01dcdb8fde7fa4d8363c7783848",
+  "bytes": 296794,
+  "directionSent": "deep, resonant, booming, noble and ancient",
+  "heardByWhisper": "As you ready your weapons to attack, the dragon takes flight and roars.  Evil creatures, begone from my lair.  He then flies up through a hole in the ceiling.  You may easily follow the dragon by climbing up a wall  and then through the hole in the ceiling.  What will you do?",
+  "generatedAt": "2026-11-22T04:09:55.970Z"
 }

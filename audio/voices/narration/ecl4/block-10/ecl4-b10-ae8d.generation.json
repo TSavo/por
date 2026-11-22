@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "f7c03f8c19abbb4d1aaec7fa6bbc2aeb17f9b4d04857392a4dd20939a0d74575",
+  "audioSha256": "a13fb83e3104b71f353b746236a165a7b0272fe0d2ffac89216ca337042eeda5",
+  "bytes": 47272,
+  "directionSent": "grave, urgent, controlled",
+  "heardByWhisper": "Your party is too large for me to join.",
+  "generatedAt": "2026-11-22T04:08:54.213Z"
+}

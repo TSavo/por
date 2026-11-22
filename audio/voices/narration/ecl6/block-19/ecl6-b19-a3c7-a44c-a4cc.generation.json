@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "808039dfa1f2458e33cfb5c598ba959b1bf4f908d64e9f4369b88de0c26d2906",
-  "audioSha256": "537f38f90c95c09ff710ffb150e298eee46942f178faae7082687fc1b8c24b39",
-  "bytes": 876503,
-  "generatedAt": "2026-11-19T04:43:04.958Z"
+  "audioSha256": "479802fe440d1df13e733a3045948aa3343ff1e282c6357dc68a587273389a8c",
+  "bytes": 564287,
+  "directionSent": "deep, resonant, booming, noble and ancient",
+  "heardByWhisper": "As you enter the cave, you are greeted by Diogenes, the Silver Dragon.  He says, I see you have recovered the silver bottle from the Cobold Caves.  I congratulate you.  That bottle contains a powerful efreet who was summoned to kill vampires.  He will be a valuable ally in old Flan.  In Valhingan graveyard, there is a vampire.  When you meet the vampire, use the bottle and you may have a chance in defeating him.  I wish you luck.  After speaking, Diogenes flies through a hole in the ceiling and disappears.",
+  "generatedAt": "2026-11-22T04:10:32.333Z"
 }

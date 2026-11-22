@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "358a20f53b4b1ee2c7df31a8c61218561bf41691899618e2b8e14c0029eb9d9b",
+  "audioSha256": "7778923e90a7c1d26b28ebb75a233d1b16cb73151bdd2710725bcdf964e2e105",
+  "bytes": 29300,
+  "directionSent": "muscular, blunt, impatient, rough",
+  "heardByWhisper": "YOU FLEE THE ROOM!",
+  "generatedAt": "2026-11-22T04:12:26.102Z"
+}

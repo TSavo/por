@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "2d7d33e7813b26ee63b48a38f8eb3ca8549bcd7bf9f36bbe3d6d31af19cb409b",
+  "audioSha256": "7887fdb509abbd1a37951c3b0b949955deb251cb7c68a0d3771c5b8a1beb5c50",
+  "bytes": 43510,
+  "directionSent": "older, amused, confident, sly",
+  "heardByWhisper": "Here is a laughing thief!",
+  "generatedAt": "2026-11-22T04:12:30.692Z"
+}

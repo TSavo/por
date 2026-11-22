@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "2ab764869afe8e4203849086e2e4e5a952bd4eef87d8430c0209eb4a503f21ea",
+  "audioSha256": "aa9c72a080a9883c3df088c26517061410f8bdce5d7e09150cc6c67eb50782b2",
+  "bytes": 182691,
+  "directionSent": "older, amused, confident, sly",
+  "heardByWhisper": "You are blindfolded and taken on a long, twisting walk, then up a ladder, only meet us at the  main well. He points his ring at you, and you rise up and out the well.",
+  "generatedAt": "2026-11-22T04:12:04.337Z"
+}

@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "0a7d95609fa6b77373052fe3f8556dbb48c0d41ba58dc0e1f0dcc7e6d86c5a93",
+  "audioSha256": "87a24226cf810f5d3cc99493dec564ad1247643f1fefd9391ab8a15db3b81c8b",
+  "bytes": 119997,
+  "directionSent": "measured civic narration, council speech with formal authority",
+  "heardByWhisper": "I have been authorized to give you an enchanted weapon  if you accept the commission to end the Graveyard Menace.  Do you accept?",
+  "generatedAt": "2026-11-22T04:11:28.874Z"
+}

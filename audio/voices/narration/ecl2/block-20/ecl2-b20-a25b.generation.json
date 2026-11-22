@@ -4,9 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "f61bc76e613f1c7a389a3cd05ef7f03acaadf1a50c424ab1949f7b1370f027ab",
-  "audioSha256": "0e87305827e0cd2009d55774062d757f27e2d40462e159c4066734dbb2405943",
-  "bytes": 77783,
-  "directionSent": "controlled, superior, and calculating",
-  "heardByWhisper": "You have done well. Give me the potion and you will be rewarded.",
-  "generatedAt": "2026-11-22T03:51:54.959Z"
+  "audioSha256": "cc8a5e30943dbd8f0bfe96a50591142b303f4d5ee87830be690acf0b6506c04e",
+  "bytes": 72767,
+  "directionSent": "controlled, superior, calculating",
+  "heardByWhisper": "You have done well.  Give me the potion and you will be rewarded.",
+  "generatedAt": "2026-11-22T04:04:20.969Z"
 }

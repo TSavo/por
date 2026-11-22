@@ -4,9 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "1768a69b9e7deca858dac79b762e40fa1b5fad76e09733ab24d385908951d345",
-  "audioSha256": "ba2c1f4d16962dc605eb250170b4267d68317b440ace9616f32e3bf55b03d159",
-  "bytes": 82798,
-  "directionSent": "expressive fantasy narration",
+  "audioSha256": "c56889a7e0fafa0ae9fbe0a927101b24576ee069520a8897a4f1819114362323",
+  "bytes": 79037,
+  "directionSent": "expressive fantasy narration, quoted speech in character",
   "heardByWhisper": "What a bunch of cheapskates, the leader complains.  Let him have it, boys.",
-  "generatedAt": "2026-11-22T03:52:45.003Z"
+  "generatedAt": "2026-11-22T04:05:20.778Z"
 }

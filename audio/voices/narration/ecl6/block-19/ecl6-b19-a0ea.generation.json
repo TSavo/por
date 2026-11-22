@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "37c1fef3bf6edfa48071f19ea04706feb4a41aab5aae7000944276fba86eb99f",
-  "audioSha256": "0652b5e992913901169d539effd2e912432bd5448a593cfc12018194daba626e",
-  "bytes": 335246,
-  "generatedAt": "2026-11-19T04:43:32.617Z"
+  "audioSha256": "8e63c44eb5bfdad586f67d94c89c0d33f7de1440240b9d84ebd816a2396c3e2a",
+  "bytes": 102025,
+  "directionSent": "deep, resonant, booming, noble and ancient",
+  "heardByWhisper": "After recovering from the fireball, you search the rest of the lair and find nothing of interest.",
+  "generatedAt": "2026-11-22T04:11:04.606Z"
 }

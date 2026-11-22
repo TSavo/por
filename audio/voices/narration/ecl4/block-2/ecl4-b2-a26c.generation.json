@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "c33b771aea4ef953ea1c8e06a3b2dae34ff5e07b0e08ba510b376e29f20c0aef",
+  "audioSha256": "4fa507e0119e05819accd26f851d624479dfc670cacf6d758e7557edd7ce5511",
+  "bytes": 54795,
+  "directionSent": "muscular, blunt, impatient, rough",
+  "heardByWhisper": "The brass key you found opens all of the padlocks.",
+  "generatedAt": "2026-11-22T04:12:09.392Z"
+}

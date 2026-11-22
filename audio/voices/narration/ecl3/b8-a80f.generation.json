@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "43b5686aa0d1a675b7061c1fd12a883e99a2e61c261254a21f1177551a7538bb",
+  "audioSha256": "25ca5927013ea5061dd94b9775283d883d4913542dab031760dadb0fa0e60207",
+  "bytes": 66498,
+  "directionSent": "measured civic narration, council speech with formal authority",
+  "heardByWhisper": "Back so soon? I can only repeat the earlier offers.",
+  "generatedAt": "2026-11-22T04:11:33.941Z"
+}

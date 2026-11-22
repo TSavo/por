@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "28dc5634302c2517e5d75b9229b3334c6745dfe7755396c3ee9d8799cf731f63",
+  "audioSha256": "44ac33959618524487697a3fbc3b074831757d96c2fa51e32d5a963ac33175ad",
+  "bytes": 152180,
+  "directionSent": "measured civic narration, council speech with formal authority",
+  "heardByWhisper": "A weapon of great power is to be auctioned to our enemies.  This auction is to be held in Podal Plaza.  Find out what the weapon is and return.",
+  "generatedAt": "2026-11-22T04:11:40.788Z"
+}

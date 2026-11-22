@@ -4,9 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "1fa2a08a2860d54e6cdb96e277cf57b66aa93e2cfaf71cccf106412a38ef276a",
-  "audioSha256": "d6620da7efaf50cc08537e386d96a016705b4fd8aa2f6f32f9ae007b2975d15d",
-  "bytes": 308078,
-  "directionSent": "controlled, cordial, probing, and politically calculating",
-  "heardByWhisper": "As you talk about Old Fland's inhabitants, the Commandant says,  I know a legend about a fire being called Tyranticus.  I believe that Tyranticus and Tyranthraxis are one and the same.  You continue to talk about Old Fland, and the Commandant says,  is New Fland having any trouble with Tyranthraxis?",
-  "generatedAt": "2026-11-22T03:55:44.292Z"
+  "audioSha256": "dc656298df2efbea84e576d96ef4e77463e05f06642f117861280a07414cf072",
+  "bytes": 313512,
+  "directionSent": "controlled, cordial, probing, politically calculating",
+  "heardByWhisper": "As you talk about old Flan's inhabitants, the Commandant says,  I know a legend about a fire being called Tyranticus.  I believe that Tyranticus and Tyranthraxis are one and the same.  You continue to talk about old Flan, and the Commandant says,  is new Flan having any trouble with Tyranthraxis?",
+  "generatedAt": "2026-11-22T04:06:46.378Z"
 }

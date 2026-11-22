@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "c55b7b425236564bdec2f30af72c50457c154724f08150c3ff256b527cba7d1b",
+  "audioSha256": "0673f050c82f9a11fb8ca838c0976341ad4d81fabe8f619ecf311328ef7fd431",
+  "bytes": 114981,
+  "directionSent": "measured civic narration, council speech with formal authority",
+  "heardByWhisper": "Your taking the gate will enable our forces to assault the enemy stronghold.  Return there to lead the attack.",
+  "generatedAt": "2026-11-22T04:11:16.247Z"
+}

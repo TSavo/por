@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "ce7b65c02d68e562dc2c2a22605a149c5a5e2733aa481b5930136d1760cdeb0b",
+  "audioSha256": "1201f7a3994a622e3c74e949483ac036d9ae3b90fe9f524c7dd47a153fb6ee09",
+  "bytes": 185198,
+  "directionSent": "oily, avaricious, cowardly, unpleasant",
+  "heardByWhisper": "You agree with the merchant that the young boy is valuable.  The merchant laughs, then says,  you'll have to outbid me for the waif.  The sleazy merchant then walks away.",
+  "generatedAt": "2026-11-22T04:07:44.663Z"
+}

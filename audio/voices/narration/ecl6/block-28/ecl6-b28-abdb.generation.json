@@ -4,9 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "efd2547db5d219726fd507517ccbad6221cbe2acbb78ac15618a4de3dd7fb47d",
-  "audioSha256": "474f2e62f3f7e8e2be356bc144308909830f5eefd059f4ef122e41b0b6d17291",
-  "bytes": 170152,
-  "directionSent": "",
+  "audioSha256": "758c611a688a0eba45d18217de0a9fad19c78a0c35f3d019d6a15321f7ff7ab9",
+  "bytes": 166390,
+  "directionSent": "controlled, cordial, probing, politically calculating",
   "heardByWhisper": "You say that Bishop Braccio is the real power in Flan, and the commandant responds by saying,  Flan must be a city of fools if a bishop of Tyr has power.",
-  "generatedAt": "2026-11-22T03:56:46.239Z"
+  "generatedAt": "2026-11-22T04:07:31.191Z"
 }

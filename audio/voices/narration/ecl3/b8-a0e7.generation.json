@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "57d16298cbbcd9fc88f9878d000d283e3368b4be140266d376459744ddd8f01a",
+  "audioSha256": "6c4eef40cf111aeec9f1b8d29da7d0df0f8581cff81ac7e02dc24ee610e439b6",
+  "bytes": 57303,
+  "directionSent": "measured civic narration, council speech with formal authority",
+  "heardByWhisper": "These histories contain much useful information.",
+  "generatedAt": "2026-11-22T04:09:08.746Z"
+}

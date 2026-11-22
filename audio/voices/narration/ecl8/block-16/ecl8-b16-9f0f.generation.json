@@ -4,9 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "9e18523a1059d4ba79deee2777daac63c8fbcd837160ea93600d1eed2bd09432",
-  "audioSha256": "03159f43187a00357e5815554bb392468214827fe34e639fc9533187840c03e5",
-  "bytes": 91994,
-  "directionSent": "",
-  "heardByWhisper": "An old lizard man appears before you,  hand raised in a gesture of peace.",
-  "generatedAt": "2026-11-22T03:53:42.824Z"
+  "audioSha256": "4cd0f37063b12cf56eca3f6b17460089382c1d26a90e1a6d8be3bb9472e786e4",
+  "bytes": 97009,
+  "directionSent": "aged, deliberate, dignified, tribal",
+  "heardByWhisper": "An old lizard man appears before you, hand raised in a gesture of peace.",
+  "generatedAt": "2026-11-22T04:05:54.196Z"
 }

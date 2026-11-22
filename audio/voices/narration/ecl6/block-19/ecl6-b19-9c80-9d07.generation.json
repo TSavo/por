@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "e87ebe89056dd9efa074b6d196bbb711603ebfeb0463975c4bd88642cad13383",
-  "audioSha256": "653becba4e73137683eff28134c9ece688701ab2e996a382896ccff7f2b73485",
-  "bytes": 672957,
-  "generatedAt": "2026-11-19T04:42:09.127Z"
+  "audioSha256": "587deb1fd02e1e6e9592a25e460b3a6a5b5e3114eb2f233652bef5cced28d2ea",
+  "bytes": 378714,
+  "directionSent": "deep, resonant, booming, noble and ancient",
+  "heardByWhisper": "You hear a roar, then a great flapping sound.  A strong rush of air batters the party as a large silver dragon lands before the adventurers.  In a booming voice it says,  You fools! I am a good silver dragon, not the evil leader of Flan.  Don't you know that we metallic dragons are good creatures?  What will you do?",
+  "generatedAt": "2026-11-22T04:09:34.760Z"
 }

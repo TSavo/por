@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "c7c2ee6009dbeab29e139290a04d455fb8bd89f759cc1ee3d5201d91f9fb5729",
+  "audioSha256": "89b68364efdfc5d62d00822adef66a5dc26312867ed62be28b77c7b586e8afbd",
+  "bytes": 106204,
+  "directionSent": "measured, expressive fantasy narration appropriate to the scene",
+  "heardByWhisper": "until an explosion of lightning reveals the nightmare scene of a graveyard turned upside down.",
+  "generatedAt": "2026-11-22T04:08:44.890Z"
+}

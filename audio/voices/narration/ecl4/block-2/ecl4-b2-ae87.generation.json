@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "552a8f6e7d2330a345e499a51eb235d57ef05adaea26d15e67e548d436ebe73e",
+  "audioSha256": "fec2674ab8eb6a28a8d0c04294a29c45258b5940b98b8aca6a4b036aff8829d7",
+  "bytes": 112474,
+  "directionSent": "older, amused, confident, sly",
+  "heardByWhisper": "We can duplicate the seal on that chest for half the treasure no one will ever know.  Interested?",
+  "generatedAt": "2026-11-22T04:12:43.215Z"
+}

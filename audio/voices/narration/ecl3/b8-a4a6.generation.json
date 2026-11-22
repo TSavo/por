@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "0899780cbadbd094a41eea78e2ed02dfd9361e133f3eec09d3b317e3268ea782",
+  "audioSha256": "882ea0a2cd2994221a5a985b363463b1be61ce37232cd0be12ee041a67dc5cae",
+  "bytes": 61065,
+  "directionSent": "measured civic narration, council speech with formal authority",
+  "heardByWhisper": "Your clearing of the slum areas permits us to expand.",
+  "generatedAt": "2026-11-22T04:11:22.539Z"
+}

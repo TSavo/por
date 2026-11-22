@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "2db30a27607d646299c42de625f4acaa95b5f88216dc6cf214389bd272f2e91f",
+  "audioSha256": "ed777bcf4504a5b1f922f4f13d8b7876f8762196172cc77e53989e26c71822e1",
+  "bytes": 129192,
+  "directionSent": "measured civic narration, council speech with formal authority",
+  "heardByWhisper": "You are summoned to a special council meeting.  You are to be awarded a valuable commission.  The city guards will show you the way.",
+  "generatedAt": "2026-11-22T04:11:47.489Z"
+}

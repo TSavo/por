@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "fcb8c80e878b5f742efb13c37af44c0b4a350e4c427b2e8f1d100014541b2864",
+  "audioSha256": "a2b7a55c52278c186d074eae863bfad0a17e3929520771109a1ebf11b05d26ea",
+  "bytes": 152180,
+  "directionSent": "older, amused, confident, sly",
+  "heardByWhisper": "A rope is tossed up, and the rest of the party comes down.  The old thief says, our rules require you to be blindfolded in our guild house, okay?",
+  "generatedAt": "2026-11-22T04:12:50.683Z"
+}

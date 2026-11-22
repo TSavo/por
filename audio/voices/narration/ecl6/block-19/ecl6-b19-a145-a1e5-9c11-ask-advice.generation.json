@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "31521d54bd301ad8af87da452628649fb866f0b8815d56743edb97fdce92f131",
-  "audioSha256": "7425e410f1af2ee2891ad729c1035b311d2183e7ff95353c8364a0447bdcbf37",
-  "bytes": 930420,
-  "generatedAt": "2026-11-19T04:42:41.460Z"
+  "audioSha256": "96a33b5f2ff46ff1b177cb5ab139e4575b0b62301aa92b0e281d9340dd834793",
+  "bytes": 550077,
+  "directionSent": "deep, resonant, booming, noble and ancient",
+  "heardByWhisper": "The characters hear a loud flapping noise, and then a warm rush of air hits their faces.  Standing before you now is a great silver dragon. He says,  You are wise to seek my counsel, and I can help you.  Far to the east there is a large kobold complex. There is a silver bottle of great power there that  will help you on your quest. Retrieve that bottle, then return, and I will send you on another quest.  After speaking, the dragon flies through an opening in the ceiling of the cave.  You exit the cave to continue your quest.",
+  "generatedAt": "2026-11-22T04:10:07.523Z"
 }

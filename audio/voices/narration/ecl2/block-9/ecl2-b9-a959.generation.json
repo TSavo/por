@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "17085534db909eb5f82420962000e2cb8913d26cb7109671e0c8e2393f45a4ce",
+  "audioSha256": "e817795a7dadfa0aed34e0fa1f831f140480a5f11b15ef9379476b6ea5ec6989",
+  "bytes": 40585,
+  "directionSent": "expressive fantasy narration, quoted speech in character",
+  "heardByWhisper": "Now beat it before we get serious.",
+  "generatedAt": "2026-11-22T04:11:52.341Z"
+}

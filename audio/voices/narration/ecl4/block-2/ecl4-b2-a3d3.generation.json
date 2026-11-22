@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "f9540aa19872e20d40e3cbe2485ba2cbba013a2cb54ca175a29245d06a434cff",
+  "audioSha256": "0b6d0ff1f0f90e9b978edc2a21bd00bdc345377921c86af4203a786db7b7b63a",
+  "bytes": 54795,
+  "directionSent": "muscular, blunt, impatient, rough",
+  "heardByWhisper": "Words don't break chains, he snarls.",
+  "generatedAt": "2026-11-22T04:12:21.203Z"
+}

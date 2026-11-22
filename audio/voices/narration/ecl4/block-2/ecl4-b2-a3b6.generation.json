@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "ce7e775c58ab28bc20e1445cff50390d0a3bab0008ff468bafda5d93b54b3eeb",
+  "audioSha256": "211111fc6c049a089a370bb223ba5e1188b63ddf1736f3562f6fcecdffec2a38",
+  "bytes": 35569,
+  "directionSent": "muscular, blunt, impatient, rough",
+  "heardByWhisper": "Free me and I'll help you!",
+  "generatedAt": "2026-11-22T04:12:16.346Z"
+}

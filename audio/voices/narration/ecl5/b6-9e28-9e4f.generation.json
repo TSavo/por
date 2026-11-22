@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "95ef3d81a52a093c49caab3af7895ed91eadc45a533f0ded19807b97bc916a22",
+  "audioSha256": "b3913398b6d22154fd27f2936571f7e2ebae8b94b1a909def4d09fe6750fe7ac",
+  "bytes": 81545,
+  "directionSent": "",
+  "heardByWhisper": "They help you put on the clothes.  Have no fear, we will keep silence.",
+  "generatedAt": "2026-11-22T04:13:23.833Z"
+}

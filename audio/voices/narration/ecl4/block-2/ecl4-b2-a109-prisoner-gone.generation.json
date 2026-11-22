@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "df63d574f6fee8e0657d561cb64ab2a16b14a82e102a797f69b8b39488f492fc",
+  "audioSha256": "8245999a7f8faebb90dd4d4d9fde08f4d7f2fed94215a887dca308b282702d46",
+  "bytes": 53541,
+  "directionSent": "muscular, blunt, impatient, rough",
+  "heardByWhisper": "You are in a very small dark room.",
+  "generatedAt": "2026-11-22T04:11:57.718Z"
+}

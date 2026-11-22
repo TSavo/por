@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "03c3e2d0ff58a865df64472a6b61201e6944c1516c573860f82aadbef2272ecd",
+  "audioSha256": "f8432c633cef0deadcb17039da48c78571717d7e692ccf5fee449e624d91dda0",
+  "bytes": 80291,
+  "directionSent": "oily, avaricious, cowardly, unpleasant",
+  "heardByWhisper": "You ignore the sleazy merchant and concentrate on rescuing the boy.",
+  "generatedAt": "2026-11-22T04:07:50.056Z"
+}

@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "70f410da97c4a916e3e7be07caf6027f336d2efb4ab91d4fa6e8447ffc3920f0",
-  "audioSha256": "f7da10ed6f0bc52867d4eb14e00943435a13a9f92ab3a0668e0fb32a19added6",
-  "bytes": 894475,
-  "generatedAt": "2026-11-19T04:42:00.317Z"
+  "audioSha256": "018941974ac8c9de2668f0fe013d4ec0e271a4333bbe65c855818cc43b99c962",
+  "bytes": 552585,
+  "directionSent": "deep, resonant, booming, noble and ancient",
+  "heardByWhisper": "You hear a great flapping sound. A strong whoosh of air comes down upon the adventurers.  A large silver dragon stands before you. In a booming voice it says,  I accept your pledge. For your first duty, I command you to recover a powerful magical  bottle from a kobold settlement in the hills far to the east. Then return to me and I shall  give you another task. After speaking, the dragon flies through an opening in the ceiling  of the cave. You exit the cave to continue your quest.",
+  "generatedAt": "2026-11-22T04:09:25.038Z"
 }

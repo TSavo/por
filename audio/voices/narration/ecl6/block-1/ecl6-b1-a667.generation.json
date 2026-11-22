@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "8b22988dc5955ad671a7f161eba6029d7ac90efef5e2b81577bfd0d4b0321e4d",
+  "audioSha256": "815dbfdc5524b58c7f53815fa1f2ada1d26e5f3511156ba5b53ed9a2e11105c2",
+  "bytes": 160957,
+  "directionSent": "large, commanding, battle-hardened, confident",
+  "heardByWhisper": "The captain says, you have chosen wisely.  Some of the buccaneers come forward and strip you of some of your items and money.  They escort you out of the compound.",
+  "generatedAt": "2026-11-22T04:07:56.681Z"
+}

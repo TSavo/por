@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "0e5bab591d665bdc787dbc153669db63b2863a9c022e6d01f4ddd0bc2b9c9c88",
+  "audioSha256": "c016d5893201413ea0e826b58003e5be8c64e427be31874419d43fe8be2fdd8c",
+  "bytes": 104950,
+  "directionSent": "grave, urgent, controlled",
+  "heardByWhisper": "The undead are controlled by a vampire who lurks in the northeast corner of the graveyard, the man says.",
+  "generatedAt": "2026-11-22T04:08:49.938Z"
+}

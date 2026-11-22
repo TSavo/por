@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "001f8da5ba3c3f0f5a136999ff641e0336f99e12d09893dab61bdfa7d6544c79",
+  "audioSha256": "47fc69a6b918cad9389dced895605ab487d32bdb8ca32319fcd7b9919c946891",
+  "bytes": 137969,
+  "directionSent": "large, commanding, battle-hardened, confident",
+  "heardByWhisper": "You have run outside the captain's quarters.  An alarm goes off in the distance.  You see a large group of angry buccaneers charging toward you.",
+  "generatedAt": "2026-11-22T04:08:18.739Z"
+}

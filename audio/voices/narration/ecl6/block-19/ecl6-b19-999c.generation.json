@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "9137d90f0b8b83343c4e18c58844d6f19f0cc7e5e62f98770411f833a04a6d55",
-  "audioSha256": "887e2e72970efe02590a5690ed29750534f77225b339325c16a29093bb225370",
-  "bytes": 466903,
-  "generatedAt": "2026-11-19T04:43:12.788Z"
+  "audioSha256": "6fc3b9c2ef773632c0a1c83d13f8b1ddc7affd028a8ca82434dc9903e0fe9adb",
+  "bytes": 200663,
+  "directionSent": "deep, resonant, booming, noble and ancient",
+  "heardByWhisper": "As you are entering the cave, a magic mouth appears on one of the walls.  In a booming voice it says,  Who enters the home of Diogenes?  Speak now and declare your intent!",
+  "generatedAt": "2026-11-22T04:10:39.788Z"
 }

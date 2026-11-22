@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "58941694216a9eb33ea999944d42bf9fd8f0feac3a757d044470e4ccca6cc995",
-  "audioSha256": "be958e3f06257cfa2f8ab53107f9baf6192ce01ed07a3c9acf96bcbe486e269c",
-  "bytes": 104950,
-  "generatedAt": "2026-11-19T04:48:39.819Z"
+  "audioSha256": "7643239cb0b49b85fab7d89f8bc3f625572adc9bd15f16ce4b6aebdcadf3df11",
+  "bytes": 99517,
+  "directionSent": "Clear measured fantasy narration ending with a direct question",
+  "heardByWhisper": "You are on the north edge of the city.  Will you enter the northern city gates or enter the graveyard?",
+  "generatedAt": "2026-11-22T04:09:13.677Z"
 }
