@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "561c78a1334ebca09af2d23132c7c6a012d884ad24743a67b3ea2b026f4f1979",
-  "audioSha256": "b30e1bd2e1f393a8ba8ba735c184718479845fb7883d065515a390621af9b9e5",
-  "bytes": 79037,
-  "generatedAt": "2026-11-19T04:48:46.918Z"
+  "audioSha256": "1c148c95e3c1f0c6907542de6f5244b93113d1f4d4599c013e064a6243f0fc65",
+  "bytes": 46018,
+  "directionSent": "expressive fantasy narration, quoted speech in character",
+  "heardByWhisper": "You have found the Wyvern's treasure!",
+  "generatedAt": "2026-11-22T04:15:59.064Z"
 }

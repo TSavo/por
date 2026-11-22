@@ -4,9 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "42307d985a21665bd7e3836a78bc6ccb31cc26d3b323051516b174a6750f50a0",
-  "audioSha256": "08198b640c97d6388840d651b877f6628c7e817408bbdddc2a09d25f84240444",
-  "bytes": 112474,
-  "directionSent": "",
-  "heardByWhisper": "I said get lost!  The giant readies his weapon and advances.  The others follow suit.",
-  "generatedAt": "2026-11-22T04:13:08.503Z"
+  "audioSha256": "908f6f6e316e3ddc57dba61645c22a8e238bef26f06cfdcf6ab8f174a0588631",
+  "bytes": 102025,
+  "directionSent": "The giant's angry warning flows directly into the narrator's combat movement",
+  "heardByWhisper": "I said get lost!\"  The giant readies his weapon and advances.  The others follow suit.",
+  "generatedAt": "2026-11-22T04:15:34.116Z"
 }

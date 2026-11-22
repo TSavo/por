@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "038a4b02a0fee772e10b2e823fffc7f7b4965d20dca7701d047badba665ffbf6",
-  "audioSha256": "f0f06ce464715c031f4104a3cd78fa93c964bc056c37d1c35db755e1f2c13ff1",
-  "bytes": 312258,
-  "generatedAt": "2026-11-19T04:50:24.476Z"
+  "audioSha256": "3d10845c8d98c0dd9ea0e24acaa94b30e4dd5befc1fd42886beceb913e33da29",
+  "bytes": 140477,
+  "directionSent": "frightened, pleading, sickly",
+  "heardByWhisper": "The kobalt scamper quickly away.  Just before passing out of sight, one turns and raises his hand in a gesture, as if to wave farewell.",
+  "generatedAt": "2026-11-22T04:17:09.205Z"
 }

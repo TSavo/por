@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "067d7c7431b347e39beaec904f8a104fb9e97a6a0ddca1c0d54d82d7865e7349",
-  "audioSha256": "e5b4b1d832737f114a3545594d8519e6ecf867c50fecc797c1109e99e8dd2426",
-  "bytes": 104950,
-  "generatedAt": "2026-11-19T04:52:14.607Z"
+  "audioSha256": "e05a75213b09492f32f286564b5b886106296532abcad9260693df5a715c51f2",
+  "bytes": 107458,
+  "directionSent": "measured, expressive fantasy narration appropriate to the scene",
+  "heardByWhisper": "The soldiers greet you and you exchange pleasantries.  The soldiers then leave and bid you good day.",
+  "generatedAt": "2026-11-22T04:16:06.174Z"
 }

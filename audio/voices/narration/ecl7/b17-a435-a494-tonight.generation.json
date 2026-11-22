@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "0d5d8e6936f09755dd08495e7a961d6d5f53af6a8964d42bd16163e47ce6212e",
-  "audioSha256": "fc0196f4aa9b5d5e027078410794fabf4cb0f96e553a06b769e9fafa1904f40c",
-  "bytes": 253326,
-  "generatedAt": "2026-11-19T04:44:24.340Z"
+  "audioSha256": "76212d47793cbd664759cbd96a55fcd6bc2d87a814c1cb18cd08308c7ff74658",
+  "bytes": 145910,
+  "directionSent": "The headman speaks with rough dignity and guarded hospitality",
+  "heardByWhisper": "The biggest nomad, apparently the chief or headman, acknowledges you with a nod.  We will give a feast in your honor tonight.  Will you join us?",
+  "generatedAt": "2026-11-22T04:17:27.849Z"
 }

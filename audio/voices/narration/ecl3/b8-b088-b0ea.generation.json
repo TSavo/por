@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "7534a13b4a887529af2b5b2cc19667912b8d9774c48a753340c2bb9ee1a8217e",
+  "audioSha256": "b3fee6f243238828f79a849d416403e2d8126030ad70201b4d451b7c1342fcd1",
+  "bytes": 263357,
+  "directionSent": "",
+  "heardByWhisper": "It is imperative that a message be delivered to the gentile outpost to the west.  I am sending you as diplomatic envoys.  When you get to Gentral Keep, present this packet to its commandant.  Do not break the seals or you will be seized as spies.",
+  "generatedAt": "2026-11-22T04:16:33.428Z"
+}

@@ -4,7 +4,9 @@
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
   "textSha256": "2e59eb78b94b357bee0dce485c6f8eb4bdd48ec8694a6cc64976387b342f3115",
-  "audioSha256": "b439a3581e7e590d391fd946eed20c072af73a65dd340d08fc42cff05d36e2e2",
-  "bytes": 577244,
-  "generatedAt": "2026-11-19T04:49:28.624Z"
+  "audioSha256": "f42923fb2fa380520caf7cc25829bdd1146e158c39f7f2ac95257560746afa3a",
+  "bytes": 351964,
+  "directionSent": "frightened, pleading, sickly",
+  "heardByWhisper": "The kobolds fawn on you pathetically.  Please, oh please, noble ones, don't hurt us, they beg.  We were sent on a scouting mission by our king.  Rumors of a wondrous pool came to him in his lair.  We are all that remains of the mighty band that was sent west to test the tales.  We mean you no harm.  We only seek to return to our families.",
+  "generatedAt": "2026-11-22T04:16:44.044Z"
 }
