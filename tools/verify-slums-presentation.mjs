@@ -15341,21 +15341,23 @@ try {
       for (let turn = 0; turn < 20 && !brin(); turn++) await advance("space");
       assert.ok(brin(), "Expected Brin's manual combat menu");
       const party = frame.combatArt.find(([, , id, , highlight]) => id === "combat:party:0:0" && highlight);
-      assert.deepEqual(party, [80, 80, "combat:party:0:0", true, true]);
+      assert.deepEqual(party?.slice(0, 5), [80, 80, "combat:party:0:0", true, true]);
       await waitFor("Brin's rendered icon and restored selection frame", () => run(`(() => {
         if (state.sequence !== ${frame.sequence}) return false;
         const sprite = [...document.querySelectorAll('.combat-sprite[src="/art/combat:party:0:0"]')]
           .find(image => image.style.left === "25%" && image.style.top === "40%");
-        const image = document.querySelector("#screen");
-        if (sprite?.naturalWidth !== 96 || !image.complete) return false;
+        const selection = [...document.querySelectorAll('.combat-selection[src="/art/combat-selection:COMSPR.DAX:25"]')]
+          .find(image => image.style.left === "25%" && image.style.top === "40%");
+        if (sprite?.naturalWidth !== 96 || selection?.naturalWidth !== 96 ||
+            !(selection.compareDocumentPosition(sprite) & Node.DOCUMENT_POSITION_FOLLOWING)) return false;
         const context = document.createElement("canvas").getContext("2d");
-        context.canvas.width = context.canvas.height = 24;
-        context.drawImage(image, 80, 80, 24, 24, 0, 0, 24, 24);
+        context.canvas.width = context.canvas.height = 96;
+        context.drawImage(selection, 0, 0);
         const color = (x, y) => [...context.getImageData(x, y, 1, 1).data].slice(0, 3).join(",");
-        return color(0, 0) === "254,245,221" && color(23, 23) === "87,81,82" &&
-          color(10, 6) === "174,166,153";
+        return color(4, 4) === "227,186,105" && color(95, 95) === "54,37,24" &&
+          color(48, 48) === "70,60,50";
       })()`));
-      await switchBothWays();
+      await switchBothWays(frame.frame);
       const shot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "sokal-brin-selected.png"), Buffer.from(shot.data, "base64"));
       for (const key of ["a", "n", "n", "n"]) await advance(key);
@@ -15364,13 +15366,12 @@ try {
       assert.match(aim, /RANGE=3/i);
       const orc = "combat:area:21:CPIC4.DAX:4:ecl:aed4";
       const target = frame.combatArt.find(([, , id, , highlight]) => id === orc && highlight);
-      assert.deepEqual(target, [128, 128, orc, false, true]);
+      assert.deepEqual(target?.slice(0, 5), [128, 128, orc, false, true]);
       await waitFor("the enhanced orc and Aim reticle", () => run(`(() => {
         if (state.sequence !== ${frame.sequence}) return false;
         const sprite = [...document.querySelectorAll(${JSON.stringify(`.combat-sprite[src="/art/${orc}"]`)})]
           .find(image => image.style.left === "40%" && image.style.top === "64%");
-        const image = document.querySelector("#screen");
-        if (sprite?.naturalWidth !== 96 || !image.complete) return false;
+        if (sprite?.naturalWidth !== 96) return false;
         const reticle = document.querySelector(".combat-aim-reticle");
         if (reticle?.style.left !== "40%" || reticle.style.top !== "64%" ||
             reticle.nextElementSibling !== sprite) return false;
@@ -15378,11 +15379,10 @@ try {
           node.style.left === reticle.style.left && node.style.top === reticle.style.top);
         if (backing?.naturalWidth !== 96 || !reticle.classList.contains("combat-aim-reticle-backed") ||
             !(backing.compareDocumentPosition(reticle) & Node.DOCUMENT_POSITION_FOLLOWING)) return false;
-        const context = document.createElement("canvas").getContext("2d");
-        context.drawImage(image, 131, 136, 1, 1, 0, 0, 1, 1);
-        return [...context.getImageData(0, 0, 1, 1).data].join(",") === "254,245,221,255";
+        const rim = getComputedStyle(reticle, "::after");
+        return rim.borderTopColor === "rgb(255, 204, 125)" && rim.borderTopWidth === "2px";
       })()`));
-      await switchBothWays();
+      await switchBothWays(frame.frame);
       const aimShot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "sokal-orc-aimed.png"), Buffer.from(aimShot.data, "base64"));
       console.log("Verified Brin's selected combat icon and the orc in the Aim reticle in Chrome.");

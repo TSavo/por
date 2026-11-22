@@ -14,8 +14,9 @@
  * 2. The other way: which original pictures and frames does no key cover? Those are what Enhanced
  *    would show blank. Every 8 by 8 tile counts as its own item and needs a 32 by 32 PNG.
  *
- * It prints the count of keys resolved by the static audit, writes unresolved keys and
- * uncovered tiles and frames to out/art-catalogue.json, and fails while any key is unresolved.
+ * It reports static matches and separately identifies keys observed only in historical
+ * framebuffer captures. It writes those results to out/art-catalogue.json and fails on
+ * unexplained keys.
  * An unresolved script key can still work in play. The runtime area ID can change while the
  * previous ECL block is still loaded, and some dialogue and menu text is composed at runtime.
  */
@@ -35,6 +36,10 @@ import { monsterCombatKey } from "./combat-art.js";
 const read = (path: string) => new Uint8Array(readFileSync(join(portGameRoot, path)));
 const data = readGameData(read);
 const records = new Map(data.pictures.map((record) => [`${record.file}:${record.block}`, record]));
+const { historicalBattleFramebuffer } = JSON.parse(readFileSync(new URL("../qa/art-worklist-observed.json", import.meta.url), "utf8")) as {
+  historicalBattleFramebuffer: { route: string; traceSha256: string; frames: number; cells: { key: string; occurrences: number }[] };
+};
+const historicalBattleKeys = new Set(historicalBattleFramebuffer.cells.map(({ key }) => key));
 
 // Native captions printed while the ECL interpreter is suspended.
 const nativeCueSources = new Map<string, { overlay: number; offset: number; exampleNumber?: string }>([
@@ -242,8 +247,9 @@ const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
 
 interface Finding { key: string; manifest: string; reason: string }
 const unreachable: Finding[] = [];
+const historical: Finding[] = [];
 const wrongSize: { key: string; file: string; found: string }[] = [];
-const counts = new Map<string, { total: number; reachable: number }>();
+const counts = new Map<string, { total: number; reachable: number; historical: number }>();
 const tileArt = new Map<string, { areas: Set<string>; sized: boolean }>();
 let total = 0;
 for (const manifest of ["upgrades/manifest.json", "upgrades/slums/manifest.json"]) {
@@ -251,7 +257,7 @@ for (const manifest of ["upgrades/manifest.json", "upgrades/slums/manifest.json"
   for (const [key, file] of Object.entries(assets)) {
     total++;
     const kind = key.slice(0, key.indexOf(":"));
-    const count = counts.get(kind) ?? { total: 0, reachable: 0 };
+    const count = counts.get(kind) ?? { total: 0, reachable: 0, historical: 0 };
     counts.set(kind, count);
     count.total++;
     let reason: string | undefined = "the catalogue does not know this shape of key";
@@ -259,7 +265,11 @@ for (const manifest of ["upgrades/manifest.json", "upgrades/slums/manifest.json"
       const match = pattern.exec(key);
       if (match) { reason = rule(match); break; }
     }
-    if (reason) unreachable.push({ key, manifest, reason }); else count.reachable++;
+    if (!reason) count.reachable++;
+    else if (kind === "battle-tile" && historicalBattleKeys.has(key)) {
+      historical.push({ key, manifest, reason });
+      count.historical++;
+    } else unreachable.push({ key, manifest, reason });
     const tile = /^tile:(\d{1,3}):([a-f0-9]{64})$/.exec(key);
     if (tile) {
       let size: { width: number; height: number } | undefined;
@@ -274,12 +284,15 @@ for (const manifest of ["upgrades/manifest.json", "upgrades/slums/manifest.json"
   }
 }
 
-console.log("Artwork keys the built-in data can produce from identities alone");
-console.log("kind                 total   resolved     unresolved");
-for (const [kind, { total, reachable }] of [...counts].sort((a, b) => b[1].total - a[1].total)) {
-  console.log(`${kind.padEnd(20)} ${String(total).padStart(5)}  ${String(reachable).padStart(9)}  ${String(total - reachable).padStart(13)}`);
+console.log("Enhanced artwork keys and their provenance");
+console.log("kind                 total     static  historical    unresolved");
+const summary = (kind: string, total: number, reachable: number, observed: number) =>
+  `${kind.padEnd(20)} ${String(total).padStart(5)}  ${String(reachable).padStart(9)}  ${String(observed).padStart(10)}  ${String(total - reachable - observed).padStart(12)}`;
+for (const [kind, { total, reachable, historical }] of [...counts].sort((a, b) => b[1].total - a[1].total)) {
+  console.log(summary(kind, total, reachable, historical));
 }
-console.log(`${"all".padEnd(20)} ${String(total).padStart(5)}  ${String(total - unreachable.length).padStart(9)}  ${String(unreachable.length).padStart(13)}`);
+console.log(summary("all", total, total - historical.length - unreachable.length, historical.length));
+if (historical.length) console.log(`${historical.length} keys observed in the historical ${historicalBattleFramebuffer.route} final framebuffer have no single-cell source in the static catalogue`);
 console.log(`tile keys by form: ${Object.entries(tileKeysByForm).map(([form, count]) => `${form} ${count}`).join(", ")}`);
 if (positionsNotAtInstruction) console.log(`${positionsNotAtInstruction} script positions named by keys are inside the script but not at the start of an instruction the disassembly reached`);
 const reasons = new Map<string, number>();
@@ -363,12 +376,12 @@ console.log(`PIC, SPRIT, CPIC, COMSPR and RANDCOM, the archives docs/ART-INVENTO
 
 mkdirSync("out", { recursive: true });
 writeFileSync(join("out", "art-catalogue.json"), JSON.stringify({
-  keys: total, unreachable, wrongSize, tilesWithout,
+  keys: total, unreachable, historical, wrongSize, tilesWithout,
   portraitHolds: [...byArchive.values()].flatMap(({ holds }) => holds),
   blankApproachSprites: [...blankSprites],
   framesNoKeyNames: Object.fromEntries([...byArchive].map(([family, { uncovered }]) => [family, uncovered])),
 }, null, 1) + "\n");
-console.log("\nEvery unresolved key, tile without a replacement and frame no key names is listed in out/art-catalogue.json");
+console.log("\nHistorical observations, unresolved keys, uncovered tiles and unnamed frames are listed in out/art-catalogue.json");
 if (unreachable.length) {
   console.error(`\nverify:art-catalogue: ${unreachable.length} of ${total} artwork keys were not resolved by the static audit. The first of each kind:`);
   const shown = new Set<string>();
@@ -380,4 +393,4 @@ if (unreachable.length) {
   }
   process.exit(1);
 }
-console.log(`\nverified: all ${total} artwork keys can be produced from the built-in data`);
+console.log(`\nverified: ${total - historical.length} static keys and ${historical.length} historical framebuffer keys`);

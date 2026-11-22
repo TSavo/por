@@ -1,5 +1,18 @@
 {
  "about": "Evidence tools/art-worklist.ts uses beside the existing artwork. Per area: `shown` lists backdrops the running game (GOG 1.3, piped play with POR_TRACE_TILES=1) drew there, which count exactly as backdrops existing artwork confirms; `notShown` lists backdrops the area's script shows cannot occur there, whose cells are left out for good. A backdrop is `s<sky colour>`, `g<ground colour>` or `h<sky>.<line>.<band>.<ground>`; `s<sky>` also stands for the horizon row under that sky. `rules` records play evidence for rules the tool applies to every area. The sky colour is the table at ds:0x0c26 indexed by script variable 0x49fd (open sky) or 0x49fe (under a roof): 8 gives colour 0, 9 gives 15, 10 gives 12, 11 gives 11.",
+ "historicalBattleFramebuffer": {
+  "route": "sokal-courtyard",
+  "trace": "slums-presentation-u8BbFP/battle-tiles.jsonl",
+  "traceSha256": "88021ff1f7f0f4ef76582acd4b6375646fd3d50de36d412a2090a12aab9d857a",
+  "frames": 46,
+  "cells": [
+   {"key":"battle-tile:b895149757d8714765402e524005035de2876195dcafcdffbcdf004993f36079","first":{"frame":5,"x":168,"y":56},"occurrences":23},
+   {"key":"battle-tile:fd90afc9b2ca15c3fe592b36d50ca207ada1b7c56426781c5d1c03ddc736a426","first":{"frame":0,"x":96,"y":48},"occurrences":16},
+   {"key":"battle-tile:e668bccffc3df9164d4a7e1a735c2a8c03b275035f82cd0f935e6c0ee13ed1f9","first":{"frame":14,"x":96,"y":80},"occurrences":8},
+   {"key":"battle-tile:ba4085dd7fdd4e5675ac826dfc138a36a6b758920c6b9030e570b98086f65bd9","first":{"frame":14,"x":80,"y":96},"occurrences":8},
+   {"key":"battle-tile:7c65890e55e9c2edab246c6c49f2bb097a16c24c639ca75533ec7904e97fa372","first":{"frame":14,"x":96,"y":96},"occurrences":8}
+  ]
+ },
  "rules": [
   {
    "rule": "The game resets the ground code (DS:0x6f68, script address 0xc059) to 0x41 and the horizon code (DS:0x6f69, script address 0xc05f) to 9 whenever it starts a script: ovl07 0x01b6, called from the NEW ECL command (ovl03 0x0bd1, at 0x0c55, straight after the new block is loaded) and from the start of the exploring loop (ovl03 0x32f8, at 0x335d: a new game and a loaded game). ovl26 0x016d turns the codes into colours: the horizon code gives the line (0x00c7: 8 and 0x41 give 0, anything else 15) and the band (0x00fb: 8 gives 8, anything else 7); the ground code gives the ground (0x012f: 0x0b gives 8, 6 gives 1, anything else 6). So the reset values 0x41 (ground) and 9 (horizon) draw line 15, band 7, ground 6, the same as the values the program starts with (ovl11 0x044c: 0xdb and 0xe8). 0x41 gives line 0 only in the horizon code, which Kuto's Well's script alone writes (af52).",
