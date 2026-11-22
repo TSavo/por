@@ -5422,6 +5422,7 @@
     "encounter:area:10:ecl:a83c:SPRIT4.DAX:114:2:0": "valhingen-mummy-approach-far.png",
     "encounter:area:10:SPRIT4.DAX:114:1:0": "valhingen-mummy-approach-middle.png",
     "portrait:PIC4.DAX:114:0:0": "valhingen-mummy-sarcophagi.png",
+    "scene-illustration:area:10:ecl:a893": "valhingen-mummy-sarcophagi-attack.png",
     "tile:13:76c0deea36cb0ab14b18fbc67cc9abfd973415efaf4155abf96285fbaa49a579": "kobold-silt-joins-76c0deea36cb.png",
     "tile:13:ef39e2c6a28fea4e6412d8b31c87d47fe97c8b71ae854be8013b77d5268eff97": "kobold-silt-joins-ef39e2c6a28f.png",
     "portrait:area:10:ecl:b695:caller:a86f:PIC4.DAX:114:1:0": "valhingen-mummy-sarcophagi-phase-1.png",

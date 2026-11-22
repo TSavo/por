@@ -3653,6 +3653,15 @@ const illustrationRoutes = new Map([
     phaseCaptures: { 11: "valhingen-mummy-sarcophagi-phase-2.png" },
     finalPhaseCapture: "valhingen-mummy-sarcophagi-phase-1.png",
   }],
+  ["valhingen-mummy-sarcophagi-attack", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:PIC4.DAX:114:0:0", prompt: /MUMMIESOPENTHEIRSARCOPHOGI/i,
+    continuation: {
+      inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:a893",
+      prompt: /MUMMIESOPENTHEIRSARCOPHOGI.*ABATTLEBEGINS/i,
+      screenshot: "valhingen-mummy-sarcophagi-attack.png",
+    },
+  }],
   ["old-phlan-lizard-patrol-combat-phase-2", {
     slot: "B", inputs: ["up", "enter", "enter", ...Array(17).fill("z")],
     portrait: "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:2:0",
