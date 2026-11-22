@@ -509,7 +509,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // From the game's own data the fight is on screen once the game has drawn its battle frame, as
       // from the original files: "A battle begins..." still shows the approach over the scenery.
       const nativeBattlefield = nativeBattleActive && hasBattlefieldFrame();
-      if (nativeBattlefield || (picture !== undefined && !entranceIllustration)) nativeEncounter?.clear();
+      // A script illustration is the Enhanced picture for a passage the game shows over the view it
+      // already drew: the game draws nothing, so the approach it drew before is still on screen when the
+      // passage ends. The Textile House drum (area 2, 9c81 and abd2 from 9c8b) is shown between the
+      // hobgoblins' approach and "A battle begins...", where the 1.3 files find the hobgoblin again (#139).
+      // A picture the game draws itself still clears it.
+      if (nativeBattlefield || (picture !== undefined && picture !== illustration && !entranceIllustration)) nativeEncounter?.clear();
       const encounter = nativeEncounter?.match(encounterArea, battleCursor, portraitCaller) ??
         encounterArt(presentation, enhanced, encounterArea, !captureApproach, battleCursor,
           [drawnPerspective?.pixels, priorPerspectiveDraw], portraitCaller);
