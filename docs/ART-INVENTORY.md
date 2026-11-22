@@ -221,6 +221,15 @@ clock and legacy discard-poll replay mode. It verified the strike asset
 ID in the native animation and observed Chrome decode the 96 by 96
 sprite during playback.
 
+The `valjevo-dragon-loot` GOG 1.3 Chrome replay at `437f6197`
+uses the local slot B dragon checkpoint. With `POR_TRACE_STANDALONE`
+enabled, the DOS trace records reads covering all 36,603 bytes of
+`FINAL5.DAX` during the route. Chrome verified the Enhanced art for
+the hoard, possession threat, recall through the Pool and departure,
+then verified the return to WebGL exploration in Phlan. Archive reads
+establish that the ending loads these records. Individual on-screen
+placements still require a draw trace.
+
 The Bane ogre commander's ready and strike keys pass the standalone audit
 through the Bane Mansion map's owning script, ECL1 block 24. GOG 1.3 Chrome verified both poses at
 canonical cursor `9f7b` in native combat. A DOS 1.0 Chrome control loaded
