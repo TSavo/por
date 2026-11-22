@@ -366,6 +366,16 @@ The fresh-party route passed on DOS 1.0 and GOG 1.3 at `f8c64c84`.
 At `ab085405`, the fresh-game replay passed with
 `POR_PORTRAIT_TRACE_FILE` enabled. The fallback logger recorded no
 identified classic portrait fallbacks along that route.
+
+The fresh route also passed in Chrome with bundled data and original GOG
+1.3 files at `c20ea9cf`. In each run, all 13 narration selections had
+Enhanced artwork by the next input prompt. The older saved `new-phlan-rolf-tour`
+fixture reached the greeting without a resolved art key in either mode.
+The fresh run showed the full-panel greeting and all seven tour stops.
+The Slums entry, orcs and goblins acceptance runs recorded 38 selections
+across 15 narration units, all with an Enhanced artwork key. These checks
+verify visual selection at the prompts.
+
 Podal Plaza's auction provides another example. Native viewport captures
 from the wand exchange, ogre search, hostile and cancelled branches, and
 Garwin's escape show `PIC1.DAX` picture 16 member 0, which already has
