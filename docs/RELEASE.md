@@ -218,6 +218,35 @@ not exist before the run.
   with its pages, Next on C: (784 MB free) showed "needs 1000 MB free on C:, and C: has 784 MB", OK
   returned to the page, and `E:\por-release-test\room-check-gui` went on to *Choose Components*;
   silent, `/D=C:\por-room-check` exited 2 in a second and left no folder, `/D=E:\…` exited 0.
+- Started as its shortcut starts it (`node\node.exe app\launch.mjs`, from Windows, in a console of its
+  own): Chrome opened at once in app mode on the game's own profile
+  (`--user-data-dir=%APPDATA%\Pool of Radiance\browser --app=file:///E:/…/tools/loading.html?game=…`).
+  Right after installing, the window was on the game by 5 seconds; started cold later, it showed
+  *POOL OF RADIANCE / Loading…* for 76 seconds before the server answered (the artwork read from the
+  USB disk). The console read `POR_GAME_DATA port E:\por-release-test\install\game`.
+- Closing the game's window stopped Chrome, the launcher and the runner within 4 seconds, freed port
+  43124 and removed `running.json`; Ctrl-C in the launcher's console did the same in 3 seconds.
+- A second launch while the game ran printed *already running* and exited, but opened no window: on
+  Windows libuv kills a child that is not detached when Node exits, so the Chrome it spawned died
+  before reaching the running browser (#114). With the Chrome detached (`launch.ts`), a second app
+  window on the game came up within 2.5 seconds.
+- The opening in that Chrome (Chrome 157, driven over DevTools; with the display asleep Chrome counts
+  the window as hidden and refuses screenshots, so that run added
+  `--disable-backgrounding-occluded-windows --disable-features=CalculateNativeWinOcclusion`): the
+  loading page, the publisher splash, the title with both names faded in and the title music playing
+  (`por-title-theme.mp3`, not paused or blocked, 5.2 then 8.2 seconds in), code wheel question 9 read
+  as SAVIOR, the main menu, a new character (dwarf fighter) through the character sheet's Head and Body
+  and the icon editor (*old ready action new ready action*, Parts, colours, Size) to the roster, the
+  six ready-made characters, and the tour to New Phlan's first menu, drawn with WebGL on the RTX 3070
+  (`ANGLE (NVIDIA, NVIDIA GeForce RTX 3070 Direct3D11 vs_5_0 ps_5_0, D3D11)`), no fallback, no
+  console errors.
+- The game's Chrome profile, on C: in `%APPDATA%`, was 181 MB after two starts and 188 MB after the
+  opening, of which Chrome's HTTP cache was 1.6 MB: the rest was what Chrome downloads into any new
+  profile (its components and the optimization guide's models). With `--disable-component-update` and
+  the optimization guide's downloads switched off (#116), a fresh profile was 18.7 MB a minute after
+  a start and 41.4 MB after three (18.6 MB of it Safe Browsing's lists).
+  C: itself was falling (871 MB free at 05:31, 455 MB at 05:50) from Docker Desktop's disk image and
+  Google Drive's cache, both on C: (#116, for the owner).
 
 ## Known gaps
 

@@ -96,9 +96,13 @@ function openBrowser(url: string, ownsGame = false, gameUrl = url): void {
   if (!chrome) { if (gameUrl === url) fallback(new Error("No Chrome")); return; }
   // A window the game does not own outlives this launcher, which may exit at once (a second launch):
   // on Windows only a detached child leaves the job object that kills Node's children when Node exits.
+  // The game's window needs none of what Chrome downloads into a fresh profile (its components and the
+  // optimization guide's models, 150 MB of the 181 MB a first start left on Windows), and the profile is
+  // on the system drive.
   const browser = spawn(chrome, [
     `--user-data-dir=${join(dataDirectory, "browser")}`, `--app=${url}`, "--autoplay-policy=no-user-gesture-required",
-    "--no-first-run", "--no-default-browser-check", "--window-size=1280,880",
+    "--no-first-run", "--no-default-browser-check", "--window-size=1280,880", "--disable-component-update",
+    "--disable-features=OptimizationGuideModelDownloading,OptimizationHintsFetching,OptimizationTargetPrediction,OptimizationHints",
   ], { stdio: "ignore", windowsHide: false, detached: !ownsGame });
   browser.on("error", fallback);
   if (!ownsGame) { browser.unref(); return; }
