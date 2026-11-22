@@ -4291,6 +4291,11 @@ records commission, with separate artwork for the books, map and tome.
 On GOG 1.3 it also checks that the panel clears when the party returns
 to exploration.
 
+The `council-podal-offer` Chrome replay uses the same controlled slot A
+with the earlier records commission fulfilled. It checks the offer to
+investigate the Podal Plaza auction and the picture of the closed case,
+then verifies the return to exploration on GOG 1.3.
+
 The `stojanow-gate-reward` Chrome replay on GOG 1.3 checks the Council
 clerk's artwork as she checks for a reward, sorts the remaining
 commissions, and recognizes the returning party on a second visit.
