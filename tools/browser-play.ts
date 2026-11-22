@@ -241,6 +241,8 @@ let textId = 0;
 const messages: Array<{ id: number; step: number; message: string }> = [];
 let automap = '{"revision":-1,"maps":{}}';
 let automapRevision = -1;
+/** The page that plays the game: the newest window to start (see /state). */
+let activePage: string | undefined;
 let narrationId = 0;
 const narrations: Array<{ id: number; step: number; unitId: string; variantId?: string;
   sourceId: string; coveredSourceIds: string[]; asset: string; text: string }> = [];
@@ -486,6 +488,16 @@ const server = createServer(async (req, res) => {
     if (png) res.writeHead(200, { "content-type": "image/png" }).end(png);
     else res.writeHead(404).end();
   } else if (req.method === "GET" && (req.url === "/state" || /^\/state\?after=-?\d+$/.test(req.url ?? ""))) {
+    // One window plays the game. The page names itself (X-POR-Page) and the newest one to start claims
+    // the game (X-POR-Claim). Any other window, such as a second window opened on the same game, is
+    // told it has been superseded and stops, so nothing is heard twice.
+    const page = req.headers["x-por-page"];
+    if (typeof page === "string" && req.headers["x-por-claim"] === "1") activePage = page;
+    // A request with no page name (the checks reading the state from outside a page) is answered in full.
+    if (activePage && typeof page === "string" && page !== activePage) {
+      res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({ superseded: true, sequence, ready: false }));
+      return;
+    }
     const snapshot = req.url === `/state?after=${sequence}` ? {} : {
       ...frame,
       reflectedTiles,
@@ -499,6 +511,8 @@ const server = createServer(async (req, res) => {
     }));
   } else if (req.method === "POST" && req.url === "/key") {
     if (req.headers.origin !== origin) { res.writeHead(403).end(); return; }
+    const keyPage = req.headers["x-por-page"];
+    if (activePage && typeof keyPage === "string" && keyPage !== activePage) { res.writeHead(409).end(); return; }
     let command = "";
     try {
       for await (const chunk of req) {

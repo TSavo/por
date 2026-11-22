@@ -1892,7 +1892,7 @@ async function send(key) {
     // game's own check and the wheel frame below the picture are never switched on. Their code
     // is kept so the two approaches can be compared.
     const startWheel = false;
-    const headers = { "X-POR-Frame": String(sequence) };
+    const headers = { "X-POR-Frame": String(sequence), "X-POR-Page": pageId };
     if (startWheel) headers["X-POR-Code-Wheel"] = "enhanced";
     const result = await fetch("/key", {
       method: "POST", headers, body: startWheel ? "backspace" : key,
@@ -1913,10 +1913,26 @@ async function send(key) {
   }
 }
 
+// This window's name for the game server. The newest window to start plays the game; an older one
+// is told it has been superseded and stops, so nothing plays twice.
+const pageId = Math.random().toString(36).slice(2) + Date.now().toString(36);
+let pageClaimed = false;
+let superseded = false;
+function showSuperseded() {
+  if (superseded) return;
+  superseded = true;
+  stopVoice(true, "superseded by another window");
+  stopEffect();
+  document.body.innerHTML = '<main style="height:100vh;display:grid;place-items:center;background:#0b0d16;color:#f1dfae;font:1.3rem Georgia,serif;text-align:center">'
+    + '<p>Pool of Radiance is open in another window.<br>You can close this one.</p></main>';
+}
+
 async function poll() {
   try {
-    const response = await fetch(`/state?after=${state.sequence}`);
+    const response = await fetch(`/state?after=${state.sequence}`, { headers: { "X-POR-Page": pageId, ...(pageClaimed ? {} : { "X-POR-Claim": "1" }) } });
+    pageClaimed = true;
     const next = await response.json();
+    if (next.superseded) { showSuperseded(); return; }
     if (lastSoundId === null) lastSoundId = next.soundId ?? 0;
     if (lastTextId === null) lastTextId = next.textId ?? 0;
     if (lastNarrationId === null) lastNarrationId = next.narrationId ?? 0;
