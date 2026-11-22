@@ -271,7 +271,11 @@ display switch with the player's own files (#153): it starts the release's launc
 the page's publisher splash at full strength and while it fades, the title with its name faded in, the
 code-wheel question and the main menu. In Classic only `#screen` may be visible over the game, showing
 the game's own frame, at the switch and two seconds on; back in Enhanced, `#screen` must show
-Enhanced's picture again.
+Enhanced's picture again. On Battleaxe (2026-11-22, `npm run release:build`, the GOG 1.3 files and the
+first release) it failed 3 of 16 in each before `c62a164a`: the splash stayed over the Classic title
+at opacity 1 (full strength, at the switch and two seconds on) and 0.909 or 0.954 (switched while
+fading), until its own timer and fade ended it. Switching to Classic now ends the splash at once: 16 of
+16 in each.
 
 Whether the shipped data shows the same Enhanced pictures as the original files, frame by frame, is
 `npm run verify:port-parity`: see docs/STANDALONE.md, "Port parity".
