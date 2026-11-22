@@ -213,6 +213,10 @@ const encounterRoutes = new Map([
     placement: [48, 32, "encounter:area:18:SPRIT1.DAX:4:0:0", 40, 80],
     dialogue: {
       key: "enter", portrait: "portrait:area:18:PIC1.DAX:4:0:0", prompt: /AROBEDORCISSITTINGHERE/i,
+      heldPortraitLoop: [
+        "portrait:area:18:PIC1.DAX:4:0:0",
+        ...[1, 2, 1].map(member => `portrait:area:18:ecl:af2a:PIC1.DAX:4:${member}:0`),
+      ],
       heldPortrait: "portrait:area:18:ecl:af2a:PIC1.DAX:4:2:0",
     },
   }],
