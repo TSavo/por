@@ -201,7 +201,11 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
         const messageMs = returnsTo(this, 0, code.pauseResumes) &&
           (returnsTo(this, deathReturnDepth, code.messageResumes) || returnsTo(this, deathReturnDepth, code.colouredMessageResumes))
           ? this.read16(this.ss, (this.sp + 4) & 0xffff) : undefined;
-        capturePresentationDelay?.(this, effectDelay, messageMs);
+        // Any other pause through the pause routine (the script's DELAY, speed x 225 ms): its length,
+        // so the picture before it is held that long (#129).
+        const pauseMs = messageMs === undefined && !deathDelay && returnsTo(this, 0, code.pauseResumes)
+          ? this.read16(this.ss, (this.sp + 4) & 0xffff) : undefined;
+        capturePresentationDelay?.(this, effectDelay, messageMs, pauseMs);
       }
       // Some approach sequences refresh several native distances between inputs.
       if (captureEncounterDraw && isAt(this, at, code.encounterDrawn) && this.steps >= liveStep) captureEncounterDraw(this);

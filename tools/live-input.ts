@@ -305,6 +305,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let pictureLoopBatch = 2;
   let pictureLoopPasses = 0;
   let pictureLoopClip: PresentationAnimationFrame | undefined;
+  // The last encounter picture drawn as an approach clip, and the pauses that followed it (#129).
+  let approachClip: PresentationAnimationFrame | undefined;
+  let approachClipMs = 0;
   let immediateStrike: { signature: string; clip: PresentationAnimationFrame } | undefined;
   /** Send the pictures captured so far in a frame the page plays, and wait until it asks for more. */
   const handOverPictureLoop = (next: number) => {
@@ -1062,7 +1065,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const captureAnimation = hasEncounterArtwork && animation.length < 12;
       if (scene || area === undefined || (!nativeEncounterDirectory && !captureAnimation)) return;
       captureEclContext(cpu);
+      const before = animation.length;
       const replacement = captureAnimation ? showFrame(undefined, undefined, true)?.[2] : undefined;
+      if (animation.length > before) {
+        approachClip = animation.at(-1);
+        approachClipMs = 0;
+      }
       if (nativeEncounterDirectory) {
         const cursor = battleCursor?.toString(16).padStart(4, "0") ?? "unknown";
         const digest = createHash("sha256").update(perspectivePixels()).digest("hex");
@@ -1234,7 +1242,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if (clip) immediateStrike = { signature, clip };
       lastAttack = signature;
     } : undefined,
-    capturePresentationDelay: browser ? (cpu: Cpu, effectDelay = false, messageMs?: number) => {
+    capturePresentationDelay: browser ? (cpu: Cpu, effectDelay = false, messageMs?: number, pauseMs?: number) => {
+      // The game pauses on the encounter picture it just drew (DELAY between APPROACHes, Rolf's
+      // three steps among them): the page holds that picture as long as the original pauses, the
+      // game speed times 225 ms, where it held each for 120 ms (#129).
+      if (pauseMs !== undefined && approachClip && animation.at(-1) === approachClip) {
+        approachClipMs += pauseMs;
+        approachClip.durationMs = approachClipMs;
+        return;
+      }
       const draw = effectDelay ? pendingEffect : undefined;
       pendingEffect = undefined;
       if (messageMs !== undefined) {
