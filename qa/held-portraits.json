@@ -2052,7 +2052,117 @@
           "viewport": "9e312f5b83be8e1746c7d84c8a7e8284d608f84f9eec15923768afc276515323"
         }
       ],
-      "producer": "ECL5.DAX:4:a339"
+      "producer": "ECL5.DAX:4:a339",
+      "chrome": {
+        "original": {
+          "route": "valjevo-giant-barracks-password-haughty-loop",
+          "data": "original",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "7ecfb42f8c460d20e74f3b060d4d1dbc80a7a1836d3e546e2dc68c48debc8679",
+          "portrait": "scene-illustration:area:4:ecl:9a5a:caller:a442",
+          "paints": [
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:1:0",
+              "atMs": 1.1000000119211109
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:0:0",
+              "atMs": 167.80000001192093
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:3:0",
+              "atMs": 384.4000000119213
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:0:0",
+              "atMs": 584.4000000119213
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:1:0",
+              "atMs": 801.1000000119202
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:0:0",
+              "atMs": 1001.1000000119202
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:3:0",
+              "atMs": 1217.800000011921
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:0:0",
+              "atMs": 1434.5000000119217
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:1:0",
+              "atMs": 1634.4000000119213
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:0:0",
+              "atMs": 1851.0000000119217
+            }
+          ],
+          "sha256": {
+            "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:1:0": "ed64e6288c7c72478fce65a1c4888fac3164bc2cf81bd8baa62089dafa64058b",
+            "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:0:0": "1af097d46ca111f21d909a89c79eee4f9d1ec31df2f7055f909a968ed042d516",
+            "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:3:0": "014279c8634270c34bd976fdf3398904feee2469b87a35b03c49028e5e8b82c8"
+          }
+        },
+        "port": {
+          "route": "valjevo-giant-barracks-password-haughty-loop",
+          "data": "port",
+          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "bindingSha256": "7ecfb42f8c460d20e74f3b060d4d1dbc80a7a1836d3e546e2dc68c48debc8679",
+          "portrait": "scene-illustration:area:4:ecl:9a5a:caller:a442",
+          "paints": [
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:1:0",
+              "atMs": 3.299999988079435
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:0:0",
+              "atMs": 136.5999999880787
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:3:0",
+              "atMs": 353.29999998807943
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:0:0",
+              "atMs": 553.2999999880794
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:1:0",
+              "atMs": 769.8999999880789
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:0:0",
+              "atMs": 986.4999999880793
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:3:0",
+              "atMs": 1186.5999999880787
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:0:0",
+              "atMs": 1403.199999988079
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:1:0",
+              "atMs": 1603.2999999880794
+            },
+            {
+              "key": "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:0:0",
+              "atMs": 1819.899999988079
+            }
+          ],
+          "sha256": {
+            "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:1:0": "ed64e6288c7c72478fce65a1c4888fac3164bc2cf81bd8baa62089dafa64058b",
+            "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:0:0": "1af097d46ca111f21d909a89c79eee4f9d1ec31df2f7055f909a968ed042d516",
+            "portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:3:0": "014279c8634270c34bd976fdf3398904feee2469b87a35b03c49028e5e8b82c8"
+          }
+        }
+      }
     },
     {
       "id": "area:4:ecl:a36b:PIC5.DAX:56",

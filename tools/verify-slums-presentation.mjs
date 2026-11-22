@@ -1220,6 +1220,16 @@ const illustrationRoutes = new Map([
       prompt: /^(?!.*TODAY'SPASSWORDIS).*NAMEACHP/i,
     },
   }],
+  ...Object.entries({ haughty: "h", sly: "s" }).map(([response, key]) => [`valjevo-giant-barracks-password-${response}-loop`, {
+    slot: "B", inputs: ["up", "enter", "a", "p", key],
+    portrait: "scene-illustration:area:4:ecl:9a5a:caller:a442",
+    prompt: response === "haughty" ? /THISPAPERHASTHEPASSWORDS/i : /LET'SSEEIFYOUCANREADTODAY'SLIST/i,
+    heldPortraitLoop: [0, 1, 0, 3].map(member => `portrait:area:4:ecl:9a5a:caller:a442:PIC5.DAX:56:${member}:0`),
+    continuation: {
+      inputs: ["enter"], portrait: "scene-illustration:area:4:ecl:9a5a:caller:a49f",
+      prompt: /TODAY'SPASSWORDIS.*THEGATEPASSWORDIS/i,
+    },
+  }]),
   ["valjevo-disguise-offer", {
     slot: "B", inputs: ["up", "enter", "n"],
     portraitStops: {
@@ -7396,6 +7406,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valjevo-fire-giant-loop" ||
       routeName === "valjevo-fire-giant-refusal-loop" ||
       routeName === "valjevo-fire-giant-intruder-loop" ||
+      /^valjevo-giant-barracks-password-(haughty|sly)-loop$/.test(routeName) ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
