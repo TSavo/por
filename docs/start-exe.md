@@ -13,7 +13,7 @@ What an unpacked header tells you:
 - `e_cparhdr` paragraphs of header, relocation count, and the entry `CS:IP`
 - Image size from the page count, and how many bytes sit after the image
 
-EXEPACK's stub is what runs if you load the packed file. The game code is not visible as instructions until the stub has expanded it. REA's own DOS guide says the same thing: importing a packed executable analyzes the unpacker, and a separately unpacked image is what you inspect for the game. This repo does not yet contain an EXEPACK expander. `unp` is the usual one. Until that is wired up, a packed `START.EXE` should be unpacked by hand and dropped next to the original. Keep both hashes.
+EXEPACK's stub is what runs if you load the packed file. The game code is not visible as instructions until the stub has expanded it. REA's own DOS guide says the same thing: importing a packed executable analyzes the unpacker, and a separately unpacked image is what you inspect for the game. This repo contains an EXEPACK expander: `src/lib/exepack.ts` (`loadExecutable`) unpacks the load image for the runtime, and `tools/exepack.py` is the same routine in Python. Version 1.3's `START.EXE` ships packed and the first release's does not. `npm run tools -- exe` itself still only reports the packer signature and does not scan a packed file for overlay stubs, so analyze an unpacked copy with REA.
 
 ## What REA did here
 

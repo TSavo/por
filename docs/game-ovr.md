@@ -10,7 +10,7 @@ code bytes   = descriptor + 8   (uint16)
 reloc bytes  = descriptor + 10  (uint16)
 ```
 
-Phase 1 records the descriptor and can list the slices once an unpacked `START.EXE` is next to `GAME.OVR`. It does not yet apply the relocations or disassemble the slices. That is intentional. REA/Ghidra will do the disassembly on each slice loaded as a raw 16-bit image at the paragraph from the descriptor, and only after the EXE scan says the offsets are real.
+The port applies the relocations and runs the slices: `src/runtime/overlay.ts` copies each slice to its own segment, adds the load paragraph to every word the relocation list names, and runs the translated procedures (`tools/tp_translate.py` disassembled every slice with Capstone). The 38 descriptors are in `docs/overlays.json`; `npm run tools -- exe` lists them from the EXE. REA/Ghidra work on a slice, if wanted, loads it as a raw 16-bit image at the paragraph from the descriptor.
 
 ## What REA will and will not do with this file
 
@@ -27,4 +27,4 @@ This was not run on the game, because the uploaded archive was not in the VM. Th
 
 ## Size of the unknown
 
-The largest open question for the executable side is the relocation records inside each OVR slice. The descriptor gives a reloc size but not the record width. CotAB's loader walks that area and patches segment words. Until that loop is decompiled from the unpacked PoR (or CotAB) handler, slicing the file gives bytes without a load address you can trust. The DAX and ECL work did not need this, because those formats are data files. Combat math, the text driver, and the save-game layout do need it, which is why they sit in later phases of `ROADMAP.md`.
+The relocation record width is settled: the read routine at `591f` in `START.EXE` walks the area one word at a time (`lodsw; add word es:[bx], di`; see `docs/PORT.md`). The descriptor gives the relocation byte count, so each slice has `reloc bytes / 2` entries.

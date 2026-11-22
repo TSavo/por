@@ -46,9 +46,9 @@ Generated:
 
 ## What is still scaffolding
 
-`src/lib/dax.ts`, `picture.ts`, `ecl.ts`, `world.ts`, and `files.ts` support asset inspection, image export, and ECL analysis.
+`src/lib/dax.ts`, `picture.ts`, `ecl.ts`, `world.ts`, and `files.ts` support asset inspection, image export, and ECL analysis. They are not the game: the game is the translated runtime above.
 
-The translated entry runs through the former insert-disk loop. It opens `GAME.OVR`, `POOL.CFG`, `8X8D1.DAX`, `SQRPACI.DAX`, `COMSPR.DAX`, `ITEMS`, and `TITLE.DAX`, then reaches title rendering. The filename corruption was caused by the translation harness preloading later overlay slices inside Turbo Pascal's heap; ordinary `GetMem` calls overwrote slice 36's CS-relative strings. Resident translated slices now use a backing arena above segment `0x9000`. DOS `Get Time` also advances deterministically so the game's delay loop can finish. The current boot guard is the 30-million-instruction budget during title work; the captured frame is still blank. Calling `ovl07_0353` on a fresh machine, without startup state, currently stops at an untranslated resident far call.
+The translated entry runs the whole game, from the title through play, in the browser (`npm run play`). Resident translated slices use a backing arena above segment `0x9000`, so ordinary `GetMem` calls cannot overwrite an overlay slice's CS-relative strings. DOS `Get Time` advances deterministically so the game's delay loops finish. `npx tsx tools/boot-translated.ts` is the bare boot harness; calling `ovl07_0353` on a fresh machine, without startup state, stops at an untranslated resident far call.
 
 ## REA
 
@@ -56,4 +56,4 @@ REA 6.9.0 with Ghidra 12.1.4 loaded `START.EXE` as `dos-mz` / `x86:LE:16:Real Mo
 
 ## Coverage
 
-See `docs/COVERAGE.md`. All 758 overlay prologues and the resident procedures the translator can close over are emitted. Two of them are checked byte-for-byte. The entry has been executed through the initial resource loads and into title rendering.
+See `docs/COVERAGE.md`. All 758 overlay prologues and the resident procedures the translator can close over are emitted. Two of them are checked byte-for-byte on their own; the rest are exercised by the replays listed there, which play the game from the title onward.
