@@ -1882,6 +1882,7 @@
     "portrait:area:10:ecl:b311:PIC4.DAX:23:0:0": "valhingen-vampire-vapor.png",
     "portrait:area:10:ecl:b312:PIC4.DAX:23:0:0": "valhingen-vampire-vapor.png",
     "scene-illustration:area:10:ecl:b6c6:caller:b353": "valhingen-vampire-trove.png",
+    "scene-illustration:area:10:ecl:b373:cue:vampire-treasure": "valhingen-vampire-trove-equipment.png",
     "scene-illustration:area:10:ecl:9e95": "valhingen-marble-chest.png",
     "scene-illustration:area:10:ecl:b6c6:caller:9e99": "valhingen-marble-chest.png",
     "portrait:area:10:ecl:9eb8:PIC1.DAX:1:0:0": "valhingen-marble-chest-scrolls.png",

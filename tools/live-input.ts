@@ -328,7 +328,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         ? glyphs.filter(([cell]) => finalCouncilReward || cell < 640).sort(([a], [b]) => a - b)
           .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase()
         : scriptKey === "scene-illustration:area:29:ecl:9ffb" || scriptKey === "scene-illustration:area:10:ecl:a3e4" ||
-          scriptKey === "scene-illustration:area:10:ecl:ad29"
+          scriptKey === "scene-illustration:area:10:ecl:ad29" || scriptKey === "scene-illustration:area:10:ecl:b373"
           ? [...glyphs].sort(([a], [b]) => a - b).map(([, character]) => String.fromCharCode(character)).join("").toUpperCase()
           : dialogue;
       // The maze watch and Scriptorium guards finish the nod at the same ECL cursor.

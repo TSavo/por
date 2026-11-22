@@ -10306,6 +10306,22 @@ try {
       assert.ok(checkpoint.leads.some(({ id }) => id === "river-tyrmor-journal"));
       console.log("Tyrmor journal checkpoint:", saved);
     }
+    if (routeName === "valhingen-vampire-trove") {
+      await advance("enter");
+      assert.equal(frame.portrait, undefined);
+      await advance("enter");
+      const loot = "scene-illustration:area:10:ecl:b373:cue:vampire-treasure";
+      assert.equal(frame.portrait, loot);
+      await waitFor("the vampire's treasure illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${loot}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays(frame.frame);
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "valhingen-vampire-trove-equipment.png"), Buffer.from(shot.data, "base64"));
+      for (const key of ["t", "i"]) await advance(key);
+      const items = frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
+      assert.match(items, /WAND3POTIONSCLERICALSCROLLWITH2SPELLSSHIELD(?:CLERICALSCROLLWITH2SPELLS){4}/i);
+    }
     console.log(`Verified ${routeName} illustration, panel fit, and mode switching in Chrome.`);
   } else if (routeName === "pyramid-lizardfolk-vats") {
     for (const key of ["s", "up", "enter", "enter"]) await advance(key);
