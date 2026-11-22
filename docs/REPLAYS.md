@@ -189,3 +189,6 @@ sampled at browser refreshes during the same guest input wait. Save
 the native cycle output as JSON and compare the three files with
 `node --import tsx tools/verify-held-portrait-paint.ts <native cycles.json> <scene> <original Chrome.json> <port Chrome.json>`.
 The two held-menu traces are independent of the Enhanced timing table.
+The worklist checks the renderer, the bindings that can select a loop for
+the opening portrait, and the served art hashes against each Chrome
+capture. Editing a binding for a different portrait keeps that capture valid.

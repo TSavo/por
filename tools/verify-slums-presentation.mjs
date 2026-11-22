@@ -4475,6 +4475,18 @@ const illustrationRoutes = new Map([
       "portrait:area:4:ecl:a36b:PIC5.DAX:56:3:0",
     ],
   }],
+  ["valjevo-fire-giant-intruder-loop", {
+    slot: "B", inputs: ["up", "enter", "enter", "a"],
+    portrait: "portrait:area:4:PIC5.DAX:56:0:0",
+    prompt: /^(?=.*GETEM)(?=.*COMBATWAITFLEEPARLAY)/i,
+    heldPortraitLoop: [
+      "portrait:area:4:PIC5.DAX:56:0:0",
+      "portrait:area:4:ecl:a36b:PIC5.DAX:56:1:0",
+      "portrait:area:4:PIC5.DAX:56:0:0",
+      "portrait:area:4:ecl:a36b:PIC5.DAX:56:3:0",
+    ],
+    continuation: { inputs: ["p"], prompt: /GETEM.*THEGIANTREADIESHISWEAPON.*ABATTLEBEGINS/i },
+  }],
   ["valhingen-ghoul-ambush", {
     slot: "A", inputs: ["e", "enter", "r", "y", ...Array(10).fill("i"), "r", "enter", "enter"],
     portrait: "portrait:PIC4.DAX:72:0:0", prompt: /APACKOFHUNGRYGHOULSLOPESTOWARDYOU/i,
@@ -7373,6 +7385,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valjevo-medusa-phases" || routeName === "valhingen-mummy-sarcophagi-phases" ||
       routeName === "valjevo-fire-giant-loop" ||
       routeName === "valjevo-fire-giant-refusal-loop" ||
+      routeName === "valjevo-fire-giant-intruder-loop" ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
@@ -7624,9 +7637,17 @@ try {
       })()`);
       const paints = await waitFor("two visible cycles at the held portrait", () =>
         run(`window.heldPortraitPaints.length >= ${2 * count + 2} && window.heldPortraitPaints`));
+      const { result } = await command("Runtime.evaluate", {
+        expression: `portraitLoopBindings.then(module => module.portraitLoopSignature(${JSON.stringify(held.portrait)}))`,
+        awaitPromise: true, returnByValue: true,
+      });
+      assert.equal(typeof result.value, "string", "Chrome should report the active portrait bindings");
+      const rendererResponse = await fetch(new URL("/play.js", origin));
+      assert.ok(rendererResponse.ok);
       heldPortraitEvidence.push({
         route: routeName, data: held.classicAvailable === false ? "port" : "original",
-        rendererSha256: createHash("sha256").update(readFileSync("tools/play.js", "utf8").replace(/\r\n/g, "\n")).digest("hex"),
+        rendererSha256: createHash("sha256").update((await rendererResponse.text()).replace(/\r\n/g, "\n")).digest("hex"),
+        bindingSha256: createHash("sha256").update(result.value).digest("hex"),
         portrait: held.portrait, paints,
         sha256: Object.fromEntries(uniquePhases.map((path, index) => [
           new URL(path).pathname.slice(5), createHash("sha256").update(images[index], "base64").digest("hex"),

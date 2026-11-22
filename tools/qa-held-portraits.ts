@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { heldPortraitDiscovery } from "./discover-held-portraits.js";
+import { portraitLoopSignature } from "./held-portrait-loops.mjs";
 import { verifyHeldPortraitPaint, type ChromeProof, type Pose } from "./verify-held-portrait-paint.js";
 
 interface HeldPortraitInventory {
@@ -22,7 +23,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
   for (const name of ["upgrades/slums/manifest.json", "upgrades/manifest.json"]) {
     const manifest = JSON.parse(readFileSync(path(name), "utf8")) as { assets: Record<string, string> };
     for (const [id, file] of Object.entries(manifest.assets)) {
-      if (id.startsWith("portrait:")) assets.set(id, path(dirname(name), file));
+      if (id.startsWith("portrait:") || id.startsWith("scene-illustration:")) assets.set(id, path(dirname(name), file));
     }
   }
   const scenes = inventory.scenes.map(({ id, producer, poses, chrome }) => {
@@ -31,6 +32,9 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     try {
       for (const proof of [chrome.original, chrome.port]) {
         if (proof.rendererSha256 !== renderer) return result(`${proof.data} Chrome evidence predates the current renderer`);
+        if (!proof.portrait || proof.bindingSha256 !== digest(portraitLoopSignature(proof.portrait))) {
+          return result(`${proof.data} Chrome evidence predates the current portrait binding`);
+        }
         for (const [key, hash] of Object.entries(proof.sha256)) {
           const file = assets.get(key);
           if (!file || digest(readFileSync(file)) !== hash) return result(`the current art differs for ${key}`);

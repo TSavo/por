@@ -35,6 +35,7 @@ const packagedTerrain = packagedTerrainFor(gameRoot);
 const planTravel = loadOverlandTravel(gameRoot);
 const page = readFileSync(fromPortRoot("tools", "play.html"));
 const script = readFileSync(fromPortRoot("tools", "play.js"));
+const heldPortraitLoops = readFileSync(fromPortRoot("tools", "held-portrait-loops.mjs"));
 const streetRenderer = readFileSync(fromPortRoot("tools", "new-phlan-webgl.js"));
 const wheelPage = readFileSync(fromPortRoot("tools", "code-wheel.html"));
 const wheelScript = readFileSync(fromPortRoot("tools", "code-wheel.js"));
@@ -351,6 +352,8 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "text/html; charset=utf-8" }).end(page);
   } else if (req.method === "GET" && req.url === "/play.js") {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(script);
+  } else if (req.method === "GET" && req.url === "/held-portrait-loops.mjs") {
+    res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(heldPortraitLoops);
   } else if (req.method === "GET" && /^\/code-wheel(?:\?|$)/.test(req.url ?? "")) {
     res.setHeader("content-security-policy", "default-src 'self'; style-src 'unsafe-inline'");
     res.writeHead(200, { "content-type": "text/html; charset=utf-8" }).end(wheelPage);

@@ -8,6 +8,8 @@ export interface ChromeProof {
   route: string;
   data: "original" | "port";
   rendererSha256: string;
+  portrait?: string;
+  bindingSha256?: string;
   paints: Paint[];
   sha256: Record<string, string>;
 }
