@@ -617,7 +617,8 @@
         "Clue Book p.5-6 numbers the Slums map differently from [P]; the two numberings do not line up (see notes). Clue Book: Monster Leaders are 11; [P]: 14."
       ],
       "coveredBy": [],
-      "notes": "The digest quotes no text for location 14. Game text 0xabab 'YOU INTRUDE ON A GATHERING OF MONSTER LEADERS.' is the likely line (script order and the Clue Book's name); confirm against the script. [P] §5 notes racial to-hit bonuses fail against #7."
+      "check": "acceptance-slums",
+      "notes": "The digest quotes no text for location 14. Game text 0xabab 'YOU INTRUDE ON A GATHERING OF MONSTER LEADERS.' is the likely line (script order and the Clue Book's name); confirm against the script. [P] §5 notes racial to-hit bonuses fail against #7. Established by npm run acceptance:slums (guide, stage leaders), with the guide's party (five of six level 1), fights fought with the game's own commands by the guide's tactics. The room is the one square (1,5); its only door is in its west wall, from the guards' square (0,5), so the guards at location 13 are beaten first; the door opened without a bash. The test requires the text 'YOU INTRUDE ON A GATHERING OF MONSTER LEADERS.' on entering (0xabab: confirmed by play); one combatant named OGRE, two named GNOLL and two named HOBGOBLIN LDR beside the six characters; a win; the guide's 63 experience points (with fewer than six standing, the share of a total that gives 63 for six); one more clear point and the script's own mark (0x4ad0). On 2026-11-22 the fight took 71 turns and four Sleeps and ended with five of six standing, 75 experience points each (63 for six); BRENNAN was down Unconscious, and cures and rest in the room put all six right. The guide's 'Distance 1' is not asserted."
     },
     {
       "id": "acceptance.slums.goblin-guards-alerted",

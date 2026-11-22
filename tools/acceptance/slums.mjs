@@ -27,7 +27,7 @@ import { cpSync, mkdirSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { addReadyMadeParty, aimMenu, beginAdventuring, combatMenu, exploring, pressReturn, sheet, startGame } from "./harness.mjs";
 import { breakCamp, campMenu, castInCamp, chooseSpells, cureLightWounds, healInCamp, hurt, magicMenu, makeCamp, pool, restForSpells, templeCure, train } from "./party-care.mjs";
-import { guideParty, guideSpells, innToSlums, loadParty, saveGame, takeCoins } from "./party.mjs";
+import { guideParty, guideSpells, innToSlums, loadParty, partyItems, saveGame, takeCoins } from "./party.mjs";
 
 const proved = [];
 const started = Date.now();
@@ -1058,7 +1058,9 @@ async function partyMoney(game) {
 async function claimTreasure(game, { taker, xp, money, label }) {
   game.expect(/The party has found Treasure! Each character receives (\d+) experience points\. press <enter>\/<return> to continue\s*$/, `${label}: the game announces the treasure and its experience.`);
   const shown = +/Each character receives (\d+) experience points/.exec(game.text())[1];
-  assert.equal(shown, xp, `${label}: each character receives the guide's ${xp} experience points.`);
+  // `xp` is the guide's figure, or its range [least, most] where the treasure holds a random magic item.
+  if (Array.isArray(xp)) assert.ok(shown >= xp[0] && shown <= xp[1], `${label}: each character receives between ${xp[0]} and ${xp[1]} experience points, the guide's range; the game shows ${shown}.`);
+  else assert.equal(shown, xp, `${label}: each character receives the guide's ${xp} experience points.`);
   await game.press("enter", treasureMenu, "Return leads to the treasure menu.");
   // The treasure menu has View: the sheets already show the new experience, and the purses do not yet hold the treasure.
   const before = { exp: await experience(game), money: await partyMoney(game) };
@@ -1779,7 +1781,106 @@ async function guideOhlo(game, state) {
   assert.equal(game.variable(clearPoints), points, "Accepting credits no clear point.");
   const outside = game.here();
   progress(`Ohlo: errand accepted; the party stands at ${outside.x},${outside.y} facing ${outside.facing}`);
-  return outside;
+  assert.deepEqual([outside.x, outside.y], [15, 10], "Going back out of the door puts the party on (15,10), east of his room.");
+
+  // To the Rope Guild's entry at (6,10): north, west along y=8, up the lane at x=9, west and down the lane at x=7.
+  mark = game.printed.length;
+  await walkAsGuideParty(game, "NNWWWWWWNNNNNENWWSSSSSWWWSESS", state, "to the Rope Guild");
+  at(game, 6, 10, "The square north of the guild's door is (6,10).");
+  assert.equal(flat(game.printed.slice(mark).at(-1) ?? ""), guildNorth, "The square north of the guild's door says so.");
+  await tendTheHurt(game);
+  // Inside, every square is the guild's (event 18): a rest there is safe by the script's rule
+  // (9a24), and an encounter is likelier and larger (ade2: two numbers in eleven, the whole party strength).
+  mark = game.printed.length;
+  await throughDoor(game, "S", "the guild's door south of (6,10)");
+  at(game, 6, 11, "The guild's first square is (6,11).");
+  assert.equal(flat(game.printed[mark] ?? ""), guildText, "Entering the guild prints its warning.");
+  const inGuild = async (route, label) => {
+    for (const heading of route) {
+      const before = state.random.length;
+      await walkAsGuideParty(game, heading, state, label);
+      if (state.random.length > before || hurt(game).length) await recoverHere(game, state, label);
+    }
+  };
+  await inGuild("SSSEENNESSENNEENEES", "in the Rope Guild");
+  at(game, 14, 12, "The square west of the booth is (14,12).");
+  const carried = await partyItems(game);
+  mark = game.printed.length;
+  await throughDoor(game, "E", "the booth's door east of (14,12)");
+  at(game, 15, 12, "Location 19 is (15,12).");
+  printedInOrder(game, mark, [merchantText, "(WHAT DO YOU DO?)"], "The merchant hurries forward and has nothing to sell.");
+  game.expect(/LEAVE ATTACK SPEAK\s*$/, "The menu is LEAVE, ATTACK, SPEAK.");
+  mark = game.printed.length;
+  await game.press("s");
+  printedInOrder(game, mark, [merchantAsk], "SPEAK asks for a single word.");
+  for (const letter of "OHLO") await game.press(letter);
+  await game.press("enter");
+  await readOn(game);
+  printedInOrder(game, mark, [merchantAsk, merchantPackage], "The word OHLO brings the package.");
+  game.expect(exploring, "The party is free to walk.");
+  assert.equal(game.variable(potionState), 250, "The script records the package as fetched.");
+  assert.deepEqual(await partyItems(game), carried, "The package is no item: nobody carries anything new.");
+  assert.equal(game.variable(clearPoints), points, "The package credits no clear point.");
+
+  // Back to Ohlo the way the party came.
+  await game.walk("W");
+  await inGuild(back("SSSEENNESSENNEENEES"), "out of the Rope Guild");
+  at(game, 6, 11, "The party is back at the guild's first square.");
+  await walkAsGuideParty(game, "N" + "NNWNEEENNNNNEESSWSSSSEEEEEESS", state, "back to Ohlo");
+  at(game, 15, 10, "The square east of Ohlo's room is (15,10).");
+  await tendTheHurt(game);
+  const before = { exp: await experience(game) };
+  mark = game.printed.length;
+  await throughDoor(game, "W", "the door west of (15,10)");
+  printedInOrder(game, mark, [ohloReturn], "With the package Ohlo asks for the potion.");
+  game.expect(/GIVE ASK FOR MORE MONEY REFUSE TO GIVE\s*$/, "The menu is GIVE, ASK FOR MORE MONEY, REFUSE TO GIVE.");
+  mark = game.printed.length;
+  await game.press("g");
+  await readOn(game);
+  printedInOrder(game, mark, [ohloReward], "GIVE: he drinks it and rewards the party.");
+  // [P] §6.3.2: "1 jewelry, 150 pp, 1 random magic item (558-891 XP)".
+  const { loot, exp } = await claimTreasure(game, { taker: "AELAR", xp: [558, 891], money: { Jewelry: 1, Platinum: 150 }, label: "Ohlo's reward" });
+  assert.equal(loot.length, 1, `The reward holds one item beside the money; the game listed ${JSON.stringify(loot)}.`);
+  const gained = Object.fromEntries(Object.entries(exp).map(([name, points]) => [name, points - before.exp[name]]));
+  assert.equal(flat(game.printed.at(-1) ?? ""), ohloLeave, "After the reward the party goes back out of the door.");
+  at(game, 15, 10, "The party stands east of Ohlo's room again.");
+  assert.equal(game.variable(ohloState), 255, "The script records Ohlo as dealt with.");
+  assert.equal(game.variable(potionState), 255, "The script records the potion as given.");
+  assert.equal(game.variable(clearPoints), points + 1, "Dealing with Ohlo credits exactly one clear point.");
+  // His room is silent now, and a rest there is safe.
+  mark = game.printed.length;
+  await throughDoor(game, "W", "the door west of (15,10)");
+  at(game, 14, 10, "Ohlo's room, its east square, is (14,10).");
+  printedInOrder(game, mark, [], "Ohlo's room is silent once he has been dealt with.");
+  await recoverHere(game, state, "Ohlo's room");
+  state.ohlo = { loot, gained };
+  progress(`Ohlo: reward item ${JSON.stringify(loot)}; experience gained on the sheets ${JSON.stringify(gained)}`);
+}
+
+/**
+ * Stage: the random encounters still to beat, from Ohlo's room: out of his door to (15,10) and to
+ * and fro between it and (15,9) with Search on, until the script has counted fifteen (0x4a80).
+ */
+async function guideRandoms(game, state) {
+  at(game, 14, 10, "The stage starts in Ohlo's room.");
+  const before = { fights: game.variable(randomFights), points: game.variable(clearPoints) };
+  const fights = await fightRandoms(game, state, { out: "E", pace: "N", wanted: 15, label: "random fights" });
+  assert.equal(game.variable(randomFights), 15, "Fifteen random encounters are beaten.");
+  // Each beaten encounter is one clear point (b12a to b134), until the block is cleared at 25.
+  const points = before.points + (15 - before.fights);
+  assert.equal(game.variable(clearPoints), points >= 25 ? 254 : points, "Each random fight beaten credits one clear point; at 25 the script stores 254.");
+  at(game, 14, 10, "The party is back in Ohlo's room.");
+  // No sixteenth: with Search on, to and fro outside meets nobody ([P]: "exactly 15").
+  await game.walk("E");
+  await game.press("s");
+  for (let paces = 0; paces < 30; paces++) {
+    await game.step(paces % 2 ? "S" : "N");
+    game.expect(exploring, "No encounter meets the party once fifteen are beaten.");
+  }
+  await game.press("s");
+  await throughDoor(game, "W", "the door west of (15,10)");
+  state.randoms = fights;
+  progress(`random fights: ${fights.length} fought here; ${JSON.stringify(fights)}`);
 }
 
 const clerkGreeting = "AT YOUR ENTRY, THE COUNCIL CLERK BEGINS LOOKING THROUGH A STACK OF PAPERS. 'BEFORE I CAN OFFER ANY COMMISSIONS, I MUST SEE IF YOU ARE DUE A CURRENT REWARD.";
@@ -1879,9 +1980,11 @@ const guideStages = [
   { name: "guards", slot: "J", run: guideGuards, proves: ["acceptance.slums.guards-intercept"] },
   { name: "leaders", slot: "B", run: guideLeaders, proves: ["acceptance.slums.monster-leaders"] },
   { name: "goblinguards", slot: "C", run: guideGoblinGuards, proves: ["acceptance.slums.goblin-guards-alerted", "acceptance.slums.empty-room-hidden-chest"] },
+  { name: "ohlo", slot: "D", run: guideOhlo, proves: ["acceptance.slums.ohlo-fetch-the-potion"] },
+  { name: "randoms", slot: "E", run: guideRandoms, proves: [] },
 ];
 /** The script variables the guide party's games report. */
-const guideWatch = [clearPoints, orcsFought, randomFights, goblinsFought, orcHomeFought, guardsFought, leadersFought, goblinGuardsFought];
+const guideWatch = [clearPoints, orcsFought, randomFights, goblinsFought, orcHomeFought, guardsFought, leadersFought, goblinGuardsFought, ohloState, potionState];
 
 /**
  * The guide's party in the Slums. For working on one stage: POR_SLUMS_GUIDE_KEEP=<dir> copies the
