@@ -18941,7 +18941,7 @@ export function exe_05150(m: Cpu): void {
       case 0x51a7: {
         // 51a7: div cx
         m.tick(0x51a7);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x51a9;
         break;
       }
@@ -20295,7 +20295,7 @@ export function exe_053e6(m: Cpu): void {
       case 0x53f6: {
         // 53f6: div bx
         m.tick(0x53f6);
-        { const d = m.bx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.bx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x53f8;
         break;
       }
@@ -36882,7 +36882,7 @@ export function exe_06844(m: Cpu): void {
       case 0x6854: {
         // 6854: div bx
         m.tick(0x6854);
-        { const d = m.bx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.bx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x6856;
         break;
       }
@@ -36947,7 +36947,7 @@ export function exe_06849(m: Cpu): void {
       case 0x6854: {
         // 6854: div bx
         m.tick(0x6854);
-        { const d = m.bx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.bx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x6856;
         break;
       }
@@ -45124,7 +45124,7 @@ export function exe_070b8(m: Cpu): void {
       case 0x70ee: {
         // 70ee: div word ptr es:[di + 4]
         m.tick(0x70ee);
-        { const d = m.read16(m.es, (m.di + 4) & 0xffff); if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = (n % d) & 0xffff; }
+        { const d = m.read16(m.es, (m.di + 4) & 0xffff); if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = (n % d) & 0xffff; }
         ip = 0x70f2;
         break;
       }
@@ -45421,7 +45421,7 @@ export function exe_070bf(m: Cpu): void {
       case 0x70ee: {
         // 70ee: div word ptr es:[di + 4]
         m.tick(0x70ee);
-        { const d = m.read16(m.es, (m.di + 4) & 0xffff); if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = (n % d) & 0xffff; }
+        { const d = m.read16(m.es, (m.di + 4) & 0xffff); if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = (n % d) & 0xffff; }
         ip = 0x70f2;
         break;
       }
@@ -45704,7 +45704,7 @@ export function exe_070c4(m: Cpu): void {
       case 0x70ee: {
         // 70ee: div word ptr es:[di + 4]
         m.tick(0x70ee);
-        { const d = m.read16(m.es, (m.di + 4) & 0xffff); if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = (n % d) & 0xffff; }
+        { const d = m.read16(m.es, (m.di + 4) & 0xffff); if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = (n % d) & 0xffff; }
         ip = 0x70f2;
         break;
       }

@@ -372,8 +372,9 @@ def emit_insn(insn, next_ip: int, proc_name: dict[int, str], falls: bool = True,
             f"{{ const d = m.{parts[0]}; if (!d) throw new Error('div0'); const n = m.ax; m.al = Math.floor(n / d) & 0xff; m.ah = n % d; }}"
         )
     elif mn == "div" and parts[0] in REG16:
+        # The dividend DX:AX is unsigned. `(m.dx << 16) | m.ax` is negative from 80000000h.
         nxt(
-            f"{{ const d = m.{parts[0]}; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }}"
+            f"{{ const d = m.{parts[0]}; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }}"
         )
     elif mn == "and" and parts[0] in REG8 and (parts[1].startswith("0x") or parts[1].isdigit()):
         nxt(f"m.{parts[0]} &= {imm(parts[1])}; m.setLogicFlags(8, m.{parts[0]});")
@@ -621,7 +622,7 @@ def emit_insn(insn, next_ip: int, proc_name: dict[int, str], falls: bool = True,
             )
         else:
             nxt(
-                f"{{ const d = m.read16({seg}, {off}); if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = (n % d) & 0xffff; }}"
+                f"{{ const d = m.read16({seg}, {off}); if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = (n % d) & 0xffff; }}"
             )
     else:
         extra = generic_op(mn, op, parts)

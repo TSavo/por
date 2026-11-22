@@ -16952,7 +16952,7 @@ export function ovl25_18e1(m: Cpu): void {
       case 0x1907: {
         // 1907: div cx
         m.tick(0x1907);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x1909;
         break;
       }

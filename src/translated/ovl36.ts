@@ -8109,7 +8109,7 @@ export function ovl36_08f5(m: Cpu): void {
       case 0xbe4: {
         // 0be4: div cx
         m.tick(0xbe4);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0xbe6;
         break;
       }
@@ -12946,7 +12946,7 @@ export function ovl36_0d9f(m: Cpu): void {
       case 0x132b: {
         // 132b: div cx
         m.tick(0x132b);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x132d;
         break;
       }
@@ -12981,7 +12981,7 @@ export function ovl36_0d9f(m: Cpu): void {
       case 0x1338: {
         // 1338: div cx
         m.tick(0x1338);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x133a;
         break;
       }
@@ -13016,7 +13016,7 @@ export function ovl36_0d9f(m: Cpu): void {
       case 0x1345: {
         // 1345: div cx
         m.tick(0x1345);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x1347;
         break;
       }
@@ -20207,7 +20207,7 @@ export function ovl36_1bab(m: Cpu): void {
       case 0x1dfa: {
         // 1dfa: div cx
         m.tick(0x1dfa);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x1dfc;
         break;
       }
@@ -25399,7 +25399,7 @@ export function ovl36_24ed(m: Cpu): void {
       case 0x2597: {
         // 2597: div cx
         m.tick(0x2597);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x2599;
         break;
       }
@@ -25478,7 +25478,7 @@ export function ovl36_24ed(m: Cpu): void {
       case 0x25b3: {
         // 25b3: div cx
         m.tick(0x25b3);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x25b5;
         break;
       }
@@ -25881,7 +25881,7 @@ export function ovl36_25f1(m: Cpu): void {
       case 0x2649: {
         // 2649: div cx
         m.tick(0x2649);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x264b;
         break;
       }

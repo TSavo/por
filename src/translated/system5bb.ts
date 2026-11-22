@@ -1851,7 +1851,7 @@ export function sys5bb_1508(m: Cpu): void {
       case 0x153e: {
         // 153e: div word ptr es:[di + 4]
         m.tick(0x153e);
-        { const d = m.read16(m.es, (m.di + 4) & 0xffff); if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = (n % d) & 0xffff; }
+        { const d = m.read16(m.es, (m.di + 4) & 0xffff); if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = (n % d) & 0xffff; }
         ip = 0x1542;
         break;
       }

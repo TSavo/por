@@ -10681,7 +10681,7 @@ export function ovl30_0e25(m: Cpu): void {
       case 0xea7: {
         // 0ea7: div cx
         m.tick(0xea7);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0xea9;
         break;
       }

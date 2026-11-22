@@ -24389,7 +24389,7 @@ export function ovl13_268e(m: Cpu): void {
       case 0x26cd: {
         // 26cd: div cx
         m.tick(0x26cd);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x26cf;
         break;
       }
@@ -25812,7 +25812,7 @@ export function ovl13_285d(m: Cpu): void {
       case 0x28d8: {
         // 28d8: div word ptr [bp - 2]
         m.tick(0x28d8);
-        { const d = m.read16(m.ss, (m.bp + -2) & 0xffff); if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = (n % d) & 0xffff; }
+        { const d = m.read16(m.ss, (m.bp + -2) & 0xffff); if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = (n % d) & 0xffff; }
         ip = 0x28db;
         break;
       }
@@ -29763,7 +29763,7 @@ export function ovl13_2dd3(m: Cpu): void {
       case 0x2f2d: {
         // 2f2d: div cx
         m.tick(0x2f2d);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x2f2f;
         break;
       }
@@ -29939,7 +29939,7 @@ export function ovl13_2dd3(m: Cpu): void {
       case 0x2f6a: {
         // 2f6a: div cx
         m.tick(0x2f6a);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x2f6c;
         break;
       }

@@ -43603,7 +43603,7 @@ export function ovl16_4235(m: Cpu): void {
       case 0x42ab: {
         // 42ab: div cx
         m.tick(0x42ab);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x42ad;
         break;
       }
@@ -43700,7 +43700,7 @@ export function ovl16_4235(m: Cpu): void {
       case 0x42ca: {
         // 42ca: div cx
         m.tick(0x42ca);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x42cc;
         break;
       }

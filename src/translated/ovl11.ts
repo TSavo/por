@@ -4021,7 +4021,7 @@ export function ovl11_002d(m: Cpu): void {
       case 0x5df: {
         // 05df: div cx
         m.tick(0x5df);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x5e1;
         break;
       }
@@ -4093,7 +4093,7 @@ export function ovl11_002d(m: Cpu): void {
       case 0x5fc: {
         // 05fc: div cx
         m.tick(0x5fc);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x5fe;
         break;
       }

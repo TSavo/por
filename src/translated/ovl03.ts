@@ -1563,7 +1563,7 @@ export function ovl03_01a0(m: Cpu): void {
       case 0x212: {
         // 0212: div word ptr [bp - 4]
         m.tick(0x212);
-        { const d = m.read16(m.ss, (m.bp + -4) & 0xffff); if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = (n % d) & 0xffff; }
+        { const d = m.read16(m.ss, (m.bp + -4) & 0xffff); if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = (n % d) & 0xffff; }
         ip = 0x215;
         break;
       }
@@ -15257,7 +15257,7 @@ export function ovl03_1512(m: Cpu): void {
       case 0x1677: {
         // 1677: div cx
         m.tick(0x1677);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x1679;
         break;
       }
@@ -15539,7 +15539,7 @@ export function ovl03_1512(m: Cpu): void {
       case 0x16ee: {
         // 16ee: div cx
         m.tick(0x16ee);
-        { const d = m.cx; if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
+        { const d = m.cx; if (!d) throw new Error('div0'); const n = m.dx * 0x10000 + m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = n % d; }
         ip = 0x16f0;
         break;
       }
