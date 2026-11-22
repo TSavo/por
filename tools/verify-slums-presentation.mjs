@@ -1524,6 +1524,7 @@ const illustrationRoutes = new Map([
     slot: "B", inputs: ["up", "up", "right", "up", "up", "up", "right", "up"],
     portrait: "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:rhetoric-stacks",
     prompt: /THESEARETHELIBRARYSTACKS.*ASIGNOVERTHEENTRANCEREADSRHETORIC/i,
+    finalPhaseCapture: "mendor-rhetoric-stacks-arrival.png",
     journalLead: "mendor-stacks-rhetoric", journalLeadAtDiscovery: true,
     continuation: { inputs: ["enter"], prompt: /5,4N/, clearsPortrait: true },
   }],
@@ -6609,15 +6610,17 @@ try {
   async function verifyPortraitPanel() {
     assert.ok(await run(`(() => {
       const layer = document.querySelector("#tile-art").getBoundingClientRect();
-      const portrait = document.querySelector(".encounter-portrait").getBoundingClientRect();
+      const image = document.querySelector(".encounter-portrait");
+      const portrait = image.getBoundingClientRect();
+      const opaqueBackdrop = getComputedStyle(image).backgroundColor === "rgb(0, 0, 0)";
       const panel = document.querySelector("canvas.panel-frame");
       const interior = panel?.getContext("2d").getImageData(32, 32, 480, 480).data;
       const hasInnerFrame = interior?.some((value, index) => index % 4 === 3 && value !== 0);
-      return !hasInnerFrame && Math.abs(portrait.left - layer.left - layer.width * 8 / 320) < 1 &&
+      return opaqueBackdrop && !hasInnerFrame && Math.abs(portrait.left - layer.left - layer.width * 8 / 320) < 1 &&
         Math.abs(portrait.top - layer.top - layer.height * 8 / 200) < 1 &&
         Math.abs(portrait.width - layer.width * 120 / 320) < 1 &&
         Math.abs(portrait.height - layer.height * 120 / 200) < 1;
-    })()`), "Enhanced portrait should fill the outer picture panel");
+    })()`), "Enhanced portrait should fill the outer picture panel over an opaque backdrop");
   }
 
   async function switchBothWays(classicFrame) {
