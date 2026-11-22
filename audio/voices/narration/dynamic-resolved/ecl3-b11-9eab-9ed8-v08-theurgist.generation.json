@@ -3,8 +3,10 @@
   "provider": "ElevenLabs",
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
-  "textSha256": "787557ec37a39b826c6bf7e9ed35d73588f0f54f72356a0397bc20663f391b83",
-  "audioSha256": "95fba6b1bf789c3efd83c75c22198f4f5808eb1e7927ea83d99700bfa84704ed",
-  "bytes": 109966,
-  "generatedAt": "2026-11-19T04:49:25.645Z"
+  "textSha256": "c532e0b30ca2003165587996c11f434d6fcf657e87c154bdc1380dd4b72dc719",
+  "audioSha256": "42231be8ab5b074a3bd04e47f1b312bb4312547a735f585232a8511d07eee1ea",
+  "bytes": 86978,
+  "directionSent": "Measured fantasy narration with a clear same-narrator character performance for quoted speech",
+  "heardByWhisper": "There is a fine theurgist who will join you for four shares.  Is this acceptable?",
+  "generatedAt": "2026-11-22T04:22:42.017Z"
 }

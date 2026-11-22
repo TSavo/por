@@ -3,8 +3,10 @@
   "provider": "ElevenLabs",
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
-  "textSha256": "c9fe13e4fc747c760dde738ea378e8ccfb004179ec4d6eda28ec89feda1c40a6",
-  "audioSha256": "2a1b00dffbc03ce216b5cd7b01b8da4d7f56de69d9cf2770db59b6636fb57a68",
-  "bytes": 112474,
-  "generatedAt": "2026-11-19T04:49:23.186Z"
+  "textSha256": "be7509cbbd5f36064ebd738c6e0400123eb1c3980002663025ab7d2b563659a5",
+  "audioSha256": "e3fc6931dd54dc7f91d60947a88ba3de45f13426b857c1ff6aec97c3c2bf8ccb",
+  "bytes": 81545,
+  "directionSent": "Measured fantasy narration with a clear same-narrator character performance for quoted speech",
+  "heardByWhisper": "There is a fine hero who will join you for four shares.  Is this acceptable?",
+  "generatedAt": "2026-11-22T04:22:39.834Z"
 }

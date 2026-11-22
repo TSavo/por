@@ -263,19 +263,13 @@ async function askForPartner(game) {
 }
 
 /**
- * The three offers the game makes that nobody has recorded (qa/findings.json,
- * narration-dynamic-variants-not-proved). The script saves "3 SHARES " or "4 SHARES " over the
+ * Offers the game makes that nobody has recorded. The script saves "3 SHARES " or "4 SHARES " over the
  * price after " PLUS A PICK OF SPECIAL ITEMS" (9e67, 9e7b, 9e9e), which cuts the pick of items off
  * for these three titles. The recordings made for them say "PLUS A PICK OF SPECIAL ITEMS", which
- * the screen does not, and must not be played. Until the three sentences are recorded the test
- * requires these offers to be silent, with the ledger showing the sentence, and lists them. Take a
- * sentence out of this list when its recording exists: the offer must then be heard.
+ * the screen does not. All three sentences were recorded as the game prints them on 2026-11-21, so
+ * the list is empty and every offer must be heard. A sentence put in this list must be silent.
  */
-const unrecordedOffers = [
-  "'THERE IS A FINE SWORDSMAN WHO WILL JOIN YOU FOR 3 SHARES . IS THIS ACCEPTABLE?'",
-  "'THERE IS A FINE HERO WHO WILL JOIN YOU FOR 4 SHARES . IS THIS ACCEPTABLE?'",
-  "'THERE IS A FINE THEURGIST WHO WILL JOIN YOU FOR 4 SHARES . IS THIS ACCEPTABLE?'",
-];
+const unrecordedOffers = [];
 /** Firings that were rightly silent because the sentence has no recording yet: { family, what, said }. */
 const awaited = [];
 

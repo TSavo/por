@@ -6,7 +6,7 @@
    "ledger": "acceptance-narration-dynamic.jsonl",
    "games": 5,
    "decisions": 765,
-   "heard": 149
+   "heard": 155
   },
   "acceptance-new-phlan": {
    "ledger": "acceptance-new-phlan-council-close-final.jsonl",
@@ -431,11 +431,6 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:0:ecl:9af0"
-   },
-   "withoutArt": {
-    "run": "acceptance-narration-dynamic",
-    "step": 99840376,
-    "showing": "no picture"
    }
   },
   "por.voice.ecl3.b11-9af8": {
@@ -501,11 +496,6 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:11:ecl:9f8a"
-   },
-   "withoutArt": {
-    "run": "acceptance-narration-dynamic",
-    "step": 111123471,
-    "showing": "no picture"
    }
   },
   "por.voice.ecl3.b11-9fe5": {
@@ -514,11 +504,6 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:11:ecl:a007"
-   },
-   "withoutArt": {
-    "run": "acceptance-narration-dynamic",
-    "step": 133614916,
-    "showing": "no picture"
    }
   },
   "por.voice.ecl3.b11-a00e-a021": {
@@ -845,6 +830,12 @@
    "slot": "0x982c+0x9890",
    "value": "EVOKER"
   },
+  "por.voice.ecl3.b11-9eab-9ed8.variant-04-swordsman": {
+   "run": "acceptance-narration-dynamic",
+   "step": 109838434,
+   "slot": "0x982c+0x9890",
+   "value": "SWORDSMAN"
+  },
   "por.voice.ecl3.b11-9eab-9ed8.variant-05-robber": {
    "run": "acceptance-narration-dynamic",
    "step": 156352896,
@@ -856,6 +847,12 @@
    "step": 111843915,
    "slot": "0x982c+0x9890",
    "value": "CURATE"
+  },
+  "por.voice.ecl3.b11-9eab-9ed8.variant-08-theurgist": {
+   "run": "acceptance-narration-dynamic",
+   "step": 154354326,
+   "slot": "0x982c+0x9890",
+   "value": "THEURGIST"
   },
   "por.voice.ecl3.b11-a00e-a021.variant-01-fighters": {
    "run": "acceptance-narration-dynamic",
@@ -901,84 +898,5 @@
    "unitId": "por.voice.ecl7.b23-9a70-9afa"
   }
  },
- "silent": {
-  "covered-without-trigger | por.review.ecl-3.block-11.at-9ebb | ": {
-   "kind": "covered-without-trigger",
-   "sourceId": "por.review.ecl-3.block-11.at-9ebb",
-   "archive": "ECL3.DAX",
-   "block": 11,
-   "runs": {
-    "acceptance-narration-dynamic": {
-     "count": 1,
-     "step": 109872396
-    }
-   }
-  },
-  "covered-without-trigger | por.review.ecl-3.block-11.at-9ebf | ": {
-   "kind": "covered-without-trigger",
-   "sourceId": "por.review.ecl-3.block-11.at-9ebf",
-   "archive": "ECL3.DAX",
-   "block": 11,
-   "runs": {
-    "acceptance-narration-dynamic": {
-     "count": 1,
-     "step": 109888458
-    }
-   }
-  },
-  "covered-without-trigger | por.review.ecl-3.block-11.at-9ed4 | ": {
-   "kind": "covered-without-trigger",
-   "sourceId": "por.review.ecl-3.block-11.at-9ed4",
-   "archive": "ECL3.DAX",
-   "block": 11,
-   "runs": {
-    "acceptance-narration-dynamic": {
-     "count": 1,
-     "step": 109930579
-    }
-   }
-  },
-  "covered-without-trigger | por.review.ecl-3.block-11.at-9ed8 | ": {
-   "kind": "covered-without-trigger",
-   "sourceId": "por.review.ecl-3.block-11.at-9ed8",
-   "archive": "ECL3.DAX",
-   "block": 11,
-   "runs": {
-    "acceptance-narration-dynamic": {
-     "count": 1,
-     "step": 109946720
-    }
-   }
-  },
-  "no-variant | por.review.ecl-3.block-11.at-9eab | 'THERE IS A FINE SWORDSMAN WHO WILL JOIN YOU FOR 3 SHARES . IS THIS ACCEPTABLE?'": {
-   "kind": "no-variant",
-   "sourceId": "por.review.ecl-3.block-11.at-9eab",
-   "archive": "ECL3.DAX",
-   "block": 11,
-   "slot": "0x982c+0x9890",
-   "value": "'THERE IS A FINE SWORDSMAN WHO WILL JOIN YOU FOR 3 SHARES . IS THIS ACCEPTABLE?'",
-   "status": "not-found",
-   "runs": {
-    "acceptance-narration-dynamic": {
-     "count": 4,
-     "step": 109838434
-    }
-   }
-  },
-  "no-variant | por.review.ecl-3.block-11.at-9eab | 'THERE IS A FINE THEURGIST WHO WILL JOIN YOU FOR 4 SHARES . IS THIS ACCEPTABLE?'": {
-   "kind": "no-variant",
-   "sourceId": "por.review.ecl-3.block-11.at-9eab",
-   "archive": "ECL3.DAX",
-   "block": 11,
-   "slot": "0x982c+0x9890",
-   "value": "'THERE IS A FINE THEURGIST WHO WILL JOIN YOU FOR 4 SHARES . IS THIS ACCEPTABLE?'",
-   "status": "not-found",
-   "runs": {
-    "acceptance-narration-dynamic": {
-     "count": 2,
-     "step": 154354326
-    }
-   }
-  }
- }
+ "silent": {}
 }

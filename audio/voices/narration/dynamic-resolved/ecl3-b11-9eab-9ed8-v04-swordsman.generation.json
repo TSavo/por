@@ -3,8 +3,10 @@
   "provider": "ElevenLabs",
   "model": "eleven_v4",
   "voiceId": "9UwacDmdjpXy5tUGJhDA",
-  "textSha256": "36782d35d7b3f92efc80174623aaa19d6fbea4b5bb7b46dc33c4037db9d329b0",
-  "audioSha256": "00a6cabf56454543b10883af7aac390c01b6e9097e5afbe1366ca48a868ad7b4",
-  "bytes": 106204,
-  "generatedAt": "2026-11-19T04:49:15.797Z"
+  "textSha256": "644376d2f6aadd5dc8fc1ced2ae96e9587f84f47565b5dee92f2cd3ebfbf734e",
+  "audioSha256": "f741dca8b68185d1bb853c10f92de8630543a4e76df6b9a87bd085cefae724ff",
+  "bytes": 85724,
+  "directionSent": "Measured fantasy narration with a clear same-narrator character performance for quoted speech",
+  "heardByWhisper": "There is a fine swordsman who will join you for three shares.  Is this acceptable?",
+  "generatedAt": "2026-11-22T04:22:37.985Z"
 }

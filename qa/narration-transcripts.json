@@ -294,8 +294,8 @@
    "heard": "There is a fine evoker who will join you for two shares.  Is this acceptable?"
   },
   "audio/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v04-swordsman.mp3": {
-   "sha256": "00a6cabf56454543b10883af7aac390c01b6e9097e5afbe1366ca48a868ad7b4",
-   "heard": "There is a fine swordsman who will join you for three shares plus a pick of special items.  Is this acceptable?"
+   "sha256": "f741dca8b68185d1bb853c10f92de8630543a4e76df6b9a87bd085cefae724ff",
+   "heard": "There is a fine swordsman who will join you for three shares.  Is this acceptable?"
   },
   "audio/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v05-robber.mp3": {
    "sha256": "a4b80c76de60b5c9680fa290101202ab69963df0008bb7fca423a34e731abaa0",
@@ -306,12 +306,12 @@
    "heard": "There is a fine curate who will join you for three shares plus a pick of special items.  Is this acceptable?"
   },
   "audio/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v07-hero.mp3": {
-   "sha256": "2a1b00dffbc03ce216b5cd7b01b8da4d7f56de69d9cf2770db59b6636fb57a68",
-   "heard": "There is a fine hero who will join you for four shares plus a pick of special items.  Is this acceptable?"
+   "sha256": "e3fc6931dd54dc7f91d60947a88ba3de45f13426b857c1ff6aec97c3c2bf8ccb",
+   "heard": "There is a fine hero who will join you for four shares.  Is this acceptable?"
   },
   "audio/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v08-theurgist.mp3": {
-   "sha256": "95fba6b1bf789c3efd83c75c22198f4f5808eb1e7927ea83d99700bfa84704ed",
-   "heard": "There is a fine theurgist who will join you for four shares plus a pick of special items.  Is this acceptable?"
+   "sha256": "42231be8ab5b074a3bd04e47f1b312bb4312547a735f585232a8511d07eee1ea",
+   "heard": "There is a fine theurgist who will join you for four shares.  Is this acceptable?"
   },
   "audio/voices/narration/dynamic-resolved/ecl3-b11-a00e-a021-v01-fighters.mp3": {
    "sha256": "00a5a4151d41e6d1a3ac56164154b2352df770955e703cbd27d8ef36a5f9eba3",

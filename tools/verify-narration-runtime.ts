@@ -276,12 +276,12 @@ console.log("verified the proclamations are chosen by the rewards collected, wit
 // The hirelings of the training block print two slots: the title and the price. The variant is the
 // recording of the whole sentence the game prints. The prices are the ones the 1.3 script leaves in
 // 0x9890 (9e3a to 9e9e): a SWORDSMAN, a HERO and a THEURGIST are offered with no pick of items,
-// and the recordings that say otherwise must not be played for them.
+// and their recordings say exactly that.
 loadBlock(3, 11);
 for (const [title, price, recorded] of [
-  ["ACOLYTE", "1 SHARE", true], ["WARRIOR", "1 SHARE", true], ["EVOKER", "2 SHARES", true], ["SWORDSMAN", "3 SHARES ", false],
+  ["ACOLYTE", "1 SHARE", true], ["WARRIOR", "1 SHARE", true], ["EVOKER", "2 SHARES", true], ["SWORDSMAN", "3 SHARES ", true],
   ["ROBBER", "3 SHARES PLUS A PICK OF SPECIAL ITEMS", true], ["CURATE", "3 SHARES PLUS A PICK OF SPECIAL ITEMS", true],
-  ["HERO", "4 SHARES ", false], ["THEURGIST", "4 SHARES ", false]
+  ["HERO", "4 SHARES ", true], ["THEURGIST", "4 SHARES ", true]
 ] as const) {
   storeEclString(0x982c, title);
   storeEclString(0x9890, price);

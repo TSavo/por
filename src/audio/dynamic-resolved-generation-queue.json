@@ -627,7 +627,7 @@
       "condition": "companion candidate index 0x6e7a == 3",
       "dynamicValue": "SWORDSMAN",
       "output": "audio/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v04-swordsman.mp3",
-      "text": "'THERE IS A FINE SWORDSMAN WHO WILL JOIN YOU FOR 3 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'",
+      "text": "'THERE IS A FINE SWORDSMAN WHO WILL JOIN YOU FOR 3 SHARES . IS THIS ACCEPTABLE?'",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
     {
@@ -678,7 +678,7 @@
       "condition": "companion candidate index 0x6e7a == 6",
       "dynamicValue": "HERO",
       "output": "audio/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v07-hero.mp3",
-      "text": "'THERE IS A FINE HERO WHO WILL JOIN YOU FOR 4 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'",
+      "text": "'THERE IS A FINE HERO WHO WILL JOIN YOU FOR 4 SHARES . IS THIS ACCEPTABLE?'",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
     {
@@ -695,7 +695,7 @@
       "condition": "companion candidate index 0x6e7a == 7",
       "dynamicValue": "THEURGIST",
       "output": "audio/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v08-theurgist.mp3",
-      "text": "'THERE IS A FINE THEURGIST WHO WILL JOIN YOU FOR 4 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'",
+      "text": "'THERE IS A FINE THEURGIST WHO WILL JOIN YOU FOR 4 SHARES . IS THIS ACCEPTABLE?'",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
     {
