@@ -517,6 +517,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       let picture = scene ? undefined : illustration ?? arrivalPicture ?? campReturnPicture ??
         nativePicture?.match(area, portraitCursor, pictureCaller) ??
         portraitArt(screen, area, portraitCursor, pictureCaller);
+      // The bucket charge and waking giants share the pause at 9a5a/a732.
+      const bucketChargeBase = "portrait:area:3:PIC5.DAX:56:0:0";
+      if (!scene && area === 3 && portraitCursor === 0x9a5a && pictureCaller === 0xa732 &&
+          dialogue.includes("THEGIANTSWHOPLACEDTHEBUCKETTHERECHARGE") && portraitKeys.includes(bucketChargeBase) &&
+          (!picture || picture === "portrait:area:3:ecl:9a5a:caller:a732:PIC5.DAX:56:0:0")) {
+        picture = bucketChargeBase;
+      }
       // From the game's own data the sheet's head and body come from the game's portrait draws, for
       // as long as nothing is drawn over them (on the roll, the name, Head Body Keep and View).
       const characterSheet = !scene && !picture ?

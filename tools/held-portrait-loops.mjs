@@ -77,6 +77,10 @@ const portraitLoops = [
   ["portrait:area:3:ecl:a6d2:PIC5.DAX:56:", [0, 1, 0, 3], undefined,
     /LOOSEBOARDCREAKS.*GIANTSGETTOTHEIRFEET/i, [210, 210, 210, 210],
     [["scene-illustration:area:3:ecl:9a5a:caller:a732:cue:waking-fire-giants", 0]]],
+  ["portrait:area:3:ecl:a662:PIC5.DAX:56:", [0, 1, 0, 3], "portrait:area:3:PIC5.DAX:56:0:0",
+    /^(?!.*ABATTLEBEGINS).*THEGIANTSWHOPLACEDTHEBUCKETTHERECHARGE/i, [210, 210, 210, 210],
+    [["portrait:area:3:ecl:9a5a:caller:a732:PIC5.DAX:56:1:0", 1],
+      ["portrait:area:3:ecl:9a5a:caller:a732:PIC5.DAX:56:3:0", 3]]],
   // The barracks uses the same cycle at the confrontation, intruder and Stay/Leave menus.
   // Its third native member restores the opening image.
   ["portrait:area:4:ecl:a36b:PIC5.DAX:56:", [0, 1, 0, 3], "portrait:area:4:PIC5.DAX:56:0:0",

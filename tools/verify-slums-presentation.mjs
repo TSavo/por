@@ -718,6 +718,10 @@ const councilClerkApproach = ["right", "right", "up", "right", "right", "up", "e
 const cityHallEntrance = ["right", "right", "up", "up", "up", "enter", "up"];
 const fightersDoorApproach = ["left", "up", "right", "up", "enter", "n", "n", "up"];
 
+const bucketTrapLoop = [
+  "portrait:area:3:PIC5.DAX:56:0:0", "portrait:area:3:ecl:a662:PIC5.DAX:56:1:0",
+  "portrait:area:3:PIC5.DAX:56:0:0", "portrait:area:3:ecl:a662:PIC5.DAX:56:3:0",
+];
 const illustrationRoutes = new Map([
   ["kuto-well-surface-ambush", {
     slot: "J", inputs: ["up", "y", "enter", "enter", "down", "up"],
@@ -3958,6 +3962,19 @@ const illustrationRoutes = new Map([
     phaseCaptures: { 7: "valjevo-bucket-trap-giants-phase-1.png" },
     finalPhaseCapture: "valjevo-bucket-trap-giants-phase-3.png",
     continuation: { inputs: ["c"], portrait: "portrait:area:3:ecl:9a5a:caller:a732:PIC5.DAX:56:3:0", prompt: /THEGIANTSWHOPLACEDTHEBUCKETTHERECHARGE/i },
+  }],
+  ["valjevo-bucket-trap-giant-loops", {
+    slot: "B", inputs: ["up", ...Array(4).fill("enter"), ...Array(4).fill("q")],
+    portrait: "portrait:area:3:ecl:a662:PIC5.DAX:56:3:0",
+    prompt: /THEGIANTSWHOPLACEDTHEBUCKETTHERECHARGE.*COMBATWAITFLEEPARLAY/i,
+    heldPortraitLoop: bucketTrapLoop,
+    continuation: {
+      inputs: ["c"],
+      portraits: [bucketTrapLoop[0], "portrait:area:3:ecl:9a5a:caller:a732:PIC5.DAX:56:1:0",
+        "portrait:area:3:ecl:9a5a:caller:a732:PIC5.DAX:56:3:0"],
+      prompt: /THEGIANTSWHOPLACEDTHEBUCKETTHERECHARGE.*PRESSBUTTON.*CONTINUE/i,
+      heldPortraitLoop: bucketTrapLoop,
+    },
   }],
   ["bane-hidden-treasure-phases", {
     slot: "A", inputs: ["s", "enter", "up", "o", "enter", "enter", "q", "q", "q"],
@@ -11176,7 +11193,9 @@ try {
         continuation.clearsPortrait ? undefined : continuation.portrait ?? portrait;
       if (continuation.portraits) assert.ok(continuation.portraits.includes(nextPortrait));
       assert.equal(frame.portrait, nextPortrait, frame.text.map(([, char]) => String.fromCharCode(char)).join(""));
-      if (continuation.pressOnPortrait) {
+      if (continuation.heldPortraitLoop) {
+        await verifyHeldPortraitLoop(continuation.heldPortraitLoop);
+      } else if (continuation.pressOnPortrait) {
         await waitForPortraitPaint(frame.sequence, continuation.retainPose ? continuation.pressOnPortrait : nextPortrait);
       } else if (continuation.portrait || continuation.portraits) {
         await waitFor("the enhanced continuation portrait", () => run(`
