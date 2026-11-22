@@ -1137,6 +1137,8 @@ const portraitLoops = [
     /YOUBOARDABOAT/i],
   ["portrait:area:18:ecl:9dca:PIC1.DAX:2:", 2],
   ["portrait:area:25:ecl:a622:PIC6.DAX:120:", 3],
+  ["portrait:area:20:ecl:b6df:caller:9eec:PIC2.DAX:2:", 2, "portrait:area:20:PIC2.DAX:2:0:0",
+    /GOBLINISINSTRUCTINGAGROUPOFYOUNGWARRIORS/i],
   ["portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:", 3],
   ["portrait:area:10:ecl:b695:caller:9f7a:PIC4.DAX:35:", 5, "portrait:area:10:PIC4.DAX:35:0:0",
     /ZOMBIESSHUFFLEDOWNTHESTAIRS/i],
@@ -1151,6 +1153,8 @@ const portraitLoops = [
   ["portrait:area:14:ecl:a6b8:PIC1.DAX:1:", 3],
   ["portrait:area:14:ecl:a78c:PIC1.DAX:1:", 3],
   ["portrait:area:14:ecl:a862:PIC1.DAX:1:", 3],
+  ["portrait:area:29:ecl:af2f:caller:a6f7:PIC8.DAX:0:", 3, "portrait:area:29:PIC8.DAX:0:0:0",
+    /ASMALLBANDOFSICKLYKOBOLDS/i],
 ].map(([prefix, members, initial, cue]) => ({
   cue,
   phases: (Array.isArray(members) ? members : Array.from({ length: members }, (_, index) => index))
