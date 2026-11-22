@@ -14,9 +14,10 @@
  * 2. The other way: which original pictures and frames does no key cover? Those are what Enhanced
  *    would show blank. Every 8 by 8 tile counts as its own item and needs a 32 by 32 PNG.
  *
- * It prints the count for each kind of key (total, reachable, not reachable), writes every
- * unreachable key and every uncovered tile and frame to out/art-catalogue.json, and fails while
- * any key is unreachable.
+ * It prints the count of keys resolved by the static audit, writes unresolved keys and
+ * uncovered tiles and frames to out/art-catalogue.json, and fails while any key is unresolved.
+ * An unresolved script key can still work in play. The runtime area ID can change while the
+ * previous ECL block is still loaded, and some dialogue and menu text is composed at runtime.
  */
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -98,7 +99,7 @@ function scope(area?: string, cursor?: string, caller?: string): string | undefi
     if (position === undefined) continue;
     // Keys number script positions as the first release does. The converted scripts are 1.3's.
     const address = runningScriptAddress(script.archive, script.block, Number.parseInt(position, 16), "1.3");
-    if (address < 0x9900 || address >= script.end) return `script ${what} ${position} is outside area ${area}'s converted script`;
+    if (address < 0x9900 || address >= script.end) return `script ${what} ${position} is outside ${area}'s inferred script (ECL${script.archive}.DAX block ${script.block})`;
     if (!script.starts.has(address)) positionsNotAtInstruction++;
   }
 }
@@ -190,7 +191,7 @@ for (const manifest of ["upgrades/manifest.json", "upgrades/slums/manifest.json"
 }
 
 console.log("Artwork keys the built-in data can produce from identities alone");
-console.log("kind                 total  reachable  not reachable");
+console.log("kind                 total   resolved     unresolved");
 for (const [kind, { total, reachable }] of [...counts].sort((a, b) => b[1].total - a[1].total)) {
   console.log(`${kind.padEnd(20)} ${String(total).padStart(5)}  ${String(reachable).padStart(9)}  ${String(total - reachable).padStart(13)}`);
 }
@@ -274,9 +275,9 @@ writeFileSync(join("out", "art-catalogue.json"), JSON.stringify({
   keys: total, unreachable, wrongSize, tilesWithout,
   framesNoKeyNames: Object.fromEntries([...byArchive].map(([family, { uncovered }]) => [family, uncovered])),
 }, null, 1) + "\n");
-console.log("\nEvery unreachable key, tile without a replacement and frame no key names is listed in out/art-catalogue.json");
+console.log("\nEvery unresolved key, tile without a replacement and frame no key names is listed in out/art-catalogue.json");
 if (unreachable.length) {
-  console.error(`\nverify:art-catalogue: ${unreachable.length} of ${total} artwork keys cannot be produced from the built-in data. The first of each kind:`);
+  console.error(`\nverify:art-catalogue: ${unreachable.length} of ${total} artwork keys were not resolved by the static audit. The first of each kind:`);
   const shown = new Set<string>();
   for (const { key, reason } of unreachable) {
     const kind = key.slice(0, key.indexOf(":"));
