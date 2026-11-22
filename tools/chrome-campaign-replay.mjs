@@ -3,7 +3,7 @@ import { spawn } from "node:child_process";
 import { once } from "node:events";
 import { appendFileSync, copyFileSync, createWriteStream, mkdirSync, readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
 import { createServer } from "node:net";
-import { join, resolve } from "node:path";
+import { basename, join, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 async function freePort() {
@@ -53,8 +53,12 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
   server.stdout.pipe(log, { end: false });
   server.stderr.pipe(log, { end: false });
   server.once("close", () => log.end());
+  // Chrome refuses audio.play() on a page nobody has clicked, and these replays send keys through
+  // the page's own send(), which is not a click. Without the autoplay flag every narration is
+  // refused and none plays. --mute-audio only silences the output: the recordings still load and
+  // run in real time, which is what the playback log measures.
   const chrome = spawn(chromePath, ["--headless", "--no-first-run", "--mute-audio",
-    "--remote-debugging-port=0", `--user-data-dir=${profile}`, "about:blank"], {
+    "--autoplay-policy=no-user-gesture-required", "--remote-debugging-port=0", `--user-data-dir=${profile}`, "about:blank"], {
     stdio: "ignore", windowsHide: true,
   });
   let childError;
@@ -105,7 +109,25 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
     return result.value;
   }
 
+  // What the page's audio element did with each narration it was told to play: one line per
+  // narration, in the leg's directory and, when a narration ledger is being kept, beside it as
+  // <ledger>.playback.jsonl for `npm run qa:narration -- --merge`. See docs/NARRATION-QA.md.
+  async function writeNarrationPlayback() {
+    if (socket?.readyState !== WebSocket.OPEN) return;
+    let playback;
+    try { playback = await evaluate('typeof porNarrationPlayback === "function" ? porNarrationPlayback() : undefined'); }
+    catch { return; }
+    if (!playback) return;
+    const ledger = process.env.POR_NARRATION_LEDGER;
+    const run = process.env.POR_NARRATION_RUN ?? basename(ledger || directory).replace(/\.jsonl$/, "");
+    const text = [{ t: "playback", run, leg: basename(directory), at: playback.at, frame: playback.frame, queued: playback.queued },
+      ...playback.lines.map((line) => ({ t: "p", ...line }))].map((line) => JSON.stringify(line) + "\n").join("");
+    writeFileSync(join(directory, "narration-playback.jsonl"), text);
+    if (ledger) appendFileSync(ledger.replace(/\.jsonl$/, "") + ".playback.jsonl", text);
+  }
+
   async function close() {
+    await writeNarrationPlayback();
     if (socket?.readyState === WebSocket.OPEN) {
       socket.send(JSON.stringify({ id: ++messageId, method: "Browser.close" }));
       socket.close();
