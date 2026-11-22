@@ -790,7 +790,11 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:24:ecl:a8af:caller:a7bd",
     prompt: /5,5N.*ONTHEFLOORYOUFINDATRAPDOOR\.WILLYOUOPENIT\?/i,
     finalPhaseCapture: "bane-north-trapdoor.png",
-    continuation: { inputs: ["o", "enter", "enter"], portrait: "portrait:PIC1.DAX:1:0:0", prompt: /VIEW.*POOL.*EXIT/i },
+    continuation: {
+      inputs: ["o", "enter", "enter"], portrait: "scene-illustration:area:24:ecl:aa47:cue:northern-cache",
+      prompt: /VIEW.*POOL.*EXIT/i, capture: "bane-northern-cache.png",
+      lootCaption: /LOOTCLERICALSCROLLCLERICALSCROLLMAGICUSERSCROLLITEMS/i,
+    },
   }],
   ["bane-south-trapdoor", {
     slot: "A",
@@ -800,7 +804,7 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "bane-south-trapdoor.png",
     continuation: {
       inputs: ["o", "enter", "enter"], portrait: "scene-illustration:area:24:ecl:aa47:cue:southern-cache",
-      prompt: /VIEW.*POOL.*EXIT/i,
+      prompt: /VIEW.*POOL.*EXIT/i, capture: "bane-southern-cache.png",
     },
   }],
   ["bane-hidden-trapdoor", {
@@ -9961,11 +9965,17 @@ try {
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, continuation.screenshot), Buffer.from(shot.data, "base64"));
       }
-      if (routeName === "bane-south-trapdoor") {
+      if (continuation.capture) {
         await verifyPortraitPanel();
         await switchBothWays(frame.frame);
         const shot = await command("Page.captureScreenshot", { format: "png" });
-        writeFileSync(resolve(directory, "bane-southern-cache.png"), Buffer.from(shot.data, "base64"));
+        writeFileSync(resolve(directory, continuation.capture), Buffer.from(shot.data, "base64"));
+      }
+      if (continuation.lootCaption) {
+        await advance("t");
+        const items = frame.text.toSorted(([a], [b]) => a - b)
+          .map(([, char]) => String.fromCharCode(char)).join("");
+        assert.match(items, continuation.lootCaption);
       }
       if (routeName === "kovel-lone-thief-attack") {
         const thief = "combat:area:14:CPIC3.DAX:12:ecl:9c92";
