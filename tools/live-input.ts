@@ -1059,7 +1059,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         battleCursor === 0xa779 || battleCursor === 0xa84f || battleCursor === 0xac23);
       const mendorReading = area === 15 && battleCursor === 0x9956 && (portraitCaller === 0x9f03 || portraitCaller === 0xa1e6);
       const koboldTruce = area === 13 && portraitCaller === 0xaf11 && (battleCursor === 0xb06f || battleCursor === 0xb0a5);
-      if (kovelIllustration || mendorReading || koboldTruce) {
+      const councilClosing = area === 8 && battleCursor === 0xaf78 && portraitCaller === 0xa891;
+      if (kovelIllustration || mendorReading || koboldTruce || councilClosing) {
         showFrame(undefined, undefined, false, false, 1200, undefined, true);
         return;
       }

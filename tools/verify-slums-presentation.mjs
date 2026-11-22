@@ -2607,7 +2607,8 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:zhentil-packet-offer",
     prompt: /DELIVERAMESSAGETOTHEZHENTILKEEP.*CADORNAMAYHAVETAMPEREDWITHTHEMESSAGEPACKET/i,
     finalPhaseCapture: "council-zhentil-packet-offer.png",
-    continuation: { inputs: ["enter"], prompt: /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i, clearsPortrait: true },
+    continuation: { inputs: ["enter"], prompt: /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i, clearsPortrait: true,
+      transientPortrait: "scene-illustration:area:8:ecl:af78:caller:a891:cue:commissions-closed" },
   }],
   ["new-phlan-council-entry", {
     slot: "A", inputs: [...Array(8).fill("enter"), "right", "right", "up", "up", "up",
@@ -10285,6 +10286,21 @@ try {
         await advance("j");
       }
       for (const key of continuation.inputs) await advance(key);
+      if (continuation.transientPortrait) {
+        const id = continuation.transientPortrait;
+        assert.ok(frame.animation?.some(phase => phase.portrait === id &&
+          continuation.prompt.test(phase.text.toSorted(([a], [b]) => a - b)
+            .map(([, char]) => String.fromCharCode(char)).join(""))));
+        await waitFor("the Council closing illustration", () => run(`
+          animationFrame?.portrait === "${id}" &&
+          document.querySelector('.encounter-portrait[src="/art/${id}"]')?.naturalWidth === 352
+        `));
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "council-commissions-closed.png"), Buffer.from(shot.data, "base64"));
+        await waitFor("the Council closing illustration to clear", () => run(`
+          state.sequence === ${frame.sequence} && !animationFrame && !document.querySelector(".encounter-portrait")
+        `));
+      }
       const nextPortrait = continuation.portraits ? frame.portrait :
         continuation.clearsPortrait ? undefined : continuation.portrait ?? portrait;
       if (continuation.portraits) assert.ok(continuation.portraits.includes(nextPortrait));

@@ -4325,7 +4325,9 @@ on GOG 1.3.
 The **council-zhentil-packet** replay loads a Council save with Cadorna already
 gone. It checks that the alternate Zhentil Keep dispatch illustrates the
 clerk examining the sealed packet while the original warning leaves tampering
-uncertain. Continuing clears the illustration and restores exploration.
+uncertain. Continuing plays the clerk's closing illustration with the original
+line about available commissions. It clears automatically as the game returns
+to exploration.
 
 The `council-cadorna-south-referral` replay checks Cadorna's later
 summons through the south door for a diplomatic mission. With the rescue

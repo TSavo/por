@@ -1005,6 +1005,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
     `scene-illustration:area:8:ecl:${scope}:cue:braccio-temple-referral`,
     "YOUARESUMMONEDBYTHEBISHOPOFBRACCIOOFTYR",
   ] as const),
+  ["scene-illustration:area:8:ecl:af78:caller:a891:cue:commissions-closed", "THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE"],
   ...["ae1e:caller:a891", "b5c3:caller:a89e"].map(scope => [
     `scene-illustration:area:8:ecl:${scope}:cue:zhentil-packet-offer`,
     "WENEEDYOUTODELIVERAMESSAGETOTHEZHENTILKEEP",
