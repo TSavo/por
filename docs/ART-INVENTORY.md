@@ -14,6 +14,13 @@
 > Full coverage also requires resolving the worklist's open cases and reviewing portraits,
 > encounters and battlefield art.
 
+For new scene illustrations, use `npm run qa:narration -- --list` to find
+observed passages without art. Compare the passage and any alternate
+outcomes against the scene bindings in `upgrades/manifest.json`. A bare
+passage is a review candidate because it may be adequately shown by the
+live environment or may only report a game result. The tile worklist and
+catalogue counts do not measure the number of scene illustrations left to draw.
+
 
 Run `npx tsx tools/art-inventory.ts` with the original game files installed.
 The command accepts an optional game-data directory and output directory. It
