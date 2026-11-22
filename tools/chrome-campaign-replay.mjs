@@ -67,8 +67,8 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
   let messageId = 0;
   let lastSequence = -1;
 
-  async function waitFor(description, read) {
-    const deadline = Date.now() + 30_000;
+  async function waitFor(description, read, timeout = 30_000) {
+    const deadline = Date.now() + timeout;
     while (Date.now() < deadline) {
       if (childError) throw childError;
       for (const [name, child] of [["Game server", server], ["Chrome", chrome]]) {
@@ -150,8 +150,15 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
     // The page starts in Enhanced; the checks were written for a page that starts in Classic.
     await command("Page.navigate", { url: `${origin}/?display=classic` });
     // The game's 320 by 200 picture; or, from the port's own data (no Classic), any first picture.
-    await waitFor("the game page", () => evaluate(`typeof send === "function" && (document.querySelector("#screen").naturalWidth === 320 ||
-      (state.classicAvailable === false && document.querySelector("#screen").naturalWidth > 0))`));
+    // The runner starts once the server has loaded the artwork and must then boot to startAt before its
+    // first frame, so the wait grows with the leg's boot: a second for each million steps beyond 30 s.
+    // Leg 2 boots to step 85,000,000; its first picture came after 23 s in Chrome and after 30 s on a
+    // busy machine (issue #75). A game that stops fails at once.
+    await waitFor("the game page", () => evaluate(`(() => {
+      if (typeof state === "object" && state.stopped) throw new Error(state.stopped);
+      return typeof send === "function" && (document.querySelector("#screen").naturalWidth === 320 ||
+        (state.classicAvailable === false && document.querySelector("#screen").naturalWidth > 0));
+    })()`), 30_000 + (Number(startAt) || 0) / 1000);
     await evaluate(`(() => {
       if (!enhanced) document.querySelector("#presentation").click();
       const sendKey = send;
