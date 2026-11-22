@@ -1472,6 +1472,10 @@ the locked entrance. Chrome checks 3,630 placements across 30 views using
 61 new 32×32 tiles across the two routes.
 The `mendor-library-basilisk` replay uses controlled slot B outside the
 Rhetoric stacks. Chrome checks the 192×96 ready pose and animated strike.
+The **mendor-natural-philosophy** replay searches the Philosophy stacks in
+Mendor's Library. It checks the original reading caption against the brief
+illustration of the books and verifies that the view returns to exploration.
+
 The `mendor-rhetoric-stacks` and `mendor-history-stacks` replays check
 2,420 placements across 20 views, including 50 new 32×32 tiles. The
 `mendor-library-stacks` replay verifies that the stacks clue appears when

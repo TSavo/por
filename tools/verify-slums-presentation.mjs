@@ -1907,6 +1907,16 @@ const illustrationRoutes = new Map([
     } },
     prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i,
   }],
+  ["mendor-natural-philosophy", {
+    slot: "B", inputs: ["left", "s", "up", "enter"],
+    portraitStops: { 3: "scene-illustration:area:15:ecl:99b5:caller:9de1" },
+    transientPortraits: { 4: {
+      id: "scene-illustration:area:15:ecl:9956:caller:9f71:cue:natural-philosophy",
+      prompt: /YOUFINDWORKSONNATURALPHILOSOPHY.*THEORIESOFART.*THESUPERNATURALSCIENCES.*ITISVERYBORING/i,
+      screenshot: "mendor-natural-philosophy.png",
+    } },
+    prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i,
+  }],
   ["mendor-mathematics-essays", {
     slot: "B", inputs: ["s", "up", "enter", "down", "up"],
     portraitStops: { 2: "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:mathematics-stacks", 3: null },
