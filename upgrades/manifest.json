@@ -9050,6 +9050,7 @@
     "combat:area:20:CPIC2.DAX:5:ecl:ab91": "slums-mage-orc-leader-ready.png",
     "combat:area:20:CPIC2.DAX:133:ecl:ab91": "slums-mage-orc-leader-strike.png",
     "portrait:area:3:ecl:a6c8:PIC5.DAX:56:1:0": "valjevo-sleeping-fire-giants-phase-1.png",
+    "portrait:PIC5.DAX:56:2:0": "valjevo-sleeping-fire-giants-member-2.png",
     "portrait:area:3:ecl:a6c8:PIC5.DAX:56:3:0": "valjevo-sleeping-fire-giants-phase-3.png",
     "portrait:area:3:ecl:a6c8:PIC5.DAX:56:0:0": "valjevo-sleeping-fire-giants.png",
     "scene-illustration:area:3:ecl:9a5a:caller:a732:cue:waking-fire-giants": "valjevo-waking-fire-giants.png",
