@@ -2325,6 +2325,17 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "council-kovel-mansion-offer.png",
     continuation: { inputs: ["enter"], prompt: /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i, clearsPortrait: true },
   }],
+  ["council-nomad-offer", {
+    slot: "A", inputs: [...councilClerkApproach, "enter", "enter", "enter"],
+    portraitStops: {
+      9: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:slums-commission-offer",
+      10: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:braccio-temple-referral",
+    },
+    portrait: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:nomad-alliance-offer",
+    prompt: /FINDTHENOMADSANDSTOPTHEMFROMJOININGFORCESWITHOURENEMIES/i,
+    finalPhaseCapture: "council-nomad-alliance-offer.png",
+    continuation: { inputs: ["enter"], prompt: /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i, clearsPortrait: true },
+  }],
   ["new-phlan-council-entry", {
     slot: "A", inputs: [...Array(8).fill("enter"), "right", "right", "up", "up", "up",
       "enter", "up", "up", "up", "up", "left", "up", "up"],
@@ -9978,7 +9989,7 @@ try {
         assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join(""), /5,6N/i);
       }
       if (["council-records-offer", "council-podal-offer", "council-cadorna-referral", "council-braccio-referral",
-        "council-kovel-offer", "stojanow-merchant-gate",
+        "council-kovel-offer", "council-nomad-offer", "stojanow-merchant-gate",
         "stojanow-toll-refused", "stojanow-tower-arrow-volley",
         "stojanow-trader-no-money", "wild-grove-western-stench"].includes(routeName)) {
         assert.ok(!frame.classicPortrait);
