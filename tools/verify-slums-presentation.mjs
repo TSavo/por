@@ -1,7 +1,9 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
+import { once } from "node:events";
 import { appendFileSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { rm } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
@@ -7571,10 +7573,13 @@ try {
   }, 120_000);
   // With --disable-gpu, headless Chrome (157 measured) has no WebGL unless software WebGL is allowed,
   // and the page then draws the first-person view from tiles: no .street-viewport (issue #123).
+  const chromeTemp = resolve(profile, "tmp");
+  mkdirSync(chromeTemp, { recursive: true });
   chrome = spawn(chromePath, [
     "--headless", "--no-first-run", "--mute-audio", "--disable-gpu", "--enable-unsafe-swiftshader", "--remote-debugging-port=0",
+    "--disable-component-update",
     `--user-data-dir=${profile}`, "about:blank",
-  ], { stdio: "ignore" });
+  ], { stdio: "ignore", env: { ...process.env, TEMP: chromeTemp, TMP: chromeTemp, TMPDIR: chromeTemp } });
   const debugPort = await waitFor("Chrome's debug port", () =>
     readFileSync(resolve(profile, "DevToolsActivePort"), "utf8").split(/\r?\n/)[0]);
   const tab = await waitFor("Chrome tab", async () => {
@@ -16267,7 +16272,26 @@ try {
     writeFileSync(heldPortraitEvidenceFile, JSON.stringify(heldPortraitEvidence, null, 2) + "\n");
   }
 } finally {
-  socket?.close();
-  chrome?.kill();
   server.kill();
+  try {
+    if (chrome?.pid && chrome.exitCode === null && chrome.signalCode === null) {
+      const closed = once(chrome, "close").then(() => true);
+      if (socket?.readyState === WebSocket.OPEN) {
+        socket.send(JSON.stringify({ id: -1, method: "Browser.close" }));
+      } else {
+        chrome.kill();
+      }
+      if (!await Promise.race([closed, delay(2000, false, { ref: false })])) {
+        chrome.kill();
+        await Promise.race([closed, delay(2000, false, { ref: false })]);
+      }
+    }
+  } finally {
+    socket?.close();
+    // Replay screenshots, traces and saves are outside this disposable Chrome profile.
+    if (process.env.POR_KEEP_CHROME_PROFILE !== "1") {
+      await rm(profile, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 })
+        .catch(error => console.error(`Could not remove the replay Chrome profile at ${profile}: ${error.message}`));
+    }
+  }
 }
