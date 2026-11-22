@@ -728,7 +728,8 @@
           "checks": [
             "game-data",
             "game-data-records",
-            "standalone"
+            "standalone",
+            "art-worklist"
           ],
           "gap": "The game runs from game/ with no original file, and the game-data check proves the same text, dice and saved games as the 1.3 files. Pictures come back blank from game/, so Enhanced artwork that is found by matching original pixels is not found yet. The standalone check counts what is left and fails while anything is left."
         },

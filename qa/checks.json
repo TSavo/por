@@ -215,6 +215,13 @@
       "needs": [
         "the version 1.3 files"
       ]
+    },
+    {
+      "id": "art-worklist",
+      "title": "Every first-person and battlefield cell the game can show has artwork under its key, at 32 by 32: fails while any is left (docs/ART-WORKLIST.md)",
+      "command": "npm run verify:art-worklist",
+      "reference": "game-data",
+      "needs": []
     }
   ]
 }

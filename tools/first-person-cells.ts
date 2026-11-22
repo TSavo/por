@@ -72,8 +72,16 @@ export function drawTables(data: PortGameData, read: ReadGameData): DrawTables {
   return tables;
 }
 
-/** The colours ovl26 0x016d gives the three bands under the sky: one row, two rows, the ground. */
-export const HORIZON = { line: 15, band: 7, ground: 6 } as const;
+/**
+ * The colours under the sky: one row of `line`, two rows of `band`, then the ground (ovl29 0x0174).
+ * ovl26 0x016d works them out from two bytes a script can write: 0xc05f gives line and band, 0xc059
+ * the ground (ovl07 0x0ddd). The game starts with the values that give 15, 7 and 6.
+ */
+export interface Lower { line: number; band: number; ground: number }
+export const HORIZON: Lower = { line: 15, band: 7, ground: 6 };
+const lineOf = (code: number) => code === 8 || code === 0x41 ? 0 : 15;
+const bandOf = (code: number) => code === 8 ? 8 : 7;
+const groundOf = (code: number) => code === 0x0b ? 8 : code === 6 ? 1 : 6;
 
 export interface AreaMap {
   block: number;
@@ -100,7 +108,7 @@ export interface WallSlots {
   /** The LOAD PIECES operands this came from. */
   operands: [number, number, number];
   /** For each slot 1..3: the wall definition block and set it holds, and the tile block of its bank. */
-  slots: ({ wallBlock: number; set: number; tileBlock: number } | undefined)[];
+  slots: ({ wallBlock: number; set: number; tileBlock: number; loadedAt: number } | undefined)[];
   /** Notes on anything the load does that is not the plain case. */
   notes: string[];
 }
@@ -110,12 +118,14 @@ export interface AreaScript {
   area: number;
   archive: number;
   /** Map blocks the script loads, with how each was established. */
-  maps: { block: number; how: string }[];
+  maps: { block: number; how: string; wallLoads: string[] }[];
   /** First operands of LOAD FILES the tool could not resolve to a map block. */
   unresolvedMaps: string[];
   wallSlots: WallSlots[];
+  /** True when the script has no LOAD PIECES and the wall sets are those of the script that starts it. */
+  inheritedWalls?: boolean;
   /** Values the script can leave in the two sky variables, as colours. `open` is under the sky, `covered` under a roof. */
-  sky: { open: number[]; covered: number[]; unresolved: string[] };
+  sky: { open: number[]; covered: number[]; unresolved: string[]; inherited: ("open" | "covered")[] };
   /** True when the script ever lets the player open the overhead area view (it clears variable 0x49fb). */
   areaView: boolean;
   /** Areas this script starts with NEW ECL, when the operand is a number. */
@@ -140,6 +150,9 @@ export interface WorldData {
   /** `8X8D<archive>.DAX:<block>` to the hashes of its tiles. */
   tileBlocks: Map<string, string[]>;
   catalogue: TileCatalogue;
+  /** Line and band pairs, and ground colours, that some script sets. The first of each is what the game starts with. */
+  bands: { line: number; band: number; from: string }[];
+  grounds: { ground: number; from: string }[];
 }
 
 export function readWorld(data: PortGameData, read: ReadGameData): WorldData {
@@ -165,9 +178,12 @@ export function readWorld(data: PortGameData, read: ReadGameData): WorldData {
     instructions: disassemble(scriptFromBlock(contentBytes(record, read))).instructions,
   }));
   // Numbers a variable can hold: every number any script saves into it, followed through one variable to the next.
-  const saves = new Map<number, { numbers: Set<number>; from: Set<number>; other: boolean }>();
-  for (const { instructions } of listings) {
-    for (const instruction of instructions) {
+  // A script's own saves are looked at first; a variable it never saves holds what another script left there.
+  type Saves = Map<number, { numbers: Set<number>; from: Set<number>; other: boolean }>;
+  const everywhere: Saves = new Map();
+  const own = new Map<number, Saves>();
+  for (const { area, instructions } of listings) {
+    for (const saves of [everywhere, own.get(area) ?? own.set(area, new Map()).get(area)!]) for (const instruction of instructions) {
       const name = instruction.name;
       if (!name) continue;
       const last = instruction.operands.length - 1;
@@ -186,11 +202,12 @@ export function readWorld(data: PortGameData, read: ReadGameData): WorldData {
       } else entry.other = true;
     }
   }
+  let current: Saves = everywhere;
   const valuesOf = (address: number, seen = new Set<number>()): { numbers: Set<number>; unresolved: string[] } => {
     const numbers = new Set<number>(), unresolved: string[] = [];
     if (seen.has(address)) return { numbers, unresolved };
     seen.add(address);
-    const entry = saves.get(address);
+    const entry = current.get(address) ?? everywhere.get(address);
     if (!entry) return { numbers, unresolved: [`variable 0x${address.toString(16)} is never saved by a script`] };
     for (const number of entry.numbers) numbers.add(number);
     if (entry.other) unresolved.push(`variable 0x${address.toString(16)} is also computed`);
@@ -204,13 +221,22 @@ export function readWorld(data: PortGameData, read: ReadGameData): WorldData {
 
   const scripts: AreaScript[] = [];
   for (const { area, archive, script, instructions } of listings) {
-    const result: AreaScript = { area, archive, maps: [], unresolvedMaps: [], wallSlots: [], sky: { open: [], covered: [], unresolved: [] }, areaView: false, leadsTo: [] };
+    current = own.get(area)!;
+    const result: AreaScript = { area, archive, maps: [], unresolvedMaps: [], wallSlots: [], sky: { open: [], covered: [], unresolved: [], inherited: [] }, areaView: false, leadsTo: [] };
+    // A LOAD FILES and a LOAD PIECES within two instructions of each other load a map with its own wall sets.
+    const loads: { at: number; maps: number[] }[] = [], pieces: { at: number; operands: string }[] = [];
+    let position = -1, loading: number[] = [];
     const addMap = (block: number, how: string) => {
-      if (maps.has(`${archive}:${block}`) && !result.maps.some((map) => map.block === block)) result.maps.push({ block, how });
+      if (!maps.has(`${archive}:${block}`)) return;
+      loading.push(block);
+      if (!result.maps.some((map) => map.block === block)) result.maps.push({ block, how, wallLoads: [] });
     };
     const skyNumbers = { open: new Set<number>(), covered: new Set<number>() };
     for (const instruction of instructions) {
       const name = instruction.name;
+      position++;
+      if (loading.length) loads.push({ at: position - 1, maps: loading });
+      loading = [];
       const at = instruction.address.toString(16);
       if (name === "LOAD FILES") {
         const number = immediate(instruction, 0), variable = memory(instruction, 0);
@@ -239,6 +265,7 @@ export function readWorld(data: PortGameData, read: ReadGameData): WorldData {
         else {
           const slots = wallSlots(operands as [number, number, number], archive, wallBlocks);
           if (!result.wallSlots.some((known) => known.operands.join() === slots.operands.join())) result.wallSlots.push(slots);
+          pieces.push({ at: position, operands: slots.operands.join() });
         }
       }
       if (name === "SAVE" && (memory(instruction, 1) === 0x49fd || memory(instruction, 1) === 0x49fe)) {
@@ -260,10 +287,62 @@ export function readWorld(data: PortGameData, read: ReadGameData): WorldData {
     const colours = (numbers: Set<number>) => [...new Set([...numbers].filter((number) => number < 16).map((number) => tables.skyColours[number]!))].sort((a, b) => a - b);
     result.sky.open = colours(skyNumbers.open);
     result.sky.covered = colours(skyNumbers.covered);
+    if (loading.length) loads.push({ at: position, maps: loading });
+    for (const map of result.maps) {
+      const near = new Set<string>();
+      for (const load of loads) if (load.maps.includes(map.block)) for (const piece of pieces) if (Math.abs(piece.at - load.at) <= 2) near.add(piece.operands);
+      // A map loaded with no LOAD PIECES beside it is drawn with whichever wall sets the script has loaded.
+      map.wallLoads = near.size ? [...near] : result.wallSlots.map((slots) => slots.operands.join());
+    }
     scripts.push(result);
   }
   scripts.sort((a, b) => a.area - b.area);
-  return { tables, scripts, maps, wallBlocks, tileBlocks, catalogue };
+  // A script with no LOAD PIECES draws with the wall sets left by the script that started it, when
+  // that script reads the same archive.
+  for (const script of scripts) {
+    if (script.wallSlots.length) continue;
+    for (const before of scripts) {
+      if (before.archive !== script.archive || !before.leadsTo.includes(script.area)) continue;
+      for (const slots of before.wallSlots) if (!script.wallSlots.some((known) => known.operands.join() === slots.operands.join())) script.wallSlots.push(slots);
+    }
+    script.inheritedWalls = script.wallSlots.length > 0;
+    for (const map of script.maps) map.wallLoads = script.wallSlots.map((slots) => slots.operands.join());
+  }
+  // A script that never sets a sky variable draws with what the script before it left: take the
+  // colours of the scripts that start it, and failing that of every script.
+  for (const which of ["open", "covered"] as const) {
+    const all = [...new Set(scripts.flatMap((script) => script.sky[which]))].sort((a, b) => a - b);
+    const inherit = new Map<AreaScript, number[]>();
+    for (const script of scripts) {
+      if (script.sky[which].length) continue;
+      const before = scripts.filter((other) => other.leadsTo.includes(script.area) && other.sky[which].length);
+      inherit.set(script, before.length ? [...new Set(before.flatMap((other) => other.sky[which]))].sort((a, b) => a - b) : all);
+    }
+    for (const [script, colours] of inherit) { script.sky[which] = colours; script.sky.inherited.push(which); }
+  }
+  // Scripts that write the two backdrop bytes. What they leave stays until another script writes
+  // them, so every area is tried with every value, and the artwork that exists says which occur.
+  const bands: WorldData["bands"] = [{ line: HORIZON.line, band: HORIZON.band, from: "the game's starting value" }];
+  const grounds: WorldData["grounds"] = [{ ground: HORIZON.ground, from: "the game's starting value" }];
+  for (const { area, script, instructions } of listings) {
+    for (const instruction of instructions) {
+      const target = memory(instruction, instruction.operands.length - 1);
+      if (target !== 0xc05f && target !== 0xc059) continue;
+      const codes: number[] = [];
+      const number = immediate(instruction, 0);
+      if (instruction.name === "SAVE" && number !== undefined) codes.push(number);
+      if (instruction.name === "GET TABLE") {
+        const base = memory(instruction, 0);
+        if (base !== undefined) for (let entry = 0; entry < 8; entry++) codes.push(script.bytes[base - script.base + entry] ?? 0);
+      }
+      const from = `area ${area}'s script at ${instruction.address.toString(16)}`;
+      for (const code of codes) {
+        if (target === 0xc05f && !bands.some((known) => known.line === lineOf(code) && known.band === bandOf(code))) bands.push({ line: lineOf(code), band: bandOf(code), from });
+        if (target === 0xc059 && !grounds.some((known) => known.ground === groundOf(code))) grounds.push({ ground: groundOf(code), from });
+      }
+    }
+  }
+  return { tables, scripts, maps, wallBlocks, tileBlocks, catalogue, bands, grounds };
 }
 
 /**
@@ -279,7 +358,7 @@ function wallSlots(operands: [number, number, number], archive: number, wallBloc
     const sets = wallBlocks.get(`${archive}:${block}`);
     if (!sets) { notes.push(`wall definition block ${block} is not in WALLDEF${archive}.DAX: the game loads slot ${slot} from it only when variables 0x49e7 and 0x49e8 are clear, and the scripts that name it set them first`); return; }
     for (let set = 0; set < sets.length && slot + set <= 3; set++) {
-      slots[slot + set] = { wallBlock: block, set, tileBlock: sets.length > 1 ? (block || 10) * 10 + set + 1 : block };
+      slots[slot + set] = { wallBlock: block, set, tileBlock: sets.length > 1 ? (block || 10) * 10 + set + 1 : block, loadedAt: slot };
     }
   };
   const [first, second, third] = operands;
@@ -330,7 +409,20 @@ function wallSymbol(context: ViewContext, type: number, index: number): number {
   const sets = context.world.wallBlocks.get(`${context.script.archive}:${loaded.wallBlock}`)!;
   const stored = sets[loaded.set]![((type - 1) % 5) * 156 + index]!;
   const { bankBase, rebaseFrom } = context.world.tables;
-  return stored >= rebaseFrom ? (stored + bankBase[slot]! - bankBase[1]!) & 0xff : stored;
+  // The shift is worked out once for the slot the block was loaded at, so the later sets of a block of several sets store symbols of their own bank.
+  return stored >= rebaseFrom ? (stored + bankBase[loaded.loadedAt]! - bankBase[1]!) & 0xff : stored;
+}
+
+/** Every tile some symbol of the loaded wall definitions names, whether or not a map ever places it. */
+export function namedTiles(context: ViewContext): Set<TileName> {
+  const named = new Set<TileName>();
+  for (let type = 1; type <= 15; type++) {
+    for (let index = 0; index < 156; index++) {
+      const tile = symbolTile(context, wallSymbol(context, type, index));
+      if (tile) named.add(tile);
+    }
+  }
+  return named;
 }
 
 /** The 121 cell stacks of the view from a square, facing 0, 2, 4 or 6. */

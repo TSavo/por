@@ -8,27 +8,34 @@
  *
  * It reads `game/` (no original file) and the two artwork manifests, fresh on every run. The
  * first-person view is worked out by tools/first-person-cells.ts. A screen cell whose pixels are
- * several tiles over each other can only be hashed from the pixels, so those hashes are kept in
- * qa/art-worklist-cells.json: with the player's own 1.3 files (POR_GAMEDATA) the tool recomputes
- * and rewrites that file; without them it uses it as committed. The sheets always need the 1.3 files.
+ * several tiles over each other can only be hashed from the pixels, and game/ holds no cell hashes
+ * for SQRPACI and BACPAC, so those hashes are kept in qa/art-worklist-cells.json: with the
+ * player's own 1.3 files (POR_GAMEDATA) the tool recomputes and rewrites that file; without them
+ * it uses it as committed. The sheets always need the 1.3 files.
+ *
+ * An item is listed to do only when the tool is sure it can appear. Everything else is counted
+ * under "not established" with the reason, and is neither listed nor dropped.
  */
+import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseDax } from "../src/lib/dax.js";
 import { Frame } from "../src/lib/ega.js";
-import { decodePicture, frameSlice, isPicture } from "../src/lib/picture.js";
-import { readGameData } from "../src/runtime/game-data.js";
+import { decodePicture, frameSlice, isPicture, pictureMembers } from "../src/lib/picture.js";
+import { contentBytes, readGameData, type PictureRecord, type PortGameData } from "../src/runtime/game-data.js";
+import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
 import {
-  areaViewCells, covered, HORIZON, reachable, readWorld, sha256, TRANSPARENT, viewCells,
-  type AreaScript, type TileName, type ViewContext, type WallSlots, type WorldData,
+  areaViewCells, covered, HORIZON, namedTiles, reachable, readWorld, sha256, TRANSPARENT, viewCells,
+  type AreaScript, type Lower, type TileName, type ViewContext, type WallSlots, type WorldData,
 } from "./first-person-cells.js";
 import { encodePng, pngDimensions } from "./png.js";
 
 const repository = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const at = (...parts: string[]) => join(repository, ...parts);
 const MANIFESTS = ["upgrades/manifest.json", "upgrades/slums/manifest.json"] as const;
-const WORKLIST = "qa/art-worklist.json", DOCUMENT = "docs/ART-WORKLIST.md", CELLS = "qa/art-worklist-cells.json";
+const WORKLIST = "qa/art-worklist.json", DOCUMENT = "docs/ART-WORKLIST.md", CELLS = "qa/art-worklist-cells.json", NOTES = "qa/art-worklist-notes.md";
+const BLANK = sha256(new Uint8Array(64));
 
 const names: Record<number, string> = {
   0: "New Phlan", 1: "Buccaneer Base", 2: "Cadorna Textile House", 3: "Valjevo Castle", 4: "Valjevo Castle", 5: "Valjevo Castle",
@@ -42,7 +49,7 @@ const names: Record<number, string> = {
 // ---------------------------------------------------------------------------------------------
 // The manifests, read fresh.
 
-interface Art { file: string; manifest: string; size?: { width: number; height: number } }
+interface Art { file: string; manifest: string; size?: { width: number; height: number } | null }
 function readArt(): Map<string, Art> {
   const art = new Map<string, Art>();
   // The Slums pack is read first and the main manifest takes precedence, as tools/upgrade-art.ts loads them.
@@ -52,103 +59,116 @@ function readArt(): Map<string, Art> {
   }
   return art;
 }
-function artSize(art: Art): { width: number; height: number } | undefined {
-  if (art.size) return art.size;
-  try { art.size = pngDimensions(readFileSync(at(dirname(art.manifest), art.file))) ?? undefined; } catch { art.size = undefined; }
-  return art.size;
-}
 /** Why a key is not done, or undefined when its art is in a manifest, on disk and the required size. */
 function missing(art: Map<string, Art>, key: string, width: number, height: number): string | undefined {
   const entry = art.get(key);
   if (!entry) return "no key in a manifest";
-  const size = artSize(entry);
-  if (!size) return `${entry.file} is missing or not a readable PNG`;
-  if (size.width !== width || size.height !== height) return `${entry.file} is ${size.width}x${size.height}, not ${width}x${height}`;
+  if (entry.size === undefined) {
+    try { entry.size = pngDimensions(readFileSync(at(dirname(entry.manifest), entry.file))) ?? null; } catch { entry.size = null; }
+  }
+  if (!entry.size) return `${entry.file} is missing or not a readable PNG`;
+  if (entry.size.width !== width || entry.size.height !== height) return `${entry.file} is ${entry.size.width}x${entry.size.height}, not ${width}x${height}`;
 }
 
 // ---------------------------------------------------------------------------------------------
 // Original pixels, when the player's 1.3 files are at hand.
 
-function originalTiles(directory: string | undefined): Map<TileName, Uint8Array> | undefined {
+interface Originals {
+  tiles: Map<TileName, Uint8Array>;
+  /** `SQRPACI.DAX:1:0:5` to the pixels of that frame, with its width and height. */
+  frames: Map<string, { width: number; height: number; pixels: Uint8Array }>;
+}
+function originals(directory: string | undefined): Originals | undefined {
   if (!directory || !existsSync(directory)) return;
-  const tiles = new Map<TileName, Uint8Array>();
+  const tiles = new Map<TileName, Uint8Array>(), frames: Originals["frames"] = new Map();
   for (const file of readdirSync(directory)) {
-    if (!/^8X8D\d\.DAX$/i.test(file)) continue;
+    const name = file.toUpperCase();
+    if (!/^(8X8D\d|BACPAC|DUNGCOM|FINAL\d|HEAD\d|ICON|PIC\d|SPRIT\d|SQRPACI|WILDCOM)\.DAX$/.test(name)) continue;
     for (const { id, data } of parseDax(file, new Uint8Array(readFileSync(join(directory, file)))).entries) {
-      if (!isPicture(data)) continue;
-      const picture = decodePicture(data);
-      if (picture.width !== 8 || picture.height !== 8) continue;
-      for (let index = 0; index < picture.itemCount; index++) tiles.set(`${file.toUpperCase()}:${id}:${index}`, frameSlice(picture, index));
+      const members = isPicture(data) ? [{ data }] : pictureMembers(data);
+      for (const [member, { data: bytes }] of members.entries()) {
+        if (!isPicture(bytes)) continue;
+        const picture = decodePicture(bytes);
+        for (let index = 0; index < picture.itemCount; index++) {
+          if (/^8X8D/.test(name)) { if (picture.width === 8 && picture.height === 8) tiles.set(`${name}:${id}:${index}`, frameSlice(picture, index)); }
+          else frames.set(`${name}:${id}:${member}:${index}`, { width: picture.width, height: picture.height, pixels: frameSlice(picture, index) });
+        }
+      }
     }
   }
-  return tiles.size ? tiles : undefined;
+  return tiles.size ? { tiles, frames } : undefined;
+}
+function cellsOf(frame: { width: number; height: number; pixels: Uint8Array }): Uint8Array[] {
+  const cells: Uint8Array[] = [];
+  for (let y = 0; y + 8 <= frame.height; y += 8) {
+    for (let x = 0; x + 8 <= frame.width; x += 8) {
+      const cell = new Uint8Array(64);
+      for (let row = 0; row < 8; row++) cell.set(frame.pixels.subarray((y + row) * frame.width + x, (y + row) * frame.width + x + 8), row * 8);
+      cells.push(cell);
+    }
+  }
+  return cells;
 }
 
 // ---------------------------------------------------------------------------------------------
-// Screen cells.
+// Screen cells of the first-person view.
 
-/** What is behind the tiles of a cell: sky rows, the horizon row, ground rows, or nothing that shows. */
-type Backdrop = `s${number}` | `h${number}` | "g" | "-";
-const backdropOf = (row: number, sky: number): Backdrop => row < 5 ? `s${sky}` : row === 5 ? `h${sky}` : "g";
-
+/** What is behind the tiles of a cell: `s<sky>`, `h<sky>.<line>.<band>.<ground>` for the horizon row, `g<ground>`, or `-` when none of it shows. */
+type Backdrop = string;
 function backdropPixels(backdrop: Backdrop): Uint8Array {
   const out = new Uint8Array(64);
-  if (backdrop === "g") out.fill(HORIZON.ground);
-  else if (backdrop[0] === "s") out.fill(Number(backdrop.slice(1)));
+  if (backdrop[0] === "g" || backdrop[0] === "s") out.fill(Number(backdrop.slice(1)));
   else if (backdrop[0] === "h") {
     // Rows 40..47 of the view: three of sky, one line, two of band, two of ground (ovl29 0x0174).
-    out.fill(Number(backdrop.slice(1)), 0, 24);
-    out.fill(HORIZON.line, 24, 32);
-    out.fill(HORIZON.band, 32, 48);
-    out.fill(HORIZON.ground, 48, 64);
+    const [sky, line, band, ground] = backdrop.slice(1).split(".").map(Number) as [number, number, number, number];
+    out.fill(sky, 0, 24);
+    out.fill(line, 24, 32);
+    out.fill(band, 32, 48);
+    out.fill(ground, 48, 64);
   }
   return out;
 }
 
 type CellKind = "one stored tile" | "one tile over a solid colour" | "plain backdrop" | "several tiles together";
-interface Cell {
-  /** Canonical description of how the cell is made: backdrop, then tiles bottom first. */
-  signature: string;
-  kind: CellKind;
-  hash?: string;
-}
+interface Cell { signature: string; backdrop: Backdrop; tiles: TileName[]; kind: CellKind; hash?: string }
 
 class Cells {
   private readonly byName = new Map<string, { hash: string; overColour?: string[] }>();
   private readonly memo = new Map<string, Cell>();
   /** Hashes of cells made of several tiles, by signature. */
   readonly composed = new Map<string, string>();
+  private readonly cache: Record<string, string>;
   missingHashes = 0;
-  constructor(private readonly world: WorldData, private readonly pixels: Map<TileName, Uint8Array> | undefined, cache: Record<string, string>) {
+  constructor(world: WorldData, private readonly pixels: Map<TileName, Uint8Array> | undefined, cache: Record<string, string>) {
     const byHash = new Map(world.catalogue.tiles.map((tile) => [tile.hash, tile]));
     for (const [block, hashes] of world.tileBlocks) hashes.forEach((hash, index) => this.byName.set(`${block}:${index}`, byHash.get(hash) ?? { hash }));
-    if (!pixels) for (const [signature, hash] of Object.entries(cache)) this.composed.set(signature, hash);
+    this.cache = cache;
   }
-  private opaque(tile: TileName): boolean { return !this.byName.get(tile)!.overColour; }
+  hashOf(tile: TileName): string { return this.byName.get(tile)!.hash; }
+  opaque(tile: TileName): boolean { return !this.byName.get(tile)!.overColour; }
   /** A tile with no pixel that shows: over any colour it is that colour. */
-  private invisible(tile: TileName): boolean {
-    const over = this.byName.get(tile)!.overColour;
-    return Boolean(over && over[0] === sha256(new Uint8Array(64)));
-  }
-  cell(row: number, sky: number, stack: readonly TileName[]): Cell {
+  invisible(tile: TileName): boolean { return this.byName.get(tile)!.overColour?.[0] === BLANK; }
+  /** Tiles that can show at least through the stack, bottom first, and whether the backdrop can show. */
+  prune(stack: readonly TileName[]): { tiles: TileName[]; open: boolean } {
     let tiles = stack.filter((tile) => !this.invisible(tile));
-    let backdrop: Backdrop = backdropOf(row, sky);
     for (let index = tiles.length - 1; index >= 0; index--) {
-      if (this.opaque(tiles[index]!)) { tiles = tiles.slice(index); backdrop = "-"; break; }
+      if (this.opaque(tiles[index]!)) return { tiles: tiles.slice(index), open: false };
     }
+    return { tiles, open: true };
+  }
+  cell(backdrop: Backdrop, tiles: readonly TileName[]): Cell {
     const signature = `${backdrop}|${tiles.join(",")}`;
     let cell = this.memo.get(signature);
     if (cell) return cell;
-    const solid = backdrop === "g" ? HORIZON.ground : backdrop[0] === "s" ? Number(backdrop.slice(1)) : undefined;
-    if (backdrop === "-" && tiles.length === 1) cell = { signature, kind: "one stored tile", hash: this.byName.get(tiles[0]!)!.hash };
-    else if (solid !== undefined && tiles.length === 0) cell = { signature, kind: "plain backdrop", hash: sha256(new Uint8Array(64).fill(solid)) };
-    else if (solid !== undefined && tiles.length === 1) cell = { signature, kind: "one tile over a solid colour", hash: this.byName.get(tiles[0]!)!.overColour![solid]! };
+    const solid = backdrop[0] === "g" || backdrop[0] === "s" ? Number(backdrop.slice(1)) : undefined;
+    const base = { signature, backdrop, tiles: [...tiles] };
+    if (backdrop === "-" && tiles.length === 1) cell = { ...base, kind: "one stored tile", hash: this.hashOf(tiles[0]!) };
+    else if (solid !== undefined && tiles.length === 0) cell = { ...base, kind: "plain backdrop", hash: sha256(new Uint8Array(64).fill(solid)) };
+    else if (solid !== undefined && tiles.length === 1) cell = { ...base, kind: "one tile over a solid colour", hash: this.byName.get(tiles[0]!)!.overColour![solid]! };
     else {
-      let hash: string | undefined;
-      if (this.pixels) { hash = sha256(this.render(signature)); this.composed.set(signature, hash); }
-      else hash = this.composed.get(signature);
-      if (!hash) this.missingHashes++;
-      cell = { signature, kind: "several tiles together", hash };
+      const hash = this.pixels ? sha256(this.render(signature)) : this.cache[signature];
+      if (hash) this.composed.set(signature, hash); else this.missingHashes++;
+      cell = { ...base, kind: "several tiles together", hash };
     }
     this.memo.set(signature, cell);
     return cell;
@@ -166,31 +186,48 @@ class Cells {
   }
 }
 
+const shortTile = (tile: TileName) => tile.replace(".DAX", "").replace(/:(\d+):(\d+)$/, " block $1 tile $2");
+function describeSignature(signature: string): string {
+  const [backdrop, list] = signature.split("|") as [Backdrop, string];
+  const tiles = (list ? list.split(",") : []).map(shortTile);
+  let behind = "";
+  if (backdrop[0] === "g") behind = `the ground colour ${backdrop.slice(1)}`;
+  else if (backdrop[0] === "s") behind = `sky colour ${backdrop.slice(1)}`;
+  else if (backdrop[0] === "h") {
+    const [sky, line, band, ground] = backdrop.slice(1).split(".");
+    behind = `the horizon row (three rows of sky ${sky}, one of ${line}, two of ${band}, two of ground ${ground})`;
+  }
+  if (!tiles.length) return behind;
+  return [...tiles.reverse(), ...(behind ? [behind] : [])].join(" over ");
+}
+
 // ---------------------------------------------------------------------------------------------
 // The worklist.
 
 interface Item {
-  kind: "first-person cell";
+  kind: "first-person cell" | "battlefield cell";
   /** The key to add to upgrades/manifest.json. */
   key: string;
   width: 32;
   height: 32;
-  area: number;
-  areaName: string;
+  /** For a first-person cell, the area of the key. A battlefield key has no area. */
+  area?: number;
+  areaName?: string;
   group: string;
-  cellKind: CellKind;
-  /** How the cell is made: the backdrop, then the stored tiles bottom first. */
+  what: CellKind | "one cell of a battlefield picture";
+  /** How to make the original: the backdrop and stored tiles bottom first, or the frame and cell. */
   composition: string;
   description: string;
-  /** One place to see it: map block, square, facing, and the cell's column and row in the 11 by 11 view. */
-  seenAt: { map: number; x: number; y: number; facing: string; column: number; row: number };
-  views: number;
-  /** Areas where the same pixels already have artwork. */
+  /** One place to see it. */
+  seenAt?: { map: number; x: number; y: number; facing: string; column: number; row: number };
+  views?: number;
+  /** Areas where the same pixels already have artwork, with one PNG that draws them. */
   drawnIn: number[];
+  sameAs?: string;
   why: string;
 }
 
-interface Context { label: number; script: AreaScript; map: number; slots: WallSlots }
+interface Context { label: number; script: AreaScript; map: number; slots: WallSlots; arrivalFrom?: number }
 interface AreaReport {
   area: number;
   name: string;
@@ -199,282 +236,586 @@ interface AreaReport {
   maps: number[];
   wallSets: string[];
   existingKeys: number;
-  existingKeysTheModelDraws: number;
-  cellsTheModelDraws: number;
+  existingKeysAccountedFor: number;
+  existingKeysOnlyAsArrivalViews: number;
+  unaccountedKeys: string[];
+  cellsTheViewsCanShow: number;
   cellsWithArt: number;
   toDo: number;
   notEstablished: Record<string, number>;
 }
 
 const FACING: Record<number, string> = { 0: "north", 2: "east", 4: "south", 6: "west" };
+const slotText = (context: Context) => `WALLDEF${context.script.archive} ${context.slots.slots.slice(1).map((slot) => slot ? `block ${slot.wallBlock}${slot.set ? ` set ${slot.set + 1}` : ""} (tiles 8X8D${context.script.archive} block ${slot.tileBlock})` : "nothing").join(", ")}`;
 
-function describeSignature(signature: string): string {
-  const [backdrop, list] = signature.split("|") as [Backdrop, string];
-  const tiles = (list ? list.split(",") : []).map((tile) => tile.replace(".DAX", "").replace(/:(\d+):(\d+)$/, " block $1 tile $2"));
-  const behind = backdrop === "-" ? "" : backdrop === "g" ? "the ground colour 6" : backdrop[0] === "s" ? `sky colour ${backdrop.slice(1)}`
-    : `the horizon row (sky colour ${backdrop.slice(1)}, a line of 15, a band of 7, ground 6)`;
-  if (!tiles.length) return behind;
-  return [...tiles.reverse(), ...(behind ? [behind] : [])].join(" over ");
-}
+interface Agg { rc: 0 | 1 | 2; roofed: boolean; tiles: TileName[]; open: boolean; views: number; squares: Set<number>; first: Item["seenAt"] }
+interface Entry { cell: Cell; context: Context; views: number; squares: Set<number>; first: Item["seenAt"]; areaView: boolean }
 
-function build(world: WorldData, art: Map<string, Art>, cells: Cells) {
-  // Existing tile keys by area.
+function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
   const existing = new Map<number, Set<string>>();
-  for (const key of art.keys()) {
+  const drawnIn = new Map<string, number[]>(), sameAs = new Map<string, string>();
+  for (const [key, { file }] of art) {
     const tile = /^tile:(\d{1,3}):([a-f0-9]{64})$/.exec(key);
-    if (tile) existing.set(Number(tile[1]), (existing.get(Number(tile[1])) ?? new Set<string>()).add(tile[2]!));
+    if (!tile) continue;
+    const area = Number(tile[1]), hash = tile[2]!;
+    existing.set(area, (existing.get(area) ?? new Set<string>()).add(hash));
+    drawnIn.set(hash, [...(drawnIn.get(hash) ?? []), area].sort((a, b) => a - b));
+    if (!sameAs.has(hash)) sameAs.set(hash, file);
   }
-  const drawnIn = new Map<string, number[]>();
-  for (const [area, hashes] of existing) for (const hash of hashes) drawnIn.set(hash, [...(drawnIn.get(hash) ?? []), area].sort((a, b) => a - b));
 
-  // A context is one script with one of its maps and one of its wall loads. Its keys carry the
-  // script's area number; a map whose block number is no script's area is tried under its own number too.
+  // A context is one script with one of its maps and the wall sets it loads beside that map. Its keys
+  // carry the script's area number. A map whose block number is no script's own takes that number
+  // instead when artwork already exists under it: that is how the Temple of Bane's interior is area 31.
   const scriptAreas = new Set(world.scripts.map((script) => script.area));
-  const contexts: Context[] = [];
+  const own: Context[] = [];
   for (const script of world.scripts) {
-    for (const { block } of script.maps) {
-      for (const slots of script.wallSlots) {
-        if (block === script.area || scriptAreas.has(block)) { if (block === script.area) contexts.push({ label: script.area, script, map: block, slots }); }
-        else contexts.push({ label: block, script, map: block, slots }, { label: script.area, script, map: block, slots });
+    for (const map of script.maps) {
+      for (const operands of map.wallLoads) {
+        const slots = script.wallSlots.find((known) => known.operands.join() === operands);
+        if (!slots) continue;
+        const label = !scriptAreas.has(map.block) && existing.has(map.block) ? map.block : script.area;
+        own.push({ label, script, map: map.block, slots });
       }
     }
   }
+  // NEW ECL keeps the old area number until the new script's first turn (ovl03 0x0bd1 and 0x3387), so
+  // the first view of the area it starts is drawn, and keyed, under the number of the area left.
+  const arrivals: Context[] = [];
+  for (const script of world.scripts) {
+    for (const target of script.leadsTo) {
+      for (const context of own) if (context.script.area === target && context.label !== script.area) arrivals.push({ ...context, label: script.area, arrivalFrom: script.area });
+    }
+  }
 
-  interface Seen { cell: Cell; views: number; first: Item["seenAt"]; sky?: number; positions: Set<number>; context: Context; areaView: boolean }
-  const items: Item[] = [];
-  const reports: AreaReport[] = [];
-  const labels = [...new Set([...contexts.map((context) => context.label), ...existing.keys()])].sort((a, b) => a - b);
-  for (const label of labels) {
-    const mine = contexts.filter((context) => context.label === label);
-    const have = existing.get(label) ?? new Set<string>();
-    const report: AreaReport = {
-      area: label, name: names[label] ?? `area ${label}`, established: false, why: "", maps: [...new Set(mine.map((context) => context.map))],
-      wallSets: [...new Set(mine.map((context) => `WALLDEF${context.script.archive} ${context.slots.slots.slice(1).map((slot) => slot ? `${slot.wallBlock}${slot.set ? `.${slot.set + 1}` : ""}` : "-").join("/")}`))],
-      existingKeys: have.size, existingKeysTheModelDraws: 0, cellsTheModelDraws: 0, cellsWithArt: 0, toDo: 0, notEstablished: {},
-    };
-    reports.push(report);
-    if (!mine.length) { report.why = "no script and map were found that draw under this area number"; continue; }
+  const skyBack = (sky: number) => `s${sky}`;
+  const lowers: Lower[] = world.bands.flatMap((band) => world.grounds.map(({ ground }) => ({ line: band.line, band: band.band, ground })));
+  const usual = (lower: Lower) => lower.line === HORIZON.line && lower.band === HORIZON.band && lower.ground === HORIZON.ground;
 
-    // Every cell every view of every context can show, by hash, with where and under which sky.
-    const seen = new Map<string, Seen[]>();
-    const fullyDrawn = new Map<Context, Set<number>>();
-    let unhashed = 0;
-    for (const context of mine) {
-      const map = world.maps.get(`${context.script.archive}:${context.map}`)!;
-      const view: ViewContext = { world, script: context.script, map, slots: context.slots };
-      const complete = new Set<number>();
-      fullyDrawn.set(context, complete);
-      for (let y = 0; y < 16; y++) {
-        for (let x = 0; x < 16; x++) {
-          for (const facing of [0, 2, 4, 6]) {
-            const skies = covered(map, x, y) ? context.script.sky.covered : context.script.sky.open;
-            const stacks = viewCells(view, x, y, facing);
-            for (const sky of skies) {
-              let withArt = 0;
-              const walls = stacks.some((stack) => stack.length > 0);
-              stacks.forEach((stack, index) => {
-                const cell = cells.cell(Math.floor(index / 11), sky, stack);
-                if (!cell.hash) { unhashed++; return; }
-                if (have.has(cell.hash)) withArt++;
-                const list = seen.get(cell.hash) ?? [];
-                seen.set(cell.hash, list);
-                let entry = list.find((known) => known.context === context && known.sky === (cell.signature.startsWith("-") || cell.signature.startsWith("g") ? undefined : sky) && !known.areaView);
-                if (!entry) {
-                  entry = { cell, views: 0, first: { map: context.map, x, y, facing: FACING[facing]!, column: index % 11, row: Math.floor(index / 11) },
-                    sky: cell.signature.startsWith("-") || cell.signature.startsWith("g") ? undefined : sky, positions: new Set(), context, areaView: false };
-                  list.push(entry);
-                }
-                entry.views++;
-                entry.positions.add(y * 16 + x);
-              });
-              // A square where some view is wholly covered by existing art was stood on when that art was made.
-              // A view of bare sky and ground says nothing about where it was seen, so it does not count.
-              if (withArt === 121 && walls) complete.add(y * 16 + x);
+  /** Every cell a context can show, with where. */
+  const enumerate = (context: Context, have: Set<string>) => {
+    const map = world.maps.get(`${context.script.archive}:${context.map}`)!;
+    const view: ViewContext = { world, script: context.script, map, slots: context.slots };
+    const aggs = new Map<string, Agg>();
+    const views: { square: number; roofed: boolean; aggs: Agg[]; walls: boolean }[] = [];
+    const overhead = new Map<string, Entry>();
+    for (let y = 0; y < 16; y++) {
+      for (let x = 0; x < 16; x++) {
+        const roofed = covered(map, x, y);
+        for (const facing of [0, 2, 4, 6]) {
+          const stacks = viewCells(view, x, y, facing);
+          const mine = new Set<Agg>();
+          let walls = false;
+          stacks.forEach((stack, index) => {
+            const row = Math.floor(index / 11);
+            const rc = row < 5 ? 0 : row === 5 ? 1 : 2;
+            if (stack.length) walls = true;
+            const key = `${rc}${roofed ? 1 : 0}|${stack.join(",")}`;
+            let agg = aggs.get(key);
+            if (!agg) {
+              const { tiles, open } = cells.prune(stack);
+              agg = { rc, roofed, tiles, open, views: 0, squares: new Set(), first: { map: context.map, x, y, facing: FACING[facing]!, column: index % 11, row } };
+              aggs.set(key, agg);
             }
-            if (context.script.areaView) {
-              areaViewCells(view, x, y, facing).forEach((stack, index) => {
-                const cell = cells.cell(0, 0, stack);
-                if (!cell.hash) return;
-                const list = seen.get(cell.hash) ?? [];
-                seen.set(cell.hash, list);
-                let entry = list.find((known) => known.context === context && known.areaView);
-                if (!entry) {
-                  entry = { cell, views: 0, first: { map: context.map, x, y, facing: FACING[facing]!, column: index % 11, row: Math.floor(index / 11) }, positions: new Set(), context, areaView: true };
-                  list.push(entry);
-                }
-                entry.views++;
-                entry.positions.add(y * 16 + x);
-              });
-            }
+            agg.views++;
+            agg.squares.add(y * 16 + x);
+            mine.add(agg);
+          });
+          views.push({ square: y * 16 + x, roofed, aggs: [...mine], walls });
+          if (context.script.areaView && !context.arrivalFrom) {
+            areaViewCells(view, x, y, facing).forEach((stack, index) => {
+              const { tiles } = cells.prune(stack);
+              const cell = cells.cell("-", tiles);
+              if (!cell.hash) return;
+              const entry = overhead.get(cell.hash) ?? { cell, context, views: 0, squares: new Set<number>(), first: { map: context.map, x, y, facing: FACING[facing]!, column: index % 11, row: Math.floor(index / 11) }, areaView: true };
+              overhead.set(cell.hash, entry);
+              entry.views++;
+              entry.squares.add(y * 16 + x);
+            });
           }
         }
       }
     }
-    report.cellsTheModelDraws = seen.size;
-    for (const hash of have) if (seen.has(hash)) report.existingKeysTheModelDraws++;
-    for (const hash of seen.keys()) if (have.has(hash)) report.cellsWithArt++;
+    // Each aggregate under each backdrop it can have.
+    const entries = new Map<string, Entry[]>();
+    const hashesOf = new Map<Agg, Map<string, string | undefined>>();
+    const skies = (roofed: boolean) => roofed ? context.script.sky.covered : context.script.sky.open;
+    const backdropsOf = (agg: Agg): Backdrop[] => !agg.open ? ["-"]
+      : agg.rc === 0 ? skies(agg.roofed).map(skyBack)
+      : agg.rc === 2 ? world.grounds.map(({ ground }) => `g${ground}`)
+      : skies(agg.roofed).flatMap((sky) => lowers.map((lower) => `h${sky}.${lower.line}.${lower.band}.${lower.ground}`));
+    for (const agg of aggs.values()) {
+      const byBackdrop = new Map<string, string | undefined>();
+      hashesOf.set(agg, byBackdrop);
+      for (const backdrop of backdropsOf(agg)) {
+        const cell = cells.cell(backdrop, agg.tiles);
+        byBackdrop.set(backdrop, cell.hash);
+        if (!cell.hash) continue;
+        const list = entries.get(cell.hash) ?? [];
+        entries.set(cell.hash, list);
+        list.push({ cell, context, views: agg.views, squares: agg.squares, first: agg.first, areaView: false });
+      }
+    }
+    // A square where some view with a wall in it is wholly covered by existing art, under one sky
+    // and one set of colours below it, was stood on when that art was made.
+    const stoodOn = new Set<number>();
+    for (const { square, roofed, aggs: mine, walls } of views) {
+      if (!walls || stoodOn.has(square)) continue;
+      search: for (const sky of skies(roofed)) {
+        for (const lower of lowers) {
+          const ok = mine.every((agg) => {
+            const backdrop = !agg.open ? "-" : agg.rc === 0 ? skyBack(sky) : agg.rc === 2 ? `g${lower.ground}` : `h${sky}.${lower.line}.${lower.band}.${lower.ground}`;
+            const hash = hashesOf.get(agg)!.get(backdrop);
+            return hash !== undefined && have.has(hash);
+          });
+          if (ok) { stoodOn.add(square); break search; }
+        }
+      }
+    }
+    for (const [hash, entry] of overhead) entries.set(hash, [...(entries.get(hash) ?? []), entry]);
+    return { entries, stoodOn, map };
+  };
 
-    // The reading of this area is established when it draws every cell the area already has art for.
-    const note = (reason: string, count = 1) => { report.notEstablished[reason] = (report.notEstablished[reason] ?? 0) + count; };
-    if (unhashed) note("cells of several tiles whose hash is not in qa/art-worklist-cells.json (run with POR_GAMEDATA)", unhashed);
-    if (mine.length > 1) report.why = `this area number covers ${mine.length} combinations of map and wall sets (${report.maps.map((map) => `map ${map}`).join(", ")}; ${report.wallSets.join(", ")}), and which of them the game shows is still being worked out`;
-    else if (have.size < 30) report.why = `only ${have.size} cells of this area have artwork so far, too few to confirm the reading of its maps and wall sets against`;
-    else if (report.existingKeysTheModelDraws < have.size) report.why = `${have.size - report.existingKeysTheModelDraws} of the ${have.size} cells that have artwork are not among the cells the tool works out for this area, so its reading of this area is not complete`;
-    else { report.established = true; report.why = `all ${have.size} cells that have artwork are among the cells the tool works out`; }
+  const items: Item[] = [];
+  const reports: AreaReport[] = [];
+  /** Tiles that show in some cell of some context, from any square. */
+  const shownTiles = new Set<TileName>(), shownAlone = new Set<TileName>();
+  const labels = [...new Set([...own.map((context) => context.label), ...existing.keys()])].sort((a, b) => a - b);
+  for (const label of labels) {
+    const mine = own.filter((context) => context.label === label);
+    const have = existing.get(label) ?? new Set<string>();
+    const report: AreaReport = {
+      area: label, name: names[label] ?? `area ${label}`, established: false, why: "", maps: [...new Set(mine.map((context) => context.map))],
+      wallSets: [...new Set(mine.map(slotText))], existingKeys: have.size, existingKeysAccountedFor: 0, existingKeysOnlyAsArrivalViews: 0, unaccountedKeys: [],
+      cellsTheViewsCanShow: 0, cellsWithArt: 0, toDo: 0, notEstablished: {},
+    };
+    reports.push(report);
+    if (!mine.length) { report.why = "the tool found no script and map that draw under this area number"; report.unaccountedKeys = [...have].map((hash) => `tile:${label}:${hash}`); continue; }
 
-    // Skies and squares that existing artwork confirms.
-    const confirmedSkies = new Set<number>();
-    for (const [hash, list] of seen) if (have.has(hash)) for (const entry of list) if (entry.sky !== undefined && list.every((other) => other.sky === entry.sky)) confirmedSkies.add(entry.sky);
+    const seen = new Map<string, Entry[]>();
     const walkable = new Map<Context, Set<number>>();
     for (const context of mine) {
-      const map = world.maps.get(`${context.script.archive}:${context.map}`)!;
-      walkable.set(context, reachable(map, [...fullyDrawn.get(context)!], context.script.area));
+      const { entries, stoodOn, map } = enumerate(context, have);
+      for (const [hash, list] of entries) seen.set(hash, [...(seen.get(hash) ?? []), ...list]);
+      // Squares connected to ones stood on are taken as reachable, unless another area's script uses the
+      // same map: there a door may lead into the other area, so only the squares stood on count.
+      const shared = world.scripts.filter((script) => script.archive === context.script.archive && script.maps.some((known) => known.block === context.map)).length > 1;
+      walkable.set(context, shared ? stoodOn : reachable(map, [...stoodOn], context.script.area));
     }
+    for (const list of seen.values()) for (const { cell } of list) {
+      for (const tile of cell.tiles) shownTiles.add(tile);
+      if (cell.tiles.length === 1) shownAlone.add(cell.tiles[0]!);
+    }
+    const arrivalHashes = new Set<string>();
+    for (const context of arrivals.filter((arrival) => arrival.label === label)) {
+      if ([...have].every((hash) => seen.has(hash) || arrivalHashes.has(hash))) break;
+      for (const hash of enumerate(context, have).entries.keys()) arrivalHashes.add(hash);
+    }
+    report.cellsTheViewsCanShow = seen.size;
+    for (const hash of have) {
+      if (seen.has(hash)) { report.existingKeysAccountedFor++; report.cellsWithArt++; }
+      else if (arrivalHashes.has(hash)) { report.existingKeysAccountedFor++; report.existingKeysOnlyAsArrivalViews++; }
+      else report.unaccountedKeys.push(`tile:${label}:${hash}`);
+    }
+
+    const note = (reason: string, count = 1) => { report.notEstablished[reason] = (report.notEstablished[reason] ?? 0) + count; };
+    if (have.size < 30) report.why = `only ${have.size} cells of this area have artwork so far, too few to confirm the tool's reading of its maps and wall sets against`;
+    else if (report.unaccountedKeys.length) report.why = `${report.unaccountedKeys.length} of the ${have.size} cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete`;
+    else { report.established = true; report.why = `all ${have.size} cells that have artwork are among the cells the tool works out`; }
+
+    // Backdrops the existing artwork confirms: a cell with art that only one backdrop can make.
+    const confirmed = new Set<Backdrop>(["-"]);
+    for (const [hash, list] of seen) {
+      if (!have.has(hash)) continue;
+      const backdrops = new Set(list.filter((entry) => !entry.areaView).map((entry) => entry.cell.backdrop));
+      if (backdrops.size === 1) confirmed.add([...backdrops][0]!);
+    }
+    const skyOk = (sky: string) => confirmed.has(`s${sky}`) || [...confirmed].some((backdrop) => backdrop.startsWith(`h${sky}.`));
+    const groundOk = (ground: string) => confirmed.has(`g${ground}`) || [...confirmed].some((backdrop) => backdrop[0] === "h" && backdrop.endsWith(`.${ground}`));
+    const backdropOk = (backdrop: Backdrop): boolean => {
+      if (confirmed.has(backdrop)) return true;
+      if (backdrop[0] === "s") return skyOk(backdrop.slice(1));
+      if (backdrop[0] === "g") return groundOk(backdrop.slice(1));
+      // The horizon row: the usual colours below a confirmed sky, or exactly a combination the artwork has.
+      const [sky, line, band, ground] = backdrop.slice(1).split(".") as [string, string, string, string];
+      return skyOk(sky) && groundOk(ground) && usual({ line: Number(line), band: Number(band), ground: Number(ground) });
+    };
+    const overheadConfirmed = [...seen].some(([hash, list]) => have.has(hash) && list.every((entry) => entry.areaView));
 
     for (const [hash, list] of seen) {
       if (have.has(hash)) continue;
-      const key = `tile:${label}:${hash}`;
-      // Certain only when: the area's reading is established; the cell shows from a square connected to
-      // squares the existing artwork was made from; and, if the sky shows in it, that sky colour is one the existing artwork has.
-      const certain = list.filter((entry) => !entry.areaView && [...entry.positions].some((square) => walkable.get(entry.context)!.has(square)) &&
-        (entry.sky === undefined || confirmedSkies.has(entry.sky)));
-      const entry = certain[0] ?? list[0]!;
-      const cellKind = entry.cell.kind;
       if (!report.established) { note("cells of an area whose reading is not confirmed"); continue; }
+      const reached = list.filter((entry) => [...entry.squares].some((square) => walkable.get(entry.context)!.has(square)));
+      const certain = reached.filter((entry) => entry.areaView ? overheadConfirmed : backdropOk(entry.cell.backdrop));
       if (!certain.length) {
-        if (list.every((known) => known.areaView)) note("cells of the overhead area view");
-        else if (list.every((known) => known.sky !== undefined && !confirmedSkies.has(known.sky))) note("cells that show a sky colour no existing artwork of the area shows");
-        else note("cells seen only from squares not connected to any square the existing artwork was made from");
+        if (list.every((entry) => entry.areaView)) note("cells of the overhead area view, which no existing artwork of the area confirms");
+        else if (!reached.length) note("cells seen only from squares not connected to any square the existing artwork was made from");
+        else note("cells that show a sky or ground colour no existing artwork of the area shows");
         continue;
       }
-      if (cellKind === "several tiles together") { note("cells made of several tiles together"); continue; }
-      const slot = entry.context.slots.slots.findIndex((loaded, index) => index > 0 && loaded && entry.cell.signature.includes(`8X8D${entry.context.script.archive}.DAX:${loaded.tileBlock}:`));
-      const group = cellKind === "plain backdrop" ? "plain sky and ground"
-        : slot > 0 ? `tile set 8X8D${entry.context.script.archive} block ${entry.context.slots.slots[slot]!.tileBlock}` : "shared tile set 8X8D1 block 203";
+      const entry = certain[0]!;
+      const { context, cell } = entry;
+      const slot = context.slots.slots.findIndex((loaded, index) => index > 0 && loaded && cell.tiles.some((tile) => tile.startsWith(`8X8D${context.script.archive}.DAX:${loaded.tileBlock}:`)));
+      const top = cell.tiles.at(-1);
+      const group = entry.areaView ? "overhead area view, 8X8D1 block 202" : !cell.tiles.length ? "plain sky, horizon and ground"
+        : top!.startsWith("8X8D1.DAX:203:") && slot <= 0 ? "shared tile set 8X8D1 block 203"
+        : `tile set ${top!.replace(".DAX", "").replace(/:(\d+):\d+$/, " block $1")}`;
       const views = certain.reduce((sum, known) => sum + known.views, 0);
       items.push({
-        kind: "first-person cell", key, width: 32, height: 32, area: label, areaName: report.name, group, cellKind,
-        composition: entry.cell.signature, description: `${describeSignature(entry.cell.signature)}, shown in area ${label} (${report.name})`,
-        seenAt: entry.first, views, drawnIn: drawnIn.get(hash) ?? [],
-        why: `drawn in ${views} views of map ${entry.context.map} from squares connected to ones the existing artwork covers`,
+        kind: "first-person cell", key: `tile:${label}:${hash}`, width: 32, height: 32, area: label, areaName: report.name, group, what: cell.kind,
+        composition: cell.signature, description: `${describeSignature(cell.signature)}, shown in area ${label} (${report.name})`,
+        seenAt: entry.first, views, drawnIn: drawnIn.get(hash) ?? [], sameAs: sameAs.get(hash),
+        why: `drawn in ${views} views of map ${context.map} (${slotText(context)}) from squares connected to ones the existing artwork covers`,
       });
       report.toDo++;
     }
   }
-  items.sort((a, b) => a.area - b.area || a.group.localeCompare(b.group) || a.key.localeCompare(b.key));
-  return { items, reports };
+  if (cells.missingHashes) {
+    const first = reports[0]!;
+    first.notEstablished["cells of several tiles whose hash is not in qa/art-worklist-cells.json: run npm run art:worklist with POR_GAMEDATA set"] = cells.missingHashes;
+  }
+
+  // Stored tiles no view of any map shows, with why.
+  const loaded = new Map<string, Set<TileName>>();
+  for (const context of own) {
+    const map = world.maps.get(`${context.script.archive}:${context.map}`)!;
+    const named = namedTiles({ world, script: context.script, map, slots: context.slots });
+    for (const slot of context.slots.slots) {
+      if (!slot) continue;
+      const block = `8X8D${context.script.archive}.DAX:${slot.tileBlock}`;
+      loaded.set(block, loaded.get(block) ?? new Set());
+    }
+    for (const tile of named) {
+      const block = tile.replace(/:\d+$/, "");
+      loaded.set(block, (loaded.get(block) ?? new Set()).add(tile));
+    }
+  }
+  const withArtAnywhere = new Set([...existing.values()].flatMap((hashes) => [...hashes]));
+  const byHash = new Map(world.catalogue.tiles.map((tile) => [tile.hash, tile]));
+  const never: { block: string; reason: string; tiles: number[] }[] = [];
+  const stored = { tiles: 0, blank: 0, distinctPictures: new Set<string>(), withArtInSomeArea: 0, withoutArt: 0, withoutArtNoMapShows: 0, withoutArtShownOnlyWithOthers: 0, withoutArtShownAlone: 0 };
+  for (const [block, hashes] of [...world.tileBlocks].sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))) {
+    const reasons = new Map<string, number[]>();
+    hashes.forEach((hash, index) => {
+      stored.tiles++;
+      if (hash === BLANK) { stored.blank++; return; }
+      stored.distinctPictures.add(hash);
+      const tile = `${block}:${index}`;
+      const hasArt = withArtAnywhere.has(hash) || Boolean(byHash.get(hash)?.overColour?.some((over) => withArtAnywhere.has(over)));
+      if (hasArt) stored.withArtInSomeArea++; else stored.withoutArt++;
+      if (shownTiles.has(tile)) {
+        if (!hasArt) { if (shownAlone.has(tile)) stored.withoutArtShownAlone++; else stored.withoutArtShownOnlyWithOthers++; }
+        return;
+      }
+      if (!hasArt) stored.withoutArtNoMapShows++;
+      const reason = block === "8X8D1.DAX:202" ? "a symbol of the overhead view's bank that the overhead view never draws (it draws the 16 wall patterns and 4 arrows); other screens may draw it, which the tool has not read"
+        : block === "8X8D1.DAX:203" ? "a tile of the shared bank that no wall definition a script loads names; the screen frame is drawn from this bank outside the view, where no artwork key applies"
+        : !loaded.has(block) ? "its tile block is loaded by no LOAD PIECES of any script"
+        : cells.invisible(tile) ? "every pixel of it is transparent"
+        : !loaded.get(block)!.has(tile) ? "no symbol of the wall definitions loaded with its block names it"
+        : "wall definitions name it, but only in pieces of wall types that no view of any map that loads them places in the 11 by 11 window";
+      reasons.set(reason, [...(reasons.get(reason) ?? []), index]);
+    });
+    for (const [reason, tiles] of reasons) never.push({ block: block.replace(".DAX", "").replace(":", " block "), reason, tiles });
+  }
+  items.sort((a, b) => a.area! - b.area! || a.group.localeCompare(b.group, undefined, { numeric: true }) || a.key.localeCompare(b.key));
+  return {
+    items, reports, never,
+    stored: { ...stored, distinctPictures: stored.distinctPictures.size },
+    backdrops: { bands: world.bands, grounds: world.grounds },
+  };
+}
+
+// ---------------------------------------------------------------------------------------------
+// The battlefield.
+
+interface BattleReport {
+  archive: string;
+  what: string;
+  frames: number;
+  cells: number;
+  distinctCells: number;
+  withArt: number;
+  toDo: number;
+  notEstablished: number;
+  why: string;
+}
+
+function battlefield(data: PortGameData, art: Map<string, Art>, original: Originals | undefined, cache: Record<string, string[]>) {
+  // Hashes of the nine cells of each 24 by 24 frame. game/ holds them for DUNGCOM, WILDCOM and RANDCOM.
+  const frames = new Map<string, string[]>();
+  for (const record of data.pictures) {
+    if (!/^(DUNGCOM|WILDCOM|RANDCOM|SQRPACI|BACPAC)\.DAX$/.test(record.file)) continue;
+    record.pictures.forEach((picture, member) => {
+      for (let index = 0; index < picture.frames; index++) {
+        const name = `${record.file}:${record.block}:${member}:${index}`;
+        const hashes = picture.cellHashes?.[index] ?? (original?.frames.has(name) ? cellsOf(original.frames.get(name)!).map(sha256) : cache[name]);
+        if (hashes) frames.set(name, hashes);
+      }
+    });
+  }
+  const derived: Record<string, string[]> = {};
+  for (const [name, hashes] of frames) if (/^(SQRPACI|BACPAC)/.test(name)) derived[name] = hashes;
+  const keyed = new Set([...art.keys()].filter((key) => key.startsWith("battle-tile:")).map((key) => key.slice(12)));
+  const holders = new Map<string, Set<string>>();
+  for (const [, hashes] of frames) for (const hash of hashes) holders.set(hash, (holders.get(hash) ?? new Set()).add(hashes.join()));
+  const random = new Set([...frames].filter(([name]) => name.startsWith("RANDCOM")).map(([, hashes]) => hashes.join()));
+  // A picture is drawn whole. One whose pixels only it has, and which has art for a cell, has been on a battlefield.
+  const proven = new Set<string>();
+  for (const [, hashes] of frames) if (hashes.some((hash) => keyed.has(hash) && holders.get(hash)!.size === 1)) proven.add(hashes.join());
+
+  const items: Item[] = [];
+  const reports: BattleReport[] = [];
+  const listed = new Set<string>();
+  const about: Record<string, string> = {
+    "DUNGCOM.DAX": "terrain pictures of fights indoors; the game copies them into the battlefield's picture slots",
+    "WILDCOM.DAX": "terrain pictures of fights outdoors; the game copies them into the battlefield's picture slots",
+    "SQRPACI.DAX": "the battlefield's two picture slots as stored (overlay 11 loads blocks 1 and 2; the terrain draw takes its frames from them)",
+    "BACPAC.DAX": "40 pictures of 24 by 24 that no artwork key names; where the game draws them is not read yet",
+  };
+  for (const archive of ["DUNGCOM.DAX", "WILDCOM.DAX", "SQRPACI.DAX", "BACPAC.DAX"]) {
+    const mine = [...frames].filter(([name]) => name.startsWith(archive));
+    const report: BattleReport = { archive, what: about[archive]!, frames: mine.length, cells: 0, distinctCells: 0, withArt: 0, toDo: 0, notEstablished: 0, why: "" };
+    const distinct = new Set<string>();
+    for (const [name, hashes] of mine) {
+      hashes.forEach((hash, cell) => {
+        if (hash === BLANK) return;
+        report.cells++;
+        if (distinct.has(hash)) return;
+        distinct.add(hash);
+        if (keyed.has(hash)) { report.withArt++; return; }
+        if (random.has(hashes.join())) return;
+        if (!proven.has(hashes.join())) { report.notEstablished++; return; }
+        report.toDo++;
+        if (listed.has(hash)) return;
+        listed.add(hash);
+        const [file, block, , frame] = name.split(":");
+        items.push({
+          kind: "battlefield cell", key: `battle-tile:${hash}`, width: 32, height: 32, group: `battlefield, ${file!.replace(".DAX", "")}`,
+          what: "one cell of a battlefield picture", composition: `${name}:cell${cell}`,
+          description: `${file!.replace(".DAX", "")} block ${block} picture ${frame}, cell ${cell} (column ${cell % 3}, row ${Math.floor(cell / 3)} of its 3 by 3 cells)`,
+          drawnIn: [], why: "another cell of the same picture already has artwork, so the picture has been on a battlefield, and a picture is drawn whole",
+        });
+      });
+    }
+    report.distinctCells = distinct.size;
+    report.why = mine.length ? "a cell is listed to do when another cell of its picture has artwork; for the rest, which pictures a fight can place has not been read from the game's battlefield builder"
+      : "game/ holds no cell hashes for this archive: run npm run art:worklist with POR_GAMEDATA set";
+    reports.push(report);
+  }
+  return { items, reports, derived, keys: keyed.size, keysThatAreAStoredCell: [...keyed].filter((hash) => holders.has(hash)).length };
+}
+
+// ---------------------------------------------------------------------------------------------
+// Other pictures no key names.
+
+interface OtherPicture {
+  frame: string;
+  width: number;
+  height: number;
+  what: string;
+  keyForm: string;
+  pngSize: string;
+  evidence: string;
+}
+
+function otherPictures(data: PortGameData, read: (path: string) => Uint8Array): { pictures: OtherPicture[]; error?: string } {
+  // The catalogue says which frames no key names. It exits non-zero while any key is unreachable; its file is written first.
+  const run = spawnSync(process.execPath, ["--import", "tsx", at("tools", "verify-art-catalogue.ts")], { cwd: repository, encoding: "utf8" });
+  const file = at("out", "art-catalogue.json");
+  if (!existsSync(file)) return { pictures: [], error: `npm run verify:art-catalogue wrote no out/art-catalogue.json (${run.stderr.slice(0, 200)})` };
+  const uncovered = (JSON.parse(readFileSync(file, "utf8")) as { framesNoKeyNames: Record<string, string[]> }).framesNoKeyNames;
+  const records = new Map<string, PictureRecord>(data.pictures.map((record) => [`${record.file}:${record.block}`, record]));
+  // PICTURE operands in the scripts, by archive number.
+  const shown = new Map<string, string[]>();
+  for (const record of data.content) {
+    if (record.kind !== "script" || record.block === undefined) continue;
+    const archive = /\d/.exec(record.file)![0];
+    for (const instruction of disassemble(scriptFromBlock(contentBytes(record, read))).instructions) {
+      if (instruction.name !== "PICTURE") continue;
+      const operand = instruction.operands[0];
+      if (operand?.code !== 0) continue;
+      const key = `${archive}:${operand.low}`;
+      shown.set(key, [...(shown.get(key) ?? []), `area ${record.block} at ${instruction.address.toString(16)}`]);
+    }
+  }
+  const pictures: OtherPicture[] = [];
+  for (const [family, frames] of Object.entries(uncovered)) {
+    if (/^(DUNGCOM|WILDCOM|SQRPACI|BACPAC|8X8D)$/.test(family)) continue;
+    for (const frame of frames) {
+      const [file, block, member, index] = frame.split(":") as [string, string, string, string];
+      const picture = records.get(`${file}:${block}`)?.pictures[Number(member)];
+      if (!picture) continue;
+      const archive = /\d/.exec(file)?.[0];
+      const scripts = archive ? shown.get(`${archive}:${block}`) : undefined;
+      const [what, keyForm, pngSize] = family === "PIC" ? ["a picture of the 88 by 88 window", `portrait:${file}:${block}:${member}:${index}`, "352x352"]
+        : family === "SPRIT" ? ["an approach sprite", `encounter:${file}:${block}:${member}:${index}, with its placement under "encounters"`, `${picture.width * 4}x${picture.height * 4}`]
+        : family === "HEAD" ? ["a portrait head", `portrait:${file}:${block}:BODYn.DAX:<body> for each body it is shown with, or character-sheet:${file}:${block}`, "352x352 for a portrait; 352 wide for a sheet part"]
+        : family === "FINAL" ? ["a picture of the ending", "none: tools/upgrade-art.ts accepts no key for FINAL pictures", "-"]
+        : family === "ICON" ? ["a 24 by 24 icon", "none: tools/upgrade-art.ts accepts no key for ICON pictures", "-"]
+        : ["a picture", "none known", "-"];
+      const evidence = (family === "PIC" || family === "SPRIT")
+        ? scripts ? `a PICTURE ${block} is in the script of ${[...new Set(scripts)].slice(0, 4).join(", ")}${Number(member) || Number(index) ? `; this is member ${member} frame ${index} of the record, and which members a PICTURE draws must be seen in play` : ""}`
+          : `no PICTURE ${block} with a plain number is in a script of archive ${archive}`
+        : "the scripts do not name it; the program draws it, and where has not been read";
+      pictures.push({ frame, width: picture.width, height: picture.height, what, keyForm, pngSize, evidence });
+    }
+  }
+  return { pictures };
 }
 
 // ---------------------------------------------------------------------------------------------
 // Output.
 
 interface Worklist {
-  schema: 1;
+  schema: 2;
   about: string;
   done: string;
   remaining: number;
-  stillBeingWorkedOut: Record<string, number | string>;
+  totals: Record<string, number | string>;
+  notEstablished: Record<string, number | string>;
   areas: AreaReport[];
+  battlefield: BattleReport[];
+  storedTilesNoMapShows: { block: string; reason: string; tiles: number[] }[];
+  otherPicturesNoKeyNames: OtherPicture[];
+  backdrops: { bands: WorldData["bands"]; grounds: WorldData["grounds"] };
   items: Item[];
-}
-
-function stillBeingWorkedOut(reports: AreaReport[]): Record<string, number | string> {
-  const totals: Record<string, number> = {};
-  for (const report of reports) for (const [reason, count] of Object.entries(report.notEstablished)) totals[`first-person ${reason}`] = (totals[`first-person ${reason}`] ?? 0) + count;
-  return {
-    ...totals,
-    "battlefield tiles (SQRPACI, DUNGCOM, WILDCOM, RANDCOM)": "not yet classified",
-    "other picture frames no key names": "not yet classified: see `framesNoKeyNames` of npm run verify:art-catalogue",
-    "narrated passages that describe something to see and have no artwork": "will come from npm run qa:narration, which another agent is building",
-  };
 }
 
 function document(list: Worklist): string {
   const lines: string[] = [];
   const add = (...text: string[]) => lines.push(...text);
+  const cellItems = list.items.filter((item) => item.kind === "first-person cell"), battleItems = list.items.filter((item) => item.kind === "battlefield cell");
   add("# Artwork worklist", "",
-    `**There are ${list.remaining} confirmed first-person cells awaiting art.** Run \`npm run verify:art-worklist\` to check this list. Open coverage questions are listed under “Still being worked out”.`, "",
+    `**The artwork is done when \`npm run verify:art-worklist\` reports 0 remaining and nothing is left under "Not established". It reports ${list.remaining} confirmed cells awaiting art now.**`, "",
     "This file is written by `npm run art:worklist`. Do not edit it or `qa/art-worklist.json` by hand: add art, run the tool, commit what it writes.", "",
     "To the artwork agent: this list exists to carry your work to 100%, not to correct it. The owner's words are that you have",
     "\"done an amazing job of keeping the art consistent in the VGA style, creating all new 32x32 tiles from 8x8 inspirations\".",
     "The shipped game will run with no original file, in Enhanced only, so every picture the game can show needs your art, down to each",
-    "8 by 8 cell. Routes found most of them. This tool finds the rest from the game's own maps and wall definitions, so nothing waits to be stumbled on.", "",
+    "8 by 8 cell. Your routes found most of them. This tool works out the rest from the game's own maps and wall definitions, so nothing is left to be stumbled on.", "",
     "## One item, step by step", "",
-    "1. Pick an item below (or from `qa/art-worklist.json`). It gives the exact key and the PNG size.",
+    "1. Pick an item below (or from `qa/art-worklist.json`). It gives the exact key and the PNG size. Work through one area and one tile set at a time: the list is in that order.",
     "2. See what you are redrawing: `npm run art:worklist -- --sheets` writes `out/art-worklist/index.html`, each original cell enlarged and",
     "   labelled with its key, grouped as here. The sheets are made from the player's own 1.3 files: set `POR_GAMEDATA` to that directory.",
     "   `out/` is outside version control. Never commit original pixels.",
-    "3. Draw it, 32 by 32, in the style of the pieces around it. `drawnIn` in the JSON (\"already drawn in area\" below) names areas where the very",
-    "   same original pixels already have your art: start from that piece, or bind the same PNG if it suits the place.",
+    "3. Draw it, 32 by 32, in the style of the pieces around it. \"Same pixels as\" names a PNG of yours that already draws the very same original pixels in another area:",
+    "   bind that PNG under the new key if it suits the place, or redraw it for the place.",
     "4. Save the PNG in `upgrades/` and add the key to `\"assets\"` in `upgrades/manifest.json`, exactly as given.",
-    "5. Run `npm run verify:art-worklist`. The item is done when the key is in a manifest and its PNG is there and 32 by 32. Then check it in Chrome as you do now.",
+    "5. Run `npm run verify:art-worklist`. The item is done when the key is in a manifest and its PNG is there and 32 by 32. It needs no Chrome and no original file. Then check the place in Chrome as you do now: each item says a map square and facing where it shows.",
     "6. Run `npm run art:worklist` and commit the regenerated files with your art.", "",
     "## Conventions: yours, unchanged", "",
-    "- Keys are `tile:<area>:<sha256>`: the area number the game is in, and the SHA-256 of the cell's 64 original palette indices in row order (`upgrades/README.md`).",
+    "- First-person keys are `tile:<area>:<sha256>`: the area number the game is in, and the SHA-256 of the cell's 64 original palette indices in row order (`upgrades/README.md`).",
     "- A key belongs to one area. The same pixels in another area need their own key there; that key may name the same PNG.",
+    "- Battlefield keys are `battle-tile:<sha256>` of one 8 by 8 cell of the battlefield, with no area (`docs/ART-INVENTORY.md`).",
     "- Each tile PNG is 32 by 32. File names are lower case letters, digits, `-` and `_`, ending `.png`; yours are a place and subject and the first 12 hex digits of the hash, such as `kobold-caves-terrain-0a1b2c3d4e5f.png`.",
     "- A piece that is the exact mirror of one you have can be listed under `reflectedTiles` in the manifest, as the two Textile House pieces are.",
     "- New keys go in `upgrades/manifest.json`. `upgrades/slums/manifest.json` is the bundled Slums pack; the main manifest takes precedence over it.", "",
     "## What not to do", "",
-    "- Do not draw anything under \"Still being worked out\". Those are not confirmed to appear. They move into the list, or out of it for good, as the tool is finished.",
-    "- Do not add keys for tiles this file says no map can show (that section arrives with the next version).",
+    "- Do not draw anything under \"Not established\". Those are not confirmed to appear. They move into the list, or out of it for good, as each is settled.",
+    "- Do not add keys for the tiles under \"Stored tiles no map can show\".",
     "- Do not add keys three lower for New Phlan on 1.3 (`ae66` for `ae69`): see the note at the top of `docs/ART-INVENTORY.md`.",
     "- Do not edit `qa/art-worklist.json`, `qa/art-worklist-cells.json` or this file by hand.", "",
     "## If the worklist is wrong", "",
-    "If an item cannot occur in play, or art of yours exists under a key the tool does not list as needed or as done, record it in",
-    "`qa/art-worklist-notes.md` (one line: the key, what you saw, where) and commit it. The tool's owner reads that file and fixes the tool.",
-    "Each area below also says how many of your existing keys the tool can account for; an area where it cannot account for all of them is not listed for work yet.", "",
-    "## Where things stand", "",
-    "| Area | Name | Reading confirmed | Cells the views can show | With art | To do | Your keys accounted for |",
+    `If an item cannot occur in play, or art of yours exists under a key the tool does not account for, record it in \`${NOTES}\``,
+    "(one line: the key, what you saw, where) and commit it. Whoever maintains `tools/art-worklist.ts` reads that file and fixes the tool.",
+    "The table below says, for each area, how many of your existing keys the tool accounts for. An area where it cannot account for all of them is not listed for work,",
+    "and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccountedKeys`.", "",
+    "## Totals", "", "| What | Count |", "| --- | ---: |");
+  for (const [what, count] of Object.entries(list.totals)) add(`| ${what} | ${count} |`);
+  add("", "## Where each area stands", "",
+    "| Area | Name | Reading confirmed | Cells its views can show | With art | To do | Your keys accounted for |",
     "| ---: | --- | --- | ---: | ---: | ---: | ---: |");
   for (const area of list.areas) {
-    add(`| ${area.area} | ${area.name} | ${area.established ? "yes" : "not yet"} | ${area.cellsTheModelDraws} | ${area.cellsWithArt} | ${area.established ? area.toDo : ""} | ${area.existingKeysTheModelDraws} of ${area.existingKeys} |`);
+    add(`| ${area.area} | ${area.name} | ${area.established ? "yes" : "not yet"} | ${area.cellsTheViewsCanShow} | ${area.cellsWithArt} | ${area.established ? area.toDo : ""} | ${area.existingKeysAccountedFor} of ${area.existingKeys}${area.existingKeysOnlyAsArrivalViews ? ` (${area.existingKeysOnlyAsArrivalViews} as first views of the next area)` : ""} |`);
   }
-  add("", "\"Cells the views can show\" counts every cell from every square of the map, including squares that may be out of reach; only cells seen from squares connected to your existing coverage are listed to do.", "",
-    "## To do", "");
-  if (!list.items.length) add("Nothing is listed yet.", "");
-  const areas = [...new Set(list.items.map((item) => item.area))];
-  for (const area of areas) {
-    const mine = list.items.filter((item) => item.area === area);
-    add(`### Area ${area}: ${mine[0]!.areaName} (${mine.length})`, "");
+  add("", "\"Cells its views can show\" counts every cell from every square of the map under every sky the script can set, including squares that may be out of reach.",
+    "A cell is listed to do only when it shows from a square connected to squares your existing art already covers, under a sky and ground colour your existing art of the area shows.", "",
+    "How a cell is keyed: the view is 11 by 11 cells. Rows 0 to 4 are sky, row 5 holds the horizon, rows 6 to 10 are ground. The game stamps wall pieces over that, far ones first, and colour 13 of a tile lets what is behind show.",
+    "So a cell is one stored tile, one tile over the sky or ground colour, or several tiles over each other; each distinct result is one key.", "",
+    "## To do: first-person cells", "");
+  if (!cellItems.length) add("Nothing is listed.", "");
+  for (const area of [...new Set(cellItems.map((item) => item.area!))]) {
+    const mine = cellItems.filter((item) => item.area === area);
+    const report = list.areas.find((known) => known.area === area)!;
+    add(`### Area ${area}: ${mine[0]!.areaName} (${mine.length})`, "", `Map ${report.maps.join(", ")}; ${report.wallSets.join("; ")}.`, "");
     for (const group of [...new Set(mine.map((item) => item.group))]) {
       const members = mine.filter((item) => item.group === group);
-      add(`#### ${group} (${members.length})`, "", "| Key (PNG 32x32) | What it is | See it at | Already drawn in area |", "| --- | --- | --- | --- |");
+      add(`#### ${group} (${members.length})`, "", "| Key (PNG 32x32) | What it is | See it at | Same pixels as |", "| --- | --- | --- | --- |");
       for (const item of members) {
-        const { map, x, y, facing, column, row } = item.seenAt;
-        add(`| \`${item.key}\` | ${describeSignature(item.composition)} | map ${map}, square (${x},${y}) facing ${facing}, cell column ${column} row ${row} | ${item.drawnIn.join(", ")} |`);
+        const { map, x, y, facing, column, row } = item.seenAt!;
+        add(`| \`${item.key}\` | ${describeSignature(item.composition)} | map ${map}, square (${x},${y}) facing ${facing}, column ${column} row ${row} | ${item.sameAs ? `\`${item.sameAs}\` (area ${item.drawnIn.join(", ")})` : ""} |`);
       }
       add("");
     }
   }
-  add("## Still being worked out", "", "Do not start on these. The counts are what the tool has not yet confirmed or classified.", "",
+  add("## To do: battlefield cells", "",
+    "The battlefield is drawn from 24 by 24 pictures, each nine cells. SQRPACI.DAX holds the battlefield's two picture slots; DUNGCOM.DAX and WILDCOM.DAX are pictures too (terrain for fights indoors and outdoors,",
+    "24 by 24, 25 and 34 of them), not game content: the art inventory's listing of them as game data is the one that was wrong.", "",
+    "| Archive | What it is | Pictures | Distinct cells | With art | To do | Not established |", "| --- | --- | ---: | ---: | ---: | ---: | ---: |");
+  for (const report of list.battlefield) add(`| ${report.archive} | ${report.what} | ${report.frames} | ${report.distinctCells} | ${report.withArt} | ${report.toDo} | ${report.notEstablished} |`);
+  add("");
+  if (battleItems.length) {
+    add("| Key (PNG 32x32) | What it is |", "| --- | --- |");
+    for (const item of battleItems) add(`| \`${item.key}\` | ${item.description} |`);
+    add("");
+  }
+  add("## Not established", "", "Do not start on these. Each is something the tool could not confirm can appear, with the reason. None is in the count above and none is dropped.", "",
     "| What | Count |", "| --- | ---: |");
-  for (const [what, count] of Object.entries(list.stillBeingWorkedOut)) add(`| ${what} | ${count} |`);
-  add("", "Areas not yet confirmed, and why:", "");
+  for (const [what, count] of Object.entries(list.notEstablished)) add(`| ${what} | ${count} |`);
+  add("", "Areas not confirmed, and why:", "");
   for (const area of list.areas) if (!area.established) add(`- Area ${area.area} (${area.name}): ${area.why}.`);
+  add("", "### Other pictures no key names", "",
+    "Every picture frame of the 1.3 files outside the tile sets and the battlefield that no artwork key names. Whether the game shows each has to be seen in play before art is commissioned",
+    "(`docs/ART-INVENTORY.md` says the same of secondary members), so none is counted as to do.", "",
+    "| Frame (archive:block:member:frame) | Size | What it is | Key form and PNG size | What is known |", "| --- | --- | --- | --- | --- |");
+  for (const picture of list.otherPicturesNoKeyNames) add(`| ${picture.frame} | ${picture.width}x${picture.height} | ${picture.what} | \`${picture.keyForm}\` ${picture.pngSize} | ${picture.evidence} |`);
+  add("", "## Stored tiles no map can show", "",
+    "These tiles are in the 8 by 8 tile sets and no first-person view of any map can put them on screen, for the reason given. They need no art. Do not add keys for them.",
+    "The proof is by trying: the tool draws the view from every square of every map, facing each way, with the wall sets each script loads beside that map, and these tiles are in none of those views.",
+    "It holds as far as the tool's reading of each area holds: for the areas marked \"not yet\" above (Valjevo's areas 3, 5 and 7 above all) a tile of their sets listed here may yet turn out to be shown.", "",
+    "| Tile set | Tiles | Why no view shows them |", "| --- | --- | --- |");
+  for (const { block, reason, tiles } of list.storedTilesNoMapShows) add(`| ${block} | ${tiles.join(", ")} | ${reason} |`);
   add("", "## Narrated passages with nothing to see", "",
     "Placeholder. `npm run qa:narration` (being built by another agent) will list narrated passages that describe something to see and have no artwork. They will be linked here.", "");
   return lines.join("\n");
 }
 
-function sheets(directory: string, list: Worklist, cells: Cells): void {
+function sheets(directory: string, list: Worklist, cells: Cells, original: Originals): void {
   mkdirSync(join(directory, "cells"), { recursive: true });
   const rows: string[] = [];
-  let area = -1;
+  let heading = "";
+  const picture = (name: string, pixels: Uint8Array, width: number, height: number) => {
+    const frame = new Frame(width, height);
+    frame.pixels.set(pixels.map((pixel) => pixel & 15));
+    writeFileSync(join(directory, "cells", `${name}.png`), encodePng(frame));
+  };
   for (const item of list.items) {
-    const hash = item.key.split(":")[2]!;
-    const frame = new Frame(8, 8);
-    frame.pixels.set(cells.render(item.composition));
-    writeFileSync(join(directory, "cells", `${hash}.png`), encodePng(frame));
-    if (item.area !== area) { area = item.area; rows.push(`<h2>Area ${area}: ${item.areaName}</h2>`); }
-    rows.push(`<figure><img src="cells/${hash}.png" width="128" height="128"><figcaption><code>${item.key}</code><br>${item.group}<br>${describeSignature(item.composition)}<br>map ${item.seenAt.map} (${item.seenAt.x},${item.seenAt.y}) ${item.seenAt.facing}</figcaption></figure>`);
+    const hash = item.key.split(":").at(-1)!;
+    if (item.kind === "first-person cell") picture(hash, cells.render(item.composition), 8, 8);
+    else {
+      const [file, block, member, index, cell] = item.composition.split(":");
+      const frame = original.frames.get(`${file}:${block}:${member}:${index}`);
+      if (!frame) continue;
+      picture(hash, cellsOf(frame)[Number(cell!.slice(4))]!, 8, 8);
+    }
+    const title = item.kind === "first-person cell" ? `Area ${item.area}: ${item.areaName}, ${item.group}` : item.group;
+    if (title !== heading) { heading = title; rows.push(`<h2>${title}</h2>`); }
+    const where = item.seenAt ? `<br>map ${item.seenAt.map} (${item.seenAt.x},${item.seenAt.y}) ${item.seenAt.facing}, column ${item.seenAt.column} row ${item.seenAt.row}` : "";
+    rows.push(`<figure><img src="cells/${hash}.png" width="128" height="128"><figcaption><code>${item.key}</code><br>${item.kind === "first-person cell" ? describeSignature(item.composition) : item.description}${where}${item.sameAs ? `<br>same pixels as ${item.sameAs}` : ""}</figcaption></figure>`);
+  }
+  rows.push("<h2>Other pictures no key names (not established: see docs/ART-WORKLIST.md)</h2>");
+  for (const other of list.otherPicturesNoKeyNames) {
+    const frame = original.frames.get(other.frame);
+    if (!frame) continue;
+    const name = other.frame.replace(/[:.]/g, "-");
+    picture(name, frame.pixels, frame.width, frame.height);
+    rows.push(`<figure><img src="cells/${name}.png" width="${frame.width * 3}" height="${frame.height * 3}"><figcaption>${other.frame}<br><code>${other.keyForm}</code> ${other.pngSize}</figcaption></figure>`);
   }
   writeFileSync(join(directory, "index.html"), `<!doctype html><meta charset="utf-8"><title>Artwork worklist: originals to redraw</title>
 <style>body{font:13px sans-serif;background:#222;color:#ddd}img{image-rendering:pixelated;border:1px solid #555}figure{display:inline-block;width:300px;vertical-align:top;margin:8px}code{font-size:10px;word-break:break-all}</style>
-<h1>Originals still to redraw (${list.items.length})</h1><p>Made from the player's own 1.3 files. Keep outside version control.</p>
+<h1>Originals still to redraw (${list.items.length})</h1><p>Made from the player's own 1.3 files. Keep outside version control. Colour 13 (magenta) in a single stored tile is transparent in play.</p>
 ${rows.join("\n")}
 `);
-  console.log(`wrote ${list.items.length} reference cells to ${directory}/index.html`);
+  console.log(`wrote ${list.items.length} reference cells to ${join(directory, "index.html")}`);
 }
 
 function main(): void {
@@ -483,35 +824,74 @@ function main(): void {
   const sheetIndex = args.indexOf("--sheets");
   const started = Date.now();
   const read = (path: string) => new Uint8Array(readFileSync(at("game", path)));
-  const world = readWorld(readGameData(read), read);
-  const pixels = originalTiles(process.env.POR_GAMEDATA);
-  const cache = existsSync(at(CELLS)) ? (JSON.parse(readFileSync(at(CELLS), "utf8")) as { cells: Record<string, string> }).cells : {};
-  const cells = new Cells(world, pixels, cache);
+  const data = readGameData(read);
+  const world = readWorld(data, read);
+  const original = originals(process.env.POR_GAMEDATA);
+  const cache = existsSync(at(CELLS)) ? JSON.parse(readFileSync(at(CELLS), "utf8")) as { cells: Record<string, string>; battlefield?: Record<string, string[]> } : { cells: {} };
+  const cells = new Cells(world, original?.tiles, cache.cells);
   const art = readArt();
-  const { items, reports } = build(world, art, cells);
-  // Every listed item is, by construction, not done. Verify says so in the terms of the files.
+  const first = firstPerson(world, art, cells);
+  const battle = battlefield(data, art, original, cache.battlefield ?? {});
+  const items = [...first.items, ...battle.items];
+  const committed = existsSync(at(WORKLIST)) ? JSON.parse(readFileSync(at(WORKLIST), "utf8")) as Worklist : undefined;
+  // The catalogue takes several seconds and changes nothing that is counted, so the quick modes reuse the committed list.
+  const others = verify || check ? { pictures: committed?.otherPicturesNoKeyNames ?? [] } : otherPictures(data, read);
+
+  const notEstablished: Record<string, number | string> = {};
+  for (const report of first.reports) for (const [reason, count] of Object.entries(report.notEstablished)) notEstablished[`first-person ${reason}`] = Number(notEstablished[`first-person ${reason}`] ?? 0) + count;
+  notEstablished["first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows"] = "not counted";
+  notEstablished["battlefield cells of pictures no artwork shows to have been on a battlefield"] = battle.reports.reduce((sum, report) => sum + report.notEstablished, 0);
+  notEstablished["battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain)"] = "not counted: needs the game's battlefield builder read";
+  notEstablished["other picture frames no key names (listed below)"] = others.pictures.length;
+  if ("error" in others && others.error) notEstablished["other picture frames: " + others.error] = "?";
+  notEstablished["screen frame, text window borders and other symbols drawn outside the first-person view: no artwork key form exists for them"] = "not counted";
+  notEstablished["narrated passages that describe something to see and have no artwork"] = "will come from npm run qa:narration";
+
+  const cellItems = first.items;
+  const totals: Record<string, number | string> = {
+    "Remaining, all kinds": items.length,
+    "First-person cells to do": cellItems.length,
+    "  of which one stored tile": cellItems.filter((item) => item.what === "one stored tile").length,
+    "  of which one tile over a solid colour": cellItems.filter((item) => item.what === "one tile over a solid colour").length,
+    "  of which plain sky or ground": cellItems.filter((item) => item.what === "plain backdrop").length,
+    "  of which several tiles together": cellItems.filter((item) => item.what === "several tiles together").length,
+    "  of which the same pixels already have art of yours in another area": cellItems.filter((item) => item.sameAs).length,
+    "Battlefield cells to do": battle.items.length,
+    "Tile keys in the manifests": first.reports.reduce((sum, report) => sum + report.existingKeys, 0),
+    "  accounted for by the tool": first.reports.reduce((sum, report) => sum + report.existingKeysAccountedFor, 0),
+    "Battlefield keys in the manifests": battle.keys,
+    "  that are one stored cell of a battlefield picture": battle.keysThatAreAStoredCell,
+    "Stored 8 by 8 tiles": first.stored.tiles,
+    "  blank": first.stored.blank,
+    "  distinct pictures among the rest": first.stored.distinctPictures,
+    "  with art in some area, alone or over a solid colour": first.stored.withArtInSomeArea,
+    "  without (the catalogue's 720 when it was written)": first.stored.withoutArt,
+    "    of those, no map can show": first.stored.withoutArtNoMapShows,
+    "    of those, shown only together with other tiles, never alone": first.stored.withoutArtShownOnlyWithOthers,
+    "    of those, shown alone in some area": first.stored.withoutArtShownAlone,
+  };
   const list: Worklist = {
-    schema: 1,
+    schema: 2,
     about: "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
-    done: "The confirmed first-person worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork.",
-    remaining: items.length, stillBeingWorkedOut: stillBeingWorkedOut(reports), areas: reports, items,
+    done: "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
+    remaining: items.length, totals, notEstablished, areas: first.reports, battlefield: battle.reports,
+    storedTilesNoMapShows: first.never, otherPicturesNoKeyNames: others.pictures, backdrops: first.backdrops, items,
   };
   const json = JSON.stringify(list, null, 1) + "\n", text = document(list);
-  const cellsJson = JSON.stringify({
-    about: "SHA-256 of first-person screen cells made of several tiles, by how each is made. Derived from the 1.3 files by npm run art:worklist with POR_GAMEDATA set. Hashes only.",
-    cells: Object.fromEntries([...cells.composed].sort(([a], [b]) => a < b ? -1 : 1)),
-  }, null, 0).replace(/","/g, "\",\n\"") + "\n";
+  const line = (record: Record<string, unknown>) => Object.entries(record).sort(([a], [b]) => a < b ? -1 : 1).map(([key, value]) => `${JSON.stringify(key)}:${JSON.stringify(value)}`).join(",\n");
+  const cellsJson = `{"about":"SHA-256 of first-person screen cells made of several tiles, by how each is made, and of the nine cells of each SQRPACI and BACPAC picture. Derived from the 1.3 files by npm run art:worklist with POR_GAMEDATA set. Hashes only.",\n"cells":{\n${line(Object.fromEntries(cells.composed))}\n},\n"battlefield":{\n${line(battle.derived)}\n}}\n`;
 
   if (verify || check) {
-    console.log("area  name                         to do");
-    for (const report of reports) if (report.established) console.log(`${String(report.area).padStart(4)}  ${report.name.padEnd(28)} ${String(report.toDo).padStart(5)}`);
-    for (const group of [...new Set(items.map((item) => `${item.area}: ${item.group}`))]) {
-      console.log(`  area ${group}: ${items.filter((item) => `${item.area}: ${item.group}` === group).length}`);
+    const groups = new Map<string, number>();
+    for (const item of items) {
+      const group = item.kind === "first-person cell" ? `area ${String(item.area).padStart(2)} ${item.areaName}: ${item.group}` : item.group;
+      groups.set(group, (groups.get(group) ?? 0) + 1);
     }
+    console.log("remaining  group");
+    for (const [group, count] of groups) console.log(`${String(count).padStart(9)}  ${group}`);
   }
   if (check) {
     // Art added since the files were written does not make them stale; a changed analysis does.
-    const committed = existsSync(at(WORKLIST)) ? JSON.parse(readFileSync(at(WORKLIST), "utf8")) as Worklist : undefined;
     const problems: string[] = [];
     if (!committed) problems.push(`${WORKLIST} is missing`);
     else {
@@ -520,36 +900,41 @@ function main(): void {
       for (const key of now) if (!before.has(key)) problems.push(`${key} is needed and is not in ${WORKLIST}`);
       for (const item of committed.items) if (!now.has(item.key) && missing(art, item.key, item.width, item.height)) problems.push(`${item.key} is in ${WORKLIST}, has no art, and the tool no longer lists it`);
     }
-    if (pixels && existsSync(at(CELLS)) && readFileSync(at(CELLS), "utf8") !== cellsJson) problems.push(`${CELLS} differs from what the 1.3 files give`);
+    if (!existsSync(at(DOCUMENT))) problems.push(`${DOCUMENT} is missing`);
+    if (original && (!existsSync(at(CELLS)) || readFileSync(at(CELLS), "utf8") !== cellsJson)) problems.push(`${CELLS} differs from what the 1.3 files give`);
+    if (cells.missingHashes) problems.push(`${cells.missingHashes} cells of several tiles have no hash in ${CELLS}`);
     if (problems.length) {
-      console.error(`art:worklist: the committed worklist is stale (${problems.length}). The first:`);
+      console.error(`art:worklist: the committed worklist is stale (${problems.length} differences). The first:`);
       for (const problem of problems.slice(0, 10)) console.error(`  ${problem}`);
-      console.error("Run npm run art:worklist and commit the result.");
+      console.error("Run npm run art:worklist (with POR_GAMEDATA set if it asks) and commit the result.");
       process.exit(1);
     }
-    console.log(`art:worklist: the committed worklist is current. ${items.length} remaining.`);
+    console.log(`art:worklist: the committed worklist is current. ${items.length} remaining (${Date.now() - started} ms).`);
     return;
   }
   if (verify) {
-    const invalidTiles = [...art.keys()].filter((key) => key.startsWith("tile:")).flatMap((key) => {
+    // Each listed item was found without art just now; say so in the terms of the files, for the first few.
+    for (const item of items.slice(0, 3)) console.log(`  for example ${item.key}: ${missing(art, item.key, item.width, item.height)}`);
+    // Tile art already in a manifest must be there and 32 by 32 too (the artwork agent's check, kept).
+    const invalidTiles = [...art.keys()].filter((key) => /^(tile|battle-tile):/.test(key)).flatMap((key) => {
       const issue = missing(art, key, 32, 32);
       return issue ? [`${key}: ${issue}`] : [];
     });
-    console.log(`\nverify:art-worklist: ${items.length} confirmed first-person cells remaining (${Date.now() - started} ms).`);
+    console.log(`\nverify:art-worklist: ${items.length} confirmed cells remaining (${Date.now() - started} ms).`);
     if (invalidTiles.length) console.error(`Invalid tile artwork (first ${Math.min(invalidTiles.length, 10)} of ${invalidTiles.length}):\n${invalidTiles.slice(0, 10).join("\n")}`);
-    const pending = Object.entries(list.stillBeingWorkedOut).filter(([, count]) => typeof count === "number");
-    if (pending.length) console.log(`Not counted, still being worked out: ${pending.map(([what, count]) => `${count} ${what}`).join("; ")}`);
-    if (cells.missingHashes) console.log(`${cells.missingHashes} cells have no hash in ${CELLS}: run npm run art:worklist with POR_GAMEDATA set`);
+    const pending = Object.entries(notEstablished).filter(([, count]) => typeof count === "number" && count > 0);
+    if (pending.length) console.log(`Not counted, not established (see ${DOCUMENT}): ${pending.map(([what, count]) => `${count} ${what}`).join("; ")}`);
     process.exit(items.length || invalidTiles.length ? 1 : 0);
   }
   writeFileSync(at(WORKLIST), json);
   writeFileSync(at(DOCUMENT), text);
-  if (pixels) writeFileSync(at(CELLS), cellsJson);
-  console.log(`wrote ${WORKLIST} and ${DOCUMENT}: ${items.length} remaining${pixels ? `; ${CELLS}: ${cells.composed.size} hashes` : ""} (${Date.now() - started} ms)`);
+  if (original) writeFileSync(at(CELLS), cellsJson);
+  console.log(`wrote ${WORKLIST} and ${DOCUMENT}: ${items.length} remaining${original ? `; ${CELLS}: ${cells.composed.size} cell hashes` : ""} (${Date.now() - started} ms)`);
+  if (cells.missingHashes) console.log(`${cells.missingHashes} cells of several tiles have no hash in ${CELLS}: set POR_GAMEDATA to the 1.3 files and run again`);
   if (sheetIndex >= 0) {
-    if (!pixels) { console.error("--sheets needs the player's own 1.3 files: set POR_GAMEDATA to their directory"); process.exit(1); }
+    if (!original) { console.error("--sheets needs the player's own 1.3 files: set POR_GAMEDATA to their directory"); process.exit(1); }
     const next = args[sheetIndex + 1];
-    sheets(next && !next.startsWith("--") ? resolve(next) : at("out", "art-worklist"), list, cells);
+    sheets(next && !next.startsWith("--") ? resolve(next) : at("out", "art-worklist"), list, cells, original);
   }
 }
 

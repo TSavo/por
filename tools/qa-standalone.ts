@@ -418,6 +418,14 @@ unmeasured.push(`Part 3: how many pictures of the other ${uncounted.length} pict
 rows.push(["3. Original picture frames with artwork", linked, inventory.encounterTotals.frames,
   "every frame of the scene, encounter and combat picture archives (tools/art-inventory.ts): " +
   inventory.encounterFamilies.map(({ label, frames, unlinked }) => `${label} ${frames - unlinked}/${frames}`).join(", ")]);
+// The artwork worklist (npm run art:worklist) works out every first-person cell and battlefield cell
+// that can appear and says which still have no artwork. Its committed count is read here.
+if (existsSync("qa/art-worklist.json")) {
+  const worklist = JSON.parse(readFileSync("qa/art-worklist.json", "utf8")) as { remaining: number; areas: { established: boolean; cellsWithArt: number }[] };
+  const drawn = worklist.areas.filter(({ established }) => established).reduce((total, { cellsWithArt }) => total + cellsWithArt, 0);
+  rows.push(["3. Tile cells the worklist is sure can appear, with artwork", drawn, drawn + worklist.remaining,
+    "first-person and battlefield cells of the areas whose reading is confirmed (docs/ART-WORKLIST.md); what it cannot yet confirm is listed there and is not in this row"]);
+}
 rows.push(["3. Host modules that match artwork without pixels", 0, directReaders.length,
   `of the ${reachable.size} modules the runner and the server load, these decode the pixels of original pictures to decide which artwork to show; ` +
   "game/ holds picture shapes and hashes and no pixels, so from it they match nothing: " + directReaders.join(", ")]);
