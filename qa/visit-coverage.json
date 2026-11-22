@@ -343,6 +343,23 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "walk-new-phlan-training": {
+   "areas": [
+    0,
+    11
+   ],
+   "commissions": [
+    "auction",
+    "kobolds",
+    "kovel",
+    "nomads",
+    "sokal",
+    "textile"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
