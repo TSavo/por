@@ -154,6 +154,20 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "visit-textile-house (qa/fixtures/visit-textile-house, game/)": {
+   "areas": [
+    0,
+    2,
+    8,
+    26
+   ],
+   "commissions": [
+    "sokal"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
