@@ -56,18 +56,18 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 |   of which several tiles together | 1557 |
 |   of which the same pixels already have art of yours in another area | 801 |
 | Battlefield cells to do | 0 |
-| Tile keys in the manifests | 4306 |
-|   accounted for by the tool | 4150 |
+| Tile keys in the manifests | 4347 |
+|   accounted for by the tool | 4191 |
 | Battlefield keys in the manifests | 83 |
 |   that are one stored cell of a battlefield picture | 78 |
 | Stored 8 by 8 tiles | 3016 |
 |   blank | 9 |
 |   distinct pictures among the rest | 1333 |
-|   with art in some area, alone or over a solid colour | 2390 |
-|   without (the catalogue's 720 when it was written) | 617 |
+|   with art in some area, alone or over a solid colour | 2395 |
+|   without (the catalogue's 720 when it was written) | 612 |
 |     of those, no map can show | 428 |
 |     of those, shown only together with other tiles, never alone | 7 |
-|     of those, shown alone in some area | 182 |
+|     of those, shown alone in some area | 177 |
 
 ## Where each area stands
 
@@ -78,7 +78,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 2 | Cadorna Textile House | yes | 580 | 254 | 128 | 278 of 278 (5 as first views of the next area, 19 as WebGL wall materials) |
 | 3 | Valjevo Castle | not yet | 300 | 95 |  | 95 of 110 |
 | 4 | Valjevo Castle | yes | 320 | 76 | 46 | 84 of 84 (8 as WebGL wall materials) |
-| 5 | Valjevo Castle | not yet | 393 | 52 |  | 54 of 116 (2 as first views of the next area) |
+| 5 | Valjevo Castle | not yet | 393 | 91 |  | 95 of 157 (2 as first views of the next area, 2 as WebGL wall materials) |
 | 6 | Valjevo Castle | yes | 310 | 76 | 88 | 82 of 82 (6 as WebGL wall materials) |
 | 7 | Valjevo Castle, the Pool | not yet | 269 | 33 |  | 73 of 131 (40 as first views of the next area) |
 | 8 | Phlan City Hall | yes | 405 | 163 | 129 | 173 of 173 (10 as WebGL wall materials) |
@@ -2211,7 +2211,7 @@ Map 26; WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), b
 | `tile:26:811063002a5754116c7253d132ef0a3821249bb2dd9aa4f09af1a9be26404457` | 8X8D7 block 8 tile 20 over 8X8D7 block 8 tile 21 over the horizon row (three rows of sky 0, one of 15, two of 7, two of ground 6) | map 26, square (2,1) facing west, column 6 row 5 |  |
 | `tile:26:81e90cab1c2a69f991968319ee2c4db0099816f98ed7ab2e1be3fc22c9563124` | 8X8D7 block 8 tile 15 over 8X8D7 block 8 tile 15 over 8X8D7 block 8 tile 22 over sky colour 0 | map 26, square (4,0) facing south, column 8 row 4 |  |
 | `tile:26:83a4b6bcac7a25600797b931a18ea825dba03009462a94ec7ee1483234d0fb18` | 8X8D7 block 8 tile 16 over 8X8D7 block 8 tile 22 over sky colour 0 | map 26, square (0,0) facing south, column 0 row 4 |  |
-| `tile:26:877afc2b6549f6e3f546e63c9a5979c27cd67b398ef06f50d5d8b32d345c497c` | 8X8D7 block 8 tile 12 | map 26, square (0,0) facing south, column 0 row 8 | `valjevo-dungeon-briar-terrain-23.png` (area 3, 4, 6) |
+| `tile:26:877afc2b6549f6e3f546e63c9a5979c27cd67b398ef06f50d5d8b32d345c497c` | 8X8D7 block 8 tile 12 | map 26, square (0,0) facing south, column 0 row 8 | `valjevo-dungeon-briar-terrain-23.png` (area 3, 4, 5, 6) |
 | `tile:26:8869bea82e51ff517629ca4fe2395571be78003c8b850dad6e9da830a52c8ce3` | 8X8D7 block 8 tile 16 over 8X8D7 block 8 tile 22 over sky colour 11 | map 26, square (0,0) facing south, column 0 row 4 |  |
 | `tile:26:89ac96a8296b38dc291f77978e964f9737df8b672dc6220b31f5615332555bd9` | 8X8D7 block 8 tile 43 over 8X8D7 block 8 tile 43 over 8X8D7 block 7 tile 15 over 8X8D7 block 7 tile 52 over sky colour 11 | map 26, square (5,12) facing north, column 10 row 3 |  |
 | `tile:26:8c786f4b1c38fdea80ad32e55aa8e05e74853760d5d8bc848f8a02af66bd695c` | 8X8D7 block 8 tile 20 over 8X8D7 block 8 tile 21 over the horizon row (three rows of sky 0, one of 0, two of 8, two of ground 8) | map 26, square (2,1) facing west, column 6 row 5 |  |
@@ -2266,7 +2266,7 @@ Map 26; WALLDEF7 block 7 (tiles 8X8D7 block 7), block 8 (tiles 8X8D7 block 8), b
 | `tile:26:40f46157dc277243cf905276f1a16a2bd6d3f448351dbc9f69fe86602ec97b07` | 8X8D7 block 23 tile 16 | map 26, square (4,3) facing south, column 8 row 8 | `lizardman-lower-pool-40f46157dc27.png` (area 15, 16) |
 | `tile:26:6fcc88dfcbdd1381aa173a4930d0f43707657b86b987875de37d432aaf94f778` | 8X8D7 block 23 tile 19 | map 26, square (4,3) facing south, column 8 row 7 | `lizardman-lower-pool-6fcc88dfcbdd.png` (area 15, 16) |
 | `tile:26:82e8199099381a8c28943b20dddb6ed93932475f5ced4d14f5c14f1a87fa7900` | 8X8D7 block 23 tile 14 | map 26, square (4,2) facing south, column 5 row 6 | `lizardman-lower-pool-82e819909938.png` (area 15, 16) |
-| `tile:26:aa725e51a9d8e9a8abe3cefa68561d19a4b06c6f1526e46e3a55a23aef753c73` | 8X8D7 block 23 tile 69 | map 26, square (4,3) facing south, column 3 row 7 | `mendor-webgl-fountain-water-aa725e51a9d8.png` (area 3, 15, 16) |
+| `tile:26:aa725e51a9d8e9a8abe3cefa68561d19a4b06c6f1526e46e3a55a23aef753c73` | 8X8D7 block 23 tile 69 | map 26, square (4,3) facing south, column 3 row 7 | `valjevo-area5-water-aa725e51a9d8.png` (area 3, 5, 15, 16) |
 | `tile:26:bc40ea3be142942d5e433d5b75d7dace8cc2aa0c544f4123b7056a5a69d7977e` | 8X8D7 block 23 tile 21 | map 26, square (4,2) facing south, column 6 row 6 |  |
 | `tile:26:bd497db7487c7813e1fe44ab57327e1071fa3e599e97eb77c229dbc490b75a6a` | 8X8D7 block 23 tile 17 | map 26, square (3,3) facing east, column 9 row 8 | `lizardman-lower-pool-bd497db7487c.png` (area 15, 16) |
 | `tile:26:d326cc9fabded3214b6092f46a582ccf73115a244f08ec2e00172fefe1c7f137` | 8X8D7 block 23 tile 20 | map 26, square (4,2) facing south, column 4 row 6 |  |
@@ -2816,7 +2816,7 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 | --- | ---: |
 | first-person cells that show a sky or ground colour no existing artwork of the area shows | 4267 |
 | first-person cells of the overhead area view, which no existing artwork of the area confirms | 152 |
-| first-person cells of an area whose reading is not confirmed | 1506 |
+| first-person cells of an area whose reading is not confirmed | 1467 |
 | first-person cells seen only from squares not connected to any square the existing artwork was made from | 357 |
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |
 | battlefield cells of pictures no artwork shows to have been on a battlefield | 2207 |
@@ -2828,7 +2828,7 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 Areas not confirmed, and why:
 
 - Area 3 (Valjevo Castle): 15 of the 110 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
-- Area 5 (Valjevo Castle): 62 of the 116 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
+- Area 5 (Valjevo Castle): 62 of the 157 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 7 (Valjevo Castle, the Pool): 58 of the 131 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 15 (Mendor's Library): 15 of the 205 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 18 (Podol Plaza): 5 of the 199 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
