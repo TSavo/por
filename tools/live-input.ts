@@ -424,9 +424,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const harborRoadSign = activeEcl === 0 && (
         dialogue === "YOUAREOUTSIDETHECITYHALL.THECITYCLERKWAITSINSIDETOAWARDCOMMISSIONS." ||
         dialogue === "YOUAREBYTHEGATEWAYTOTHEUNSETTLEDAREAS.THECITYWATCHEYESYOUSUSPICIOUSLY.");
-      // The street remains navigable while a landmark illustration covers its view.
-      const illustratedRoad = harborRoadSign && illustration !== undefined;
-      if (area !== undefined && !scene && !overlandMap && !iconEditor && (picture === undefined || illustratedRoad) && !battlefield) {
+      // Landmark and arrival illustrations can cover a native view used for navigation.
+      const illustratedExploration = illustration !== undefined && (harborRoadSign ||
+        illustration === "scene-illustration:area:0:ecl:9b68" ||
+        illustration === "scene-illustration:area:0:ecl:ae31:caller:9ad2");
+      if (area !== undefined && !scene && !overlandMap && !iconEditor && (picture === undefined || illustratedExploration) && !battlefield) {
         const pixels = perspectivePixels();
         // The original game can redraw scenery while the menu is hidden,
         // including mid-transition at a doorway.
