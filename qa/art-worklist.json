@@ -2,18 +2,18 @@
  "schema": 2,
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
- "remaining": 2181,
+ "remaining": 2178,
  "totals": {
-  "Remaining, all kinds": 2181,
-  "First-person cells to do": 2181,
-  "  of which one stored tile": 482,
+  "Remaining, all kinds": 2178,
+  "First-person cells to do": 2178,
+  "  of which one stored tile": 478,
   "  of which one tile over a solid colour": 232,
   "  of which plain sky or ground": 0,
-  "  of which several tiles together": 1467,
-  "  of which the same pixels already have art of yours in another area": 794,
+  "  of which several tiles together": 1468,
+  "  of which the same pixels already have art of yours in another area": 791,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 3977,
-  "  accounted for by the tool": 3832,
+  "Tile keys in the manifests": 4003,
+  "  accounted for by the tool": 3858,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
@@ -29,7 +29,7 @@
   "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4060,
   "first-person cells of the overhead area view, which no existing artwork of the area confirms": 152,
   "first-person cells of an area whose reading is not confirmed": 1545,
-  "first-person cells seen only from squares not connected to any square the existing artwork was made from": 720,
+  "first-person cells seen only from squares not connected to any square the existing artwork was made from": 717,
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
   "battlefield cells of pictures no artwork shows to have been on a battlefield": 2207,
   "battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain)": "not counted: needs the game's battlefield builder read",
@@ -42,15 +42,15 @@
    "area": 0,
    "name": "New Phlan",
    "established": true,
-   "why": "all 251 cells that have artwork are among the cells the tool works out",
+   "why": "all 261 cells that have artwork are among the cells the tool works out",
    "maps": [
     0
    ],
    "wallSets": [
     "WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)"
    ],
-   "existingKeys": 251,
-   "existingKeysAccountedFor": 251,
+   "existingKeys": 261,
+   "existingKeysAccountedFor": 261,
    "existingKeysOnlyAsArrivalViews": 3,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 406,
@@ -59,7 +59,8 @@
    "notEstablished": {
     "cells that show a sky or ground colour no existing artwork of the area shows": 79,
     "cells of the overhead area view, which no existing artwork of the area confirms": 19
-   }
+   },
+   "existingKeysOnlyAsWallMaterials": 10
   },
   {
    "area": 1,
@@ -354,24 +355,25 @@
    "area": 8,
    "name": "Phlan City Hall",
    "established": true,
-   "why": "all 157 cells that have artwork are among the cells the tool works out",
+   "why": "all 173 cells that have artwork are among the cells the tool works out",
    "maps": [
     0
    ],
    "wallSets": [
     "WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)"
    ],
-   "existingKeys": 157,
-   "existingKeysAccountedFor": 157,
+   "existingKeys": 173,
+   "existingKeysAccountedFor": 173,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 405,
-   "cellsWithArt": 157,
-   "toDo": 132,
+   "cellsWithArt": 163,
+   "toDo": 129,
    "notEstablished": {
     "cells that show a sky or ground colour no existing artwork of the area shows": 110,
-    "cells seen only from squares not connected to any square the existing artwork was made from": 6
-   }
+    "cells seen only from squares not connected to any square the existing artwork was made from": 3
+   },
+   "existingKeysOnlyAsWallMaterials": 10
   },
   {
    "area": 9,
@@ -13526,12 +13528,12 @@
     "column": 9,
     "row": 4
    },
-   "views": 3,
+   "views": 4,
    "drawnIn": [
     0
    ],
    "sameAs": "new-phlan-harbor-paving-joins-0-91149bb7ce52.png",
-   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -13552,14 +13554,14 @@
     "column": 9,
     "row": 5
    },
-   "views": 3,
+   "views": 4,
    "drawnIn": [
     0,
     18,
     24
    ],
    "sameAs": "podal-south-arcade-terrain-dc6c3d5510b0.png",
-   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -13670,7 +13672,7 @@
     "column": 0,
     "row": 7
    },
-   "views": 24,
+   "views": 25,
    "drawnIn": [
     0,
     7,
@@ -13678,64 +13680,7 @@
     20
    ],
    "sameAs": "new-phlan-civic-terrain-0e154b2b42e5.png",
-   "why": "drawn in 24 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:8:14ba42f38a9f3edda8214f1dec22d94f520717c59573aa456e72854416d753d4",
-   "width": 32,
-   "height": 32,
-   "area": 8,
-   "areaName": "Phlan City Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:10",
-   "description": "8X8D3 block 102 tile 10, shown in area 8 (Phlan City Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 11,
-    "y": 6,
-    "facing": "south",
-    "column": 8,
-    "row": 5
-   },
-   "views": 108,
-   "drawnIn": [
-    0,
-    5,
-    7,
-    20
-   ],
-   "sameAs": "slums-trade-row-terrain-14ba42f38a9f.png",
-   "why": "drawn in 108 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:8:15450d2266965cb35a6f45fd06dbf087e58bdd114e2cf88e56dba3e596898eb1",
-   "width": 32,
-   "height": 32,
-   "area": 8,
-   "areaName": "Phlan City Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:52",
-   "description": "8X8D3 block 102 tile 52, shown in area 8 (Phlan City Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 14,
-    "y": 7,
-    "facing": "east",
-    "column": 9,
-    "row": 4
-   },
-   "views": 146,
-   "drawnIn": [
-    0,
-    7,
-    20
-   ],
-   "sameAs": "slums-trade-row-terrain-15450d226696.png",
-   "why": "drawn in 146 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 25 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -13808,14 +13753,14 @@
     "column": 1,
     "row": 6
    },
-   "views": 13,
+   "views": 19,
    "drawnIn": [
     0,
     7,
     20
    ],
    "sameAs": "slums-trade-row-terrain-2c07b5fab1ef.png",
-   "why": "drawn in 13 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 19 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -13863,14 +13808,14 @@
     "column": 10,
     "row": 3
    },
-   "views": 17,
+   "views": 21,
    "drawnIn": [
     0,
     7,
     20
    ],
    "sameAs": "slums-shop-frontage-terrain-34c8e1f49742.png",
-   "why": "drawn in 17 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 21 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -13891,14 +13836,14 @@
     "column": 5,
     "row": 5
    },
-   "views": 64,
+   "views": 69,
    "drawnIn": [
     0,
     5,
     7
    ],
    "sameAs": "valjevo-merchant-branch-terrain-377420f76a2a.png",
-   "why": "drawn in 64 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 69 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -13968,13 +13913,13 @@
     "column": 1,
     "row": 5
    },
-   "views": 13,
+   "views": 14,
    "drawnIn": [
     0,
     7
    ],
    "sameAs": "new-phlan-building-paving-joins-0-3c785d52bd57.png",
-   "why": "drawn in 13 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 14 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -13995,7 +13940,7 @@
     "column": 0,
     "row": 6
    },
-   "views": 45,
+   "views": 51,
    "drawnIn": [
     0,
     5,
@@ -14004,7 +13949,7 @@
     20
    ],
    "sameAs": "valjevo-lower-trim-456f9f400e4f.png",
-   "why": "drawn in 45 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 51 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -14034,31 +13979,29 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:8:491c0e9a5a1fe2680ecad326e5a4a7920df0f9e348ad8b993c763c95cf886194",
+   "key": "tile:8:49adbe0c989896a2fc859c7518d72be11572fff18d83d579b7eb021b3dba21bc",
    "width": 32,
    "height": 32,
    "area": 8,
    "areaName": "Phlan City Hall",
    "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:46",
-   "description": "8X8D3 block 102 tile 46, shown in area 8 (Phlan City Hall)",
+   "what": "several tiles together",
+   "composition": "-|8X8D3.DAX:102:5,8X8D3.DAX:102:67",
+   "description": "8X8D3 block 102 tile 67 over 8X8D3 block 102 tile 5, shown in area 8 (Phlan City Hall)",
    "seenAt": {
     "map": 0,
-    "x": 14,
-    "y": 7,
+    "x": 8,
+    "y": 12,
     "facing": "east",
-    "column": 10,
-    "row": 7
+    "column": 6,
+    "row": 5
    },
-   "views": 46,
+   "views": 1,
    "drawnIn": [
-    0,
-    7,
-    20
+    7
    ],
-   "sameAs": "slums-worn-courtyard-491c0e9a5a1f.png",
-   "why": "drawn in 46 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "sameAs": "valjevo-merchant-wing-terrain-49adbe0c9898.png",
+   "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -14079,14 +14022,14 @@
     "column": 10,
     "row": 4
    },
-   "views": 13,
+   "views": 19,
    "drawnIn": [
     0,
     7,
     20
    ],
    "sameAs": "slums-worn-courtyard-4e24210255ed.png",
-   "why": "drawn in 13 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 19 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -14114,35 +14057,6 @@
    ],
    "sameAs": "valjevo-merchant-west-terrain-582935262251.png",
    "why": "drawn in 24 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:8:5b786e63e19e9e670c1f1c5e88c35e2a13f2d0706d213c1aae0f2473145467ca",
-   "width": 32,
-   "height": 32,
-   "area": 8,
-   "areaName": "Phlan City Hall",
-   "group": "tile set 8X8D3 block 102",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:102:7",
-   "description": "8X8D3 block 102 tile 7, shown in area 8 (Phlan City Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 10,
-    "y": 7,
-    "facing": "south",
-    "column": 2,
-    "row": 5
-   },
-   "views": 86,
-   "drawnIn": [
-    0,
-    5,
-    7,
-    20
-   ],
-   "sameAs": "valjevo-lower-trim-5b786e63e19e.png",
-   "why": "drawn in 86 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -14191,14 +14105,14 @@
     "column": 9,
     "row": 3
    },
-   "views": 18,
+   "views": 20,
    "drawnIn": [
     0,
     7,
     20
    ],
    "sameAs": "slums-shop-frontage-terrain-624c54394650.png",
-   "why": "drawn in 18 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 20 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -14219,12 +14133,12 @@
     "column": 10,
     "row": 4
    },
-   "views": 56,
+   "views": 60,
    "drawnIn": [
     0
    ],
    "sameAs": "new-phlan-south-market-terrain-0-6350a67cee5e.png",
-   "why": "drawn in 56 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 60 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -14298,14 +14212,14 @@
     "column": 9,
     "row": 4
    },
-   "views": 13,
+   "views": 19,
    "drawnIn": [
     0,
     7,
     20
    ],
    "sameAs": "slums-shop-frontage-terrain-78d49be0ec8d.png",
-   "why": "drawn in 13 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 19 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -14431,12 +14345,12 @@
     "column": 6,
     "row": 5
    },
-   "views": 3,
+   "views": 4,
    "drawnIn": [
     0
    ],
    "sameAs": "new-phlan-south-market-terrain-0-89a02b4a8a33.png",
-   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -14531,14 +14445,14 @@
     "column": 1,
     "row": 4
    },
-   "views": 14,
+   "views": 19,
    "drawnIn": [
     0,
     7,
     20
    ],
    "sameAs": "slums-trade-row-terrain-97b40cd88297.png",
-   "why": "drawn in 14 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 19 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -14587,7 +14501,7 @@
     "column": 2,
     "row": 5
    },
-   "views": 23,
+   "views": 35,
    "drawnIn": [
     0,
     5,
@@ -14595,7 +14509,7 @@
     20
    ],
    "sameAs": "valjevo-lower-trim-a0c0c9c24568.png",
-   "why": "drawn in 23 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 35 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -14692,14 +14606,14 @@
     "column": 0,
     "row": 6
    },
-   "views": 13,
+   "views": 19,
    "drawnIn": [
     0,
     7,
     20
    ],
    "sameAs": "slums-trade-row-terrain-b8645fd4952e.png",
-   "why": "drawn in 13 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 19 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -14746,13 +14660,13 @@
     "column": 2,
     "row": 4
    },
-   "views": 6,
+   "views": 10,
    "drawnIn": [
     0,
     7
    ],
    "sameAs": "valjevo-merchant-branch-terrain-c5e2f7ff8d6b.png",
-   "why": "drawn in 6 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 10 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -14908,14 +14822,14 @@
     "column": 1,
     "row": 3
    },
-   "views": 19,
+   "views": 20,
    "drawnIn": [
     0,
     7,
     20
    ],
    "sameAs": "slums-trade-row-terrain-e1e25d740d96.png",
-   "why": "drawn in 19 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 20 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -14936,14 +14850,14 @@
     "column": 0,
     "row": 3
    },
-   "views": 14,
+   "views": 21,
    "drawnIn": [
     0,
     7,
     20
    ],
    "sameAs": "slums-trade-row-terrain-e3d609d69fc1.png",
-   "why": "drawn in 14 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 21 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -14964,14 +14878,14 @@
     "column": 0,
     "row": 6
    },
-   "views": 27,
+   "views": 33,
    "drawnIn": [
     0,
     7,
     20
    ],
    "sameAs": "slums-trade-row-terrain-e6c54d795264.png",
-   "why": "drawn in 27 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 33 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -15018,7 +14932,7 @@
     "column": 2,
     "row": 7
    },
-   "views": 26,
+   "views": 27,
    "drawnIn": [
     0,
     5,
@@ -15026,7 +14940,7 @@
     20
    ],
    "sameAs": "valjevo-lower-trim-f18965943be2.png",
-   "why": "drawn in 26 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 27 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -15047,14 +14961,14 @@
     "column": 0,
     "row": 7
    },
-   "views": 16,
+   "views": 20,
    "drawnIn": [
     0,
     7,
     20
    ],
    "sameAs": "slums-trade-row-terrain-fbcbe0dd001b.png",
-   "why": "drawn in 16 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 20 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -15075,14 +14989,14 @@
     "column": 0,
     "row": 4
    },
-   "views": 13,
+   "views": 19,
    "drawnIn": [
     0,
     7,
     20
    ],
    "sameAs": "slums-trade-row-terrain-fec9ae7f67a2.png",
-   "why": "drawn in 13 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 19 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -15230,32 +15144,6 @@
    },
    "views": 3,
    "drawnIn": [],
-   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:8:2f163d7206ea4e6a2989a021b7bd568c838c61fdf825b0a95ad24462e87f1b84",
-   "width": 32,
-   "height": 32,
-   "area": 8,
-   "areaName": "Phlan City Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:14",
-   "description": "8X8D3 block 103 tile 14, shown in area 8 (Phlan City Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 3,
-    "y": 3,
-    "facing": "east",
-    "column": 10,
-    "row": 6
-   },
-   "views": 3,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-civic-terrain-2f163d7206ea.png",
    "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -15418,12 +15306,12 @@
     "column": 2,
     "row": 6
    },
-   "views": 9,
+   "views": 10,
    "drawnIn": [
     0
    ],
    "sameAs": "new-phlan-south-market-terrain-0-6095180558e9.png",
-   "why": "drawn in 9 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 10 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -15681,12 +15569,12 @@
     "column": 7,
     "row": 5
    },
-   "views": 9,
+   "views": 10,
    "drawnIn": [
     0
    ],
    "sameAs": "new-phlan-training-paving-0-811ae3a349c4.png",
-   "why": "drawn in 9 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 10 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -15733,12 +15621,12 @@
     "column": 10,
     "row": 0
    },
-   "views": 12,
+   "views": 13,
    "drawnIn": [
     0
    ],
    "sameAs": "new-phlan-street-paving-joins-0-89396b758064.png",
-   "why": "drawn in 12 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 13 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -15952,6 +15840,58 @@
    "views": 8,
    "drawnIn": [],
    "why": "drawn in 8 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:8:bc0fc51f67b36ed051bbab273b0e11f9886fba78b3e730da540b61b7fd1a64a0",
+   "width": 32,
+   "height": 32,
+   "area": 8,
+   "areaName": "Phlan City Hall",
+   "group": "tile set 8X8D3 block 103",
+   "what": "one stored tile",
+   "composition": "-|8X8D3.DAX:103:20",
+   "description": "8X8D3 block 103 tile 20, shown in area 8 (Phlan City Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 3,
+    "y": 4,
+    "facing": "north",
+    "column": 10,
+    "row": 1
+   },
+   "views": 2,
+   "drawnIn": [
+    0
+   ],
+   "sameAs": "new-phlan-street-paving-joins-0-bc0fc51f67b3.png",
+   "why": "drawn in 2 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:8:bdc2846eeb75d16b7e334279cc32c448aae109f3c5fcdf2fb2cb9f1f1588ce52",
+   "width": 32,
+   "height": 32,
+   "area": 8,
+   "areaName": "Phlan City Hall",
+   "group": "tile set 8X8D3 block 103",
+   "what": "one stored tile",
+   "composition": "-|8X8D3.DAX:103:21",
+   "description": "8X8D3 block 103 tile 21, shown in area 8 (Phlan City Hall)",
+   "seenAt": {
+    "map": 0,
+    "x": 4,
+    "y": 3,
+    "facing": "west",
+    "column": 0,
+    "row": 1
+   },
+   "views": 3,
+   "drawnIn": [
+    0
+   ],
+   "sameAs": "new-phlan-harbor-paving-joins-0-bdc2846eeb75.png",
+   "why": "drawn in 3 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -16225,32 +16165,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:8:e19067bee3819b8d873718c2a7a1a61cebdd3ffcf3d786860b77148e6863abfc",
-   "width": 32,
-   "height": 32,
-   "area": 8,
-   "areaName": "Phlan City Hall",
-   "group": "tile set 8X8D3 block 103",
-   "what": "one stored tile",
-   "composition": "-|8X8D3.DAX:103:8",
-   "description": "8X8D3 block 103 tile 8, shown in area 8 (Phlan City Hall)",
-   "seenAt": {
-    "map": 0,
-    "x": 3,
-    "y": 3,
-    "facing": "east",
-    "column": 10,
-    "row": 7
-   },
-   "views": 4,
-   "drawnIn": [
-    0
-   ],
-   "sameAs": "new-phlan-civic-terrain-e19067bee381.png",
-   "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:8:e26b92fadba50b8d889a6fd196a894e7522d35272a8daa59dae7752e34b12f1c",
    "width": 32,
    "height": 32,
@@ -16363,12 +16277,12 @@
     "column": 6,
     "row": 6
    },
-   "views": 1,
+   "views": 4,
    "drawnIn": [
     0
    ],
    "sameAs": "new-phlan-training-paving-0-f6613a058106.png",
-   "why": "drawn in 1 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
+   "why": "drawn in 4 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -28703,9 +28617,10 @@
     0,
     5,
     7,
+    8,
     20
    ],
-   "sameAs": "slums-trade-row-terrain-14ba42f38a9f.png",
+   "sameAs": "new-phlan-harbor-lane-terrain-14ba42f38a9f.png",
    "why": "drawn in 46 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -28731,9 +28646,10 @@
    "drawnIn": [
     0,
     7,
+    8,
     20
    ],
-   "sameAs": "slums-trade-row-terrain-15450d226696.png",
+   "sameAs": "new-phlan-south-market-terrain-0-15450d226696.png",
    "why": "drawn in 77 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -28895,9 +28811,10 @@
    "drawnIn": [
     0,
     7,
+    8,
     20
    ],
-   "sameAs": "slums-worn-courtyard-491c0e9a5a1f.png",
+   "sameAs": "new-phlan-building-paving-joins-0-491c0e9a5a1f.png",
    "why": "drawn in 22 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
@@ -29044,9 +28961,10 @@
     0,
     5,
     7,
+    8,
     20
    ],
-   "sameAs": "valjevo-lower-trim-5b786e63e19e.png",
+   "sameAs": "new-phlan-harbor-lane-terrain-5b786e63e19e.png",
    "why": "drawn in 45 views of map 0 (WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)) from squares connected to ones the existing artwork covers"
   },
   {
