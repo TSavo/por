@@ -98,6 +98,12 @@
    "decisions": 56,
    "heard": 14
   },
+  "walk-phlan-a1-bx": {
+   "ledger": "walk-phlan-a1-bx.jsonl",
+   "games": 1,
+   "decisions": 988,
+   "heard": 178
+  },
   "walk-slums-c1": {
    "ledger": "walk-slums-c1.jsonl",
    "games": 1,
@@ -502,6 +508,14 @@
     "key": "scene-illustration:area:21:ecl:9ecc"
    }
   },
+  "por.narration.sokal.ecl4-b21-9ecc": {
+   "run": "walk-phlan-a1-bx",
+   "step": 1392628317,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:21:ecl:aed4:cue:patrol-rejected-word"
+   }
+  },
   "por.narration.sokal.ecl4-b21-a65f": {
    "run": "campaign-full",
    "step": 158706428,
@@ -622,6 +636,14 @@
     "key": "scene-illustration:area:0:ecl:9e07"
    }
   },
+  "por.voice.ecl3.b0-9e2e": {
+   "run": "walk-phlan-a1-bx",
+   "step": 1615535355,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD3.DAX:8:BODY3.DAX:4"
+   }
+  },
   "por.voice.ecl3.b0-a078-aa13": {
    "run": "acceptance-new-phlan",
    "step": 164993768,
@@ -660,11 +682,6 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:0:ecl:af3f:caller:a328"
-   },
-   "withoutArt": {
-    "run": "acceptance-new-phlan",
-    "step": 137864900,
-    "showing": "not known: the ledger did not record the first-person view"
    }
   },
   "por.voice.ecl3.b0-a3eb": {
@@ -673,11 +690,6 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:0:ecl:ae69:caller:a407"
-   },
-   "withoutArt": {
-    "run": "acceptance-new-phlan",
-    "step": 138367137,
-    "showing": "not known: the ledger did not record the first-person view"
    }
   },
   "por.voice.ecl3.b0-a413-a438": {
@@ -686,11 +698,6 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:0:ecl:af3f:caller:a440"
-   },
-   "withoutArt": {
-    "run": "acceptance-new-phlan",
-    "step": 195271342,
-    "showing": "not known: the ledger did not record the first-person view"
    }
   },
   "por.voice.ecl3.b0-a45b": {
@@ -749,6 +756,14 @@
     "key": "portrait:area:0:HEAD3.DAX:53:BODY3.DAX:7"
    }
   },
+  "por.voice.ecl3.b0-a7e2": {
+   "run": "walk-phlan-a1-bx",
+   "step": 1928756111,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:a828:cue:tavern-watch-arrival"
+   }
+  },
   "por.voice.ecl3.b0-a8d3": {
    "run": "campaign-opening",
    "step": 94212436,
@@ -781,6 +796,14 @@
     "key": "scene-illustration:area:0:ecl:aa63"
    }
   },
+  "por.voice.ecl3.b0-aa7c": {
+   "run": "walk-phlan-a1-bx",
+   "step": 2051998835,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:ecl:aac7:HEAD3.DAX:57:BODY3.DAX:1"
+   }
+  },
   "por.voice.ecl3.b0-aad5": {
    "run": "acceptance-slums",
    "step": 91226697,
@@ -811,6 +834,14 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:0:ecl:acbf"
+   }
+  },
+  "por.voice.ecl3.b0-ad86": {
+   "run": "walk-phlan-a1-bx",
+   "step": 1928989972,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:0:ecl:add3:HEAD3.DAX:9:BODY3.DAX:7"
    }
   },
   "por.voice.ecl3.b0-ae1a": {
@@ -979,6 +1010,14 @@
    "art": {
     "kind": "portrait",
     "key": "portrait:HEAD3.DAX:16:BODY3.DAX:1"
+   }
+  },
+  "por.voice.ecl3.b11-a0d5": {
+   "run": "walk-phlan-a1-bx",
+   "step": 305698537,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD3.DAX:9:BODY3.DAX:1"
    }
   },
   "por.voice.ecl3.b14-9e74": {
@@ -1727,6 +1766,12 @@
    "slot": "0x6e7e",
    "value": "4"
   },
+  "por.voice.ecl3.b0-a413-a438.variant-05-5": {
+   "run": "walk-phlan-a1-bx",
+   "step": 1846826004,
+   "slot": "0x6e7e",
+   "value": "5"
+  },
   "por.voice.ecl3.b0-a413-a438.variant-07-7": {
    "run": "acceptance-narration-dynamic",
    "step": 162641889,
@@ -1744,6 +1789,12 @@
    "step": 213271549,
    "slot": "0x6e7e",
    "value": "9"
+  },
+  "por.voice.ecl3.b0-a413-a438.variant-10-10": {
+   "run": "walk-phlan-a1-bx",
+   "step": 1875894436,
+   "slot": "0x6e7e",
+   "value": "10"
   },
   "por.voice.ecl3.b0-a413-a438.variant-14-14": {
    "run": "acceptance-narration-dynamic",
