@@ -489,7 +489,8 @@ const server = createServer(async (req, res) => {
     };
     res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({
       ...snapshot, sounds, soundId, messages, textId, narrations, narrationId, automapRevision,
-      sequence, ready, codeWheelAvailable, saveSlot: saveSlot ?? null, saveSlotEvent, saveSlotAction: saveSlotAction ?? null,
+      // Classic shows the player's own original pictures: playing from the port's own data there are none.
+      sequence, ready, codeWheelAvailable, classicAvailable: !isPortGameRoot(gameRoot), saveSlot: saveSlot ?? null, saveSlotEvent, saveSlotAction: saveSlotAction ?? null,
       stopped: stopped ?? null, notice: notice ?? null,
     }));
   } else if (req.method === "POST" && req.url === "/key") {

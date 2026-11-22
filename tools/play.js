@@ -517,7 +517,19 @@ function holdAnimationFrame(view) {
   }, view.durationMs ?? 120);
 }
 
+// The shipped game has no original pictures, so it runs in Enhanced with no Classic switch. The player's
+// own original files make Classic available (ROADMAP.md, "The release shape").
+let presentationSettled = false;
+function settlePresentation() {
+  if (presentationSettled || state.classicAvailable === undefined) return;
+  presentationSettled = true;
+  if (state.classicAvailable) return;
+  if (!enhanced) togglePresentation();
+  presentation.hidden = true;
+}
+
 function togglePresentation() {
+  if (enhanced && state.classicAvailable === false) return;
   enhanced = !enhanced;
   if (!enhanced) activeTravel = undefined;
   document.documentElement.dataset.presentation = enhanced ? "enhanced" : "classic";
@@ -1813,6 +1825,8 @@ async function poll() {
     if (lastNarrationId === null) lastNarrationId = next.narrationId ?? 0;
     const changed = next.sequence !== state.sequence;
     if (changed) state = next;
+    if (state.classicAvailable === undefined && next.classicAvailable !== undefined) state.classicAvailable = next.classicAvailable;
+    settlePresentation();
     else Object.assign(state, next);
     const showWheel = wheelStartup && Number.isInteger(state.codeWheelQuestion) && !state.stopped;
     if (showWheel) {
