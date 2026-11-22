@@ -86,6 +86,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const capturePerspective = input?.capturePerspective;
   const captureEncounterDraw = input?.captureEncounterDraw;
   const captureCombatEffectUnderlay = input?.captureCombatEffectUnderlay;
+  const captureCombatStrike = input?.captureCombatStrike;
   const nativeEffects = input?.nativeEffects;
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
   const captureBattleTerrain = input?.captureBattleTerrain;
@@ -103,7 +104,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const codeWheel = input && process.env.POR_BROWSER_PLAY === "1" ? startupInput.codeWheel : undefined;
   // The page server asks for the frames of the castle ending's animation as they are drawn (#121).
   const pictureLoop = input?.presentPictureLoop && process.env.POR_PICTURE_LOOP_FRAMES === "1" ? code.pictureLoopResumes : undefined;
-  if (capturePresentationDelay || capturePerspective || traceBattleDraw || captureBattleTerrain ||
+  if (capturePresentationDelay || captureCombatStrike || capturePerspective || traceBattleDraw || captureBattleTerrain ||
       codeWheel || nativeCombat || nativeSelection || nativeBattleTerrain || nativePicture || nativeEffects || panelStamp || pictureLoop) {
     const tick = cpu.tick;
     const terrainDraws = new Set<string>();
@@ -175,6 +176,9 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       if (capturePerspective && isAt(this, at, code.viewportDrawn)) {
         capturePerspective(this, returnsTo(this, 0, code.localSceneryResumes));
       }
+      // The second-to-last argument selects the strike pose for this visible actor draw.
+      if (captureCombatStrike && at === code.combatActorShown.at && isAt(this, at, code.combatActorShown) &&
+          this.steps >= liveStep && this.read8(this.ss, (this.bp + 8) & 0xffff) === 1) captureCombatStrike(this);
       // The combat effect code draws projectiles and impacts into the offscreen
       // picture, flips the visible buffer, and then enters the original EGA delay.
       if (captureCombatEffectUnderlay && this.steps >= liveStep) {

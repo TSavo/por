@@ -192,9 +192,11 @@ That earlier report's seven combat rows were the ready and strike pairs for `CPI
 11, `CPIC4.DAX` actor 14, and `CPIC6.DAX` actor 13, plus `CPIC6.DAX` actor
 14's strike pose. All seven have pixel-identical twins with Enhanced
 bindings in other contexts. The script audit found a live load for the
-last actor, Al-Hyam at Zhentil Keep. The captured wand attack draws his
-ready pose. The Zhentil strike now has a scoped binding from `44a1af39`.
-Its live strike animation still needs verification.
+last actor, Al-Hyam at Zhentil Keep. His wand attack draws the existing
+scoped strike pose before restoring ready art. The `zhentil-al-hyam-combat`
+Chrome replay verifies the reflected strike at (80, 80), its wand caption,
+and the following damage report in original GOG 1.3 and bundled data.
+See [#122](https://github.com/TSavo/por/issues/122).
 The inventory at `3e12955d` loads 7,344 validated replacement mappings
 from 6,721 PNG files, including 135 distinct scripted illustrations.
 Its 30 unambiguous script picture references with unlinked art point to

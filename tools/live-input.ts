@@ -301,6 +301,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let pictureLoopShown: string | undefined;
   let pictureLoopPasses = 0;
   let pictureLoopClip: PresentationAnimationFrame | undefined;
+  let immediateStrike: { signature: string; clip: PresentationAnimationFrame } | undefined;
   let lastAttack = "";
   let lastCombatReport = "";
   let lastApproach: string | undefined;
@@ -343,6 +344,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     ? observeNativeEncounterArt(encounterPlacements, perspectivePixels, pictures) : undefined;
   let codeWheelQuestion: number | undefined;
   let codeWheelAttempt: number | undefined;
+  const combatPlacements = (battlefield: boolean) => [
+    ...combatArt(screen, undefined, area, battleCursor, battlefield ? battleTerrain : undefined),
+    ...(battlefield ? nativeCombat?.placements(screen, area, battleCursor) ?? [] : []),
+  ];
+  function strikeSignature(placements: CombatArtPlacement[]) {
+    const attacks = placements.filter(([, , key]) =>
+      attackKeys.has(key) || attackKeys.has(partyRecolorKey.exec(key)?.[1] ?? ""));
+    return attacks.length ? JSON.stringify(attacks) : "";
+  }
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false,
     durationMs?: number, effect?: { placement: TilePlacement; clean: Frame }, captureIllustration = false,
     message?: "status" | "combat" | "picture") => {
@@ -807,6 +817,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
         console.log(`POR_FRAME ${JSON.stringify({ ...state,
           animation: animation.length ? animation.splice(0) : undefined })}`);
+        immediateStrike = undefined;
         lastAttack = "";
         lastCombatReport = "";
         lastApproach = undefined;
@@ -1180,6 +1191,20 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const pose = `portrait:area:7:FINAL5.DAX:${block}:${member}:0`;
       if (pictureLoopClip && portraitKeys.includes(pose)) pictureLoopClip.portrait = pose;
     } : undefined,
+    captureCombatStrike: browser && attackKeys.size > 0 ? (cpu: Cpu) => {
+      if (scene) return;
+      captureEclContext(cpu);
+      if (!(nativeBattleActive && hasBattlefieldFrame()) && !hasBattlefieldBorder(screen)) return;
+      const placements = combatPlacements(true);
+      const signature = strikeSignature(placements);
+      if (!signature || signature === lastAttack) return;
+      // Keep the screen that was actually shown. A wand can restore the ready sprite
+      // before the delay that normally captures an attack.
+      showFrame(undefined, placements, false, false, undefined, undefined, false, "combat");
+      const clip = animation.at(-1);
+      if (clip) immediateStrike = { signature, clip };
+      lastAttack = signature;
+    } : undefined,
     capturePresentationDelay: browser ? (cpu: Cpu, effectDelay = false, messageMs?: number) => {
       const draw = effectDelay ? pendingEffect : undefined;
       pendingEffect = undefined;
@@ -1279,13 +1304,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         showFrame(undefined, undefined, false, false, 1200, undefined, true);
         return;
       }
-      const placements = [
-        ...combatArt(screen, undefined, area, battleCursor, battlefield ? battleTerrain : undefined),
-        ...(battlefield ? nativeCombat?.placements(screen, area, battleCursor) ?? [] : []),
-      ];
-      const attacks = placements.filter(([, , key]) => attackKeys.has(key) || attackKeys.has(partyRecolorKey.exec(key)?.[1] ?? ""));
-      const signature = attacks.length ? JSON.stringify(attacks) : "";
+      const placements = combatPlacements(battlefield);
+      const signature = strikeSignature(placements);
       if (newReport) {
+        // The report already includes this strike when the ready sprite has not yet returned.
+        if (immediateStrike?.signature === signature) {
+          const clipIndex = animation.indexOf(immediateStrike.clip);
+          if (clipIndex >= 0) animation.splice(clipIndex, 1);
+          immediateStrike = undefined;
+        }
         const wandPose = "combat:area:20:CPIC2.DAX:222:ecl:a0b4";
         const reportText = battleGlyphs.filter(([, char]) => char > 32)
           .sort(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");

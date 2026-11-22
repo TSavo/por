@@ -5168,6 +5168,17 @@ const combatPoseRoutes = new Map([
     strikeReport: /AL-HYAMDAZIDUSESANITEMITEM:WAND/i,
     inputs: ["up", "a", "a", "p", "a", "a", "enter", "enter", "enter", ...Array(6).fill("q")],
   }],
+  ["zhentil-al-hyam-combat", {
+    slot: "A", stand: "combat:area:28:CPIC6.DAX:14:ecl:a2a7", strike: "combat:area:28:CPIC6.DAX:142:ecl:a2a7",
+    width: 96, height: 96, manualPolling: true, developerSetup: true,
+    readyPrompt: /AL-HYAMDAZIDHITPOINTS22AC3/i, standAnchor: [80, 80, false],
+    strikeAnchor: [80, 80], strikeReflected: true, strikeReport: /ITEM:WAND/i,
+    followingStrikeReport: /ALDATAKES25POINTSOFDAMAGEFROMELECTRICI/i,
+    // Resolve the preceding dwarf fight, then use ordinary actions in the reinforcement encounter.
+    inputs: ["up", ...Array(5).fill("enter"), ":win-combat",
+      "d", "g", "space", "d", "g", "d", "g", "d", "g", "d", "g", "n", "enter", "enter", "e", "n",
+      ...Array(5).fill("enter"), ...Array(34).fill("q")],
+  }],
   ["tyrmor-prison-kobold-combat", {
     slot: "B", stand: "combat:area:22:CPIC7.DAX:0:ecl:a36f", strike: "combat:area:22:CPIC7.DAX:128:ecl:a36f",
     width: 96, height: 96, readyPrompt: /BRINHITPOINTS45AC3HANDAXE/i, strikeReflected: true,
@@ -7284,7 +7295,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
     POR_TRACE_BATTLE_TILES: dragon || routeName === "lizardfolk-battle-wall" ? "1" : browserEnvironment.POR_TRACE_BATTLE_TILES,
     POR_BOOT_KEYS: freshRolf ? "31000000:1c0d,45000000:2e63" : "31000000:1c0d,45000000:266c,52000000:" + boot,
-    ...(controlledBattleIllustration ? { POR_DEV_COMBAT: "1" } : {}),
+    ...(controlledBattleIllustration || combatPose?.developerSetup ? { POR_DEV_COMBAT: "1" } : {}),
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
