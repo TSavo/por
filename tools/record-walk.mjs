@@ -23,6 +23,14 @@
 // --replay plays a fixture's commands from game/ as the `leg` walk plays them (its saves, boot keys and
 // prompt record), writes its visits.jsonl afresh, and fails unless every command is taken and the
 // game ends on the recorded last screen.
+//
+// A walk played in sections saves the game in its last commands (Encamp, Save, a slot). The game
+// writes that slot into the walk's own copy of the saves, so the recording and --replay both keep the
+// saves as the walk left them in <fixture>/after/ whenever one changed: the next section records
+// from there (`node tools/record-walk.mjs <fixture>/after G <next fixture>`). The `leg` walk reads
+// only the fixture's top-level saves.
+//
+// POR_RECORD_WATCH=4a45,4ab2 adds those script variables (hex) to each answer, as the game holds them.
 import { appendFileSync, cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { tmpdir } from "node:os";
@@ -42,6 +50,19 @@ useGameVersion(detectGameVersion(readGameFile(portGameRoot, "GAME.OVR")));
 const artwork = loadUpgradeArt(undefined, portGameRoot);
 const portEnv = { POR_GAME_SOURCE: "port", ...enhancedArtEnv(artwork, loadCombatMaterialMasks(artwork)) };
 const lastScreen = (frame) => screenRows(frame).map((row) => row.trimEnd()).join("\n").trimEnd() + "\n";
+const watch = (process.env.POR_RECORD_WATCH ?? "").split(",").filter(Boolean).map((address) => Number.parseInt(address, 16));
+const slotFile = /^(?:[A-J]|roster)\.json$/;
+/** When the walk wrote a save, keep every slot as the walk left it in <fixture>/after/. */
+function keepSaves(saves) {
+  const changed = readdirSync(saves).filter((name) => slotFile.test(name) &&
+    (!existsSync(join(fixture, name)) || readFileSync(join(saves, name), "utf8") !== readFileSync(join(fixture, name), "utf8")));
+  if (!changed.length) return;
+  const after = join(fixture, "after");
+  rmSync(after, { recursive: true, force: true });
+  mkdirSync(after);
+  for (const name of readdirSync(saves).filter((name) => slotFile.test(name))) cpSync(join(saves, name), join(after, name));
+  console.error(`[record-walk] the walk saved ${changed.join(", ")}; all slots kept in ${after}`);
+}
 
 if (replaying) {
   const boot = JSON.parse(readFileSync(join(fixture, "boot.json"), "utf8"));
@@ -67,6 +88,7 @@ if (replaying) {
     console.log(`Visits: ${join(fixture, "visits.jsonl")}`);
   } finally {
     game.close();
+    keepSaves(saves);
     rmSync(saves, { recursive: true, force: true });
   }
   process.exit(0);
@@ -88,7 +110,7 @@ writeFileSync(join(fixture, "boot.json"), JSON.stringify(boot) + "\n");
 const commandsFile = join(fixture, "commands.jsonl");
 writeFileSync(commandsFile, "");
 
-const game = await startGame({ pregen: false, saves, seconds: 4 * 3600, env: { ...portEnv,
+const game = await startGame({ pregen: false, saves, seconds: 4 * 3600, watch, env: { ...portEnv,
   POR_BOOT_KEYS: boot.bootKeys, POR_LIVE_AT: boot.startAt, POR_DEV_COMBAT: "1", POR_INPUT_COMPAT: boot.inputCompat,
   POR_PROMPT_SCHEDULE_IN: "", POR_PROMPT_SCHEDULE_OUT: resolve(fixture, "prompts.jsonl"),
   POR_TRACE_VISITS: resolve(fixture, "visits.jsonl"),
@@ -114,7 +136,7 @@ game.settle = async () => {
 const report = (notes) => {
   const rows = screenRows(game.frame).map((row) => row.trimEnd());
   return JSON.stringify({ notes, area: game.frame.exploration?.area, here: game.here(), awaitsKey: game.frame.awaitsKey,
-    developerVictory: game.frame.developerVictoryAvailable,
+    developerVictory: game.frame.developerVictoryAvailable, variables: game.frame.scriptVariables,
     menu: game.menu(), screen: rows.filter((row, index) => row || rows.slice(index).some(Boolean)) }, null, 1) + "\n";
 };
 
@@ -128,6 +150,7 @@ const server = createServer(async (request, response) => {
         writeFileSync(join(fixture, "last-screen.txt"), lastScreen(game.frame));
         response.end(report(["closed"]));
         game.close();
+        keepSaves(saves);
         rmSync(saves, { recursive: true, force: true });
         server.close();
         return;
