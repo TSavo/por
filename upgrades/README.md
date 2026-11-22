@@ -8,16 +8,19 @@ for a replacement title card.
 {"version":1,"assets":{"scene:title":"my-title.png"}}
 ```
 
-Run `npm run play` and press **F10** on the first startup card. Enhanced mode
-shows the supplied picture on that card. It draws the credits and gameplay
-using an enhanced palette. Press F10 again to restore the original EGA colors.
+Run `npm run play`. The game starts in Enhanced display, which shows the
+supplied picture on that card and draws the credits and gameplay using an
+enhanced palette. Press **F10** to switch to the original EGA colors (Classic,
+which needs the player's own original files) and again to come back.
 
-To replace the illustration inside a gameplay frame, read the `viewport`
-value from the local runner's `/state` endpoint while the view is visible.
-Add that value as a key in `assets` and supply a 448 × 480 PNG for the original
-112 × 120 viewport. The browser scales it to the viewport and keeps the guest menus,
-text, and party panel visible. Each key matches an exact view, so frames with
-different positions or animation poses can use their own images.
+The loader accepts only the key kinds listed below (`scene:title`,
+`scene:publisher`, `scene:title-name`, `scene:title-edition`, `tile:`,
+`battle-tile:`, `combat:`, `combat-selection:`, `combat-effect:`, `portrait:`,
+`encounter:`, `character-sheet:` and the script and ending illustrations).
+A key of any other kind, including a per-view `viewport` key, is rejected
+with "Unsupported asset ID or invalid encounter placement." A gameplay
+illustration is replaced through the `portrait:` and `encounter:` keys
+below.
 
 To replace individual exploration tiles, use manifest keys in the form
 `tile:<area>:<sha256>`. The hash covers the 64 original EGA palette indices
@@ -53,11 +56,12 @@ frame at its first placement. Pass `--omit-frames=20,22` with the relevant
 zero-based frame numbers to exclude inspected transitions or creature
 overlays from an environment checklist.
 
-The browser loads the bundled Slums artwork in `upgrades/slums` by default.
-Press F10 while exploring the Slums to see it. The pack includes 59 individual tile replacements,
-covering the doorway study and all 53 patterns observed on the recorded
-Slums route to the kobold encounter. New or unmatched cells use the enhanced
-palette.
+The browser loads the bundled Slums pack in `upgrades/slums` first, then
+this directory's manifest, by default. The Slums pack's manifest lists 134
+assets: 113 `tile:` keys (areas 0, 2, 11 and 20), 10 `encounter:` keys, 10
+`combat:` keys and one `portrait:` key. This directory's manifest holds the
+rest of the art (13,124 assets, 7,813 of them `tile:` keys). In Enhanced
+display, new or unmatched cells use the enhanced palette.
 
 A Chrome replay from a six-character New Phlan save walked through the west
 gate and into the Slums kobold encounter. All 22 Slums exploration frames

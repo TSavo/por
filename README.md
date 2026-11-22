@@ -2,9 +2,11 @@
 
 A browser port of SSI's 1988 Turbo Pascal game. Game procedures are translated instruction by instruction from `START.EXE` and `GAME.OVR`. The player supports Classic EGA and Enhanced artwork, with an illustrated atlas and a journal that tracks the party's discoveries. See [docs/PORT.md](docs/PORT.md) and [docs/COVERAGE.md](docs/COVERAGE.md).
 
-Supply your own complete set of original DOS game files. Unpack them so
-`START.EXE`, `GAME.OVR`, and the `*.DAX` files are in the same folder.
-`gamedata/` is gitignored.
+The original DOS game files are optional. With none supplied, the port runs
+from its own data in `game/` and always starts in Enhanced display; the
+player's own files only unlock the Classic display. To use original files,
+unpack them so `START.EXE`, `GAME.OVR`, and the `*.DAX` files are in the same
+folder. `gamedata/` is gitignored.
 
 The port targets version 1.3, the one GOG sells: use its `POOLRAD` folder.
 It also runs the first release, which shows no version on its credits
@@ -13,9 +15,11 @@ games, artwork, narration and the journal work on both.
 
 ## Run it
 
-Use Node.js 22 or newer. With the unpacked files in `gamedata/pool/`,
-run `npm ci` followed by `npm run play` from the repository root.
-To keep the files elsewhere, set `POR_GAMEDATA` first.
+Use Node.js 22 or newer. Run `npm ci` followed by `npm run play` from the
+repository root. Unpacked original files in `gamedata/pool/` are used when
+present (they win over `game/`); to keep them elsewhere, set `POR_GAMEDATA`
+first. `POR_GAME_SOURCE=port` forces the port's own data and
+`POR_GAME_SOURCE=original` never falls back to it.
 `npm run release:pack` builds the installers a player downloads, which need no checkout and no files from the player: see [docs/RELEASE.md](docs/RELEASE.md).
 
 ```bash
@@ -34,7 +38,7 @@ At start-up the version 1.3 game asks for a word from its translation wheel. Enh
 
 Use **Encamp → Save** and **Load Saved Game** to save and restore the party, its journal, and its discovered map in the same slot. The runner stores slots under `out/saves/` for each game-data directory. Set `POR_SAVE_DIR` to select a different folder.
 
-In combat, **Home**, **Page Up**, **End**, and **Page Down** move or aim diagonally. The numeric keypad provides these keys with Num Lock off.
+In combat, **Home**, **Page Up**, **End**, and **Page Down** move or aim diagonally. The numeric keypad's 7, 9, 1, and 3 provide them, with Num Lock on or off (the runner reads the physical key, not the character).
 
 The game seeds its dice from the clock when it starts, as it did on DOS, so
 each launch of `npm run play` rolls differently. Set `POR_CLOCK=fixed` to
@@ -63,7 +67,8 @@ way, game prompts such as ferry fares can require a party decision.
 
 `npm run dev` launches the same game. The launcher checks the selected
 directory and one level of subdirectories. If `POR_GAMEDATA` is unset
-it checks `./gamedata`, including layouts such as `gamedata/pool`.
+it checks `./gamedata`, including layouts such as `gamedata/pool`, and
+otherwise uses `game/`.
 
 ## Tools
 
