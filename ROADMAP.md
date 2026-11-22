@@ -114,6 +114,36 @@ which start from controlled saves. [Audio](docs/AUDIO.md) and the
 - **Check the release from a clean checkout** with no `por-assets`
   directory beside it, in both display modes.
 
+### The release shape (decided 2026-11-21)
+
+- **The shipped game is always version 1.3, and it needs no files from the
+  player.** It runs in Enhanced.
+- **Classic is unlocked by the player's own files.** If the player supplies
+  the original game, from the first release or from 1.3, the Classic switch
+  is enabled. Their files supply the original pictures, font and sound; the
+  game that runs is still 1.3.
+- **Everything the game needs besides the original pictures is extracted
+  from the 1.3 files and converted** into the port's own data: the text, the
+  scripts, the maps, the tables.
+
+What that takes:
+
+- Convert the 1.3 program's data and the non-art `.DAX` content, and run the
+  game from the converted data with no original file present.
+- Every picture Enhanced shows has its own artwork: nowhere may Enhanced fall
+  back to an original picture.
+- Enhanced draws all text itself, without the original font.
+- A start-up path that detects the player's files, enables or hides the
+  Classic switch, and says what supplying files unlocks.
+- A check for each state: no files, 1.3 files, first-release files.
+- Retire the first-release translation: with the game always 1.3, nothing
+  runs it.
+
+`npm run qa:standalone` (to be built first) measures how far the port is
+from running with no original file: every original file and byte the game
+reads, sorted into picture and non-picture, and every place Enhanced still
+shows an original picture.
+
 ### Version 1.3
 
 The port now runs two builds of the program: the first release, which shows
