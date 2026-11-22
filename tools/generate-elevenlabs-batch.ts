@@ -33,8 +33,17 @@ async function heardIn(mp3: Uint8Array): Promise<string> {
 }
 /** The same tolerance as npm run qa:narration-transcripts. */
 const saysItsScript = (script: string, heard: string) => {
-  const scripted = words(script).length, spoken = words(heard).length;
-  return spoken <= scripted * 1.25 + 2 && spoken >= scripted * 0.75 - 2;
+  const scripted = words(script), spoken = words(heard);
+  const phrases = (list: string[]) => {
+    const seen = new Map<string, number>();
+    for (let i = 0; i + 3 <= list.length; i++) { const phrase = list.slice(i, i + 3).join(" "); seen.set(phrase, (seen.get(phrase) ?? 0) + 1); }
+    return seen;
+  };
+  // More repeated three-word phrases than the script has is a repeat or a stutter. Counting repeats,
+  // not words, keeps a name the recogniser mishears the same way twice from failing the take.
+  const extra = (seen: Map<string, number>) => [...seen.values()].reduce((sum, times) => sum + times - 1, 0);
+  if (extra(phrases(spoken)) > extra(phrases(scripted))) return false;
+  return spoken.length <= scripted.length * 1.25 + 2 && spoken.length >= scripted.length * 0.75 - 2;
 };
 for (const item of batch.items) {
   const output = resolve(item.output);

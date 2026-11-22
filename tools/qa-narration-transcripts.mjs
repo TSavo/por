@@ -9,7 +9,8 @@
 // /v1/audio/transcriptions route) and compares the words it hears with the script beside the MP3.
 //
 // A recogniser mishears names (Tempus as "tempest"), so a low word match is a reason to listen, not
-// a verdict. Saying clearly more or fewer words than the script is close to one.
+// a verdict. Saying a three-word phrase more often than the script has it (a repeat or a stutter),
+// or clearly more or fewer words than the script, is close to one.
 //
 // Results are kept in qa/narration-transcripts.json, keyed by the MP3's SHA-256, so a recording is
 // transcribed once and again only when it changes. Exits 1 while any recording is flagged or unheard.
@@ -36,6 +37,21 @@ function inOrder(a, b) {
     row = next;
   }
   return row[b.length];
+}
+/**
+ * Three-word phrases the recording says again that the script does not. The comparison is by how
+ * many repeats there are, not which words, so a name the recogniser mishears the same way twice
+ * ("PHASE SPIDERS" heard as "FAZE SPIDERS") is not counted against a script that says it twice.
+ */
+export function repeatedPhrases(script, heard) {
+  const count = (list) => {
+    const seen = new Map();
+    for (let i = 0; i + 3 <= list.length; i++) { const phrase = list.slice(i, i + 3).join(" "); seen.set(phrase, (seen.get(phrase) ?? 0) + 1); }
+    return seen;
+  };
+  const extra = (seen) => [...seen.values()].reduce((sum, times) => sum + times - 1, 0);
+  const spoken = count(heard);
+  return extra(spoken) > extra(count(script)) ? [...spoken].filter(([, times]) => times >= 2).map(([phrase]) => phrase) : [];
 }
 function* files(directory) {
   for (const name of readdirSync(directory).sort()) {
@@ -72,23 +88,26 @@ if (!reportOnly && pending.length) {
 for (const key of Object.keys(results.recordings)) if (!recordings.some((recording) => recording.key === key)) delete results.recordings[key];
 if (!reportOnly) writeFileSync(resultsPath, `${JSON.stringify(results, null, 1)}\n`);
 
-const more = [], fewer = [], listen = [], unheard = [];
+const repeated = [], more = [], fewer = [], listen = [], unheard = [];
 for (const { path, key, sha256 } of recordings) {
   const entry = results.recordings[key];
   if (entry?.sha256 !== sha256) { unheard.push(key); continue; }
   const script = words(readFileSync(path.replace(/\.mp3$/, ".txt"), "utf8")), heard = words(entry.heard);
   const matched = inOrder(script, heard), line = `${key}\n      script: ${script.join(" ")}\n      heard:  ${heard.join(" ")}`;
   // Two words of slack: a recogniser splits and joins words ("MAGIC USERS", "TRAPDOOR").
-  if (heard.length > script.length * 1.25 + 2) more.push(line);
+  const repeats = repeatedPhrases(script, heard);
+  if (repeats.length) repeated.push(`${line}\n      repeated: ${repeats.slice(0, 4).join(" / ")}`);
+  else if (heard.length > script.length * 1.25 + 2) more.push(line);
   else if (heard.length < script.length * 0.75 - 2) fewer.push(line);
   else if (matched < script.length * 0.7) listen.push(line);
 }
 const section = (title, list) => { if (list.length) console.log(`\n${title} (${list.length}):\n  ${list.join("\n  ")}`); };
-section("Says clearly more than its script: a repeated or added passage", more);
+section("Says a phrase more often than its script does: a repeat or a stutter", repeated);
+section("Says clearly more than its script: an added passage", more);
 section("Says clearly less than its script: a dropped passage", fewer);
 section("Heard words match the script poorly: listen to these", listen);
 section("Not transcribed yet, or changed since", unheard);
-const flagged = more.length + fewer.length + listen.length;
-console.log(`\n${recordings.length} recordings: ${recordings.length - flagged - unheard.length} heard as their script, ${more.length} say more, ` +
+const flagged = repeated.length + more.length + fewer.length + listen.length;
+console.log(`\n${recordings.length} recordings: ${recordings.length - flagged - unheard.length} heard as their script, ${repeated.length} repeat a phrase, ${more.length} say more, ` +
   `${fewer.length} say less, ${listen.length} to listen to, ${unheard.length} not transcribed`);
 process.exit(flagged || unheard.length ? 1 : 0);
