@@ -102,6 +102,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       codeWheel || nativeCombat || nativeSelection || nativeBattleTerrain || nativePicture || nativeEffects || panelStamp) {
     const tick = cpu.tick;
     const terrainDraws = new Set<string>();
+    const terrainSources = new Map<number, { sourceArchive: string; sourceFrame: number }>();
     // Above the pause routine's return address sit its argument, its saved BP and its own return address.
     const deathReturnDepth = 8;
     cpu.tick = function (at) {
@@ -144,7 +145,21 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       }
       if (nativeSelection && selectionReturn && this.steps >= liveStep && isAt(this, at, code.combatPictureDraw) &&
           returnsTo(this, 0, selectionReturn)) nativeSelection.draw(this);
-      if (nativeBattleTerrain && isAt(this, at, code.battleTerrainSheetCopied)) nativeBattleTerrain.copySheet(this);
+      if ((nativeBattleTerrain || traceBattleDraw) && isAt(this, at, code.battleTerrainSheetCopied)) {
+        nativeBattleTerrain?.copySheet(this);
+        if (traceBattleDraw) {
+          const word = (displacement: number) => this.read16(this.ss, (this.bp + displacement) & 0xffff);
+          const offset = word(0xa), segment = word(0xc);
+          const length = this.read8(segment, offset);
+          const archive = String.fromCharCode(...Array.from({ length }, (_, index) => this.read8(segment, offset + index + 1)));
+          const count = this.read8(word(-0x102), (word(-0x104) + 8) & 0xffff);
+          const start = word(8) & 0xff;
+          for (let frame = 0; frame < count && start + frame < 128; frame++) {
+            terrainSources.set(start + frame, { sourceArchive: archive, sourceFrame: frame });
+          }
+          console.error(`POR_BATTLE_SHEET ${JSON.stringify({ archive, start, count, caller: word(2) })}`);
+        }
+      }
       // The first-person draw has finished writing the viewport.
       if (capturePerspective && isAt(this, at, code.viewportDrawn)) {
         capturePerspective(this, returnsTo(this, 0, code.localSceneryResumes));
@@ -194,7 +209,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
         const block = picture & 0x80 ? 2 : 1, frame = picture & 0x7f;
         const surface = returnsTo(this, 0, code.overlandTerrainDrawResumes) ? "overland" : "combat";
         const draw = JSON.stringify({
-          x, y, picture, flags, archive: "SQRPACI.DAX", block, frame, surface,
+          x, y, picture, flags, archive: "SQRPACI.DAX", block, frame, surface, ...terrainSources.get(picture),
         });
         if (!terrainDraws.has(draw)) {
           terrainDraws.add(draw);
