@@ -16,6 +16,7 @@ interface LoadedArtwork {
   width: number;
   height: number;
   reflected?: boolean;
+  screenCellOnly?: boolean;
   encounter?: EncounterAnchor;
 }
 
@@ -75,6 +76,7 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
         continue;
       }
       const reflectedTiles = new Set(manifest.reflectedTiles ?? []);
+      const screenCellsOnly = new Set(manifest.screenCellsOnly ?? []);
       for (const id of Object.keys(manifest.assets)) {
         const encounter = encounterAnchor(id, manifest.encounters?.[id]);
         const monster = monsterCombatKey.exec(id);
@@ -161,8 +163,10 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
             reject(`Expected ${sourceWidth * 4}×${sourceHeight * 4} PNG, found ${width}×${height}.`, id);
             continue;
           }
+          const explorationTile = id.startsWith("tile:");
           artwork.set(id, { file, path, png, encounter, width, height,
-            reflected: id.startsWith("tile:") && reflectedTiles.has(id) || undefined });
+            reflected: explorationTile && reflectedTiles.has(id) || undefined,
+            screenCellOnly: explorationTile && screenCellsOnly.has(id) || undefined });
         } catch (error) {
           reject(`Cannot read ${file} (${(error as NodeJS.ErrnoException).code ?? "invalid artwork"}).`, id);
           if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced artwork", error);

@@ -439,6 +439,13 @@ function checkExplorationGlyphMask(): void {
   const standalone = buildExplorationMaterials(blank, artwork, new Map([[2, tile]]));
   deepStrictEqual(standalone, original, "Packaged terrain uses the same art and cutout as the original glyph");
 
+  const screenArtwork = new Map<string, { file: string; screenCellOnly?: boolean }>(artwork);
+  screenArtwork.set(`tile:0:${overColour[6]}`, { file: "finished-screen-cell.png", screenCellOnly: true });
+  deepStrictEqual(buildExplorationMaterials({ ...scene, area: 0 }, screenArtwork), original,
+    "An additional screen composition leaves the original-data wall material unchanged");
+  deepStrictEqual(buildExplorationMaterials(blank, screenArtwork, new Map([[2, tile]])), standalone,
+    "An additional screen composition leaves the packaged wall material unchanged");
+
   const terrainHandoffs = [
     [2, 18, 18], [14, 31, 24], [15, 2, 2], [20, 29, 29], [21, 0, 0],
     [22, 23, 23], [23, 22, 22], [25, 1, 1], [25, 28, 28],

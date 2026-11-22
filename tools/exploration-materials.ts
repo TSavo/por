@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import type { TileFingerprint } from "../src/runtime/game-data.js";
 import type { NativeExploration } from "./native-exploration.js";
 
-type Artwork = ReadonlyMap<string, { file?: string; reflected?: boolean }>;
+type Artwork = ReadonlyMap<string, { file?: string; reflected?: boolean; screenCellOnly?: boolean }>;
 type Material = { key: string; reflected?: boolean; pixels?: number[] };
 type WallPart = { art: Material | null; status: string; mask?: number[] };
 const fingerprint = (pixels: Buffer) => createHash("sha256").update(pixels).digest("hex");
@@ -40,7 +40,7 @@ export function buildExplorationMaterials(native: NativeExploration & { area: nu
   function replacement(hash: string, area: number): Material | undefined {
     const key = `tile:${area}:${hash}`;
     const art = artwork.get(key);
-    return art && { key, reflected: art.reflected };
+    if (art && !art.screenCellOnly) return { key, reflected: art.reflected };
   }
 
   const backgrounds = new Set([native.skyColor, native.groundColor, 0]);
