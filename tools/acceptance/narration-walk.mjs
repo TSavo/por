@@ -133,7 +133,10 @@ async function resolveScreen(limit = 120) {
       if (answer === "n") saidNo = true;
       note(answer); await press(answer); continue;
     }
-    const words = menu.replace(/^[^:]*:\s*/, "").split(" ").filter((word) => /^[A-Za-z]{2,}$/.test(word) && !never.test(word));
+    // A menu's choices are its words with a capital: "Leave Force your way past" offers Leave and
+    // Force; "your", "way" and "past" are not choices, and a prompt in capitals ("WHO WILL GAMBLE?") is not either.
+    const words = menu.replace(/^[^:]*:\s*/, "").split(" ")
+      .filter((word) => /^(?:[A-Z][a-z]+|[a-z]+[A-Z][a-z]*)$/.test(word) && !never.test(word));
     if (words.length) {
       // A temple's healing list or a shop can hold the walk round and round: after a while, leave.
       const out = presses >= leaveAfter ? words.find((word) => leaving.test(word)) : undefined;
