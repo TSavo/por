@@ -241,6 +241,21 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "walk-textile-house-cleared (qa/fixtures/walk-textile-house-cleared, game/)": {
+   "areas": [
+    0,
+    2,
+    8,
+    26
+   ],
+   "commissions": [
+    "auction",
+    "sokal"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
