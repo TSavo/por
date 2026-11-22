@@ -108,11 +108,11 @@ CotAB registers `VERTICAL MENU`, `HORIZONTAL MENU`, and `ON GOTO` / `ON GOSUB` w
 
 `EclMachine` keeps a 64K memory image, a call stack, and the six compare flags. On the CotAB opening script the first real instruction is `SAVE`, which it performs, and the next is `LOAD FILES`, which it refuses. That is the edge of this phase: loading wall sets and starting a fight are later milestones. The disassembly of the whole block, including the story strings, is still written to `out/ecl.txt`.
 
-Press N in the browser, or the Step ECL button, to take one instruction. The log and the first lines of the disassembly stay on screen in either presentation.
+`EclMachine` is an analysis tool: only `tools/cli.ts` (`npm run tools -- selftest`) uses it. The browser does not step ECL itself; the translated game's own interpreter runs every script (there is no N key or Step ECL button).
 
 ## 3D window, because the script points at it
 
-`LOAD FILES` is what would bind a GEO block and a WALLDEF block. Until that opcode is live, the shell loads the first area whose `GEOn.DAX` and `WALLDEFn.DAX` both decode.
+`LOAD FILES` is what binds a GEO block and a WALLDEF block in the game. The stepper does not run it, so `npm run tools -- images` and `shots` (the only users of `renderViewport`) load the first area whose `GEOn.DAX` and `WALLDEFn.DAX` both decode. The playing game draws its own view from the guest.
 
 The window is 11 by 11 glyphs, 88×88 pixels, which the original places at character cell (2, 2) of the 320×200 screen. Far, mid, and near slots are the CotAB table (`idxOffset`, `colCount`, `rowCount`, and the A–J origins). Wall type 0 draws nothing. Other types select a walldef set and a slice, then stamp 8×8 glyphs. Sky is EGA color 11 and the floor is color 6; the original also overlays `SKY.DAX` sprites, which phase 1 does not.
 

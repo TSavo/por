@@ -90,7 +90,7 @@ In `por-assets/gog-1.3/codewheel-art/`: GOG's 70 redrawn rune tiles and their co
 Questions 2 and 12 use the same Espruar rune. The player matches the wheel against the runes the
 game's prompt shows, so every rune on the wheel must be recognisably the real one.
 
-## Artwork to make
+## Artwork brief (all 70 runes, 2 tabs, 3 path marks, background and 2 discs are in `upgrades/codewheel/`)
 
 All pieces are PNG with transparency, drawn in the Enhanced style used for the rest of the port.
 They go in `upgrades/codewheel/`, named by slot.
