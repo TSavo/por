@@ -1431,6 +1431,9 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:0:ecl:ae31:caller:9ad2", "THEBOATDISEMBARKSYOUATSOKALKEEP"],
   ["scene-illustration:area:0:ecl:9b68", "YOUHAVEENTEREDTHEMONSTER-CRAWLINGSLUMSOFPHLAN"],
   ["scene-illustration:area:0:ecl:9a4f", "YOUENTERTHECITYHALL.ASYOUFACEDOWNTHEHALLWAY,YOUSEEAGUARDEDDOOR"],
+  ["scene-illustration:area:0:ecl:af3f:caller:a328", "THEAIRISFILLEDWITHSMOKEANDGOSSIP.PEOPLEAREGAMBLINGATTHETABLES"],
+  ["scene-illustration:area:0:ecl:ae69:caller:a407", "DOESANYONEWANTTOGAMBLE?"],
+  ["scene-illustration:area:0:ecl:af3f:caller:a440", "YOUOVERHEARTAVERNTALE"],
 ]);
 export function matchScriptIllustration(context: string, dialogue: string, installed: readonly string[]) {
   for (const [id, cue] of scriptIllustrations) {

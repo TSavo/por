@@ -683,6 +683,20 @@ const stojanowTollApproach = [
 const councilClerkApproach = ["right", "right", "up", "right", "right", "up", "enter", "enter"];
 
 const illustrationRoutes = new Map([
+  ["new-phlan-tavern-interior", {
+    slot: "A", inputs: ["right", "up"],
+    portrait: "scene-illustration:area:0:ecl:af3f:caller:a328",
+    heldPortrait: "scene-illustration:area:0:ecl:af3f:caller:a328",
+    prompt: /SMOKEANDGOSSIP.*PEOPLEAREGAMBLINGATTHETABLES/i,
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:0:ecl:ae69:caller:a407",
+      prompt: /DOESANYONEWANTTOGAMBLE/i, screenshot: "new-phlan-tavern-gamble.png" },
+  }],
+  ["new-phlan-tavern-overheard-tale", {
+    slot: "A", inputs: ["right", "up", "enter", "n"],
+    portrait: "scene-illustration:area:0:ecl:af3f:caller:a440",
+    heldPortrait: "scene-illustration:area:0:ecl:af3f:caller:a440",
+    prompt: /YOUOVERHEARTAVERNTALE[0-9]+/i,
+  }],
   ["new-phlan-city-hall-entrance", {
     slot: "A", inputs: ["right", "right", "up", "up", "up", "enter", "up"],
     portrait: "scene-illustration:area:0:ecl:9a4f",
@@ -6892,7 +6906,8 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel ||
-      ["slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance"].includes(routeName) ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
+      ["slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance",
+        "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale"].includes(routeName) ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
   },
   stdio: ["ignore", "ignore", "inherit"],
 });
