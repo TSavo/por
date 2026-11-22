@@ -2144,12 +2144,12 @@ const illustrationRoutes = new Map([
     idlePortraits: [1, 2].map(phase => `portrait:area:0:ecl:${cursor}:caller:9bd6:PIC3.DAX:41:${phase}:0`),
     continuation: { inputs: ["enter", "enter"], clearsPortrait: true, prompt: /BOATDISEMBARKSYOUATSOKALKEEP/i },
   }]),
-  ["new-phlan-harbor-city-watch", {
+  ...[["new-phlan-harbor-city-watch", "af4d"], ["new-phlan-harbor-city-watch-13", "af4a"]].map(([route, cursor]) => [route, {
     slot: "A", inputs: harborWatchApproach,
     requireTiledApproach: false,
-    approachSequence: [[48, 32, "encounter:area:0:ecl:af4d:SPRIT3.DAX:27:0:0", 40, 80]],
+    approachSequence: [[48, 32, `encounter:area:0:ecl:${cursor}:SPRIT3.DAX:27:0:0`, 40, 80]],
     portrait: "portrait:area:0:HEAD3.DAX:9:BODY3.DAX:7", prompt: /GO.*STAY/i,
-  }],
+  }]),
   ["lizard-wilds-kobold-prisoners", {
     slot: "A", inputs: ["up", "enter", "enter", "z", "z", "z"],
     portraitStops: {
@@ -4503,6 +4503,11 @@ const combatPoseRoutes = new Map([
   }],
   ["new-phlan-harbor-watch-fighter", {
     slot: "A", stand: "combat:area:0:CPIC3.DAX:16:ecl:ae09", strike: "combat:area:0:CPIC3.DAX:144:ecl:ae09",
+    width: 96, height: 96, strikeReflected: false,
+    inputs: harborWatchBattle,
+  }],
+  ["new-phlan-harbor-watch-fighter-13", {
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:16:ecl:ae06", strike: "combat:area:0:CPIC3.DAX:144:ecl:ae06",
     width: 96, height: 96, strikeReflected: false,
     inputs: harborWatchBattle,
   }],
