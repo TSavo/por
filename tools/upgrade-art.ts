@@ -2,7 +2,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { lookupOverride, type EncounterAnchor, type OverrideManifest } from "../src/lib/assets.js";
 import { characterSheetPartKey, characterSheetPartPixels, portraitKey, scriptIllustrations } from "./portrait-art.js";
-import { encounterAnchor, encounterKey, encounterPixels } from "./encounter-art.js";
+import { encounterAnchor, encounterKey, encounterPixels, matchesEncounterSource } from "./encounter-art.js";
 import { combatSelectionKey, combatEffectKey, isCombatExtent, monsterCombatKey, partyCombatKey, partyCombatPart, randomCombatKey, randomCombatPixels } from "./combat-art.js";
 import { parseDax } from "../src/lib/dax.js";
 import { decodePicture, isPicture } from "../src/lib/picture.js";
@@ -115,7 +115,7 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
             const archive = packagedPictures ? undefined : originalArchive(name!);
             const shape = packagedPictures?.get(`${name}:${block}`)?.[Number(member)];
             const validSource = packagedPictures
-              ? shape?.width === encounter.width && shape.height === encounter.height && Number(frame) < shape.frames
+              ? shape && matchesEncounterSource(encounter, shape) && Number(frame) < shape.frames
               : archive && encounterPixels(archive, id, encounter);
             if (!validSource) {
               reject("Encounter source frame does not match its placement.", id);

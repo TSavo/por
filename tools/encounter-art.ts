@@ -39,6 +39,14 @@ export function encounterAnchor(key: string, configured?: EncounterAnchor) {
         flatBackground.every(index => Number.isInteger(index) && index >= 0 && index < 16)))) return anchor;
 }
 
+export function matchesEncounterSource(anchor: EncounterAnchor,
+  source: { width: number; height: number; x: number; y: number }) {
+  if (source.width !== anchor.width || source.height !== anchor.height) return false;
+  // An unscoped binding follows the archived sprite across areas. Its header
+  // gives the offset from the native window in 8-pixel cells.
+  return anchor.area !== undefined || (anchor.x === 24 + source.x * 8 && anchor.y === 24 + source.y * 8);
+}
+
 export function encounterPixels(archive: ReturnType<typeof parseDax>, key: string, anchor: EncounterAnchor) {
   const match = encounterKey.exec(key);
   if (!match) return;
@@ -47,7 +55,7 @@ export function encounterPixels(archive: ReturnType<typeof parseDax>, key: strin
   const member = block && pictureMembers(block.data)[Number(memberIndex)];
   if (!member) return;
   const picture = decodePicture(member.data);
-  if (picture.width !== anchor.width || picture.height !== anchor.height || Number(frameIndex) >= picture.itemCount) return;
+  if (!matchesEncounterSource(anchor, picture) || Number(frameIndex) >= picture.itemCount) return;
   const pixels = frameSlice(picture, Number(frameIndex));
   if (pixels.some(Boolean)) return pixels;
 }
