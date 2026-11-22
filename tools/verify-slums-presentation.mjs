@@ -629,7 +629,7 @@ const encounterRoutes = new Map([
       [56, 32, "encounter:area:10:SPRIT4.DAX:23:1:0", 24, 65],
       [56, 32, "encounter:area:10:SPRIT4.DAX:23:0:0", 32, 80],
     ],
-    dialogue: { key: "enter", portrait: "portrait:PIC4.DAX:23:0:0", prompt: /THEREISAVAMPIREHERE/i },
+    dialogue: { key: "enter", portrait: "scene-illustration:area:10:ecl:b695:caller:b126", prompt: /THEREISAVAMPIREHERE/i },
   }],
   ["stojanow-bugbear-approach", {
     slot: "A", inputs: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "left"],
@@ -2965,8 +2965,9 @@ const illustrationRoutes = new Map([
     portraitStops: { 1: "scene-illustration:area:10:ecl:b109", 2: null },
     phaseCaptures: { 1: "valhingen-black-marble-crypt-return.png" },
     approachStops: { 2: [56, 32, "encounter:area:10:SPRIT4.DAX:23:0:0", 32, 80] },
-    portrait: "portrait:PIC4.DAX:23:0:0",
+    portrait: "scene-illustration:area:10:ecl:b695:caller:b126",
     prompt: /THEREISAVAMPIREHERE/i,
+    finalPhaseCapture: "valhingen-black-marble-crypt-vampire.png",
   }],
   ["valhingen-crypt-examine", {
     slot: "A", inputs: ["up", "down", "up", "enter", "n", "y", "e"],
