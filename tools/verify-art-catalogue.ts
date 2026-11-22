@@ -91,9 +91,9 @@ const cover = (record: PictureRecord, member: number, frame: number) => covered.
 let positionsNotAtInstruction = 0;
 
 /** Why the script scope of a key is not in the converted scripts, or undefined when it is. */
-function scope(area?: string, cursor?: string, caller?: string): string | undefined {
+function scope(area?: string, cursor?: string, caller?: string, scriptArea = area): string | undefined {
   if (area === undefined) return;
-  const script = scripts.get(Number(area));
+  const script = scripts.get(Number(scriptArea));
   if (!script) return cursor === undefined ? undefined : `area ${area} has no converted script`;
   for (const [what, position] of [["position", cursor], ["caller", caller]] as const) {
     if (position === undefined) continue;
@@ -141,11 +141,14 @@ const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
     frame(file!, block!, member, index) ?? scope(area, cursor, caller)],
   [/^scene-illustration:area:(\d{1,3}):ecl:([a-f0-9]{4})(?::caller:([a-f0-9]{4}))?(?::cue:[a-z0-9-]+)?$/, (match) => {
     const [key, area, cursor, caller] = match;
-    const missing = scope(area, cursor, caller);
+    // These replays change the displayed area to 19 before ECL6 block 25 returns.
+    const scriptArea = /^scene-illustration:area:19:ecl:aeeb:cue:diogenes-(?:advice-departure|bottle-departure|lair-empty)$/.test(key) ? "25" : area;
+    const missing = scope(area, cursor, caller, scriptArea);
     if (missing) return missing;
     const cue = scriptIllustrations.get(key);
     if (/:cue:/.test(key)) {
       if (cue === undefined) return "its cue is not defined in tools/portrait-art.ts";
+      // A displayed caption can outlast the script that printed it.
       const { text, captions } = scripts.get(Number(area))!;
       const matches = typeof cue === "string"
         ? text.includes(cue.toUpperCase().replace(/[^A-Z0-9.]/g, ""))
