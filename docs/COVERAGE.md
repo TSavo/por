@@ -4322,6 +4322,10 @@ The `council-bivant-offer` replay marks the lizardfolk commission
 fulfilled in a controlled slot. It checks the original rescue request,
 the new illustration of the missing heir, and the return to exploration
 on GOG 1.3.
+The **council-cadorna-traitor-proclamation** replay uses the same controlled
+Council save as the Zhentil dispatch. It verifies the clerk's accusation of
+Cadorna with its own illustration before the commission papers appear.
+
 The **council-zhentil-packet** replay loads a Council save with Cadorna already
 gone. It checks that the alternate Zhentil Keep dispatch illustrates the
 clerk examining the sealed packet while the original warning leaves tampering

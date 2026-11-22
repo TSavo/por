@@ -2632,9 +2632,18 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "council-cadorna-south-door.png",
     continuation: { inputs: ["enter"], prompt: /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i, clearsPortrait: true },
   }],
+  ["council-cadorna-traitor-proclamation", {
+    slot: "A", inputs: councilClerkApproach,
+    portrait: "scene-illustration:area:8:ecl:b5c3:caller:a55d:cue:cadorna-traitor-proclamation",
+    prompt: /CADORNAISATRAITORTOTHECITY.*IFYOUFINDHIM,KILLHIM/i,
+    finalPhaseCapture: "council-cadorna-traitor-proclamation.png",
+    continuation: { inputs: ["enter"], prompt: /THECLERKSHUFFLESTHROUGHHERPAPERS/i,
+      portrait: "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:commission-papers" },
+  }],
   ["council-zhentil-packet", {
     slot: "A", inputs: [...councilClerkApproach, "enter", "enter", "enter", "enter"],
     portraitStops: {
+      8: "scene-illustration:area:8:ecl:b5c3:caller:a55d:cue:cadorna-traitor-proclamation",
       9: "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:commission-papers",
       10: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:slums-commission-offer",
       11: "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:braccio-temple-referral",
