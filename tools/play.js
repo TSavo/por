@@ -1143,6 +1143,9 @@ const portraitLoops = [
   ["portrait:area:10:ecl:b695:caller:9f7a:PIC4.DAX:35:", 5, "portrait:area:10:PIC4.DAX:35:0:0",
     /ZOMBIESSHUFFLEDOWNTHESTAIRS/i],
   ["portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:", 3],
+  ["portrait:area:10:ecl:a5bb:PIC4.DAX:17:", 2],
+  ["portrait:area:10:ecl:a7b9:PIC4.DAX:17:", 2],
+  ["portrait:area:10:ecl:aad6:PIC4.DAX:17:", 2],
   ["portrait:area:3:ecl:a6c8:PIC5.DAX:56:", [0, 1, 3]],
   ["portrait:area:14:ecl:a13f:PIC1.DAX:1:", 3],
   ["portrait:area:14:ecl:a1c6:PIC1.DAX:1:", 3],
@@ -1153,6 +1156,8 @@ const portraitLoops = [
   ["portrait:area:14:ecl:a6b8:PIC1.DAX:1:", 3],
   ["portrait:area:14:ecl:a78c:PIC1.DAX:1:", 3],
   ["portrait:area:14:ecl:a862:PIC1.DAX:1:", 3],
+  ["portrait:area:15:ecl:a520:PIC2.DAX:26:", 2, "portrait:PIC2.DAX:26:0:0",
+    /YOUSEEADULLBROWNREPTILIANMONSTER/i],
   ["portrait:area:29:ecl:af2f:caller:a6f7:PIC8.DAX:0:", 3, "portrait:area:29:PIC8.DAX:0:0:0",
     /ASMALLBANDOFSICKLYKOBOLDS/i],
 ].map(([prefix, members, initial, cue]) => ({
