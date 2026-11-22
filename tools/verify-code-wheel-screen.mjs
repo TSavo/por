@@ -401,61 +401,13 @@ await item("(h3) with the wheel put away, a wrong word is refused the same way, 
   assert.match(await page(hooks.notices), /reload/i, "The end message says to reload");
 });
 
-await item("(i) mouse only: after start-up the Code wheel control opens the wheel, the mouse wheel turns it, its control closes it, and the game is exactly as it was", async ({ page, until, click, visible, gameKeys, gameScreen, toExploration, mouseWheel }) => {
+await item("(i) away from the question and with no runes on screen there is no wheel: no control, and W and Escape go to the game", async ({ page, key, visible, gameKeys, gameScreen, toExploration }) => {
   await toExploration();
-  const screen = await gameScreen(), keys = await gameKeys();
-  assert.equal(await visible("#wheel-toggle"), true, "A Code wheel control is beside Journal and Map");
-  assert.equal(await page('document.querySelector("#wheel-toggle").disabled'), false);
-  await click("#wheel-toggle");
-  assert.equal(await page(hooks.toolOpen), true, "The control opens the wheel at the exploration menu");
-  await until("the wheel to be drawn", hooks.wheelDrawn, 20_000);
-  assert.equal(await visible("#wheel-word"), false, "Opened as a tool, the wheel asks for no word");
-  const turn = await page(hooks.turn);
-  await mouseWheel(true); await mouseWheel(true); await mouseWheel(false);
-  assert.equal(await page(hooks.turn), (turn + 1) % 36, "The mouse wheel turns the disc one position at a time");
-  await click("#wheel-close");
-  assert.equal(await page(hooks.wheelShown), false, "Its control closes the wheel");
-  assert.equal(await gameScreen(), screen, "Closed, the game's screen and state are exactly as before");
-  assert.deepEqual(await gameKeys(), keys, "No key reached the game while the wheel was open");
-  // The disc stays where it was left, and the page remembers it.
-  await click("#wheel-toggle");
-  assert.equal(await page(hooks.turn), (turn + 1) % 36, "Opened again, the disc is where it was left");
-  assert.equal(await page('localStorage.getItem("por.codeWheel.turn")'), String((turn + 1) % 36), "The page keeps the disc's position");
-  await click("#wheel-toggle");
-  assert.equal(await page(hooks.wheelShown), false, "The control closes the wheel too");
-}, { party: true });
-
-await item("(i2) keyboard only: W opens the wheel at the exploration and camp menus, arrows turn it, W or Escape closes it, other keys go nowhere, and the game is exactly as it was", async ({ page, until, key, screenText, gameKeys, gameScreen, toExploration }) => {
-  await toExploration();
-  const screen = await gameScreen(), keys = await gameKeys();
+  assert.equal(await visible("#wheel-toggle"), false, "At the exploration menu there is no Code wheel control");
+  const keys = await gameKeys();
   await key("w");
-  assert.equal(await page(hooks.toolOpen), true, "W opens the wheel at the exploration menu");
-  await until("the wheel to be drawn", hooks.wheelDrawn, 20_000);
-  const turn = await page(hooks.turn);
-  await key("ArrowRight"); await key("ArrowRight"); await key("ArrowLeft");
-  assert.equal(await page(hooks.turn), (turn + 1) % 36, "Right, Right, Left leaves the disc one position on");
-  // Keys that are not the wheel's own are dropped: none is given to the game, as with the Journal open.
-  for (const other of ["a", "c", "e", "j", "m", "1", "Enter", " ", "ArrowUp", "ArrowDown", "Backspace"]) await key(other);
-  assert.equal(await page(hooks.toolOpen), true, "Other keys leave the wheel open");
-  assert.equal(await page(hooks.turn), (turn + 1) % 36);
-  await key("w");
-  assert.equal(await page(hooks.wheelShown), false, "W closes the wheel");
-  assert.equal(await gameScreen(), screen, "Closed, the game's screen and state are exactly as before");
-  await key("w");
-  assert.equal(await page(hooks.toolOpen), true, "W opens it again");
-  await key("Escape");
-  assert.equal(await page(hooks.wheelShown), false, "Escape closes the wheel");
-  assert.equal(await gameScreen(), screen, "Closed with Escape, the game's screen and state are exactly as before");
-  assert.deepEqual(await gameKeys(), keys, "No key reached the game while the wheel was open");
-  // The game still takes its own keys afterwards, and W is free at the camp menu as well.
-  await key("e");
-  assert.match(await screenText(), /Camp: Save View Magic Rest Alter Exit/, "E still opens the Camp menu");
-  const camp = await gameScreen(), campKeys = await gameKeys();
-  await key("w");
-  assert.equal(await page(hooks.toolOpen), true, "W opens the wheel at the Camp menu");
-  await key("Escape");
-  assert.equal(await gameScreen(), camp, "Closed at the Camp menu, the game is exactly as before");
-  assert.deepEqual(await gameKeys(), campKeys, "No key reached the game from the Camp menu");
+  assert.equal(await page(hooks.wheelShown), false, "W opens nothing");
+  assert.deepEqual((await gameKeys()).slice(keys.length), ['POR_KEY "w"'], "The game is given W");
 }, { party: true });
 
 await item("(j) W still reaches the game where the game reads letters", async ({ page, key, type, enter, asked, until, mainMenu, toPrompt, gameKeys }) => {
@@ -479,11 +431,8 @@ await item("(j) W still reaches the game where the game reads letters", async ({
   assert.deepEqual((await gameKeys()).slice(keys.length), ['POR_KEY "w"'], "At the party menu the game is given W");
 });
 
-await item("(k) Classic has no Code wheel control, no shortcut and no wheel", async ({ page, key, click, visible, gameKeys, toggleDisplay, toExploration }) => {
+await item("(k) Classic has no Code wheel control, no shortcut and no wheel", async ({ page, key, visible, gameKeys, toggleDisplay, toExploration }) => {
   await toExploration();
-  // Open in Enhanced, the wheel goes when the display is switched to Classic, and stays away on the way back.
-  await click("#wheel-toggle");
-  assert.equal(await page(hooks.toolOpen), true);
   await toggleDisplay();
   assert.equal(await page("document.documentElement.dataset.presentation"), "classic");
   assert.equal(await page(hooks.wheelShown), false, "Classic shows no wheel");
@@ -492,41 +441,15 @@ await item("(k) Classic has no Code wheel control, no shortcut and no wheel", as
   await key("w");
   assert.equal(await page(hooks.wheelShown), false, "In Classic W opens nothing");
   assert.deepEqual((await gameKeys()).slice(keys.length), ['POR_KEY "w"'], "In Classic the game is given W");
-  await key("Escape");
-  assert.deepEqual((await gameKeys()).slice(keys.length), ['POR_KEY "w"', 'POR_KEY "escape"'], "In Classic the game is given Escape");
-  await toggleDisplay();
-  assert.equal(await page(hooks.wheelShown), false, "Back in Enhanced the wheel is still closed");
 }, { party: true });
 
-await item("(l) Translate lines up the two TRANSLATE FROM tabs, and ring 1 under the dotted path reads what the Cluebook says", async ({ page, until, key, click, visible, gameKeys, toExploration }) => {
-  // What the wheel must give, from the Cluebook's example (page 56) and the game's own rune font.
+await item("(l) the wheel's data: with the TRANSLATE FROM tabs matched ring 1 reads what the Cluebook says", async () => {
+  // What the wheel must give, from the Cluebook's example (page 56) and the game's own rune font. The
+  // Translate control is up only with runes on screen; npm run verify:runes-readable uses it there.
   assert.equal(readAtTabs(tabsMatched).letter, "0", "wheel.json: with the tabs matched, ring 1 under the dotted path shows 0");
   assert.deepEqual(readAtTabs(tabsMatched + 1), { letter: "A", espruar: "espruar-27", dethek: "dethek-03" },
     "wheel.json: one space clockwise it shows A, with the two A runes at the tabs");
-  await toExploration();
-  const keys = await gameKeys();
-  await click("#wheel-toggle");
-  await until("the wheel to be drawn", hooks.wheelDrawn, 20_000);
-  assert.equal(await visible("#wheel-translate"), true, "The tool has a Translate control");
-  await key("ArrowRight");
-  await click("#wheel-translate");
-  assert.equal(await page(hooks.turn), tabsMatched, "Translate turns the disc until the two tabs meet");
-  // By hand from there: each position clockwise brings the next rune to the tabs.
-  await key("ArrowRight");
-  assert.deepEqual(readAtTabs(await page(hooks.turn)), { letter: "A", espruar: "espruar-27", dethek: "dethek-03" });
-  // The Sokal Keep scroll's first rune is the game's Espruar L, glyphs 17 18, which is espruar-02 in the game's question table.
-  for (let turns = 0; readAtTabs(await page(hooks.turn)).espruar !== "espruar-02"; turns++) {
-    assert.ok(turns < 36, "espruar-02 never came to the tab");
-    await key("ArrowRight");
-  }
-  assert.equal(readAtTabs(await page(hooks.turn)).letter, "L", "With the tab at the scroll's first rune, ring 1 under the dotted path reads L");
-  // T is the same control from the keyboard.
-  await key("t");
-  assert.equal(await page(hooks.turn), tabsMatched, "T lines the tabs up from the keyboard");
-  // The wheel is read, not read out: nothing on the page states the letter.
-  assert.doesNotMatch(await page('document.querySelector("#code-wheel").innerText'), /\breads\b|translates as/i);
-  assert.deepEqual(await gameKeys(), keys, "No key reached the game");
-}, { party: true });
+});
 
 const failed = results.filter(({ passed }) => !passed);
 console.log(`${results.length - failed.length} of ${results.length} items pass. Details of each run: ${dir}`);

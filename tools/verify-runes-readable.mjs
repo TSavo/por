@@ -450,6 +450,16 @@ for (const place of places) {
     await until("the page to settle on the runes", settled);
     result.reached = true;
 
+    // The wheel comes up by itself with runes on screen, beside them, and Escape puts it away and brings it back.
+    const wheelUp = 'typeof codeWheelShown === "function" && codeWheelShown() && document.querySelector("#code-wheel").dataset.mode === "tool"';
+    try {
+      await until("the wheel to come up by itself beside the runes", wheelUp, 10_000);
+      await game.key("Escape");
+      if (await page(wheelUp)) result.problems.push("Escape did not put the wheel away");
+      await game.key("Escape");
+      if (!await page(wheelUp)) result.problems.push("Escape did not bring the wheel back");
+    } catch (error) { result.problems.push(`With runes on screen the wheel did not come up: ${error.message.split("\n")[0]}`); }
+
     // The runes are on screen. Photograph the game picture in both displays.
     const cells = place.words.flatMap(({ cells }) => cells.map(([cell]) => cell));
     // Where the game picture is in the window, scrolled into it first: a photograph is of the window.
