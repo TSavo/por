@@ -3,6 +3,7 @@
     "new-phlan-rolf-approach"
   ],
   "checkpoints": {
+<<<<<<< HEAD
     "valhingen-skeleton-roaming-ambush-loop": "qa/fixtures/valhingen-skeleton-roaming-ambush/A.json",
     "valhingen-wight-ambush-loop": "qa/fixtures/valhingen-wight-ambush/A.json",
     "valhingen-spirits-tower-wight-loop": "qa/fixtures/valhingen-spirits-tower-wights/A.json"
@@ -12,5 +13,12 @@
     "valhingen-skeleton-roaming-ambush-loop",
     "valhingen-wight-ambush-loop",
     "valhingen-spirits-tower-wight-loop"
+=======
+    "armorer": "qa/fixtures/replay-checkpoints/290582c2f29f/A.json"
+  },
+  "chains": {},
+  "proved": [
+    "armorer"
+>>>>>>> b56358b0 (Register the armorer replay checkpoint (batch 1))
   ]
 }
