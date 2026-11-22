@@ -287,6 +287,38 @@
       "status": "fixed",
       "check": "script-positions",
       "resolution": "The host reads the edited instruction of the script in memory to learn which release's copy is loaded (loadedScriptRelease in src/runtime/bindings.ts) and converts by that. npm run verify:script-positions was red before on both builds and passes on both."
+    },
+    {
+      "id": "narration-units-not-proved-in-play",
+      "class": "narration",
+      "title": "No check proves that each of the 1,432 narration units is heard at its moment in play",
+      "detail": "The narration is the feature that carries the story: one narrator reads the game's own text as a dungeon master does, in step with the screen. The existing checks prove that every unit is well formed and that every recording exists. None proves that a unit fires when the game reaches its passage, that it starts on its first print and is not restarted by the prints it covers, or that the next unit waits its turn. The requirement is that every narrated passage is narrated audibly. The measure to build: a count of units heard in play out of 1,432, which stays red until all are.",
+      "source": "QA review with the owner, 2026-11-21.",
+      "status": "open"
+    },
+    {
+      "id": "narration-dynamic-variants-not-proved",
+      "class": "narration",
+      "title": "The 392 dynamic narration variants are selected by conditions that no check exercises",
+      "detail": "69 passages have text that changes at run time (which monsters appear, the tavern tale rolled, proclamation numbers, composed strings). Each case has its own recording, chosen by a condition on the game's state such as: the string in slot 0x9800 is ' GOBLINS'. All 392 variants have a recording on disk (377 files, 8 shared). What is not proved is that each condition matches in play. A condition that never matches is silence at the moment the narrator should say what turned up. 43 more passages defer playback until a later print shows which branch was taken; those need the same proof. The measure to build: variants heard in play out of 392, and deferred selectors resolved out of 43.",
+      "source": "QA review with the owner, 2026-11-21. Counts from src/audio/voice-master-manifest.json.",
+      "status": "open"
+    },
+    {
+      "id": "narration-and-picture-not-paired",
+      "class": "enhanced",
+      "title": "Nothing checks that a passage's picture and its narration arrive together",
+      "detail": "The narrator says what the party sees and the new artwork shows it: the two are the same moment. The artwork replays check that the right picture appears at each prompt, and the narration checks cover the recordings, but nothing confirms that the picture for a passage is on screen when its narration starts, that both are the same variant where a passage has variants, or that no narrated description lacks a picture. The measure to build: for each narrated passage heard in play, was its artwork showing, and the list of narrated passages with no artwork.",
+      "source": "QA review with the owner, 2026-11-21.",
+      "status": "open"
+    },
+    {
+      "id": "narration-tavern-tales-enumerated-for-first-release",
+      "class": "narration",
+      "title": "The tavern tale narration was enumerated from the first release's 24 tales",
+      "detail": "src/audio/voice-master-manifest.json lists tale numbers 1 to 24, with the evidence 'RANDOM 23 followed by ADD 1'. Version 1.3, which the port now always runs, rolls 23. All 23 are covered and the recording for tale 24 is never used. No passage goes unnarrated; the note and the unused recording are out of date.",
+      "source": "Read from the manifest and the 1.3 script, 2026-11-21.",
+      "status": "open"
     }
   ]
 }

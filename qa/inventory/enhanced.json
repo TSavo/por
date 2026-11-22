@@ -307,6 +307,42 @@
             "narration-runtime"
           ],
           "gap": "Runtime rules are unit-checked. The page's key handling is not."
+        },
+        {
+          "id": "enhanced.narration-heard-in-play",
+          "title": "Every narration unit is heard at its passage in play: starts on its first print, is not restarted by the prints it covers, and waits for the one before it",
+          "evidence": [
+            "src/audio/voice-master-manifest.json: 1,432 units and its playback policy; src/runtime/ecl-narration-observer.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.narration-dynamic-variants",
+          "title": "Every dynamic narration variant is selected in play: 392 variants across 69 passages, and 43 deferred selectors",
+          "evidence": [
+            "src/audio/voice-master-manifest.json: runtimeVariants, staticSelectors, dynamicResolution; audio/voices/narration/dynamic-resolved"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.narration-with-its-picture",
+          "title": "A passage's artwork is on screen when its narration starts, in the same variant, and no narrated description lacks artwork",
+          "evidence": [
+            "upgrades/manifest.json; src/audio/voice-master-manifest.json; tools/live-input.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.narration-one-narrator",
+          "title": "The whole narration is one narrator, who performs the characters' quoted lines, reading the game's own text exactly",
+          "evidence": [
+            "audio/voices/narrator-anchor.*; src/audio/narrator-voice-design.json; each unit's direction and characterId; the transcript beside each recording"
+          ],
+          "checks": [
+            "voice-master",
+            "narration-generation"
+          ],
+          "gap": "The checks compare each transcript with the game's text and record the narrator identity used to generate it. Nothing listens to a recording, so a take that drifts from the narrator's voice would not be caught."
         }
       ]
     },
