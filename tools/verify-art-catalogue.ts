@@ -236,6 +236,8 @@ const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
     }
   }],
   [/^scene:(title|publisher)$/, () => records.has("TITLE.DAX:1") ? (cover(records.get("TITLE.DAX:1")!, 0, 0), cover(records.get("TITLE.DAX:2") ?? records.get("TITLE.DAX:1")!, 0, 0), undefined) : "TITLE.DAX is not in game/"],
+  // The browser's title overlays are separate Enhanced art layers.
+  [/^scene:title-(name|edition)$/, () => undefined],
 ];
 
 interface Finding { key: string; manifest: string; reason: string }
