@@ -1242,6 +1242,16 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kovel-lone-thief.png",
     continuation: { inputs: ["l", "l"], clearsPortrait: true, prompt: /12,7N/i },
   }],
+  ["kovel-weapon-gas-harmless", {
+    slot: "A", inputs: ["up", "t"],
+    transientPortraits: { 2: {
+      id: "scene-illustration:area:14:ecl:ac23",
+      prompt: /THESMELLISDISGUSTINGBUTHARMLESSENOUGH/i,
+      screenshot: "kovel-weapon-gas-harmless.png",
+    } },
+    portrait: "scene-illustration:area:14:ecl:a998",
+    prompt: /LARGEPILEOFWEAPONSANDSHIELDS/i,
+  }],
   ["kovel-lone-thief-attack", {
     slot: "A", inputs: ["up", "l", "enter"],
     portrait: "scene-illustration:area:14:ecl:9c14",
