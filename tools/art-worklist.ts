@@ -224,10 +224,20 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
   const slumsWalls = world.scripts.filter((script) => script.archive === 2)
     .flatMap((script) => script.wallSlots).find((slots) => slots.operands.join() === "2,4,1");
   if (slumsWalls) {
-    for (const area of [3, 7]) {
+    const borrowedMaps = [[3, [3]], [5, [3, 4, 5, 6, 7]], [7, [7]]] as const;
+    for (const [area, maps] of borrowedMaps) {
       const script = world.scripts.find((candidate) => candidate.area === area && candidate.archive === 5);
-      if (script && world.maps.has(`5:${area}`)) own.push({ label: area, script, map: area, slots: slumsWalls, wallArchive: 2 });
+      if (!script) continue;
+      for (const map of maps) {
+        if (world.maps.has(`5:${map}`)) own.push({ label: area, script, map, slots: slumsWalls, wallArchive: 2 });
+      }
     }
+  }
+  // Both mounted banks are visible under scope 5 on the Pool stair landing.
+  const stairTraveler = world.scripts.find((script) => script.area === 5 && script.archive === 5);
+  const valjevoWalls = stairTraveler?.wallSlots.find((slots) => slots.operands.join() === "24,25,1");
+  if (stairTraveler && valjevoWalls && world.maps.has("5:7")) {
+    own.push({ label: 5, script: stairTraveler, map: 7, slots: valjevoWalls });
   }
   // NEW ECL keeps the old area number until the new script's first turn (ovl03 0x0bd1 and 0x3387), so
   // the first view of the area it starts is drawn, and keyed, under the number of the area left.
