@@ -518,6 +518,14 @@ then used the original Advance and idle inputs. Chrome witnessed the
 composed phase at ECL `a64b` and confirmed the existing base portrait
 returns between cycles.
 
+The archive totals count a picture once per archive, block, member, and
+frame. A key in any scene covers that source row for the count. For example,
+Yarash already named all four members of `PIC7.DAX:57` while the Tyrmor
+prison encounter named only member 0. GOG 1.3 draws all four members at the
+held Tyrmor prompt. The `tyrmor-prison-lizardfolk-loop` replay checks all
+four scene-specific paintings, their order, and the selected pose at the
+battle notice. This tests scene coverage in addition to archive coverage.
+
 **Unlinked source frames** lists the individual unlinked PIC, SPRIT, and
 CPIC frames by archive, directory index, member, and frame. Each entry
 includes its 4× dimensions and links to the local source sheet. The JSON

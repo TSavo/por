@@ -3970,6 +3970,26 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "tyrmor-prison-kobolds-phase-2.png",
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:0:2:0", prompt: /ABATTLEBEGINS/i },
   }],
+  ...[
+    ["kobolds", 0, "a2f9", ["s", ...Array.from({ length: 4 }, () => ["up", "down"]).flat(), "up", "enter"],
+      [0, 1, 2, 1], 2, /ONELICKSITSLIPS/i],
+    ["lizardfolk", 57, "a2f9", ["s", ...Array.from({ length: 8 }, () => ["up", "enter", "down"]).flat(),
+      "up", "enter", "enter"], [0, 1, 2, 3], 2, /ONELICKSITSLIPS/i],
+    ["displacer", 68, "a2f9", ["s", ...Array.from({ length: 27 }, () => ["up", "enter", "down"]).flat(),
+      "up", "enter", "enter"], [0, 1, 2, 3, 4, 3, 2, 1], 4, /ONELICKSITSLIPS/i],
+    ["stirge", 61, "a32f", ["s", ...Array.from({ length: 9 }, () => ["up", "down"]).flat(), "up", "enter"],
+      [0, 1], 1, /THEYFLYTOWARDYOU/i],
+  ].map(([name, picture, cursor, inputs, order, combatPose, prompt]) => [`tyrmor-prison-${name}-loop`, {
+    slot: "B", inputs, prompt,
+    portrait: `portrait:area:22:ecl:${cursor}:PIC7.DAX:${picture}:0:0`,
+    heldPortraitLoop: order.map(member => `portrait:area:22:ecl:${cursor}:PIC7.DAX:${picture}:${member}:0`),
+    continuation: {
+      inputs: ["c"], prompt: /ABATTLEBEGINS/i,
+      portraits: [...new Set(order)].map(member => `portrait:area:22:ecl:a36f:PIC7.DAX:${picture}:${member}:0`),
+      pressOnPortrait: `portrait:area:22:ecl:${cursor}:PIC7.DAX:${picture}:${combatPose}:0`,
+      retainPose: true,
+    },
+  }]),
   ["valhingen-mummy-sarcophagi-phases", {
     slot: "A", inputs: ["up"],
     portrait: "portrait:PIC4.DAX:114:0:0", prompt: /WITHSLOW,OMINOUSCREAKS,MUMMIESOPENTHEIRSARCOPHOGI/i,
@@ -7327,6 +7347,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "bane-black-hand-emissary-loop" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
+      /^tyrmor-prison-(kobolds|lizardfolk|displacer|stirge)-loop$/.test(routeName) ||
       ["sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
         "new-phlan-training-duels", "new-phlan-training-north-junction", "new-phlan-training-fighters-door",
@@ -10474,9 +10495,11 @@ try {
         state.sequence === ${frame.sequence} && !animationFrame && !document.querySelector(".encounter-portrait")
       `));
     } else {
+      const visiblePortraits = (Array.isArray(illustration.heldPortraitLoop) ? illustration.heldPortraitLoop : [portrait])
+        .map(id => "/art/" + id);
       await waitFor("the enhanced dialogue illustration", () => run(`(() => {
         const image = document.querySelector(".encounter-portrait");
-        return image?.getAttribute("src") === ${JSON.stringify("/art/" + portrait)} &&
+        return ${JSON.stringify(visiblePortraits)}.includes(image?.getAttribute("src")) &&
           image.naturalWidth === 352 && image.naturalHeight === 352;
       })()`));
       await switchBothWays();
