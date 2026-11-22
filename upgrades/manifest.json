@@ -6973,6 +6973,8 @@
     "portrait:area:24:PIC1.DAX:4:0:0": "bane-temple-gatekeeper.png",
     "portrait:area:24:ecl:aba7:PIC1.DAX:4:0:0": "bane-temple-exit-retaliation-dialogue.png",
     "portrait:area:24:ecl:abbd:PIC1.DAX:4:0:0": "bane-temple-exit-retaliation-dialogue.png",
+    "scene-illustration:area:31:ecl:a105:cue:captive-release": "bane-captive-goblins-release.png",
+    "scene-illustration:area:31:ecl:b0b5:cue:captive-release": "bane-captive-goblins-release.png",
     "portrait:area:31:ecl:a076:PIC1.DAX:2:1:0": "bane-captive-goblins-pleading.png",
     "portrait:area:31:PIC1.DAX:2:0:0": "bane-captive-goblins.png",
     "encounter:area:24:SPRIT1.DAX:4:0:0": "bane-gatekeeper-approach.png",

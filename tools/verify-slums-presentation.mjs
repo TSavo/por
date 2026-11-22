@@ -11787,6 +11787,18 @@ try {
       assert.match(frame.journal.objective.nextStep, baneSymbol ? /Let Him Touch You/ : /let the blind guard check/i);
     }
     for (const key of ["j", "l"]) await advance(key);
+    if (baneGoblins) {
+      const released = "scene-illustration:area:31:ecl:b0b5:cue:captive-release";
+      assert.equal(frame.portrait, released);
+      assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+        /YOULETTHEGOBLINSGO.*HOLYSYMBOLOFBANE/i);
+      await waitFor("the released goblins sharing the temple clue", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${released}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays(frame.frame);
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "bane-captive-goblins-release.png"), Buffer.from(shot.data, "base64"));
+    }
     if (baneSymbol) {
       const recognized = "scene-illustration:area:24:ecl:b0b5";
       assert.equal(frame.portrait, recognized);
@@ -11822,12 +11834,11 @@ try {
       assert.ok(knows("bane-temple-symbol"));
       assert.match(frame.journal.objective.nextStep, /bring a holy symbol of bane/i);
       await advance("j");
+      assert.equal(frame.portrait, "scene-illustration:area:31:ecl:b0b5:cue:captive-release");
+      for (const key of ["right", "right", "up"]) await advance(key);
+      assert.equal(frame.portrait, undefined);
       assert.equal(await verifyTiledView(31, interiorPatterns), 1);
-      for (const key of ["right", "right", "up"]) {
-        await advance(key);
-        assert.equal(await verifyTiledView(31, interiorPatterns), 1);
-      }
-      assert.equal(interiorPatterns.size, 25);
+      assert.equal(interiorPatterns.size, 22);
     }
     console.log(`Verified witnessed Temple of Bane guidance on the ${routeName} route.`);
   } else if (shrineReturn) {
