@@ -2,9 +2,9 @@
 
 ## What to do now
 
-**There is no proven art to do right now.** Everything the tools can show the game draws has your art. Check back after the QA owner's next update to this file.
+**There is art to do: 7 items.**
 
-1. **Wall tiles: none. Outdoor fight terrain: none.**
+1. **Wall tiles: 7 cells to draw, in Valjevo Castle. Outdoor fight terrain: none.** Each is listed below with its exact key.
 2. **Pictures: none.**
 3. **Do not draw anything under "Not established".** Those cells are not confirmed to appear. The QA owner is settling them by play and moves each one that proves real into item 1.
 
@@ -18,7 +18,8 @@ A cell is one 8 by 8 square of the screen, redrawn at 32 by 32. Most cells below
 
 | Area | Cells to do | Distinct shapes | Shapes you have already drawn over another sky or ground | Shapes with no version yet |
 | ---: | ---: | ---: | ---: | ---: |
-| **All areas** | **0** | **0** | **0** | **0** |
+| 5 Valjevo Castle | 7 | 7 | 7 | 0 |
+| **All areas** | **7** | **7** | **7** | **0** |
 
 Outdoor battle terrain: 0 cells. Each item below carries `shape` and, where there is one, `sameShapeAs`: the key of your existing art for that shape in the same area.
 Start with the shapes you have already drawn: those are the same piece over a new background. Then the shapes with no version yet.
@@ -69,15 +70,15 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 
 | What | Count |
 | --- | ---: |
-| Remaining, all kinds | 0 |
-| First-person cells to do | 0 |
+| Remaining, all kinds | 7 |
+| First-person cells to do | 7 |
 |   of which one stored tile | 0 |
-|   of which one tile over a solid colour | 0 |
+|   of which one tile over a solid colour | 6 |
 |   of which plain sky or ground | 0 |
-|   of which several tiles together | 0 |
-|   of which the same pixels already have art of yours in another area | 0 |
-| Distinct shapes among the first-person cells (the same tiles, whatever sky or ground is behind them) | 0 |
-|   of which the area already has your art for that shape over another sky or ground | 0 |
+|   of which several tiles together | 1 |
+|   of which the same pixels already have art of yours in another area | 7 |
+| Distinct shapes among the first-person cells (the same tiles, whatever sky or ground is behind them) | 7 |
+|   of which the area already has your art for that shape over another sky or ground | 7 |
 | Battlefield cells to do | 0 |
 | Tile keys in the manifests | 7908 |
 |   accounted for by the tool | 7908 |
@@ -101,7 +102,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 2 | Cadorna Textile House | yes | 402 | 402 | 0 | 426 of 426 (5 as first views of the next area, 19 as WebGL wall materials) |
 | 3 | Valjevo Castle | yes | 341 | 307 | 0 | 313 of 313 (6 as WebGL wall materials) |
 | 4 | Valjevo Castle | yes | 206 | 206 | 0 | 214 of 214 (8 as WebGL wall materials) |
-| 5 | Valjevo Castle | yes | 433 | 369 | 0 | 392 of 392 (23 as WebGL wall materials) |
+| 5 | Valjevo Castle | yes | 433 | 369 | 7 | 392 of 392 (23 as WebGL wall materials) |
 | 6 | Valjevo Castle | yes | 182 | 182 | 0 | 190 of 190 (8 as WebGL wall materials) |
 | 7 | Valjevo Castle, the Pool | yes | 216 | 216 | 0 | 216 of 216 |
 | 8 | Phlan City Hall | yes | 326 | 326 | 0 | 336 of 336 (10 as WebGL wall materials) |
@@ -134,7 +135,21 @@ So a cell is one stored tile, one tile over the sky or ground colour, or several
 
 ## To do: first-person cells
 
-Nothing is listed.
+### Area 5: Valjevo Castle (7)
+
+Map 3, 4, 6, 5, 7; WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1); WALLDEF2 block 2 (tiles 8X8D2 block 2), block 4 (tiles 8X8D2 block 4), block 1 (tiles 8X8D2 block 1).
+
+#### tile set 8X8D5 block 242 (7)
+
+| Key (PNG 32x32) | What it is | See it at | Same pixels as |
+| --- | --- | --- | --- |
+| `tile:5:22c88f03dad2a46bdca599ed5ccf78f99963874448dca5eef11c3eb007680ae0` | 8X8D5 block 242 tile 18 over sky colour 15 | map 4, square (9,5) facing east, column 0 row 1 | `valjevo-scope4-screen-4-22c88f03dad2.png` (area 4) |
+| `tile:5:5465ee6d3bbf33b7df6e253be8f0ffc33e30eb0ee4410498eaf6ee9a4d981ab8` | 8X8D5 block 242 tile 20 over sky colour 15 | map 4, square (9,5) facing west, column 7 row 3 | `valjevo-scope4-screen-4-5465ee6d3bbf.png` (area 4) |
+| `tile:5:a935cfd5653e067413370e19a2f013bd8067d2e08ec0ea24fe27ed4345c09b84` | 8X8D5 block 242 tile 49 over 8X8D5 block 242 tile 49 over 8X8D5 block 241 tile 65 over sky colour 15 | map 4, square (9,5) facing north, column 8 row 2 | `valjevo-scope4-screen-4-a935cfd5653e.png` (area 4) |
+| `tile:5:cce5fe889bf7a3706d86523cdc1b5cfb9879ba9ead96ad6a5683d65564f2aee4` | 8X8D5 block 242 tile 52 over sky colour 15 | map 4, square (9,5) facing north, column 0 row 2 | `valjevo-scope4-screen-4-cce5fe889bf7.png` (area 4) |
+| `tile:5:dc1cf3b23226184b441fa4d9d6d8c1348420fd23df7e9ca7c3e82da826fc2b6d` | 8X8D5 block 242 tile 49 over sky colour 15 | map 4, square (9,5) facing north, column 1 row 2 | `valjevo-scope4-screen-4-dc1cf3b23226.png` (area 4) |
+| `tile:5:e2e83d47a6cd35c3398178715fa8ef80a4e7401f9d5ca77540f7f1e7562ffbfc` | 8X8D5 block 242 tile 17 over sky colour 15 | map 4, square (9,5) facing east, column 10 row 1 | `valjevo-scope4-screen-4-e2e83d47a6cd.png` (area 4) |
+| `tile:5:faa872107917abb576b13111d58e3e59d9cd756f71db8efce64b3da3b2fea0a6` | 8X8D5 block 242 tile 21 over sky colour 15 | map 4, square (9,5) facing west, column 8 row 3 | `valjevo-scope4-screen-4-faa872107917.png` (area 4) |
 
 ## To do: battlefield cells
 
@@ -154,7 +169,6 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 
 | What | Count |
 | --- | ---: |
-| first-person cells seen only from squares not connected to any square the existing artwork was made from | 7 |
 | first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows | not counted |
 | distinct battlefield cells of pictures no artwork shows to have been on a battlefield | 0 |
 | battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain) | not counted: needs the game's battlefield builder read |

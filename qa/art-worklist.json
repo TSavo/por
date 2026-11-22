@@ -2,17 +2,17 @@
  "schema": 2,
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
- "remaining": 0,
+ "remaining": 7,
  "totals": {
-  "Remaining, all kinds": 0,
-  "First-person cells to do": 0,
+  "Remaining, all kinds": 7,
+  "First-person cells to do": 7,
   "  of which one stored tile": 0,
-  "  of which one tile over a solid colour": 0,
+  "  of which one tile over a solid colour": 6,
   "  of which plain sky or ground": 0,
-  "  of which several tiles together": 0,
-  "  of which the same pixels already have art of yours in another area": 0,
-  "Distinct shapes among the first-person cells (the same tiles, whatever sky or ground is behind them)": 0,
-  "  of which the area already has your art for that shape over another sky or ground": 0,
+  "  of which several tiles together": 1,
+  "  of which the same pixels already have art of yours in another area": 7,
+  "Distinct shapes among the first-person cells (the same tiles, whatever sky or ground is behind them)": 7,
+  "  of which the area already has your art for that shape over another sky or ground": 7,
   "Battlefield cells to do": 0,
   "Tile keys in the manifests": 7908,
   "  accounted for by the tool": 7908,
@@ -28,7 +28,6 @@
   "    of those, shown alone in some area": 15
  },
  "notEstablished": {
-  "first-person cells seen only from squares not connected to any square the existing artwork was made from": 7,
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
   "distinct battlefield cells of pictures no artwork shows to have been on a battlefield": 0,
   "battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain)": "not counted: needs the game's battlefield builder read",
@@ -170,10 +169,8 @@
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 433,
    "cellsWithArt": 369,
-   "toDo": 0,
-   "notEstablished": {
-    "cells seen only from squares not connected to any square the existing artwork was made from": 7
-   },
+   "toDo": 7,
+   "notEstablished": {},
    "existingKeysOnlyAsWallMaterials": 23,
    "struckOff": {
     "Valjevo Castle's script sets the open sky only at 9a5f to 9a78 (11, or 8 when the hour 0x49c9 is 14 or more), which is colour 11 or 0, and the roofed sky to 9 (colour 15) at 9a65. Sky 12 came from the tool following the scratch variable 0x6e79, which other code uses for other numbers; nothing jumps into the middle of the sequence.": 57
@@ -2489,5 +2486,202 @@
    }
   ]
  },
- "items": []
+ "items": [
+  {
+   "kind": "first-person cell",
+   "key": "tile:5:22c88f03dad2a46bdca599ed5ccf78f99963874448dca5eef11c3eb007680ae0",
+   "width": 32,
+   "height": 32,
+   "area": 5,
+   "areaName": "Valjevo Castle",
+   "group": "tile set 8X8D5 block 242",
+   "what": "one tile over a solid colour",
+   "composition": "s15|8X8D5.DAX:242:18",
+   "description": "8X8D5 block 242 tile 18 over sky colour 15, shown in area 5 (Valjevo Castle)",
+   "seenAt": {
+    "map": 4,
+    "x": 9,
+    "y": 5,
+    "facing": "east",
+    "column": 0,
+    "row": 1
+   },
+   "views": 3,
+   "drawnIn": [
+    4
+   ],
+   "sameAs": "valjevo-scope4-screen-4-22c88f03dad2.png",
+   "shape": "8X8D5.DAX:242:18",
+   "sameShapeAs": "tile:5:85d885617fca5dfd9091f89813f84645e46523ae68ff3ed9f7c4f8c66011bda9",
+   "why": "drawn in 3 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:5:5465ee6d3bbf33b7df6e253be8f0ffc33e30eb0ee4410498eaf6ee9a4d981ab8",
+   "width": 32,
+   "height": 32,
+   "area": 5,
+   "areaName": "Valjevo Castle",
+   "group": "tile set 8X8D5 block 242",
+   "what": "one tile over a solid colour",
+   "composition": "s15|8X8D5.DAX:242:20",
+   "description": "8X8D5 block 242 tile 20 over sky colour 15, shown in area 5 (Valjevo Castle)",
+   "seenAt": {
+    "map": 4,
+    "x": 9,
+    "y": 5,
+    "facing": "west",
+    "column": 7,
+    "row": 3
+   },
+   "views": 1,
+   "drawnIn": [
+    4
+   ],
+   "sameAs": "valjevo-scope4-screen-4-5465ee6d3bbf.png",
+   "shape": "8X8D5.DAX:242:20",
+   "sameShapeAs": "tile:5:0e0548cc21e50d283a67a28526df1d28ada653da62235cabed3760d055d3e5d8",
+   "why": "drawn in 1 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:5:a935cfd5653e067413370e19a2f013bd8067d2e08ec0ea24fe27ed4345c09b84",
+   "width": 32,
+   "height": 32,
+   "area": 5,
+   "areaName": "Valjevo Castle",
+   "group": "tile set 8X8D5 block 242",
+   "what": "several tiles together",
+   "composition": "s15|8X8D5.DAX:241:65,8X8D5.DAX:242:49,8X8D5.DAX:242:49",
+   "description": "8X8D5 block 242 tile 49 over 8X8D5 block 242 tile 49 over 8X8D5 block 241 tile 65 over sky colour 15, shown in area 5 (Valjevo Castle)",
+   "seenAt": {
+    "map": 4,
+    "x": 9,
+    "y": 5,
+    "facing": "north",
+    "column": 8,
+    "row": 2
+   },
+   "views": 1,
+   "drawnIn": [
+    4
+   ],
+   "sameAs": "valjevo-scope4-screen-4-a935cfd5653e.png",
+   "shape": "8X8D5.DAX:241:65,8X8D5.DAX:242:49,8X8D5.DAX:242:49",
+   "sameShapeAs": "tile:5:172e0024a263af25489f60756580ce5643482d4d9d8e5457034a57c2c81ffb59",
+   "why": "drawn in 1 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:5:cce5fe889bf7a3706d86523cdc1b5cfb9879ba9ead96ad6a5683d65564f2aee4",
+   "width": 32,
+   "height": 32,
+   "area": 5,
+   "areaName": "Valjevo Castle",
+   "group": "tile set 8X8D5 block 242",
+   "what": "one tile over a solid colour",
+   "composition": "s15|8X8D5.DAX:242:52",
+   "description": "8X8D5 block 242 tile 52 over sky colour 15, shown in area 5 (Valjevo Castle)",
+   "seenAt": {
+    "map": 4,
+    "x": 9,
+    "y": 5,
+    "facing": "north",
+    "column": 0,
+    "row": 2
+   },
+   "views": 10,
+   "drawnIn": [
+    4
+   ],
+   "sameAs": "valjevo-scope4-screen-4-cce5fe889bf7.png",
+   "shape": "8X8D5.DAX:242:52",
+   "sameShapeAs": "tile:5:6cb82728cd3e45b9475b94aa8311ac97ff9f8e8b75955cde4296304a74ca5bd2",
+   "why": "drawn in 10 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:5:dc1cf3b23226184b441fa4d9d6d8c1348420fd23df7e9ca7c3e82da826fc2b6d",
+   "width": 32,
+   "height": 32,
+   "area": 5,
+   "areaName": "Valjevo Castle",
+   "group": "tile set 8X8D5 block 242",
+   "what": "one tile over a solid colour",
+   "composition": "s15|8X8D5.DAX:242:49",
+   "description": "8X8D5 block 242 tile 49 over sky colour 15, shown in area 5 (Valjevo Castle)",
+   "seenAt": {
+    "map": 4,
+    "x": 9,
+    "y": 5,
+    "facing": "north",
+    "column": 1,
+    "row": 2
+   },
+   "views": 10,
+   "drawnIn": [
+    4
+   ],
+   "sameAs": "valjevo-scope4-screen-4-dc1cf3b23226.png",
+   "shape": "8X8D5.DAX:242:49",
+   "sameShapeAs": "tile:5:55f2e5abaed1f70cfc57e460385f8a42c47796882803f65a7056bc2339623d1a",
+   "why": "drawn in 10 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:5:e2e83d47a6cd35c3398178715fa8ef80a4e7401f9d5ca77540f7f1e7562ffbfc",
+   "width": 32,
+   "height": 32,
+   "area": 5,
+   "areaName": "Valjevo Castle",
+   "group": "tile set 8X8D5 block 242",
+   "what": "one tile over a solid colour",
+   "composition": "s15|8X8D5.DAX:242:17",
+   "description": "8X8D5 block 242 tile 17 over sky colour 15, shown in area 5 (Valjevo Castle)",
+   "seenAt": {
+    "map": 4,
+    "x": 9,
+    "y": 5,
+    "facing": "east",
+    "column": 10,
+    "row": 1
+   },
+   "views": 4,
+   "drawnIn": [
+    4
+   ],
+   "sameAs": "valjevo-scope4-screen-4-e2e83d47a6cd.png",
+   "shape": "8X8D5.DAX:242:17",
+   "sameShapeAs": "tile:5:4ba2970b30ceb86095e24f129519c66dd25adcb5db5234cf3e99397d8e578ace",
+   "why": "drawn in 4 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
+  },
+  {
+   "kind": "first-person cell",
+   "key": "tile:5:faa872107917abb576b13111d58e3e59d9cd756f71db8efce64b3da3b2fea0a6",
+   "width": 32,
+   "height": 32,
+   "area": 5,
+   "areaName": "Valjevo Castle",
+   "group": "tile set 8X8D5 block 242",
+   "what": "one tile over a solid colour",
+   "composition": "s15|8X8D5.DAX:242:21",
+   "description": "8X8D5 block 242 tile 21 over sky colour 15, shown in area 5 (Valjevo Castle)",
+   "seenAt": {
+    "map": 4,
+    "x": 9,
+    "y": 5,
+    "facing": "west",
+    "column": 8,
+    "row": 3
+   },
+   "views": 1,
+   "drawnIn": [
+    4
+   ],
+   "sameAs": "valjevo-scope4-screen-4-faa872107917.png",
+   "shape": "8X8D5.DAX:242:21",
+   "sameShapeAs": "tile:5:f34316599f96e0331ffe513c939ae14c64d03704b1765197a133d334ec229765",
+   "why": "drawn in 1 views of map 4 (WALLDEF5 block 24 (tiles 8X8D5 block 241), block 24 set 2 (tiles 8X8D5 block 242), block 1 (tiles 8X8D5 block 1)) from squares connected to ones the existing artwork covers"
+  }
+ ]
 }

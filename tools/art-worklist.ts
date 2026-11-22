@@ -500,7 +500,11 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       });
       // Squares connected to ones stood on are taken as reachable, unless another area's script uses the
       // same map: there a door may lead into the other area, so only the squares stood on count.
-      const shared = world.scripts.filter((script) => script.archive === context.script.archive && script.maps.some((known) => known.block === context.map)).length > 1;
+      // The hedge maze (ECL5 block 5) keeps its own script on all of map 4, which area 4's script also
+      // loads: it leaves only by NEW ECL 3 for event codes 30 and 31 (9c25), which no square of map 4
+      // has, and NEW ECL 7 up the stairs (a482). So every square walked to from one stood on is area 5's.
+      const hedgeMaze = context.script.archive === 5 && context.script.area === 5 && context.map === 4;
+      const shared = !hedgeMaze && world.scripts.filter((script) => script.archive === context.script.archive && script.maps.some((known) => known.block === context.map)).length > 1;
       walkable.set(context, playable ?? (shared ? stoodOn : reachable(map, [...stoodOn], context.script.area)));
     }
     for (const list of seen.values()) for (const { cell } of list) {
