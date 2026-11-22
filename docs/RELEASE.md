@@ -265,6 +265,14 @@ wheel question, the word read off the wheel, the ready-made party (start the rel
 `POR_PREGEN_PARTY=1`), and the first-person view of New Phlan, reporting whether the page drew it with
 WebGL or fell back. It saves a screenshot of each and `report.json`.
 
+`node tools/release/check-display-switch.mjs <release root> <original folder> <chrome>` checks the
+display switch with the player's own files (#153): it starts the release's launcher with
+`POR_ORIGINAL_FILES` naming the folder and switches to Classic and back at each place of the opening:
+the page's publisher splash at full strength and while it fades, the title with its name faded in, the
+code-wheel question and the main menu. In Classic only `#screen` may be visible over the game, showing
+the game's own frame, at the switch and two seconds on; back in Enhanced, `#screen` must show
+Enhanced's picture again.
+
 Whether the shipped data shows the same Enhanced pictures as the original files, frame by frame, is
 `npm run verify:port-parity`: see docs/STANDALONE.md, "Port parity".
 

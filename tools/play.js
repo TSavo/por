@@ -272,6 +272,18 @@ function leavePublisherSplash() {
   publisherSplash.classList.remove("shown");
   publisherSplashTimer = setTimeout(() => { publisherSplash.hidden = true; publisherSplashDone = true; showTitleName(); }, 1200);
 }
+/**
+ * The splash is Enhanced's: switching to Classic ends it at once, wherever it is in its fade (#153),
+ * so nothing of it shows over the game's own title. Switching back finds it done and shows the title.
+ */
+function endPublisherSplash() {
+  if (publisherSplashDone || !publisherSplash.getAttribute("src")) return;
+  publisherSplashLeaving = true;
+  publisherSplashDone = true;
+  clearTimeout(publisherSplashTimer);
+  publisherSplash.classList.remove("shown");
+  publisherSplash.hidden = true;
+}
 function showPublisherSplash() {
   if (publisherSplashDone) return false;
   if (state.scene === "scene:publisher" || !enhanced || state.scene !== "scene:title") {
@@ -281,7 +293,7 @@ function showPublisherSplash() {
   if (!publisherSplash.getAttribute("src")) {
     publisherSplash.hidden = false;
     publisherSplash.addEventListener("load", () => {
-      if (publisherSplashLeaving) return;
+      if (publisherSplashLeaving || publisherSplashDone) return;
       requestAnimationFrame(() => { if (!publisherSplashLeaving) publisherSplash.classList.add("shown"); });
       publisherSplashTimer = setTimeout(leavePublisherSplash, 3500);
     }, { once: true });
@@ -691,6 +703,7 @@ function togglePresentation() {
   if (enhanced && state.classicAvailable === false) return;
   enhanced = !enhanced;
   if (!enhanced) activeTravel = undefined;
+  if (!enhanced) endPublisherSplash();
   document.documentElement.dataset.presentation = enhanced ? "enhanced" : "classic";
   presentation.setAttribute("aria-pressed", String(enhanced));
   mapToggle.hidden = !enhanced;
