@@ -360,7 +360,7 @@ const server = createServer(async (req, res) => {
   res.setHeader("x-content-type-options", "nosniff");
   if (req.headers.host !== `127.0.0.1:${port}`) {
     res.writeHead(403).end();
-  } else if (req.method === "GET" && req.url === "/") {
+  } else if (req.method === "GET" && (req.url === "/" || req.url?.startsWith("/?"))) {
     res.setHeader("content-security-policy", "default-src 'self'; img-src 'self' data:; style-src 'unsafe-inline'");
     res.writeHead(200, { "content-type": "text/html; charset=utf-8" }).end(page);
   } else if (req.method === "GET" && req.url === "/play.js") {

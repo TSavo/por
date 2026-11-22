@@ -147,7 +147,8 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
     socket = new WebSocket(pages.find(({ type }) => type === "page").webSocketDebuggerUrl);
     await waitFor("Chrome's debug connection", () => socket.readyState === WebSocket.OPEN);
     await waitFor("the game server", () => fetch(origin).then((response) => response.ok, () => false));
-    await command("Page.navigate", { url: origin });
+    // The page starts in Enhanced; the checks were written for a page that starts in Classic.
+    await command("Page.navigate", { url: `${origin}/?display=classic` });
     await waitFor("the game page", () => evaluate('typeof send === "function" && document.querySelector("#screen").naturalWidth === 320'));
     await evaluate(`(() => {
       if (!enhanced) document.querySelector("#presentation").click();

@@ -544,15 +544,19 @@ function holdAnimationFrame(view) {
   }, view.durationMs ?? 120);
 }
 
-// The shipped game has no original pictures, so it runs in Enhanced with no Classic switch. The player's
-// own original files make Classic available (ROADMAP.md, "The release shape").
+// The shipped game has no original pictures, so it has no Classic switch. The player's own original
+// files make Classic available (ROADMAP.md, "The release shape").
+// The game always starts in Enhanced (the owner, 2026-11-22). With the player's own files the switch
+// to Classic is there; without them it is hidden. The checks open the page with ?display=classic to
+// start where they were written to start.
+const startInClassic = new URLSearchParams(location.search).get("display") === "classic";
 let presentationSettled = false;
 function settlePresentation() {
   if (presentationSettled || state.classicAvailable === undefined) return;
   presentationSettled = true;
-  if (state.classicAvailable) return;
+  if (state.classicAvailable && startInClassic) return;
   if (!enhanced) togglePresentation();
-  presentation.hidden = true;
+  presentation.hidden = !state.classicAvailable;
 }
 
 function togglePresentation() {

@@ -7371,7 +7371,8 @@ try {
     assert.ok(!response.exceptionDetails, response.exceptionDetails?.text);
     return response.result.value;
   }
-  await command("Page.navigate", { url: origin });
+  // The page starts in Enhanced; these replays were written for a page that starts in Classic.
+  await command("Page.navigate", { url: `${origin}/?display=classic` });
   await waitFor("the game display", () => run('document.querySelector("#screen")?.naturalWidth === 320'));
   if (patrolCombat || courtyard || orcs || goblins || combatPose?.manualPolling || illustration?.manualPolling ||
     routeName === "slums-mage-orc-ready" || routeName === "slums-mage-orc-leader") {
