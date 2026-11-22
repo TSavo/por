@@ -56,7 +56,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 |   of which several tiles together | 1467 |
 |   of which the same pixels already have art of yours in another area | 794 |
 | Battlefield cells to do | 0 |
-| Tile keys in the manifests | 3975 |
+| Tile keys in the manifests | 3956 |
 |   accounted for by the tool | 3811 |
 | Battlefield keys in the manifests | 83 |
 |   that are one stored cell of a battlefield picture | 78 |
@@ -91,7 +91,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 16 | The Lizardman Keep | yes | 856 | 158 | 105 | 158 of 158 |
 | 17 | The Nomad Camp | yes | 186 | 164 | 0 | 164 of 164 |
 | 18 | Podol Plaza | not yet | 337 | 161 |  | 189 of 194 (28 as first views of the next area) |
-| 20 | The Slums | not yet | 395 | 177 |  | 177 of 197 |
+| 20 | The Slums | not yet | 395 | 177 |  | 177 of 178 |
 | 21 | Sokal Keep | yes | 500 | 85 | 165 | 85 of 85 |
 | 22 | Yarash's Pyramid | yes | 140 | 70 | 17 | 70 of 70 |
 | 23 | Yarash's Pyramid, lower | yes | 126 | 39 | 39 | 39 of 39 |
@@ -2793,7 +2793,7 @@ Areas not confirmed, and why:
 - Area 7 (Valjevo Castle, the Pool): 58 of the 131 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 15 (Mendor's Library): 15 of the 185 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 18 (Podol Plaza): 5 of the 194 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
-- Area 20 (The Slums): 20 of the 197 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
+- Area 20 (The Slums): 1 of the 178 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete.
 - Area 25 (Wilderness, west): only 0 cells of this area have artwork so far, too few to confirm the tool's reading of its maps and wall sets against.
 - Area 27 (Wilderness, east): only 19 cells of this area have artwork so far, too few to confirm the tool's reading of its maps and wall sets against.
 

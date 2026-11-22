@@ -76,6 +76,13 @@ current script cursor and caller. Each record includes the matching asset ID,
 original anchor and dimensions, and the cursor and caller seen in play. This only
 checks sprites with an installed placement to compare against.
 
+The original Slums route pack included 19 cell fingerprints from the feeding
+kobold's approach at (14, 7) facing south. All 19 intersect the opaque pixels of
+`SPRIT2.DAX:0:0:0` at its native anchor. The `slums-feeding-kobolds` Chrome
+replay now selects `slums-feeding-kobold-approach.png` over the clean Slums
+terrain on DOS 1.0 and GOG 1.3. The terrain manifest drops those captured
+actor fragments.
+
 The Valhingen stair ambush and single-zombie trap share a near sprite and
 script cursor. The group replacement requires the stair script's caller
 as well. The Chrome replays `valhingen-zombie-approach`,
