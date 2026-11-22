@@ -12,8 +12,8 @@
   "  of which several tiles together": 1467,
   "  of which the same pixels already have art of yours in another area": 794,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 3956,
-  "  accounted for by the tool": 3811,
+  "Tile keys in the manifests": 3958,
+  "  accounted for by the tool": 3813,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
@@ -603,15 +603,15 @@
    "area": 20,
    "name": "The Slums",
    "established": false,
-   "why": "1 of the 178 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
+   "why": "1 of the 180 cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete",
    "maps": [
     20
    ],
    "wallSets": [
     "WALLDEF2 block 2 (tiles 8X8D2 block 2), block 4 (tiles 8X8D2 block 4), block 1 (tiles 8X8D2 block 1)"
    ],
-   "existingKeys": 178,
-   "existingKeysAccountedFor": 177,
+   "existingKeys": 180,
+   "existingKeysAccountedFor": 179,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [
     "tile:20:e3186849c39595898dc81456768972ec3ccb4e6dfd818445b630fc0799fea169"
@@ -621,7 +621,8 @@
    "toDo": 0,
    "notEstablished": {
     "cells of an area whose reading is not confirmed": 218
-   }
+   },
+   "existingKeysOnlyAsWallMaterials": 2
   },
   {
    "area": 21,
