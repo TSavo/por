@@ -683,6 +683,14 @@ const stojanowTollApproach = [
 const councilClerkApproach = ["right", "right", "up", "right", "right", "up", "enter", "enter"];
 
 const illustrationRoutes = new Map([
+  ["new-phlan-training-north-junction", {
+    slot: "A", inputs: ["left", "up", "up"],
+    portrait: "scene-illustration:area:11:ecl:9b56",
+    heldPortrait: "scene-illustration:area:11:ecl:9b56",
+    prompt: /MAGICUSERSTOGOTHROUGHTHEEASTDOORANDCLERICSTOGOTHROUGHTHEWESTDOOR/i,
+    continuation: { inputs: ["left", "up"], portrait: "portrait:HEAD3.DAX:16:BODY3.DAX:4",
+      prompt: /WETRAINONLYCLERICSHERE/i },
+  }],
   ["new-phlan-training-duels", {
     slot: "A", inputs: ["left", "up", "right", "up"],
     portrait: "scene-illustration:area:11:ecl:a167:caller:9be2",
@@ -6980,7 +6988,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel ||
       ["slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
-        "new-phlan-training-duels"].includes(routeName) ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
+        "new-phlan-training-duels", "new-phlan-training-north-junction"].includes(routeName) ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
   },
   stdio: ["ignore", "ignore", "inherit"],
 });
