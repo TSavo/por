@@ -241,6 +241,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const mendorLibrary = auditReachability && !context.arrivalFrom && context.script.area === 15 && context.map === 15;
     const valjevo = auditReachability && !context.arrivalFrom && context.script.archive === 5
       && context.script.area === context.map && (context.map === 4 || context.map === 6);
+    const middleWilderness = auditReachability && !context.arrivalFrom && context.script.area === 26 && context.map === 26;
     const auditedPalette = lizardKeep || mendorLibrary || valjevo;
     // ECL16's descents enter a roofed component. Its relocations all land in
     // that component. The surface starts include the entrance and stair returns.
@@ -304,7 +305,8 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       const possible = roofed ? context.script.sky.covered : context.script.sky.open;
       // Paired native captures of the Podol healer route show canopy colour 12.
       if (roofed && context.script.area === 18 && context.map === 18) return [...new Set([...possible, 12])];
-      return possible.filter((sky) => !kuto || sky === 0 || sky === 11 || (!lowerWell && sky === 12));
+      return possible.filter((sky) => (!middleWilderness || sky !== 14)
+        && (!kuto || sky === 0 || sky === 11 || (!lowerWell && sky === 12)));
     };
     const backdropsOf = (agg: Agg): Backdrop[] => !agg.open ? ["-"]
       : agg.rc === 0 ? skies(agg.roofed).map(skyBack)
@@ -339,7 +341,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       }
     }
     for (const [hash, entry] of overhead) entries.set(hash, [...(entries.get(hash) ?? []), entry]);
-    return { entries, stoodOn, map, playable, auditedPalette };
+    return { entries, stoodOn, map, playable, auditedPalette, narrowedPalette: middleWilderness };
   };
 
   const items: Item[] = [];
@@ -365,9 +367,9 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const auditedContexts = new Set<Context>();
     const walkable = new Map<Context, Set<number>>();
     for (const context of mine) {
-      const { entries, stoodOn, map, playable, auditedPalette } = enumerate(context, have);
-      if (auditedPalette) {
-        auditedContexts.add(context);
+      const { entries, stoodOn, map, playable, auditedPalette, narrowedPalette } = enumerate(context, have);
+      if (auditedPalette) auditedContexts.add(context);
+      if (auditedPalette || narrowedPalette) {
         // Keep existing files traceable without counting the unreachable views as playable.
         for (const hash of enumerate(context, have, false).entries.keys()) {
           if (!entries.has(hash) && have.has(hash)) unreachableHashes.add(hash);
