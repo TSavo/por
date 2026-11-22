@@ -162,6 +162,10 @@ interface Item {
   /** Areas where the same pixels already have artwork, with one PNG that draws them. */
   drawnIn: number[];
   sameAs?: string;
+  /** The stored tiles of the cell without the sky or ground behind them: cells with one shape differ only in that. */
+  shape?: string;
+  /** A key of this area that already has artwork for the same shape over another sky or ground. */
+  sameShapeAs?: string;
   why: string;
 }
 
@@ -501,23 +505,28 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     };
     const overheadConfirmed = [...seen].some(([hash, list]) => have.has(hash) && list.every((entry) => entry.areaView));
 
+    const shapeOf = (signature: string) => signature.includes("|") ? signature.slice(signature.indexOf("|") + 1) : signature;
+    const shapeWithArt = new Map<string, string>();
+    for (const [hash, list] of seen) if (have.has(hash)) for (const entry of list) {
+      const shape = shapeOf(entry.cell.signature);
+      if (shape && !shapeWithArt.has(shape)) shapeWithArt.set(shape, `tile:${label}:${hash}`);
+    }
     for (const [hash, list] of seen) {
       if (have.has(hash)) continue;
       if (!report.established) { note("cells of an area whose reading is not confirmed"); continue; }
       const reached = list.filter((entry) => [...entry.squares].some((square) => walkable.get(entry.context)!.has(square)));
       const certain = reached.filter((entry) => entry.areaView ? overheadConfirmed : auditedContexts.has(entry.context) || backdropOk(entry.cell.backdrop));
-      // The area's reading is confirmed, so the game's own draw procedure produces this cell from this
-      // square. What existing artwork does not confirm is only whether play brings it up: the overhead
-      // view, a sky or ground colour of another hour, a square beyond the ones already covered. Holding
-      // these back left the artist with an empty list and thousands of cells outstanding, so they are
-      // listed as work, each saying why it is likely and not certain (the owner, 2026-11-21: every cell
-      // the game can show gets artwork).
-      let likely = "";
+      // Held back, not listed. On 2026-11-21 these were listed as "likely" work for an hour and that
+      // was wrong: the sky and ground combinations the tool tries include values other areas' scripts
+      // set (the Graveyard sets its own on entry, yet was multiplied by Kuto's Well's and the starting
+      // values), which turned a few dozen cells into 1,542. Nothing goes on the list until the area's
+      // own sky and ground are established.
+      const likely = "";
       if (!certain.length) {
-        likely = list.every((entry) => entry.areaView) ? "likely: drawn by the overhead area view, which no existing artwork of this area confirms"
-          : !reached.length ? "likely: drawn from squares not connected to the ones the existing artwork covers"
-          : "likely: drawn under a sky or ground colour no existing artwork of this area shows, such as another hour of the day";
-        certain.push(...(reached.length ? reached : list));
+        if (list.every((entry) => entry.areaView)) note("cells of the overhead area view, which no existing artwork of the area confirms");
+        else if (!reached.length) note("cells seen only from squares not connected to any square the existing artwork was made from");
+        else note("cells that show a sky or ground colour no existing artwork of the area shows");
+        continue;
       }
       const entry = certain[0]!;
       const { context, cell } = entry;
@@ -531,6 +540,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
         kind: "first-person cell", key: `tile:${label}:${hash}`, width: 32, height: 32, area: label, areaName: report.name, group, what: cell.kind,
         composition: cell.signature, description: `${describeSignature(cell.signature)}, shown in area ${label} (${report.name})`,
         seenAt: entry.first, views, drawnIn: drawnIn.get(hash) ?? [], sameAs: sameAs.get(hash),
+        shape: shapeOf(cell.signature), ...(shapeWithArt.has(shapeOf(cell.signature)) ? { sameShapeAs: shapeWithArt.get(shapeOf(cell.signature)) } : {}),
         why: likely ? `${likely}; drawn in ${views} views of map ${context.map} (${slotText(context)})`
           : `drawn in ${views} views of map ${context.map} (${slotText(context)}) from squares connected to ones the existing artwork covers`,
       });
@@ -652,11 +662,7 @@ function battlefield(data: PortGameData, art: Map<string, Art>, original: Origin
         distinct.add(hash);
         if (keyed.has(hash)) { report.withArt++; return; }
         if (random.has(hashes.join())) return;
-        // WILDCOM is the terrain of fights outdoors, so its pictures are listed even where no artwork
-        // has been seen on them. SQRPACI is the battlefield's two picture slots as stored on disk, which
-        // the game overwrites with DUNGCOM or WILDCOM pictures before a fight, and where BACPAC is drawn
-        // is not read: those stay held back until it is known that their stored pictures are ever shown.
-        if (!proven.has(hashes.join()) && archive !== "WILDCOM.DAX") { report.notEstablished++; return; }
+        if (!proven.has(hashes.join())) { report.notEstablished++; return; }
         report.toDo++;
         if (listed.has(hash)) return;
         listed.add(hash);
@@ -760,7 +766,25 @@ function document(list: Worklist): string {
   const add = (...text: string[]) => lines.push(...text);
   const cellItems = list.items.filter((item) => item.kind === "first-person cell"), battleItems = list.items.filter((item) => item.kind === "battlefield cell");
   add("# Artwork worklist", "",
-    `**The artwork is done when \`npm run verify:art-worklist\` reports 0 remaining and nothing is left under "Not established". It reports ${list.remaining} confirmed cells awaiting art now.**`, "",
+    `**${list.remaining} wall-tile cells still need art. The artwork is done when \`npm run verify:art-worklist\` reports 0 and nothing is left under "Not established".**`, "",
+    "## The short version", "",
+    "Portraits, monsters, scenes and combat pictures are not on this list: this is the first-person view's wall tiles and the outdoor battle terrain.",
+    "A cell is one 8 by 8 square of the screen, redrawn at 32 by 32. Most cells below are a shape you have already drawn, standing over a different sky or ground colour",
+    "(another hour of the day, another part of the map). So count shapes, not cells:", "",
+    "| Area | Cells to do | Distinct shapes | Shapes you have already drawn over another sky or ground | Shapes with no version yet |", "| ---: | ---: | ---: | ---: | ---: |",
+    ...(() => {
+      const byArea = new Map<string, Item[]>();
+      for (const item of cellItems) byArea.set(`${item.area} ${item.areaName}`, [...(byArea.get(`${item.area} ${item.areaName}`) ?? []), item]);
+      const rows = [...byArea].sort(([, a], [, b]) => b.length - a.length).map(([area, items]) => {
+        const shapes = new Set(items.map((item) => item.shape)), known = new Set(items.filter((item) => item.sameShapeAs).map((item) => item.shape));
+        return { area, cells: items.length, shapes: shapes.size, known: known.size };
+      });
+      const sum = (pick: (row: typeof rows[number]) => number) => rows.reduce((total, row) => total + pick(row), 0);
+      return [...rows.map((row) => `| ${row.area} | ${row.cells} | ${row.shapes} | ${row.known} | ${row.shapes - row.known} |`),
+        `| **All areas** | **${sum((row) => row.cells)}** | **${sum((row) => row.shapes)}** | **${sum((row) => row.known)}** | **${sum((row) => row.shapes - row.known)}** |`];
+    })(), "",
+    `Outdoor battle terrain: ${battleItems.length} cells. Each item below carries \`shape\` and, where there is one, \`sameShapeAs\`: the key of your existing art for that shape in the same area.`,
+    "Start with the shapes you have already drawn: those are the same piece over a new background. Then the shapes with no version yet.", "",
     "This file is written by `npm run art:worklist`. Do not edit it or `qa/art-worklist.json` by hand: add art, run the tool, commit what it writes.", "",
     "To the artwork agent: this list exists to carry your work to 100%, not to correct it. The owner's words are that you have",
     "\"done an amazing job of keeping the art consistent in the VGA style, creating all new 32x32 tiles from 8x8 inspirations\".",
@@ -935,6 +959,8 @@ function main(): void {
     "  of which plain sky or ground": cellItems.filter((item) => item.what === "plain backdrop").length,
     "  of which several tiles together": cellItems.filter((item) => item.what === "several tiles together").length,
     "  of which the same pixels already have art of yours in another area": cellItems.filter((item) => item.sameAs).length,
+    "Distinct shapes among the first-person cells (the same tiles, whatever sky or ground is behind them)": new Set(cellItems.map((item) => `${item.area}:${item.shape}`)).size,
+    "  of which the area already has your art for that shape over another sky or ground": new Set(cellItems.filter((item) => item.sameShapeAs).map((item) => `${item.area}:${item.shape}`)).size,
     "Battlefield cells to do": battle.items.length,
     "Tile keys in the manifests": first.reports.reduce((sum, report) => sum + report.existingKeys, 0),
     "  accounted for by the tool": first.reports.reduce((sum, report) => sum + report.existingKeysAccountedFor, 0),
