@@ -2509,6 +2509,17 @@ const illustrationRoutes = new Map([
     prompt: /THETOWERDOORSWINGSOPENANDASMALLARMYOFZOMBIESSHUFFLESOUT.*LOCKSFALLINGINTOPLACE/i,
     finalPhaseCapture: "valhingen-zombie-tower-attack.png",
   }],
+  ["valhingen-mystic-northern-wall", {
+    slot: "A", inputs: ["l"],
+    portrait: "scene-illustration:area:10:ecl:b420",
+    prompt: /THEMYSTICMANSPEAKS.*THEVAMPIREISBEHINDTHENORTHERNWALL/i,
+    finalPhaseCapture: "valhingen-mystic-northern-wall.png",
+    journalLead: "graveyard-vampire-north-wall", journalLeadAtDiscovery: true,
+    continuation: {
+      inputs: ["right", "l", "left", "up"],
+      portrait: "scene-illustration:area:10:ecl:b6c6:caller:b1bd", prompt: /WOODENSTAIRSLEADINTOAPIT/i,
+    },
+  }],
   ["valhingen-marble-chest", {
     slot: "A", inputs: ["l"],
     portrait: "scene-illustration:area:10:ecl:b6c6:caller:9e99",
