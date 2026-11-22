@@ -721,10 +721,11 @@ function battlefield(data: PortGameData, art: Map<string, Art>, original: Origin
   const reports: BattleReport[] = [];
   const listed = new Set<string>();
   const unconfirmed = new Set<string>();
+  const overlandOnly = new Set<string>();
   const about: Record<string, string> = {
     "DUNGCOM.DAX": "terrain pictures of fights indoors; the game copies them into the battlefield's picture slots",
-    "WILDCOM.DAX": "terrain pictures of fights outdoors; the game copies them into the battlefield's picture slots",
-    "SQRPACI.DAX": "the battlefield's two picture slots as stored (overlay 11 loads blocks 1 and 2; the terrain draw takes its frames from them)",
+    "WILDCOM.DAX": "the scenery of fights outdoors: bushes, trees, logs, rocks, streams and cacti",
+    "SQRPACI.DAX": "the terrain sheet: block 1 frames 0 to 39 are the ground of fights outdoors (the same pixels as BACPAC); the rest of block 1 and all of block 2 are the Moonsea overland map's tiles, which Enhanced replaces with the illustrated Moonsea plate",
     "BACPAC.DAX": "40 base terrain pictures loaded into the battlefield slots; their pixels match SQRPACI block 1 frames 0–39",
   };
   for (const archive of ["DUNGCOM.DAX", "WILDCOM.DAX", "SQRPACI.DAX", "BACPAC.DAX"]) {
@@ -739,7 +740,14 @@ function battlefield(data: PortGameData, art: Map<string, Art>, original: Origin
         distinct.add(hash);
         if (keyed.has(hash)) { report.withArt++; return; }
         if (random.has(hashes.join())) return;
-        if (!proven.has(hashes.join())) {
+        // Looked at on 2026-11-22. WILDCOM is the scenery of fights outdoors and BACPAC's 40 frames are the
+        // ground of fights outdoors (overlay 0x03 loads them into terrain slots 0 to 39; the wyvern fight
+        // drew slots 3 to 39): both are work. SQRPACI's other frames, block 1 from 40 and all of block 2,
+        // are the Moonsea overland map's tiles. Enhanced replaces the overland view with the illustrated
+        // Moonsea plate and its fast travel (docs/MAP-CONCEPTS.md), so those need no artwork.
+        const [archiveName, blockText, , frameText] = name.split(":");
+        if (archiveName === "SQRPACI.DAX" && (blockText !== "1" || Number(frameText) >= 40)) { overlandOnly.add(hash); return; }
+        if (!proven.has(hashes.join()) && archiveName !== "WILDCOM.DAX" && archiveName !== "BACPAC.DAX" && archiveName !== "SQRPACI.DAX") {
           report.notEstablished++;
           unconfirmed.add(hash);
           return;
@@ -858,7 +866,7 @@ function document(list: Worklist): string {
       const work = list.remaining + keyable.length;
       return [
         work ? `**There is art to do: ${work} item${work === 1 ? "" : "s"}.**` : "**There is no proven art to do right now.** Everything the tools can show the game draws has your art. Check back after the QA owner's next update to this file.", "",
-        `1. **Wall tiles: ${list.remaining ? `${list.remaining} cells to draw, in ${[...new Set(cellItems.map((item) => item.areaName ?? "the battlefield terrain"))].join(", ")}` : "none"}.**${list.remaining ? " Each is listed below with its exact key." : ""}`,
+        `1. **Wall tiles: ${cellItems.length ? `${cellItems.length} cells to draw, in ${[...new Set(cellItems.map((item) => item.areaName))].join(", ")}` : "none"}. Outdoor fight terrain: ${battleItems.length ? `${battleItems.length} cells to draw (the ground and scenery of fights outdoors: grass, mountains, bushes, trees, logs, rocks, streams, cacti)` : "none"}.**${list.remaining ? " Each is listed below with its exact key." : ""}`,
         `2. **Pictures: ${keyable.length ? `${keyable.length} frames to draw` : "none"}.**${keyable.length ? ` Listed under "Other pictures no key names", each with its key form.` : ""}` +
           (ending.length ? ` The ${ending.length} ending frames under "Other pictures no key names" are not work: no key can name them, and the Enhanced ending covers those beats with its scene illustrations (docs/ART-INVENTORY.md). Whether the very last beat, the final council reward, is covered is still to be checked.` : ""),
         `3. **Do not draw anything under "Not established".** Those cells are not confirmed to appear. The QA owner is settling them by play and moves each one that proves real into item 1.`, "",
