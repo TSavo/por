@@ -28303,7 +28303,7 @@ export function exe_05d5e(m: Cpu): void {
       case 0x5d60: {
         // 5d60: div cl
         m.tick(0x5d60);
-        { const d = m.cl; if (!d) throw new Error('div0'); const q = Math.floor(m.ax / d); m.al = q & 0xff; m.ah = m.ax % d; }
+        { const d = m.cl; if (!d) throw new Error('div0'); const n = m.ax; m.al = Math.floor(n / d) & 0xff; m.ah = n % d; }
         ip = 0x5d62;
         break;
       }

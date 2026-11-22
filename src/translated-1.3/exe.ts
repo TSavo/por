@@ -102666,7 +102666,7 @@ export function exe_0b13f(m: Cpu): void {
       case 0xb141: {
         // b141: div cl
         m.tick(0xb141);
-        { const d = m.cl; if (!d) throw new Error('div0'); const q = Math.floor(m.ax / d); m.al = q & 0xff; m.ah = m.ax % d; }
+        { const d = m.cl; if (!d) throw new Error('div0'); const n = m.ax; m.al = Math.floor(n / d) & 0xff; m.ah = n % d; }
         ip = 0xb143;
         break;
       }

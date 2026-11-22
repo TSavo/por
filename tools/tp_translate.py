@@ -367,8 +367,9 @@ def emit_insn(insn, next_ip: int, proc_name: dict[int, str], falls: bool = True,
             f"{{ const a = m.read16({seg}, {off}); const r = m.setSubFlags(16, a, {imm(parts[1])}); m.write16({seg}, {off}, r); }}"
         )
     elif mn == "div" and parts[0] in REG8:
+        # The remainder comes from the dividend, not from AX after AL holds the quotient.
         nxt(
-            f"{{ const d = m.{parts[0]}; if (!d) throw new Error('div0'); const q = Math.floor(m.ax / d); m.al = q & 0xff; m.ah = m.ax % d; }}"
+            f"{{ const d = m.{parts[0]}; if (!d) throw new Error('div0'); const n = m.ax; m.al = Math.floor(n / d) & 0xff; m.ah = n % d; }}"
         )
     elif mn == "div" and parts[0] in REG16:
         nxt(
