@@ -146,6 +146,34 @@ there is no live runtime speech synthesis. The narrator performs quoted
 characters in audiobook style while character IDs and directions preserve
 continuity. The project owner handles any later separate character-voice casting.
 
+### Every take is listened to
+
+A generated take can say a sentence twice, speak its direction aloud or stop early, and still pass
+every check that compares files. On 2026-11-21 a speech recogniser found 142 of 1,747 recordings
+doing one of those. Two rules came out of it.
+
+- **Only a manner is sent as the direction, never an instruction.** The generator sends
+  `[direction] text`. A direction such as "perform the Zhentil commandant consistently:
+  controlled, cordial, probing, and politically calculating; retain narrator identity for
+  narration" is partly read as script: 72% of takes whose direction began "perform" were wrong,
+  against 2.5% of the rest, and in a direct test twelve takes of twelve failed as a sentence and
+  none as "controlled, cordial, probing, politically calculating". A direction with "perform", a
+  colon or semicolon, or more than 14 words, or one that describes an action as a sentence, needs
+  a hand-written manner in `src/audio/direction-tags.json`; the direction stays in the queue as
+  the intent. `tools/narration-direction.ts` applies this and `npm run verify-narration-directions`
+  checks every queue.
+- **Every take is transcribed before it is kept.** `tools/generate-elevenlabs-batch.ts` needs
+  `POR_WHISPER_URL`, a server with the OpenAI `/v1/audio/transcriptions` route (the `whisper`
+  service of the voice stack on Battleaxe, port 8787). A take that repeats a three-word phrase the
+  script says once, or says clearly more or fewer words than its script, is thrown away and made
+  again, up to six times; after three the line is sent with no manner. The receipt beside each
+  recording records the manner sent and what was heard.
+
+`npm run qa:narration-transcripts` does the same listening for the whole library and keeps the
+results in `qa/narration-transcripts.json` by file hash; `-- --report` reads them without a
+server. It proves the words. It does not prove the performance: a recogniser cannot tell whether
+a character sounds right, and it mishears names, so its "listen to these" list is for a person.
+
 The translated ECL runtime emits the exact archive, block, instruction address,
 and operand identity observed from the original interpreter state. The browser
 resolves that source ID against the master manifest, suppresses covered

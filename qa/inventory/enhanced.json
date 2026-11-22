@@ -349,10 +349,12 @@
             "audio/voices/narrator-anchor.*; src/audio/narrator-voice-design.json; each unit's direction and characterId; the transcript beside each recording"
           ],
           "checks": [
-            "voice-master",
-            "narration-generation"
+            "narration-directions",
+            "narration-generation",
+            "narration-transcripts",
+            "voice-master"
           ],
-          "gap": "The checks compare each transcript with the game's text and record the narrator identity used to generate it. Nothing listens to a recording, so a take that drifts from the narrator's voice would not be caught."
+          "gap": "A speech recogniser confirms the words of every recording. Nothing judges the performance: whether a take sounds like the narrator, or a character like the same character, needs a person's ear."
         }
       ]
     },

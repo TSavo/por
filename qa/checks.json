@@ -258,6 +258,20 @@
       "command": "npm run verify:art-worklist",
       "reference": "game-data",
       "needs": []
+    },
+    {
+      "id": "narration-transcripts",
+      "title": "A speech recogniser hears every narration recording say its script: no repeated phrase, nothing added, nothing cut",
+      "command": "npm run qa:narration-transcripts -- --report",
+      "reference": "game-data",
+      "needs": []
+    },
+    {
+      "id": "narration-directions",
+      "title": "Every narration direction is sent to the voice model as a plain manner, never an instruction",
+      "command": "npm run verify-narration-directions",
+      "reference": "game-data",
+      "needs": []
     }
   ]
 }
