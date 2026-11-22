@@ -39,7 +39,7 @@
       "file": "a tool and npm script (yours to name), its number at the top of docs/ART-WORKLIST.md",
       "what": "Count every frame, over every recorded walk and replay, where Enhanced falls back to the original's picture (classicPortrait, the frame's own pixels, any Classic fallback): from game/ each one is a blank view. Show fallbacks / distinct keys as art to draw, red while any is left. Issue #142; #140 and #141 are the first two.",
       "asked": "The owner, 2026-11-22: \"what else are we still missing?\" (found by the off-route walks of #130)",
-      "done": null
+      "done": "a8cb2ebb verifies 33 of 33 recorded walks and two narration captures with zero Enhanced fallbacks over 4,304 Chrome views. The artwork worklist has no confirmed missing cells or picture frames."
     }
   ]
 }
