@@ -304,6 +304,25 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "walk-clerk-pays-three": {
+   "areas": [
+    0,
+    8,
+    13,
+    27
+   ],
+   "commissions": [
+    "auction",
+    "kobolds",
+    "kovel",
+    "nomads",
+    "sokal",
+    "textile"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
