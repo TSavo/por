@@ -9,6 +9,9 @@
 > artwork replay routes have been removed. Use the same artwork routes for both editions.
 > `npm run verify:script-positions` checks this. See docs/REPLAYS.md.
 
+> **What is left to draw** is listed in [ART-WORKLIST.md](ART-WORKLIST.md), with the exact key and size of each piece.
+> The artwork is done when `npm run verify:art-worklist` reports 0 remaining.
+
 
 Run `npx tsx tools/art-inventory.ts` with the original game files installed.
 The command accepts an optional game-data directory and output directory. It
