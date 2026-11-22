@@ -560,6 +560,11 @@ const encounterRoutes = new Map([
       capture: true,
       heldPortrait: "portrait:area:10:ecl:a5bb:PIC4.DAX:17:1:0",
     },
+    battleStart: {
+      input: "c", portrait: "scene-illustration:area:10:ecl:a5f7",
+      prompt: /SHADOWYFORMCREATINGNEWSKELETONS.*ABATTLEBEGINS/i,
+      screenshot: "valhingen-skeleton-conjuration-attack.png",
+    },
   }],
   ["valhingen-conjurer-zombie", {
     slot: "A", inputs: ["up", "enter"],
@@ -584,6 +589,11 @@ const encounterRoutes = new Map([
       key: "enter", portrait: "portrait:area:10:ecl:aad6:PIC4.DAX:17:0:0", prompt: /SURPRISEAFIGUREASITSUMMONSAWIGHT/i,
       capture: true,
       heldPortrait: "portrait:area:10:ecl:aad6:PIC4.DAX:17:1:0",
+    },
+    battleStart: {
+      input: "c", portrait: "scene-illustration:area:10:ecl:ab12",
+      prompt: /SURPRISEAFIGUREASITSUMMONSAWIGHT.*ABATTLEBEGINS/i,
+      screenshot: "valhingen-wight-conjuration-attack.png",
     },
   }],
   ["valhingen-spectre-approach-near", {
