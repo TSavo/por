@@ -1,0 +1,27 @@
+npm run qa:version-1.3 on commit 5f66ff10, 2026-11-22, Battleaxe (Ubuntu WSL, RAM tree /dev/shm/por-wt-qa), exit 0
+POR_GAMEDATA=$HOME/por-assets/pool (first release, TPOV), POR_GAMEDATA_1_3=$HOME/por-assets/gog-1.3/POOLRAD, POR_AUDIO_DIR=$HOME/por-assets/original, POR_PYTHON=$HOME/por-venv/bin/python, POR_CHROME=/usr/bin/google-chrome
+First run on the same commit: 12/13, verify:campaign --full stopped 43 s in on 'Chrome did not respond to Runtime.evaluate' at load ~22 (#176); this second run passes all 13.
+
+check 1/13: verify ... pass in 18 s (/dev/shm/por-wt-qa/out/qa-version-1.3/verify.log)
+check 2/13: verify:input ... pass in 8 s (/dev/shm/por-wt-qa/out/qa-version-1.3/verify-input.log)
+check 3/13: verify:translation-reproducible:1.3 ... pass in 7 s (/dev/shm/por-wt-qa/out/qa-version-1.3/verify-translation-reproducible-1.3.log)
+check 4/13: verify-voice-master ... pass in 1 s (/dev/shm/por-wt-qa/out/qa-version-1.3/verify-voice-master.log)
+check 5/13: verify-narration-generation ... pass in 2 s (/dev/shm/por-wt-qa/out/qa-version-1.3/verify-narration-generation.log)
+check 6/13: verify-narration-runtime ... pass in 1 s (/dev/shm/por-wt-qa/out/qa-version-1.3/verify-narration-runtime.log)
+check 7/13: verify:code-wheel ... pass in 0 s (/dev/shm/por-wt-qa/out/qa-version-1.3/verify-code-wheel.log)
+check 8/13: acceptance:new-phlan ... pass in 31 s (/dev/shm/por-wt-qa/out/qa-version-1.3/acceptance-new-phlan.log)
+check 9/13: verify:script-positions ... pass in 14 s (/dev/shm/por-wt-qa/out/qa-version-1.3/verify-script-positions.log)
+check 10/13: verify:code-wheel-screen ... pass in 193 s (/dev/shm/por-wt-qa/out/qa-version-1.3/verify-code-wheel-screen.log)
+check 11/13: verify:campaign-opening ... pass in 180 s (/dev/shm/por-wt-qa/out/qa-version-1.3/verify-campaign-opening.log)
+check 12/13: verify:map-journal ... pass in 19 s (/dev/shm/por-wt-qa/out/qa-version-1.3/verify-map-journal.log)
+check 13/13: verify:campaign --full ... pass in 501 s (/dev/shm/por-wt-qa/out/qa-version-1.3/verify-campaign-full.log)
+part                                         done     of   left
+Procedures translated                         846    846      0   171 resident, 675 in 35 overlay slices
+Artwork keys that work on 1.3               13269  13269      0   2615 are keyed by script position; 0 do not land on the same instruction in 1.3
+Narration units that work on 1.3             1432   1432      0   2025 of 2025 source events land on the same instruction in 1.3
+Original sound events exact against 1.3        20     20      0   events 2 to 21, PC speaker and Tandy, against the original interrupt routine under Unicorn
+Translated instructions that match the original  88227  88227      0   0 differ, 0 not run; 3 named deviations and 0 unread flag differences allowed
+Host addresses named and mapped for 1.3       127    127      0   0 raw addresses remain in 12 host files
+Checks passing on 1.3, run now                 13     13      0   verify: pass; verify:input: pass; verify:translation-reproducible:1.3: pass; verify-voice-master: pass; verify-narration-generation: pass; verify-narration-runtime: pass; verify:code-wheel: pass; acceptance:new-phlan: pass; verify:script-positions: pass; verify:code-wheel-screen: pass; verify:campaign-opening: pass; verify:map-journal: pass; verify:campaign --full: pass
+
+0 left before the port runs version 1.3 with all authored work intact
