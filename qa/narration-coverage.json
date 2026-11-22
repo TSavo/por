@@ -214,9 +214,9 @@
   },
   "walk-valjevo-h2": {
    "ledger": "walk-valjevo-h2.jsonl",
-   "games": 1,
-   "decisions": 153,
-   "heard": 48
+   "games": 2,
+   "decisions": 159,
+   "heard": 50
   },
   "yarash-alchemical-laboratory-3f2de014": {
    "ledger": "yarash-alchemical-laboratory-3f2de014.jsonl",
@@ -2259,6 +2259,14 @@
     "key": "the first-person view"
    }
   },
+  "por.voice.ecl5.b7-9c69-9cfc": {
+   "run": "walk-valjevo-h2",
+   "step": 574077058,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
   "por.voice.ecl5.b7-9d26": {
    "run": "walk-valjevo-h2",
    "step": 575102153,
@@ -2933,20 +2941,7 @@
    "value": 2
   }
  },
- "silent": {
-  "covered-without-trigger | por.review.ecl-5.block-7.at-9cfc | ": {
-   "kind": "covered-without-trigger",
-   "sourceId": "por.review.ecl-5.block-7.at-9cfc",
-   "archive": "ECL5.DAX",
-   "block": 7,
-   "runs": {
-    "walk-valjevo-h2": {
-     "count": 1,
-     "step": 574263143
-    }
-   }
-  }
- },
+ "silent": {},
  "playback": {
   "runs": {
    "campaign-full": {
