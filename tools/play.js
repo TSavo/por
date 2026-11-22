@@ -108,6 +108,8 @@ let soundManifest = { events: [] };
 let currentVoice;
 let blockedVoice;
 let narrationQueue = [];
+let keyEndsVoice;
+let pendingVoiceStop;
 let visibilityPausedEffect;
 let visibilityPausedVoice;
 let lastTextId = null;
@@ -1723,8 +1725,13 @@ document.querySelector("#wheel-translate").addEventListener("click", () => {
 }
 
 async function send(key) {
+  const endsVoice = keyEndsVoice;
+  keyEndsVoice = undefined;
   if (codeWheel.ended) return;
   if (!state.ready || posting || state.stopped || renderingSequence === state.sequence) return;
+  if (endsVoice && currentVoice) {
+    pendingVoiceStop = { voice: currentVoice, reason: endsVoice, frame: state.frame, queued: [...narrationQueue] };
+  }
   if (animationFrame) {
     finishAnimation();
     showScreen();
@@ -1748,6 +1755,7 @@ async function send(key) {
       if (key === "backspace") codeWheel.forwarded = Math.max(0, codeWheel.forwarded - 1);
       else if (/^(?:key )?[a-z0-9]$/i.test(key)) codeWheel.forwarded++;
     }
+    if (!result.ok) pendingVoiceStop = undefined;
     return result.ok;
   } catch {
     status.textContent = "Waiting for the local game runner…";
@@ -1782,6 +1790,19 @@ async function poll() {
     void syncAutomap();
     offerLegacyAutomap();
     renderCodeWheel();
+    if (changed && pendingVoiceStop) {
+      const { voice, reason, frame, queued } = pendingVoiceStop;
+      pendingVoiceStop = undefined;
+      if (voice === currentVoice && frame !== state.frame) {
+        // The game acted on the key: the line ends, with the lines that were waiting behind it at the
+        // key press. A narration the game has sent since then is the new screen's and plays next.
+        const since = narrationQueue.filter(line => !queued.includes(line));
+        narrationQueue = narrationQueue.filter(line => queued.includes(line));
+        stopVoice(true, reason);
+        narrationQueue = since;
+        playNextNarration();
+      }
+    }
     if (changed) {
       renderJournal();
       playAnimation();
@@ -1863,7 +1884,11 @@ window.addEventListener("keydown", (event) => {
   resumeBlockedAudio();
   if (event.key !== "F10" && event.target instanceof HTMLElement && event.target.closest("#audio-settings")) return;
   const advancingCoveredPrint = currentVoice?.dataset.queuedNarration === "true" && ["Enter", " "].includes(event.key);
-  if (currentVoice && event.key !== "F10" && !advancingCoveredPrint) stopVoice(true, `key ${event.key}`);
+  // A key ends the line only when the game acts on it. The key press names the reason; send() notes
+  // the screen when the key goes to the game, and poll() ends the voice if the game's next frame
+  // differs. A key that is never sent, or that the game ignores, leaves the narration alone.
+  keyEndsVoice = currentVoice && event.key !== "F10" && !advancingCoveredPrint ? `key ${event.key}` : undefined;
+  queueMicrotask(() => { keyEndsVoice = undefined; });
   // While the Enhanced code wheel is in view it takes the arrows, the word and Enter.
   // A held arrow keeps turning the disc.
   if ((codeWheelShown() || codeWheelAsking()) && !event.ctrlKey && !event.metaKey && !event.altKey && codeWheelKey(event)) return;
