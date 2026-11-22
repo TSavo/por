@@ -1469,7 +1469,11 @@ async function showScreen() {
   renderTravelMap(view);
   tileArt.replaceChildren(...layers);
   tileArt.hidden = !showArt;
-  logShownArtwork(sceneArt ? view.scene ?? view.art : showArt ? portraitId ?? view.encounter?.[2] ?? null : null);
+  // With no artwork drawn, the picture window holds the first-person view of the square or a page of
+  // runes: named as the narration ledger names them (tools/qa-narration.ts), so the two can be compared.
+  const runesInPicture = (view.runes ?? []).some(([cell]) => cell % 40 < 16 && cell < 16 * 40);
+  logShownArtwork(sceneArt ? view.scene ?? view.art : showArt ? portraitId ?? view.encounter?.[2] ?? null
+    : runesInPicture ? "runes in the picture window" : view.perspective ? "the first-person view" : null);
   if (view === state && view.ready && view.portrait && !battleNoticePose && !view.automaticCombat) {
     const portrait = tileArt.querySelector(".encounter-portrait");
     if (portrait) void animateHeldPortrait(portrait, view);

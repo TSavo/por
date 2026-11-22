@@ -78,7 +78,7 @@ told by the player when it stops a voice. It starts, stops and queues nothing.
 | `behindVoiceLine` | a recording from `src/audio/voices.json` was speaking when this was queued: the page had matched it to the same text |
 | `refused` | `play()` was rejected (Chrome's autoplay rule, with no click on the page yet). The player retries on the next key or click |
 | `startedAt`, `startFrame`, `duration` | the audio element's `playing` event, and the recording's length as Chrome decoded it |
-| `artAtStart`, `artSeen`, `artAtEnd` | the Enhanced artwork key drawn (`portrait`, encounter picture or scene), or `null` for a frame with none: at the start, each change while the line sounded, and at the end. `artTimes` gives the seconds into the line of each entry of `artSeen` |
+| `artAtStart`, `artSeen`, `artAtEnd` | the Enhanced artwork key drawn (`portrait`, encounter picture or scene); with none, `"runes in the picture window"` or `"the first-person view"` where the frame shows them (the names the ledger uses), else `null`: at the start, each change while the line sounded, and at the end. `artTimes` gives the seconds into the line of each entry of `artSeen` |
 | `startedOver` | voices still sounding when this one started. Must never appear |
 | `talkedOverBy` | a voice that started while this one was sounding. Must never appear |
 | `pauses` | times the element was paused without being stopped (the tab was hidden) |
