@@ -366,6 +366,11 @@ const portraitLoops = [
     /RELEASEUSORTHELIZARDMENWILLEATUS/i, [210, 210, 210, 210]],
   ["portrait:area:26:ecl:ad46:caller:a6a0:PIC7.DAX:57:", 4, "portrait:area:26:PIC7.DAX:57:0:0",
     /^(?!.*ABATTLEBEGINS).*LIZARDMENSWIMMINGINTHEPOOL/i, [210, 210, 210, 210]],
+  // The guide's fourth native member repeats its second frame at both choices.
+  ["portrait:area:13:ecl:9ef1:PIC8.DAX:0:", [0, 1, 2, 1], undefined,
+    /ADRUNKENKOBOLDLIESHERE/i, [210, 210, 210, 210], [[3, 3]]],
+  ["portrait:area:13:ecl:9f68:PIC8.DAX:0:", [0, 1, 2, 1], undefined,
+    /DOYOUWISHANESCORTTOTHEKING/i, [210, 210, 210, 210], [[3, 3]]],
   ["portrait:area:29:ecl:af2f:caller:a6f7:PIC8.DAX:0:", [0, 1, 2, 1], "portrait:area:29:PIC8.DAX:0:0:0",
     /ASMALLBANDOFSICKLYKOBOLDS/i, [210, 210, 210, 210]],
   ["portrait:area:29:ecl:a730:PIC8.DAX:0:", [0, 1, 2, 1], undefined,

@@ -5844,7 +5844,8 @@ const mendorStacks = routeName === "mendor-library-stacks";
 const fatimaReload = routeName === "kobold-princess-fatima-reload";
 const princessFatima = routeName === "kobold-princess-fatima" || fatimaReload;
 const koboldEscort = routeName === "kobold-cave-escort";
-const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
+const koboldGuideHeld = routeName === "kobold-cave-guide-holds";
+const koboldGuide = routeName === "kobold-cave-guide" || koboldGuideHeld || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
@@ -8213,7 +8214,7 @@ routes.push("textile-return-art", "moonsea-lizardman-travel", "moonsea-sokal-fre
   "moonsea-sokal-decline", "moonsea-valjevo-arrival", "moonsea-valjevo-gate-warning", "moonsea-quest-locked",
   ...districtTravel.keys(), ...atlasRoutes.keys());
 routes.push("stojanow-wall-warning", "stojanow-wall-warning-reload");
-routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload");
+routes.push("kobold-cave-guide-holds", "kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload");
 routes.push("mendor-floorboard-jar-loot", "mendor-manual-loot", "kobold-cave-efreeti-bottle-loot", "kobold-king-treasury", "kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
@@ -8575,6 +8576,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "mendor-storeroom-kobold-map" ||
       routeName === "kobold-white-flag-envoy" || routeName === "kobold-white-flag-escort-phase" || routeName === "kobold-white-flag-refusal" ||
       routeName === "kobold-kings-quarters-native" || routeName === "kobold-cave-efreeti-dialogue" ||
+      routeName === "kobold-cave-guide-holds" ||
       routeName === "valjevo-medusa-phases" || routeName === "valhingen-mummy-sarcophagi-phases" ||
       routeName === "valjevo-fire-giant-loop" ||
       routeName === "valjevo-fire-giant-refusal-loop" ||
@@ -13379,8 +13381,24 @@ try {
     assert.match(frame.journal.objective.nextStep, /Confront the king and the envoys/i);
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the Kobold guide's directions and the throne encounter after a cold reload.");
+  } else if (koboldGuideHeld) {
+    const text = () => frame.text.map(([, char]) => String.fromCharCode(char)).join("");
+    for (const [key, cursor, caption] of [
+      ["up", "9ef1", /ADRUNKENKOBOLDLIESHERE/i],
+      ["w", "9f68", /DOYOUWISHANESCORTTOTHEKING/i],
+    ]) {
+      await advance(key);
+      assert.match(text().replace(/\s+/g, ""), caption);
+      const base = "portrait:area:13:ecl:" + cursor + ":PIC8.DAX:0:";
+      assert.ok([0, 1, 2, 3].some(member => frame.portrait === base + member + ":0"));
+      await verifyHeldPortraitLoop([0, 1, 2, 1].map(member => base + member + ":0"), "kobold-guide-" + cursor);
+    }
+    await advance("n");
+    assert.match(text().replace(/\s+/g, ""), /THEKOBOLDPROMPTLYRETURNSTOSLEEP/i);
+    assert.equal(frame.portrait, "scene-illustration:area:13:ecl:9fb1:cue:guide-asleep");
+    await verifyPortraitPanel();
   } else if (koboldGuide) {
-    const guide = "portrait:area:13:PIC8.DAX:0:0:0";
+    const guide = "portrait:area:13:ecl:9f68:PIC8.DAX:0:";
     const sleepingGuide = "portrait:area:13:ecl:9ef1:PIC8.DAX:0:0:0";
     const knowsOffer = () => frame.journal?.leads.some(({ id }) => id === "kobold-guide-offer");
     for (const key of ["up", "enter", "enter"]) await advance(key);
@@ -13391,7 +13409,7 @@ try {
     await advance("j");
     assert.ok(frame.journal && !knowsOffer());
     for (const key of ["j", "w"]) await advance(key);
-    assert.equal(frame.portrait, guide);
+    assert.ok([0, 1, 2, 3].some(member => frame.portrait === guide + member + ":0"));
     await advance("j");
     assert.ok(knowsOffer());
     if (declineKoboldGuide) {
