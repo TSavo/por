@@ -84,8 +84,8 @@ try {
   await chrome.until("the restarted game", "typeof state === 'object' && state.ready", 240);
   assert.deepEqual(await records(), persisted);
   const page = gamePage(chrome);
-  await page.pressUntil("enter", /Load Saved Game/, 12);
-  await page.press("l", /Load Which Game/);
+  await chrome.evaluate("window.porShell.loadGame()");
+  await chrome.until("the native slot picker", 'gameMenuText().includes("Load Which Game")');
   let text = await page.press("e");
   for (let at = 0; !exploring.test(text) && pressReturn.test(text) && at < 10; at++) text = await page.press("enter");
   assert.match(text, exploring);
@@ -96,7 +96,10 @@ try {
   for (const [area, map] of Object.entries(saved.automap)) {
     for (const cell of Object.keys(map.cells)) assert.ok(maps[area]?.cells[cell], `Restored explored cell ${area}/${cell}`);
   }
-  await page.press("e", /Camp: Save View Magic Rest Alter Exit/);
+  await chrome.evaluate("window.porShell.saveGame()");
+  assert.match(await page.text(), /Save Which Game:/);
+  await page.press("b", /Quit TO DOS/i);
+  await page.press("n", /Camp: Save View Magic Rest Alter Exit/);
   await chrome.key("j");
   await chrome.until("the imported slot's Encamp journal", "state.journal?.leads.some(lead => lead.id === 'sokal-back-in-phlan')");
   console.log("Imported slot E loaded with the same party, journal, and automap after restart. The roster and preserved slot A were byte-identical.");

@@ -105,7 +105,10 @@ async function start() {
       storageWrite = commitRecord(id, data).finally(() => { storageWrite = undefined; });
       return storageWrite;
     },
-    onStopped(message) { next.closed(message); },
+    onStopped(message, dosExitCode) {
+      next.closed(message);
+      if (session === next && dosExitCode === 0) void window.porElectron?.quitGame();
+    },
   });
 }
 
@@ -243,6 +246,7 @@ declare global {
     /** The Electron shell: original files from File > Use Original Files… or original-files.json. */
     porElectron?: {
       getOriginalFiles(): Promise<HostOriginalFiles | { problem: string } | null>;
+      quitGame(): Promise<void>;
       forgetOriginalFiles(): Promise<void>;
       onOriginalFiles(callback: (payload: HostOriginalFiles) => void): void;
     };

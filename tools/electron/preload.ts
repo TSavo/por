@@ -11,6 +11,7 @@ export type HostOriginalFiles = {
 };
 
 contextBridge.exposeInMainWorld("porElectron", {
+  quitGame: (): Promise<void> => ipcRenderer.invoke("game:quit"),
   getOriginalFiles: (): Promise<HostOriginalFiles | { problem: string } | null> => ipcRenderer.invoke("original-files:get"),
   forgetOriginalFiles: (): Promise<void> => ipcRenderer.invoke("original-files:forget"),
   onOriginalFiles: (callback: (payload: HostOriginalFiles) => void) => {

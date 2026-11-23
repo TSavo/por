@@ -438,7 +438,51 @@ journalToggle.addEventListener("click", toggleJournal);
 function originalFilesNeedConfirmation() {
   return !state.stopped && state.scene !== "scene:publisher" && state.scene !== "scene:title";
 }
-window.porShell = { settings: toggleSettings, journal: toggleJournal, map: toggleAutomap, originalFilesNeedConfirmation };
+function gameMenuText() {
+  const cells = Array(1000).fill(" ");
+  for (const [cell, character] of state.text ?? []) cells[cell] = String.fromCharCode(character);
+  return cells.join("").replace(/ +/g, " ");
+}
+
+async function saveGame() {
+  if (document.querySelector("dialog[open]")) return;
+  if (!state.journal && /(?:Area )?Cast View Encamp Search Look\s*$/i.test(gameMenuText())) {
+    await sendToGameInTurn("e");
+  }
+  if (!state.journal && /Camp: Save View Magic Rest Alter Exit\s*$/i.test(gameMenuText())) {
+    await sendToGameInTurn("s");
+  } else if (!/Save Which Game:/i.test(gameMenuText())) {
+    window.alert("You can save when the party can encamp.");
+  }
+}
+
+let loadRequested = sessionStorage.getItem("por-load-on-start") === "1";
+sessionStorage.removeItem("por-load-on-start");
+
+function restartGame(load = false) {
+  if (document.querySelector("dialog[open]") || !document.querySelector("#storage-status").hidden) return;
+  if (originalFilesNeedConfirmation() && !window.confirm(load
+    ? "Leave this game and load a save? Unsaved progress will be lost."
+    : "Restart the game? Unsaved progress will be lost.")) return;
+  if (load) sessionStorage.setItem("por-load-on-start", "1");
+  location.reload();
+}
+function loadGame() {
+  if (document.querySelector("dialog[open]") || /Load Which Game:/i.test(gameMenuText())) return;
+  if (/Load Saved Game/i.test(gameMenuText()) || state.scene === "scene:title") loadRequested = true;
+  else restartGame(true);
+}
+async function advanceLoadRequest() {
+  if (!loadRequested || !state.ready || posting || state.stopped || renderingSequence !== undefined ||
+      animationFrame || codeWheelTool() || !bootWheel.hidden || document.querySelector("dialog[open]")) return;
+  if (/Load Saved Game/i.test(gameMenuText())) {
+    if (await send("l")) loadRequested = false;
+  } else if (state.scene === "scene:title" && !publisherSplashUp()) {
+    await send("enter");
+  }
+}
+
+window.porShell = { saveGame, loadGame, restartGame, settings: toggleSettings, journal: toggleJournal, map: toggleAutomap, originalFilesNeedConfirmation };
 
 // "Use my original files" (#74). Only a release offers it: the server answers /original-files when the
 // launcher names the setting's file. The launcher reads the setting when the game starts, so a change
@@ -2592,6 +2636,7 @@ async function poll() {
       !narrationHoldsView(state) && !state.journal && !codeWheelTool() && state.ready) {
       void send(":poll");
     }
+    void advanceLoadRequest();
     followTravel();
     if (renderingSequence === undefined) renderTravelMap();
     playPendingSounds();

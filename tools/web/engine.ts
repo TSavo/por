@@ -27,7 +27,7 @@ export interface EngineOptions {
   env: Record<string, string>;
   onLines(lines: string[]): void;
   onPut?(id: ResourceId, data: Uint8Array | undefined): void | Promise<void>;
-  onStopped(message: string): void;
+  onStopped(message: string, dosExitCode?: number): void;
   workerUrl?: URL;
 }
 
@@ -64,7 +64,7 @@ export function startEngine(options: EngineOptions): RunningEngine {
       };
       void Promise.resolve().then(() => options.onPut?.(data.id, data.data)).then(() => reply(true), () => reply(false));
     }
-    else if (data.type === "stopped") options.onStopped(data.message);
+    else if (data.type === "stopped") options.onStopped(data.message, data.dosExitCode);
   };
   worker.onerror = (event) => options.onStopped(event.message || "The game's worker failed.");
   const start: EngineStart = { type: "start", entries: options.entries, root: options.root, commands, env: options.env };

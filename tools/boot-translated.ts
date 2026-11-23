@@ -8,7 +8,7 @@ import "./enhanced-art-env.js";
 import { diagnosticFiles, engineHost } from "./engine-host.js";
 import { Cpu } from "../src/cpu/machine.js";
 import { openAutomap } from "./automap.js";
-import { attachDos, consoleText, dosLog, noon, timeOfDay, type BiosKey, type DosFile, type DosFileClosed } from "../src/runtime/dos.js";
+import { DosExit, attachDos, consoleText, dosLog, noon, timeOfDay, type BiosKey, type DosFile, type DosFileClosed } from "../src/runtime/dos.js";
 import { intrCounts } from "../src/runtime/intr.js";
 import { journalFrame, paletteObservers, screen, stampPanelFrame, videoSummary, visibleGameText, type PanelFrameStamp } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
@@ -635,6 +635,7 @@ try {
   const rows = text.join("");
   print(String(rows.replace(/ +$/gm, "").split(" ").length ? rows.match(/.{80}/g)?.filter((r) => r.trim()).join("\n") : "(blank text)"));
 } catch (error) {
+  if (host.game && error instanceof DosExit) throw error;
   report("entry", error);
   print(
     `  regs bx:cx ${cpu.bx.toString(16)}:${cpu.cx.toString(16)} dx:ax ${cpu.dx.toString(16)}:${cpu.ax.toString(16)} es:di ${cpu.es.toString(16)}:${cpu.di.toString(16)}`,

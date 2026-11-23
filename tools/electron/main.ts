@@ -162,6 +162,11 @@ ipcMain.handle("original-files:forget", (event) => {
   writeOriginalFilesSetting(originalSettingPath(), undefined);
 });
 
+ipcMain.handle("game:quit", (event) => {
+  requireGameWindow(event);
+  app.quit();
+});
+
 function runInPage(script: string): void {
   void gameWindow?.webContents.executeJavaScript(script);
 }
@@ -182,6 +187,10 @@ function applicationMenu(): Menu {
   const fileMenu: MenuItemConstructorOptions = {
     label: "File",
     submenu: [
+      { label: "Save Game…", accelerator: "CmdOrCtrl+S", click: () => runInPage("window.porShell?.saveGame()") },
+      { label: "Load Game…", accelerator: "CmdOrCtrl+O", click: () => runInPage("window.porShell?.loadGame()") },
+      { label: "Restart Game…", click: () => runInPage("window.porShell?.restartGame()") },
+      { type: "separator" },
       { label: "Use Original Files…", click: () => { void pickOriginalFiles(); } },
       ...(!mac ? [{ type: "separator" as const }, { role: "quit" as const }] : []),
     ],

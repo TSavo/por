@@ -55,6 +55,10 @@ export const noon = 12 * 60 * 60 * 100;
  * A DOS or BIOS call this layer does not serve. Reaching one in play stops the game with this error;
  * `npm run verify:dos-calls` fails while any `int 21h` in the translated program can ask for one (#83).
  */
+export class DosExit extends Error {
+  constructor(readonly code: number) { super(`dos exit ${code}`); }
+}
+
 export class UnhandledDosCall extends Error {}
 
 /** The player's local time of day, for a game whose dice should differ from the last one. */
@@ -423,7 +427,7 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
       if (file && (file.written || file.read)) fileClosed?.(file.name, file.file.data, file.written);
       return;
     }
-    if (ah === 0x4c) throw new Error(`dos exit ${cpu.al}`);
+    if (ah === 0x4c) throw new DosExit(cpu.al);
     throw new UnhandledDosCall(`int 21 ah=${ah.toString(16)} al=${cpu.al.toString(16)}`);
   };
 }

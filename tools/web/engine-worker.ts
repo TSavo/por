@@ -8,6 +8,7 @@
 import "./shims/buffer-global.js";
 import { useEngineHost } from "../engine-host.js";
 import { MemoryResources, useResources, type ResourceId } from "../../src/resources/provider.js";
+import { DosExit } from "../../src/runtime/dos.js";
 import { CommandReader } from "./command-channel.js";
 
 export interface EngineStart {
@@ -20,7 +21,7 @@ export interface EngineStart {
 export type EngineMessage =
   | { type: "lines"; lines: string[] }
   | { type: "put"; id: ResourceId; data?: Uint8Array; receipt: Int32Array<SharedArrayBuffer> }
-  | { type: "stopped"; message: string };
+  | { type: "stopped"; message: string; dosExitCode?: number };
 
 class EngineExit extends Error {}
 
@@ -59,6 +60,7 @@ self.onmessage = async ({ data }: MessageEvent<EngineStart>) => {
     post({ type: "stopped", message: "Game stopped (exit 0)." });
   } catch (error) {
     flush();
-    post({ type: "stopped", message: error instanceof Error ? error.message : String(error) });
+    post({ type: "stopped", message: error instanceof Error ? error.message : String(error),
+      dosExitCode: error instanceof DosExit ? error.code : undefined });
   }
 };
