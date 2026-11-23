@@ -268,6 +268,11 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
   }
   const matchesRenderer = (hash: string) => acceptedRenderers.has(hash);
   const inventory = JSON.parse(readFileSync(path("qa", "held-portraits.json"), "utf8")) as HeldPortraitInventory;
+  const middleWildernessCheckpoint = "middle-wilderness-patrols/A.json";
+  const { scenes: middleWildernessScenes } = JSON.parse(readFileSync(
+    path("qa", "fixtures", "middle-wilderness-patrols", "scenes.json"), "utf8")) as {
+    scenes: { route: string; producer: string; caption: string; position: SceneryProof["position"]; placement: EncounterPlacement }[];
+  };
   const oneShots = JSON.parse(readFileSync(path("qa", "held-portrait-one-shots.json"), "utf8")) as OneShot[];
   const oneShotByProducer = new Map(oneShots.map(proof => [proof.producer, proof]));
   const residentRestores = JSON.parse(readFileSync(path("qa", "held-portrait-restores.json"), "utf8")) as ResidentRestore[];
@@ -417,8 +422,8 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
   }
 
   function verifiedSceneryPrompt(producer: string, prompt: string) {
-    return inventory.sceneryPrompts?.some(proof => {
-      if (proof.producer !== producer || proof.prompt !== prompt) return false;
+    const proofs = (inventory.sceneryPrompts ?? []).filter(proof => proof.producer === producer && proof.prompt === prompt);
+    function verifiedProof(proof: SceneryPrompt) {
       const fixture = path("qa", "fixtures", proof.checkpoint);
       const caption = normalizeCaption(proof.caption);
       if (!caption || proof.chrome.original.route !== proof.chrome.port.route || !existsSync(fixture)) return false;
@@ -463,7 +468,17 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
           checkpoint.has(observed.checkpointSha256) && isDeepStrictEqual(observed.position, proof.position) &&
           normalizeCaption(observed.caption).includes(caption);
       });
-    });
+    }
+    const expected = middleWildernessScenes.filter(scene => scene.producer === producer);
+    if (expected.length) {
+      // These producers share one prompt per encounter outcome but draw a different actor for each roaming row.
+      return expected.every(scene => scene.placement[2].split(":")[4] === prompt && proofs.some(proof =>
+        !proof.illustration && proof.checkpoint === middleWildernessCheckpoint &&
+        proof.caption === scene.caption && proof.chrome.original.route === scene.route &&
+        isDeepStrictEqual(proof.position, scene.position) &&
+        isDeepStrictEqual(proof.chrome.original.encounter?.placement, scene.placement) && verifiedProof(proof)));
+    }
+    return proofs.some(verifiedProof);
   }
 
   function staticPortraitProblem(site: ScriptSite, prompt: string, variant: StaticPortraitVariant): string | null {
