@@ -31,7 +31,11 @@ async function exercisePoses(keys) {
   async function pixels(url) {
     const image = new Image();
     image.src = url;
-    await image.decode();
+    try {
+      await image.decode();
+    } catch (error) {
+      throw new Error("Image decode failed for " + url.slice(0, 90) + " (" + error.message + ")");
+    }
     if (image.naturalWidth !== 96 || image.naturalHeight !== 96) throw new Error("Unexpected sprite dimensions for " + url.slice(0, 90));
     context.clearRect(0, 0, 96, 96);
     context.drawImage(image, 0, 0);
