@@ -2337,7 +2337,7 @@ const illustrationRoutes = new Map([
     approachStops: { [yarashStudyPath.length]: yarashStudyFar },
     prompt: /ABATTLEBEGINS/i,
     finalPhaseCapture: "yarash-study-far-battle-notice.png",
-    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /YARASHHITPOINTS\d+AC\d+/i },
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS\d+AC\d+/i },
   }],
   ["yarash-study-near-combat", {
     slot: "A", inputs: [...yarashStudyPath, "enter", "a", "a"],
@@ -3435,7 +3435,7 @@ const illustrationRoutes = new Map([
     },
   }],
   ["new-phlan-braccio-introduction-hold", {
-    slot: "H", fixedClockStart: "4320000",
+    slot: "H", fixedClockStart: "4320000", stockInput: true,
     inputs: ["down", "up", "right", "up", "right", "up", "up", "up", "right", "up", "up"],
     portrait: "portrait:HEAD3.DAX:13:BODY3.DAX:1",
     prompt: /ALLOWMETOINTRODUCEDIRTEN,PRIESTOFILMAR.*PRESS<ENTER>\/<RETURN>TOCONTINUE/i,
@@ -3446,7 +3446,7 @@ const illustrationRoutes = new Map([
     },
   }],
   ["new-phlan-tempus-healing-hold", {
-    slot: "A", fixedClockStart: "4320000",
+    slot: "A", fixedClockStart: "4320000", stockInput: true,
     inputs: ["down", "up", "left", "up", "up", "up", "up", "left", "up"],
     portrait: "portrait:area:0:HEAD3.DAX:57:BODY3.DAX:1",
     prompt: /THEPRIESTSOFTEMPUSBIDYOUWELCOME.*DOYOUSEEKHEALING.*YESNO/i,
@@ -3454,7 +3454,7 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["n"], clearsPortrait: true, prompt: /THENYOUMUSTLEAVE/i },
   }],
   ["new-phlan-tempus-watch-battle-notice", {
-    slot: "A", fixedClockStart: "4320000", inputs: ["up"], settleInputs: ["enter", "enter"],
+    slot: "A", fixedClockStart: "4320000", stockInput: true, inputs: ["up"], settleInputs: ["enter", "enter"],
     portrait: "portrait:area:0:ecl:aac7:HEAD3.DAX:57:BODY3.DAX:1",
     prompt: /YOUATTACKEDTHECITYWATCH.*YOUWON.TBEATUSSOEASILY.*ABATTLEBEGINS/i,
     oneShotProducer: "ECL3.DAX:0:aa75",
@@ -4898,7 +4898,7 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
   ["slums-potion-booth-attack", {
-    slot: "G", fixedClockStart: "4320000",
+    slot: "G", fixedClockStart: "4320000", stockInput: true,
     inputs: ["right", "up", "up", "left", "up", "right", "up", "up", "right", "up", "left", "up", "a"],
     phasePrompts: { 12: /LEAVEATTACKSPEAK/i },
     portraitStops: { 12: "portrait:area:20:HEAD2.DAX:5:BODY2.DAX:9" },
