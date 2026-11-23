@@ -28,7 +28,9 @@
     "valhingen-zombie-tower": "qa/fixtures/valhingen-zombie-tower/A.json",
     "zhentil-escape": "qa/fixtures/zhentil-wall-escape/A.json"
   },
-  "chains": {},
+  "chains": {
+    "zhentil-return": "zhentil-escape"
+  },
   "proved": [
     "armorer",
     "mendor-east-court",
@@ -53,6 +55,7 @@
     "valhingen-wight-ambush-loop",
     "valhingen-zombie-roam-animation",
     "valhingen-zombie-tower",
-    "zhentil-escape"
+    "zhentil-escape",
+    "zhentil-return"
   ]
 }

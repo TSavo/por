@@ -395,8 +395,9 @@ The Zhentil quarters guard check starts from
 `qa/fixtures/zhentil-quarters-guards/A.json`, recovered from the earlier
 artwork review. Up and Enter reach the Return, Attack, and Bribe prompt.
 GOG and bundled Chrome record the same native text cells, Enhanced
-portrait, and visit to area 28. The controlled save already holds the
-diplomatic packet. This check covers the outpost display and menu.
+portrait, and visit to area 28. The controlled save has already
+delivered the diplomatic packet. This check covers the outpost
+display and menu.
 
 ## Checkpoints for the presentation replays
 

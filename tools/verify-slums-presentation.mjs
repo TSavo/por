@@ -17980,7 +17980,23 @@ try {
         "left", "up", "up", "left", "up", "left", "up", "up", "enter", "j"]) await advance(key);
       assert.equal(journalStatus(), "ready-to-report");
       // This checkpoint still has its earlier Podal Plaza reward to collect.
-      for (const key of ["j", "enter", "enter", "enter", "s", "e", "j"]) await advance(key);
+      for (const key of ["j", "enter", "enter", "enter", "s", "e"]) await advance(key);
+      if (envoyReturn) {
+        // The clerk resumes after the player acknowledges the closed treasure menu.
+        await advance("enter");
+        const text = frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join("");
+        assert.match(text, /YOUCOMPLETEDYOURMISSIONSOSWIFTLY.*HEREISYOURREWARD/i);
+        const portrait = "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:zhentil-envoy";
+        assert.equal(frame.portrait, portrait);
+        await waitFor("the Zhentil reward illustration", () => run(`
+          state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        await switchBothWays(frame.frame);
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "zhentil-return-reward.png"), Buffer.from(shot.data, "base64"));
+      }
+      await advance("j");
       if (koboldReturn) {
         assert.equal(journalStatus(), "ready-to-report");
         // The clerk pays the earlier envoy reward before the kobold reward.
@@ -17989,11 +18005,20 @@ try {
           /THISLOSSOFTHEKOBOLDFORCESWILLBEAMAJORBLOW/i);
       }
       assert.equal(journalStatus(), "reward-pending");
-      const rewardKeys = koboldReturn
-        ? ["enter", "enter", "s", "e", "enter"]
+      await advance("j");
+      if (envoyReturn) {
+        await advance("enter");
+        const text = frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join("");
+        assert.match(text, /EACHCHARACTERRECEIVES2125EXPERIENCEPOINTS/i);
+      }
+      const rewardKeys = envoyReturn ? ["enter", "s", "e", "enter"]
+        : koboldReturn ? ["enter", "enter", "s", "e", "enter"]
         : ["enter", "enter", "enter", "s", "e"];
-      for (const key of ["j", ...rewardKeys, "j"]) await advance(key);
+      for (const key of [...rewardKeys, "j"]) await advance(key);
       assert.equal(journalStatus(), "turned-in");
+      if (envoyReturn) {
+        writeFileSync(resolve(directory, "zhentil-return-journal.json"), JSON.stringify(frame.journal, null, 2) + "\n");
+      }
       if (riverReturn) {
         const visibleText = () => frame.text.toSorted(([a], [b]) => a - b)
           .map(([, character]) => String.fromCharCode(character)).join("");

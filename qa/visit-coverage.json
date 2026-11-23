@@ -444,6 +444,24 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "Zhentil wall escape and council (controlled checkpoint, paired Chrome)": {
+   "areas": [
+    0,
+    8,
+    25,
+    26,
+    28
+   ],
+   "commissions": [
+    "auction",
+    "sokal",
+    "zhentil"
+   ],
+   "traces": [
+    "escape-visits.jsonl",
+    "return-visits.jsonl"
+   ]
   }
  }
 }
