@@ -395,12 +395,13 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       if (native.drawCursor !== site.next && !site.approachSites.includes(native.drawCursor)) {
         return "native draw cursor no longer matches the measured producer";
       }
-      const sourceMatches = site.composedPortrait
-        ? native.members === undefined && isDeepStrictEqual(native.composed, site.composedPortrait)
+      const compositions = site.composedPortraitVariants ?? (site.composedPortrait ? [site.composedPortrait] : []);
+      const sourceMatches = compositions.length
+        ? native.members === undefined && compositions.some(composition => isDeepStrictEqual(native.composed, composition))
         : native.composed === undefined && isDeepStrictEqual(native.members, [0]);
       if (!sourceMatches) return "native evidence has a different picture source or selector";
       if (native.clearedPanelSha256 !== undefined) {
-        if (!site.composedPortrait || !/^[a-f0-9]{64}$/.test(native.clearedPanelSha256) ||
+        if (!compositions.length || !/^[a-f0-9]{64}$/.test(native.clearedPanelSha256) ||
             native.clearedPanelSha256 === panel) return "native exit must clear the composed picture";
       } else if (native.battlePanelSha256 !== panel) return "native battle notice must retain the selected picture";
     }
@@ -428,7 +429,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     return null;
   }
 
-  type StaticEvidence = { scenes: typeof scenes; verified: boolean };
+  type StaticEvidence = { scenes: typeof scenes; verified: boolean; compositions: Set<string> };
   const staticBySite = new Map<ScriptSite, Map<string, StaticEvidence>>();
   const allScenes = [...scenes];
   for (const { producer, prompt, variants } of inventory.staticPortraitPrompts ?? []) {
@@ -438,7 +439,8 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     }
     const evidence = staticBySite.get(site) ?? new Map<string, StaticEvidence>();
     const captions = variants.map(variant => normalizeCaption(variant.caption));
-    const cueAndMembers = variants.map((variant, index) => `${captions[index]}:${variant.native.inheritedMember ?? ""}`);
+    const cueAndMembers = variants.map(({ native }, index) =>
+      `${captions[index]}:${native.inheritedMember ?? ""}:${(native.inheritedFrom === undefined ? native.composed?.source : undefined) ?? ""}`);
     const witnessed = new Set(variants.map(variant => variant.portrait));
     if (evidence.has(prompt) || !variants.length || captions.some(caption => !caption) ||
         new Set(cueAndMembers).size !== variants.length || witnessed.size !== variants.length) {
@@ -446,23 +448,24 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     }
     const [cursor, caller] = prompt.split("/");
     const scope = "scene-illustration:area:" + site.scriptBlock + ":ecl:" + cursor + (caller ? ":caller:" + caller : "");
-    const nativeSource = site.composedPortrait?.source ??
-      (site.block === null ? undefined : `${site.pictureArchive}:${site.block}:0:0`);
-    const nativeBase = nativeSource &&
-      `portrait:area:${site.scriptBlock}:ecl:${cursor}${caller ? `:caller:${caller}` : ""}:${nativeSource}`;
     const illustration = (key: string) => key === scope || key.startsWith(scope + ":cue:");
-    const scoped = (key: string) => illustration(key) || key === nativeBase ||
-      (site.composedPortrait && (key === `portrait:area:${site.scriptBlock}:${site.composedPortrait.source}` ||
-        key === `portrait:${site.composedPortrait.source}`));
+    const compositions = new Set<string>();
     const observedVariants = variants.map(variant => {
+      const composition = variant.native.inheritedFrom === undefined ? variant.native.composed?.source : undefined;
+      const nativeSource = composition ?? (site.block === null ? undefined : `${site.pictureArchive}:${site.block}:0:0`);
+      const nativeBase = nativeSource &&
+        `portrait:area:${site.scriptBlock}:ecl:${cursor}${caller ? `:caller:${caller}` : ""}:${nativeSource}`;
+      const scoped = illustration(variant.portrait) || variant.portrait === nativeBase || (composition &&
+        (variant.portrait === `portrait:area:${site.scriptBlock}:${composition}` || variant.portrait === `portrait:${composition}`));
       const member = variant.native.inheritedMember;
       const inheritedCaller = /:caller:([a-f\d]{4}):/.exec(variant.native.inheritedFrom ?? "")?.[1];
       const registeredMember = member !== undefined && nativeBase &&
         variant.portrait === nativeBase.replace(/:0:0$/, `:${member}:0`) &&
         site.promptCandidates.some(lead => promptId(lead.next, lead.caller) === prompt &&
           (lead.address === inheritedCaller || site.retainedVerticalMenus?.[prompt] === inheritedCaller));
-      const reason = (member !== undefined ? registeredMember : scoped(variant.portrait) || variant.native.inheritedFrom !== undefined)
+      const reason = (member !== undefined ? registeredMember : scoped || variant.native.inheritedFrom !== undefined)
         ? staticPortraitProblem(site, variant) : "static portrait belongs to a different prompt";
+      if (reason === null && composition) compositions.add(composition);
       return { id: variant.portrait, producer, verified: reason === null, reason, remainingCues: undefined };
     });
     // One caller can choose multiple cue illustrations. Every registered cue needs its own proof.
@@ -471,7 +474,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
         inventory.scenes.find(scene => scene.id === native.inheritedFrom && scene.producer === producer)?.poses.every(pose =>
           variants.some(variant => variant.native.inheritedFrom === native.inheritedFrom &&
             variant.native.inheritedMember !== undefined && variant.native.panelSamples[0]?.sha256 === pose.viewport)));
-    evidence.set(prompt, { scenes: observedVariants, verified: complete && observedVariants.every(scene => scene.verified) });
+    evidence.set(prompt, { scenes: observedVariants, verified: complete && observedVariants.every(scene => scene.verified), compositions });
     staticBySite.set(site, evidence);
     allScenes.push(...observedVariants);
   }
@@ -519,12 +522,20 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     const staticEvidence = staticBySite.get(site);
     const held = staticEvidence ? [...staticEvidence.values()].flatMap(proof => proof.scenes) : [];
     // One instruction can display several captions at the same cursor.
-    const missingPrompts = site.boundedBlocks
-      ? prompts.flatMap(prompt => site.boundedBlocks!.filter(block =>
-        !evidence.some(entry => entry.prompt === prompt && entry.block === block && entry.scene.verified))
-        .map(block => `${prompt} (${site.pictureArchive}:${block})`))
-      : prompts.filter(prompt => !scenery.has(prompt) && !staticEvidence?.get(prompt)?.verified &&
-        !evidence.some(entry => entry.prompt === prompt));
+    const missingPrompts = prompts.flatMap(prompt => {
+      const held = staticEvidence?.get(prompt);
+      if (site.composedPortraitVariants) {
+        const missing = site.composedPortraitVariants.filter(({ source }) => !held?.compositions.has(source))
+          .map(({ source }) => `${prompt} (${source})`);
+        return missing.length || held?.verified ? missing : [prompt];
+      }
+      if (site.boundedBlocks && !site.composedPortrait) {
+        return site.boundedBlocks.filter(block =>
+          !evidence.some(entry => entry.prompt === prompt && entry.block === block && entry.scene.verified))
+          .map(block => `${prompt} (${site.pictureArchive}:${block})`);
+      }
+      return scenery.has(prompt) || held?.verified || evidence.some(entry => entry.prompt === prompt) ? [] : [prompt];
+    });
     const unmeasured = [
       ...missingPrompts,
       ...new Set(evidence.flatMap(({ scene }) => scene.remainingCues ?? [])),
@@ -538,7 +549,8 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       !unmeasured.length && held.every(scene => scene.verified) && evidence.every(({ scene }) => scene.verified);
     return {
       id,
-      source: site.composedPortrait?.source ?? `${site.pictureArchive}:${site.block ?? site.boundedBlocks?.join(", ") ?? `selector ${site.selector.address?.toString(16) ?? "unknown"}`}`,
+      source: site.composedPortraitVariants?.map(({ source }) => source).join(", ") ?? site.composedPortrait?.source ??
+        `${site.pictureArchive}:${site.block ?? site.boundedBlocks?.join(", ") ?? `selector ${site.selector.address?.toString(16) ?? "unknown"}`}`,
       measured, verified, unmeasured, scenes: [...evidence.map(({ scene }) => scene.id), ...held.map(scene => scene.id)],
       reason: oneShot ? oneShotReason ?? "single native draw, paired Chrome checks passed" :
         combatWithoutPortrait ? combatWithoutPortraitReason ?? "no native portrait draw, paired Chrome checks passed" :

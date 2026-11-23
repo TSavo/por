@@ -264,13 +264,103 @@ const eclCandidates = scripts.flatMap(record => {
     return [...new Set(indices.map(index => script.byte(0xb6e2 + index)))].sort((a, b) => a - b);
   }
 
+  function tyrmorPrisonPictures(address: number, portrait: ReturnType<typeof selector>) {
+    const menus = [0xa264, 0xa2c7, 0xa2fd];
+    if (archive !== 7 || scriptBlock !== 22 || address !== 0x9cf3 && !menus.includes(address) ||
+        portrait.address !== 0x9800 || portrait.possibleWriters.length !== 1 ||
+        portrait.possibleWriters[0]?.address !== "a3dd") return undefined;
+
+    const indexSlot = 0x6e7f;
+    const pictureTable = 0xa59a;
+    const menuTable = 0xa5f5;
+    const headTable = 0xa602;
+    const tableIs = (at: number, table: number, slot: number) => {
+      const read = instructions.get(at);
+      return read?.opcode === 0x2a && memory(read.operands[0]!) === table &&
+        memory(read.operands[1]!) === indexSlot && memory(read.operands[2]!) === slot;
+    };
+    if (!tableIs(0xa3dd, pictureTable, 0x9800) || !tableIs(0xa419, menuTable, 0x9806) ||
+        !tableIs(0xa437, headTable, 0x6de1)) return undefined;
+
+    // Guard the entries which carry a value into the selector or enter a menu with that value.
+    const entrySources = new Map<number, number[]>([
+      [0x9cef, []], [0x9cf3, []], [0xa1c4, [0xa3d9]], [0xa1cb, []], [0xa1db, []], [0xa213, []],
+      [0xa264, [0xa213]], [0xa2c7, [0xa213]], [0xa2fd, [0xa213]], [0xa3dd, [0x9cef, 0xa1db]],
+    ]);
+    if (readEntryVector(script).some(entry => entrySources.has(entry))) return undefined;
+    for (const [target, expected] of entrySources) {
+      const incoming = decoded.filter(({ opcode, operands }) => [0x01, 0x02, 0x25, 0x26].includes(opcode) &&
+        operands.slice(opcode <= 0x02 ? 0 : 2).some(operand => operand.word === target));
+      if (incoming.length !== expected.length || incoming.some(entry => !expected.includes(entry.address))) return undefined;
+    }
+
+    const resetsHead = (at: number) => {
+      const reset = instructions.get(at);
+      return reset?.opcode === 0x09 && literal(reset.operands[0]!) === 0xff && memory(reset.operands[1]!) === 0x6de1;
+    };
+    const callsSelector = (at: number, next: number) => {
+      const call = instructions.get(at);
+      return call?.opcode === 0x02 && call.next === next && call.operands[0]?.word === 0xa3dd;
+    };
+    let indices: number[];
+    let headReset: number;
+    if (address === 0x9cf3) {
+      // The scripted priest enters with index 6. He does not draw from the roaming pool.
+      const priest = instructions.get(0x9ce9);
+      if (priest?.opcode !== 0x09 || literal(priest.operands[0]!) !== 6 || memory(priest.operands[1]!) !== indexSlot ||
+          priest.next !== 0x9cef || !callsSelector(0x9cef, address) || !resetsHead(0x9d3b)) return undefined;
+      indices = [6];
+      headReset = 0x9d3b;
+    } else {
+      const roamingRoll = (at: number) => {
+        const roll = instructions.get(at);
+        return roll?.opcode === 0x08 && literal(roll.operands[0]!) === 5 && memory(roll.operands[1]!) === indexSlot;
+      };
+      const move = instructions.get(0xa3d9);
+      const zone = instructions.get(0xa1cb);
+      const condition = instructions.get(0xa1d1);
+      const bump = instructions.get(0xa1d2);
+      const dispatch = instructions.get(0xa213);
+      if (!roamingRoll(0xa1a8) || !roamingRoll(0xa3ba) || move?.opcode !== 0x01 || move.operands[0]?.word !== 0xa1c4 ||
+          zone?.opcode !== 0x03 || memory(zone.operands[0]!) !== 0xc04c || literal(zone.operands[1]!) !== 8 ||
+          condition?.name !== "IF <" || condition.next !== 0xa1d2 ||
+          bump?.opcode !== 0x04 || literal(bump.operands[0]!) !== 7 || memory(bump.operands[1]!) !== indexSlot ||
+          memory(bump.operands[2]!) !== indexSlot || bump.next !== 0xa1db || !callsSelector(0xa1db, 0xa1df) ||
+          dispatch?.opcode !== 0x25 || memory(dispatch.operands[0]!) !== 0x9806 ||
+          literal(dispatch.operands[1]!) !== menus.length ||
+          !menus.every((menu, index) => dispatch.operands[index + 2]?.word === menu) || !resetsHead(0xa32f)) return undefined;
+
+      // Both roaming rolls are inclusive 0–5. The northern half offsets that result by seven.
+      // The menu class excludes the rows which select one of the two other roamer menus.
+      const roaming = [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12];
+      if (roaming.some(index => !script.inRange(menuTable + index))) return undefined;
+      indices = roaming.filter(index => script.byte(menuTable + index) === menus.indexOf(address));
+      headReset = 0xa32f;
+    }
+
+    if (!indices.length || indices.some(index => !script.inRange(pictureTable + index) || !script.inRange(headTable + index))) return undefined;
+    const blocks = [...new Set(indices.map(index => script.byte(pictureTable + index)))].sort((a, b) => a - b);
+    const compositions = indices.flatMap(index => {
+      const head = script.byte(headTable + index);
+      return head === 0xff ? [] : [{
+        source: `HEAD7.DAX:${head}:BODY7.DAX:${script.byte(pictureTable + index)}`,
+        headWrite: "a437", headSlot: "6de1", bodyOperand: 2, headReset: authored(headReset),
+      }];
+    });
+    // These exact pools each use all plain PICs or all composed portraits.
+    if (compositions.length && compositions.length !== indices.length) return undefined;
+    return { blocks, compositions: [...new Map(compositions.map(entry => [entry.source, entry])).values()] };
+  }
+
   return decoded.flatMap(load => {
     const { opcode, operands } = load;
     if (opcode !== 0x0e && opcode !== 0x0c && opcode !== 0x29) return [];
     const direct = opcode === 0x0e;
     const portrait = selector(operands[direct ? 0 : 2]!);
     const block = portrait.literal === null ? null : portrait.literal & 255;
-    const boundedBlocks = podalPatrolPictureBlocks(load.address, portrait) ?? valhingenPatrolPictureBlocks(load.address, portrait);
+    const tyrmorPictures = tyrmorPrisonPictures(load.address, portrait);
+    const boundedBlocks = podalPatrolPictureBlocks(load.address, portrait) ?? valhingenPatrolPictureBlocks(load.address, portrait) ??
+      tyrmorPictures?.blocks;
     const pictureBlocks = block === null ? boundedBlocks ?? [] : [block];
     const possiblePictures = animated.filter(picture => picture.file === pictureArchive &&
       picture.block !== undefined && pictureBlocks.includes(picture.block)).map(describePicture);
@@ -354,7 +444,7 @@ const eclCandidates = scripts.flatMap(record => {
     }
 
     // Confirm the selected HEAD and BODY from each measured encounter's script.
-    let composedPortrait;
+    let composedPortrait = tyrmorPictures?.compositions.length === 1 ? tyrmorPictures.compositions[0] : undefined;
     const address = authored(load.address);
     const falseThrone = scriptBlock === 5 && address === "a98a";
     const forgePatrol = scriptBlock === 6 && ["a9e6", "aa49"].includes(address);
@@ -427,6 +517,7 @@ const eclCandidates = scripts.flatMap(record => {
       next: authored(load.next), opcode, name: load.name, pictureArchive, block, selector: portrait, possiblePictures,
       boundedBlocks,
       composedPortrait,
+      ...(tyrmorPictures && tyrmorPictures.compositions.length > 1 ? { composedPortraitVariants: tyrmorPictures.compositions } : {}),
       ...(faceToFaceUnreachable && authored(load.address) === "a26c" && authored(load.next) === lizardFaceToFaceProof.prompt
         ? { unreachableOriginal: lizardFaceToFaceProof.reason } : {}),
       ...(direct ? {} : { approachSelectors: { sprite: selector(operands[0]!), distance: selector(operands[1]!) } }),
