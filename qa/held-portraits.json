@@ -15087,6 +15087,142 @@
           }
         }
       }
+    },
+    {
+      "id": "area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37",
+      "producer": "ECL4.DAX:2:9ab7",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1310,
+          "viewport": "73dbfcf91c86b814f830e205d36ee323a3bc492f42bb7b32cbce21feacaad698"
+        },
+        {
+          "member": 1,
+          "durationMs": 110,
+          "viewport": "64d8e5d67af67f67d943a5b3a8b186bd3e52b59971762a43b8986d721a813f4f"
+        },
+        {
+          "member": 2,
+          "durationMs": 310,
+          "viewport": "4e2c5265fe1083a42bab0223800ed562356b84330c92d0643860f7a5976ed1ee"
+        },
+        {
+          "member": 3,
+          "durationMs": 20,
+          "viewport": "64d8e5d67af67f67d943a5b3a8b186bd3e52b59971762a43b8986d721a813f4f"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "textile-poison-frog-held-loop",
+          "data": "original",
+          "rendererSha256": "63ed7feeedcc946fa2d875929600db3ad193e883eb12beb0e83f2ec54c1c85b9",
+          "bindingSha256": "2ca677e42a5bd3dddbf14b6f64012ba4f735969c15d347aab8dffc675f51d612",
+          "portrait": "portrait:area:2:PIC4.DAX:37:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:2:PIC4.DAX:37:0:0",
+              "atMs": 14.40000002384204
+            },
+            {
+              "key": "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:1:0",
+              "atMs": 1281.0000000238415
+            },
+            {
+              "key": "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:2:0",
+              "atMs": 1397.6000000238419
+            },
+            {
+              "key": "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:1:0",
+              "atMs": 1697.7000000238422
+            },
+            {
+              "key": "portrait:area:2:PIC4.DAX:37:0:0",
+              "atMs": 1714.3000000238417
+            },
+            {
+              "key": "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:1:0",
+              "atMs": 3030.900000023842
+            },
+            {
+              "key": "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:2:0",
+              "atMs": 3147.600000023842
+            },
+            {
+              "key": "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:1:0",
+              "atMs": 3447.600000023842
+            },
+            {
+              "key": "portrait:area:2:PIC4.DAX:37:0:0",
+              "atMs": 3464.200000023842
+            },
+            {
+              "key": "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:1:0",
+              "atMs": 4780.800000023843
+            }
+          ],
+          "sha256": {
+            "portrait:area:2:PIC4.DAX:37:0:0": "23f144cddba5294e511dd5dc951fd9e1345301093aa147fc85ad0adc646f6ff5",
+            "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:1:0": "0645335b0f875010897f2abcf85ac6bc65cf383f2c4e39ea0306566687c553ab",
+            "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:2:0": "4493c9700701d5db777c5c449543745bf8a3972f86ce73bd321dd48ce9db943b"
+          }
+        },
+        "port": {
+          "route": "textile-poison-frog-held-loop",
+          "data": "port",
+          "rendererSha256": "63ed7feeedcc946fa2d875929600db3ad193e883eb12beb0e83f2ec54c1c85b9",
+          "bindingSha256": "2ca677e42a5bd3dddbf14b6f64012ba4f735969c15d347aab8dffc675f51d612",
+          "portrait": "portrait:area:2:PIC4.DAX:37:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:2:PIC4.DAX:37:0:0",
+              "atMs": 6.600000000000364
+            },
+            {
+              "key": "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:1:0",
+              "atMs": 1256.6000000000004
+            },
+            {
+              "key": "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:2:0",
+              "atMs": 1356.6000000000004
+            },
+            {
+              "key": "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:1:0",
+              "atMs": 1673.1999999999998
+            },
+            {
+              "key": "portrait:area:2:PIC4.DAX:37:0:0",
+              "atMs": 1689.8999999999996
+            },
+            {
+              "key": "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:1:0",
+              "atMs": 3006.5
+            },
+            {
+              "key": "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:2:0",
+              "atMs": 3106.5
+            },
+            {
+              "key": "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:1:0",
+              "atMs": 3423.1000000000004
+            },
+            {
+              "key": "portrait:area:2:PIC4.DAX:37:0:0",
+              "atMs": 3439.8
+            },
+            {
+              "key": "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:1:0",
+              "atMs": 4756.5
+            }
+          ],
+          "sha256": {
+            "portrait:area:2:PIC4.DAX:37:0:0": "23f144cddba5294e511dd5dc951fd9e1345301093aa147fc85ad0adc646f6ff5",
+            "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:1:0": "0645335b0f875010897f2abcf85ac6bc65cf383f2c4e39ea0306566687c553ab",
+            "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:2:0": "4493c9700701d5db777c5c449543745bf8a3972f86ce73bd321dd48ce9db943b"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
@@ -15467,6 +15603,63 @@
               65
             ],
             "sha256": "c239bcf0b1907d42de401a9b74883066d079dbaaf54fa428c7bf9cadd5325d21"
+          }
+        }
+      }
+    },
+    {
+      "producer": "ECL4.DAX:2:9b97",
+      "prompt": "abd2/9bc6",
+      "caption": "SOME GHOULS DECIDE TO ADD YOU TO THEIR MENU.",
+      "checkpoint": "textile-ghoul-ambush/B.json",
+      "position": [
+        5,
+        11,
+        4
+      ],
+      "chrome": {
+        "original": {
+          "route": "textile-ghoul-battle-entry",
+          "data": "original",
+          "position": [
+            5,
+            11,
+            4
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1055,11S23:16searchSOMEGHOULSDECIDETOADDYOUTOTHEIRMENU.Press<return>orbuttontocontinue.",
+          "checkpointSha256": "098c21a3e7052d3f7c424f0c0eb5d104bffdaa5d27ca46df52292eb2342af22b",
+          "rendererSha256": "63ed7feeedcc946fa2d875929600db3ad193e883eb12beb0e83f2ec54c1c85b9",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:2:SPRIT4.DAX:72:2:0",
+              24,
+              57
+            ],
+            "sha256": "2df95cbbe7bae1313210550cd701c30bbd7197e897c15adc9f27b947c24ce372"
+          }
+        },
+        "port": {
+          "route": "textile-ghoul-battle-entry",
+          "data": "port",
+          "position": [
+            5,
+            11,
+            4
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1055,11S23:16searchSOMEGHOULSDECIDETOADDYOUTOTHEIRMENU.Press<return>orbuttontocontinue.",
+          "checkpointSha256": "098c21a3e7052d3f7c424f0c0eb5d104bffdaa5d27ca46df52292eb2342af22b",
+          "rendererSha256": "63ed7feeedcc946fa2d875929600db3ad193e883eb12beb0e83f2ec54c1c85b9",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:2:SPRIT4.DAX:72:2:0",
+              24,
+              57
+            ],
+            "sha256": "2df95cbbe7bae1313210550cd701c30bbd7197e897c15adc9f27b947c24ce372"
           }
         }
       }
