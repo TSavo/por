@@ -250,6 +250,22 @@ const eclCandidates = scripts.flatMap(record => {
       return true;
     });
 
+    const retainedVerticalMenus = new Map<string, string>();
+    if (archive === 6 && scriptBlock === 1 && load.address === 0x9dc8) {
+      // Rescue Boy leads through text into another vertical menu without drawing a new picture.
+      const menu = instructions.get(0x9f20);
+      const branch = menu && instructions.get(menu.next);
+      const rescueIndex = menu?.operands.slice(3).findIndex(option => option.text === "RESCUE BOY") ?? -1;
+      const target = rescueIndex === -1 ? undefined : branch?.operands[rescueIndex + 2]?.word;
+      const reply = target == null ? undefined : instructions.get(target);
+      const rescue = reply && instructions.get(reply.next);
+      if (menu?.opcode === 0x15 && branch?.opcode === 0x25 &&
+          memory(menu.operands[0]!) === memory(branch.operands[0]!) && reply?.opcode === 0x12 &&
+          rescue?.opcode === 0x15 && rescue.operands[1]?.text === "HOW WILL YOU RESCUE THE BOY?") {
+        retainedVerticalMenus.set(authored(rescue.next), authored(menu.address));
+      }
+    }
+
     // Parlay after sneaking up on a roaming patrol retains its original portrait.
     // The noticed menu also has direct entries that must keep their own producer.
     if (archive === 4 && scriptBlock === 10 && load.address === 0xb4e9 && opcode === 0x29) {
@@ -336,6 +352,7 @@ const eclCandidates = scripts.flatMap(record => {
       approachHandoff,
       immediateCombat: scope.length && opcode === 0x0c ? immediateCombatAfter(load) : null,
       promptCandidates: [...prompts.values()].sort((a, b) => a.address.localeCompare(b.address) || (a.caller ?? "").localeCompare(b.caller ?? "")),
+      ...(retainedVerticalMenus.size ? { retainedVerticalMenus: Object.fromEntries(retainedVerticalMenus) } : {}),
       uncertainties: [
         "selected-head-may-use-composed-portrait",
         ...(direct ? [] : ["portrait-requires-zero-distance-and-viewport-state"]),

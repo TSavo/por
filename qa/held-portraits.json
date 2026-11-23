@@ -19131,6 +19131,708 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL6.DAX:1:9dc8",
+      "prompt": "9f5d",
+      "variants": [
+        {
+          "caption": "PUNCH MERCHANT",
+          "checkpoint": "buccaneer-captive-pen/A.json",
+          "portrait": "portrait:area:1:ecl:9f5d:PIC6.DAX:42:0:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,9 N 22:16 WHAT WILL YOU DO? PUNCH MERCHANT AGREE SAY NOTHING RESCUE BOY",
+            "idlePolls": 80,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "a0788d835cef1983b2c50f089ffb3d08a6be0403b33d0974b6910f0a10af7e7b"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "a0788d835cef1983b2c50f089ffb3d08a6be0403b33d0974b6910f0a10af7e7b"
+              },
+              {
+                "idlePolls": 10,
+                "sha256": "a0788d835cef1983b2c50f089ffb3d08a6be0403b33d0974b6910f0a10af7e7b"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "a0788d835cef1983b2c50f089ffb3d08a6be0403b33d0974b6910f0a10af7e7b"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "a0788d835cef1983b2c50f089ffb3d08a6be0403b33d0974b6910f0a10af7e7b"
+              }
+            ],
+            "inheritedFrom": "area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42",
+            "inheritedMember": 0
+          },
+          "chrome": {
+            "original": {
+              "route": "buccaneer-captive-pen-retained-0",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16WHATWILLYOUDO?PUNCHMERCHANTAGREESAYNOTHINGRESCUEBOY",
+              "portrait": "portrait:area:1:ecl:9f5d:PIC6.DAX:42:0:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:0:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 184,
+              "durationMs": 3050,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "e929f276cdd5bab53421f71baaf13befaef6db48aeec5ec530d016e4fc3ff50c",
+              "poses": [
+                "portrait:area:1:ecl:9f5d:PIC6.DAX:42:0:0"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "buccaneer-captive-pen-retained-0",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16WHATWILLYOUDO?PUNCHMERCHANTAGREESAYNOTHINGRESCUEBOY",
+              "portrait": "portrait:area:1:ecl:9f5d:PIC6.DAX:42:0:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:0:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.5,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "e929f276cdd5bab53421f71baaf13befaef6db48aeec5ec530d016e4fc3ff50c",
+              "poses": [
+                "portrait:area:1:ecl:9f5d:PIC6.DAX:42:0:0"
+              ],
+              "replaced": false
+            }
+          }
+        },
+        {
+          "caption": "PUNCH MERCHANT",
+          "checkpoint": "buccaneer-captive-pen/A.json",
+          "portrait": "portrait:area:1:ecl:9f5d:PIC6.DAX:42:1:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,9 N 22:16 WHAT WILL YOU DO? PUNCH MERCHANT AGREE SAY NOTHING RESCUE BOY",
+            "idlePolls": 80,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "7a010ab45c09aaece3a797b8396f8bcffddf60e725fc45a61254af1f6f97f704"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "7a010ab45c09aaece3a797b8396f8bcffddf60e725fc45a61254af1f6f97f704"
+              },
+              {
+                "idlePolls": 10,
+                "sha256": "7a010ab45c09aaece3a797b8396f8bcffddf60e725fc45a61254af1f6f97f704"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "7a010ab45c09aaece3a797b8396f8bcffddf60e725fc45a61254af1f6f97f704"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "7a010ab45c09aaece3a797b8396f8bcffddf60e725fc45a61254af1f6f97f704"
+              }
+            ],
+            "inheritedFrom": "area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42",
+            "inheritedMember": 1
+          },
+          "chrome": {
+            "original": {
+              "route": "buccaneer-captive-pen-retained-1",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16WHATWILLYOUDO?PUNCHMERCHANTAGREESAYNOTHINGRESCUEBOY",
+              "portrait": "portrait:area:1:ecl:9f5d:PIC6.DAX:42:1:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:1:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.5999999999985,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "343fa1a4972580647e805857e06c61fc87b54e3fa704677c99a09fa39b4759af",
+              "poses": [
+                "portrait:area:1:ecl:9f5d:PIC6.DAX:42:1:0"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "buccaneer-captive-pen-retained-1",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16WHATWILLYOUDO?PUNCHMERCHANTAGREESAYNOTHINGRESCUEBOY",
+              "portrait": "portrait:area:1:ecl:9f5d:PIC6.DAX:42:1:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:1:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.5,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "343fa1a4972580647e805857e06c61fc87b54e3fa704677c99a09fa39b4759af",
+              "poses": [
+                "portrait:area:1:ecl:9f5d:PIC6.DAX:42:1:0"
+              ],
+              "replaced": false
+            }
+          }
+        },
+        {
+          "caption": "PUNCH MERCHANT",
+          "checkpoint": "buccaneer-captive-pen/A.json",
+          "portrait": "portrait:area:1:ecl:9f5d:PIC6.DAX:42:2:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,9 N 22:16 WHAT WILL YOU DO? PUNCH MERCHANT AGREE SAY NOTHING RESCUE BOY",
+            "idlePolls": 80,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "2e6e74939bdee0da012019d345214dbf7dc805a074d55b87e4247424ac501025"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "2e6e74939bdee0da012019d345214dbf7dc805a074d55b87e4247424ac501025"
+              },
+              {
+                "idlePolls": 10,
+                "sha256": "2e6e74939bdee0da012019d345214dbf7dc805a074d55b87e4247424ac501025"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "2e6e74939bdee0da012019d345214dbf7dc805a074d55b87e4247424ac501025"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "2e6e74939bdee0da012019d345214dbf7dc805a074d55b87e4247424ac501025"
+              }
+            ],
+            "inheritedFrom": "area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42",
+            "inheritedMember": 2
+          },
+          "chrome": {
+            "original": {
+              "route": "buccaneer-captive-pen-retained-2",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16WHATWILLYOUDO?PUNCHMERCHANTAGREESAYNOTHINGRESCUEBOY",
+              "portrait": "portrait:area:1:ecl:9f5d:PIC6.DAX:42:2:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:2:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.499999999998,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "a22d12ca4502f3e064080c36b9f5c9a86ea7f8d419cbdf41115b5a046dceefd5",
+              "poses": [
+                "portrait:area:1:ecl:9f5d:PIC6.DAX:42:2:0"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "buccaneer-captive-pen-retained-2",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16WHATWILLYOUDO?PUNCHMERCHANTAGREESAYNOTHINGRESCUEBOY",
+              "portrait": "portrait:area:1:ecl:9f5d:PIC6.DAX:42:2:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:2:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.5,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "a22d12ca4502f3e064080c36b9f5c9a86ea7f8d419cbdf41115b5a046dceefd5",
+              "poses": [
+                "portrait:area:1:ecl:9f5d:PIC6.DAX:42:2:0"
+              ],
+              "replaced": false
+            }
+          }
+        },
+        {
+          "caption": "PUNCH MERCHANT",
+          "checkpoint": "buccaneer-captive-pen/A.json",
+          "portrait": "portrait:area:1:ecl:9f5d:PIC6.DAX:42:3:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,9 N 22:16 WHAT WILL YOU DO? PUNCH MERCHANT AGREE SAY NOTHING RESCUE BOY",
+            "idlePolls": 80,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "afc43efbe53612026a17a1349e85adeebd8c34544ff32c9ba38090ddca93ac4e"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "afc43efbe53612026a17a1349e85adeebd8c34544ff32c9ba38090ddca93ac4e"
+              },
+              {
+                "idlePolls": 10,
+                "sha256": "afc43efbe53612026a17a1349e85adeebd8c34544ff32c9ba38090ddca93ac4e"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "afc43efbe53612026a17a1349e85adeebd8c34544ff32c9ba38090ddca93ac4e"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "afc43efbe53612026a17a1349e85adeebd8c34544ff32c9ba38090ddca93ac4e"
+              }
+            ],
+            "inheritedFrom": "area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42",
+            "inheritedMember": 3
+          },
+          "chrome": {
+            "original": {
+              "route": "buccaneer-captive-pen-retained-3",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16WHATWILLYOUDO?PUNCHMERCHANTAGREESAYNOTHINGRESCUEBOY",
+              "portrait": "portrait:area:1:ecl:9f5d:PIC6.DAX:42:3:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:3:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.5999999999985,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "76b7f6bfccb170155e7a8c75bd62bd53bbc842d26f141936811e38e99c46aa9c",
+              "poses": [
+                "portrait:area:1:ecl:9f5d:PIC6.DAX:42:3:0"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "buccaneer-captive-pen-retained-3",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16WHATWILLYOUDO?PUNCHMERCHANTAGREESAYNOTHINGRESCUEBOY",
+              "portrait": "portrait:area:1:ecl:9f5d:PIC6.DAX:42:3:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:3:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.6000000000004,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "76b7f6bfccb170155e7a8c75bd62bd53bbc842d26f141936811e38e99c46aa9c",
+              "poses": [
+                "portrait:area:1:ecl:9f5d:PIC6.DAX:42:3:0"
+              ],
+              "replaced": false
+            }
+          }
+        },
+        {
+          "caption": "PUNCH MERCHANT",
+          "checkpoint": "buccaneer-captive-pen/A.json",
+          "portrait": "portrait:area:1:ecl:9f5d:PIC6.DAX:42:4:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,9 N 22:16 WHAT WILL YOU DO? PUNCH MERCHANT AGREE SAY NOTHING RESCUE BOY",
+            "idlePolls": 80,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "10b1ef67e157bf31ba05a6dfdcabad4dfdf8f5217b8e8bbadfea5312e5c965a3"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "10b1ef67e157bf31ba05a6dfdcabad4dfdf8f5217b8e8bbadfea5312e5c965a3"
+              },
+              {
+                "idlePolls": 10,
+                "sha256": "10b1ef67e157bf31ba05a6dfdcabad4dfdf8f5217b8e8bbadfea5312e5c965a3"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "10b1ef67e157bf31ba05a6dfdcabad4dfdf8f5217b8e8bbadfea5312e5c965a3"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "10b1ef67e157bf31ba05a6dfdcabad4dfdf8f5217b8e8bbadfea5312e5c965a3"
+              }
+            ],
+            "inheritedFrom": "area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42",
+            "inheritedMember": 4
+          },
+          "chrome": {
+            "original": {
+              "route": "buccaneer-captive-pen-retained-4",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16WHATWILLYOUDO?PUNCHMERCHANTAGREESAYNOTHINGRESCUEBOY",
+              "portrait": "portrait:area:1:ecl:9f5d:PIC6.DAX:42:4:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:4:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.5999999999985,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "b1fc7c3f09a25fc26a84e5f02cc6bd57f48467f9c2ec711171798b85399bcc0b",
+              "poses": [
+                "portrait:area:1:ecl:9f5d:PIC6.DAX:42:4:0"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "buccaneer-captive-pen-retained-4",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16WHATWILLYOUDO?PUNCHMERCHANTAGREESAYNOTHINGRESCUEBOY",
+              "portrait": "portrait:area:1:ecl:9f5d:PIC6.DAX:42:4:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:4:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.5,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "b1fc7c3f09a25fc26a84e5f02cc6bd57f48467f9c2ec711171798b85399bcc0b",
+              "poses": [
+                "portrait:area:1:ecl:9f5d:PIC6.DAX:42:4:0"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL6.DAX:1:9dc8",
+      "prompt": "a26d",
+      "variants": [
+        {
+          "caption": "HOW WILL YOU RESCUE THE BOY?",
+          "checkpoint": "buccaneer-captive-pen/A.json",
+          "portrait": "portrait:area:1:ecl:a26d:PIC6.DAX:42:0:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,9 N 22:16 HOW WILL YOU RESCUE THE BOY? SNEAK INTO PEN ATTACK GUARDS DO NOT RESCUE BOY NOW",
+            "idlePolls": 80,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "a0788d835cef1983b2c50f089ffb3d08a6be0403b33d0974b6910f0a10af7e7b"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "a0788d835cef1983b2c50f089ffb3d08a6be0403b33d0974b6910f0a10af7e7b"
+              },
+              {
+                "idlePolls": 10,
+                "sha256": "a0788d835cef1983b2c50f089ffb3d08a6be0403b33d0974b6910f0a10af7e7b"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "a0788d835cef1983b2c50f089ffb3d08a6be0403b33d0974b6910f0a10af7e7b"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "a0788d835cef1983b2c50f089ffb3d08a6be0403b33d0974b6910f0a10af7e7b"
+              }
+            ],
+            "inheritedFrom": "area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42",
+            "inheritedMember": 0
+          },
+          "chrome": {
+            "original": {
+              "route": "buccaneer-captive-pen-retained-0",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16HOWWILLYOURESCUETHEBOY?SNEAKINTOPENATTACKGUARDSDONOTRESCUEBOYNOW",
+              "portrait": "portrait:area:1:ecl:a26d:PIC6.DAX:42:0:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:0:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.5,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "e929f276cdd5bab53421f71baaf13befaef6db48aeec5ec530d016e4fc3ff50c",
+              "poses": [
+                "portrait:area:1:ecl:a26d:PIC6.DAX:42:0:0"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "buccaneer-captive-pen-retained-0",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16HOWWILLYOURESCUETHEBOY?SNEAKINTOPENATTACKGUARDSDONOTRESCUEBOYNOW",
+              "portrait": "portrait:area:1:ecl:a26d:PIC6.DAX:42:0:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:0:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.5,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "e929f276cdd5bab53421f71baaf13befaef6db48aeec5ec530d016e4fc3ff50c",
+              "poses": [
+                "portrait:area:1:ecl:a26d:PIC6.DAX:42:0:0"
+              ],
+              "replaced": false
+            }
+          }
+        },
+        {
+          "caption": "HOW WILL YOU RESCUE THE BOY?",
+          "checkpoint": "buccaneer-captive-pen/A.json",
+          "portrait": "portrait:area:1:ecl:a26d:PIC6.DAX:42:1:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,9 N 22:16 HOW WILL YOU RESCUE THE BOY? SNEAK INTO PEN ATTACK GUARDS DO NOT RESCUE BOY NOW",
+            "idlePolls": 80,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "7a010ab45c09aaece3a797b8396f8bcffddf60e725fc45a61254af1f6f97f704"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "7a010ab45c09aaece3a797b8396f8bcffddf60e725fc45a61254af1f6f97f704"
+              },
+              {
+                "idlePolls": 10,
+                "sha256": "7a010ab45c09aaece3a797b8396f8bcffddf60e725fc45a61254af1f6f97f704"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "7a010ab45c09aaece3a797b8396f8bcffddf60e725fc45a61254af1f6f97f704"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "7a010ab45c09aaece3a797b8396f8bcffddf60e725fc45a61254af1f6f97f704"
+              }
+            ],
+            "inheritedFrom": "area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42",
+            "inheritedMember": 1
+          },
+          "chrome": {
+            "original": {
+              "route": "buccaneer-captive-pen-retained-1",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16HOWWILLYOURESCUETHEBOY?SNEAKINTOPENATTACKGUARDSDONOTRESCUEBOYNOW",
+              "portrait": "portrait:area:1:ecl:a26d:PIC6.DAX:42:1:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:1:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 184,
+              "durationMs": 3050,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "343fa1a4972580647e805857e06c61fc87b54e3fa704677c99a09fa39b4759af",
+              "poses": [
+                "portrait:area:1:ecl:a26d:PIC6.DAX:42:1:0"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "buccaneer-captive-pen-retained-1",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16HOWWILLYOURESCUETHEBOY?SNEAKINTOPENATTACKGUARDSDONOTRESCUEBOYNOW",
+              "portrait": "portrait:area:1:ecl:a26d:PIC6.DAX:42:1:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:1:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.6000000000004,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "343fa1a4972580647e805857e06c61fc87b54e3fa704677c99a09fa39b4759af",
+              "poses": [
+                "portrait:area:1:ecl:a26d:PIC6.DAX:42:1:0"
+              ],
+              "replaced": false
+            }
+          }
+        },
+        {
+          "caption": "HOW WILL YOU RESCUE THE BOY?",
+          "checkpoint": "buccaneer-captive-pen/A.json",
+          "portrait": "portrait:area:1:ecl:a26d:PIC6.DAX:42:2:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,9 N 22:16 HOW WILL YOU RESCUE THE BOY? SNEAK INTO PEN ATTACK GUARDS DO NOT RESCUE BOY NOW",
+            "idlePolls": 80,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "2e6e74939bdee0da012019d345214dbf7dc805a074d55b87e4247424ac501025"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "2e6e74939bdee0da012019d345214dbf7dc805a074d55b87e4247424ac501025"
+              },
+              {
+                "idlePolls": 10,
+                "sha256": "2e6e74939bdee0da012019d345214dbf7dc805a074d55b87e4247424ac501025"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "2e6e74939bdee0da012019d345214dbf7dc805a074d55b87e4247424ac501025"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "2e6e74939bdee0da012019d345214dbf7dc805a074d55b87e4247424ac501025"
+              }
+            ],
+            "inheritedFrom": "area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42",
+            "inheritedMember": 2
+          },
+          "chrome": {
+            "original": {
+              "route": "buccaneer-captive-pen-retained-2",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16HOWWILLYOURESCUETHEBOY?SNEAKINTOPENATTACKGUARDSDONOTRESCUEBOYNOW",
+              "portrait": "portrait:area:1:ecl:a26d:PIC6.DAX:42:2:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:2:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.5,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "a22d12ca4502f3e064080c36b9f5c9a86ea7f8d419cbdf41115b5a046dceefd5",
+              "poses": [
+                "portrait:area:1:ecl:a26d:PIC6.DAX:42:2:0"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "buccaneer-captive-pen-retained-2",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16HOWWILLYOURESCUETHEBOY?SNEAKINTOPENATTACKGUARDSDONOTRESCUEBOYNOW",
+              "portrait": "portrait:area:1:ecl:a26d:PIC6.DAX:42:2:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:2:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.5,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "a22d12ca4502f3e064080c36b9f5c9a86ea7f8d419cbdf41115b5a046dceefd5",
+              "poses": [
+                "portrait:area:1:ecl:a26d:PIC6.DAX:42:2:0"
+              ],
+              "replaced": false
+            }
+          }
+        },
+        {
+          "caption": "HOW WILL YOU RESCUE THE BOY?",
+          "checkpoint": "buccaneer-captive-pen/A.json",
+          "portrait": "portrait:area:1:ecl:a26d:PIC6.DAX:42:3:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,9 N 22:16 HOW WILL YOU RESCUE THE BOY? SNEAK INTO PEN ATTACK GUARDS DO NOT RESCUE BOY NOW",
+            "idlePolls": 80,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "afc43efbe53612026a17a1349e85adeebd8c34544ff32c9ba38090ddca93ac4e"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "afc43efbe53612026a17a1349e85adeebd8c34544ff32c9ba38090ddca93ac4e"
+              },
+              {
+                "idlePolls": 10,
+                "sha256": "afc43efbe53612026a17a1349e85adeebd8c34544ff32c9ba38090ddca93ac4e"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "afc43efbe53612026a17a1349e85adeebd8c34544ff32c9ba38090ddca93ac4e"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "afc43efbe53612026a17a1349e85adeebd8c34544ff32c9ba38090ddca93ac4e"
+              }
+            ],
+            "inheritedFrom": "area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42",
+            "inheritedMember": 3
+          },
+          "chrome": {
+            "original": {
+              "route": "buccaneer-captive-pen-retained-3",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16HOWWILLYOURESCUETHEBOY?SNEAKINTOPENATTACKGUARDSDONOTRESCUEBOYNOW",
+              "portrait": "portrait:area:1:ecl:a26d:PIC6.DAX:42:3:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:3:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.5,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "76b7f6bfccb170155e7a8c75bd62bd53bbc842d26f141936811e38e99c46aa9c",
+              "poses": [
+                "portrait:area:1:ecl:a26d:PIC6.DAX:42:3:0"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "buccaneer-captive-pen-retained-3",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16HOWWILLYOURESCUETHEBOY?SNEAKINTOPENATTACKGUARDSDONOTRESCUEBOYNOW",
+              "portrait": "portrait:area:1:ecl:a26d:PIC6.DAX:42:3:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:3:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.5,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "76b7f6bfccb170155e7a8c75bd62bd53bbc842d26f141936811e38e99c46aa9c",
+              "poses": [
+                "portrait:area:1:ecl:a26d:PIC6.DAX:42:3:0"
+              ],
+              "replaced": false
+            }
+          }
+        },
+        {
+          "caption": "HOW WILL YOU RESCUE THE BOY?",
+          "checkpoint": "buccaneer-captive-pen/A.json",
+          "portrait": "portrait:area:1:ecl:a26d:PIC6.DAX:42:4:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,9 N 22:16 HOW WILL YOU RESCUE THE BOY? SNEAK INTO PEN ATTACK GUARDS DO NOT RESCUE BOY NOW",
+            "idlePolls": 80,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "10b1ef67e157bf31ba05a6dfdcabad4dfdf8f5217b8e8bbadfea5312e5c965a3"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "10b1ef67e157bf31ba05a6dfdcabad4dfdf8f5217b8e8bbadfea5312e5c965a3"
+              },
+              {
+                "idlePolls": 10,
+                "sha256": "10b1ef67e157bf31ba05a6dfdcabad4dfdf8f5217b8e8bbadfea5312e5c965a3"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "10b1ef67e157bf31ba05a6dfdcabad4dfdf8f5217b8e8bbadfea5312e5c965a3"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "10b1ef67e157bf31ba05a6dfdcabad4dfdf8f5217b8e8bbadfea5312e5c965a3"
+              }
+            ],
+            "inheritedFrom": "area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42",
+            "inheritedMember": 4
+          },
+          "chrome": {
+            "original": {
+              "route": "buccaneer-captive-pen-retained-4",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16HOWWILLYOURESCUETHEBOY?SNEAKINTOPENATTACKGUARDSDONOTRESCUEBOYNOW",
+              "portrait": "portrait:area:1:ecl:a26d:PIC6.DAX:42:4:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:4:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.5,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "b1fc7c3f09a25fc26a84e5f02cc6bd57f48467f9c2ec711171798b85399bcc0b",
+              "poses": [
+                "portrait:area:1:ecl:a26d:PIC6.DAX:42:4:0"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "buccaneer-captive-pen-retained-4",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,9N22:16HOWWILLYOURESCUETHEBOY?SNEAKINTOPENATTACKGUARDSDONOTRESCUEBOYNOW",
+              "portrait": "portrait:area:1:ecl:a26d:PIC6.DAX:42:4:0",
+              "incomingPortrait": "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:4:0",
+              "checkpointSha256": "b1d170886d2edbdf2b2e5590f31d966f2f61510477664f4c6aa2b9505634bd05",
+              "samples": 185,
+              "durationMs": 3066.5,
+              "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "b1fc7c3f09a25fc26a84e5f02cc6bd57f48467f9c2ec711171798b85399bcc0b",
+              "poses": [
+                "portrait:area:1:ecl:a26d:PIC6.DAX:42:4:0"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
     }
   ],
   "approachTransitions": [

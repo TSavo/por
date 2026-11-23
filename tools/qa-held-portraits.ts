@@ -406,7 +406,8 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       const inheritedCaller = /:caller:([a-f\d]{4}):/.exec(variant.native.inheritedFrom ?? "")?.[1];
       const registeredMember = member !== undefined && nativeBase &&
         variant.portrait === nativeBase.replace(/:0:0$/, `:${member}:0`) &&
-        site.promptCandidates.some(lead => promptId(lead.next, lead.caller) === prompt && lead.address === inheritedCaller);
+        site.promptCandidates.some(lead => promptId(lead.next, lead.caller) === prompt &&
+          (lead.address === inheritedCaller || site.retainedVerticalMenus?.[prompt] === inheritedCaller));
       const reason = (member !== undefined ? registeredMember : scoped(variant.portrait) || variant.native.inheritedFrom !== undefined)
         ? staticPortraitProblem(site, variant) : "static portrait belongs to a different prompt";
       return { id: variant.portrait, producer, verified: reason === null, reason, remainingCues: undefined };
@@ -416,7 +417,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       variants.every(({ native }) => native.inheritedMember === undefined ||
         inventory.scenes.find(scene => scene.id === native.inheritedFrom && scene.producer === producer)?.poses.every(pose =>
           variants.some(variant => variant.native.inheritedFrom === native.inheritedFrom &&
-            variant.native.inheritedMember === pose.member)));
+            variant.native.inheritedMember !== undefined && variant.native.panelSamples[0]?.sha256 === pose.viewport)));
     evidence.set(prompt, { scenes: observedVariants, verified: complete && observedVariants.every(scene => scene.verified) });
     staticBySite.set(site, evidence);
     allScenes.push(...observedVariants);
