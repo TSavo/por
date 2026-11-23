@@ -32701,26 +32701,54 @@
         "original": {
           "route": "valjevo-barracks-ground-paper",
           "data": "original",
+          "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:31searchONTHEGROUNDYOUFINDAPEACEOFPAPERTHATSAYS:Pressbuttonor<return>tocontinue",
+          "portrait": "scene-illustration:area:4:ecl:9a5a:caller:a442:cue:ground-paper",
+          "checkpointSha256": "e31e2768c7c197ccbdbdafc067c3ee36bf9e724e792b6099985ac44de7b7eb9b",
+          "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3655,
+          "samples": 221,
+          "poses": [
+            "scene-illustration:area:4:ecl:9a5a:caller:a442:cue:ground-paper"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "49843bb9645065d347391d2da394fb1e35fb4be0f2dbcdb264fa86a8ece6b32b",
           "position": [
             4,
             8,
             0
           ],
-          "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:31searchONTHEGROUNDYOUFINDAPEACEOFPAPERTHATSAYS:Pressbuttonor<return>tocontinue",
-          "checkpointSha256": "e31e2768c7c197ccbdbdafc067c3ee36bf9e724e792b6099985ac44de7b7eb9b",
-          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e"
+          "sha256": "0fe21d82352557940546b7aa625be371d04834ca50815932ee1a0fecea88815d"
         },
         "port": {
           "route": "valjevo-barracks-ground-paper",
           "data": "port",
+          "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:31searchONTHEGROUNDYOUFINDAPEACEOFPAPERTHATSAYS:Pressbuttonor<return>tocontinue",
+          "portrait": "scene-illustration:area:4:ecl:9a5a:caller:a442:cue:ground-paper",
+          "checkpointSha256": "e31e2768c7c197ccbdbdafc067c3ee36bf9e724e792b6099985ac44de7b7eb9b",
+          "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3658,
+          "samples": 221,
+          "poses": [
+            "scene-illustration:area:4:ecl:9a5a:caller:a442:cue:ground-paper"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "49843bb9645065d347391d2da394fb1e35fb4be0f2dbcdb264fa86a8ece6b32b",
           "position": [
             4,
             8,
             0
           ],
-          "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:31searchONTHEGROUNDYOUFINDAPEACEOFPAPERTHATSAYS:Pressbuttonor<return>tocontinue",
-          "checkpointSha256": "e31e2768c7c197ccbdbdafc067c3ee36bf9e724e792b6099985ac44de7b7eb9b",
-          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e"
+          "sha256": "0fe21d82352557940546b7aa625be371d04834ca50815932ee1a0fecea88815d"
+        }
+      },
+      "illustration": {
+        "id": "scene-illustration:area:4:ecl:9a5a:caller:a442:cue:ground-paper",
+        "native": {
+          "pictureDraws": 0,
+          "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 N 00:31 search ON THE GROUND YOU FIND A PEACE OF PAPER THAT SAYS: Press button or <return> to continue",
+          "viewportSha256": "06b740df0d6cdb574b3b133dc5cb9bfe7b271e4e0d23a56f39f04caf37a163dc"
         }
       }
     },
