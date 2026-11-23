@@ -11,7 +11,8 @@ export type HostOriginalFiles = {
 };
 
 contextBridge.exposeInMainWorld("porElectron", {
-  getOriginalFiles: (): Promise<HostOriginalFiles | null> => ipcRenderer.invoke("original-files:get"),
+  getOriginalFiles: (): Promise<HostOriginalFiles | { problem: string } | null> => ipcRenderer.invoke("original-files:get"),
+  forgetOriginalFiles: (): Promise<void> => ipcRenderer.invoke("original-files:forget"),
   onOriginalFiles: (callback: (payload: HostOriginalFiles) => void) => {
     ipcRenderer.on("original-files:used", (_event, payload: HostOriginalFiles) => callback(payload));
   },
