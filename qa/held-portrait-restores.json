@@ -9,6 +9,38 @@
       "member": 0,
       "initialViewport": "1ef14db0ddbf8ef3559ad2a5a41b26be503885f9f9864f3f349e93c11dbdc5a9",
       "restoredViewport": "1ef14db0ddbf8ef3559ad2a5a41b26be503885f9f9864f3f349e93c11dbdc5a9"
+    },
+    "chrome": {
+      "original": {
+        "producer": "START.EXE:33fd",
+        "route": "camp-view-portrait-restore",
+        "data": "original",
+        "portrait": "portrait:PIC3.DAX:29:0:0",
+        "menuPortraits": [
+          "portrait:PIC3.DAX:29:0:0",
+          null,
+          "portrait:PIC3.DAX:29:0:0"
+        ],
+        "checkpointSha256": "f2ca092cee6050e054e1cfad93fe785b6490a701e9281b50389316cf3a066c13",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "40f4da3879cf092cfef73babe6e5b6e1e315a80c71e37e6c0337624f15b06dd5"
+      },
+      "port": {
+        "producer": "START.EXE:33fd",
+        "route": "camp-view-portrait-restore",
+        "data": "port",
+        "portrait": "portrait:PIC3.DAX:29:0:0",
+        "menuPortraits": [
+          "portrait:PIC3.DAX:29:0:0",
+          null,
+          "portrait:PIC3.DAX:29:0:0"
+        ],
+        "checkpointSha256": "f2ca092cee6050e054e1cfad93fe785b6490a701e9281b50389316cf3a066c13",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "40f4da3879cf092cfef73babe6e5b6e1e315a80c71e37e6c0337624f15b06dd5"
+      }
     }
   },
   {
@@ -21,6 +53,38 @@
       "member": 0,
       "initialViewport": "fd7cdd44166665fb595cceb84b793565b96edb9c69eb96e39e69d43006396bd0",
       "restoredViewport": "fd7cdd44166665fb595cceb84b793565b96edb9c69eb96e39e69d43006396bd0"
+    },
+    "chrome": {
+      "original": {
+        "producer": "START.EXE:347d",
+        "route": "loot-view-portrait-restore",
+        "data": "original",
+        "portrait": "portrait:PIC1.DAX:1:0:0",
+        "menuPortraits": [
+          "portrait:PIC1.DAX:1:0:0",
+          null,
+          "portrait:PIC1.DAX:1:0:0"
+        ],
+        "checkpointSha256": "86e64ecbf5be2dbce747d101150e50225ade7d835e19c233e9000f17edd25998",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "c17fc5455c6c0a18599f43a7052c7f16d703c7efd4ad576d1437bb8859a2cd99"
+      },
+      "port": {
+        "producer": "START.EXE:347d",
+        "route": "loot-view-portrait-restore",
+        "data": "port",
+        "portrait": "portrait:PIC1.DAX:1:0:0",
+        "menuPortraits": [
+          "portrait:PIC1.DAX:1:0:0",
+          null,
+          "portrait:PIC1.DAX:1:0:0"
+        ],
+        "checkpointSha256": "86e64ecbf5be2dbce747d101150e50225ade7d835e19c233e9000f17edd25998",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "c17fc5455c6c0a18599f43a7052c7f16d703c7efd4ad576d1437bb8859a2cd99"
+      }
     }
   }
 ]
