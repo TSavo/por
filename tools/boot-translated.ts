@@ -421,7 +421,8 @@ const soundTracePath = process.env.POR_SOUND_TRACE;
 const browserSound = process.env.POR_BROWSER_PLAY === "1";
 let narrationObserver: EclNarrationObserver | undefined;
 const eclTextHandlers: boolean[] = [];
-const tracePictureProducer = input?.traceHeldPortrait !== undefined;
+const tracePictureProducer = input?.traceHeldPortrait !== undefined ||
+  browserSound && Boolean(process.env.POR_PORTRAIT_DRAW_TRACE);
 const eclPictureProducers: (string | undefined)[] = [];
 if (browserSound) {
   const manifest = JSON.parse(readFileSync(fromPortRoot("src", "audio", "voice-master-manifest.json"), "utf8")) as ObserverManifest;

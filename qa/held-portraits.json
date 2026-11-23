@@ -27956,6 +27956,52 @@
           }
         }
       }
+    },
+    {
+      "producer": "ECL1.DAX:24:9aed",
+      "prompt": "9b0b",
+      "caption": "A LARGE GROUP OF ORCS WHO ARE SURPRISED",
+      "checkpoint": "bane-mansion-symbol-hold/A.json",
+      "illustration": {
+        "id": "scene-illustration:area:31:ecl:9b0b:cue:mansion-holy-symbol",
+        "native": {
+          "heldCaption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA10510,9S00:24ASYOUENTERTHEBUILDINGYOUSEEALARGEGROUPOFORCSWHOARESURPRISEDTHATYOU'REHERE.WITHCONFUSEDLOOKSONTHEIRFACESTHEYSTAREATYOUCombatWaitFleeAdvance",
+          "viewportSha256": "8b4638b6725a239ca4297e5b64a45e699bae88fa951c279c5ca47d06343b9145",
+          "pictureDraws": 0
+        }
+      },
+      "chrome": {
+        "original": {
+          "route": "bane-mansion-symbol-hold",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA10510,9S00:24ASYOUENTERTHEBUILDINGYOUSEEALARGEGROUPOFORCSWHOARESURPRISEDTHATYOU'REHERE.WITHCONFUSEDLOOKSONTHEIRFACESTHEYSTAREATYOUCombatWaitFleeAdvance",
+          "portrait": "scene-illustration:area:31:ecl:9b0b:cue:mansion-holy-symbol",
+          "checkpointSha256": "6c1d73b658bd4373e96b45dd1d82b264f43dad1f5c7da4cfa29eb2d7b97ab8e9",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "durationMs": 3660,
+          "samples": 220,
+          "poses": [
+            "scene-illustration:area:31:ecl:9b0b:cue:mansion-holy-symbol"
+          ],
+          "paneSampleSha256": "a70c548101c71cd23316405ceed6d5ef907e4576fe303c5ae01921faa8b03cdf",
+          "sha256": "799b17e2255fe35aff734e1e40c33048c991353ec845d17290eb23a30ff87a0f"
+        },
+        "port": {
+          "route": "bane-mansion-symbol-hold",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA10510,9S00:24ASYOUENTERTHEBUILDINGYOUSEEALARGEGROUPOFORCSWHOARESURPRISEDTHATYOU'REHERE.WITHCONFUSEDLOOKSONTHEIRFACESTHEYSTAREATYOUCombatWaitFleeAdvance",
+          "portrait": "scene-illustration:area:31:ecl:9b0b:cue:mansion-holy-symbol",
+          "checkpointSha256": "6c1d73b658bd4373e96b45dd1d82b264f43dad1f5c7da4cfa29eb2d7b97ab8e9",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "durationMs": 3664,
+          "samples": 221,
+          "poses": [
+            "scene-illustration:area:31:ecl:9b0b:cue:mansion-holy-symbol"
+          ],
+          "paneSampleSha256": "a70c548101c71cd23316405ceed6d5ef907e4576fe303c5ae01921faa8b03cdf",
+          "sha256": "799b17e2255fe35aff734e1e40c33048c991353ec845d17290eb23a30ff87a0f"
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [

@@ -705,5 +705,36 @@
         "artSha256": "dff0714d039513c69f6c2ce5097ad33982aa47b531dc917dad957769f9e22e53"
       }
     }
+  },
+  {
+    "producer": "ECL1.DAX:24:9f17",
+    "combat": "9f7a",
+    "native": {
+      "drawCursor": "9f1e",
+      "members": [
+        0
+      ],
+      "evidence": "https://github.com/TSavo/por/issues/131#issuecomment-7092179918"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL1.DAX:24:9f17",
+        "route": "bane-mansion-ogre-one-shot",
+        "data": "original",
+        "portrait": "portrait:area:31:ecl:9f7b:PIC1.DAX:8:0:0",
+        "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "2c13f3c0baa59d1beaecd9ecb6cbb07e1762cad8a237948885661856968f1caf"
+      },
+      "port": {
+        "producer": "ECL1.DAX:24:9f17",
+        "route": "bane-mansion-ogre-one-shot",
+        "data": "port",
+        "portrait": "portrait:area:31:ecl:9f7b:PIC1.DAX:8:0:0",
+        "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "2c13f3c0baa59d1beaecd9ecb6cbb07e1762cad8a237948885661856968f1caf"
+      }
+    }
   }
 ]

@@ -6,6 +6,7 @@ import { isDeepStrictEqual } from "node:util";
 import type { EncounterAnchor } from "../src/lib/assets.js";
 import { heldPortraitDiscovery } from "./discover-held-portraits.js";
 import { encounterKey, type EncounterPlacement } from "./encounter-art.js";
+import { scriptIllustrations } from "./portrait-art.js";
 import { portraitLoopSignature } from "./held-portrait-loops.mjs";
 import { verifyHeldPortraitPaint, type ChromeProof, type Pose } from "./verify-held-portrait-paint.js";
 
@@ -386,11 +387,14 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
         const { id, native } = proof.illustration;
         const [, area] = producer.split(":");
         const [cursor, caller] = prompt.split("/");
-        const expectedId = "scene-illustration:area:" + area + ":ecl:" + cursor + (caller ? ":caller:" + caller : "");
+        const [, artArea, artCursor, artCaller] =
+          /^scene-illustration:area:(\d+):ecl:([a-f\d]{4})(?::caller:([a-f\d]{4}))?(?::cue:[a-z\d-]+)?$/.exec(id) ?? [];
+        // The mansion map and the exterior share ECL1 block 24.
+        const matchingArea = artArea === area || (artArea === "31" && producer.startsWith("ECL1.DAX:24:"));
         const image = assets.get(id);
         const pane = proof.chrome.original.paneSampleSha256;
-        if (id !== expectedId || !image || !existsSync(image) ||
-            native.pictureDraws !== 0 || !/^[a-f0-9]{64}$/.test(native.viewportSha256) ||
+        if (!matchingArea || artCursor !== cursor || artCaller !== caller || !scriptIllustrations.has(id) ||
+            !image || !existsSync(image) || native.pictureDraws !== 0 || !/^[a-f0-9]{64}$/.test(native.viewportSha256) ||
             !normalizeCaption(native.heldCaption).includes(caption) || !/^[a-f0-9]{64}$/.test(pane)) return false;
         const sha256 = digest(readFileSync(image));
         return (["original", "port"] as const).every(data => {

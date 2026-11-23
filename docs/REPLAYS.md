@@ -277,6 +277,11 @@ with `POR_GAME_SOURCE=original` and the GOG 1.3 files, and once with
 sampled at browser refreshes during the same guest input wait. Save
 the native cycle output as JSON and compare the three files with
 `node --import tsx tools/verify-held-portrait-paint.ts <native cycles.json> <scene> <original Chrome.json> <port Chrome.json>`.
+For a direct battle notice, set `POR_PORTRAIT_DRAW_TRACE` to a fresh
+JSONL path alongside the replay. It records every completed native
+portrait member, including the one-shot draws that have no held timer.
+Count the draws at the script cursor before the battle begins.
+
 The two held-menu traces are independent of the Enhanced timing table.
 The worklist checks the renderer, the bindings that can select a loop for
 the opening portrait, and the served art hashes against each Chrome

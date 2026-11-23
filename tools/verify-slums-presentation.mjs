@@ -3149,6 +3149,22 @@ const illustrationRoutes = new Map([
       prompt: /YOULETTHEGOBLINSGO.*HOLYSYMBOLOFBANE/i,
     },
   }],
+  ["bane-mansion-ogre-one-shot", {
+    slot: "A", inputs: ["up"], oneShotProducer: "ECL1.DAX:24:9f17",
+    portrait: "portrait:area:31:ecl:9f7b:PIC1.DAX:8:0:0",
+    prompt: /SIXORCSLEDBYALARGEOGRE.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "bane-mansion-ogre-notice.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
+  ["bane-mansion-symbol-hold", {
+    slot: "A", inputs: ["up"], illustratedScenery: true,
+    portrait: "scene-illustration:area:31:ecl:9b0b:cue:mansion-holy-symbol",
+    prompt: /WHOARESURPRISEDTHATYOU.*CONFUSEDLOOKSONTHEIRFACES/i,
+    continuation: {
+      inputs: ["c"], portrait: "scene-illustration:area:31:ecl:9b2d:cue:mansion-holy-symbol",
+      prompt: /WHOARESURPRISEDTHATYOU.*ABATTLEBEGINS/i,
+    },
+  }],
   ["bane-mansion-holy-symbol", {
     slot: "A", inputs: ["up", "enter", "enter", "c"],
     portraitStops: { 3: "scene-illustration:area:31:ecl:9b0b:cue:mansion-holy-symbol" },
@@ -8711,7 +8727,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "diogenes-silver-directions-loop" ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       /^tyrmor-prison-(kobolds|lizardfolk|displacer|stirge)-loop$/.test(routeName) ||
-      ["bane-captive-goblin-held", "bane-gate-inspection-holds", "sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
+      ["bane-captive-goblin-held", "bane-gate-inspection-holds", "bane-mansion-ogre-one-shot", "bane-mansion-symbol-hold", "sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
         "new-phlan-training-duels", "new-phlan-training-north-junction", "new-phlan-training-fighters-door",
         "new-phlan-training-rogues-door", "new-phlan-training-entrance-notice",
@@ -8904,7 +8920,7 @@ try {
     })()`), "Enhanced portrait should fill the outer picture panel over an opaque backdrop");
   }
 
-  async function verifyStaticPortrait(portrait, expectedCaption, expectsContinue = true) {
+  async function verifyStaticPortrait(portrait, expectedCaption, expectsContinue = true, samplePane = false) {
     assert.ok(portrait && frame.awaitsKey);
     const caption = frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join("");
     assert.match(caption, expectedCaption);
@@ -8963,6 +8979,23 @@ try {
         bindingSha256: createHash("sha256").update(result.value).digest("hex"),
         ...proof,
       });
+    }
+    if (samplePane && heldPortraitEvidenceFile) {
+      const { result, exceptionDetails } = await command("Runtime.evaluate", {
+        awaitPromise: true, returnByValue: true,
+        expression: `(async () => {
+          const image = document.querySelector("#tile-art:not([hidden]) .encounter-portrait");
+          const canvas = document.createElement("canvas");
+          canvas.width = canvas.height = 352;
+          const panel = canvas.getContext("2d");
+          panel.drawImage(image, 0, 0);
+          const digest = await crypto.subtle.digest("SHA-256", panel.getImageData(0, 0, 352, 352).data);
+          return Array.from(new Uint8Array(digest), value => value.toString(16).padStart(2, "0")).join("");
+        })()`,
+      });
+      assert.ok(!exceptionDetails, exceptionDetails?.text);
+      assert.match(result.value, /^[a-f0-9]{64}$/);
+      heldPortraitEvidence.at(-1).paneSampleSha256 = result.value;
     }
   }
 
@@ -12182,7 +12215,9 @@ try {
       assert.deepEqual([...phases.keys()], []);
     }
     if (illustration.heldPortraitLoop) await verifyHeldPortraitLoop(illustration.heldPortraitLoop);
-    if (illustration.staticPortraitMenu) await verifyStaticPortrait(portrait, prompt, false);
+    if (illustration.staticPortraitMenu || illustration.illustratedScenery) {
+      await verifyStaticPortrait(portrait, prompt, false, illustration.illustratedScenery);
+    }
     if (routeName === "mendor-spectre-battle-notice") {
       assert.deepEqual(frame.animation?.map(({ encounter, portrait, durationMs }) => [encounter, portrait, durationMs]), [
         [approachSequence[0], undefined, undefined],
@@ -13530,24 +13565,7 @@ try {
   } else if (koboldGuideWallTap) {
     for (const key of ["up", "w", "y"]) await advance(key);
     const illustration = "scene-illustration:area:13:ecl:b511:caller:afc2";
-    await verifyStaticPortrait(illustration, /THEKOBOLDPAUSES,IDLYTAPSTHEWALL.*PRESS<RETURN>ORBUTTONTOCONTINUE/i, false);
-    if (heldPortraitEvidenceFile) {
-      const { result, exceptionDetails } = await command("Runtime.evaluate", {
-        awaitPromise: true, returnByValue: true,
-        expression: `(async () => {
-          const image = document.querySelector("#tile-art:not([hidden]) .encounter-portrait");
-          const canvas = document.createElement("canvas");
-          canvas.width = canvas.height = 352;
-          const panel = canvas.getContext("2d");
-          panel.drawImage(image, 0, 0);
-          const digest = await crypto.subtle.digest("SHA-256", panel.getImageData(0, 0, 352, 352).data);
-          return Array.from(new Uint8Array(digest), value => value.toString(16).padStart(2, "0")).join("");
-        })()`,
-      });
-      assert.ok(!exceptionDetails, exceptionDetails?.text);
-      assert.match(result.value, /^[a-f0-9]{64}$/);
-      heldPortraitEvidence.at(-1).paneSampleSha256 = result.value;
-    }
+    await verifyStaticPortrait(illustration, /THEKOBOLDPAUSES,IDLYTAPSTHEWALL.*PRESS<RETURN>ORBUTTONTOCONTINUE/i, false, true);
     await advance("enter");
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /THEKOBOLDPAUSES,IDLYTAPSTHEWALL/i);
     await advance("enter");
