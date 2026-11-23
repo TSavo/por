@@ -571,6 +571,8 @@ export function portraitHoldAction(record: PictureRecord, member: number, frame 
 }
 
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
+const kutoWellReinforcements = "scene-illustration:area:29:ecl:af2f:caller:a31b:cue:kobolds-climb-from-well";
+
 export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:17:ecl:a97c", "PLEASETHINKABOUTITOVERNIGHT"],
   ["scene-illustration:area:17:ecl:9da2:caller:a980", "PLEASETHINKABOUTITOVERNIGHT"],
@@ -1719,14 +1721,21 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:29:ecl:afa1", "BEFOREYOULIESKUTO'SWELL.ITISASOURCEOFWATERINALLSEASONS"],
   ["scene-illustration:area:29:ecl:afa1:cue:daylight", "BEFOREYOULIESKUTO'SWELL.ITISASOURCEOFWATERINALLSEASONS"],
   ["scene-illustration:area:29:ecl:af2f:caller:a31b", "MONSTERSFROMTHESURROUNDINGBUILDINGSATTACKYOU"],
-  ["scene-illustration:area:29:ecl:af2f:caller:a31b:cue:kobolds-climb-from-well", "ABANDOFKOBOLDSCLIMBSFROMTHEWELLANDATTACKS"],
+  [kutoWellReinforcements, "ABANDOFKOBOLDSCLIMBSFROMTHEWELLANDATTACKS"],
   ["scene-illustration:area:29:ecl:a3b9", "ABANDOFKOBOLDSCLIMBSFROMTHEWELLANDATTACKS"],
   ["scene-illustration:area:29:ecl:a75e:cue:scouts-pleading", "WEONLYSEEKTORETURNTOOURFAMILIES"],
   ["scene-illustration:area:29:ecl:a75e:cue:scouts-questioned", /THEKOBOLDSCOLLAPSEINTOAPATHETIC.MEWINGHEAP/i],
 ]);
+// The close approach and the shared battle notice hold the reinforcements
+// illustration whenever the exact second-wave caption is still on screen.
+const retainedIllustrationScopes = new Map([
+  ["scene-illustration:area:29:ecl:a3ba", kutoWellReinforcements],
+  ["scene-illustration:area:29:ecl:a338", kutoWellReinforcements],
+]);
 export function matchScriptIllustration(context: string, dialogue: string, installed: readonly string[]) {
+  const scope = retainedIllustrationScopes.get(context) ?? context;
   for (const [id, cue] of scriptIllustrations) {
-    if (id !== context && !id.startsWith(context + ":cue:")) continue;
+    if (id !== scope && !id.startsWith(scope + ":cue:")) continue;
     const matches = typeof cue === "string" ? dialogue.includes(cue) : cue.test(dialogue);
     if (matches && installed.includes(id)) return id;
   }
