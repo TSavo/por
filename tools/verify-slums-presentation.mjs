@@ -1315,6 +1315,19 @@ const illustrationRoutes = new Map([
         pressOnPortrait: phase(2), retainPose: true, battleNoticeInputs: name === "home" ? ["enter", "enter"] : undefined },
     }];
   }),
+  ["bane-rampart-goblin-patrol", {
+    slot: "A", stockInput: true, fixedClockStart: "4320222",
+    inputs: [...Array.from({ length: 41 }, (_, index) => index % 2 ? "down" : "up"), "a", "a"],
+    portrait: "portrait:area:24:ecl:ae0e:PIC1.DAX:2:0:0",
+    prompt: /THEMONSTERSSTANDREADY.*COMBATWAITFLEEPARLAY/i,
+    heldPortraitLoop: [0, 1].map(member => `portrait:area:24:ecl:ae0e:PIC1.DAX:2:${member}:0`),
+    approachSequence: [
+      [56, 32, "encounter:area:24:ecl:ae0e:SPRIT1.DAX:2:2:0", 24, 49],
+      [56, 32, "encounter:area:24:ecl:ae0e:SPRIT1.DAX:2:1:0", 32, 65],
+    ],
+    requireWebGL: true, requireTiledApproach: true,
+    finalPhaseCapture: "bane-rampart-goblin-patrol.png",
+  }],
   ["bane-black-hand-patrol-warning", {
     slot: "A", inputs: [...Array.from({ length: 49 }, () => ["up", "down"]).flat(), "up"],
     promptSchedule: "qa/fixtures/bane-black-hand-patrol-warning/prompts.jsonl",
