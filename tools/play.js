@@ -1264,6 +1264,17 @@ const portraitLoopBindings = import("/held-portrait-loops.mjs");
 
 let heldPoseAtInput;
 let battleNoticePose;
+let pittMenuPose;
+
+function retainedPittMenuPose(source, target) {
+  const transition = /^portrait:area:18:ecl:b240:caller:(ab51|abde):PIC1\.DAX:2:([01]):0$/.exec(source);
+  if (!transition) return undefined;
+  const [, caller, member] = transition;
+  const cursor = caller === "ab51" ? "ab8d" : "ac22";
+  const prefix = `portrait:area:18:ecl:${cursor}:PIC1.DAX:2:`;
+  if (target === `${prefix}0:0` || target === `${prefix}1:0`) return `${prefix}${member}:0`;
+  return undefined;
+}
 
 async function animateHeldPortrait(image, view) {
   const { portrait: id, text } = view;
@@ -1318,7 +1329,7 @@ async function showScreen() {
   const render = ++screenRender;
   renderingSequence = state.sequence;
   const view = animationFrame ?? state;
-  const portraitId = view === state ? battleNoticePose ?? view.portrait : view.portrait;
+  const portraitId = view === state ? battleNoticePose ?? pittMenuPose ?? view.portrait : view.portrait;
   // The wheel prompt uses a custom DOS font whose glyph codes are not letters.
   const useEnhanced = enhanced && !Number.isInteger(view.codeWheelQuestion) && !failedEnhancedFrames.has(view);
   const frame = useEnhanced ? view.enhancedFrame ?? view.frame : view.frame;
@@ -2118,6 +2129,8 @@ async function poll() {
         /^ABATTLEBEGINS[.!]*$/i.test(next.text?.filter(([cell]) => cell >= 960)
           .map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, ""));
       battleNoticePose = battleNotice ? previousPose : undefined;
+      pittMenuPose = next.portrait === state.portrait ? pittMenuPose :
+        retainedPittMenuPose(previousPose ?? state.portrait, next.portrait);
       heldPoseAtInput = undefined;
       state = next;
     } else Object.assign(state, next);

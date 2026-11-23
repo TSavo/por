@@ -124,9 +124,14 @@ type ScriptSite = typeof heldPortraitDiscovery.eclCandidates[number];
 const scriptSiteId = (site: ScriptSite) => `${site.scriptArchive}:${site.scriptBlock}:${site.address}`;
 const promptId = (cursor: string, caller: string | null) => caller ? `${cursor}/${caller}` : cursor;
 
+const pittMenuRenderer = "63ed7feeedcc946fa2d875929600db3ad193e883eb12beb0e83f2ec54c1c85b9";
+const rendererBeforePittMenus = "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e";
+
 // Exact reviewed revisions that preserve the held portrait paint and timing code.
 // This covers narration logging, the wilderness atlas, settings, and Classic palette-only clips.
 const previousRendererProof = new Map<string, string>([
+  // The two Pitt menus keep their incoming pose. Existing loops and scenery are untouched.
+  [pittMenuRenderer, rendererBeforePittMenus],
   // Classic skips the new Enhanced-only abandoned camp clip. Existing clips keep their filters.
   ["c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
     "db6e5267e6521bc9737d197ed4eca705e396fdc5a1e0f4253f6bff07487724d0"],
@@ -153,6 +158,11 @@ const previousRendererProof = new Map<string, string>([
 export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.meta.url))) {
   const path = (...parts: string[]) => join(root, ...parts);
   const digest = (value: string | Buffer) => createHash("sha256").update(value).digest("hex");
+  // Checkpoints are JSON text. Git can change their line endings between capture and checkout.
+  function checkpointDigests(file: string) {
+    const text = readFileSync(file, "utf8").replace(/\r\n/g, "\n");
+    return new Set([digest(text), digest(text.replace(/\n/g, "\r\n"))]);
+  }
   const renderer = digest(readFileSync(path("tools", "play.js"), "utf8").replace(/\r\n/g, "\n"));
   const acceptedRenderers = new Set<string>();
   for (let hash: string | undefined = renderer; hash && !acceptedRenderers.has(hash); hash = previousRendererProof.get(hash)) {
@@ -273,11 +283,13 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       if (!caption || original.route !== port.route || !existsSync(fixture)) return false;
       if (!isDeepStrictEqual(original.encounter, port.encounter) ||
           (original.encounter && !verifiedEncounterAsset(original.encounter))) return false;
-      const checkpoint = digest(readFileSync(fixture));
+      const checkpoint = checkpointDigests(fixture);
       return (["original", "port"] as const).every(data => {
         const observed = proof.chrome[data];
-        return observed.data === data && observed.rendererSha256 === renderer &&
-          observed.checkpointSha256 === checkpoint && isDeepStrictEqual(observed.position, proof.position) &&
+        const sameSceneryRenderer = observed.rendererSha256 === renderer ||
+          (renderer === pittMenuRenderer && observed.rendererSha256 === rendererBeforePittMenus);
+        return observed.data === data && sameSceneryRenderer &&
+          checkpoint.has(observed.checkpointSha256) && isDeepStrictEqual(observed.position, proof.position) &&
           normalizeCaption(observed.caption).includes(caption);
       });
     });
@@ -319,7 +331,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     const fixture = path("qa", "fixtures", checkpoint);
     const image = assets.get(portrait);
     if (!existsSync(fixture) || !image || !existsSync(image)) return "missing static portrait art or checkpoint";
-    const checkpointSha = digest(readFileSync(fixture));
+    const checkpointSha = checkpointDigests(fixture);
     const artSha = digest(readFileSync(image));
     const bindingSha = digest(portraitLoopSignature(portrait));
     if (!chrome) return "paired Chrome evidence is missing";
@@ -328,7 +340,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     for (const data of ["original", "port"] as const) {
       const proof = chrome[data];
       if (proof.data !== data || !matchesRenderer(proof.rendererSha256) || proof.bindingSha256 !== bindingSha ||
-          proof.checkpointSha256 !== checkpointSha || proof.artSha256 !== artSha) {
+          !checkpointSha.has(proof.checkpointSha256) || proof.artSha256 !== artSha) {
         return "Chrome proof predates the renderer, binding, artwork, or checkpoint";
       }
       if (!normalizeCaption(proof.caption).includes(expectedCaption) ||
@@ -396,10 +408,10 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
             prompt.prompt === handoff.prompt && prompt.variants.some(variant =>
               variant.portrait === original.nextPortrait && variant.checkpoint === transition.checkpoint &&
               variant.chrome?.original.route === original.route))) return false;
-      const hash = digest(readFileSync(checkpoint));
+      const hashes = checkpointDigests(checkpoint);
       return (["original", "port"] as const).every(data => {
         const observed = transition.chrome[data];
-        return observed.data === data && observed.checkpointSha256 === hash && matchesRenderer(observed.rendererSha256);
+        return observed.data === data && hashes.has(observed.checkpointSha256) && matchesRenderer(observed.rendererSha256);
       });
     });
   }
