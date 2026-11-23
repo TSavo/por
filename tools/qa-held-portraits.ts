@@ -22,6 +22,11 @@ interface HeldPortraitInventory {
   staticPortraitPrompts?: StaticPortraitPrompt[];
 }
 
+interface EncounterPaint {
+  placement: EncounterPlacement;
+  sha256: string;
+}
+
 interface SceneryProof {
   route: string;
   data: ChromeProof["data"];
@@ -29,6 +34,7 @@ interface SceneryProof {
   caption: string;
   checkpointSha256: string;
   rendererSha256: string;
+  encounter?: EncounterPaint;
 }
 
 interface SceneryPrompt {
@@ -79,7 +85,7 @@ interface ApproachProof {
   route: string;
   data: ChromeProof["data"];
   rendererSha256: string;
-  steps: { placement: EncounterPlacement; caption: string; sha256: string }[];
+  steps: (EncounterPaint & { caption: string })[];
 }
 
 interface OneShotProof {
@@ -154,6 +160,14 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     for (const [id, anchor] of Object.entries(manifest.encounters ?? {})) encounters.set(id, anchor);
   }
   const normalizeCaption = (text: string) => text.replace(/[^a-z]/gi, "").toUpperCase();
+  function verifiedEncounterAsset({ placement, sha256 }: EncounterPaint) {
+    const [x, y, key, width, height, webglYOffset = 0] = placement;
+    const anchor = encounters.get(key);
+    const image = assets.get(key);
+    return Boolean(anchor && image && x === anchor.x && y === anchor.y && width === anchor.width &&
+      height === anchor.height && webglYOffset === (anchor.webglYOffset ?? 0) &&
+      existsSync(image) && digest(readFileSync(image)) === sha256);
+  }
   function approachCues(cues: string[] | undefined, proof: { original: ApproachProof; port: ApproachProof } | undefined) {
     if (!cues || !proof) return cues;
     const { original, port } = proof;
@@ -161,16 +175,10 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
         !matchesRenderer(original.rendererSha256) || !matchesRenderer(port.rendererSha256)) return cues;
     return cues.filter(cue => {
       const caption = normalizeCaption(cue);
-      return !original.steps.some(({ placement, sha256, caption: observed }) => {
-        const [x, y, key, width, height, webglYOffset = 0] = placement;
-        const anchor = encounters.get(key);
-        const image = assets.get(key);
-        if (!anchor || !image || x !== anchor.x || y !== anchor.y || width !== anchor.width || height !== anchor.height ||
-            webglYOffset !== (anchor.webglYOffset ?? 0) || !normalizeCaption(observed).includes(caption) ||
-            !existsSync(image) || digest(readFileSync(image)) !== sha256) return false;
-        return port.steps.some(step => isDeepStrictEqual(step.placement, placement) &&
-          step.sha256 === sha256 && normalizeCaption(step.caption).includes(caption));
-      });
+      return !original.steps.some(step =>
+        normalizeCaption(step.caption).includes(caption) && verifiedEncounterAsset(step) &&
+        port.steps.some(other => isDeepStrictEqual(other.placement, step.placement) &&
+          other.sha256 === step.sha256 && normalizeCaption(other.caption).includes(caption)));
     });
   }
   const scenes = inventory.scenes.map(({ id, producer, poses, chrome, remainingCues, approachChrome }) => {
@@ -247,6 +255,8 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       const fixture = path("qa", "fixtures", proof.checkpoint);
       const caption = normalizeCaption(proof.caption);
       if (!caption || original.route !== port.route || !existsSync(fixture)) return false;
+      if (!isDeepStrictEqual(original.encounter, port.encounter) ||
+          (original.encounter && !verifiedEncounterAsset(original.encounter))) return false;
       const checkpoint = digest(readFileSync(fixture));
       return (["original", "port"] as const).every(data => {
         const observed = proof.chrome[data];
