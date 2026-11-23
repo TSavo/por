@@ -63,6 +63,7 @@ interface SceneryPrompt {
 
 interface StaticPortraitChromeProof extends Omit<OneShotProof, "producer"> {
   caption: string;
+  incomingPortrait?: string;
   checkpointSha256: string;
   durationMs: number;
   samples: number;
@@ -80,12 +81,14 @@ interface StaticPortraitVariant {
     panelSamples: { idlePolls: number; sha256: string }[];
   } & ({
     inheritedFrom?: never;
+    inheritedMember?: never;
     drawCursor: string;
     members?: number[];
     composed?: ScriptSite["composedPortrait"];
   } & ({ battlePanelSha256: string; clearedPanelSha256?: never } |
        { battlePanelSha256?: never; clearedPanelSha256: string }) | {
     inheritedFrom: string;
+    inheritedMember?: number;
   });
   chrome?: { original: StaticPortraitChromeProof; port: StaticPortraitChromeProof };
 }
@@ -311,9 +314,24 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       const producer = scriptSiteId(site);
       const source = inventory.scenes.find(scene => scene.id === native.inheritedFrom && scene.producer === producer);
       const verified = scenes.some(scene => scene.id === native.inheritedFrom && scene.producer === producer && scene.verified);
-      if (!verified || source?.chrome?.original.portrait !== portrait || source.chrome.port.portrait !== portrait ||
-          !source.poses.some(pose => pose.member === 0 && pose.viewport === panel)) {
-        return "retained static portrait must match the first member of a verified scene from the same producer";
+      const member = native.inheritedMember ?? 0;
+      if (!verified || !source?.chrome || !source.poses.some(pose => pose.member === member && pose.viewport === panel)) {
+        return "retained static portrait must match the native member of a verified scene from the same producer";
+      }
+      if (native.inheritedMember === undefined) {
+        if (source.chrome.original.portrait !== portrait || source.chrome.port.portrait !== portrait) {
+          return "retained static portrait must show its inherited picture";
+        }
+      } else {
+        const incoming = `portrait:${source.id}:${member}:0`;
+        const target = assets.get(portrait);
+        if (!target || !existsSync(target)) return "retained portrait pose is missing its target artwork";
+        const artSha = digest(readFileSync(target));
+        const incomingChrome = source.chrome;
+        if ((["original", "port"] as const).some(data =>
+          chrome?.[data].incomingPortrait !== incoming || incomingChrome[data].sha256[incoming] !== artSha)) {
+          return "Chrome must retain the measured incoming pose";
+        }
       }
     } else {
       if (native.drawCursor !== site.next && !site.approachSites.includes(native.drawCursor)) {
@@ -362,9 +380,10 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     }
     const evidence = staticBySite.get(site) ?? new Map<string, StaticEvidence>();
     const captions = variants.map(variant => normalizeCaption(variant.caption));
+    const cueAndMembers = variants.map((variant, index) => `${captions[index]}:${variant.native.inheritedMember ?? ""}`);
     const witnessed = new Set(variants.map(variant => variant.portrait));
     if (evidence.has(prompt) || !variants.length || captions.some(caption => !caption) ||
-        new Set(captions).size !== variants.length || witnessed.size !== variants.length) {
+        new Set(cueAndMembers).size !== variants.length || witnessed.size !== variants.length) {
       throw new Error("Missing or duplicate static portrait variants at " + producer + "/" + prompt);
     }
     const [cursor, caller] = prompt.split("/");
@@ -378,12 +397,21 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       (site.composedPortrait && (key === `portrait:area:${site.scriptBlock}:${site.composedPortrait.source}` ||
         key === `portrait:${site.composedPortrait.source}`));
     const observedVariants = variants.map(variant => {
-      const reason = scoped(variant.portrait) || variant.native.inheritedFrom !== undefined
+      const member = variant.native.inheritedMember;
+      const inheritedCaller = /:caller:([a-f\d]{4}):/.exec(variant.native.inheritedFrom ?? "")?.[1];
+      const registeredMember = member !== undefined && nativeBase &&
+        variant.portrait === nativeBase.replace(/:0:0$/, `:${member}:0`) &&
+        site.promptCandidates.some(lead => promptId(lead.next, lead.caller) === prompt && lead.address === inheritedCaller);
+      const reason = (member !== undefined ? registeredMember : scoped(variant.portrait) || variant.native.inheritedFrom !== undefined)
         ? staticPortraitProblem(site, variant) : "static portrait belongs to a different prompt";
       return { id: variant.portrait, producer, verified: reason === null, reason, remainingCues: undefined };
     });
     // One caller can choose multiple cue illustrations. Every registered cue needs its own proof.
-    const complete = [...assets.keys()].filter(illustration).every(key => witnessed.has(key));
+    const complete = [...assets.keys()].filter(illustration).every(key => witnessed.has(key)) &&
+      variants.every(({ native }) => native.inheritedMember === undefined ||
+        inventory.scenes.find(scene => scene.id === native.inheritedFrom && scene.producer === producer)?.poses.every(pose =>
+          variants.some(variant => variant.native.inheritedFrom === native.inheritedFrom &&
+            variant.native.inheritedMember === pose.member)));
     evidence.set(prompt, { scenes: observedVariants, verified: complete && observedVariants.every(scene => scene.verified) });
     staticBySite.set(site, evidence);
     allScenes.push(...observedVariants);

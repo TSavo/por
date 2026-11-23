@@ -16924,6 +16924,278 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL1.DAX:18:ab25",
+      "prompt": "ab8d",
+      "variants": [
+        {
+          "caption": "MIX WITH MONSTERS",
+          "checkpoint": "podal-pitt-retained/I.json",
+          "portrait": "portrait:area:18:ecl:ab8d:PIC1.DAX:2:0:0",
+          "native": {
+            "inheritedFrom": "area:18:ecl:b240:caller:ab51:PIC1.DAX:2",
+            "inheritedMember": 0,
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 4,8 N 18:55 WHAT DO YOU DO? MIX WITH MONSTERS DRINK HEAVILY ATTACK LEAVE",
+            "idlePolls": 32,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "a22361feb58b6fc42bb5e0833cd6e54072df64abfee49b139eac5fa7a0878312"
+              },
+              {
+                "idlePolls": 4,
+                "sha256": "a22361feb58b6fc42bb5e0833cd6e54072df64abfee49b139eac5fa7a0878312"
+              },
+              {
+                "idlePolls": 16,
+                "sha256": "a22361feb58b6fc42bb5e0833cd6e54072df64abfee49b139eac5fa7a0878312"
+              },
+              {
+                "idlePolls": 32,
+                "sha256": "a22361feb58b6fc42bb5e0833cd6e54072df64abfee49b139eac5fa7a0878312"
+              }
+            ]
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-pitt-retained-ab8d-member-0",
+              "data": "original",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:ab51:PIC1.DAX:2:0:0",
+              "portrait": "portrait:area:18:ecl:ab8d:PIC1.DAX:2:0:0",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,8N18:55WHATDOYOUDO?MIXWITHMONSTERSDRINKHEAVILYATTACKLEAVE",
+              "checkpointSha256": "d2ec21ebb82b7b22406c33d3d681868765af3545677c1d1be5dd4f00f6eb372c",
+              "artSha256": "c9ada59cba09e311e34271722c77de1f42553099faa4a765be8750401636bf03",
+              "rendererSha256": "63ed7feeedcc946fa2d875929600db3ad193e883eb12beb0e83f2ec54c1c85b9",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "replaced": false,
+              "poses": [
+                "portrait:area:18:ecl:ab8d:PIC1.DAX:2:0:0"
+              ],
+              "durationMs": 3066.5999999999985,
+              "samples": 185
+            },
+            "port": {
+              "route": "podal-pitt-retained-ab8d-member-0",
+              "data": "port",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:ab51:PIC1.DAX:2:0:0",
+              "portrait": "portrait:area:18:ecl:ab8d:PIC1.DAX:2:0:0",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,8N18:55WHATDOYOUDO?MIXWITHMONSTERSDRINKHEAVILYATTACKLEAVE",
+              "checkpointSha256": "d2ec21ebb82b7b22406c33d3d681868765af3545677c1d1be5dd4f00f6eb372c",
+              "artSha256": "c9ada59cba09e311e34271722c77de1f42553099faa4a765be8750401636bf03",
+              "rendererSha256": "63ed7feeedcc946fa2d875929600db3ad193e883eb12beb0e83f2ec54c1c85b9",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "replaced": false,
+              "poses": [
+                "portrait:area:18:ecl:ab8d:PIC1.DAX:2:0:0"
+              ],
+              "durationMs": 3066.399999999998,
+              "samples": 185
+            }
+          }
+        },
+        {
+          "caption": "MIX WITH MONSTERS",
+          "checkpoint": "podal-pitt-retained/I.json",
+          "portrait": "portrait:area:18:ecl:ab8d:PIC1.DAX:2:1:0",
+          "native": {
+            "inheritedFrom": "area:18:ecl:b240:caller:ab51:PIC1.DAX:2",
+            "inheritedMember": 1,
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 4,8 N 18:55 WHAT DO YOU DO? MIX WITH MONSTERS DRINK HEAVILY ATTACK LEAVE",
+            "idlePolls": 32,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "e579cb908b4bbfe27909da489faa62cbef2c3f2b4573d7cb931b9a6f0be3a2b2"
+              },
+              {
+                "idlePolls": 4,
+                "sha256": "e579cb908b4bbfe27909da489faa62cbef2c3f2b4573d7cb931b9a6f0be3a2b2"
+              },
+              {
+                "idlePolls": 16,
+                "sha256": "e579cb908b4bbfe27909da489faa62cbef2c3f2b4573d7cb931b9a6f0be3a2b2"
+              },
+              {
+                "idlePolls": 32,
+                "sha256": "e579cb908b4bbfe27909da489faa62cbef2c3f2b4573d7cb931b9a6f0be3a2b2"
+              }
+            ]
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-pitt-retained-ab8d-member-1",
+              "data": "original",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:ab51:PIC1.DAX:2:1:0",
+              "portrait": "portrait:area:18:ecl:ab8d:PIC1.DAX:2:1:0",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,8N18:55WHATDOYOUDO?MIXWITHMONSTERSDRINKHEAVILYATTACKLEAVE",
+              "checkpointSha256": "d2ec21ebb82b7b22406c33d3d681868765af3545677c1d1be5dd4f00f6eb372c",
+              "artSha256": "fbf3ddec2103aec3ba3d9687821c8e589cbb85b7ae2130de03f7da22579fa048",
+              "rendererSha256": "63ed7feeedcc946fa2d875929600db3ad193e883eb12beb0e83f2ec54c1c85b9",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "replaced": false,
+              "poses": [
+                "portrait:area:18:ecl:ab8d:PIC1.DAX:2:1:0"
+              ],
+              "durationMs": 3066.5,
+              "samples": 185
+            },
+            "port": {
+              "route": "podal-pitt-retained-ab8d-member-1",
+              "data": "port",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:ab51:PIC1.DAX:2:1:0",
+              "portrait": "portrait:area:18:ecl:ab8d:PIC1.DAX:2:1:0",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,8N18:55WHATDOYOUDO?MIXWITHMONSTERSDRINKHEAVILYATTACKLEAVE",
+              "checkpointSha256": "d2ec21ebb82b7b22406c33d3d681868765af3545677c1d1be5dd4f00f6eb372c",
+              "artSha256": "fbf3ddec2103aec3ba3d9687821c8e589cbb85b7ae2130de03f7da22579fa048",
+              "rendererSha256": "63ed7feeedcc946fa2d875929600db3ad193e883eb12beb0e83f2ec54c1c85b9",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "replaced": false,
+              "poses": [
+                "portrait:area:18:ecl:ab8d:PIC1.DAX:2:1:0"
+              ],
+              "durationMs": 3066.5,
+              "samples": 185
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL1.DAX:18:ab25",
+      "prompt": "ac22",
+      "variants": [
+        {
+          "caption": "INSULT BACK",
+          "checkpoint": "podal-pitt-retained/I.json",
+          "portrait": "portrait:area:18:ecl:ac22:PIC1.DAX:2:0:0",
+          "native": {
+            "inheritedFrom": "area:18:ecl:b240:caller:abde:PIC1.DAX:2",
+            "inheritedMember": 0,
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 4,8 N 18:55 WHAT DO YOU DO? ATTACK TRY TO LEAVE INSULT BACK JOIN IN HEAVY DRINKING",
+            "idlePolls": 32,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "a22361feb58b6fc42bb5e0833cd6e54072df64abfee49b139eac5fa7a0878312"
+              },
+              {
+                "idlePolls": 4,
+                "sha256": "a22361feb58b6fc42bb5e0833cd6e54072df64abfee49b139eac5fa7a0878312"
+              },
+              {
+                "idlePolls": 16,
+                "sha256": "a22361feb58b6fc42bb5e0833cd6e54072df64abfee49b139eac5fa7a0878312"
+              },
+              {
+                "idlePolls": 32,
+                "sha256": "a22361feb58b6fc42bb5e0833cd6e54072df64abfee49b139eac5fa7a0878312"
+              }
+            ]
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-pitt-retained-ac22-member-0",
+              "data": "original",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:abde:PIC1.DAX:2:0:0",
+              "portrait": "portrait:area:18:ecl:ac22:PIC1.DAX:2:0:0",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,8N18:55WHATDOYOUDO?ATTACKTRYTOLEAVEINSULTBACKJOININHEAVYDRINKING",
+              "checkpointSha256": "d2ec21ebb82b7b22406c33d3d681868765af3545677c1d1be5dd4f00f6eb372c",
+              "artSha256": "c9ada59cba09e311e34271722c77de1f42553099faa4a765be8750401636bf03",
+              "rendererSha256": "63ed7feeedcc946fa2d875929600db3ad193e883eb12beb0e83f2ec54c1c85b9",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "replaced": false,
+              "poses": [
+                "portrait:area:18:ecl:ac22:PIC1.DAX:2:0:0"
+              ],
+              "durationMs": 3066.5999999999985,
+              "samples": 185
+            },
+            "port": {
+              "route": "podal-pitt-retained-ac22-member-0",
+              "data": "port",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:abde:PIC1.DAX:2:0:0",
+              "portrait": "portrait:area:18:ecl:ac22:PIC1.DAX:2:0:0",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,8N18:55WHATDOYOUDO?ATTACKTRYTOLEAVEINSULTBACKJOININHEAVYDRINKING",
+              "checkpointSha256": "d2ec21ebb82b7b22406c33d3d681868765af3545677c1d1be5dd4f00f6eb372c",
+              "artSha256": "c9ada59cba09e311e34271722c77de1f42553099faa4a765be8750401636bf03",
+              "rendererSha256": "63ed7feeedcc946fa2d875929600db3ad193e883eb12beb0e83f2ec54c1c85b9",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "replaced": false,
+              "poses": [
+                "portrait:area:18:ecl:ac22:PIC1.DAX:2:0:0"
+              ],
+              "durationMs": 3066.5,
+              "samples": 185
+            }
+          }
+        },
+        {
+          "caption": "INSULT BACK",
+          "checkpoint": "podal-pitt-retained/I.json",
+          "portrait": "portrait:area:18:ecl:ac22:PIC1.DAX:2:1:0",
+          "native": {
+            "inheritedFrom": "area:18:ecl:b240:caller:abde:PIC1.DAX:2",
+            "inheritedMember": 1,
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 4,8 N 18:55 WHAT DO YOU DO? ATTACK TRY TO LEAVE INSULT BACK JOIN IN HEAVY DRINKING",
+            "idlePolls": 32,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "e579cb908b4bbfe27909da489faa62cbef2c3f2b4573d7cb931b9a6f0be3a2b2"
+              },
+              {
+                "idlePolls": 4,
+                "sha256": "e579cb908b4bbfe27909da489faa62cbef2c3f2b4573d7cb931b9a6f0be3a2b2"
+              },
+              {
+                "idlePolls": 16,
+                "sha256": "e579cb908b4bbfe27909da489faa62cbef2c3f2b4573d7cb931b9a6f0be3a2b2"
+              },
+              {
+                "idlePolls": 32,
+                "sha256": "e579cb908b4bbfe27909da489faa62cbef2c3f2b4573d7cb931b9a6f0be3a2b2"
+              }
+            ]
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-pitt-retained-ac22-member-1",
+              "data": "original",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:abde:PIC1.DAX:2:1:0",
+              "portrait": "portrait:area:18:ecl:ac22:PIC1.DAX:2:1:0",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,8N18:55WHATDOYOUDO?ATTACKTRYTOLEAVEINSULTBACKJOININHEAVYDRINKING",
+              "checkpointSha256": "d2ec21ebb82b7b22406c33d3d681868765af3545677c1d1be5dd4f00f6eb372c",
+              "artSha256": "fbf3ddec2103aec3ba3d9687821c8e589cbb85b7ae2130de03f7da22579fa048",
+              "rendererSha256": "63ed7feeedcc946fa2d875929600db3ad193e883eb12beb0e83f2ec54c1c85b9",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "replaced": false,
+              "poses": [
+                "portrait:area:18:ecl:ac22:PIC1.DAX:2:1:0"
+              ],
+              "durationMs": 3066.5999999999985,
+              "samples": 185
+            },
+            "port": {
+              "route": "podal-pitt-retained-ac22-member-1",
+              "data": "port",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:abde:PIC1.DAX:2:1:0",
+              "portrait": "portrait:area:18:ecl:ac22:PIC1.DAX:2:1:0",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,8N18:55WHATDOYOUDO?ATTACKTRYTOLEAVEINSULTBACKJOININHEAVYDRINKING",
+              "checkpointSha256": "d2ec21ebb82b7b22406c33d3d681868765af3545677c1d1be5dd4f00f6eb372c",
+              "artSha256": "fbf3ddec2103aec3ba3d9687821c8e589cbb85b7ae2130de03f7da22579fa048",
+              "rendererSha256": "63ed7feeedcc946fa2d875929600db3ad193e883eb12beb0e83f2ec54c1c85b9",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "replaced": false,
+              "poses": [
+                "portrait:area:18:ecl:ac22:PIC1.DAX:2:1:0"
+              ],
+              "durationMs": 3066.5,
+              "samples": 185
+            }
+          }
+        }
+      ]
     }
   ],
   "approachTransitions": [

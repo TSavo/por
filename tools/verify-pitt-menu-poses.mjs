@@ -1,11 +1,15 @@
 import assert from "node:assert/strict";
-import { copyFileSync, mkdirSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { openChromeCampaignLeg } from "./chrome-campaign-replay.mjs";
+import { portraitLoopSignature } from "./held-portrait-loops.mjs";
 
 const [chromePath, root, member] = process.argv.slice(2);
 assert.ok(chromePath && root && (member === "0" || member === "1"), "Pass the Chrome executable, output directory, and portrait member (0 or 1).");
 const fixture = new URL("../qa/fixtures/podal-pitt-retained/I.json", import.meta.url);
+const digest = value => createHash("sha256").update(value).digest("hex");
+const checkpointSha256 = digest(readFileSync(fixture));
 const saves = join(root, "saves");
 mkdirSync(saves, { recursive: true });
 copyFileSync(fixture, join(saves, "I.json"));
@@ -58,7 +62,21 @@ async function advanceOnPose(caller, cursor, cue) {
     requestAnimationFrame(sample);
   })`);
   assert.ok(observation.samples>=90);
-  evidence.push({ sourceKey, targetKey, caption: caption(frame), ...observation });
+  const { data, art, renderer } = await chrome.evaluate(`(async () => {
+    const [art, renderer] = await Promise.all([
+      fetch(${JSON.stringify("/art/" + targetKey)}), fetch("/play.js"),
+    ]);
+    if (!art.ok || !renderer.ok) throw Error("Missing artwork or renderer for Pitt receipt");
+    return { data: state.classicAvailable === false ? "port" : "original",
+      art: [...new Uint8Array(await art.arrayBuffer())], renderer: await renderer.text() };
+  })()`);
+  evidence.push({
+    route: `podal-pitt-retained-${cursor}-member-${member}`, data, incomingPortrait: sourceKey,
+    portrait: targetKey, caption: caption(frame), checkpointSha256,
+    artSha256: digest(Buffer.from(art)), rendererSha256: digest(renderer.replace(/\r\n/g, "\n")),
+    bindingSha256: digest(portraitLoopSignature(targetKey)), replaced: false, poses: [observation.key],
+    durationMs: observation.durationMs, samples: observation.samples,
+  });
   writeFileSync(join(root, `${cursor}.png`), await chrome.screenshot());
 }
 try {
@@ -70,7 +88,7 @@ try {
   await press("enter");
   assert.match(caption(frame), /YOURACTIONSTRIGGERAFREEFORALL/i);
   writeFileSync(join(root, "retained.json"), JSON.stringify(evidence, null, 2) + "\n");
-  console.log(evidence.map(({ sourceKey, targetKey, durationMs }) => [sourceKey, targetKey, durationMs]));
+  console.log(evidence.map(({ incomingPortrait, portrait, durationMs }) => [incomingPortrait, portrait, durationMs]));
 } finally {
   await chrome.close();
 }
