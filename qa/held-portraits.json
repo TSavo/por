@@ -29935,6 +29935,310 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL7.DAX:17:a7a8",
+      "prompt": "9da2/a82f",
+      "variants": [
+        {
+          "caption": "DURING THE FESTIVITIES THE CHIEF (HIS TONGUE LOOSENED BY DRINK)",
+          "checkpoint": "nomad-headman-held/A.json",
+          "portrait": "portrait:area:17:ecl:9da2:caller:a82f:HEAD7.DAX:74:BODY7.DAX:30",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 S 00:29 DURING THE FESTIVITIES THE CHIEF (HIS TONGUE LOOSENED BY DRINK) TELLS YOU OF THE DANGERS OF THE REGION. YOU MAKE HASSAD AHWAL'S TALK ENTRY 55 IN YOUR JOURNAL. Press button or <return> to continue",
+            "idlePolls": 60,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              }
+            ],
+            "drawCursor": "a7ab",
+            "composed": {
+              "source": "HEAD7.DAX:74:BODY7.DAX:30",
+              "headWrite": "a7a2",
+              "headSlot": "6de1",
+              "bodyOperand": 0,
+              "headReset": "a7ab"
+            },
+            "clearedPanelSha256": "1ef14db0ddbf8ef3559ad2a5a41b26be503885f9f9864f3f349e93c11dbdc5a9"
+          },
+          "chrome": {
+            "original": {
+              "route": "nomad-feast-held-sequence",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29DURINGTHEFESTIVITIESTHECHIEF(HISTONGUELOOSENEDBYDRINK)TELLSYOUOFTHEDANGERSOFTHEREGION.YOUMAKEHASSADAHWAL'STALKENTRY55INYOURJOURNAL.Pressbuttonor<return>tocontinue",
+              "portrait": "portrait:area:17:ecl:9da2:caller:a82f:HEAD7.DAX:74:BODY7.DAX:30",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "2480f8212fbd8d6d0dda9755cdb060709f57594ce62c5be205d8ab7a2626b0f5",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3652,
+              "samples": 221,
+              "poses": [
+                "portrait:area:17:ecl:9da2:caller:a82f:HEAD7.DAX:74:BODY7.DAX:30"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "nomad-feast-held-sequence",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29DURINGTHEFESTIVITIESTHECHIEF(HISTONGUELOOSENEDBYDRINK)TELLSYOUOFTHEDANGERSOFTHEREGION.YOUMAKEHASSADAHWAL'STALKENTRY55INYOURJOURNAL.Pressbuttonor<return>tocontinue",
+              "portrait": "portrait:area:17:ecl:9da2:caller:a82f:HEAD7.DAX:74:BODY7.DAX:30",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "2480f8212fbd8d6d0dda9755cdb060709f57594ce62c5be205d8ab7a2626b0f5",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3661,
+              "samples": 221,
+              "poses": [
+                "portrait:area:17:ecl:9da2:caller:a82f:HEAD7.DAX:74:BODY7.DAX:30"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL7.DAX:17:a7a8",
+      "prompt": "9da2/a8ac",
+      "variants": [
+        {
+          "caption": "THE HEADMAN SEEMS VERY UNEASY AS HE CONTINUES TO SPEAK",
+          "checkpoint": "nomad-headman-held/A.json",
+          "portrait": "portrait:area:17:ecl:9da2:caller:a8ac:HEAD7.DAX:74:BODY7.DAX:30",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 S 00:29 THE HEADMAN SEEMS VERY UNEASY AS HE CONTINUES TO SPEAK. HE PRACTICALLY BEGS YOU TO STAY FOR A FEW MORE DAYS, RATHER THAN LEAVE IN THE MORNING AS YOU PLANNED. Press button or <return> to continue",
+            "idlePolls": 60,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              }
+            ],
+            "drawCursor": "a7ab",
+            "composed": {
+              "source": "HEAD7.DAX:74:BODY7.DAX:30",
+              "headWrite": "a7a2",
+              "headSlot": "6de1",
+              "bodyOperand": 0,
+              "headReset": "a7ab"
+            },
+            "clearedPanelSha256": "1ef14db0ddbf8ef3559ad2a5a41b26be503885f9f9864f3f349e93c11dbdc5a9"
+          },
+          "chrome": {
+            "original": {
+              "route": "nomad-feast-held-sequence",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29THEHEADMANSEEMSVERYUNEASYASHECONTINUESTOSPEAK.HEPRACTICALLYBEGSYOUTOSTAYFORAFEWMOREDAYS,RATHERTHANLEAVEINTHEMORNINGASYOUPLANNED.Pressbuttonor<return>tocontinue",
+              "portrait": "portrait:area:17:ecl:9da2:caller:a8ac:HEAD7.DAX:74:BODY7.DAX:30",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "2480f8212fbd8d6d0dda9755cdb060709f57594ce62c5be205d8ab7a2626b0f5",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3653,
+              "samples": 221,
+              "poses": [
+                "portrait:area:17:ecl:9da2:caller:a8ac:HEAD7.DAX:74:BODY7.DAX:30"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "nomad-feast-held-sequence",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29THEHEADMANSEEMSVERYUNEASYASHECONTINUESTOSPEAK.HEPRACTICALLYBEGSYOUTOSTAYFORAFEWMOREDAYS,RATHERTHANLEAVEINTHEMORNINGASYOUPLANNED.Pressbuttonor<return>tocontinue",
+              "portrait": "portrait:area:17:ecl:9da2:caller:a8ac:HEAD7.DAX:74:BODY7.DAX:30",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "2480f8212fbd8d6d0dda9755cdb060709f57594ce62c5be205d8ab7a2626b0f5",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3664,
+              "samples": 221,
+              "poses": [
+                "portrait:area:17:ecl:9da2:caller:a8ac:HEAD7.DAX:74:BODY7.DAX:30"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL7.DAX:17:a7a8",
+      "prompt": "9da2/a928",
+      "variants": [
+        {
+          "caption": "MY SCOUTS HAVE SEEN EVIDENCE OF A LARGE BAND OF KOBOLDS",
+          "checkpoint": "nomad-headman-held/A.json",
+          "portrait": "portrait:area:17:ecl:9da2:caller:a928:HEAD7.DAX:74:BODY7.DAX:30",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 S 00:29 'MY SCOUTS HAVE SEEN EVIDENCE OF A LARGE BAND OF KOBOLDS IN THE VICINITY. I WORRY ABOUT MY PEOPLE. IF YOU WOULD STAY UNTIL THEY PASS I WOULD APPRECIATE IT. Press button or <return> to continue",
+            "idlePolls": 60,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              }
+            ],
+            "drawCursor": "a7ab",
+            "composed": {
+              "source": "HEAD7.DAX:74:BODY7.DAX:30",
+              "headWrite": "a7a2",
+              "headSlot": "6de1",
+              "bodyOperand": 0,
+              "headReset": "a7ab"
+            },
+            "clearedPanelSha256": "1ef14db0ddbf8ef3559ad2a5a41b26be503885f9f9864f3f349e93c11dbdc5a9"
+          },
+          "chrome": {
+            "original": {
+              "route": "nomad-feast-held-sequence",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29'MYSCOUTSHAVESEENEVIDENCEOFALARGEBANDOFKOBOLDSINTHEVICINITY.IWORRYABOUTMYPEOPLE.IFYOUWOULDSTAYUNTILTHEYPASSIWOULDAPPRECIATEIT.Pressbuttonor<return>tocontinue",
+              "portrait": "portrait:area:17:ecl:9da2:caller:a928:HEAD7.DAX:74:BODY7.DAX:30",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "2480f8212fbd8d6d0dda9755cdb060709f57594ce62c5be205d8ab7a2626b0f5",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3659,
+              "samples": 220,
+              "poses": [
+                "portrait:area:17:ecl:9da2:caller:a928:HEAD7.DAX:74:BODY7.DAX:30"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "nomad-feast-held-sequence",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29'MYSCOUTSHAVESEENEVIDENCEOFALARGEBANDOFKOBOLDSINTHEVICINITY.IWORRYABOUTMYPEOPLE.IFYOUWOULDSTAYUNTILTHEYPASSIWOULDAPPRECIATEIT.Pressbuttonor<return>tocontinue",
+              "portrait": "portrait:area:17:ecl:9da2:caller:a928:HEAD7.DAX:74:BODY7.DAX:30",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "2480f8212fbd8d6d0dda9755cdb060709f57594ce62c5be205d8ab7a2626b0f5",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3650,
+              "samples": 220,
+              "poses": [
+                "portrait:area:17:ecl:9da2:caller:a928:HEAD7.DAX:74:BODY7.DAX:30"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL7.DAX:17:a7a8",
+      "prompt": "9da2/a980",
+      "variants": [
+        {
+          "caption": "AFTER A WHILE THE FESTIVITIES END AND YOU ARE ESCORTED TO YOUR LODGING",
+          "checkpoint": "nomad-headman-held/A.json",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:a980",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 S 00:29 'PLEASE THINK ABOUT IT OVERNIGHT.' AFTER A WHILE THE FESTIVITIES END AND YOU ARE ESCORTED TO YOUR LODGING. Press button or <return> to continue",
+            "idlePolls": 60,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              }
+            ],
+            "drawCursor": "a7ab",
+            "composed": {
+              "source": "HEAD7.DAX:74:BODY7.DAX:30",
+              "headWrite": "a7a2",
+              "headSlot": "6de1",
+              "bodyOperand": 0,
+              "headReset": "a7ab"
+            },
+            "clearedPanelSha256": "1ef14db0ddbf8ef3559ad2a5a41b26be503885f9f9864f3f349e93c11dbdc5a9"
+          },
+          "chrome": {
+            "original": {
+              "route": "nomad-feast-held-sequence",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29'PLEASETHINKABOUTITOVERNIGHT.'AFTERAWHILETHEFESTIVITIESENDANDYOUAREESCORTEDTOYOURLODGING.Pressbuttonor<return>tocontinue",
+              "portrait": "scene-illustration:area:17:ecl:9da2:caller:a980",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "3f11e5db2fab986dafcd588d7ac524bc6a52671e2ad9079771bbc725da2b5f7c",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3655,
+              "samples": 221,
+              "poses": [
+                "scene-illustration:area:17:ecl:9da2:caller:a980"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "nomad-feast-held-sequence",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29'PLEASETHINKABOUTITOVERNIGHT.'AFTERAWHILETHEFESTIVITIESENDANDYOUAREESCORTEDTOYOURLODGING.Pressbuttonor<return>tocontinue",
+              "portrait": "scene-illustration:area:17:ecl:9da2:caller:a980",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "3f11e5db2fab986dafcd588d7ac524bc6a52671e2ad9079771bbc725da2b5f7c",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3661,
+              "samples": 221,
+              "poses": [
+                "scene-illustration:area:17:ecl:9da2:caller:a980"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
     }
   ],
   "approachTransitions": [
