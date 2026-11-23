@@ -3531,6 +3531,21 @@ const illustrationRoutes = new Map([
     heldApproachPlacement: [56, 32, "encounter:area:18:ecl:b240:caller:9d1f:SPRIT1.DAX:2:1:0", 32, 65],
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /YOUSTOP,ANDTHEYMOVEON/i },
   }],
+  ...[
+    { name: "orc", block: 4, clock: 4321254, inputs: ["up", "up"], position: [18, 12, 10], width: 32 },
+    { name: "hobgoblin", block: 6, clock: 4321731, inputs: ["up"], position: [18, 11, 10], width: 24 },
+    { name: "ogre", block: 8, clock: 4320702, inputs: ["up", "up", "up", "left", "up"], position: [18, 13, 9], width: 32 },
+  ].map(({ name, block, clock, inputs, position, width }) => [
+    `podal-${name}-patrol-sneak-hold`, {
+      slot: "I", stockInput: true, fixedClockStart: clock, inputs,
+      prompt: new RegExp(`YOUSPOTAGROUPOF${name}S.*PRESS<ENTER>/<RETURN>TOCONTINUE`, "i"),
+      heldApproachPrompt: new RegExp(`YOUSPOTAGROUPOF${name}S`, "i"),
+      heldApproachPosition: position,
+      heldApproachPlacement: [56, 32, `encounter:area:18:ecl:b240:caller:9d1f:SPRIT1.DAX:${block}:1:0`, width, 65],
+      continuation: { inputs: ["enter"], clearsPortrait: true,
+        prompt: block === 8 ? /YOURPARTYSLIPSPASTTHEM/i : /YOUSTOP,ANDTHEYMOVEON/i },
+    },
+  ]),
   ["textile-skullcrusher-body", {
     slot: "B", inputs: ["up"],
     portraitStops: { 0: null },
