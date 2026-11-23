@@ -3930,11 +3930,12 @@ const illustrationRoutes = new Map([
       prompt: /THEKOBOLDPAUSES/i },
   }],
   ["kobold-white-flag-refusal", {
-    slot: "B", inputs: ["up", "enter", "enter", "enter", "z", "z", "a", "r"],
+    slot: "B", inputs: ["up", "r"],
     portrait: "scene-illustration:area:13:ecl:b511:caller:9c98:cue:envoy-strikes-wall",
     prompt: /THEKOBOLDRETREATS,THENSTRIKESTHEWALL/i,
     finalPhaseCapture: "kobold-white-flag-strikes-wall.png",
-    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /POINTSOFDAMAGE/i },
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse",
+      prompt: /THEROOFCOLLAPSES.*POINTSOFDAMAGE/i, screenshot: "kobold-roof-falling.png" },
   }],
   ["kobold-white-flag-boulder", {
     slot: "B", inputs: ["up", "enter", "enter", "enter", "z", "z", "a", "f", "enter", "enter", "n"],
@@ -8422,7 +8423,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "buccaneer-mounted-escort-loop" || routeName === "buccaneer-mounted-escort-random-loop" ||
       routeName === "mendor-storeroom-kobold-phases" || routeName === "mendor-storeroom-mercy-loop" ||
       routeName === "mendor-storeroom-kobold-map" ||
-      routeName === "kobold-white-flag-envoy" || routeName === "kobold-white-flag-escort-phase" ||
+      routeName === "kobold-white-flag-envoy" || routeName === "kobold-white-flag-escort-phase" || routeName === "kobold-white-flag-refusal" ||
       routeName === "valjevo-medusa-phases" || routeName === "valhingen-mummy-sarcophagi-phases" ||
       routeName === "valjevo-fire-giant-loop" ||
       routeName === "valjevo-fire-giant-refusal-loop" ||

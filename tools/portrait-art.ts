@@ -703,6 +703,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:13:ecl:9f15:cue:slip-past-guide", "YOUSLIPBYWITHEASE"],
   ["scene-illustration:area:13:ecl:9c94:cue:envoy-strikes-wall", "THEKOBOLDRETREATS,THENSTRIKESTHEWALL"],
   ["scene-illustration:area:13:ecl:b511:caller:9c98:cue:envoy-strikes-wall", "THEKOBOLDRETREATS,THENSTRIKESTHEWALL"],
+  ["scene-illustration:area:13:ecl:9cfe:cue:roof-collapse", "THEROOFCOLLAPSES"],
   ["scene-illustration:area:13:ecl:a547:cue:brass-bottle", "YOUSEEABRASSBOTTLEJAMMEDINTOACRACKHERE"],
   ["scene-illustration:area:13:ecl:b4ad:caller:a54b:cue:brass-bottle", "YOUSEEABRASSBOTTLEJAMMEDINTOACRACKHERE"],
   ["scene-illustration:area:13:ecl:a564:cue:brass-bottle", "YOUSEEABRASSBOTTLEJAMMEDINTOACRACKHERE"],

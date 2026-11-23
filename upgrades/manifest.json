@@ -10504,6 +10504,7 @@
     "encounter:area:16:ecl:a65a:SPRIT8.DAX:57:0:0": "swamp-ruin-defenders-approach.png",
     "portrait:area:16:ecl:a65a:PIC8.DAX:57:0:0": "swamp-ruin-defenders-dialogue.png",
     "encounter:area:13:ecl:9d05:SPRIT8.DAX:0:0:0": "kobold-roof-collapse-approach.png",
+    "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse": "kobold-roof-falling.png",
     "portrait:area:13:ecl:9d49:PIC8.DAX:0:0:0": "kobold-roof-collapse-dialogue.png",
     "portrait:area:13:ecl:9d4a:PIC8.DAX:0:0:0": "kobold-roof-collapse-dialogue.png",
     "encounter:area:13:ecl:a496:SPRIT8.DAX:0:0:0": "kobold-kings-quarters-approach.png",
