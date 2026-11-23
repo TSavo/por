@@ -28,6 +28,7 @@ const repeatedPictureMembers = new Map<string, readonly number[]>([
   ["PIC2.DAX:0", [0, 1, 2, 1]],
   ["PIC4.DAX:11", [0, 1, 2, 3, 4, 1, 1, 7]],
   ["PIC4.DAX:23", [0, 1, 2, 1]],
+  ["PIC4.DAX:34", [0, 1, 2, 3, 2, 1]],
   ["PIC5.DAX:31", [0, 1, 2, 3, 4, 3, 2, 1]],
   ["PIC5.DAX:49", [0, 1, 2, 3, 4, 2, 1, 7]],
   ["PIC6.DAX:117", [0, 1, 2, 3, 4, 5, 2]],

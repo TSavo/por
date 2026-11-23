@@ -3274,7 +3274,8 @@ const illustrationRoutes = new Map([
     slot: "C", inputs: [...Array(5).fill("up"), "enter", "enter"],
     portrait: "portrait:area:21:PIC4.DAX:34:0:0", prompt: /APACKOFUNDEADSUDDENLYAPPEARS/i,
     idlePortraits: [1, 2, 3].map(phase => `portrait:area:21:ecl:9e40:PIC4.DAX:34:${phase}:0`),
-    heldPortraitLoop: 4,
+    heldPortraitLoop: [0, 1, 2, 3, 2, 1].map(phase => phase === 0
+      ? "portrait:area:21:PIC4.DAX:34:0:0" : `portrait:area:21:ecl:9e40:PIC4.DAX:34:${phase}:0`),
   }],
   ["valhingen-zombie-stairs", {
     slot: "A", inputs: ["up", "enter", "enter"],

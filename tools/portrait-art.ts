@@ -88,6 +88,11 @@ const verifiedPortraitDeltaKeys = new Set([
   "portrait:area:21:ecl:9e40:PIC4.DAX:34:1:0",
   "portrait:area:21:ecl:9e40:PIC4.DAX:34:2:0",
   "portrait:area:21:ecl:9e40:PIC4.DAX:34:3:0",
+  // Keep the patrol visible as its last pose passes from the prompt to the battle notice.
+  "portrait:area:21:PIC4.DAX:34:0:0",
+  "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:1:0",
+  "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:2:0",
+  "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:3:0",
   "portrait:area:24:ecl:b01f:PIC1.DAX:4:2:0",
   "portrait:area:24:ecl:af84:PIC1.DAX:4:2:0",
   "portrait:area:24:ecl:b086:PIC1.DAX:4:2:0",

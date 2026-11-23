@@ -5,6 +5,8 @@ const towerGiantPoseOrder = [0, 1, 0, 3];
 const towerGiantPoseTimes = [210, 210, 210, 210];
 const towerTrollPoseOrder = [0, 1, 2, 3, 4, 3, 2, 1];
 const towerTrollPoseTimes = [1310, 20, 20, 20, 510, 110, 110, 210];
+const sokalPatrolPoseOrder = [0, 1, 2, 3, 2, 1];
+const sokalPatrolPoseTimes = [1310, 110, 110, 910, 110, 110];
 const silverDragonPoseOrder = [0, 1, 2, 3, 4, 0, 2];
 const silverDragonPoseTimes = [1610, 510, 410, 1210, 1010, 1410, 1510];
 const conjurerPoseTimes = [410, 910, 20];
@@ -17,7 +19,10 @@ const portraitLoops = [
   // The roaming wight's fourth native member repeats the second painting.
   ["portrait:area:10:ecl:b50b:PIC4.DAX:20:", [0, 1, 2, 1], undefined,
     /YOUHAVEMANAGEDTOSNEAKUPONSOMEWIGHTS/i, [1010, 210, 610, 210]],
-  ["portrait:area:21:ecl:9e40:PIC4.DAX:34:", 4, "portrait:area:21:PIC4.DAX:34:0:0"],
+  ["portrait:area:21:ecl:9e40:PIC4.DAX:34:", sokalPatrolPoseOrder, "portrait:area:21:PIC4.DAX:34:0:0",
+    /^(?!.*ABATTLEBEGINS).*APACKOFUNDEADSUDDENLYAPPEARS/i, sokalPatrolPoseTimes],
+  ["portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:", sokalPatrolPoseOrder, undefined,
+    /^(?!.*ABATTLEBEGINS).*ANUNDEADPATROLCONFRONTSYOU.*DOYOUGIVETHEPASSWORD/i, sokalPatrolPoseTimes],
   ["portrait:area:10:ecl:b695:caller:9d0b:PIC4.DAX:34:", [0, 1, 2, 3, 2, 1], undefined,
     /^(?!.*ABATTLEBEGINS).*SKELETONSSILENTLYATTACK/i, [1310, 110, 110, 910, 110, 110]],
   ["portrait:area:10:ecl:b695:caller:9db8:PIC4.DAX:34:", [0, 1, 2, 3, 2, 1], "portrait:area:10:PIC4.DAX:34:0:0",
