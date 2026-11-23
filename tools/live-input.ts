@@ -230,6 +230,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let sentAutomap = -1;
   let battleCursor: number | undefined;
   let portraitCaller: number | undefined;
+  let podalShopEntry: { x: number; y: number; facing: number } | undefined;
   let finalCouncilReward = false;
   /** The old lizard man is asking for the tribal friend-word (ECL8 block 16, "WHAT IS IT?"): Journal Entry 35 spells it in runes. */
   let friendWordPrompt = false;
@@ -253,6 +254,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     finalCouncilReward = false;
     baneCacheCue = undefined;
     const archive = cpu.read8(dataSegment, data.eclArchive), block = cpu.read8(dataSegment, data.eclBlock);
+    if (archive === 1 && block === 18 && battleCursor === 0xb1ef) {
+      podalShopEntry = {
+        x: cpu.read8(cpu.ds, data.cameraX),
+        y: cpu.read8(cpu.ds, data.cameraY),
+        facing: cpu.read8(cpu.ds, data.facing) & 7,
+      };
+    }
     // A pause can show the overland map before the next keyboard poll updates the
     // host's cached area and travel position. Read the same guest state as the draw.
     nativeOverland = gameMode === 3 && block >= 25 && block <= 27 ? captureOverlandTravel(cpu,
@@ -513,6 +521,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // The caption persists after the party turns away from the cleared tower.
       const towerLookAway = scriptKey === "scene-illustration:area:10:ecl:a672" &&
         (livePosition?.x !== 5 || livePosition.y !== 9 || explorationPosition?.facing !== 4);
+      // The abandoned shop caption remains in the text box after turning away.
+      const podalShopLookAway = scriptKey === "scene-illustration:area:18:ecl:b1bb" &&
+        (!podalShopEntry || livePosition?.x !== podalShopEntry.x || livePosition?.y !== podalShopEntry.y ||
+          explorationPosition?.facing !== podalShopEntry.facing);
       // The post-combat floor note shares the giants' Parlay password-reading routine.
       const barracksFloorNote = scriptKey === "scene-illustration:area:4:ecl:9a5a:caller:a49f" &&
         livePosition?.x === 8 && livePosition.y === 0;
@@ -556,7 +568,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           illustrationScope = `${scriptKey}:cue:lab-door`;
         }
       }
-      const scriptedIllustration = scene || wellLookAway || towerLookAway || barracksFloorNote ||
+      const scriptedIllustration = scene || wellLookAway || towerLookAway || podalShopLookAway || barracksFloorNote ||
         (councilRewardScreen && !finalCouncilReward)
         ? undefined : matchScriptIllustration(
           typeof captureIllustration === "string" ? captureIllustration : illustrationScope, illustrationText, portraitKeys);
