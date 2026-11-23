@@ -8,6 +8,10 @@ import { openChromeCampaignLeg } from "./chrome-campaign-replay.mjs";
 const ridgeTerrain = {
   center: [28, 8], slots: [0, 1, 39, 50, 99, 1, 40, 154, 50, 97, 0, 1, 38, 155, 52, 1, 0, 40, 54, 97, 0, 1, 0, 41, 99],
 };
+const westernTigers = {
+  area: 25, archive: 6, cursor: "a204", block: 119, x: 48, width: 40, height: 65,
+  fixture: "western-ankheg-eruption", caption: /YOUSURPRISEAGROUPOFTIGERS/i,
+};
 const scenes = {
   spotted: {
     cursor: "a194", block: 61, height: 57, clock: "4320000", caption: /YOUSPOTAGROUPOFSTIRGES/i,
@@ -82,10 +86,19 @@ const scenes = {
     inputs: [...Array(10).fill("left"), ...Array(5).fill("up"), "enter", "c"],
   },
   "ridge-far-west-tigers": {
-    area: 25, archive: 6, cursor: "a204", block: 119, x: 48, width: 40, height: 65,
-    fixture: "western-ankheg-eruption", clock: "4325156", caption: /YOUSURPRISEAGROUPOFTIGERS/i,
+    ...westernTigers, clock: "4325156",
     terrain: { center: [8, 14], slots: [33, 35, 33, 30, 3, 10, 33, 30, 3, 17, 29, 30, 3, 17, 6, 24, 19, 20, 22, 23, 0, 1, 0, 1, 0] },
     inputs: [...Array(9).fill("up"), "enter", "c"],
+  },
+  "diogenes-east-tigers": {
+    ...westernTigers, clock: "4351160",
+    terrain: { center: [12, 8], slots: [6, 3, 17, 13, 11, 17, 13, 14, 33, 35, 200, 201, 33, 11, 10, 202, 203, 35, 33, 11, 204, 205, 206, 35, 30] },
+    inputs: [...Array(16).fill("up"), ...Array(4).fill("right"), "down", "enter", "c"],
+  },
+  "diogenes-west-tigers": {
+    ...westernTigers, clock: "4345019",
+    terrain: { center: [8, 10], slots: [35, 33, 11, 10, 200, 11, 10, 33, 35, 202, 33, 33, 35, 33, 204, 11, 10, 33, 35, 207, 33, 35, 33, 30, 3] },
+    inputs: [...Array(13).fill("up"), "enter", "c"],
   },
 };
 const [chromePath, encounter, outputRoot = "out"] = process.argv.slice(2);
