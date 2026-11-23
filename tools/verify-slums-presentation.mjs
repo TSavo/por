@@ -3577,8 +3577,8 @@ const illustrationRoutes = new Map([
       prompt: /DIRTENSAYS.*IBIDYOUFAREWELL/i, durationMs: 7200,
       screenshot: "bane-dirten-farewell.png", recordTiming: true,
     } },
-    prompt: /DIRTENSAYS.*IBIDYOUFAREWELL.*AREACASTVIEWENCAMPSEARCHLOOK/i,
-    sceneryPrompt: [24, 14, 8, 6],
+    prompt: /DIRTENSAYS.*IBIDYOUFAREWELL.*SEARCHLOOK/i,
+    sceneryPrompt: [24, 14, 8],
   }],
   ["bane-rampart-camp-orc-ambush", {
     slot: "A", stockInput: true,

@@ -9856,7 +9856,7 @@
           "paints": [
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
-              "atMs": -1.192074705613777e-8
+              "atMs": -1.192074705613777e-08
             },
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
@@ -32912,6 +32912,372 @@
           }
         }
       }
+    },
+    {
+      "id": "area:29:ecl:a524:PIC8.DAX:73",
+      "producer": "ECL8.DAX:29:a500",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 510,
+          "viewport": "61384c484becc699a39e82ac3b53eed7825662e59fd4149712745485fcd75fca"
+        },
+        {
+          "member": 1,
+          "durationMs": 1510,
+          "viewport": "3636c6efb7395283dbc7bd364b5058375317bf7647856e53d341e342238f4ce1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-bloodthirsty-gnolls",
+          "data": "original",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "2b5d76a87434ab1872a1fd28419abf423d43a66c4449cf88407c5d8de65380ee",
+          "portrait": "portrait:area:29:ecl:a524:PIC8.DAX:73:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:73:0:0",
+              "atMs": 5.299999976157778
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:73:1:0",
+              "atMs": 455.1999999761574
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:73:0:0",
+              "atMs": 1971.8999999761581
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:73:1:0",
+              "atMs": 2471.799999976158
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:73:0:0",
+              "atMs": 3988.399999976158
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:73:1:0",
+              "atMs": 4488.299999976158
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a524:PIC8.DAX:73:0:0": "7fe65099c899eea2245b51f665414c8e94fba14913860d18f2c788da7d109925",
+            "portrait:area:29:ecl:a524:PIC8.DAX:73:1:0": "b0adf48c319d616ca36c937b7ee1fec0462423b0948a4594755237c6e0f5d427"
+          }
+        },
+        "port": {
+          "route": "kuto-bloodthirsty-gnolls",
+          "data": "port",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "2b5d76a87434ab1872a1fd28419abf423d43a66c4449cf88407c5d8de65380ee",
+          "portrait": "portrait:area:29:ecl:a524:PIC8.DAX:73:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:73:0:0",
+              "atMs": 2.0000000119216566
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:73:1:0",
+              "atMs": 468.6000000119202
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:73:0:0",
+              "atMs": 1985.2000000119206
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:73:1:0",
+              "atMs": 2485.2000000119206
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:73:0:0",
+              "atMs": 4001.800000011921
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:73:1:0",
+              "atMs": 4501.800000011921
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a524:PIC8.DAX:73:0:0": "7fe65099c899eea2245b51f665414c8e94fba14913860d18f2c788da7d109925",
+            "portrait:area:29:ecl:a524:PIC8.DAX:73:1:0": "b0adf48c319d616ca36c937b7ee1fec0462423b0948a4594755237c6e0f5d427"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:29:ecl:a524:PIC8.DAX:0",
+      "producer": "ECL8.DAX:29:a500",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-bloodthirsty-kobolds",
+          "data": "original",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "902e259d91512998458347c066519c320d4835ffd1c6dd57f4f1c2bd35d51f8a",
+          "portrait": "portrait:area:29:ecl:a524:PIC8.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:0:0",
+              "atMs": 7
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:1:0",
+              "atMs": 207
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:2:0",
+              "atMs": 423.60000000000036
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:1:0",
+              "atMs": 623.6000000000004
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:0:0",
+              "atMs": 840.2999999999993
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:1:0",
+              "atMs": 1040.2999999999993
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:2:0",
+              "atMs": 1256.8999999999996
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:1:0",
+              "atMs": 1473.6000000000004
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:0:0",
+              "atMs": 1673.6000000000004
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:1:0",
+              "atMs": 1890.2000000000007
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a524:PIC8.DAX:0:0:0": "7b7b450067110fcf4c0b56a75095d3624a88fc1d60955af79fe663ebed4ec5a1",
+            "portrait:area:29:ecl:a524:PIC8.DAX:0:1:0": "2d954895504becbd0e0e1854b6940fdcc4170b17a4e535ef8fe47a2ff338a30c",
+            "portrait:area:29:ecl:a524:PIC8.DAX:0:2:0": "49864344c543e3bd7f2b826d8fe47fcfbf2e3d13839dde5fd4735961519193eb"
+          }
+        },
+        "port": {
+          "route": "kuto-bloodthirsty-kobolds",
+          "data": "port",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "902e259d91512998458347c066519c320d4835ffd1c6dd57f4f1c2bd35d51f8a",
+          "portrait": "portrait:area:29:ecl:a524:PIC8.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:0:0",
+              "atMs": 15.599999988078707
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:1:0",
+              "atMs": 148.8999999880798
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:2:0",
+              "atMs": 348.8999999880798
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:1:0",
+              "atMs": 565.4999999880783
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:0:0",
+              "atMs": 782.1999999880791
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:1:0",
+              "atMs": 982.0999999880787
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:2:0",
+              "atMs": 1198.7999999880794
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:1:0",
+              "atMs": 1398.8999999880798
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:0:0",
+              "atMs": 1615.4999999880783
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:0:1:0",
+              "atMs": 1832.0999999880805
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a524:PIC8.DAX:0:0:0": "7b7b450067110fcf4c0b56a75095d3624a88fc1d60955af79fe663ebed4ec5a1",
+            "portrait:area:29:ecl:a524:PIC8.DAX:0:1:0": "2d954895504becbd0e0e1854b6940fdcc4170b17a4e535ef8fe47a2ff338a30c",
+            "portrait:area:29:ecl:a524:PIC8.DAX:0:2:0": "49864344c543e3bd7f2b826d8fe47fcfbf2e3d13839dde5fd4735961519193eb"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:29:ecl:a524:PIC8.DAX:57",
+      "producer": "ECL8.DAX:29:a500",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "23d56c7c7cc28878887ed0709df68230589317bc294ce1fbd4137ffd4b7ba13a"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "d7e2dbd9fdb05b653da924ebf7d908c35163734da32993168b2b4f0051b0da46"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "241352ef99b2096ee6a8746d9404db0c545c5f1bc0f6abb3a2e45e3b3f349f59"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-bloodthirsty-lizardmen",
+          "data": "original",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "77efd10f2ba111a5551d712821f7984e99587210832569bd859b240923b1061f",
+          "portrait": "portrait:area:29:ecl:a524:PIC8.DAX:57:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:0:0",
+              "atMs": 15.500000023841494
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:1:0",
+              "atMs": 132.10000002384186
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:2:0",
+              "atMs": 348.8000000238426
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:3:0",
+              "atMs": 565.4000000238411
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:0:0",
+              "atMs": 765.5000000238415
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:1:0",
+              "atMs": 982.1000000238419
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:2:0",
+              "atMs": 1182.1000000238419
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:3:0",
+              "atMs": 1398.7000000238422
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:0:0",
+              "atMs": 1615.4000000238411
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:1:0",
+              "atMs": 1815.4000000238411
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a524:PIC8.DAX:57:0:0": "8affb8091dd64f26d991b8b9a541bbf0418afccd2cea00f958a6072cf179a66e",
+            "portrait:area:29:ecl:a524:PIC8.DAX:57:1:0": "5f7c00005c6cc9e7556d8c335bf9a488d5a646bab34b86ea430ae572abb0e482",
+            "portrait:area:29:ecl:a524:PIC8.DAX:57:2:0": "eae557d3ba26a9ab8789ed77aa1834c1ee5f2f49367f5c3e1a457fc4d5110fbe",
+            "portrait:area:29:ecl:a524:PIC8.DAX:57:3:0": "9fe4265893fd26ebfd9d883111876312baf8aef5477ad61eb879696350fee5a3"
+          }
+        },
+        "port": {
+          "route": "kuto-bloodthirsty-lizardmen",
+          "data": "port",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "77efd10f2ba111a5551d712821f7984e99587210832569bd859b240923b1061f",
+          "portrait": "portrait:area:29:ecl:a524:PIC8.DAX:57:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:0:0",
+              "atMs": 15.30000004768408
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:1:0",
+              "atMs": 132.000000047683
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:2:0",
+              "atMs": 348.60000004768335
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:3:0",
+              "atMs": 548.6000000476834
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:0:0",
+              "atMs": 765.3000000476841
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:1:0",
+              "atMs": 965.2000000476837
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:2:0",
+              "atMs": 1181.9000000476844
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:3:0",
+              "atMs": 1398.500000047683
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:0:0",
+              "atMs": 1598.6000000476834
+            },
+            {
+              "key": "portrait:area:29:ecl:a524:PIC8.DAX:57:1:0",
+              "atMs": 1815.2000000476837
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a524:PIC8.DAX:57:0:0": "8affb8091dd64f26d991b8b9a541bbf0418afccd2cea00f958a6072cf179a66e",
+            "portrait:area:29:ecl:a524:PIC8.DAX:57:1:0": "5f7c00005c6cc9e7556d8c335bf9a488d5a646bab34b86ea430ae572abb0e482",
+            "portrait:area:29:ecl:a524:PIC8.DAX:57:2:0": "eae557d3ba26a9ab8789ed77aa1834c1ee5f2f49367f5c3e1a457fc4d5110fbe",
+            "portrait:area:29:ecl:a524:PIC8.DAX:57:3:0": "9fe4265893fd26ebfd9d883111876312baf8aef5477ad61eb879696350fee5a3"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
@@ -34680,6 +35046,229 @@
           "replaced": false,
           "paneSampleSha256": "75959ba628b52c5a9ca4ff2689c6fd912d240977fc7ccdc0a728a4b9420631e2",
           "sha256": "f6854edfb32a22ad3ac37d40cd23a3c960f7ba5eaeb6d7853b60b93ad1c5c34b"
+        }
+      }
+    },
+    {
+      "producer": "ECL8.DAX:29:a500",
+      "prompt": "a524",
+      "caption": "YOU SEE SOME BLOODTHIRSTY GNOLLS",
+      "checkpoint": "kuto-kobold-scout-sneak-off/B.json",
+      "position": [
+        29,
+        4,
+        1
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-bloodthirsty-gnolls",
+          "data": "original",
+          "position": [
+            29,
+            4,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,1W21:57YOUSEESOMEBLOODTHIRSTYGNOLLSCombatWaitFleeAdvance",
+          "checkpointSha256": "e8996a914e7ba750555e1f8cdd937909b51eb7ae6c656b0f32f5aee0a3cf2aad",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:29:ecl:a524:SPRIT8.DAX:73:2:0",
+              24,
+              57
+            ],
+            "sha256": "d81780f7a1ae278b49c139734a06cf5100effd2a9a3c2e556c737f774e598c0e"
+          }
+        },
+        "port": {
+          "route": "kuto-bloodthirsty-gnolls",
+          "data": "port",
+          "position": [
+            29,
+            4,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,1W21:57YOUSEESOMEBLOODTHIRSTYGNOLLSCombatWaitFleeAdvance",
+          "checkpointSha256": "e8996a914e7ba750555e1f8cdd937909b51eb7ae6c656b0f32f5aee0a3cf2aad",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:29:ecl:a524:SPRIT8.DAX:73:2:0",
+              24,
+              57
+            ],
+            "sha256": "d81780f7a1ae278b49c139734a06cf5100effd2a9a3c2e556c737f774e598c0e"
+          }
+        }
+      }
+    },
+    {
+      "producer": "ECL8.DAX:29:a500",
+      "prompt": "a524",
+      "caption": "YOU SEE SOME BLOODTHIRSTY KOBOLDS.",
+      "checkpoint": "kuto-kobold-scout-sneak-off/B.json",
+      "position": [
+        29,
+        3,
+        1
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-bloodthirsty-kobolds",
+          "data": "original",
+          "position": [
+            29,
+            3,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1053,1W22:12YOUSEESOMEBLOODTHIRSTYKOBOLDS.CombatWaitFleeAdvance",
+          "checkpointSha256": "e8996a914e7ba750555e1f8cdd937909b51eb7ae6c656b0f32f5aee0a3cf2aad",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:29:ecl:a524:SPRIT8.DAX:0:2:0",
+              24,
+              57
+            ],
+            "sha256": "4bef7837f268639b48403d03493e7c83c739dde4f29a22ab79bbfe7b8938f173"
+          }
+        },
+        "port": {
+          "route": "kuto-bloodthirsty-kobolds",
+          "data": "port",
+          "position": [
+            29,
+            3,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1053,1W22:12YOUSEESOMEBLOODTHIRSTYKOBOLDS.CombatWaitFleeAdvance",
+          "checkpointSha256": "e8996a914e7ba750555e1f8cdd937909b51eb7ae6c656b0f32f5aee0a3cf2aad",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:29:ecl:a524:SPRIT8.DAX:0:2:0",
+              24,
+              57
+            ],
+            "sha256": "4bef7837f268639b48403d03493e7c83c739dde4f29a22ab79bbfe7b8938f173"
+          }
+        }
+      }
+    },
+    {
+      "producer": "ECL8.DAX:29:a500",
+      "prompt": "a524",
+      "caption": "YOU SEE SOME BLOODTHIRSTY LIZARDMEN.",
+      "checkpoint": "kuto-kobold-scout-sneak-off/B.json",
+      "position": [
+        29,
+        3,
+        1
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-bloodthirsty-lizardmen",
+          "data": "original",
+          "position": [
+            29,
+            3,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1053,1W22:04YOUSEESOMEBLOODTHIRSTYLIZARDMEN.CombatWaitFleeAdvance",
+          "checkpointSha256": "e8996a914e7ba750555e1f8cdd937909b51eb7ae6c656b0f32f5aee0a3cf2aad",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:29:ecl:a524:SPRIT8.DAX:57:2:0",
+              24,
+              57
+            ],
+            "sha256": "ac50bc701f7d22512d1f84c789f3c7051e956460e9a9d7e808c028a94e0a6df5"
+          }
+        },
+        "port": {
+          "route": "kuto-bloodthirsty-lizardmen",
+          "data": "port",
+          "position": [
+            29,
+            3,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1053,1W22:04YOUSEESOMEBLOODTHIRSTYLIZARDMEN.CombatWaitFleeAdvance",
+          "checkpointSha256": "e8996a914e7ba750555e1f8cdd937909b51eb7ae6c656b0f32f5aee0a3cf2aad",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:29:ecl:a524:SPRIT8.DAX:57:2:0",
+              24,
+              57
+            ],
+            "sha256": "ac50bc701f7d22512d1f84c789f3c7051e956460e9a9d7e808c028a94e0a6df5"
+          }
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:17:b495",
+      "prompt": "9da2/b4c8",
+      "caption": "A HORDE OF KOBOLDS IS ATTACKING THE CAMP.",
+      "checkpoint": "nomad-raid-first-attack/A.json",
+      "illustration": {
+        "id": "scene-illustration:area:17:ecl:9da2:caller:b4c8:cue:perimeter",
+        "native": {
+          "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 W 18:35 A HORDE OF KOBOLDS IS ATTACKING THE CAMP. Press button or <return> to continue",
+          "viewportSha256": "f50b8c0f5636d8eab04926683e8b425198bc413b164aaac4d195dadabc21f84f",
+          "pictureDraws": 0
+        }
+      },
+      "chrome": {
+        "original": {
+          "route": "nomad-raid-camp-perimeter",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105W18:35AHORDEOFKOBOLDSISATTACKINGTHECAMP.Pressbuttonor<return>tocontinue",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:b4c8:cue:perimeter",
+          "checkpointSha256": "407be0c1f12ddc4393ed7cc5d50b9ae01bee8fe845aafbcb61a81b3110d5c24a",
+          "artSha256": "56723ca23e7d458851aabc14cd52cc13ceef00e494fd9c9a8b17a470d415dc48",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3659,
+          "samples": 221,
+          "poses": [
+            "scene-illustration:area:17:ecl:9da2:caller:b4c8:cue:perimeter"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "5fc97a5c02cb9240e9d5735d294ffa35d95fc5e8108bc1b86e4884e642e75fb7",
+          "sha256": "56723ca23e7d458851aabc14cd52cc13ceef00e494fd9c9a8b17a470d415dc48"
+        },
+        "port": {
+          "route": "nomad-raid-camp-perimeter",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105W18:35AHORDEOFKOBOLDSISATTACKINGTHECAMP.Pressbuttonor<return>tocontinue",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:b4c8:cue:perimeter",
+          "checkpointSha256": "407be0c1f12ddc4393ed7cc5d50b9ae01bee8fe845aafbcb61a81b3110d5c24a",
+          "artSha256": "56723ca23e7d458851aabc14cd52cc13ceef00e494fd9c9a8b17a470d415dc48",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3653,
+          "samples": 220,
+          "poses": [
+            "scene-illustration:area:17:ecl:9da2:caller:b4c8:cue:perimeter"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "5fc97a5c02cb9240e9d5735d294ffa35d95fc5e8108bc1b86e4884e642e75fb7",
+          "sha256": "56723ca23e7d458851aabc14cd52cc13ceef00e494fd9c9a8b17a470d415dc48"
         }
       }
     }
