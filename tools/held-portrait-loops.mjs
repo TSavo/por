@@ -28,7 +28,7 @@ const portraitLoops = [
   ["portrait:area:1:ecl:b5f7:caller:9e66:PIC6.DAX:42:", penPoseOrder, undefined,
     /PENFORHOLDINGSLAVES/i, penPoseTimes],
   ["portrait:area:1:ecl:b5f7:caller:9eda:PIC6.DAX:42:", penPoseOrder, undefined,
-    /HEART-SHAPEDBIRTHMARKONHISLEFTSHOULDER/i, penPoseTimes],
+    /HEARTSHAPEDBIRTHMARKONHISLEFTSHOULDER/i, penPoseTimes],
   ["portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:", penPoseOrder, undefined,
     /WILLBRINGAGOODPRICEATZHENTILKEEP/i, penPoseTimes],
   ["portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:", 5, undefined,
