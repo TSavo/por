@@ -4039,6 +4039,14 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:HEAD7.DAX:16:BODY7.DAX:30",
       prompt: /ABATTLEBEGINS/i },
   }],
+  ["tyrmor-priest-tone-hold", {
+    slot: "B", inputs: [...tyrmorPriestApproach, "p"],
+    portrait: "portrait:area:22:ecl:9d64:HEAD7.DAX:16:BODY7.DAX:30",
+    prompt: /HESMILESATYOUANDRAISESHISHANDINBENEDICTION.*HAUGHTYSLYNICEMEEKABUSIVE/i,
+    staticPortraitMenu: true,
+    continuation: { inputs: ["m"], portrait: "portrait:area:22:ecl:9a06:caller:9ef6:HEAD7.DAX:16:BODY7.DAX:30",
+      prompt: /PEACEBROTHER.*MAYPRAYNOMORE/i },
+  }],
   ["tyrmor-priest-peace-hold", {
     slot: "B", inputs: tyrmorPriestParlay,
     portrait: "portrait:area:22:ecl:9a06:caller:9ef6:HEAD7.DAX:16:BODY7.DAX:30",
@@ -8293,7 +8301,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName.startsWith("yarash-study-") ||
       routeName === "valhingen-grave-claws" || routeName === "valhingen-vampire-reveal-phases" ||
       routeName === "sokal-barracks-ghost-phases" ||
-      /^tyrmor-priest-(benediction-hold|peace-hold|chisel-hold|chisel-help)$/.test(routeName) ||
+      /^tyrmor-priest-(benediction-hold|tone-hold|peace-hold|chisel-hold|chisel-help)$/.test(routeName) ||
       sokalBarracksHeld ||
       routeName === "valhingen-wight-ambush-loop" || routeName === "valhingen-spirits-tower-wight-loop" ||
       routeName === "valhingen-skeleton-roaming-ambush-loop" ||
