@@ -3933,7 +3933,7 @@ const illustrationRoutes = new Map([
     slot: "J", inputs: ["down", "up", "enter", "enter"], illustratedScenery: true,
     portraitStops: { 2: "scene-illustration:area:29:ecl:af2f:caller:a08a", 3: "scene-illustration:area:29:ecl:a105" },
     approachSequence: [[56, 32, "encounter:area:29:ecl:a0a4:SPRIT8.DAX:0:2:0", 24, 57]],
-    approachBeforeHeld: true,
+    approachBeforeHeld: true, requireWebGL: true,
     portrait: "scene-illustration:area:29:ecl:af2f:caller:a10f",
     prompt: /AVOLLEYOFARROWSTEARSINTOTHEGROUP.*PRESS<ENTER>\/<RETURN>TOCONTINUE/i,
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMP/i },
@@ -12789,8 +12789,9 @@ try {
       if (routeName === "kuto-well-catacomb-volley-hold") {
         assert.equal(frame.encounter, undefined);
         assert.equal(frame.exploration?.mapId, 32);
-        await waitFor("the empty corridor after the volley", () => run(`state.sequence === ${frame.sequence} && !animationFrame &&
-          !document.querySelector("#tile-art .encounter-sprite, #tile-art .encounter-portrait")`));
+        await waitFor("the empty WebGL corridor after the volley", () => run(`state.sequence === ${frame.sequence} && !animationFrame &&
+          document.querySelector("#tile-art:not([hidden]) canvas.street-viewport") &&
+          !document.querySelector("#tile-art .encounter-sprite, #tile-art .encounter-portrait, #tile-art .perspective-backdrop")`));
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, "kuto-well-catacomb-volley-cleared.png"), Buffer.from(shot.data, "base64"));
       }

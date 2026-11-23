@@ -937,6 +937,10 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
       if (gl.getError() !== gl.NO_ERROR) throw new Error("WebGL draw failed");
     },
     dispose() {
+      // The next exploration viewport reuses this canvas and its GL state.
+      // Its first sky pass must not inherit arrays backed by deleted buffers.
+      const attributeCount = gl.getParameter(gl.MAX_VERTEX_ATTRIBS);
+      for (let index = 0; index < attributeCount; index++) gl.disableVertexAttribArray(index);
       gl.deleteBuffer(buffer);
       gl.deleteBuffer(quadBuffer);
       gl.deleteTexture(artTexture);
