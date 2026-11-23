@@ -37,6 +37,44 @@ let engine: RunningEngine | undefined;
 let original: PickedOriginalFolder | undefined;
 let originalProblem: string | undefined;
 let originalRemembered: string | undefined;
+let storageWrite: Promise<void> | undefined;
+
+const storageStatus = document.querySelector<HTMLParagraphElement>("#storage-status")!;
+const storageError = document.querySelector<HTMLDialogElement>("#storage-error")!;
+const storageMessage = document.querySelector<HTMLParagraphElement>("#storage-message")!;
+const retryStorage = document.querySelector<HTMLButtonElement>("#retry-storage")!;
+
+function guardStorageWrite(event: BeforeUnloadEvent) {
+  event.preventDefault();
+  event.returnValue = true;
+}
+
+async function commitRecord(id: ResourceId, data: Uint8Array | undefined) {
+  const label = id === "save:roster" ? "character roster" : `slot ${id.slice("save:".length)}`;
+  window.addEventListener("beforeunload", guardStorageWrite);
+  try {
+    storageStatus.hidden = false;
+    storageStatus.textContent = `Saving ${label}…`;
+    for (;;) {
+      try {
+        await (data ? provider.put(id, data) : provider.remove(id));
+        return;
+      } catch (error) {
+        console.error(`Cannot store ${id}`, error);
+        storageMessage.textContent = `Could not save ${label}. Your previous save is still available.`;
+        await new Promise<void>((retry) => {
+          retryStorage.addEventListener("click", () => retry(), { once: true });
+          storageError.showModal();
+        });
+        storageError.close();
+      }
+    }
+  } finally {
+    storageStatus.hidden = true;
+    window.removeEventListener("beforeunload", guardStorageWrite);
+  }
+}
+storageError.addEventListener("cancel", (event) => event.preventDefault());
 
 /** Start the game from its beginning, with the original files chosen now (none, or the player's). */
 async function start() {
@@ -47,6 +85,7 @@ async function start() {
   useGameRoot(root);
   const build = detectGameVersion(readGameFile(root, "GAME.OVR"));
   useGameVersion(build);
+  if (storageWrite) await storageWrite;
   engine?.stop();
   const previous = session as PlaySession | undefined;
   let running: RunningEngine | undefined;
@@ -63,8 +102,8 @@ async function start() {
     entries: [...entries, ...provider.residentRecords()], root, env: { ...runnerEnv, ...index.engineEnv },
     onLines(lines) { for (const line of lines) next.line(line); },
     onPut(id, data) {
-      // The engine's own records (saves, the roster), stored without making it wait.
-      void (data ? provider.put(id, data) : provider.remove(id)).catch((error) => console.error(`Cannot store ${id}`, error));
+      storageWrite = commitRecord(id, data).finally(() => { storageWrite = undefined; });
+      return storageWrite;
     },
     onStopped(message) { next.closed(message); },
   });
@@ -144,6 +183,7 @@ async function gameFetch(input: RequestInfo | URL, init: RequestInit = {}): Prom
     return json(session.state(after === null ? undefined : Number(after), headers.get("x-por-page") ?? undefined, headers.get("x-por-claim") === "1"));
   }
   if (path === "/key" && method === "POST") {
+    if (storageWrite) return empty(409);
     return empty(session.key(String(init.body ?? ""), {
       expected: headers.get("x-por-frame") ?? undefined, page: headers.get("x-por-page") ?? undefined,
       codeWheel: headers.get("x-por-code-wheel") === "enhanced",

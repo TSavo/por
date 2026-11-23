@@ -26,7 +26,7 @@ export interface EngineOptions {
   /** The engine's settings: the artwork keys and the runner's settings. */
   env: Record<string, string>;
   onLines(lines: string[]): void;
-  onPut?(id: ResourceId, data: Uint8Array | undefined): void;
+  onPut?(id: ResourceId, data: Uint8Array | undefined): void | Promise<void>;
   onStopped(message: string): void;
   workerUrl?: URL;
 }
@@ -57,7 +57,13 @@ export function startEngine(options: EngineOptions): RunningEngine {
   const worker = new Worker(options.workerUrl ?? new URL("./engine-worker.js", import.meta.url), { type: "module" });
   worker.onmessage = ({ data }: MessageEvent<EngineMessage>) => {
     if (data.type === "lines") options.onLines(data.lines);
-    else if (data.type === "put") options.onPut?.(data.id, data.data);
+    else if (data.type === "put") {
+      const reply = (committed: boolean) => {
+        Atomics.store(data.receipt, 0, committed ? 1 : -1);
+        Atomics.notify(data.receipt, 0);
+      };
+      void Promise.resolve().then(() => options.onPut?.(data.id, data.data)).then(() => reply(true), () => reply(false));
+    }
     else if (data.type === "stopped") options.onStopped(data.message);
   };
   worker.onerror = (event) => options.onStopped(event.message || "The game's worker failed.");

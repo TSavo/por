@@ -24,7 +24,6 @@ window.porBootCheck = async ({ env, commands, original: originalUrl, records }) 
   const store = records && await IdbResources.open("", records.database);
   if (store && records?.clear) for (const id of await store.list("")) await store.remove(id);
   for (const [id, base64] of records?.seed ?? []) await store!.put(id, Uint8Array.from(atob(base64), (character) => character.charCodeAt(0)));
-  const writes: Promise<void>[] = [];
   const index = (await provider.getJson<ResourceIndex>("index"))!;
   // The player's original files, as a picked folder is read (#226).
   const original = originalUrl ? await originalFolderAt(originalUrl) : undefined;
@@ -37,9 +36,9 @@ window.porBootCheck = async ({ env, commands, original: originalUrl, records }) 
   const preloaded: Record<string, number> = {};
   for (const [id, bytes] of entries) preloaded[id.split(":")[0]!] = (preloaded[id.split(":")[0]!] ?? 0) + bytes.length;
   return new Promise((done) => {
-    const finish = (stopped: string) => void Promise.all(writes).then(() => done({
+    const finish = (stopped: string) => done({
       records: store && Object.fromEntries(store.residentRecords().map(([id, bytes]) => [id, new TextDecoder().decode(bytes)])), original: original && { folder: original.folder, release: original.release, files: original.files.size }, frames, other: other.slice(-20), stopped, preloaded, firstFrameMs,
-      totalMs: Math.round(performance.now() - started), crossOriginIsolated }));
+      totalMs: Math.round(performance.now() - started), crossOriginIsolated });
     try {
       const engine = startEngine({
         entries, root: engineRoot(original), env: { ...index.engineEnv, ...env },
@@ -54,7 +53,7 @@ window.porBootCheck = async ({ env, commands, original: originalUrl, records }) 
             } else if (!line.startsWith("POR_")) other.push(line);
           }
         },
-        onPut(id, data) { if (store) writes.push(data ? store.put(id, data) : store.remove(id)); },
+        onPut(id, data) { if (store) return data ? store.put(id, data) : store.remove(id); },
         onStopped: finish,
       });
       for (const command of commands) if (!engine.write(command)) throw new Error("command buffer full");

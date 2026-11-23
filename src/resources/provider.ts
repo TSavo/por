@@ -13,7 +13,7 @@
  *    listing, and `put`/`remove` for saves and settings.
  *  - `ResidentResources` is what the engine uses. The engine is synchronous, so it only ever reads
  *    bytes already resident (preloaded before the first CPU step, or read at once by a disk backend),
- *    and its writes update memory at once and persist behind the step.
+ *    and its writes update memory before the engine resumes.
  */
 
 export type ResourceId = string;
@@ -50,7 +50,7 @@ export interface ResidentResources {
   readNow(id: ResourceId, length?: number): Uint8Array | undefined;
   /** The ids under a prefix, sorted. */
   listNow(prefix: string): ResourceId[];
-  /** Write a save or setting: visible to the next `readNow` at once, persisted behind it. */
+  /** Write a save or setting, visible to the next `readNow` after the write succeeds. */
   putNow(id: ResourceId, data: ResourceData): void;
   removeNow(id: ResourceId): void;
 }
@@ -69,8 +69,8 @@ export function readJsonNow<T = unknown>(resources: ResidentResources, id: Resou
 }
 
 /**
- * Resident bytes in memory: what a browser preloaded before the engine started. Writes go to memory
- * at once and then to `persist`, which may be asynchronous (IndexedDB behind a worker's message).
+ * Resident bytes in memory: what a browser preloaded before the engine started. If the host provides
+ * persistence, the in-memory record changes only after that write succeeds.
  */
 export class MemoryResources implements ResidentResources {
   readonly entries = new Map<ResourceId, Uint8Array>();
@@ -87,12 +87,12 @@ export class MemoryResources implements ResidentResources {
   }
   putNow(id: ResourceId, data: ResourceData) {
     const bytes = typeof data === "string" ? encodeText(data) : data;
-    this.entries.set(id, bytes);
     this.persist?.(id, bytes);
+    this.entries.set(id, bytes);
   }
   removeNow(id: ResourceId) {
-    this.entries.delete(id);
     this.persist?.(id, undefined);
+    this.entries.delete(id);
   }
 }
 

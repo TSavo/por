@@ -26,6 +26,7 @@ const args = process.argv.slice(2);
 const option = (name) => { const at = args.indexOf(name); return at >= 0 ? args[at + 1] : undefined; };
 const server = option("--server") ?? "runner";
 const original = option("--original") && resolve(option("--original"));
+const saveFaults = args.includes("--save-faults");
 const shots = option("--shots") && resolve(option("--shots"));
 if (shots) mkdirSync(shots, { recursive: true });
 const work = mkdtempSync(join(tmpdir(), "por-check-play-"));
@@ -103,6 +104,76 @@ async function openGame(game) {
 const screenshot = async (name) => { if (shots) await chrome.screenshot(join(shots, `${server}-${name}.png`)); };
 const position = () => chrome.evaluate("state.exploration && [state.exploration.x, state.exploration.y, state.exploration.facing]");
 
+async function checkFailedOverwrite(page) {
+  const committed = () => chrome.evaluate(`new Promise((resolve, reject) => {
+    const open = indexedDB.open("por-resources");
+    open.onerror = () => reject(open.error);
+    open.onsuccess = () => {
+      const db = open.result;
+      const req = db.transaction("records").objectStore("records").get("save:A");
+      req.onsuccess = () => { db.close(); resolve(new TextDecoder().decode(req.result)); };
+      req.onerror = () => { db.close(); reject(req.error); };
+    };
+  })`);
+  const previous = await committed();
+  assert.ok(previous, "the first save committed slot A");
+  await page.press("down", exploring);
+  const updated = await position();
+  await page.press("e", /Camp: Save/);
+  await page.press("s", /Save Which Game:/);
+  await chrome.evaluate(`(() => {
+    const put = IDBObjectStore.prototype.put;
+    window.saveFault = { count: 0, action: null };
+    IDBObjectStore.prototype.put = function (value, key) {
+      const request = put.call(this, value, key);
+      if (key !== "save:A") return request;
+      saveFault.count++;
+      request.onsuccess = () => {
+        const hold = () => {
+          if (saveFault.action === "abort") this.transaction.abort();
+          else if (saveFault.action !== "commit") this.get(key).onsuccess = hold;
+        };
+        hold();
+      };
+      return request;
+    };
+  })()`);
+  const saveEvent = await chrome.evaluate("state.saveSlotEvent");
+  await chrome.key("a");
+  await chrome.until("the overwrite transaction", "saveFault.count === 1", 15);
+  await chrome.evaluate('saveFault.action = "abort"');
+  await chrome.until("a visible save failure", 'document.querySelector("#retry-storage")?.offsetWidth', 10);
+  assert.equal(await committed(), previous, "an aborted overwrite preserves the committed slot");
+  assert.equal(await chrome.evaluate("state.saveSlotEvent"), saveEvent, "failure cannot acknowledge a save");
+  assert.doesNotMatch(await page.text(), /Quit TO DOS/i);
+  log("ok   failed overwrite stays retryable and preserves slot A");
+
+  await chrome.evaluate('saveFault.action = null; document.querySelector("#retry-storage").click()');
+  await chrome.until("the retry transaction", "saveFault.count === 2", 15);
+  const dialog = new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error("No reload confirmation for pending save")), 10000);
+    chrome.listeners.push(({ method, params }) => {
+      if (method === "Page.javascriptDialogOpening" && params.type === "beforeunload") {
+        clearTimeout(timer);
+        resolve();
+      }
+    });
+  });
+  await chrome.command("Runtime.evaluate", { expression: "setTimeout(() => location.reload(), 0)" });
+  await dialog;
+  await chrome.command("Page.handleJavaScriptDialog", { accept: false });
+  assert.equal(await chrome.evaluate("state.saveSlotEvent"), saveEvent, "retry is still pending");
+  assert.doesNotMatch(await page.text(), /Quit TO DOS/i);
+  await chrome.evaluate('saveFault.action = "commit"');
+  await chrome.until("the committed save and native quit prompt", `state.saveSlotEvent === ${saveEvent + 1} && state.ready`, 15);
+  assert.match(await page.text(), /Quit TO DOS Yes No/i);
+  assert.notEqual(await committed(), previous, "the retry committed new bytes");
+  await chrome.key("y");
+  await chrome.until("the game to quit", "state.stopped", 15);
+  log("ok   pending retry guards reload, then allows save and quit");
+  return updated;
+}
+
 let game = await startServer();
 try {
   // 1. Boot to the first menu.
@@ -168,13 +239,15 @@ try {
   }
 
   // 7. Save in slot A.
-  const saved = await position();
+  let saved = await position();
   await page.press("e", /Camp: Save View Magic Rest Alter Exit/);
   await page.press("s", /Save Which Game: A B C D E F G H I J/);
   await page.press("a", /Quit TO DOS Yes No/);
   await page.press("n", /Camp: Save View Magic Rest Alter Exit/);
   text = await page.press("e", exploring);
   expect("saves in slot A", exploring.test(text) && (await chrome.evaluate("state.saveSlot")) === "A", await chrome.evaluate("state.saveSlot"));
+
+  if (saveFaults) saved = await checkFailedOverwrite(page);
 
   // 8. Start again and load slot A.
   if (server === "runner") {
