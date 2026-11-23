@@ -48465,5 +48465,93 @@
       },
       "producer": "ECL8.DAX:27:9c1c"
     }
+  ],
+  "timedPortraitScenes": [
+    {
+      "producer": "ECL7.DAX:17:a5f8",
+      "checkpoint": "nomad-headman-held/A.json",
+      "native": {
+        "drawCursor": "a5ff",
+        "composed": "HEAD7.DAX:74:BODY7.DAX:30",
+        "beats": [
+          {
+            "portrait": "scene-illustration:area:17:ecl:9dd6:caller:9de0",
+            "caption": "THEHEADMANWALKSUPTOYOUWITHHISGUARDS.'GOODMORNING.THEREARECELEBRATIONSPLANNEDTODAY.'",
+            "durationMs": 900
+          },
+          {
+            "portrait": "scene-illustration:area:17:ecl:9d5e:caller:9d31",
+            "caption": "'COME,LETTHEREBEGAMESFOROURGUESTS.'HELEADSYOUTOTHECAMP'SCENTRALCLEARING.",
+            "durationMs": 7200
+          }
+        ],
+        "outgoing": {
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:a711",
+          "caption": "YOU ARE TREATED AS HONORED GUESTS FOR THE REST OF THE DAY. THERE ARE CONTESTS OF STRENGTH AND SKILL IN YOUR HONOR."
+        }
+      },
+      "chrome": {
+        "original": {
+          "route": "nomad-morning-walk",
+          "data": "original",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+          "beats": [
+            {
+              "portrait": "scene-illustration:area:17:ecl:9dd6:caller:9de0",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29THEHEADMANWALKSUPTOYOUWITHHISGUARDS.'GOODMORNING.THEREARECELEBRATIONSPLANNEDTODAY.'",
+              "artSha256": "26c757d6b229905959c83b7c126978418a683e04102254b46246dc7a07bd21e5",
+              "screenshotSha256": "7209b243a38fac1efdeca51695618d84abcae7101489918ccb2202118f7d54b0",
+              "durationMs": 900,
+              "paintedMs": 916.7000000000007
+            },
+            {
+              "portrait": "scene-illustration:area:17:ecl:9d5e:caller:9d31",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29'COME,LETTHEREBEGAMESFOROURGUESTS.'HELEADSYOUTOTHECAMP'SCENTRALCLEARING.",
+              "artSha256": "1c3de6c51338bd94bdfea4e5f7e2848a3381d033f7ec45969036520693a56ae8",
+              "screenshotSha256": "b928e60dc090e7252d6a917da2e80d335125613a516e076f67622be93d73e6db",
+              "durationMs": 7200,
+              "paintedMs": 7216.299999999999
+            }
+          ],
+          "outgoing": {
+            "portrait": "scene-illustration:area:17:ecl:9da2:caller:a711",
+            "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29YOUARETREATEDASHONOREDGUESTSFORTHERESTOFTHEDAY.THEREARECONTESTSOFSTRENGTHANDSKILLINYOURHONOR.Pressbuttonor<return>tocontinue",
+            "artSha256": "72fa38dc35dace266380f3f58d246c24e553a247268fbda9b10c12fdd4135cb1",
+            "screenshotSha256": "55c076a532a0b8cdf6e88baaffa952318d0fb51da52300f99a8a22ce3cf8f00c"
+          }
+        },
+        "port": {
+          "route": "nomad-morning-walk",
+          "data": "port",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+          "beats": [
+            {
+              "portrait": "scene-illustration:area:17:ecl:9dd6:caller:9de0",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29THEHEADMANWALKSUPTOYOUWITHHISGUARDS.'GOODMORNING.THEREARECELEBRATIONSPLANNEDTODAY.'",
+              "artSha256": "26c757d6b229905959c83b7c126978418a683e04102254b46246dc7a07bd21e5",
+              "screenshotSha256": "f0d4eaa5ef5cf2d1099e08bc1537001bf83fc1e0689bdbaf9a64512ccf78d239",
+              "durationMs": 900,
+              "paintedMs": 899.9000000000015
+            },
+            {
+              "portrait": "scene-illustration:area:17:ecl:9d5e:caller:9d31",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29'COME,LETTHEREBEGAMESFOROURGUESTS.'HELEADSYOUTOTHECAMP'SCENTRALCLEARING.",
+              "artSha256": "1c3de6c51338bd94bdfea4e5f7e2848a3381d033f7ec45969036520693a56ae8",
+              "screenshotSha256": "986b31da7e3d2156e1065792d481bae46de0e1038d9c800b3d19ca5c84a4ce7c",
+              "durationMs": 7200,
+              "paintedMs": 7216.5
+            }
+          ],
+          "outgoing": {
+            "portrait": "scene-illustration:area:17:ecl:9da2:caller:a711",
+            "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29YOUARETREATEDASHONOREDGUESTSFORTHERESTOFTHEDAY.THEREARECONTESTSOFSTRENGTHANDSKILLINYOURHONOR.Pressbuttonor<return>tocontinue",
+            "artSha256": "72fa38dc35dace266380f3f58d246c24e553a247268fbda9b10c12fdd4135cb1",
+            "screenshotSha256": "ce343e967a8ed8841873f6b457c91eb0066b63f35d3234d2194c6f104a6d867e"
+          }
+        }
+      }
+    }
   ]
 }
