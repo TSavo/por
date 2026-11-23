@@ -35,3 +35,5 @@ jobs:
         run: npm run -s verify:dos-calls
       - name: Enhanced fallbacks
         run: npm run -s verify:enhanced-fallbacks
+      - name: Script illustrations leave with their pose
+        run: POR_PLAY_PORT=43217 npm run -s verify:illustration-left-behind

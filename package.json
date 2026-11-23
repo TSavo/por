@@ -23,6 +23,7 @@
     "verify:art-worklist": "tsx tools/art-worklist.ts --verify",
     "verify:enhanced-fallbacks": "tsx tools/qa-enhanced-fallbacks.ts",
     "verify:held-portraits": "tsx tools/qa-held-portraits.ts",
+    "verify:illustration-left-behind": "node tools/verify-illustration-left-behind.mjs",
     "verify:code-wheel": "python tools/verify-code-wheel.py",
     "verify:code-wheel-screen": "node tools/verify-code-wheel-screen.mjs",
     "verify:character-sheet-fallback": "node tools/verify-character-sheet-fallback.mjs",
