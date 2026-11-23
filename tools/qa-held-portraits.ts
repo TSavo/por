@@ -173,6 +173,7 @@ const landmarkOverlandRenderer = "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865
 const saltlineExplorationRenderer = "90fb7e1b9dd389ea45605810f27ca019f6c0e11650985cac7edd0f5dd52c8e20";
 const explorationMovementRenderer = "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f";
 const titleBuildVersionRenderer = "14d61fd7ee9265e1b34205a359a7631c932bdba29f274fcf406065a2f4969489";
+const battleEntryRenderer = "1ff8ef0a4d635d4390caaad3f85782fd99c4728df2051a01d8477381403db6ed";
 const wetOverlandRenderer = "9bfeac762a897378393767763da854233f71e30be96d9d080c8c1454d1f7715a";
 const localOverlandRenderer = "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74";
 const auctionMenusRenderer = "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b";
@@ -183,6 +184,9 @@ const rendererBeforePittMenus = "c3582f5d74fae550739186491060b39f7fcbd25c399b99d
 // Exact reviewed revisions that preserve the held portrait paint and timing code.
 // This covers narration logging, the wilderness atlas, settings, and Classic palette-only clips.
 const previousRendererProof = new Map<string, string>([
+  // Only native battle setup polls resume after the notice paint. The Bane
+  // altar and Kobold throne checks cover the notice and opening turn in both data modes.
+  [battleEntryRenderer, titleBuildVersionRenderer],
   // The build version changes only the title screen label.
   [titleBuildVersionRenderer, explorationMovementRenderer],
   // The tween draws the exploration viewport and local map marker. Portrait
@@ -421,10 +425,13 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       return (["original", "port"] as const).every(data => {
         const observed = proof.chrome[data];
         const reviewed = [landmarkOverlandRenderer, wetOverlandRenderer, localOverlandRenderer, auctionMenusRenderer, captivePenMenusRenderer, pittMenuRenderer, rendererBeforePittMenus];
-        const sceneryRenderer = renderer === titleBuildVersionRenderer ? explorationMovementRenderer : renderer;
+        const sceneryRevision = (hash: string) => hash === titleBuildVersionRenderer || hash === battleEntryRenderer
+          ? explorationMovementRenderer : hash;
+        const sceneryRenderer = sceneryRevision(renderer);
         const revision = reviewed.indexOf(sceneryRenderer);
-        const sameSceneryRenderer = observed.rendererSha256 === renderer || observed.rendererSha256 === sceneryRenderer ||
-          (revision >= 0 && reviewed.slice(revision + 1).includes(observed.rendererSha256));
+        const observedRenderer = sceneryRevision(observed.rendererSha256);
+        const sameSceneryRenderer = observedRenderer === sceneryRenderer ||
+          (revision >= 0 && reviewed.slice(revision + 1).includes(observedRenderer));
         return observed.data === data && sameSceneryRenderer &&
           checkpoint.has(observed.checkpointSha256) && isDeepStrictEqual(observed.position, proof.position) &&
           normalizeCaption(observed.caption).includes(caption);
