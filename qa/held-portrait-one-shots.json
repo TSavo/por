@@ -1230,5 +1230,69 @@
         "artSha256": "1601a7836fb5e4b95d97270b90d2e22aab2239c52d236c2041b8113eae62d46a"
       }
     }
+  },
+  {
+    "producer": "ECL1.DAX:24:af03",
+    "combat": "b085",
+    "native": {
+      "drawCursor": "af0c",
+      "members": [
+        0
+      ],
+      "block": 4,
+      "evidence": "E:/por-codex/art-qa/bane-rampart-stock-batch/first-4320549/draws.jsonl"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL1.DAX:24:af03",
+        "route": "bane-rampart-ambush-orcs",
+        "data": "original",
+        "portrait": "portrait:area:24:ecl:b058:PIC1.DAX:4:0:0",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "17b5f280c76d165001760b8c6457b9f123e484cfbbd6e3768c6e193a5bcc0592"
+      },
+      "port": {
+        "producer": "ECL1.DAX:24:af03",
+        "route": "bane-rampart-ambush-orcs",
+        "data": "port",
+        "portrait": "portrait:area:24:ecl:b058:PIC1.DAX:4:0:0",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "17b5f280c76d165001760b8c6457b9f123e484cfbbd6e3768c6e193a5bcc0592"
+      }
+    }
+  },
+  {
+    "producer": "ECL1.DAX:24:af03",
+    "combat": "b085",
+    "native": {
+      "drawCursor": "af0c",
+      "members": [
+        0
+      ],
+      "block": 8,
+      "evidence": "E:/por-codex/art-qa/bane-rampart-stock-batch/first-4320371/draws.jsonl"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL1.DAX:24:af03",
+        "route": "bane-rampart-ambush-ogres",
+        "data": "original",
+        "portrait": "portrait:area:24:ecl:b058:PIC1.DAX:8:0:0",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "543af8d9d694fa3724c4e1c49f4ef7b876567155857e74ce35d31c397e8dc4d2"
+      },
+      "port": {
+        "producer": "ECL1.DAX:24:af03",
+        "route": "bane-rampart-ambush-ogres",
+        "data": "port",
+        "portrait": "portrait:area:24:ecl:b058:PIC1.DAX:8:0:0",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "543af8d9d694fa3724c4e1c49f4ef7b876567155857e74ce35d31c397e8dc4d2"
+      }
+    }
   }
 ]
