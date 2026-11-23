@@ -33,6 +33,11 @@ const baneGatePoseTimes = [1510, 20, 710, 20];
 const penPoseOrder = [0, 1, 2, 3, 4, 3];
 const penPoseTimes = [410, 310, 110, 210, 310, 210];
 const portraitLoops = [
+  ["portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:", [0, 1, 2, 1], undefined,
+    /ADVANCINGONYOUISALARGEBANDOFKOBOLDSWITHBLOODLUSTINTHEIREYES/i, [210, 210, 210, 210],
+    [["scene-illustration:area:17:ecl:9da2:caller:b4c8:cue:advance", 0]]],
+  ["portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:", [0, 1, 2, 1], undefined,
+    /COMBATWAITFLEEPARLAY/i, [210, 210, 210, 210]],
 ["portrait:area:1:ecl:b52f:PIC6.DAX:42:", penPoseOrder, undefined,
     /STANDINGNEARYOUISTHEYOUNGBOY/i, penPoseTimes],
   ["portrait:area:1:ecl:b5f7:caller:9e66:PIC6.DAX:42:", penPoseOrder, undefined,
