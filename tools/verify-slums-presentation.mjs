@@ -14931,11 +14931,18 @@ try {
     }
     await switchBothWays();
     if (!classicPortrait) {
-      await verifyHeldPortraitLoop(mountedEscort.heldPortraitLoop);
-      const escortPhase = mountedEscort.heldPortraitLoop[1];
-      await waitFor("the alternate escort illustration", () => run(`state.sequence === ${frame.sequence} &&\n        document.querySelector('.encounter-portrait[src="/art/${escortPhase}"]')?.naturalWidth === 352`));
+      const escortPhase = "portrait:area:25:ecl:9e08:PIC6.DAX:39:1:0";
+      for (const key of ["z", "z"]) await advance(key);
+      assert.equal(frame.portrait, escortPhase);
+      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
+        /ABANDOFBUCCANEERSRIDEOUTTOESCORTYOUIN/i);
+      await waitFor("the alternate escort illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${escortPhase}"]')?.naturalWidth === 352`));
+      await switchBothWays();
       const escortShot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "buccaneer-escort-coastal-phase.png"), Buffer.from(escortShot.data, "base64"));
+      for (const key of ["z", "z"]) await advance(key);
+      assert.equal(frame.portrait, "portrait:PIC6.DAX:39:0:0");
     }
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === base));
