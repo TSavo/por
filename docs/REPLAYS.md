@@ -259,6 +259,13 @@ The route walks and turns through ten distinct surface views. Chrome checked all
 
 ## Held portrait timing
 
+Run `npm run verify:held-portraits -- --summary` for the live portrait
+acceptance counts in #80 and #131. The census tracks captured prompts
+and reachable sites independently. Held animation replays check the
+native member order, timing and wrap. Static portraits and one-shot
+transitions have individual evidence for their native dwell and handoff.
+See [Verified census](HELD-PORTRAIT-DISCOVERY.md#verified-census).
+
 Set `POR_HELD_PORTRAIT_TRACE` to a new JSONL path before running a GOG 1.3
 checkpoint replay. At a held menu the runner waits for the next command.
 Send `:travel-poll` to the runner pipe to let the native menu poll
