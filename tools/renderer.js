@@ -35,11 +35,11 @@ export function resolveLayout(layout) {
 }
 
 function tileBumpStrength(index) {
-  if (index === 16) return 2.1;
-  if (index === 17) return 1.1;
-  if (index === 18) return 2.3;
-  if (index >= 1 && index <= 15) return 2.9;
-  return 2.2;
+  if (index === 16) return 0.7;
+  if (index === 17) return 0.7;
+  if (index === 18) return 0.75;
+  if (index >= 1 && index <= 15) return 2.7;
+  return 1.2;
 }
 
 function blurBox(src, size, radius, wrap) {
@@ -105,9 +105,9 @@ function deriveNormalRoughness(atlas) {
       const band = new Float32Array(cell * cell);
       let mean = 0;
       for (let i = 0; i < band.length; i++) {
-        // Sharp mortar/grain first; keep broad brick protrusion modest so
-        // bricks don't read as rounded logs.
-        band[i] = (fine[i] - mid[i]) * 1.15 + (mid[i] - broad[i]) * 0.42;
+        const fineAmt = (index === 16 || index === 18) ? 0.4 : 1.15;
+        const midAmt = (index === 16 || index === 18) ? 0.22 : 0.42;
+        band[i] = (fine[i] - mid[i]) * fineAmt + (mid[i] - broad[i]) * midAmt;
         mean += band[i];
       }
       mean /= band.length;
@@ -456,9 +456,6 @@ const sceneFragment = `
       textureUV = faceUV;
       derivUV = faceUV;
     }
-    // Discard holes (temple doors, windows) from the un-offset UV so
-    // parallax cannot pull neighboring brick into the opening.
-    if (sampleArt(art, tileIndex, textureUV).a < 0.55) discard;
     vec4 maps = sampleArt(detail, tileIndex, textureUV);
     if (material.x > 1.5) maps = sampleArt(detail, 2., faceUV);
     vec3 Ngeo = normalize(worldNormal);
@@ -476,8 +473,9 @@ const sceneFragment = `
     float viewLen = max(length(viewDir), 0.001);
     viewParallax /= viewLen;
     float edgeFade = mix(smoothstep(0.0, 0.08, min(min(textureUV.x, textureUV.y), min(1.0 - textureUV.x, 1.0 - textureUV.y))), 1.0, floorSurface);
-    float graze = pow(clamp(dot(Ngeo, normalize(viewDir)), 0.0, 1.0), 1.25);
-    float pScale = mix(0.03, 0.016, floorSurface) * edgeFade * graze;
+    float graze = smoothstep(0.28, 0.82, clamp(dot(Ngeo, normalize(viewDir)), 0.0, 1.0));
+    float distFade = smoothstep(14.0, 3.5, max(depth, 0.0));
+    float pScale = mix(0.024, 0.0, floorSurface) * edgeFade * graze * distFade;
     vec2 puv = textureUV - viewParallax * (height - 0.5) * pScale;
     puv = mix(clamp(puv, 0.0, 1.0), fract(puv) * 0.98 + 0.01, floorSurface);
     textureUV = puv;
@@ -494,8 +492,9 @@ const sceneFragment = `
     vec3 N = normalize(mat3(T, B, Ngeo) * tangentNormal);
     if (dot(N, Ngeo) < 0.0) N = Ngeo;
     vec3 V = normalize(eye - world);
-    // Fade bump at grazing angles so edge-on walls don't sparkle or cave in.
-    N = normalize(mix(Ngeo, N, pow(clamp(dot(Ngeo, V), 0.0, 1.0), 1.65)));
+    // Fade bump hard at grazing angles and with distance so far walls stay clean.
+    float bumpAmt = smoothstep(0.28, 0.82, clamp(dot(Ngeo, V), 0.0, 1.0)) * distFade;
+    N = normalize(mix(Ngeo, N, bumpAmt));
     vec3 L = sunDir;
     float ndotl = pow(max(dot(N, L), 0.0), 1.15);
     float ndotv = max(dot(N, V), 0.0);
@@ -527,22 +526,22 @@ const sceneFragment = `
     float sunVis = mix(1.0, occ.g, floorSurface * (1.0 - indoor));
     float contact = mix(0.5, 1.0, smoothstep(0.0, 0.22, world.y));
     float ao = mix(mix(0.78, 1.0, occ.r) * contact, mix(0.58, 1.0, occ.r), floorSurface);
-    ao *= mix(0.72, 1.0, height);
+    ao *= mix(mix(0.78, 1.0, height), mix(0.94, 1.0, height), floorSurface);
     float raisedFloor = floorSurface * step(0.2, world.y);
     sunVis = mix(sunVis, 1.0, raisedFloor);
     ao = mix(ao, 0.96, raisedFloor);
     vec2 lightUV = vec2(dot(L, T), dot(L, B));
     float lightLen = length(lightUV);
     float bumpShadow = 1.0;
-    if (lightLen > 0.01 && indoor < 0.5) {
-      vec2 lStep = (lightUV / lightLen) * 0.022;
-      float rise = max(dot(L, Ngeo), 0.0) * 0.28;
-      for (int i = 1; i <= 6; i++) {
-        vec2 suv = textureUV + lStep * float(i);
-        suv = mix(clamp(suv, 0.0, 1.0), fract(suv) * 0.98 + 0.01, floorSurface);
+    // Height self-shadow on walls only, and kept soft so it doesn't blob.
+    if (lightLen > 0.01 && indoor < 0.5 && floorSurface < 0.5) {
+      vec2 lStep = (lightUV / lightLen) * 0.018;
+      float rise = max(dot(L, Ngeo), 0.0) * 0.32;
+      for (int i = 1; i <= 4; i++) {
+        vec2 suv = clamp(textureUV + lStep * float(i), 0.0, 1.0);
         float hs = sampleArt(detail, tileIndex, suv).b;
         float cone = height + rise * float(i);
-        bumpShadow *= 1.0 - smoothstep(cone - 0.02, cone + 0.14, hs) * 0.62 * edgeFade;
+        bumpShadow *= 1.0 - smoothstep(cone - 0.01, cone + 0.16, hs) * 0.35 * edgeFade * bumpAmt;
       }
     }
     sunVis *= bumpShadow;
@@ -802,6 +801,8 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, atlas);
   const detailTexture = makeTexture(gl);
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, deriveNormalRoughness(atlas));
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+  gl.generateMipmap(gl.TEXTURE_2D);
   const aoTexture = makeTexture(gl);
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, AO_RES, AO_RES, 0, gl.RGBA, gl.UNSIGNED_BYTE,
     bakeOcclusion(walls, layout, wallRows, explorationSunDir));
