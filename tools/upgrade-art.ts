@@ -134,7 +134,7 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
         // scene:title-name and scene:title-edition are the game's name and SPECIAL EDITION, each drawn on its own so the page can fade them in over the title art.
         const startupScene = id === "scene:title" || id === "scene:publisher" || id === "scene:title-name" || id === "scene:title-edition";
         const illustration = scriptIllustrations.has(id) || endingPortraitKey.test(id);
-        if (!startupScene && !illustration && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
+        if (!/^panel:(rail-x|rail-y|stud)$/.test(id) && !startupScene && !illustration && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
             !/^battle-tile:[a-f0-9]{64}$/.test(id) && !validOverlandTile && !overlandMaterials && !monster && !party && !random && !combatSelection && !effect && !sheetPart && !portraitKey.test(id) && !encounter) {
           reject("Unsupported asset ID or invalid encounter placement.", id);
           continue;

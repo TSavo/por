@@ -835,18 +835,18 @@ function playAnimation(continues = false) {
 // drawing itself took visible time; the port draws at once, and at game speed 1 the scripted pause
 // is 225 ms, too quick to take in (#129). Classic keeps the original's pause exactly.
 const enhancedApproachMs = 800;
-const overlandImages = new Map();
+const decodedArtImages = new Map();
 const failedOverlandTerrain = new WeakSet();
-function overlandImage(id) {
-  let image = overlandImages.get(id);
+function decodedArtImage(id) {
+  let image = decodedArtImages.get(id);
   if (!image) {
     const tile = new Image();
     tile.src = `/art/${id}`;
     image = tile.decode().then(() => tile).catch(error => {
-      overlandImages.delete(id);
+      decodedArtImages.delete(id);
       throw error;
     });
-    overlandImages.set(id, image);
+    decodedArtImages.set(id, image);
   }
   return image;
 }
@@ -1561,46 +1561,29 @@ function toggleAutomap() {
   (automap.hidden ? screen : closeMap).focus({ preventScroll: true });
 }
 
-function drawPanelFrame(stamps) {
+async function drawPanelFrame(stamps) {
+  const [horizontal, vertical, stud] = await Promise.all(
+    ["panel:rail-x", "panel:rail-y", "panel:stud"].map(decodedArtImage));
   const canvas = document.createElement("canvas");
   canvas.className = "panel-frame";
   canvas.width = 1280;
   canvas.height = 800;
   const brush = canvas.getContext("2d");
   const directions = new Map(stamps.map(([x, y, kind]) => [`${x},${y}`, kind]));
-  const rectangle = (color, x, y, width, height) => {
-    brush.fillStyle = color;
-    brush.fillRect(x, y, width, height);
-  };
-  const horizontal = (x, y, length) => {
-    rectangle("#33251e", x, y + 9, length, 14);
-    rectangle("#6d5039", x, y + 11, length, 10);
-    rectangle("#a77b53", x, y + 12, length, 2);
-    rectangle("#4d3627", x, y + 18, length, 2);
-  };
-  const vertical = (x, y, length) => {
-    rectangle("#33251e", x + 9, y, 14, length);
-    rectangle("#6d5039", x + 11, y, 10, length);
-    rectangle("#a77b53", x + 12, y, 2, length);
-    rectangle("#4d3627", x + 18, y, 2, length);
-  };
+  brush.fillStyle = "#0f0e12";
   for (const [x, y, kind] of stamps) {
-    const left = x * 4;
-    const top = y * 4;
-    rectangle("#0f0e12", left, top, 32, 32);
-    if (kind === "rail-x") horizontal(left, top, 32);
-    if (kind === "rail-y") vertical(left, top, 32);
-    if (kind !== "stud") continue;
-    if (directions.get(`${x - 8},${y}`) === "rail-x") horizontal(left, top, 16);
-    if (directions.get(`${x + 8},${y}`) === "rail-x") horizontal(left + 16, top, 16);
-    if (directions.get(`${x},${y - 8}`) === "rail-y") vertical(left, top, 16);
-    if (directions.get(`${x},${y + 8}`) === "rail-y") vertical(left, top + 16, 16);
-    rectangle("#33251e", left + 5, top + 5, 22, 22);
-    rectangle("#bd9369", left + 7, top + 7, 18, 18);
-    rectangle("#503626", left + 9, top + 9, 14, 14);
-    rectangle("#957051", left + 11, top + 11, 10, 10);
-    rectangle("#c9a476", left + 12, top + 12, 7, 2);
-    rectangle("#674730", left + 13, top + 18, 7, 2);
+    const left = x * 4, top = y * 4;
+    brush.fillRect(left, top, 32, 32);
+    if (kind !== "stud") {
+      brush.drawImage(kind === "rail-x" ? horizontal : vertical, left, top);
+      continue;
+    }
+    // Continue each adjacent rail beneath the fitting, including at T junctions.
+    if (directions.get(`${x - 8},${y}`) === "rail-x") brush.drawImage(horizontal, 0, 0, 16, 32, left, top, 16, 32);
+    if (directions.get(`${x + 8},${y}`) === "rail-x") brush.drawImage(horizontal, 16, 0, 16, 32, left + 16, top, 16, 32);
+    if (directions.get(`${x},${y - 8}`) === "rail-y") brush.drawImage(vertical, 0, 0, 32, 16, left, top, 32, 16);
+    if (directions.get(`${x},${y + 8}`) === "rail-y") brush.drawImage(vertical, 0, 16, 32, 16, left, top + 16, 32, 16);
+    brush.drawImage(stud, left, top);
   }
   return canvas;
 }
@@ -1768,11 +1751,11 @@ async function showScreen() {
       function loadLayer(name, ids) {
         if (!ids) return;
         const present = new Set(ids);
-        return Promise.all(slots.map(slot => present.has(slot) ? overlandImage(`overland-${name}:${slot}`) : undefined));
+        return Promise.all(slots.map(slot => present.has(slot) ? decodedArtImage(`overland-${name}:${slot}`) : undefined));
       }
       const [materials, tiles, details, landmarks] = await Promise.all([
-        overlandImage("overland-materials"),
-        Promise.all(slots.map(slot => overlandImage(`overland-tile:${slot}`))),
+        decodedArtImage("overland-materials"),
+        Promise.all(slots.map(slot => decodedArtImage(`overland-tile:${slot}`))),
         loadLayer("detail", detailSlots),
         loadLayer("landmark", landmarkSlots),
       ]);
@@ -1800,8 +1783,8 @@ async function showScreen() {
     placements.push([x, y, portraitId, undefined, undefined, 120, 120]);
   }
   if (view.encounter) placements.push(view.encounter.slice(0, 3));
+  const perspective = view.perspective && !view.portrait;
   if (showArt) {
-    const perspective = view.perspective && !view.portrait;
     const terrain = perspective && !streetCanvas && !overland ? view.tiles ?? [] : [];
     if (streetCanvas || overland) layers.push(streetCanvas ?? overland.canvas);
     else if (perspective || view.classicPortrait) layers.push(pictureBackdrop());
@@ -1858,18 +1841,18 @@ async function showScreen() {
       tile.src = `/art/${id}`;
       return tile;
     }));
-    if (view.panelFrame?.length) {
-      const panelFrame = drawPanelFrame(view.panelFrame);
+  }
+  // Keep the last complete view on screen until the replacement layers
+  // are ready. The raw framebuffer can still contain the original art.
+  try {
+    if (showArt && view.panelFrame?.length) {
+      const panelFrame = await drawPanelFrame(view.panelFrame);
       // The expanded view fills the outer panel, including its native inner frame.
       if ((view.portrait && !rewardIllustration) || view.classicPortrait || perspective || streetCanvas || overlandTerrain) {
         panelFrame.getContext("2d").clearRect(8 * 4, 8 * 4, 120 * 4, 120 * 4);
       }
       layers.push(panelFrame);
     }
-  }
-  // Keep the last complete view on screen until the replacement layers
-  // are ready. The raw framebuffer can still contain the original art.
-  try {
     const nextFrame = new Image();
     nextFrame.src = source;
     const decodeLayer = async layer => {

@@ -3243,6 +3243,9 @@
     "tile:9:ff6a32fbbb4c5d2972bfd9d1a8d7dcefc5def433b2ed312ea71dae297a9665eb"
   ],
   "assets": {
+    "panel:rail-x": "panel-rail-x.png",
+    "panel:rail-y": "panel-rail-y.png",
+    "panel:stud": "panel-stud.png",
     "overland-materials": "overland-wilderness-water-materials.png",
     "overland-tile:232": "overland-terrain-077-materials.png",
     "overland-detail:232": "overland-terrain-077-wet.png",

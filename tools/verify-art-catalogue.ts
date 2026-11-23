@@ -215,6 +215,7 @@ const rules: [RegExp, (match: RegExpExecArray, path: string) => string | undefin
     if (kind === "landmark" && !overlandLandmarkSlots.has(slot)) return "its slot does not draw an overland landmark";
     return requiredPngSize(path, 96, 96);
   }],
+  [/^panel:(rail-x|rail-y|stud)$/, (_, path) => requiredPngSize(path, 32, 32)],
   [/^overland-materials$/, (_, path) => requiredPngSize(path, 1024, 2048)],
   [/^tile:(\d{1,3}):([a-f0-9]{64})$/, ([, , hash]) => {
     const tiles = tileHashes.get(hash!) ?? tilesOverColour.get(hash!)?.sources;
