@@ -3197,10 +3197,19 @@ const illustrationRoutes = new Map([
   }],
   ["bane-altar-destruction-one-shot", {
     slot: "A", inputs: ["up", "d"], oneShotProducer: "ECL1.DAX:24:a9bb",
+    promptSchedule: "qa/fixtures/bane-altar-destruction/prompts.jsonl",
     portrait: "scene-illustration:area:24:ecl:abbd:cue:altar-destruction-ambush",
     prompt: /ASYOUDESTROYTHEALTAR.*ABATTLEBEGINS/i,
     finalPhaseCapture: "bane-altar-destruction-notice.png",
-    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+    continuation: { inputs: [":travel-poll", ":travel-poll"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
+  ["bane-temple-exit-one-shot", {
+    slot: "A", inputs: ["up", "up"], oneShotProducer: "ECL1.DAX:24:aa67",
+    promptSchedule: "qa/fixtures/bane-temple-exit-ambush/prompts.jsonl",
+    portrait: "portrait:area:24:ecl:abbd:PIC1.DAX:4:0:0",
+    prompt: /ASYOUEXITTHETEMPLE.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "bane-temple-exit-notice.png",
+    continuation: { inputs: [":travel-poll", ":travel-poll"], clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
   ["bane-camp-orc-ambush", {
     slot: "A", inputs: ["e", "enter", "r", "h", ...Array(6).fill("i"), "r", "enter", "enter"],
@@ -4244,6 +4253,7 @@ const illustrationRoutes = new Map([
   ["kobold-throne-first-audience", {
     slot: "B", inputs: ["up", "enter"],
     oneShotProducer: "ECL8.DAX:13:a0f8",
+    promptSchedule: "qa/fixtures/kobold-throne-horde/first-audience-prompts.jsonl",
     approachSequence: [
       [56, 32, "encounter:area:13:ecl:a02c:SPRIT8.DAX:0:2:0", 24, 57],
       [56, 32, "encounter:area:13:ecl:a07a:SPRIT8.DAX:0:2:0", 24, 57],
@@ -8667,9 +8677,6 @@ const port = process.env.POR_PLAY_PORT ?? "43212";
 const origin = `http://127.0.0.1:${port}`;
 const browserEnvironment = { ...process.env };
 delete browserEnvironment.POR_UPGRADES_DIR;
-if (routeName === "kobold-throne-first-audience") {
-  browserEnvironment.POR_PROMPT_SCHEDULE_IN = resolve("qa/fixtures/kobold-throne-horde/first-audience-prompts.jsonl");
-}
 const shopPortraitTrace = routeName === "new-phlan-south-shop-exit" && !browserEnvironment.POR_PORTRAIT_TRACE_FILE
   ? resolve(directory, "shop-portrait-fallbacks.jsonl") : undefined;
 if (shopPortraitTrace) browserEnvironment.POR_PORTRAIT_TRACE_FILE = shopPortraitTrace;
@@ -8714,6 +8721,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
         routeName === "valjevo-tower-troll-ambush-loop" ? "4322783" :
         routeName === "valhingen-skeleton-roaming-ambush-loop" || routeName === "valhingen-wight-ambush-loop" ? "4320042" : undefined),
     ...(textileScorpionLoop ? { POR_PROMPT_SCHEDULE_IN: resolve(textileScorpionWalk, "prompts.jsonl") } : {}),
+    ...(illustration?.promptSchedule ? { POR_PROMPT_SCHEDULE_IN: resolve(illustration.promptSchedule) } : {}),
     POR_INPUT_COMPAT: controlledBattleIllustration?.staticHold || textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "pyramid-vats-mutants-loop" || routeName.startsWith("pyramid-exterior-") ||
       routeName.startsWith("yarash-study-") ||
@@ -8766,7 +8774,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "diogenes-silver-directions-loop" ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       /^tyrmor-prison-(kobolds|lizardfolk|displacer|stirge)-loop$/.test(routeName) ||
-      ["bane-captive-goblin-held", "bane-gate-inspection-holds", "bane-mansion-ogre-one-shot", "bane-mansion-symbol-hold", "bane-mansion-barracks-one-shot", "bane-altar-destruction-one-shot", "sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
+      ["bane-captive-goblin-held", "bane-gate-inspection-holds", "bane-mansion-ogre-one-shot", "bane-mansion-symbol-hold", "bane-mansion-barracks-one-shot", "bane-altar-destruction-one-shot", "bane-temple-exit-one-shot", "sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
         "new-phlan-training-duels", "new-phlan-training-north-junction", "new-phlan-training-fighters-door",
         "new-phlan-training-rogues-door", "new-phlan-training-entrance-notice",
