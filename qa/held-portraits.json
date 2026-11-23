@@ -30699,6 +30699,52 @@
           }
         }
       }
+    },
+    {
+      "producer": "ECL8.DAX:29:a09d",
+      "prompt": "af2f/a10f",
+      "caption": "A VOLLEY OF ARROWS TEARS INTO THE GROUP.",
+      "checkpoint": "kuto-well-catacombs/J.json",
+      "illustration": {
+        "id": "scene-illustration:area:29:ecl:af2f:caller:a10f",
+        "native": {
+          "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,8 S 22:09 SOME MOVEMENT OCCURS IN THE ROOM'S FAR CORNER AND THEN A VOLLEY OF ARROWS TEARS INTO THE GROUP. Press <enter>/<return> to continue",
+          "viewportSha256": "7c48fa7ea6e5d69acfc308b904dc27f381827d75edc562d578180d97b98231d0",
+          "pictureDraws": 0
+        }
+      },
+      "chrome": {
+        "original": {
+          "route": "kuto-well-catacomb-volley-hold",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,8S22:09SOMEMOVEMENTOCCURSINTHEROOM'SFARCORNERANDTHENAVOLLEYOFARROWSTEARSINTOTHEGROUP.Press<enter>/<return>tocontinue",
+          "checkpointSha256": "df8b651264f1dc61ddae10a79965acaa71cc12e09abb8f41dd1b3305ec5de880",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+          "portrait": "scene-illustration:area:29:ecl:af2f:caller:a10f",
+          "paneSampleSha256": "02a28791de49d9d51409bca6dd35ab71d1213e32e0c5681b6b09a6f28df9d7a4",
+          "durationMs": 3662,
+          "samples": 221,
+          "poses": [
+            "scene-illustration:area:29:ecl:af2f:caller:a10f"
+          ],
+          "sha256": "5275e6b58ec0b77639945eeef5eaf27b6cd5928b59b59b21afcd37364d235347"
+        },
+        "port": {
+          "route": "kuto-well-catacomb-volley-hold",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,8S22:09SOMEMOVEMENTOCCURSINTHEROOM'SFARCORNERANDTHENAVOLLEYOFARROWSTEARSINTOTHEGROUP.Press<enter>/<return>tocontinue",
+          "checkpointSha256": "df8b651264f1dc61ddae10a79965acaa71cc12e09abb8f41dd1b3305ec5de880",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+          "portrait": "scene-illustration:area:29:ecl:af2f:caller:a10f",
+          "paneSampleSha256": "02a28791de49d9d51409bca6dd35ab71d1213e32e0c5681b6b09a6f28df9d7a4",
+          "durationMs": 3664,
+          "samples": 221,
+          "poses": [
+            "scene-illustration:area:29:ecl:af2f:caller:a10f"
+          ],
+          "sha256": "5275e6b58ec0b77639945eeef5eaf27b6cd5928b59b59b21afcd37364d235347"
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [
