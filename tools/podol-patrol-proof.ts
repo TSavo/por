@@ -89,13 +89,13 @@ function requirements(producer: Producer): Requirement[] {
   return [
     ...actors.map(({ name, block }): Requirement => ({
       route: `podal-${name}-patrol-sneak-hold`, checkpoint: sneaking,
-      caption: new RegExp(`YOUSPOTAGROUPOF${name.toUpperCase()}S`),
+      caption: new RegExp(`YOUSPOTAGROUPOF${name.toUpperCase()}S.*PRESS<ENTER>/<RETURN>TOCONTINUE`),
       view: "encounter", approaches: [sprite(block, "b240:caller:9d1f", 1)],
       nativeDraw: "9b7b", nativePrompt: "b240/9d1f",
     })),
     ...actors.map(({ name, block }): Requirement => ({
       route: `podal-${name}-patrol-demands-identity`, checkpoint: disguised,
-      caption: new RegExp(`GROUPOF${name.toUpperCase()}S\\.THEY${block === 4 ? "CHECKOUT" : "GLAREAT"}YOURPARTY,ANDDEMAND,'WHOAREYOU\\?'`),
+      caption: new RegExp(`GROUPOF${name.toUpperCase()}S\\.THEY${block === 4 ? "CHECKOUT" : "GLAREAT"}YOURPARTY,ANDDEMAND,'WHOAREYOU\\?'.*HAUGHTYSLYNICEMEEKABUSIVE`),
       view: "portrait", portrait: `portrait:area:18:ecl:9c3f:PIC1.DAX:${block}:0:0`,
       nativeDraw: "9bce", nativePrompt: "9c3f",
     })),
@@ -123,10 +123,7 @@ export function podolPatrolCoverage(producer: string, site: Site, proofs: readon
     const proof = matching[0]!;
     const { native, chrome } = proof;
     if (native.draw !== expected.nativeDraw || native.prompt !== expected.nativePrompt || !sha256.test(native.sha256)) return true;
-    const nativeCaption = word(native.caption);
-    if (!expected.caption.test(nativeCaption) ||
-        (expected.view === "encounter" && !/PRESS.*TOCONTINUE/.test(nativeCaption)) ||
-        (expected.view === "portrait" && !/HAUGHTYSLYNICEMEEKABUSIVE/.test(nativeCaption)) ||
+    if (!expected.caption.test(word(native.caption)) ||
         (expected.nativePrompt !== undefined && (native.idlePolls ?? 0) < 24)) return true;
     return !(["original", "port"] as const).every(data => {
       const receipt = chrome[data];
