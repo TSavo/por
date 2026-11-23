@@ -15,6 +15,7 @@ const vampirePoseTimes = [710, 310, 310, 210];
 const fountainPoseTimes = [20, 20, 20];
 // The sixth native fighter member repeats the fifth painting.
 const mendorFighterPoseTimes = [410, 110, 310, 210, 720];
+const mendorBasiliskPoseTimes = [810, 710];
 const podalOrcPoseOrder = [0, 1, 2, 1];
 const podalOrcPoseTimes = [1510, 20, 710, 20];
 const auctionPoseTimes = [610, 210, 410, 210, 410, 610];
@@ -225,7 +226,9 @@ const portraitLoops = [
     /DOYOUINSISTHECOME/i, mendorFighterPoseTimes,
     [["scene-illustration:area:15:ecl:9987:caller:a9bd:cue:fighter-invitation", 0]]],
   ["portrait:area:15:ecl:a520:PIC2.DAX:26:", 2, "portrait:PIC2.DAX:26:0:0",
-    /YOUSEEADULLBROWNREPTILIANMONSTER/i],
+    /YOUSEEADULLBROWNREPTILIANMONSTER.*ITDOESNTSEEMAWAREOFYOU/i, mendorBasiliskPoseTimes],
+  ["portrait:area:15:ecl:a465:PIC2.DAX:26:", 2, undefined,
+    /ITHISSESATYOU.*COMBATWAITFLEEPARLAY/i, mendorBasiliskPoseTimes],
   ["portrait:area:15:ecl:ad7b:PIC2.DAX:0:", [0, 1, 2, 1], "portrait:area:15:PIC2.DAX:0:0:0",
     /THEYPLEADFORMERCY/i, [210, 210, 210, 210]],
   ["portrait:area:15:ecl:9987:caller:adf9:PIC2.DAX:0:", [0, 1, 2, 1], "portrait:area:15:PIC2.DAX:0:0:0",

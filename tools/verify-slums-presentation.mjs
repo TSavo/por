@@ -651,7 +651,7 @@ const encounterRoutes = new Map([
     placement: [32, 32, "encounter:area:15:SPRIT2.DAX:26:0:0", 80, 80],
     dialogue: {
       key: "enter", portrait: "portrait:PIC2.DAX:26:0:0", prompt: /YOUSEEADULLBROWNREPTILIANMONSTER/i,
-      heldPortraitLoop: 2,
+      heldPortraitLoop: ["portrait:PIC2.DAX:26:0:0", "portrait:area:15:ecl:a520:PIC2.DAX:26:1:0"],
       heldPortrait: "portrait:area:15:ecl:a520:PIC2.DAX:26:1:0",
     },
   }],
@@ -5127,6 +5127,7 @@ const illustrationRoutes = new Map([
     portraitStops: { 4: "portrait:PIC2.DAX:26:0:0" },
     portrait: "portrait:area:15:ecl:a465:PIC2.DAX:26:0:0",
     prompt: /ITHISSESATYOU.*COMBATWAITFLEEPARLAY/i,
+    heldPortraitLoop: ["portrait:area:15:ecl:a465:PIC2.DAX:26:0:0", "portrait:area:15:ecl:a465:PIC2.DAX:26:1:0"],
     finalPhaseCapture: "mendor-basilisk-hiss.png",
     continuation: { inputs: ["c", "enter"], clearsPortrait: true, prompt: /BASILISKHITPOINTS31AC4/i },
   }],
