@@ -1180,6 +1180,17 @@ const illustrationRoutes = new Map([
         pressOnPortrait: phase(2), retainPose: true, battleNoticeInputs: name === "home" ? ["enter", "enter"] : undefined },
     }];
   }),
+  ["bane-black-hand-patrol-warning", {
+    slot: "A", inputs: [...Array.from({ length: 49 }, () => ["up", "down"]).flat(), "up"],
+    promptSchedule: "qa/fixtures/bane-black-hand-patrol-warning/prompts.jsonl",
+    portrait: "scene-illustration:area:24:ecl:ae96:caller:ad99:cue:black-hand-warning",
+    prompt: /AGROUPOFFOURORCS.*BLACKHANDONAREDFIELD.*LOOKYOUOVER/i,
+    illustratedScenery: true, finalPhaseCapture: "bane-black-hand-patrol-warning.png",
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:24:ecl:aeda:PIC1.DAX:4:0:0",
+      prompt: /THEORCSREADYTHEIRSPEARS.*COMBATWAITFLEEPARLAY/i,
+    },
+  }],
   ["bane-black-hand-emissary-phases", {
     slot: "A",
     inputs: [...Array.from({ length: 50 }, () => ["up", "down"]).flat(), "up", "enter", "enter",
@@ -9122,6 +9133,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       /^lizardman-keep-(giant-lizards|drythh-followers|pool-retreat|roofless-defenders)-hold$/.test(routeName) ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||
+      routeName === "bane-black-hand-patrol-warning" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
       routeName === "wild-cave-boar-sow-warning-loop" ||
       routeName === "wild-cave-two-boar-ambush" || routeName === "wild-cave-three-boar-ambush" ||
