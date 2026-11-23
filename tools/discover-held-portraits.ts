@@ -111,6 +111,7 @@ const lizardFaceToFaceProof = JSON.parse(readFileSync(fromPortRoot("qa", "held-p
   gogStartSha256: string;
   gogOverlaySha256: string;
   translatedRoutines: Record<string, string>;
+  nomadPursuitRally: UnreachablePromptProof;
   slums: {
     scriptSha256: string;
     bothSurprised: Omit<UnreachablePromptProof, "scriptSha256">;
@@ -181,6 +182,34 @@ function matchesSurpriseProof(file: string, blockId: number, scriptSha256: strin
   } catch {
     return false;
   }
+}
+
+function nomadPursuitRallyUnreachable(script: Uint8Array, instructions: ReadonlyMap<number, Instruction>): boolean {
+  const proof = lizardFaceToFaceProof.nomadPursuitRally;
+  if (proof.producer !== "ECL7.DAX:17:993a" || proof.prompt !== "9da2/a12a" ||
+      digest(script) !== proof.scriptSha256) return false;
+
+  const encounter = instructions.get(0x993a);
+  const reset = instructions.get(0x9959);
+  const call = instructions.get(0xa09b);
+  const dispatch = instructions.get(0xa09f);
+  const rally = instructions.get(0xa126);
+  // The zero-action path in 1ef8 can write only 1 or 2. The menu helper
+  // returns with that value intact and a09f has a destination for each.
+  return encounter?.opcode === 0x29 && encounter.next === 0x9959 &&
+    memory(encounter.operands[3]!) === 0x6e82 &&
+    [4, 5, 6, 7, 8].every(index => literal(encounter.operands[index]!) === 0) &&
+    reset?.opcode === 0x09 && literal(reset.operands[0]!) === 255 &&
+    memory(reset.operands[1]!) === 0x6de1 && reset.next === 0x995f &&
+    instructions.get(0x995f)?.opcode === 0x13 &&
+    call?.opcode === 0x02 && call.operands[0]?.word === 0x9934 && call.next === 0xa09f &&
+    instructions.get(0x9934)?.next === 0x993a &&
+    dispatch?.opcode === 0x25 && dispatch.next === 0xa0ae &&
+    memory(dispatch.operands[0]!) === 0x6e82 && literal(dispatch.operands[1]!) === 3 &&
+    [0x9ed1, 0x9fe0, 0xa1c2].every((target, index) => dispatch.operands[index + 2]?.word === target) &&
+    rally?.opcode === 0x02 && rally.operands[0]?.word === 0x9d7f && rally.next === 0xa12a &&
+    instructions.get(0x9d7f)?.next === 0x9da2 &&
+    matchesSurpriseProof("ECL7.DAX", 17, proof.scriptSha256);
 }
 
 function easternMarchesBothSurprisedUnreachable(
@@ -839,6 +868,8 @@ const eclCandidates = scripts.flatMap(record => {
     const audience = load.address === nomadAudiencePicture?.picture ? nomadAudiencePicture : undefined;
     const angryParlay = slumsAngryDispatchProven && slumsProof.angryParlay.producer === "ECL2.DAX:20:9cc5" &&
       slumsProof.angryParlay.entry === "b254" && load.address === 0x9cc5 ? slumsProof.angryParlay : undefined;
+    const pursuitRally = archive === 7 && scriptBlock === 17 && load.address === 0x993a &&
+      nomadPursuitRallyUnreachable(script.bytes, instructions) ? lizardFaceToFaceProof.nomadPursuitRally : undefined;
     walk(scope.flatMap(state => successors(state, instructions)), instructions, (state, instruction) => {
       if (load.address === 0xaa75 && instruction.address === poolMenu?.address) {
         prompt(state, instruction, 9);
@@ -869,7 +900,8 @@ const eclCandidates = scripts.flatMap(record => {
         prompt(state, instruction, 0);
       }
       return true;
-    }, followsScriptBranch);
+    }, (from, to) => followsScriptBranch(from, to) &&
+      (!pursuitRally || from.address !== 0xa09f || to.address !== 0xa0ae));
 
     const retainedVerticalMenus = new Map<string, string>();
     if (archive === 6 && scriptBlock === 1 && load.address === 0x9dc8) {
@@ -1122,6 +1154,7 @@ const eclCandidates = scripts.flatMap(record => {
       ...(easternMarchesFaceToFaceUnreachable && authored(load.address) === "a02c" &&
         authored(load.next) === easternMarchesProof.prompt ? { unreachableOriginal: easternMarchesProof.reason } : {}),
       ...(angryParlay ? { unreachableContinuation: angryParlay } : {}),
+      ...(pursuitRally ? { unreachableContinuation: { ...pursuitRally, entry: "a0ae" } } : {}),
       ...(direct ? {} : { approachSelectors: { sprite: selector(operands[0]!), distance: selector(operands[1]!) } }),
       approachSites: [...approaches].sort(),
       approachHandoff,

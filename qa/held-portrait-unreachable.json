@@ -26,6 +26,12 @@
       "reason": "The angry-party menu's Parlay action is 0, which sends the party to combat. Its Advance action can only change the distance. The menu cannot return 3 to enter the shared Parlay routine."
     }
   },
+  "nomadPursuitRally": {
+    "producer": "ECL7.DAX:17:993a",
+    "prompt": "9da2/a12a",
+    "scriptSha256": "419e8d329f4cf7416d22b368bd590d271a74539034191dc9b422bd7194fe4dac",
+    "reason": "The native menu at 993a supplies five zero actions. Overlay 03 dispatches opcode 29 at 30ae to 1ef8. Action zero selects result 1 at 2224 or 224c, or result 2 at 223d for a successful Flee. The menu then returns through 2255 and 257f. The a09f dispatch consumes both values and cannot fall through to a0ae and reach this rally prompt with 993a's picture."
+  },
   "easternMarches": {
     "producer": "ECL8.DAX:27:a02c",
     "prompt": "a04c",
