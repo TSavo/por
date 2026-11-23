@@ -13,3 +13,7 @@ releases the hold and shows the temple-symbol clue.
 
 The party’s saved area ID is 24 even though its map ID is 31. The replay
 checks the art bindings for area 24 at the held menu and release.
+
+The same slot serves the `bane-mansion-barracks-one-shot` route. It walks
+around the mansion to (8,12) and checks the eight guards at the battle
+notice, including that the area 24 art binding selects the barracks.

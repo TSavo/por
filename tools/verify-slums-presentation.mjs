@@ -3211,6 +3211,15 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "bane-mansion-camp-orc-battle.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
+  ["bane-mansion-barracks-one-shot", {
+    slot: "A", inputs: ["left", "left", "up", "left", "up", "up", "up", "left",
+      "up", "up", "up", "up", "up", "right", "up", "up", "up", "left", "up"],
+    oneShotProducer: "ECL1.DAX:24:a172",
+    portrait: "scene-illustration:area:24:ecl:a1c8:cue:barracks-ambush",
+    prompt: /EIGHTORCGUARDSATTACKYOUIMMEDIATELY.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "bane-mansion-barracks-notice.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
   ["bane-barracks-ambush", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "scene-illustration:area:31:ecl:a1c8:cue:barracks-ambush",
@@ -8727,7 +8736,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "diogenes-silver-directions-loop" ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       /^tyrmor-prison-(kobolds|lizardfolk|displacer|stirge)-loop$/.test(routeName) ||
-      ["bane-captive-goblin-held", "bane-gate-inspection-holds", "bane-mansion-ogre-one-shot", "bane-mansion-symbol-hold", "sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
+      ["bane-captive-goblin-held", "bane-gate-inspection-holds", "bane-mansion-ogre-one-shot", "bane-mansion-symbol-hold", "bane-mansion-barracks-one-shot", "sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
         "new-phlan-training-duels", "new-phlan-training-north-junction", "new-phlan-training-fighters-door",
         "new-phlan-training-rogues-door", "new-phlan-training-entrance-notice",
