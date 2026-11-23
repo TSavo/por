@@ -89,6 +89,10 @@ const pictureBoundaries = new Set([0x0c, 0x0e, 0x20, 0x21, 0x24, 0x29, 0x2d, 0x3
 const writers = new Set([0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x2a, 0x2f, 0x30]);
 // These instructions can prepare a fight without a new picture or player input.
 const combatPrelude = new Set([0x01, 0x02, 0x03, 0x04, 0x08, 0x09, 0x0b, 0x0d, 0x12, 0x13, 0x17, 0x1b, 0x1c, 0x3a, 0x3d]);
+const valjevoPatrolDispatch = new Map<string, readonly number[]>([
+  ["4:9ce6", [0x9d31, 0x9b5d, 0x9dd1, 0x9b7d, 0x9dd1]],
+  ["6:a9e6", [0xaa31, 0x9c3e, 0xabd4, 0xa87d, 0xabd4]],
+]);
 
 const scripts = data.content.filter(record => /^ECL[1-8]\.DAX$/.test(record.file));
 const eclCandidates = scripts.flatMap(record => {
@@ -240,19 +244,21 @@ const eclCandidates = scripts.flatMap(record => {
     }
     if (opcode === 0x29) for (const state of scope) prompt(state, load, 9);
 
-    // The Valjevo forge patrol's native encounter handler writes only 0–3
-    // to its result slot. All four values branch away from the disguised
-    // acknowledgement. Its real entries originate at the approach setup.
+    // The native encounter handler writes only 0–3. These patrols branch
+    // on all four, so their hostile menus cannot fall into the disguise route.
+    const patrolDispatch = archive === 5 && opcode === 0x29
+      ? valjevoPatrolDispatch.get(`${scriptBlock}:${authored(load.address)}`) : undefined;
     const headReset = instructions.get(load.next);
     const resultBranch = headReset?.opcode === 0x09 && literal(headReset.operands[0]!) === 255 &&
       memory(headReset.operands[1]!) === 0x6de1 ? instructions.get(headReset.next) : undefined;
-    const forgeDisguiseEntry = archive === 5 && scriptBlock === 6 && load.address === 0xa9e6 && opcode === 0x29 &&
+    const disguiseEntry = patrolDispatch &&
       resultBranch?.opcode === 0x25 && memory(resultBranch.operands[0]!) === memory(operands[3]!) &&
       memory(operands[3]!) === 0x6e82 && literal(resultBranch.operands[1]!) === 4 &&
-      [0x9c3e, 0xabd4, 0xa87d, 0xabd4].every((target, index) => resultBranch.operands[index + 2]?.word === target) &&
-      resultBranch.next === 0xaa31 ? resultBranch.next : undefined;
+      resultBranch.next === patrolDispatch[0] &&
+      patrolDispatch.slice(1).every((target, index) => resultBranch.operands[index + 2]?.word === target)
+      ? resultBranch.next : undefined;
     walk(scope.flatMap(state => successors(state, instructions)), instructions, (state, instruction) => {
-      if (state.address === forgeDisguiseEntry || pictureBoundaries.has(instruction.opcode)) return false;
+      if (state.address === disguiseEntry || pictureBoundaries.has(instruction.opcode)) return false;
       if (instruction.opcode === 0x0d) {
         if (direct) return false;
         approaches.add(authored(state.address));
@@ -302,15 +308,16 @@ const eclCandidates = scripts.flatMap(record => {
     const address = authored(load.address);
     const falseThrone = scriptBlock === 5 && address === "a98a";
     const forgePatrol = scriptBlock === 6 && ["a9e6", "aa49"].includes(address);
+    const mazePatrol = scriptBlock === 4 && ["9ce6", "9d49"].includes(address);
     const genheerisOffer = scriptBlock === 7 && opcode === 0x0c && address === "a255";
     const stojanowBarracks = archive === 2 && scriptBlock === 9 && opcode === 0x29 && ["a23f", "a372"].includes(address);
     const nomadHeadman = archive === 7 && scriptBlock === 17 && opcode === 0x0c && address === "a39c";
     if (nomadHeadman || stojanowBarracks || archive === 5 && (genheerisOffer || opcode === 0x29 &&
         (scriptBlock === 7 && ["a184", "a56c"].includes(address) ||
-         scriptBlock === 5 && address === "a256" || falseThrone || forgePatrol))) {
+         scriptBlock === 5 && address === "a256" || falseThrone || forgePatrol || mazePatrol))) {
       const before = (at: number) => decoded.find(instruction => instruction.next === at);
-      // The false throne and forge patrol reuse the head selected by their approach setup.
-      const setupAddress = falseThrone ? "a953" : forgePatrol ? "a8fc" : undefined;
+      // The false throne and both patrols reuse the head selected by their approach setup.
+      const setupAddress = falseThrone ? "a953" : forgePatrol ? "a8fc" : mazePatrol ? "9bfc" : undefined;
       const setup = setupAddress ? decoded.find(instruction => authored(instruction.address) === setupAddress) : undefined;
       // At the Stojanow barracks the quoted dialogue and its acknowledgement
       // keep the selected head before either encounter menu.

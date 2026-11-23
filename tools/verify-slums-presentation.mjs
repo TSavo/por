@@ -4937,6 +4937,7 @@ const illustrationRoutes = new Map([
     slot: "B", inputs: ["up", "enter", "enter", "a", "a"],
     settleInputs: ["a"],
     heldApproachPrompt: /SURPRISESYOU.*THAT'STHEM!GETTHEM!/i,
+    heldApproachPosition: [6, 13, 4],
     approachSequence: [
       [56, 32, "encounter:area:6:SPRIT5.DAX:16:2:0", 16, 49],
       [56, 32, "encounter:area:6:SPRIT5.DAX:16:1:0", 24, 65],
@@ -4950,7 +4951,31 @@ const illustrationRoutes = new Map([
     slot: "B", inputs: ["up", "enter", "enter", "a", "a"],
     settleInputs: ["a"],
     heldApproachPrompt: /YOUSEEAPATROLOFGIANTSLEDBYAHUMANFIGHTER/i,
+    heldApproachPosition: [6, 13, 4],
     portrait: "portrait:area:6:HEAD5.DAX:9:BODY5.DAX:1", prompt: /WHATAREYOUDOINGHERE/i,
+    staticPortraitMenu: true,
+    continuation: {
+      inputs: ["p", "m", ..."harash", "enter"], clearsPortrait: true, prompt: /WITHANODOFTHEHEADYOUARELEFTALONE/i,
+    },
+  }],
+  ["valjevo-maze-patrol-hostile", {
+    slot: "B", inputs: ["up", "enter", "enter", "a", "a"], settleInputs: ["a"],
+    heldApproachPrompt: /SURPRISESYOU.*THAT'STHEM!GETTHEM!/i,
+    heldApproachPosition: [4, 11, 3],
+    approachSequence: [
+      [56, 32, "encounter:area:4:SPRIT5.DAX:16:2:0", 16, 49],
+      [56, 32, "encounter:area:4:SPRIT5.DAX:16:1:0", 24, 65],
+      [48, 32, "encounter:area:4:ecl:9d19:SPRIT5.DAX:16:0:0", 40, 80],
+    ],
+    portrait: "portrait:area:4:ecl:9d19:HEAD5.DAX:9:BODY5.DAX:1", prompt: /THEYADVANCE,?WEAPONSREADY/i,
+    staticPortraitMenu: true,
+    continuation: { inputs: ["f"], clearsPortrait: true, prompt: /ABATTLEBEGINS/i },
+  }],
+  ["valjevo-maze-patrol-disguise", {
+    slot: "B", inputs: ["up", "enter", "enter", "a", "a"], settleInputs: ["a"],
+    heldApproachPrompt: /YOUSEEAPATROLOFGIANTSLEDBYAHUMANFIGHTER/i,
+    heldApproachPosition: [4, 11, 3],
+    portrait: "portrait:area:4:ecl:9d8a:HEAD5.DAX:9:BODY5.DAX:1", prompt: /WHATAREYOUDOINGHERE/i,
     staticPortraitMenu: true,
     continuation: {
       inputs: ["p", "m", ..."harash", "enter"], clearsPortrait: true, prompt: /WITHANODOFTHEHEADYOUARELEFTALONE/i,
@@ -8343,8 +8368,11 @@ try {
     await waitForExplorationViewport();
     assert.equal(await run('Boolean(document.querySelector("#tile-art:not([hidden]) .encounter-portrait, #tile-art:not([hidden]) .encounter-sprite"))'), false);
   }
-  async function verifyForgePatrolApproach(expectedCaption) {
-    const placement = [56, 32, "encounter:area:6:SPRIT5.DAX:16:2:0", 16, 49];
+  function patrolApproachPlacement(area) {
+    return [56, 32, `encounter:area:${area}:SPRIT5.DAX:16:2:0`, 16, 49];
+  }
+  async function verifyPatrolApproach(expectedCaption, expectedPosition) {
+    const placement = patrolApproachPlacement(expectedPosition[0]);
     const [, , actor, width, height] = placement;
     const caption = frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join("");
     assert.match(caption, expectedCaption);
@@ -8353,7 +8381,7 @@ try {
     assert.deepEqual(frame.encounter, placement);
     const location = frame.scenery ?? frame.exploration;
     const position = [location?.mapId ?? location?.area, location?.x, location?.y];
-    assert.deepEqual(position, [6, 13, 4]);
+    assert.deepEqual(position, expectedPosition);
     await waitFor("the patrol captain at the far approach", () => run(`
       state.sequence === ${frame.sequence} && !animationFrame && !renderingSequence &&
       window.observedApproach.has(${JSON.stringify(actor)})`));
@@ -11042,7 +11070,7 @@ try {
     let alreadyPassedPatrol;
     if (approachSequence) await observeApproach(approachSequence, illustration.requireTiledApproach);
     else if (illustration.heldApproachPrompt && heldPortraitEvidenceFile) {
-      await observeApproach([[56, 32, "encounter:area:6:SPRIT5.DAX:16:2:0", 16, 49]]);
+      await observeApproach([patrolApproachPlacement(illustration.heldApproachPosition[0])]);
     }
     if (journalLead) {
       await advance("j");
@@ -11121,9 +11149,13 @@ try {
       })()`), false, "Enter should not advance a prompt whose portrait is still loading");
       await run('window.releasePortrait()');
     } else {
+      let heldApproachRecorded = false;
       for (const [index, key] of inputs.entries()) {
-        if (index === 2 && illustration.heldApproachPrompt && heldPortraitEvidenceFile) {
-          await verifyForgePatrolApproach(illustration.heldApproachPrompt);
+        if (!heldApproachRecorded && illustration.heldApproachPrompt && heldPortraitEvidenceFile &&
+            frame.encounter && illustration.heldApproachPrompt.test(frame.text.toSorted(([a], [b]) => a - b)
+              .map(([, char]) => String.fromCharCode(char)).join(""))) {
+          await verifyPatrolApproach(illustration.heldApproachPrompt, illustration.heldApproachPosition);
+          heldApproachRecorded = true;
         }
         const phasePrompt = illustration.phasePrompts?.[index];
         if (phasePrompt) assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), phasePrompt);
@@ -11303,6 +11335,9 @@ try {
             state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined
           `));
         }
+      }
+      if (illustration.heldApproachPrompt && heldPortraitEvidenceFile) {
+        assert.ok(heldApproachRecorded, "The replay must visit the held patrol approach");
       }
     }
     for (const key of illustration.settleInputs ?? []) {
