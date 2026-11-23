@@ -1003,7 +1003,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           animation.splice(flight, 1);
         }
         animation.push({ frame: state.frame, enhancedFrame: state.enhancedFrame, portrait: captureIllustration ? portrait : undefined,
-          text: state.text, combatArt: liveActors(animationCombat),
+          // This print runs before the guest clears the already answered loot question.
+          text: captureIllustration === baneDirtenFarewell ? state.text.filter(([cell]) => cell < 960) : state.text,
+          combatArt: liveActors(animationCombat),
           combatSelections: state.combatSelections,
           combatEffect: state.combatEffect,
           battleTiles, battleProps, panelFrame: state.panelFrame, perspective,

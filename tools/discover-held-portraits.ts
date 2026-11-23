@@ -890,7 +890,7 @@ const eclCandidates = scripts.flatMap(record => {
     const combat = scope.length && opcode === 0x0c ? immediateCombatAfter(load) : undefined;
     // In the pinned Bane script the normal patrol menu writes 0–3 and every
     // value branches at ae14. The Black Hand warning is entered separately.
-    if (baneSurpriseProven && load.address === 0xadd9) prompts.delete("ae96:");
+    if (baneSurpriseProven && load.address === 0xadd9) prompts.delete("ae7a:null");
     // Only adad's fourth branch can reach afb9. Both prior menu dispatches
     // consume all 0–3 choices, and SURPRISE's result 3 is overwritten with 2.
     const baneBothSurprisedUnreachable = baneSurpriseProven && load.address === 0xafe7;
