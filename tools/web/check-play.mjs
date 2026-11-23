@@ -88,7 +88,7 @@ let chrome;
 // The browser builds read the player's folder as a picked one (tools/web/original-picker.ts): served here.
 const originalServer = server !== "runner" && original ? await serveOriginalFolder(original) : undefined;
 async function openGame(game) {
-  if (!chrome) chrome = await openChrome(game.url, { log: (line) => /exception|error/i.test(line) && log(`  page ${line}`) });
+  if (!chrome) chrome = await openChrome(game.url, { bypassCsp: Boolean(originalServer), log: (line) => /exception|error/i.test(line) && log(`  page ${line}`) });
   else await chrome.command("Page.navigate", { url: game.url });
   await chrome.until("the game's first frame", "typeof state === 'object' && state.sequence > 0 && state.ready", 240);
   if (server !== "runner" && original) {

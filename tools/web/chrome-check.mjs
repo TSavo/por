@@ -7,7 +7,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
-export async function openChrome(url, { chromePath = process.env.POR_CHROME ?? "/usr/bin/google-chrome", args = [], log } = {}) {
+export async function openChrome(url, { chromePath = process.env.POR_CHROME ?? "/usr/bin/google-chrome", args = [], log, bypassCsp = false } = {}) {
   const profile = mkdtempSync(join(tmpdir(), "por-web-chrome-"));
   const chrome = spawn(chromePath, ["--headless", "--mute-audio", "--no-first-run", "--no-default-browser-check",
     "--enable-unsafe-swiftshader", "--use-angle=swiftshader", "--remote-debugging-port=0", `--user-data-dir=${profile}`,
@@ -49,6 +49,8 @@ export async function openChrome(url, { chromePath = process.env.POR_CHROME ?? "
   });
   await command("Runtime.enable");
   await command("Page.enable");
+  // A check that serves the player's folder from its own port has the page reach it past its CSP.
+  if (bypassCsp) await command("Page.setBypassCSP", { enabled: true });
   const evaluate = async (expression) => {
     const { result, exceptionDetails } = await command("Runtime.evaluate", { expression, awaitPromise: true, returnByValue: true });
     if (exceptionDetails) throw new Error(exceptionDetails.exception?.description ?? exceptionDetails.text);
