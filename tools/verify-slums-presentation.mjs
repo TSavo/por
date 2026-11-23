@@ -809,6 +809,18 @@ const nomadSentryStandoff = {
   staticPortraitMenu: true,
 };
 
+const nomadPursuitPlacement = [56, 32, "encounter:area:17:ecl:9da2:caller:a09b:SPRIT7.DAX:11:2:0", 16, 49];
+const nomadPursuitDecision = [56, 32, "encounter:area:17:ecl:9959:caller:a09f:SPRIT7.DAX:11:2:0", 16, 49];
+const nomadPursuit = {
+  slot: "A", inputs: ["up", "enter"],
+  heldApproachPrompt: /AGROUPOFNOMADSSPOTYOU.*THEIRNUMBERSSWELLWITHARRIVALS/i,
+  heldApproachPosition: [17, 8, 1],
+  heldApproachPlacement: nomadPursuitPlacement,
+  heldApproachCapture: "nomad-pursuit-far.png",
+  approachStops: { 1: nomadPursuitPlacement, 2: nomadPursuitDecision },
+  prompt: /COMBATWAITFLEEADVANCE/i,
+};
+
 const illustrationRoutes = new Map([
   ["wild-cave-boar-sow-warning-loop", {
     slot: "A", inputs: ["up"],
@@ -1729,6 +1741,14 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:26:ecl:9c99",
     prompt: /EXPLOSIONOFLIGHTNINGREVEALS.*GRAVEYARDTURNEDUPSIDEDOWN/i,
     continuation: { inputs: ["up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
+  ["nomad-pursuit-combat", {
+    ...nomadPursuit,
+    continuation: { inputs: ["c"], clearsPortrait: true, prompt: /ABATTLEBEGINS/i },
+  }],
+  ["nomad-pursuit-flee", {
+    ...nomadPursuit,
+    continuation: { inputs: ["f"], clearsPortrait: true, prompt: /ABATTLEBEGINS/i },
   }],
   ["nomad-headman-rally", {
     slot: "A", inputs: ["up", "down"],
@@ -8370,6 +8390,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valhingen-grave-claws" || routeName === "valhingen-vampire-reveal-phases" ||
       routeName === "sokal-barracks-ghost-phases" ||
       /^nomad-camp-sentry-(families|parlay|combat)$/.test(routeName) ||
+      /^nomad-pursuit-(combat|flee)$/.test(routeName) ||
       /^tyrmor-priest-(benediction-hold|tone-hold|peace-hold|chisel-hold|chisel-help)$/.test(routeName) ||
       sokalBarracksHeld ||
       routeName === "valhingen-wight-ambush-loop" || routeName === "valhingen-spirits-tower-wight-loop" ||
@@ -8833,6 +8854,10 @@ try {
       })`,
     });
     assert.ok(!exceptionDetails && result.value, "The far approach must hold through the prompt");
+    if (illustration?.heldApproachCapture) {
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, illustration.heldApproachCapture), Buffer.from(shot.data, "base64"));
+    }
     const [renderer, art] = await Promise.all([fetch(origin + "/play.js"), fetch(origin + "/art/" + actor)]);
     assert.ok(renderer.ok && art.ok);
     heldPortraitEvidence.push({
@@ -12302,6 +12327,11 @@ try {
         await waitForExplorationViewport();
       }
       if (!continuation.clearsPortrait) await verifyPortraitPanel();
+      if (routeName === "nomad-pursuit-combat" || routeName === "nomad-pursuit-flee") {
+        await advance("enter");
+        assert.equal(frame.encounter, undefined);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /HITPOINTS/i);
+      }
       if (routeName === "nomad-camp-sentry-combat") {
         await advance("enter");
         assert.equal(frame.portrait, undefined);
