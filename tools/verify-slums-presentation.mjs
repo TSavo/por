@@ -4530,6 +4530,18 @@ const illustrationRoutes = new Map([
       screenshot: "kuto-kobold-scouts-sneak-off-combat.png",
     },
   }],
+  ["kuto-kobold-scouts-parlay-tone", {
+    slot: "B",
+    inputs: ["right", ...Array.from({ length: 3 }, () => ["up", "enter", "down", "up", "down"]).flat(),
+      "up", "enter", "down", "enter", "p"],
+    portrait: "portrait:area:29:ecl:a773:PIC8.DAX:0:0:0",
+    prompt: /THEKOBOLDSARETRYINGTOSNEAKOFF.*HAUGHTYSLYNICEMEEKABUSIVE/i,
+    staticPortraitMenu: true,
+    continuation: {
+      inputs: ["n"], portrait: "portrait:area:29:ecl:af2f:caller:a80e:PIC8.DAX:0:0:0",
+      prompt: /THEKOBOLDSFAWNONYOUPATHETICALLY/i,
+    },
+  }],
   ...[
     ["opening-plea", [], "af2f:caller:a80e", /THEKOBOLDSFAWNONYOUPATHETICALLY/i],
     ["pleading", ["enter"], "a8b2", /WEONLYSEEKTORETURNTOOURFAMILIES/i],
