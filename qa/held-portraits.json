@@ -35323,6 +35323,269 @@
           "sha256": "e97aff181a9932bdbce9131d67d76050e7b26081bddddaaf884bdd16c2b67b82"
         }
       }
+    },
+    {
+      "producer": "ECL2.DAX:20:9f29",
+      "prompt": "9fed",
+      "caption": "HE SETS DOWN HIS PEN AND GAZES STERNLY AT YOU",
+      "checkpoint": "slums-ohlo-study/D.json",
+      "illustration": {
+        "id": "scene-illustration:area:20:ecl:9fed",
+        "native": {
+          "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 FENN 4 8 13,10 W 00:34 YOU BURST INTO AN ELEGANTLY PANELLED ROOM. A SMALL MAN SITS HUNCHED OVER A TABLE BY THE EAST WALL. HE SETS DOWN HIS PEN AND GAZES STERNLY AT YOU. 'WELL?', HE DEMANDS. (WHAT DO YOU DO? ) Leave Talk Attack",
+          "viewportSha256": "7dd89d478ef5d17f95883ff4b6111ff2a00244c409049572bbe41d4427c67e00",
+          "pictureDraws": 0
+        }
+      },
+      "chrome": {
+        "original": {
+          "route": "slums-ohlo-accept-holds",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4813,10W00:34YOUBURSTINTOANELEGANTLYPANELLEDROOM.ASMALLMANSITSHUNCHEDOVERATABLEBYTHEEASTWALL.HESETSDOWNHISPENANDGAZESSTERNLYATYOU.'WELL?',HEDEMANDS.(WHATDOYOUDO?)LeaveTalkAttack",
+          "checkpointSha256": "c9edc1268890838e2a1e46d0306be795acce91e6ecb2202459267949930a31d9",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "portrait": "scene-illustration:area:20:ecl:9fed",
+          "sha256": "6c12d33d58d414a79ad775b23ce0f2ebfec859de7c185f73bf9c7447df489622",
+          "paneSampleSha256": "2643ac159f1528585d1b19a50612379f421cb82990f9739d7bd86f8388001b14",
+          "durationMs": 3654,
+          "samples": 220,
+          "poses": [
+            "scene-illustration:area:20:ecl:9fed"
+          ]
+        },
+        "port": {
+          "route": "slums-ohlo-accept-holds",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4813,10W00:34YOUBURSTINTOANELEGANTLYPANELLEDROOM.ASMALLMANSITSHUNCHEDOVERATABLEBYTHEEASTWALL.HESETSDOWNHISPENANDGAZESSTERNLYATYOU.'WELL?',HEDEMANDS.(WHATDOYOUDO?)LeaveTalkAttack",
+          "checkpointSha256": "c9edc1268890838e2a1e46d0306be795acce91e6ecb2202459267949930a31d9",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "portrait": "scene-illustration:area:20:ecl:9fed",
+          "sha256": "6c12d33d58d414a79ad775b23ce0f2ebfec859de7c185f73bf9c7447df489622",
+          "paneSampleSha256": "2643ac159f1528585d1b19a50612379f421cb82990f9739d7bd86f8388001b14",
+          "durationMs": 3653,
+          "samples": 221,
+          "poses": [
+            "scene-illustration:area:20:ecl:9fed"
+          ]
+        }
+      }
+    },
+    {
+      "producer": "ECL2.DAX:20:9f29",
+      "prompt": "a120",
+      "caption": "I HAVE NO TIME FOR THE LIKES OF YOU",
+      "checkpoint": "slums-ohlo-study/D.json",
+      "position": [
+        20,
+        13,
+        10
+      ],
+      "chrome": {
+        "original": {
+          "route": "slums-ohlo-dismissal-hold",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4813,10W00:34'IHAVENOTIMEFORTHELIKESOFYOU,'THEMANSAYSAIRILY.'BEGONE!'(WHATDOYOUDO?)StayLeaveAttack",
+          "checkpointSha256": "c9edc1268890838e2a1e46d0306be795acce91e6ecb2202459267949930a31d9",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "position": [
+            20,
+            13,
+            10
+          ],
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:20:SPRIT2.DAX:24:1:0",
+              24,
+              65
+            ],
+            "sha256": "87f438eeea4851f67f983adcbdfc8ec1c4b8ed5177004b9646251f21a3b721e4"
+          }
+        },
+        "port": {
+          "route": "slums-ohlo-dismissal-hold",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4813,10W00:34'IHAVENOTIMEFORTHELIKESOFYOU,'THEMANSAYSAIRILY.'BEGONE!'(WHATDOYOUDO?)StayLeaveAttack",
+          "checkpointSha256": "c9edc1268890838e2a1e46d0306be795acce91e6ecb2202459267949930a31d9",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "position": [
+            20,
+            13,
+            10
+          ],
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:20:SPRIT2.DAX:24:1:0",
+              24,
+              65
+            ],
+            "sha256": "87f438eeea4851f67f983adcbdfc8ec1c4b8ed5177004b9646251f21a3b721e4"
+          }
+        }
+      }
+    },
+    {
+      "producer": "ECL2.DAX:20:9f29",
+      "prompt": "a1dd",
+      "caption": "I MAY HAVE A USE FOR YOU",
+      "checkpoint": "slums-ohlo-study/D.json",
+      "position": [
+        20,
+        13,
+        10
+      ],
+      "chrome": {
+        "original": {
+          "route": "slums-ohlo-accept-holds",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4813,10W00:34'IMAYHAVEAUSEFORYOU,'THEMANSAYS.'SOMETIMEAGO,IORDEREDASPECIALPOTION.THEPOTIONISREADYBUTICAN'TLEAVETOFETCHIT.BRINGITHERE,IPAYWELL.'(WHATDOYOUDO?)AcceptthecommissionRejectit",
+          "checkpointSha256": "c9edc1268890838e2a1e46d0306be795acce91e6ecb2202459267949930a31d9",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "position": [
+            20,
+            13,
+            10
+          ],
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:20:SPRIT2.DAX:24:1:0",
+              24,
+              65
+            ],
+            "sha256": "87f438eeea4851f67f983adcbdfc8ec1c4b8ed5177004b9646251f21a3b721e4"
+          }
+        },
+        "port": {
+          "route": "slums-ohlo-accept-holds",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4813,10W00:34'IMAYHAVEAUSEFORYOU,'THEMANSAYS.'SOMETIMEAGO,IORDEREDASPECIALPOTION.THEPOTIONISREADYBUTICAN'TLEAVETOFETCHIT.BRINGITHERE,IPAYWELL.'(WHATDOYOUDO?)AcceptthecommissionRejectit",
+          "checkpointSha256": "c9edc1268890838e2a1e46d0306be795acce91e6ecb2202459267949930a31d9",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "position": [
+            20,
+            13,
+            10
+          ],
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:20:SPRIT2.DAX:24:1:0",
+              24,
+              65
+            ],
+            "sha256": "87f438eeea4851f67f983adcbdfc8ec1c4b8ed5177004b9646251f21a3b721e4"
+          }
+        }
+      }
+    },
+    {
+      "producer": "ECL2.DAX:20:9f29",
+      "prompt": "a2c5",
+      "caption": "GIVE ME THE POTION AND YOU WILL BE REWARDED",
+      "checkpoint": "ohlo-loot-view-restore/H.json",
+      "position": [
+        20,
+        13,
+        10
+      ],
+      "chrome": {
+        "original": {
+          "route": "slums-ohlo-reward-request-hold",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN48W01:50'YOUHAVEDONEWELL.GIVEMETHEPOTIONANDYOUWILLBEREWARDED.'(WHATDOYOUDO?)GiveAskformoremoneyRefusetogive",
+          "checkpointSha256": "86e64ecbf5be2dbce747d101150e50225ade7d835e19c233e9000f17edd25998",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "position": [
+            20,
+            13,
+            10
+          ],
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:20:SPRIT2.DAX:24:1:0",
+              24,
+              65
+            ],
+            "sha256": "87f438eeea4851f67f983adcbdfc8ec1c4b8ed5177004b9646251f21a3b721e4"
+          }
+        },
+        "port": {
+          "route": "slums-ohlo-reward-request-hold",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN48W01:50'YOUHAVEDONEWELL.GIVEMETHEPOTIONANDYOUWILLBEREWARDED.'(WHATDOYOUDO?)GiveAskformoremoneyRefusetogive",
+          "checkpointSha256": "86e64ecbf5be2dbce747d101150e50225ade7d835e19c233e9000f17edd25998",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "position": [
+            20,
+            13,
+            10
+          ],
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:20:SPRIT2.DAX:24:1:0",
+              24,
+              65
+            ],
+            "sha256": "87f438eeea4851f67f983adcbdfc8ec1c4b8ed5177004b9646251f21a3b721e4"
+          }
+        }
+      }
+    },
+    {
+      "producer": "ECL2.DAX:20:9f29",
+      "prompt": "b6df/a251",
+      "caption": "IT WAITS IN A BOOTH IN THE OLD ROPE GUILD",
+      "checkpoint": "slums-ohlo-study/D.json",
+      "illustration": {
+        "id": "scene-illustration:area:20:ecl:b6df:caller:a251",
+        "native": {
+          "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 FENN 4 8 13,10 W 00:34 'IT WAITS IN A BOOTH IN THE OLD ROPE GUILD BUT A SHORT DISTANCE TO THE SOUTHEAST FROM WHERE YOU NOW STAND. SPEAK MY NAME, OHLO.' Press <enter>/<return> to continue",
+          "viewportSha256": "7dd89d478ef5d17f95883ff4b6111ff2a00244c409049572bbe41d4427c67e00",
+          "pictureDraws": 0
+        }
+      },
+      "chrome": {
+        "original": {
+          "route": "slums-ohlo-accept-holds",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4813,10W00:34'ITWAITSINABOOTHINTHEOLDROPEGUILDBUTASHORTDISTANCETOTHESOUTHEASTFROMWHEREYOUNOWSTAND.SPEAKMYNAME,OHLO.'Press<enter>/<return>tocontinue",
+          "checkpointSha256": "c9edc1268890838e2a1e46d0306be795acce91e6ecb2202459267949930a31d9",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "portrait": "scene-illustration:area:20:ecl:b6df:caller:a251",
+          "sha256": "f55639cbd4d7b2948c4a2f1cf9a91fdd4cddce7f781bbb306a1e769da568c5b1",
+          "paneSampleSha256": "94aeb72b60b3fc2c6ac91e07fca8dd0bac1c05fde8feb7872f3c1161aabb5c11",
+          "durationMs": 3660,
+          "samples": 221,
+          "poses": [
+            "scene-illustration:area:20:ecl:b6df:caller:a251"
+          ]
+        },
+        "port": {
+          "route": "slums-ohlo-accept-holds",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4813,10W00:34'ITWAITSINABOOTHINTHEOLDROPEGUILDBUTASHORTDISTANCETOTHESOUTHEASTFROMWHEREYOUNOWSTAND.SPEAKMYNAME,OHLO.'Press<enter>/<return>tocontinue",
+          "checkpointSha256": "c9edc1268890838e2a1e46d0306be795acce91e6ecb2202459267949930a31d9",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "portrait": "scene-illustration:area:20:ecl:b6df:caller:a251",
+          "sha256": "f55639cbd4d7b2948c4a2f1cf9a91fdd4cddce7f781bbb306a1e769da568c5b1",
+          "paneSampleSha256": "94aeb72b60b3fc2c6ac91e07fca8dd0bac1c05fde8feb7872f3c1161aabb5c11",
+          "durationMs": 3651,
+          "samples": 221,
+          "poses": [
+            "scene-illustration:area:20:ecl:b6df:caller:a251"
+          ]
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [
