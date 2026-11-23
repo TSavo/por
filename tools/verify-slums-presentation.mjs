@@ -4142,6 +4142,7 @@ const illustrationRoutes = new Map([
       [56, 32, "encounter:area:13:ecl:a07a:SPRIT8.DAX:0:1:0", 24, 65],
     ],
     portrait: "portrait:area:13:ecl:a14b:PIC8.DAX:0:0:0", prompt: /THESEMENAREENEMIES/i,
+    finalPhaseCapture: "kobold-throne-first-audience.png",
   }],
   ["kobold-envoy-rematch", {
     slot: "B", inputs: ["up", "enter"],
@@ -12018,7 +12019,8 @@ try {
           writeFileSync(resolve(directory, transient.screenshot), Buffer.from(shot.data, "base64"));
           if (illustration.combatWithoutPortraitProducer) transientCombatPortrait = transient.id;
         }
-        if (combatProducer && frame.animation?.some(phase => phase.approach)) {
+        if ((combatProducer || routeName === "kobold-throne-first-audience") &&
+            frame.animation?.some(phase => phase.approach)) {
           // HTTP replay keys bypass the page's input guard during an encounter approach.
           await waitFor("the complete encounter approach", () => run(`
             state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined
