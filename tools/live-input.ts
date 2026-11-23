@@ -12,7 +12,7 @@ import { createHash } from "node:crypto";
 import { Frame } from "../src/lib/ega.js";
 import type { EncounterAnchor } from "../src/lib/assets.js";
 import type { Cpu } from "../src/cpu/machine.js";
-import { currentObjective, isOpenObjective, kovelJournalTransition, trackedJournalObjective, type JournalLead } from "../src/runtime/adventure-log.js";
+import { currentObjective, isOpenObjective, kovelJournalTransition, sokalReturnJournalArrival, trackedJournalObjective, type JournalLead } from "../src/runtime/adventure-log.js";
 import type { BiosKey } from "../src/runtime/dos.js";
 import { gameProgress } from "../src/runtime/far.js";
 import { cellWriteMark, displayPalette, journalFrame, paletteObservers, paletteState, screen, visibleGameRunes, visibleGameText, visiblePanelFrame, type PanelFrameStamp } from "../src/runtime/video.js";
@@ -1092,6 +1092,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   let diskMenuDepth = 0;
   let previousKovelTransition: number | undefined;
+  let previousSokalReturnArrival = false;
   const openJournal = () => {
     showJournal(journal());
     while (true) {
@@ -1168,6 +1169,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     const kovelTransition = kovelJournalTransition(cpu, unit.data);
     if (kovelTransition !== undefined && kovelTransition !== previousKovelTransition) journal();
     previousKovelTransition = kovelTransition;
+    const sokalArrival = sokalReturnJournalArrival(cpu, unit.data);
+    if (sokalArrival && !previousSokalReturnArrival) journal();
+    previousSokalReturnArrival = sokalArrival;
     let automaticCombat = false;
     if (browser) {
       const segment = cpu.read16(unit.data, data.eclGlobals + 2);

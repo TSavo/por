@@ -579,6 +579,16 @@ export function kovelJournalTransition(cpu: Cpu, dataSegment: number): number | 
   if (cursor === 0x9c92 || cursor === 0xb359) return cursor;
 }
 
+/** The ferry reaches the New Phlan exploration script before the clerk can pay the reward. */
+export function sokalReturnJournalArrival(cpu: Cpu, dataSegment: number): boolean {
+  if (cpu.read8(dataSegment, data.eclArchive) !== 3 ||
+      cpu.read8(dataSegment, data.eclBlock) !== 0 ||
+      cpu.read8(dataSegment, data.gameState) !== 4) return false;
+  const base = cpu.read16(dataSegment, data.eclGlobals);
+  const segment = cpu.read16(dataSegment, data.eclGlobals + 2);
+  return (base | segment) !== 0 && cpu.read16(segment, base + eclGlobalOffset(progressAddresses.sokal!)) === 254;
+}
+
 export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegment: number): JournalLead[] {
   // ovl07:0E4C–0E57 resolves global ECL addresses through DS:4933.
   const base = cpu.read16(dataSegment, data.eclGlobals);
@@ -600,7 +610,7 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     progress.push({ id: "auction-plaza-approach-chosen", title: "An approach to the auction",
       detail: "The party chose how to cross the crowd at Podal Plaza." });
   }
-  if (global(progressAddresses.sokal!) === 254 && cpu.read8(dataSegment, data.eclBlock) === 0 &&
+  if (sokalReturnJournalArrival(cpu, dataSegment) &&
       known.some(({ id }) => id === "sokal-return-pier")) {
     progress.push({ id: "sokal-back-in-phlan", title: "Back in New Phlan",
       detail: "The party returned to New Phlan with the Sokal Keep report." });
