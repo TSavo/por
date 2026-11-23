@@ -17,46 +17,55 @@
    "fixtureSha256": "443ba1d3e1d2f4c05b1a23b27f00cc15bfbf388235b655c02d00b3e56d9146b5"
   },
   "campaign-full/leg-1": {
-   "presented": 122,
+   "observer": 2,
+   "presented": 155,
    "frames": [],
    "fixtureSha256": "bd17894d32941f4e634a2294a1a765531d220d94c8ebd896d7d3274bdc4706a7"
   },
   "campaign-full/leg-10": {
-   "presented": 335,
+   "observer": 2,
+   "presented": 338,
    "frames": [],
    "fixtureSha256": "5dc898d127cc937dbe85243a9867a1255276353b64bb1cadc41da13e987f11b4"
   },
   "campaign-full/leg-11": {
+   "observer": 2,
    "presented": 2,
    "frames": [],
    "fixtureSha256": "58409401e0f587cb1c60624bf60696b43a5b7b0cda4f2580b0650baefc152e42"
   },
   "campaign-full/leg-2": {
+   "observer": 2,
    "presented": 4,
    "frames": [],
    "fixtureSha256": "76d67d8640c9967fc8f80a6ae99feb654256edce1ca22c0ad1c3f46c40bf03ee"
   },
   "campaign-full/leg-3": {
+   "observer": 2,
    "presented": 202,
    "frames": [],
    "fixtureSha256": "0c4dc54e09cc4b411c5039a09e7724db9972c8fff5b8a1109209cc4e2d350a98"
   },
   "campaign-full/leg-4": {
+   "observer": 2,
    "presented": 63,
    "frames": [],
    "fixtureSha256": "5ff4673396c6aad1f04b74c77db975028ae5bddced9e126b3b624a4122c84394"
   },
   "campaign-full/leg-5": {
-   "presented": 102,
+   "observer": 2,
+   "presented": 103,
    "frames": [],
    "fixtureSha256": "414c242df335fac34963a172dea0f93275414a699e8d2e65a59349ef23711c8d"
   },
   "campaign-full/leg-6": {
+   "observer": 2,
    "presented": 3,
    "frames": [],
    "fixtureSha256": "7db416ae1b2234dcedb9187f72d3904594c50130884f02359e6868b2350e584c"
   },
   "campaign-full/leg-7": {
+   "observer": 2,
    "presented": 315,
    "frames": [],
    "fixtureSha256": "f3bee43e0f751f5e9b62ed0911e9e5e874585c65b9f9e0c61a4344792d45a457"
@@ -77,12 +86,14 @@
    "fixtureSha256": "02b1f5b93af91077e9a28097a2838bb80b1d6235c6ac2ea7de83944d954e5cf2"
   },
   "narration/campaign-f": {
-   "presented": 145,
+   "observer": 2,
+   "presented": 147,
    "frames": [],
    "fixtureSha256": "05d8a46f9ed4fae0af5d492d058c7ffddb3ffe76a4bc691a5ff2c074b1637006"
   },
   "narration/training-hall-a": {
-   "presented": 218,
+   "observer": 2,
+   "presented": 220,
    "frames": [],
    "fixtureSha256": "98eef0995eefb87dae769c3509e0ac105be541f0bae47fe1c73fc8b8d062a5b9"
   },
@@ -92,82 +103,98 @@
    "fixtureSha256": "85b4c85dee9d4c3b7fa379798af22f01352a181ba564da635d64a93b92427fb5"
   },
   "visit-kobold-caves": {
-   "presented": 98,
+   "observer": 2,
+   "presented": 100,
    "frames": [],
    "fixtureSha256": "13358faad08a82c19a49cd45a8e1c659dc1519cdd071854ef3befbfbbae80355"
   },
   "visit-kovel-mansion": {
+   "observer": 2,
    "presented": 58,
    "frames": [],
    "fixtureSha256": "8a9b65366bac7ae08488bc690c74d480550bfd880eed1589e5cea3e093e6b9ea"
   },
   "visit-lizardman-keep": {
-   "presented": 100,
+   "observer": 2,
+   "presented": 101,
    "frames": [],
    "fixtureSha256": "e0727945707165514114a574c10fb353110ae44f64a9a2ddc8ab37166aa0e003"
   },
   "visit-mendors-library": {
+   "observer": 2,
    "presented": 101,
    "frames": [],
    "fixtureSha256": "06257e3878704f9e9d9d52a478a7da00bfb4e6a9590f7a7cec515ebefa1f06fa"
   },
   "visit-temple-of-bane": {
+   "observer": 2,
    "presented": 54,
    "frames": [],
    "fixtureSha256": "99ad7707542c43320ccc3497bb5fc8f72f0bd72d15352fe56ebd8642b246a069"
   },
   "visit-textile-house": {
+   "observer": 2,
    "presented": 119,
    "frames": [],
    "fixtureSha256": "a3ef7d8860d5d015b76bb5009eaadbb6b8b67895395cc4dd4e9764e3898f47c7"
   },
   "visit-training-hall": {
+   "observer": 2,
    "presented": 87,
    "frames": [],
    "fixtureSha256": "52989ae9c40f2cd3d78a8623d9c1b5e256dcbd6cfcb2fba2db4b74b25a054a52"
   },
   "visit-valhingen-graveyard": {
-   "presented": 62,
+   "observer": 2,
+   "presented": 63,
    "frames": [],
    "fixtureSha256": "0d02b6939448dbf94e14867a73fe87d4d5b2443c9e991d18d4eb993510343fc3"
   },
   "visit-valjevo-area-4": {
-   "presented": 109,
+   "observer": 2,
+   "presented": 113,
    "frames": [],
    "fixtureSha256": "a470ec72e50e65e02c7a17a413ffa8e5289b8b5c0e8465d612a20a25f81aa640"
   },
   "visit-yarashs-pyramid": {
-   "presented": 78,
+   "observer": 2,
+   "presented": 79,
    "frames": [],
    "fixtureSha256": "d1d53cb1de05e616850117aa700abeb23697d16d67fe7d1078a0dabd1950ec00"
   },
   "walk-clerk-offers-bivant": {
+   "observer": 2,
    "presented": 154,
    "frames": [],
    "fixtureSha256": "a0f66436ae5c1ebbd6dc73d56b3d09a26ce72834751dc8f7577198b3b0b4cfa1"
   },
   "walk-clerk-pays-three": {
-   "presented": 117,
+   "observer": 2,
+   "presented": 119,
    "frames": [],
    "fixtureSha256": "54682a3acac0a35c73cd4679d8ed7b1305dfa85faab57ed1b177285cc2ba803b"
   },
   "walk-commission-5-reward": {
-   "presented": 97,
+   "observer": 2,
+   "presented": 98,
    "frames": [],
    "fixtureSha256": "34235b0c0a5718a18efee6f612ebd138be3b336076535be006b80cf6736eea4f"
   },
   "walk-commission-5-taken": {
-   "presented": 135,
+   "observer": 2,
+   "presented": 136,
    "frames": [],
    "fixtureSha256": "08e3075d51b254f63d92b69eb14020968532dad4ebaafda471a7f385161b6b8a"
   },
   "walk-kobold-king": {
-   "presented": 333,
+   "observer": 2,
+   "presented": 362,
    "frames": [],
    "fixtureSha256": "9c45c391d24f607d89d0c2350b0c6058f888a8547c48b6773a75b869a64fb2fe"
   },
   "walk-kovel-and-nomads": {
-   "presented": 233,
+   "observer": 2,
+   "presented": 266,
    "frames": [],
    "fixtureSha256": "666a28491f4c2b16c9d6b396ed1b9a37a043c8e70166942589389fdad6916f2f"
   },

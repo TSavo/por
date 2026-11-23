@@ -6,8 +6,12 @@
 The site inventory comes from static script and native picture discovery. 385 / 385 captured native prompts passed paired Chrome checks.
 Run `npm run verify:held-portraits` for every site and its evidence.
 
-**Enhanced fallbacks (#142).** 0 fallback frames / 0 distinct keys across 0 Chrome views.
-Recorded walks measured in Chrome with GOG 1.3 and fallback observer v2: 0 / 40. Run `npm run verify:enhanced-fallbacks` for the captured keys and walks still to measure.
+**Enhanced fallbacks (#142).** 0 fallback frames / 0 distinct keys across 3562 Chrome views.
+Recorded walks measured in Chrome with GOG 1.3 and fallback observer v2: 28 / 40. Run `npm run verify:enhanced-fallbacks` for the captured keys and walks still to measure.
+2 additional replay captures are included.
+`campaign-end-leg` shares the `campaign-full/leg-11` capture because the replay inputs are identical.
+`campaign-ending-leg` shares the `campaign-full/leg-10` capture because the replay inputs are identical.
+`campaign-sokal-leg` shares the `campaign-full/leg-7` capture because the replay inputs are identical.
 
 **There is no proven art to do right now.** Everything the tools can show the game draws has your art. Check back after the QA owner's next update to this file.
 
