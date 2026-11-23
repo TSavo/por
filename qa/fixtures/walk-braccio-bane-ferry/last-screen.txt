@@ -1,0 +1,25 @@
+
+
+                 Name            AC  HP
+
+                 ALDA             3   0
+                 BRIN             1  16
+                 CORA             3  16
+                 DORN             3  13
+                 ENNA             2  13
+                 FENN             2  12
+                 THEURGIST        8  13
+                 DIRTEN           5  26
+
+
+
+                 15,4 W 10:26
+
+
+
+
+
+
+
+
+Area Cast View Encamp Search Look
