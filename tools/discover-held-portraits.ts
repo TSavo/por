@@ -358,7 +358,8 @@ const eclCandidates = scripts.flatMap(record => {
   }
 
   function podalPatrolPictureBlocks(address: number, portrait: ReturnType<typeof selector>) {
-    if (archive !== 1 || scriptBlock !== 18 || address !== 0x9d86 || portrait.address !== 0x4a02 ||
+    if (archive !== 1 || scriptBlock !== 18 || ![0x9964, 0x9b6d, 0x9d86, 0xa140].includes(address) ||
+        portrait.address !== 0x4a02 ||
         portrait.possibleWriters.length !== 1 || portrait.possibleWriters[0]?.address !== "9fa6") return undefined;
 
     // The patrol helper rolls 0 through 8, then reads the patrol type and picture block in order.
@@ -721,6 +722,13 @@ const eclCandidates = scripts.flatMap(record => {
       }
       const firstLabel = promptOperands.get(instruction.opcode);
       if (firstLabel !== undefined) prompt(state, instruction, firstLabel);
+      // The disguised patrol can ask the party's identity after advancing from range one.
+      if (archive === 1 && scriptBlock === 18 && load.address === 0x9b6d &&
+          instruction.address === 0x9c31 && instruction.opcode === 0x2c &&
+          instruction.next === 0x9c3f && instructions.get(0x9c30)?.opcode === 0x0d &&
+          memory(instruction.operands[5]!) === 0x6e79) {
+        prompt(state, instruction, instruction.operands.length);
+      }
       // The Arena Master's portrait survives the native character picker.
       if (archive === 3 && scriptBlock === 11 && load.address === 0x9bee &&
           instruction.address === 0x9c72 && instruction.opcode === 0x39 &&

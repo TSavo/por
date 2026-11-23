@@ -112,6 +112,16 @@ const trainingDuel = /THEARENAMASTERASKSIFYOUWISHTODUEL.*DOYOUDUEL/i;
 const trainingHire = /DOYOUSEEKAPARTNERFORYOURADVENTURING/i;
 const trainingOffer = /THEREISAFINE(?:ACOLYTE|WARRIOR|EVOKER|SWORDSMAN|ROBBER|CURATE|HERO|THEURGIST)WHOWILLJOINYOUFOR.*ISTHISACCEPTABLE/i;
 const trainingExploration = /AREACASTVIEWENCAMPSEARCHLOOK/i;
+const podalOverheard = [
+  { name: "goblin", block: 2, moves: 9, clock: 4321617, position: [18, 11, 10],
+    far: [56, 24, 49], middle: [32, 65], near: [48, 80] },
+  { name: "hobgoblin", block: 6, moves: 47, clock: 4320000, position: [18, 10, 10],
+    far: [56, 24, 49], middle: [24, 65], near: [48, 80] },
+  { name: "orc", block: 4, moves: 15, clock: 4321731, position: [18, 10, 10],
+    far: [64, 16, 49], middle: [32, 65], near: [40, 80] },
+  { name: "ogre", block: 8, moves: 97, clock: 4321617, position: [18, 11, 10],
+    far: [56, 24, 57], middle: [32, 65], near: [40, 73] },
+];
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
@@ -3467,6 +3477,7 @@ const illustrationRoutes = new Map([
     idlePortraits: ["portrait:area:18:ecl:9dca:PIC1.DAX:2:1:0"],
     heldPortraitLoop: 2,
   }],
+  // These walk-on and identity routes use qa/fixtures/podal-patrol-disguised/I.json.
   ["podal-orc-patrol-walks-on", {
     slot: "I", stockInput: true, fixedClockStart: 4321254, inputs: ["up", "up"],
     portrait: "scene-illustration:area:18:ecl:9e23:cue:orc-patrol-walks-on",
@@ -3486,7 +3497,27 @@ const illustrationRoutes = new Map([
   ["podal-ogre-patrol-demands-identity", {
     slot: "I", stockInput: true, fixedClockStart: 4320702, inputs: ["up", "up", "up", "left", "up"],
     portrait: "portrait:area:18:ecl:9c3f:PIC1.DAX:8:0:0",
-    prompt: /GROUPOFOGRES\.THEYGLAREATYOURPARTY,ANDDEMAND,'WHOAREYOU\?'/i,
+    prompt: /GROUPOFOGRES\.THEYGLAREATYOURPARTY,ANDDEMAND,'WHOAREYOU\?'.*HAUGHTYSLYNICEMEEKABUSIVE/i,
+  }],
+  ...podalOverheard.map(({ name, block, moves, clock, position, far, middle, near }) => [
+    `podal-${name}-overheard-patrol`, {
+      slot: "I", stockInput: true, fixedClockStart: clock,
+      // Start from qa/fixtures/podal-patrol-disguised/I.json.
+      inputs: Array.from({ length: moves }, (_, index) => index % 2 ? "down" : "up"),
+      approachSequence: [
+        [far[0], 32, `encounter:area:18:ecl:a149:SPRIT1.DAX:${block}:2:0`, ...far.slice(1)],
+        ...(block === 8 ? [] : [[far[0], 32, `encounter:area:18:ecl:a163:SPRIT1.DAX:${block}:2:0`, ...far.slice(1)]]),
+        [56, 32, `encounter:area:18:ecl:a163:SPRIT1.DAX:${block}:1:0`, ...middle],
+        [48, 32, `encounter:area:18:ecl:a181:SPRIT1.DAX:${block}:0:0`, ...near],
+      ],
+      prompt: new RegExp(`ASYOUMOVEYOUOVERHEARSOME${name}SSAY,`, "i"),
+      sceneryPrompt: position,
+    },
+  ]),
+  ["podal-patrol-rest-ambush", {
+    slot: "I", stockInput: true, fixedClockStart: 4320000,
+    inputs: ["e", "r", "h", ...Array(8).fill("i"), "r"],
+    prompt: /RUSHTOATTACK|ABATTLEBEGINS|HITPOINTS.*MOVEVIEWAIM/i,
   }],
   ["textile-skullcrusher-body", {
     slot: "B", inputs: ["up"],
