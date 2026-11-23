@@ -353,6 +353,7 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
       if (!waitForNarration) return;
       await waitFor(`the narration to finish before ${key} at frame ${lastSequence}`, () => evaluate(`(() => {
         if (state.stopped) throw new Error(state.stopped);
+        if (animationFrame || renderingSequence !== undefined) return false;
         if (typeof porNarrationPlayback !== "function") return true;
         const log = porNarrationPlayback();
         return !log.queued && !log.sounding && log.lines.every((line) => line.outcome);
@@ -410,6 +411,7 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
       },
       close,
       evaluate,
+      waitForNarration: narrationFinished,
       processes: { chrome: chrome.pid, server: server.pid },
       /** A PNG of the page as Chrome paints it, or of `clip` ({ x, y, width, height } in page pixels). */
       async screenshot(clip) {

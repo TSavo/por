@@ -61,6 +61,7 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
         await chrome.send(command);
         return chrome.nextFrame();
       });
+      await chrome.waitForNarration("closing the leg");
       writeFileSync(join(directory, "end-frame.json"), JSON.stringify(finalFrame) + "\n");
       return finalFrame;
     } catch (error) {
