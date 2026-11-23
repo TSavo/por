@@ -14326,6 +14326,82 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL4.DAX:10:b37a",
+      "prompt": "b695/b3aa",
+      "variants": [
+        {
+          "caption": "A PACK OF HUNGRY GHOULS LOPES TOWARD YOU.",
+          "checkpoint": "valhingen-ghoul-ambush/A.json",
+          "portrait": "portrait:area:10:ecl:b695:caller:b3aa:PIC4.DAX:72:0:0",
+          "native": {
+            "heldCaption": "APACKOFHUNGRYGHOULSLOPESTOWARDYOU.",
+            "idlePolls": 85,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "a168c0b6b40ef8624bbd21a20720d1e1e2783c5f0d2db5d998d2c3d9bfe963f5"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "a168c0b6b40ef8624bbd21a20720d1e1e2783c5f0d2db5d998d2c3d9bfe963f5"
+              },
+              {
+                "idlePolls": 10,
+                "sha256": "a168c0b6b40ef8624bbd21a20720d1e1e2783c5f0d2db5d998d2c3d9bfe963f5"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "a168c0b6b40ef8624bbd21a20720d1e1e2783c5f0d2db5d998d2c3d9bfe963f5"
+              },
+              {
+                "idlePolls": 85,
+                "sha256": "a168c0b6b40ef8624bbd21a20720d1e1e2783c5f0d2db5d998d2c3d9bfe963f5"
+              }
+            ],
+            "drawCursor": "b383",
+            "members": [
+              0
+            ],
+            "battlePanelSha256": "a168c0b6b40ef8624bbd21a20720d1e1e2783c5f0d2db5d998d2c3d9bfe963f5"
+          },
+          "chrome": {
+            "original": {
+              "route": "valhingen-ghoul-ambush",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1050,4E23:07APACKOFHUNGRYGHOULSLOPESTOWARDYOU.Press<enter>/<return>tocontinue",
+              "portrait": "portrait:area:10:ecl:b695:caller:b3aa:PIC4.DAX:72:0:0",
+              "checkpointSha256": "84fdb576c755e5224ced634b8d502b3d5e0ba3313009ba48525f0c27fc95c1ed",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "c41fcab64e09756d42e0f673f62c8f3a6a4f411add9483fd5a386c585ef1270c",
+              "durationMs": 3150,
+              "samples": 190,
+              "poses": [
+                "portrait:area:10:ecl:b695:caller:b3aa:PIC4.DAX:72:0:0"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valhingen-ghoul-ambush",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1050,4E23:07APACKOFHUNGRYGHOULSLOPESTOWARDYOU.Press<enter>/<return>tocontinue",
+              "portrait": "portrait:area:10:ecl:b695:caller:b3aa:PIC4.DAX:72:0:0",
+              "checkpointSha256": "84fdb576c755e5224ced634b8d502b3d5e0ba3313009ba48525f0c27fc95c1ed",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "c41fcab64e09756d42e0f673f62c8f3a6a4f411add9483fd5a386c585ef1270c",
+              "durationMs": 3166.5,
+              "samples": 191,
+              "poses": [
+                "portrait:area:10:ecl:b695:caller:b3aa:PIC4.DAX:72:0:0"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
     }
   ],
   "approachTransitions": [
