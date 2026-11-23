@@ -1,0 +1,16 @@
+{
+  "producer": "ECL7.DAX:26:a26c",
+  "prompt": "a28c",
+  "scriptSha256": "362743ba1a8af05ea0f4844c45a1a412e5dc3b566217abff10d6b96bbc0a9277",
+  "gogStartSha256": "d825df2b174675c9088ba1489488bdeebe66ad2a22943f17d3a198e60b6a07bd",
+  "gogOverlaySha256": "872964a32cef0fc32bbf83bab68b15e04ad36d59076f37b00a179dfee7928614",
+  "translatedRoutines": {
+    "0e5e": "62de48265813573f51543750ac4079fa54e8c7432a2f45d15fae9d1e8d4af7f5",
+    "1629": "f066b6ea91296763f48409f951949879d018ca34ad299e993353f1a65efa049d",
+    "16c9": "70e6555ef88c8893609542068cc3e7818739f974f2e28cd1e286dc065ef188cb",
+    "18f8": "016affea6adae272147df1e1434608b1578697196b09ff65a6142329f44257ad",
+    "1ef8": "6e8d06d484168837e8891397e817160176db6c6a9fa11b9ef57d8600e987889f",
+    "2f2d": "9e6121b772e3d20f64929051083bc8947840ca53ad120ad1487f156b047e10b6"
+  },
+  "reason": "The 1.3 SURPRISE routine overwrites result 3 with 2 before the only incoming area-26 dispatch can read it."
+}

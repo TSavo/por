@@ -882,7 +882,7 @@ function document(list: Worklist): string {
   const cellItems = list.items.filter((item) => item.kind === "first-person cell"), battleItems = list.items.filter((item) => item.kind === "battlefield cell");
   add("# Artwork worklist", "",
     "## What to do now", "",
-    `**Held portrait animations (#131).** ${list.heldPortraits.verified} / ${list.heldPortraits.total} picture sites verified (measured ${list.heldPortraits.measured}, one-shot ${list.heldPortraits.oneShotsVerified}). R = ${list.heldPortraits.remaining}.`,
+    `**Held portrait animations (#131).** ${list.heldPortraits.verified} / ${list.heldPortraits.total} candidate sites visually verified (measured ${list.heldPortraits.measured}, one-shot ${list.heldPortraits.oneShotsVerified}). Reachable: ${list.heldPortraits.reachable}. Proven unreachable in the original: ${list.heldPortraits.unreachable}. R = ${list.heldPortraits.remaining}.`,
     `The site inventory comes from static script and native picture discovery. ${list.heldPortraits.scenesVerified} / ${list.heldPortraits.scenesMeasured} captured native prompts passed paired Chrome checks.`,
     "Run `npm run verify:held-portraits` for every site and its evidence.",
     "",

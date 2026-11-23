@@ -502,6 +502,10 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
 
   const sites = eclCandidates.map(site => {
     const id = scriptSiteId(site);
+    if (site.unreachableOriginal) return {
+      id, source: `${site.pictureArchive}:${site.block}`, measured: false, verified: false, unmeasured: [], scenes: [],
+      unreachableOriginal: true, reason: site.unreachableOriginal,
+    };
     const oneShot = oneShotByProducer.get(id);
     const oneShotReason = oneShot ? oneShotProblem(site, oneShot) : null;
     const combatWithoutPortrait = combatWithoutPortraitByProducer.get(id);
@@ -546,8 +550,11 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       measured: false, verified: false, unmeasured: [], scenes: [], reason: "restore bank and prompt unresolved",
     });
   }
+  const unreachable = sites.filter(site => site.unreachableOriginal).length;
   const summary = {
     verified: sites.filter(site => site.verified).length,
+    unreachable,
+    reachable: sites.length - unreachable,
     oneShotsVerified: sites.filter(site => site.verified && oneShotByProducer.has(site.id)).length,
     measured: sites.filter(site => site.measured).length,
     total: sites.length,
@@ -555,12 +562,12 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     scenesVerified: allScenes.filter(scene => scene.verified).length,
     unmappedScenes: unmapped.length,
   };
-  return { ...summary, remaining: summary.total - summary.verified, sites, scenes: allScenes, unmapped };
+  return { ...summary, remaining: summary.reachable - summary.verified, sites, scenes: allScenes, unmapped };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const report = heldPortraitCoverage();
-  console.log(`Held portraits: ${report.verified} / ${report.total} picture sites verified (measured ${report.measured}, one-shot ${report.oneShotsVerified}), R = ${report.remaining}.`);
+  console.log(`Held portraits: ${report.verified} / ${report.total} candidate sites visually verified (measured ${report.measured}, one-shot ${report.oneShotsVerified}). Reachable: ${report.reachable}, proven unreachable in original: ${report.unreachable}, R = ${report.remaining}.`);
   console.log(`Native prompt evidence: ${report.scenesVerified} / ${report.scenesMeasured} captured scenes passed paired Chrome checks.`);
   if (!process.argv.includes("--summary")) {
     console.log("Picture site              Source                   Measured  Verified");

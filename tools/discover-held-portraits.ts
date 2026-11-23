@@ -1,10 +1,13 @@
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
+import { parseDax } from "../src/lib/dax.js";
 import { disassemble, readEntryVector, scriptFromBlock, type Instruction, type Operand } from "../src/lib/ecl.js";
 import { authoredScriptAddress } from "../src/runtime/bindings.js";
 import { contentBytes, readGameData, type PictureRecord } from "../src/runtime/game-data.js";
-import { portGameRoot } from "./gamedata.js";
+import { findGameRoot, isPortGameRoot, portGameRoot, readGameFile } from "./gamedata.js";
+import { fromPortRoot } from "./port-root.js";
 
 const read = (path: string) => readFileSync(join(portGameRoot, path));
 const data = readGameData(read);
@@ -95,6 +98,50 @@ const valjevoPatrolDispatch = new Map<string, readonly number[]>([
   ["6:a9e6", [0xaa31, 0x9c3e, 0xabd4, 0xa87d, 0xabd4]],
 ]);
 
+const lizardFaceToFaceProof = JSON.parse(readFileSync(fromPortRoot("qa", "held-portrait-unreachable.json"), "utf8")) as {
+  producer: string;
+  prompt: string;
+  scriptSha256: string;
+  gogStartSha256: string;
+  gogOverlaySha256: string;
+  translatedRoutines: Record<string, string>;
+  reason: string;
+};
+
+function lizardFaceToFaceUnreachable(script: Uint8Array, instructions: ReadonlyMap<number, Instruction>): boolean {
+  const proof = lizardFaceToFaceProof;
+  const digest = (bytes: string | Uint8Array) => createHash("sha256").update(bytes).digest("hex");
+  if (proof.producer !== "ECL7.DAX:26:a26c" || proof.prompt !== "a28c" || digest(script) !== proof.scriptSha256) return false;
+
+  // ovl03:175f assigns 3, then 1769 repeats the unchanged comparison and 1778 replaces it with 2.
+  // PARTY SURPRISE initializes the encounter result to 0 or 1. ENCOUNTER MENU only writes 0–3,
+  // so the preceding a230 dispatch cannot fall through. The other entry is a14a's fourth branch.
+  const dispatch = instructions.get(0xa14a);
+  const preceding = instructions.get(0xa230);
+  if (dispatch?.opcode !== 0x25 || memory(dispatch.operands[0]!) !== 0x6dcb || dispatch.operands[5]?.word !== 0xa242 ||
+      preceding?.opcode !== 0x25 || memory(preceding.operands[0]!) !== 0x6e79 || literal(preceding.operands[1]!) !== 4) return false;
+
+  const source = readFileSync(fromPortRoot("src", "translated-1.3", "ovl03.ts"), "utf8").replace(/\r\n/g, "\n");
+  for (const offset of ["0e5e", "1629", "16c9", "18f8", "1ef8", "2f2d"]) {
+    const routine = source.split("export function ovl03_" + offset + "(")[1]?.split("\n}\n")[0];
+    if (!routine || digest(routine) !== proof.translatedRoutines[offset]) return false;
+  }
+
+  // The record pins the original release. Where external game files are selected, check those too.
+  const original = findGameRoot();
+  if (!original) return false;
+  if (isPortGameRoot(original)) return true;
+  try {
+    const file = "ECL7.DAX";
+    const block = parseDax(file, readGameFile(original, file)).entries.find(entry => entry.id === 26);
+    return block !== undefined && digest(scriptFromBlock(block.data).bytes) === proof.scriptSha256 &&
+      digest(readGameFile(original, "START.EXE")) === proof.gogStartSha256 &&
+      digest(readGameFile(original, "GAME.OVR")) === proof.gogOverlaySha256;
+  } catch {
+    return false;
+  }
+}
+
 const scripts = data.content.filter(record => /^ECL[1-8]\.DAX$/.test(record.file));
 const eclCandidates = scripts.flatMap(record => {
   if (record.block === undefined) throw new Error(`Missing script block for ${record.file}`);
@@ -104,6 +151,8 @@ const eclCandidates = scripts.flatMap(record => {
   const script = scriptFromBlock(contentBytes(record, read));
   const decoded = disassemble(script).instructions;
   const instructions = new Map(decoded.map(instruction => [instruction.address, instruction]));
+  const faceToFaceUnreachable = archive === 7 && scriptBlock === 26 &&
+    lizardFaceToFaceUnreachable(script.bytes, instructions);
   const contexts = new Map<number, State[]>();
   walk(readEntryVector(script).map(address => ({ address, returns: [] })), instructions, state => {
     const states = contexts.get(state.address) ?? [];
@@ -376,6 +425,8 @@ const eclCandidates = scripts.flatMap(record => {
       next: authored(load.next), opcode, name: load.name, pictureArchive, block, selector: portrait, possiblePictures,
       boundedBlocks,
       composedPortrait,
+      ...(faceToFaceUnreachable && authored(load.address) === "a26c" && authored(load.next) === lizardFaceToFaceProof.prompt
+        ? { unreachableOriginal: lizardFaceToFaceProof.reason } : {}),
       ...(direct ? {} : { approachSelectors: { sprite: selector(operands[0]!), distance: selector(operands[1]!) } }),
       approachSites: [...approaches].sort(),
       approachHandoff,
