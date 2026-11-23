@@ -8,6 +8,7 @@ import type { LedgerFrame, LedgerNarration } from "./narration-ledger.js";
 // The narration, measured.
 //
 //   npm run qa:narration                           the table; exit 1 while anything is left
+//   npm run qa:narration -- --art                artwork checks for existing playback receipts (#100)
 //   npm run qa:narration -- --list                 what is still unheard, by script, and every listed case
 //   npm run qa:narration -- --merge <files...>     fold narration ledgers and Chrome playback logs into qa/narration-coverage.json
 //
@@ -281,7 +282,7 @@ function mergeLedger(path: string): void {
 // ---- the played rows ------------------------------------------------------------------------------------------------
 type Row = { part: string; done?: number; total?: number; left: number; note: string; list?: string[];
   /** False for a row that is reported and does not count toward what is left. */
-  counted?: false };
+  counted?: false; artwork?: true };
 const rows: Row[] = [];
 const address = (sourceId: string) => /at-([0-9a-f]{4})/.exec(sourceId)?.[1] ?? "?";
 const scriptOf = (sourceId: string) => {
@@ -396,13 +397,13 @@ const ownArt = (unit: Unit) => {
 };
 const playedWithArt = playedUnits.filter(unit => currentArtUnits.has(unit.id) ||
   (!checkedArtUnits.has(unit.id) && Boolean(playback.played[unit.id]!.art && playback.played[unit.id]!.art === ownArt(unit))));
-rows.push({ part: "Played with their artwork on screen from start to end", done: playedWithArt.length, total: playedUnits.length,
+rows.push({ part: "Played with their artwork on screen from start to end", artwork: true, done: playedWithArt.length, total: playedUnits.length,
   left: playedUnits.length - playedWithArt.length,
   note: "of the units played to the end: the artwork of the passage's own frame was drawn when the line started and stayed until it ended",
   list: playedUnits.filter(unit => !playedWithArt.includes(unit)).map(unit =>
     `${where(unit.id)}: on screen ${playback.played[unit.id]!.art ?? ((playback.played[unit.id]!.saw ?? []).map(key => key ?? "no artwork").join(" then ") || "not recorded")}; ` +
     `the passage's artwork is ${ownArt(unit) ?? "none (the ledger saw no Enhanced artwork on its frame)"} (${playback.played[unit.id]!.run})`) });
-rows.push({ part: "Complete playback captures with their own artwork", done: verifiedArtChecks.length, total: artChecks.length,
+rows.push({ part: "Complete playback captures with their own artwork", artwork: true, done: verifiedArtChecks.length, total: artChecks.length,
   left: artChecks.length - verifiedArtChecks.length, counted: false,
   note: `captures that name their picture and prove a matching printed passage, including ${new Set(verifiedArtChecks.flatMap(check => check.variantId ? [check.variantId] : [])).size} individually verified variants`,
   list: artChecks.filter(check => !matchedArt(check)).map(check =>
@@ -689,18 +690,28 @@ if (tales) {
 }
 
 // ---- report ---------------------------------------------------------------------------------------------------------
+const artworkOnly = process.argv.includes("--art");
+const reportRows = artworkOnly ? rows.filter(row => row.artwork) : rows;
 let left = 0;
 const cell = (value: number | undefined) => String(value ?? "").padStart(6);
-const width = Math.max(...rows.map(({ part }) => part.length));
+const width = Math.max(...reportRows.map(({ part }) => part.length));
 console.log(`${"part".padEnd(width)} ${"done".padStart(6)} ${"of".padStart(6)} ${"left".padStart(6)}`);
-for (const { part, done, total, left: rowLeft, note, counted } of rows) {
-  if (counted !== false) left += rowLeft;
-  console.log(`${part.padEnd(width)} ${cell(done)} ${cell(total)} ${counted === false ? `(${rowLeft})`.padStart(6) : cell(rowLeft)}   ${note}`);
+for (const { part, done, total, left: rowLeft, note, counted } of reportRows) {
+  const included = counted !== false || artworkOnly;
+  if (included) left += rowLeft;
+  console.log(`${part.padEnd(width)} ${cell(done)} ${cell(total)} ${included ? cell(rowLeft) : `(${rowLeft})`.padStart(6)}   ${note}`);
 }
-for (const note of notes) console.log(`\n${note}`);
-console.log(`\n${left} left before every narrated passage is proved played to its end in Chrome, with its picture`);
+if (artworkOnly) {
+  if (!playedUnits.length || !artChecks.length) {
+    console.log("\nArtwork verification needs completed Chrome playback with captions.");
+    left++;
+  }
+} else {
+  for (const note of notes) console.log(`\n${note}`);
+  console.log(`\n${left} left before every narrated passage is proved played to its end in Chrome, with its picture`);
+}
 if (process.argv.includes("--list")) {
-  for (const { part, list } of rows) {
+  for (const { part, list } of reportRows) {
     if (!list?.length) continue;
     console.log(`\n${part}:`);
     for (const line of list) console.log(`  ${line}`);

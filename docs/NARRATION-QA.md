@@ -11,6 +11,7 @@ not play the game. This measure does:
 
 ```
 npm run qa:narration                           the table; exit 1 while anything is left
+npm run qa:narration -- --art --list           artwork for completed playback, including each caption and variant (#100)
 npm run qa:narration -- --list                 what is still unheard, by script, and every listed case
 npm run qa:narration -- --merge <files...>     fold new runs into qa/narration-coverage.json: ledgers and playback logs
 npm run acceptance:narration-dynamic           five dynamic families, driven until they fire
@@ -224,6 +225,10 @@ remove it from the coverage file by hand: fix it, play the same run again and me
 again replaces what that run said about silent cases, so a fixed defect clears.
 
 ## The table
+
+The artwork check exits with status 1 whenever a fully played unit lacks evidence of its
+own picture or any caption-bearing capture fails. It needs Chrome playback evidence.
+Run the full measure for passages and variants that still need to be reached and heard.
 
 `qa/narration-coverage.json` holds what has been selected and played, and the run. A unit,
 variant or selector that is not listed has not been.
