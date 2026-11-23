@@ -2415,6 +2415,14 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:23:ecl:9a04:caller:af04", prompt: /ANOTETOATRAPPER.*ENTRY40/i,
     continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["yarash-recently-used-lab", {
+    // Start from the patrol secret-door checkpoint and take the door north of the party.
+    slot: "A", stockInput: true,
+    inputs: ["right", "right", "up", "enter", "left", "up"],
+    portrait: "scene-illustration:area:23:ecl:a2a9",
+    prompt: /ANORDINARYALCHEMISTSLAB\.\.\.RECENTLYUSED/i,
+    continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i, clearsPortrait: true },
+  }],
   ["mendor-rhetoric-stacks-arrival", {
     slot: "B", inputs: ["up", "up", "right", "up", "up", "up", "right", "up"],
     portrait: "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:rhetoric-stacks",

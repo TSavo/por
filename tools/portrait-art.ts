@@ -1465,6 +1465,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:23:ecl:9a04:caller:a08a", "INTHECENTERISALARGETABLEWITHMETALRESTRAINTS"],
   ["scene-illustration:area:23:ecl:a0f3", "THEWALLSARELINEDWITHFLASKSANDBOTTLES"],
   ["scene-illustration:area:23:ecl:a0fd", "THEWALLSARELINEDWITHFLASKSANDBOTTLES"],
+  ["scene-illustration:area:23:ecl:a2a9", "ANORDINARYALCHEMISTSLAB...RECENTLYUSED"],
   ["scene-illustration:area:23:ecl:9a04:caller:ade9", "AMONGTHEPAPERSONTHEDESK"],
   ["scene-illustration:area:23:ecl:9a04:caller:ae21", "ALETTERFROMTHEBOSS"],
   ["scene-illustration:area:23:ecl:9a04:caller:ae48", "ANUNSENTREPLYTOTHISLETTER"],
@@ -1751,6 +1752,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
 // The scripted close approach belongs to the reinforcements. Each of the
 // shared battle notices keeps the illustration selected by its own caption.
 const retainedIllustrationScopes = new Map([
+  ["scene-illustration:area:23:ecl:a29f", "scene-illustration:area:23:ecl:a2a9"],
   ["scene-illustration:area:11:ecl:99fc", "scene-illustration:area:11:ecl:9a0c"],
   ["scene-illustration:area:29:ecl:a3ba", kutoWellReinforcements],
   ["scene-illustration:area:29:ecl:a338", kutoWellAmbush],

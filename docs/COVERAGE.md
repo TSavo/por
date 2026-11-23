@@ -2847,7 +2847,10 @@ presentation switching and save preservation.
 
 `yarash-study` verifies the far, middle, and near approach sprites
 at their native anchors, then the parlay portrait from the fountain
-shutdown save. `podal-robed-orc-combat` and `podal-pitt-duelist`
+shutdown save. `yarash-recently-used-lab` starts from
+`qa/fixtures/yarash-patrol-secret-door/A.json` and checks the workshop
+illustration on entry and its removal after the party moves farther in.
+`podal-robed-orc-combat` and `podal-pitt-duelist`
 check both ready and strike poses in the native shrine fight and duel.
 The Buccaneer captain's hall, pen spur, and east and south pen court
 routes verify 5,203 placements across 43 views. The pen routes cover
