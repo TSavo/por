@@ -121,6 +121,9 @@ let visibilityPausedVoice;
 let lastTextId = null;
 let initialNarrationId = null;
 let paintedNarrationView;
+let paintedNarrationCue;
+let pendingNarrationKey;
+let narrationKey;
 const narratedViews = new WeakSet();
 const narratedScenes = new Set();
 let state = { sequence: -1 };
@@ -354,15 +357,10 @@ function resumeBlockedAudio() {
     blockedEffect = undefined;
     playSound(sound);
   }
-  if (blockedVoice && enhanced) {
-    if (blockedVoice.queuedNarration) {
-      blockedVoice.retryOnPaint = true;
-      playNextNarration();
-    } else {
-      const line = blockedVoice;
-      blockedVoice = undefined;
-      beginVoice(line);
-    }
+  if (blockedVoice && enhanced && (!blockedVoice.cue || sameNarrationCue(blockedVoice.cue))) {
+    const line = blockedVoice;
+    blockedVoice = undefined;
+    beginVoice(line);
   }
 }
 
@@ -471,7 +469,7 @@ function finishAnimation() {
 // did. It observes only and never changes what plays. window.porNarrationPlayback() returns it
 // to the Chrome checks. docs/NARRATION-QA.md describes the fields.
 const narrationPlayback = [];
-const voiceLog = new WeakMap();
+const voiceLines = new WeakMap();
 const soundingVoices = new Map();
 let shownArtwork = null;
 const playbackSeconds = () => Math.round(performance.now()) / 1000;
@@ -491,9 +489,12 @@ function closeNarrationLog(entry, outcome, reason, voice) {
   Object.assign(entry, { outcome, ...(reason ? { reason } : {}), endedAt: playbackSeconds(), endFrame: state.sequence,
     ...(voice ? { position: voice.currentTime } : {}), artAtEnd: shownArtwork });
 }
-function logVoice(voice, entry) {
-  voiceLog.set(voice, entry);
+function logVoice(voice, line) {
+  const entry = line.log;
+  voiceLines.set(voice, line);
   voice.addEventListener("playing", () => {
+    // A cancelled request can still have a media event waiting to dispatch.
+    if (voice !== currentVoice || entry?.outcome) return;
     const others = [...soundingVoices].filter(([other]) => other !== voice && !other.paused && !other.ended);
     soundingVoices.set(voice, entry);
     for (const [, other] of others) if (other && !other.outcome) other.talkedOverBy = entry?.id ?? "a voice line";
@@ -509,7 +510,7 @@ function logVoice(voice, entry) {
   voice.addEventListener("error", () => { soundingVoices.delete(voice); closeNarrationLog(entry, "stopped", "load error", voice); });
 }
 function logVoiceStopped(voice, blocked, queued, reason) {
-  const playing = voice && voiceLog.get(voice);
+  const playing = voice && voiceLines.get(voice)?.log;
   if (voice) soundingVoices.delete(voice);
   if (playing) closeNarrationLog(playing, playing.startedAt === undefined ? "never-started" : "stopped",
     playing.startedAt === undefined ? `${reason}, before the recording had loaded` : reason, voice);
@@ -550,7 +551,7 @@ function beginVoice(line) {
   if (line.queuedNarration) voice.dataset.queuedNarration = "true";
   voice.volume = audioPreferences.muted ? 0 : audioPreferences.master * audioPreferences.narration;
   currentVoice = voice;
-  logVoice(voice, line.log);
+  logVoice(voice, line);
   voice.addEventListener("ended", () => {
     if (currentVoice !== voice) return;
     currentVoice = undefined;
@@ -570,23 +571,39 @@ function playVoice(line) {
   beginVoice(line);
 }
 
-function playNextNarration() {
-  if (!enhanced || currentVoice || paintedNarrationView !== (animationFrame ?? state)) return;
-  if (blockedVoice) {
-    if (!blockedVoice.retryOnPaint) return;
-    const line = blockedVoice;
-    blockedVoice = undefined;
-    line.retryOnPaint = false;
-    beginVoice(line);
-    return;
+function sameNarrationCue(cue) {
+  return cue.frame === paintedNarrationCue?.frame && cue.artwork === paintedNarrationCue?.artwork;
+}
+
+function retireUnstartedNarration() {
+  const reason = narrationKey ? `key ${narrationKey}: picture advanced before narration started`
+    : "picture advanced before narration started";
+  function stillVisible(line) {
+    if (!line.cue || sameNarrationCue(line.cue)) return true;
+    closeNarrationLog(line.log, "never-started", reason);
+    return false;
   }
+  narrationQueue = narrationQueue.filter(stillVisible);
+  if (blockedVoice && !stillVisible(blockedVoice)) blockedVoice = undefined;
+  const voice = currentVoice;
+  const requested = voice && voiceLines.get(voice);
+  if (requested?.cue && requested.log.startedAt === undefined && !sameNarrationCue(requested.cue)) {
+    stopVoice(false, reason);
+    // Abort a pending fetch or decode as well as pausing the audio element.
+    voice.removeAttribute("src");
+    voice.load();
+  }
+}
+
+function playNextNarration() {
+  if (!enhanced || currentVoice || blockedVoice || paintedNarrationView !== (animationFrame ?? state)) return;
   const line = narrationQueue.shift();
   if (line) beginVoice(line);
 }
 
 function enqueueNarration(narration) {
   narrationQueue.push({ type: "narration", queuedNarration: true, log: logNarrationQueued(narration),
-    url: `/narration/${encodeURIComponent(narration.asset)}` });
+    cue: paintedNarrationCue, url: `/narration/${encodeURIComponent(narration.asset)}` });
   playNextNarration();
 }
 
@@ -631,6 +648,9 @@ function playPendingVoice() {
 
 function presentNarration(view) {
   paintedNarrationView = view;
+  // The same native picture can arrive at a new sequence after an ignored key.
+  paintedNarrationCue = { frame: view.frame, artwork: shownArtwork };
+  retireUnstartedNarration();
   if (view.narrations?.length && !narratedViews.has(view)) {
     narratedViews.add(view);
     if (enhanced) {
@@ -2330,8 +2350,10 @@ async function send(key) {
   }
   // An approaching encounter plays out: on DOS the game is busy drawing it and acts on no key (#129).
   if (animationFrame?.approach) return;
+  pendingNarrationKey = key.startsWith(":") || activeTravel ? undefined : key.replace(/^key /, "");
   // Asking for more of an animation the game plays by itself leaves the clips playing (#125).
   if (animationFrame && !(key === ":poll" && state.presentationPolling)) {
+    narrationKey = pendingNarrationKey;
     finishAnimation();
     showScreen();
   }
@@ -2357,11 +2379,13 @@ async function send(key) {
     }
     if (!result.ok) {
       pendingVoiceStop = undefined;
+      pendingNarrationKey = undefined;
       heldPoseAtInput = undefined;
     }
     return result.ok;
   } catch {
     heldPoseAtInput = undefined;
+    pendingNarrationKey = undefined;
     status.textContent = "Waiting for the local game runner…";
   } finally {
     posting = false;
@@ -2395,6 +2419,8 @@ async function poll() {
     // A frame that follows one of an animation the game plays by itself carries the clips after it.
     const continuesAnimation = changed && Boolean(state.presentationPolling);
     if (changed) {
+      narrationKey = pendingNarrationKey;
+      pendingNarrationKey = undefined;
       // The guest leaves its picture in place for this notice. Keep the pose the player acted on.
       const previousPose = heldPoseAtInput ?? battleNoticePose;
       const samePortrait = next.portrait === state.portrait ||

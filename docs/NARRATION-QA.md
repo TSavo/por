@@ -107,7 +107,9 @@ The owner's design, from the manifest's policy and the page's key handling:
 - Audio attaches only to the trigger, covered prints do not retrigger, and the next narration
   queues after the current one (`policy` in `src/audio/voice-master-manifest.json`).
 - Enter or Space while a narration unit is sounding leaves it sounding: the press moves to the
-  next print, which is usually one the unit covers.
+  next print, which is usually one the unit covers. Any recording that has yet to start
+  stays eligible while its native frame and Enhanced artwork remain visible. If a key
+  moves past that picture first, the log records the skip.
 - Any other key ends the line only if the game acts on it. The page notes the screen when the key
   goes to the game and ends the voice when the game's next frame differs (`keydown`, `send` and
   `poll` in `tools/play.js`); the lines that were waiting at the key press go with it, and a
@@ -122,7 +124,7 @@ So the measure reads a line's end like this:
 | --- | --- | --- |
 | `ended` within 0.25s of `duration` | played to the end | |
 | `stopped`, reason `key ...` or `switched to Classic` | ended by the player | the player moved on, and the game with them. Legitimate, and not proof that the line can be heard whole |
-| `never-started`, reason `key ..., before the recording had loaded` | ended by the player | the same, in the instant before the sound |
+| `never-started`, reason beginning with `key ...` | ended by the player | the next picture replaced the cue before its sound started |
 | `stopped` for any other reason (`a voice line replaced it`, `load error`) | **cut off** | nothing the player pressed ended it |
 | `ended` short of `duration` | **cut off** | the element gave up early |
 | `never-started` with `queue cleared: ...` | **never started** | the line waited behind another and was thrown away. The player never heard a word of it, whichever key cleared the queue |

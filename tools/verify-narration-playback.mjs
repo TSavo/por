@@ -24,8 +24,8 @@ import { openChromeCampaignLeg } from "./chrome-campaign-replay.mjs";
 // is printed, which is after its line has finished, so this pass gives the page's player lines of
 // its own while the game waits. The owner's policy (the narration manifest: "subsequentNarration
 // QueuesAfterCurrent") and the page's key handling say Enter lets the line run on and the next one
-// waits its turn, so it requires: a line pressed over with Enter ran to its end; every line sent
-// after it started only when it had finished, and played to its end; no two voices overlapped. A
+// waits its turn. The sounding line finishes, and the new picture's line waits for it.
+// A line still queued for the previous picture is skipped. No two voices overlap. A
 // key the game ignores (the left arrow at "Press <enter>/<return> to continue", checked by the
 // screen staying the same) must leave the line playing and the line behind it queued. A key the
 // game acts on (the left arrow at the area menu, which turns the party) must end the line, with
@@ -321,7 +321,7 @@ if (!broken) {
       await delay(1500);
       if (await leg.chrome.evaluate("state.sequence") !== leg.frame.sequence) await leg.sync();
       const after = await leg.playback();
-      ignored = { first, queued, after: line(after, first), waiting: after.queued, sameScreen: await leg.chrome.evaluate("state.frame") === screen };
+      ignored = { first, queued, after: line(after, first), queuedAfter: line(after, queued), sameScreen: await leg.chrome.evaluate("state.frame") === screen };
     } else fail("the line given to the player did not start");
     // 2. Enter while the first is sounding, or the one queued behind it if the key above ended the first:
     // the line runs on and whatever follows waits its turn.
@@ -358,13 +358,16 @@ if (!broken) {
     else if (ignored.after.outcome) fail(`a key the game ignored ended the line: ${how(ignored.after)}`);
     else if (!whole(line(log, ignored.first))) fail(`after a key the game ignored the line did not play to its end: ${how(line(log, ignored.first))}`);
     else console.log("  a key the game ignores left the line playing to its end");
-    if (line(log, ignored.queued).outcome === "never-started") fail(`a key the game ignored dropped the line waiting behind: ${how(line(log, ignored.queued))}`);
+    if (ignored.queuedAfter.outcome === "never-started") fail(`a key the game ignored dropped the line waiting behind: ${how(ignored.queuedAfter)}`);
   }
   if (!entered) fail("not tested: no line was sounding to press Enter over");
   else {
     const over = line(log, entered.over);
     if (!whole(over)) fail(`the line pressed over with Enter did not run on to its end: ${how(over)}`);
-    const after = log.lines.filter((entry) => entry.queuedAt > over.queuedAt && entry.id !== acted?.last && entry.id !== acted?.behind);
+    const skipped = (entry) => entry.id === ignored?.queued && entry.outcome === "never-started" &&
+      /^key enter: picture advanced/.test(entry.reason ?? "");
+    const after = log.lines.filter((entry) => entry.queuedAt > over.queuedAt &&
+      entry.id !== acted?.last && entry.id !== acted?.behind && !skipped(entry));
     if (!after.some((entry) => entry.id < 9000)) fail("Enter over the line reached no narration of the game's own");
     for (const entry of after) {
       if (entry.startedAt === undefined) fail(`${short(entry.unitId)}, sent after Enter, never started: ${entry.reason ?? "still waiting"}`);
