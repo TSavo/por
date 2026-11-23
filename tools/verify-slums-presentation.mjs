@@ -10144,7 +10144,7 @@ try {
       encounter: { placement, sha256: createHash("sha256").update(Buffer.from(await art.arrayBuffer())).digest("hex") },
     });
   }
-  function observeApproach(approachSequence, requireScenery = true, requireWebGL = false) {
+  function observeApproach(approachSequence, requireScenery = true, requireWebGL = false, timed = false) {
     return run(`(() => {
       window.observedApproach = new Set();
       const layer = document.querySelector("#tile-art");
@@ -10152,9 +10152,11 @@ try {
         const img = layer.querySelector(".encounter-sprite");
         const scenerySelector = ${JSON.stringify(requireWebGL ? ".street-viewport" : ".street-viewport, .perspective-backdrop")};
         if (!img || ((${requireScenery} || ${requireWebGL}) && !layer.querySelector(scenerySelector))) return;
+        if (${timed} && (layer.hidden || !animationFrame?.encounter || !img.complete || !img.getClientRects().length)) return;
         const view = animationFrame ?? state;
         const projected = view.perspective && !view.portrait;
         for (const [x, y, id, w, h, webglYOffset = 0] of ${JSON.stringify(approachSequence)}) {
+          if (${timed} && view.encounter[2] !== id) continue;
           const left = (projected ? 8 + (x - 24) * 120 / 88 : x) / 3.2;
           const top = (projected ? 8 + (y + webglYOffset - 24) * 120 / 88 : y) / 2;
           if (img.getAttribute("src") === "/art/" + id && img.naturalWidth === w * 4 && img.naturalHeight === h * 4 &&
@@ -10165,6 +10167,17 @@ try {
       }
       new MutationObserver(recordApproach).observe(layer, { childList: true });
       layer.addEventListener("load", recordApproach, true);
+      if (${timed}) {
+        const announced = window.announcedApproaches = new Set();
+        function sampleApproach() {
+          for (const clip of [animationFrame, ...animationQueue]) {
+            if (clip?.encounter) announced.add(clip.encounter[2]);
+          }
+          recordApproach();
+          if (window.observedApproach.size < ${approachSequence.length}) requestAnimationFrame(sampleApproach);
+        }
+        requestAnimationFrame(sampleApproach);
+      }
     })()`);
   }
 
@@ -13101,7 +13114,10 @@ try {
     let alreadyPassedPatrol;
     const heldApproachPlacement = illustration.heldApproachPrompt && (illustration.heldApproachPlacement ??
       patrolApproachPlacement(illustration.heldApproachArea ?? illustration.heldApproachPosition[0]));
-    if (approachSequence) await observeApproach(approachSequence, illustration.requireTiledApproach, illustration.requireWebGL);
+    if (approachSequence) {
+      await observeApproach(approachSequence, illustration.requireTiledApproach, illustration.requireWebGL,
+        illustration.podolProof === "battle");
+    }
     else if (heldApproachPlacement && heldPortraitEvidenceFile) {
       await observeApproach([heldApproachPlacement]);
     }
@@ -13469,7 +13485,16 @@ try {
       writeFileSync(resolve(directory, `${routeName}-held-portrait.png`), Buffer.from(shot.data, "base64"));
     }
     if (approachSequence) {
-      assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
+      const expected = approachSequence.map(([, , id]) => id);
+      if (illustration.podolProof === "battle") {
+        await waitFor("the rendered Podol rest approach", () => run(
+          `${JSON.stringify(expected)}.every(id => window.observedApproach.has(id))`), 15_000)
+          .catch(async error => {
+            const timeline = await run("({ queued: [...window.announcedApproaches], rendered: [...window.observedApproach] })");
+            throw new Error(`${error.message}. Podol approach timeline ${JSON.stringify(timeline)}`, { cause: error });
+          });
+      }
+      assert.deepEqual(await run("[...window.observedApproach]"), expected);
     }
     if (illustration.idlePortraits) {
       const phases = new Map(illustration.idlePortraits.map((id, index) => [id, index + 1]));
