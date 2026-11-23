@@ -15,10 +15,12 @@
  "enhancedFallbacks": {
   "observer": 2,
   "frames": 0,
-  "presented": 7438,
-  "walks": 49,
-  "recordedWalks": 49,
-  "missingWalks": [],
+  "presented": 7643,
+  "walks": 51,
+  "recordedWalks": 52,
+  "missingWalks": [
+   "walk-guide-party-sokal-courtyard"
+  ],
   "aliasedWalks": [
    {
     "walk": "campaign-castle-approach-leg",
@@ -41,7 +43,7 @@
     "receipt": "campaign-full/leg-9"
    }
   ],
-  "runs": 46,
+  "runs": 48,
   "additionalReplays": 2,
   "keys": []
  },

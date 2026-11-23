@@ -220,11 +220,23 @@
    "frames": [],
    "fixtureSha256": "d8dbed4470a7dddcd3886b68207f9d321d8079bde09ae37198b35007101f37c3"
   },
+  "walk-guide-party-sokal-healing": {
+   "observer": 2,
+   "presented": 70,
+   "frames": [],
+   "fixtureSha256": "057bc364f777777afb922ef2c00b5bab71c9929a8c7161ee1c2a8c827cf6b70d"
+  },
   "walk-guide-party-sokal-rest": {
    "observer": 2,
    "presented": 202,
    "frames": [],
    "fixtureSha256": "51aad7288b30c4ed60624105f127ebd6c1f426df391ff57d1551eb0ffef5f603"
+  },
+  "walk-guide-party-sokal-reward": {
+   "observer": 2,
+   "presented": 135,
+   "frames": [],
+   "fixtureSha256": "b55ab42a1c5350dbb29f3cacbf24ed205c55bb7ff143d8b19900a9660fa4cab6"
   },
   "walk-guide-party-sokal-training": {
    "observer": 2,
