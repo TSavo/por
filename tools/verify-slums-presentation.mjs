@@ -4553,12 +4553,13 @@ const illustrationRoutes = new Map([
     ["western", "a133", 4, 13, "a13a", []],
     ["northern", "a15a", 2, 10, "a161", ["enter", "up", "up", "right", "up", "up", "up"]],
   ].map(([side, caller, x, y, aftermath, extra]) => {
-    const archer = scope => [56, 32, `encounter:area:29:ecl:${scope}:SPRIT8.DAX:0:2:0`, 24, 57];
+    const archer = (scope, distance, height) => [56, 32, `encounter:area:29:ecl:${scope}:SPRIT8.DAX:0:${distance}:0`, 24, height];
     const walk = ["down", "up", "enter", "enter", "enter", "up", "up", "right", "up", "up",
       "left", "up", "up", "up", "right", "up", ...extra];
-    const hit = archer(`a168:caller:${caller}`);
-    const approaches = [archer("a0a4"), archer("a168:caller:a133")];
-    if (caller === "a15a") approaches.push(hit);
+    const west = [archer("a168:caller:a133", 2, 57), archer("a173:caller:a133", 2, 57)];
+    const north = [archer("a168:caller:a15a", 1, 65), archer("a173:caller:a15a", 1, 65)];
+    const hit = (caller === "a133" ? west : north)[1];
+    const approaches = [archer("a0a4", 2, 57), ...west, ...(caller === "a15a" ? north : [])];
     return [`kuto-catacombs-${side}-arrow`, {
       slot: "J", stockInput: true, fixedClockStart: "4320000", inputs: [...walk, "enter"],
       requireWebGL: true, approachSequence: approaches,
