@@ -39341,6 +39341,63 @@
           "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
         }
       }
+    },
+    {
+      "producer": "ECL8.DAX:27:9f32",
+      "checkpoint": "visit-valhingen-graveyard/F.json",
+      "position": [
+        27,
+        41,
+        22
+      ],
+      "caption": "YOU SPOT A GROUP OF TROLLS",
+      "chrome": {
+        "original": {
+          "route": "east-wilderness-spots-trolls",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4841,22E18:16YOUSPOTAGROUPOFTROLLSCombatWaitFleeParlay",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "checkpointSha256": "069c48757f0eaef3fe6c9e6ac7e7b2c1bab2ab9fdc32b7e5467fabbbf8adb632",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:27:ecl:9f54:SPRIT8.DAX:31:1:0",
+              24,
+              65
+            ],
+            "sha256": "10610cf1fdc19d3e61197ca5840917ddc725097f790aad430840aeb133378089"
+          },
+          "position": [
+            27,
+            41,
+            22
+          ]
+        },
+        "port": {
+          "route": "east-wilderness-spots-trolls",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4841,22E18:16YOUSPOTAGROUPOFTROLLSCombatWaitFleeParlay",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "checkpointSha256": "069c48757f0eaef3fe6c9e6ac7e7b2c1bab2ab9fdc32b7e5467fabbbf8adb632",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:27:ecl:9f54:SPRIT8.DAX:31:1:0",
+              24,
+              65
+            ],
+            "sha256": "10610cf1fdc19d3e61197ca5840917ddc725097f790aad430840aeb133378089"
+          },
+          "position": [
+            27,
+            41,
+            22
+          ]
+        }
+      },
+      "prompt": "9f54"
     }
   ],
   "staticPortraitPrompts": [
