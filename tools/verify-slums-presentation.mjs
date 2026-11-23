@@ -826,6 +826,14 @@ const nomadPursuit = {
   prompt: /COMBATWAITFLEEADVANCE/i,
 };
 
+const kutoWellAlleyInputs = ["left", "up", "right", "up", "up", "up", "up"];
+const kutoWellAlleyPortrait = (cursor, cue) => ({
+  portrait: "scene-illustration:area:29:ecl:af2f:caller:a31b:cue:" + cue,
+  heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:29:ecl:${cursor}:PIC8.DAX:0:${member}:0`),
+});
+const waitingKobolds = kutoWellAlleyPortrait("a2c9", "waiting-kobolds");
+const koboldsClimbBehind = kutoWellAlleyPortrait("a3b2", "kobolds-climb-behind");
+
 const illustrationRoutes = new Map([
   ["sokal-smithy-frog-hold", {
     slot: "C", inputs: ["right", "up"],
@@ -898,6 +906,13 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter"], prompt: /ABATTLEBEGINS/i,
       portraits: [0, 1, 2, 3].map(member => "portrait:area:23:ecl:a23f:PIC7.DAX:57:" + member + ":0"),
       pressOnPortrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:2:0", retainPose: true },
+  }],
+  ["kuto-well-waiting-kobolds-hold", {
+    slot: "J", inputs: kutoWellAlleyInputs,
+    ...waitingKobolds,
+    prompt: /YOUSTUMBLEONSOMEWAITINGKOBOLDS/i,
+    continuation: { inputs: ["enter"], prompt: /ABATTLEBEGINS/i,
+      pressOnPortrait: waitingKobolds.heldPortraitLoop[2], retainPose: true },
   }],
   ["kuto-well-surrounding-buildings-hold", {
     slot: "J", inputs: ["up"],
@@ -8580,6 +8595,11 @@ const controlledBattleIllustrations = new Map([
     portrait: "scene-illustration:area:28:ecl:a5b5",
     caption: /ASYOUDEFEATTHEGUARDSSOMEMOREMENRUNINANDATTACK/i,
   }],
+  ["kuto-well-behind-you-hold", {
+    slot: "J", inputs: kutoWellAlleyInputs,
+    ...koboldsClimbBehind,
+    caption: /ABANDOFKOBOLDSCLIMBSFROMTHEWELLBEHINDYOUANDATTACKS/i,
+  }],
   ["kuto-well-kobold-reinforcements-hold", {
     slot: "J", inputs: ["up"],
     portrait: "scene-illustration:area:29:ecl:af2f:caller:a31b:cue:kobolds-climb-from-well",
@@ -8883,7 +8903,8 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
         routeName === "valhingen-skeleton-roaming-ambush-loop" || routeName === "valhingen-wight-ambush-loop" ? "4320042" : undefined),
     ...(textileScorpionLoop ? { POR_PROMPT_SCHEDULE_IN: resolve(textileScorpionWalk, "prompts.jsonl") } : {}),
     ...(illustration?.promptSchedule ? { POR_PROMPT_SCHEDULE_IN: resolve(illustration.promptSchedule) } : {}),
-    POR_INPUT_COMPAT: controlledBattleIllustration?.staticHold || textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
+    POR_INPUT_COMPAT: controlledBattleIllustration?.staticHold || controlledBattleIllustration?.heldPortraitLoop ||
+      routeName === "kuto-well-waiting-kobolds-hold" || textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "kuto-well-catacomb-volley-hold" || routeName === "kuto-well-surrounding-buildings-hold" ||
       routeName === "pyramid-vats-mutants-loop" || routeName.startsWith("pyramid-exterior-") ||
       routeName.startsWith("yarash-study-") ||
@@ -11690,7 +11711,7 @@ try {
     console.log("Verified all five native roaming zombie portrait phases and the battle opening in Chrome:", directory);
   } else if (controlledBattleIllustration) {
     const { inputs, portrait, caption, afterBattle = caption, walk = [], reinforcements = [],
-      heldApproachPosition, patrolCaptain, staticHold, victoryInputs = [] } = controlledBattleIllustration;
+      heldApproachPosition, patrolCaptain, staticHold, heldPortraitLoop, victoryInputs = [] } = controlledBattleIllustration;
     if (heldApproachPosition) await observeApproach([patrolApproachPlacement(heldApproachPosition[0])]);
     const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
     await run(`const sendCombatNoteKey = send; send = key => key === ":poll" ? undefined : sendCombatNoteKey(key);`);
@@ -11745,8 +11766,12 @@ try {
         writeFileSync(resolve(directory, `${routeName}-approach.png`), Buffer.from(shot.data, "base64"));
         await verifyStaticPortrait(portrait, caption);
       }
-      await waitFor("the post-battle illustration", () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352`));
+      if (heldPortraitLoop) {
+        await verifyHeldPortraitLoop(heldPortraitLoop);
+      } else {
+        await waitFor("the post-battle illustration", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352`));
+      }
       await verifyPortraitPanel();
       const shot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, `${routeName}.png`), Buffer.from(shot.data, "base64"));
@@ -11759,6 +11784,25 @@ try {
       assert.ok(frame.animation?.some(phase => phase.portrait === portrait && phase.durationMs === 900));
       await waitFor("the retained picture at the battle notice", () => run(`state.sequence === ${frame.sequence} &&
         document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, `${routeName}-battle-notice.png`), Buffer.from(shot.data, "base64"));
+    } else if (heldPortraitLoop) {
+      const selected = heldPortraitLoop[2];
+      const sequence = frame.sequence;
+      await run("screen.focus({ preventScroll: true })");
+      await waitFor("a selected pose before starting the second battle", () => run(`state.sequence === ${sequence} &&
+        document.querySelector('.encounter-portrait[data-held-pose="${selected}"]')?.naturalWidth === 352`));
+      await command("Input.dispatchKeyEvent", { type: "keyDown", key: "Enter", code: "Enter", windowsVirtualKeyCode: 13 });
+      await command("Input.dispatchKeyEvent", { type: "keyUp", key: "Enter", code: "Enter", windowsVirtualKeyCode: 13 });
+      frame = await waitFor("the second battle after one Enter", async () => {
+        const next = await latest();
+        return next.ready && next.sequence > sequence && next;
+      });
+      assert.match(text(), /ABATTLEBEGINS/i);
+      assert.equal(frame.portrait, portrait);
+      await waitFor("the selected pose in the battle notice", () => run(`state.sequence === ${frame.sequence} &&
+        !animationFrame && document.querySelector('.encounter-portrait[src="/art/${selected}"]')?.naturalWidth === 352`));
       await verifyPortraitPanel();
       const shot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, `${routeName}-battle-notice.png`), Buffer.from(shot.data, "base64"));

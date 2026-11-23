@@ -575,6 +575,8 @@ export function portraitHoldAction(record: PictureRecord, member: number, frame 
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
 const kutoWellAmbush = "scene-illustration:area:29:ecl:af2f:caller:a31b";
 const kutoWellReinforcements = `${kutoWellAmbush}:cue:kobolds-climb-from-well`;
+const kutoWellWaitingKobolds = `${kutoWellAmbush}:cue:waiting-kobolds`;
+const kutoWellKoboldsBehind = `${kutoWellAmbush}:cue:kobolds-climb-behind`;
 
 export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:17:ecl:a97c", "PLEASETHINKABOUTITOVERNIGHT"],
@@ -1730,6 +1732,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:29:ecl:afa1:cue:daylight", "BEFOREYOULIESKUTO'SWELL.ITISASOURCEOFWATERINALLSEASONS"],
   [kutoWellAmbush, "MONSTERSFROMTHESURROUNDINGBUILDINGSATTACKYOU"],
   [kutoWellReinforcements, "ABANDOFKOBOLDSCLIMBSFROMTHEWELLANDATTACKS"],
+  [kutoWellWaitingKobolds, "YOUSTUMBLEONSOMEWAITINGKOBOLDS"],
+  [kutoWellKoboldsBehind, "ABANDOFKOBOLDSCLIMBSFROMTHEWELLBEHINDYOUANDATTACKS"],
   ["scene-illustration:area:29:ecl:a3b9", "ABANDOFKOBOLDSCLIMBSFROMTHEWELLANDATTACKS"],
   ["scene-illustration:area:29:ecl:a75e:cue:scouts-pleading", "WEONLYSEEKTORETURNTOOURFAMILIES"],
   ["scene-illustration:area:29:ecl:a75e:cue:scouts-questioned", /THEKOBOLDSCOLLAPSEINTOAPATHETIC.MEWINGHEAP/i],

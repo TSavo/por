@@ -416,6 +416,13 @@ const portraitLoops = [
     /ADRUNKENKOBOLDLIESHERE/i, [210, 210, 210, 210], [[3, 3]]],
   ["portrait:area:13:ecl:9f68:PIC8.DAX:0:", [0, 1, 2, 1], undefined,
     /DOYOUWISHANESCORTTOTHEKING/i, [210, 210, 210, 210], [[3, 3]]],
+  // These two Kuto captions share a held cursor and the last native member repeats member 1.
+  ["portrait:area:29:ecl:a2c9:PIC8.DAX:0:", [0, 1, 2, 1], undefined,
+    /^(?!.*ABATTLEBEGINS).*YOUSTUMBLEONSOMEWAITINGKOBOLDS/i, [210, 210, 210, 210],
+    [["scene-illustration:area:29:ecl:af2f:caller:a31b:cue:waiting-kobolds", 0]]],
+  ["portrait:area:29:ecl:a3b2:PIC8.DAX:0:", [0, 1, 2, 1], undefined,
+    /^(?!.*ABATTLEBEGINS).*ABANDOFKOBOLDSCLIMBSFROMTHEWELLBEHINDYOUANDATTACKS/i, [210, 210, 210, 210],
+    [["scene-illustration:area:29:ecl:af2f:caller:a31b:cue:kobolds-climb-behind", 0]]],
   ["portrait:area:29:ecl:af2f:caller:a6f7:PIC8.DAX:0:", [0, 1, 2, 1], "portrait:area:29:PIC8.DAX:0:0:0",
     /ASMALLBANDOFSICKLYKOBOLDS/i, [210, 210, 210, 210]],
   ["portrait:area:29:ecl:a730:PIC8.DAX:0:", [0, 1, 2, 1], undefined,
