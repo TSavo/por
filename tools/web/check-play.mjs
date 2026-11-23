@@ -87,8 +87,9 @@ async function startServer() {
 }
 
 let chrome;
-// The browser builds read the player's folder as a picked one (tools/web/original-picker.ts): served here.
-const originalServer = server !== "runner" && original ? await serveOriginalFolder(original) : undefined;
+// Present the browser with lowercase DOS filenames to exercise case-insensitive folder loading.
+const originalServer = server !== "runner" && original
+  ? await serveOriginalFolder(original, { lowercaseFiles: true }) : undefined;
 async function openGame(game) {
   if (!chrome) chrome = await openChrome(game.url, { bypassCsp: Boolean(originalServer), log: (line) => /exception|error/i.test(line) && log(`  page ${line}`) });
   else await chrome.command("Page.navigate", { url: game.url });

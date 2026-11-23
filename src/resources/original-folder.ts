@@ -35,7 +35,7 @@ export interface PickedOriginalFolder {
   /** The folder as the player knows it: its name, and the folder inside it the game was found in. */
   folder: string;
   release: OriginalRelease;
-  /** The files directly in the game's folder, by name. */
+  /** The files directly in the game's folder, keyed by their uppercase DOS names. */
   files: Map<string, PickedFile>;
 }
 
@@ -50,14 +50,14 @@ export async function inspectPickedFolder(name: string, picked: readonly PickedF
     if (parts.length > 2) continue;
     const inner = parts.length === 2 ? parts[0]! : "";
     if (!folders.has(inner)) folders.set(inner, new Map());
-    folders.get(inner)!.set(parts.at(-1)!, file);
+    folders.get(inner)!.set(parts.at(-1)!.toUpperCase(), file);
   }
   const inspect = async (inner: string): Promise<PickedOriginalFolder | { problem: string }> => {
     const folder = inner ? `${name}/${inner}` : name;
     const files = folders.get(inner)!;
     const missing = missingOriginalFiles(files.keys());
     if (missing.length) return { problem: `${folder} has no ${missing.join(", ")}` };
-    const overlay = [...files].find(([file]) => file.toUpperCase() === "GAME.OVR")![1];
+    const overlay = files.get("GAME.OVR")!;
     const release = originalRelease(folder, await overlay.read());
     return typeof release === "string" ? { folder, release, files } : release;
   };
