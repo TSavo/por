@@ -91,12 +91,34 @@ and `tools/browser-play.ts` for layout config). Do not put shaders in
 
 ## Before and after
 
-Capture today's look, then the same views after the work, using the
-existing Chrome replay path (`docs/REPLAYS.md`,
-`tools/release/capture-release.mjs`, `tools/acceptance/new-phlan.mjs`).
-Include New Phlan harbor, gate, and a civic street; one indoor or dungeon
-view; the overland travel plate; and one encounter-local sheet.
+The first-person comparisons show the earlier renderer on the left and
+Enhanced lighting on the right. The gate and barracks were captured from
+the live WebGL canvas with matching camera, wall grid, and guest time in
+pre-lighting `3c29ba82` and lit `c3f4496b`.
 
-The after shots should show the new look with the same walls, camera, and
-framing. Classic frames from the same replay stay unchanged.
-`npm run acceptance:new-phlan` still passes.
+| View | Chrome capture | Replay |
+| --- | --- | --- |
+| New Phlan harbor | [Dock comparison](screenshots/renderer-look/harbor-dock.png) | Original lighting review at `518647f4` |
+| New Phlan civic street | [Street comparison](screenshots/renderer-look/civic-street.png) | Original lighting review at `518647f4` |
+| New Phlan gate | [City side comparison](screenshots/renderer-look/new-phlan-gate.png) | Load `guide-party-slums-first-training/H.json`. Area 0, (0,4) west, 08:39. |
+| Valjevo Barracks | [Roofed interior comparison](screenshots/renderer-look/valjevo-barracks.png) | Load `valjevo-barracks-ground-paper/C.json`. Area 4, (8,1) north, 00:21. |
+| Moonsea travel | [Atlas capture](screenshots/renderer-look/moonsea-atlas.png) | Load `western-ankheg-eruption/A.json`. (8,23) west, 10:12. |
+| Buccaneer Base encounter | [Tiger encounter capture](screenshots/renderer-look/buccaneer-tigers.png) | From the atlas, three Rights, seven Downs, then Enter. (11,30) south, 10:12. |
+
+The gate's decoded Classic framebuffer is byte-identical in both
+builds. Both overland art panels match pixel for pixel, including the
+tiger overlay. The local encounter's 352×352 WebGL terrain PNG also
+matches byte for byte. The atlas uses the authored map image.
+
+For the overland captures, use the existing verifier with the GOG 1.3
+data outside the repository. It loads the above fixture, applies the
+same DOS clock, checks the local terrain and creature overlay, and
+captures the Combat transition.
+
+```sh
+POR_GAME_SOURCE=original POR_GAMEDATA=/path/to/POOLRAD \
+  node tools/verify-overland-encounter-sprite.mjs /usr/bin/google-chrome landmark-buccaneer-tigers /tmp/por-overland
+```
+
+`npm run acceptance:new-phlan` passed all eight New Phlan scenarios on
+Battleaxe with GOG 1.3.
