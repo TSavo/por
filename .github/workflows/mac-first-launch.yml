@@ -1,0 +1,58 @@
+name: Mac packaged first launch
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Internal packaging run with package-mac
+        required: true
+        type: string
+permissions:
+  contents: read
+  actions: read
+jobs:
+  first-window:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15-intel
+            arch: x64
+            native: x86_64
+          - runner: macos-15
+            arch: arm64
+            native: arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: package-mac
+          path: images
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+      - name: Open a fresh copy three times with Launch Services
+        env:
+          ARCH: ${{ matrix.arch }}
+          NATIVE: ${{ matrix.native }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(uname -m)" = "$NATIVE"
+          sw_vers
+          swiftc tools/release/first-window.swift -o "$RUNNER_TEMP/first-window"
+          shopt -s nullglob
+          images=(images/*-"$ARCH".dmg)
+          test "${#images[@]}" -eq 1
+          mount="$RUNNER_TEMP/mounted"
+          app="$RUNNER_TEMP/Pool of Radiance.app"
+          mkdir "$mount"
+          hdiutil attach -readonly -nobrowse -mountpoint "$mount" "${images[0]}"
+          ditto "$mount/Pool of Radiance.app" "$app"
+          hdiutil detach "$mount"
+          exe=$(/usr/libexec/PlistBuddy -c 'Print CFBundleExecutable' "$app/Contents/Info.plist")
+          lipo -verify_arch "$NATIVE" "$app/Contents/MacOS/$exe"
+          for path in "${images[0]}" "$app" "$app/Contents/MacOS/$exe"; do
+            echo "$(basename "$path") quarantine: $(xattr -p com.apple.quarantine "$path" 2>/dev/null || echo absent)"
+          done
+          "$RUNNER_TEMP/first-window" "$app" | tee -a "$GITHUB_STEP_SUMMARY"
