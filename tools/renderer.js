@@ -452,6 +452,7 @@ const sceneFragment = `
   uniform vec3 groundColor;
   uniform vec3 fogColor;
   uniform float indoor;
+  uniform float waterTile;
   uniform sampler2D aoMap;
   uniform vec4 aoRect;
   vec4 sampleArt(sampler2D map, float index, vec2 uv) {
@@ -583,7 +584,9 @@ const sceneFragment = `
     color += albedo * torchCol * torchN * torchAtt * torchAmt * ao;
     color += albedo * vec3(0.14, 0.14, 0.15) * indoor * ao;
 
-    float haze = 1.0 - exp(-max(0.0, depth) * 0.062);
+    float water = floorSurface * (1.0 - step(0.5, abs(tileIndex - waterTile)));
+    float fogDensity = 0.062 + 0.028 * water;
+    float haze = 1.0 - exp(-max(0.0, depth) * fogDensity);
     haze *= mix(1.0, 1.18, clamp(0.14 - world.y, 0.0, 1.0));
     haze = mix(haze, haze * 0.32, indoor);
     color = mix(color, fogColor, clamp(haze, 0.0, 0.62));
@@ -923,6 +926,7 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
       gl.uniform3f(gl.getUniformLocation(sceneProgram, "groundColor"), ...groundColor);
       gl.uniform3f(gl.getUniformLocation(sceneProgram, "fogColor"), ...fogColor);
       gl.uniform1f(gl.getUniformLocation(sceneProgram, "indoor"), indoor);
+      gl.uniform1f(gl.getUniformLocation(sceneProgram, "waterTile"), layout.water?.tile ?? -1);
       gl.drawArrays(gl.TRIANGLES, 0, vertexCount);
 
       function blur(srcTex, destFbo, extract) {
@@ -1000,7 +1004,7 @@ export async function createExplorationAtlas(materials, artUrl, highlight = fals
   wall.height = 256;
   const wallContext = wall.getContext("2d");
   if (!wallContext) throw new Error("Wall composition is unavailable");
-  const assets = [materials.ground, materials.sky];
+  const assets = [materials.ground];
   if (materials.water) assets.push(materials.water.art);
   if (materials.dockPiling) assets.push(materials.dockPiling.art);
   for (const {parts} of materials.wallFaces) {
@@ -1084,8 +1088,7 @@ export async function createExplorationAtlas(materials, artUrl, highlight = fals
   paint(materials.ground,0,512,256,256);
   if (materials.water) paint(highlight ? null : materials.water.art,256,512,256,256,materials.water.crop);
   if (materials.dockPiling) paint(highlight ? null : materials.dockPiling.art,512,512,256,256,materials.dockPiling.crop);
-  const skyUrl = materials.sky.pixels ? images.get(materials.sky.key).toDataURL() : artUrl(materials.sky);
-  return {atlas, skyUrl};
+  return atlas;
 }
 
 /** The world camera remains overhead, using the guest's current map and markers. */

@@ -1026,10 +1026,10 @@ async function loadStreetAtlas(materialId) {
       return response.json();
     }),
   ]);
-  const {atlas, skyUrl} = await module.createExplorationAtlas(materials, art => `/art/${art.key}`, false, state.textColors);
+  const atlas = await module.createExplorationAtlas(materials, art => `/art/${art.key}`, false, state.textColors);
   const layout = materials.layout ?? (materialId === "phlan" ? "phlan" : "local");
   const wallRows = Object.fromEntries(materials.wallFaces.map(({type, rows = 8}) => [type, rows]));
-  return {materialId, module, atlas, skyUrl, walls: materials.walls, layout, wallRows};
+  return {materialId, module, atlas, walls: materials.walls, layout, wallRows};
 }
 
 function makeViewportCanvas(className, width, height) {
@@ -1097,7 +1097,7 @@ function ensureStreetViewport(surface) {
     }) : streetAtlas.walls;
     if (!walls) return;
     const renderer = streetAtlas.module.createExplorationViewport(canvas, walls, streetAtlas.atlas, streetAtlas.layout, streetAtlas.wallRows);
-    streetViewport = {canvas, renderer, materialId, packed, skyUrl: streetAtlas.skyUrl};
+    streetViewport = {canvas, renderer, materialId, packed};
   }
   return streetViewport;
 }
@@ -1175,17 +1175,10 @@ function discreteExplorationPose(view = state) {
 }
 
 
-function setExplorationSky(viewport, roofed) {
-  if (!viewport?.canvas) return;
-  const sky = viewport.skyUrl && !roofed ? `url("${viewport.skyUrl}")` : "none";
-  viewport.canvas.style.setProperty("--sky-texture", sky);
-}
-
 function paintMovePose(pose) {
   if (!pose) return;
   if (moveViewport && moveScene) {
     const roofed = Boolean(pose.roofed ?? moveScene.roofed);
-    setExplorationSky(moveViewport, roofed);
     moveViewport.renderer.draw({ ...moveScene, x: pose.x, y: pose.y, facing: pose.facing, roofed });
   }
   const marker = automapSvg.querySelector("path.party");
@@ -1250,10 +1243,7 @@ function bindMoveView(viewport, scene) {
   moveScene = scene;
   const pose = movePose();
   if (pose) paintMovePose(pose);
-  else {
-    setExplorationSky(viewport, scene.roofed);
-    viewport.renderer.draw(scene);
-  }
+  else viewport.renderer.draw(scene);
 }
 
 function discoveredCells(position, maps) {

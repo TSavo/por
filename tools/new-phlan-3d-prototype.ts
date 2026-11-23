@@ -99,12 +99,11 @@ try {
   let drawId = 0;
   async function draw(highlight) {
     const id = ++drawId;
-    const {atlas,skyUrl} = await createExplorationAtlas(materials,art=>textures.get(art.file),highlight);
+    const atlas = await createExplorationAtlas(materials,art=>textures.get(art.file),highlight);
     if (id !== drawId) return;
     for (const viewport of viewports) viewport.dispose();
     viewports = ${JSON.stringify(views)}.map((view,i)=>{
       const canvas = document.getElementById("view"+i);
-      canvas.style.backgroundImage = "url("+skyUrl+")";
       const viewport = createExplorationViewport(canvas, materials.walls, atlas);
       viewport.draw(view);
       return viewport;

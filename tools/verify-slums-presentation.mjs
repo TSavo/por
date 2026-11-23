@@ -16652,9 +16652,11 @@ try {
       await waitForExplorationViewport();
       assert.ok(await run(`(() => {
         const canvas = document.querySelector(".street-viewport");
-        const texture = new URL(streetAtlas.skyUrl, location.href).href;
-        return getComputedStyle(canvas).backgroundImage === \`url("\${texture}")\`;
-      })()`), "The temple backdrop should use the active scenery texture");
+        const gl = canvas.getContext("webgl");
+        const pixel = new Uint8Array(4);
+        gl.readPixels(canvas.width >> 1, canvas.height - 1, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
+        return getComputedStyle(canvas).backgroundImage === "none" && pixel[3] === 255;
+      })()`), "The temple viewport should be opaque WebGL without a CSS sky image");
       const entranceShot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "bane-temple-after-admission.png"), Buffer.from(entranceShot.data, "base64"));
     } else {
