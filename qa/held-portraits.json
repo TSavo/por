@@ -9856,7 +9856,7 @@
           "paints": [
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
-              "atMs": -1.192074705613777e-08
+              "atMs": -1.192074705613777e-8
             },
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
@@ -25477,111 +25477,111 @@
         "original": {
           "route": "lizardman-keep-roofless-defenders-hold",
           "data": "original",
-          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "rendererSha256": "d17e26059837ba47f3a9e81a09c7aa8560c1d2aab263f9eea4a863fdedc6e26a",
           "bindingSha256": "c747e939858f58e9c54a1ae1c2c078506c73c6a25c57ba9dca1d326e5ca85120",
           "portrait": "scene-illustration:area:16:ecl:a65a",
           "paints": [
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:1:0",
-              "atMs": 14.30000004768408
+              "atMs": 0.5000000119207471
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:2:0",
-              "atMs": 180.90000004768353
+              "atMs": 200.50000001192075
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:3:0",
-              "atMs": 397.60000004768335
+              "atMs": 400.4000000119213
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:0:0",
-              "atMs": 597.6000000476834
+              "atMs": 617.1000000119211
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:1:0",
-              "atMs": 814.3000000476841
+              "atMs": 817.1000000119211
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:2:0",
-              "atMs": 1014.2000000476837
+              "atMs": 1033.7000000119206
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:3:0",
-              "atMs": 1230.9000000476835
+              "atMs": 1250.4000000119213
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:0:0",
-              "atMs": 1447.6000000476834
+              "atMs": 1450.4000000119213
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:1:0",
-              "atMs": 1647.6000000476834
+              "atMs": 1667.1000000119202
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:2:0",
-              "atMs": 1864.2000000476837
+              "atMs": 1867.0000000119217
             }
           ],
           "sha256": {
             "portrait:area:16:ecl:a65a:PIC8.DAX:57:1:0": "5df18d81621345131c631e9e7356ffe224244a1063b2669a976ad84df15f25ec",
             "portrait:area:16:ecl:a65a:PIC8.DAX:57:2:0": "8148ab70f89fc1a6e51631ecf38d6e5d3ba0bfa3d23d69bec80558caa3ee57a9",
             "portrait:area:16:ecl:a65a:PIC8.DAX:57:3:0": "0877b6593b69da3ae9c970ec70f14e93a6dc33f979c4c051fbcd951c0e477d78",
-            "portrait:area:16:ecl:a65a:PIC8.DAX:57:0:0": "f35916cb70b25c9bb3b19221f76d67532f3771232fbc70be0aff1ef9e46e0d9d"
+            "portrait:area:16:ecl:a65a:PIC8.DAX:57:0:0": "e31c0408f7dd09f4b26790e149159fcf618ab16ea287b3bed72d78e02803e57c"
           }
         },
         "port": {
           "route": "lizardman-keep-roofless-defenders-hold",
           "data": "port",
-          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "rendererSha256": "d17e26059837ba47f3a9e81a09c7aa8560c1d2aab263f9eea4a863fdedc6e26a",
           "bindingSha256": "c747e939858f58e9c54a1ae1c2c078506c73c6a25c57ba9dca1d326e5ca85120",
           "portrait": "scene-illustration:area:16:ecl:a65a",
           "paints": [
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:1:0",
-              "atMs": 7.69999995231592
+              "atMs": 1.8999999999996362
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:2:0",
-              "atMs": 124.29999995231628
+              "atMs": 185.19999999999982
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:3:0",
-              "atMs": 340.89999995231665
+              "atMs": 401.8000000000002
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:0:0",
-              "atMs": 557.5999999523165
+              "atMs": 618.5
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:1:0",
-              "atMs": 757.5999999523165
+              "atMs": 818.5
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:2:0",
-              "atMs": 974.2999999523163
+              "atMs": 1035.2000000000007
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:3:0",
-              "atMs": 1174.2999999523163
+              "atMs": 1235.1000000000004
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:0:0",
-              "atMs": 1390.8999999523166
+              "atMs": 1451.7999999999993
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:1:0",
-              "atMs": 1607.5999999523165
+              "atMs": 1668.3999999999996
             },
             {
               "key": "portrait:area:16:ecl:a65a:PIC8.DAX:57:2:0",
-              "atMs": 1807.5999999523165
+              "atMs": 1868.3999999999996
             }
           ],
           "sha256": {
             "portrait:area:16:ecl:a65a:PIC8.DAX:57:1:0": "5df18d81621345131c631e9e7356ffe224244a1063b2669a976ad84df15f25ec",
             "portrait:area:16:ecl:a65a:PIC8.DAX:57:2:0": "8148ab70f89fc1a6e51631ecf38d6e5d3ba0bfa3d23d69bec80558caa3ee57a9",
             "portrait:area:16:ecl:a65a:PIC8.DAX:57:3:0": "0877b6593b69da3ae9c970ec70f14e93a6dc33f979c4c051fbcd951c0e477d78",
-            "portrait:area:16:ecl:a65a:PIC8.DAX:57:0:0": "f35916cb70b25c9bb3b19221f76d67532f3771232fbc70be0aff1ef9e46e0d9d"
+            "portrait:area:16:ecl:a65a:PIC8.DAX:57:0:0": "e31c0408f7dd09f4b26790e149159fcf618ab16ea287b3bed72d78e02803e57c"
           }
         }
       }
@@ -36970,7 +36970,7 @@
           "paints": [
             {
               "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:0:0",
-              "atMs": -2.384149411227554e-08
+              "atMs": -2.384149411227554e-8
             },
             {
               "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:1:0",
@@ -39613,7 +39613,7 @@
           "data": "original",
           "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4813,10W00:34'IHAVENOTIMEFORTHELIKESOFYOU,'THEMANSAYSAIRILY.'BEGONE!'(WHATDOYOUDO?)StayLeaveAttack",
           "checkpointSha256": "c9edc1268890838e2a1e46d0306be795acce91e6ecb2202459267949930a31d9",
-          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "rendererSha256": "d17e26059837ba47f3a9e81a09c7aa8560c1d2aab263f9eea4a863fdedc6e26a",
           "position": [
             20,
             13,
@@ -39635,7 +39635,7 @@
           "data": "port",
           "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4813,10W00:34'IHAVENOTIMEFORTHELIKESOFYOU,'THEMANSAYSAIRILY.'BEGONE!'(WHATDOYOUDO?)StayLeaveAttack",
           "checkpointSha256": "c9edc1268890838e2a1e46d0306be795acce91e6ecb2202459267949930a31d9",
-          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "rendererSha256": "d17e26059837ba47f3a9e81a09c7aa8560c1d2aab263f9eea4a863fdedc6e26a",
           "position": [
             20,
             13,
@@ -39670,7 +39670,7 @@
           "data": "original",
           "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4813,10W00:34'IMAYHAVEAUSEFORYOU,'THEMANSAYS.'SOMETIMEAGO,IORDEREDASPECIALPOTION.THEPOTIONISREADYBUTICAN'TLEAVETOFETCHIT.BRINGITHERE,IPAYWELL.'(WHATDOYOUDO?)AcceptthecommissionRejectit",
           "checkpointSha256": "c9edc1268890838e2a1e46d0306be795acce91e6ecb2202459267949930a31d9",
-          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "rendererSha256": "d17e26059837ba47f3a9e81a09c7aa8560c1d2aab263f9eea4a863fdedc6e26a",
           "position": [
             20,
             13,
@@ -39692,7 +39692,7 @@
           "data": "port",
           "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4813,10W00:34'IMAYHAVEAUSEFORYOU,'THEMANSAYS.'SOMETIMEAGO,IORDEREDASPECIALPOTION.THEPOTIONISREADYBUTICAN'TLEAVETOFETCHIT.BRINGITHERE,IPAYWELL.'(WHATDOYOUDO?)AcceptthecommissionRejectit",
           "checkpointSha256": "c9edc1268890838e2a1e46d0306be795acce91e6ecb2202459267949930a31d9",
-          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "rendererSha256": "d17e26059837ba47f3a9e81a09c7aa8560c1d2aab263f9eea4a863fdedc6e26a",
           "position": [
             20,
             13,
@@ -39727,7 +39727,7 @@
           "data": "original",
           "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN48W01:50'YOUHAVEDONEWELL.GIVEMETHEPOTIONANDYOUWILLBEREWARDED.'(WHATDOYOUDO?)GiveAskformoremoneyRefusetogive",
           "checkpointSha256": "86e64ecbf5be2dbce747d101150e50225ade7d835e19c233e9000f17edd25998",
-          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "rendererSha256": "d17e26059837ba47f3a9e81a09c7aa8560c1d2aab263f9eea4a863fdedc6e26a",
           "position": [
             20,
             13,
@@ -39749,7 +39749,7 @@
           "data": "port",
           "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN48W01:50'YOUHAVEDONEWELL.GIVEMETHEPOTIONANDYOUWILLBEREWARDED.'(WHATDOYOUDO?)GiveAskformoremoneyRefusetogive",
           "checkpointSha256": "86e64ecbf5be2dbce747d101150e50225ade7d835e19c233e9000f17edd25998",
-          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "rendererSha256": "d17e26059837ba47f3a9e81a09c7aa8560c1d2aab263f9eea4a863fdedc6e26a",
           "position": [
             20,
             13,

@@ -778,6 +778,19 @@ function checkCampaignJournal(): void {
     name === "GET TABLE" && operands[0]?.word === 0x4aa6 && operands[1]?.word === 0x6e79));
   const rewardDispatch = council?.find(({ address, name }) => address === 0x9d63 && name === "ON GOSUB");
   if (!council || !rewardDispatch) throw new Error("Original council reward dispatch missing");
+
+  // The clerk prints the clearance reward as a literal followed by a variable set by the reward branch.
+  const rewardStart = council.findIndex(({ name, operands }) =>
+    name === "PRINTCLEAR" && operands[0]?.text?.includes("THERE IS A REWARD FOR CLEARING THE "));
+  const rewardPrefix = council[rewardStart]?.operands[0]?.text;
+  const rewardContinuation = council[rewardStart + 1];
+  const place = rewardContinuation?.name === "PRINT" && rewardContinuation.operands[0]?.code === 0x81
+    ? rewardContinuation.operands[0].word : null;
+  const libraryBranch = place === null ? -1 : council.findIndex(({ name, operands }) =>
+    name === "SAVE" && operands[0]?.text === "LIBRARY.'" && operands[1]?.code === 0x81 && operands[1].word === place);
+  if (rewardPrefix && libraryBranch >= 0) lines.push(rewardPrefix + council[libraryBranch]!.operands[0]!.text);
+  const libraryPaid = council[libraryBranch + 1];
+  const libraryReport = council[libraryBranch + 2];
   const m = fresh();
   m.write16(m.ds, data.eclGlobals, 0x20);
   m.write16(m.ds, data.eclGlobals + 2, 0x5000);
@@ -829,8 +842,13 @@ function checkCampaignJournal(): void {
     if (address !== undefined) {
       const entry = rewardDispatch.operands[2 + address - 0x4aa6]?.word;
       const handler = council.findIndex(({ address: ip }) => ip === entry);
-      if (handler < 0 || !commission.report || !council.slice(handler, handler + 5).some(({ operands }) =>
-        operands.some(({ text }) => text?.includes(commission.report!)))) {
+      // The Library has a separate branch outside the regular reward dispatch table.
+      const libraryHandler = commission.id === "records" && libraryBranch >= 0 &&
+        libraryPaid?.name === "SAVE" && libraryPaid.operands[0]?.low === 255 && libraryPaid.operands[1]?.word === address &&
+        libraryReport?.name === "GOTO" && libraryReport.operands[0]?.word === council[rewardStart]?.address;
+      const tableHandler = handler >= 0 && commission.report && council.slice(handler, handler + 5).some(({ operands }) =>
+        operands.some(({ text }) => text?.includes(commission.report!)));
+      if (!libraryHandler && !tableHandler) {
         throw new Error(`Original council dispatch does not pair ${id} with its reward flag`);
       }
       writeGlobal(address, 254);

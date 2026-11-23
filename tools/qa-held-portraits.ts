@@ -244,6 +244,8 @@ const rendererBeforePittMenus = "c3582f5d74fae550739186491060b39f7fcbd25c399b99d
 // Exact reviewed revisions that preserve the held portrait paint and timing code.
 // This covers narration logging, the wilderness atlas, settings, and Classic palette-only clips.
 const previousRendererProof = new Map<string, string>([
+  // Replacing a WebGL viewport detaches the movement renderer before disposal. Portrait selection and paint are unchanged.
+  ["d17e26059837ba47f3a9e81a09c7aa8560c1d2aab263f9eea4a863fdedc6e26a", journalInputRenderer],
   // Journal commands can post during image decoding without changing the picture.
   [journalInputRenderer, "5e7b4d90171ca9d95210cc63615f4d2289b4c5b800c96ac1bd97bd3b443c6da0"],
   // Playback logs retain the native caption selector without changing the painted views.

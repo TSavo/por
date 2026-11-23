@@ -166,6 +166,12 @@
    "frames": [],
    "fixtureSha256": "d1d53cb1de05e616850117aa700abeb23697d16d67fe7d1078a0dabd1950ec00"
   },
+  "walk-braccio-bane-ferry": {
+   "observer": 2,
+   "presented": 72,
+   "frames": [],
+   "fixtureSha256": "207a18ec0211a3824b0bf273fa898af5a3ced5a022d47184ceb23424d42b7a87"
+  },
   "walk-buccaneer-bivant-purchase": {
    "observer": 2,
    "presented": 188,
@@ -207,6 +213,48 @@
    "presented": 136,
    "frames": [],
    "fixtureSha256": "08e3075d51b254f63d92b69eb14020968532dad4ebaafda471a7f385161b6b8a"
+  },
+  "walk-guide-party-sokal-approach": {
+   "observer": 2,
+   "presented": 104,
+   "frames": [],
+   "fixtureSha256": "d8dbed4470a7dddcd3886b68207f9d321d8079bde09ae37198b35007101f37c3"
+  },
+  "walk-guide-party-sokal-courtyard": {
+   "observer": 2,
+   "presented": 1509,
+   "frames": [],
+   "fixtureSha256": "4e0d739b5bef919b9db5d915daeab63f79c587a92090c2cdce8f418b4e811528"
+  },
+  "walk-guide-party-sokal-healing": {
+   "observer": 2,
+   "presented": 70,
+   "frames": [],
+   "fixtureSha256": "057bc364f777777afb922ef2c00b5bab71c9929a8c7161ee1c2a8c827cf6b70d"
+  },
+  "walk-guide-party-sokal-rest": {
+   "observer": 2,
+   "presented": 202,
+   "frames": [],
+   "fixtureSha256": "51aad7288b30c4ed60624105f127ebd6c1f426df391ff57d1551eb0ffef5f603"
+  },
+  "walk-guide-party-sokal-reward": {
+   "observer": 2,
+   "presented": 135,
+   "frames": [],
+   "fixtureSha256": "b55ab42a1c5350dbb29f3cacbf24ed205c55bb7ff143d8b19900a9660fa4cab6"
+  },
+  "walk-guide-party-sokal-training": {
+   "observer": 2,
+   "presented": 284,
+   "frames": [],
+   "fixtureSha256": "54871e41c76353f8fb4bc968d8399559718175a06ba75b6aaca189b1094bafc3"
+  },
+  "walk-guide-party-textile-briefing": {
+   "observer": 2,
+   "presented": 44,
+   "frames": [],
+   "fixtureSha256": "be7610752410cac8a013bb36b20433b6c362a097f534d7f494ad48556f88c5aa"
   },
   "walk-kobold-king": {
    "observer": 2,
