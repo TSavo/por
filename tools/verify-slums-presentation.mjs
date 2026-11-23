@@ -1608,23 +1608,13 @@ const illustrationRoutes = new Map([
       `portrait:area:18:ecl:b240:caller:a8af:PIC1.DAX:16:${member}:0`),
   }],
   ["podal-auction-wand-exchange", {
-    slot: "I", inputs: ["up", ...Array(5).fill("enter"), "end", "enter", "enter", ...Array(11).fill("z")],
-    portraitStops: {
-      9: "portrait:area:18:ecl:b240:caller:a839:PIC1.DAX:16:0:0",
-      13: "portrait:area:18:ecl:b240:caller:a839:PIC1.DAX:16:1:0",
-      14: "portrait:area:18:ecl:b240:caller:a839:PIC1.DAX:16:2:0",
-      16: "portrait:area:18:ecl:b240:caller:a839:PIC1.DAX:16:3:0",
-      17: "portrait:area:18:ecl:b240:caller:a839:PIC1.DAX:16:4:0",
-    },
-    phaseCaptures: {
-      13: "podal-auction-wand-exchange-phase-1.png",
-      14: "podal-auction-wand-exchange-phase-2.png",
-      16: "podal-auction-wand-exchange-phase-3.png",
-      17: "podal-auction-wand-exchange-phase-4.png",
-    },
-    finalPhaseCapture: "podal-auction-wand-exchange-phase-5.png",
-    portrait: "portrait:area:18:ecl:b240:caller:a839:PIC1.DAX:16:5:0",
+    slot: "I", inputs: ["up", ...Array(5).fill("enter"), "end", "enter", "enter"],
+    portrait: "portrait:area:18:ecl:b240:caller:a839:PIC1.DAX:16:0:0",
     prompt: /AMANANDOGREEXCHANGETHEWANDANDALARGEBAG/i,
+    heldPortraitLoop: Array.from({ length: 6 }, (_, member) =>
+      `portrait:area:18:ecl:b240:caller:a839:PIC1.DAX:16:${member}:0`),
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:18:ecl:9e23",
+      prompt: /THEAUCTIONOVER,THEMONSTERSGRUMBLEANDTURNAWAY/i },
   }],
   ["podal-auction-garwin-escaped", {
     slot: "I", inputs: ["up", ...Array(9).fill("enter"), "end", "end", "enter"],

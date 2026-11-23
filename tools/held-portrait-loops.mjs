@@ -100,6 +100,8 @@ const portraitLoops = [
   ["portrait:area:18:ecl:a5c0:PIC1.DAX:16:", 6, undefined,
     /GARWINILLGETYOU.*THEMANHASESCAPEDINTHECONFUSION/i, auctionPoseTimes,
     [["scene-illustration:area:18:ecl:b240:caller:a839", 0]]],
+  ["portrait:area:18:ecl:b240:caller:a839:PIC1.DAX:16:", 6, undefined,
+    /AMANANDOGREEXCHANGETHEWANDANDALARGEBAG/i, auctionPoseTimes],
   ["portrait:area:18:ecl:b240:caller:a79b:PIC1.DAX:16:", 6, undefined,
     /WANDOFILLUMINATION.*ISEEINTHEDARKANYWAY/i, auctionPoseTimes],
   ["portrait:area:18:ecl:b240:caller:a8af:PIC1.DAX:16:", 6, undefined,
