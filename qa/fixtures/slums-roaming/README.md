@@ -30,6 +30,10 @@ The outcomes are `demand`, `surrender`, `leave`, `advice`, `stop`, and
 `rebuke`. In the advice and stop replays, Brother Sean leads the party
 before Parlay. The other replays use the checkpoint's starting order.
 
+On Linux, set `POR_PRESENTATION_OUTPUT_DIR` to a short writable path such
+as `/tmp/por-slums` if headless Chrome exits before its debug port opens. The
+verifier creates its Chrome profile inside that directory.
+
 The `slums-roaming-goblin-party-surprised-loop` and
 `slums-roaming-orc-party-surprised-loop` routes check the portrait when
 the party surprises the monsters and its last pose at the battle notice.
