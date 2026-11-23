@@ -745,6 +745,14 @@ const mendorFighterHeldPoses = (cursor, caller) => [0, 1, 2, 3, 4].map(
   member => "portrait:area:15:ecl:" + cursor + ":caller:" + caller + ":PIC2.DAX:25:" + member + ":0",
 );
 
+const pyramidExteriorPoses = ["portrait:PIC7.DAX:36:0:0",
+  "portrait:area:26:ecl:a00a:PIC7.DAX:36:1:0", "portrait:area:26:ecl:a00a:PIC7.DAX:36:2:0"];
+const pyramidExterior = {
+  slot: "A", inputs: ["down", "y"],
+  portrait: pyramidExteriorPoses[0], heldPortraitLoop: pyramidExteriorPoses,
+  prompt: /MAGNIFICENTPYRAMID.*SECRETDOOR.*ENTERGOBACK/i,
+  finalPhaseCapture: "pyramid-exterior-water-loop.png",
+};
 const mountedEscort = {
   slot: "A",
   portrait: "portrait:PIC6.DAX:39:0:0",
@@ -3226,6 +3234,14 @@ const illustrationRoutes = new Map([
     prompt: /LYINGONTHEGROUNDHEREARETHEDISSOLVINGREMAINSOFADWARF/i,
     finalPhaseCapture: "wild-cave-dwarf-remains.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
+  ["pyramid-exterior-loop", {
+    ...pyramidExterior,
+    continuation: { inputs: ["e", "enter"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
+  ["pyramid-exterior-go-back", {
+    ...pyramidExterior,
+    continuation: { inputs: ["g"], clearsPortrait: true, prompt: /19,14S.*CASTVIEWENCAMPSEARCHLOOK/i },
   }],
   ["wild-cave-churned-earth", {
     slot: "A", inputs: ["up"],
@@ -8108,7 +8124,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
         routeName === "valhingen-skeleton-roaming-ambush-loop" || routeName === "valhingen-wight-ambush-loop" ? "4320042" : undefined),
     ...(textileScorpionLoop ? { POR_PROMPT_SCHEDULE_IN: resolve(textileScorpionWalk, "prompts.jsonl") } : {}),
     POR_INPUT_COMPAT: textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
-      routeName === "pyramid-vats-mutants-loop" ||
+      routeName === "pyramid-vats-mutants-loop" || routeName.startsWith("pyramid-exterior-") ||
       routeName === "valhingen-grave-claws" || routeName === "valhingen-vampire-reveal-phases" ||
       routeName === "sokal-barracks-ghost-phases" ||
       sokalBarracksHeld ||
@@ -15538,27 +15554,8 @@ try {
     assert.ok(knows(boat) && !knows(door));
     assert.match(frame.journal.objective.nextStep, /Take the rowboat/);
     for (const key of ["j", "y", "enter"]) await advance(key);
-    const exteriorPhase = id => /^portrait:area:26:ecl:a00a:PIC7\.DAX:36:([12]):0$/.exec(id ?? "")?.[1];
-    assert.ok(frame.portrait === "portrait:PIC7.DAX:36:0:0" || exteriorPhase(frame.portrait),
-      `Expected a pyramid exterior portrait, got ${frame.portrait}`);
-    await waitFor("the pyramid exterior illustration", () => run(`(() => {
-      const image = document.querySelector(".encounter-portrait");
-      return image?.naturalWidth === 352 && image?.naturalHeight === 352;
-    })()`));
-    const exteriorPhases = new Set();
-    for (let i = 0; i <= 9 && exteriorPhases.size < 2; i++) {
-      if (i > 0) await advance("q");
-      const id = frame.portrait;
-      const phase = exteriorPhase(id);
-      if (!phase || exteriorPhases.has(phase)) continue;
-      await waitFor(`pyramid exterior phase ${phase}`, () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector('.encounter-portrait[src="/art/${id}"]')?.naturalWidth === 352`));
-      await verifyPortraitPanel();
-      const shot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, `pyramid-exterior-phase-${phase}.png`), Buffer.from(shot.data, "base64"));
-      exteriorPhases.add(phase);
-    }
-    assert.deepEqual([...exteriorPhases].sort(), ["1", "2"]);
+    await verifyHeldPortraitLoop(pyramidExteriorPoses, "pyramid-exterior");
+    await verifyPortraitPanel();
     await switchBothWays();
     await advance("j");
     assert.ok(knows(door) && !knows("river-fountain"));
