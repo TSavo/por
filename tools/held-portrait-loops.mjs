@@ -412,6 +412,8 @@ const portraitLoops = [
     /^(?=.*THEYRECOILINFEAR)(?=.*COMBATWAITFLEEPARLAY)/i, [210, 210, 210, 210]],
   ["portrait:area:24:ecl:ae0e:PIC1.DAX:4:", [0, 1, 2, 1], undefined,
     /^(?!.*ABATTLEBEGINS).*THEMONSTERSSTANDREADY/i, [1510, 20, 710, 20]],
+  ["portrait:area:24:ecl:af84:PIC1.DAX:4:", [0, 1, 2, 1], undefined,
+    /^(?!.*ABATTLEBEGINS).*YOUHAVESURPRISEDTHEM/i, [1510, 20, 710, 20]],
   ["portrait:area:24:ecl:af84:PIC1.DAX:8:", [0, 1, 2, 1], undefined,
     /^(?!.*ABATTLEBEGINS).*YOUHAVESURPRISEDTHEM/i, [310, 20, 1310, 210]],
   ["portrait:area:24:ecl:ae0e:PIC1.DAX:2:", 2, undefined,

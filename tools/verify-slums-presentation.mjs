@@ -1361,6 +1361,7 @@ const illustrationRoutes = new Map([
   ...[
     ["orc", "4320407", 19, "ae0e", 4, /THEMONSTERSSTANDREADY/i],
     ["ogre", "4320148", 7, "af84", 8, /YOUHAVESURPRISEDTHEM/i],
+    ["startled-orc", "4320085", 11, "af84", 4, /YOUHAVESURPRISEDTHEM/i],
   ].map(([name, fixedClockStart, moves, cursor, block, prompt]) => {
     const key = member => `portrait:area:24:ecl:${cursor}:PIC1.DAX:${block}:${member}:0`;
     return [`bane-rampart-${name}-patrol`, {
