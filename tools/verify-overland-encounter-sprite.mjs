@@ -51,6 +51,16 @@ const scenes = {
     terrain: { center: [20, 11], slots: [26, 27, 21, 3, 17, 17, 18, 0, 22, 20, 215, 147, 1, 0, 1, 120, 121, 148, 1, 0, 123, 120, 121, 148, 1] },
     inputs: [...Array(7).fill("left"), "down", "down", "down", "enter", "c"],
   },
+  "foothill-meadow-merchants": {
+    cursor: "a230", block: 12, height: 65, clock: "4321424", caption: /YOUSURPRISEAGROUPOFMERCHANTS/i,
+    terrain: { center: [24, 5], slots: [17, 6, 15, 0, 1, 3, 17, 6, 15, 0, 32, 3, 17, 16, 1, 30, 6, 3, 16, 0, 3, 17, 21, 18, 1] },
+    inputs: ["left", "left", "left", "up", "up", "up", "c"],
+  },
+  "foothill-snow-stirges": {
+    cursor: "a230", block: 61, height: 57, clock: "4321092", caption: /YOUSURPRISEAGROUPOFSTIRGES/i,
+    terrain: { center: [21, 6], slots: [11, 10, 32, 3, 17, 35, 33, 35, 32, 3, 33, 11, 10, 30, 6, 35, 33, 30, 3, 17, 33, 30, 17, 6, 16] },
+    inputs: [...Array(6).fill("left"), "up", "up", "enter", "c"],
+  },
 };
 const [chromePath, encounter, outputRoot = "out"] = process.argv.slice(2);
 assert.ok(chromePath && Object.hasOwn(scenes, encounter),
