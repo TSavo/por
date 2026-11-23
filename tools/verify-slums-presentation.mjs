@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import { once } from "node:events";
 import { appendFileSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { dirname, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
@@ -9619,7 +9620,6 @@ const environmentTrace = (environment || dragon || halls || kovelMap || koboldEs
 const frameDirectory = resolve(directory, "tile-frames");
 let battleFrame = 0;
 if (battleTrace) mkdirSync(frameDirectory);
-const profile = resolve(directory, "chrome");
 if (!freshRolf) copyFileSync(checkpoint, saved);
 const originalSave = freshRolf ? undefined : readFileSync(saved);
 const port = process.env.POR_PLAY_PORT ?? "43212";
@@ -9744,6 +9744,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
   stdio: ["ignore", "ignore", "inherit"],
 });
 let chrome;
+let profile;
 const heldPortraitEvidenceFile = process.env.POR_HELD_PORTRAIT_CHROME_TRACE;
 const heldPortraitEvidence = [];
 class GuestStopped extends Error {}
@@ -9784,8 +9785,11 @@ try {
   }, 120_000);
   // With --disable-gpu, headless Chrome (157 measured) has no WebGL unless software WebGL is allowed,
   // and the page then draws the first-person view from tiles: no .street-viewport (issue #123).
+  // Chromium binds a Unix-domain socket below TMPDIR. Use a short local path
+  // for Chrome even when the requested screenshot directory is deeply nested.
+  profile = mkdtempSync(resolve(process.platform === "win32" ? tmpdir() : "/tmp", "por-chrome-"));
   const chromeTemp = resolve(profile, "tmp");
-  mkdirSync(chromeTemp, { recursive: true });
+  mkdirSync(chromeTemp);
   chrome = spawn(chromePath, [
     "--headless", "--no-first-run", "--mute-audio", "--disable-gpu", "--enable-unsafe-swiftshader", "--remote-debugging-port=0",
     "--disable-component-update",
@@ -19497,7 +19501,9 @@ try {
   } finally {
     socket?.close();
     // Replay screenshots, traces and saves are outside this disposable Chrome profile.
-    if (process.env.POR_KEEP_CHROME_PROFILE !== "1") {
+    if (profile && process.env.POR_KEEP_CHROME_PROFILE === "1") {
+      console.log("Replay Chrome profile:", profile);
+    } else if (profile) {
       await rm(profile, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 })
         .catch(error => console.error(`Could not remove the replay Chrome profile at ${profile}: ${error.message}`));
     }
