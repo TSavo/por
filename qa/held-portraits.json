@@ -28547,6 +28547,422 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL7.DAX:22:a264",
+      "prompt": "a2c3",
+      "variants": [
+        {
+          "caption": "THEY SMILE AT YOU.",
+          "checkpoint": "tyrmor-prison-roamers/north/B.json",
+          "portrait": "portrait:area:22:ecl:a2c3:HEAD7.DAX:57:BODY7.DAX:6",
+          "native": {
+            "drawCursor": "a2c3",
+            "heldCaption": "Name AC HP ALDA 5 45 BRIN 3 45 CORA 5 45 DORN 5 45 ENNA 4 45 MIRA 10 45 S 01:36 search THEY SMILE AT YOU. Combat Wait Flee Parlay",
+            "idlePolls": 120,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "c002b2669cf95983b04c9fa2be6ffaa59744e8657e526dc1b12010a960dbc24a"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "c002b2669cf95983b04c9fa2be6ffaa59744e8657e526dc1b12010a960dbc24a"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "c002b2669cf95983b04c9fa2be6ffaa59744e8657e526dc1b12010a960dbc24a"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "c002b2669cf95983b04c9fa2be6ffaa59744e8657e526dc1b12010a960dbc24a"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "c002b2669cf95983b04c9fa2be6ffaa59744e8657e526dc1b12010a960dbc24a"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "c002b2669cf95983b04c9fa2be6ffaa59744e8657e526dc1b12010a960dbc24a"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "c002b2669cf95983b04c9fa2be6ffaa59744e8657e526dc1b12010a960dbc24a"
+              }
+            ],
+            "battlePanelSha256": "c002b2669cf95983b04c9fa2be6ffaa59744e8657e526dc1b12010a960dbc24a",
+            "composed": {
+              "source": "HEAD7.DAX:57:BODY7.DAX:6",
+              "headWrite": "a437",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a32f"
+            }
+          },
+          "chrome": {
+            "original": {
+              "route": "tyrmor-prison-north-static",
+              "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA1045S01:36searchTHEYSMILEATYOU.CombatWaitFleeParlay",
+              "portrait": "portrait:area:22:ecl:a2c3:HEAD7.DAX:57:BODY7.DAX:6",
+              "checkpointSha256": "38386c2d91b027183ea5d84b9cda0309ed9b259f9e465deced8d0d4a81107b17",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "artSha256": "176e47fefa4336d28dd2c46b55fa8a0996e56f3c7597fe76def521e74ed0afe4",
+              "durationMs": 3060.9999999761567,
+              "samples": 184,
+              "poses": [
+                "portrait:area:22:ecl:a2c3:HEAD7.DAX:57:BODY7.DAX:6"
+              ],
+              "replaced": false,
+              "data": "original",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "port": {
+              "route": "tyrmor-prison-north-static",
+              "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA1045S01:36searchTHEYSMILEATYOU.CombatWaitFleeParlay",
+              "portrait": "portrait:area:22:ecl:a2c3:HEAD7.DAX:57:BODY7.DAX:6",
+              "checkpointSha256": "38386c2d91b027183ea5d84b9cda0309ed9b259f9e465deced8d0d4a81107b17",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "artSha256": "176e47fefa4336d28dd2c46b55fa8a0996e56f3c7597fe76def521e74ed0afe4",
+              "durationMs": 3065.39999998808,
+              "samples": 184,
+              "poses": [
+                "portrait:area:22:ecl:a2c3:HEAD7.DAX:57:BODY7.DAX:6"
+              ],
+              "replaced": false,
+              "data": "port",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            }
+          }
+        },
+        {
+          "caption": "THEY SMILE AT YOU.",
+          "checkpoint": "tyrmor-prison-roamers/south/B.json",
+          "portrait": "portrait:area:22:ecl:a2c3:HEAD7.DAX:54:BODY7.DAX:6",
+          "native": {
+            "drawCursor": "a2c3",
+            "heldCaption": "Name AC HP ALDA 5 45 BRIN 3 45 CORA 5 45 DORN 5 45 ENNA 4 45 MIRA 10 45 S 02:36 search THEY SMILE AT YOU. Combat Wait Flee Parlay",
+            "idlePolls": 120,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "fe592c83826f70ada305a7b9f68d64f3bbfefd5acbcf71a22499e0b9fb5d168a"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "fe592c83826f70ada305a7b9f68d64f3bbfefd5acbcf71a22499e0b9fb5d168a"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "fe592c83826f70ada305a7b9f68d64f3bbfefd5acbcf71a22499e0b9fb5d168a"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "fe592c83826f70ada305a7b9f68d64f3bbfefd5acbcf71a22499e0b9fb5d168a"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "fe592c83826f70ada305a7b9f68d64f3bbfefd5acbcf71a22499e0b9fb5d168a"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "fe592c83826f70ada305a7b9f68d64f3bbfefd5acbcf71a22499e0b9fb5d168a"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "fe592c83826f70ada305a7b9f68d64f3bbfefd5acbcf71a22499e0b9fb5d168a"
+              }
+            ],
+            "battlePanelSha256": "fe592c83826f70ada305a7b9f68d64f3bbfefd5acbcf71a22499e0b9fb5d168a",
+            "composed": {
+              "source": "HEAD7.DAX:54:BODY7.DAX:6",
+              "headWrite": "a437",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a32f"
+            }
+          },
+          "chrome": {
+            "original": {
+              "route": "tyrmor-prison-south-static",
+              "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA1045S02:36searchTHEYSMILEATYOU.CombatWaitFleeParlay",
+              "portrait": "portrait:area:22:ecl:a2c3:HEAD7.DAX:54:BODY7.DAX:6",
+              "checkpointSha256": "2a507a6da065ddab83bcaaaf00a8a70a6881bf6006bfc6d09f05c59f06fe17d8",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "artSha256": "1cd99fb5cec914faf1488ab32715128c4ea97d4fc5bebcb497286ea70f7264fb",
+              "durationMs": 3065.200000023842,
+              "samples": 183,
+              "poses": [
+                "portrait:area:22:ecl:a2c3:HEAD7.DAX:54:BODY7.DAX:6"
+              ],
+              "replaced": false,
+              "data": "original",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "port": {
+              "route": "tyrmor-prison-south-static",
+              "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA1045S02:36searchTHEYSMILEATYOU.CombatWaitFleeParlay",
+              "portrait": "portrait:area:22:ecl:a2c3:HEAD7.DAX:54:BODY7.DAX:6",
+              "checkpointSha256": "2a507a6da065ddab83bcaaaf00a8a70a6881bf6006bfc6d09f05c59f06fe17d8",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "artSha256": "1cd99fb5cec914faf1488ab32715128c4ea97d4fc5bebcb497286ea70f7264fb",
+              "durationMs": 3065.1999999761574,
+              "samples": 184,
+              "poses": [
+                "portrait:area:22:ecl:a2c3:HEAD7.DAX:54:BODY7.DAX:6"
+              ],
+              "replaced": false,
+              "data": "port",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            }
+          }
+        },
+        {
+          "caption": "THEY SMILE AT YOU.",
+          "checkpoint": "tyrmor-prison-roamers/dwarf/B.json",
+          "portrait": "portrait:area:22:ecl:a2c3:HEAD7.DAX:13:BODY7.DAX:6",
+          "native": {
+            "drawCursor": "a2c3",
+            "heldCaption": "Name AC HP ALDA 5 45 BRIN 3 45 CORA 5 45 DORN 5 45 ENNA 4 45 MIRA 10 45 N 01:26 search THEY SMILE AT YOU. Combat Wait Flee Parlay",
+            "idlePolls": 120,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "d258e9540ca0cc374363dadd5095a4894286b5d659cee7679a009cff9b901f89"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "d258e9540ca0cc374363dadd5095a4894286b5d659cee7679a009cff9b901f89"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "d258e9540ca0cc374363dadd5095a4894286b5d659cee7679a009cff9b901f89"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "d258e9540ca0cc374363dadd5095a4894286b5d659cee7679a009cff9b901f89"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "d258e9540ca0cc374363dadd5095a4894286b5d659cee7679a009cff9b901f89"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "d258e9540ca0cc374363dadd5095a4894286b5d659cee7679a009cff9b901f89"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "d258e9540ca0cc374363dadd5095a4894286b5d659cee7679a009cff9b901f89"
+              }
+            ],
+            "battlePanelSha256": "d258e9540ca0cc374363dadd5095a4894286b5d659cee7679a009cff9b901f89",
+            "composed": {
+              "source": "HEAD7.DAX:13:BODY7.DAX:6",
+              "headWrite": "a437",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a32f"
+            }
+          },
+          "chrome": {
+            "original": {
+              "route": "tyrmor-prison-dwarf-static",
+              "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA1045N01:26searchTHEYSMILEATYOU.CombatWaitFleeParlay",
+              "portrait": "portrait:area:22:ecl:a2c3:HEAD7.DAX:13:BODY7.DAX:6",
+              "checkpointSha256": "c02ccbafa1b40bd29e5a9e3f1d4c4ddf963cf618dad04ac7e3b57f75e38607be",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "artSha256": "11c11bb8036803fe65da549be62264d5126de91d7ae320daaed8787eda4afc00",
+              "durationMs": 3063.099999976159,
+              "samples": 184,
+              "poses": [
+                "portrait:area:22:ecl:a2c3:HEAD7.DAX:13:BODY7.DAX:6"
+              ],
+              "replaced": false,
+              "data": "original",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "port": {
+              "route": "tyrmor-prison-dwarf-static",
+              "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA1045N01:26searchTHEYSMILEATYOU.CombatWaitFleeParlay",
+              "portrait": "portrait:area:22:ecl:a2c3:HEAD7.DAX:13:BODY7.DAX:6",
+              "checkpointSha256": "c02ccbafa1b40bd29e5a9e3f1d4c4ddf963cf618dad04ac7e3b57f75e38607be",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "artSha256": "11c11bb8036803fe65da549be62264d5126de91d7ae320daaed8787eda4afc00",
+              "durationMs": 3056.5000000119217,
+              "samples": 184,
+              "poses": [
+                "portrait:area:22:ecl:a2c3:HEAD7.DAX:13:BODY7.DAX:6"
+              ],
+              "replaced": false,
+              "data": "port",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            }
+          }
+        },
+        {
+          "caption": "THEY SMILE AT YOU.",
+          "checkpoint": "tyrmor-prison-roamers/thieves/B.json",
+          "portrait": "portrait:area:22:ecl:a2c3:HEAD7.DAX:6:BODY7.DAX:8",
+          "native": {
+            "drawCursor": "a2c3",
+            "heldCaption": "Name AC HP ALDA 5 45 BRIN 3 45 CORA 5 45 DORN 5 45 ENNA 4 45 MIRA 10 45 N 02:06 search THEY SMILE AT YOU. Combat Wait Flee Parlay",
+            "idlePolls": 120,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "1cf2a60deebea1b7093840a0177222f00839b8ee7427dca2a0f61407261c0168"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "1cf2a60deebea1b7093840a0177222f00839b8ee7427dca2a0f61407261c0168"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "1cf2a60deebea1b7093840a0177222f00839b8ee7427dca2a0f61407261c0168"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "1cf2a60deebea1b7093840a0177222f00839b8ee7427dca2a0f61407261c0168"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "1cf2a60deebea1b7093840a0177222f00839b8ee7427dca2a0f61407261c0168"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "1cf2a60deebea1b7093840a0177222f00839b8ee7427dca2a0f61407261c0168"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "1cf2a60deebea1b7093840a0177222f00839b8ee7427dca2a0f61407261c0168"
+              }
+            ],
+            "battlePanelSha256": "1cf2a60deebea1b7093840a0177222f00839b8ee7427dca2a0f61407261c0168",
+            "composed": {
+              "source": "HEAD7.DAX:6:BODY7.DAX:8",
+              "headWrite": "a437",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a32f"
+            }
+          },
+          "chrome": {
+            "original": {
+              "route": "tyrmor-prison-thieves-static",
+              "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA1045N02:06searchTHEYSMILEATYOU.CombatWaitFleeParlay",
+              "portrait": "portrait:area:22:ecl:a2c3:HEAD7.DAX:6:BODY7.DAX:8",
+              "checkpointSha256": "d5b443a1f31a3d261cc53a9ab439d9546f058851593fda1df07194461a3090fa",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "artSha256": "cfad8c5549ba9fbbd850ad8fbe4389253595bd5c8f0bd813524bdda3ec27ebaf",
+              "durationMs": 3065.0000000238433,
+              "samples": 184,
+              "poses": [
+                "portrait:area:22:ecl:a2c3:HEAD7.DAX:6:BODY7.DAX:8"
+              ],
+              "replaced": false,
+              "data": "original",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "port": {
+              "route": "tyrmor-prison-thieves-static",
+              "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA1045N02:06searchTHEYSMILEATYOU.CombatWaitFleeParlay",
+              "portrait": "portrait:area:22:ecl:a2c3:HEAD7.DAX:6:BODY7.DAX:8",
+              "checkpointSha256": "d5b443a1f31a3d261cc53a9ab439d9546f058851593fda1df07194461a3090fa",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "artSha256": "cfad8c5549ba9fbbd850ad8fbe4389253595bd5c8f0bd813524bdda3ec27ebaf",
+              "durationMs": 3053.8000000238426,
+              "samples": 184,
+              "poses": [
+                "portrait:area:22:ecl:a2c3:HEAD7.DAX:6:BODY7.DAX:8"
+              ],
+              "replaced": false,
+              "data": "port",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            }
+          }
+        },
+        {
+          "caption": "THEY SMILE AT YOU.",
+          "checkpoint": "tyrmor-prison-roamers/elf/B.json",
+          "portrait": "portrait:area:22:ecl:a2c3:HEAD7.DAX:11:BODY7.DAX:2",
+          "native": {
+            "drawCursor": "a2c3",
+            "heldCaption": "Name AC HP ALDA 5 45 BRIN 3 45 CORA 5 45 DORN 5 45 ENNA 4 45 MIRA 10 45 N 02:26 search THEY SMILE AT YOU. Combat Wait Flee Parlay",
+            "idlePolls": 120,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              }
+            ],
+            "battlePanelSha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc",
+            "composed": {
+              "source": "HEAD7.DAX:11:BODY7.DAX:2",
+              "headWrite": "a437",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a32f"
+            }
+          },
+          "chrome": {
+            "original": {
+              "route": "tyrmor-prison-elf-static",
+              "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA1045N02:26searchTHEYSMILEATYOU.CombatWaitFleeParlay",
+              "portrait": "portrait:area:22:ecl:a2c3:HEAD7.DAX:11:BODY7.DAX:2",
+              "checkpointSha256": "13343950d995aac67f8a90338c736c51929c07f3e8a71fe380f0f4db6895b1af",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "artSha256": "a0c55855bc76ab0c95bf151be20f82e5c90f59f0d56739db2376f5c4fa856a51",
+              "durationMs": 3060.9999999880783,
+              "samples": 184,
+              "poses": [
+                "portrait:area:22:ecl:a2c3:HEAD7.DAX:11:BODY7.DAX:2"
+              ],
+              "replaced": false,
+              "data": "original",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "port": {
+              "route": "tyrmor-prison-elf-static",
+              "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA1045N02:26searchTHEYSMILEATYOU.CombatWaitFleeParlay",
+              "portrait": "portrait:area:22:ecl:a2c3:HEAD7.DAX:11:BODY7.DAX:2",
+              "checkpointSha256": "13343950d995aac67f8a90338c736c51929c07f3e8a71fe380f0f4db6895b1af",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "artSha256": "a0c55855bc76ab0c95bf151be20f82e5c90f59f0d56739db2376f5c4fa856a51",
+              "durationMs": 3061.400000035763,
+              "samples": 184,
+              "poses": [
+                "portrait:area:22:ecl:a2c3:HEAD7.DAX:11:BODY7.DAX:2"
+              ],
+              "replaced": false,
+              "data": "port",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            }
+          }
+        }
+      ]
     }
   ],
   "approachTransitions": [
