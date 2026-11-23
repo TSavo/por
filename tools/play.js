@@ -2367,7 +2367,8 @@ async function send(key) {
   if (!state.ready || posting || state.stopped) return;
   // Movement can be sent while the last step is still being painted, so the
   // next camera tween can start before the previous paint finishes.
-  if (renderingSequence === state.sequence && !repeatingKeys.has(key)) return;
+  const journalInput = state.journal && (key === "j" || key.startsWith("track "));
+  if (renderingSequence === state.sequence && !repeatingKeys.has(key) && !journalInput) return;
   heldPoseAtInput = !animationFrame && !tileArt.hidden
     ? tileArt.querySelector(".encounter-portrait")?.dataset.heldPose : undefined;
   if (endsVoice && currentVoice) {

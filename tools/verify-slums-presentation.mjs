@@ -18248,16 +18248,29 @@ try {
     const wallDecisionShot = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, "zhentil-climbable-wall.png"), Buffer.from(wallDecisionShot.data, "base64"));
     await switchBothWays(frame.frame);
-    await advance("j");
-    assert.ok(frame.journal?.leads.some(({ id }) => id === "zhentil-climbable-wall"));
-    assert.ok(!frame.journal.leads.some(({ id }) => id === "zhentil-envoy-left"));
+    await run(`(() => {
+      const decode = Image.prototype.decode;
+      let release;
+      const gate = new Promise(resolve => { release = resolve; });
+      Image.prototype.decode = function () { return decode.call(this).then(() => gate); };
+      window.releaseJournalPaint = () => { Image.prototype.decode = decode; release(); };
+    })()`);
     const commission = "commission-zhentil";
-    await waitFor("the Zhentil track button", () => run(`Boolean(document.querySelector('[data-lead-id="${commission}"]'))`));
-    await run(`document.querySelector('[data-lead-id="${commission}"]').click()`);
-    frame = await waitFor("the tracked Zhentil commission", async () => {
-      const next = await latest();
-      return next.ready && next.journal?.trackedId === commission && next;
-    });
+    try {
+      await advance("j");
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "zhentil-climbable-wall"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "zhentil-envoy-left"));
+      await waitFor("the Zhentil track button while the game image decodes", () => run(`
+        state.ready && renderingSequence === state.sequence &&
+        Boolean(document.querySelector('[data-lead-id="${commission}"]'))`));
+      await run(`document.querySelector('[data-lead-id="${commission}"]').click()`);
+      frame = await waitFor("the tracked Zhentil commission", async () => {
+        const next = await latest();
+        return next.ready && next.journal?.trackedId === commission && next;
+      }, 5000);
+    } finally {
+      await run("window.releaseJournalPaint()");
+    }
     assert.match(frame.journal.objective.nextStep, /Climb Over Wall/);
     for (const key of ["j", "c"]) await advance(key);
     const wallEscape = "scene-illustration:area:28:ecl:aeeb";
