@@ -317,15 +317,23 @@ function bakeOcclusion(walls, layout, wallRows, sunDir) {
       const x = x0 + (i + .5) / res * (x1 - x0);
       const near = nearbyOccluders(cells, x, z);
       let dark = 0;
+      let eastWest = 0, northSouth = 0;
       for (const s of near.segments) {
         const d = distToSeg(x, z, s);
-        dark = Math.max(dark, .62 * Math.exp(-(d * d) / .032));
+        const shade = .62 * Math.exp(-(d * d) / .032);
+        dark = Math.max(dark, shade);
+        if (s.y0) continue;
+        if (s.z0 === s.z1) eastWest = Math.max(eastWest, shade);
+        else northSouth = Math.max(northSouth, shade);
       }
       for (const p of near.posts) {
         const d = Math.max(0, Math.hypot(x - p.x, z - p.z) - p.r);
         dark = Math.max(dark, .55 * Math.exp(-(d * d) / .022));
       }
-      const ao = Math.max(.4, 1 - dark);
+      // Only floor-connected perpendicular faces deepen the corner. Shared
+      // edges are often listed twice, so keep the strongest face on each axis.
+      const corner = .5 * Math.min(eastWest, northSouth);
+      const ao = Math.max(.32, Math.max(.4, 1 - dark) - corner);
       const sun = sunVisibility(cells, x, z, .03, sunDir);
       const o = (j * res + i) * 4;
       data[o] = Math.round(ao * 255);
