@@ -4056,6 +4056,15 @@ const illustrationRoutes = new Map([
     inputs: [...trainingHallArena, "y"],
     portrait: trainingArenaMaster, prompt: /WHOWILLDUEL\?SELECT/i,
     staticPortraitMenu: true,
+    continuation: { inputs: ["enter"], prompt: /HITPOINTS.*MOVEVIEWAIMQUICKDONE/i, clearsPortrait: true },
+  }],
+  ["new-phlan-training-arena-full-party", {
+    slot: "A", stockInput: true, fixedClockStart: "4320000",
+    // Hire two adventurers into the six-person party, then accept a third offer.
+    inputs: [...trainingHallArena, "n", "y", "y", "y", "y", "y", "y"],
+    portrait: trainingArenaMaster, prompt: /YOURPARTYISTOOLARGETOJOINATTHISTIME.*RETURNWHENITISSMALLER/i,
+    staticPortraitMenu: true,
+    continuation: { inputs: ["enter"], prompt: trainingExploration, clearsPortrait: true },
   }],
   ["new-phlan-training-fighter-hold", {
     slot: "A", stockInput: true, fixedClockStart: "4320000",
