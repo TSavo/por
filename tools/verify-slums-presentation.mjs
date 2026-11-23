@@ -4509,6 +4509,8 @@ const illustrationRoutes = new Map([
   }],
   ["valjevo-medusa-phases", {
     slot: "B", inputs: ["up", "enter"],
+    approachSequence: [[48, 32, "encounter:area:7:SPRIT5.DAX:49:0:0", 48, 80]],
+    requireTiledApproach: false,
     portrait: "portrait:area:7:PIC5.DAX:49:0:0", prompt: /AMEDUSACOMESRUNNINGTOWARDYOU/i,
     heldPortraitLoop: [
       "portrait:area:7:PIC5.DAX:49:0:0",
