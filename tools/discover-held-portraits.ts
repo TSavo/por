@@ -366,12 +366,14 @@ const eclCandidates = scripts.flatMap(record => {
     const genheerisOffer = scriptBlock === 7 && opcode === 0x0c && address === "a255";
     const stojanowBarracks = archive === 2 && scriptBlock === 9 && opcode === 0x29 && ["a23f", "a372"].includes(address);
     const nomadHeadman = archive === 7 && scriptBlock === 17 && opcode === 0x0c && address === "a39c";
-    if (nomadHeadman || stojanowBarracks || archive === 5 && (sentinel || mazeWatch || outerWatch || genheerisOffer || opcode === 0x29 &&
+    const yarashStudy = archive === 7 && scriptBlock === 23 && opcode === 0x29 && address === "abd5";
+    if (nomadHeadman || stojanowBarracks || yarashStudy || archive === 5 && (sentinel || mazeWatch || outerWatch || genheerisOffer || opcode === 0x29 &&
         (scriptBlock === 7 && ["a184", "a56c"].includes(address) ||
          scriptBlock === 5 && address === "a256" || falseThrone || forgePatrol || mazePatrol || outerPatrol))) {
       const before = (at: number) => decoded.find(instruction => instruction.next === at);
-      // The false throne and these patrols reuse the head selected by their approach setup.
-      const setupAddress = falseThrone ? "a953" : forgePatrol ? "a8fc" : mazePatrol ? "9bfc" : outerPatrol ? "9ca7" : undefined;
+      // The false throne, Yarash, and these patrols reuse the head selected by their approach setup.
+      const setupAddress = yarashStudy ? "ab61" : falseThrone ? "a953" : forgePatrol ? "a8fc" :
+        mazePatrol ? "9bfc" : outerPatrol ? "9ca7" : undefined;
       const setup = setupAddress ? decoded.find(instruction => authored(instruction.address) === setupAddress) : undefined;
       // At the Stojanow barracks the quoted dialogue and its acknowledgement
       // keep the selected head before either encounter menu.

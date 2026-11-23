@@ -753,6 +753,12 @@ const pyramidExterior = {
   prompt: /MAGNIFICENTPYRAMID.*SECRETDOOR.*ENTERGOBACK/i,
   finalPhaseCapture: "pyramid-exterior-water-loop.png",
 };
+const yarashStudyPath = [
+  "up", "enter", "enter", "a", "p", "n", "enter",
+  "left", "up", "left", "up", "up", "right", "up", "up", "right", "up", "b",
+];
+const yarashStudyFar = [64, 24, "encounter:area:23:SPRIT7.DAX:24:2:0", 48, 57];
+const yarashStudyMiddle = [56, 32, "encounter:area:23:SPRIT7.DAX:24:1:0", 24, 65];
 const mountedEscort = {
   slot: "A",
   portrait: "portrait:PIC6.DAX:39:0:0",
@@ -2043,6 +2049,24 @@ const illustrationRoutes = new Map([
     prompt: /THELOWERCHAMBERISFILLEDWITHGLASSANDFUROBJECTSOFALLTYPES.*ASHARPCRACKSPLITSTHEAIRANDYOUARESTUNG/i,
     finalPhaseCapture: "valhingen-glass-and-fur-static.png",
     continuation: { inputs: ["enter", "enter", "right", "right", "up"], prompt: /9,5N/, clearsPortrait: true },
+  }],
+  ["yarash-study-far-combat", {
+    slot: "A", inputs: [...yarashStudyPath, "enter", "c"],
+    heldApproachPrompt: /ANANCIENTMAGELOOKSUPFROMHISSTUDIES.*SUBDUETHEM/i,
+    heldApproachPosition: [23, 4, 1], heldApproachPlacement: yarashStudyFar,
+    approachStops: { 18: yarashStudyFar },
+    prompt: /ABATTLEBEGINS/i,
+    finalPhaseCapture: "yarash-study-far-battle-notice.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /YARASHHITPOINTS\d+AC\d+/i },
+  }],
+  ["yarash-study-near-combat", {
+    slot: "A", inputs: [...yarashStudyPath, "enter", "a", "a"],
+    approachStops: { 18: yarashStudyFar, 19: yarashStudyMiddle },
+    portrait: "portrait:area:23:HEAD7.DAX:56:BODY7.DAX:30",
+    prompt: /COMBATWAITFLEEPARLAY/i, staticPortraitMenu: true,
+    finalPhaseCapture: "yarash-study-near-menu.png",
+    continuation: { inputs: ["c"], portrait: "portrait:area:23:HEAD7.DAX:56:BODY7.DAX:30",
+      prompt: /ABATTLEBEGINS/i, screenshot: "yarash-study-near-battle-notice.png" },
   }],
   ["yarash-alchemical-laboratory", {
     // Start at (11, 12) facing west with the secret door undiscovered.
@@ -8224,6 +8248,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...(textileScorpionLoop ? { POR_PROMPT_SCHEDULE_IN: resolve(textileScorpionWalk, "prompts.jsonl") } : {}),
     POR_INPUT_COMPAT: textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "pyramid-vats-mutants-loop" || routeName.startsWith("pyramid-exterior-") ||
+      routeName.startsWith("yarash-study-") ||
       routeName === "valhingen-grave-claws" || routeName === "valhingen-vampire-reveal-phases" ||
       routeName === "sokal-barracks-ghost-phases" ||
       sokalBarracksHeld ||
@@ -8657,8 +8682,7 @@ try {
   function patrolApproachPlacement(area) {
     return [56, 32, `encounter:area:${area}:SPRIT5.DAX:16:2:0`, 16, 49];
   }
-  async function verifyPatrolApproach(expectedCaption, expectedPosition, area = expectedPosition[0]) {
-    const placement = patrolApproachPlacement(area);
+  async function verifyHeldApproach(expectedCaption, expectedPosition, placement) {
     const [, , actor, width, height] = placement;
     const caption = frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join("");
     assert.match(caption, expectedCaption);
@@ -8668,7 +8692,7 @@ try {
     const location = frame.scenery ?? frame.exploration;
     const position = [location?.mapId ?? location?.area, location?.x, location?.y];
     assert.deepEqual(position, expectedPosition);
-    await waitFor("the patrol captain at the far approach", () => run(`
+    await waitFor("the held encounter sprite at its approach anchor", () => run(`
       state.sequence === ${frame.sequence} && !animationFrame && !renderingSequence &&
       window.observedApproach.has(${JSON.stringify(actor)})`));
     const { result, exceptionDetails } = await command("Runtime.evaluate", {
@@ -11375,9 +11399,11 @@ try {
     let { portrait } = illustration;
     let transientCombatPortrait;
     let alreadyPassedPatrol;
+    const heldApproachPlacement = illustration.heldApproachPrompt && (illustration.heldApproachPlacement ??
+      patrolApproachPlacement(illustration.heldApproachArea ?? illustration.heldApproachPosition[0]));
     if (approachSequence) await observeApproach(approachSequence, illustration.requireTiledApproach);
-    else if (illustration.heldApproachPrompt && heldPortraitEvidenceFile) {
-      await observeApproach([patrolApproachPlacement(illustration.heldApproachArea ?? illustration.heldApproachPosition[0])]);
+    else if (heldApproachPlacement && heldPortraitEvidenceFile) {
+      await observeApproach([heldApproachPlacement]);
     }
     if (journalLead) {
       await advance("j");
@@ -11461,7 +11487,7 @@ try {
         if (!heldApproachRecorded && illustration.heldApproachPrompt && heldPortraitEvidenceFile &&
             frame.encounter && illustration.heldApproachPrompt.test(frame.text.toSorted(([a], [b]) => a - b)
               .map(([, char]) => String.fromCharCode(char)).join(""))) {
-          await verifyPatrolApproach(illustration.heldApproachPrompt, illustration.heldApproachPosition, illustration.heldApproachArea);
+          await verifyHeldApproach(illustration.heldApproachPrompt, illustration.heldApproachPosition, heldApproachPlacement);
           heldApproachRecorded = true;
         }
         const phasePrompt = illustration.phasePrompts?.[index];
