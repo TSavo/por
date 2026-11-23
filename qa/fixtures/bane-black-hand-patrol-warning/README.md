@@ -14,3 +14,7 @@ The same slot also starts the outdoor camp ambush replay. At (15, 4),
 Encamp, Rest, Hours, six Increases then Rest triggers the Orc attack at 03:03.
 The active map is 31 and the square's native roof bit is clear. The camp
 prompt timing is in `camp-prompts.jsonl`.
+
+The three rampart patrol replays reuse this save. Fixed clock starts elicit
+the Goblin, Orc and Ogre holds through the original encounter rolls. Their
+individual prompt schedules record the ordinary walking and approach inputs.

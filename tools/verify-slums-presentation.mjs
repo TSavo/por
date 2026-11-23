@@ -1333,6 +1333,7 @@ const illustrationRoutes = new Map([
   }),
   ["bane-rampart-goblin-patrol", {
     slot: "A", stockInput: true, fixedClockStart: "4320222",
+    promptSchedule: "qa/fixtures/bane-black-hand-patrol-warning/goblin-prompts.jsonl",
     inputs: [...Array.from({ length: 41 }, (_, index) => index % 2 ? "down" : "up"), "a", "a"],
     portrait: "portrait:area:24:ecl:ae0e:PIC1.DAX:2:0:0",
     prompt: /THEMONSTERSSTANDREADY/i,
@@ -1351,6 +1352,7 @@ const illustrationRoutes = new Map([
     const key = member => `portrait:area:24:ecl:${cursor}:PIC1.DAX:${block}:${member}:0`;
     return [`bane-rampart-${name}-patrol`, {
       slot: "A", stockInput: true, fixedClockStart,
+      promptSchedule: `qa/fixtures/bane-black-hand-patrol-warning/${name}-prompts.jsonl`,
       inputs: Array.from({ length: moves }, (_, index) => index % 2 ? "down" : "up"),
       portrait: key(0), prompt, heldPortraitLoop: [0, 1, 2, 1].map(key),
       finalPhaseCapture: `bane-rampart-${name}-patrol.png`,
