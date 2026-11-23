@@ -34,7 +34,50 @@ export function resolveLayout(layout) {
   return defaultLayout;
 }
 
+function tileBumpStrength(index) {
+  if (index === 16) return 2.1;
+  if (index === 17) return 1.1;
+  if (index === 18) return 2.3;
+  if (index >= 1 && index <= 15) return 2.9;
+  return 2.2;
+}
+
+function blurBox(src, size, radius, wrap) {
+  const tmp = new Float32Array(size * size);
+  const out = new Float32Array(size * size);
+  const clamp = (v) => {
+    if (wrap) return ((v % size) + size) % size;
+    return v < 0 ? 0 : v > size - 1 ? size - 1 : v;
+  };
+  const div = 1 / (radius * 2 + 1);
+  for (let y = 0; y < size; y++) {
+    let acc = 0;
+    const row = y * size;
+    for (let k = -radius; k <= radius; k++) acc += src[row + clamp(k)];
+    tmp[row] = acc;
+    for (let x = 1; x < size; x++) {
+      acc += src[row + clamp(x + radius)] - src[row + clamp(x - radius - 1)];
+      tmp[row + x] = acc;
+    }
+  }
+  for (let i = 0; i < tmp.length; i++) tmp[i] *= div;
+  for (let x = 0; x < size; x++) {
+    let acc = 0;
+    for (let k = -radius; k <= radius; k++) acc += tmp[clamp(k) * size + x];
+    out[x] = acc;
+    for (let y = 1; y < size; y++) {
+      acc += tmp[clamp(y + radius) * size + x] - tmp[clamp(y - radius - 1) * size + x];
+      out[y * size + x] = acc;
+    }
+  }
+  for (let i = 0; i < out.length; i++) out[i] *= div;
+  return out;
+}
+
 function deriveNormalRoughness(atlas) {
+  // Per-atlas-cell, multi-scale Sobel on band-passed luminance so mortar,
+  // brick edges, planks and ivy get real relief without wrapping into
+  // neighboring tiles or following large painted gradients.
   const width = atlas.width, height = atlas.height;
   const work = document.createElement("canvas");
   work.width = width;
@@ -43,29 +86,64 @@ function deriveNormalRoughness(atlas) {
   context.drawImage(atlas, 0, 0);
   const source = context.getImageData(0, 0, width, height);
   const out = context.createImageData(width, height);
-  const lum = (x, y) => {
-    const i = (((y + height) % height) * width + ((x + width) % width)) * 4;
-    return source.data[i] * .299 + source.data[i + 1] * .587 + source.data[i + 2] * .114;
-  };
-  const strength = 2.2;
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      const dx = (lum(x + 1, y) - lum(x - 1, y)) / 255;
-      const dy = (lum(x, y + 1) - lum(x, y - 1)) / 255;
-      let nx = -dx * strength, ny = -dy * strength, nz = 1;
-      const length = Math.hypot(nx, ny, nz) || 1;
-      nx /= length; ny /= length; nz /= length;
-      let sum = 0;
-      for (const [ox, oy] of [[-1, 0], [1, 0], [0, -1], [0, 1]]) {
-        const d = lum(x + ox, y + oy) - lum(x, y);
-        sum += d * d;
+  const cell = 256, cols = 8, rows = 4;
+  for (let cy = 0; cy < rows; cy++) {
+    for (let cx = 0; cx < cols; cx++) {
+      const index = cy * cols + cx;
+      const ox = cx * cell, oy = cy * cell;
+      const lum = new Float32Array(cell * cell);
+      for (let y = 0; y < cell; y++) {
+        for (let x = 0; x < cell; x++) {
+          const i = ((oy + y) * width + (ox + x)) * 4;
+          lum[y * cell + x] = source.data[i] * .299 + source.data[i + 1] * .587 + source.data[i + 2] * .114;
+        }
       }
-      const roughness = Math.min(.92, Math.max(.22, .38 + Math.sqrt(sum) / 255 * .7));
-      const i = (y * width + x) * 4;
-      out.data[i] = (nx * .5 + .5) * 255;
-      out.data[i + 1] = (ny * .5 + .5) * 255;
-      out.data[i + 2] = (nz * .5 + .5) * 255;
-      out.data[i + 3] = roughness * 255;
+      const wrap = index === 16 || index === 17 || index === 18;
+      const fine = blurBox(lum, cell, 1, wrap);
+      const mid = blurBox(lum, cell, 3, wrap);
+      const broad = blurBox(lum, cell, 8, wrap);
+      const band = new Float32Array(cell * cell);
+      let mean = 0;
+      for (let i = 0; i < band.length; i++) {
+        // Sharp mortar/grain first; keep broad brick protrusion modest so
+        // bricks don't read as rounded logs.
+        band[i] = (fine[i] - mid[i]) * 1.15 + (mid[i] - broad[i]) * 0.42;
+        mean += band[i];
+      }
+      mean /= band.length;
+      let variance = 0;
+      for (let i = 0; i < band.length; i++) {
+        const d = band[i] - mean;
+        variance += d * d;
+      }
+      const std = Math.sqrt(variance / band.length) || 1;
+      const heightMap = new Float32Array(cell * cell);
+      for (let i = 0; i < band.length; i++)
+        heightMap[i] = Math.max(0, Math.min(1, 0.5 + (band[i] - mean) / (std * 2.6)));
+      const strength = tileBumpStrength(index);
+      const clampC = (v) => {
+        if (wrap) return ((v % cell) + cell) % cell;
+        return v < 0 ? 0 : v > cell - 1 ? cell - 1 : v;
+      };
+      const at = (x, y) => heightMap[clampC(y) * cell + clampC(x)];
+      for (let y = 0; y < cell; y++) {
+        for (let x = 0; x < cell; x++) {
+          const dx = (at(x + 1, y - 1) + 2 * at(x + 1, y) + at(x + 1, y + 1)
+            - (at(x - 1, y - 1) + 2 * at(x - 1, y) + at(x - 1, y + 1))) / 8;
+          const dy = (at(x - 1, y + 1) + 2 * at(x, y + 1) + at(x + 1, y + 1)
+            - (at(x - 1, y - 1) + 2 * at(x, y - 1) + at(x + 1, y - 1))) / 8;
+          let nx = -dx * strength, ny = -dy * strength, nz = 1;
+          const length = Math.hypot(nx, ny, nz) || 1;
+          nx /= length; ny /= length; nz /= length;
+          const contrast = Math.abs(fine[y * cell + x] - mid[y * cell + x]);
+          const roughness = Math.min(.9, Math.max(.2, .3 + contrast / 40));
+          const i = ((oy + y) * width + (ox + x)) * 4;
+          out.data[i] = (nx * .5 + .5) * 255;
+          out.data[i + 1] = (ny * .5 + .5) * 255;
+          out.data[i + 2] = heightMap[y * cell + x] * 255;
+          out.data[i + 3] = roughness * 255;
+        }
+      }
     }
   }
   context.putImageData(out, 0, 0);
@@ -370,34 +448,54 @@ const sceneFragment = `
     float u = wallU < 0.0 ? fract(axis) : wallU;
     vec2 faceUV = vec2(u, 1.0-world.y/max(material.z,.1));
     vec2 groundUV = vec2(world.x,world.z) * 1.48;
-    vec2 textureUV = mix(faceUV, fract(groundUV), floorSurface);
-    vec4 texel = sampleArt(art, tileIndex, textureUV);
+    vec2 tileUV = fract(groundUV) * 0.98 + 0.01;
+    vec2 textureUV = mix(faceUV, tileUV, floorSurface);
+    vec2 derivUV = mix(faceUV, groundUV, floorSurface);
     if (material.x > 1.5) {
       if (abs(faceUV.x-.5) < .26 && world.y < .92) discard;
-      texel = sampleArt(art, 2., faceUV);
       textureUV = faceUV;
+      derivUV = faceUV;
     }
-    if (texel.a < .55) discard;
-
+    // Discard holes (temple doors, windows) from the un-offset UV so
+    // parallax cannot pull neighboring brick into the opening.
+    if (sampleArt(art, tileIndex, textureUV).a < 0.55) discard;
     vec4 maps = sampleArt(detail, tileIndex, textureUV);
     if (material.x > 1.5) maps = sampleArt(detail, 2., faceUV);
-    vec3 tangentNormal = maps.rgb * 2.0 - 1.0;
-    tangentNormal.xy *= 1.35;
-    tangentNormal = normalize(tangentNormal);
-    float roughness = clamp(maps.a, 0.22, 0.95);
     vec3 Ngeo = normalize(worldNormal);
     vec3 viewDir = eye - world;
     if (dot(Ngeo, viewDir) < 0.0) Ngeo = -Ngeo;
     vec3 dp1 = dFdx(world);
     vec3 dp2 = dFdy(world);
-    vec2 duv1 = dFdx(textureUV);
-    vec2 duv2 = dFdy(textureUV);
+    vec2 duv1 = dFdx(derivUV);
+    vec2 duv2 = dFdy(derivUV);
     vec3 T = normalize(dp1 * duv2.t - dp2 * duv1.t);
     vec3 B = normalize(cross(Ngeo, T));
     T = normalize(cross(B, Ngeo));
+    float height = maps.b;
+    vec2 viewParallax = vec2(dot(viewDir, T), dot(viewDir, B));
+    float viewLen = max(length(viewDir), 0.001);
+    viewParallax /= viewLen;
+    float edgeFade = mix(smoothstep(0.0, 0.08, min(min(textureUV.x, textureUV.y), min(1.0 - textureUV.x, 1.0 - textureUV.y))), 1.0, floorSurface);
+    float graze = pow(clamp(dot(Ngeo, normalize(viewDir)), 0.0, 1.0), 1.25);
+    float pScale = mix(0.03, 0.016, floorSurface) * edgeFade * graze;
+    vec2 puv = textureUV - viewParallax * (height - 0.5) * pScale;
+    puv = mix(clamp(puv, 0.0, 1.0), fract(puv) * 0.98 + 0.01, floorSurface);
+    textureUV = puv;
+    vec4 texel = sampleArt(art, tileIndex, textureUV);
+    if (material.x > 1.5) texel = sampleArt(art, 2., puv);
+    if (texel.a < .55) discard;
+    maps = sampleArt(detail, tileIndex, textureUV);
+    if (material.x > 1.5) maps = sampleArt(detail, 2., puv);
+    height = maps.b;
+    vec3 tangentNormal = vec3(maps.rg * 2.0 - 1.0, 0.0);
+    tangentNormal.z = sqrt(max(0.01, 1.0 - dot(tangentNormal.xy, tangentNormal.xy)));
+    tangentNormal = normalize(tangentNormal);
+    float roughness = clamp(maps.a, 0.2, 0.95);
     vec3 N = normalize(mat3(T, B, Ngeo) * tangentNormal);
     if (dot(N, Ngeo) < 0.0) N = Ngeo;
     vec3 V = normalize(eye - world);
+    // Fade bump at grazing angles so edge-on walls don't sparkle or cave in.
+    N = normalize(mix(Ngeo, N, pow(clamp(dot(Ngeo, V), 0.0, 1.0), 1.65)));
     vec3 L = sunDir;
     float ndotl = pow(max(dot(N, L), 0.0), 1.15);
     float ndotv = max(dot(N, V), 0.0);
@@ -429,10 +527,31 @@ const sceneFragment = `
     float sunVis = mix(1.0, occ.g, floorSurface * (1.0 - indoor));
     float contact = mix(0.5, 1.0, smoothstep(0.0, 0.22, world.y));
     float ao = mix(mix(0.78, 1.0, occ.r) * contact, mix(0.58, 1.0, occ.r), floorSurface);
+    ao *= mix(0.72, 1.0, height);
+    float raisedFloor = floorSurface * step(0.2, world.y);
+    sunVis = mix(sunVis, 1.0, raisedFloor);
+    ao = mix(ao, 0.96, raisedFloor);
+    vec2 lightUV = vec2(dot(L, T), dot(L, B));
+    float lightLen = length(lightUV);
+    float bumpShadow = 1.0;
+    if (lightLen > 0.01 && indoor < 0.5) {
+      vec2 lStep = (lightUV / lightLen) * 0.022;
+      float rise = max(dot(L, Ngeo), 0.0) * 0.28;
+      for (int i = 1; i <= 6; i++) {
+        vec2 suv = textureUV + lStep * float(i);
+        suv = mix(clamp(suv, 0.0, 1.0), fract(suv) * 0.98 + 0.01, floorSurface);
+        float hs = sampleArt(detail, tileIndex, suv).b;
+        float cone = height + rise * float(i);
+        bumpShadow *= 1.0 - smoothstep(cone - 0.02, cone + 0.14, hs) * 0.62 * edgeFade;
+      }
+    }
+    sunVis *= bumpShadow;
     float floorHemi = mix(hemi, 0.28 + hemi * 0.25, floorSurface);
     ambient = mix(groundColor, skyColor, floorHemi);
     vec3 fill = mix(vec3(0.20, 0.23, 0.30), vec3(0.10, 0.12, 0.16), indoor);
-    vec3 sunLight = sunColor * ndotl * sunVis * (1.0 - indoor * 0.85);
+    float sunAmt = ndotl * sunVis * (1.0 - indoor * 0.85);
+    sunAmt = sunAmt / (1.0 + 0.34 * sunAmt);
+    vec3 sunLight = sunColor * sunAmt;
     vec3 color = albedo * (fill + ambient + sunLight) * ao + spec * sunLight * ao;
     vec3 torchDir = normalize(eye - world);
     float torchDist = length(eye - world);
@@ -472,7 +591,7 @@ const skyFragment = `
   uniform float indoor;
   void main() {
     if (indoor > 0.5) {
-      gl_FragColor = vec4(0.03, 0.035, 0.045, 1.0);
+      gl_FragColor = vec4(0.03, 0.035, 0.045, 0.0);
       return;
     }
     vec3 ahead = normalize(vec3(forward.x, 0.0, forward.y));
@@ -488,7 +607,7 @@ const skyFragment = `
     float sunHalo = pow(max(dot(dir, sunDir), 0.0), 36.0);
     color += vec3(1.8, 1.35, 0.8) * sunHalo * 0.35;
     color += vec3(2.8, 2.2, 1.4) * sunCore * 2.4;
-    gl_FragColor = vec4(color, 1.0);
+    gl_FragColor = vec4(color, 0.0);
   }
 `;
 
@@ -517,7 +636,8 @@ const postFragment = `
     vec3 glow = texture2D(bloom, uv).rgb;
     float l = max(dot(hdr, vec3(0.2126, 0.7152, 0.0722)), 1e-5);
     vec3 mapped = hdr * (filmic(l) / l);
-    mapped += glow * 0.45;
+    float skyMask = 1.0 - texture2D(color, uv).a;
+    mapped += glow * 0.45 * skyMask;
     float lm = dot(mapped, vec3(0.2126, 0.7152, 0.0722));
     mapped = mix(vec3(lm), mapped, 1.14);
     float vig = smoothstep(1.28, 0.4, length((uv - 0.5) * vec2(1.0, 1.12)));
@@ -547,7 +667,8 @@ const bloomFragment = `
     acc /= 16.0;
     if (extract > 0.5) {
       float lum = dot(acc, vec3(0.2126, 0.7152, 0.0722));
-      acc *= smoothstep(1.4, 2.4, lum);
+      float sky = 1.0 - texture2D(color, uv).a;
+      acc *= smoothstep(1.4, 2.4, lum) * sky;
     }
     gl_FragColor = vec4(acc, 1.0);
   }
@@ -604,7 +725,7 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
       quad([x - radius, bottom, z + radius], [x + radius, bottom, z + radius], [x + radius, top, z + radius], [x - radius, top, z + radius], ns, p.tile);
       quad([x - radius, bottom, z - radius], [x - radius, bottom, z + radius], [x - radius, top, z + radius], [x - radius, top, z - radius], ew, p.tile);
       quad([x + radius, bottom, z - radius], [x + radius, bottom, z + radius], [x + radius, top, z + radius], [x + radius, top, z - radius], ew, p.tile);
-      quad([x - radius, top, z - radius], [x + radius, top, z - radius], [x + radius, top, z + radius], [x - radius, top, z + radius], ns, p.tile);
+      quad([x - radius, top, z - radius], [x + radius, top, z - radius], [x + radius, top, z + radius], [x - radius, top, z + radius], [0, 0, top, p.nsShade], p.tile);
     }
     for (const z of piers.zs) {
       quad([piers.x0, 0, z], [piers.x1, 0, z], [piers.x1, 0, z + 1], [piers.x0, 0, z + 1], [0, 0, piers.height, piers.shade], piers.tile);
@@ -723,17 +844,18 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
       const aspect = canvas.width / canvas.height;
       const sky = canvas.style.getPropertyValue("--sky-texture") || getComputedStyle(canvas).getPropertyValue("--sky-texture");
       const indoor = sky && sky.trim() && sky.trim() !== "none" ? 0 : 1;
-      const sunColor = indoor ? [0.18, 0.20, 0.24] : [1.48, 1.10, 0.68];
+      const sunColor = indoor ? [0.18, 0.20, 0.24] : [1.28, 0.96, 0.62];
       const skyColor = indoor ? [0.09, 0.11, 0.15] : [0.36, 0.48, 0.70];
       const groundColor = indoor ? [0.07, 0.06, 0.05] : [0.26, 0.20, 0.14];
       const fogColor = indoor ? [0.05, 0.055, 0.06] : [0.62, 0.72, 0.88];
 
       gl.bindFramebuffer(gl.FRAMEBUFFER, sceneFbo);
       gl.viewport(0, 0, width, height);
-      gl.clearColor(0, 0, 0, 1);
+      gl.clearColor(0, 0, 0, 0);
       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-      gl.disable(gl.DEPTH_TEST);
+      gl.enable(gl.DEPTH_TEST);
+      gl.depthFunc(gl.ALWAYS);
       gl.useProgram(skyProgram);
       gl.bindBuffer(gl.ARRAY_BUFFER, quadBuffer);
       const skyPos = gl.getAttribLocation(skyProgram, "position");
@@ -749,7 +871,7 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
       gl.uniform1f(gl.getUniformLocation(skyProgram, "indoor"), indoor);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
-      gl.enable(gl.DEPTH_TEST);
+      gl.depthFunc(gl.LEQUAL);
       gl.useProgram(sceneProgram);
       bindSceneAttribs();
       gl.activeTexture(gl.TEXTURE0);
