@@ -73,6 +73,7 @@ function successors(state: State, instructions: ReadonlyMap<number, Instruction>
 function walk(
   roots: State[], instructions: ReadonlyMap<number, Instruction>,
   visit: (state: State, instruction: Instruction) => boolean,
+  follow: (from: State, to: State) => boolean = () => true,
 ) {
   const queue = [...roots];
   const seen = new Set<string>();
@@ -82,7 +83,7 @@ function walk(
     const key = stateKey(state);
     if (!instruction || seen.has(key)) continue;
     seen.add(key);
-    if (visit(state, instruction)) queue.push(...successors(state, instructions));
+    if (visit(state, instruction)) queue.push(...successors(state, instructions).filter(next => follow(state, next)));
   }
 }
 
@@ -114,8 +115,10 @@ const lizardFaceToFaceProof = JSON.parse(readFileSync(fromPortRoot("qa", "held-p
     bothSurprised: Omit<UnreachablePromptProof, "scriptSha256">;
     angryParlay: { producer: string; entry: string; reason: string };
   };
+  easternMarches: UnreachablePromptProof;
 };
 const slumsProof = lizardFaceToFaceProof.slums;
+const easternMarchesProof = lizardFaceToFaceProof.easternMarches;
 const digest = (bytes: string | Uint8Array) => createHash("sha256").update(bytes).digest("hex");
 
 function lizardFaceToFaceUnreachable(script: Uint8Array, instructions: ReadonlyMap<number, Instruction>): boolean {
@@ -179,6 +182,54 @@ function matchesSurpriseProof(file: string, blockId: number, scriptSha256: strin
   }
 }
 
+function easternMarchesBothSurprisedUnreachable(
+  script: Uint8Array, instructions: ReadonlyMap<number, Instruction>, roots: State[],
+): boolean {
+  const proof = easternMarchesProof;
+  if (proof.producer !== "ECL8.DAX:27:a02c" || proof.prompt !== "a04c" ||
+      digest(script) !== proof.scriptSha256 || !matchesSurpriseProof("ECL8.DAX", 27, proof.scriptSha256)) return false;
+  const surprise = instructions.get(0x9eed);
+  const compare = instructions.get(0x9efa);
+  const test = instructions.get(0x9f00);
+  const mask = instructions.get(0x9f01);
+  const dispatch = instructions.get(0x9f0a);
+  const partySurpriseMenu = instructions.get(0x9fd0);
+  const partySurpriseDispatch = instructions.get(0x9ff0);
+  if (surprise?.opcode !== 0x23 || surprise.next !== 0x9efa ||
+      compare?.opcode !== 0x03 || compare.next !== 0x9f00 || test?.opcode !== 0x16 || test.next !== 0x9f01 ||
+      mask?.opcode !== 0x2f || memory(mask.operands[0]!) !== 0x6dcb || literal(mask.operands[1]!) !== 1 ||
+      memory(mask.operands[2]!) !== 0x6dcb || mask.next !== 0x9f0a ||
+      dispatch?.opcode !== 0x25 || memory(dispatch.operands[0]!) !== 0x6dcb ||
+      literal(dispatch.operands[1]!) !== 4 || dispatch.operands[5]?.word !== 0xa002 ||
+      partySurpriseMenu?.opcode !== 0x29 || memory(partySurpriseMenu.operands[3]!) !== 0x6e79 ||
+      partySurpriseMenu.next !== 0x9ff0 || partySurpriseDispatch?.opcode !== 0x25 ||
+      memory(partySurpriseDispatch.operands[0]!) !== 0x6e79 || literal(partySurpriseDispatch.operands[1]!) !== 4 ||
+      partySurpriseDispatch.next !== 0xa002) return false;
+
+  // Check the entry vector and all reachable jumps, including subroutine returns.
+  // Every path into the dispatch must have passed the unchanged SURPRISE result.
+  const entries = new Map([
+    [0x9efa, new Set([0x9eed])], [0x9f00, new Set([0x9efa])],
+    [0x9f01, new Set([0x9f00])], [0x9f0a, new Set([0x9f00, 0x9f01])],
+    [0x9ff0, new Set([0x9fd0])],
+  ]);
+  if (roots.some(({ address }) => entries.has(address))) return false;
+  let validEntry = true;
+  let reachedDispatch = false;
+  let reachedProducer = false;
+  walk(roots, instructions, state => {
+    if (state.address === 0x9f0a) reachedDispatch = true;
+    if (state.address === 0xa02c) reachedProducer = true;
+    return true;
+  }, (from, to) => {
+    const allowed = entries.get(to.address);
+    if (allowed && !allowed.has(from.address)) validEntry = false;
+    // The preceding encounter menu returns only 0–3, all handled by 9ff0.
+    return to.address !== 0xa002 || (from.address !== 0x9f0a && from.address !== 0x9ff0);
+  });
+  return validEntry && reachedDispatch && !reachedProducer;
+}
+
 function lizardPoolRetainedMenu(instructions: ReadonlyMap<number, Instruction>, roots: State[]) {
   // The pool's javelin setup draws PIC8:57. The damage and surprise checks
   // either leave for ab3a or reach aaf5 with that same close picture.
@@ -236,6 +287,8 @@ const eclCandidates = scripts.flatMap(record => {
     matchesSurpriseProof("ECL2.DAX", 20, slumsProof.scriptSha256);
   const bothSurprisedUnreachable = slumsAngryDispatchProven && slumsBothSurprisedUnreachable(instructions);
   const roots = readEntryVector(script).map(address => ({ address, returns: [] }));
+  const easternMarchesFaceToFaceUnreachable = archive === 8 && scriptBlock === 27 &&
+    easternMarchesBothSurprisedUnreachable(script.bytes, instructions, roots);
   const poolMenu = archive === 8 && scriptBlock === 16 ? lizardPoolRetainedMenu(instructions, roots) : undefined;
   const contexts = new Map<number, State[]>();
   walk(roots, instructions, state => {
@@ -909,6 +962,8 @@ const eclCandidates = scripts.flatMap(record => {
         ? { unreachableOriginal: lizardFaceToFaceProof.reason } : {}),
       ...(bothSurprisedUnreachable && authored(load.address) === "9d1d" && authored(load.next) === slumsProof.bothSurprised.prompt
         ? { unreachableOriginal: slumsProof.bothSurprised.reason } : {}),
+      ...(easternMarchesFaceToFaceUnreachable && authored(load.address) === "a02c" &&
+        authored(load.next) === easternMarchesProof.prompt ? { unreachableOriginal: easternMarchesProof.reason } : {}),
       ...(angryParlay ? { unreachableContinuation: angryParlay } : {}),
       ...(direct ? {} : { approachSelectors: { sprite: selector(operands[0]!), distance: selector(operands[1]!) } }),
       approachSites: [...approaches].sort(),

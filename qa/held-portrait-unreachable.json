@@ -25,5 +25,11 @@
       "entry": "b254",
       "reason": "The angry-party menu's Parlay action is 0, which sends the party to combat. Its Advance action can only change the distance. The menu cannot return 3 to enter the shared Parlay routine."
     }
+  },
+  "easternMarches": {
+    "producer": "ECL8.DAX:27:a02c",
+    "prompt": "a04c",
+    "scriptSha256": "bf715675c39ea443db74bee3d5acbab980d284ebf53a4ce64d24ab495778a6c3",
+    "reason": "The native SURPRISE instruction at 9eed overwrites result 3 with 2. The optional mask can only reduce it further, so the Eastern Marches dispatch at 9f0a cannot select the fourth surprise path. The preceding ENCOUNTER MENU can return only 0–3, all consumed by the 9ff0 dispatch without falling through."
   }
 }
