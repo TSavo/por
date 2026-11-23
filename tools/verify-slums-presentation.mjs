@@ -532,7 +532,7 @@ const encounterRoutes = new Map([
       [56, 32, "encounter:area:10:SPRIT4.DAX:72:1:0", 24, 65],
       [48, 32, "encounter:area:10:SPRIT4.DAX:72:0:0", 40, 73],
     ],
-    dialogue: { key: "enter", portrait: "portrait:PIC4.DAX:72:0:0", prompt: /APACKOFHUNGRYGHOULSLOPESTOWARDYOU/i },
+    dialogue: { key: "enter", portrait: "portrait:area:10:ecl:b695:caller:b3aa:PIC4.DAX:72:0:0", prompt: /APACKOFHUNGRYGHOULSLOPESTOWARDYOU/i },
   }],
   ["kobold-cave-approach", {
     slot: "A", inputs: ["up", "enter"],
@@ -4834,7 +4834,7 @@ const illustrationRoutes = new Map([
   }],
   ["valhingen-ghoul-ambush", {
     slot: "A", inputs: ["e", "enter", "r", "y", ...Array(10).fill("i"), "r", "enter", "enter"],
-    portrait: "portrait:PIC4.DAX:72:0:0", prompt: /APACKOFHUNGRYGHOULSLOPESTOWARDYOU/i,
+    portrait: "portrait:area:10:ecl:b695:caller:b3aa:PIC4.DAX:72:0:0", prompt: /APACKOFHUNGRYGHOULSLOPESTOWARDYOU/i,
     continuation: {
       inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:b3de",
       prompt: /APACKOFHUNGRYGHOULSLOPESTOWARDYOU.*ABATTLEBEGINS/i,

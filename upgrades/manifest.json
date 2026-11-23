@@ -13069,6 +13069,7 @@
     "combat:area:27:CPIC8.DAX:73": "wild-cave-gnoll-stand.png",
     "combat:area:27:CPIC8.DAX:201": "wild-cave-gnoll-strike.png",
     "portrait:PIC4.DAX:72:0:0": "valhingen-ghoul-ambush.png",
+    "portrait:area:10:ecl:b695:caller:b3aa:PIC4.DAX:72:0:0": "valhingen-ghoul-ambush.png",
     "portrait:PIC4.DAX:72:1:0": "valhingen-ghoul-ambush-motion-1.png",
     "portrait:PIC4.DAX:72:2:0": "valhingen-ghoul-ambush-motion-2.png",
     "portrait:PIC4.DAX:72:3:0": "valhingen-ghoul-ambush-motion-3.png",
