@@ -9856,7 +9856,7 @@
           "paints": [
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
-              "atMs": -1.192074705613777e-08
+              "atMs": -1.192074705613777e-8
             },
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
@@ -31571,6 +31571,142 @@
           }
         }
       }
+    },
+    {
+      "id": "area:21:ecl:a0c6:PIC4.DAX:37",
+      "producer": "ECL4.DAX:21:a092",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1310,
+          "viewport": "73dbfcf91c86b814f830e205d36ee323a3bc492f42bb7b32cbce21feacaad698"
+        },
+        {
+          "member": 1,
+          "durationMs": 110,
+          "viewport": "64d8e5d67af67f67d943a5b3a8b186bd3e52b59971762a43b8986d721a813f4f"
+        },
+        {
+          "member": 2,
+          "durationMs": 310,
+          "viewport": "4e2c5265fe1083a42bab0223800ed562356b84330c92d0643860f7a5976ed1ee"
+        },
+        {
+          "member": 3,
+          "durationMs": 20,
+          "viewport": "64d8e5d67af67f67d943a5b3a8b186bd3e52b59971762a43b8986d721a813f4f"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "sokal-smithy-frog-hold",
+          "data": "original",
+          "rendererSha256": "1ff8ef0a4d635d4390caaad3f85782fd99c4728df2051a01d8477381403db6ed",
+          "bindingSha256": "b80255ff511baabbf2f7507a62c51b8c6af4196b92e72960d859ce4a0330e202",
+          "portrait": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:0:0",
+              "atMs": -8.399999999999636
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:1:0",
+              "atMs": 1241.6000000000004
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:2:0",
+              "atMs": 1341.6000000000004
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:1:0",
+              "atMs": 1658.1999999999998
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:0:0",
+              "atMs": 1674.8000000000002
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:1:0",
+              "atMs": 2991.5
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:2:0",
+              "atMs": 3091.5
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:1:0",
+              "atMs": 3408.2000000000007
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:0:0",
+              "atMs": 3424.7999999999993
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:1:0",
+              "atMs": 4741.4
+            }
+          ],
+          "sha256": {
+            "portrait:area:21:ecl:a0c6:PIC4.DAX:37:0:0": "60be76706b58ce356df6017436682f5d9d9f89a73d7783cb809165c38813f2b9",
+            "portrait:area:21:ecl:a0c6:PIC4.DAX:37:1:0": "a8f4c7f30b655fe3da2234e4ac425e5d12857abaff838845ef7fcfa23a592fea",
+            "portrait:area:21:ecl:a0c6:PIC4.DAX:37:2:0": "4fae4ba90c17049dd5c00dc9540eb92969cd3258a62d1922921390a58f021b71"
+          }
+        },
+        "port": {
+          "route": "sokal-smithy-frog-hold",
+          "data": "port",
+          "rendererSha256": "1ff8ef0a4d635d4390caaad3f85782fd99c4728df2051a01d8477381403db6ed",
+          "bindingSha256": "b80255ff511baabbf2f7507a62c51b8c6af4196b92e72960d859ce4a0330e202",
+          "portrait": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:0:0",
+              "atMs": 4.799999964237031
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:1:0",
+              "atMs": 1237.9999999642368
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:2:0",
+              "atMs": 1354.6999999642376
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:1:0",
+              "atMs": 1654.799999964237
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:0:0",
+              "atMs": 1687.9999999642368
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:1:0",
+              "atMs": 2987.999999964237
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:2:0",
+              "atMs": 3104.6999999642376
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:1:0",
+              "atMs": 3404.6999999642376
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:0:0",
+              "atMs": 3437.8999999642365
+            },
+            {
+              "key": "portrait:area:21:ecl:a0c6:PIC4.DAX:37:1:0",
+              "atMs": 4737.999999964237
+            }
+          ],
+          "sha256": {
+            "portrait:area:21:ecl:a0c6:PIC4.DAX:37:0:0": "60be76706b58ce356df6017436682f5d9d9f89a73d7783cb809165c38813f2b9",
+            "portrait:area:21:ecl:a0c6:PIC4.DAX:37:1:0": "a8f4c7f30b655fe3da2234e4ac425e5d12857abaff838845ef7fcfa23a592fea",
+            "portrait:area:21:ecl:a0c6:PIC4.DAX:37:2:0": "4fae4ba90c17049dd5c00dc9540eb92969cd3258a62d1922921390a58f021b71"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
@@ -31674,22 +31810,22 @@
       "caption": "THE CROAKING RISES IN VOLUME.",
       "checkpoint": "sokal-smithy-frogs/C.json",
       "position": [
+        21,
         14,
-        6,
-        2
+        6
       ],
       "chrome": {
         "original": {
           "route": "sokal-poison-frog-approach",
           "data": "original",
           "position": [
+            21,
             14,
-            6,
-            2
+            6
           ],
           "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4814,6E01:18THECROAKINGRISESINVOLUME.CombatWaitFleeAdvance",
           "checkpointSha256": "c7dda2af4b86fa52a4f95139285adcf32a482030a122e985c9f430125a157e0f",
-          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "rendererSha256": "1ff8ef0a4d635d4390caaad3f85782fd99c4728df2051a01d8477381403db6ed",
           "encounter": {
             "placement": [
               48,
@@ -31706,13 +31842,13 @@
           "route": "sokal-poison-frog-approach",
           "data": "port",
           "position": [
+            21,
             14,
-            6,
-            2
+            6
           ],
           "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4814,6E01:18THECROAKINGRISESINVOLUME.CombatWaitFleeAdvance",
           "checkpointSha256": "c7dda2af4b86fa52a4f95139285adcf32a482030a122e985c9f430125a157e0f",
-          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "rendererSha256": "1ff8ef0a4d635d4390caaad3f85782fd99c4728df2051a01d8477381403db6ed",
           "encounter": {
             "placement": [
               48,
