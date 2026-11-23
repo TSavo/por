@@ -2519,6 +2519,18 @@ const illustrationRoutes = new Map([
       pressOnPortrait: "portrait:area:20:ecl:b6df:caller:9c64:PIC2.DAX:4:2:0", retainPose: true,
     },
   }],
+  ["slums-roaming-goblin-surprise-loop", {
+    slot: "B", fixedClockStart: "4320002",
+    inputs: [...Array.from({ length: 2 }, () => ["up", "enter", "down"]).flat(), "up"],
+    settleInputs: ["enter", "enter"],
+    portrait: "portrait:area:20:ecl:b6df:caller:9c64:PIC2.DAX:2:0:0",
+    prompt: /YOUARESURPRISEDBYGOBLINS/i,
+    heldPortraitLoop: [0, 1].map(member => `portrait:area:20:ecl:b6df:caller:9c64:PIC2.DAX:2:${member}:0`),
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:20:ecl:b1e5:PIC2.DAX:2:0:0", prompt: /ABATTLEBEGINS/i,
+      pressOnPortrait: "portrait:area:20:ecl:b6df:caller:9c64:PIC2.DAX:2:1:0", retainPose: true,
+    },
+  }],
   ["valhingen-skeleton-roam-dialogue", {
     slot: "A", inputs: ["up", "down", "a", "a"],
     portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:34:0:0",
@@ -8472,7 +8484,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valjevo-fire-giant-refusal-loop" ||
       routeName === "valjevo-fire-giant-intruder-loop" ||
       routeName.startsWith("valjevo-tower-giants-") ||
-      /^slums-roaming-(kobold|orc-surprise)-loop$/.test(routeName) ||
+      /^slums-roaming-(kobold|(?:orc|goblin)-surprise)-loop$/.test(routeName) ||
       /^valjevo-giant-barracks-password-(haughty|sly)-loop$/.test(routeName) ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||

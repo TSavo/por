@@ -7,3 +7,5 @@ It checks the portrait cycle with GOG 1.3 and bundled data.
 
 Use `orc-B.json` with `slums-roaming-orc-surprise-loop` to check the
 orc surprise, its portrait timing, and the handoff to combat in both modes.
+The same checkpoint with `slums-roaming-goblin-surprise-loop` reaches the
+goblin branch with its own fixed replay clock.
