@@ -954,7 +954,7 @@ const koboldsClimbBehind = kutoWellAlleyPortrait("a3b2", "kobolds-climb-behind")
 const baneCacheHold = (location) => {
   const prefix = `portrait:area:24:ecl:aa47:cue:${location}-cache:PIC1.DAX:1:`;
   const heldPortraitLoop = [0, 1, 2, 1].map(member => `${prefix}${member}:0`);
-  return { portrait: heldPortraitLoop[0], heldPortraitLoop, sortCaption: true };
+  return { portrait: heldPortraitLoop[0], heldPortraitLoop, sortCaption: true, returnToLoot: true };
 };
 
 const illustrationRoutes = new Map([
@@ -14197,6 +14197,14 @@ try {
         const items = frame.text.toSorted(([a], [b]) => a - b)
           .map(([, char]) => String.fromCharCode(char)).join("");
         assert.match(items, continuation.lootCaption);
+        if (continuation.returnToLoot) {
+          await advance("e");
+          const restored = frame.text.toSorted(([a], [b]) => a - b)
+            .map(([, char]) => String.fromCharCode(char)).join("");
+          assert.match(restored, continuation.prompt);
+          assert.equal(frame.portrait, nextPortrait);
+          await waitForPortraitPaint(frame.sequence, nextPortrait);
+        }
       }
       if (routeName === "kovel-lone-thief-attack") {
         const thief = "combat:area:14:CPIC3.DAX:12:ecl:9c92";
