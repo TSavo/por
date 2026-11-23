@@ -19,7 +19,9 @@ exactly.
 ## Today
 
 Exploration is a WebGL 1 context and a painted atlas. The look comes from
-normals and roughness derived in the browser from that atlas; a low warm
+normals, height and roughness derived in the browser from that atlas
+(multi-scale Sobel per tile, with parallax and height self-shadowing so
+mortar, brick edges, planks and ivy catch the light); a low warm
 sun with cool sky fill so lit and shadowed walls read differently; baked
 corner and wall-base ambient occlusion, contact darkening, and soft floor
 shadows from the wall grid; a shader sky and sky-tinted height fog; and a
