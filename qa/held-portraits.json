@@ -38258,6 +38258,1089 @@
           }
         }
       }
+    },
+    {
+      "producer": "ECL7.DAX:26:a172",
+      "prompt": "a194",
+      "caption": "YOU SPOT A GROUP OF KOBOLDS",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        7,
+        0
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a194-kobolds",
+          "data": "original",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSPOTAGROUPOFKOBOLDSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0",
+              24,
+              65
+            ],
+            "sha256": "1ad91790a43495a9179dc400d4c24d5c790ddb2febfc7f6e3dea5de128b728c1"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a194-kobolds",
+          "data": "port",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSPOTAGROUPOFKOBOLDSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0",
+              24,
+              65
+            ],
+            "sha256": "1ad91790a43495a9179dc400d4c24d5c790ddb2febfc7f6e3dea5de128b728c1"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a172",
+      "prompt": "a194",
+      "caption": "YOU SPOT A GROUP OF NOMADS",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        7,
+        0
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a194-nomads",
+          "data": "original",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSPOTAGROUPOFNOMADSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a194:SPRIT7.DAX:11:1:0",
+              24,
+              65
+            ],
+            "sha256": "1f3a1661e864daa1919b41c1edc65b509718401c85e143b6efa18d2889dfcc67"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a194-nomads",
+          "data": "port",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSPOTAGROUPOFNOMADSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a194:SPRIT7.DAX:11:1:0",
+              24,
+              65
+            ],
+            "sha256": "1f3a1661e864daa1919b41c1edc65b509718401c85e143b6efa18d2889dfcc67"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a172",
+      "prompt": "a194",
+      "caption": "YOU SPOT A GROUP OF MERCHANTS",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        7,
+        0
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a194-merchants",
+          "data": "original",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSPOTAGROUPOFMERCHANTSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0",
+              24,
+              65
+            ],
+            "sha256": "e396fab06a7f7d8ee2f8345d087dd132ddbeec498d19ef77d33982780b5e51e4"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a194-merchants",
+          "data": "port",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSPOTAGROUPOFMERCHANTSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0",
+              24,
+              65
+            ],
+            "sha256": "e396fab06a7f7d8ee2f8345d087dd132ddbeec498d19ef77d33982780b5e51e4"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a172",
+      "prompt": "a194",
+      "caption": "YOU SPOT A GROUP OF LIZARD MEN",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        8,
+        2
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a194-lizard-men",
+          "data": "original",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUSPOTAGROUPOFLIZARDMENCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a194:SPRIT7.DAX:57:1:0",
+              32,
+              65
+            ],
+            "sha256": "a05e7effc93eba604e7968028e6be815dcb09dd93fe969c0d744b20064e7d3b7"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a194-lizard-men",
+          "data": "port",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUSPOTAGROUPOFLIZARDMENCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a194:SPRIT7.DAX:57:1:0",
+              32,
+              65
+            ],
+            "sha256": "a05e7effc93eba604e7968028e6be815dcb09dd93fe969c0d744b20064e7d3b7"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a172",
+      "prompt": "a194",
+      "caption": "YOU SPOT A GROUP OF STIRGES",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        8,
+        2
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a194-stirges",
+          "data": "original",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUSPOTAGROUPOFSTIRGESCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a194:SPRIT7.DAX:61:1:0",
+              24,
+              57
+            ],
+            "sha256": "0896c2d56c43b11c414a5a2203f4ca1207cc1b9cfe92a7c8d85200f8b8fef191"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a194-stirges",
+          "data": "port",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUSPOTAGROUPOFSTIRGESCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a194:SPRIT7.DAX:61:1:0",
+              24,
+              57
+            ],
+            "sha256": "0896c2d56c43b11c414a5a2203f4ca1207cc1b9cfe92a7c8d85200f8b8fef191"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a172",
+      "prompt": "a194",
+      "caption": "YOU SPOT A GROUP OF DISPLACER BEASTS",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        7,
+        0
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a194-displacer-beasts",
+          "data": "original",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSPOTAGROUPOFDISPLACERBEASTSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              48,
+              32,
+              "encounter:area:26:ecl:a194:SPRIT7.DAX:68:1:0",
+              48,
+              65
+            ],
+            "sha256": "e5cdcc23db5c1acd638156242f024646afabebe41d0127abd901568497997234"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a194-displacer-beasts",
+          "data": "port",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSPOTAGROUPOFDISPLACERBEASTSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              48,
+              32,
+              "encounter:area:26:ecl:a194:SPRIT7.DAX:68:1:0",
+              48,
+              65
+            ],
+            "sha256": "e5cdcc23db5c1acd638156242f024646afabebe41d0127abd901568497997234"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a1c5",
+      "prompt": "a1e5",
+      "caption": "YOU ARE SURPRISED BY A GROUP OF KOBOLDS",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        7,
+        0
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a1e5-kobolds",
+          "data": "original",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUARESURPRISEDBYAGROUPOFKOBOLDSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a1e5:SPRIT7.DAX:0:1:0",
+              24,
+              65
+            ],
+            "sha256": "1ad91790a43495a9179dc400d4c24d5c790ddb2febfc7f6e3dea5de128b728c1"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a1e5-kobolds",
+          "data": "port",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUARESURPRISEDBYAGROUPOFKOBOLDSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a1e5:SPRIT7.DAX:0:1:0",
+              24,
+              65
+            ],
+            "sha256": "1ad91790a43495a9179dc400d4c24d5c790ddb2febfc7f6e3dea5de128b728c1"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a1c5",
+      "prompt": "a1e5",
+      "caption": "YOU ARE SURPRISED BY A GROUP OF MERCHANTS",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        7,
+        0
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a1e5-merchants",
+          "data": "original",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUARESURPRISEDBYAGROUPOFMERCHANTSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a1e5:SPRIT7.DAX:12:1:0",
+              24,
+              65
+            ],
+            "sha256": "e396fab06a7f7d8ee2f8345d087dd132ddbeec498d19ef77d33982780b5e51e4"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a1e5-merchants",
+          "data": "port",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUARESURPRISEDBYAGROUPOFMERCHANTSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a1e5:SPRIT7.DAX:12:1:0",
+              24,
+              65
+            ],
+            "sha256": "e396fab06a7f7d8ee2f8345d087dd132ddbeec498d19ef77d33982780b5e51e4"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a1c5",
+      "prompt": "a1e5",
+      "caption": "YOU ARE SURPRISED BY A GROUP OF STIRGES",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        8,
+        2
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a1e5-stirges",
+          "data": "original",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUARESURPRISEDBYAGROUPOFSTIRGESCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a1e5:SPRIT7.DAX:61:1:0",
+              24,
+              57
+            ],
+            "sha256": "0896c2d56c43b11c414a5a2203f4ca1207cc1b9cfe92a7c8d85200f8b8fef191"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a1e5-stirges",
+          "data": "port",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUARESURPRISEDBYAGROUPOFSTIRGESCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a1e5:SPRIT7.DAX:61:1:0",
+              24,
+              57
+            ],
+            "sha256": "0896c2d56c43b11c414a5a2203f4ca1207cc1b9cfe92a7c8d85200f8b8fef191"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a1c5",
+      "prompt": "a1e5",
+      "caption": "YOU ARE SURPRISED BY A GROUP OF DISPLACER BEASTS",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        8,
+        2
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a1e5-displacer-beasts",
+          "data": "original",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUARESURPRISEDBYAGROUPOFDISPLACERBEASTSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              48,
+              32,
+              "encounter:area:26:ecl:a1e5:SPRIT7.DAX:68:1:0",
+              48,
+              65
+            ],
+            "sha256": "e5cdcc23db5c1acd638156242f024646afabebe41d0127abd901568497997234"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a1e5-displacer-beasts",
+          "data": "port",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUARESURPRISEDBYAGROUPOFDISPLACERBEASTSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              48,
+              32,
+              "encounter:area:26:ecl:a1e5:SPRIT7.DAX:68:1:0",
+              48,
+              65
+            ],
+            "sha256": "e5cdcc23db5c1acd638156242f024646afabebe41d0127abd901568497997234"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a1c5",
+      "prompt": "a1e5",
+      "caption": "YOU ARE SURPRISED BY A GROUP OF DRIDERS",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        7,
+        0
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a1e5-driders",
+          "data": "original",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUARESURPRISEDBYAGROUPOFDRIDERSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              48,
+              32,
+              "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0",
+              40,
+              65
+            ],
+            "sha256": "02262994b0637b1921b1e7c9a186c094d2d727c3d8afcd39f8295c4b5bf7b758"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a1e5-driders",
+          "data": "port",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUARESURPRISEDBYAGROUPOFDRIDERSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              48,
+              32,
+              "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0",
+              40,
+              65
+            ],
+            "sha256": "02262994b0637b1921b1e7c9a186c094d2d727c3d8afcd39f8295c4b5bf7b758"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a210",
+      "prompt": "a230",
+      "caption": "YOU SURPRISE A GROUP OF KOBOLDS",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        7,
+        0
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a230-kobolds",
+          "data": "original",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSURPRISEAGROUPOFKOBOLDSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a230:SPRIT7.DAX:0:1:0",
+              24,
+              65
+            ],
+            "sha256": "029ca976572a09d0726324c52c3ab8b2240d7c7cbdb2ce2c8d801a9beef68a04"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a230-kobolds",
+          "data": "port",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSURPRISEAGROUPOFKOBOLDSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a230:SPRIT7.DAX:0:1:0",
+              24,
+              65
+            ],
+            "sha256": "029ca976572a09d0726324c52c3ab8b2240d7c7cbdb2ce2c8d801a9beef68a04"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a210",
+      "prompt": "a230",
+      "caption": "YOU SURPRISE A GROUP OF NOMADS",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        8,
+        2
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a230-nomads",
+          "data": "original",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUSURPRISEAGROUPOFNOMADSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a230:SPRIT7.DAX:11:1:0",
+              24,
+              65
+            ],
+            "sha256": "727877e5a4956b1fbe9a92733d9c28fa1cb7ff6d6cc71b3f18b27b4a5a9e47d6"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a230-nomads",
+          "data": "port",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUSURPRISEAGROUPOFNOMADSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a230:SPRIT7.DAX:11:1:0",
+              24,
+              65
+            ],
+            "sha256": "727877e5a4956b1fbe9a92733d9c28fa1cb7ff6d6cc71b3f18b27b4a5a9e47d6"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a210",
+      "prompt": "a230",
+      "caption": "YOU SURPRISE A GROUP OF MERCHANTS",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        8,
+        2
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a230-merchants",
+          "data": "original",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUSURPRISEAGROUPOFMERCHANTSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a230:SPRIT7.DAX:12:1:0",
+              24,
+              65
+            ],
+            "sha256": "e396fab06a7f7d8ee2f8345d087dd132ddbeec498d19ef77d33982780b5e51e4"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a230-merchants",
+          "data": "port",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUSURPRISEAGROUPOFMERCHANTSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a230:SPRIT7.DAX:12:1:0",
+              24,
+              65
+            ],
+            "sha256": "e396fab06a7f7d8ee2f8345d087dd132ddbeec498d19ef77d33982780b5e51e4"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a210",
+      "prompt": "a230",
+      "caption": "YOU SURPRISE A GROUP OF BANDITS",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        8,
+        2
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a230-bandits",
+          "data": "original",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUSURPRISEAGROUPOFBANDITSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a230:SPRIT7.DAX:15:1:0",
+              24,
+              65
+            ],
+            "sha256": "d527a64b06fc659875111254a0825f66d2a48b06c391272b2920583788d2e525"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a230-bandits",
+          "data": "port",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUSURPRISEAGROUPOFBANDITSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a230:SPRIT7.DAX:15:1:0",
+              24,
+              65
+            ],
+            "sha256": "d527a64b06fc659875111254a0825f66d2a48b06c391272b2920583788d2e525"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a210",
+      "prompt": "a230",
+      "caption": "YOU SURPRISE A GROUP OF LIZARD MEN",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        8,
+        2
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a230-lizard-men",
+          "data": "original",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUSURPRISEAGROUPOFLIZARDMENCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a230:SPRIT7.DAX:57:1:0",
+              32,
+              65
+            ],
+            "sha256": "a05e7effc93eba604e7968028e6be815dcb09dd93fe969c0d744b20064e7d3b7"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a230-lizard-men",
+          "data": "port",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUSURPRISEAGROUPOFLIZARDMENCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a230:SPRIT7.DAX:57:1:0",
+              32,
+              65
+            ],
+            "sha256": "a05e7effc93eba604e7968028e6be815dcb09dd93fe969c0d744b20064e7d3b7"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a210",
+      "prompt": "a230",
+      "caption": "YOU SURPRISE A GROUP OF STIRGES",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        8,
+        2
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a230-stirges",
+          "data": "original",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUSURPRISEAGROUPOFSTIRGESCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a230:SPRIT7.DAX:61:1:0",
+              24,
+              57
+            ],
+            "sha256": "0896c2d56c43b11c414a5a2203f4ca1207cc1b9cfe92a7c8d85200f8b8fef191"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a230-stirges",
+          "data": "port",
+          "position": [
+            23,
+            8,
+            2
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8S12:23YOUSURPRISEAGROUPOFSTIRGESCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:26:ecl:a230:SPRIT7.DAX:61:1:0",
+              24,
+              57
+            ],
+            "sha256": "0896c2d56c43b11c414a5a2203f4ca1207cc1b9cfe92a7c8d85200f8b8fef191"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a210",
+      "prompt": "a230",
+      "caption": "YOU SURPRISE A GROUP OF DISPLACER BEASTS",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        7,
+        0
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a230-displacer-beasts",
+          "data": "original",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSURPRISEAGROUPOFDISPLACERBEASTSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              48,
+              32,
+              "encounter:area:26:ecl:a230:SPRIT7.DAX:68:1:0",
+              48,
+              65
+            ],
+            "sha256": "e5cdcc23db5c1acd638156242f024646afabebe41d0127abd901568497997234"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a230-displacer-beasts",
+          "data": "port",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSURPRISEAGROUPOFDISPLACERBEASTSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              48,
+              32,
+              "encounter:area:26:ecl:a230:SPRIT7.DAX:68:1:0",
+              48,
+              65
+            ],
+            "sha256": "e5cdcc23db5c1acd638156242f024646afabebe41d0127abd901568497997234"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:26:a210",
+      "prompt": "a230",
+      "caption": "YOU SURPRISE A GROUP OF DRIDERS",
+      "checkpoint": "middle-wilderness-patrols/A.json",
+      "position": [
+        23,
+        7,
+        0
+      ],
+      "chrome": {
+        "original": {
+          "route": "middle-wilderness-a230-driders",
+          "data": "original",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSURPRISEAGROUPOFDRIDERSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              48,
+              32,
+              "encounter:area:26:ecl:a230:SPRIT7.DAX:69:1:0",
+              40,
+              65
+            ],
+            "sha256": "02262994b0637b1921b1e7c9a186c094d2d727c3d8afcd39f8295c4b5bf7b758"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "middle-wilderness-a230-driders",
+          "data": "port",
+          "position": [
+            23,
+            7,
+            0
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSURPRISEAGROUPOFDRIDERSCombatWaitFleeParlay",
+          "encounter": {
+            "placement": [
+              48,
+              32,
+              "encounter:area:26:ecl:a230:SPRIT7.DAX:69:1:0",
+              40,
+              65
+            ],
+            "sha256": "02262994b0637b1921b1e7c9a186c094d2d727c3d8afcd39f8295c4b5bf7b758"
+          },
+          "checkpointSha256": "9c33070cc0f1d967fcf63baab9223ef13e4ad732d99eca51568028dd0600101b",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [
