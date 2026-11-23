@@ -12,12 +12,10 @@ Recorded walks measured in Chrome with GOG 1.3: 40 / 40. Run `npm run verify:enh
 `campaign-sokal-leg` shares the `campaign-full/leg-7` capture because the replay inputs are identical.
 `campaign-tower-leg` shares the `campaign-full/leg-9` capture because the replay inputs are identical.
 
-**There is art to do: 1 item.**
+**There is no proven art to do right now.** Everything the tools can show the game draws has your art. Check back after the QA owner's next update to this file.
 
 1. **Wall tiles: none. Outdoor fight terrain: none.**
 2. **Pictures: none.**
-**Asked for by the owner (qa/art-requests.json): 1.**
-   - `instrument:animated-portraits` (a tool and npm script (yours to name), its number at the top of docs/ART-WORKLIST.md): Before more one-off portrait fixes (#80): build the count of every place the game cycles picture members while it holds a prompt (scene position, block, members, order, holds, from the scripts and the game's own picture routine), with verified = a passing Chrome check from both data sources that the page paints them in that order at those holds. Print verified / total and R, name each unverified place, stay red while R > 0, and show the number here through npm run art:worklist. Issue #131.
 3. **Do not draw anything under "Not established".** Those cells are not confirmed to appear. The QA owner is settling them by play and moves each one that proves real into item 1.
 
 The artwork is done when items 1 and 2 are none and nothing is left under "Not established".

@@ -31,7 +31,7 @@
       "file": "a tool and npm script (yours to name), its number at the top of docs/ART-WORKLIST.md",
       "what": "Before more one-off portrait fixes (#80): build the count of every place the game cycles picture members while it holds a prompt (scene position, block, members, order, holds, from the scripts and the game's own picture routine), with verified = a passing Chrome check from both data sources that the page paints them in that order at those holds. Print verified / total and R, name each unverified place, stay red while R > 0, and show the number here through npm run art:worklist. Issue #131.",
       "asked": "The owner, 2026-11-22: \"I want to understand why we missed the portrait work on the first pass. How did our art inventory not account for that? And what else are we still missing?\"",
-      "done": null
+      "done": "8a78158015d09dd1c16fddf2abef745294d57914"
     },
     {
       "id": "enhanced-fallback-count",
