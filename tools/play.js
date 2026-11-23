@@ -625,12 +625,12 @@ document.addEventListener("visibilitychange", () => {
     }
     return;
   }
-  if (visibilityPausedEffect === currentEffect) {
+  if (visibilityPausedEffect && visibilityPausedEffect === currentEffect) {
     const effect = visibilityPausedEffect;
     visibilityPausedEffect = undefined;
     effect.play().catch(() => {});
   }
-  if (enhanced && visibilityPausedVoice === currentVoice) {
+  if (enhanced && visibilityPausedVoice && visibilityPausedVoice === currentVoice) {
     const voice = visibilityPausedVoice;
     visibilityPausedVoice = undefined;
     voice.play().catch(() => {});
