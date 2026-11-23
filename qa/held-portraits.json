@@ -28047,6 +28047,234 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL7.DAX:22:9cf3",
+      "prompt": "9d3b",
+      "variants": [
+        {
+          "caption": "HE SMILES AT YOU AND RAISES HIS HAND IN BENEDICTION",
+          "checkpoint": "tyrmor-priest-parlay/B.json",
+          "portrait": "portrait:area:22:ecl:9d3b:HEAD7.DAX:16:BODY7.DAX:30",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 45 BRIN 3 45 CORA 5 45 DORN 5 45 ENNA 4 45 MIRA 10 45 E 00:27 HE SMILES AT YOU AND RAISES HIS HAND IN BENEDICTION. Combat Wait Flee Parlay",
+            "idlePolls": 55,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "31698602cec448a1ab42387e7d4e5c8bb012f24b7e45fdc0698fd2e073d29d41"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "31698602cec448a1ab42387e7d4e5c8bb012f24b7e45fdc0698fd2e073d29d41"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "31698602cec448a1ab42387e7d4e5c8bb012f24b7e45fdc0698fd2e073d29d41"
+              },
+              {
+                "idlePolls": 55,
+                "sha256": "31698602cec448a1ab42387e7d4e5c8bb012f24b7e45fdc0698fd2e073d29d41"
+              }
+            ],
+            "drawCursor": "9d3b",
+            "composed": {
+              "source": "HEAD7.DAX:16:BODY7.DAX:30",
+              "headWrite": "a437",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "9d3b"
+            },
+            "battlePanelSha256": "31698602cec448a1ab42387e7d4e5c8bb012f24b7e45fdc0698fd2e073d29d41"
+          },
+          "chrome": {
+            "original": {
+              "route": "tyrmor-priest-benediction-hold",
+              "data": "original",
+              "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA1045E00:27HESMILESATYOUANDRAISESHISHANDINBENEDICTION.CombatWaitFleeParlay",
+              "portrait": "portrait:area:22:ecl:9d3b:HEAD7.DAX:16:BODY7.DAX:30",
+              "checkpointSha256": "462bae1067fd48d7cad5537e81a481738230ee79997351b211f5deffa0f48b2f",
+              "artSha256": "ed0fcb1bc283ff2401941f13343be77466c078e5397f4cf8178657fe725bfbb4",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3663,
+              "samples": 221,
+              "poses": [
+                "portrait:area:22:ecl:9d3b:HEAD7.DAX:16:BODY7.DAX:30"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "tyrmor-priest-benediction-hold",
+              "data": "port",
+              "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA1045E00:27HESMILESATYOUANDRAISESHISHANDINBENEDICTION.CombatWaitFleeParlay",
+              "portrait": "portrait:area:22:ecl:9d3b:HEAD7.DAX:16:BODY7.DAX:30",
+              "checkpointSha256": "462bae1067fd48d7cad5537e81a481738230ee79997351b211f5deffa0f48b2f",
+              "artSha256": "ed0fcb1bc283ff2401941f13343be77466c078e5397f4cf8178657fe725bfbb4",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3659,
+              "samples": 221,
+              "poses": [
+                "portrait:area:22:ecl:9d3b:HEAD7.DAX:16:BODY7.DAX:30"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL7.DAX:22:9cf3",
+      "prompt": "9a06/9ef6",
+      "variants": [
+        {
+          "caption": "PEACE BROTHER. YOU, TOO, ARE ONE OF MY FLOCK",
+          "checkpoint": "tyrmor-priest-parlay/B.json",
+          "portrait": "portrait:area:22:ecl:9a06:caller:9ef6:HEAD7.DAX:16:BODY7.DAX:30",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 45 BRIN 3 45 CORA 5 45 DORN 5 45 ENNA 4 45 MIRA 10 45 E 00:27 PEACE BROTHER. YOU, TOO, ARE ONE OF MY FLOCK. I HAVE BUT RECENTLY PRAYED FOR ANOTHER OF MY FLOCK AND MAY PRAY NO MORE. Press button or <return> to continue",
+            "idlePolls": 55,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "31698602cec448a1ab42387e7d4e5c8bb012f24b7e45fdc0698fd2e073d29d41"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "31698602cec448a1ab42387e7d4e5c8bb012f24b7e45fdc0698fd2e073d29d41"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "31698602cec448a1ab42387e7d4e5c8bb012f24b7e45fdc0698fd2e073d29d41"
+              },
+              {
+                "idlePolls": 55,
+                "sha256": "31698602cec448a1ab42387e7d4e5c8bb012f24b7e45fdc0698fd2e073d29d41"
+              }
+            ],
+            "drawCursor": "9d3b",
+            "composed": {
+              "source": "HEAD7.DAX:16:BODY7.DAX:30",
+              "headWrite": "a437",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "9d3b"
+            },
+            "battlePanelSha256": "31698602cec448a1ab42387e7d4e5c8bb012f24b7e45fdc0698fd2e073d29d41"
+          },
+          "chrome": {
+            "original": {
+              "route": "tyrmor-priest-peace-hold",
+              "data": "original",
+              "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA1045E00:27PEACEBROTHER.YOU,TOO,AREONEOFMYFLOCK.IHAVEBUTRECENTLYPRAYEDFORANOTHEROFMYFLOCKANDMAYPRAYNOMORE.Pressbuttonor<return>tocontinue",
+              "portrait": "portrait:area:22:ecl:9a06:caller:9ef6:HEAD7.DAX:16:BODY7.DAX:30",
+              "checkpointSha256": "462bae1067fd48d7cad5537e81a481738230ee79997351b211f5deffa0f48b2f",
+              "artSha256": "ed0fcb1bc283ff2401941f13343be77466c078e5397f4cf8178657fe725bfbb4",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3664,
+              "samples": 220,
+              "poses": [
+                "portrait:area:22:ecl:9a06:caller:9ef6:HEAD7.DAX:16:BODY7.DAX:30"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "tyrmor-priest-peace-hold",
+              "data": "port",
+              "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA1045E00:27PEACEBROTHER.YOU,TOO,AREONEOFMYFLOCK.IHAVEBUTRECENTLYPRAYEDFORANOTHEROFMYFLOCKANDMAYPRAYNOMORE.Pressbuttonor<return>tocontinue",
+              "portrait": "portrait:area:22:ecl:9a06:caller:9ef6:HEAD7.DAX:16:BODY7.DAX:30",
+              "checkpointSha256": "462bae1067fd48d7cad5537e81a481738230ee79997351b211f5deffa0f48b2f",
+              "artSha256": "ed0fcb1bc283ff2401941f13343be77466c078e5397f4cf8178657fe725bfbb4",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3657,
+              "samples": 221,
+              "poses": [
+                "portrait:area:22:ecl:9a06:caller:9ef6:HEAD7.DAX:16:BODY7.DAX:30"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL7.DAX:22:9cf3",
+      "prompt": "9991/9def",
+      "variants": [
+        {
+          "caption": "I HAVE CHISELED ALMOST ALL THE WAY THROUGH TO THE OUTSIDE",
+          "checkpoint": "tyrmor-priest-parlay/B.json",
+          "portrait": "scene-illustration:area:22:ecl:9991:caller:9def:cue:priest-chisel",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 45 BRIN 3 45 CORA 5 45 DORN 5 45 ENNA 4 45 MIRA 10 45 E 00:27 I HAVE A SECRET. I HAVE CHISELED ALMOST ALL THE WAY THROUGH TO THE OUTSIDE. BUT I NO LONGER HAVE THE STRENGTH TO BREAK THROUGH. WILL YOU TRY? Yes No",
+            "idlePolls": 55,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "31698602cec448a1ab42387e7d4e5c8bb012f24b7e45fdc0698fd2e073d29d41"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "31698602cec448a1ab42387e7d4e5c8bb012f24b7e45fdc0698fd2e073d29d41"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "31698602cec448a1ab42387e7d4e5c8bb012f24b7e45fdc0698fd2e073d29d41"
+              },
+              {
+                "idlePolls": 55,
+                "sha256": "31698602cec448a1ab42387e7d4e5c8bb012f24b7e45fdc0698fd2e073d29d41"
+              }
+            ],
+            "drawCursor": "9d3b",
+            "composed": {
+              "source": "HEAD7.DAX:16:BODY7.DAX:30",
+              "headWrite": "a437",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "9d3b"
+            },
+            "battlePanelSha256": "31698602cec448a1ab42387e7d4e5c8bb012f24b7e45fdc0698fd2e073d29d41"
+          },
+          "chrome": {
+            "original": {
+              "route": "tyrmor-priest-chisel-hold",
+              "data": "original",
+              "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA1045E00:27IHAVEASECRET.IHAVECHISELEDALMOSTALLTHEWAYTHROUGHTOTHEOUTSIDE.BUTINOLONGERHAVETHESTRENGTHTOBREAKTHROUGH.WILLYOUTRY?YesNo",
+              "portrait": "scene-illustration:area:22:ecl:9991:caller:9def:cue:priest-chisel",
+              "checkpointSha256": "462bae1067fd48d7cad5537e81a481738230ee79997351b211f5deffa0f48b2f",
+              "artSha256": "98f66b92c627c31f1698cac1c6ef4f4b5c0632be063e3fcd40912e2692a32463",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3662,
+              "samples": 220,
+              "poses": [
+                "scene-illustration:area:22:ecl:9991:caller:9def:cue:priest-chisel"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "tyrmor-priest-chisel-hold",
+              "data": "port",
+              "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA1045E00:27IHAVEASECRET.IHAVECHISELEDALMOSTALLTHEWAYTHROUGHTOTHEOUTSIDE.BUTINOLONGERHAVETHESTRENGTHTOBREAKTHROUGH.WILLYOUTRY?YesNo",
+              "portrait": "scene-illustration:area:22:ecl:9991:caller:9def:cue:priest-chisel",
+              "checkpointSha256": "462bae1067fd48d7cad5537e81a481738230ee79997351b211f5deffa0f48b2f",
+              "artSha256": "98f66b92c627c31f1698cac1c6ef4f4b5c0632be063e3fcd40912e2692a32463",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3662,
+              "samples": 221,
+              "poses": [
+                "scene-illustration:area:22:ecl:9991:caller:9def:cue:priest-chisel"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
     }
   ],
   "approachTransitions": [
