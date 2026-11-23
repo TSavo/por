@@ -25661,6 +25661,58 @@
           }
         }
       }
+    },
+    {
+      "producer": "ECL8.DAX:13:9eaf",
+      "prompt": "b511/afc2",
+      "caption": "THE KOBOLD PAUSES, IDLY TAPS THE WALL, THEN PROCEEDS.",
+      "checkpoint": "kobold-cave-guide-choices/B.json",
+      "illustration": {
+        "id": "scene-illustration:area:13:ecl:b511:caller:afc2",
+        "native": {
+          "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 W 12:24 THE KOBOLD PAUSES, IDLY TAPS THE WALL, THEN PROCEEDS. Press <return> or button to continue.",
+          "viewportSha256": "1a4e01c60aa0c95226757be50bf249c947139936ab66088e4f4d8bcb5e0e0c2d",
+          "pictureDraws": 0
+        }
+      },
+      "chrome": {
+        "original": {
+          "sha256": "38303309407fd9374e7ef703e1087f10155b58273c30f20db726e811692bf832",
+          "route": "kobold-cave-guide-wall-tap",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105W12:24THEKOBOLDPAUSES,IDLYTAPSTHEWALL,THENPROCEEDS.Press<return>orbuttontocontinue.",
+          "portrait": "scene-illustration:area:13:ecl:b511:caller:afc2",
+          "checkpointSha256": "54419f08a25119e02472dab42f17b54eaa60e46c4452f7337aaa94bd56753ae1",
+          "artSha256": "38303309407fd9374e7ef703e1087f10155b58273c30f20db726e811692bf832",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3663,
+          "samples": 221,
+          "poses": [
+            "scene-illustration:area:13:ecl:b511:caller:afc2"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "0470ffda5828747f3da41b465184d8fbb755b6fbe1b1c213f4c19993e45d8a58"
+        },
+        "port": {
+          "sha256": "38303309407fd9374e7ef703e1087f10155b58273c30f20db726e811692bf832",
+          "route": "kobold-cave-guide-wall-tap",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105W12:24THEKOBOLDPAUSES,IDLYTAPSTHEWALL,THENPROCEEDS.Press<return>orbuttontocontinue.",
+          "portrait": "scene-illustration:area:13:ecl:b511:caller:afc2",
+          "checkpointSha256": "54419f08a25119e02472dab42f17b54eaa60e46c4452f7337aaa94bd56753ae1",
+          "artSha256": "38303309407fd9374e7ef703e1087f10155b58273c30f20db726e811692bf832",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3660,
+          "samples": 221,
+          "poses": [
+            "scene-illustration:area:13:ecl:b511:caller:afc2"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "0470ffda5828747f3da41b465184d8fbb755b6fbe1b1c213f4c19993e45d8a58"
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [
