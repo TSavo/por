@@ -433,6 +433,8 @@ const portraitLoops = [
   ["portrait:area:29:ecl:a3b2:PIC8.DAX:0:", [0, 1, 2, 1], undefined,
     /^(?!.*ABATTLEBEGINS).*ABANDOFKOBOLDSCLIMBSFROMTHEWELLBEHINDYOUANDATTACKS/i, [210, 210, 210, 210],
     [["scene-illustration:area:29:ecl:af2f:caller:a31b:cue:kobolds-climb-behind", 0]]],
+  ["portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:", 2, undefined,
+    /^(?!.*ABATTLEBEGINS).*YOUARESURPRISEDBYGNOLLS/i, [510, 1510]],
   ["portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:57:", 4, undefined,
     /^(?!.*ABATTLEBEGINS).*YOUARESURPRISEDBYLIZARDMEN/i, [210, 210, 210, 210]],
   ["portrait:area:29:ecl:af2f:caller:a6f7:PIC8.DAX:0:", [0, 1, 2, 1], "portrait:area:29:PIC8.DAX:0:0:0",
