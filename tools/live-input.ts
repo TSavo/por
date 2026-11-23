@@ -1,5 +1,4 @@
-import { appendFileSync, mkdtempSync, readFileSync, readSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { diagnosticFiles, engineHost } from "./engine-host.js";
 import { observeNativeEncounterArt } from "./native-encounter-art.js";
 import { captureNativeExploration, type NativeExploration } from "./native-exploration.js";
 import { observeNativeCombatArt } from "./native-combat-art.js";
@@ -28,6 +27,8 @@ import { authoredScriptPosition, code, data, eclGlobalOffset, isAt, isBattleEntr
 import { standaloneTrace } from "./standalone-trace.js";
 import { narrationLedger } from "./narration-ledger.js";
 
+const env = engineHost().env;
+const print = (line: string) => engineHost().print(line);
 const controls: Record<string, number> = {
   enter: 0x1c0d, escape: 0x011b, up: 0x4800, down: 0x5000, left: 0x4b00, right: 0x4d00,
   home: 0x4700, pageup: 0x4900, end: 0x4f00, pagedown: 0x5100,
@@ -149,13 +150,7 @@ export function getKey(command: string): number | undefined {
 function readCommand(): string | undefined {
   // POR_TRACE_STANDALONE: the runner is killed while it waits here, so the trace is written before each wait.
   standaloneTrace?.flush();
-  const byte = Buffer.alloc(1);
-  let line = "";
-  while (readSync(0, byte, 0, 1, null) === 1) {
-    if (byte[0] === 10) return line.trim();
-    if (byte[0] !== 13) line += String.fromCharCode(byte[0]!);
-  }
-  return line.length ? line.trim() : undefined;
+  return engineHost().readCommand();
 }
 
 function menuText(glyphs: ReturnType<typeof visibleGameText>) {
@@ -311,21 +306,21 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   // standalone the viewport's cells must also be unwritten since (cellWriteMark).
   const viewportMark = () => cellWriteMark(3, 3, 11, 11);
   const viewportUntouched = (mark: number) => !standalone || mark === viewportMark();
-  const browser = process.env.POR_BROWSER_PLAY === "1";
-  const developerCombat = process.env.POR_DEV_COMBAT === "1";
+  const browser = env.POR_BROWSER_PLAY === "1";
+  const developerCombat = env.POR_DEV_COMBAT === "1";
   // Replays recorded before 2026-11-21 answered the game's discard polls with a key press.
   // They set this until each is re-recorded with one press per input.
-  const promptAtDiscardPolls = process.env.POR_INPUT_COMPAT === "discard-poll-prompt";
-  const traceKeys = process.env.POR_TRACE_KEYS === "1";
+  const promptAtDiscardPolls = env.POR_INPUT_COMPAT === "discard-poll-prompt";
+  const traceKeys = env.POR_TRACE_KEYS === "1";
   // POR_SWALLOW_KEY=n, for testing the replays only: the n-th key this runner is given (counted
   // from 1, commands such as ":poll" and the journal's "j" not counted) is swallowed, as if the
   // game had read it and done nothing. The runner shows the same screen again and asks again at the
   // same moment. A replay that checks the screen each key should produce fails there (#76).
-  const swallowKey = Number(process.env.POR_SWALLOW_KEY) || 0;
+  const swallowKey = Number(env.POR_SWALLOW_KEY) || 0;
   let keysGiven = 0;
   // POR_WATCH_ECL=4abb,4a80 makes each frame report the value of those script variables. Only the
   // variables the scripts keep in the saved game (0x4900 to 0x4cff) can be watched. Read only.
-  const watchedVariables = (process.env.POR_WATCH_ECL ?? "").split(",").filter(Boolean).map((text) => {
+  const watchedVariables = (env.POR_WATCH_ECL ?? "").split(",").filter(Boolean).map((text) => {
     const address = Number.parseInt(text, 16);
     if (!/^[0-9a-f]{4}$/i.test(text) || address < 0x4900 || address > 0x4cff) throw new Error(`POR_WATCH_ECL takes script variables from 4900 to 4cff, not ${text}`);
     return address;
@@ -334,33 +329,33 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   // POR_WATCH_DS=6f68,6f69 makes each frame report those bytes of the program's data segment
   // (`dataBytes`): state the scripts set that is not a script variable, such as the ground and
   // horizon codes the first-person view is drawn with. Read only.
-  const watchedData = (process.env.POR_WATCH_DS ?? "").split(",").filter(Boolean).map((text) => {
+  const watchedData = (env.POR_WATCH_DS ?? "").split(",").filter(Boolean).map((text) => {
     if (!/^[0-9a-f]{1,4}$/i.test(text)) throw new Error(`POR_WATCH_DS takes data segment offsets in hexadecimal, not ${text}`);
     return Number.parseInt(text, 16);
   });
   let dataBytes: Record<string, number> | undefined;
-  const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
-  const battleTileKeys = new Set((process.env.POR_BATTLE_TILE_KEYS ?? "").split(",").filter(Boolean));
-  const combatKeys = (process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean);
+  const tileKeys = new Set((env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
+  const battleTileKeys = new Set((env.POR_BATTLE_TILE_KEYS ?? "").split(",").filter(Boolean));
+  const combatKeys = (env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean);
   const combatKeySet = new Set(combatKeys);
   const nativeTerrainTiles = Boolean(pictures);
   const nativeBattleTerrain = browser && (battleTileKeys.size || combatKeys.length)
     ? observeNativeBattleTerrain(pictures ?? [], battleTileKeys, combatKeySet) : undefined;
-  const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
+  const traceBattleDraw = env.POR_TRACE_BATTLE_DRAW === "1";
   const battleTerrain = browser && (battleTileKeys.size || traceBattleDraw) ? new Frame(screen.width, screen.height) : undefined;
   const capturedTerrainKeys = new Map<number, string>();
   const tracedBattleTerrain = new Set<string>();
-  const selectionKeys = new Set((process.env.POR_COMBAT_SELECTION_KEYS ?? "").split(",").filter(Boolean));
+  const selectionKeys = new Set((env.POR_COMBAT_SELECTION_KEYS ?? "").split(",").filter(Boolean));
   const nativeSelection = browser && standalone && code.combatSelectionDrawResumes ? observeNativeCombatSelection() : undefined;
-  const framePixels = process.env.POR_FRAME_PIXELS === "1";
-  const effectKeys = (process.env.POR_COMBAT_EFFECT_KEYS ?? "").split(",").filter(Boolean);
+  const framePixels = env.POR_FRAME_PIXELS === "1";
+  const effectKeys = (env.POR_COMBAT_EFFECT_KEYS ?? "").split(",").filter(Boolean);
   const nativeEffects = browser && standalone && effectKeys.length ? observeNativeCombatEffects(new Set(effectKeys)) : undefined;
   const matchCombatEffect = loadCombatEffects(effectKeys);
   const isHoldEffect = (key: string) => /:(?:9|137)(?::flip-x)?$/.test(key);
   const isImpact = (key: string) => isHoldEffect(key) || /:(?:10|138)(?::flip-x)?$/.test(key) || /:(?:11|139)$/.test(key);
   const flightFrame = (frame: PresentationAnimationFrame) => frame.combatEffect && !isImpact(frame.combatEffect[2]);
   let pendingEffect: { x: number; y: number; background: Uint8Array; key?: string } | undefined;
-  const materialKeys = new Set((process.env.POR_COMBAT_MATERIAL_KEYS ?? "").split(",").filter(Boolean));
+  const materialKeys = new Set((env.POR_COMBAT_MATERIAL_KEYS ?? "").split(",").filter(Boolean));
   const combatArt = loadCombatArtMatcher(combatKeys, undefined, materialKeys);
   const nativeCombat = browser && standalone && combatKeys.length ? observeNativeCombatArt(combatKeySet, materialKeys) : undefined;
   const attackKeys = new Set(combatKeys
@@ -402,7 +397,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const command = readCommand();
       if (command === undefined || command === ":quit") throw new Error("Live session closed");
       if (command === ":poll" || command === ":travel-poll") return;
-      console.log("Enter a letter, digit, arrow name: the game is playing an animation and takes no key now.");
+      print("Enter a letter, digit, arrow name: the game is playing an animation and takes no key now.");
     }
   };
   let lastAttack = "";
@@ -410,14 +405,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   /** The right-hand panel above the report (the actor's stats) when the last report was taken. */
   let lastCombatStats = "";
   let lastApproach: string | undefined;
-  const portraitKeys = (process.env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean);
+  const portraitKeys = (env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean);
   const portraitArt = loadPortraitArt(portraitKeys, browser);
-  const characterSheetKeys = (process.env.POR_CHARACTER_SHEET_ART_KEYS ?? "").split(",").filter(Boolean);
+  const characterSheetKeys = (env.POR_CHARACTER_SHEET_ART_KEYS ?? "").split(",").filter(Boolean);
   const characterSheetArt = loadCharacterSheetArt(characterSheetKeys);
-  const encounterPlacements = JSON.parse(process.env.POR_ENCOUNTER_ART ?? "{}") as Record<string, EncounterAnchor>;
+  const encounterPlacements = JSON.parse(env.POR_ENCOUNTER_ART ?? "{}") as Record<string, EncounterAnchor>;
   const hasEncounterArtwork = Object.keys(encounterPlacements).length > 0;
-  let encounterTrace = process.env.POR_ENCOUNTER_TRACE_FILE;
-  let nativeEncounterDirectory = process.env.POR_NATIVE_ENCOUNTER_TRACE_DIR;
+  let encounterTrace = env.POR_ENCOUNTER_TRACE_FILE;
+  let nativeEncounterDirectory = env.POR_NATIVE_ENCOUNTER_TRACE_DIR;
   let nativeEncounterSession: string | undefined;
   const tracedNativeEncounters = new Set<string>();
   const tracedEncounterScopes = new Set<string>();
@@ -426,15 +421,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     const scope = `${key}:${cursor}:${caller}`;
     if (tracedEncounterScopes.has(scope)) return;
     try {
-      appendFileSync(encounterTrace, JSON.stringify({ type: "encounter-scope-fallback", key, anchor, cursor, caller }) + "\n");
+      diagnosticFiles().append(encounterTrace, JSON.stringify({ type: "encounter-scope-fallback", key, anchor, cursor, caller }) + "\n");
       tracedEncounterScopes.add(scope);
     } catch (error) {
       console.error("Cannot write encounter scope trace", error);
       encounterTrace = undefined;
     }
   } : undefined);
-  const traceTiles = process.env.POR_TRACE_TILES === "1";
-  const traceBattleTiles = process.env.POR_TRACE_BATTLE_TILES === "1";
+  const traceTiles = env.POR_TRACE_TILES === "1";
+  const traceBattleTiles = env.POR_TRACE_BATTLE_TILES === "1";
   function perspectivePixels(frame = screen) {
     const pixels = Buffer.alloc(88 * 88);
     for (let row = 0; row < 88; row++) {
@@ -445,8 +440,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   }
   const nativePicture = browser && standalone && pictures && (portraitKeys.length || characterSheetKeys.length)
     ? observeNativePictureArt(new Set(portraitKeys), new Set(characterSheetKeys), pictures, perspectivePixels) : undefined;
-  const heldPortraitTrace = browser ? process.env.POR_HELD_PORTRAIT_TRACE : undefined;
-  const portraitDrawTrace = browser ? process.env.POR_PORTRAIT_DRAW_TRACE : undefined;
+  const heldPortraitTrace = browser ? env.POR_HELD_PORTRAIT_TRACE : undefined;
+  const portraitDrawTrace = browser ? env.POR_PORTRAIT_DRAW_TRACE : undefined;
   const pictureObserver = nativePicture ?? (heldPortraitTrace || portraitDrawTrace
     ? observeNativePictureArt(new Set(), new Set(), pictures ?? [], perspectivePixels) : undefined);
   let lastPortraitDraw: ReturnType<NonNullable<typeof pictureObserver>["presented"]>;
@@ -459,7 +454,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     const callerSegment = cpu.read16(unit.data, data.eclReturn + 2);
     const caller = callerSegment ? authoredScriptPosition(cpu,
       cpu.read16(callerSegment, cpu.read16(unit.data, data.eclReturn))) : undefined;
-    appendFileSync(path, JSON.stringify({
+    diagnosticFiles().append(path, JSON.stringify({
       area: cpu.read16(segment, offset + eclGlobalOffset(0x49f2)), cursor, caller,
       ...lastPortraitDraw, finishedAtMs,
       viewport: createHash("sha256").update(perspectivePixels()).digest("hex"),
@@ -1062,10 +1057,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           if (mapped) automap.record(mapped);
           if (automap.revision !== sentAutomap) {
             sentAutomap = automap.revision;
-            console.log(`POR_AUTOMAP ${JSON.stringify({ revision: sentAutomap, maps: automap.snapshot() })}`);
+            print(`POR_AUTOMAP ${JSON.stringify({ revision: sentAutomap, maps: automap.snapshot() })}`);
           }
         }
-        console.log(`POR_FRAME ${JSON.stringify({ ...state,
+        print(`POR_FRAME ${JSON.stringify({ ...state,
           animation: animation.length ? animation.splice(0) : undefined })}`);
         immediateStrike = undefined;
         lastAttack = "";
@@ -1075,19 +1070,19 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       }
       if (captureApproach) return encounter;
     } else {
-      writeFileSync("out/por-live.png", leads ? encodePng(journalFrame(leads, trackedId)) : encodePng(screen, displayPalette()));
+      diagnosticFiles().write("out/por-live.png", leads ? encodePng(journalFrame(leads, trackedId)) : encodePng(screen, displayPalette()));
     }
   };
   const showJournal = (leads: JournalLead[]) => {
     showFrame(leads);
     if (browser) return;
     const objective = currentObjective(leads, trackedId);
-    console.log(`Adventure Journal\nCurrent objective: ${objective.title}\n  ${objective.nextStep}`);
+    print(`Adventure Journal\nCurrent objective: ${objective.title}\n  ${objective.nextStep}`);
     const available = leads.filter(isOpenObjective);
     for (const lead of leads) {
       const index = available.indexOf(lead);
       const number = index < 0 ? "" : `[${index + 1}] `;
-      console.log(`${number}${lead.title}\n  ${lead.detail}`);
+      print(`${number}${lead.title}\n  ${lead.detail}`);
     }
   };
   let diskMenuDepth = 0;
@@ -1095,7 +1090,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const openJournal = () => {
     showJournal(journal());
     while (true) {
-      if (!browser) process.stdout.write("Journal [J to close, track N, track auto]> ");
+      if (!browser) engineHost().write("Journal [J to close, track N, track auto]> ");
       const command = readCommand();
       if (command === undefined || command === ":quit") throw new Error("Live session closed");
       if (command.toLowerCase() === "j" || command === "escape") return;
@@ -1111,16 +1106,16 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if (lead) {
         trackedId = lead.id;
         showJournal(leads);
-      } else console.log("Choose a number from the journal's active objectives.");
+      } else print("Choose a number from the journal's active objectives.");
     }
   };
   let keyQueue: BiosKey[] | undefined;
   // A replay can record when each prompt happened, in game progress, and a later replay can ask at
   // those same moments. POR_PROMPT_SCHEDULE_OUT writes the record; POR_PROMPT_SCHEDULE_IN follows one.
   type PromptKind = "read" | "poll" | "flush" | "drain";
-  const scheduleOut = process.env.POR_PROMPT_SCHEDULE_OUT;
-  const schedule: { kind: PromptKind; at: [number, number] }[] | undefined = process.env.POR_PROMPT_SCHEDULE_IN
-    ? readFileSync(process.env.POR_PROMPT_SCHEDULE_IN, "utf8").split("\n").filter(Boolean).map(line => JSON.parse(line)) : undefined;
+  const scheduleOut = env.POR_PROMPT_SCHEDULE_OUT;
+  const schedule: { kind: PromptKind; at: [number, number] }[] | undefined = env.POR_PROMPT_SCHEDULE_IN
+    ? diagnosticFiles().read(env.POR_PROMPT_SCHEDULE_IN).split("\n").filter(Boolean).map(line => JSON.parse(line)) : undefined;
   let prompts = 0;
   let scheduleWaits = 0;
   let progressStart: [number, number] | undefined;
@@ -1211,14 +1206,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           cpu.read8(actorSegment, (actorOffset + 0x10f) & 0xffff) !== 0;
       }
     }
-    if (scheduleOut) appendFileSync(scheduleOut, JSON.stringify({ kind, at: progress() }) + "\n");
+    if (scheduleOut) diagnosticFiles().append(scheduleOut, JSON.stringify({ kind, at: progress() }) + "\n");
     prompts++;
     promptKind = kind === "read" ? "read" : "poll";
     awaitsKey = kind === "read" || (kind === "poll" && returnsTo(cpu, 0, code.menuPollResumes) && !menuTimeLimit(cpu));
     battleEntryPolling = browser && nonblockingPoll && !awaitsKey && isBattleEntryPoll(cpu);
     showFrame(undefined, undefined, false, automaticCombat);
     while (true) {
-      if (!browser) process.stdout.write("Game [J journal, :quit, key]> ");
+      if (!browser) engineHost().write("Game [J journal, :quit, key]> ");
       const command = readCommand();
       if (command === undefined || command === ":quit") throw new Error("Live session closed");
       if (command === ":poll" && (automaticCombat || battleEntryPolling) || command === ":travel-poll" && nonblockingPoll) {
@@ -1251,7 +1246,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         : command.startsWith("key ") ? command.slice(4) : command || "enter";
       const key = getKey(gameCommand);
       if (key === undefined) {
-        console.log("Enter a letter, digit, arrow name, home, pageup, end, pagedown, enter, space, escape, tab, or backspace.");
+        print("Enter a letter, digit, arrow name, home, pageup, end, pagedown, enter, space, escape, tab, or backspace.");
         continue;
       }
       if (!developerVictory && !enableCodeWheel && ++keysGiven === swallowKey) {
@@ -1265,7 +1260,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       }
       // With POR_TRACE_KEYS=1, say where each key went. A key given at a discard poll is thrown away.
       if (traceKeys) console.error(`POR_KEY ${JSON.stringify(command)}${atDiscardPoll ? " discarded" : ""}`);
-      if (recording) appendFileSync(recording, `${cpu.steps}:${key.toString(16).padStart(4, "0")}\n`);
+      if (recording) diagnosticFiles().append(recording, `${cpu.steps}:${key.toString(16).padStart(4, "0")}\n`);
       // The recorded replay gave this press at a moment when the game only discards keys, and this
       // build did not stop there. Drop the press and ask again for the one the game is waiting for.
       if (kind === "read" && (expected?.kind === "flush" || expected?.kind === "drain")) {
@@ -1314,10 +1309,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const signature = `${area}-${cursor}-${portraitCaller}-${replacement}-${digest}`;
         if (!tracedNativeEncounters.has(signature)) {
           try {
-            nativeEncounterSession ??= mkdtempSync(join(nativeEncounterDirectory, "encounters-"));
+            nativeEncounterSession ??= diagnosticFiles().mkdtemp(diagnosticFiles().join(nativeEncounterDirectory, "encounters-"));
             const file = `${area}-${cursor}-${tracedNativeEncounters.size}.png`;
-            writeFileSync(join(nativeEncounterSession, file), encodePng(screen));
-            appendFileSync(join(nativeEncounterSession, "observations.jsonl"), JSON.stringify({
+            diagnosticFiles().write(diagnosticFiles().join(nativeEncounterSession, file), encodePng(screen));
+            diagnosticFiles().append(diagnosticFiles().join(nativeEncounterSession, "observations.jsonl"), JSON.stringify({
               type: "native-encounter-draw", file, area, cursor: battleCursor, caller: portraitCaller,
               viewportHash: digest,
               replacement: captureAnimation || !hasEncounterArtwork ? replacement ?? null : undefined,

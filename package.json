@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "npm run play",
     "play": "tsx tools/browser-play.ts",
+    "web:build": "tsx tools/web/build.ts",
+    "web:check-boot": "node tools/web/check-boot.mjs",
     "release:build": "tsx tools/release/build.ts",
     "release:pack": "npm run release:build && tsx tools/release/pack.ts",
     "verify:campaign": "node tools/verify-fresh-party.mjs --campaign",
@@ -90,7 +92,9 @@
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
+    "buffer": "^6.0.3",
     "esbuild": "^0.28.2",
+    "fflate": "^0.8.3",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2"
   }
