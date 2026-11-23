@@ -166,6 +166,12 @@
    "frames": [],
    "fixtureSha256": "d1d53cb1de05e616850117aa700abeb23697d16d67fe7d1078a0dabd1950ec00"
   },
+  "walk-buccaneer-bivant-rescue": {
+   "observer": 2,
+   "presented": 96,
+   "frames": [],
+   "fixtureSha256": "ab7d8d352a05db1190241101ccaf08b9029c0e1ce76a03a48e58985423463016"
+  },
   "walk-clerk-offers-bivant": {
    "observer": 2,
    "presented": 154,
