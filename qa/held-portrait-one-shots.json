@@ -1294,5 +1294,36 @@
         "artSha256": "543af8d9d694fa3724c4e1c49f4ef7b876567155857e74ce35d31c397e8dc4d2"
       }
     }
+  },
+  {
+    "combat": "9e36",
+    "chrome": {
+      "original": {
+        "producer": "ECL8.DAX:16:9da2",
+        "route": "swamp-tunnel-lizard-charge",
+        "data": "original",
+        "portrait": "portrait:area:16:ecl:9e37:PIC8.DAX:59:0:0",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "8e2350cb8a4c3e2e9fad5f2a1ca346d8e9fd82f20964ebd47bf2b4864a8f5937"
+      },
+      "port": {
+        "producer": "ECL8.DAX:16:9da2",
+        "route": "swamp-tunnel-lizard-charge",
+        "data": "port",
+        "portrait": "portrait:area:16:ecl:9e37:PIC8.DAX:59:0:0",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "8e2350cb8a4c3e2e9fad5f2a1ca346d8e9fd82f20964ebd47bf2b4864a8f5937"
+      }
+    },
+    "native": {
+      "evidence": "E:/por-codex/art-qa/issue-131-swamp-last-sites/traced-tunnel-live/draws.jsonl",
+      "members": [
+        0
+      ],
+      "drawCursor": "9e1f"
+    },
+    "producer": "ECL8.DAX:16:9da2"
   }
 ]

@@ -36422,6 +36422,738 @@
           }
         }
       }
+    },
+    {
+      "id": "area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73",
+      "producer": "ECL8.DAX:29:a5c4",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 510,
+          "viewport": "61384c484becc699a39e82ac3b53eed7825662e59fd4149712745485fcd75fca"
+        },
+        {
+          "member": 1,
+          "durationMs": 1510,
+          "viewport": "3636c6efb7395283dbc7bd364b5058375317bf7647856e53d341e342238f4ce1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-retained-avoided-gnolls",
+          "data": "original",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "ce236060963b9cbeffae802b210ba1b464d0321c6cdb6277ac3c3161d7e22f5a",
+          "portrait": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:0:0",
+              "atMs": 9.799999952316284
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:1:0",
+              "atMs": 476.499999952317
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:0:0",
+              "atMs": 1976.3999999523148
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:1:0",
+              "atMs": 2492.999999952317
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:0:0",
+              "atMs": 3992.899999952315
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:1:0",
+              "atMs": 4509.599999952316
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:0:0": "7fe65099c899eea2245b51f665414c8e94fba14913860d18f2c788da7d109925",
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:1:0": "b0adf48c319d616ca36c937b7ee1fec0462423b0948a4594755237c6e0f5d427"
+          }
+        },
+        "port": {
+          "route": "kuto-retained-avoided-gnolls",
+          "data": "port",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "ce236060963b9cbeffae802b210ba1b464d0321c6cdb6277ac3c3161d7e22f5a",
+          "portrait": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:0:0",
+              "atMs": 11.899999952314829
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:1:0",
+              "atMs": 478.59999995231556
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:0:0",
+              "atMs": 1978.499999952317
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:1:0",
+              "atMs": 2495.0999999523156
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:0:0",
+              "atMs": 4011.7999999523163
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:1:0",
+              "atMs": 4511.799999952316
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:0:0": "7fe65099c899eea2245b51f665414c8e94fba14913860d18f2c788da7d109925",
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:73:1:0": "b0adf48c319d616ca36c937b7ee1fec0462423b0948a4594755237c6e0f5d427"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0",
+      "producer": "ECL8.DAX:29:a5c4",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-retained-avoided-kobolds",
+          "data": "original",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "79f1f9132d89ec53de34b26d7035ed6d30570d9d17448628116a4154a9b2ea4a",
+          "portrait": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:0:0",
+              "atMs": 0.7000000000007276
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 200.70000000000073
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:2:0",
+              "atMs": 417.2999999999993
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 617.2999999999993
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:0:0",
+              "atMs": 834
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 1034
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:2:0",
+              "atMs": 1250.7000000000007
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 1467.2999999999993
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:0:0",
+              "atMs": 1667.2999999999993
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 1884
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:0:0": "7b7b450067110fcf4c0b56a75095d3624a88fc1d60955af79fe663ebed4ec5a1",
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:1:0": "2d954895504becbd0e0e1854b6940fdcc4170b17a4e535ef8fe47a2ff338a30c",
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:2:0": "49864344c543e3bd7f2b826d8fe47fcfbf2e3d13839dde5fd4735961519193eb"
+          }
+        },
+        "port": {
+          "route": "kuto-retained-avoided-kobolds",
+          "data": "port",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "79f1f9132d89ec53de34b26d7035ed6d30570d9d17448628116a4154a9b2ea4a",
+          "portrait": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:0:0",
+              "atMs": 7.800000011920929
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 207.80000001192093
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:2:0",
+              "atMs": 424.4000000119195
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 624.4000000119195
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:0:0",
+              "atMs": 841.1000000119202
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 1041.1000000119202
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:2:0",
+              "atMs": 1257.7000000119224
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 1474.4000000119195
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:0:0",
+              "atMs": 1674.4000000119195
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 1891.0000000119217
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:0:0": "7b7b450067110fcf4c0b56a75095d3624a88fc1d60955af79fe663ebed4ec5a1",
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:1:0": "2d954895504becbd0e0e1854b6940fdcc4170b17a4e535ef8fe47a2ff338a30c",
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:0:2:0": "49864344c543e3bd7f2b826d8fe47fcfbf2e3d13839dde5fd4735961519193eb"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57",
+      "producer": "ECL8.DAX:29:a5c4",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "23d56c7c7cc28878887ed0709df68230589317bc294ce1fbd4137ffd4b7ba13a"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "d7e2dbd9fdb05b653da924ebf7d908c35163734da32993168b2b4f0051b0da46"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "241352ef99b2096ee6a8746d9404db0c545c5f1bc0f6abb3a2e45e3b3f349f59"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-retained-avoided-lizardmen",
+          "data": "original",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "9b4884af4ae1d0b56a328c8527b867b312a0df39a5ebd626dc610ef08f179067",
+          "portrait": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:0:0",
+              "atMs": 7.9999999880783434
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:1:0",
+              "atMs": 157.99999998807834
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:2:0",
+              "atMs": 374.69999998807907
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:3:0",
+              "atMs": 574.6999999880791
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:0:0",
+              "atMs": 791.2999999880776
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:1:0",
+              "atMs": 1007.9999999880783
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:2:0",
+              "atMs": 1207.9999999880783
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:3:0",
+              "atMs": 1424.699999988079
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:0:0",
+              "atMs": 1624.699999988079
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:1:0",
+              "atMs": 1841.2999999880776
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:0:0": "8affb8091dd64f26d991b8b9a541bbf0418afccd2cea00f958a6072cf179a66e",
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:1:0": "5f7c00005c6cc9e7556d8c335bf9a488d5a646bab34b86ea430ae572abb0e482",
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:2:0": "eae557d3ba26a9ab8789ed77aa1834c1ee5f2f49367f5c3e1a457fc4d5110fbe",
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:3:0": "9fe4265893fd26ebfd9d883111876312baf8aef5477ad61eb879696350fee5a3"
+          }
+        },
+        "port": {
+          "route": "kuto-retained-avoided-lizardmen",
+          "data": "port",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "9b4884af4ae1d0b56a328c8527b867b312a0df39a5ebd626dc610ef08f179067",
+          "portrait": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:0:0",
+              "atMs": 14.999999988078343
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:1:0",
+              "atMs": 164.99999998807834
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:2:0",
+              "atMs": 381.69999998807907
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:3:0",
+              "atMs": 581.5999999880805
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:0:0",
+              "atMs": 798.2999999880776
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:1:0",
+              "atMs": 998.2999999880776
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:2:0",
+              "atMs": 1214.8999999880798
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:3:0",
+              "atMs": 1431.699999988079
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:0:0",
+              "atMs": 1631.5999999880805
+            },
+            {
+              "key": "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:1:0",
+              "atMs": 1848.2999999880776
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:0:0": "8affb8091dd64f26d991b8b9a541bbf0418afccd2cea00f958a6072cf179a66e",
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:1:0": "5f7c00005c6cc9e7556d8c335bf9a488d5a646bab34b86ea430ae572abb0e482",
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:2:0": "eae557d3ba26a9ab8789ed77aa1834c1ee5f2f49367f5c3e1a457fc4d5110fbe",
+            "portrait:area:29:ecl:a5e8:caller:a49f:PIC8.DAX:57:3:0": "9fe4265893fd26ebfd9d883111876312baf8aef5477ad61eb879696350fee5a3"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:29:ecl:a64b:caller:a49f:PIC8.DAX:73",
+      "producer": "ECL8.DAX:29:a627",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 510,
+          "viewport": "61384c484becc699a39e82ac3b53eed7825662e59fd4149712745485fcd75fca"
+        },
+        {
+          "member": 1,
+          "durationMs": 1510,
+          "viewport": "3636c6efb7395283dbc7bd364b5058375317bf7647856e53d341e342238f4ce1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-retained-party-surprised-gnolls",
+          "data": "original",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "3f5e199cd3732a67f0b425c42c508017199ffc3218660cb4fd5472d20f7d32e8",
+          "portrait": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:0:0",
+              "atMs": 8.099999952315557
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:1:0",
+              "atMs": 441.39999995231483
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:0:0",
+              "atMs": 1957.999999952317
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:1:0",
+              "atMs": 2457.999999952317
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:0:0",
+              "atMs": 3974.5999999523156
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:1:0",
+              "atMs": 4474.599999952316
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:0:0": "7fe65099c899eea2245b51f665414c8e94fba14913860d18f2c788da7d109925",
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:1:0": "b0adf48c319d616ca36c937b7ee1fec0462423b0948a4594755237c6e0f5d427"
+          }
+        },
+        "port": {
+          "route": "kuto-retained-party-surprised-gnolls",
+          "data": "port",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "3f5e199cd3732a67f0b425c42c508017199ffc3218660cb4fd5472d20f7d32e8",
+          "portrait": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:0:0",
+              "atMs": 6.600000023841858
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:1:0",
+              "atMs": 473.2000000238404
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:0:0",
+              "atMs": 1973.2000000238404
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:1:0",
+              "atMs": 2489.8000000238426
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:0:0",
+              "atMs": 3989.7000000238404
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:1:0",
+              "atMs": 4506.400000023841
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:0:0": "7fe65099c899eea2245b51f665414c8e94fba14913860d18f2c788da7d109925",
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:73:1:0": "b0adf48c319d616ca36c937b7ee1fec0462423b0948a4594755237c6e0f5d427"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:29:ecl:a64b:caller:a49f:PIC8.DAX:0",
+      "producer": "ECL8.DAX:29:a627",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-retained-party-surprised-kobolds",
+          "data": "original",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "7ab32e2098b13d319246c974792c0a35b0912be68833e0832a162eda887aa16c",
+          "portrait": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:0:0",
+              "atMs": 8.199999988079071
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 141.59999998808053
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:2:0",
+              "atMs": 341.49999998807834
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 558.1999999880791
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:0:0",
+              "atMs": 774.7999999880776
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 974.7999999880776
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:2:0",
+              "atMs": 1191.4999999880783
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 1391.4999999880783
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:0:0",
+              "atMs": 1608.0999999880805
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 1824.7999999880776
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:0:0": "7b7b450067110fcf4c0b56a75095d3624a88fc1d60955af79fe663ebed4ec5a1",
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:1:0": "2d954895504becbd0e0e1854b6940fdcc4170b17a4e535ef8fe47a2ff338a30c",
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:2:0": "49864344c543e3bd7f2b826d8fe47fcfbf2e3d13839dde5fd4735961519193eb"
+          }
+        },
+        "port": {
+          "route": "kuto-retained-party-surprised-kobolds",
+          "data": "port",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "7ab32e2098b13d319246c974792c0a35b0912be68833e0832a162eda887aa16c",
+          "portrait": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:0:0",
+              "atMs": -2.384149411227554e-08
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 116.69999997615741
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:2:0",
+              "atMs": 333.39999997615814
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 533.3999999761581
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:0:0",
+              "atMs": 749.9999999761585
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 966.6999999761574
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:2:0",
+              "atMs": 1166.6999999761574
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 1383.3999999761581
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:0:0",
+              "atMs": 1583.2999999761578
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:1:0",
+              "atMs": 1799.9999999761585
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:0:0": "7b7b450067110fcf4c0b56a75095d3624a88fc1d60955af79fe663ebed4ec5a1",
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:1:0": "2d954895504becbd0e0e1854b6940fdcc4170b17a4e535ef8fe47a2ff338a30c",
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:0:2:0": "49864344c543e3bd7f2b826d8fe47fcfbf2e3d13839dde5fd4735961519193eb"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:29:ecl:a64b:caller:a49f:PIC8.DAX:57",
+      "producer": "ECL8.DAX:29:a627",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "23d56c7c7cc28878887ed0709df68230589317bc294ce1fbd4137ffd4b7ba13a"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "d7e2dbd9fdb05b653da924ebf7d908c35163734da32993168b2b4f0051b0da46"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "241352ef99b2096ee6a8746d9404db0c545c5f1bc0f6abb3a2e45e3b3f349f59"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-retained-party-surprised-lizardmen",
+          "data": "original",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "56a5af37fb1405f0dd6b12519c8aca2ff26953088e8237eca6142bed7d5072a8",
+          "portrait": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:0:0",
+              "atMs": 13.600000011920201
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:1:0",
+              "atMs": 163.6000000119202
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:2:0",
+              "atMs": 363.6000000119202
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:3:0",
+              "atMs": 580.2000000119224
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:0:0",
+              "atMs": 796.9000000119195
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:1:0",
+              "atMs": 996.9000000119195
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:2:0",
+              "atMs": 1213.5000000119217
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:3:0",
+              "atMs": 1413.6000000119202
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:0:0",
+              "atMs": 1630.2000000119224
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:1:0",
+              "atMs": 1846.800000011921
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:0:0": "8affb8091dd64f26d991b8b9a541bbf0418afccd2cea00f958a6072cf179a66e",
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:1:0": "5f7c00005c6cc9e7556d8c335bf9a488d5a646bab34b86ea430ae572abb0e482",
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:2:0": "eae557d3ba26a9ab8789ed77aa1834c1ee5f2f49367f5c3e1a457fc4d5110fbe",
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:3:0": "9fe4265893fd26ebfd9d883111876312baf8aef5477ad61eb879696350fee5a3"
+          }
+        },
+        "port": {
+          "route": "kuto-retained-party-surprised-lizardmen",
+          "data": "port",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "56a5af37fb1405f0dd6b12519c8aca2ff26953088e8237eca6142bed7d5072a8",
+          "portrait": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:0:0",
+              "atMs": 10.999999976158506
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:1:0",
+              "atMs": 144.29999997615778
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:2:0",
+              "atMs": 344.2999999761578
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:3:0",
+              "atMs": 560.8999999761581
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:0:0",
+              "atMs": 760.8999999761581
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:1:0",
+              "atMs": 977.5999999761589
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:2:0",
+              "atMs": 1194.2999999761578
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:3:0",
+              "atMs": 1394.2999999761578
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:0:0",
+              "atMs": 1610.8999999761581
+            },
+            {
+              "key": "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:1:0",
+              "atMs": 1810.8999999761581
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:0:0": "8affb8091dd64f26d991b8b9a541bbf0418afccd2cea00f958a6072cf179a66e",
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:1:0": "5f7c00005c6cc9e7556d8c335bf9a488d5a646bab34b86ea430ae572abb0e482",
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:2:0": "eae557d3ba26a9ab8789ed77aa1834c1ee5f2f49367f5c3e1a457fc4d5110fbe",
+            "portrait:area:29:ecl:a64b:caller:a49f:PIC8.DAX:57:3:0": "9fe4265893fd26ebfd9d883111876312baf8aef5477ad61eb879696350fee5a3"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
