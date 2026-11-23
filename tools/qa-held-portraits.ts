@@ -376,7 +376,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
         !evidence.some(entry => entry.prompt === prompt)),
       ...new Set(evidence.flatMap(({ scene }) => scene.remainingCues ?? [])),
     ];
-    const measured = evidence.length > 0 || held.length > 0 || oneShot !== undefined;
+    const measured = evidence.length > 0 || held.length > 0 || scenery.size > 0 || oneShot !== undefined;
     // A variable selector may feed several portraits into the same prompt.
     // Observing one portrait cannot discharge the other possible selections.
     const verified = oneShot ? oneShotReason === null : site.block !== null && measured &&
