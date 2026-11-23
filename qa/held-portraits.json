@@ -49265,5 +49265,251 @@
         }
       }
     }
+  ],
+  "podolPatrols": [
+    {
+      "producer": "ECL1.DAX:18:a140",
+      "route": "podal-goblin-overheard-patrol",
+      "native": {
+        "draw": "a181",
+        "sha256": "415766831356b65780f9e16c0cb069b94022c4e65597e35bd65a0d73140fc95f",
+        "caption": "Name AC HP ALDA 5 45 BRIN 3 45 CORA 5 45 DORN 5 45 ENNA 4 45 MIRA 10 45 11,10 E 18:59 AS YOU MOVE YOU OVERHEAR SOME GOBLINS SAY, 'DO YOU THINK HE'LL REALLY SHOW UP -- THE BOSS I MEAN?' Area Cast View Encamp Search Look"
+      },
+      "chrome": {
+        "original": {
+          "route": "podal-goblin-overheard-patrol",
+          "view": "scenery",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:a149:SPRIT1.DAX:2:2:0",
+              "sha256": "e77a07e42419a30af0a007dd3f16d255fc95b4fcf87b1701b69131318bc19ec5"
+            },
+            {
+              "id": "encounter:area:18:ecl:a163:SPRIT1.DAX:2:2:0",
+              "sha256": "e77a07e42419a30af0a007dd3f16d255fc95b4fcf87b1701b69131318bc19ec5"
+            },
+            {
+              "id": "encounter:area:18:ecl:a163:SPRIT1.DAX:2:1:0",
+              "sha256": "d5720105c2d9b97d6b0abc828e42999c9fef96620998e234d4a443e49ff82deb"
+            },
+            {
+              "id": "encounter:area:18:ecl:a181:SPRIT1.DAX:2:0:0",
+              "sha256": "7acf83ddf65e85b0714b6d19f6e5e5273df50a30f56970df939e7e4e3c2e1234"
+            }
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104511,10E18:59ASYOUMOVEYOUOVERHEARSOMEGOBLINSSAY,'DOYOUTHINKHE'LLREALLYSHOWUP--THEBOSSIMEAN?'AreaCastViewEncampSearchLook",
+          "data": "original",
+          "checkpointSha256": "3e3dd7dd4a9d6055fe0f2fb365ee78db8d7e2f0af01ac6c15c536f81ce059239",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "podal-goblin-overheard-patrol",
+          "view": "scenery",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:a149:SPRIT1.DAX:2:2:0",
+              "sha256": "e77a07e42419a30af0a007dd3f16d255fc95b4fcf87b1701b69131318bc19ec5"
+            },
+            {
+              "id": "encounter:area:18:ecl:a163:SPRIT1.DAX:2:2:0",
+              "sha256": "e77a07e42419a30af0a007dd3f16d255fc95b4fcf87b1701b69131318bc19ec5"
+            },
+            {
+              "id": "encounter:area:18:ecl:a163:SPRIT1.DAX:2:1:0",
+              "sha256": "d5720105c2d9b97d6b0abc828e42999c9fef96620998e234d4a443e49ff82deb"
+            },
+            {
+              "id": "encounter:area:18:ecl:a181:SPRIT1.DAX:2:0:0",
+              "sha256": "7acf83ddf65e85b0714b6d19f6e5e5273df50a30f56970df939e7e4e3c2e1234"
+            }
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104511,10E18:59ASYOUMOVEYOUOVERHEARSOMEGOBLINSSAY,'DOYOUTHINKHE'LLREALLYSHOWUP--THEBOSSIMEAN?'AreaCastViewEncampSearchLook",
+          "data": "port",
+          "checkpointSha256": "3e3dd7dd4a9d6055fe0f2fb365ee78db8d7e2f0af01ac6c15c536f81ce059239",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL1.DAX:18:a140",
+      "route": "podal-orc-overheard-patrol",
+      "native": {
+        "draw": "a181",
+        "sha256": "89c571287a6d0ac4d340c671c7cba30eecc8727ccf43886fe8712b5b86366ec1",
+        "caption": "Name AC HP ALDA 5 45 BRIN 3 45 CORA 5 45 DORN 5 45 ENNA 4 45 MIRA 10 45 10,10 W 19:02 AS YOU MOVE YOU OVERHEAR SOME ORCS SAY, 'MORE OGRES ON THE STREET, SINCE THE GIANTS TOOK OVER THE CASTLE.' Area Cast View Encamp Search Look"
+      },
+      "chrome": {
+        "original": {
+          "route": "podal-orc-overheard-patrol",
+          "view": "scenery",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:a149:SPRIT1.DAX:4:2:0",
+              "sha256": "f06d1463999528b2a8a85235dce53a6ec7fafcf63595998b2640a360fec28376"
+            },
+            {
+              "id": "encounter:area:18:ecl:a163:SPRIT1.DAX:4:2:0",
+              "sha256": "f06d1463999528b2a8a85235dce53a6ec7fafcf63595998b2640a360fec28376"
+            },
+            {
+              "id": "encounter:area:18:ecl:a163:SPRIT1.DAX:4:1:0",
+              "sha256": "9d9e4c2c28c3d8f3e652bb9abe821b217ba1c749bb27be5ad2fbd48a5abddcb9"
+            },
+            {
+              "id": "encounter:area:18:ecl:a181:SPRIT1.DAX:4:0:0",
+              "sha256": "33f9c9729089ee4493cdb00f97730b63e977b36fda52d0cc0d522f2bb9441fb3"
+            }
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104510,10W19:02ASYOUMOVEYOUOVERHEARSOMEORCSSAY,'MOREOGRESONTHESTREET,SINCETHEGIANTSTOOKOVERTHECASTLE.'AreaCastViewEncampSearchLook",
+          "data": "original",
+          "checkpointSha256": "3e3dd7dd4a9d6055fe0f2fb365ee78db8d7e2f0af01ac6c15c536f81ce059239",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "podal-orc-overheard-patrol",
+          "view": "scenery",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:a149:SPRIT1.DAX:4:2:0",
+              "sha256": "f06d1463999528b2a8a85235dce53a6ec7fafcf63595998b2640a360fec28376"
+            },
+            {
+              "id": "encounter:area:18:ecl:a163:SPRIT1.DAX:4:2:0",
+              "sha256": "f06d1463999528b2a8a85235dce53a6ec7fafcf63595998b2640a360fec28376"
+            },
+            {
+              "id": "encounter:area:18:ecl:a163:SPRIT1.DAX:4:1:0",
+              "sha256": "9d9e4c2c28c3d8f3e652bb9abe821b217ba1c749bb27be5ad2fbd48a5abddcb9"
+            },
+            {
+              "id": "encounter:area:18:ecl:a181:SPRIT1.DAX:4:0:0",
+              "sha256": "33f9c9729089ee4493cdb00f97730b63e977b36fda52d0cc0d522f2bb9441fb3"
+            }
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104510,10W19:02ASYOUMOVEYOUOVERHEARSOMEORCSSAY,'MOREOGRESONTHESTREET,SINCETHEGIANTSTOOKOVERTHECASTLE.'AreaCastViewEncampSearchLook",
+          "data": "port",
+          "checkpointSha256": "3e3dd7dd4a9d6055fe0f2fb365ee78db8d7e2f0af01ac6c15c536f81ce059239",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL1.DAX:18:a140",
+      "route": "podal-hobgoblin-overheard-patrol",
+      "native": {
+        "draw": "a181",
+        "sha256": "26a0ba60e1178d8d6a34b95ab9e9f96ae56466fe8699f23b168a8a05e4368fc2",
+        "caption": "Name AC HP ALDA 5 45 BRIN 3 45 CORA 5 45 DORN 5 45 ENNA 4 45 MIRA 10 45 10,10 W 19:18 AS YOU MOVE YOU OVERHEAR SOME HOBGOBLINS SAY, 'MORE OGRES ON THE STREET, SINCE THE GIANTS TOOK OVER THE CASTLE.' Area Cast View Encamp Search Look"
+      },
+      "chrome": {
+        "original": {
+          "route": "podal-hobgoblin-overheard-patrol",
+          "view": "scenery",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:a149:SPRIT1.DAX:6:2:0",
+              "sha256": "f51a5c75adf8ca31ee81e30c0bf3b58f07794d44e652927eef9770c696737c07"
+            },
+            {
+              "id": "encounter:area:18:ecl:a163:SPRIT1.DAX:6:2:0",
+              "sha256": "f51a5c75adf8ca31ee81e30c0bf3b58f07794d44e652927eef9770c696737c07"
+            },
+            {
+              "id": "encounter:area:18:ecl:a163:SPRIT1.DAX:6:1:0",
+              "sha256": "aafdd108b427058e67c2b3c6231aa39a4ec1959229f616a9e331dc81b1585093"
+            },
+            {
+              "id": "encounter:area:18:ecl:a181:SPRIT1.DAX:6:0:0",
+              "sha256": "79a41d417aa5be43592022b08224d6febf83a5f931de3088bcc8592b48972f24"
+            }
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104510,10W19:18ASYOUMOVEYOUOVERHEARSOMEHOBGOBLINSSAY,'MOREOGRESONTHESTREET,SINCETHEGIANTSTOOKOVERTHECASTLE.'AreaCastViewEncampSearchLook",
+          "data": "original",
+          "checkpointSha256": "3e3dd7dd4a9d6055fe0f2fb365ee78db8d7e2f0af01ac6c15c536f81ce059239",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "podal-hobgoblin-overheard-patrol",
+          "view": "scenery",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:a149:SPRIT1.DAX:6:2:0",
+              "sha256": "f51a5c75adf8ca31ee81e30c0bf3b58f07794d44e652927eef9770c696737c07"
+            },
+            {
+              "id": "encounter:area:18:ecl:a163:SPRIT1.DAX:6:2:0",
+              "sha256": "f51a5c75adf8ca31ee81e30c0bf3b58f07794d44e652927eef9770c696737c07"
+            },
+            {
+              "id": "encounter:area:18:ecl:a163:SPRIT1.DAX:6:1:0",
+              "sha256": "aafdd108b427058e67c2b3c6231aa39a4ec1959229f616a9e331dc81b1585093"
+            },
+            {
+              "id": "encounter:area:18:ecl:a181:SPRIT1.DAX:6:0:0",
+              "sha256": "79a41d417aa5be43592022b08224d6febf83a5f931de3088bcc8592b48972f24"
+            }
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104510,10W19:18ASYOUMOVEYOUOVERHEARSOMEHOBGOBLINSSAY,'MOREOGRESONTHESTREET,SINCETHEGIANTSTOOKOVERTHECASTLE.'AreaCastViewEncampSearchLook",
+          "data": "port",
+          "checkpointSha256": "3e3dd7dd4a9d6055fe0f2fb365ee78db8d7e2f0af01ac6c15c536f81ce059239",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL1.DAX:18:a140",
+      "route": "podal-ogre-overheard-patrol",
+      "native": {
+        "draw": "a181",
+        "sha256": "415766831356b65780f9e16c0cb069b94022c4e65597e35bd65a0d73140fc95f",
+        "caption": "Name AC HP ALDA 5 45 BRIN 3 45 CORA 5 45 DORN 5 45 ENNA 4 45 MIRA 10 45 11,10 E 19:43 AS YOU MOVE YOU OVERHEAR SOME OGRES SAY, 'HE MELTED INTO A PUDDLE OF LARD WHEN HE TOUCHED THE THING!' Area Cast View Encamp Search Look"
+      },
+      "chrome": {
+        "original": {
+          "route": "podal-ogre-overheard-patrol",
+          "view": "scenery",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:a149:SPRIT1.DAX:8:2:0",
+              "sha256": "1ddb23e5443992a772833179831d68999409ca69dbf512455d62fe9806299d37"
+            },
+            {
+              "id": "encounter:area:18:ecl:a163:SPRIT1.DAX:8:1:0",
+              "sha256": "879bdee77c1bfd8f78589f05cc8ca0c8f01c7dc4c2d0c24e0f511d8c8ff90dbd"
+            },
+            {
+              "id": "encounter:area:18:ecl:a181:SPRIT1.DAX:8:0:0",
+              "sha256": "611128f669b10b74b35b131bb6b60ecf86b04be0a6d4911381fc152f70931df8"
+            }
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104511,10E19:43ASYOUMOVEYOUOVERHEARSOMEOGRESSAY,'HEMELTEDINTOAPUDDLEOFLARDWHENHETOUCHEDTHETHING!'AreaCastViewEncampSearchLook",
+          "data": "original",
+          "checkpointSha256": "3e3dd7dd4a9d6055fe0f2fb365ee78db8d7e2f0af01ac6c15c536f81ce059239",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "podal-ogre-overheard-patrol",
+          "view": "scenery",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:a149:SPRIT1.DAX:8:2:0",
+              "sha256": "1ddb23e5443992a772833179831d68999409ca69dbf512455d62fe9806299d37"
+            },
+            {
+              "id": "encounter:area:18:ecl:a163:SPRIT1.DAX:8:1:0",
+              "sha256": "879bdee77c1bfd8f78589f05cc8ca0c8f01c7dc4c2d0c24e0f511d8c8ff90dbd"
+            },
+            {
+              "id": "encounter:area:18:ecl:a181:SPRIT1.DAX:8:0:0",
+              "sha256": "611128f669b10b74b35b131bb6b60ecf86b04be0a6d4911381fc152f70931df8"
+            }
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104511,10E19:43ASYOUMOVEYOUOVERHEARSOMEOGRESSAY,'HEMELTEDINTOAPUDDLEOFLARDWHENHETOUCHEDTHETHING!'AreaCastViewEncampSearchLook",
+          "data": "port",
+          "checkpointSha256": "3e3dd7dd4a9d6055fe0f2fb365ee78db8d7e2f0af01ac6c15c536f81ce059239",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    }
   ]
 }
