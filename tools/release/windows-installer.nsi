@@ -87,6 +87,7 @@ Section "${PRODUCT}" SectionGame
   RMDir /r "$INSTDIR\resources"
   RMDir /r "$INSTDIR\locales"
   RMDir /r "$INSTDIR\app"
+  RMDir /r "$INSTDIR\tools"
   RMDir /r "$INSTDIR\game"
   RMDir /r "$INSTDIR\upgrades"
   RMDir /r "$INSTDIR\audio"
