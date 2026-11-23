@@ -24285,6 +24285,486 @@
           }
         }
       }
+    },
+    {
+      "id": "area:24:ecl:a076:PIC1.DAX:2",
+      "producer": "ECL1.DAX:24:9ff2",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 310,
+          "viewport": "a22361feb58b6fc42bb5e0833cd6e54072df64abfee49b139eac5fa7a0878312"
+        },
+        {
+          "member": 1,
+          "durationMs": 310,
+          "viewport": "e579cb908b4bbfe27909da489faa62cbef2c3f2b4573d7cb931b9a6f0be3a2b2"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "bane-captive-goblin-held",
+          "data": "original",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "c052b3b1eb8ab0f342f96dc0ad6cccd41273ca66c02c2cedeeaf8d46ce850228",
+          "portrait": "portrait:area:24:ecl:a076:PIC1.DAX:2:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:24:ecl:a076:PIC1.DAX:2:0:0",
+              "atMs": 10.899999999999636
+            },
+            {
+              "key": "portrait:area:24:ecl:a076:PIC1.DAX:2:1:0",
+              "atMs": 277.5
+            },
+            {
+              "key": "portrait:area:24:ecl:a076:PIC1.DAX:2:0:0",
+              "atMs": 594.1999999999998
+            },
+            {
+              "key": "portrait:area:24:ecl:a076:PIC1.DAX:2:1:0",
+              "atMs": 894.3000000000002
+            },
+            {
+              "key": "portrait:area:24:ecl:a076:PIC1.DAX:2:0:0",
+              "atMs": 1210.8999999999996
+            },
+            {
+              "key": "portrait:area:24:ecl:a076:PIC1.DAX:2:1:0",
+              "atMs": 1510.8999999999996
+            }
+          ],
+          "sha256": {
+            "portrait:area:24:ecl:a076:PIC1.DAX:2:0:0": "5fba76684b49479d5705dfddb930de41a11a813a9c6f0af55c9f0a8cf950e7b8",
+            "portrait:area:24:ecl:a076:PIC1.DAX:2:1:0": "90771b781501260d202cf2f6a74b87b0e0de2a0e639f8cce2d3be4f5654480b6"
+          }
+        },
+        "port": {
+          "route": "bane-captive-goblin-held",
+          "data": "port",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "c052b3b1eb8ab0f342f96dc0ad6cccd41273ca66c02c2cedeeaf8d46ce850228",
+          "portrait": "portrait:area:24:ecl:a076:PIC1.DAX:2:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:24:ecl:a076:PIC1.DAX:2:0:0",
+              "atMs": 11.099999964237213
+            },
+            {
+              "key": "portrait:area:24:ecl:a076:PIC1.DAX:2:1:0",
+              "atMs": 244.4999999642373
+            },
+            {
+              "key": "portrait:area:24:ecl:a076:PIC1.DAX:2:0:0",
+              "atMs": 561.0999999642372
+            },
+            {
+              "key": "portrait:area:24:ecl:a076:PIC1.DAX:2:1:0",
+              "atMs": 861.0999999642372
+            },
+            {
+              "key": "portrait:area:24:ecl:a076:PIC1.DAX:2:0:0",
+              "atMs": 1177.6999999642371
+            },
+            {
+              "key": "portrait:area:24:ecl:a076:PIC1.DAX:2:1:0",
+              "atMs": 1477.6999999642376
+            }
+          ],
+          "sha256": {
+            "portrait:area:24:ecl:a076:PIC1.DAX:2:0:0": "5fba76684b49479d5705dfddb930de41a11a813a9c6f0af55c9f0a8cf950e7b8",
+            "portrait:area:24:ecl:a076:PIC1.DAX:2:1:0": "90771b781501260d202cf2f6a74b87b0e0de2a0e639f8cce2d3be4f5654480b6"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:13:ecl:9ef1:PIC8.DAX:0",
+      "producer": "ECL8.DAX:13:9eaf",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "paints": [
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:1:0",
+              "atMs": 1050.9999999761585
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:2:0",
+              "atMs": 1250.9999999761585
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:1:0",
+              "atMs": 1467.599999976158
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:0:0",
+              "atMs": 1684.2999999761578
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:1:0",
+              "atMs": 1884.2999999761578
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:2:0",
+              "atMs": 2100.9999999761585
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:1:0",
+              "atMs": 2300.9999999761585
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:0:0",
+              "atMs": 2517.599999976159
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:1:0",
+              "atMs": 2734.299999976158
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:2:0",
+              "atMs": 2934.299999976158
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:1:0",
+              "atMs": 3150.9999999761585
+            }
+          ],
+          "data": "original",
+          "src": "/art/portrait:area:13:ecl:9ef1:PIC8.DAX:0:1:0",
+          "portrait": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:0:0",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105E12:24ADRUNKENKOBOLDLIESHERE.WHATDOYOUDO?SlippastWakeitKillit",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "route": "kobold-cave-guide-holds",
+          "bindingSha256": "0fd39dece63090d7639d5aa972fb92ec94c7eda09eebc722c9f49c24a19a904c",
+          "sha256": {
+            "portrait:area:13:ecl:9ef1:PIC8.DAX:0:0:0": "43cdb6e00b5d59e76be4d6d484aa1d02ed1ddcf3f5cc759face03b17633bf915",
+            "portrait:area:13:ecl:9ef1:PIC8.DAX:0:1:0": "431676ada346d04e25f0648dd71fcde50ebd47deb43215e9cb46c7e6149f76e1",
+            "portrait:area:13:ecl:9ef1:PIC8.DAX:0:2:0": "18cfcf1304a6b807b10116a3944df202a9bd1ee0b0f20a7014077b74227f9e96"
+          }
+        },
+        "port": {
+          "paints": [
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:1:0",
+              "atMs": 1053.6999999761583
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:2:0",
+              "atMs": 1253.6999999761583
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:1:0",
+              "atMs": 1470.3999999761581
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:0:0",
+              "atMs": 1687.099999976158
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:1:0",
+              "atMs": 1886.9999999761585
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:2:0",
+              "atMs": 2103.799999976158
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:1:0",
+              "atMs": 2303.6999999761583
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:0:0",
+              "atMs": 2520.299999976158
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:1:0",
+              "atMs": 2736.9999999761585
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:2:0",
+              "atMs": 2936.9999999761585
+            },
+            {
+              "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:1:0",
+              "atMs": 3153.6999999761574
+            }
+          ],
+          "data": "port",
+          "src": "/art/portrait:area:13:ecl:9ef1:PIC8.DAX:0:1:0",
+          "portrait": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:0:0",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105E12:24ADRUNKENKOBOLDLIESHERE.WHATDOYOUDO?SlippastWakeitKillit",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "route": "kobold-cave-guide-holds",
+          "bindingSha256": "0fd39dece63090d7639d5aa972fb92ec94c7eda09eebc722c9f49c24a19a904c",
+          "sha256": {
+            "portrait:area:13:ecl:9ef1:PIC8.DAX:0:0:0": "43cdb6e00b5d59e76be4d6d484aa1d02ed1ddcf3f5cc759face03b17633bf915",
+            "portrait:area:13:ecl:9ef1:PIC8.DAX:0:1:0": "431676ada346d04e25f0648dd71fcde50ebd47deb43215e9cb46c7e6149f76e1",
+            "portrait:area:13:ecl:9ef1:PIC8.DAX:0:2:0": "18cfcf1304a6b807b10116a3944df202a9bd1ee0b0f20a7014077b74227f9e96"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:13:ecl:9f68:PIC8.DAX:0",
+      "producer": "ECL8.DAX:13:9eaf",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "paints": [
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:1:0",
+              "atMs": 237.60000000000036
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:2:0",
+              "atMs": 437.60000000000036
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:1:0",
+              "atMs": 654.2999999999993
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:0:0",
+              "atMs": 871
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:1:0",
+              "atMs": 1070.8999999999996
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:2:0",
+              "atMs": 1287.6000000000004
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:1:0",
+              "atMs": 1487.5
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:0:0",
+              "atMs": 1704.2000000000007
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:1:0",
+              "atMs": 1920.8999999999996
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:2:0",
+              "atMs": 2120.7999999999993
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:1:0",
+              "atMs": 2337.5
+            }
+          ],
+          "data": "original",
+          "src": "/art/portrait:area:13:ecl:9f68:PIC8.DAX:0:1:0",
+          "portrait": "portrait:area:13:ecl:9f68:PIC8.DAX:0:0:0",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105E12:24HELOOKSCONFUSED,'OH,THEENVOYS.DOYOUWISHANESCORTTOTHEKING?'WHATDOYOUDO?YesNoKillit",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "route": "kobold-cave-guide-holds",
+          "bindingSha256": "c339f2da656f8801188ebd598eaa387fb1102d82d9f5d7275afb123d6f9600a7",
+          "sha256": {
+            "portrait:area:13:ecl:9f68:PIC8.DAX:0:0:0": "6f91940077e5bb1a945613efbd535338591918c37cb0f6b078da5a219895f991",
+            "portrait:area:13:ecl:9f68:PIC8.DAX:0:1:0": "e5fca79b2931ccc5d896a2325dc214de42900be3f7858af625831d731d3d3aae",
+            "portrait:area:13:ecl:9f68:PIC8.DAX:0:2:0": "3d2ec120224dd7912a376eee87a90422a6034bfe06939bea933b4b38099009a5"
+          }
+        },
+        "port": {
+          "paints": [
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:1:0",
+              "atMs": 192.80000002384259
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:2:0",
+              "atMs": 409.5000000238415
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:1:0",
+              "atMs": 626.1000000238419
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:0:0",
+              "atMs": 826.1000000238419
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:1:0",
+              "atMs": 1042.8000000238426
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:2:0",
+              "atMs": 1242.8000000238426
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:1:0",
+              "atMs": 1459.5000000238415
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:0:0",
+              "atMs": 1676.1000000238419
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:1:0",
+              "atMs": 1876.1000000238419
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:2:0",
+              "atMs": 2092.700000023842
+            },
+            {
+              "key": "portrait:area:13:ecl:9f68:PIC8.DAX:0:1:0",
+              "atMs": 2292.8000000238426
+            }
+          ],
+          "data": "port",
+          "src": "/art/portrait:area:13:ecl:9f68:PIC8.DAX:0:1:0",
+          "portrait": "portrait:area:13:ecl:9f68:PIC8.DAX:0:0:0",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105E12:24HELOOKSCONFUSED,'OH,THEENVOYS.DOYOUWISHANESCORTTOTHEKING?'WHATDOYOUDO?YesNoKillit",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "route": "kobold-cave-guide-holds",
+          "bindingSha256": "c339f2da656f8801188ebd598eaa387fb1102d82d9f5d7275afb123d6f9600a7",
+          "sha256": {
+            "portrait:area:13:ecl:9f68:PIC8.DAX:0:0:0": "6f91940077e5bb1a945613efbd535338591918c37cb0f6b078da5a219895f991",
+            "portrait:area:13:ecl:9f68:PIC8.DAX:0:1:0": "e5fca79b2931ccc5d896a2325dc214de42900be3f7858af625831d731d3d3aae",
+            "portrait:area:13:ecl:9f68:PIC8.DAX:0:2:0": "3d2ec120224dd7912a376eee87a90422a6034bfe06939bea933b4b38099009a5"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:16:ecl:a947:PIC8.DAX:59",
+      "producer": "ECL8.DAX:16:a90f",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 510,
+          "viewport": "93f8750ef462b28b91f0e628e13f0214e2005a3011cafdda3dab350c094faaea"
+        },
+        {
+          "member": 1,
+          "durationMs": 1510,
+          "viewport": "f8b233656ce958e108c0a03417c511d11450e27822f52f6ccbaaf882929506ee"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "lizardman-keep-giant-lizards-hold",
+          "data": "original",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "8b5eef80f47418d42a1719f4f9c6a56a2ec4ecb03186191c01d9863ac3699b33",
+          "portrait": "portrait:area:16:PIC8.DAX:59:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:16:PIC8.DAX:59:0:0",
+              "atMs": 8.699999976158324
+            },
+            {
+              "key": "portrait:area:16:ecl:a947:PIC8.DAX:59:1:0",
+              "atMs": 508.6999999761583
+            },
+            {
+              "key": "portrait:area:16:PIC8.DAX:59:0:0",
+              "atMs": 2025.2999999761578
+            },
+            {
+              "key": "portrait:area:16:ecl:a947:PIC8.DAX:59:1:0",
+              "atMs": 2525.299999976158
+            },
+            {
+              "key": "portrait:area:16:PIC8.DAX:59:0:0",
+              "atMs": 4041.799999976158
+            },
+            {
+              "key": "portrait:area:16:ecl:a947:PIC8.DAX:59:1:0",
+              "atMs": 4541.699999976157
+            }
+          ],
+          "sha256": {
+            "portrait:area:16:PIC8.DAX:59:0:0": "4e1afc49a074b92acf7afa851667acfb36a87973a11323cffcd31aa20af83394",
+            "portrait:area:16:ecl:a947:PIC8.DAX:59:1:0": "fba12e32c453220f8b31298189908201a682c8dffb57deab592d1b9b25702d19"
+          }
+        },
+        "port": {
+          "route": "lizardman-keep-giant-lizards-hold",
+          "data": "port",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "8b5eef80f47418d42a1719f4f9c6a56a2ec4ecb03186191c01d9863ac3699b33",
+          "portrait": "portrait:area:16:PIC8.DAX:59:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:16:PIC8.DAX:59:0:0",
+              "atMs": 7.100000047683352
+            },
+            {
+              "key": "portrait:area:16:ecl:a947:PIC8.DAX:59:1:0",
+              "atMs": 473.7000000476837
+            },
+            {
+              "key": "portrait:area:16:PIC8.DAX:59:0:0",
+              "atMs": 1973.6000000476834
+            },
+            {
+              "key": "portrait:area:16:ecl:a947:PIC8.DAX:59:1:0",
+              "atMs": 2490.300000047684
+            },
+            {
+              "key": "portrait:area:16:PIC8.DAX:59:0:0",
+              "atMs": 4006.9000000476844
+            },
+            {
+              "key": "portrait:area:16:ecl:a947:PIC8.DAX:59:1:0",
+              "atMs": 4506.900000047684
+            }
+          ],
+          "sha256": {
+            "portrait:area:16:PIC8.DAX:59:0:0": "4e1afc49a074b92acf7afa851667acfb36a87973a11323cffcd31aa20af83394",
+            "portrait:area:16:ecl:a947:PIC8.DAX:59:1:0": "fba12e32c453220f8b31298189908201a682c8dffb57deab592d1b9b25702d19"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
@@ -32276,6 +32756,166 @@
               "samples": 221,
               "poses": [
                 "scene-illustration:area:17:ecl:9da2:caller:a980"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL2.DAX:9:a558",
+      "prompt": "a577",
+      "variants": [
+        {
+          "caption": "Combat Wait Flee Parlay",
+          "checkpoint": "stojanow-tower-charge/A.json",
+          "portrait": "portrait:area:9:ecl:a577:HEAD2.DAX:11:BODY2.DAX:2",
+          "native": {
+            "drawCursor": "a577",
+            "composed": {
+              "source": "HEAD2.DAX:11:BODY2.DAX:2",
+              "headWrite": "a54e",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a577"
+            },
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 4,5 S 22:03 Combat Wait Flee Parlay",
+            "idlePolls": 45,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 45,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              }
+            ],
+            "clearedPanelSha256": "fc81b29836293d76ceff13997ce6e947d234c77226f2a6e82dd7750b08551441"
+          },
+          "chrome": {
+            "original": {
+              "route": "stojanow-tower-charge",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,5S22:03CombatWaitFleeParlay",
+              "portrait": "portrait:area:9:ecl:a577:HEAD2.DAX:11:BODY2.DAX:2",
+              "checkpointSha256": "ef64af019e6c031a9d1ca36575f66436168c51a7f4c4774289c1b1be4b6cabf4",
+              "artSha256": "ce085bdbbc21fedb4764d168f98a7e84a3aac66c8d43329c65509e6bc6d5a48b",
+              "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3663,
+              "samples": 221,
+              "poses": [
+                "portrait:area:9:ecl:a577:HEAD2.DAX:11:BODY2.DAX:2"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "stojanow-tower-charge",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,5S22:03CombatWaitFleeParlay",
+              "portrait": "portrait:area:9:ecl:a577:HEAD2.DAX:11:BODY2.DAX:2",
+              "checkpointSha256": "ef64af019e6c031a9d1ca36575f66436168c51a7f4c4774289c1b1be4b6cabf4",
+              "artSha256": "ce085bdbbc21fedb4764d168f98a7e84a3aac66c8d43329c65509e6bc6d5a48b",
+              "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3653,
+              "samples": 221,
+              "poses": [
+                "portrait:area:9:ecl:a577:HEAD2.DAX:11:BODY2.DAX:2"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL2.DAX:9:b0cc",
+      "prompt": "b0f9",
+      "variants": [
+        {
+          "caption": "THEY RUSH TOWARD YOU Combat Wait Flee Parlay",
+          "checkpoint": "stojanow-wall-ambush/A.json",
+          "portrait": "portrait:area:9:ecl:b0f9:HEAD2.DAX:11:BODY2.DAX:2",
+          "native": {
+            "drawCursor": "b0f9",
+            "composed": {
+              "source": "HEAD2.DAX:11:BODY2.DAX:2",
+              "headWrite": "b0c2",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "b0f9"
+            },
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 S 22:03 THEY RUSH TOWARD YOU Combat Wait Flee Parlay",
+            "idlePolls": 45,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 45,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              }
+            ],
+            "clearedPanelSha256": "138b79878fdb14335a75ae9962b388448ae7a743b8fbe70455d30e112ef7a867"
+          },
+          "chrome": {
+            "original": {
+              "route": "stojanow-wall-ambush",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6S22:03THEYRUSHTOWARDYOUCombatWaitFleeParlay",
+              "portrait": "portrait:area:9:ecl:b0f9:HEAD2.DAX:11:BODY2.DAX:2",
+              "checkpointSha256": "c2800f54095911a2b265e64d78eebfb9c78a0b3ba799eeb30aa9392b6d184f8b",
+              "artSha256": "ce085bdbbc21fedb4764d168f98a7e84a3aac66c8d43329c65509e6bc6d5a48b",
+              "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3652,
+              "samples": 221,
+              "poses": [
+                "portrait:area:9:ecl:b0f9:HEAD2.DAX:11:BODY2.DAX:2"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "stojanow-wall-ambush",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6S22:03THEYRUSHTOWARDYOUCombatWaitFleeParlay",
+              "portrait": "portrait:area:9:ecl:b0f9:HEAD2.DAX:11:BODY2.DAX:2",
+              "checkpointSha256": "c2800f54095911a2b265e64d78eebfb9c78a0b3ba799eeb30aa9392b6d184f8b",
+              "artSha256": "ce085bdbbc21fedb4764d168f98a7e84a3aac66c8d43329c65509e6bc6d5a48b",
+              "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3655,
+              "samples": 221,
+              "poses": [
+                "portrait:area:9:ecl:b0f9:HEAD2.DAX:11:BODY2.DAX:2"
               ],
               "replaced": false
             }

@@ -157,6 +157,8 @@ const portraitLoops = [
     /IAMTHEEFREETISAMIRAHWAHL.*AREYOUPERCHANCEVAMPIRES/i, [20, 20, 20]],
   ["portrait:area:31:ecl:a076:PIC1.DAX:2:", 2, "portrait:area:31:PIC1.DAX:2:0:0",
     /INTHISROOMARESOMEGOBLINSLAVESTHATARECOWERINGINTHECORNER/i, [310, 310]],
+  ["portrait:area:24:ecl:a076:PIC1.DAX:2:", 2, undefined,
+    /INTHISROOMARESOMEGOBLINSLAVESTHATARECOWERINGINTHECORNER/i, [310, 310]],
   ["portrait:area:20:ecl:b6df:caller:9eec:PIC2.DAX:2:", 2, "portrait:area:20:PIC2.DAX:2:0:0",
     /GOBLINISINSTRUCTINGAGROUPOFYOUNGWARRIORS/i, [310, 310]],
   ["portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:", slumsOrcPoseOrder, "portrait:area:20:PIC2.DAX:4:0:0",

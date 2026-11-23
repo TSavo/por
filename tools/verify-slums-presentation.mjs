@@ -3074,6 +3074,16 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "bane-mansion-hostile-warband.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS.*MOVEVIEWAIM/i },
   }],
+  ["bane-captive-goblin-held", {
+    slot: "A", inputs: ["up"],
+    portrait: "portrait:area:24:ecl:a076:PIC1.DAX:2:0:0",
+    prompt: /INTHISROOMARESOMEGOBLINSLAVES.*WHATWILLYOUDO/i,
+    heldPortraitLoop: ["portrait:area:24:ecl:a076:PIC1.DAX:2:0:0", "portrait:area:24:ecl:a076:PIC1.DAX:2:1:0"],
+    continuation: {
+      inputs: ["l"], portrait: "scene-illustration:area:24:ecl:b0b5:cue:captive-release",
+      prompt: /YOULETTHEGOBLINSGO.*HOLYSYMBOLOFBANE/i,
+    },
+  }],
   ["bane-mansion-holy-symbol", {
     slot: "A", inputs: ["up", "enter", "enter", "c"],
     portraitStops: { 3: "scene-illustration:area:31:ecl:9b0b:cue:mansion-holy-symbol" },
@@ -8621,7 +8631,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "diogenes-silver-directions-loop" ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       /^tyrmor-prison-(kobolds|lizardfolk|displacer|stirge)-loop$/.test(routeName) ||
-      ["sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
+      ["bane-captive-goblin-held", "sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
         "new-phlan-training-duels", "new-phlan-training-north-junction", "new-phlan-training-fighters-door",
         "new-phlan-training-rogues-door", "new-phlan-training-entrance-notice",
