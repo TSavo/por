@@ -28,7 +28,7 @@ if (spotted) {
 const cursor = spotted ? "a194" : "a1e5";
 const sprite = `encounter:area:26:ecl:${cursor}:SPRIT7.DAX:61:1:0`;
 const caption = spotted ? /YOUSPOTAGROUPOFSTIRGES/i : /YOUARESURPRISEDBYAGROUPOFSTIRGES/i;
-const screenText = frame => frame.text.toSorted(([a], [b]) => a-b).map(([, glyph]) => String.fromCharCode(glyph)).join("");
+const screenText = frame => frame.text.toSorted(([a], [b]) => a - b).map(([, glyph]) => String.fromCharCode(glyph)).join("");
 const digest = bytes => createHash("sha256").update(bytes).digest("hex");
 mkdirSync(outputRoot, { recursive: true });
 const output = mkdtempSync(resolve(outputRoot, `overland-${encounter}-`));
@@ -81,7 +81,8 @@ try {
     !document.querySelector("#tile-art .encounter-sprite, #tile-art .encounter-portrait")`), true);
   writeFileSync(join(output, "battle-notice.png"), await chrome.screenshot());
   writeFileSync(join(output, "receipt.json"), JSON.stringify({
-    encounter, fixtureSha256: digest(readFileSync(join(fixture, slot))),
+    encounter, data: await chrome.evaluate('state.classicAvailable === false ? "port" : "original"'),
+    fixtureSha256: digest(readFileSync(join(fixture, slot))),
     rendererSha256: digest(readFileSync("tools/play.js")), held: { caption: heldCaption, ...held },
     handoff: { choice, notice },
   }, null, 2) + "\n");
