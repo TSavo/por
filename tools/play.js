@@ -1065,14 +1065,18 @@ function followTravel() {
   });
 }
 
-function disableStreetPreview(error) {
-  streetUnavailable = true;
+function disposeStreetViewport() {
   if (moveViewport === streetViewport) {
     moveViewport = undefined;
     moveScene = undefined;
   }
   streetViewport?.renderer.dispose();
   streetViewport = undefined;
+}
+
+function disableStreetPreview(error) {
+  streetUnavailable = true;
+  disposeStreetViewport();
   console.warn("WebGL exploration is unavailable", error);
 }
 
@@ -1150,8 +1154,7 @@ function ensureStreetViewport(surface) {
   }
   if (streetViewport?.materialId !== materialId || streetViewport.packed !== packed) {
     const canvas = streetViewport?.canvas ?? makeViewportCanvas("street-viewport", 480, 576);
-    streetViewport?.renderer.dispose();
-    streetViewport = undefined;
+    disposeStreetViewport();
     const bytes = packed && atob(packed);
     const walls = bytes ? Array.from({length:256}, (_, i) => {
       const a = bytes.charCodeAt(i), b = bytes.charCodeAt(i+256);
