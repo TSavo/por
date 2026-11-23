@@ -35,6 +35,7 @@
     "verify:code-wheel": "python tools/verify-code-wheel.py",
     "verify:code-wheel-screen": "node tools/verify-code-wheel-screen.mjs",
     "verify:character-sheet-fallback": "node tools/verify-character-sheet-fallback.mjs",
+    "verify:icon-materials": "python tools/verify-icon-materials.py",
     "verify:combat-report-queue": "node --import tsx tools/verify-combat-report-queue.mjs",
     "verify:developer-combat": "node tools/verify-developer-combat.mjs",
     "verify:runes-readable": "node tools/verify-runes-readable.mjs",
