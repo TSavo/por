@@ -1015,6 +1015,16 @@ const illustrationRoutes = new Map([
     prompt: /MONSTER-CRAWLINGSLUMSOFPHLAN.*SCURRYFROMBENEATHYOURFEET.*ANALARMSOUNDS/i,
     continuation: { inputs: ["up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMP/i },
   }],
+  ["lizardman-keep-drythh-followers-hold", {
+    slot: "J", inputs: ["up", "p", "enter", ..."savior", "enter", "y", "enter", "enter", "n", "enter"],
+    portrait: "portrait:area:16:ecl:a535:PIC8.DAX:57:0:0", prompt: /COMBATWAITFLEEPARLAY/i,
+    heldPortraitLoop: [0, 1, 2, 3].map(member => "portrait:area:16:ecl:a535:PIC8.DAX:57:" + member + ":0"),
+    continuation: {
+      inputs: ["w"], portrait: "portrait:area:16:ecl:a560:PIC8.DAX:57:0:0", prompt: /ABATTLEBEGINS/i,
+      pressOnPortrait: "portrait:area:16:ecl:a535:PIC8.DAX:57:3:0",
+      retainPose: true,
+    },
+  }],
   ["swamp-drythh-followers-wait-base", {
     slot: "A", inputs: ["up", "b", "p", "enter", ..."savior", "enter", "y", "enter", "enter", "n", "enter"],
     portrait: "portrait:area:16:ecl:a535:PIC8.DAX:57:0:0", prompt: /COMBATWAITFLEEPARLAY/i,
@@ -8624,7 +8634,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName.startsWith("valjevo-tower-giants-") ||
       /^slums-roaming-(?:kobold|(?:kobold|orc|goblin)-(?:surprise|advance|spotted)|(?:orc|goblin)-party-surprised|(?:kobold|orc|goblin)-(?:demand|surrender|leave|advice|stop|rebuke)-parlay)-loop$/.test(routeName) ||
       /^valjevo-giant-barracks-password-(haughty|sly)-loop$/.test(routeName) ||
-      routeName === "lizardman-keep-giant-lizards-hold" ||
+      /^lizardman-keep-(giant-lizards|drythh-followers)-hold$/.test(routeName) ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
