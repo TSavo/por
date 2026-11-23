@@ -78,9 +78,12 @@ water and distance, weaker indoors), tinted by the sky.
 then a small post stack. Skip auto-exposure if it pulses when the party
 turns.
 
-**Scene-captured reflections.** Capture the built scene and sky once and
-use that environment for ambient and specular on materials (Saltline's
-PMREM-from-scene approach). Recapture when the area changes.
+**Scene-captured reflections.** Draw the same walls, ground and active
+sky into six 32 × 32 RGBA8 cubemap faces. The filtered cube adds gentle
+diffuse bounce and roughness-dependent reflections to the painted
+materials. Each viewport keeps one probe per roof or sky condition and
+releases them when the area, geometry or materials change. The regular
+WebGL scene still draws if a capture cannot be built.
 
 **Overland.** A mild grade lifts dark terrain details and slightly softens
 saturation on the Moonsea image and the local WebGL terrain canvas.

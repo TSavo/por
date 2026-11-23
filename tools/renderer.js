@@ -558,6 +558,77 @@ function createSunShadow(gl, vertices, buffer, atlas) {
   }
 }
 
+// OpenGL cubemap face order. T increases from the framebuffer's bottom edge.
+const environmentFaces = [
+  [[1, 0, 0], [0, 0, -1], [0, -1, 0]],
+  [[-1, 0, 0], [0, 0, 1], [0, -1, 0]],
+  [[0, 1, 0], [1, 0, 0], [0, 0, 1]],
+  [[0, -1, 0], [1, 0, 0], [0, 0, -1]],
+  [[0, 0, 1], [1, 0, 0], [0, -1, 0]],
+  [[0, 0, -1], [-1, 0, 0], [0, -1, 0]],
+];
+const environmentSize = 32;
+
+function captureEnvironment(gl, drawFace) {
+  const cube = gl.createTexture();
+  const fbo = gl.createFramebuffer();
+  const depth = gl.createRenderbuffer();
+  let complete = false;
+  try {
+    if (!cube || !fbo || !depth) {
+      gl.getError();
+      return null;
+    }
+    gl.activeTexture(gl.TEXTURE4);
+    gl.bindTexture(gl.TEXTURE_CUBE_MAP, cube);
+    // WebGL checks cube completeness before it will render to the first face.
+    const faces = environmentFaces.map((_, index) => gl.TEXTURE_CUBE_MAP_POSITIVE_X + index);
+    for (const face of faces) {
+      gl.texImage2D(face, 0, gl.RGBA, environmentSize, environmentSize, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+    }
+    gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+    gl.bindRenderbuffer(gl.RENDERBUFFER, depth);
+    gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, environmentSize, environmentSize);
+    gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, depth);
+    if (gl.getError() !== gl.NO_ERROR) return null;
+    for (const [index, face] of faces.entries()) {
+      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, face, cube, 0);
+      const status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
+      if (gl.getError() !== gl.NO_ERROR || status !== gl.FRAMEBUFFER_COMPLETE) return null;
+      drawFace(environmentFaces[index]);
+      if (gl.getError() !== gl.NO_ERROR) return null;
+    }
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.activeTexture(gl.TEXTURE4);
+    gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+    gl.generateMipmap(gl.TEXTURE_CUBE_MAP);
+    if (gl.getError() !== gl.NO_ERROR) return null;
+    complete = true;
+    return cube;
+  } finally {
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.deleteFramebuffer(fbo);
+    gl.deleteRenderbuffer(depth);
+    if (!complete) gl.deleteTexture(cube);
+  }
+}
+
+const captureCamera = `
+  #ifdef CAPTURE_ENVIRONMENT
+  uniform vec3 captureForward;
+  uniform vec3 captureRight;
+  uniform vec3 captureUp;
+  #else
+  uniform float aspect;
+  uniform vec2 forward;
+  uniform vec2 right;
+  #endif
+`;
+
 const sceneVertex = `
   attribute vec3 position;
   attribute vec4 surface;
@@ -565,9 +636,7 @@ const sceneVertex = `
   attribute float faceU;
   attribute vec3 normal;
   uniform vec3 eye;
-  uniform float aspect;
-  uniform vec2 forward;
-  uniform vec2 right;
+  ${captureCamera}
   varying vec3 world;
   varying vec3 worldNormal;
   varying vec4 material;
@@ -576,16 +645,21 @@ const sceneVertex = `
   varying float wallU;
   void main() {
     vec3 d = position - eye;
+    #ifdef CAPTURE_ENVIRONMENT
+    float z = dot(d, captureForward);
+    gl_Position = vec4(dot(d, captureRight), dot(d, captureUp), z * 1.003 - .08, z);
+    #else
     float z = dot(d.xz, forward);
+    const float focalLength = .60;
+    gl_Position = vec4(dot(d.xz, right) * focalLength / aspect, d.y * focalLength + z * .11,
+                       z * 1.003 - .08, z);
+    #endif
     world = position;
     worldNormal = normal;
     material = surface;
     depth = z;
     tileIndex = tile;
     wallU = faceU;
-    const float focalLength = .60;
-    gl_Position = vec4(dot(d.xz, right) * focalLength / aspect, d.y * focalLength + z * .11,
-                       z * 1.003 - .08, z);
   }
 `;
 
@@ -600,8 +674,11 @@ const sceneFragment = `
   varying float wallU;
   uniform sampler2D art;
   uniform sampler2D detail;
+  #ifndef CAPTURE_ENVIRONMENT
+  uniform samplerCube environment;
+  uniform float environmentEnabled;
+  #endif
   uniform vec3 eye;
-  uniform vec2 forward;
   uniform vec3 sunDir;
   uniform vec3 sunColor;
   uniform vec3 skyColor;
@@ -754,6 +831,14 @@ const sceneFragment = `
     sunAmt = sunAmt / (1.0 + 0.34 * sunAmt);
     vec3 sunLight = sunColor * sunAmt;
     vec3 color = albedo * (fill + ambient + sunLight) * ao + spec * sunLight * ao;
+    #ifndef CAPTURE_ENVIRONMENT
+    if (environmentEnabled > 0.5) {
+      // Broad directional bounce and rough reflections from this built scene.
+      vec3 bounce = textureCube(environment, normalize(Ngeo + vec3(0.0, 0.35, 0.0)), 5.0).rgb;
+      vec3 reflection = textureCube(environment, reflect(-V, N), roughness * 4.0).rgb;
+      float grazing = pow(1.0 - ndotv, 4.0);
+      color += (albedo * bounce * 0.09 + reflection * (0.015 + 0.045 * grazing) * (1.0 - 0.65 * roughness)) * ao;
+    }
     vec3 torchDir = normalize(eye - world);
     float torchDist = length(eye - world);
     float torchAtt = 1.0 / (1.0 + torchDist * torchDist * 0.22);
@@ -762,6 +847,7 @@ const sceneFragment = `
     // Floors take a slightly weaker torch so painted grain isn't a flat orange wash.
     float torchAmt = mix(0.10, 0.82, indoor) * mix(1.0, 0.70, floorSurface * indoor);
     color += albedo * torchCol * torchN * torchAtt * torchAmt * ao;
+    #endif
     color += albedo * vec3(0.14, 0.14, 0.15) * indoor * ao;
 
     float water = floorSurface * (1.0 - step(0.5, abs(tileIndex - waterTile)));
@@ -786,9 +872,7 @@ const skyVertex = `
 const skyFragment = `
   precision highp float;
   varying vec2 uv;
-  uniform float aspect;
-  uniform vec2 forward;
-  uniform vec2 right;
+  ${captureCamera}
   uniform vec3 sunDir;
   uniform vec3 sunColor;
   uniform vec3 skyColor;
@@ -799,11 +883,15 @@ const skyFragment = `
       gl_FragColor = vec4(0.03, 0.035, 0.045, 0.0);
       return;
     }
+    #ifdef CAPTURE_ENVIRONMENT
+    vec3 dir = normalize(captureForward + captureRight * uv.x + captureUp * uv.y);
+    #else
     vec3 ahead = normalize(vec3(forward.x, 0.0, forward.y));
     vec3 side = normalize(vec3(right.x, 0.0, right.y));
     vec3 up = vec3(0.0, 1.0, 0.0);
     const float focalLength = 0.60;
     vec3 dir = normalize(ahead + side * (uv.x * aspect / focalLength) + up * ((uv.y - 0.11) / focalLength));
+    #endif
     float elev = dir.y;
     bool hasSun = sunColor.r > 0.0;
     vec3 zenith = hasSun ? vec3(0.38, 0.56, 0.82) : vec3(0.016, 0.023, 0.042);
@@ -890,6 +978,9 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
 
   const sceneProgram = link(gl, sceneVertex, sceneFragment);
   const skyProgram = link(gl, skyVertex, skyFragment);
+  const captureDefine = "#define CAPTURE_ENVIRONMENT 1\n";
+  const captureSceneProgram = link(gl, captureDefine + sceneVertex, captureDefine + sceneFragment);
+  const captureSkyProgram = link(gl, skyVertex, captureDefine + skyFragment);
   const postProgram = link(gl, postVertex, postFragment);
   const bloomProgram = link(gl, postVertex, bloomFragment);
 
@@ -987,13 +1078,13 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
   const vertexCount = vertices.length / 12;
 
-  function bindSceneAttribs() {
+  function bindSceneAttribs(program) {
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-    const pos = gl.getAttribLocation(sceneProgram, "position");
-    const mat = gl.getAttribLocation(sceneProgram, "surface");
-    const tile = gl.getAttribLocation(sceneProgram, "tile");
-    const faceU = gl.getAttribLocation(sceneProgram, "faceU");
-    const normal = gl.getAttribLocation(sceneProgram, "normal");
+    const pos = gl.getAttribLocation(program, "position");
+    const mat = gl.getAttribLocation(program, "surface");
+    const tile = gl.getAttribLocation(program, "tile");
+    const faceU = gl.getAttribLocation(program, "faceU");
+    const normal = gl.getAttribLocation(program, "normal");
     gl.enableVertexAttribArray(pos);
     gl.enableVertexAttribArray(mat);
     gl.enableVertexAttribArray(tile);
@@ -1048,6 +1139,80 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
   const sunDir = explorationSunDir;
   let sunShadow;
 
+  const environments = new Map();
+
+  function setCamera(program, camera) {
+    if (camera.axes) {
+      const [forward, right, up] = camera.axes;
+      gl.uniform3f(gl.getUniformLocation(program, "captureForward"), ...forward);
+      gl.uniform3f(gl.getUniformLocation(program, "captureRight"), ...right);
+      gl.uniform3f(gl.getUniformLocation(program, "captureUp"), ...up);
+    } else {
+      gl.uniform1f(gl.getUniformLocation(program, "aspect"), camera.aspect);
+      gl.uniform2f(gl.getUniformLocation(program, "forward"), ...camera.forward);
+      gl.uniform2f(gl.getUniformLocation(program, "right"), ...camera.right);
+    }
+  }
+
+  function drawScene(camera, lighting, environment) {
+    const sky = camera.axes ? captureSkyProgram : skyProgram;
+    const scene = camera.axes ? captureSceneProgram : sceneProgram;
+    const { sunColor, skyColor, groundColor, fogColor, indoor, shadow } = lighting;
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+    gl.enable(gl.DEPTH_TEST);
+    gl.depthFunc(gl.ALWAYS);
+    gl.useProgram(sky);
+    gl.bindBuffer(gl.ARRAY_BUFFER, quadBuffer);
+    const skyPos = gl.getAttribLocation(sky, "position");
+    gl.enableVertexAttribArray(skyPos);
+    gl.vertexAttribPointer(skyPos, 2, gl.FLOAT, false, 0, 0);
+    setCamera(sky, camera);
+    gl.uniform3f(gl.getUniformLocation(sky, "sunDir"), sunDir[0], sunDir[1], sunDir[2]);
+    gl.uniform3f(gl.getUniformLocation(sky, "sunColor"), ...sunColor);
+    gl.uniform3f(gl.getUniformLocation(sky, "skyColor"), ...skyColor);
+    gl.uniform3f(gl.getUniformLocation(sky, "fogColor"), ...fogColor);
+    gl.uniform1f(gl.getUniformLocation(sky, "indoor"), indoor);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+    gl.depthFunc(gl.LEQUAL);
+    gl.useProgram(scene);
+    bindSceneAttribs(scene);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, artTexture);
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D, detailTexture);
+    gl.activeTexture(gl.TEXTURE2);
+    gl.bindTexture(gl.TEXTURE_2D, aoTexture);
+    gl.uniform1i(gl.getUniformLocation(scene, "art"), 0);
+    gl.uniform1i(gl.getUniformLocation(scene, "detail"), 1);
+    gl.uniform1i(gl.getUniformLocation(scene, "aoMap"), 2);
+    gl.activeTexture(gl.TEXTURE3);
+    gl.bindTexture(gl.TEXTURE_2D, shadow?.texture ?? aoTexture);
+    gl.uniform1i(gl.getUniformLocation(scene, "sunShadow"), 3);
+    gl.uniform1f(gl.getUniformLocation(scene, "shadowTexel"), shadow?.texel ?? 0);
+    if (shadow) gl.uniformMatrix4fv(gl.getUniformLocation(scene, "sunProjection"), false, shadow.projection);
+    if (!camera.axes) {
+      gl.activeTexture(gl.TEXTURE4);
+      gl.bindTexture(gl.TEXTURE_CUBE_MAP, environment);
+      gl.uniform1i(gl.getUniformLocation(scene, "environment"), 4);
+      gl.uniform1f(gl.getUniformLocation(scene, "environmentEnabled"), environment ? 1 : 0);
+    }
+    gl.uniform4f(gl.getUniformLocation(scene, "aoRect"),
+      AO_BOUNDS.x0, AO_BOUNDS.z0, AO_BOUNDS.x1, AO_BOUNDS.z1);
+    gl.uniform3f(gl.getUniformLocation(scene, "eye"), ...camera.eye);
+    setCamera(scene, camera);
+    gl.uniform3f(gl.getUniformLocation(scene, "sunDir"), sunDir[0], sunDir[1], sunDir[2]);
+    gl.uniform3f(gl.getUniformLocation(scene, "sunColor"), ...sunColor);
+    gl.uniform3f(gl.getUniformLocation(scene, "skyColor"), ...skyColor);
+    gl.uniform3f(gl.getUniformLocation(scene, "groundColor"), ...groundColor);
+    gl.uniform3f(gl.getUniformLocation(scene, "fogColor"), ...fogColor);
+    gl.uniform1f(gl.getUniformLocation(scene, "indoor"), indoor);
+    gl.uniform1f(gl.getUniformLocation(scene, "waterTile"), layout.water?.tile ?? -1);
+    gl.drawArrays(gl.TRIANGLES, 0, vertexCount);
+  }
+
   return {
     draw(view) {
       if (gl.isContextLost()) throw new Error("WebGL context lost");
@@ -1068,59 +1233,22 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
       const groundColor = indoor ? [0.08, 0.07, 0.06] : darkSky ? [0.15, 0.13, 0.12] : [0.30, 0.22, 0.14];
       const fogColor = indoor ? [0.055, 0.05, 0.045] : darkSky ? [0.035, 0.044, 0.065] : [0.62, 0.72, 0.88];
 
+      const camera = { eye, aspect, forward, right };
+      const lighting = { sunColor, skyColor, groundColor, fogColor, indoor, shadow };
+      // Walls and materials are fixed for a viewport. Retain a probe for each
+      // lighting condition seen here so movement and turning never recapture.
+      const condition = indoor ? "roof" : darkSky ? "dark" : "daylight";
+      if (!environments.has(condition)) {
+        const environment = captureEnvironment(gl, axes => {
+          gl.viewport(0, 0, environmentSize, environmentSize);
+          drawScene({ eye, axes }, lighting);
+        });
+        environments.set(condition, environment);
+      }
+
       gl.bindFramebuffer(gl.FRAMEBUFFER, sceneFbo);
       gl.viewport(0, 0, width, height);
-      gl.clearColor(0, 0, 0, 0);
-      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-      gl.enable(gl.DEPTH_TEST);
-      gl.depthFunc(gl.ALWAYS);
-      gl.useProgram(skyProgram);
-      gl.bindBuffer(gl.ARRAY_BUFFER, quadBuffer);
-      const skyPos = gl.getAttribLocation(skyProgram, "position");
-      gl.enableVertexAttribArray(skyPos);
-      gl.vertexAttribPointer(skyPos, 2, gl.FLOAT, false, 0, 0);
-      gl.uniform1f(gl.getUniformLocation(skyProgram, "aspect"), aspect);
-      gl.uniform2f(gl.getUniformLocation(skyProgram, "forward"), forward[0], forward[1]);
-      gl.uniform2f(gl.getUniformLocation(skyProgram, "right"), right[0], right[1]);
-      gl.uniform3f(gl.getUniformLocation(skyProgram, "sunDir"), sunDir[0], sunDir[1], sunDir[2]);
-      gl.uniform3f(gl.getUniformLocation(skyProgram, "sunColor"), ...sunColor);
-      gl.uniform3f(gl.getUniformLocation(skyProgram, "skyColor"), ...skyColor);
-      gl.uniform3f(gl.getUniformLocation(skyProgram, "fogColor"), ...fogColor);
-      gl.uniform1f(gl.getUniformLocation(skyProgram, "indoor"), indoor);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-
-      gl.depthFunc(gl.LEQUAL);
-      gl.useProgram(sceneProgram);
-      bindSceneAttribs();
-      gl.activeTexture(gl.TEXTURE0);
-      gl.bindTexture(gl.TEXTURE_2D, artTexture);
-      gl.activeTexture(gl.TEXTURE1);
-      gl.bindTexture(gl.TEXTURE_2D, detailTexture);
-      gl.activeTexture(gl.TEXTURE2);
-      gl.bindTexture(gl.TEXTURE_2D, aoTexture);
-      gl.activeTexture(gl.TEXTURE3);
-      gl.bindTexture(gl.TEXTURE_2D, shadow?.texture ?? aoTexture);
-      gl.uniform1i(gl.getUniformLocation(sceneProgram, "sunShadow"), 3);
-      gl.uniform1f(gl.getUniformLocation(sceneProgram, "shadowTexel"), shadow?.texel ?? 0);
-      if (shadow) gl.uniformMatrix4fv(gl.getUniformLocation(sceneProgram, "sunProjection"), false, shadow.projection);
-      gl.uniform1i(gl.getUniformLocation(sceneProgram, "art"), 0);
-      gl.uniform1i(gl.getUniformLocation(sceneProgram, "detail"), 1);
-      gl.uniform1i(gl.getUniformLocation(sceneProgram, "aoMap"), 2);
-      gl.uniform4f(gl.getUniformLocation(sceneProgram, "aoRect"),
-        AO_BOUNDS.x0, AO_BOUNDS.z0, AO_BOUNDS.x1, AO_BOUNDS.z1);
-      gl.uniform3f(gl.getUniformLocation(sceneProgram, "eye"), eye[0], eye[1], eye[2]);
-      gl.uniform1f(gl.getUniformLocation(sceneProgram, "aspect"), aspect);
-      gl.uniform2f(gl.getUniformLocation(sceneProgram, "forward"), forward[0], forward[1]);
-      gl.uniform2f(gl.getUniformLocation(sceneProgram, "right"), right[0], right[1]);
-      gl.uniform3f(gl.getUniformLocation(sceneProgram, "sunDir"), sunDir[0], sunDir[1], sunDir[2]);
-      gl.uniform3f(gl.getUniformLocation(sceneProgram, "sunColor"), ...sunColor);
-      gl.uniform3f(gl.getUniformLocation(sceneProgram, "skyColor"), ...skyColor);
-      gl.uniform3f(gl.getUniformLocation(sceneProgram, "groundColor"), ...groundColor);
-      gl.uniform3f(gl.getUniformLocation(sceneProgram, "fogColor"), ...fogColor);
-      gl.uniform1f(gl.getUniformLocation(sceneProgram, "indoor"), indoor);
-      gl.uniform1f(gl.getUniformLocation(sceneProgram, "waterTile"), layout.water?.tile ?? -1);
-      gl.drawArrays(gl.TRIANGLES, 0, vertexCount);
+      drawScene(camera, lighting, environments.get(condition));
 
       function blur(srcTex, destFbo, extract) {
         gl.bindFramebuffer(gl.FRAMEBUFFER, destFbo);
@@ -1174,6 +1302,8 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
       gl.deleteTexture(hdr.texture);
       gl.deleteTexture(bloomA.texture);
       gl.deleteTexture(bloomB.texture);
+      for (const texture of environments.values()) gl.deleteTexture(texture);
+      environments.clear();
       gl.deleteRenderbuffer(depth);
       gl.deleteFramebuffer(sceneFbo);
       gl.deleteFramebuffer(bloomFboA);
@@ -1181,6 +1311,8 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
       gl.useProgram(null);
       gl.deleteProgram(sceneProgram);
       gl.deleteProgram(skyProgram);
+      gl.deleteProgram(captureSceneProgram);
+      gl.deleteProgram(captureSkyProgram);
       gl.deleteProgram(postProgram);
       gl.deleteProgram(bloomProgram);
     },
