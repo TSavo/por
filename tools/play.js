@@ -1276,6 +1276,18 @@ function retainedPittMenuPose(source, target) {
   return undefined;
 }
 
+const retainedAuctionMenus = new Map([
+  ["a333", "a378"], ["a3dc", "a413"], ["a4d8", "a51e"],
+]);
+
+function retainedAuctionMenuPose(source, target) {
+  const incoming = /^portrait:area:18:ecl:b240:caller:(a333|a3dc|a4d8):PIC1\.DAX:16:([0-5]):0$/.exec(source);
+  if (!incoming) return undefined;
+  const [, caller, member] = incoming;
+  const prefix = `portrait:area:18:ecl:${retainedAuctionMenus.get(caller)}:PIC1.DAX:16:`;
+  return target?.startsWith(prefix) ? `${prefix}${member}:0` : undefined;
+}
+
 function retainedCaptivePenMenuPose(source, target) {
   const incoming = /^portrait:area:1:ecl:(b5f7:caller:9f20|9f5d):PIC6\.DAX:42:([0-4]):0$/.exec(source);
   if (!incoming) return undefined;
@@ -2140,7 +2152,8 @@ async function poll() {
       battleNoticePose = battleNotice ? previousPose : undefined;
       const incomingPose = previousPose ?? retainedMenuPose ?? state.portrait;
       retainedMenuPose = next.portrait === state.portrait ? retainedMenuPose :
-        retainedPittMenuPose(incomingPose, next.portrait) ?? retainedCaptivePenMenuPose(incomingPose, next.portrait);
+        retainedPittMenuPose(incomingPose, next.portrait) ?? retainedCaptivePenMenuPose(incomingPose, next.portrait) ??
+        retainedAuctionMenuPose(incomingPose, next.portrait);
       heldPoseAtInput = undefined;
       state = next;
     } else Object.assign(state, next);

@@ -136,6 +136,7 @@ type ScriptSite = typeof heldPortraitDiscovery.eclCandidates[number];
 const scriptSiteId = (site: ScriptSite) => `${site.scriptArchive}:${site.scriptBlock}:${site.address}`;
 const promptId = (cursor: string, caller: string | null) => caller ? `${cursor}/${caller}` : cursor;
 
+const auctionMenusRenderer = "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b";
 const captivePenMenusRenderer = "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c";
 const pittMenuRenderer = "63ed7feeedcc946fa2d875929600db3ad193e883eb12beb0e83f2ec54c1c85b9";
 const rendererBeforePittMenus = "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e";
@@ -143,6 +144,8 @@ const rendererBeforePittMenus = "c3582f5d74fae550739186491060b39f7fcbd25c399b99d
 // Exact reviewed revisions that preserve the held portrait paint and timing code.
 // This covers narration logging, the wilderness atlas, settings, and Classic palette-only clips.
 const previousRendererProof = new Map<string, string>([
+  // Only the three Podal auction menu transitions change. Their receipt records the new renderer.
+  [auctionMenusRenderer, captivePenMenusRenderer],
   // The two Pitt menus keep their incoming pose. Existing loops and scenery are untouched.
   [pittMenuRenderer, rendererBeforePittMenus],
   // The two captive-pen prompts retain the already decoded merchant pose.
@@ -339,8 +342,9 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       return (["original", "port"] as const).every(data => {
         const observed = proof.chrome[data];
         const sameSceneryRenderer = observed.rendererSha256 === renderer ||
-          (renderer === captivePenMenusRenderer && observed.rendererSha256 === pittMenuRenderer) ||
-          ([pittMenuRenderer, captivePenMenusRenderer].includes(renderer) &&
+          (renderer === auctionMenusRenderer && observed.rendererSha256 === captivePenMenusRenderer) ||
+          ([captivePenMenusRenderer, auctionMenusRenderer].includes(renderer) && observed.rendererSha256 === pittMenuRenderer) ||
+          ([pittMenuRenderer, captivePenMenusRenderer, auctionMenusRenderer].includes(renderer) &&
             observed.rendererSha256 === rendererBeforePittMenus);
         return observed.data === data && sameSceneryRenderer &&
           checkpoint.has(observed.checkpointSha256) && isDeepStrictEqual(observed.position, proof.position) &&
