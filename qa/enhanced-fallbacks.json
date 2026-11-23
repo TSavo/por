@@ -220,6 +220,12 @@
    "frames": [],
    "fixtureSha256": "d8dbed4470a7dddcd3886b68207f9d321d8079bde09ae37198b35007101f37c3"
   },
+  "walk-guide-party-sokal-courtyard": {
+   "observer": 2,
+   "presented": 1509,
+   "frames": [],
+   "fixtureSha256": "4e0d739b5bef919b9db5d915daeab63f79c587a92090c2cdce8f418b4e811528"
+  },
   "walk-guide-party-sokal-healing": {
    "observer": 2,
    "presented": 70,
@@ -243,6 +249,12 @@
    "presented": 284,
    "frames": [],
    "fixtureSha256": "54871e41c76353f8fb4bc968d8399559718175a06ba75b6aaca189b1094bafc3"
+  },
+  "walk-guide-party-textile-briefing": {
+   "observer": 2,
+   "presented": 44,
+   "frames": [],
+   "fixtureSha256": "be7610752410cac8a013bb36b20433b6c362a097f534d7f494ad48556f88c5aa"
   },
   "walk-kobold-king": {
    "observer": 2,
