@@ -4559,8 +4559,8 @@ const illustrationRoutes = new Map([
       "left", "up", "up", "up", "right", "up", ...extra];
     const west = [archer("a168:caller:a133", 2, 57), archer("a173:caller:a133", 2, 57)];
     const north = [archer("a168:caller:a15a", 1, 65), archer("a173:caller:a15a", 1, 65)];
-    const hit = (caller === "a133" ? west : north)[1];
-    const approaches = [...west, ...(caller === "a15a" ? north : [])];
+    const approaches = caller === "a133" ? west : north;
+    const hit = approaches[1];
     return [`kuto-catacombs-${side}-arrow`, {
       slot: "J", stockInput: true, fixedClockStart: "4320000", inputs: [...walk, "enter"],
       requireWebGL: true, approachSequence: approaches,
