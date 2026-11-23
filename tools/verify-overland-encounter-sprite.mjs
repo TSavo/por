@@ -36,6 +36,21 @@ const scenes = {
     terrain: { center: [28, 13], slots: [1, 0, 1, 0, 41, 148, 1, 0, 1, 0, 122, 148, 1, 0, 1, 144, 122, 148, 1, 0, 122, 144, 145, 149, 1] },
     inputs: ["down", "down", "down", "down", "right", "down", "enter", "c"],
   },
+  "woodland-south-merchants": {
+    cursor: "a230", block: 12, height: 65, clock: "4327933", caption: /YOUSURPRISEAGROUPOFMERCHANTS/i,
+    terrain: { center: [28, 14], slots: [148, 1, 0, 1, 0, 122, 148, 1, 0, 1, 144, 122, 148, 1, 0, 122, 144, 145, 149, 1, 144, 122, 145, 146, 148] },
+    inputs: ["down", "down", "down", "down", "right", "down", "down", "enter", "c"],
+  },
+  "woodland-west-stirges": {
+    cursor: "a230", block: 61, height: 57, clock: "4321092", caption: /YOUSURPRISEAGROUPOFSTIRGES/i,
+    terrain: { center: [21, 10], slots: [33, 30, 17, 6, 16, 27, 21, 3, 17, 18, 18, 0, 22, 20, 1, 147, 1, 0, 1, 0, 121, 148, 1, 0, 1] },
+    inputs: [...Array(6).fill("left"), "down", "down", "enter", "c"],
+  },
+  "woodland-southwest-merchants": {
+    cursor: "a230", block: 12, height: 65, clock: "4321145", caption: /YOUSURPRISEAGROUPOFMERCHANTS/i,
+    terrain: { center: [20, 11], slots: [26, 27, 21, 3, 17, 17, 18, 0, 22, 20, 215, 147, 1, 0, 1, 120, 121, 148, 1, 0, 123, 120, 121, 148, 1] },
+    inputs: [...Array(7).fill("left"), "down", "down", "down", "enter", "c"],
+  },
 };
 const [chromePath, encounter, outputRoot = "out"] = process.argv.slice(2);
 assert.ok(chromePath && Object.hasOwn(scenes, encounter),
