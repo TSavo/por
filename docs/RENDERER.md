@@ -149,6 +149,18 @@ Distant water gains more haze than foreground water. The sampled sky,
 masonry, pilings, and dry deck match byte for byte. The final WebGL
 canvas is opaque and supplies its own sky.
 
+### Corner contact shading
+
+The [matched Valjevo Barracks captures](screenshots/renderer-look/barracks-corner-shading.png)
+show the left wall-floor junction at (8,1) north. The perpendicular wall
+adds a small amount of occlusion to the existing single-wall bake. At one
+contact pixel the RGB channels drop from (59, 38, 25) to (54, 34, 22).
+Samples on the straight wall and open floor match. GOG 1.3 and bundled
+Chrome each keep the recorded camera and wall grid at the barracks and
+harbor. In a direct bake check, a straight wall, duplicate shared edges,
+and the sunlight channel each produce the same values as their controls.
+The renderer uses the wall grid for this effect.
+
 The same Chrome comparison at the roofed Valjevo Barracks camera
 matches pixel for pixel. The GOG Classic frames also match on both
 routes. The open-night Kuto's Well replay below passed in both data modes.
