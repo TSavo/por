@@ -748,7 +748,7 @@ const mendorFighterHeldPoses = (cursor, caller) => [0, 1, 2, 3, 4].map(
 const mountedEscort = {
   slot: "A",
   portrait: "portrait:PIC6.DAX:39:0:0",
-  prompt: /ABANDOFBUCCANEERSRIDEOUTTOESCORTYOUIN.*ENTERLEAVE/i,
+  prompt: /YOUHAVEREACHEDTHEBUCCANEERBASE.*ABANDOFBUCCANEERSRIDEOUTTOESCORTYOUIN/i,
   heldPortraitLoop: ["portrait:PIC6.DAX:39:0:0", "portrait:area:25:ecl:9e08:PIC6.DAX:39:1:0"],
   continuation: { inputs: ["e"], clearsPortrait: true, prompt: /8,10S.*MERCHANTS'?CAMPAREA/i },
 };
