@@ -497,6 +497,21 @@
     "original-visits.jsonl",
     "port-visits.jsonl"
    ]
+  },
+  "guide-party-slums-closure": {
+   "areas": [
+    0,
+    8,
+    20
+   ],
+   "commissions": [
+    "ohlo",
+    "slums"
+   ],
+   "traces": [
+    "original-visits.jsonl",
+    "port-visits.jsonl"
+   ]
   }
  }
 }
