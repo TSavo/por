@@ -9,6 +9,18 @@ import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const battleEntryRoutes = new Map([
+  ["wild-cave-gnoll-ambush", {
+    slot: "B",
+    prefix: ["up", ...Array.from({ length: 13 }, () => ["down", "up"]).flat(), "down"],
+    promptSchedule: "qa/fixtures/wild-cave-gnoll-ambush/prompts.jsonl",
+    notice: /YOUAREATTACKEDBYSOMEGNOLLS.*ABATTLEBEGINS/i,
+    portrait: "portrait:area:27:ecl:a6ce:PIC8.DAX:73:0:0",
+    file: "wild-cave-gnoll-ambush.png",
+    noticeScreenshot: "wild-cave-gnoll-ambush.png",
+    pollFrames: 1,
+    producer: "ECL8.DAX:27:a68b",
+    combatTimeout: 120_000,
+  }],
   ["wild-cave-two-guard-lizards", {
     slot: "B",
     notice: /GUARDINGTHISCHAMBERARETWOGIANTLIZARDS.*ABATTLEBEGINS/i,
@@ -9095,7 +9107,8 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
         routeName === "valjevo-tower-troll-ambush-loop" ? "4322783" :
         routeName === "valhingen-skeleton-roaming-ambush-loop" || routeName === "valhingen-wight-ambush-loop" ? "4320042" : undefined),
     ...(textileScorpionLoop ? { POR_PROMPT_SCHEDULE_IN: resolve(textileScorpionWalk, "prompts.jsonl") } : {}),
-    ...(illustration?.promptSchedule ? { POR_PROMPT_SCHEDULE_IN: resolve(illustration.promptSchedule) } : {}),
+    ...((battleEntry?.promptSchedule ?? illustration?.promptSchedule)
+      ? { POR_PROMPT_SCHEDULE_IN: resolve(battleEntry?.promptSchedule ?? illustration.promptSchedule) } : {}),
     ...(battleEntry ? { POR_PROMPT_SCHEDULE_IN: "" } : {}),
     POR_INPUT_COMPAT: battleEntry || illustration?.stockInput || encounterRoute?.stockInput ||
       controlledBattleIllustration?.staticHold || controlledBattleIllustration?.heldPortraitLoop ||
@@ -12358,7 +12371,8 @@ try {
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the wagon deal and both warnings after reloading slot B in Chrome.");
   } else if (battleEntry) {
-    // Drive only the real browser keyboard. CDP observes the page's own no-key requests.
+    for (const key of battleEntry.prefix ?? []) await advance(key);
+    // Drive the combat trigger through the real browser keyboard and observe the page's own no-key requests.
     await command("Network.enable", { maxPostDataSize: 64 });
     const posts = new Map();
     socket.addEventListener("message", event => {
@@ -12373,7 +12387,7 @@ try {
       }
     });
     await waitFor("the Enhanced exploration prompt", () => run(`
-      state.ready && state.awaitsKey && !state.battleEntryPolling && !animationFrame &&
+      state.sequence === ${frame.sequence} && state.ready && state.awaitsKey && !state.battleEntryPolling && !animationFrame &&
       renderingSequence === undefined && !document.querySelector("#game-text").hidden
     `));
     await run(`(() => {
@@ -12444,7 +12458,13 @@ try {
       writeFileSync(resolve(directory, battleEntry.noticeScreenshot), Buffer.from(screenshot.data, "base64"));
     }
     const settled = await waitFor("the first manual combat menu without sending another key", () =>
-      run("window.battleEntryTrace.combat?.heldMs >= 250 && window.battleEntryTrace"), 60_000);
+      run("window.battleEntryTrace.combat?.heldMs >= 250 && window.battleEntryTrace"), battleEntry.combatTimeout ?? 60_000).catch(async error => {
+      const trace = await run("window.battleEntryTrace");
+      writeFileSync(resolve(directory, "battle-entry-failure.json"), JSON.stringify({
+        ...trace, posts: [...posts.values()],
+      }, null, 2) + "\n");
+      throw error;
+    });
     assert.ok(settled.combat.sequence > notice.sequence);
     assert.equal(settled.polls.length, battleEntry.pollFrames ?? 2);
     const sent = [...posts.values()];

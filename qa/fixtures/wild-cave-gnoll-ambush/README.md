@@ -1,0 +1,1 @@
+This controlled area 27 checkpoint uses the existing cave save with only the three location bytes set to (11,10) facing west. The recorded prompt schedule repeats ordinary movement across the encounter square until the native gnoll ambush occurs. The browser carries on from the painted notice to the first manual combat turn.
