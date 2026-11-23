@@ -1331,6 +1331,18 @@ const illustrationRoutes = new Map([
         pressOnPortrait: phase(2), retainPose: true, battleNoticeInputs: name === "home" ? ["enter", "enter"] : undefined },
     }];
   }),
+  ...[
+    ["goblins", "4320518", 69, 2],
+    ["hobgoblins", "4320296", 45, 6],
+  ].map(([species, fixedClockStart, moves, block]) => [`bane-rampart-ambush-${species}`, {
+    slot: "A", stockInput: true, fixedClockStart,
+    inputs: Array.from({ length: moves }, (_, i) => i % 2 ? "down" : "up"),
+    portrait: `portrait:area:24:ecl:b058:PIC1.DAX:${block}:0:0`,
+    prompt: new RegExp(`YOUARESURPRISEDBY${species}.*ABATTLEBEGINS`, "i"),
+    oneShotProducer: "ECL1.DAX:24:af03",
+    finalPhaseCapture: `bane-rampart-ambush-${species}.png`,
+    continuation: { automaticBattle: "opening-turn", clearsPortrait: true, prompt: /HITPOINTS/i },
+  }]),
   ["bane-rampart-goblin-patrol", {
     slot: "A", stockInput: true, fixedClockStart: "4320222",
     promptSchedule: "qa/fixtures/bane-black-hand-patrol-warning/goblin-prompts.jsonl",

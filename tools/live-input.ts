@@ -506,7 +506,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         dialogue.startsWith("THEMINUTEYOUFINDTHETREASURE");
       const exitAmbush = area === 24 && (battleCursor === 0xaafb || battleCursor === 0xabbc) &&
         dialogue.startsWith("ASYOUEXITTHETEMPLE");
-      const baneAmbushCursor = treasureAmbush ? 0xab06 : exitAmbush ? 0xaba7 : battleCursor;
+      // The rampart surprise keeps its native close picture into the shared combat notice.
+      const patrolAmbush = area === 24 && battleCursor === 0xb086 && dialogue.startsWith("YOUARESURPRISEDBY");
+      const baneAmbushCursor = treasureAmbush ? 0xab06 : exitAmbush ? 0xaba7 : patrolAmbush ? 0xb058 : battleCursor;
       const portraitCursor = cadornaGatePlea ? 0xb110 : cadornaAftermath ? 0xb15c : caveRevisit || captivePlea || cadornaSharedPause
         ? undefined : baneAmbushCursor;
       // The dragon's arrival is narrated over the room before its native portrait is drawn.
