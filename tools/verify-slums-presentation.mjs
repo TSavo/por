@@ -5944,6 +5944,7 @@ const koboldEscort = routeName === "kobold-cave-escort";
 const koboldGuideHeld = routeName === "kobold-cave-guide-holds";
 const koboldGuideWallTap = routeName === "kobold-cave-guide-wall-tap";
 const koboldThroneHordeHold = routeName === "kobold-throne-horde-hold";
+const koboldRoamingHold = routeName === "kobold-cave-roaming-hold";
 const koboldGuide = routeName === "kobold-cave-guide" || koboldGuideHeld || koboldGuideWallTap || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
@@ -8313,7 +8314,7 @@ routes.push("textile-return-art", "moonsea-lizardman-travel", "moonsea-sokal-fre
   "moonsea-sokal-decline", "moonsea-valjevo-arrival", "moonsea-valjevo-gate-warning", "moonsea-quest-locked",
   ...districtTravel.keys(), ...atlasRoutes.keys());
 routes.push("stojanow-wall-warning", "stojanow-wall-warning-reload");
-routes.push("kobold-cave-guide-holds", "kobold-cave-guide-wall-tap", "kobold-throne-horde-hold", "kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload");
+routes.push("kobold-cave-guide-holds", "kobold-cave-guide-wall-tap", "kobold-throne-horde-hold", "kobold-cave-roaming-hold", "kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload");
 routes.push("mendor-floorboard-jar-loot", "mendor-manual-loot", "kobold-cave-efreeti-bottle-loot", "kobold-king-treasury", "kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
@@ -8568,7 +8569,7 @@ mkdirSync("out", { recursive: true });
 const outputDirectory = resolve(process.env.POR_PRESENTATION_OUTPUT_DIR || "out");
 mkdirSync(outputDirectory, { recursive: true });
 const directory = mkdtempSync(resolve(outputDirectory, "slums-presentation-"));
-const slot = (wideManualAim || norrisSurrenderReload ? "J" : (routeName === "tyrmor-journal-reload" || routeName === "kobold-king-treasury" || routeName === "mendor-manual-loot" || routeName === "mendor-floorboard-jar-loot") ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || poolReturnStairs || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || koboldThroneHordeHold || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
+const slot = (wideManualAim || norrisSurrenderReload ? "J" : (routeName === "tyrmor-journal-reload" || routeName === "kobold-king-treasury" || routeName === "mendor-manual-loot" || routeName === "mendor-floorboard-jar-loot") ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || poolReturnStairs || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || koboldThroneHordeHold || koboldRoamingHold || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
 const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
@@ -8675,7 +8676,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "mendor-storeroom-kobold-map" ||
       routeName === "kobold-white-flag-envoy" || routeName === "kobold-white-flag-escort-phase" || routeName === "kobold-white-flag-refusal" ||
       routeName === "kobold-kings-quarters-native" || routeName === "kobold-cave-efreeti-dialogue" ||
-      koboldGuideHeld || koboldGuideWallTap || koboldThroneHordeHold ||
+      koboldGuideHeld || koboldGuideWallTap || koboldThroneHordeHold || koboldRoamingHold ||
       routeName === "valjevo-medusa-phases" || routeName === "valhingen-mummy-sarcophagi-phases" ||
       routeName === "valjevo-fire-giant-loop" ||
       routeName === "valjevo-fire-giant-refusal-loop" ||
@@ -13483,6 +13484,23 @@ try {
     assert.match(frame.journal.objective.nextStep, /Confront the king and the envoys/i);
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the Kobold guide's directions and the throne encounter after a cold reload.");
+  } else if (koboldRoamingHold) {
+    const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
+    const warning = /KOBOLDSSEEMTOBOILUPFROMNOWHERE/i;
+    for (const key of Array.from({ length: 30 }, () => ["up", "down", "enter", "enter"]).flat()) {
+      await advance(key);
+      if (warning.test(text())) break;
+    }
+    const portrait = "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:";
+    assert.match(text(), /KOBOLDSSEEMTOBOILUPFROMNOWHERE.*PRESS<RETURN>ORBUTTONTOCONTINUE/i);
+    assert.ok([0, 1, 2, 3].some(member => frame.portrait === portrait + member + ":0"));
+    await verifyHeldPortraitLoop([0, 1, 2, 1].map(member => portrait + member + ":0"), "kobold-roaming-ambush");
+    await advance("enter");
+    assert.match(text(), /ABATTLEBEGINS|HITPOINTS/i);
+    if (/ABATTLEBEGINS/i.test(text())) {
+      assert.match(frame.portrait ?? "", /^portrait:area:13:ecl:b41c:PIC8\.DAX:0:[0-3]:0$/);
+      await verifyPortraitPanel();
+    }
   } else if (koboldThroneHordeHold) {
     const placement = [56, 32, "encounter:area:13:ecl:b511:caller:a07f:SPRIT8.DAX:0:1:0", 24, 65];
     await observeApproach([placement], true, true);
