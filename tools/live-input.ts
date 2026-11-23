@@ -468,6 +468,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       attackKeys.has(key) || attackKeys.has(partyRecolorKey.exec(key)?.[1] ?? ""));
     return attacks.length ? JSON.stringify(attacks) : "";
   }
+  let keepJavelinIllustration: string | undefined;
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false,
     durationMs?: number, effect?: { placement: TilePlacement; clean: Frame }, captureIllustration: boolean | string = false,
     message?: "status" | "combat" | "picture" | "palette") => {
@@ -600,9 +601,18 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         (councilRewardScreen && !finalCouncilReward)
         ? undefined : matchScriptIllustration(
           typeof captureIllustration === "string" ? captureIllustration : illustrationScope, illustrationText, portraitKeys);
+      // The central keep's DAMAGE handler can replace the warning with another
+      // damage line without clearing the native picture. Keep the selected warning's art.
+      const javelinScope = area === 16 && (battleCursor === 0xa837 || battleCursor === 0xa843 || battleCursor === 0xa6ce) &&
+        !(nativeBattleActive && hasBattlefieldFrame());
+      if (javelinScope && scriptedIllustration?.includes(":cue:keep-javelins-")) {
+        keepJavelinIllustration = scriptedIllustration;
+      } else if (!javelinScope) {
+        keepJavelinIllustration = undefined;
+      }
       // The dissolved spirit stays gone while the native recall caption waits for input.
       const illustration = scriptedIllustration === "scene-illustration:area:7:ecl:a82d:cue:pool-recall"
-        ? finaleRecallPose ?? scriptedIllustration : scriptedIllustration;
+        ? finaleRecallPose ?? scriptedIllustration : scriptedIllustration ?? keepJavelinIllustration;
       if (captureIllustration && (!illustration || animation.at(-1)?.portrait === illustration)) return;
       const menu = menuText(text);
       // The overland map shares the native viewport blit and omits Area.

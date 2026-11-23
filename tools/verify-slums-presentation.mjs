@@ -1752,6 +1752,20 @@ const illustrationRoutes = new Map([
       retainPose: true,
     },
   }],
+  ["swamp-keep-javelins-and-lizards", {
+    slot: "A", inputs: ["up"], stockInput: true,
+    transientPortraits: { 1: { id: "scene-illustration:area:16:ecl:a837:cue:keep-javelins-and-lizards", prompt: /THROWJAVELINSATYOU.*GIANTLIZARDSCHARGEOUTOFHIDDENTUNNELS/i, durationMs: 900,
+      screenshot: "swamp-keep-javelins-and-lizards-ambush.png", recordTiming: true } },
+    portrait: "scene-illustration:area:16:ecl:a843:cue:keep-javelins-and-lizards",
+    prompt: /THROWJAVELINSATYOU.*GIANTLIZARDSCHARGEOUTOFHIDDENTUNNELS/i, staticPortraitMenu: true,
+  }],
+  ["swamp-keep-javelins-only", {
+    slot: "A", inputs: ["up"], stockInput: true,
+    transientPortraits: { 1: { id: "scene-illustration:area:16:ecl:a837:cue:keep-javelins-only", prompt: /^(?!.*GIANTLIZARDSCHARGEOUTOFHIDDENTUNNELS).*THROWJAVELINSATYOU/i, durationMs: 900,
+      screenshot: "swamp-keep-javelins-only-ambush.png", recordTiming: true } },
+    portrait: "scene-illustration:area:16:ecl:a843:cue:keep-javelins-only",
+    prompt: /^(?!.*GIANTLIZARDSCHARGEOUTOFHIDDENTUNNELS).*THROWJAVELINSATYOU/i, staticPortraitMenu: true,
+  }],
   ["swamp-giant-lizard-surprise", {
     slot: "A", inputs: ["up", "b", "enter", "enter"],
     portraitStops: { 3: "scene-illustration:area:16:ecl:a9cc:cue:giant-lizard-surprise" },

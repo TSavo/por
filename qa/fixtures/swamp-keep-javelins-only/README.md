@@ -1,0 +1,1 @@
+Controlled central-keep save with defender counts 4A5D=45, 4A5E=25, 4A5F=25. Up runs the unmodified ambush script and exposes the native damage acknowledgment. The mixed attack takes two ordinary confirmations before combat. The javelin-only attack takes one.

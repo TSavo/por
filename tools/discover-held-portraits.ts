@@ -752,6 +752,17 @@ const eclCandidates = scripts.flatMap(record => {
     }
     // This rest interruption acknowledges DAMAGE before the sprite is turned off.
     // Other DAMAGE instructions still need their own observed prompt evidence.
+    if (archive === 8 && scriptBlock === 16 && load.address === 0xa7b6 && opcode === 0x0c) {
+      const warning = instructions.get(load.next);
+      const damage = instructions.get(0xa837);
+      if (warning?.opcode === 0x12 &&
+          warning.operands[0]?.text === "SUDDENLY LIZARD MEN JUMP UP FROM WHERE THEY WERE HIDING AND THROW JAVELINS AT YOU." &&
+          instructions.get(0xa836)?.opcode === 0x3a && damage?.opcode === 0x2e && damage.next === 0xa843 &&
+          memory(damage.operands[0]!) === 0x6e7d &&
+          [1, 6, 0, 42].every((value, i) => literal(damage.operands[i + 1]!) === value)) {
+        prompt({ address: damage.address, returns: [] }, damage, damage.operands.length);
+      }
+    }
     if (archive === 8 && scriptBlock === 13 && load.address === 0xb460 && opcode === 0x0c) {
       const warning = instructions.get(load.next);
       const damage = warning && instructions.get(warning.next);
