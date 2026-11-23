@@ -292,23 +292,27 @@ copyFileSync(join(iconset, "icon_256x256.png"), join(icons, "pool-of-radiance.pn
 
 // ---- Electron, from its GitHub releases, checked against its published sums. ----
 mkdirSync(cache, { recursive: true });
-async function download(url: string, file: string): Promise<string> {
+function download(url: string, file: string): string {
   const target = join(cache, file);
   if (existsSync(target)) return target;
   log(`downloading ${url}`);
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`${url}: ${response.status}`);
-  writeFileSync(`${target}.part`, Buffer.from(await response.arrayBuffer()));
-  renameSync(`${target}.part`, target);
+  const partial = `${target}.${process.pid}.part`;
+  try {
+    run("curl", ["--fail", "--location", "--silent", "--show-error", "--retry", "3", "--retry-all-errors",
+      "--output", partial, url]);
+    renameSync(partial, target);
+  } finally {
+    rmSync(partial, { force: true });
+  }
   return target;
 }
 const electronBase = `https://github.com/electron/electron/releases/download/${electronVersion}`;
-const electronSums = new Map(readFileSync(await download(`${electronBase}/SHASUMS256.txt`, `electron-${electronVersion}-SHASUMS256.txt`), "utf8")
+const electronSums = new Map(readFileSync(download(`${electronBase}/SHASUMS256.txt`, `electron-${electronVersion}-SHASUMS256.txt`), "utf8")
   .trim().split("\n").map((line) => line.split(/\s+/)).map(([sum, file]) => [file!.replace(/^\*/, ""), sum!]));
 /** One official Electron build, unzipped. */
 async function electronDist(platform: "linux" | "win32" | "darwin", arch: "x64" | "arm64"): Promise<string> {
   const file = `electron-${electronVersion}-${platform}-${arch}.zip`;
-  const archive = await download(`${electronBase}/${file}`, file);
+  const archive = download(`${electronBase}/${file}`, file);
   if (sha256(readFileSync(archive)) !== electronSums.get(file)) throw new Error(`${file} does not match Electron's SHASUMS256.txt`);
   const out = join(cache, `electron-${electronVersion}-${platform}-${arch}`);
   const marker = platform === "darwin" ? join(out, "Electron.app", "Contents", "Info.plist") : join(out, "LICENSE");
