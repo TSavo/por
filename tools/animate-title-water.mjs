@@ -55,8 +55,8 @@ try {
     writeFileSync(join(dir,`frame-${String(frame).padStart(2,"0")}.rgb`),pixels);
   }
   execFileSync("ffmpeg", ["-y","-loglevel","error","-f","image2","-vcodec","rawvideo","-pixel_format","rgb24",
-    "-video_size","1280x800","-framerate","8","-i",join(dir,"frame-%02d.rgb"),join(dir,"paint-%02d.png")]);
-  execFileSync("apngasm", ["upgrades/harbor-title-ripple.png", join(dir,"paint-01.png"), "1", "8"]);
+    "-video_size","1280x800","-framerate","16","-i",join(dir,"frame-%02d.rgb"),join(dir,"paint-%02d.png")]);
+  execFileSync("apngasm", ["upgrades/harbor-title-ripple.png", join(dir,"paint-01.png"), "1", "16"]);
 } finally {
   rmSync(dir,{recursive:true,force:true});
 }
