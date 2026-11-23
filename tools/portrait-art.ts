@@ -1591,6 +1591,9 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:24:ecl:b0b5:cue:altar-after-mace", "YOUDESTROYTHEEVILALTARANDTHEUNEASYFEELINGLEAVESYOU"],
   ["scene-illustration:area:24:ecl:aa2c:cue:shattered-altar", "THEREMAINSOFANEVILALTARARENEARBY"],
   ["scene-illustration:area:24:ecl:b0b5:cue:shattered-altar", "THEREMAINSOFANEVILALTARARENEARBY"],
+  ...["acc3", "b0b5"].map(cursor => [
+    `scene-illustration:area:24:ecl:${cursor}:cue:dirten-farewell`, "DIRTENSAYS,'THANKYOUFORHELPINGUSREGAINOURTEMPLE.",
+  ] as const),
   ...["ac29", "ac2a", "ac2b", "b0b5"].map(cursor => [
     `scene-illustration:area:24:ecl:${cursor}:cue:cleric-dispatch`,
     "ONTHEDEADBODYOFTHEHALF-ORCCLERICYOUFINDAPIECEOFPAPER",
