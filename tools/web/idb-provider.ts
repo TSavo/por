@@ -3,10 +3,9 @@
  * original-files setting and the journal profile, in IndexedDB, in the same shape as the files the
  * Node game writes (tools/save-slots.ts). Everything else is read from the server, as HttpResources.
  *
- * The engine keeps its records in memory and never waits for a write: its worker posts each change
- * (tools/web/engine-worker.ts) and the page stores it here.
+ * The worker waits for the page to commit its records here before reporting a save.
  */
-import type { ResourceData, ResourceId } from "../../src/resources/provider.js";
+import { encodeText, type ResourceData, type ResourceId } from "../../src/resources/provider.js";
 import { HttpResources } from "./http-provider.js";
 
 const open = (name: string) => new Promise<IDBDatabase>((done, failed) => {
@@ -17,7 +16,7 @@ const open = (name: string) => new Promise<IDBDatabase>((done, failed) => {
 });
 const finished = (transaction: IDBTransaction) => new Promise<void>((done, failed) => {
   transaction.oncomplete = () => done();
-  transaction.onerror = transaction.onabort = () => failed(transaction.error);
+  transaction.onabort = () => failed(transaction.error ?? new Error("The storage transaction was aborted."));
 });
 
 export class IdbResources extends HttpResources {
@@ -43,17 +42,19 @@ export class IdbResources extends HttpResources {
   }
 
   override async put(id: ResourceId, data: ResourceData) {
-    await super.put(id, data);
-    const transaction = this.db.transaction("records", "readwrite");
-    transaction.objectStore("records").put(this.local.get(id)!, id);
+    if (!this.isLocal(id)) throw new Error(`${id} cannot be written`);
+    const bytes = typeof data === "string" ? encodeText(data) : data.slice();
+    const transaction = this.db.transaction("records", "readwrite", { durability: "strict" });
+    transaction.objectStore("records").put(bytes, id);
     await finished(transaction);
+    this.local.set(id, bytes);
   }
 
   override async remove(id: ResourceId) {
-    await super.remove(id);
-    const transaction = this.db.transaction("records", "readwrite");
+    const transaction = this.db.transaction("records", "readwrite", { durability: "strict" });
     transaction.objectStore("records").delete(id);
     await finished(transaction);
+    this.local.delete(id);
   }
 
   /** Copy a legacy save folder in one transaction and keep every occupied record. */

@@ -19,7 +19,7 @@ export interface EngineStart {
 }
 export type EngineMessage =
   | { type: "lines"; lines: string[] }
-  | { type: "put"; id: ResourceId; data?: Uint8Array }
+  | { type: "put"; id: ResourceId; data?: Uint8Array; receipt: Int32Array<SharedArrayBuffer> }
   | { type: "stopped"; message: string };
 
 class EngineExit extends Error {}
@@ -31,7 +31,12 @@ self.onmessage = async ({ data }: MessageEvent<EngineStart>) => {
   const { entries, env, root, commands } = data;
   // Modules beyond the engine's two files still glance at process.env for their own diagnostics.
   Object.assign((globalThis as unknown as { process: { env: Record<string, string> } }).process.env, env);
-  const resources = new MemoryResources(entries, (id, bytes) => post({ type: "put", id, data: bytes }));
+  const resources = new MemoryResources(entries, (id, bytes) => {
+    const receipt = new Int32Array(new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT));
+    post({ type: "put", id, data: bytes, receipt });
+    while (Atomics.load(receipt, 0) === 0) Atomics.wait(receipt, 0, 0);
+    if (Atomics.load(receipt, 0) < 0) throw new Error(`Could not store ${id}`);
+  });
   useResources(resources);
   const reader = new CommandReader(commands);
   // Lines are sent together, once the engine waits for the player, as the server's pipe delivered them.

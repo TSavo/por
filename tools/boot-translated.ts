@@ -385,6 +385,7 @@ const input = liveAt === undefined ? undefined : liveInput(liveStep, () => {
 const saves = input && openSaveSlots(gameResources);
 const rosterClosed: DosFileClosed = (name, data, written) => { if (written) saves?.saveRoster(name, data); };
 let slotClosed = rosterClosed;
+let finishBrowserSave: (() => void) | undefined;
 let loadingSlot = false;
 const mountedFiles = saves ? [...saves.mountRoster(files), ...saves.files] : files;
 // POR_TRACE_VISITS=<file>: the area the party is in and the commissions the journal knows, one line
@@ -414,7 +415,10 @@ const requestKey = input && visitTrace ? (machine: Cpu, keys: BiosKey[], blockin
   }
   input.requestKey(machine, keys, blocking);
 } : input?.requestKey;
-const cpu = fresh(requestKey, (name, data, written) => slotClosed(name, data, written), mountedFiles,
+const cpu = fresh(requestKey && ((machine, keys, blocking) => {
+  if (blocking) finishBrowserSave?.();
+  requestKey(machine, keys, blocking);
+}), (name, data, written) => slotClosed(name, data, written), mountedFiles,
   (name) => { if (slotClosed === rosterClosed) saves?.saveRoster(name); },
   (name) => loadingSlot && saveSlotLetter(name) ? saves?.partyFiles(name) ?? [] : undefined);
 const soundTracePath = env.POR_SOUND_TRACE;
@@ -487,13 +491,15 @@ if (input && saves) {
       const party = new Map<string, DosFile>();
       const previous = slotClosed;
       const wasLoading = loadingSlot;
+      const previousFinish = finishBrowserSave;
+      let committed = false;
       loadingSlot = loading;
       slotClosed = (name, data, written) => {
         if (saveSlotLetter(name) && data.length && written !== loading) slot = { name, data };
         if (!loading && written && isPartyFile(name)) party.set(name, { name, data });
       };
       const finish = () => {
-        if (!slot) return;
+        if (!slot || committed) return;
         const letter = saveSlotLetter(slot.name);
         if (loading) {
           const saved = saves.get(slot.name);
@@ -503,9 +509,13 @@ if (input && saves) {
           automap?.restore(saved?.automap);
         } else {
           saves.save(slot.name, slot.data, journal(), input.tracked(), [...party.values()], automap?.snapshot());
+          committed = true;
         }
         if (letter) print(`POR_SAVE_SLOT ${loading ? "load" : "save"} ${letter}`);
       };
+      // Save can wait inside the overlay at its Quit to DOS prompt. Commit before that prompt
+      // reaches the browser. The Node runner retains its original save timing.
+      if (!loading && host.game) finishBrowserSave = finish;
       input.enterDiskMenu();
       try {
         original(m);
@@ -517,6 +527,7 @@ if (input && saves) {
         input.leaveDiskMenu();
         slotClosed = previous;
         loadingSlot = wasLoading;
+        finishBrowserSave = previousFinish;
       }
     });
   }
