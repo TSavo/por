@@ -99,6 +99,7 @@ try {
   if (!spotted) {
     assert.equal(await chrome.evaluate(`!document.querySelector("#travel-map").hidden &&
       !document.querySelector(".local-overland-encounter")`), true, "The regular travel map stays visible before the encounter");
+    writeFileSync(join(output, "travel.png"), await chrome.screenshot());
   }
   for (const key of inputs.slice(0, -1)) {
     await chrome.send(key);
@@ -146,6 +147,7 @@ try {
   })()`);
   assert.ok(surface.pixels > 28, "The WebGL window must contain authored terrain, not a blank panel");
   assert.deepEqual([surface.width, surface.height], [352, 352]);
+  writeFileSync(join(output, "terrain.png"), Buffer.from(surface.png.split(",")[1], "base64"));
   writeFileSync(join(output, "held.png"), await chrome.screenshot());
 
   const choice = inputs.at(-1);
@@ -160,7 +162,9 @@ try {
   writeFileSync(join(output, "receipt.json"), JSON.stringify({
     encounter, data: await chrome.evaluate('state.classicAvailable === false ? "port" : "original"'),
     fixtureSha256: digest(readFileSync(join(fixture, slot))),
-    rendererSha256: digest(readFileSync("tools/play.js")), terrain, terrainSha256: digest(surface.png),
+    rendererSha256: digest(readFileSync("tools/play.js")),
+    webglRendererSha256: digest(readFileSync("tools/new-phlan-webgl.js")),
+    terrain, terrainSha256: digest(surface.png),
     held: { caption: heldCaption, ...held },
     handoff: { choice, notice },
   }, null, 2) + "\n");

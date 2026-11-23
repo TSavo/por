@@ -334,19 +334,48 @@ export function createOverlandViewport(canvas) {
         // Inset a texel to keep filtering inside each cell of the atlas.
         return texture2D(materials, (material * 512.0 + scale * 510.0 + 1.0) / vec2(1024.0, 2048.0)).rgb;
       }
+      vec3 paintMaterials(vec4 mask, vec3 meadow, vec3 warmRock, vec3 coolRock, vec3 snow, vec3 canopy) {
+        // Red marks meadow, green marks snow and blue blends the two rock materials.
+        vec3 rock = mix(warmRock, coolRock, mask.b);
+        rock = mix(rock, snow, mask.g);
+        vec3 ground = mix(rock, meadow, mask.r);
+        // Alpha carries inverse canopy coverage.
+        if (mask.a < 1.0) ground = mix(canopy, ground, mask.a);
+        return ground;
+      }
+
       void main() {
         vec4 pixel = texture2D(map, uv);
         if (!local) {
           gl_FragColor = pixel;
           return;
         }
-        // Red marks meadow, green marks snow and blue blends the two rock materials.
+        // Both sides of a join shade the same world coordinate in the material sheet.
         vec2 scale = fract((origin + uv * 352.0) / 512.0);
-        vec3 rock = mix(terrainColor(vec2(1.0, 0.0), scale), terrainColor(vec2(0.0, 1.0), scale), pixel.b);
-        rock = mix(rock, terrainColor(vec2(1.0, 1.0), scale), pixel.g);
-        vec3 ground = mix(rock, terrainColor(vec2(0.0, 0.0), scale), pixel.r);
-        // Opaque masks use the underlying terrain. Forest edges carry inverse canopy coverage in alpha.
-        if (pixel.a < 1.0) ground = mix(terrainColor(vec2(0.0, 2.0), scale), ground, pixel.a);
+        vec3 meadow = terrainColor(vec2(0.0, 0.0), scale);
+        vec3 warmRock = terrainColor(vec2(1.0, 0.0), scale);
+        vec3 coolRock = terrainColor(vec2(0.0, 1.0), scale);
+        vec3 snow = terrainColor(vec2(1.0, 1.0), scale);
+        vec3 canopy = terrainColor(vec2(0.0, 2.0), scale);
+        vec3 ground = paintMaterials(pixel, meadow, warmRock, coolRock, snow, canopy);
+
+        // Each mask is 96 px wide. The 64 px crop places the first join at 32 px.
+        vec2 seam = mod(uv * 352.0 + 64.0 + 48.0, 96.0) - 48.0;
+        vec2 blend = 0.5 * (1.0 - smoothstep(0.0, 8.0, abs(seam)));
+        vec2 opposite = uv - (seam + sign(seam) * 0.5) / 352.0;
+        if (blend.x > 0.0) {
+          vec4 neighbor = texture2D(map, vec2(opposite.x, uv.y));
+          ground = mix(ground, paintMaterials(neighbor, meadow, warmRock, coolRock, snow, canopy), blend.x);
+        }
+        if (blend.y > 0.0) {
+          vec4 neighbor = texture2D(map, vec2(uv.x, opposite.y));
+          vec3 nextRow = paintMaterials(neighbor, meadow, warmRock, coolRock, snow, canopy);
+          if (blend.x > 0.0) {
+            vec4 diagonal = texture2D(map, opposite);
+            nextRow = mix(nextRow, paintMaterials(diagonal, meadow, warmRock, coolRock, snow, canopy), blend.x);
+          }
+          ground = mix(ground, nextRow, blend.y);
+        }
         gl_FragColor = vec4(ground, 1.0);
       }
     `],
