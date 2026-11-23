@@ -12,7 +12,24 @@ const westernTigers = {
   area: 25, archive: 6, cursor: "a204", block: 119, x: 48, width: 40, height: 65,
   fixture: "western-ankheg-eruption", caption: /YOUSURPRISEAGROUPOFTIGERS/i,
 };
+const middleWildernessFixture = "middle-wilderness-patrols";
+const middleWildernessLedger = JSON.parse(readFileSync(
+  new URL("../qa/fixtures/middle-wilderness-patrols/scenes.json", import.meta.url), "utf8"));
+const assets = JSON.parse(readFileSync("upgrades/manifest.json", "utf8")).assets;
+const middleWildernessScenes = Object.fromEntries(middleWildernessLedger.scenes.map(row => {
+  const [x, y, sprite, width, height] = row.placement;
+  const nativeTerrain = middleWildernessLedger.terrainByRow[row.terrainRow];
+  const terrain = { ...nativeTerrain };
+  const detailSlots = [...new Set(terrain.slots)].filter(slot => Object.hasOwn(assets, `overland-detail:${slot}`));
+  if (detailSlots.length) terrain.detailSlots = detailSlots;
+  return [row.route, {
+    nativeProducer: row.producer, sprite, x, y, width, height, clock: row.clock, terrain,
+    fixture: middleWildernessFixture, inputs: [...row.inputs, "c"],
+    caption: new RegExp(row.caption.replace(/\s/g, ""), "i"),
+  }];
+}));
 const scenes = {
+  ...middleWildernessScenes,
   "nomad-camp-absent-merchants": {
     cursor: "a230", block: 12, height: 65, clock: "4320016", caption: /YOUSURPRISEAGROUPOFMERCHANTS/i,
     fixture: "nomad-entrance",
@@ -157,7 +174,7 @@ const [chromePath, encounter, outputRoot = "out"] = process.argv.slice(2);
 assert.ok(chromePath && Object.hasOwn(scenes, encounter),
   `Usage: node tools/verify-overland-encounter-sprite.mjs <chrome> <${Object.keys(scenes).join("|")}> [output-root]`);
 const scene = scenes[encounter];
-const { area = 26, archive = 7, cursor, block, x = 56, width = 24, height, clock, caption, terrain } = scene;
+const { area = 26, archive = 7, cursor, block, x = 56, y = 32, width = 24, height, clock, caption, terrain } = scene;
 const spotted = encounter === "spotted";
 const fixture = resolve("qa/fixtures", scene.fixture ?? (spotted ? "wilderness-walk" : "lizard-wilds-stirge-surprise"));
 const recordedInputs = spotted ? 121 : scene.recordedInputs;
@@ -180,9 +197,11 @@ if (spotted) {
   schedule = join(fixture, "prompts.jsonl");
 }
 
-const sprite = `encounter:area:${area}:ecl:${cursor}:SPRIT${archive}.DAX:${block}:1:0`;
+const sprite = scene.sprite ?? `encounter:area:${area}:ecl:${cursor}:SPRIT${archive}.DAX:${block}:1:0`;
 const screenText = frame => frame.text.toSorted(([a], [b]) => a - b).map(([, glyph]) => String.fromCharCode(glyph)).join("");
 const digest = bytes => createHash("sha256").update(bytes).digest("hex");
+const fixtureSha256 = digest(readFileSync(join(fixture, slot)));
+if (scene.nativeProducer) assert.equal(fixtureSha256, middleWildernessLedger.checkpointSha256);
 mkdirSync(outputRoot, { recursive: true });
 const output = mkdtempSync(resolve(outputRoot, `overland-${encounter}-`));
 const checkpointDir = join(output, "saves");
@@ -228,8 +247,21 @@ try {
   })`);
   assert.equal(held.missing, false);
   assert.ok(held.samples > 38);
-  assert.deepEqual(held.sprites, [{ id: "/art/" + sprite, anchor: [x, 32, sprite, width, height], width: width * 4, height: height * 4 }]);
+  assert.deepEqual(held.sprites, [{ id: "/art/" + sprite, anchor: [x, y, sprite, width, height], width: width * 4, height: height * 4 }]);
   assert.deepEqual(await chrome.evaluate("state.overlandTerrain"), terrain);
+  let spriteProof;
+  if (scene.nativeProducer) {
+    const art = assets[sprite];
+    assert.ok(art, `Missing artwork for ${sprite}`);
+    const bytes = await chrome.evaluate(`(async () => {
+      const response = await fetch(${JSON.stringify("/art/" + sprite)});
+      if (!response.ok) throw new Error("Could not load the encounter sprite");
+      return [...new Uint8Array(await response.arrayBuffer())];
+    })()`);
+    const sha256 = digest(Buffer.from(bytes));
+    assert.equal(sha256, digest(readFileSync(join("upgrades", art))));
+    spriteProof = { art, sha256 };
+  }
   let landmarks;
   if (scene.landmarkProbes) {
     // Compare pixels from each source cel against the translated world position in the WebGL buffer.
@@ -310,11 +342,12 @@ try {
   writeFileSync(join(output, "battle-notice.png"), await chrome.screenshot());
   writeFileSync(join(output, "receipt.json"), JSON.stringify({
     encounter, data: await chrome.evaluate('state.classicAvailable === false ? "port" : "original"'),
-    fixtureSha256: digest(readFileSync(join(fixture, slot))),
+    fixtureSha256,
     rendererSha256: digest(readFileSync("tools/play.js")),
     webglRendererSha256: digest(readFileSync("tools/new-phlan-webgl.js")),
     terrain, landmarks, terrainSha256: digest(surface.png),
     held: { caption: heldCaption, ...held },
+    nativeProducer: scene.nativeProducer, inputs: scene.nativeProducer ? inputs : undefined, sprite: spriteProof,
     handoff: { choice, notice },
   }, null, 2) + "\n");
   console.log(`Verified the ${encounter} local terrain, encounter sprite and battle handoff in Chrome. ${output}`);
