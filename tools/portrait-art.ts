@@ -610,7 +610,6 @@ const kutoWellWaitingKobolds = `${kutoWellAmbush}:cue:waiting-kobolds`;
 const kutoWellKoboldsBehind = `${kutoWellAmbush}:cue:kobolds-climb-behind`;
 
 export const scriptIllustrations = new Map<string, string | RegExp>([
-  ["scene-illustration:area:11:ecl:9a0c", "YOUAREROUSTEDBYTHECITYWATCHANDTOLDTOMOVEALONG"],
   ["scene-illustration:area:11:ecl:9a0c:cue:indoors", "YOUAREROUSTEDBYTHECITYWATCHANDTOLDTOMOVEALONG"],
   ["scene-illustration:area:17:ecl:a97c", "PLEASETHINKABOUTITOVERNIGHT"],
   ["scene-illustration:area:17:ecl:9da2:caller:a980", "PLEASETHINKABOUTITOVERNIGHT"],

@@ -44722,6 +44722,81 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL3.DAX:11:99b6",
+      "prompt": "9a0c",
+      "variants": [
+        {
+          "caption": "YOU ARE ROUSTED BY THE CITY WATCH AND TOLD TO MOVE ALONG. WHAT DO YOU DO?",
+          "checkpoint": "visit-training-hall/A.json",
+          "portrait": "scene-illustration:area:11:ecl:9a0c:cue:indoors",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 10 6 BRIN 8 6 CORA 10 6 DORN 10 8 ENNA 9 6 FENN 9 8 7,1 E 00:15 YOU ARE ROUSTED BY THE CITY WATCH AND TOLD TO MOVE ALONG. WHAT DO YOU DO? Go Fight",
+            "idlePolls": 24,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              },
+              {
+                "idlePolls": 8,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              },
+              {
+                "idlePolls": 16,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              },
+              {
+                "idlePolls": 24,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              }
+            ],
+            "drawCursor": "99c0",
+            "composed": {
+              "source": "HEAD3.DAX:57:BODY3.DAX:1",
+              "headWrite": "99b0",
+              "headSlot": "6de1",
+              "bodyOperand": 2
+            },
+            "clearedPanelSha256": "907b3cfcee47b35935630c1c204573baffbe07de8a04b4b4ee5cef71c2dbf6af"
+          },
+          "chrome": {
+            "original": {
+              "route": "new-phlan-training-watch-rousted",
+              "data": "original",
+              "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:15YOUAREROUSTEDBYTHECITYWATCHANDTOLDTOMOVEALONG.WHATDOYOUDO?GoFight",
+              "portrait": "scene-illustration:area:11:ecl:9a0c:cue:indoors",
+              "checkpointSha256": "543559a628137d429f18c1fa574ab911d135795819b84670bbd7b45aa837ddfc",
+              "artSha256": "87c695a70ffab385b16f5ee76a946ac572d78e55989d1cfbba5eac56f3086edc",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3650,
+              "samples": 220,
+              "poses": [
+                "scene-illustration:area:11:ecl:9a0c:cue:indoors"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "new-phlan-training-watch-rousted",
+              "data": "port",
+              "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:15YOUAREROUSTEDBYTHECITYWATCHANDTOLDTOMOVEALONG.WHATDOYOUDO?GoFight",
+              "portrait": "scene-illustration:area:11:ecl:9a0c:cue:indoors",
+              "checkpointSha256": "543559a628137d429f18c1fa574ab911d135795819b84670bbd7b45aa837ddfc",
+              "artSha256": "87c695a70ffab385b16f5ee76a946ac572d78e55989d1cfbba5eac56f3086edc",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3650,
+              "samples": 220,
+              "poses": [
+                "scene-illustration:area:11:ecl:9a0c:cue:indoors"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
     }
   ],
   "approachTransitions": [
