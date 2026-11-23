@@ -31,21 +31,21 @@ async function play(...keys) {
   }
 }
 
-async function paintedIcons() {
+async function paintedIcons(fromY = 0) {
   return game.evaluate(`(() => {
     const sprites = [...document.querySelectorAll("#tile-art:not([hidden]) .combat-sprite")];
     return sprites.map(image => {
       const canvas = document.createElement("canvas");
       canvas.width = image.naturalWidth;
-      canvas.height = image.naturalHeight;
-      canvas.getContext("2d").drawImage(image, 0, 0);
+      canvas.height = image.naturalHeight - ${fromY};
+      canvas.getContext("2d").drawImage(image, 0, -${fromY});
       return { y: Number.parseFloat(image.style.top), key: image.dataset.partyPalette, pixels: canvas.toDataURL() };
     });
   })()`);
 }
 
-async function editorIcons() {
-  const painted = await paintedIcons();
+async function editorIcons(fromY = 0) {
+  const painted = await paintedIcons(fromY);
   const row = (y) => painted.filter(icon => icon.y === y).map(icon => icon.pixels);
   const old = row(28), current = row(52);
   assert.equal(old.length, 2, "The Old row should show ready and action art");
@@ -84,6 +84,8 @@ try {
   assert.match(text(), /Partscolor-1color-2SizeExit/i);
 
   const initial = await editorIcons();
+  // A head edit must preserve the unarmed body's legs, belt, and equipment in both poses (#275).
+  const initialBody = (await editorIcons(48)).current;
   let previous = initial.current;
   for (const [choice, ...keys] of [
     ["first head", "p", "h", "n"],
@@ -99,6 +101,9 @@ try {
     assert.deepEqual(old, initial.old, `The Old row changed after ${choice}`);
     for (const pose of [0, 1]) {
       assert.notEqual(current[pose], previous[pose], `${choice} did not change the painted ${pose ? "action" : "ready"} icon`);
+    }
+    if (choice === "first head") {
+      assert.deepEqual((await editorIcons(48)).current, initialBody, "Changing only the head also changed the body");
     }
     previous = current;
   }
