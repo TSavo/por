@@ -104,6 +104,12 @@
    "decisions": 6,
    "heard": 3
   },
+  "issue-240-clerk-a891-port": {
+   "ledger": "narration.jsonl",
+   "games": 1,
+   "decisions": 70,
+   "heard": 24
+  },
   "issue-99-training-original": {
    "ledger": "narration.jsonl",
    "games": 1,
@@ -1498,8 +1504,8 @@
    "run": "walk-kobold-1",
    "step": 1845031698,
    "art": {
-    "kind": "view",
-    "key": "the first-person view"
+    "kind": "portrait",
+    "key": "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse"
    }
   },
   "ecl8-b13-9d7b": {
@@ -3068,6 +3074,30 @@
     "key": "scene-illustration:area:8:ecl:9f21:caller:9a4a"
    }
   },
+  "por.voice.ecl3.b8-a1c5": {
+   "run": "issue-240-clerk-a891-port",
+   "step": 146400606,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kovel-reward"
+   }
+  },
+  "por.voice.ecl3.b8-a30e": {
+   "run": "issue-240-clerk-a891-port",
+   "step": 151483167,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kobold-king"
+   }
+  },
+  "por.voice.ecl3.b8-a34c": {
+   "run": "issue-240-clerk-a891-port",
+   "step": 154182149,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:nomad-camp"
+   }
+  },
   "por.voice.ecl3.b8-a421": {
    "run": "campaign-full",
    "step": 321513753,
@@ -3122,6 +3152,14 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:podal-auction-commission-offer"
+   }
+  },
+  "por.voice.ecl3.b8-ac2c": {
+   "run": "issue-240-clerk-a891-port",
+   "step": 157801385,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:river-pollution-offer"
    }
   },
   "por.voice.ecl3.b8-af4b": {
@@ -4959,6 +4997,16 @@
     "unfinished": 0,
     "startedLate": 0
    },
+   "issue-240-clerk-a891-port": {
+    "log": "narration.playback.jsonl",
+    "legs": 1,
+    "lines": 24,
+    "toTheEnd": 24,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 6
+   },
    "issue-99-training-original": {
     "log": "narration.playback.jsonl",
     "legs": 1,
@@ -5145,12 +5193,54 @@
     "waited": 0.062,
     "art": "the first-person view"
    },
+   "ecl8-b13-99c1": {
+    "run": "issue-240-clerk-a891-port",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-99c1.mp3",
+    "seconds": 1.6,
+    "waited": 0.177,
+    "art": "the first-person view"
+   },
+   "ecl8-b13-9ce1-9d05": {
+    "run": "issue-240-clerk-a891-port",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-9ce1-9d05.mp3",
+    "seconds": 4.24,
+    "waited": 0.027,
+    "art": "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse"
+   },
+   "ecl8-b13-ac72": {
+    "run": "issue-240-clerk-a891-port",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-ac72.mp3",
+    "seconds": 5.6,
+    "waited": 0.005,
+    "art": "scene-illustration:area:13:ecl:aca3:cue:pantry"
+   },
+   "ecl8-b13-acab": {
+    "run": "issue-240-clerk-a891-port",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-acab.mp3",
+    "seconds": 5.28,
+    "waited": 0.02,
+    "art": "scene-illustration:area:13:ecl:ace3:cue:dining-room"
+   },
    "ecl8-b16-aa7c": {
     "run": "issue-100-pool-transient",
     "asset": "voices/narration/ecl8/block-16/ecl8-b16-aa7c.mp3",
     "seconds": 4.8,
     "waited": 0.01,
     "art": "scene-illustration:area:16:ecl:aab7"
+   },
+   "ecl8-b27-9c89": {
+    "run": "issue-240-clerk-a891-port",
+    "asset": "voices/narration/ecl8/block-27/ecl8-b27-9c89.mp3",
+    "seconds": 8.72,
+    "waited": 0.01,
+    "art": "portrait:PIC8.DAX:27:0:0"
+   },
+   "ecl8-b27-9de7": {
+    "run": "issue-240-clerk-a891-port",
+    "asset": "voices/narration/ecl8/block-27/ecl8-b27-9de7.mp3",
+    "seconds": 5.76,
+    "waited": 0.017,
+    "art": "portrait:PIC8.DAX:41:0:0"
    },
    "por.narration.sokal.ecl4-b21-9923": {
     "run": "sokal-verified-original",
@@ -5533,6 +5623,27 @@
     "waited": 1.812,
     "art": "scene-illustration:area:8:ecl:9f21:caller:9a4a"
    },
+   "por.voice.ecl3.b8-a1c5": {
+    "run": "issue-240-clerk-a891-port",
+    "asset": "voices/narration/ecl3/b8-a1c5.mp3",
+    "seconds": 4.8,
+    "waited": 1.877,
+    "art": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kovel-reward"
+   },
+   "por.voice.ecl3.b8-a30e": {
+    "run": "issue-240-clerk-a891-port",
+    "asset": "voices/narration/ecl3/b8-a30e.mp3",
+    "seconds": 5.2,
+    "waited": 1.919,
+    "art": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kobold-king"
+   },
+   "por.voice.ecl3.b8-a34c": {
+    "run": "issue-240-clerk-a891-port",
+    "asset": "voices/narration/ecl3/b8-a34c.mp3",
+    "seconds": 4.08,
+    "waited": 1.876,
+    "art": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:nomad-camp"
+   },
    "por.voice.ecl3.b8-a421": {
     "run": "campaign-full",
     "asset": "voices/narration/ecl3/b8-a421.mp3",
@@ -5574,6 +5685,13 @@
     "seconds": 9.44,
     "waited": 0.032,
     "art": "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:podal-auction-commission-offer"
+   },
+   "por.voice.ecl3.b8-ac2c": {
+    "run": "issue-240-clerk-a891-port",
+    "asset": "voices/narration/ecl3/b8-ac2c.mp3",
+    "seconds": 10.88,
+    "waited": 0.009,
+    "art": "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:river-pollution-offer"
    },
    "por.voice.ecl3.b8-af4b": {
     "run": "issue-240-clerk-9a4a-original",
@@ -6296,6 +6414,294 @@
      "scene-illustration:area:8:ecl:af78:caller:9a4a:cue:commissions-closed"
     ],
     "end": "scene-illustration:area:8:ecl:af78:caller:9a4a:cue:commissions-closed"
+   },
+   "issue-240-clerk-a891-port | l | 1 | ecl8-b13-acab": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "ecl8-b13-acab",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-acab.mp3",
+    "expected": "scene-illustration:area:13:ecl:ace3:cue:dining-room",
+    "caption": "HERE CRUDE TABLES, LITTERED WITH BONES, ARE SCATTERED AROUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:13:ecl:ace3:cue:dining-room"
+    ],
+    "end": "scene-illustration:area:13:ecl:ace3:cue:dining-room"
+   },
+   "issue-240-clerk-a891-port | l | 10 | por.voice.ecl3.b8-9bb8": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b8-9bb8",
+    "asset": "voices/narration/ecl3/b8-9bb8.mp3",
+    "expected": "scene-illustration:area:8:ecl:b5c3:caller:9c34:cue:clerk-reward-check",
+    "caption": "AT YOUR ENTRY, THE COUNCIL CLERK BEGINS LOOKING THROUGH A STACK OF PAPERS. 'BEFORE I CAN OFFER ANY COMMISSIONS, I MUST SEE IF YOU ARE DUE A CURRENT REWARD. Press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:8:ecl:b5c3:caller:9c34:cue:clerk-reward-check"
+    ],
+    "end": "scene-illustration:area:8:ecl:b5c3:caller:9c34:cue:clerk-reward-check"
+   },
+   "issue-240-clerk-a891-port | l | 11 | por.voice.ecl3.b8-9d51": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b8-9d51",
+    "asset": "voices/narration/ecl3/b8-9d51.mp3",
+    "expected": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kovel-reward",
+    "caption": "THE CLERK SPEAKS. 'THE COUNCIL WAS PLEASED BY THE ELIMINATION OF THE THIEVES IN KOVEL MANSION. HERE IS YOUR REWARD.' Press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kovel-reward"
+    ],
+    "end": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kovel-reward"
+   },
+   "issue-240-clerk-a891-port | l | 12 | por.voice.ecl3.b8-a1c5": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b8-a1c5",
+    "asset": "voices/narration/ecl3/b8-a1c5.mp3",
+    "expected": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kovel-reward",
+    "caption": "THE CLERK SPEAKS. 'THE COUNCIL WAS PLEASED BY THE ELIMINATION OF THE THIEVES IN KOVEL MANSION. HERE IS YOUR REWARD.' Press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kovel-reward"
+    ],
+    "end": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kovel-reward"
+   },
+   "issue-240-clerk-a891-port | l | 13 | por.voice.ecl3.b8-9eea": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b8-9eea",
+    "asset": "voices/narration/ecl3/b8-9eea.mp3",
+    "expected": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kovel-reward",
+    "caption": "THE CLERK SPEAKS. 'THE COUNCIL WAS PLEASED BY THE ELIMINATION OF THE THIEVES IN KOVEL MANSION. HERE IS YOUR REWARD.' Press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kovel-reward"
+    ],
+    "end": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kovel-reward"
+   },
+   "issue-240-clerk-a891-port | l | 14 | por.voice.ecl3.b8-9d51": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b8-9d51",
+    "asset": "voices/narration/ecl3/b8-9d51.mp3",
+    "expected": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kobold-king",
+    "caption": "THE CLERK SPEAKS. 'THIS LOSS OF THE KOBOLD FORCES WILL BE A MAJOR BLOW TO THE ENEMY. HERE IS YOUR REWARD.' Press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kobold-king"
+    ],
+    "end": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kobold-king"
+   },
+   "issue-240-clerk-a891-port | l | 15 | por.voice.ecl3.b8-a30e": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b8-a30e",
+    "asset": "voices/narration/ecl3/b8-a30e.mp3",
+    "expected": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kobold-king",
+    "caption": "THE CLERK SPEAKS. 'THIS LOSS OF THE KOBOLD FORCES WILL BE A MAJOR BLOW TO THE ENEMY. HERE IS YOUR REWARD.' Press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kobold-king"
+    ],
+    "end": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kobold-king"
+   },
+   "issue-240-clerk-a891-port | l | 16 | por.voice.ecl3.b8-9eea": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b8-9eea",
+    "asset": "voices/narration/ecl3/b8-9eea.mp3",
+    "expected": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kobold-king",
+    "caption": "THE CLERK SPEAKS. 'THIS LOSS OF THE KOBOLD FORCES WILL BE A MAJOR BLOW TO THE ENEMY. HERE IS YOUR REWARD.' Press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kobold-king"
+    ],
+    "end": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kobold-king"
+   },
+   "issue-240-clerk-a891-port | l | 17 | por.voice.ecl3.b8-9d51": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b8-9d51",
+    "asset": "voices/narration/ecl3/b8-9d51.mp3",
+    "expected": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:nomad-camp",
+    "caption": "THE CLERK SPEAKS. 'WE WERE MUCH RELIEVED BY THE NEWS YOU BRING FROM THE NOMAD CAMP. HERE IS YOUR REWARD.' Press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:nomad-camp"
+    ],
+    "end": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:nomad-camp"
+   },
+   "issue-240-clerk-a891-port | l | 18 | por.voice.ecl3.b8-a34c": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b8-a34c",
+    "asset": "voices/narration/ecl3/b8-a34c.mp3",
+    "expected": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:nomad-camp",
+    "caption": "THE CLERK SPEAKS. 'WE WERE MUCH RELIEVED BY THE NEWS YOU BRING FROM THE NOMAD CAMP. HERE IS YOUR REWARD.' Press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:nomad-camp"
+    ],
+    "end": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:nomad-camp"
+   },
+   "issue-240-clerk-a891-port | l | 19 | por.voice.ecl3.b8-9eea": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b8-9eea",
+    "asset": "voices/narration/ecl3/b8-9eea.mp3",
+    "expected": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:nomad-camp",
+    "caption": "THE CLERK SPEAKS. 'WE WERE MUCH RELIEVED BY THE NEWS YOU BRING FROM THE NOMAD CAMP. HERE IS YOUR REWARD.' Press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:nomad-camp"
+    ],
+    "end": "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:nomad-camp"
+   },
+   "issue-240-clerk-a891-port | l | 2 | ecl8-b13-ac72": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "ecl8-b13-ac72",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-ac72.mp3",
+    "expected": "scene-illustration:area:13:ecl:aca3:cue:pantry",
+    "caption": "RATS ARE HUNG HERE TO AGE. MOLDY ROOTS LIE IN PILES. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:13:ecl:aca3:cue:pantry"
+    ],
+    "end": "scene-illustration:area:13:ecl:aca3:cue:pantry"
+   },
+   "issue-240-clerk-a891-port | l | 20 | por.voice.ecl3.b8-a7a4": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b8-a7a4",
+    "asset": "voices/narration/ecl3/b8-a7a4.mp3",
+    "expected": "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:commission-papers",
+    "caption": "THE CLERK SHUFFLES THROUGH HER PAPERS. 'ON THE MATTER OF COMMISSION,' SHE SAYS, 'I CAN OFFER THE FOLLOWING: ' Press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:commission-papers"
+    ],
+    "end": "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:commission-papers"
+   },
+   "issue-240-clerk-a891-port | l | 21 | por.voice.ecl3.b8-a8b6": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b8-a8b6",
+    "asset": "voices/narration/ecl3/b8-a8b6.mp3",
+    "expected": "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:slums-commission-offer",
+    "caption": "THE SLUMS IMMEDIATELY TO OUR WEST NEED TO BE CLEARED OF MONSTERS.' Press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:slums-commission-offer"
+    ],
+    "end": "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:slums-commission-offer"
+   },
+   "issue-240-clerk-a891-port | l | 22 | por.voice.ecl3.b8-a927": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b8-a927",
+    "asset": "voices/narration/ecl3/b8-a927.mp3",
+    "expected": "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:records-commission-offer",
+    "caption": "THE COUNCIL IS OFFERING A REWARD FOR BOOKS, MAPS, TOMES, ETC. WHICH PROVIDE USEFUL INFORMATION ABOUT PHLAN BEFORE THE FALL. THE REWARD IS TIED TO THE VALUE OF THE INFORMATION.' Press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:records-commission-offer"
+    ],
+    "end": "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:records-commission-offer"
+   },
+   "issue-240-clerk-a891-port | l | 23 | por.voice.ecl3.b8-ac2c": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b8-ac2c",
+    "asset": "voices/narration/ecl3/b8-ac2c.mp3",
+    "expected": "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:river-pollution-offer",
+    "caption": "FIND THE SOURCE OF THE RIVER'S POLLUTION AND END IT.' Press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:river-pollution-offer"
+    ],
+    "end": "scene-illustration:area:8:ecl:b5c3:caller:a89e:cue:river-pollution-offer"
+   },
+   "issue-240-clerk-a891-port | l | 24 | por.voice.ecl3.b8-af4b": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b8-af4b",
+    "asset": "voices/narration/ecl3/b8-af4b.mp3",
+    "expected": "scene-illustration:area:8:ecl:af78:caller:a891:cue:commissions-closed",
+    "caption": "'THESE ARE ALL OF THE COMMISSIONS CURRENTLY AVAILABLE.'",
+    "seen": [
+     "scene-illustration:area:8:ecl:af78:caller:a891:cue:commissions-closed"
+    ],
+    "end": "scene-illustration:area:8:ecl:af78:caller:a891:cue:commissions-closed"
+   },
+   "issue-240-clerk-a891-port | l | 3 | ecl8-b13-9ce1-9d05": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "ecl8-b13-9ce1-9d05",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-9ce1-9d05.mp3",
+    "expected": "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse",
+    "caption": "THE ROOF COLLAPSES. BRIN is hit FOR 2 points of Damage. DORN is hit FOR 2 points of Damage. ENNA is hit FOR 2 points of Damage. press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse"
+    ],
+    "end": "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse"
+   },
+   "issue-240-clerk-a891-port | l | 4 | ecl8-b13-99c1": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "ecl8-b13-99c1",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-99c1.mp3",
+    "expected": "the first-person view",
+    "caption": "DO YOU WANT TO LEAVE? Yes No",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-240-clerk-a891-port | l | 5 | ecl8-b27-9c89": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "ecl8-b27-9c89",
+    "asset": "voices/narration/ecl8/block-27/ecl8-b27-9c89.mp3",
+    "expected": "portrait:PIC8.DAX:27:0:0",
+    "caption": "YOU FIND TWO CAVES; A SMALL, WELL- HIDDEN CAVE AND A LARGER, MORE OBVIOUS CAVE. WHAT CAVE WILL YOU ENTER? Large Small Exit",
+    "seen": [
+     "portrait:PIC8.DAX:27:0:0"
+    ],
+    "end": "portrait:PIC8.DAX:27:0:0"
+   },
+   "issue-240-clerk-a891-port | l | 6 | ecl8-b27-9de7": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "ecl8-b27-9de7",
+    "asset": "voices/narration/ecl8/block-27/ecl8-b27-9de7.mp3",
+    "expected": "portrait:PIC8.DAX:41:0:0",
+    "caption": "THERE IS A BOAT DOCKED HERE THAT WILL RETURN YOU TO THE CIVILIZED SECTION OF PHLAN. WILL YOU TAKE IT? Take boat Stay",
+    "seen": [
+     "portrait:PIC8.DAX:41:0:0"
+    ],
+    "end": "portrait:PIC8.DAX:41:0:0"
+   },
+   "issue-240-clerk-a891-port | l | 7 | por.voice.ecl3.b0-abd2": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b0-abd2",
+    "asset": "voices/narration/ecl3/b0-abd2.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU ARE OUTSIDE THE CITY HALL. THE CITY CLERK WAITS INSIDE TO AWARD COMMISSIONS. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-240-clerk-a891-port | l | 8 | por.voice.ecl3.b8-9a7d": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b8-9a7d",
+    "asset": "voices/narration/ecl3/b8-9a7d.mp3",
+    "expected": "scene-illustration:area:0:ecl:9a4f",
+    "caption": "YOU ENTER THE CITY HALL. AS YOU FACE DOWN THE HALLWAY, YOU SEE A GUARDED DOOR. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:0:ecl:9a4f"
+    ],
+    "end": "scene-illustration:area:0:ecl:9a4f"
+   },
+   "issue-240-clerk-a891-port | l | 9 | por.voice.ecl3.b8-9b3c": {
+    "run": "issue-240-clerk-a891-port",
+    "leg": "l",
+    "unitId": "por.voice.ecl3.b8-9b3c",
+    "asset": "voices/narration/ecl3/b8-9b3c.mp3",
+    "expected": "scene-illustration:area:8:ecl:9b8a:caller:9a4a",
+    "caption": "YOU ARE OUTSIDE THE CLERK'S OFFICE. GUARDS POSTED AROUND A DOOR IN THE SOUTH WALL WATCH YOU CLOSELY. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:8:ecl:9b8a:caller:9a4a"
+    ],
+    "end": "scene-illustration:area:8:ecl:9b8a:caller:9a4a"
    },
    "issue-99-training-original | visit-training-hall | 1 | por.voice.ecl3.b11-9a74": {
     "run": "issue-99-training-original",
