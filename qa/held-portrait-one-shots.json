@@ -1325,5 +1325,34 @@
       "drawCursor": "9e1f"
     },
     "producer": "ECL8.DAX:16:9da2"
+  },
+  {
+    "producer": "ECL7.DAX:17:b3cb",
+    "combat": "b43b",
+    "native": {
+      "drawCursor": "b3ce",
+      "composed": "HEAD7.DAX:62:BODY7.DAX:30",
+      "evidence": "E:/por-codex/art-qa/issue-131-nomad-shaman-reward/native-original/ecl.jsonl"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL7.DAX:17:b3cb",
+        "route": "nomad-shaman-reward-after-victory",
+        "data": "original",
+        "portrait": "scene-illustration:area:17:ecl:b43b:cue:shaman-reward",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "3666ca1f2928f7a75394c94c9c79cc6f9c38a09d86df73400f0db625751ca3aa"
+      },
+      "port": {
+        "producer": "ECL7.DAX:17:b3cb",
+        "route": "nomad-shaman-reward-after-victory",
+        "data": "port",
+        "portrait": "scene-illustration:area:17:ecl:b43b:cue:shaman-reward",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "3666ca1f2928f7a75394c94c9c79cc6f9c38a09d86df73400f0db625751ca3aa"
+      }
+    }
   }
 ]

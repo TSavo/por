@@ -41340,6 +41340,115 @@
           }
         }
       }
+    },
+    {
+      "producer": "ECL7.DAX:17:b538",
+      "prompt": "9da2/b58c",
+      "caption": "UNDER THE CURSES OF THEIR LEADER",
+      "checkpoint": "nomad-raid-reluctant-horde/A.json",
+      "illustration": {
+        "id": "scene-illustration:area:17:ecl:9da2:caller:b58c",
+        "native": {
+          "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 S 18:29 YOU SEE A HUGE GROUP OF KOBOLDS MOVING RELUNCTANTLY FORWARD UNDER THE CURSES OF THEIR LEADER. Press button or <return> to continue",
+          "viewportSha256": "cb70e9f8c56215deccda91b8ab3c2ca198daee6a8a53c487d559943d3a9314e9",
+          "pictureDraws": 0
+        }
+      },
+      "chrome": {
+        "original": {
+          "route": "nomad-raid-reluctant-horde",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29YOUSEEAHUGEGROUPOFKOBOLDSMOVINGRELUNCTANTLYFORWARDUNDERTHECURSESOFTHEIRLEADER.Pressbuttonor<return>tocontinue",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:b58c",
+          "checkpointSha256": "5737e5ac6d48551fc85bf9515e9e54c0673557d84cedfdcdee26d08656dab4ce",
+          "artSha256": "6aa16a8f554c4a2685b0da13b0465e1730848d3c0da3420594bd4dc9153c0a04",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3658,
+          "samples": 220,
+          "poses": [
+            "scene-illustration:area:17:ecl:9da2:caller:b58c"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "4d113f5fb97284ebf034bc944d588b69d6a32c7966f9fc425716714ac081838a",
+          "sha256": "6aa16a8f554c4a2685b0da13b0465e1730848d3c0da3420594bd4dc9153c0a04"
+        },
+        "port": {
+          "route": "nomad-raid-reluctant-horde",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29YOUSEEAHUGEGROUPOFKOBOLDSMOVINGRELUNCTANTLYFORWARDUNDERTHECURSESOFTHEIRLEADER.Pressbuttonor<return>tocontinue",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:b58c",
+          "checkpointSha256": "5737e5ac6d48551fc85bf9515e9e54c0673557d84cedfdcdee26d08656dab4ce",
+          "artSha256": "6aa16a8f554c4a2685b0da13b0465e1730848d3c0da3420594bd4dc9153c0a04",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3654,
+          "samples": 220,
+          "poses": [
+            "scene-illustration:area:17:ecl:9da2:caller:b58c"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "4d113f5fb97284ebf034bc944d588b69d6a32c7966f9fc425716714ac081838a",
+          "sha256": "6aa16a8f554c4a2685b0da13b0465e1730848d3c0da3420594bd4dc9153c0a04"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:17:9914",
+      "prompt": "9933/b590",
+      "caption": "Combat Wait Flee Advance",
+      "checkpoint": "nomad-raid-reluctant-horde/A.json",
+      "position": [
+        17,
+        9,
+        11
+      ],
+      "chrome": {
+        "original": {
+          "route": "nomad-raid-reluctant-horde",
+          "data": "original",
+          "position": [
+            17,
+            9,
+            11
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29CombatWaitFleeAdvance",
+          "checkpointSha256": "5737e5ac6d48551fc85bf9515e9e54c0673557d84cedfdcdee26d08656dab4ce",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:17:SPRIT7.DAX:0:1:0",
+              24,
+              65
+            ],
+            "sha256": "d47ef4bc067ab78ef3fbd28ec3713ed9866957761886b08d335a1b692f659006"
+          }
+        },
+        "port": {
+          "route": "nomad-raid-reluctant-horde",
+          "data": "port",
+          "position": [
+            17,
+            9,
+            11
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29CombatWaitFleeAdvance",
+          "checkpointSha256": "5737e5ac6d48551fc85bf9515e9e54c0673557d84cedfdcdee26d08656dab4ce",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:17:SPRIT7.DAX:0:1:0",
+              24,
+              65
+            ],
+            "sha256": "d47ef4bc067ab78ef3fbd28ec3713ed9866957761886b08d335a1b692f659006"
+          }
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [
