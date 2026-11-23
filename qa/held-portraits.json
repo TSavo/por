@@ -49838,6 +49838,162 @@
           }
         }
       }
+    },
+    {
+      "producer": "ECL1.DAX:18:9964",
+      "route": "podal-patrol-rest-ambush",
+      "native": {
+        "draw": "996d",
+        "sha256": "a88dc0a7e4d66b134ab15357c180571a0737ee4c50d29f69252c18783cfaa174",
+        "caption": "BRIN Hitpoints 45 AC 3 Hand Axe Move View Aim Use Quick Done"
+      },
+      "chrome": {
+        "original": {
+          "route": "podal-patrol-rest-ambush",
+          "view": "battle",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:996d:SPRIT1.DAX:2:2:0",
+              "sha256": "e77a07e42419a30af0a007dd3f16d255fc95b4fcf87b1701b69131318bc19ec5"
+            }
+          ],
+          "caption": "BRINHitpoints45AC3HandAxeMoveViewAimUseQuickDone",
+          "data": "original",
+          "checkpointSha256": "7fec1f8921cf7b43af3684aa1a23031f048d571e6228f9a7f7590a85750d7079",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "podal-patrol-rest-ambush",
+          "view": "battle",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:996d:SPRIT1.DAX:2:2:0",
+              "sha256": "e77a07e42419a30af0a007dd3f16d255fc95b4fcf87b1701b69131318bc19ec5"
+            }
+          ],
+          "caption": "BRINHitpoints45AC3HandAxeMoveViewAimUseQuickDone",
+          "data": "port",
+          "checkpointSha256": "7fec1f8921cf7b43af3684aa1a23031f048d571e6228f9a7f7590a85750d7079",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL1.DAX:18:9964",
+      "route": "podal-orc-rest-ambush",
+      "native": {
+        "draw": "996d",
+        "sha256": "f7f4a1bdf58528186612472688e882736167f81f2d514598cbd4c6cf7ae1c37e",
+        "caption": "ALDA Hitpoints 45 AC 5 Hand Axe Move View Aim Use Quick Done"
+      },
+      "chrome": {
+        "original": {
+          "route": "podal-orc-rest-ambush",
+          "view": "battle",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:996d:SPRIT1.DAX:4:2:0",
+              "sha256": "f06d1463999528b2a8a85235dce53a6ec7fafcf63595998b2640a360fec28376"
+            }
+          ],
+          "caption": "ALDAHitpoints45AC5HandAxeMoveViewAimUseQuickDone",
+          "data": "original",
+          "checkpointSha256": "7fec1f8921cf7b43af3684aa1a23031f048d571e6228f9a7f7590a85750d7079",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "podal-orc-rest-ambush",
+          "view": "battle",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:996d:SPRIT1.DAX:4:2:0",
+              "sha256": "f06d1463999528b2a8a85235dce53a6ec7fafcf63595998b2640a360fec28376"
+            }
+          ],
+          "caption": "ALDAHitpoints45AC5HandAxeMoveViewAimUseQuickDone",
+          "data": "port",
+          "checkpointSha256": "7fec1f8921cf7b43af3684aa1a23031f048d571e6228f9a7f7590a85750d7079",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL1.DAX:18:9964",
+      "route": "podal-hobgoblin-rest-ambush",
+      "native": {
+        "draw": "996d",
+        "sha256": "68dffd66b77bef2cbcef910da51438f2428c9a3d94930e9017e7468de49883f1",
+        "caption": "BRIN Hitpoints 45 AC 3 Hand Axe Move View Aim Use Quick Done"
+      },
+      "chrome": {
+        "original": {
+          "route": "podal-hobgoblin-rest-ambush",
+          "view": "battle",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:996d:SPRIT1.DAX:6:2:0",
+              "sha256": "f51a5c75adf8ca31ee81e30c0bf3b58f07794d44e652927eef9770c696737c07"
+            }
+          ],
+          "caption": "BRINHitpoints45AC3HandAxeMoveViewAimUseQuickDone",
+          "data": "original",
+          "checkpointSha256": "7fec1f8921cf7b43af3684aa1a23031f048d571e6228f9a7f7590a85750d7079",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "podal-hobgoblin-rest-ambush",
+          "view": "battle",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:996d:SPRIT1.DAX:6:2:0",
+              "sha256": "f51a5c75adf8ca31ee81e30c0bf3b58f07794d44e652927eef9770c696737c07"
+            }
+          ],
+          "caption": "BRINHitpoints45AC3HandAxeMoveViewAimUseQuickDone",
+          "data": "port",
+          "checkpointSha256": "7fec1f8921cf7b43af3684aa1a23031f048d571e6228f9a7f7590a85750d7079",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL1.DAX:18:9964",
+      "route": "podal-ogre-rest-ambush",
+      "native": {
+        "draw": "996d",
+        "sha256": "2902b3240a7812edb0ca5828d72b6f9d08f4c51cd21b96a03b28fd5e9a8e51e8",
+        "caption": "BRIN Hitpoints 45 AC 3 Hand Axe Move View Aim Use Quick Done"
+      },
+      "chrome": {
+        "original": {
+          "route": "podal-ogre-rest-ambush",
+          "view": "battle",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:996d:SPRIT1.DAX:8:2:0",
+              "sha256": "1ddb23e5443992a772833179831d68999409ca69dbf512455d62fe9806299d37"
+            }
+          ],
+          "caption": "BRINHitpoints45AC3HandAxeMoveViewAimUseQuickDone",
+          "data": "original",
+          "checkpointSha256": "7fec1f8921cf7b43af3684aa1a23031f048d571e6228f9a7f7590a85750d7079",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "podal-ogre-rest-ambush",
+          "view": "battle",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:996d:SPRIT1.DAX:8:2:0",
+              "sha256": "1ddb23e5443992a772833179831d68999409ca69dbf512455d62fe9806299d37"
+            }
+          ],
+          "caption": "BRINHitpoints45AC3HandAxeMoveViewAimUseQuickDone",
+          "data": "port",
+          "checkpointSha256": "7fec1f8921cf7b43af3684aa1a23031f048d571e6228f9a7f7590a85750d7079",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
     }
   ]
 }
