@@ -1357,6 +1357,18 @@ const illustrationRoutes = new Map([
       inputs: ["b", "p"], portrait: "scene-illustration:area:16:ecl:a65a", prompt: /2LIZARDMENANDAGIANTLIZARDCHARGEATYOU/i,
     },
   }],
+  ["lizardman-keep-giant-lizards-hold", {
+    slot: "J", inputs: ["up"],
+    portrait: "portrait:area:16:PIC8.DAX:59:0:0",
+    prompt: /3GIANTLIZARDSCHARGETOWARDYOU/i,
+    heldPortraitLoop: ["portrait:area:16:PIC8.DAX:59:0:0", "portrait:area:16:ecl:a947:PIC8.DAX:59:1:0"],
+    continuation: {
+      inputs: ["c"], prompt: /3GIANTLIZARDSCHARGETOWARDYOU.*ABATTLEBEGINS/i,
+      portraits: [0, 1].map(member => "portrait:area:16:ecl:a6ce:PIC8.DAX:59:" + member + ":0"),
+      pressOnPortrait: "portrait:area:16:ecl:a947:PIC8.DAX:59:1:0",
+      retainPose: true,
+    },
+  }],
   ["swamp-giant-lizard-surprise", {
     slot: "A", inputs: ["up", "b", "enter", "enter"],
     portraitStops: { 3: "scene-illustration:area:16:ecl:a9cc:cue:giant-lizard-surprise" },
@@ -8600,6 +8612,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName.startsWith("valjevo-tower-giants-") ||
       /^slums-roaming-(?:kobold|(?:kobold|orc|goblin)-(?:surprise|advance|spotted)|(?:orc|goblin)-party-surprised|(?:kobold|orc|goblin)-(?:demand|surrender|leave|advice|stop|rebuke)-parlay)-loop$/.test(routeName) ||
       /^valjevo-giant-barracks-password-(haughty|sly)-loop$/.test(routeName) ||
+      routeName === "lizardman-keep-giant-lizards-hold" ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
