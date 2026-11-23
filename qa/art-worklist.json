@@ -15,15 +15,10 @@
  "enhancedFallbacks": {
   "observer": 2,
   "frames": 0,
-  "presented": 4416,
-  "walks": 36,
+  "presented": 6010,
+  "walks": 40,
   "recordedWalks": 40,
-  "missingWalks": [
-   "walk-new-phlan-training",
-   "walk-textile-house-cleared",
-   "walk-yarash-pyramid",
-   "wilderness-walk"
-  ],
+  "missingWalks": [],
   "aliasedWalks": [
    {
     "walk": "campaign-castle-approach-leg",
@@ -46,7 +41,7 @@
     "receipt": "campaign-full/leg-9"
    }
   ],
-  "runs": 33,
+  "runs": 37,
   "additionalReplays": 2,
   "keys": []
  },

@@ -215,22 +215,26 @@
    "fixtureSha256": "031ab6e4267e2dfd789af9961836cbad59f85e8b5d8d32324234dfd40c3bd9af"
   },
   "walk-new-phlan-training": {
+   "observer": 2,
    "presented": 866,
    "frames": [],
    "fixtureSha256": "950ee36757348c14752b5c0469e72447d15663fa5cc8ff16088d5847075ebfee"
   },
   "walk-textile-house-cleared": {
-   "presented": 171,
+   "observer": 2,
+   "presented": 172,
    "frames": [],
    "fixtureSha256": "13d2d8e956fee6d1e105444d6dc736aa6d98844bb01f4e30c965242043835bfd"
   },
   "walk-yarash-pyramid": {
-   "presented": 389,
+   "observer": 2,
+   "presented": 390,
    "frames": [],
    "fixtureSha256": "7ee4c3b2355a5f718f189b8a4d9ecab3ba4c05a87606b4378cb4e1e3992b9f69"
   },
   "wilderness-walk": {
-   "presented": 163,
+   "observer": 2,
+   "presented": 166,
    "frames": [],
    "fixtureSha256": "9d46b32434cec35075991e34a89a9f80654388636c551ab8566b2147d71907b8"
   }
