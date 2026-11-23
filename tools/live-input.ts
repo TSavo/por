@@ -607,7 +607,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // The central keep's DAMAGE handler can replace the warning with another
       // damage line without clearing the native picture. Keep the selected warning's art.
       const javelinScope = area === 16 && (battleCursor === 0xa837 || battleCursor === 0xa843 || battleCursor === 0xa6ce) &&
-        !(nativeBattleActive && hasBattlefieldFrame());
+        !((nativeBattleActive && hasBattlefieldFrame()) || hasBattlefieldBorder(screen));
       if (javelinScope && scriptedIllustration?.includes(":cue:keep-javelins-")) {
         keepJavelinIllustration = scriptedIllustration;
       } else if (!javelinScope) {
