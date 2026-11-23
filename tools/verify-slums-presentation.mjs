@@ -1539,28 +1539,18 @@ const illustrationRoutes = new Map([
       `portrait:area:18:ecl:b240:caller:a30c:PIC1.DAX:16:${member}:0`),
   }],
   ["podal-auction-wand-or-staff", {
-    slot: "I", inputs: ["up", "enter", "enter", ...Array(11).fill("z")],
-    portraitStops: {
-      3: "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:0:0",
-      7: "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:1:0",
-      8: "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:2:0",
-      10: "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:3:0",
-      11: "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:4:0",
-    },
-    portrait: "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:5:0",
+    slot: "I", inputs: ["up", ...Array(2).fill("enter")],
+    portrait: "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:0:0",
     prompt: /THEAUCTIONEERHASEITHERAWANDORSTAFF/i,
+    heldPortraitLoop: Array.from({ length: 6 }, (_, member) =>
+      `portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:${member}:0`),
   }],
   ["podal-auction-high-bid-phases", {
-    slot: "I", inputs: ["up", ...Array(4).fill("enter"), ...Array(11).fill("z")],
-    portraitStops: {
-      5: "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:0:0",
-      9: "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:1:0",
-      10: "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:2:0",
-      12: "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:3:0",
-      13: "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:4:0",
-    },
-    portrait: "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:5:0",
+    slot: "I", inputs: ["up", ...Array(4).fill("enter")],
+    portrait: "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:0:0",
     prompt: /THEBIDDINGESCALATESTO5,000GOLDPIECES.*NEXTTOANOGRE/i,
+    heldPortraitLoop: Array.from({ length: 6 }, (_, member) =>
+      `portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:${member}:0`),
   }],
   ["podal-auction-darkness-phases", {
     slot: "I", inputs: ["up", ...Array(7).fill("enter")],
@@ -1570,16 +1560,11 @@ const illustrationRoutes = new Map([
       `portrait:area:18:ecl:b240:caller:a49c:PIC1.DAX:16:${member}:0`),
   }],
   ["podal-auction-tackled-ogre-phases", {
-    slot: "I", inputs: ["up", ...Array(10).fill("enter"), ...Array(11).fill("z")],
-    portraitStops: {
-      11: "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:0:0",
-      15: "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:1:0",
-      16: "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:2:0",
-      18: "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:3:0",
-      19: "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:4:0",
-    },
-    portrait: "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:5:0",
+    slot: "I", inputs: ["up", ...Array(10).fill("enter")],
+    portrait: "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:0:0",
     prompt: /THEOGREISTACKLEDANDSEARCHED/i,
+    heldPortraitLoop: Array.from({ length: 6 }, (_, member) =>
+      `portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:${member}:0`),
   }],
   ["podal-auction-ogre-escape-phases", {
     slot: "I", inputs: ["up", ...Array(8).fill("enter")],
