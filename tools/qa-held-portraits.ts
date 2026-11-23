@@ -566,7 +566,8 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       const nativeBase = nativeSource &&
         `portrait:area:${site.scriptBlock}:ecl:${cursor}${caller ? `:caller:${caller}` : ""}:${nativeSource}`;
       const scoped = illustration(variant.portrait) || variant.portrait === nativeBase || (composition &&
-        (variant.portrait === `portrait:area:${site.scriptBlock}:${composition}` || variant.portrait === `portrait:${composition}`));
+        (variant.portrait === `portrait:area:${site.scriptBlock}:ecl:${cursor}:${composition}` ||
+          variant.portrait === `portrait:area:${site.scriptBlock}:${composition}` || variant.portrait === `portrait:${composition}`));
       const member = variant.native.inheritedMember;
       const inheritedCaller = /:caller:([a-f\d]{4}):/.exec(variant.native.inheritedFrom ?? "")?.[1];
       const registeredMember = member !== undefined && nativeBase &&

@@ -9856,7 +9856,7 @@
           "paints": [
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
-              "atMs": -1.192074705613777e-08
+              "atMs": -1.192074705613777e-8
             },
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
@@ -42519,6 +42519,309 @@
               "samples": 221,
               "poses": [
                 "portrait:area:17:ecl:9da2:caller:b2c4:HEAD7.DAX:74:BODY7.DAX:30"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL3.DAX:8:b085",
+      "prompt": "b5c3/b0ea",
+      "variants": [
+        {
+          "caption": "IT IS IMPERATIVE THAT A MESSAGE BE DELIVERED TO THE ZHENTIL OUTPOST TO THE WEST",
+          "checkpoint": "new-phlan-council-portraits/cadorna-F.json",
+          "portrait": "portrait:area:8:ecl:b5c3:caller:b0ea:HEAD3.DAX:55:BODY3.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 FENN 4 8 5,6 W 02:05 'IT IS IMPERATIVE THAT A MESSAGE BE DELIVERED TO THE ZHENTIL OUTPOST TO THE WEST. I AM SENDING YOU AS DIPLOMATIC ENVOYS. Press <enter>/<return> to continue",
+            "idlePolls": 24,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "9daf189140b8ff3db6d4936d3fbd71bfa6632da90ed6507cc3d6b467a4e54c27"
+              },
+              {
+                "idlePolls": 8,
+                "sha256": "9daf189140b8ff3db6d4936d3fbd71bfa6632da90ed6507cc3d6b467a4e54c27"
+              },
+              {
+                "idlePolls": 16,
+                "sha256": "9daf189140b8ff3db6d4936d3fbd71bfa6632da90ed6507cc3d6b467a4e54c27"
+              },
+              {
+                "idlePolls": 24,
+                "sha256": "9daf189140b8ff3db6d4936d3fbd71bfa6632da90ed6507cc3d6b467a4e54c27"
+              }
+            ],
+            "drawCursor": "b088",
+            "composed": {
+              "source": "HEAD3.DAX:55:BODY3.DAX:1",
+              "headWrite": "b07f",
+              "headSlot": "6de1",
+              "bodyOperand": 0,
+              "headReset": "b57f"
+            },
+            "clearedPanelSha256": "bcb518110a3f8527c392fef0c139b90048a19278cbb641631faaabe1ff787a98"
+          },
+          "chrome": {
+            "original": {
+              "route": "new-phlan-cadorna-envoy-holds",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN485,6W02:05'ITISIMPERATIVETHATAMESSAGEBEDELIVEREDTOTHEZHENTILOUTPOSTTOTHEWEST.IAMSENDINGYOUASDIPLOMATICENVOYS.Press<enter>/<return>tocontinue",
+              "portrait": "portrait:area:8:ecl:b5c3:caller:b0ea:HEAD3.DAX:55:BODY3.DAX:1",
+              "checkpointSha256": "779ac9c56a5d9383b62bc74c052887bc13932c23bfe37c9bd95868ab4fc01e99",
+              "artSha256": "f6f33c9f9121fa370a3828ab1a37b69c409fa48b17c763f190ae6b7cef7fe5ed",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3654,
+              "samples": 221,
+              "poses": [
+                "portrait:area:8:ecl:b5c3:caller:b0ea:HEAD3.DAX:55:BODY3.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "new-phlan-cadorna-envoy-holds",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN485,6W02:05'ITISIMPERATIVETHATAMESSAGEBEDELIVEREDTOTHEZHENTILOUTPOSTTOTHEWEST.IAMSENDINGYOUASDIPLOMATICENVOYS.Press<enter>/<return>tocontinue",
+              "portrait": "portrait:area:8:ecl:b5c3:caller:b0ea:HEAD3.DAX:55:BODY3.DAX:1",
+              "checkpointSha256": "779ac9c56a5d9383b62bc74c052887bc13932c23bfe37c9bd95868ab4fc01e99",
+              "artSha256": "f6f33c9f9121fa370a3828ab1a37b69c409fa48b17c763f190ae6b7cef7fe5ed",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3653,
+              "samples": 220,
+              "poses": [
+                "portrait:area:8:ecl:b5c3:caller:b0ea:HEAD3.DAX:55:BODY3.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL3.DAX:8:b085",
+      "prompt": "b5c3/b151",
+      "variants": [
+        {
+          "caption": "PRESENT THIS PACKET TO ITS COMMANDANT",
+          "checkpoint": "new-phlan-council-portraits/cadorna-F.json",
+          "portrait": "portrait:HEAD3.DAX:55:BODY3.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 FENN 4 8 5,6 W 02:05 'WHEN YOU GET TO ZHENTIAL KEEP, PRESENT THIS PACKET TO ITS COMMANDANT. DO NOT BREAK THE SEALS OR YOU WILL BE SEIZED AS SPIES.' Press <enter>/<return> to continue",
+            "idlePolls": 24,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "9daf189140b8ff3db6d4936d3fbd71bfa6632da90ed6507cc3d6b467a4e54c27"
+              },
+              {
+                "idlePolls": 8,
+                "sha256": "9daf189140b8ff3db6d4936d3fbd71bfa6632da90ed6507cc3d6b467a4e54c27"
+              },
+              {
+                "idlePolls": 16,
+                "sha256": "9daf189140b8ff3db6d4936d3fbd71bfa6632da90ed6507cc3d6b467a4e54c27"
+              },
+              {
+                "idlePolls": 24,
+                "sha256": "9daf189140b8ff3db6d4936d3fbd71bfa6632da90ed6507cc3d6b467a4e54c27"
+              }
+            ],
+            "drawCursor": "b088",
+            "composed": {
+              "source": "HEAD3.DAX:55:BODY3.DAX:1",
+              "headWrite": "b07f",
+              "headSlot": "6de1",
+              "bodyOperand": 0,
+              "headReset": "b57f"
+            },
+            "clearedPanelSha256": "bcb518110a3f8527c392fef0c139b90048a19278cbb641631faaabe1ff787a98"
+          },
+          "chrome": {
+            "original": {
+              "route": "new-phlan-cadorna-envoy-holds",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN485,6W02:05'WHENYOUGETTOZHENTIALKEEP,PRESENTTHISPACKETTOITSCOMMANDANT.DONOTBREAKTHESEALSORYOUWILLBESEIZEDASSPIES.'Press<enter>/<return>tocontinue",
+              "portrait": "portrait:HEAD3.DAX:55:BODY3.DAX:1",
+              "checkpointSha256": "779ac9c56a5d9383b62bc74c052887bc13932c23bfe37c9bd95868ab4fc01e99",
+              "artSha256": "d5842519b6c3d6f401984496be07ff93f2ccaaf38ca86c66549fd2b2ed790e26",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3666,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD3.DAX:55:BODY3.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "new-phlan-cadorna-envoy-holds",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN485,6W02:05'WHENYOUGETTOZHENTIALKEEP,PRESENTTHISPACKETTOITSCOMMANDANT.DONOTBREAKTHESEALSORYOUWILLBESEIZEDASSPIES.'Press<enter>/<return>tocontinue",
+              "portrait": "portrait:HEAD3.DAX:55:BODY3.DAX:1",
+              "checkpointSha256": "779ac9c56a5d9383b62bc74c052887bc13932c23bfe37c9bd95868ab4fc01e99",
+              "artSha256": "d5842519b6c3d6f401984496be07ff93f2ccaaf38ca86c66549fd2b2ed790e26",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3662,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD3.DAX:55:BODY3.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL3.DAX:8:b3d9",
+      "prompt": "b564/b438",
+      "variants": [
+        {
+          "caption": "YOUR PRESENCE IS NOT AUTHORIZED",
+          "checkpoint": "new-phlan-council-portraits/guard-F.json",
+          "portrait": "portrait:area:8:ecl:b564:HEAD3.DAX:57:BODY3.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 FENN 4 8 4,6 S 02:05 YOU ARE INTERCEPTED BY THE COUNCIL GUARD. 'HALT. YOUR PRESENCE IS NOT AUTHORIZED. LEAVE.' DO YOU LEAVE? Yes No",
+            "idlePolls": 24,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              },
+              {
+                "idlePolls": 8,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              },
+              {
+                "idlePolls": 16,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              },
+              {
+                "idlePolls": 24,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              }
+            ],
+            "drawCursor": "b3e0",
+            "composed": {
+              "source": "HEAD3.DAX:57:BODY3.DAX:1",
+              "headWrite": "b3d3",
+              "headSlot": "6de1",
+              "bodyOperand": 2
+            },
+            "clearedPanelSha256": "129c925d1c36d3c0e6d1a1384b96cb528806606412e6fbb1c359963db1764e8f"
+          },
+          "chrome": {
+            "original": {
+              "route": "new-phlan-council-guard-hold",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN484,6S02:05YOUAREINTERCEPTEDBYTHECOUNCILGUARD.'HALT.YOURPRESENCEISNOTAUTHORIZED.LEAVE.'DOYOULEAVE?YesNo",
+              "portrait": "portrait:area:8:ecl:b564:HEAD3.DAX:57:BODY3.DAX:1",
+              "checkpointSha256": "64aeb45c0db8f3f559889bef136eba2740617134d63f55c0fc346e31aa457ebb",
+              "artSha256": "ae7af30061e31b8dc31a7e01c0bd4f22dcb523173c29ec429303a1cede9a983f",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3659,
+              "samples": 221,
+              "poses": [
+                "portrait:area:8:ecl:b564:HEAD3.DAX:57:BODY3.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "new-phlan-council-guard-hold",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN484,6S02:05YOUAREINTERCEPTEDBYTHECOUNCILGUARD.'HALT.YOURPRESENCEISNOTAUTHORIZED.LEAVE.'DOYOULEAVE?YesNo",
+              "portrait": "portrait:area:8:ecl:b564:HEAD3.DAX:57:BODY3.DAX:1",
+              "checkpointSha256": "64aeb45c0db8f3f559889bef136eba2740617134d63f55c0fc346e31aa457ebb",
+              "artSha256": "ae7af30061e31b8dc31a7e01c0bd4f22dcb523173c29ec429303a1cede9a983f",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3666,
+              "samples": 221,
+              "poses": [
+                "portrait:area:8:ecl:b564:HEAD3.DAX:57:BODY3.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL3.DAX:8:b4c4",
+      "prompt": "b5c3/b500",
+      "variants": [
+        {
+          "caption": "THE GUARD CAPTAIN STEPS FORWARD",
+          "checkpoint": "new-phlan-council-portraits/escort-F.json",
+          "portrait": "portrait:HEAD3.DAX:57:BODY3.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 FENN 4 8 5,5 E 02:05 THE GUARD CAPTAIN STEPS FORWARD. 'PLEASE LET US SHOW YOU THE WAY.' Press <enter>/<return> to continue",
+            "idlePolls": 24,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              },
+              {
+                "idlePolls": 8,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              },
+              {
+                "idlePolls": 16,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              },
+              {
+                "idlePolls": 24,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              }
+            ],
+            "drawCursor": "b4c7",
+            "composed": {
+              "source": "HEAD3.DAX:57:BODY3.DAX:1",
+              "headWrite": "b4be",
+              "headSlot": "6de1",
+              "bodyOperand": 0,
+              "headReset": "b57f"
+            },
+            "clearedPanelSha256": "b8e3ad869f58510fd0642846614bf5331d0421254c42fc30d29a81a304306fcc"
+          },
+          "chrome": {
+            "original": {
+              "route": "new-phlan-council-escort-hold",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN485,5E02:05THEGUARDCAPTAINSTEPSFORWARD.'PLEASELETUSSHOWYOUTHEWAY.'Press<enter>/<return>tocontinue",
+              "portrait": "portrait:HEAD3.DAX:57:BODY3.DAX:1",
+              "checkpointSha256": "739f2a8547fd7ce3f85f94b87a3f1bfb399d8d1786f8b80d13fa6ecc9387b057",
+              "artSha256": "292369f204dca4843dc98da1c5589248c374a6bb1d4605b637b8e960c09c32d4",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3663,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD3.DAX:57:BODY3.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "new-phlan-council-escort-hold",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN485,5E02:05THEGUARDCAPTAINSTEPSFORWARD.'PLEASELETUSSHOWYOUTHEWAY.'Press<enter>/<return>tocontinue",
+              "portrait": "portrait:HEAD3.DAX:57:BODY3.DAX:1",
+              "checkpointSha256": "739f2a8547fd7ce3f85f94b87a3f1bfb399d8d1786f8b80d13fa6ecc9387b057",
+              "artSha256": "292369f204dca4843dc98da1c5589248c374a6bb1d4605b637b8e960c09c32d4",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3661,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD3.DAX:57:BODY3.DAX:1"
               ],
               "replaced": false
             }
