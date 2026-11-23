@@ -12722,7 +12722,7 @@ try {
         return image?.naturalWidth === 352 && image.naturalHeight === 352 &&
           ${JSON.stringify(visiblePortraits)}.includes(new URL(image.src).pathname);
       })()`));
-      await switchBothWays();
+      if (!continuation?.automaticBattle) await switchBothWays();
       await verifyPortraitPanel();
     }
     if (illustration.heldPortrait) {
