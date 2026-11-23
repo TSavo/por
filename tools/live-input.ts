@@ -544,8 +544,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // The maze watch and Scriptorium guards finish the nod at the same ECL cursor.
       let illustrationScope = finalCouncilReward && illustrationText.includes("VIEWTAKEPOOLSHAREEXIT")
         ? `${scriptKey}:cue:council-victory-payout` : scriptKey;
-      // The same Orc camping script can interrupt the party under a roof or on the rampart.
       const campScenery = lastLocalPerspective?.native;
+      // The Watch can roust a camping party in the duelling room or outside.
+      if (area === 11 && (battleCursor === 0x99fc || battleCursor === 0x9a0c) &&
+          campScenery?.roofed && campScenery.x === livePosition?.x && campScenery.y === livePosition.y) {
+        illustrationScope = "scene-illustration:area:11:ecl:9a0c:cue:indoors";
+      }
+      // The same Orc camping script can interrupt the party under a roof or on the rampart.
       if ((area === 24 || area === 31) &&
           (battleCursor === 0xb692 || battleCursor === 0xb699 || battleCursor === 0xb6a2) &&
           campScenery?.mapId === 31 && !campScenery.roofed &&

@@ -4094,7 +4094,7 @@ const illustrationRoutes = new Map([
     slot: "A", stockInput: true, fixedClockStart: "4320000",
     // Decline both offers and begin an eight-hour rest to trigger the Watch.
     inputs: [...trainingHallArena, "n", "n", "e", "r", "h", ...Array(8).fill("i"), "r"],
-    portrait: "scene-illustration:area:11:ecl:9a0c",
+    portrait: "scene-illustration:area:11:ecl:9a0c:cue:indoors",
     prompt: /YOUAREROUSTEDBYTHECITYWATCHANDTOLDTOMOVEALONG.*GOFIGHT/i,
     staticPortraitMenu: true,
     continuation: { inputs: ["g"], prompt: trainingExploration, clearsPortrait: true },
