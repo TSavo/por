@@ -4056,7 +4056,9 @@ const illustrationRoutes = new Map([
     inputs: [...trainingHallArena, "y"],
     portrait: trainingArenaMaster, prompt: /WHOWILLDUEL\?SELECT/i,
     staticPortraitMenu: true,
-    continuation: { inputs: ["enter"], prompt: /HITPOINTS.*MOVEVIEWAIMQUICKDONE/i, clearsPortrait: true },
+    // Selecting the duelist leaves the Master on the battle notice.
+    // Acknowledge that notice before checking the first combat turn.
+    continuation: { inputs: ["enter", "enter"], prompt: /HITPOINTS.*MOVEVIEWAIM.*QUICKDONE/i, clearsPortrait: true },
   }],
   ["new-phlan-training-arena-full-party", {
     slot: "A", stockInput: true, fixedClockStart: "4320000",
