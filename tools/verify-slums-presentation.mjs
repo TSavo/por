@@ -9,6 +9,7 @@ import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const textileScorpionLoop = routeName === "textile-house-scorpion-held-loop";
+const sokalBarracksHeld = routeName === "sokal-barracks-chorus-loop" || routeName === "sokal-barracks-diary-loop";
 const textileScorpionWalk = "qa/fixtures/walk-textile-house-cleared";
 const textileScorpionPortrait = "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:";
 const takeScatteredObjects = routeName === "valhingen-scattered-objects" && option === "--take";
@@ -729,6 +730,9 @@ const bucketTrapLoop = [
   "portrait:area:3:PIC5.DAX:56:0:0", "portrait:area:3:ecl:a662:PIC5.DAX:56:3:0",
 ];
 const valjevoKitchenMenu = /WHATDOYOUDO\?KILLTHEOVERSEERANDFREETHESLAVESGOBACKOUTSIDETALKTOTHEOVERSEER/i;
+const sokalBarracksParlay = ["up", "enter", "a", "a", "p", "n", ..."lux", "enter"];
+const sokalBarracksChorus = [0, 1, 2].map(member => `portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:${member}:0`);
+const sokalBarracksDiary = [0, 1, 2].map(member => `portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:${member}:0`);
 const illustrationRoutes = new Map([
   ["pyramid-vats-mutants-loop", {
     slot: "A", inputs: ["s", "up"],
@@ -2113,9 +2117,23 @@ const illustrationRoutes = new Map([
     prompt: /THEUNDEADLEAVE/i,
     continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["sokal-barracks-chorus-loop", {
+    slot: "C", inputs: sokalBarracksParlay, portrait: sokalBarracksChorus[0],
+    prompt: /THEHAUNTSBURSTINTOACHORUSOFHOWLS/i, heldPortraitLoop: sokalBarracksChorus,
+    finalPhaseCapture: "sokal-barracks-chorus.png",
+    continuation: { inputs: ["enter"], pressOnPortrait: sokalBarracksChorus[0],
+      portrait: sokalBarracksDiary[0], prompt: /HEPOINTSTOAFLOORBOARD/i },
+  }],
+  ["sokal-barracks-diary-loop", {
+    slot: "C", inputs: [...sokalBarracksParlay, "enter"], portrait: sokalBarracksDiary[0],
+    prompt: /HEPOINTSTOAFLOORBOARD/i, heldPortraitLoop: sokalBarracksDiary,
+    finalPhaseCapture: "sokal-barracks-diary-held.png",
+    continuation: { inputs: ["enter"], pressOnPortrait: sokalBarracksDiary[0],
+      portrait: "scene-illustration:area:21:ecl:ae31:caller:a573", prompt: /BENEATHAFLOORBOARD.*JOURNALASENTRY3/i },
+  }],
   ["sokal-floorboard-diary", {
-    slot: "C", inputs: ["up", "enter", "a", "a", "p", "n", ..."lux", "enter", "enter", "enter"],
-    portraitStops: { 11: "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:0:0" },
+    slot: "C", inputs: [...sokalBarracksParlay, "enter", "enter"],
+    portraitStops: { 11: sokalBarracksDiary[0] },
     portrait: "scene-illustration:area:21:ecl:ae31:caller:a573", prompt: /BENEATHAFLOORBOARD.*JOURNALASENTRY3/i,
     continuation: { inputs: ["enter"], prompt: /DOYOUTAKETHEGEMS.*YesNo/i, portrait: "scene-illustration:area:21:ecl:ae41:caller:a58a" },
   }],
@@ -7658,6 +7676,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_INPUT_COMPAT: textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "pyramid-vats-mutants-loop" ||
       routeName === "valhingen-grave-claws" || routeName === "sokal-barracks-ghost-phases" ||
+      sokalBarracksHeld ||
       routeName === "valhingen-wight-ambush-loop" || routeName === "valhingen-spirits-tower-wight-loop" ||
       routeName === "valhingen-skeleton-roaming-ambush-loop" ||
       routeName === "old-phlan-lizard-patrol-phases" || routeName === "valjevo-tower-troll-phases" ||
@@ -7775,7 +7794,7 @@ try {
     return response.result.value;
   }
   // The page starts in Enhanced; these replays were written for a page that starts in Classic.
-  await command("Page.navigate", { url: `${origin}/?display=classic` });
+  await command("Page.navigate", { url: `${origin}/${sokalBarracksHeld ? "" : "?display=classic"}` });
   await waitFor("the game display", () => run('document.querySelector("#screen")?.naturalWidth === 320'));
   if (patrolCombat || courtyard || orcs || goblins || combatPose?.manualPolling || illustration?.manualPolling ||
     routeName === "slums-mage-orc-ready" || routeName === "slums-mage-orc-leader") {
@@ -8062,7 +8081,7 @@ try {
     else assert.deepEqual(readFileSync(saved), originalSave);
   }
 
-  await run('document.querySelector("#presentation").click()');
+  if (!sokalBarracksHeld) await run('document.querySelector("#presentation").click()');
   assert.equal(await run('Boolean(document.querySelector("#street-toggle"))'), false);
   function waitForExplorationViewport() {
     const source = JSON.stringify(`data:image/png;base64,${frame.enhancedFrame}`);

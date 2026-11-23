@@ -9590,6 +9590,236 @@
           }
         }
       }
+    },
+    {
+      "id": "area:21:ecl:ae31:caller:a463:PIC4.DAX:17",
+      "producer": "ECL4.DAX:21:a2d2",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 410,
+          "viewport": "cecb2765d6fd8f2c299b42dd391c1c1589e460ec6b611aa33f251653e3003cd7"
+        },
+        {
+          "member": 1,
+          "durationMs": 910,
+          "viewport": "e918ce5d91bc338220ac7036d6e509b39ef2ad1f5d5e4e8956a84966d730a56f"
+        },
+        {
+          "member": 2,
+          "durationMs": 20,
+          "viewport": "a13b32899f8cfd287da3f5de380357805aab1368792689847c330d8a94edcd37"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "sokal-barracks-chorus-loop",
+          "data": "original",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "0b6ff29430d93273f4d4313cda510477457b7e2599ceea119423818d2ac42b35",
+          "portrait": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:0:0",
+              "atMs": 11.199999976157414
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:1:0",
+              "atMs": 361.1999999761574
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:2:0",
+              "atMs": 1277.7999999761578
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:0:0",
+              "atMs": 1294.4999999761585
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:1:0",
+              "atMs": 1711.1999999761574
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:2:0",
+              "atMs": 2611.099999976159
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:0:0",
+              "atMs": 2644.399999976158
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:1:0",
+              "atMs": 3044.399999976158
+            }
+          ],
+          "sha256": {
+            "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:0:0": "2e34667a9f8968b3bd2709f4497a0f59c3a7ff873a1263ca0df71e2114473caf",
+            "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:1:0": "6ccbef525710db3b0d4d05fc8acd240e4cf2e08427ab59b971b590d6f47a200c",
+            "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:2:0": "e9b07bf32e075328bf265b1506db00b5799465abe0d2c45345ea2d359310a18b"
+          }
+        },
+        "port": {
+          "route": "sokal-barracks-chorus-loop",
+          "data": "port",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "0b6ff29430d93273f4d4313cda510477457b7e2599ceea119423818d2ac42b35",
+          "portrait": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:0:0",
+              "atMs": 4.399999988078889
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:1:0",
+              "atMs": 337.69999998807907
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:2:0",
+              "atMs": 1237.699999988079
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:0:0",
+              "atMs": 1270.9999999880793
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:1:0",
+              "atMs": 1670.9999999880793
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:2:0",
+              "atMs": 2587.5999999880787
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:0:0",
+              "atMs": 2604.2999999880794
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:1:0",
+              "atMs": 3020.899999988079
+            }
+          ],
+          "sha256": {
+            "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:0:0": "2e34667a9f8968b3bd2709f4497a0f59c3a7ff873a1263ca0df71e2114473caf",
+            "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:1:0": "6ccbef525710db3b0d4d05fc8acd240e4cf2e08427ab59b971b590d6f47a200c",
+            "portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:2:0": "e9b07bf32e075328bf265b1506db00b5799465abe0d2c45345ea2d359310a18b"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17",
+      "producer": "ECL4.DAX:21:a2d2",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 410,
+          "viewport": "cecb2765d6fd8f2c299b42dd391c1c1589e460ec6b611aa33f251653e3003cd7"
+        },
+        {
+          "member": 1,
+          "durationMs": 910,
+          "viewport": "e918ce5d91bc338220ac7036d6e509b39ef2ad1f5d5e4e8956a84966d730a56f"
+        },
+        {
+          "member": 2,
+          "durationMs": 20,
+          "viewport": "a13b32899f8cfd287da3f5de380357805aab1368792689847c330d8a94edcd37"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "sokal-barracks-diary-loop",
+          "data": "original",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "f20ce266ea6e63765f6e4c4c9971932113367a44fd171c9d89181a694c272533",
+          "portrait": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:0:0",
+              "atMs": 9.299999976157778
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:1:0",
+              "atMs": 359.2999999761578
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:2:0",
+              "atMs": 1275.9999999761585
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:0:0",
+              "atMs": 1292.6999999761574
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:1:0",
+              "atMs": 1709.1999999761574
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:2:0",
+              "atMs": 2609.1999999761574
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:0:0",
+              "atMs": 2642.4999999761585
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:1:0",
+              "atMs": 3042.599999976159
+            }
+          ],
+          "sha256": {
+            "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:0:0": "4250a5d89caa5d6149350c7a0c0db187c7d4591c3a9d5859cfc69ab846a35d4b",
+            "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:1:0": "4f6f724355ca3e35f443cf8e990c7a53208174748aa8ea57f91e474e0853af5e",
+            "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:2:0": "673db3aa88212e5c1667bc4b30dbb3caecbdae01ecbf5d2adfd1040d49d63829"
+          }
+        },
+        "port": {
+          "route": "sokal-barracks-diary-loop",
+          "data": "port",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "f20ce266ea6e63765f6e4c4c9971932113367a44fd171c9d89181a694c272533",
+          "portrait": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:0:0",
+              "atMs": 3.599999988079162
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:1:0",
+              "atMs": 353.5999999880787
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:2:0",
+              "atMs": 1270.2999999880794
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:0:0",
+              "atMs": 1286.7999999880794
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:1:0",
+              "atMs": 1686.899999988079
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:2:0",
+              "atMs": 2603.4999999880793
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:0:0",
+              "atMs": 2620.199999988079
+            },
+            {
+              "key": "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:1:0",
+              "atMs": 3036.7999999880794
+            }
+          ],
+          "sha256": {
+            "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:0:0": "4250a5d89caa5d6149350c7a0c0db187c7d4591c3a9d5859cfc69ab846a35d4b",
+            "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:1:0": "4f6f724355ca3e35f443cf8e990c7a53208174748aa8ea57f91e474e0853af5e",
+            "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:2:0": "673db3aa88212e5c1667bc4b30dbb3caecbdae01ecbf5d2adfd1040d49d63829"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
