@@ -534,6 +534,22 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "walk-guide-party-sokal-reward": {
+   "areas": [
+    0,
+    8,
+    21
+   ],
+   "commissions": [
+    "ohlo",
+    "slums",
+    "sokal"
+   ],
+   "traces": [
+    "visits.jsonl",
+    "visits.jsonl"
+   ]
   }
  }
 }
