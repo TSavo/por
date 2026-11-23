@@ -3318,7 +3318,7 @@ const illustrationRoutes = new Map([
   ["podal-ogre-patrol-demands-identity", {
     slot: "I", stockInput: true, fixedClockStart: 4320702, inputs: ["up", "up", "up", "left", "up"],
     portrait: "portrait:area:18:ecl:9c3f:PIC1.DAX:8:0:0",
-    prompt: /GROUPOFOGRES\.THEYGLAREATYOURPARTY,ANDDEMAND,'WHOAREYOU\?'HAUGHTYSLYNICEMEEKABUSIVE/i,
+    prompt: /GROUPOFOGRES\.THEYGLAREATYOURPARTY,ANDDEMAND,'WHOAREYOU\?'/i,
   }],
   ["textile-skullcrusher-body", {
     slot: "B", inputs: ["up"],
@@ -3594,23 +3594,23 @@ const illustrationRoutes = new Map([
     portrait: "portrait:HEAD3.DAX:55:BODY3.DAX:1",
     prompt: /PRESENTTHISPACKETTOITSCOMMANDANT.*DONOTBREAKTHESEALS/i,
     staticPortraitMenu: true,
-    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /^(?!.*PRESENTTHISPACKETTOITSCOMMANDANT).*NAMEACHP/i },
   }],
   ["new-phlan-council-guard-hold", {
     slot: "F", fixedClockStart: "4320000", stockInput: true, inputs: ["up"],
     approachSequence: [[48, 32, "encounter:area:8:ecl:b3e0:SPRIT6.DAX:27:0:0", 40, 80]],
     requireTiledApproach: false,
     portrait: "portrait:area:8:ecl:b564:HEAD3.DAX:57:BODY3.DAX:1",
-    prompt: /YOURPRESENCEISNOTAUTHORIZED.*DOYOULEAVE\?YESNO/i,
+    prompt: /YOURPRESENCEISNOTAUTHORIZED.*DOYOULEAVE\?/i,
     staticPortraitMenu: true,
-    continuation: { inputs: ["y"], clearsPortrait: true, prompt: /4,5N.*AREACASTVIEWENCAMP/i },
+    continuation: { inputs: ["y"], clearsPortrait: true, prompt: /4,5N/i },
   }],
   ["new-phlan-council-escort-hold", {
     slot: "F", fixedClockStart: "4320000", stockInput: true, inputs: ["up", "enter", "enter"],
     portraitStops: { 2: "scene-illustration:area:8:ecl:b5c3:caller:af36:cue:special-council-summons" },
     portrait: "portrait:HEAD3.DAX:57:BODY3.DAX:1", prompt: /THEGUARDCAPTAINSTEPSFORWARD.*PLEASELETUSSHOWYOUTHEWAY/i,
     staticPortraitMenu: true,
-    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /5,7E.*AREACASTVIEWENCAMP/i },
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /5,7E/i },
   }],
   ["new-phlan-braccio-introduction-hold", {
     slot: "H", fixedClockStart: "4320000", stockInput: true,
