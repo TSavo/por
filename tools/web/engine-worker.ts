@@ -30,7 +30,7 @@ self.onmessage = async ({ data }: MessageEvent<EngineStart>) => {
   if (data?.type !== "start") return;
   const { entries, env, root, commands } = data;
   // Modules beyond the engine's two files still glance at process.env for their own diagnostics.
-  (globalThis as unknown as { process: unknown }).process ??= { env, platform: "browser", pid: 0, once() {}, on() {} };
+  Object.assign((globalThis as unknown as { process: { env: Record<string, string> } }).process.env, env);
   const resources = new MemoryResources(entries, (id, bytes) => post({ type: "put", id, data: bytes }));
   useResources(resources);
   const reader = new CommandReader(commands);

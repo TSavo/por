@@ -14,4 +14,7 @@ Buffer.prototype.copy = function (this: Buffer, target: Uint8Array, ...rest: num
 Buffer.compare = (a: Uint8Array, b: Uint8Array) => compare(asBuffer(a), asBuffer(b));
 
 (globalThis as unknown as { Buffer: typeof Buffer }).Buffer ??= Buffer;
+// Some modules read process.env as they load (tools/port-root.ts): in the page and the worker it is
+// the engine's settings, which the worker fills in when it starts (tools/web/engine-worker.ts).
+(globalThis as unknown as { process: unknown }).process ??= { env: {}, platform: "browser", pid: 0, once() {}, on() {} };
 export { Buffer };
