@@ -4544,6 +4544,24 @@ const illustrationRoutes = new Map([
       screenshot: "valhingen-wight-patrol-attack.png",
     },
   }],
+  ...[
+    ["wight", 20, ["up", "down", "up"], [0, 1, 2, 1]],
+    ["skeleton", 34, ["up", "down", "a", "a"], [0, 1, 2, 3, 2, 1]],
+  ].map(([family, block, inputs, order]) => {
+    const prefix = `portrait:area:10:ecl:b56c:PIC4.DAX:${block}:`;
+    return [`valhingen-${family}-roam-noticed`, {
+      slot: "A", inputs: [...inputs, "p"],
+      portrait: prefix + "0:0", alternatePortrait: prefix + "1:0",
+      prompt: /YOUARENOTICED.*COMBATWAITFLEEPARLAY/i,
+      heldPortraitLoop: order.map(member => prefix + member + ":0"),
+      finalPhaseCapture: `valhingen-${family}-roam-noticed.png`,
+      continuation: {
+        inputs: ["p"], portrait: `portrait:area:10:ecl:b58c:PIC4.DAX:${block}:0:0`,
+        prompt: /YOUARENOTICED.*HAUGHTYSLYNICEMEEKABUSIVE/i,
+        screenshot: `valhingen-${family}-roam-parlay.png`,
+      },
+    }];
+  }),
   ...[[0, 0], [1, 2], [2, 3]].map(([member, holds]) => [`pyramid-lizardfolk-patrol-combat-phase-${member}`, {
     slot: "A", inputs: ["up", "enter", "enter", "enter", ...Array(holds).fill("q"), "c"],
     portrait: `portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:${member}:0`, prompt: /MUTILATINGSCUM.*BUTYOUWILLDIEFIRST/i,

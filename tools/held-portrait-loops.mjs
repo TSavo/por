@@ -22,6 +22,10 @@ const portraitLoops = [
   // The roaming wight's fourth native member repeats the second painting.
   ["portrait:area:10:ecl:b50b:PIC4.DAX:20:", [0, 1, 2, 1], undefined,
     /YOUHAVEMANAGEDTOSNEAKUPONSOMEWIGHTS/i, [1010, 210, 610, 210]],
+  ["portrait:area:10:ecl:b56c:PIC4.DAX:20:", [0, 1, 2, 1], undefined,
+    /YOUARENOTICED.*COMBATWAITFLEEPARLAY/i, [1010, 210, 610, 210]],
+  ["portrait:area:10:ecl:b56c:PIC4.DAX:34:", [0, 1, 2, 3, 2, 1], undefined,
+    /YOUARENOTICED.*COMBATWAITFLEEPARLAY/i, [1310, 110, 110, 910, 110, 110]],
   ["portrait:area:21:ecl:9e40:PIC4.DAX:34:", sokalPatrolPoseOrder, "portrait:area:21:PIC4.DAX:34:0:0",
     /^(?!.*ABATTLEBEGINS).*APACKOFUNDEADSUDDENLYAPPEARS/i, sokalPatrolPoseTimes],
   ["portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:", sokalPatrolPoseOrder, undefined,
