@@ -951,5 +951,34 @@
         "artSha256": "1038a4034c4aaf2d2e18db1890035be9217cfaa2df9c370808ba72527019f577"
       }
     }
+  },
+  {
+    "producer": "ECL3.DAX:0:aa75",
+    "combat": "aac6",
+    "native": {
+      "drawCursor": "aa7c",
+      "composed": "HEAD3.DAX:57:BODY3.DAX:1",
+      "evidence": "https://github.com/TSavo/por/issues/131#issuecomment-7092784990"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL3.DAX:0:aa75",
+        "route": "new-phlan-tempus-watch-battle-notice",
+        "data": "original",
+        "portrait": "portrait:area:0:ecl:aac7:HEAD3.DAX:57:BODY3.DAX:1",
+        "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "24f8bc5014195763269d4de16304fcf857e22761217b625f83df5eb4a3d8863c"
+      },
+      "port": {
+        "producer": "ECL3.DAX:0:aa75",
+        "route": "new-phlan-tempus-watch-battle-notice",
+        "data": "port",
+        "portrait": "portrait:area:0:ecl:aac7:HEAD3.DAX:57:BODY3.DAX:1",
+        "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "24f8bc5014195763269d4de16304fcf857e22761217b625f83df5eb4a3d8863c"
+      }
+    }
   }
 ]

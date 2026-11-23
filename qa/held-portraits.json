@@ -9856,7 +9856,7 @@
           "paints": [
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
-              "atMs": -1.192074705613777e-08
+              "atMs": -1.192074705613777e-8
             },
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
@@ -41721,6 +41721,182 @@
               "samples": 220,
               "poses": [
                 "scene-illustration:area:29:ecl:af2f:caller:a31b"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL3.DAX:0:9eb7",
+      "prompt": "af3f/9f15",
+      "variants": [
+        {
+          "caption": "ALLOW ME TO INTRODUCE DIRTEN, PRIEST OF ILMAR.",
+          "checkpoint": "walk-new-phlan-training/H.json",
+          "portrait": "portrait:HEAD3.DAX:13:BODY3.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 6 ENNA 4 6 FENN 4 8 10,5 W 08:52 YOU ARE USHERED INTO THE BISHOP'S STUDY. BISHOP BRACCIO SPEAKS, 'ALLOW ME TO INTRODUCE DIRTEN, PRIEST OF ILMAR. Press <enter>/<return> to continue",
+            "drawCursor": "9eba",
+            "idlePolls": 6,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "2070def953ec695eb88c491c85acbe779a0cc66f8a6bbc0918f886b9925d95d0"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "2070def953ec695eb88c491c85acbe779a0cc66f8a6bbc0918f886b9925d95d0"
+              },
+              {
+                "idlePolls": 2,
+                "sha256": "2070def953ec695eb88c491c85acbe779a0cc66f8a6bbc0918f886b9925d95d0"
+              },
+              {
+                "idlePolls": 3,
+                "sha256": "2070def953ec695eb88c491c85acbe779a0cc66f8a6bbc0918f886b9925d95d0"
+              },
+              {
+                "idlePolls": 4,
+                "sha256": "2070def953ec695eb88c491c85acbe779a0cc66f8a6bbc0918f886b9925d95d0"
+              },
+              {
+                "idlePolls": 5,
+                "sha256": "2070def953ec695eb88c491c85acbe779a0cc66f8a6bbc0918f886b9925d95d0"
+              },
+              {
+                "idlePolls": 6,
+                "sha256": "2070def953ec695eb88c491c85acbe779a0cc66f8a6bbc0918f886b9925d95d0"
+              }
+            ],
+            "composed": {
+              "source": "HEAD3.DAX:13:BODY3.DAX:1",
+              "headWrite": "9eb1",
+              "headSlot": "6de1",
+              "bodyOperand": 0,
+              "headReset": "9f15"
+            },
+            "clearedPanelSha256": "4454ae35a53912e52e81039d9e3a195f233107b91f83f78ea9c64c71f0e0b5c7"
+          },
+          "chrome": {
+            "original": {
+              "route": "new-phlan-braccio-introduction-hold",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN56ENNA46FENN4810,5W08:52YOUAREUSHEREDINTOTHEBISHOP'SSTUDY.BISHOPBRACCIOSPEAKS,'ALLOWMETOINTRODUCEDIRTEN,PRIESTOFILMAR.Press<enter>/<return>tocontinue",
+              "portrait": "portrait:HEAD3.DAX:13:BODY3.DAX:1",
+              "checkpointSha256": "d4bdcbe4df452a14f0c940c6fe60fcbecf9f17c0c0a2b36a21ae64fac177264d",
+              "artSha256": "c87b56f9cf9b2010ff8f8c3d6deba475efaef466ecdad2e263ce00a44ece3dd7",
+              "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3658,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD3.DAX:13:BODY3.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "new-phlan-braccio-introduction-hold",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN56ENNA46FENN4810,5W08:52YOUAREUSHEREDINTOTHEBISHOP'SSTUDY.BISHOPBRACCIOSPEAKS,'ALLOWMETOINTRODUCEDIRTEN,PRIESTOFILMAR.Press<enter>/<return>tocontinue",
+              "portrait": "portrait:HEAD3.DAX:13:BODY3.DAX:1",
+              "checkpointSha256": "d4bdcbe4df452a14f0c940c6fe60fcbecf9f17c0c0a2b36a21ae64fac177264d",
+              "artSha256": "c87b56f9cf9b2010ff8f8c3d6deba475efaef466ecdad2e263ce00a44ece3dd7",
+              "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3661,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD3.DAX:13:BODY3.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL3.DAX:0:a9e1",
+      "prompt": "ae69/aa2c",
+      "variants": [
+        {
+          "caption": "THE PRIESTS OF TEMPUS BID YOU WELCOME.",
+          "checkpoint": "guide-party-new-phlan/A.json",
+          "portrait": "portrait:area:0:HEAD3.DAX:57:BODY3.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP AELAR -1 9 BRENNAN -1 9 CAELUM -1 9 ELSPETH 1 10 DORIAN 3 9 FINN 4 8 0,12 S 05:30 THE PRIESTS OF TEMPUS BID YOU WELCOME. ' DO YOU SEEK HEALING?' Yes No",
+            "drawCursor": "a9e4",
+            "idlePolls": 6,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              },
+              {
+                "idlePolls": 2,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              },
+              {
+                "idlePolls": 3,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              },
+              {
+                "idlePolls": 4,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              },
+              {
+                "idlePolls": 5,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              },
+              {
+                "idlePolls": 6,
+                "sha256": "176542454075bdbc6228b7c20d76382b501d8f16b814029a4faf2591f2d715d5"
+              }
+            ],
+            "composed": {
+              "source": "HEAD3.DAX:57:BODY3.DAX:1",
+              "headWrite": "a9db",
+              "headSlot": "6de1",
+              "bodyOperand": 0,
+              "headReset": "aa58"
+            },
+            "clearedPanelSha256": "c7dfc775f125318d6514b729dca605bd6decc77a7140f1d63f0da1e9cbc3653e"
+          },
+          "chrome": {
+            "original": {
+              "route": "new-phlan-tempus-healing-hold",
+              "data": "original",
+              "caption": "NameACHPAELAR-19BRENNAN-19CAELUM-19ELSPETH110DORIAN39FINN480,12S05:30THEPRIESTSOFTEMPUSBIDYOUWELCOME.'DOYOUSEEKHEALING?'YesNo",
+              "portrait": "portrait:area:0:HEAD3.DAX:57:BODY3.DAX:1",
+              "checkpointSha256": "f2ca092cee6050e054e1cfad93fe785b6490a701e9281b50389316cf3a066c13",
+              "artSha256": "d2d8a34de6456e0cd2073beab351478f3b71c61055b0d89099a808df4c16c7d1",
+              "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3654,
+              "samples": 221,
+              "poses": [
+                "portrait:area:0:HEAD3.DAX:57:BODY3.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "new-phlan-tempus-healing-hold",
+              "data": "port",
+              "caption": "NameACHPAELAR-19BRENNAN-19CAELUM-19ELSPETH110DORIAN39FINN480,12S05:30THEPRIESTSOFTEMPUSBIDYOUWELCOME.'DOYOUSEEKHEALING?'YesNo",
+              "portrait": "portrait:area:0:HEAD3.DAX:57:BODY3.DAX:1",
+              "checkpointSha256": "f2ca092cee6050e054e1cfad93fe785b6490a701e9281b50389316cf3a066c13",
+              "artSha256": "d2d8a34de6456e0cd2073beab351478f3b71c61055b0d89099a808df4c16c7d1",
+              "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3653,
+              "samples": 221,
+              "poses": [
+                "portrait:area:0:HEAD3.DAX:57:BODY3.DAX:1"
               ],
               "replaced": false
             }
