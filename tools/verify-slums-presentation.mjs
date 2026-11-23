@@ -4365,6 +4365,16 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kobold-throne-first-audience.png",
     continuation: { inputs: [":travel-poll", ":travel-poll"], clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
+  ["kobold-cave-rock-ambush", {
+    slot: "I", inputs: ["e", ...Array.from({ length: 11 }, () => ["r", "h", ...Array(8).fill("i"), "r"]).flat(), "enter"],
+    promptSchedule: "qa/fixtures/kobold-cave-rock-ambush/prompts.jsonl",
+    prompt: /VIEWENCAMP.*LOOK/i,
+    heldApproachPrompt: /KOBOLDSAPPEARANDBOMBARDYOUWITHROCKS/i,
+    heldApproachPosition: [13, 10, 1],
+    heldApproachPlacement: [56, 32, "encounter:area:13:ecl:b495:SPRIT8.DAX:0:1:0", 24, 65],
+    heldApproachCapture: "kobold-cave-rock-ambush.png",
+    sceneryPrompt: [13, 10, 1],
+  }],
   ["kobold-ballista-battle-entry", {
     slot: "A", inputs: ["up", "enter", "enter"],
     oneShotProducer: "ECL8.DAX:13:a1af",
@@ -8910,6 +8920,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "kobold-kings-quarters-native" || routeName === "kobold-cave-efreeti-dialogue" ||
       koboldGuideHeld || koboldGuideWallTap || koboldThroneHordeHold || koboldRoamingHold ||
       routeName === "kobold-ballista-battle-entry" || routeName === "kobold-envoy-rematch-one-shot" ||
+      routeName === "kobold-cave-rock-ambush" ||
       routeName === "kobold-throne-first-audience" ||
       routeName === "valjevo-medusa-phases" || routeName === "valhingen-mummy-sarcophagi-phases" ||
       routeName === "valjevo-fire-giant-loop" ||

@@ -577,6 +577,17 @@ const eclCandidates = scripts.flatMap(record => {
       });
     }
     if (opcode === 0x29) for (const state of scope) prompt(state, load, 9);
+    // This rest interruption acknowledges DAMAGE before the sprite is turned off.
+    // Other DAMAGE instructions still need their own observed prompt evidence.
+    if (archive === 8 && scriptBlock === 13 && load.address === 0xb460 && opcode === 0x0c) {
+      const warning = instructions.get(load.next);
+      const damage = warning && instructions.get(warning.next);
+      if (warning?.opcode === 0x12 && warning.operands[0]?.text === "KOBOLDS APPEAR AND BOMBARD YOU WITH ROCKS." &&
+          damage?.opcode === 0x2e && damage.next === 0xb495 && instructions.get(damage.next)?.opcode === 0x31 &&
+          [7, 1, 4, 1, 50].every((value, index) => literal(damage.operands[index]!) === value)) {
+        prompt({ address: damage.address, returns: [] }, damage, damage.operands.length);
+      }
+    }
 
     // The native encounter handler writes only 0–3. These patrols branch
     // on all four, so their hostile menus cannot fall into the disguise route.
