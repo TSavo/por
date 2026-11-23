@@ -166,6 +166,12 @@
    "frames": [],
    "fixtureSha256": "d1d53cb1de05e616850117aa700abeb23697d16d67fe7d1078a0dabd1950ec00"
   },
+  "walk-braccio-bane-ferry": {
+   "observer": 2,
+   "presented": 72,
+   "frames": [],
+   "fixtureSha256": "207a18ec0211a3824b0bf273fa898af5a3ced5a022d47184ceb23424d42b7a87"
+  },
   "walk-buccaneer-bivant-purchase": {
    "observer": 2,
    "presented": 188,
@@ -213,6 +219,18 @@
    "presented": 104,
    "frames": [],
    "fixtureSha256": "d8dbed4470a7dddcd3886b68207f9d321d8079bde09ae37198b35007101f37c3"
+  },
+  "walk-guide-party-sokal-rest": {
+   "observer": 2,
+   "presented": 202,
+   "frames": [],
+   "fixtureSha256": "51aad7288b30c4ed60624105f127ebd6c1f426df391ff57d1551eb0ffef5f603"
+  },
+  "walk-guide-party-sokal-training": {
+   "observer": 2,
+   "presented": 284,
+   "frames": [],
+   "fixtureSha256": "54871e41c76353f8fb4bc968d8399559718175a06ba75b6aaca189b1094bafc3"
   },
   "walk-kobold-king": {
    "observer": 2,
