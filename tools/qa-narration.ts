@@ -355,6 +355,14 @@ rows.push({ part: "Lines that started while another was still playing (must be 0
 // A passage can choose another actor or be reached from another map. Compare
 // the actual paint to this playback's owning frame whenever it is recorded.
 const artChecks = Object.values(coverage.playback?.artChecks ?? {});
+// This council caption stays in the text area when the closing illustration is gone.
+// Require the authored illustration even when the later street view still has the words.
+const requiredNarrationArt = new Map<string, readonly string[]>([
+  ["por.voice.ecl3.b8-af4b", [
+    "scene-illustration:area:8:ecl:af78:caller:a891:cue:commissions-closed",
+    "scene-illustration:area:8:ecl:af78:caller:9a4a:cue:commissions-closed",
+  ]],
+]);
 const captionWords = (text: string) => text.toUpperCase().match(/[A-Z0-9]+/g) ?? [];
 function samePassage(caption: string, scriptText: string, actor?: string): boolean {
   if (!caption) return false;
@@ -372,6 +380,8 @@ function matchedArt(check: PlaybackArtCheck): boolean {
   const unit = unitById.get(check.unitId);
   const variant = check.variantId ? unit?.runtimeVariants?.find(item => item.id === check.variantId) : undefined;
   if (!unit || (unit.runtimeVariants?.length ? !variant : check.variantId)) return false;
+  const requiredArt = requiredNarrationArt.get(unit.id);
+  if (requiredArt && (!check.expected || !requiredArt.includes(check.expected))) return false;
   const asset = variant?.asset ?? unit.asset;
   const native = check.captionSelection;
   const passage = unit.selector
@@ -407,7 +417,7 @@ rows.push({ part: "Complete playback captures with their own artwork", artwork: 
   left: artChecks.length - verifiedArtChecks.length, counted: false,
   note: `captures that name their picture and prove a matching printed passage, including ${new Set(verifiedArtChecks.flatMap(check => check.variantId ? [check.variantId] : [])).size} individually verified variants`,
   list: artChecks.filter(check => !matchedArt(check)).map(check =>
-    `${where(check.unitId, check.variantId)}${check.variantId ? ` (${check.variantId})` : ""}: expected ${check.expected ?? "no owned artwork"}, ` +
+    `${where(check.unitId, check.variantId)}${check.variantId ? ` (${check.variantId})` : ""}: expected ${requiredNarrationArt.get(check.unitId)?.join(" or ") ?? check.expected ?? "no owned artwork"}, ` +
     `saw ${check.seen.map(key => key ?? "no artwork").join(" then ") || "not recorded"}, ended on ${check.end ?? "no artwork"}; ` +
     `printed caption ${check.caption ? say(check.caption) : "absent"} (${check.run} ${check.leg})`) });
 const variantsHeard = [...variantOwner.keys()].filter(id => coverage.variants[id]);

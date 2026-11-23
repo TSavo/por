@@ -92,6 +92,12 @@
    "decisions": 11,
    "heard": 3
   },
+  "issue-99-training-port": {
+   "ledger": "narration.jsonl",
+   "games": 1,
+   "decisions": 67,
+   "heard": 17
+  },
   "kovel-casket-c-gems-reveal-after": {
    "ledger": "kovel-casket-c-gems-lock-final.jsonl",
    "games": 1,
@@ -145,6 +151,12 @@
    "games": 1,
    "decisions": 11,
    "heard": 3
+  },
+  "sokal-verified-original": {
+   "ledger": "sokal-native.jsonl",
+   "games": 1,
+   "decisions": 191,
+   "heard": 54
   },
   "tower-source-original": {
    "ledger": "tower-native.jsonl",
@@ -4903,6 +4915,16 @@
     "unfinished": 0,
     "startedLate": 0
    },
+   "issue-99-training-port": {
+    "log": "narration.playback.jsonl",
+    "legs": 1,
+    "lines": 17,
+    "toTheEnd": 17,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 1
+   },
    "pale-form-original": {
     "log": "pale-native.playback.jsonl",
     "legs": 1,
@@ -4922,6 +4944,16 @@
     "cutOff": 0,
     "unfinished": 0,
     "startedLate": 0
+   },
+   "sokal-verified-original": {
+    "log": "sokal-passage-playback.jsonl",
+    "legs": 1,
+    "lines": 34,
+    "toTheEnd": 34,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 2
    },
    "tower-source-original": {
     "log": "tower-native.playback.jsonl",
@@ -5057,13 +5089,11 @@
     "art": "scene-illustration:area:16:ecl:aab7"
    },
    "por.narration.sokal.ecl4-b21-9923": {
-    "run": "campaign-full",
+    "run": "sokal-verified-original",
     "asset": "voices/narration/sokal-keep/ecl4-b21-9923.mp3",
     "seconds": 2.4,
-    "waited": 0.019,
-    "saw": [
-     null
-    ]
+    "waited": 0.01,
+    "art": "the first-person view"
    },
    "por.narration.sokal.ecl4-b21-9963": {
     "run": "campaign-full",
@@ -5094,31 +5124,25 @@
     "art": "portrait:area:21:ecl:ae31:caller:9bd0:PIC4.DAX:3:0:0"
    },
    "por.narration.sokal.ecl4-b21-9be6": {
-    "run": "campaign-full",
+    "run": "sokal-verified-original",
     "asset": "voices/narration/sokal-keep/ecl4-b21-9be6.mp3",
     "seconds": 2.64,
-    "waited": 0.594,
-    "saw": [
-     null
-    ]
+    "waited": 0.06,
+    "art": "runes in the picture window"
    },
    "por.narration.sokal.ecl4-b21-9cf0": {
-    "run": "campaign-full",
+    "run": "sokal-verified-original",
     "asset": "voices/narration/sokal-keep/ecl4-b21-9cf0.mp3",
     "seconds": 5.6,
-    "waited": 0.046,
-    "saw": [
-     null
-    ]
+    "waited": 0.222,
+    "art": "the first-person view"
    },
    "por.narration.sokal.ecl4-b21-9d3a": {
-    "run": "campaign-full",
+    "run": "sokal-verified-original",
     "asset": "voices/narration/sokal-keep/ecl4-b21-9d3a.mp3",
     "seconds": 6.88,
-    "waited": 5.765,
-    "saw": [
-     null
-    ]
+    "waited": 6.017,
+    "art": "the first-person view"
    },
    "por.narration.sokal.ecl4-b21-9dc9": {
     "run": "campaign-full",
@@ -5330,6 +5354,78 @@
     "seconds": 9.92,
     "waited": 0.007,
     "art": "scene-illustration:area:0:ecl:af3f:caller:b58e"
+   },
+   "por.voice.ecl3.b11-9a74": {
+    "run": "issue-99-training-port",
+    "asset": "voices/narration/ecl3/b11-9a74.mp3",
+    "seconds": 10.24,
+    "waited": 8.301,
+    "art": "scene-illustration:area:0:ecl:9af0"
+   },
+   "por.voice.ecl3.b11-9af8": {
+    "run": "issue-99-training-port",
+    "asset": "voices/narration/ecl3/b11-9af8.mp3",
+    "seconds": 6.72,
+    "waited": 0.008,
+    "art": "scene-illustration:area:11:ecl:9b56"
+   },
+   "por.voice.ecl3.b11-9bbe": {
+    "run": "issue-99-training-port",
+    "asset": "voices/narration/ecl3/b11-9bbe.mp3",
+    "seconds": 3.12,
+    "waited": 0.005,
+    "art": "scene-illustration:area:11:ecl:a167:caller:9be2"
+   },
+   "por.voice.ecl3.b11-9c05": {
+    "run": "issue-99-training-port",
+    "asset": "voices/narration/ecl3/b11-9c05.mp3",
+    "seconds": 7.92,
+    "waited": 0.008,
+    "art": "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+   },
+   "por.voice.ecl3.b11-9cba": {
+    "run": "issue-99-training-port",
+    "asset": "voices/narration/ecl3/b11-9cba.mp3",
+    "seconds": 2.88,
+    "waited": 0.005,
+    "art": "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+   },
+   "por.voice.ecl3.b11-9eab-9ed8": {
+    "run": "issue-99-training-port",
+    "asset": "voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v04-swordsman.mp3",
+    "variantId": "por.voice.ecl3.b11-9eab-9ed8.variant-04-swordsman",
+    "seconds": 5.28,
+    "waited": 0.007,
+    "art": "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+   },
+   "por.voice.ecl3.b11-9f23": {
+    "run": "issue-99-training-port",
+    "asset": "voices/narration/ecl3/b11-9f23.mp3",
+    "seconds": 2.96,
+    "waited": 0.009,
+    "art": "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+   },
+   "por.voice.ecl3.b11-9f66": {
+    "run": "issue-99-training-port",
+    "asset": "voices/narration/ecl3/b11-9f66.mp3",
+    "seconds": 3.84,
+    "waited": 0.022,
+    "art": "scene-illustration:area:11:ecl:9f8a"
+   },
+   "por.voice.ecl3.b11-9fe5": {
+    "run": "issue-99-training-port",
+    "asset": "voices/narration/ecl3/b11-9fe5.mp3",
+    "seconds": 3.52,
+    "waited": 0.006,
+    "art": "scene-illustration:area:11:ecl:a007"
+   },
+   "por.voice.ecl3.b11-a00e-a021": {
+    "run": "issue-99-training-port",
+    "asset": "voices/narration/dynamic-resolved/ecl3-b11-a00e-a021-v01-fighters.mp3",
+    "variantId": "por.voice.ecl3.b11-a00e-a021.variant-01-fighters",
+    "seconds": 3.68,
+    "waited": 0.009,
+    "art": "portrait:HEAD3.DAX:16:BODY3.DAX:1"
    },
    "por.voice.ecl3.b8-9a7d": {
     "run": "campaign-full",
@@ -6061,6 +6157,216 @@
     ],
     "end": "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1"
    },
+   "issue-99-training-port | visit-training-hall | 1 | por.voice.ecl3.b11-9a74": {
+    "run": "issue-99-training-port",
+    "leg": "visit-training-hall",
+    "unitId": "por.voice.ecl3.b11-9a74",
+    "asset": "voices/narration/ecl3/b11-9a74.mp3",
+    "expected": "scene-illustration:area:0:ecl:9af0",
+    "caption": "NOTICES FOR TEACHERS AND STUDENTS ARE POSTED ON THE WALLS. A NOTE DIRECTS MAGIC USERS AND CLERICS TO GO NORTH AND FIGHTERS AND 'ROGUES' TO GO EAST. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:0:ecl:9af0"
+    ],
+    "end": "scene-illustration:area:0:ecl:9af0"
+   },
+   "issue-99-training-port | visit-training-hall | 10 | por.voice.ecl3.b11-9fe5": {
+    "run": "issue-99-training-port",
+    "leg": "visit-training-hall",
+    "unitId": "por.voice.ecl3.b11-9fe5",
+    "asset": "voices/narration/ecl3/b11-9fe5.mp3",
+    "expected": "scene-illustration:area:11:ecl:a007",
+    "caption": "A SIGN ON THE NORTH DOOR READS 'ROGUES'. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:11:ecl:a007"
+    ],
+    "end": "scene-illustration:area:11:ecl:a007"
+   },
+   "issue-99-training-port | visit-training-hall | 11 | por.voice.ecl3.b11-a00e-a021": {
+    "run": "issue-99-training-port",
+    "leg": "visit-training-hall",
+    "unitId": "por.voice.ecl3.b11-a00e-a021",
+    "variantId": "por.voice.ecl3.b11-a00e-a021.variant-02-thieves",
+    "asset": "voices/narration/dynamic-resolved/ecl3-b11-a00e-a021-v02-thieves.mp3",
+    "expected": "portrait:HEAD3.DAX:16:BODY3.DAX:8",
+    "caption": "'WE TRAIN ONLY THIEVES HERE. DO YOU WANT TO TRAIN?' Yes No",
+    "seen": [
+     "portrait:HEAD3.DAX:16:BODY3.DAX:8"
+    ],
+    "end": "portrait:HEAD3.DAX:16:BODY3.DAX:8"
+   },
+   "issue-99-training-port | visit-training-hall | 12 | por.voice.ecl3.b11-9fe5": {
+    "run": "issue-99-training-port",
+    "leg": "visit-training-hall",
+    "unitId": "por.voice.ecl3.b11-9fe5",
+    "asset": "voices/narration/ecl3/b11-9fe5.mp3",
+    "expected": "scene-illustration:area:11:ecl:a007",
+    "caption": "A SIGN ON THE NORTH DOOR READS 'ROGUES'. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:11:ecl:a007"
+    ],
+    "end": "scene-illustration:area:11:ecl:a007"
+   },
+   "issue-99-training-port | visit-training-hall | 13 | por.voice.ecl3.b11-9f66": {
+    "run": "issue-99-training-port",
+    "leg": "visit-training-hall",
+    "unitId": "por.voice.ecl3.b11-9f66",
+    "asset": "voices/narration/ecl3/b11-9f66.mp3",
+    "expected": "scene-illustration:area:11:ecl:9f8a",
+    "caption": "A SIGN ON THE NORTH DOOR READS 'FIGHTERS'. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:11:ecl:9f8a"
+    ],
+    "end": "scene-illustration:area:11:ecl:9f8a"
+   },
+   "issue-99-training-port | visit-training-hall | 14 | por.voice.ecl3.b11-9af8": {
+    "run": "issue-99-training-port",
+    "leg": "visit-training-hall",
+    "unitId": "por.voice.ecl3.b11-9af8",
+    "asset": "voices/narration/ecl3/b11-9af8.mp3",
+    "expected": "scene-illustration:area:11:ecl:9b56",
+    "caption": "A SIGN ON THE WALL DIRECTS MAGIC USERS TO GO THROUGH THE EAST DOOR AND CLERICS TO GO THROUGH THE WEST DOOR. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:11:ecl:9b56"
+    ],
+    "end": "scene-illustration:area:11:ecl:9b56"
+   },
+   "issue-99-training-port | visit-training-hall | 15 | por.voice.ecl3.b11-a00e-a021": {
+    "run": "issue-99-training-port",
+    "leg": "visit-training-hall",
+    "unitId": "por.voice.ecl3.b11-a00e-a021",
+    "variantId": "por.voice.ecl3.b11-a00e-a021.variant-03-clerics",
+    "asset": "voices/narration/dynamic-resolved/ecl3-b11-a00e-a021-v03-clerics.mp3",
+    "expected": "portrait:HEAD3.DAX:16:BODY3.DAX:4",
+    "caption": "'WE TRAIN ONLY CLERICS HERE. DO YOU WANT TO TRAIN?' Yes No",
+    "seen": [
+     "portrait:HEAD3.DAX:16:BODY3.DAX:4"
+    ],
+    "end": "portrait:HEAD3.DAX:16:BODY3.DAX:4"
+   },
+   "issue-99-training-port | visit-training-hall | 16 | por.voice.ecl3.b11-a00e-a021": {
+    "run": "issue-99-training-port",
+    "leg": "visit-training-hall",
+    "unitId": "por.voice.ecl3.b11-a00e-a021",
+    "variantId": "por.voice.ecl3.b11-a00e-a021.variant-03-clerics",
+    "asset": "voices/narration/dynamic-resolved/ecl3-b11-a00e-a021-v03-clerics.mp3",
+    "expected": "portrait:HEAD3.DAX:16:BODY3.DAX:4",
+    "caption": "'WE TRAIN ONLY CLERICS HERE. DO YOU WANT TO TRAIN?' Yes No",
+    "seen": [
+     "portrait:HEAD3.DAX:16:BODY3.DAX:4"
+    ],
+    "end": "portrait:HEAD3.DAX:16:BODY3.DAX:4"
+   },
+   "issue-99-training-port | visit-training-hall | 17 | por.voice.ecl3.b11-a00e-a021": {
+    "run": "issue-99-training-port",
+    "leg": "visit-training-hall",
+    "unitId": "por.voice.ecl3.b11-a00e-a021",
+    "variantId": "por.voice.ecl3.b11-a00e-a021.variant-04-magic-users",
+    "asset": "voices/narration/dynamic-resolved/ecl3-b11-a00e-a021-v04-magic-users.mp3",
+    "expected": "portrait:HEAD3.DAX:16:BODY3.DAX:2",
+    "caption": "'WE TRAIN ONLY MAGIC USERS HERE. DO YOU WANT TO TRAIN?' Yes No",
+    "seen": [
+     "portrait:HEAD3.DAX:16:BODY3.DAX:2"
+    ],
+    "end": "portrait:HEAD3.DAX:16:BODY3.DAX:2"
+   },
+   "issue-99-training-port | visit-training-hall | 2 | por.voice.ecl3.b11-9bbe": {
+    "run": "issue-99-training-port",
+    "leg": "visit-training-hall",
+    "unitId": "por.voice.ecl3.b11-9bbe",
+    "asset": "voices/narration/ecl3/b11-9bbe.mp3",
+    "expected": "scene-illustration:area:11:ecl:a167:caller:9be2",
+    "caption": "THE ROOM IS FILLED WITH DUELING PAIRS. Press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:11:ecl:a167:caller:9be2"
+    ],
+    "end": "scene-illustration:area:11:ecl:a167:caller:9be2"
+   },
+   "issue-99-training-port | visit-training-hall | 3 | por.voice.ecl3.b11-9c05": {
+    "run": "issue-99-training-port",
+    "leg": "visit-training-hall",
+    "unitId": "por.voice.ecl3.b11-9c05",
+    "asset": "voices/narration/ecl3/b11-9c05.mp3",
+    "expected": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+    "caption": "THE ARENA MASTER ASKS IF YOU WISH TO DUEL. 'THE DUELS ARE EVENLY MATCHED AND NORMALLY NOT TO THE DEATH. DO YOU DUEL?' Yes No",
+    "seen": [
+     "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+    ],
+    "end": "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+   },
+   "issue-99-training-port | visit-training-hall | 4 | por.voice.ecl3.b11-9cba": {
+    "run": "issue-99-training-port",
+    "leg": "visit-training-hall",
+    "unitId": "por.voice.ecl3.b11-9cba",
+    "asset": "voices/narration/ecl3/b11-9cba.mp3",
+    "expected": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+    "caption": "'DO YOU SEEK A PARTNER FOR YOUR ADVENTURING?' Yes No",
+    "seen": [
+     "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+    ],
+    "end": "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+   },
+   "issue-99-training-port | visit-training-hall | 5 | por.voice.ecl3.b11-9eab-9ed8": {
+    "run": "issue-99-training-port",
+    "leg": "visit-training-hall",
+    "unitId": "por.voice.ecl3.b11-9eab-9ed8",
+    "variantId": "por.voice.ecl3.b11-9eab-9ed8.variant-04-swordsman",
+    "asset": "voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v04-swordsman.mp3",
+    "expected": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+    "caption": "'THERE IS A FINE SWORDSMAN WHO WILL JOIN YOU FOR 3 SHARES . IS THIS ACCEPTABLE?' Yes No",
+    "seen": [
+     "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+    ],
+    "end": "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+   },
+   "issue-99-training-port | visit-training-hall | 6 | por.voice.ecl3.b11-9f23": {
+    "run": "issue-99-training-port",
+    "leg": "visit-training-hall",
+    "unitId": "por.voice.ecl3.b11-9f23",
+    "asset": "voices/narration/ecl3/b11-9f23.mp3",
+    "expected": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+    "caption": "'WOULD YOU LIKE TO CONSIDER SOMEONE ELSE?' Yes No",
+    "seen": [
+     "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+    ],
+    "end": "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+   },
+   "issue-99-training-port | visit-training-hall | 7 | por.voice.ecl3.b11-9f66": {
+    "run": "issue-99-training-port",
+    "leg": "visit-training-hall",
+    "unitId": "por.voice.ecl3.b11-9f66",
+    "asset": "voices/narration/ecl3/b11-9f66.mp3",
+    "expected": "scene-illustration:area:11:ecl:9f8a",
+    "caption": "A SIGN ON THE NORTH DOOR READS 'FIGHTERS'. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:11:ecl:9f8a"
+    ],
+    "end": "scene-illustration:area:11:ecl:9f8a"
+   },
+   "issue-99-training-port | visit-training-hall | 8 | por.voice.ecl3.b11-a00e-a021": {
+    "run": "issue-99-training-port",
+    "leg": "visit-training-hall",
+    "unitId": "por.voice.ecl3.b11-a00e-a021",
+    "variantId": "por.voice.ecl3.b11-a00e-a021.variant-01-fighters",
+    "asset": "voices/narration/dynamic-resolved/ecl3-b11-a00e-a021-v01-fighters.mp3",
+    "expected": "portrait:HEAD3.DAX:16:BODY3.DAX:1",
+    "caption": "'WE TRAIN ONLY FIGHTERS HERE. DO YOU WANT TO TRAIN?' Yes No",
+    "seen": [
+     "portrait:HEAD3.DAX:16:BODY3.DAX:1"
+    ],
+    "end": "portrait:HEAD3.DAX:16:BODY3.DAX:1"
+   },
+   "issue-99-training-port | visit-training-hall | 9 | por.voice.ecl3.b11-9f66": {
+    "run": "issue-99-training-port",
+    "leg": "visit-training-hall",
+    "unitId": "por.voice.ecl3.b11-9f66",
+    "asset": "voices/narration/ecl3/b11-9f66.mp3",
+    "expected": "scene-illustration:area:11:ecl:9f8a",
+    "caption": "A SIGN ON THE NORTH DOOR READS 'FIGHTERS'. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:11:ecl:9f8a"
+    ],
+    "end": "scene-illustration:area:11:ecl:9f8a"
+   },
    "pale-form-original | browser | 1 | por.narration.sokal.ecl4-b21-aa0a-menu": {
     "run": "pale-form-original",
     "leg": "browser",
@@ -6084,6 +6390,414 @@
      "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0"
     ],
     "end": "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0"
+   },
+   "sokal-verified-original | leg-1 | 10 | por.narration.sokal.ecl4-b21-9cf0": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9cf0",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9cf0.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU STAND BELOW THE ROTTING REMAINS OF THE ONCE-MIGHTY GATES OF SOKAL KEEP. ECHOING FOOTSTEPS ARE DIMLY HEARD WITHIN THE KEEP. TO THE WEST RISES A MOUND OF REEDS. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "sokal-verified-original | leg-1 | 11 | por.narration.sokal.ecl4-b21-9d3a": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9d3a",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9d3a.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU STAND BELOW THE ROTTING REMAINS OF THE ONCE-MIGHTY GATES OF SOKAL KEEP. ECHOING FOOTSTEPS ARE DIMLY HEARD WITHIN THE KEEP. TO THE WEST RISES A MOUND OF REEDS. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "sokal-verified-original | leg-1 | 12 | por.narration.sokal.ecl4-b21-9af8": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9af8",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9af8.mp3",
+    "expected": "portrait:PIC4.DAX:3:0:0",
+    "caption": "THE SKELETON OF A LONG-DEAD ELF LIES HIDDEN BY ROCKS AND REEDS. ITS WEAPONS AND EQUIPMENT ARE BADLY RUSTED AND CORRODED BY SALT, ITS LEATHERS ARE WORM EATEN AND CRUSTED IN DIRT. Press <enter>/<return> to continue",
+    "seen": [
+     "portrait:PIC4.DAX:3:0:0"
+    ],
+    "end": "portrait:PIC4.DAX:3:0:0"
+   },
+   "sokal-verified-original | leg-1 | 13 | por.narration.sokal.ecl4-b21-9b90": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9b90",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9b90.mp3",
+    "expected": "portrait:area:21:ecl:ae31:caller:9bd0:PIC4.DAX:3:0:0",
+    "caption": "IN A POUCH ON THE REMAINS IS A CRUMBLING PARCHMENT SCROLL WITH THE WORDS ... Press <enter>/<return> to continue",
+    "seen": [
+     "portrait:area:21:ecl:ae31:caller:9bd0:PIC4.DAX:3:0:0"
+    ],
+    "end": "portrait:area:21:ecl:ae31:caller:9bd0:PIC4.DAX:3:0:0"
+   },
+   "sokal-verified-original | leg-1 | 14 | por.narration.sokal.ecl4-b21-9be6": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9be6",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9be6.mp3",
+    "expected": "runes in the picture window",
+    "caption": "...THE LAST PART IS EATEN AWAY. Press <enter>/<return> to continue",
+    "seen": [
+     "runes in the picture window"
+    ],
+    "end": "runes in the picture window"
+   },
+   "sokal-verified-original | leg-1 | 15 | por.narration.sokal.ecl4-b21-9e08-menu": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9e08-menu",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9e08-menu.mp3",
+    "expected": "portrait:area:21:PIC4.DAX:34:0:0",
+    "caption": "A PACK OF UNDEAD SUDDENLY APPEARS. Combat Wait Flee Parlay",
+    "seen": [
+     "portrait:area:21:PIC4.DAX:34:0:0"
+    ],
+    "end": "portrait:area:21:PIC4.DAX:34:0:0"
+   },
+   "sokal-verified-original | leg-1 | 16 | por.narration.sokal.ecl4-b21-9eb8": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9eb8",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9eb8.mp3",
+    "expected": "scene-illustration:area:21:ecl:9ecc",
+    "caption": "THE UNDEAD LEAVE. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:21:ecl:9ecc"
+    ],
+    "end": "scene-illustration:area:21:ecl:9ecc"
+   },
+   "sokal-verified-original | leg-1 | 17 | por.narration.sokal.ecl4-b21-9dc9": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9dc9",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9dc9.mp3",
+    "expected": "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0",
+    "caption": "AN UNDEAD PATROL CONFRONTS YOU. DO YOU GIVE THE PASSWORD? Yes No",
+    "seen": [
+     "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0"
+    ],
+    "end": "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0"
+   },
+   "sokal-verified-original | leg-1 | 18 | por.narration.sokal.ecl4-b21-9eb8": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9eb8",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9eb8.mp3",
+    "expected": "scene-illustration:area:21:ecl:9ecc",
+    "caption": "THE UNDEAD LEAVE. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:21:ecl:9ecc"
+    ],
+    "end": "scene-illustration:area:21:ecl:9ecc"
+   },
+   "sokal-verified-original | leg-1 | 19 | por.narration.sokal.ecl4-b21-9dc9": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9dc9",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9dc9.mp3",
+    "expected": "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0",
+    "caption": "AN UNDEAD PATROL CONFRONTS YOU. DO YOU GIVE THE PASSWORD? Yes No",
+    "seen": [
+     "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0"
+    ],
+    "end": "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0"
+   },
+   "sokal-verified-original | leg-1 | 20 | por.narration.sokal.ecl4-b21-9eb8": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9eb8",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9eb8.mp3",
+    "expected": "scene-illustration:area:21:ecl:9ecc",
+    "caption": "THE UNDEAD LEAVE. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:21:ecl:9ecc"
+    ],
+    "end": "scene-illustration:area:21:ecl:9ecc"
+   },
+   "sokal-verified-original | leg-1 | 21 | por.narration.sokal.ecl4-b21-9dc9": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9dc9",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9dc9.mp3",
+    "expected": "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0",
+    "caption": "AN UNDEAD PATROL CONFRONTS YOU. DO YOU GIVE THE PASSWORD? Yes No",
+    "seen": [
+     "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0"
+    ],
+    "end": "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0"
+   },
+   "sokal-verified-original | leg-1 | 22 | por.narration.sokal.ecl4-b21-9eb8": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9eb8",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9eb8.mp3",
+    "expected": "scene-illustration:area:21:ecl:9ecc",
+    "caption": "THE UNDEAD LEAVE. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:21:ecl:9ecc"
+    ],
+    "end": "scene-illustration:area:21:ecl:9ecc"
+   },
+   "sokal-verified-original | leg-1 | 23 | por.narration.sokal.ecl4-b21-9dc9": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9dc9",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9dc9.mp3",
+    "expected": "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0",
+    "caption": "AN UNDEAD PATROL CONFRONTS YOU. DO YOU GIVE THE PASSWORD? Yes No",
+    "seen": [
+     "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0"
+    ],
+    "end": "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0"
+   },
+   "sokal-verified-original | leg-1 | 24 | por.narration.sokal.ecl4-b21-9eb8": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9eb8",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9eb8.mp3",
+    "expected": "scene-illustration:area:21:ecl:9ecc",
+    "caption": "THE UNDEAD LEAVE. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:21:ecl:9ecc"
+    ],
+    "end": "scene-illustration:area:21:ecl:9ecc"
+   },
+   "sokal-verified-original | leg-1 | 25 | por.narration.sokal.ecl4-b21-a65f": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-a65f",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-a65f.mp3",
+    "expected": "encounter:area:21:SPRIT4.DAX:6:1:0",
+    "caption": "A LOUD COMMOTION RISES FROM THE COURTYARD. BASHING OPEN THE DOOR, A LARGE FORCE OF ORCS AND HOBGOBLINS RUSHES YOU. Press <enter>/<return> to continue",
+    "seen": [
+     "encounter:area:21:SPRIT4.DAX:6:1:0"
+    ],
+    "end": "encounter:area:21:SPRIT4.DAX:6:1:0"
+   },
+   "sokal-verified-original | leg-1 | 26 | por.narration.sokal.ecl4-b21-a6d9": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-a6d9",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-a6d9.mp3",
+    "expected": "scene-illustration:area:21:ecl:a720",
+    "caption": "ON A HOBGOBLIN BODY, YOU FIND A NOTE THAT YOU COPY INTO YOUR JOURNAL AS ENTRY 57. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:21:ecl:a720"
+    ],
+    "end": "scene-illustration:area:21:ecl:a720"
+   },
+   "sokal-verified-original | leg-1 | 27 | por.narration.sokal.ecl4-b21-a972": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-a972",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-a972.mp3",
+    "expected": "scene-illustration:area:21:ecl:a9fa",
+    "caption": "THIS WAS ONCE THE CHAPEL OF THE KEEP. INSIDE THE DOORWAY ARE THE DRIED HUSKS OF TWO ORCS, THEIR FACES TWISTED WITH TERROR. A LARGE ALTAR DOMINATES THE SOUTHERN WALL. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:21:ecl:a9fa"
+    ],
+    "end": "scene-illustration:area:21:ecl:a9fa"
+   },
+   "sokal-verified-original | leg-1 | 28 | por.narration.sokal.ecl4-b21-aa0a-menu": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-aa0a-menu",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-aa0a-menu.mp3",
+    "expected": "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0",
+    "caption": "A PALE FORM RISES BEFORE YOU. Combat Wait Flee Parlay",
+    "seen": [
+     "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0"
+    ],
+    "end": "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0"
+   },
+   "sokal-verified-original | leg-1 | 29 | por.narration.sokal.ecl4-b21-aad6": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-aad6",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-aad6.mp3",
+    "expected": "portrait:PIC4.DAX:19:0:0",
+    "caption": "THE SHAPE SPEAKS, 'I AM THE LIFE FORM OF FERRAN MARTINEZ, BOUND WITH THE UNDEAD SPIRITS OF ALL WHO DIE WITHIN THESE WALLS TO GUARD THE KEEP. TELL ME, HAS THE CITY BEEN FREED?' DO YOU: Tell the truth? Lie? Run away?",
+    "seen": [
+     "portrait:PIC4.DAX:19:0:0"
+    ],
+    "end": "portrait:PIC4.DAX:19:0:0"
+   },
+   "sokal-verified-original | leg-1 | 30 | por.narration.sokal.ecl4-b21-abc7-ac4a": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-abc7-ac4a",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-abc7-ac4a.mp3",
+    "expected": "scene-illustration:area:21:ecl:ae31:caller:ac4a",
+    "caption": "FERRAN SPEAKS: 'THE CITY FELL LONG AGO TO THE UNBLESSED CREATURES IMBUED WITH THE MIGHT OF A MAGICAL POOL. CHIEF AMONG THESE WERE TYRANTHRAXUS, EDRANKA, AND TORATH. Press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:21:ecl:ae31:caller:ac4a"
+    ],
+    "end": "scene-illustration:area:21:ecl:ae31:caller:ac4a"
+   },
+   "sokal-verified-original | leg-1 | 31 | por.narration.sokal.ecl4-b21-acf1": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-acf1",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-acf1.mp3",
+    "expected": "portrait:area:21:ecl:ae31:caller:ad9e:PIC4.DAX:19:0:0",
+    "caption": "TO FIND HELP FOR YOUR BATTLES, YOU SHOULD PASS THROUGH THE ILLUSIONARY WALL IN THE ARMORY OF THIS KEEP.TO PASS MY GUARDS ON THE WAY OUT, SPEAK THE WORD 'SAMOSUD'. NOW WE ARE FREED, OUR DUTY DONE!' FERRAN FADES AWAY. Press <enter>/<return> to continue",
+    "seen": [
+     "portrait:area:21:ecl:ae31:caller:ad9e:PIC4.DAX:19:0:0"
+    ],
+    "end": "portrait:area:21:ecl:ae31:caller:ad9e:PIC4.DAX:19:0:0"
+   },
+   "sokal-verified-original | leg-1 | 32 | por.narration.sokal.ecl4-b21-ad42": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-ad42",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-ad42.mp3",
+    "expected": "portrait:area:21:ecl:ae31:caller:ad9e:PIC4.DAX:19:0:0",
+    "caption": "TO FIND HELP FOR YOUR BATTLES, YOU SHOULD PASS THROUGH THE ILLUSIONARY WALL IN THE ARMORY OF THIS KEEP.TO PASS MY GUARDS ON THE WAY OUT, SPEAK THE WORD 'SAMOSUD'. NOW WE ARE FREED, OUR DUTY DONE!' FERRAN FADES AWAY. Press <enter>/<return> to continue",
+    "seen": [
+     "portrait:area:21:ecl:ae31:caller:ad9e:PIC4.DAX:19:0:0"
+    ],
+    "end": "portrait:area:21:ecl:ae31:caller:ad9e:PIC4.DAX:19:0:0"
+   },
+   "sokal-verified-original | leg-1 | 33 | por.narration.sokal.ecl4-b21-a730": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-a730",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-a730.mp3",
+    "expected": "scene-illustration:area:21:ecl:a762",
+    "caption": "THE HALL IS EMPTY, SAVE FOR SIGNS OF A RECENT BATTLE. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:21:ecl:a762"
+    ],
+    "end": "scene-illustration:area:21:ecl:a762"
+   },
+   "sokal-verified-original | leg-1 | 34 | por.narration.sokal.ecl4-b21-9e08-menu": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9e08-menu",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9e08-menu.mp3",
+    "expected": "portrait:area:21:PIC4.DAX:34:0:0",
+    "caption": "A PACK OF UNDEAD SUDDENLY APPEARS. Combat Wait Flee Parlay",
+    "seen": [
+     "portrait:area:21:PIC4.DAX:34:0:0"
+    ],
+    "end": "portrait:area:21:PIC4.DAX:34:0:0"
+   },
+   "sokal-verified-original | leg-1 | 35 | por.narration.sokal.ecl4-b21-9eb8": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9eb8",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9eb8.mp3",
+    "expected": "scene-illustration:area:21:ecl:9ecc",
+    "caption": "THE UNDEAD LEAVE. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:21:ecl:9ecc"
+    ],
+    "end": "scene-illustration:area:21:ecl:9ecc"
+   },
+   "sokal-verified-original | leg-1 | 36 | por.narration.sokal.ecl4-b21-9dc9": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9dc9",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9dc9.mp3",
+    "expected": "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0",
+    "caption": "AN UNDEAD PATROL CONFRONTS YOU. DO YOU GIVE THE PASSWORD? Yes No",
+    "seen": [
+     "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0"
+    ],
+    "end": "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0"
+   },
+   "sokal-verified-original | leg-1 | 37 | por.narration.sokal.ecl4-b21-9eb8": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9eb8",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9eb8.mp3",
+    "expected": "scene-illustration:area:21:ecl:9ecc",
+    "caption": "THE UNDEAD LEAVE. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:21:ecl:9ecc"
+    ],
+    "end": "scene-illustration:area:21:ecl:9ecc"
+   },
+   "sokal-verified-original | leg-1 | 38 | por.narration.sokal.ecl4-b21-9dc9": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9dc9",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9dc9.mp3",
+    "expected": "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0",
+    "caption": "AN UNDEAD PATROL CONFRONTS YOU. DO YOU GIVE THE PASSWORD? Yes No",
+    "seen": [
+     "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0"
+    ],
+    "end": "portrait:area:21:ecl:ae41:caller:9dfc:PIC4.DAX:34:0:0"
+   },
+   "sokal-verified-original | leg-1 | 39 | por.narration.sokal.ecl4-b21-9eb8": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9eb8",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9eb8.mp3",
+    "expected": "scene-illustration:area:21:ecl:9ecc",
+    "caption": "THE UNDEAD LEAVE. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:21:ecl:9ecc"
+    ],
+    "end": "scene-illustration:area:21:ecl:9ecc"
+   },
+   "sokal-verified-original | leg-1 | 40 | por.narration.sokal.ecl4-b21-9cf0": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9cf0",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9cf0.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU STAND BELOW THE ROTTING REMAINS OF THE ONCE-MIGHTY GATES OF SOKAL KEEP. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "sokal-verified-original | leg-1 | 41 | por.narration.sokal.ecl4-b21-9923": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9923",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9923.mp3",
+    "expected": "the first-person view",
+    "caption": "DO YOU WANT TO TAKE A BOAT BACK TO PHLAN? Yes No",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "sokal-verified-original | leg-1 | 42 | por.narration.sokal.ecl4-b21-9963": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9963",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9963.mp3",
+    "expected": "portrait:area:21:PIC4.DAX:41:0:0",
+    "caption": "YOU BOARD A BOAT. Press <enter>/<return> to continue",
+    "seen": [
+     "portrait:area:21:PIC4.DAX:41:0:0"
+    ],
+    "end": "portrait:area:21:PIC4.DAX:41:0:0"
+   },
+   "sokal-verified-original | leg-1 | 9 | por.narration.sokal.ecl4-b21-9aae": {
+    "run": "sokal-verified-original",
+    "leg": "leg-1",
+    "unitId": "por.narration.sokal.ecl4-b21-9aae",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-9aae.mp3",
+    "expected": "scene-illustration:area:0:ecl:ae31:caller:9ad2",
+    "caption": "THE BOAT DISEMBARKS YOU AT SOKAL KEEP. Press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:0:ecl:ae31:caller:9ad2"
+    ],
+    "end": "scene-illustration:area:0:ecl:ae31:caller:9ad2"
    },
    "tower-source-original | leg-1 | 1 | por.voice.ecl5.b3-a8d0-prompt": {
     "run": "tower-source-original",

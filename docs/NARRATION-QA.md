@@ -200,7 +200,10 @@ visible through all 3.12 seconds, and the Valjevo bodyguards stay through
 all 7.52 seconds. The Slums Kobold and Goblin captions at the shared
 `9dde` script position also match their own recordings and pictures in
 bundled Chrome. Swapping those captions in copies of the playback logs
-fails verification even when each picture key matches. At Tyranthraxus'
+fails verification even when each picture key matches. The council's
+closing line requires its illustrated clerk, even when the game leaves
+that caption on the street view after dismissing the illustration.
+At Tyranthraxus'
 vote the recordings use short alternate questions. Those captions must
 match the complete native question and voter name, and the asset's
 variant must match the voter slot read when the game prints the name.
