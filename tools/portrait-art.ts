@@ -81,6 +81,12 @@ const verifiedPortraitDeltaKeys = new Set([
   "portrait:area:29:ecl:a730:PIC8.DAX:0:2:0",
   "portrait:area:29:ecl:a75e:PIC8.DAX:0:1:0",
   "portrait:area:29:ecl:a75e:PIC8.DAX:0:2:0",
+  "portrait:area:29:ecl:af2f:caller:a80e:PIC8.DAX:0:1:0",
+  "portrait:area:29:ecl:af2f:caller:a80e:PIC8.DAX:0:2:0",
+  "portrait:area:29:ecl:a8b2:PIC8.DAX:0:1:0",
+  "portrait:area:29:ecl:a8b2:PIC8.DAX:0:2:0",
+  "portrait:area:29:ecl:a966:PIC8.DAX:0:1:0",
+  "portrait:area:29:ecl:a966:PIC8.DAX:0:2:0",
   "portrait:area:1:ecl:b52f:PIC6.DAX:42:1:0",
   "portrait:area:1:ecl:b52f:PIC6.DAX:42:2:0",
   "portrait:area:1:ecl:b52f:PIC6.DAX:42:3:0",
@@ -1684,6 +1690,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:29:ecl:af2f:caller:a31b", "MONSTERSFROMTHESURROUNDINGBUILDINGSATTACKYOU"],
   ["scene-illustration:area:29:ecl:af2f:caller:a31b:cue:kobolds-climb-from-well", "ABANDOFKOBOLDSCLIMBSFROMTHEWELLANDATTACKS"],
   ["scene-illustration:area:29:ecl:a3b9", "ABANDOFKOBOLDSCLIMBSFROMTHEWELLANDATTACKS"],
+  ["scene-illustration:area:29:ecl:a75e:cue:scouts-pleading", "WEONLYSEEKTORETURNTOOURFAMILIES"],
+  ["scene-illustration:area:29:ecl:a75e:cue:scouts-questioned", /THEKOBOLDSCOLLAPSEINTOAPATHETIC.MEWINGHEAP/i],
 ]);
 export function matchScriptIllustration(context: string, dialogue: string, installed: readonly string[]) {
   for (const [id, cue] of scriptIllustrations) {

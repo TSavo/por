@@ -4436,6 +4436,29 @@ const illustrationRoutes = new Map([
       screenshot: "kuto-kobold-scouts-sneak-off-combat.png",
     },
   }],
+  ...[
+    ["opening-plea", [], "af2f:caller:a80e", /THEKOBOLDSFAWNONYOUPATHETICALLY/i],
+    ["pleading", ["enter"], "a8b2", /WEONLYSEEKTORETURNTOOURFAMILIES/i],
+    ["questioned", ["enter", "q"], "a966", /THEKOBOLDSCOLLAPSEINTOAPATHETIC,MEWINGHEAP/i],
+  ].map(([scene, next, cursor, prompt]) => {
+    const prefix = `portrait:area:29:ecl:${cursor}:PIC8.DAX:0:`;
+    return [`kuto-kobold-scouts-${scene}`, {
+      slot: "B",
+      inputs: ["right", ...Array.from({ length: 3 }, () => ["up", "enter", "down", "up", "down"]).flat(),
+        "up", "enter", "down", "enter", "p", "n", ...next],
+      portrait: prefix + "0:0", prompt,
+      heldPortraitLoop: [0, 1, 2, 1].map(member => prefix + member + ":0"),
+      finalPhaseCapture: `kuto-kobold-scouts-${scene}.png`,
+      continuation: scene === "opening-plea" ? {
+        inputs: ["enter"], portrait: "portrait:area:29:ecl:a8b2:PIC8.DAX:0:0:0",
+        prompt: /WEONLYSEEKTORETURNTOOURFAMILIES/i,
+      } : {
+        inputs: ["f"], portrait: `scene-illustration:area:29:ecl:a75e:cue:scouts-${scene}`,
+        prompt: /ABATTLEBEGINS/i, pressOnPortrait: prefix + "2:0", retainPose: true,
+        screenshot: `kuto-kobold-scouts-${scene}-combat.png`,
+      },
+    }];
+  }),
   ["old-phlan-lizard-patrol-combat-phase-2", {
     slot: "B", inputs: ["up", "enter", "enter", ...Array(17).fill("z")],
     portrait: "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:2:0",
