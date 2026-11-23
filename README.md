@@ -10,10 +10,6 @@ On top of that come the things the original never had. A Journal that remembers 
 
 And here is the kicker. Once you have pointed the game at your own original files, you can hit **F10** at any moment and drop back into Classic — the 1988 game, exactly as it was — then hit **F10** again and return. Flip between them at will, the way *The Secret of Monkey Island: Special Edition* lets you. Same save, same party, same square. How to get those files is in [Playing Classic mode](#playing-classic-mode) below. Without them, the game stays in Enhanced, which is where it starts, and you do not need a single original file to play.
 
-One more bonus, for anyone who remembers the cardboard wheel. The GOG release quietly dropped the copy protection: any word would do. We put the check back, and we built the translation wheel into the game — both discs, the runes, the paths — so in Enhanced you can match them and type the word the way it was originally meant to be done.
-
-<img src="docs/readme/code-wheel.png" width="960" alt="The interactive translation wheel in the desktop app: two rune discs, a dotted path, and the prompt to input the code word">
-
 ## Walking Phlan
 
 Step off the ferry and Rolf is already on the dock, the city ahead of you under a clear sky. Walk the civic streets of New Phlan and the 3D world holds: sunlight on stone, vines on a wall, shadows that move when you turn. The game still decides where the walls are. What you see now is a place.
@@ -100,6 +96,12 @@ The same **Map** has a Local view: an automap that records each tile you stand o
 <img src="docs/readme/moonsea.png" width="800" alt="Illustrated map of Phlan and the Moonsea, with destinations such as Valjevo Castle, Sokal Keep, and the Kobold Caves">
 
 <img src="docs/readme/new-phlan-atlas.png" width="800" alt="The illustrated atlas of New Phlan in the desktop app Map view, labeling City Hall, the temples, the docks, and the gate to the Slums">
+
+## One more thing
+
+One more bonus, for anyone who remembers the cardboard wheel. The GOG release quietly dropped the copy protection: any word would do. We put the check back, and we built the translation wheel into the game — both discs, the runes, the paths — so in Enhanced you can match them and type the word the way it was originally meant to be done.
+
+<img src="docs/readme/code-wheel.png" width="640" alt="The interactive translation wheel in the desktop app: two rune discs, a dotted path, and the prompt to input the code word">
 
 ## By the numbers
 
