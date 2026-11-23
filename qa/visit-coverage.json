@@ -432,6 +432,18 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "Zhentil quarters guards (controlled checkpoint, paired Chrome)": {
+   "areas": [
+    28
+   ],
+   "commissions": [
+    "auction",
+    "sokal"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
