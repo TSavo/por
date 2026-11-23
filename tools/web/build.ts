@@ -14,7 +14,7 @@ const here = fileURLToPath(new URL(".", import.meta.url));
 export const webOutput = fileURLToPath(new URL("../../out/web/", import.meta.url));
 const shim = (name: string) => join(here, "shims", `${name}.ts`);
 
-export async function buildWeb(entries: string[] = ["engine-worker.ts", "boot-check.ts"], { quiet = false } = {}) {
+export async function buildWeb(entries: string[] = ["engine-worker.ts", "boot-check.ts", "play-page.ts"], { quiet = false } = {}) {
   const started = Date.now();
   const result = await build({
     entryPoints: entries.map((entry) => join(here, entry)),

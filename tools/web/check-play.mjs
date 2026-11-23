@@ -20,6 +20,7 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { exploring, pressReturn } from "../acceptance/harness.mjs";
 import { gamePage, openChrome } from "./chrome-check.mjs";
+import { serveOriginalFolder } from "./original-test-server.mjs";
 
 const args = process.argv.slice(2);
 const option = (name) => { const at = args.indexOf(name); return at >= 0 ? args[at + 1] : undefined; };
@@ -84,13 +85,16 @@ async function startServer() {
 }
 
 let chrome;
+// The browser builds read the player's folder as a picked one (tools/web/original-picker.ts): served here.
+const originalServer = server !== "runner" && original ? await serveOriginalFolder(original) : undefined;
 async function openGame(game) {
   if (!chrome) chrome = await openChrome(game.url, { log: (line) => /exception|error/i.test(line) && log(`  page ${line}`) });
   else await chrome.command("Page.navigate", { url: game.url });
   await chrome.until("the game's first frame", "typeof state === 'object' && state.sequence > 0 && state.ready", 240);
   if (server !== "runner" && original) {
     // The folder picker's own code path, given the player's files as the browser's picker gives them.
-    await chrome.evaluate(`porTestUseOriginalFolder(${JSON.stringify(`/original-test/`)})`);
+    const used = await chrome.evaluate(`porTestUseOriginalFolder(${JSON.stringify(originalServer.url)})`);
+    log(`  original files: ${JSON.stringify(used)}`);
     await chrome.until("the game to start again with the original files", "state.classicAvailable === true && state.ready", 240);
   }
   return gamePage(chrome);
@@ -193,6 +197,7 @@ try {
 } finally {
   await chrome?.close();
   await game.stop();
+  originalServer?.close();
   rmSync(work, { recursive: true, force: true });
 }
 log(failures.length ? `${failures.length} failed` : "all passed");

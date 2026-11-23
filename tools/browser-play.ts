@@ -1,28 +1,17 @@
 import { spawn } from "node:child_process";
 import { detectGameVersion, useGameVersion } from "../src/runtime/bindings.js";
-import { createHash } from "node:crypto";
 import { appendFileSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
 import { isPortGameRoot, readGameFile, requireBrowserGameRoot } from "./gamedata.js";
+import { PlaySession } from "./play-session.js";
 import { loadCombatMaterialMasks, loadUpgradeArt } from "./upgrade-art.js";
-import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
-import { getKey, type CodeWheelQuestion, type PanelFrameStamp, type PresentationAnimationFrame, type OverlandTerrainFrame, type TileInventoryCell } from "./live-input.js";
-import { developerVictoryCommand } from "./developer-combat.js";
-import { partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
-import type { CharacterSheetPart } from "./portrait-art.js";
-import { enhancedArtEnv, packagedTerrain as packagedTerrainFor, packagedTiles } from "./enhanced-runner.js";
-import type { EncounterPlacement } from "./encounter-art.js";
-import { exactTextNarrations as exactTextUnits, NarrationCatalog, normalizeSpeech, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
-import type { EclNarrationEvent } from "../src/runtime/ecl-narration-observer.js";
-import { buildNewPhlanMaterials } from "./new-phlan-3d-materials.js";
-import { phlanHarborLayout } from "./renderer.js";
-import { buildExplorationMaterials, explorationMaterialArea } from "./exploration-materials.js";
+import { partyRecolorKey } from "./combat-art.js";
+import { enhancedArtEnv } from "./enhanced-runner.js";
+import { NarrationCatalog, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
 import { readBuildVersion } from "./build-version.js";
 import { fromPortRoot } from "./port-root.js";
 import { useNodeResources } from "./resources/node-play.js";
-import type { NativeExploration } from "./native-exploration.js";
-import { loadOverlandTravel, overlandLandmarkSlots, type PhlanApproach, type SokalPrompt, type SokalQuay, type TravelState } from "./overland-travel.js";
 import { inspectOriginalFiles, readOriginalFilesSetting, writeOriginalFilesSetting } from "./release/original-files.js";
 
 const port = Number(process.env.POR_PLAY_PORT ?? 43124);
@@ -64,8 +53,6 @@ const originalFilesExample = process.platform === "win32" ? "C:\\GOG Games\\Pool
 // Everything the server reads from the program depends on which build the directory holds.
 const gameBuild = detectGameVersion(readGameFile(gameRoot, "GAME.OVR"));
 useGameVersion(gameBuild);
-const packagedTerrain = packagedTerrainFor(gameRoot);
-const planTravel = loadOverlandTravel(gameRoot);
 const page = readFileSync(fromPortRoot("tools", "play.html"));
 const script = readFileSync(fromPortRoot("tools", "play.js"));
 const heldPortraitLoops = readFileSync(fromPortRoot("tools", "held-portrait-loops.mjs"));
@@ -92,8 +79,6 @@ const parsedNarrationManifest = JSON.parse(narrationManifest.toString("utf8")) a
 };
 const narrationCatalog = new NarrationCatalog(parsedNarrationManifest);
 const narrationFiles = narrationCatalog.assetFiles();
-const explicitVoiceMatches = parsedVoiceManifest.lines.flatMap(line => line.match ? [normalizeSpeech(line.match)] : []);
-const exactTextNarrations = exactTextUnits(parsedNarrationManifest);
 // The manifest lists the sound events of the first release. Version 1.3 replaced the driver's
 // events above 12 with other sounds and never asks for them, so the rendered Classic files
 // for those events do not belong to it.
@@ -118,72 +103,7 @@ const gameFont = (() => {
 })();
 const artwork = loadUpgradeArt(undefined, gameRoot);
 function artworkPath(id: string) { return artwork.get(id)?.path; }
-const portraitAssetKeys = new Map([...artwork]
-  .filter(([id]) => id.startsWith("portrait:")).map(([id, art]) => [art.path, id]));
 const materialMasks = loadCombatMaterialMasks(artwork);
-let streetMaterials: ReturnType<typeof buildNewPhlanMaterials> | undefined;
-const localMaterialSets = new Map<string, string>();
-function newPhlanMaterials() {
-  return streetMaterials ??= buildNewPhlanMaterials(gameRoot, new Map(
-    [...artwork].filter(([, art]) => !art.screenCellOnly)
-      .map(([key, art]) => [key, { file: art.path, reflected: Boolean(art.reflected) }])));
-}
-type ExplorationFrame = {
-  nativeScenery?: NativeExploration & { area: number };
-  scenery?: Pick<NativeExploration, "x" | "y" | "facing" | "walls" | "mapId" | "roofed" | "skyColor"> & { materialId: string; area: number };
-  overlandMap?: boolean;
-  overlandTerrain?: OverlandTerrainFrame;
-  areaView?: boolean;
-  tiles?: [number, number, string][];
-  tileInventory?: TileInventoryCell[];
-};
-
-function prepareScenery(view: ExplorationFrame) {
-  // Keep the current travel surface until every slot in the local composition has artwork.
-  const terrain = view.overlandTerrain;
-  if (terrain) {
-    const slots = [...new Set(terrain.slots)];
-    const landmarks = slots.filter(slot => overlandLandmarkSlots.has(slot));
-    if (!artwork.has("overland-materials") || slots.some(slot => !artwork.has(`overland-tile:${slot}`)) ||
-        landmarks.some(slot => !artwork.has(`overland-landmark:${slot}`))) {
-      delete view.overlandTerrain;
-    } else {
-      const details = slots.filter(slot => artwork.has(`overland-detail:${slot}`));
-      view.overlandTerrain = {
-        ...terrain, detailSlots: details.length ? details : undefined,
-        landmarkSlots: landmarks.length ? landmarks : undefined,
-      };
-    }
-  }
-  const native = view.nativeScenery;
-  if (!native) return;
-  delete view.nativeScenery;
-  const { x, y, facing, walls, area, mapId, roofed, skyColor } = native;
-  if (packagedTerrain && !native.viewportCleared) {
-    const cells: TileInventoryCell[] = [];
-    view.tiles = packagedTiles(packagedTerrain, artwork, native, cells);
-    if (view.tileInventory) view.tileInventory = cells;
-  }
-  if (native.areaView) {
-    view.areaView = true;
-    return;
-  }
-  const materialArea = explorationMaterialArea(native);
-  const harbor = materialArea === 0 && mapId === 0;
-  const materialId = createHash("sha256")
-    .update(JSON.stringify([area,materialArea,harbor,native.frontSlots,native.glyphs,skyColor,native.groundColor,
-      ...(packagedTerrain ? [mapId, native.cellGeometry?.wallSymbols] : [])])).digest("hex");
-  if (!localMaterialSets.has(materialId)) {
-    if (localMaterialSets.size >= 32) localMaterialSets.delete(localMaterialSets.keys().next().value!);
-    const materials = buildExplorationMaterials(native, artwork, packagedTerrain?.glyphs(native));
-    if (harbor) {
-      const { water, dockPiling } = newPhlanMaterials();
-      localMaterialSets.set(materialId, JSON.stringify({ ...materials, water, dockPiling, layout: phlanHarborLayout }));
-    } else localMaterialSets.set(materialId, JSON.stringify(materials));
-  }
-  view.scenery = { x, y, facing, walls, materialId, area, mapId, roofed, skyColor };
-}
-const reflectedTiles = [...artwork].filter(([, art]) => art.reflected).map(([id]) => id);
 let tileTrace = process.env.POR_TILE_TRACE_FILE;
 let lastTileTrace: string | undefined;
 let portraitTrace = process.env.POR_PORTRAIT_TRACE_FILE;
@@ -209,97 +129,12 @@ const runner = spawn(process.execPath, runnerArguments, {
   windowsHide: true,
 });
 
-type PendingNarration = {
-  step: number; unitId: string; variantId?: string;
-  sourceId: string; coveredSourceIds: string[]; asset: string; text: string;
-  captionSelection?: EclNarrationEvent["captionSelection"];
-};
-type FrameNarrations = { narrations?: (PendingNarration & { id: number })[] };
-
-interface FrameState extends ExplorationFrame, FrameNarrations {
-  travelPosition?: TravelState;
-  travelPolling?: boolean;
-  phlanArrival?: PhlanApproach;
-  sokalPrompt?: SokalPrompt;
-  sokalQuay?: SokalQuay;
-  districtRoad?: boolean;
-  travel?: Pick<TravelState, "x" | "y" | "sector"> & { routes: ReturnType<typeof planTravel> };
-  frame?: string;
-  enhancedFrame?: string;
-  scene?: string;
-  codeWheelQuestion?: number;
-  codeWheelAttempt?: number;
-  codeWheel?: CodeWheelQuestion;
-  portrait?: string;
-  characterSheet?: CharacterSheetPart[];
-  classicPortrait?: boolean;
-  classicPortraitSources?: string[];
-  classicPortraitArea?: number;
-  classicPortraitCursor?: number;
-  classicPortraitCaller?: number;
-  perspective?: boolean;
-  prompt?: "read" | "poll";
-  awaitsKey?: boolean;
-  exploration?: { area: number; mapId?: number; x: number; y: number; facing: number; cameraX?: number; cameraY?: number;
-    walls?: [number, number, number, number] };
-  encounter?: EncounterPlacement;
-  tiles?: [number, number, string][];
-  combatArt?: CombatArtPlacement[];
-  combatSelections?: [number, number, string][];
-  combatEffect?: [number, number, string];
-  battleTiles?: [number, number, string][];
-  battleProps?: CombatArtPlacement[];
-  animation?: (PresentationAnimationFrame & ExplorationFrame & FrameNarrations)[];
-  automaticCombat?: boolean;
-  battleEntryPolling?: boolean;
-  presentationPolling?: number;
-  developerVictoryAvailable?: boolean;
-  tileInventory?: TileInventoryCell[];
-  battleTileInventory?: TileInventoryCell[];
-  panelFrame?: PanelFrameStamp[];
-  text?: [number, number, number][];
-  runes?: [number, number, number][];
-  textColors?: [number, number, number][];
-  journal?: { objective: JournalObjective; leads: JournalLead[]; trackedId?: string };
-}
-
-let frame: FrameState = {};
-let sequence = 0;
-let ready = false;
-let stopped: string | undefined;
-let notice: string | undefined;
-let saveSlot: string | undefined;
-let saveSlotEvent = 0;
-let saveSlotAction: "load" | "save" | undefined;
-let lastDiagnostic = "";
-let soundId = 0;
-const sounds: Array<{ id: number; index: number; mode: number; step: number; enhancedOnly?: boolean }> = [];
-let textId = 0;
-const messages: Array<{ id: number; step: number; message: string }> = [];
-let automap = '{"revision":-1,"maps":{}}';
-let automapRevision = -1;
-/** The page that plays the game: the newest window to start (see /state). */
-let activePage: string | undefined;
-let narrationId = 0;
-// Narration arrives before its picture. The guest step identifies a narrated
-// transient illustration within the batch. Other lines belong to the settled frame.
-const heldNarrations: PendingNarration[] = [];
-createInterface({ input: runner.stdout }).on("line", (line) => {
-  if (line.startsWith("POR_FRAME ")) {
-    frame = JSON.parse(line.slice("POR_FRAME ".length)) as FrameState;
-    for (const narration of heldNarrations.splice(0)) {
-      const clip = frame.animation?.find(({ textSteps }) => textSteps &&
-        narration.step >= textSteps[0] && narration.step <= textSteps[1]);
-      const target = clip ?? frame;
-      (target.narrations ??= []).push({ id: ++narrationId, ...narration });
-    }
-    if (frame.travelPosition) {
-      const { x, y, sector } = frame.travelPosition;
-      frame.travel = { x, y, sector, routes: planTravel(frame.travelPosition) };
-      delete frame.travelPosition;
-    }
-    prepareScenery(frame);
-    frame.animation?.forEach(prepareScenery);
+const session = new PlaySession({
+  root: gameRoot, artwork, classicAvailable, codeWheelAvailable, buildVersion,
+  write: (command) => { runner.stdin.write(command); },
+  recordedPolls: Boolean(process.env.POR_PROMPT_SCHEDULE_IN),
+  log: (line) => console.error(line),
+  onFrame(frame, sequence) {
     // A cleared viewport between scenes has no terrain to inventory.
     if (tileTrace && frame.tileInventory?.some(([, , , indices]) => /[1-9a-f]/i.test(indices))) {
       const trace = JSON.stringify(frame.tileInventory);
@@ -313,7 +148,6 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
         }
       }
     }
-    sequence++;
     if (portraitTrace && frame.classicPortrait) {
       const { classicPortraitArea: area, classicPortraitCursor: cursor, classicPortraitCaller: caller, classicPortraitSources: sources = [] } = frame;
       const signature = JSON.stringify([area, cursor, caller, sources]);
@@ -332,64 +166,12 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
         }
       }
     }
-    ready = true;
-  } else if (line.startsWith("POR_AUTOMAP ")) {
-    // The runner owns the discovered map and stores it in the save slot.
-    automap = line.slice("POR_AUTOMAP ".length);
-    automapRevision = (JSON.parse(automap) as { revision: number }).revision;
-  } else if (line.startsWith("POR_NOTICE ")) {
-    notice = line.slice("POR_NOTICE ".length);
-  } else if (line.startsWith("POR_SAVE_SLOT ")) {
-    const match = /^(load|save) ([A-J])$/.exec(line.slice("POR_SAVE_SLOT ".length));
-    if (match) {
-      saveSlotAction = match[1] as "load" | "save";
-      saveSlot = match[2];
-      saveSlotEvent++;
-    }
-  } else if (line.startsWith("POR_SOUND ")) {
-    const sound = JSON.parse(line.slice("POR_SOUND ".length)) as { index: number; mode: number; step: number; enhancedOnly?: boolean };
-    sounds.push({ id: ++soundId, index: sound.index, mode: sound.mode, step: sound.step,
-      ...(sound.enhancedOnly ? { enhancedOnly: true } : {}) });
-    if (sounds.length > 64) sounds.shift();
-  } else if (line.startsWith("POR_TEXT ")) {
-    const text = JSON.parse(line.slice("POR_TEXT ".length)) as { step: number; message: string; fromEclText?: boolean };
-    messages.push({ id: ++textId, step: text.step, message: text.message });
-    if (messages.length > 64) messages.shift();
-    const normalized = normalizeSpeech(text.message);
-    const handledByExplicitVoice = explicitVoiceMatches.some(match => normalized.includes(match));
-    const exact = [...new Map((exactTextNarrations.get(normalized) ?? []).map(unit => [unit.id, unit])).values()];
-    if (!text.fromEclText && !handledByExplicitVoice && exact.length === 1) {
-      const unit = exact[0]!;
-      heldNarrations.push({ step: text.step, unitId: unit.id,
-        sourceId: unit.triggerSourceId, coveredSourceIds: unit.coveredSourceIds,
-        asset: unit.asset!, text: unit.spokenText });
-    }
-  } else if (line.startsWith("POR_NARRATION ")) {
-    const event = JSON.parse(line.slice("POR_NARRATION ".length)) as EclNarrationEvent;
-    const resolved = narrationCatalog.resolve(event);
-    if (resolved.status === "resolved") {
-      const narration = resolved.narration;
-      heldNarrations.push({ step: event.step ?? 0, unitId: narration.unitId,
-        ...(narration.variantId ? { variantId: narration.variantId } : {}), sourceId: narration.triggerSourceId,
-        coveredSourceIds: narration.coveredSourceIds, asset: narration.asset, text: narration.text,
-        ...(event.captionSelection ? { captionSelection: event.captionSelection } : {}) });
-    } else if (resolved.status === "ambiguous" || resolved.status === "selector-required") {
-      console.error(`Narration ${event.sourceId}: ${resolved.status}`);
-    }
-  } else if (line.startsWith("entry:")) {
-    lastDiagnostic = line;
-  }
+  },
 });
-runner.on("error", (error) => { stopped = error.message; });
-runner.stdin.on("error", (error) => { stopped ??= error.message; });
-runner.on("close", (code) => {
-  stopped ??= lastDiagnostic || `Game stopped (exit ${code}).`;
-  if (frame.codeWheelQuestion !== undefined) {
-    delete frame.codeWheelQuestion;
-    delete frame.codeWheelAttempt;
-    sequence++;
-  }
-});
+createInterface({ input: runner.stdout }).on("line", (line) => session.line(line));
+runner.on("error", (error) => session.failed(error.message));
+runner.stdin.on("error", (error) => session.failed(error.message));
+runner.on("close", (code) => session.closed(`Game stopped (exit ${code}).`));
 
 const server = createServer(async (req, res) => {
   res.setHeader("cache-control", "no-store");
@@ -427,13 +209,13 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(streetRenderer);
   } else if (req.method === "GET" && req.url === "/exploration-materials/phlan") {
     try {
-      res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(JSON.stringify(newPhlanMaterials()));
+      res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(JSON.stringify(session.newPhlanMaterials()));
     } catch (error) {
       console.error("Cannot prepare New Phlan 3D materials", error);
       res.writeHead(503).end();
     }
   } else if (req.method === "GET" && /^\/exploration-materials\/[0-9a-f]{64}$/.test(req.url ?? "")) {
-    const materials = localMaterialSets.get(req.url!.slice("/exploration-materials/".length));
+    const materials = session.materials(req.url!.slice("/exploration-materials/".length));
     if (materials) res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(materials);
     else res.writeHead(404).end();
   } else if (req.method === "GET" && req.url === "/voice-manifest.json") {
@@ -443,7 +225,7 @@ const server = createServer(async (req, res) => {
   } else if (req.method === "GET" && req.url === "/geography-model.json") {
     res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(geographyModel);
   } else if (req.method === "GET" && req.url === "/automap.json") {
-    res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(automap);
+    res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(session.automapJson());
   } else if (req.method === "POST" && req.url === "/automap") {
     // A map kept by an older browser, offered once for the loaded slot.
     if (req.headers.origin !== origin) { res.writeHead(403).end(); return; }
@@ -458,10 +240,7 @@ const server = createServer(async (req, res) => {
     }
     let maps: unknown;
     try { maps = JSON.parse(body); } catch { res.writeHead(400).end(); return; }
-    if (!ready || stopped || frame.journal || !maps || typeof maps !== "object") { res.writeHead(409).end(); return; }
-    ready = false;
-    runner.stdin.write(`:automap-import ${JSON.stringify(maps)}\n`);
-    res.writeHead(204).end();
+    res.writeHead(session.importAutomap(maps)).end();
   } else if (req.method === "GET" && req.url === "/atlas.json") {
     res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(atlasManifest);
   } else if (req.method === "GET" && req.url?.startsWith("/atlas/") && atlasFiles.has(req.url.slice(7))) {
@@ -503,28 +282,11 @@ const server = createServer(async (req, res) => {
     if (png) res.writeHead(200, { "content-type": "image/png" }).end(png);
     else res.writeHead(404).end();
   } else if (req.method === "GET" && (req.url === "/state" || /^\/state\?after=-?\d+$/.test(req.url ?? ""))) {
-    // One window plays the game. The page names itself (X-POR-Page) and the newest one to start claims
-    // the game (X-POR-Claim). Any other window, such as a second window opened on the same game, is
-    // told it has been superseded and stops, so nothing is heard twice.
+    // One window plays the game: the session answers which (tools/play-session.ts).
     const page = req.headers["x-por-page"];
-    if (typeof page === "string" && req.headers["x-por-claim"] === "1") activePage = page;
-    // A request with no page name (the checks reading the state from outside a page) is answered in full.
-    if (activePage && typeof page === "string" && page !== activePage) {
-      res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({ superseded: true, sequence, ready: false }));
-      return;
-    }
-    const portraitAsset = frame.portrait ? artwork.get(frame.portrait) : undefined;
-    const snapshot = req.url === `/state?after=${sequence}` ? {} : {
-      ...frame,
-      reflectedTiles,
-      portraitAssetKey: portraitAsset && portraitAssetKeys.get(portraitAsset.path),
-      art: frame.scene && artwork.has(frame.scene) ? `/art/${frame.scene}` : undefined,
-    };
-    res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({
-      ...snapshot, sounds, soundId, messages, textId, narrationId, automapRevision,
-      sequence, ready, codeWheelAvailable, classicAvailable, buildVersion, saveSlot: saveSlot ?? null, saveSlotEvent, saveSlotAction: saveSlotAction ?? null,
-      stopped: stopped ?? null, notice: notice ?? null,
-    }));
+    const after = /^\/state\?after=(-?\d+)$/.exec(req.url!)?.[1];
+    res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify(
+      session.state(after === undefined ? undefined : Number(after), typeof page === "string" ? page : undefined, req.headers["x-por-claim"] === "1")));
   } else if (req.method === "GET" && req.url === "/original-files" && originalFilesSetting) {
     // What this start plays with, and what the setting names for the next one.
     const setting = readOriginalFilesSetting(resources);
@@ -564,7 +326,6 @@ const server = createServer(async (req, res) => {
   } else if (req.method === "POST" && req.url === "/key") {
     if (req.headers.origin !== origin) { res.writeHead(403).end(); return; }
     const keyPage = req.headers["x-por-page"];
-    if (activePage && typeof keyPage === "string" && keyPage !== activePage) { res.writeHead(409).end(); return; }
     let command = "";
     try {
       for await (const chunk of req) {
@@ -575,36 +336,11 @@ const server = createServer(async (req, res) => {
       return;
     }
     const expected = req.headers["x-por-frame"];
-    if (!ready || stopped || (expected !== undefined && expected !== String(sequence))) {
-      res.writeHead(409).end();
-      return;
-    }
-    const track = /^track ([1-9]\d{0,2})$/.exec(command);
-    const validTrack = frame.journal && (command === "track auto" ||
-      (track && Number(track[1]) <= frame.journal.leads.filter(isOpenObjective).length));
-    // Recorded walks also keep the nonblocking polls sent by the pipe harness outside travel.
-    const recordedPoll = process.env.POR_PROMPT_SCHEDULE_IN && frame.prompt === "poll" && !frame.awaitsKey;
-    const validPoll = expected === String(sequence) && (command === ":poll" && (frame.automaticCombat || frame.battleEntryPolling || frame.presentationPolling) ||
-      command === ":travel-poll" && (frame.travelPolling || recordedPoll));
-    // While the game plays an animation by itself it takes no key: the page only asks for more of it.
-    if (frame.presentationPolling && !validPoll) { res.writeHead(409).end(); return; }
-    const validDeveloperVictory = command === developerVictoryCommand && expected === String(sequence) &&
-      frame.developerVictoryAvailable;
-    const validLabel = /^:map-label(?: [\x20-\x7e]{0,40})?$/.test(command) && Boolean(frame.exploration);
-    if (command.length > 16 && !validLabel) { res.writeHead(400).end(); return; }
-    const gameKey = command.startsWith("key ") ? command.slice(4) : command;
-    if ((!validTrack && !validPoll && !validDeveloperVictory && !validLabel && getKey(gameKey) === undefined) ||
-        (frame.journal && command.toLowerCase() !== "j" && !validTrack)) {
-      res.writeHead(400).end();
-      return;
-    }
-    const enableCodeWheel = req.headers["x-por-code-wheel"] === "enhanced" && codeWheelAvailable &&
-      command === "backspace" && expected === String(sequence) &&
-      (frame.scene === "scene:title" || frame.scene === "scene:publisher");
-    ready = false;
-    notice = undefined;
-    runner.stdin.write((enableCodeWheel ? ":enable-code-wheel" : track ? `track ${track[1]}` : command) + "\n");
-    res.writeHead(204).end();
+    res.writeHead(session.key(command, {
+      expected: typeof expected === "string" ? expected : undefined,
+      page: typeof keyPage === "string" ? keyPage : undefined,
+      codeWheel: req.headers["x-por-code-wheel"] === "enhanced",
+    })).end();
   } else {
     res.writeHead(404).end();
   }

@@ -1,3 +1,6 @@
+// The game's own requests: the Node server answers them, or in the browser build the page beside the
+// engine's worker (tools/web/play-page.ts, #228).
+const gameFetch = window.porGameHost?.fetch ?? ((...request) => fetch(...request));
 const screen = document.querySelector("#screen");
 const bootWheel = document.querySelector("#boot-wheel");
 let wheelStartup = false;
@@ -156,7 +159,7 @@ async function syncAutomap() {
   if (automapLoading || state.automapRevision === undefined || state.automapRevision === automapRevision) return;
   automapLoading = true;
   try {
-    const { revision, maps } = await (await fetch("/automap.json")).json();
+    const { revision, maps } = await (await gameFetch("/automap.json")).json();
     discoveredMaps = maps;
     automapRevision = revision;
     if (!automap.hidden) renderAutomap();
@@ -180,7 +183,7 @@ function offerLegacyAutomap() {
   } catch { return; }
   if (!stored) return;
   legacyAutomapPending = true;
-  fetch("/automap", { method: "POST", body: stored }).then(response => {
+  gameFetch("/automap", { method: "POST", body: stored }).then(response => {
     if (!response.ok) return;
     localStorage.setItem(moved, "1");
     state.ready = false;
@@ -394,21 +397,26 @@ audioToggle.addEventListener("click", () => {
 // launcher names the setting's file. The launcher reads the setting when the game starts, so a change
 // takes effect at the next start, and the page says so.
 const releaseNames = { "1.3": "version 1.3", first: "the first release" };
-function describeOriginalFiles({ inUse, path, problem }) {
+function describeOriginalFiles({ inUse, path, problem, picker }) {
   const now = !inUse ? "Not in use: the game runs from its own data, and the Classic display is not available."
     : inUse.release === "1.3" ? `In use: ${inUse.folder} (version 1.3). The Classic display is available (F10).`
     : `In use: ${inUse.folder} (the first release). The Classic display is available (F10), with its pictures; the game is version 1.3.`;
   const next = problem ? ` The setting cannot be used (${problem}).`
-    : (path ?? null) !== (inUse?.folder ?? null) ? (path ? ` From the next start: ${path}.` : " From the next start: none.") : "";
+    : picker ? "" : (path ?? null) !== (inUse?.folder ?? null) ? (path ? ` From the next start: ${path}.` : " From the next start: none.") : "";
   originalFiles.status.textContent = now + next;
-  originalFiles.stop.hidden = !path;
+  originalFiles.stop.hidden = picker ? !inUse : !path;
   if (!originalFiles.path.value) originalFiles.path.value = path ?? "";
 }
 let originalFilesState;
-fetch("/original-files").then((response) => response.ok ? response.json() : undefined).then((setting) => {
+gameFetch("/original-files").then((response) => response.ok ? response.json() : undefined).then((setting) => {
   if (!setting) return;
   originalFilesState = setting;
   originalFiles.path.placeholder = setting.example ?? "";
+  // The browser build has the player pick the folder (#226): there is no path to type.
+  if (setting.picker) {
+    originalFiles.path.closest("label").hidden = true;
+    originalFiles.use.textContent = "Choose the folder…";
+  }
   describeOriginalFiles(setting);
   originalFiles.panel.hidden = false;
 }).catch(() => {});
@@ -416,10 +424,20 @@ async function chooseOriginalFiles(path) {
   originalFiles.use.disabled = originalFiles.stop.disabled = true;
   originalFiles.message.textContent = path ? "Checking the folder…" : "";
   try {
-    const response = await fetch("/original-files", {
-      method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ path }),
+    const response = await gameFetch("/original-files", {
+      method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(path === true ? { pick: true } : { path }),
     });
     const reply = await response.json().catch(() => ({}));
+    if (reply.cancelled) { originalFiles.message.textContent = ""; return; }
+    if (response.ok && reply.started) {
+      // The browser build starts the game again with the folder chosen, from its title.
+      originalFilesState = { ...originalFilesState, inUse: reply.path ? { folder: reply.path, release: reply.release } : null, problem: null };
+      describeOriginalFiles(originalFilesState);
+      originalFiles.message.textContent = reply.path
+        ? `In use: ${reply.path} (${releaseNames[reply.release]}). The game started again with them.`
+        : "No original files: the game started again from its own data, without the Classic display.";
+      return;
+    }
     if (!response.ok) {
       originalFiles.message.textContent = `Not saved: ${reply.problem ?? `the game answered ${response.status}`}.`;
       return;
@@ -437,6 +455,7 @@ async function chooseOriginalFiles(path) {
   }
 }
 originalFiles.use.addEventListener("click", () => {
+  if (originalFilesState?.picker) { chooseOriginalFiles(true); return; }
   const path = originalFiles.path.value.trim();
   if (path) chooseOriginalFiles(path);
   else originalFiles.message.textContent = "Name the folder first.";
@@ -1087,7 +1106,7 @@ function rendererModule() {
 async function loadStreetAtlas(materialId) {
   const [module, materials] = await Promise.all([
     rendererModule(),
-    fetch(`/exploration-materials/${materialId}`).then(response => {
+    gameFetch(`/exploration-materials/${materialId}`).then(response => {
       if (!response.ok) throw new Error("Exploration materials could not be loaded");
       return response.json();
     }),
@@ -2396,7 +2415,7 @@ async function send(key) {
     const startWheel = false;
     const headers = { "X-POR-Frame": String(sequence), "X-POR-Page": pageId };
     if (startWheel) headers["X-POR-Code-Wheel"] = "enhanced";
-    const result = await fetch("/key", {
+    const result = await gameFetch("/key", {
       method: "POST", headers, body: startWheel ? "backspace" : key,
     });
     if (startWheel && result.ok) wheelStartup = true;
@@ -2437,7 +2456,7 @@ function showSuperseded() {
 
 async function poll() {
   try {
-    const response = await fetch(`/state?after=${state.sequence}`, { headers: { "X-POR-Page": pageId, ...(pageClaimed ? {} : { "X-POR-Claim": "1" }) } });
+    const response = await gameFetch(`/state?after=${state.sequence}`, { headers: { "X-POR-Page": pageId, ...(pageClaimed ? {} : { "X-POR-Claim": "1" }) } });
     pageClaimed = true;
     const next = await response.json();
     if (next.superseded) { showSuperseded(); return; }
