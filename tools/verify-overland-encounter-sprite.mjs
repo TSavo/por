@@ -13,6 +13,12 @@ const westernTigers = {
   fixture: "western-ankheg-eruption", caption: /YOUSURPRISEAGROUPOFTIGERS/i,
 };
 const scenes = {
+  "nomad-camp-absent-merchants": {
+    cursor: "a230", block: 12, height: 65, clock: "4320016", caption: /YOUSURPRISEAGROUPOFMERCHANTS/i,
+    fixture: "nomad-entrance",
+    terrain: { center: [24, 10], slots: [6, 16, 0, 1, 0, 17, 18, 1, 0, 1, 20, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 137, 148] },
+    inputs: ["left", "enter", "c"],
+  },
   "phlan-waterfront-merchants": {
     cursor: "a230", block: 12, height: 65, clock: "4320000", caption: /YOUSURPRISEAGROUPOFMERCHANTS/i,
     fixture: "wilderness-walk", recordedInputs: 28,
