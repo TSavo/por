@@ -33278,6 +33278,414 @@
           }
         }
       }
+    },
+    {
+      "id": "area:29:ecl:a730:caller:a49f:PIC8.DAX:0",
+      "producer": "ECL8.DAX:29:a6f7",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-scout-retreat-diagnostic",
+          "data": "original",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "d9d1d0b55bbbb98ecc4e23c46366f34c84d95000ae3adea0bc1c640abdd4ef8d",
+          "portrait": "portrait:area:29:ecl:a730:PIC8.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:0:0",
+              "atMs": 3.399999999999636
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:1:0",
+              "atMs": 186.70000000000073
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:2:0",
+              "atMs": 403.39999999999964
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:1:0",
+              "atMs": 603.2999999999993
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:0:0",
+              "atMs": 820
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:1:0",
+              "atMs": 1036.7000000000007
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:2:0",
+              "atMs": 1236.7000000000007
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:1:0",
+              "atMs": 1453.2999999999993
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:0:0",
+              "atMs": 1653.3999999999996
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:1:0",
+              "atMs": 1870
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a730:PIC8.DAX:0:0:0": "54d5e6ad7bdda95aceb2e40114e346ef596718911e897e8c48a38ff55ce2d52c",
+            "portrait:area:29:ecl:a730:PIC8.DAX:0:1:0": "1d07d934ef4099c68318cb50aae67e5bc69a2da8a111502e502e2c69c5d5e365",
+            "portrait:area:29:ecl:a730:PIC8.DAX:0:2:0": "be35c09107516166e684e91d17fdf7daf5f44f3e203c47a09998f125c8b0de1d"
+          }
+        },
+        "port": {
+          "route": "kuto-scout-retreat-diagnostic",
+          "data": "port",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "d9d1d0b55bbbb98ecc4e23c46366f34c84d95000ae3adea0bc1c640abdd4ef8d",
+          "portrait": "portrait:area:29:ecl:a730:PIC8.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:0:0",
+              "atMs": 6.899999999999636
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:1:0",
+              "atMs": 207
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:2:0",
+              "atMs": 406.89999999999964
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:1:0",
+              "atMs": 623.5
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:0:0",
+              "atMs": 840.2000000000007
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:1:0",
+              "atMs": 1040.2999999999993
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:2:0",
+              "atMs": 1256.8999999999996
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:1:0",
+              "atMs": 1456.8999999999996
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:0:0",
+              "atMs": 1673.6000000000004
+            },
+            {
+              "key": "portrait:area:29:ecl:a730:PIC8.DAX:0:1:0",
+              "atMs": 1890.2000000000007
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a730:PIC8.DAX:0:0:0": "54d5e6ad7bdda95aceb2e40114e346ef596718911e897e8c48a38ff55ce2d52c",
+            "portrait:area:29:ecl:a730:PIC8.DAX:0:1:0": "1d07d934ef4099c68318cb50aae67e5bc69a2da8a111502e502e2c69c5d5e365",
+            "portrait:area:29:ecl:a730:PIC8.DAX:0:2:0": "be35c09107516166e684e91d17fdf7daf5f44f3e203c47a09998f125c8b0de1d"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:29:ecl:a8b2:caller:a49f:PIC8.DAX:0",
+      "producer": "ECL8.DAX:29:a6f7",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-scout-retreat-diagnostic",
+          "data": "original",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "860afc37d27c1cb3cdade90c6e7ad63ffa8fb4113fb7cfd1b29631b2a3ee8c58",
+          "portrait": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:1:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:1:0",
+              "atMs": 14.20000003576206
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:2:0",
+              "atMs": 180.9000000357628
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:1:0",
+              "atMs": 397.6000000357635
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:0:0",
+              "atMs": 597.6000000357635
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:1:0",
+              "atMs": 814.3000000357642
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:2:0",
+              "atMs": 1030.8000000357642
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:1:0",
+              "atMs": 1230.9000000357628
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:0:0",
+              "atMs": 1447.5000000357613
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:1:0",
+              "atMs": 1647.6000000357635
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:2:0",
+              "atMs": 1864.200000035762
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a8b2:PIC8.DAX:0:1:0": "298d5d85b0fc828984fc29dfe9906c400a260b53eebd0d680f52c2b348094258",
+            "portrait:area:29:ecl:a8b2:PIC8.DAX:0:2:0": "9913eb2545ae8304b0ce0ac75125d18601b391c38c0a71f86d8790c1dd75d122",
+            "portrait:area:29:ecl:a8b2:PIC8.DAX:0:0:0": "8fa33d75e08a6254266718452c2d4d7e5f9f38276ebc50975b38e54cceb05a80"
+          }
+        },
+        "port": {
+          "route": "kuto-scout-retreat-diagnostic",
+          "data": "port",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "860afc37d27c1cb3cdade90c6e7ad63ffa8fb4113fb7cfd1b29631b2a3ee8c58",
+          "portrait": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:1:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:1:0",
+              "atMs": 13.29999996423794
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:2:0",
+              "atMs": 146.69999996423758
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:1:0",
+              "atMs": 363.29999996423794
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:0:0",
+              "atMs": 563.2999999642379
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:1:0",
+              "atMs": 779.8999999642365
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:2:0",
+              "atMs": 996.5999999642372
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:1:0",
+              "atMs": 1196.6999999642358
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:0:0",
+              "atMs": 1413.299999964238
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:1:0",
+              "atMs": 1613.299999964238
+            },
+            {
+              "key": "portrait:area:29:ecl:a8b2:PIC8.DAX:0:2:0",
+              "atMs": 1829.8999999642365
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a8b2:PIC8.DAX:0:1:0": "298d5d85b0fc828984fc29dfe9906c400a260b53eebd0d680f52c2b348094258",
+            "portrait:area:29:ecl:a8b2:PIC8.DAX:0:2:0": "9913eb2545ae8304b0ce0ac75125d18601b391c38c0a71f86d8790c1dd75d122",
+            "portrait:area:29:ecl:a8b2:PIC8.DAX:0:0:0": "8fa33d75e08a6254266718452c2d4d7e5f9f38276ebc50975b38e54cceb05a80"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:29:ecl:a966:caller:a49f:PIC8.DAX:0",
+      "producer": "ECL8.DAX:29:a6f7",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-scout-retreat-diagnostic",
+          "data": "original",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "2caa57be0ab5ea29b5f00a96ad6319da7e9c858d9a924c82a3c72f2b12672bee",
+          "portrait": "portrait:area:29:ecl:a966:PIC8.DAX:0:1:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:1:0",
+              "atMs": 2.1000000119202014
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:2:0",
+              "atMs": 185.40000001191947
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:1:0",
+              "atMs": 385.4000000119195
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:0:0",
+              "atMs": 602.1000000119202
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:1:0",
+              "atMs": 818.7000000119224
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:2:0",
+              "atMs": 1018.7000000119224
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:1:0",
+              "atMs": 1235.300000011921
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:0:0",
+              "atMs": 1435.4000000119195
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:1:0",
+              "atMs": 1652.0000000119217
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:2:0",
+              "atMs": 1868.6000000119202
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a966:PIC8.DAX:0:1:0": "43251e7d9e960d3d0434a389f927db8cf05078f82525369cc0cc2e0f26076cd7",
+            "portrait:area:29:ecl:a966:PIC8.DAX:0:2:0": "2482b3ae8e070dc8535de337c289cd343919a840c51ba3129402ad15f4abd1e0",
+            "portrait:area:29:ecl:a966:PIC8.DAX:0:0:0": "efe4b34b4ac45e54ff65a44d68c69fcd9ec1e67998e42c85c0448c2121342eab"
+          }
+        },
+        "port": {
+          "route": "kuto-scout-retreat-diagnostic",
+          "data": "port",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "2caa57be0ab5ea29b5f00a96ad6319da7e9c858d9a924c82a3c72f2b12672bee",
+          "portrait": "portrait:area:29:ecl:a966:PIC8.DAX:0:1:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:1:0",
+              "atMs": 15.199999964235758
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:2:0",
+              "atMs": 148.49999996423867
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:1:0",
+              "atMs": 348.49999996423867
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:0:0",
+              "atMs": 565.0999999642372
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:1:0",
+              "atMs": 781.7999999642379
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:2:0",
+              "atMs": 981.7999999642379
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:1:0",
+              "atMs": 1198.3999999642365
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:0:0",
+              "atMs": 1398.4999999642387
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:1:0",
+              "atMs": 1615.0999999642372
+            },
+            {
+              "key": "portrait:area:29:ecl:a966:PIC8.DAX:0:2:0",
+              "atMs": 1831.6999999642358
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a966:PIC8.DAX:0:1:0": "43251e7d9e960d3d0434a389f927db8cf05078f82525369cc0cc2e0f26076cd7",
+            "portrait:area:29:ecl:a966:PIC8.DAX:0:2:0": "2482b3ae8e070dc8535de337c289cd343919a840c51ba3129402ad15f4abd1e0",
+            "portrait:area:29:ecl:a966:PIC8.DAX:0:0:0": "efe4b34b4ac45e54ff65a44d68c69fcd9ec1e67998e42c85c0448c2121342eab"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
@@ -35584,6 +35992,63 @@
           "poses": [
             "scene-illustration:area:20:ecl:b6df:caller:a251"
           ]
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:17:9914",
+      "prompt": "9933/b4d0",
+      "caption": "Combat Wait Flee Advance",
+      "checkpoint": "nomad-raid-first-attack/A.json",
+      "position": [
+        17,
+        10,
+        15
+      ],
+      "chrome": {
+        "original": {
+          "route": "nomad-raid-camp-perimeter",
+          "data": "original",
+          "position": [
+            17,
+            10,
+            15
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105W18:35CombatWaitFleeAdvance",
+          "checkpointSha256": "407be0c1f12ddc4393ed7cc5d50b9ae01bee8fe845aafbcb61a81b3110d5c24a",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:17:SPRIT7.DAX:0:1:0",
+              24,
+              65
+            ],
+            "sha256": "d47ef4bc067ab78ef3fbd28ec3713ed9866957761886b08d335a1b692f659006"
+          }
+        },
+        "port": {
+          "route": "nomad-raid-camp-perimeter",
+          "data": "port",
+          "position": [
+            17,
+            10,
+            15
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105W18:35CombatWaitFleeAdvance",
+          "checkpointSha256": "407be0c1f12ddc4393ed7cc5d50b9ae01bee8fe845aafbcb61a81b3110d5c24a",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:17:SPRIT7.DAX:0:1:0",
+              24,
+              65
+            ],
+            "sha256": "d47ef4bc067ab78ef3fbd28ec3713ed9866957761886b08d335a1b692f659006"
+          }
         }
       }
     }
