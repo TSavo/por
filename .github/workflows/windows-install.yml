@@ -1,0 +1,51 @@
+name: Windows packaged install
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Internal packaging run containing package-windows
+        required: true
+        type: string
+permissions:
+  contents: read
+  actions: read
+jobs:
+  install:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: package-windows
+          path: installer
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+      - name: Install and start from the registered Start Menu shortcut
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $setup = @(Get-ChildItem installer -Filter '*-windows-setup.exe')
+          if ($setup.Count -ne 1) { throw "Expected exactly one installer" }
+          $target = Join-Path $env:RUNNER_TEMP 'Pool of Radiance'
+          if (Test-Path -LiteralPath $target) { throw "Expected a clean installation directory" }
+          $install = Start-Process $setup[0].FullName -ArgumentList "/S /D=$target" -Wait -PassThru
+          if ($install.ExitCode -ne 0) { throw "Installer exited $($install.ExitCode)" }
+          $product = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Pool of Radiance'
+          if ($product.InstallLocation -ne $target) { throw "Unexpected install location $($product.InstallLocation)" }
+          $menu = [Environment]::GetFolderPath('CommonPrograms')
+          $link = Join-Path $menu 'Pool of Radiance\Pool of Radiance.lnk'
+          $exe = Join-Path $target 'Pool of Radiance.exe'
+          $shortcut = (New-Object -ComObject WScript.Shell).CreateShortcut($link)
+          if ($shortcut.TargetPath -ne $exe) { throw "Shortcut target is $($shortcut.TargetPath)" }
+          Start-Process -FilePath $link
+          $timer = [Diagnostics.Stopwatch]::StartNew()
+          do {
+            $window = Get-Process -Name 'Pool of Radiance' -ErrorAction SilentlyContinue |
+              Where-Object { $_.Path -eq $exe -and $_.MainWindowHandle -ne 0 -and $_.MainWindowTitle } |
+              Select-Object -First 1
+            if ($window) { break }
+            Start-Sleep -Milliseconds 200
+          } while ($timer.Elapsed.TotalSeconds -lt 90)
+          if (!$window) { throw "No game window appeared after launching the shortcut" }
+          "Installed $($product.DisplayVersion). Start Menu opened '$($window.MainWindowTitle)' in $($timer.Elapsed.TotalSeconds) seconds." |
+            Tee-Object -FilePath $env:GITHUB_STEP_SUMMARY
