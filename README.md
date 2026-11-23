@@ -93,6 +93,8 @@ Open **Map** and you can leave the long walk behind. On the overland map, the il
 
 The same **Map** has a Local view: an automap that records each tile you stand on, with the walls the game drew there. It does not hand you the whole floor at the start. Interiors and underground are remembered as their own floors. **Mark location** labels the square you are in. Load a save, and the map comes back as it was.
 
+<img src="docs/readme/automap.png" width="800" alt="The Local automap in the desktop app, showing a well-explored floor of the Slums with the party marker on the discovered streets">
+
 <img src="docs/readme/moonsea.png" width="800" alt="Illustrated map of Phlan and the Moonsea, with destinations such as Valjevo Castle, Sokal Keep, and the Kobold Caves">
 
 <img src="docs/readme/new-phlan-atlas.png" width="800" alt="The illustrated atlas of New Phlan in the desktop app Map view, labeling City Hall, the temples, the docks, and the gate to the Slums">
