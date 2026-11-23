@@ -2,7 +2,7 @@
  * The resource layer (#223): every file the game reads, named by a logical id rather than a path.
  *
  * An id is `<kind>:<name>`, for example `game:program/overlays.bin`, `art:scene:title-name`,
- * `atlas:new-phlan-concept-v1.png`, `audio:classic:pc-speaker-01.wav`, `voice:<file>`,
+ * `atlas:new-phlan-concept-v1.png`, `audio:classic:pc-speaker-01.mp3`, `voice:<file>`,
  * `narration:voices/narration/<file>`, `map:atlas.json`, `font`, `codewheel:path-1.png`, `save:A`,
  * `setting:original-files`, and `index`, the list of what there is (tools/web/resource-index.ts). Backends map ids onto where the bytes are: the Node disk backend onto the
  * checkout or a release (tools/resources/node-disk.ts), the browser onto the server's URLs and

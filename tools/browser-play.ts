@@ -265,9 +265,9 @@ const server = createServer(async (req, res) => {
     else res.writeHead(404).end();
   } else if (req.method === "GET" && req.url === "/font.woff2" && gameFont) {
     res.writeHead(200, { "content-type": "font/woff2" }).end(gameFont);
-  } else if (req.method === "GET" && /^\/audio\/(?:pc-speaker|tandy)-(?:0[1-9]|1\d|20)\.wav$/.test(req.url ?? "")) {
+  } else if (req.method === "GET" && /^\/audio\/(?:pc-speaker|tandy)-(?:0[1-9]|1\d|20)\.mp3$/.test(req.url ?? "")) {
     const wav = readResource(`audio:classic:${req.url!.slice(7)}`);
-    if (wav) res.writeHead(200, { "content-type": "audio/wav", "content-length": wav.length }).end(wav);
+    if (wav) res.writeHead(200, { "content-type": "audio/mpeg", "content-length": wav.length }).end(wav);
     else res.writeHead(404).end();
   } else if (req.method === "GET" && req.url?.startsWith("/art-materials/")) {
     const id = req.url.slice("/art-materials/".length);
