@@ -4571,7 +4571,10 @@ const illustrationRoutes = new Map([
       portrait: `scene-illustration:area:29:ecl:${aftermath}`,
       prompt: /ADIMLYSEENFIGUREFIRESANARROWINTOTHEPARTY.*THEFIGUREFADESAWAY/i,
       finalPhaseCapture: `kuto-catacombs-${side}-arrow-aftermath.png`,
-      continuation: { inputs: ["up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMP/i },
+      continuation: {
+        inputs: ["up"], clearsPortrait: true,
+        prompt: side === "western" ? /AREA[C]?ASTVIEWENCAMP.*3,13W/i : /AREA[C]?ASTVIEWENCAMP.*2,9N/i,
+      },
     }];
   }),
   ["kuto-well-catacomb-volley-hold", {
