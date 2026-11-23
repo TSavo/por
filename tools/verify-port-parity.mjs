@@ -41,7 +41,7 @@
 // POR_PARITY_FRAMES=<directory> also writes every frame's artwork from both sources (<walk>.json).
 import { cpSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { tsImport } from "tsx/esm/api";
 import { addReadyMadeParty, beginAdventuring, exploring, menuLine, pressReturn, screenText, startGame } from "./acceptance/harness.mjs";
 import { innToSlums, loadParty } from "./acceptance/party.mjs";
@@ -323,8 +323,9 @@ const legDirectory = process.env.POR_PARITY_LEG ?? join("qa", "fixtures", "campa
 function startLeg(options) {
   const boot = JSON.parse(readFileSync(join(legDirectory, "boot.json"), "utf8"));
   const saves = mkdtempSync(join(tmpdir(), "por-parity-leg-"));
-  for (const file of readdirSync(legDirectory).filter((name) => /^(?:[A-J]|roster)\.json$/.test(name))) {
-    cpSync(join(legDirectory, file), join(saves, file));
+  const checkpoints = resolve(legDirectory, boot.checkpointSource ?? ".");
+  for (const file of readdirSync(checkpoints).filter((name) => /^(?:[A-J]|roster)\.json$/.test(name))) {
+    cpSync(join(checkpoints, file), join(saves, file));
   }
   return startGame({ ...options, pregen: false, saves, seconds: 1200, env: { ...options.env,
     POR_BOOT_KEYS: boot.bootKeys, POR_LIVE_AT: boot.startAt, POR_DEV_COMBAT: boot.developerCombat ? "1" : "0",

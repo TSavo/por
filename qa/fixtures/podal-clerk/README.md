@@ -8,6 +8,5 @@ the Textile House commission, with the campaign's six fighters.
 
 Made on 2026-11-22 with `node tools/record-walk.mjs qa/fixtures/campaign-full F <dir>` from `game/`:
 Encamp, Save, then H (`commands.jsonl`; the second `s` reaches the slot menu, which ignores it).
-`boot.json`, `prompts.jsonl` and `last-screen.txt` are that recording's. To play it again, copy
-`qa/fixtures/campaign-full/{A..I,roster}.json` into a copy of this folder and run
-`node tools/record-walk.mjs --replay <copy>`.
+`boot.json`, `prompts.jsonl` and `last-screen.txt` are that recording's. The replay uses the full campaign's starting saves through `checkpointSource` in `boot.json`.
+Run `node tools/record-walk.mjs --replay qa/fixtures/podal-clerk` to replay the recording.

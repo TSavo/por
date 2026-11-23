@@ -53,9 +53,9 @@ const lastScreen = (frame) => screenRows(frame).map((row) => row.trimEnd()).join
 const watch = (process.env.POR_RECORD_WATCH ?? "").split(",").filter(Boolean).map((address) => Number.parseInt(address, 16));
 const slotFile = /^(?:[A-J]|roster)\.json$/;
 /** When the walk wrote a save, keep every slot as the walk left it in <fixture>/after/. */
-function keepSaves(saves) {
+function keepSaves(saves, startingSaves = fixture) {
   const changed = readdirSync(saves).filter((name) => slotFile.test(name) &&
-    (!existsSync(join(fixture, name)) || readFileSync(join(saves, name), "utf8") !== readFileSync(join(fixture, name), "utf8")));
+    (!existsSync(join(startingSaves, name)) || readFileSync(join(saves, name), "utf8") !== readFileSync(join(startingSaves, name), "utf8")));
   if (!changed.length) return;
   const after = join(fixture, "after");
   rmSync(after, { recursive: true, force: true });
@@ -67,7 +67,8 @@ function keepSaves(saves) {
 if (replaying) {
   const boot = JSON.parse(readFileSync(join(fixture, "boot.json"), "utf8"));
   const saves = mkdtempSync(join(tmpdir(), "por-replay-walk-"));
-  for (const name of readdirSync(fixture).filter((name) => /^(?:[A-J]|roster)\.json$/.test(name))) cpSync(join(fixture, name), join(saves, name));
+  const checkpoints = resolve(fixture, boot.checkpointSource ?? ".");
+  for (const name of readdirSync(checkpoints).filter((name) => slotFile.test(name))) cpSync(join(checkpoints, name), join(saves, name));
   writeFileSync(join(fixture, "visits.jsonl"), "");
   const game = await startGame({ pregen: false, saves, seconds: 3600, env: { ...portEnv,
     POR_BOOT_KEYS: boot.bootKeys, POR_LIVE_AT: boot.startAt, POR_DEV_COMBAT: boot.developerCombat ? "1" : "0",
@@ -88,7 +89,7 @@ if (replaying) {
     console.log(`Visits: ${join(fixture, "visits.jsonl")}`);
   } finally {
     game.close();
-    keepSaves(saves);
+    keepSaves(saves, checkpoints);
     rmSync(saves, { recursive: true, force: true });
   }
   process.exit(0);

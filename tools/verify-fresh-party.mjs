@@ -240,10 +240,10 @@ async function replayActions(frame, actions, stopAt, send) {
 }
 
 if (campaign && campaignOption === "--replay-leg") {
-  const { bootKeys, startAt, developerCombat, inputCompat } = JSON.parse(readFileSync(join(campaignInput, "boot.json"), "utf8"));
+  const { bootKeys, startAt, developerCombat, inputCompat, checkpointSource } = JSON.parse(readFileSync(join(campaignInput, "boot.json"), "utf8"));
   const commands = readFileSync(join(campaignInput, "commands.jsonl"), "utf8").trim().split(/\r?\n/)
     .filter(Boolean).map((line) => JSON.parse(line));
-  copyCampaignSaves(campaignInput, saveDir);
+  copyCampaignSaves(resolve(campaignInput, checkpointSource ?? "."), saveDir);
   const actual = await replay(bootKeys, startAt, commands, saveDir, undefined, developerCombat === true, {
     inputCompat, schedule: resolve(campaignInput, "prompts.jsonl"),
   });

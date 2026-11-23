@@ -30,11 +30,21 @@ const hasEndpoint = (directory: string) => fixtureEndpoints.some(name => existsS
 
 function fixtureDigest(directory: string, inputsOnly = false): string {
   const hash = createHash("sha256");
+  const boot = join(directory, "boot.json");
+  const checkpointSource = existsSync(boot) && (JSON.parse(readFileSync(boot, "utf8")) as { checkpointSource?: string }).checkpointSource;
+  const checkpoints = resolve(directory, checkpointSource || ".");
+  const files = new Map<string, string>();
   for (const file of readdirSync(directory).filter(name =>
-    /^(?:[A-J]|roster|boot|end-frame)\.json$|^(?:commands|prompts)\.jsonl$|^last-screen\.txt$/.test(name) &&
-    (!inputsOnly || !fixtureEndpoints.includes(name))).sort()) {
+    /^(?:boot|end-frame)\.json$|^(?:commands|prompts)\.jsonl$|^last-screen\.txt$/.test(name) &&
+    (!inputsOnly || !fixtureEndpoints.includes(name)))) {
+    files.set(file, join(directory, file));
+  }
+  for (const file of readdirSync(checkpoints).filter(name => /^(?:[A-J]|roster)\.json$/.test(name))) {
+    files.set(file, join(checkpoints, file));
+  }
+  for (const file of [...files.keys()].sort()) {
     hash.update(file + "\n");
-    hash.update(readFileSync(join(directory, file), "utf8").replace(/\r\n/g, "\n"));
+    hash.update(readFileSync(files.get(file)!, "utf8").replace(/\r\n/g, "\n"));
   }
   return hash.digest("hex");
 }
