@@ -1090,7 +1090,6 @@ function ensureStreetViewport(surface) {
     const canvas = streetViewport?.canvas ?? makeViewportCanvas("street-viewport", 480, 576);
     streetViewport?.renderer.dispose();
     streetViewport = undefined;
-    canvas.style.setProperty("--sky-texture", `url("${streetAtlas.skyUrl}")`);
     const bytes = packed && atob(packed);
     const walls = bytes ? Array.from({length:256}, (_, i) => {
       const a = bytes.charCodeAt(i), b = bytes.charCodeAt(i+256);
@@ -1098,7 +1097,7 @@ function ensureStreetViewport(surface) {
     }) : streetAtlas.walls;
     if (!walls) return;
     const renderer = streetAtlas.module.createExplorationViewport(canvas, walls, streetAtlas.atlas, streetAtlas.layout, streetAtlas.wallRows);
-    streetViewport = {canvas, renderer, materialId, packed};
+    streetViewport = {canvas, renderer, materialId, packed, skyUrl: streetAtlas.skyUrl};
   }
   return streetViewport;
 }
@@ -1132,6 +1131,7 @@ function interpolateMovePose(from, to, t) {
     x: from.x + (to.x - from.x) * e,
     y: from.y + (to.y - from.y) * e,
     facing: from.facing + shortestFacingDelta(from.facing, to.facing) * e,
+    roofed: to.roofed,
   };
 }
 
@@ -1166,17 +1166,27 @@ function discreteExplorationPose(view = state) {
     return {
       x: scene.x, y: scene.y, facing: scene.facing,
       materialId: scene.materialId, area: scene.area, mapId: scene.mapId,
+      roofed: scene.roofed,
     };
   }
   const pose = view.exploration;
   if (!pose || !Number.isFinite(pose.x)) return;
-  return { x: pose.x, y: pose.y, facing: pose.facing, area: pose.area, mapId: pose.mapId };
+  return { x: pose.x, y: pose.y, facing: pose.facing, area: pose.area, mapId: pose.mapId, roofed: pose.roofed };
+}
+
+
+function setExplorationSky(viewport, roofed) {
+  if (!viewport?.canvas) return;
+  const sky = viewport.skyUrl && !roofed ? `url("${viewport.skyUrl}")` : "none";
+  viewport.canvas.style.setProperty("--sky-texture", sky);
 }
 
 function paintMovePose(pose) {
   if (!pose) return;
   if (moveViewport && moveScene) {
-    moveViewport.renderer.draw({ ...moveScene, x: pose.x, y: pose.y, facing: pose.facing });
+    const roofed = Boolean(pose.roofed ?? moveScene.roofed);
+    setExplorationSky(moveViewport, roofed);
+    moveViewport.renderer.draw({ ...moveScene, x: pose.x, y: pose.y, facing: pose.facing, roofed });
   }
   const marker = automapSvg.querySelector("path.party");
   if (marker) {
@@ -1240,7 +1250,10 @@ function bindMoveView(viewport, scene) {
   moveScene = scene;
   const pose = movePose();
   if (pose) paintMovePose(pose);
-  else viewport.renderer.draw(scene);
+  else {
+    setExplorationSky(viewport, scene.roofed);
+    viewport.renderer.draw(scene);
+  }
 }
 
 function discoveredCells(position, maps) {
@@ -1585,6 +1598,7 @@ async function showScreen() {
         syncMoveTarget({
           x: streetScene.x, y: streetScene.y, facing: streetScene.facing,
           materialId: streetScene.materialId, area: streetScene.area, mapId: streetScene.mapId,
+          roofed: streetScene.roofed,
         });
         bindMoveView(viewport, streetScene);
         streetCanvas = viewport.canvas;

@@ -102,11 +102,29 @@ function deriveNormalRoughness(atlas) {
       const fine = blurBox(lum, cell, 1, wrap);
       const mid = blurBox(lum, cell, 3, wrap);
       const broad = blurBox(lum, cell, 8, wrap);
-      const band = new Float32Array(cell * cell);
+      let fineEnergy = 0, midEnergy = 0;
+      const count = cell * cell;
+      for (let i = 0; i < count; i++) {
+        const f = fine[i] - mid[i];
+        const m = mid[i] - broad[i];
+        fineEnergy += f * f;
+        midEnergy += m * m;
+      }
+      fineEnergy = Math.sqrt(fineEnergy / count);
+      midEnergy = Math.sqrt(midEnergy / count);
+      const lowRatio = midEnergy / (fineEnergy + midEnergy + 1e-4);
+      // Cave rock is dominated by large painted patches; ivy/mottle is noisy
+      // at a fine scale. Brick mortar stays mid-frequency and regular.
+      const wallTile = index >= 1 && index <= 15;
+      const organic = wallTile ? Math.max(0, Math.min(1, (lowRatio - 0.52) / 0.30)) : 0;
+      const sparkle = wallTile ? Math.max(0, Math.min(1, (fineEnergy - 3.5) / 9.0)) : 0;
+      let fineAmt = (index === 16 || index === 18) ? 0.4 : 1.15;
+      let midAmt = (index === 16 || index === 18) ? 0.22 : 0.42;
+      fineAmt *= 1 - 0.55 * sparkle;
+      midAmt *= 1 - 0.62 * organic;
+      const band = new Float32Array(count);
       let mean = 0;
       for (let i = 0; i < band.length; i++) {
-        const fineAmt = (index === 16 || index === 18) ? 0.4 : 1.15;
-        const midAmt = (index === 16 || index === 18) ? 0.22 : 0.42;
         band[i] = (fine[i] - mid[i]) * fineAmt + (mid[i] - broad[i]) * midAmt;
         mean += band[i];
       }
@@ -117,10 +135,11 @@ function deriveNormalRoughness(atlas) {
         variance += d * d;
       }
       const std = Math.sqrt(variance / band.length) || 1;
-      const heightMap = new Float32Array(cell * cell);
+      const heightMap = new Float32Array(count);
       for (let i = 0; i < band.length; i++)
         heightMap[i] = Math.max(0, Math.min(1, 0.5 + (band[i] - mean) / (std * 2.6)));
-      const strength = tileBumpStrength(index);
+      let strength = tileBumpStrength(index);
+      if (wallTile) strength *= (1 - 0.70 * organic) * (1 - 0.25 * sparkle);
       const clampC = (v) => {
         if (wrap) return ((v % cell) + cell) % cell;
         return v < 0 ? 0 : v > cell - 1 ? cell - 1 : v;
@@ -136,7 +155,7 @@ function deriveNormalRoughness(atlas) {
           const length = Math.hypot(nx, ny, nz) || 1;
           nx /= length; ny /= length; nz /= length;
           const contrast = Math.abs(fine[y * cell + x] - mid[y * cell + x]);
-          const roughness = Math.min(.9, Math.max(.2, .3 + contrast / 40));
+          const roughness = Math.min(.92, Math.max(.2, .3 + contrast / 40 + sparkle * 0.22));
           const i = ((oy + y) * width + (ox + x)) * 4;
           out.data[i] = (nx * .5 + .5) * 255;
           out.data[i + 1] = (ny * .5 + .5) * 255;
@@ -541,14 +560,14 @@ const sceneFragment = `
         vec2 suv = clamp(textureUV + lStep * float(i), 0.0, 1.0);
         float hs = sampleArt(detail, tileIndex, suv).b;
         float cone = height + rise * float(i);
-        bumpShadow *= 1.0 - smoothstep(cone - 0.01, cone + 0.16, hs) * 0.35 * edgeFade * bumpAmt;
+        bumpShadow *= 1.0 - smoothstep(cone - 0.01, cone + 0.20, hs) * 0.16 * edgeFade * bumpAmt;
       }
     }
     sunVis *= bumpShadow;
     float floorHemi = mix(hemi, 0.28 + hemi * 0.25, floorSurface);
     ambient = mix(groundColor, skyColor, floorHemi);
-    vec3 fill = mix(vec3(0.20, 0.23, 0.30), vec3(0.10, 0.12, 0.16), indoor);
-    float sunAmt = ndotl * sunVis * (1.0 - indoor * 0.85);
+    vec3 fill = mix(vec3(0.20, 0.23, 0.30), vec3(0.14, 0.10, 0.07), indoor);
+    float sunAmt = ndotl * sunVis * (1.0 - indoor);
     sunAmt = sunAmt / (1.0 + 0.34 * sunAmt);
     vec3 sunLight = sunColor * sunAmt;
     vec3 color = albedo * (fill + ambient + sunLight) * ao + spec * sunLight * ao;
@@ -557,7 +576,7 @@ const sceneFragment = `
     float torchAtt = 1.0 / (1.0 + torchDist * torchDist * 0.22);
     float torchN = max(dot(N, torchDir), 0.0);
     vec3 torchCol = vec3(1.0, 0.72, 0.42);
-    color += albedo * torchCol * torchN * torchAtt * mix(0.10, 1.15, indoor) * ao;
+    color += albedo * torchCol * torchN * torchAtt * mix(0.10, 0.82, indoor) * ao;
     color += albedo * vec3(0.10, 0.13, 0.18) * indoor * ao;
 
     float haze = 1.0 - exp(-max(0.0, depth) * 0.062);
@@ -602,10 +621,10 @@ const skyFragment = `
     vec3 zenith = vec3(0.38, 0.56, 0.82);
     vec3 horizon = fogColor;
     vec3 color = mix(horizon, zenith, clamp(elev * 1.5 + 0.12, 0.0, 1.0));
-    float sunCore = pow(max(dot(dir, sunDir), 0.0), 220.0);
-    float sunHalo = pow(max(dot(dir, sunDir), 0.0), 36.0);
-    color += vec3(1.8, 1.35, 0.8) * sunHalo * 0.35;
-    color += vec3(2.8, 2.2, 1.4) * sunCore * 2.4;
+    float sunCore = pow(max(dot(dir, sunDir), 0.0), 320.0);
+    float sunHalo = pow(max(dot(dir, sunDir), 0.0), 48.0);
+    color += vec3(1.8, 1.35, 0.8) * sunHalo * 0.22;
+    color += vec3(2.8, 2.2, 1.4) * sunCore * 1.55;
     gl_FragColor = vec4(color, 0.0);
   }
 `;
@@ -843,11 +862,12 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
       const forward = [Math.sin(radians), -Math.cos(radians)];
       const right = [Math.cos(radians), Math.sin(radians)];
       const aspect = canvas.width / canvas.height;
+      // Bit 7 of the GEO flag on this square (ovl26 0x016d): under a roof.
       const indoor = view.roofed ? 1 : 0;
-      const sunColor = indoor ? [0.18, 0.20, 0.24] : [1.28, 0.96, 0.62];
-      const skyColor = indoor ? [0.09, 0.11, 0.15] : [0.36, 0.48, 0.70];
-      const groundColor = indoor ? [0.07, 0.06, 0.05] : [0.26, 0.20, 0.14];
-      const fogColor = indoor ? [0.05, 0.055, 0.06] : [0.62, 0.72, 0.88];
+      const sunColor = indoor ? [0, 0, 0] : [1.28, 0.96, 0.62];
+      const skyColor = indoor ? [0.07, 0.07, 0.08] : [0.36, 0.48, 0.70];
+      const groundColor = indoor ? [0.07, 0.055, 0.04] : [0.30, 0.22, 0.14];
+      const fogColor = indoor ? [0.05, 0.04, 0.035] : [0.62, 0.72, 0.88];
 
       gl.bindFramebuffer(gl.FRAMEBUFFER, sceneFbo);
       gl.viewport(0, 0, width, height);
