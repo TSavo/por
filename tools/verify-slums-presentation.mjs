@@ -746,6 +746,18 @@ const mendorFighterHeldPoses = (cursor, caller) => [0, 1, 2, 3, 4].map(
 );
 
 const illustrationRoutes = new Map([
+["buccaneer-bivant-rescue-loop", {
+    slot: "A", inputs: ["left", "left", ...Array(6).fill("up"), "right", "up", "up", "up", "right", "up",
+      "r", "enter", "right", "right", "up", "left", ...Array(4).fill("up"), "left", "up", "up", "b", "enter"],
+    portrait: "portrait:area:1:ecl:b52f:PIC6.DAX:42:0:0",
+    prompt: /STANDINGNEARYOUISTHEYOUNGBOY.*GETHIMLEAVE/i,
+    heldPortraitLoop: [0, 1, 2, 3, 4, 3].map(member => `portrait:area:1:ecl:b52f:PIC6.DAX:42:${member}:0`),
+    finalPhaseCapture: "buccaneer-bivant-rescue.png",
+    continuation: {
+      inputs: ["g"], portrait: "scene-illustration:area:1:ecl:b5a5:cue:bivant-leaves-pen",
+      prompt: /YOUTAKETHEYOUNGBOYANDLEAVE.*THEOTHERSLAVESALSORUNOUTTHESLAVEPEN/i,
+    },
+  }],
   ["buccaneer-captive-pen-overview-loop", {
     slot: "A", inputs: ["right", "right", "up", "left", "up", "right", "up", "enter"],
     portrait: "portrait:area:1:ecl:b5f7:caller:9e66:PIC6.DAX:42:0:0",
