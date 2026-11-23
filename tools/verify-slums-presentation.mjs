@@ -802,6 +802,8 @@ const tyrmorPriestChisel = {
 };
 
 const nomadSentryWalk = ["up", "up", "up", "up", "left", "up"];
+const nomadGuardWalk = [...nomadSentryWalk, "enter", "p", "enter", "y", "enter", "enter", "e",
+  "left", "left", "up", "up", "left", "up", "right", "up"];
 const nomadSentryPortrait = "portrait:HEAD7.DAX:61:BODY7.DAX:30";
 const nomadSentryStandoff = {
   slot: "A", inputs: [...nomadSentryWalk, "enter"],
@@ -1828,6 +1830,20 @@ const illustrationRoutes = new Map([
     ...nomadSentryStandoff,
     continuation: { inputs: ["c"], portrait: nomadSentryPortrait, prompt: /ABATTLEBEGINS/i,
       screenshot: "nomad-camp-sentry-battle-notice.png" },
+  }],
+  ["nomad-guard-follow", {
+    slot: "A", inputs: nomadGuardWalk,
+    portrait: "portrait:area:17:ecl:a9fe:HEAD7.DAX:61:BODY7.DAX:30",
+    prompt: /AGUARDAPPEARSBEFOREYOU.*ALLOWMETOESCORTYOUTOYOURLODGING/i,
+    staticPortraitMenu: true, finalPhaseCapture: "nomad-samir-escort.png",
+    continuation: { inputs: ["f"], clearsPortrait: true, prompt: /HEREYOUMAYREST/i },
+  }],
+  ["nomad-guard-attack", {
+    slot: "A", inputs: [...nomadGuardWalk, "a"],
+    portrait: "portrait:area:17:ecl:9da2:caller:aa68:HEAD7.DAX:61:BODY7.DAX:30",
+    prompt: /ASTHEGUARDTURNSTOESCORTYOU.*WITHACHOKEDCRYHECOLLAPSES/i,
+    staticPortraitMenu: true, finalPhaseCapture: "nomad-samir-collapse.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /THEYHAVESLAINSAMIR/i },
   }],
   ["nomad-headman-lodging", {
     slot: "A", inputs: [...Array(4).fill("up"), "left", "up", "up", "enter", "enter", "p", "enter", "y"],
@@ -8652,6 +8668,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valhingen-grave-claws" || routeName === "valhingen-vampire-reveal-phases" ||
       routeName === "sokal-barracks-ghost-phases" ||
       /^nomad-camp-sentry-(families|parlay|combat)$/.test(routeName) ||
+      /^nomad-guard-(follow|attack)$/.test(routeName) ||
       routeName === "nomad-feast-held-sequence" ||
       /^nomad-pursuit-(combat|flee)$/.test(routeName) ||
       routeName === "nomad-rally-retained-approach" ||

@@ -471,8 +471,21 @@ const eclCandidates = scripts.flatMap(record => {
     return { blocks, compositions: [...new Map(compositions.map(entry => [entry.source, entry])).values()] };
   }
 
-  function nomadSentryComposition(address: number) {
-    if (archive !== 7 || scriptBlock !== 17 || (address !== 0xa213 && address !== 0xa33c)) return undefined;
+  function nomadComposition(address: number) {
+    if (archive !== 7 || scriptBlock !== 17) return undefined;
+    if (address === 0x9dce) {
+      // Samir's SETUP MONSTER composes the guard before the first delay.
+      const head = instructions.get(0x9dc8);
+      const setup = instructions.get(address);
+      const call = instructions.get(0xa98a);
+      if (head?.opcode !== 0x09 || head.next !== address ||
+          literal(head.operands[0]!) !== 61 || memory(head.operands[1]!) !== 0x6de1 ||
+          setup?.opcode !== 0x0c || literal(setup.operands[2]!) !== 30 ||
+          call?.opcode !== 0x02 || call.operands[0]?.word !== head.address) return undefined;
+      return { source: "HEAD7.DAX:61:BODY7.DAX:30", headWrite: authored(head.address), headSlot: "6de1",
+        bodyOperand: 2 };
+    }
+    if (address !== 0xa213 && address !== 0xa33c) return undefined;
 
     // The second APPROACH composes the sentry. The families passage and the
     // following zero-distance menu retain that composition.
@@ -614,11 +627,11 @@ const eclCandidates = scripts.flatMap(record => {
     }
 
     // Confirm the selected HEAD and BODY from each measured encounter's script.
-    const sentryComposition = nomadSentryComposition(load.address);
+    const nomadPortrait = nomadComposition(load.address);
     let composedPortrait = nomadFeast ? {
       source: "HEAD7.DAX:74:BODY7.DAX:30", headWrite: authored(feastHead.address), headSlot: "6de1",
       bodyOperand: 0, headReset: authored(feastReset.address),
-    } : sentryComposition ?? (tyrmorPictures?.compositions.length === 1 ? tyrmorPictures.compositions[0] : undefined);
+    } : nomadPortrait ?? (tyrmorPictures?.compositions.length === 1 ? tyrmorPictures.compositions[0] : undefined);
     const address = authored(load.address);
     const falseThrone = scriptBlock === 5 && address === "a98a";
     const forgePatrol = scriptBlock === 6 && ["a9e6", "aa49"].includes(address);
@@ -703,7 +716,7 @@ const eclCandidates = scripts.flatMap(record => {
       next: authored(load.next), opcode, name: load.name, pictureArchive, block, selector: portrait, possiblePictures,
       boundedBlocks,
       composedPortrait,
-      ...(sentryComposition && load.address === 0xa33c
+      ...(nomadPortrait && load.address === 0xa33c
         ? { retainedComposedDraw: { prompt: authored(load.next), cursor: authored(0x9dd6) } } : {}),
       ...(tyrmorPictures && tyrmorPictures.compositions.length > 1 ? { composedPortraitVariants: tyrmorPictures.compositions } : {}),
       ...(faceToFaceUnreachable && authored(load.address) === "a26c" && authored(load.next) === lizardFaceToFaceProof.prompt
