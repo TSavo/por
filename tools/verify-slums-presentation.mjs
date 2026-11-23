@@ -3470,7 +3470,7 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:0:HEAD3.DAX:57:BODY3.DAX:1",
     prompt: /THEPRIESTSOFTEMPUSBIDYOUWELCOME.*DOYOUSEEKHEALING/i,
     staticPortraitMenu: true,
-    continuation: { inputs: ["n"], clearsPortrait: true, prompt: /THENYOUMUSTLEAVE/i },
+    continuation: { inputs: ["n"], portrait: "scene-illustration:area:0:ecl:aa63", prompt: /THENYOUMUSTLEAVE/i },
   }],
   ["new-phlan-tempus-watch-battle-notice", {
     slot: "A", fixedClockStart: "4320000", stockInput: true, inputs: ["up"], settleInputs: ["enter", "enter"],
