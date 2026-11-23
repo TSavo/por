@@ -4941,6 +4941,16 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: `wild-cave-wyvern-hoard-${member}.png`,
     continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /VIEWENCAMPSEARCHLOOK/i },
   }]),
+  ["wild-cave-halfling-remains", {
+    slot: "B", inputs: ["up"], stockInput: true,
+    transientPortraits: { 1: {
+      id: "scene-illustration:area:27:ecl:a36f:cue:halfling-remains",
+      prompt: /PARTIALLYEATENREMAINSOFAHALFING/i, durationMs: 900, recordTiming: true,
+      screenshot: "wild-cave-halfling-remains.png",
+    } },
+    prompt: /VIEWENCAMPSEARCHLOOK/i,
+    sceneryPrompt: [27, 2, 2],
+  }],
   ["wild-cave-bone-chamber", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:27:ecl:a537:cue:bone-chamber", prompt: /THISROOMISFILLEDWITHHUMANBONES/i,
