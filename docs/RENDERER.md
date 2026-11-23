@@ -56,10 +56,10 @@ the painted atlas (luminance slope, contrast). No new PNGs in
 **Lighting.** A directional sun and sky/ground ambient outdoors, a weaker
 fill plus a camera-local torch or lantern indoors. The game already marks
 which square is under a roof (bit 7 of the GEO flag byte); those views
-drop the sun disc and its shadows and use a dark void instead of the
-shader sky. Today's per-face
-brightness can stay as a starting term. Do not invent a day/night cycle
-or weather the game does not already have.
+drop the sun disc and its shadows and use a dark void above the walls.
+Open views use the native backdrop selected by the script. A black
+backdrop mutes the sun and its bloom and gives the walls a dim, cool
+ambient fill. The game already sets this backdrop at its own times.
 
 **Soft shadows.** One sun or torch shadow map of the 16×16 grid. Watch
 bias on gates and pilings.
@@ -122,3 +122,23 @@ POR_GAME_SOURCE=original POR_GAMEDATA=/path/to/POOLRAD \
 
 `npm run acceptance:new-phlan` passed all eight New Phlan scenarios on
 Battleaxe with GOG 1.3.
+
+### Open sky at night
+
+[Kuto's Well at 22:08](screenshots/renderer-look/kuto-open-shaft-night.png)
+uses its native black sky at the open ladder on map 32, (7,7) north.
+At the same camera the earlier lit renderer returned RGBA
+`[122,187,255,255]` at the center of the opening. The fixed renderer
+returned `[2,3,5,255]` in GOG 1.3 and bundled Chrome replays. The daylit
+New Phlan gate was pixel-identical across the fix. Its native sky was
+palette index 11.
+
+```sh
+POR_GAME_SOURCE=original POR_GAMEDATA=/path/to/POOLRAD \
+  node tools/verify-slums-presentation.mjs qa/fixtures/kuto-well-catacombs/J.json /usr/bin/google-chrome kuto-open-shaft-night
+```
+
+Use `POR_GAME_SOURCE=port` to repeat the check with bundled data. The GOG
+replay also switches to Classic and back, checking the captured guest
+frame, browser state, and saved file. New Phlan acceptance passed all
+eight scenarios with each data source.

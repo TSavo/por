@@ -8208,6 +8208,7 @@ const outskirtsRoutes = new Map([
 const outskirts = outskirtsRoutes.get(routeName);
 const libraryWaterfrontEntry = ["up", "up", "up", "right", "up", "up"];
 const environmentRoutes = new Map([
+  ["kuto-open-shaft-night", { slot: "J" }],
   ["textile-fountain-turn", {
     slot: "H", area: 2, views: 5, patterns: 53, sceneryOnly: true,
     walk: ["left", "up", "up", "right"],
@@ -11149,6 +11150,27 @@ try {
     assert.equal(new Set(cells.map(([, , key]) => key)).size, 20);
     writeFileSync(resolve(directory, "slums-native-area-cells.json"), JSON.stringify(cells));
     console.log("Verified the native Slums Area command and return to WebGL:", directory);
+  } else if (routeName === "kuto-open-shaft-night") {
+    const { area, mapId, x, y, facing, roofed, skyColor } = frame.scenery;
+    assert.deepEqual({ area, mapId, x, y, facing, roofed }, {
+      area: 29, mapId: 32, x: 7, y: 7, facing: 0, roofed: false,
+    });
+    await waitForExplorationViewport();
+    const sky = await run(`(() => {
+      const canvas = document.querySelector("#tile-art:not([hidden]) canvas.street-viewport");
+      const gl = canvas.getContext("webgl");
+      const pixel = new Uint8Array(4);
+      gl.readPixels(Math.floor(canvas.width / 2), Math.floor(canvas.height * .94), 1, 1,
+        gl.RGBA, gl.UNSIGNED_BYTE, pixel);
+      return [...pixel];
+    })()`);
+    assert.ok(sky[3] === 255 && Math.max(...sky.slice(0, 3)) < 48,
+      `The open well shaft should show night sky, got ${JSON.stringify(sky)}`);
+    assert.equal(skyColor, 0, "The native script selected a black sky");
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, `${routeName}.png`), Buffer.from(shot.data, "base64"));
+    await switchBothWays(frame.frame);
+    console.log(`Verified Kuto's open night sky in WebGL: ${JSON.stringify(sky)}.`);
   } else if (environment?.nightExit) {
     const { area, x, y, patterns } = environment.nightExit;
     const art = JSON.parse(readFileSync("upgrades/manifest.json", "utf8")).assets;
