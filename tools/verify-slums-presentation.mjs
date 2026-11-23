@@ -4232,7 +4232,8 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["a"], portrait: "portrait:area:13:ecl:9c5e:PIC8.DAX:0:0:0", prompt: /IAMTOESCORTYOUTOOURTREASURE/i },
   }],
   ["kobold-throne-first-audience", {
-    slot: "B", inputs: ["up", "enter", "enter", "enter"],
+    slot: "B", inputs: ["up", "enter"],
+    oneShotProducer: "ECL8.DAX:13:a0f8",
     approachSequence: [
       [56, 32, "encounter:area:13:ecl:a02c:SPRIT8.DAX:0:2:0", 24, 57],
       [56, 32, "encounter:area:13:ecl:a07a:SPRIT8.DAX:0:2:0", 24, 57],
@@ -4240,6 +4241,7 @@ const illustrationRoutes = new Map([
     ],
     portrait: "portrait:area:13:ecl:a14b:PIC8.DAX:0:0:0", prompt: /THESEMENAREENEMIES/i,
     finalPhaseCapture: "kobold-throne-first-audience.png",
+    continuation: { inputs: [":travel-poll", ":travel-poll"], clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
   ["kobold-envoy-rematch", {
     slot: "B", inputs: ["up", "enter"],
@@ -8649,6 +8651,9 @@ const port = process.env.POR_PLAY_PORT ?? "43212";
 const origin = `http://127.0.0.1:${port}`;
 const browserEnvironment = { ...process.env };
 delete browserEnvironment.POR_UPGRADES_DIR;
+if (routeName === "kobold-throne-first-audience") {
+  browserEnvironment.POR_PROMPT_SCHEDULE_IN = resolve("qa/fixtures/kobold-throne-horde/first-audience-prompts.jsonl");
+}
 const shopPortraitTrace = routeName === "new-phlan-south-shop-exit" && !browserEnvironment.POR_PORTRAIT_TRACE_FILE
   ? resolve(directory, "shop-portrait-fallbacks.jsonl") : undefined;
 if (shopPortraitTrace) browserEnvironment.POR_PORTRAIT_TRACE_FILE = shopPortraitTrace;
@@ -8726,6 +8731,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "kobold-white-flag-envoy" || routeName === "kobold-white-flag-escort-phase" || routeName === "kobold-white-flag-refusal" ||
       routeName === "kobold-kings-quarters-native" || routeName === "kobold-cave-efreeti-dialogue" ||
       koboldGuideHeld || koboldGuideWallTap || koboldThroneHordeHold || koboldRoamingHold ||
+      routeName === "kobold-throne-first-audience" ||
       routeName === "valjevo-medusa-phases" || routeName === "valhingen-mummy-sarcophagi-phases" ||
       routeName === "valjevo-fire-giant-loop" ||
       routeName === "valjevo-fire-giant-refusal-loop" ||

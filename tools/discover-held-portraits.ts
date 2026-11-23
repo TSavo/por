@@ -242,6 +242,24 @@ const eclCandidates = scripts.flatMap(record => {
   });
 
   function immediateCombatAfter(load: Instruction) {
+    // The first throne fight initializes four guest actors before COMBAT.
+    // The counter starts at 6e3e, increments by one, and stops at 6e3e + 4.
+    // Normal cycle rejection stays in place for every other script path.
+    if (archive === 8 && scriptBlock === 13 && load.address === 0xa0f8) {
+      const scopeHash = "819101ec8175ed0b41f31e856d00d553103434730bdaa3a48b3346decd521ad5";
+      const signature = (candidate: typeof script) =>
+        digest(candidate.bytes.subarray(0xa0f8 - candidate.base, 0xa14b - candidate.base));
+      const original = findGameRoot();
+      if (signature(script) === scopeHash && original) {
+        if (isPortGameRoot(original)) return { address: "a14a", resume: "a14b" };
+        try {
+          const block = parseDax(record.file, readGameFile(original, record.file)).entries.find(entry => entry.id === scriptBlock);
+          if (block && signature(scriptFromBlock(block.data)) === scopeHash) return { address: "a14a", resume: "a14b" };
+        } catch {
+          // An unavailable or different external block cannot establish this path.
+        }
+      }
+    }
     const results = new Map<string, number | null>();
     function fightFrom(state: State): number | null {
       const key = stateKey(state);
