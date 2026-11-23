@@ -154,7 +154,7 @@ const portraitLoops = [
   ["portrait:area:31:ecl:a076:PIC1.DAX:2:", 2, "portrait:area:31:PIC1.DAX:2:0:0",
     /INTHISROOMARESOMEGOBLINSLAVESTHATARECOWERINGINTHECORNER/i, [310, 310]],
   ["portrait:area:20:ecl:b6df:caller:9eec:PIC2.DAX:2:", 2, "portrait:area:20:PIC2.DAX:2:0:0",
-    /GOBLINISINSTRUCTINGAGROUPOFYOUNGWARRIORS/i],
+    /GOBLINISINSTRUCTINGAGROUPOFYOUNGWARRIORS/i, [310, 310]],
   ["portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:", [0, 1, 2, 1], "portrait:area:20:PIC2.DAX:4:0:0",
     /GUARDSRUNTOINTERCEPTYOU/i, [1510, 20, 710, 20]],
   ["portrait:area:20:ecl:9e02:PIC2.DAX:0:", [0, 1, 2, 1], undefined,

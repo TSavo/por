@@ -267,7 +267,7 @@ const encounterRoutes = new Map([
     placement: [48, 32, "encounter:area:20:SPRIT2.DAX:2:0:0", 48, 80],
     dialogue: {
       key: "enter", portrait: "portrait:area:20:PIC2.DAX:2:0:0", prompt: /GOBLINISINSTRUCTINGAGROUPOFYOUNGWARRIORS/i,
-      heldPortraitLoop: 2,
+      heldPortraitLoop: ["portrait:area:20:PIC2.DAX:2:0:0", "portrait:area:20:ecl:b6df:caller:9eec:PIC2.DAX:2:1:0"],
       heldPortrait: "portrait:area:20:ecl:b6df:caller:9eec:PIC2.DAX:2:1:0",
     },
   }],

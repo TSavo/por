@@ -21106,6 +21106,234 @@
           }
         }
       }
+    },
+    {
+      "id": "area:20:ecl:b6df:caller:9eec:PIC2.DAX:2",
+      "producer": "ECL2.DAX:20:9e80",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 310,
+          "viewport": "a22361feb58b6fc42bb5e0833cd6e54072df64abfee49b139eac5fa7a0878312"
+        },
+        {
+          "member": 1,
+          "durationMs": 310,
+          "viewport": "e579cb908b4bbfe27909da489faa62cbef2c3f2b4573d7cb931b9a6f0be3a2b2"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "slums-goblin-lesson-approach",
+          "data": "original",
+          "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+          "bindingSha256": "b05e9ac698045b0e1354dbd44e8003c053dcf08eb92ffa5b8bd9e0b4ae530551",
+          "portrait": "portrait:area:20:PIC2.DAX:2:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:PIC2.DAX:2:0:0",
+              "atMs": 4.799999976159597
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:9eec:PIC2.DAX:2:1:0",
+              "atMs": 288.09999997615523
+            },
+            {
+              "key": "portrait:area:20:PIC2.DAX:2:0:0",
+              "atMs": 588.0999999761552
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:9eec:PIC2.DAX:2:1:0",
+              "atMs": 904.699999976161
+            },
+            {
+              "key": "portrait:area:20:PIC2.DAX:2:0:0",
+              "atMs": 1204.699999976161
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:9eec:PIC2.DAX:2:1:0",
+              "atMs": 1521.3999999761581
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:PIC2.DAX:2:0:0": "9e2ac6cb80030edb7bb70be17c9caeb9c4dc6814dada7723bfc6125bb8ed8d6d",
+            "portrait:area:20:ecl:b6df:caller:9eec:PIC2.DAX:2:1:0": "a9fd0273776bc32711b4acdb3137be8ea7b9998e5b3efb598ebc41be46a73897"
+          }
+        },
+        "port": {
+          "route": "slums-goblin-lesson-approach",
+          "data": "port",
+          "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+          "bindingSha256": "b05e9ac698045b0e1354dbd44e8003c053dcf08eb92ffa5b8bd9e0b4ae530551",
+          "portrait": "portrait:area:20:PIC2.DAX:2:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:PIC2.DAX:2:0:0",
+              "atMs": 6.600000011921111
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:9eec:PIC2.DAX:2:1:0",
+              "atMs": 223.40000001192084
+            },
+            {
+              "key": "portrait:area:20:PIC2.DAX:2:0:0",
+              "atMs": 523.3000000119209
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:9eec:PIC2.DAX:2:1:0",
+              "atMs": 840.0000000119207
+            },
+            {
+              "key": "portrait:area:20:PIC2.DAX:2:0:0",
+              "atMs": 1139.9000000119208
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:9eec:PIC2.DAX:2:1:0",
+              "atMs": 1456.600000011921
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:PIC2.DAX:2:0:0": "9e2ac6cb80030edb7bb70be17c9caeb9c4dc6814dada7723bfc6125bb8ed8d6d",
+            "portrait:area:20:ecl:b6df:caller:9eec:PIC2.DAX:2:1:0": "a9fd0273776bc32711b4acdb3137be8ea7b9998e5b3efb598ebc41be46a73897"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:20:ecl:b6df:caller:ab75:PIC2.DAX:4",
+      "producer": "ECL2.DAX:20:ab51",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1510,
+          "viewport": "2373d5229332a0dfc341c6a97e4371ba1ae0d83ad6f1803324a7219abb335440"
+        },
+        {
+          "member": 1,
+          "durationMs": 20,
+          "viewport": "d2f3c3b368fa6294d4fc0dea3c62279342392566accc8be7550c6eb450c383f7"
+        },
+        {
+          "member": 2,
+          "durationMs": 710,
+          "viewport": "cafbf84bf2bf53ef48f7de6e14d01f8c972602943b6b26d2fcf5622814911ab7"
+        },
+        {
+          "member": 3,
+          "durationMs": 20,
+          "viewport": "d2f3c3b368fa6294d4fc0dea3c62279342392566accc8be7550c6eb450c383f7"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "slums-orc-clash",
+          "data": "original",
+          "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+          "bindingSha256": "fc860d2d69a9bdac2aad1ee695880f6ed739415d0f39a05cdba63a87a83f25f6",
+          "portrait": "portrait:area:20:PIC2.DAX:4:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:PIC2.DAX:4:0:0",
+              "atMs": 0.9000000119212928
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:1:0",
+              "atMs": 1450.800000011921
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:2:0",
+              "atMs": 1467.5000000119207
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:1:0",
+              "atMs": 2167.5000000119207
+            },
+            {
+              "key": "portrait:area:20:PIC2.DAX:4:0:0",
+              "atMs": 2200.800000011921
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:1:0",
+              "atMs": 3700.7000000119206
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:2:0",
+              "atMs": 3717.5000000119217
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:1:0",
+              "atMs": 4434.10000001192
+            },
+            {
+              "key": "portrait:area:20:PIC2.DAX:4:0:0",
+              "atMs": 4450.700000011921
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:1:0",
+              "atMs": 5967.300000011921
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:PIC2.DAX:4:0:0": "7ee3f9e2ad3495fa633c635eca5c6e7cd4916d6967096628fefc191bba9a345e",
+            "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:1:0": "362aee1e09d1d0f7a556873bdb9b4e6ec2fe2c0a2a1e90e1e4f15c74ac016c39",
+            "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:2:0": "b3773ea3e1d2cbba128688bc43737b18418cc7a68d97ae7588e41d15879b4184"
+          }
+        },
+        "port": {
+          "route": "slums-orc-clash",
+          "data": "port",
+          "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+          "bindingSha256": "fc860d2d69a9bdac2aad1ee695880f6ed739415d0f39a05cdba63a87a83f25f6",
+          "portrait": "portrait:area:20:PIC2.DAX:4:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:PIC2.DAX:4:0:0",
+              "atMs": 8.100000000000364
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:1:0",
+              "atMs": 1474.6000000000004
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:2:0",
+              "atMs": 1491.1999999999998
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:1:0",
+              "atMs": 2191.2
+            },
+            {
+              "key": "portrait:area:20:PIC2.DAX:4:0:0",
+              "atMs": 2224.6000000000004
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:1:0",
+              "atMs": 3724.6000000000004
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:2:0",
+              "atMs": 3741.2
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:1:0",
+              "atMs": 4457.799999999999
+            },
+            {
+              "key": "portrait:area:20:PIC2.DAX:4:0:0",
+              "atMs": 4474.5
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:1:0",
+              "atMs": 5991.1
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:PIC2.DAX:4:0:0": "7ee3f9e2ad3495fa633c635eca5c6e7cd4916d6967096628fefc191bba9a345e",
+            "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:1:0": "362aee1e09d1d0f7a556873bdb9b4e6ec2fe2c0a2a1e90e1e4f15c74ac016c39",
+            "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:2:0": "b3773ea3e1d2cbba128688bc43737b18418cc7a68d97ae7588e41d15879b4184"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
