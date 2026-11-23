@@ -139,14 +139,17 @@ async function verify() {
   assert.match(text(), /Partscolor-1color-2SizeExit/i);
   if (option === "--sweep") return sweepEditor(size);
 
-  // CBODY 3/131 supplies both flail poses. Only the upper part of each image
-  // should change as all fourteen small CHEAD choices cycle back to the first.
-  await press("p", "w", "n", "n", "n", "k", "h");
-  const flail = (await editorIcons(64)).current;
-  for (let head = 1; head <= 14; head++) {
-    await press("n");
-    assert.deepEqual((await editorIcons(64)).current, flail,
-      `Changing to flail head ${head % 14} changed the legs or weapon`);
+  // Heads may cover collars or sleeves. The feet and legs stay fixed for
+  // the same unarmed or flail CBODY in both ready and strike poses.
+  await press("p", "h");
+  for (const body of [0, 3]) {
+    if (body === 3) await press("k", "w", "n", "n", "n", "k", "h");
+    const lowerBody = (await editorIcons(64)).current;
+    for (let head = 1; head <= 14; head++) {
+      await press("n");
+      assert.deepEqual((await editorIcons(64)).current, lowerBody,
+        `Head ${head % 14} changed the legs or weapon for body ${body}`);
+    }
   }
   await press("k", "w", "p", "p", "p", "k", "e");
 
