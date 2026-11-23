@@ -1791,6 +1791,13 @@ const illustrationRoutes = new Map([
     ...nomadPursuit,
     continuation: { inputs: ["c"], clearsPortrait: true, prompt: /ABATTLEBEGINS/i },
   }],
+  ["nomad-pursuit-menu", {
+    slot: "A", inputs: ["up"], approachSequence: [nomadPursuitPlacement],
+    prompt: nomadPursuit.heldApproachPrompt,
+    heldApproachCapture: "nomad-pursuit-decision.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /COMBATWAITFLEEADVANCE/i,
+      heldApproach: { position: nomadPursuit.heldApproachPosition, placement: nomadPursuitDecision } },
+  }],
   ["nomad-pursuit-flee", {
     ...nomadPursuit,
     continuation: { inputs: ["f"], clearsPortrait: true, prompt: /ABATTLEBEGINS/i },
@@ -1833,6 +1840,16 @@ const illustrationRoutes = new Map([
     ...nomadSentryStandoff,
     continuation: { inputs: ["c"], portrait: nomadSentryPortrait, prompt: /ABATTLEBEGINS/i,
       screenshot: "nomad-camp-sentry-battle-notice.png" },
+  }],
+  ["nomad-raid-first-attack", {
+    slot: "A", inputs: ["e", "r", "h", ...Array(18).fill("i"), "r", "space", "n", "enter"], fixedClockStart: 4320000,
+    portrait: "scene-illustration:area:17:ecl:9da2:caller:af47",
+    prompt: /AHORDEOFKOBOLDSISATTACKINGTHECAMP.*AFAMILYEMERGESFROMAHUTANDCHARGESTHEKOBOLDS/i,
+    illustratedScenery: true, finalPhaseCapture: "nomad-raid-first-attack.png",
+    heldApproachCapture: "nomad-raid-first-attack-returned.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /COMBATWAITFLEEADVANCE/i,
+      heldApproach: { position: [17, 9, 11],
+        placement: [56, 32, "encounter:area:17:SPRIT7.DAX:0:1:0", 24, 65] } },
   }],
   ["nomad-raid-betrayal", {
     slot: "A", inputs: ["e", "r", "h", "i", "r", "enter"], fixedClockStart: 4320000,
@@ -8775,9 +8792,9 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "sokal-barracks-ghost-phases" ||
       /^nomad-camp-sentry-(families|parlay|combat)$/.test(routeName) ||
       /^nomad-guard-(follow|attack)$/.test(routeName) ||
-      routeName === "nomad-raid-betrayal" ||
+      /^nomad-raid-(betrayal|first-attack)$/.test(routeName) ||
       routeName === "nomad-feast-held-sequence" ||
-      /^nomad-pursuit-(combat|flee)$/.test(routeName) ||
+      /^nomad-pursuit-(combat|flee|menu)$/.test(routeName) ||
       routeName === "nomad-rally-retained-approach" ||
       /^tyrmor-priest-(benediction-hold|tone-hold|peace-hold|chisel-hold|chisel-help)$/.test(routeName) ||
       sokalBarracksHeld ||
