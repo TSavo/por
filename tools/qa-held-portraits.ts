@@ -356,7 +356,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     });
   }
 
-  function staticPortraitProblem(site: ScriptSite, variant: StaticPortraitVariant): string | null {
+  function staticPortraitProblem(site: ScriptSite, prompt: string, variant: StaticPortraitVariant): string | null {
     const { caption, checkpoint, portrait, native, chrome } = variant;
     const expectedCaption = normalizeCaption(caption);
     if (!normalizeCaption(native.heldCaption).includes(expectedCaption)) return "native evidence has a different caption";
@@ -392,9 +392,9 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
         }
       }
     } else {
-      if (native.drawCursor !== site.next && !site.approachSites.includes(native.drawCursor)) {
-        return "native draw cursor no longer matches the measured producer";
-      }
+      const retained = site.retainedComposedDraw;
+      const draws = retained?.prompt === prompt ? [retained.cursor] : [site.next, ...site.approachSites];
+      if (!draws.includes(native.drawCursor)) return "native draw cursor no longer matches the measured producer";
       const compositions = site.composedPortraitVariants ?? (site.composedPortrait ? [site.composedPortrait] : []);
       const sourceMatches = compositions.length
         ? native.members === undefined && compositions.some(composition => isDeepStrictEqual(native.composed, composition))
@@ -464,7 +464,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
         site.promptCandidates.some(lead => promptId(lead.next, lead.caller) === prompt &&
           (lead.address === inheritedCaller || site.retainedVerticalMenus?.[prompt] === inheritedCaller));
       const reason = (member !== undefined ? registeredMember : scoped || variant.native.inheritedFrom !== undefined)
-        ? staticPortraitProblem(site, variant) : "static portrait belongs to a different prompt";
+        ? staticPortraitProblem(site, prompt, variant) : "static portrait belongs to a different prompt";
       if (reason === null && composition) compositions.add(composition);
       return { id: variant.portrait, producer, verified: reason === null, reason, remainingCues: undefined };
     });

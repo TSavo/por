@@ -357,6 +357,39 @@ const eclCandidates = scripts.flatMap(record => {
     return { blocks, compositions: [...new Map(compositions.map(entry => [entry.source, entry])).values()] };
   }
 
+  function nomadSentryComposition(address: number) {
+    if (archive !== 7 || scriptBlock !== 17 || (address !== 0xa213 && address !== 0xa33c)) return undefined;
+
+    // The second APPROACH composes the sentry. The families passage and the
+    // following zero-distance menu retain that composition.
+    const route = [
+      [0xa20d, 0x09], [0xa213, 0x0c], [0xa21a, 0x12], [0xa285, 0x02], [0xa289, 0x12],
+      [0xa2e4, 0x02], [0xa2e8, 0x12], [0xa338, 0x02], [0xa33c, 0x29], [0xa37e, 0x09],
+    ] as const;
+    if (!route.every(([at, opcode], index) => {
+      const instruction = instructions.get(at);
+      const next = route[index + 1]?.[0];
+      return instruction?.opcode === opcode && (next === undefined || instruction.next === next);
+    })) return undefined;
+    const head = instructions.get(0xa20d)!;
+    const setup = instructions.get(0xa213)!;
+    const menu = instructions.get(0xa33c)!;
+    const reset = instructions.get(0xa37e)!;
+    if (literal(head.operands[0]!) !== 61 || memory(head.operands[1]!) !== 0x6de1 ||
+        literal(setup.operands[0]!) !== 11 || literal(setup.operands[1]!) !== 2 ||
+        literal(setup.operands[2]!) !== 30 || literal(menu.operands[0]!) !== 11 ||
+        literal(menu.operands[1]!) !== 0 || literal(menu.operands[2]!) !== 30 ||
+        literal(reset.operands[0]!) !== 0xff || memory(reset.operands[1]!) !== 0x6de1 ||
+        instructions.get(0xa285)?.operands[0]?.word !== 0x9dd5 ||
+        instructions.get(0xa2e4)?.operands[0]?.word !== 0x9dd5 ||
+        instructions.get(0xa338)?.operands[0]?.word !== 0x9d7f ||
+        instructions.get(0x9dd5)?.opcode !== 0x3a || instructions.get(0x9dd6)?.opcode !== 0x0d ||
+        instructions.get(0x9dd7)?.opcode !== 0x13 || instructions.get(0x9d7f)?.opcode !== 0x2b ||
+        instructions.get(0x9da2)?.opcode !== 0x12 || instructions.get(0x9da6)?.opcode !== 0x13) return undefined;
+    return { source: "HEAD7.DAX:61:BODY7.DAX:30", headWrite: authored(head.address), headSlot: "6de1",
+      bodyOperand: 2, headReset: authored(reset.address) };
+  }
+
   return decoded.flatMap(load => {
     const { opcode, operands } = load;
     if (opcode !== 0x0e && opcode !== 0x0c && opcode !== 0x29) return [];
@@ -449,7 +482,9 @@ const eclCandidates = scripts.flatMap(record => {
     }
 
     // Confirm the selected HEAD and BODY from each measured encounter's script.
-    let composedPortrait = tyrmorPictures?.compositions.length === 1 ? tyrmorPictures.compositions[0] : undefined;
+    const sentryComposition = nomadSentryComposition(load.address);
+    let composedPortrait = sentryComposition ??
+      (tyrmorPictures?.compositions.length === 1 ? tyrmorPictures.compositions[0] : undefined);
     const address = authored(load.address);
     const falseThrone = scriptBlock === 5 && address === "a98a";
     const forgePatrol = scriptBlock === 6 && ["a9e6", "aa49"].includes(address);
@@ -522,6 +557,8 @@ const eclCandidates = scripts.flatMap(record => {
       next: authored(load.next), opcode, name: load.name, pictureArchive, block, selector: portrait, possiblePictures,
       boundedBlocks,
       composedPortrait,
+      ...(sentryComposition && load.address === 0xa33c
+        ? { retainedComposedDraw: { prompt: authored(load.next), cursor: authored(0x9dd6) } } : {}),
       ...(tyrmorPictures && tyrmorPictures.compositions.length > 1 ? { composedPortraitVariants: tyrmorPictures.compositions } : {}),
       ...(faceToFaceUnreachable && authored(load.address) === "a26c" && authored(load.next) === lizardFaceToFaceProof.prompt
         ? { unreachableOriginal: lizardFaceToFaceProof.reason } : {}),
