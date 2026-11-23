@@ -19,3 +19,9 @@ of combat at each angry-party selection.
 
 The corresponding `slums-roaming-*-spotted-loop` routes check the
 close portrait and combat notice after spotting a roaming party.
+
+The `slums-roaming-orc-demand-parlay-loop` and
+`slums-roaming-goblin-rebuke-parlay-loop` routes use the spotted-party
+checkpoint. Parlay opens the tone menu, and Nice leads to the orc's
+payment demand or the goblin's rebuke. Both routes check the street
+portrait during the tone menu and the held pose cycle that follows.

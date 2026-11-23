@@ -2580,6 +2580,18 @@ const illustrationRoutes = new Map([
     }];
   }),
   ...[
+    ["orc-demand", "4320010", 3, [], 4, "b38d", /GIVEUSSUMPTINANMAYBE/i, [0, 1, 2, 1]],
+    ["goblin-rebuke", "4320600", 2, ["a"], 2, "b6df:caller:b691", /YOUHAVEANGEREDTHEGOBLINS.*THEYATTACK/i, [0, 1]],
+  ].map(([scene, fixedClockStart, moves, approach, block, cursor, prompt, members]) => {
+    const inputs = [...Array.from({ length: moves }, () => ["up", "enter", "down"]).flat(), "up", ...approach, "p"];
+    const portrait = member => `portrait:area:20:ecl:${cursor}:PIC2.DAX:${block}:${member}:0`;
+    return [`slums-roaming-${scene}-parlay-loop`, {
+      slot: "B", fixedClockStart, inputs: [...inputs, "n"],
+      portraitStops: { [inputs.length]: `portrait:area:20:ecl:b2cc:PIC2.DAX:${block}:0:0` },
+      portrait: portrait(0), prompt, heldPortraitLoop: members.map(portrait),
+    }];
+  }),
+  ...[
     ["kobold", "4320150", 0, [0, 1, 2, 1], [56, 32, "encounter:SPRIT2.DAX:0:1:0", 24, 65]],
     ["goblin", "4320100", 2, [0, 1], [56, 32, "encounter:area:20:SPRIT2.DAX:2:1:0", 32, 65]],
     ["orc", "4320350", 4, [0, 1, 2, 1], [56, 32, "encounter:SPRIT2.DAX:4:1:0", 32, 65]],
@@ -8551,7 +8563,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valjevo-fire-giant-refusal-loop" ||
       routeName === "valjevo-fire-giant-intruder-loop" ||
       routeName.startsWith("valjevo-tower-giants-") ||
-      /^slums-roaming-(?:kobold|(?:kobold|orc|goblin)-(?:surprise|advance|spotted))-loop$/.test(routeName) ||
+      /^slums-roaming-(?:kobold|(?:kobold|orc|goblin)-(?:surprise|advance|spotted)|(?:orc-demand|goblin-rebuke)-parlay)-loop$/.test(routeName) ||
       /^valjevo-giant-barracks-password-(haughty|sly)-loop$/.test(routeName) ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||
