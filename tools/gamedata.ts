@@ -4,6 +4,7 @@ import { parseDax, type DaxEntry } from "../src/lib/dax.js";
 import { loadExecutable, type LoadImage } from "../src/lib/exepack.js";
 import { dataFiles, GAME_DATA_FORMAT, loadPortGame, samePictureShape, type OriginalBlock, type PortGame } from "../src/runtime/game-data.js";
 import { fromPortRoot } from "./port-root.js";
+import { readJsonNow, resources } from "../src/resources/provider.js";
 
 const GAME_FILE = /\.(dax|exe|ovr|ex_|pic)$/i;
 
@@ -110,8 +111,42 @@ export function mountValjevoWallPieces(files: readonly { name: string; data: Uin
 /** The port's own game data, converted from version 1.3 by tools/build-game-data.ts. */
 export const portGameRoot = fromPortRoot("game");
 
+/**
+ * A game root the resource layer holds (#224): `res:game`, the port's own data (`game:` ids), or
+ * `res:original`, the player's own original files (`original:` ids). The play path runs from one of
+ * these, so every file it reads goes through the provider; a path is still accepted by the tools.
+ */
+export type ResourceRoot = "res:game" | "res:original";
+export const isResourceRoot = (root: string): root is ResourceRoot => root === "res:game" || root === "res:original";
+const rootKind = (root: ResourceRoot) => root === "res:game" ? "game" : "original";
+
+let activeRoot: string | undefined;
+/** The root `findGameRoot()` answers from now on: the play path's resource root. */
+export function useGameRoot(root: string | undefined): void {
+  activeRoot = root;
+}
+
+/** The names of the files under a resource root, relative to it, `/` between folders. */
+function resourceNames(root: ResourceRoot): string[] {
+  const prefix = `${rootKind(root)}:`;
+  return resources().listNow(prefix).map((id) => id.slice(prefix.length));
+}
+
+function readResource(root: ResourceRoot, name: string): Uint8Array {
+  const bytes = resources().readNow(`${rootKind(root)}:${name}`);
+  if (!bytes) throw new Error(`${name} is not among the ${rootKind(root) === "game" ? "port's game data" : "original files"}`);
+  return bytes;
+}
+
 /** True when `dir` holds the port's own data files rather than the original game. */
 export function isPortGameRoot(dir: string): boolean {
+  if (isResourceRoot(dir)) {
+    try {
+      return readJsonNow<{ format?: string }>(resources(), `${rootKind(dir)}:manifest.json`)?.format === GAME_DATA_FORMAT;
+    } catch {
+      return false;
+    }
+  }
   const manifest = path.join(dir, "manifest.json");
   if (!fs.existsSync(manifest)) return false;
   try {
@@ -125,10 +160,11 @@ const portGames = new Map<string, PortGame>();
 
 /** Everything the runner needs from a directory of the port's own data. */
 export function portGame(root: string): PortGame {
-  const key = path.resolve(root);
+  const key = isResourceRoot(root) ? root : path.resolve(root);
   let game = portGames.get(key);
   if (!game) {
-    game = loadPortGame((file) => new Uint8Array(fs.readFileSync(path.join(key, file))));
+    game = isResourceRoot(root) ? loadPortGame((file) => readResource(root, file))
+      : loadPortGame((file) => new Uint8Array(fs.readFileSync(path.join(key, file))));
     portGames.set(key, game);
   }
   return game;
@@ -167,6 +203,7 @@ function* gameDirectories(candidates: (string | undefined)[]) {
 
 /** First directory that actually contains Gold Box files. Never searches outside the candidates. */
 export function findGameRoot(explicit?: string): string | null {
+  if (explicit === undefined && activeRoot) return activeRoot;
   for (const directory of gameDirectories([explicit, process.env.POR_GAMEDATA, ...defaultGameRoots()])) {
     if (hasGameFiles(directory)) return directory;
   }
@@ -175,6 +212,7 @@ export function findGameRoot(explicit?: string): string | null {
 
 export function listGameFiles(root: string): string[] {
   if (isPortGameRoot(root)) return portGame(root).files.map(({ name }) => name).sort((a, b) => a.localeCompare(b));
+  if (isResourceRoot(root)) return resourceNames(root).filter((name) => !name.includes("/")).sort((a, b) => a.localeCompare(b));
   return fs
     .readdirSync(root)
     .filter((name) => fs.statSync(path.join(root, name)).isFile())
@@ -219,13 +257,14 @@ export function requireBrowserGameRoot(): string {
  */
 export function classicPictureFiles(root: string, folder: string): { files: { name: string; data: Uint8Array }[]; used: number; total: number } {
   const game = portGame(root);
-  const names = new Map(fs.readdirSync(folder).map((name) => [name.toUpperCase(), name]));
+  const names = new Map((isResourceRoot(folder) ? listGameFiles(folder) : fs.readdirSync(folder)).map((name) => [name.toUpperCase(), name]));
   const archives = new Map<string, Map<number, OriginalBlock>>();
   const blocks = (file: string) => {
     let found = archives.get(file);
     if (!found) {
       const name = names.get(file);
-      const archive = name ? new Uint8Array(fs.readFileSync(path.join(folder, name))) : undefined;
+      const archive = !name ? undefined : isResourceRoot(folder) ? readResource(folder, name)
+        : new Uint8Array(fs.readFileSync(path.join(folder, name)));
       found = new Map(archive ? parseDax(file, archive).entries.map((entry) =>
         [entry.id, { data: entry.data, compressed: storedRecord(entry, archive).compressed }]) : []);
       archives.set(file, found);
@@ -233,7 +272,8 @@ export function classicPictureFiles(root: string, folder: string): { files: { na
     return found;
   };
   let used = 0;
-  const files = dataFiles(game.data, (file) => new Uint8Array(fs.readFileSync(path.join(root, file))), (record) => {
+  const files = dataFiles(game.data, (file) => isResourceRoot(root) ? readResource(root, file)
+    : new Uint8Array(fs.readFileSync(path.join(root, file))), (record) => {
     const original = record.block === undefined ? undefined : blocks(record.file).get(record.block);
     const block = original && samePictureShape(record, original);
     if (block) used++;
@@ -245,17 +285,28 @@ export function classicPictureFiles(root: string, folder: string): { files: { na
 
 /** Every file the game can open, by name. From the port's own data, archives are re-packed and pictures are blank. */
 export function gameFiles(root: string): { name: string; data: Uint8Array }[] {
-  const pictures = process.env.POR_CLASSIC_PICTURES;
+  // Under a resource root, the player's first-release files are the `original:` ids beside `game:`.
+  const pictures = isResourceRoot(root) ? root === "res:game" && resourceNames("res:original").length ? "res:original" : undefined
+    : process.env.POR_CLASSIC_PICTURES;
   if (isPortGameRoot(root) && pictures) {
     const { files, used, total } = classicPictureFiles(root, pictures);
     // Says where the Classic pictures come from, so a launch can be checked from its log.
-    console.error(`POR_CLASSIC_PICTURES ${pictures} ${used}/${total}`);
+    console.error(`POR_CLASSIC_PICTURES ${isResourceRoot(pictures) ? process.env.POR_CLASSIC_PICTURES ?? pictures : pictures} ${used}/${total}`);
     return files;
   }
   if (isPortGameRoot(root)) return portGame(root).files.map(({ name, data }) => ({ name, data }));
+  if (isResourceRoot(root)) {
+    return resourceNames(root).filter((name) => !name.startsWith("."))
+      .map((name) => ({ name: name.split("/").join(path.sep), data: readResource(root, name) }));
+  }
   return fs.readdirSync(root, { recursive: true, encoding: "utf8" })
     .filter((name) => !name.startsWith(".") && fs.statSync(path.join(root, name)).isFile())
     .map((name) => ({ name, data: new Uint8Array(fs.readFileSync(path.join(root, name))) }));
+}
+
+/** A data file of the port's own game data by its path inside it, such as `content/scripts.bin`. */
+export function readPortGameData(root: string, file: string): Uint8Array {
+  return isResourceRoot(root) ? readResource(root, file) : new Uint8Array(fs.readFileSync(path.join(root, file)));
 }
 
 /** The program as it sits in memory. The port's own data holds it with every instruction blank. */
@@ -271,6 +322,7 @@ export function readGameFile(root: string, name: string): Uint8Array {
     if (!file) throw new Error(`${safe} is not among the port's game data. The program file is not: use gameProgram.`);
     return file.data;
   }
+  if (isResourceRoot(root)) return readResource(root, safe);
   const bytes = fs.readFileSync(path.join(root, safe));
   return new Uint8Array(bytes.buffer, bytes.byteOffset, bytes.byteLength);
 }

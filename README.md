@@ -16,7 +16,15 @@ games, artwork, narration and the journal work on both.
 ## Run it
 
 Use Node.js 22 or newer. Run `npm ci` followed by `npm run play` from the
-repository root. Unpacked original files in `gamedata/pool/` are used when
+repository root. It serves the browser build: the game runs in the page, its engine in a Web Worker,
+from the port's own data in `game/`. To unlock Classic, choose your own original files in
+**Settings → Use my original files**; the page reads them where they are and copies nothing. Saves
+are kept by the browser.
+
+`npm run play:loose` serves the game from the loose files a packaged app carries
+(`npm run web:build-loose` writes them to `out/loose/`), as the app's own protocol will answer them.
+
+`npm run play:node` runs the game as before, in a Node runner beside its server. Unpacked original files in `gamedata/pool/` are used when
 present (they win over `game/`); to keep them elsewhere, set `POR_GAMEDATA`
 first. `POR_GAME_SOURCE=port` forces the port's own data and
 `POR_GAME_SOURCE=original` never falls back to it.
@@ -36,7 +44,9 @@ Open [the local game](http://127.0.0.1:43124) to play the translated game. In En
 
 At start-up the version 1.3 game asks for a word from its translation wheel. Enhanced display shows the wheel and requires the right word; **Escape** puts the wheel away and brings it back. When the game later shows runes to translate, the wheel comes up again by itself, and **Escape** or **Code wheel** puts it away and brings it back. At any other time there is no wheel. See [docs/CODE-WHEEL.md](docs/CODE-WHEEL.md). Classic display has no wheel and accepts any word, as the GOG program does.
 
-Use **Encamp → Save** and **Load Saved Game** to save and restore the party, its journal, and its discovered map in the same slot. The runner stores slots under `out/saves/` for each game-data directory. Set `POR_SAVE_DIR` to select a different folder.
+Use **Encamp → Save** and **Load Saved Game** to save and restore the party, its journal, and its discovered map in the same slot. The browser build keeps slots in the browser (IndexedDB). `npm run play:node` stores them under `out/saves/` for each game-data directory; set `POR_SAVE_DIR` to select a different folder.
+
+To bring disk-backed saves or a character roster into the browser or Electron, choose **Settings → Saved games → Import save folder** and select the folder containing the slot JSON files or `roster.json`. Restart the game to load the imported slots. Existing records in the new profile keep their place.
 
 In combat, **Home**, **Page Up**, **End**, and **Page Down** move or aim diagonally. The numeric keypad's 7, 9, 1, and 3 provide them, with Num Lock on or off (the runner reads the physical key, not the character).
 

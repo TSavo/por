@@ -1,3 +1,6 @@
+// The game's own requests: the Node server answers them, or in the browser build the page beside the
+// engine's worker (tools/web/play-page.ts, #228).
+const gameFetch = window.porGameHost?.fetch ?? ((...request) => fetch(...request));
 const screen = document.querySelector("#screen");
 const bootWheel = document.querySelector("#boot-wheel");
 let wheelStartup = false;
@@ -92,6 +95,7 @@ const settingsPanel = document.querySelector("#settings");
 const originalFiles = {
   panel: document.querySelector("#original-files"), status: document.querySelector("#original-files-status"),
   path: document.querySelector("#original-files-path"), use: document.querySelector("#original-files-use"),
+  restore: document.querySelector("#original-files-restore"),
   stop: document.querySelector("#original-files-stop"), message: document.querySelector("#original-files-message"),
 };
 const audioControls = {
@@ -156,7 +160,7 @@ async function syncAutomap() {
   if (automapLoading || state.automapRevision === undefined || state.automapRevision === automapRevision) return;
   automapLoading = true;
   try {
-    const { revision, maps } = await (await fetch("/automap.json")).json();
+    const { revision, maps } = await (await gameFetch("/automap.json")).json();
     discoveredMaps = maps;
     automapRevision = revision;
     if (!automap.hidden) renderAutomap();
@@ -180,7 +184,7 @@ function offerLegacyAutomap() {
   } catch { return; }
   if (!stored) return;
   legacyAutomapPending = true;
-  fetch("/automap", { method: "POST", body: stored }).then(response => {
+  gameFetch("/automap", { method: "POST", body: stored }).then(response => {
     if (!response.ok) return;
     localStorage.setItem(moved, "1");
     state.ready = false;
@@ -383,43 +387,103 @@ atlasImage.addEventListener("error", () => {
   atlasImageLink.hidden = true;
   atlasError.hidden = false;
 });
-audioToggle.addEventListener("click", () => {
+function toggleSettings() {
   settingsPanel.hidden = !settingsPanel.hidden;
   audioToggle.setAttribute("aria-expanded", String(!settingsPanel.hidden));
   if (settingsPanel.hidden) (journal.hidden ? screen : closeJournal).focus({ preventScroll: true });
   resumeBlockedAudio();
-});
+}
+audioToggle.addEventListener("click", toggleSettings);
+if (window.porGameHost) {
+  const panel = document.querySelector("#save-import");
+  const button = document.querySelector("#save-import-button");
+  const input = document.querySelector("#save-import-folder");
+  const status = document.querySelector("#save-import-status");
+  panel.hidden = false;
+  button.addEventListener("click", () => input.click());
+  input.addEventListener("change", async () => {
+    const files = [...input.files].filter(file =>
+      file.webkitRelativePath.split("/").length === 2 && /^(?:[A-J]|roster)\.json$/i.test(file.name));
+    input.value = "";
+    button.disabled = true;
+    try {
+      const records = await Promise.all(files.map(async file => {
+        const name = file.name.slice(0, -5);
+        return [name.length === 1 ? name.toUpperCase() : "roster", await file.text()];
+      }));
+      const response = await gameFetch("/save-import", { method: "POST", body: JSON.stringify(records) });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.problem);
+      const names = records => records.map(id => id.slice(5)).sort().join(", ");
+      status.textContent = [
+        result.imported.length ? `Imported ${names(result.imported)}. Restart the game to use these saves.` : "",
+        result.kept.length ? `Existing records kept: ${names(result.kept)}.` : "",
+      ].filter(Boolean).join(" ");
+    } catch (error) {
+      status.textContent = `Could not import saves. ${error.message}`;
+    } finally {
+      button.disabled = false;
+    }
+  });
+}
+function toggleJournal() {
+  void send("j");
+  if (journal.hidden) screen.focus({ preventScroll: true });
+}
+journalToggle.addEventListener("click", toggleJournal);
+window.porShell = { settings: toggleSettings, journal: toggleJournal, map: toggleAutomap };
 
 // "Use my original files" (#74). Only a release offers it: the server answers /original-files when the
 // launcher names the setting's file. The launcher reads the setting when the game starts, so a change
 // takes effect at the next start, and the page says so.
 const releaseNames = { "1.3": "version 1.3", first: "the first release" };
-function describeOriginalFiles({ inUse, path, problem }) {
+function describeOriginalFiles({ inUse, path, problem, picker, remembered }) {
   const now = !inUse ? "Not in use: the game runs from its own data, and the Classic display is not available."
     : inUse.release === "1.3" ? `In use: ${inUse.folder} (version 1.3). The Classic display is available (F10).`
     : `In use: ${inUse.folder} (the first release). The Classic display is available (F10), with its pictures; the game is version 1.3.`;
   const next = problem ? ` The setting cannot be used (${problem}).`
-    : (path ?? null) !== (inUse?.folder ?? null) ? (path ? ` From the next start: ${path}.` : " From the next start: none.") : "";
+    : picker ? "" : (path ?? null) !== (inUse?.folder ?? null) ? (path ? ` From the next start: ${path}.` : " From the next start: none.") : "";
   originalFiles.status.textContent = now + next;
-  originalFiles.stop.hidden = !path;
+  originalFiles.restore.hidden = !remembered;
+  originalFiles.stop.hidden = picker ? !inUse && !remembered : !path;
   if (!originalFiles.path.value) originalFiles.path.value = path ?? "";
 }
 let originalFilesState;
-fetch("/original-files").then((response) => response.ok ? response.json() : undefined).then((setting) => {
+async function syncOriginalFiles() {
+  const response = await gameFetch("/original-files");
+  const setting = response.ok ? await response.json() : undefined;
   if (!setting) return;
   originalFilesState = setting;
   originalFiles.path.placeholder = setting.example ?? "";
+  // The browser build has the player pick the folder (#226): there is no path to type.
+  if (setting.picker) {
+    originalFiles.path.closest("label").hidden = true;
+    originalFiles.use.textContent = "Choose the folder…";
+  }
   describeOriginalFiles(setting);
   originalFiles.panel.hidden = false;
-}).catch(() => {});
-async function chooseOriginalFiles(path) {
-  originalFiles.use.disabled = originalFiles.stop.disabled = true;
-  originalFiles.message.textContent = path ? "Checking the folder…" : "";
+}
+const refreshOriginalFiles = () => { void syncOriginalFiles().catch(() => {}); };
+refreshOriginalFiles();
+window.addEventListener("por-original-files-changed", refreshOriginalFiles);
+async function chooseOriginalFiles(selection) {
+  originalFiles.use.disabled = originalFiles.restore.disabled = originalFiles.stop.disabled = true;
+  originalFiles.message.textContent = selection.path === null ? "" : "Checking the folder…";
   try {
-    const response = await fetch("/original-files", {
-      method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ path }),
+    const response = await gameFetch("/original-files", {
+      method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(selection),
     });
     const reply = await response.json().catch(() => ({}));
+    if (reply.cancelled) { originalFiles.message.textContent = ""; return; }
+    if (response.ok && reply.started) {
+      // The browser build starts the game again with the folder chosen, from its title.
+      originalFilesState = { ...originalFilesState, inUse: reply.path ? { folder: reply.path, release: reply.release } : null, problem: null, remembered: null };
+      describeOriginalFiles(originalFilesState);
+      originalFiles.message.textContent = reply.path
+        ? `In use: ${reply.path} (${releaseNames[reply.release]}). The game started again with them.`
+        : "No original files: the game started again from its own data, without the Classic display.";
+      return;
+    }
     if (!response.ok) {
       originalFiles.message.textContent = `Not saved: ${reply.problem ?? `the game answered ${response.status}`}.`;
       return;
@@ -433,18 +497,20 @@ async function chooseOriginalFiles(path) {
   } catch (error) {
     originalFiles.message.textContent = `Not saved: ${error.message}.`;
   } finally {
-    originalFiles.use.disabled = originalFiles.stop.disabled = false;
+    originalFiles.use.disabled = originalFiles.restore.disabled = originalFiles.stop.disabled = false;
   }
 }
 originalFiles.use.addEventListener("click", () => {
+  if (originalFilesState?.picker) { chooseOriginalFiles({ pick: true }); return; }
   const path = originalFiles.path.value.trim();
-  if (path) chooseOriginalFiles(path);
+  if (path) chooseOriginalFiles({ path });
   else originalFiles.message.textContent = "Name the folder first.";
 });
 originalFiles.path.addEventListener("keydown", (event) => {
   if (event.key === "Enter") originalFiles.use.click();
 });
-originalFiles.stop.addEventListener("click", () => chooseOriginalFiles(null));
+originalFiles.restore.addEventListener("click", () => chooseOriginalFiles({ restore: true }));
+originalFiles.stop.addEventListener("click", () => chooseOriginalFiles({ path: null }));
 for (const key of ["hardware", "master", "effects", "narration", "muted"]) {
   audioControls[key].addEventListener("input", () => {
     audioPreferences = { ...audioPreferences, [key]: key === "muted"
@@ -777,13 +843,14 @@ function holdAnimationFrame(view) {
 // to Classic is there; without them it is hidden. The checks open the page with ?display=classic to
 // start where they were written to start.
 const startInClassic = new URLSearchParams(location.search).get("display") === "classic";
-let presentationSettled = false;
+let classicAvailable;
 function settlePresentation() {
-  if (presentationSettled || state.classicAvailable === undefined) return;
-  presentationSettled = true;
-  if (state.classicAvailable && startInClassic) return;
-  if (!enhanced) togglePresentation();
-  presentation.hidden = !state.classicAvailable;
+  const available = state.classicAvailable;
+  if (available === undefined || available === classicAvailable) return;
+  const first = classicAvailable === undefined;
+  classicAvailable = available;
+  presentation.hidden = !available;
+  if (!enhanced && (!available || (first && !startInClassic))) togglePresentation();
 }
 
 function togglePresentation() {
@@ -1087,7 +1154,7 @@ function rendererModule() {
 async function loadStreetAtlas(materialId) {
   const [module, materials] = await Promise.all([
     rendererModule(),
-    fetch(`/exploration-materials/${materialId}`).then(response => {
+    gameFetch(`/exploration-materials/${materialId}`).then(response => {
       if (!response.ok) throw new Error("Exploration materials could not be loaded");
       return response.json();
     }),
@@ -2396,7 +2463,7 @@ async function send(key) {
     const startWheel = false;
     const headers = { "X-POR-Frame": String(sequence), "X-POR-Page": pageId };
     if (startWheel) headers["X-POR-Code-Wheel"] = "enhanced";
-    const result = await fetch("/key", {
+    const result = await gameFetch("/key", {
       method: "POST", headers, body: startWheel ? "backspace" : key,
     });
     if (startWheel && result.ok) wheelStartup = true;
@@ -2437,7 +2504,7 @@ function showSuperseded() {
 
 async function poll() {
   try {
-    const response = await fetch(`/state?after=${state.sequence}`, { headers: { "X-POR-Page": pageId, ...(pageClaimed ? {} : { "X-POR-Claim": "1" }) } });
+    const response = await gameFetch(`/state?after=${state.sequence}`, { headers: { "X-POR-Page": pageId, ...(pageClaimed ? {} : { "X-POR-Claim": "1" }) } });
     pageClaimed = true;
     const next = await response.json();
     if (next.superseded) { showSuperseded(); return; }
@@ -2575,10 +2642,6 @@ function repeatsToGame(event) {
   return repeatingKeys.has(keypadDirections[event.code] ?? commands[event.key]);
 }
 closeJournal.addEventListener("click", () => send("j"));
-journalToggle.addEventListener("click", () => {
-  void send("j");
-  if (journal.hidden) screen.focus({ preventScroll: true });
-});
 autoTrack.addEventListener("click", () => send("track auto"));
 presentation.addEventListener("click", () => {
   togglePresentation();
@@ -2594,6 +2657,7 @@ regionMap.addEventListener("click", () => { mapMode = "region"; renderAutomap();
 atlasMap.addEventListener("click", () => { mapMode = "atlas"; renderAutomap(); });
 atlasSheet.addEventListener("change", renderAutomap);
 window.addEventListener("keydown", (event) => {
+  if (document.querySelector("#storage-error[open]")) return;
   resumeBlockedAudio();
   if (event.key !== "F10" && event.target instanceof HTMLElement && event.target.closest("#settings")) return;
   // On the publisher screen a key goes to the title, and no further: the game is at its title

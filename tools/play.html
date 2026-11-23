@@ -239,6 +239,32 @@
       background: #231d17;
       border-color: #a28658;
     }
+
+    /* Electron (#108): the window is only the game; Settings, Journal and Map are in the app menu. */
+    html.electron-app, html.electron-app body { height: 100%; background: #000; }
+    html.electron-app body { margin: 0; overflow: hidden; }
+    html.electron-app main {
+      max-width: none; width: 100%; height: 100vh; height: 100dvh; margin: 0; padding: 0;
+      display: grid; place-items: center; position: relative; background: #000;
+    }
+    html.electron-app header, html.electron-app #status { display: none; }
+    html.electron-app #play {
+      border: none; box-shadow: none; width: min(100vw, calc(100vh * 8 / 5)); height: min(100vh, calc(100vw * 5 / 8));
+    }
+    html.electron-app[data-presentation="enhanced"] #play {
+      width: min(100vw, calc(100vh * 4 / 3)); height: min(100vh, calc(100vw * 3 / 4));
+    }
+    html.electron-app #screen { width: 100%; height: 100%; }
+    html.electron-app #settings {
+      position: absolute; z-index: 6; left: 50%; top: 50%; transform: translate(-50%, -50%);
+      width: min(40rem, 92vw); max-height: 90vh; overflow: auto; box-sizing: border-box;
+      background: #17232e; border: 1px solid #8495a8; padding: 1rem; box-shadow: 0 12px 38px #0008;
+    }
+    html.electron-app[data-presentation="enhanced"] #settings { background: #231d17; border-color: #a28658; }
+    html.electron-app.code-wheel-open { overflow: auto; }
+    html.electron-app.code-wheel-open body, html.electron-app.code-wheel-open main { overflow: auto; height: auto; min-height: 100%; display: block; }
+    html.electron-app.code-wheel-open #play { width: min(32rem, 100vw); height: auto; margin-inline: auto; }
+    html.electron-app #original-files label, html.electron-app #original-files-use { display: none; }
   </style>
   <script src="/play.js" defer></script>
 </head>
@@ -263,13 +289,19 @@
         <label>Narration <input id="audio-narration" type="range" min="0" max="1" step="0.05" value="1"></label>
         <label class="inline"><input id="audio-muted" type="checkbox"> Mute</label>
       </fieldset>
+      <fieldset id="save-import" hidden>
+        <legend>Saved games</legend>
+        <button id="save-import-button" type="button">Import save folder…</button>
+        <input id="save-import-folder" type="file" webkitdirectory hidden>
+        <p id="save-import-status" role="status"></p>
+      </fieldset>
       <!-- A release only (#74): the server offers it when the launcher names the setting's file. -->
       <fieldset id="original-files" hidden>
         <legend>Use my original files</legend>
-        <p>Your own Pool of Radiance, from GOG, unlocks the Classic display: the original game's pictures. Name its folder (the one with START.EXE, or the folder that holds it). The game reads the files where they are and copies nothing.</p>
+        <p>Your own Pool of Radiance files unlock Classic display. Use the original release or GOG 1.3. Select the folder containing START.EXE or its parent folder.</p>
         <p id="original-files-status"></p>
         <label>Folder <input id="original-files-path" type="text" spellcheck="false" autocomplete="off"></label>
-        <p><button id="original-files-use" type="button">Use these files</button> <button id="original-files-stop" type="button" hidden>Stop using them</button></p>
+        <p><button id="original-files-use" type="button">Use these files</button> <button id="original-files-restore" type="button" hidden>Restore folder access</button> <button id="original-files-stop" type="button" hidden>Stop using them</button></p>
         <p id="original-files-message" role="status"></p>
       </fieldset>
     </section>
@@ -399,6 +431,11 @@
     </div>
     <iframe id="boot-wheel" title="Code word translation wheel" style="width:100%;height:46rem;border:0" hidden></iframe>
     <p id="status" role="status">Starting the game…</p>
+    <p id="storage-status" role="status" hidden></p>
+    <dialog id="storage-error" aria-labelledby="storage-message">
+      <p id="storage-message"></p>
+      <button type="button" id="retry-storage" autofocus>Retry save</button>
+    </dialog>
   </main>
 </body>
 </html>

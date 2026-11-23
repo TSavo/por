@@ -6,7 +6,14 @@
   "description": "Port of SSI Pool of Radiance: Turbo Pascal procedures translated from START.EXE and GAME.OVR, plus a classic/upgraded presentation.",
   "scripts": {
     "dev": "npm run play",
-    "play": "tsx tools/browser-play.ts",
+    "play": "tsx tools/web/serve.ts",
+    "play:node": "tsx tools/browser-play.ts",
+    "play:loose": "tsx tools/web/serve-loose.ts",
+    "play:electron": "npm run web:build-loose && tsx tools/electron/build.ts && env POR_LOOSE_DIR=out/loose electron dist/electron/main.js",
+    "web:build": "tsx tools/web/build.ts",
+    "web:build-loose": "tsx tools/web/build-loose.ts",
+    "web:check-boot": "node tools/web/check-boot.mjs",
+    "web:check-saves": "node tools/web/check-saves.mjs",
     "release:build": "tsx tools/release/build.ts",
     "release:pack": "npm run release:build && tsx tools/release/pack.ts",
     "verify:campaign": "node tools/verify-fresh-party.mjs --campaign",
@@ -90,7 +97,10 @@
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
+    "buffer": "^6.0.3",
+    "electron": "45.4.1",
     "esbuild": "^0.28.2",
+    "fflate": "^0.8.3",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2"
   }

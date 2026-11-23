@@ -2,9 +2,9 @@
 
 A release is the game as a player installs it: version 1.3, in Enhanced, from the port's own data in
 `game/`, with the new artwork in `upgrades/` and the narration in `audio/`. It needs no files from the
-player, no checkout, no npm and no tsx. It runs the same server and runner as `npm run play`, compiled
-to JavaScript, under the Node runtime it carries, and the player plays it in their browser (Chrome is
-recommended; it is opened where it is installed).
+player, no checkout, no npm and no tsx. It is an Electron app: the main process serves the packaged
+loose files (#229) to the window, and the game runs in that window as the browser build does
+(`npm run play`, the engine in a Web Worker).
 
 ## Build
 
@@ -23,25 +23,25 @@ Intel Mac builds a dozen formulae from source for over half an hour) it runs her
 makensis 3.09): the staged install goes to that machine's `/dev/shm`, makensis runs there, and the
 installer comes back into `dist/`. With neither, the Windows installer is skipped with a message.
 
-`npm run release:build` alone compiles `tools/browser-play.ts`, `tools/boot-translated.ts` and
-`tools/release/launch.ts` with esbuild into `dist/app/server.mjs`, `runner.mjs` and `launch.mjs`.
-The title screen's lower-right label (`v0.1.0 (0c83fe2)`, for example) is compiled into that app, because
-a packaged game has no `.git`. A checkout of `npm run play` reads the same value from package.json and git
-and marks it `-dev` (and `-dirty` when the tree is unclean).
+`npm run release:build` alone compiles the Electron main process (`tools/electron/main.ts`) to
+`dist/electron/` and the packaged page's loose web files to `dist/web/`. The title screen's lower-right
+label (`v0.1.0 (0c83fe2)`, for example) is written into the resource index, because a packaged game has
+no `.git`. A checkout of `npm run play` reads the same value from package.json and git and marks it `-dev`
+(and `-dirty` when the tree is unclean).
 `release:pack` runs it, then builds, into `dist/`:
 
 | File | What it is |
 | --- | --- |
 | `Pool-of-Radiance-<version>-mac-arm64.dmg`, `-mac-x64.dmg` | `Pool of Radiance.app` beside an Applications link, to drag across: one image for Apple silicon, one for Intel |
 | `Pool-of-Radiance-<version>-windows-setup.exe` | An NSIS installer to Program Files (skipped when makensis is not installed) |
-| `pool-of-radiance-<version>-linux-x64.tar.gz` | A folder with a start script (an AppImage later) |
+| `pool-of-radiance-<version>-linux-x64.tar.gz` | A folder with the Electron app (run `./pool-of-radiance`) |
 
-The packages are built from the commit checked out (`git archive HEAD`), not from the working tree.
-Node is the official build of the version pinned in `tools/release/pack.ts`, downloaded from nodejs.org
-into `dist/cache/` and checked against its `SHASUMS256.txt`; each Mac image carries the Node of its own
-architecture (arm64 or x64). The Mac images need macOS's own tools (osacompile, hdiutil,
-sips, iconutil, codesign); the Windows installer and the Linux archive pack on Linux too (python3 with
-Pillow cuts their icon). `dist/` is not committed.
+The packages are built from the commit checked out (`git archive HEAD`), not from the working tree,
+plus the compiled Electron main process and the packaged web files. Electron is the official build of
+the version pinned in `package.json`, downloaded from its GitHub releases into `dist/cache/` and checked
+against its `SHASUMS256.txt`; each Mac image carries the Electron of its own architecture (arm64 or x64).
+The Mac images need macOS's own tools (hdiutil, sips, iconutil, codesign); the Windows installer and the
+Linux archive pack on Linux too (python3 with Pillow cuts their icon). `dist/` is not committed.
 
 ## Releases from GitHub Actions
 
@@ -57,37 +57,39 @@ Pillow cuts their icon). `dist/` is not committed.
   packages (`package-windows`, `package-linux`, `package-mac`) and `SHA256SUMS` as workflow artifacts for
   7 days; nothing is published. Unchecked, it publishes only when run on a tag.
 
-The jobs: `app` checks the version and compiles `dist/app` once on Battleaxe (the self-hosted runner);
+The jobs: `app` checks the version and compiles `dist/electron` and `dist/web` once on Battleaxe (the self-hosted runner);
 `windows-linux` packs the installer and the Linux archive there with `POR_ASSETS_DIR=$HOME/por-assets`, so
 check 1 below compares every packaged file's bytes with por-assets; `mac` packs both disk images from
-the same `dist/app` on a GitHub-hosted Mac, which has no por-assets, mounts each image and lists every
+the same compiled app on a GitHub-hosted Mac, which has no por-assets, mounts each image and lists every
 file of the app with its sha256 (`tools/release/manifest.ts list`); `mac-check` checks those lists
 against por-assets on Battleaxe (`tools/release/manifest.ts check`, check 1's rules); `release` writes
 `SHA256SUMS` and publishes. Nothing of por-assets leaves Battleaxe: only hashes are compared there.
 
 ## What the package contains
 
-Every package holds the same files. In the Mac app they are under `Contents/Resources`, beside the
-applet's own `Scripts/main.scpt`, `applet.rsrc` and icon, with Node in `Contents/MacOS/node`.
+Every package holds the same game files. In the Mac app they are under `Contents/Resources`, with
+Electron's own frameworks beside them and the app binary in `Contents/MacOS`. On Windows and Linux they
+sit in `resources/`, beside Electron's runtime.
 
 | Folder | Contents |
 | --- | --- |
-| `app/` | `launch.mjs`, `server.mjs` and `runner.mjs`: the launcher, the game server and the runner, compiled. The runner holds the translated game program. |
-| `game/` | The port's own game data (16 files): the program image and overlays with every instruction blank, the scripts, maps, monsters, items, characters, saved-game templates, walls, tiles and picture shapes, converted from version 1.3 by `npm run build:game-data`. The game's text is in it. |
-| `upgrades/` | The Enhanced artwork: 13,494 PNGs, `manifest.json` and `slums/manifest.json` that bind them, the code wheel (`codewheel/`), the atlas plates (`maps/`), the Alegreya SC Bold font (`font.woff2`) and its licence (`AlegreyaSC-OFL.txt`), and `README.md`. |
-| `audio/` | `voices/`: the narration, 1,759 MP3s, with 1,752 transcript `.txt` files, 854 `.json` records, one WAV and a README. `enhanced/`: the Enhanced score and sounds, 38 WAVs, 2 MP3s and 19 `.json` records. `classic/`: the Classic sounds, the game's sound events for the PC speaker and for the Tandy chip (40 WAVs, 95 MB), the port's own renders of the original driver, with a README on how each was made. |
-| `src/` | The data the server and runner read: `audio/voices.json`, `audio/voice-master-manifest.json` (the narration's text), `audio/original-sounds.json`, `maps/atlas.json`, `maps/geography-model.json`, `codewheel/wheel.json`. |
-| `qa/` | `art-worklist-cells.json`, the exploration cells the server draws from the port's own data. |
-| `tools/` | The game page: `play.html`, `play.js`, `renderer.js`, `code-wheel.html`, `code-wheel.js`, `code-wheel-draw.js`, `rune-glyphs.js`. |
-| Node | `Contents/MacOS/node` on the Mac, `node/node.exe` on Windows, `node/bin/node` on Linux, with Node's `LICENSE`. |
-| Start | Mac: the app itself. Windows: Start Menu and desktop shortcuts to `node\node.exe app\launch.mjs`, `pool-of-radiance.ico`, `Uninstall.exe`. Linux: `pool-of-radiance` (the start script), `pool-of-radiance.png`, `README.txt`. |
+| `resources/app/` | `main.js` and `package.json`: the Electron main process, compiled. It registers the packaged files as the `por:` protocol and opens the window. |
+| `resources/web/` | The game page and its bundles, the resource index, the sound manifest and the party recolour masks, as `npm run web:build-loose` writes them. |
+| `resources/game/` | The port's own game data (16 files): the program image and overlays with every instruction blank, the scripts, maps, monsters, items, characters, saved-game templates, walls, tiles and picture shapes, converted from version 1.3 by `npm run build:game-data`. The game's text is in it. |
+| `resources/upgrades/` | The Enhanced artwork: 13,494 PNGs, `manifest.json` and `slums/manifest.json` that bind them, the code wheel (`codewheel/`), the atlas plates (`maps/`), the Alegreya SC Bold font (`font.woff2`) and its licence (`AlegreyaSC-OFL.txt`), and `README.md`. |
+| `resources/audio/` | `voices/`: the narration, 1,759 MP3s, with 1,752 transcript `.txt` files, 854 `.json` records, one WAV and a README. `enhanced/`: the Enhanced score and sounds, 38 WAVs, 2 MP3s and 19 `.json` records. `classic/`: the Classic sounds, the game's sound events for the PC speaker and for the Tandy chip (40 WAVs, 95 MB), the port's own renders of the original driver, with a README on how each was made. |
+| `resources/src/` | The data the page reads: `audio/voices.json`, `audio/voice-master-manifest.json` (the narration's text), `audio/original-sounds.json`, `maps/atlas.json`, `maps/geography-model.json`, `codewheel/wheel.json`. |
+| `resources/qa/` | `art-worklist-cells.json`, the exploration cells drawn from the port's own data. |
+| Electron | The official Electron runtime of the version pinned in `package.json`, with its Chromium licences. On the Mac it is the app itself; on Windows, `Pool of Radiance.exe`; on Linux, `pool-of-radiance`. |
+| Start | Mac: the app itself. Windows: Start Menu and desktop shortcuts to `Pool of Radiance.exe`, `pool-of-radiance.ico`, `Uninstall.exe`. Linux: `pool-of-radiance`, `pool-of-radiance.png`, `README.txt`. |
 
 ## What packing refuses
 
 Packing is where nothing of `por-assets` may go in. `release:pack` fails if:
 
 1. A file in a package is an original game file (`START.EXE`, `GAME.OVR`, `POOL.CFG`, `*.DAX`,
-   `*.OVR`, `*.EX_`, `*.PIC`, `*.CMP`, or any `.exe` but Node's), a link, or a path naming
+   `*.OVR`, `*.EX_`, `*.PIC`, `*.CMP`, or any `.exe` in the game's own folders), a link that points
+   outside the package, or a path naming
    `por-assets`. Or it is a Classic sound (`pc-speaker-NN.wav`, `tandy-NN.wav`) or, where a
    `por-assets` directory sits beside the checkout (or `POR_ASSETS_DIR` names one), has the same bytes as any file in it, and is not
    the committed file at its own path in `audio/classic/`, blob for blob. The Classic sounds ship as the
@@ -95,7 +97,7 @@ Packing is where nothing of `por-assets` may go in. `release:pack` fails if:
    changed, is refused.
 2. `game/` in a package is not the committed `game/`: the same 16 files, each the same git blob. What
    `game/` holds is checked by `npm run verify:game-data`: no instruction bytes and no original pixels.
-3. The compiled `server.mjs`, `runner.mjs` or `launch.mjs` contains the string `por-assets`
+3. The compiled Electron main process (`dist/electron/main.js`) contains the string `por-assets`
    (`npm run release:build` fails the same way).
 
 `src/audio/original-sounds.json` mentions `por-assets` in a note on how the Classic sounds were rendered;
@@ -112,23 +114,21 @@ there, and `audio/classic/pc-speaker-02.wav` with a byte added.
 
 ## How a player starts it
 
-- **Mac:** open the disk image and drag **Pool of Radiance** to Applications. Opening the app starts the
-  game and opens it in Chrome (or the default browser). The app sits in the Dock while the game runs:
-  **Cmd-Q**, or **Quit** from its Dock menu, stops the server and the runner. Clicking its Dock icon
-  opens the game in the browser again. The launcher's output is in `~/Library/Logs/Pool of Radiance.log`.
+- **Mac:** open the disk image and drag **Pool of Radiance** to Applications. Opening the app opens the
+  game in its own window. **Cmd-Q**, or **Quit** from the menu, closes it. Opening the app again while it
+  is already running brings that window forward.
 - **Windows:** run the installer; choose whether to add a desktop shortcut. **Pool of Radiance** in the
-  Start Menu opens a console window, starts the game and opens the browser. Closing that window, or
-  Ctrl-C in it, stops the game. Uninstall from Settings or the Start Menu.
-- **Linux:** unpack the archive and run `./pool-of-radiance`. Ctrl-C or closing the terminal stops it.
+  Start Menu opens the game in its own window. Closing the window stops the game. Uninstall from Settings
+  or the Start Menu.
+- **Linux:** unpack the archive and run `./pool-of-radiance`. Closing the window stops the game.
 
-The launcher (`tools/release/launch.ts`) serves the game on `http://127.0.0.1:43124/` when that port is
-free, so the page keeps its browser storage from one launch to the next, and on any free port when it
-is not. It prints the address in case no browser opens. Launched again while the game runs, it opens the
-browser on the running game. It sets `POR_ROOT` to the install, `POR_RUNNER` to the compiled runner
-and `POR_GAME_SOURCE=port` (or the player's own files, below), and `POR_ORIGINAL_FILES_SETTING` to
-the setting the page writes, and drops every other `POR_` setting it inherits except `POR_CLOCK`,
-`POR_PREGEN_PARTY`, `POR_TRACE_KEYS`, `POR_SAVE_DIR` and `POR_OPEN_BROWSER` (`0`: print the address
-only). The runner names the data it chose when it starts: `POR_GAME_DATA port <install>/game`.
+The window is 1280×880, with a standard application menu (Quit, and Edit so paste works in the page).
+The main process registers the packaged loose files as the `por:` protocol, with the COOP/COEP headers
+the engine's worker needs, and loads the page at `por://localhost/`. A second launch focuses the running
+window. Saves, the roster, the journal and the original-files folder handle live in the app's Chromium
+profile (IndexedDB), not in a sidecar `saves/` folder.
+
+A checkout starts the same window with `npm run play:electron`, against `out/loose/`.
 
 ## Classic from the player's own files
 
@@ -136,35 +136,17 @@ The shipped game always starts in Enhanced and has no Classic display: it holds 
 The player's own Pool of Radiance from GOG unlocks it (#74).
 
 **Choosing the folder in the game:** **Settings** (the button beside Journal and Map, which also holds
-the sound) has **Use my original files** in a release: a folder field, **Use these files**, and **Stop
-using them** once one is named. It says what this start plays with (*Not in use…*, or *In use: <folder>
-(version 1.3)…*) and, after a change, what the next start will. The server (`POST /original-files`, from
-the page's own origin only) checks the folder with the launcher's own test (`tools/release/original-files.ts`):
-START.EXE, GAME.OVR and ECL1.DAX in it, or in one folder directly inside it (GOG keeps them in `POOLRAD`
-inside the game's folder), and GAME.OVR starting `FBOV` (version 1.3) or `TPOV` (the first release).
-A folder that passes is written to `original-files.json` in the player's data directory (beside
-`saves`), `{ "path": "<the folder with the files>" }`, and the page says *Saved: … It takes effect the
-next time the game starts: close the game and start it again.* One that does not is not written, and
-the page says why (*Not saved: … has no START.EXE, GAME.OVR, ECL1.DAX*). A pasted path may be quoted,
-and `~` is the player's home. The setting is only offered when the launcher names its file
-(`POR_ORIGINAL_FILES_SETTING`): `npm run play` in a checkout has none.
+the sound) has **Use my original files**: the player picks the folder of their own Pool of Radiance
+(#226). The page inspects it for START.EXE, GAME.OVR and ECL1.DAX, in it or in one folder directly
+inside it (GOG keeps them in `POOLRAD` inside the game's folder), and GAME.OVR starting `FBOV`
+(version 1.3) or `TPOV` (the first release). A folder that passes is kept as a handle in the app's
+IndexedDB and the game starts again with it; one that does not is not kept, and the page says why.
+**Stop using them** forgets the handle. Nothing of the folder is copied: the game reads its files
+where they are, and they never enter the install.
 
-**At start** the launcher reads `POR_ORIGINAL_FILES`, else `original-files.json`, and tests the folder again:
-
-- Version 1.3: the game runs from it (`POR_GAME_SOURCE=original`; the runner prints
-  `POR_GAME_DATA original <folder>`), and the display switch appears.
-- The first release: the game is still version 1.3 and runs from `game/` (`POR_GAME_DATA port …`),
-  and the launcher names the folder in `POR_CLASSIC_PICTURES`. The runner then fills `game/`'s blank
-  picture blocks from that folder's archives where each has the shape 1.3 has (docs/GAME-DATA.md), so
-  the Classic display shows the first release's pictures under the 1.3 game, and the display switch
-  appears. All 784 of 1.3's picture blocks are in the first release byte for byte, with the same
-  packed sizes, and it has no picture block 1.3 lacks: the runner prints
-  `POR_CLASSIC_PICTURES <folder> 784/784`.
-- Anything else (missing, unreadable, another program): it runs from `game/` and prints one
-  `Original files:` line saying why.
-
-Nothing of the folder is copied: it is read where it is, by the runner, and never enters the install
-or the player's data directory.
+- Version 1.3: Classic is available and the game can run from those files.
+- The first release: Classic is available with that folder's pictures under the version 1.3 game
+  from `game/` (docs/GAME-DATA.md).
 
 `node tools/release/check-original-files.mjs <release root> <1.3 folder> <first-release folder> [chrome]`
 checks all of this on a built release: four starts of its launcher (`POR_OPEN_BROWSER=0`, a throwaway
@@ -441,10 +423,7 @@ checked by its binaries only (it cannot run on this Intel Mac).
 
 ## Known gaps
 
-- Windows, not yet run: an elevated install to Program Files, the Start Menu and desktop shortcuts and
-  the uninstall entry (the unelevated run cannot write the all-users places, so none were made),
-  SmartScreen's prompt, the finish page's Play (through the shortcut and Explorer), and closing the
-  console window (its SIGHUP path is checked on the Mac; on Battleaxe the launcher's console could not
-  be found as a window from the automation's session).
-- **Use my original files**: the player types or pastes the folder: there is no system folder dialog.
-  On the Mac it was set through the page's request, not typed into the page.
+- Windows, not yet run as this Electron install: an elevated install to Program Files, the Start Menu
+  and desktop shortcuts, the uninstall entry, SmartScreen's prompt, and the finish page's Play.
+- The historical notes above describe the earlier Node launcher, which opened the game in a browser.
+  The current packages are the Electron app.

@@ -5,16 +5,14 @@
  */
 // First: the artwork keys the server hands over in a file (#146), before any module reads them.
 import "./enhanced-art-env.js";
-import { createHash } from "node:crypto";
-import { appendFileSync, mkdirSync, readFileSync, realpathSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { diagnosticFiles, engineHost } from "./engine-host.js";
 import { Cpu } from "../src/cpu/machine.js";
 import { openAutomap } from "./automap.js";
 import { attachDos, consoleText, dosLog, noon, timeOfDay, type BiosKey, type DosFile, type DosFileClosed } from "../src/runtime/dos.js";
 import { intrCounts } from "../src/runtime/intr.js";
 import { journalFrame, paletteObservers, screen, stampPanelFrame, videoSummary, visibleGameText, type PanelFrameStamp } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
-import { findGameRoot, gameFiles as readGameFiles, isPortGameRoot, mountValjevoWallPieces, portGame, usePortPaths } from "./gamedata.js";
+import { gameFiles as readGameFiles, isPortGameRoot, mountValjevoWallPieces, portGame, usePortPaths } from "./gamedata.js";
 import { currentObjective, journalInventoryLeads, observeAdventureLog, questProgress, type JournalLead } from "../src/runtime/adventure-log.js";
 import { liveInput } from "./live-input.js";
 import { openJournalProfile } from "./journal-profile.js";
@@ -27,34 +25,34 @@ import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 import { standaloneTrace } from "./standalone-trace.js";
 import { narrationLedger } from "./narration-ledger.js";
-import { fromPortRoot } from "./port-root.js";
+import { nodeGame } from "./resources/node-play.js";
+import { readJsonNow } from "../src/resources/provider.js";
 
-// The browser server reads frames from this process's stdout pipe. Node writes
-// to a pipe asynchronously on macOS and Linux, and this process blocks reading
-// the next key before a large frame is flushed. Blocking writes keep each
-// frame ahead of the read that waits for its answer.
-(process.stdout as unknown as { _handle?: { setBlocking?: (blocking: boolean) => void } })
-  ._handle?.setBlocking?.(true);
-
-const root = findGameRoot();
-if (!root) throw new Error("Pool of Radiance game data not found");
+// Where the engine runs (#225): this Node process, or a Web Worker in the page with its resources.
+const host = engineHost();
+const env = host.env;
+const print = (line: string) => host.print(line);
+// Every file the game reads comes through the resource layer (#224): the directory's files become
+// `game:` or `original:` ids, the saves `save:` ids.
+const { root, resources: gameResources, directory: gameDirectory } = host.game
+  ? { ...host.game, directory: host.game.root } : nodeGame(env);
 // With no original files supplied the game runs from the port's own data, which holds no program file:
 // the memory image comes from it directly.
 const port = isPortGameRoot(root) ? portGame(root) : undefined;
 // Says which game data was chosen, so a launch can be checked from its log.
-console.error(`POR_GAME_DATA ${port ? "port" : "original"} ${root}`);
+console.error(`POR_GAME_DATA ${port ? "port" : "original"} ${gameDirectory}`);
 const portProgram = port?.program;
-const fixedClockStart = Number(process.env.POR_FIXED_CLOCK_START ?? noon);
+const fixedClockStart = Number(env.POR_FIXED_CLOCK_START ?? noon);
 if (!Number.isInteger(fixedClockStart) || fixedClockStart < 0 || fixedClockStart >= 24 * 60 * 60 * 100) {
   throw new Error("POR_FIXED_CLOCK_START must be an integer in centiseconds since midnight");
 }
 const gameFiles = usePortPaths(mountValjevoWallPieces(readGameFiles(root)));
-const files = process.env.POR_PREGEN_PARTY === "1" ? stagePregenParty(gameFiles) : gameFiles;
+const files = env.POR_PREGEN_PARTY === "1" ? stagePregenParty(gameFiles) : gameFiles;
 
 const overlayFile = files.find((f) => f.name.toUpperCase() === "GAME.OVR");
 if (!overlayFile) throw new Error("GAME.OVR is required");
 await loadTranslation(overlayFile.data);
-if (process.env.POR_CLOCK !== "real" && behaviour.extraStartupDraws > 0) {
+if (env.POR_CLOCK !== "real" && behaviour.extraStartupDraws > 0) {
   // A replay starts every build on the same dice. This build draws extra numbers before play
   // begins, so its seed starts that many steps earlier and play begins where the first release's does.
   const randomize = procedure(code.randomize);
@@ -67,9 +65,9 @@ if (process.env.POR_CLOCK !== "real" && behaviour.extraStartupDraws > 0) {
   });
 }
 
-const replayPath = process.env.POR_BOOT_KEY_FILE;
-const replayKeys = replayPath ? readFileSync(replayPath, "utf8").trim() : "";
-const scheduledKeys = [replayKeys, process.env.POR_BOOT_KEYS ?? ""].join("\n")
+const replayPath = env.POR_BOOT_KEY_FILE;
+const replayKeys = replayPath ? diagnosticFiles().read(replayPath).trim() : "";
+const scheduledKeys = [replayKeys, env.POR_BOOT_KEYS ?? ""].join("\n")
   .split(/[,\s]+/).filter(Boolean).map((key) => {
     const match = /^(?:(\d+):)?([0-9a-f]{4})$/i.exec(key);
     if (!match || !Number.isSafeInteger(Number(match[1] ?? 0))) {
@@ -94,7 +92,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const captureCombatEffectUnderlay = input?.captureCombatEffectUnderlay;
   const captureCombatStrike = input?.captureCombatStrike;
   const nativeEffects = input?.nativeEffects;
-  const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
+  const traceBattleDraw = env.POR_TRACE_BATTLE_DRAW === "1";
   const captureBattleTerrain = input?.captureBattleTerrain;
   const captureOverlandTerrain = input?.captureOverlandTerrain;
   const nativeCombat = input?.nativeCombat;
@@ -108,11 +106,11 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const nativeBattleTerrain = input?.nativeBattleTerrain;
   const nativeSelection = input?.nativeSelection;
   const selectionReturn = code.combatSelectionDrawResumes;
-  const panelStamp = portProgram && input && process.env.POR_BROWSER_PLAY === "1" ? panelFrameDraw.stamp : undefined;
+  const panelStamp = portProgram && input && env.POR_BROWSER_PLAY === "1" ? panelFrameDraw.stamp : undefined;
   let pendingPanelStamp: { resume: number; x: number; y: number; kind: PanelFrameStamp[2] } | undefined;
-  const codeWheel = input && process.env.POR_BROWSER_PLAY === "1" ? startupInput.codeWheel : undefined;
+  const codeWheel = input && env.POR_BROWSER_PLAY === "1" ? startupInput.codeWheel : undefined;
   // The page server asks for the frames of the castle ending's animation as they are drawn (#121).
-  const pictureLoop = input?.presentPictureLoop && process.env.POR_PICTURE_LOOP_FRAMES === "1" ? code.pictureLoopResumes : undefined;
+  const pictureLoop = input?.presentPictureLoop && env.POR_PICTURE_LOOP_FRAMES === "1" ? code.pictureLoopResumes : undefined;
   if (capturePresentationDelay || captureCombatStrike || capturePerspective || traceBattleDraw || captureBattleTerrain ||
       codeWheel || nativeCombat || nativeSelection || nativeBattleTerrain || nativePicture || nativeEffects || panelStamp || pictureLoop) {
     const tick = cpu.tick;
@@ -120,7 +118,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
     const terrainSources = new Map<number, { sourceArchive: string; sourceFrame: number }>();
     // Above the pause routine's return address sit its argument, its saved BP and its own return address.
     const deathReturnDepth = 8;
-    const tracePauses = process.env.POR_TRACE_PAUSES === "1";
+    const tracePauses = env.POR_TRACE_PAUSES === "1";
     cpu.tick = function (at) {
       if (panelStamp && this.cs === panelStamp.callerSegment) {
         if (pendingPanelStamp && at === pendingPanelStamp.resume) {
@@ -235,7 +233,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
         }
         capturePresentationDelay?.(this, effectDelay, messageMs, pauseMs);
         // With what the host made of the pause: a picture for the page, a held one, or nothing.
-        if (traced) console.log(`POR_PAUSE ${JSON.stringify({ ...traced, host: input?.pauseOutcome?.() })}`);
+        if (traced) print(`POR_PAUSE ${JSON.stringify({ ...traced, host: input?.pauseOutcome?.() })}`);
         // A pause in colours the page has not shown yet (the title's flash): Delay's argument is its length.
         input?.capturePaletteHold?.(this, this.read16(this.ss, (this.sp + 4) & 0xffff));
       }
@@ -277,7 +275,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       tick.call(this, at);
     };
   }
-  if (process.env.POR_TRACE_DICE === "1") {
+  if (env.POR_TRACE_DICE === "1") {
     // One line for every random number the game draws: who asked, the range, and the number drawn.
     // The caller is named by overlay slice and offset, or by resident segment and offset.
     // The number is read from AX after the game's own Random has returned; nothing is written.
@@ -304,7 +302,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       report(m.ax);
     });
   }
-  const paletteTrace = process.env.POR_TRACE_PALETTE;
+  const paletteTrace = env.POR_TRACE_PALETTE;
   if (paletteTrace) {
     // POR_TRACE_PALETTE=<file>: one line for every change the game makes to its palette registers
     // through int 10h AH=10h: the step, the sixteen registers after it, and the three callers above
@@ -316,13 +314,13 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
         const slice = loadedSlices.find(({ loadPara }) => loadPara === segment);
         callers.push(slice ? `slice ${slice.index}+${offset.toString(16)}` : `${segment.toString(16)}:${offset.toString(16)}`);
       }
-      appendFileSync(paletteTrace, JSON.stringify({ step: m.steps, registers, callers }) + "\n");
+      diagnosticFiles().append(paletteTrace, JSON.stringify({ step: m.steps, registers, callers }) + "\n");
     });
   }
   const keys = [...scheduledKeys];
   attachDos(cpu, mountedFiles, keys, requestKey && ((blocking) => requestKey(cpu, keys, blocking)),
     fileClosed, fileDeleted, readCompanions,
-    process.env.POR_CLOCK === "real" ? timeOfDay() : fixedClockStart,
+    env.POR_CLOCK === "real" ? timeOfDay() : fixedClockStart,
     // From the live step on the player answers every blocking read (tools/live-input.ts).
     requestKey ? liveStep : undefined);
   cpu.ss = boot.ss;
@@ -336,60 +334,63 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
 
 function report(label: string, error: unknown): void {
   const message = error instanceof Error ? error.message : String(error);
-  console.log(`\n${label}: ${message}`);
-  console.log(`  trail: ${callTrace.slice(-12).join(" -> ")}`);
+  print(`\n${label}: ${message}`);
+  print(`  trail: ${callTrace.slice(-12).join(" -> ")}`);
   if (dosLog.length) {
     const names = [...new Set(dosLog)];
-    console.log(`  dos (${dosLog.length}): ${names.join(" | ")}`);
+    print(`  dos (${dosLog.length}): ${names.join(" | ")}`);
   }
-  if (consoleText.trim()) console.log(`  console: ${consoleText.trim()}`);
+  if (consoleText.trim()) print(`  console: ${consoleText.trim()}`);
   if (intrCounts.size) {
     const ranked = [...intrCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
-    console.log(`  intr ${ranked.map(([k, v]) => `${k} x${v}`).join(" | ")}`);
+    print(`  intr ${ranked.map(([k, v]) => `${k} x${v}`).join(" | ")}`);
   }
   const picture = videoSummary();
-  if (picture.trim()) console.log(picture);
-  mkdirSync("out", { recursive: true });
-  if (label.startsWith("entry")) writeFileSync(join("out", "por-boot.png"), encodePng(screen));
-  if (writes.length) console.log(`  writes of 9a50:\n    ${writes.join("\n    ")}`);
-  console.log(`  sp range ${spMin.toString(16)}..${spMax.toString(16)}`);
-  if (cpu.spJumps.length) console.log(`  sp jumps:\n    ${cpu.spJumps.join("\n    ")}`);
-  if (cpu.driveWrites.length) console.log(`  drive byte writes: ${cpu.driveWrites.join(" | ")}`);
+  if (picture.trim()) print(picture);
+  // The screen as it stopped, for whoever reads the report on disk.
+  if (host.files && label.startsWith("entry")) {
+    host.files.mkdir("out");
+    host.files.write(host.files.join("out", "por-boot.png"), encodePng(screen));
+  }
+  if (writes.length) print(`  writes of 9a50:\n    ${writes.join("\n    ")}`);
+  print(`  sp range ${spMin.toString(16)}..${spMax.toString(16)}`);
+  if (cpu.spJumps.length) print(`  sp jumps:\n    ${cpu.spJumps.join("\n    ")}`);
+  if (cpu.driveWrites.length) print(`  drive byte writes: ${cpu.driveWrites.join(" | ")}`);
 }
 
 let adventureLog: (() => string) | undefined;
 let transcriptStart = 0;
-const profilePath = process.env.POR_JOURNAL_PROFILE;
-const updateJournal = openJournalProfile(profilePath);
+const profilePath = env.POR_JOURNAL_PROFILE;
+const updateJournal = openJournalProfile(profilePath ? gameResources : undefined);
 const journal = (transcript = adventureLog?.() ?? ""): JournalLead[] =>
   updateJournal(transcript.slice(transcriptStart), (known) => questProgress(cpu, known, unit.data));
-const liveAt = process.env.POR_LIVE_AT;
+const liveAt = env.POR_LIVE_AT;
 const liveStep = Number(liveAt);
 if (liveAt !== undefined && (!Number.isSafeInteger(liveStep) || liveStep < 0)) {
   throw new Error("POR_LIVE_AT must be a nonnegative integer");
 }
-if (liveAt !== undefined) mkdirSync("out", { recursive: true });
-const recording = liveAt === undefined ? undefined : process.env.POR_RECORD_KEYS;
+if (liveAt !== undefined) host.files?.mkdir("out");
+const recording = liveAt === undefined ? undefined : env.POR_RECORD_KEYS;
 if (recording) {
   const prefix = scheduledKeys.map(({ step, word }) => `${step}:${word.toString(16).padStart(4, "0")}\n`).join("");
-  writeFileSync(recording, prefix, { flag: "wx" });
+  diagnosticFiles().write(recording, prefix, true);
 }
 const automap = liveAt === undefined ? undefined : openAutomap(root);
 // POR_NARRATION_LEDGER: opened before the display reads its artwork list. Observes only.
-if (process.env.POR_BROWSER_PLAY === "1") narrationLedger?.open();
+if (env.POR_BROWSER_PLAY === "1") narrationLedger?.open();
 const input = liveAt === undefined ? undefined : liveInput(liveStep, () => {
   const known = journal();
   return [...known, ...journalInventoryLeads(cpu, known, unit.data)];
 }, recording, automap, Boolean(port), port?.data.pictures);
-const saves = input && openSaveSlots(process.env.POR_SAVE_DIR ??
-  join("out", "saves", createHash("sha256").update(realpathSync(root)).digest("hex").slice(0, 16)));
+const saves = input && openSaveSlots(gameResources);
 const rosterClosed: DosFileClosed = (name, data, written) => { if (written) saves?.saveRoster(name, data); };
 let slotClosed = rosterClosed;
+let finishBrowserSave: (() => void) | undefined;
 let loadingSlot = false;
 const mountedFiles = saves ? [...saves.mountRoster(files), ...saves.files] : files;
 // POR_TRACE_VISITS=<file>: the area the party is in and the commissions the journal knows, one line
 // each time either changes, for npm run qa:visits (#130). Observes only.
-const visitTrace = input && process.env.POR_TRACE_VISITS;
+const visitTrace = input && env.POR_TRACE_VISITS;
 let lastVisit = "";
 // The journal is read again only when the game has printed something since: reading it at every key
 // read made a long walk (the parity check's sokal walk) outrun its time limit.
@@ -408,24 +409,27 @@ const requestKey = input && visitTrace ? (machine: Cpu, keys: BiosKey[], blockin
     }
     const visit = JSON.stringify({ archive, block, state: machine.read8(unit.data, data.gameState), commissions });
     if (visit !== lastVisit) {
-      appendFileSync(visitTrace, visit + "\n");
+      diagnosticFiles().append(visitTrace, visit + "\n");
       lastVisit = visit;
     }
   }
   input.requestKey(machine, keys, blocking);
 } : input?.requestKey;
-const cpu = fresh(requestKey, (name, data, written) => slotClosed(name, data, written), mountedFiles,
+const cpu = fresh(requestKey && ((machine, keys, blocking) => {
+  if (blocking) finishBrowserSave?.();
+  requestKey(machine, keys, blocking);
+}), (name, data, written) => slotClosed(name, data, written), mountedFiles,
   (name) => { if (slotClosed === rosterClosed) saves?.saveRoster(name); },
   (name) => loadingSlot && saveSlotLetter(name) ? saves?.partyFiles(name) ?? [] : undefined);
-const soundTracePath = process.env.POR_SOUND_TRACE;
-const browserSound = process.env.POR_BROWSER_PLAY === "1";
+const soundTracePath = env.POR_SOUND_TRACE;
+const browserSound = env.POR_BROWSER_PLAY === "1";
 let narrationObserver: EclNarrationObserver | undefined;
 const eclTextStarts: ({ step: number; sourceId?: string } | undefined)[] = [];
 const tracePictureProducer = input?.traceHeldPortrait !== undefined ||
-  browserSound && Boolean(process.env.POR_PORTRAIT_DRAW_TRACE);
+  browserSound && Boolean(env.POR_PORTRAIT_DRAW_TRACE);
 const eclPictureProducers: (string | undefined)[] = [];
 if (browserSound) {
-  const manifest = JSON.parse(readFileSync(fromPortRoot("src", "audio", "voice-master-manifest.json"), "utf8")) as ObserverManifest;
+  const manifest = readJsonNow<ObserverManifest>(gameResources, "manifest:src/audio/voice-master-manifest.json")!;
   const narration = new EclNarrationObserver(manifest);
   // POR_NARRATION_LEDGER: record every narration decision. Observes only.
   narrationLedger?.observe(narration, manifest);
@@ -454,22 +458,22 @@ if (narrationObserver || tracePictureProducer) {
     if (!narrationObserver) return;
     const event = narrationObserver.observe(cpu);
     eclTextStarts.push(eclTextOpcodes.has(opcode) ? { step: cpu.steps, sourceId: event?.sourceId } : undefined);
-    if (event) console.log(`POR_NARRATION ${JSON.stringify(event)}`);
+    if (event) print(`POR_NARRATION ${JSON.stringify(event)}`);
   };
 }
 const soundRecorder = soundTracePath || browserSound ? new OriginalSoundTraceRecorder(cpu, browserSound
   ? (call) => {
     standaloneTrace?.sound(call.index);
-    console.log(`POR_SOUND ${JSON.stringify(call)}`);
+    print(`POR_SOUND ${JSON.stringify(call)}`);
   } : undefined) : undefined;
 let soundTraceWritten = false;
 function writeSoundTrace(): void {
   if (!soundTracePath || !soundRecorder || soundTraceWritten) return;
   soundTraceWritten = true;
-  mkdirSync(dirname(soundTracePath), { recursive: true });
-  writeFileSync(soundTracePath, JSON.stringify(soundRecorder.snapshot(), null, 2) + "\n");
+  diagnosticFiles().mkdir(diagnosticFiles().dirname(soundTracePath));
+  diagnosticFiles().write(soundTracePath, JSON.stringify(soundRecorder.snapshot(), null, 2) + "\n");
 }
-if (soundRecorder) process.once("exit", writeSoundTrace);
+if (soundRecorder) host.onExit(writeSoundTrace);
 if (input && saves) {
   const diskSlice = code.loadGame.slice;
   const disk = loadedSlices.find(({ index }) => index === diskSlice);
@@ -487,13 +491,15 @@ if (input && saves) {
       const party = new Map<string, DosFile>();
       const previous = slotClosed;
       const wasLoading = loadingSlot;
+      const previousFinish = finishBrowserSave;
+      let committed = false;
       loadingSlot = loading;
       slotClosed = (name, data, written) => {
         if (saveSlotLetter(name) && data.length && written !== loading) slot = { name, data };
         if (!loading && written && isPartyFile(name)) party.set(name, { name, data });
       };
       const finish = () => {
-        if (!slot) return;
+        if (!slot || committed) return;
         const letter = saveSlotLetter(slot.name);
         if (loading) {
           const saved = saves.get(slot.name);
@@ -503,9 +509,13 @@ if (input && saves) {
           automap?.restore(saved?.automap);
         } else {
           saves.save(slot.name, slot.data, journal(), input.tracked(), [...party.values()], automap?.snapshot());
+          committed = true;
         }
-        if (letter) console.log(`POR_SAVE_SLOT ${loading ? "load" : "save"} ${letter}`);
+        if (letter) print(`POR_SAVE_SLOT ${loading ? "load" : "save"} ${letter}`);
       };
+      // Save can wait inside the overlay at its Quit to DOS prompt. Commit before that prompt
+      // reaches the browser. The Node runner retains its original save timing.
+      if (!loading && host.game) finishBrowserSave = finish;
       input.enterDiskMenu();
       try {
         original(m);
@@ -517,6 +527,7 @@ if (input && saves) {
         input.leaveDiskMenu();
         slotClosed = previous;
         loadingSlot = wasLoading;
+        finishBrowserSave = previousFinish;
       }
     });
   }
@@ -525,8 +536,8 @@ if (input) {
   // The frame state names the code-wheel question while the game asks it. The game picks the
   // question with Random(13) inside its code-wheel routine, and the number Random returns is the
   // question's place in the game's table. Nothing here writes to the game's memory.
-  const wheel = JSON.parse(readFileSync(fromPortRoot("src", "codewheel", "wheel.json"), "utf8")) as
-    { questions: { number: number; espruar: string; dethek: string; path: string }[] };
+  const wheel = readJsonNow<{ questions: { number: number; espruar: string; dethek: string; path: string }[] }>(
+    gameResources, "manifest:src/codewheel/wheel.json")!;
   const wheelSlice = loadedSlices.find(({ index }) => index === code.codeWheel.slice);
   const ask = wheelSlice?.procs.get(code.codeWheel.at);
   if (wheelSlice && ask) {
@@ -545,20 +556,20 @@ if (input) {
   }
 }
 const journalSlice = loadedSlices.find(({ index }) => index === code.eclLoop.slice);
-adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || browserSound || liveAt !== undefined || profilePath) && journalSlice
+adventureLog = (env.POR_ADVENTURE_LOG === "1" || browserSound || liveAt !== undefined || profilePath) && journalSlice
   ? observeAdventureLog(cpu, journalSlice, loadedSlices.find(({ index }) => index === code.trainerRefusedA.slice),
     (message) => {
       // Capture the seal's state before the original menu can resolve the offer.
       if (message.includes("WE CAN DUPLICATE THE SEAL ON THAT CHEST")) journal();
       if (!browserSound) return;
       const fromEclText = eclTextStarts.at(-1) !== undefined;
-      console.log(`POR_TEXT ${JSON.stringify({ step: cpu.steps, message, fromEclText })}`);
+      print(`POR_TEXT ${JSON.stringify({ step: cpu.steps, message, fromEclText })}`);
       narrationLedger?.text(cpu.steps, message, fromEclText);
       const event = fromEclText ? narrationObserver?.observeRenderedText(cpu, message) : undefined;
-      if (event) console.log(`POR_NARRATION ${JSON.stringify(event)}`);
+      if (event) print(`POR_NARRATION ${JSON.stringify(event)}`);
     })
   : undefined;
-if (input && process.env.POR_BROWSER_PLAY === "1") {
+if (input && env.POR_BROWSER_PLAY === "1") {
   const observe = farCallObservers.get(cpu);
   farCallObservers.set(cpu, (segment, offset) => {
     observe?.(segment, offset);
@@ -580,7 +591,7 @@ if (input && process.env.POR_BROWSER_PLAY === "1") {
       input.resetBattleTerrain();
       input.nativeEffects?.reset();
       const mode = cpu.read8(cpu.ds, data.soundMode);
-      if (mode !== 0 || !behaviour.startsBattleMusicOnTandy) console.log(`POR_SOUND ${JSON.stringify({ index: 14, mode, step: cpu.steps, enhancedOnly: true })}`);
+      if (mode !== 0 || !behaviour.startsBattleMusicOnTandy) print(`POR_SOUND ${JSON.stringify({ index: 14, mode, step: cpu.steps, enhancedOnly: true })}`);
     }
     if (isFar(segment, offset, far.showPicture)) {
       if (isAt(cpu, cpu.ip, code.titlePublisher)) input.setScene("scene:publisher");
@@ -597,7 +608,7 @@ if (input && !behaviour.flushKeysDiscardsTypeAhead) {
   });
 }
 const boot = (cpu as Cpu & { boot: { cs: number; ip: number; ss: number; sp: number } }).boot;
-console.log(
+print(
   `image entry ${boot.cs.toString(16)}:${boot.ip.toString(16)} ss ${boot.ss.toString(16)} sp ${boot.sp.toString(16)} slices ${loadedSlices.length}`,
 );
 const writes: string[] = [];
@@ -607,14 +618,14 @@ cpu.onWrite16 = (seg, off, value) => {
     if (writes.length > 12) writes.shift();
   }
 };
-cpu.stepBudget = Number(process.env.POR_BOOT_STEPS ?? 30_000_000);
+cpu.stepBudget = Number(env.POR_BOOT_STEPS ?? 30_000_000);
 if (!Number.isSafeInteger(cpu.stepBudget) || cpu.stepBudget <= 0) {
   throw new Error("POR_BOOT_STEPS must be a positive integer");
 }
 resetFarBudget(0);
 try {
   farCall(cpu, boot.cs, boot.ip);
-  console.log(`entry returned ax=${cpu.ax.toString(16)} ds=${cpu.ds.toString(16)} steps=${cpu.steps}`);
+  print(`entry returned ax=${cpu.ax.toString(16)} ds=${cpu.ds.toString(16)} steps=${cpu.steps}`);
   report("entry state", new Error("returned"));
   const text: string[] = [];
   for (let i = 0; i < 80 * 25 * 2; i += 2) {
@@ -622,23 +633,24 @@ try {
     text.push(ch >= 32 && ch < 127 ? String.fromCharCode(ch) : " ");
   }
   const rows = text.join("");
-  console.log(rows.replace(/ +$/gm, "").split(" ").length ? rows.match(/.{80}/g)?.filter((r) => r.trim()).join("\n") : "(blank text)");
+  print(String(rows.replace(/ +$/gm, "").split(" ").length ? rows.match(/.{80}/g)?.filter((r) => r.trim()).join("\n") : "(blank text)"));
 } catch (error) {
   report("entry", error);
-  console.log(
+  print(
     `  regs bx:cx ${cpu.bx.toString(16)}:${cpu.cx.toString(16)} dx:ax ${cpu.dx.toString(16)}:${cpu.ax.toString(16)} es:di ${cpu.es.toString(16)}:${cpu.di.toString(16)}`,
   );
 }
 
-if (adventureLog) {
-  mkdirSync("out", { recursive: true });
+if (adventureLog && host.files) {
+  const { mkdir, write, join } = host.files;
+  mkdir("out");
   const transcript = adventureLog();
   const leads = journal(transcript);
-  writeFileSync(join("out", "adventure-log.txt"), transcript + "\n");
-  writeFileSync(join("out", "adventure-journal.json"), JSON.stringify({ objective: currentObjective(leads), leads }, null, 2) + "\n");
-  writeFileSync(join("out", "adventure-journal.png"), encodePng(journalFrame(leads)));
+  write(join("out", "adventure-log.txt"), transcript + "\n");
+  write(join("out", "adventure-journal.json"), JSON.stringify({ objective: currentObjective(leads), leads }, null, 2) + "\n");
+  write(join("out", "adventure-journal.png"), encodePng(journalFrame(leads)));
 }
-if (liveAt !== undefined) process.exit(0);
+if (liveAt !== undefined) host.exit(0);
 // Without a live session, also run the script loader on a fresh machine.
 const loaderSegment = codeSegment(code.eclLoad);
 if (loaderSegment === undefined) throw new Error("the script overlay was not loaded");
@@ -652,7 +664,7 @@ resetFarBudget(8000);
 try {
   loader.push(0);
   procedure(code.eclLoad)(loader);
-  console.log("the script loader returned");
+  print("the script loader returned");
 } catch (error) {
   report("script loader", error);
 }

@@ -2,8 +2,8 @@
 ;   makensis -DSTAGE=<staged install> -DOUTFILE=<installer.exe> -DVERSION=<x.y.z> windows-installer.nsi
 ; It installs to Program Files or the folder the player chooses (a drive without room for the game and
 ; SPARE_MB more is refused with a message), adds a Start Menu shortcut and an optional desktop shortcut
-; that run the launcher with the bundled Node (its console window is the game's: close it to stop the game), and an
-; uninstaller. The player's saves in %APPDATA%\Pool of Radiance are left in place by the uninstaller.
+; that open the Electron app, and an uninstaller. The player's saves in %APPDATA%\Pool of Radiance are left in place
+; by the uninstaller.
 Unicode true
 ManifestDPIAware true
 SetCompressor zlib
@@ -84,15 +84,21 @@ Section "${PRODUCT}" SectionGame
   ${EndIf}
   SetShellVarContext all
   ; An update replaces the game's files rather than mixing two versions.
+  RMDir /r "$INSTDIR\resources"
+  RMDir /r "$INSTDIR\locales"
   RMDir /r "$INSTDIR\app"
   RMDir /r "$INSTDIR\game"
   RMDir /r "$INSTDIR\upgrades"
   RMDir /r "$INSTDIR\audio"
+  RMDir /r "$INSTDIR\web"
+  RMDir /r "$INSTDIR\src"
+  RMDir /r "$INSTDIR\qa"
+  RMDir /r "$INSTDIR\node"
   SetOutPath "$INSTDIR"
   File /r "${STAGE}/*"
   WriteUninstaller "$INSTDIR\Uninstall.exe"
   CreateDirectory "$SMPROGRAMS\${PRODUCT}"
-  CreateShortcut "$SMPROGRAMS\${PRODUCT}\${PRODUCT}.lnk" "$INSTDIR\node\node.exe" '"$INSTDIR\app\launch.mjs"' "$INSTDIR\pool-of-radiance.ico"
+  CreateShortcut "$SMPROGRAMS\${PRODUCT}\${PRODUCT}.lnk" "$INSTDIR\${PRODUCT}.exe" "" "$INSTDIR\pool-of-radiance.ico"
   CreateShortcut "$SMPROGRAMS\${PRODUCT}\Uninstall ${PRODUCT}.lnk" "$INSTDIR\Uninstall.exe"
   WriteRegStr HKLM "Software\${PRODUCT}" "InstallDir" "$INSTDIR"
   WriteRegStr HKLM "${UNINSTALL_KEY}" "DisplayName" "${PRODUCT}"
@@ -106,7 +112,7 @@ SectionEnd
 
 Section "Desktop shortcut" SectionDesktop
   SetShellVarContext all
-  CreateShortcut "$DESKTOP\${PRODUCT}.lnk" "$INSTDIR\node\node.exe" '"$INSTDIR\app\launch.mjs"' "$INSTDIR\pool-of-radiance.ico"
+  CreateShortcut "$DESKTOP\${PRODUCT}.lnk" "$INSTDIR\${PRODUCT}.exe" "" "$INSTDIR\pool-of-radiance.ico"
 SectionEnd
 
 ; $Drive: the drive (or share) $INSTDIR is on; $FreeMB: its free space; $NeedMB: the game's files and
