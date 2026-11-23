@@ -11151,6 +11151,65 @@
           }
         }
       }
+    },
+    {
+      "producer": "ECL4.DAX:21:a092",
+      "prompt": "a0c6",
+      "caption": "THE CROAKING RISES IN VOLUME.",
+      "checkpoint": "sokal-smithy-frogs/C.json",
+      "position": [
+        14,
+        6,
+        2
+      ],
+      "chrome": {
+        "original": {
+          "route": "sokal-poison-frog-approach",
+          "data": "original",
+          "position": [
+            14,
+            6,
+            2
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4814,6E01:18THECROAKINGRISESINVOLUME.CombatWaitFleeAdvance",
+          "checkpointSha256": "c7dda2af4b86fa52a4f95139285adcf32a482030a122e985c9f430125a157e0f",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "encounter": {
+            "placement": [
+              48,
+              32,
+              "encounter:area:21:SPRIT4.DAX:37:1:0",
+              40,
+              57,
+              7
+            ],
+            "sha256": "87157014bd11e3553c4152b3ffaef7c08e9207e84f06f8921d9e12af30ea6118"
+          }
+        },
+        "port": {
+          "route": "sokal-poison-frog-approach",
+          "data": "port",
+          "position": [
+            14,
+            6,
+            2
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN4814,6E01:18THECROAKINGRISESINVOLUME.CombatWaitFleeAdvance",
+          "checkpointSha256": "c7dda2af4b86fa52a4f95139285adcf32a482030a122e985c9f430125a157e0f",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "encounter": {
+            "placement": [
+              48,
+              32,
+              "encounter:area:21:SPRIT4.DAX:37:1:0",
+              40,
+              57,
+              7
+            ],
+            "sha256": "87157014bd11e3553c4152b3ffaef7c08e9207e84f06f8921d9e12af30ea6118"
+          }
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [
