@@ -4387,6 +4387,19 @@ const illustrationRoutes = new Map([
       screenshot: "valhingen-mummy-sarcophagi-attack.png",
     },
   }],
+  ["kuto-kobold-scouts-sneak-off", {
+    slot: "B",
+    inputs: [...Array.from({ length: 3 }, () => ["up", "enter", "down", "up", "down"]).flat(), "up", "enter", "down", "enter"],
+    portrait: "portrait:area:29:ecl:a730:PIC8.DAX:0:0:0",
+    prompt: /THEKOBOLDSARETRYINGTOSNEAKOFF/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:29:ecl:a730:PIC8.DAX:0:${member}:0`),
+    finalPhaseCapture: "kuto-kobold-scouts-sneak-off.png",
+    continuation: {
+      inputs: ["c"], portrait: "portrait:area:29:ecl:a75e:PIC8.DAX:0:0:0", prompt: /ABATTLEBEGINS/i,
+      pressOnPortrait: "portrait:area:29:ecl:a730:PIC8.DAX:0:2:0", retainPose: true,
+      screenshot: "kuto-kobold-scouts-sneak-off-combat.png",
+    },
+  }],
   ["old-phlan-lizard-patrol-combat-phase-2", {
     slot: "B", inputs: ["up", "enter", "enter", ...Array(17).fill("z")],
     portrait: "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:2:0",

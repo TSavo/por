@@ -288,6 +288,8 @@ const portraitLoops = [
     /^(?!.*ABATTLEBEGINS).*LIZARDMENSWIMMINGINTHEPOOL/i, [210, 210, 210, 210]],
   ["portrait:area:29:ecl:af2f:caller:a6f7:PIC8.DAX:0:", [0, 1, 2, 1], "portrait:area:29:PIC8.DAX:0:0:0",
     /ASMALLBANDOFSICKLYKOBOLDS/i, [210, 210, 210, 210]],
+  ["portrait:area:29:ecl:a730:PIC8.DAX:0:", [0, 1, 2, 1], undefined,
+    /^(?!.*ABATTLEBEGINS).*THEKOBOLDSARETRYINGTOSNEAKOFF/i, [210, 210, 210, 210]],
   ["portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:", 4, "portrait:area:29:PIC8.DAX:57:0:0",
     /^(?!.*ABATTLEBEGINS).*ALIZARDMANLEADSAPACKOFGIANTLIZARDSONPATROL/i, [210, 210, 210, 210]],
 ].map(([prefix, members, initial, cue, phaseTimes, aliases]) => ({
