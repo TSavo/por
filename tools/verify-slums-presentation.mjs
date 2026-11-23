@@ -2336,6 +2336,13 @@ const illustrationRoutes = new Map([
       prompt: /HAVINGANYTROUBLEWITHTYRANTHRAXUS/i,
     },
   }],
+  ["valjevo-false-throne-dismissal", {
+    slot: "B", inputs: ["up", "enter", "enter", "p", "n"],
+    portrait: "portrait:HEAD5.DAX:54:BODY5.DAX:1",
+    prompt: /BEGONEORFEELTHEWRATHANDPOWEROFTYRANTHRAXUS/i,
+    staticPortraitMenu: true,
+    continuation: { inputs: ["y"], clearsPortrait: true, prompt: /ANALARMSTARTSRINGING/i },
+  }],
   ["valjevo-false-throne-alarm", {
     slot: "B", inputs: ["up", "enter", "enter", "p", "a", "enter", "n"],
     portrait: "portrait:area:5:ecl:abc9:HEAD5.DAX:54:BODY5.DAX:1",
@@ -13289,11 +13296,13 @@ try {
     assert.equal(frame.portrait, portrait);
     await waitFor("the throne-room figure's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
+    if (heldPortraitEvidenceFile) await verifyStaticPortrait(portrait, /WHATISYOURBUSINESSWITHTYRANTHRAXUS/i, false);
     await advance("j");
     assert.ok(frame.journal && !knows());
     for (const key of ["j", "p", "a"]) await advance(key);
     assert.equal(frame.portrait, "portrait:area:5:ecl:9a5a:caller:aa76:HEAD5.DAX:54:BODY5.DAX:1");
     await verifyPortraitPanel();
+    if (heldPortraitEvidenceFile) await verifyStaticPortrait(frame.portrait, /HEJUSTHIREDMETOIMPERSONATEHIM/i, false);
     await advance("j");
     assert.ok(knows());
     const readSignedNote = frame.journal.leads.some(({ id }) => id === "castle-flaming-aura");
@@ -13304,18 +13313,26 @@ try {
       .map(([, character]) => String.fromCharCode(character)).join(""), /JUSTLETMEGO/i);
     assert.equal(frame.portrait, "portrait:area:5:ecl:9a2c:caller:aa8e:HEAD5.DAX:54:BODY5.DAX:1");
     await verifyPortraitPanel();
+    if (heldPortraitEvidenceFile) await verifyStaticPortrait(frame.portrait, /JUSTLETMEGO/i, false);
     const released = () => frame.journal?.leads.some(({ id }) => id === "castle-impostor-released");
     await advance("j");
     assert.ok(frame.journal && !released());
     for (const key of ["j", "y"]) await advance(key);
     assert.equal(frame.portrait, "portrait:area:5:ecl:9a2c:caller:aacc:HEAD5.DAX:54:BODY5.DAX:1");
     await verifyPortraitPanel();
+    if (heldPortraitEvidenceFile) await verifyStaticPortrait(frame.portrait, /THEREISTREASUREALLABOUT/i, false);
     await advance("j");
     assert.ok(released());
     assert.match(frame.journal.objective.nextStep, /continue searching the castle for the real Tyranthraxus/i);
     assert.equal(/flaming aura/i.test(frame.journal.objective.nextStep), readSignedNote);
     assert.ok(!frame.journal.leads.some(({ id, status }) => id === "commission-castle" &&
       ["ready-to-report", "reward-pending", "turned-in"].includes(status)));
+    if (heldPortraitEvidenceFile) {
+      for (const key of ["j", "n"]) await advance(key);
+      assert.equal(frame.portrait, undefined);
+      await waitFor("the released impostor's portrait to clear", () => run(`state.sequence === ${frame.sequence} &&
+        !document.querySelector("#tile-art:not([hidden]) .encounter-portrait")`));
+    }
     console.log("Verified the false throne portrait and witnessed confession and release in Chrome.");
   } else if (restalGuide) {
     const restal = "portrait:HEAD4.DAX:52:BODY4.DAX:8";

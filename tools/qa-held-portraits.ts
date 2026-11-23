@@ -337,7 +337,8 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       `portrait:area:${site.scriptBlock}:ecl:${cursor}${caller ? `:caller:${caller}` : ""}:${nativeSource}`;
     const illustration = (key: string) => key === scope || key.startsWith(scope + ":cue:");
     const scoped = (key: string) => illustration(key) || key === nativeBase ||
-      (site.composedPortrait && key === `portrait:area:${site.scriptBlock}:${site.composedPortrait.source}`);
+      (site.composedPortrait && (key === `portrait:area:${site.scriptBlock}:${site.composedPortrait.source}` ||
+        key === `portrait:${site.composedPortrait.source}`));
     const observedVariants = variants.map(variant => {
       const reason = scoped(variant.portrait) || variant.native.inheritedFrom !== undefined
         ? staticPortraitProblem(site, variant) : "static portrait belongs to a different prompt";

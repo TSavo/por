@@ -180,15 +180,19 @@ const eclCandidates = scripts.flatMap(record => {
       return true;
     });
 
-    // The audience bodyguards and Al-Hyam use deliberate HEAD/BODY overrides. For these measured sites,
-    // confirm the literal write, encounter operand, and reset from the shipped ECL.
+    // Confirm the selected HEAD and BODY from each measured encounter's script.
     let composedPortrait;
+    const falseThrone = archive === 5 && scriptBlock === 5 && authored(load.address) === "a98a";
     if (archive === 5 && opcode === 0x29 &&
         (scriptBlock === 7 && authored(load.address) === "a56c" ||
-         scriptBlock === 5 && authored(load.address) === "a256")) {
-      const headWrite = decoded.find(instruction => instruction.next === load.address);
+         scriptBlock === 5 && authored(load.address) === "a256" || falseThrone)) {
+      // The false throne sets the head before the approach, then reuses the
+      // same body when it opens the encounter menu.
+      const setup = falseThrone ? decoded.find(instruction => authored(instruction.address) === "a953") : undefined;
+      const headWrite = decoded.find(instruction => instruction.next === (setup?.address ?? load.address));
       const headReset = instructions.get(load.next);
-      if (headWrite?.opcode === 0x09 && headReset?.opcode === 0x09 &&
+      if ((!falseThrone || setup?.opcode === 0x0c && literal(setup.operands[2]!) === portrait.literal) &&
+          headWrite?.opcode === 0x09 && headReset?.opcode === 0x09 &&
           memory(headWrite.operands[1]!) === 0x6de1 && memory(headReset.operands[1]!) === 0x6de1 &&
           literal(headReset.operands[0]!) === 0xff && portrait.literal !== null) {
         const head = literal(headWrite.operands[0]!);
