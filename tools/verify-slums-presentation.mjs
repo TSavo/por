@@ -1559,8 +1559,9 @@ const illustrationRoutes = new Map([
   }]),
   ["valjevo-barracks-ground-paper", {
     slot: "C", inputs: ["up"],
+    portrait: "scene-illustration:area:4:ecl:9a5a:caller:a442:cue:ground-paper",
     prompt: /ONTHEGROUNDYOUFINDAPEACEOFPAPERTHATSAYS/i,
-    sceneryPrompt: [4, 8, 0],
+    illustratedScenery: true,
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /TODAY'SPASSWORDIS.*THEGATEPASSWORDIS/i },
   }],
   ["valjevo-street-giants-loop", {
