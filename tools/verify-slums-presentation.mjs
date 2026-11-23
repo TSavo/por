@@ -1393,12 +1393,13 @@ const illustrationRoutes = new Map([
   ].map(([name, fixedClockStart, cursor, block, members, far, middle, prompt]) => {
     const picture = member => `portrait:area:24:ecl:${cursor}:PIC1.DAX:${block}:${member}:0`;
     const sprite = member => `encounter:area:24:ecl:${cursor}:SPRIT1.DAX:${block}:${member}:0`;
+    const approachSequence = [[56, 32, sprite(2), ...far], [56, 32, sprite(1), ...middle]];
     return [`bane-rampart-${name}`, {
       slot: "A", stockInput: true, fixedClockStart,
       promptSchedule: `qa/fixtures/bane-black-hand-patrol-warning/${name}-prompts.jsonl`,
       inputs: ["up", "a", "a"], portrait: picture(0), prompt,
       heldPortraitLoop: members.map(picture),
-      approachSequence: [[56, 32, sprite(2), ...far], [56, 32, sprite(1), ...middle]],
+      approachSequence, approachStops: { 1: approachSequence[0], 2: approachSequence[1] },
       requireWebGL: true, requireTiledApproach: true, finalPhaseCapture: `bane-rampart-${name}.png`,
     }];
   }),
