@@ -9308,6 +9308,8 @@ const valhingenBrassDoorBattle = {
   slot: "A", inputs: ["left", "up", "up", "left", "up", "enter", "enter"],
   afterBattle: /9,1W.*AREACASTVIEWENCAMPSEARCHLOOK/i,
 };
+const nomadShamanReward = routeName === "nomad-shaman-reward-after-victory";
+if (nomadShamanReward) routes.push(routeName);
 const controlledBattleIllustrations = new Map([
   ["valjevo-maze-watch-patrol", {
     slot: "B", inputs: ["up", "enter", "enter", "c", "s", "enter"],
@@ -9627,7 +9629,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
     POR_TRACE_BATTLE_TILES: dragon || routeName === "lizardfolk-battle-wall" ? "1" : browserEnvironment.POR_TRACE_BATTLE_TILES,
     POR_BOOT_KEYS: freshRolf ? "31000000:1c0d,45000000:2e63" : "31000000:1c0d,45000000:266c,52000000:" + boot,
-    ...(controlledBattleIllustration || combatPose?.developerSetup || routeName === "swamp-drawbridge-hold" ? { POR_DEV_COMBAT: "1" } : {}),
+    ...(nomadShamanReward || controlledBattleIllustration || combatPose?.developerSetup || routeName === "swamp-drawbridge-hold" ? { POR_DEV_COMBAT: "1" } : {}),
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_FIXED_CLOCK_START: browserEnvironment.POR_FIXED_CLOCK_START ?? illustration?.fixedClockStart ??
@@ -9639,7 +9641,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...((battleEntry?.promptSchedule ?? illustration?.promptSchedule)
       ? { POR_PROMPT_SCHEDULE_IN: resolve(battleEntry?.promptSchedule ?? illustration.promptSchedule) } : {}),
     ...(battleEntry && !battleEntry.promptSchedule ? { POR_PROMPT_SCHEDULE_IN: "" } : {}),
-    POR_INPUT_COMPAT: residentRestore || ohloStudy || battleEntry || illustration?.stockInput || encounterRoute?.stockInput ||
+    POR_INPUT_COMPAT: nomadShamanReward || residentRestore || ohloStudy || battleEntry || illustration?.stockInput || encounterRoute?.stockInput ||
       controlledBattleIllustration?.staticHold || controlledBattleIllustration?.heldPortraitLoop ||
       routeName === "kuto-well-waiting-kobolds-hold" || routeName === "kuto-surprised-gnoll-party" || textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "kuto-well-catacomb-volley-hold" || routeName === "kuto-well-surrounding-buildings-hold" ||
@@ -12589,6 +12591,75 @@ try {
     writeFileSync(resolve(directory, "valhingen-zombie-patrol-attack.png"), Buffer.from(shot.data, "base64"));
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified all five native roaming zombie portrait phases and the battle opening in Chrome:", directory);
+
+  } else if (nomadShamanReward) {
+    const producer = "ECL7.DAX:17:b3cb";
+    const portrait = "scene-illustration:area:17:ecl:b43b:cue:shaman-reward";
+    const words = text => text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join("");
+    const visible = () => words(frame.text);
+    const reward = /THESHAMANWALKSUPTOYOU.*YOUFOUGHTASTHEHEROESOFLEGEND.*AREWARDWASPROMISEDANDSOSHALLITBE/i;
+    const treasure = /THEPARTYHASFOUNDTREASURE.*EACHCHARACTERRECEIVES[0-9]+EXPERIENCEPOINTS/i;
+    const farewell = /NOWPLEASELEAVEUSTOOURMOURNING.*ITISAPERSONALTHINGFOROURPEOPLE/i;
+    await run(`const nomadRewardSend = send; send = key => key === ":poll" ? undefined : nomadRewardSend(key);`);
+    const settled = () => waitFor("the settled Nomad party frame", () => run(`state.sequence === ${frame.sequence} &&
+      !animationFrame && renderingSequence !== state.sequence`));
+    const step = async key => {
+      await settled();
+      await advance(key);
+    };
+    for (const key of nomadRaidAlliance) await step(key);
+    assert.match(visible(), /WELLDONE!WHATSAYWEFINISHTHISTOGETHER/i);
+    await step("d");
+    for (let i = 0; i < 15 && !frame.developerVictoryAvailable; i++) await step("enter");
+    assert.equal(frame.developerVictoryAvailable, true);
+    await step(":win-combat");
+    for (let i = 0; i < 40 && !treasure.test(visible()); i++) {
+      const dialogue = visible();
+      if (/ContinueBattle:YesNo|StillTreasureLeft/i.test(dialogue)) await step("n");
+      else if (/ViewTakePool(?:Share)?Exit/i.test(dialogue)) await step("e");
+      else if (/GuardDelayQuitSpeedExit/i.test(dialogue)) await step("g");
+      else if (/MoveViewAim/i.test(dialogue)) await step("d");
+      else if (/Move\/Attack/i.test(dialogue)) await step("escape");
+      else await step(/Hitpoints/i.test(dialogue) ? "space" : "enter");
+    }
+    assert.match(visible(), treasure);
+    console.log("Nomad reward acknowledgement", visible());
+    const beat = frame.animation?.find(item => item.portrait === portrait && reward.test(words(item.text)));
+    assert.ok(beat, "The exact native Shaman speech and composed painting should be visible before the treasure acknowledgement");
+    assert.equal(beat.durationMs, 6500);
+    assert.ok(beat.text.every(([cell]) => cell < 960), "The answered loot choice should not remain under the reward");
+    await waitFor("the Shaman reward illustration and caption", () => run(`state.sequence === ${frame.sequence} &&
+      animationFrame?.portrait === "${portrait}" &&
+      document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352 &&
+      document.querySelector('.encounter-portrait').naturalHeight === 352`));
+    await verifyPortraitPanel();
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "nomad-shaman-reward-painted.png"), Buffer.from(shot.data, "base64"));
+    if (heldPortraitEvidenceFile) {
+      const [renderer, asset] = await Promise.all([fetch(origin + "/play.js"), fetch(origin + "/art/" + portrait)]);
+      assert.ok(renderer.ok && asset.ok);
+      const { result } = await command("Runtime.evaluate", {
+        expression: `portraitLoopBindings.then(module => module.portraitLoopSignature("${portrait}"))`,
+        awaitPromise: true, returnByValue: true,
+      });
+      assert.equal(typeof result.value, "string");
+      heldPortraitEvidence.push({
+        producer, route: routeName, data: frame.classicAvailable === false ? "port" : "original",
+        portrait, rendererSha256: createHash("sha256").update((await renderer.text()).replace(/\r\n/g, "\n")).digest("hex"),
+        bindingSha256: createHash("sha256").update(result.value).digest("hex"),
+        artSha256: createHash("sha256").update(Buffer.from(await asset.arrayBuffer())).digest("hex"),
+      });
+    }
+    await settled();
+    await step("enter");
+    assert.match(visible(), /ViewTakePoolShareExit/i);
+    await step("e");
+    assert.match(visible(), /StillTreasureLeft/i);
+    await step("n");
+    assert.match(visible(), farewell);
+    assert.equal(frame.portrait, undefined);
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the Shaman's composed reward portrait, treasure handoff, and mourning in Chrome.");
   } else if (controlledBattleIllustration) {
     const { inputs, portrait, caption, afterBattle = caption, walk = [], reinforcements = [],
       heldApproachPosition, patrolCaptain, staticHold, heldPortraitLoop, victoryInputs = [] } = controlledBattleIllustration;
