@@ -1,0 +1,83 @@
+{
+  "offers": [
+    {
+      "who": "EVOKER",
+      "shares": 2
+    },
+    {
+      "who": "SWORDSMAN",
+      "shares": 3
+    },
+    {
+      "who": "WARRIOR",
+      "shares": 1
+    },
+    {
+      "who": "SWORDSMAN",
+      "shares": 3
+    },
+    {
+      "who": "EVOKER",
+      "shares": 2
+    },
+    {
+      "who": "CURATE",
+      "shares": 3
+    },
+    {
+      "who": "ROBBER",
+      "shares": 3
+    },
+    {
+      "who": "SWORDSMAN",
+      "shares": 3
+    }
+  ],
+  "theurgist": false,
+  "memory": {
+    "AELAR": [
+      "Sleep"
+    ],
+    "BRENNAN": [
+      "Sleep"
+    ],
+    "CAELUM": [
+      "Sleep"
+    ],
+    "ELSPETH": [
+      "Cure Light Wounds",
+      "Cure Light Wounds",
+      "Cure Light Wounds",
+      "Cure Light Wounds"
+    ],
+    "DORIAN": [
+      "Cure Light Wounds",
+      "Cure Light Wounds",
+      "Cure Light Wounds",
+      "Sleep"
+    ],
+    "FINN": [
+      "Sleep"
+    ],
+    "CURATE": [
+      "Bless",
+      "Bless",
+      "Cure Light Wounds",
+      "Cure Light Wounds",
+      "Cure Light Wounds",
+      "Hold Person",
+      "Hold Person",
+      "Slow Poison",
+      "Spiritual Hammer"
+    ]
+  },
+  "discarded": 0,
+  "here": {
+    "x": 4,
+    "y": 12,
+    "facing": "S",
+    "hour": 8,
+    "minute": 7,
+    "mode": "camping"
+  }
+}
