@@ -20,11 +20,15 @@ of combat at each angry-party selection.
 The corresponding `slums-roaming-*-spotted-loop` routes check the
 close portrait and combat notice after spotting a roaming party.
 
-The `slums-roaming-orc-demand-parlay-loop` and
-`slums-roaming-goblin-rebuke-parlay-loop` routes use the spotted-party
-checkpoint. Parlay opens the tone menu, and Nice leads to the orc's
-payment demand or the goblin's rebuke. Both routes check the street
-portrait during the tone menu and the held pose cycle that follows.
+Use `orc-B.json` for the spotted-party and surprised-party Parlay replays.
+Each checks the street portrait at the tone menu and the pose order and
+holds after the selected response. The route names are
+`slums-roaming-<creature>-<outcome>-parlay-loop` for a spotted group and
+`slums-roaming-surprised-<creature>-<outcome>-parlay-loop` when the party
+surprises the monsters. The creatures are `kobold`, `goblin`, and `orc`.
+The outcomes are `demand`, `surrender`, `leave`, `advice`, `stop`, and
+`rebuke`. In the advice and stop replays, Brother Sean leads the party
+before Parlay. The other replays use the checkpoint's starting order.
 
 The `slums-roaming-goblin-party-surprised-loop` and
 `slums-roaming-orc-party-surprised-loop` routes check the portrait when

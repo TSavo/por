@@ -26951,6 +26951,734 @@
           }
         }
       }
+    },
+    {
+      "id": "area:20:ecl:b38d:PIC2.DAX:0",
+      "producer": "ECL2.DAX:20:9dde",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "slums-roaming-surprised-kobold-demand-parlay-loop",
+          "data": "original",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "68a7cf8f55b9df4200b8a95297773a6e82e31225342bf17683adfb9bf0d35f86",
+          "portrait": "portrait:area:20:ecl:b38d:PIC2.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:0:0",
+              "atMs": 3.500000011920747
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:1:0",
+              "atMs": 136.80000001192093
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:2:0",
+              "atMs": 336.80000001192093
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:1:0",
+              "atMs": 553.4000000119213
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:0:0",
+              "atMs": 770.1000000119211
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:1:0",
+              "atMs": 970.1000000119211
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:2:0",
+              "atMs": 1186.800000011921
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:1:0",
+              "atMs": 1386.7000000119206
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:0:0",
+              "atMs": 1603.5000000119207
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:1:0",
+              "atMs": 1820.0000000119207
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b38d:PIC2.DAX:0:0:0": "6b5be27b24b2e82eaf06f970ef0e56fd7f90400a5eebece3ed2cd293c91842c1",
+            "portrait:area:20:ecl:b38d:PIC2.DAX:0:1:0": "e557a6716d54065690d9bac3feb7d306e111473a87e1d7e50fd758e9e31b730e",
+            "portrait:area:20:ecl:b38d:PIC2.DAX:0:2:0": "8fe8fefee1c1a4badfa3fbc297218bd23ecc84b3d1a5854b2b0cd304e3cd0111"
+          }
+        },
+        "port": {
+          "route": "slums-roaming-surprised-kobold-demand-parlay-loop",
+          "data": "port",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "68a7cf8f55b9df4200b8a95297773a6e82e31225342bf17683adfb9bf0d35f86",
+          "portrait": "portrait:area:20:ecl:b38d:PIC2.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:0:0",
+              "atMs": 7.799999976158233
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:1:0",
+              "atMs": 140.99999997615805
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:2:0",
+              "atMs": 357.6999999761583
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:1:0",
+              "atMs": 574.3999999761581
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:0:0",
+              "atMs": 774.2999999761582
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:1:0",
+              "atMs": 990.999999976158
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:2:0",
+              "atMs": 1190.9999999761585
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:1:0",
+              "atMs": 1407.6999999761583
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:0:0",
+              "atMs": 1624.2999999761578
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:0:1:0",
+              "atMs": 1824.3999999761581
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b38d:PIC2.DAX:0:0:0": "6b5be27b24b2e82eaf06f970ef0e56fd7f90400a5eebece3ed2cd293c91842c1",
+            "portrait:area:20:ecl:b38d:PIC2.DAX:0:1:0": "e557a6716d54065690d9bac3feb7d306e111473a87e1d7e50fd758e9e31b730e",
+            "portrait:area:20:ecl:b38d:PIC2.DAX:0:2:0": "8fe8fefee1c1a4badfa3fbc297218bd23ecc84b3d1a5854b2b0cd304e3cd0111"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:20:ecl:b38d:PIC2.DAX:2",
+      "producer": "ECL2.DAX:20:9dde",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 310,
+          "viewport": "a22361feb58b6fc42bb5e0833cd6e54072df64abfee49b139eac5fa7a0878312"
+        },
+        {
+          "member": 1,
+          "durationMs": 310,
+          "viewport": "e579cb908b4bbfe27909da489faa62cbef2c3f2b4573d7cb931b9a6f0be3a2b2"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "slums-roaming-surprised-goblin-demand-parlay-loop",
+          "data": "original",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "a27720a54dfbc7d10ee5dbf3a618d0cec3134bd2d0273eda4283329a9dd5ad95",
+          "portrait": "portrait:area:20:ecl:b38d:PIC2.DAX:2:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:2:0:0",
+              "atMs": 13.199999999999818
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:2:1:0",
+              "atMs": 246.5
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:2:0:0",
+              "atMs": 546.3999999999996
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:2:1:0",
+              "atMs": 863.1000000000004
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:2:0:0",
+              "atMs": 1179.6999999999998
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:2:1:0",
+              "atMs": 1479.8000000000002
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b38d:PIC2.DAX:2:0:0": "037688d67c3350c17c60dbb7005eba239f7d4fbf209408b7f6eb26e921439f04",
+            "portrait:area:20:ecl:b38d:PIC2.DAX:2:1:0": "3a3cd44731baa3187977690d185fd566ea181d8588970ff1f79657d8dd772690"
+          }
+        },
+        "port": {
+          "route": "slums-roaming-surprised-goblin-demand-parlay-loop",
+          "data": "port",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "a27720a54dfbc7d10ee5dbf3a618d0cec3134bd2d0273eda4283329a9dd5ad95",
+          "portrait": "portrait:area:20:ecl:b38d:PIC2.DAX:2:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:2:0:0",
+              "atMs": 6.000000011920747
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:2:1:0",
+              "atMs": 289.30000001192093
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:2:0:0",
+              "atMs": 606.0000000119207
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:2:1:0",
+              "atMs": 905.9000000119213
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:2:0:0",
+              "atMs": 1222.7000000119206
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:2:1:0",
+              "atMs": 1539.300000011921
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b38d:PIC2.DAX:2:0:0": "037688d67c3350c17c60dbb7005eba239f7d4fbf209408b7f6eb26e921439f04",
+            "portrait:area:20:ecl:b38d:PIC2.DAX:2:1:0": "3a3cd44731baa3187977690d185fd566ea181d8588970ff1f79657d8dd772690"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:20:ecl:b6df:caller:b691:PIC2.DAX:2",
+      "producer": "ECL2.DAX:20:9dde",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 310,
+          "viewport": "a22361feb58b6fc42bb5e0833cd6e54072df64abfee49b139eac5fa7a0878312"
+        },
+        {
+          "member": 1,
+          "durationMs": 310,
+          "viewport": "e579cb908b4bbfe27909da489faa62cbef2c3f2b4573d7cb931b9a6f0be3a2b2"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "slums-roaming-surprised-goblin-rebuke-parlay-loop",
+          "data": "original",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "2b18b71300116bea0f0d65c0628545808e11dc531c6fdc7f05b2885628e24f1a",
+          "portrait": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:0:0",
+              "atMs": 1.5
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:1:0",
+              "atMs": 234.80000000000018
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:0:0",
+              "atMs": 551.5
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:1:0",
+              "atMs": 851.5
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:0:0",
+              "atMs": 1168.1000000000004
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:1:0",
+              "atMs": 1484.8000000000002
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:0:0": "037688d67c3350c17c60dbb7005eba239f7d4fbf209408b7f6eb26e921439f04",
+            "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:1:0": "3a3cd44731baa3187977690d185fd566ea181d8588970ff1f79657d8dd772690"
+          }
+        },
+        "port": {
+          "route": "slums-roaming-surprised-goblin-rebuke-parlay-loop",
+          "data": "port",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "2b18b71300116bea0f0d65c0628545808e11dc531c6fdc7f05b2885628e24f1a",
+          "portrait": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:0:0",
+              "atMs": -0.3000000000029104
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:1:0",
+              "atMs": 283
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:0:0",
+              "atMs": 583
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:1:0",
+              "atMs": 899.6999999999971
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:0:0",
+              "atMs": 1216.4000000000015
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:1:0",
+              "atMs": 1516.300000000003
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:0:0": "037688d67c3350c17c60dbb7005eba239f7d4fbf209408b7f6eb26e921439f04",
+            "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:2:1:0": "3a3cd44731baa3187977690d185fd566ea181d8588970ff1f79657d8dd772690"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:20:ecl:b6df:caller:b691:PIC2.DAX:4",
+      "producer": "ECL2.DAX:20:9dde",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1510,
+          "viewport": "2373d5229332a0dfc341c6a97e4371ba1ae0d83ad6f1803324a7219abb335440"
+        },
+        {
+          "member": 1,
+          "durationMs": 20,
+          "viewport": "d2f3c3b368fa6294d4fc0dea3c62279342392566accc8be7550c6eb450c383f7"
+        },
+        {
+          "member": 2,
+          "durationMs": 710,
+          "viewport": "cafbf84bf2bf53ef48f7de6e14d01f8c972602943b6b26d2fcf5622814911ab7"
+        },
+        {
+          "member": 3,
+          "durationMs": 20,
+          "viewport": "d2f3c3b368fa6294d4fc0dea3c62279342392566accc8be7550c6eb450c383f7"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "slums-roaming-surprised-orc-rebuke-parlay-loop",
+          "data": "original",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "40ed6980beb85243439d27bd45afdaf6d5dab584cb4bf2173a3eacafaf207626",
+          "portrait": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:0:0",
+              "atMs": 8.800000000000182
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:1:0",
+              "atMs": 1458.7000000000007
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:2:0",
+              "atMs": 1475.2999999999993
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:1:0",
+              "atMs": 2192
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:0:0",
+              "atMs": 2208.7000000000007
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:1:0",
+              "atMs": 3725.2000000000007
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:2:0",
+              "atMs": 3741.8999999999996
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:1:0",
+              "atMs": 4458.5
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:0:0",
+              "atMs": 4475.200000000001
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:1:0",
+              "atMs": 5975.200000000001
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:0:0": "2d9c0a4252fc8d610c243565ca4c91d2f3965f00051493ffa08f055f7747b525",
+            "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:1:0": "60e507d56fe6392603e7dfa954600ca596a76959743d025ef4078df620420818",
+            "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:2:0": "a4e3f42d1a97a232de29b3aa4c8d4025cb72e0f8dfd4b5b065d8f4eaafe7e37b"
+          }
+        },
+        "port": {
+          "route": "slums-roaming-surprised-orc-rebuke-parlay-loop",
+          "data": "port",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "40ed6980beb85243439d27bd45afdaf6d5dab584cb4bf2173a3eacafaf207626",
+          "portrait": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:0:0",
+              "atMs": 2.200000011920565
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:1:0",
+              "atMs": 1435.5000000119207
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:2:0",
+              "atMs": 1468.800000011921
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:1:0",
+              "atMs": 2168.800000011921
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:0:0",
+              "atMs": 2185.5000000119207
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:1:0",
+              "atMs": 3702.100000011921
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:2:0",
+              "atMs": 3718.800000011921
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:1:0",
+              "atMs": 4435.400000011921
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:0:0",
+              "atMs": 4452.10000001192
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:1:0",
+              "atMs": 5968.700000011921
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:0:0": "2d9c0a4252fc8d610c243565ca4c91d2f3965f00051493ffa08f055f7747b525",
+            "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:1:0": "60e507d56fe6392603e7dfa954600ca596a76959743d025ef4078df620420818",
+            "portrait:area:20:ecl:b6df:caller:b691:PIC2.DAX:4:2:0": "a4e3f42d1a97a232de29b3aa4c8d4025cb72e0f8dfd4b5b065d8f4eaafe7e37b"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:20:ecl:b6df:caller:b484:PIC2.DAX:0",
+      "producer": "ECL2.DAX:20:9dde",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "slums-roaming-surprised-kobold-surrender-parlay-loop",
+          "data": "original",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "8d179a750a9ec8883b6c80b6710b88b673b19a8c622791c2f5a72fe8e80cdfb4",
+          "portrait": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0",
+              "atMs": 9.300000035762423
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 209.30000003576242
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:2:0",
+              "atMs": 409.20000003576297
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 625.9000000357628
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0",
+              "atMs": 842.5000000357632
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 1042.6000000357635
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:2:0",
+              "atMs": 1259.200000035762
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 1459.200000035762
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0",
+              "atMs": 1675.8000000357624
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 1892.5000000357632
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0": "6b5be27b24b2e82eaf06f970ef0e56fd7f90400a5eebece3ed2cd293c91842c1",
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0": "e557a6716d54065690d9bac3feb7d306e111473a87e1d7e50fd758e9e31b730e",
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:2:0": "8fe8fefee1c1a4badfa3fbc297218bd23ecc84b3d1a5854b2b0cd304e3cd0111"
+          }
+        },
+        "port": {
+          "route": "slums-roaming-surprised-kobold-surrender-parlay-loop",
+          "data": "port",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "8d179a750a9ec8883b6c80b6710b88b673b19a8c622791c2f5a72fe8e80cdfb4",
+          "portrait": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0",
+              "atMs": 12.500000035762696
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 95.80000003576288
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:2:0",
+              "atMs": 312.5000000357627
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 512.5000000357632
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0",
+              "atMs": 729.200000035763
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 945.8000000357624
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:2:0",
+              "atMs": 1145.8000000357624
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 1362.5000000357632
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0",
+              "atMs": 1562.5000000357632
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 1779.1000000357626
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0": "6b5be27b24b2e82eaf06f970ef0e56fd7f90400a5eebece3ed2cd293c91842c1",
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0": "e557a6716d54065690d9bac3feb7d306e111473a87e1d7e50fd758e9e31b730e",
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:2:0": "8fe8fefee1c1a4badfa3fbc297218bd23ecc84b3d1a5854b2b0cd304e3cd0111"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:20:ecl:b38d:PIC2.DAX:4",
+      "producer": "ECL2.DAX:20:9dde",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1510,
+          "viewport": "2373d5229332a0dfc341c6a97e4371ba1ae0d83ad6f1803324a7219abb335440"
+        },
+        {
+          "member": 1,
+          "durationMs": 20,
+          "viewport": "d2f3c3b368fa6294d4fc0dea3c62279342392566accc8be7550c6eb450c383f7"
+        },
+        {
+          "member": 2,
+          "durationMs": 710,
+          "viewport": "cafbf84bf2bf53ef48f7de6e14d01f8c972602943b6b26d2fcf5622814911ab7"
+        },
+        {
+          "member": 3,
+          "durationMs": 20,
+          "viewport": "d2f3c3b368fa6294d4fc0dea3c62279342392566accc8be7550c6eb450c383f7"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "slums-roaming-surprised-orc-demand-parlay-loop",
+          "data": "original",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "9e33c04a4c29a05f7475c5792d38f43d6a4c6de1231c8391505f8536b9829563",
+          "portrait": "portrait:area:20:ecl:b38d:PIC2.DAX:4:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:0:0",
+              "atMs": 1.400000047683534
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:1:0",
+              "atMs": 1468.1000000476834
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:2:0",
+              "atMs": 1484.7000000476837
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:1:0",
+              "atMs": 2201.300000047684
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:0:0",
+              "atMs": 2218.000000047683
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:1:0",
+              "atMs": 3734.6000000476834
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:2:0",
+              "atMs": 3751.300000047684
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:1:0",
+              "atMs": 4467.900000047684
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:0:0",
+              "atMs": 4484.500000047683
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:1:0",
+              "atMs": 5984.500000047683
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b38d:PIC2.DAX:4:0:0": "2d9c0a4252fc8d610c243565ca4c91d2f3965f00051493ffa08f055f7747b525",
+            "portrait:area:20:ecl:b38d:PIC2.DAX:4:1:0": "60e507d56fe6392603e7dfa954600ca596a76959743d025ef4078df620420818",
+            "portrait:area:20:ecl:b38d:PIC2.DAX:4:2:0": "a4e3f42d1a97a232de29b3aa4c8d4025cb72e0f8dfd4b5b065d8f4eaafe7e37b"
+          }
+        },
+        "port": {
+          "route": "slums-roaming-surprised-orc-demand-parlay-loop",
+          "data": "port",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "9e33c04a4c29a05f7475c5792d38f43d6a4c6de1231c8391505f8536b9829563",
+          "portrait": "portrait:area:20:ecl:b38d:PIC2.DAX:4:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:0:0",
+              "atMs": 2.899999988078889
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:1:0",
+              "atMs": 1419.399999988079
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:2:0",
+              "atMs": 1452.7999999880794
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:1:0",
+              "atMs": 2152.699999988079
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:0:0",
+              "atMs": 2169.4999999880793
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:1:0",
+              "atMs": 3685.9999999880783
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:2:0",
+              "atMs": 3702.699999988079
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:1:0",
+              "atMs": 4419.299999988079
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:0:0",
+              "atMs": 4435.999999988078
+            },
+            {
+              "key": "portrait:area:20:ecl:b38d:PIC2.DAX:4:1:0",
+              "atMs": 5952.699999988079
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b38d:PIC2.DAX:4:0:0": "2d9c0a4252fc8d610c243565ca4c91d2f3965f00051493ffa08f055f7747b525",
+            "portrait:area:20:ecl:b38d:PIC2.DAX:4:1:0": "60e507d56fe6392603e7dfa954600ca596a76959743d025ef4078df620420818",
+            "portrait:area:20:ecl:b38d:PIC2.DAX:4:2:0": "a4e3f42d1a97a232de29b3aa4c8d4025cb72e0f8dfd4b5b065d8f4eaafe7e37b"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
