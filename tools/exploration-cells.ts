@@ -1,10 +1,12 @@
 import { existsSync, readFileSync } from "node:fs";
 import { sha256, TRANSPARENT, type TileName, type WorldData } from "./first-person-cells.js";
 import { fromPortRoot } from "./port-root.js";
+import { hasResources, readJsonNow, resources } from "../src/resources/provider.js";
 
 const BLANK = sha256(new Uint8Array(64));
 
 export function readExplorationCellHashes(): Record<string, string> {
+  if (hasResources()) return readJsonNow<{ cells: Record<string, string> }>(resources(), "manifest:qa/art-worklist-cells.json")?.cells ?? {};
   const file = fromPortRoot("qa", "art-worklist-cells.json");
   return existsSync(file) ? (JSON.parse(readFileSync(file, "utf8")) as { cells: Record<string, string> }).cells : {};
 }

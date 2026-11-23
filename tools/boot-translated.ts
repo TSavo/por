@@ -27,7 +27,8 @@ import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 import { standaloneTrace } from "./standalone-trace.js";
 import { narrationLedger } from "./narration-ledger.js";
-import { fromPortRoot } from "./port-root.js";
+import { useNodeResources } from "./resources/node-play.js";
+import { readJsonNow } from "../src/resources/provider.js";
 
 // The browser server reads frames from this process's stdout pipe. Node writes
 // to a pipe asynchronously on macOS and Linux, and this process blocks reading
@@ -36,13 +37,21 @@ import { fromPortRoot } from "./port-root.js";
 (process.stdout as unknown as { _handle?: { setBlocking?: (blocking: boolean) => void } })
   ._handle?.setBlocking?.(true);
 
-const root = findGameRoot();
-if (!root) throw new Error("Pool of Radiance game data not found");
+const gameDirectory = findGameRoot();
+if (!gameDirectory) throw new Error("Pool of Radiance game data not found");
+// Every file the game reads comes through the resource layer (#224): the directory's files become
+// `game:` or `original:` ids, the saves `save:` ids.
+const { root, resources: diskResources } = useNodeResources(gameDirectory, {
+  classicPictures: process.env.POR_CLASSIC_PICTURES || undefined,
+  saves: process.env.POR_SAVE_DIR ??
+    join("out", "saves", createHash("sha256").update(realpathSync(gameDirectory)).digest("hex").slice(0, 16)),
+  journalProfile: process.env.POR_JOURNAL_PROFILE || undefined,
+});
 // With no original files supplied the game runs from the port's own data, which holds no program file:
 // the memory image comes from it directly.
 const port = isPortGameRoot(root) ? portGame(root) : undefined;
 // Says which game data was chosen, so a launch can be checked from its log.
-console.error(`POR_GAME_DATA ${port ? "port" : "original"} ${root}`);
+console.error(`POR_GAME_DATA ${port ? "port" : "original"} ${gameDirectory}`);
 const portProgram = port?.program;
 const fixedClockStart = Number(process.env.POR_FIXED_CLOCK_START ?? noon);
 if (!Number.isInteger(fixedClockStart) || fixedClockStart < 0 || fixedClockStart >= 24 * 60 * 60 * 100) {
@@ -360,7 +369,7 @@ function report(label: string, error: unknown): void {
 let adventureLog: (() => string) | undefined;
 let transcriptStart = 0;
 const profilePath = process.env.POR_JOURNAL_PROFILE;
-const updateJournal = openJournalProfile(profilePath);
+const updateJournal = openJournalProfile(profilePath ? diskResources : undefined);
 const journal = (transcript = adventureLog?.() ?? ""): JournalLead[] =>
   updateJournal(transcript.slice(transcriptStart), (known) => questProgress(cpu, known, unit.data));
 const liveAt = process.env.POR_LIVE_AT;
@@ -381,8 +390,7 @@ const input = liveAt === undefined ? undefined : liveInput(liveStep, () => {
   const known = journal();
   return [...known, ...journalInventoryLeads(cpu, known, unit.data)];
 }, recording, automap, Boolean(port), port?.data.pictures);
-const saves = input && openSaveSlots(process.env.POR_SAVE_DIR ??
-  join("out", "saves", createHash("sha256").update(realpathSync(root)).digest("hex").slice(0, 16)));
+const saves = input && openSaveSlots(diskResources);
 const rosterClosed: DosFileClosed = (name, data, written) => { if (written) saves?.saveRoster(name, data); };
 let slotClosed = rosterClosed;
 let loadingSlot = false;
@@ -425,7 +433,7 @@ const tracePictureProducer = input?.traceHeldPortrait !== undefined ||
   browserSound && Boolean(process.env.POR_PORTRAIT_DRAW_TRACE);
 const eclPictureProducers: (string | undefined)[] = [];
 if (browserSound) {
-  const manifest = JSON.parse(readFileSync(fromPortRoot("src", "audio", "voice-master-manifest.json"), "utf8")) as ObserverManifest;
+  const manifest = readJsonNow<ObserverManifest>(diskResources, "manifest:src/audio/voice-master-manifest.json")!;
   const narration = new EclNarrationObserver(manifest);
   // POR_NARRATION_LEDGER: record every narration decision. Observes only.
   narrationLedger?.observe(narration, manifest);
@@ -525,8 +533,8 @@ if (input) {
   // The frame state names the code-wheel question while the game asks it. The game picks the
   // question with Random(13) inside its code-wheel routine, and the number Random returns is the
   // question's place in the game's table. Nothing here writes to the game's memory.
-  const wheel = JSON.parse(readFileSync(fromPortRoot("src", "codewheel", "wheel.json"), "utf8")) as
-    { questions: { number: number; espruar: string; dethek: string; path: string }[] };
+  const wheel = readJsonNow<{ questions: { number: number; espruar: string; dethek: string; path: string }[] }>(
+    diskResources, "manifest:src/codewheel/wheel.json")!;
   const wheelSlice = loadedSlices.find(({ index }) => index === code.codeWheel.slice);
   const ask = wheelSlice?.procs.get(code.codeWheel.at);
   if (wheelSlice && ask) {

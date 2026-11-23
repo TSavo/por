@@ -5,7 +5,7 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { isPortGameRoot, portGame } from "./gamedata.js";
+import { isPortGameRoot, portGame, readPortGameData } from "./gamedata.js";
 import { characterSheetPartKey, endingPortraitKey, portraitKey, scriptIllustrations } from "./portrait-art.js";
 import { readExplorationCellHashes } from "./exploration-cells.js";
 import { readWorld } from "./first-person-cells.js";
@@ -54,7 +54,7 @@ export function enhancedArtKeys(artwork: Artwork, materialMasks: ReadonlyMap<str
 /** From the port's own data, the first-person cells come from the maps and wall sets, not from pixels. */
 export function packagedTerrain(gameRoot: string) {
   if (!isPortGameRoot(gameRoot)) return;
-  const world = readWorld(portGame(gameRoot).data, file => new Uint8Array(readFileSync(join(gameRoot, file))));
+  const world = readWorld(portGame(gameRoot).data, file => readPortGameData(gameRoot, file));
   return standaloneExploration(world, readExplorationCellHashes());
 }
 

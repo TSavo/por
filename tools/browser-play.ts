@@ -1,10 +1,9 @@
 import { spawn } from "node:child_process";
 import { detectGameVersion, useGameVersion } from "../src/runtime/bindings.js";
 import { createHash } from "node:crypto";
-import { appendFileSync, readFileSync, readdirSync } from "node:fs";
+import { appendFileSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
-import { join } from "node:path";
 import { isPortGameRoot, readGameFile, requireBrowserGameRoot } from "./gamedata.js";
 import { loadCombatMaterialMasks, loadUpgradeArt } from "./upgrade-art.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
@@ -20,8 +19,8 @@ import { buildNewPhlanMaterials } from "./new-phlan-3d-materials.js";
 import { phlanHarborLayout } from "./renderer.js";
 import { buildExplorationMaterials, explorationMaterialArea } from "./exploration-materials.js";
 import { readBuildVersion } from "./build-version.js";
-import { fromPortRoot, fromWorkingRoot } from "./port-root.js";
-import { classicSoundDirectory } from "./classic-sounds.js";
+import { fromPortRoot } from "./port-root.js";
+import { useNodeResources } from "./resources/node-play.js";
 import type { NativeExploration } from "./native-exploration.js";
 import { loadOverlandTravel, overlandLandmarkSlots, type PhlanApproach, type SokalPrompt, type SokalQuay, type TravelState } from "./overland-travel.js";
 import { inspectOriginalFiles, readOriginalFilesSetting, writeOriginalFilesSetting } from "./release/original-files.js";
@@ -32,15 +31,33 @@ if (!Number.isInteger(port) || port < 1 || port > 65535) {
 }
 const origin = `http://127.0.0.1:${port}`;
 const buildVersion = readBuildVersion();
-const gameRoot = requireBrowserGameRoot();
+const gameDirectory = requireBrowserGameRoot();
 // The player's first-release files, whose pictures the runner puts under the 1.3 game (#74).
-const classicPictures = isPortGameRoot(gameRoot) ? process.env.POR_CLASSIC_PICTURES || undefined : undefined;
+const classicPictures = isPortGameRoot(gameDirectory) ? process.env.POR_CLASSIC_PICTURES || undefined : undefined;
 // Classic shows the player's own original pictures: playing from the port's own data alone there are none.
-const classicAvailable = !isPortGameRoot(gameRoot) || Boolean(classicPictures);
+const classicAvailable = !isPortGameRoot(gameDirectory) || Boolean(classicPictures);
 // A release's "Original files" setting (#74): the launcher names the file and reads it at the next start.
 const originalFilesSetting = process.env.POR_ORIGINAL_FILES_SETTING || undefined;
-const originalFilesInUse = !isPortGameRoot(gameRoot) ? { folder: gameRoot, release: "1.3" }
+const originalFilesInUse = !isPortGameRoot(gameDirectory) ? { folder: gameDirectory, release: "1.3" }
   : classicPictures ? { folder: classicPictures, release: "first" } : null;
+// Every file the server reads goes through the resource layer (#224); the game root is a resource root.
+const { root: gameRoot, resources } = useNodeResources(gameDirectory, {
+  classicPictures, originalFilesSetting, artFile: (id) => artworkPath(id),
+});
+/** A resource's bytes for a response, or undefined when it cannot be read (a 404, as before). */
+const readResource = (id: string) => {
+  try {
+    const bytes = resources.readNow(id);
+    return bytes && Buffer.from(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  } catch {
+    return undefined;
+  }
+};
+const resourceText = (id: string) => {
+  const bytes = resources.readNow(id);
+  if (!bytes) throw new Error(`${id} not found`);
+  return Buffer.from(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+};
 // What a folder looks like on this computer, for the setting's empty field.
 const originalFilesExample = process.platform === "win32" ? "C:\\GOG Games\\Pool of Radiance"
   : process.platform === "darwin" ? "~/Games/Pool of Radiance" : "~/GOG Games/Pool of Radiance";
@@ -57,20 +74,19 @@ const wheelPage = readFileSync(fromPortRoot("tools", "code-wheel.html"));
 const wheelScript = readFileSync(fromPortRoot("tools", "code-wheel.js"));
 const wheelDrawing = readFileSync(fromPortRoot("tools", "code-wheel-draw.js"));
 const runeGlyphs = readFileSync(fromPortRoot("tools", "rune-glyphs.js"));
-const wheelLayout = readFileSync(fromPortRoot("src", "codewheel", "wheel.json"));
-const runeDirectory = fromPortRoot("upgrades", "codewheel");
-const wheelRunes = new Map(readdirSync(runeDirectory)
+const wheelLayout = resourceText("manifest:src/codewheel/wheel.json");
+const wheelRunes = new Map(resources.listNow("codewheel:").map(id => id.slice("codewheel:".length))
   .filter(name => /^(espruar|dethek)-\d{2}\.png$/.test(name))
-  .map(name => [name.slice(0, -4), join(runeDirectory, name)]));
+  .map(name => [name.slice(0, -4), `codewheel:${name}`]));
 const codeWheelAvailable = gameBuild === "1.3" && wheelRunes.size === 70;
 const wheelArt = new Set([
   "background", "outer-disc", "inner-disc", "espruar-translate-tab", "dethek-translate-tab",
   "path-dashes", "path-dash-dot-dot", "path-dots",
 ]);
-const voiceManifest = readFileSync(fromPortRoot("src", "audio", "voices.json"));
+const voiceManifest = resourceText("manifest:src/audio/voices.json");
 const parsedVoiceManifest = JSON.parse(voiceManifest.toString("utf8")) as { lines: { file: string; match?: string }[] };
 const voiceFiles = new Set(parsedVoiceManifest.lines.map(({ file }) => file));
-const narrationManifest = readFileSync(fromPortRoot("src", "audio", "voice-master-manifest.json"));
+const narrationManifest = resourceText("manifest:src/audio/voice-master-manifest.json");
 const parsedNarrationManifest = JSON.parse(narrationManifest.toString("utf8")) as RuntimeNarrationManifest & {
   events: { sourceId: string; normalizedText: string }[]
 };
@@ -82,32 +98,26 @@ const exactTextNarrations = exactTextUnits(parsedNarrationManifest);
 // events above 12 with other sounds and never asks for them, so the rendered Classic files
 // for those events do not belong to it.
 const soundManifest = Buffer.from(JSON.stringify((() => {
-  const manifest = JSON.parse(readFileSync(fromPortRoot("src", "audio", "original-sounds.json"), "utf8")) as
+  const manifest = JSON.parse(resourceText("manifest:src/audio/original-sounds.json").toString("utf8")) as
     { events: { index: number; classic?: boolean }[] };
   if (gameBuild === "1.3") for (const event of manifest.events) if (event.index > 12) event.classic = false;
   return manifest;
 })()));
-const geographyModel = readFileSync(fromPortRoot("src", "maps", "geography-model.json"));
-const atlasManifest = readFileSync(fromPortRoot("src", "maps", "atlas.json"));
+const geographyModel = resourceText("map:geography-model.json");
+const atlasManifest = resourceText("map:atlas.json");
 const atlasSheets = JSON.parse(atlasManifest.toString("utf8")) as { file: string; areas: number[]; mapId?: number }[];
 const atlasFiles = new Set(atlasSheets.map(({ file }) => file));
 const enhancedSoundFiles = new Set((JSON.parse(soundManifest.toString("utf8")) as
   { events: { enhancedFile?: string }[] }).events.flatMap(({ enhancedFile }) => enhancedFile ? [enhancedFile] : []));
-const upgrades = process.env.POR_UPGRADES_DIR ?? fromWorkingRoot("upgrades");
-const audioDirectory = process.env.POR_AUDIO_DIR ?? classicSoundDirectory;
-const voiceDirectory = process.env.POR_VOICE_DIR ?? fromWorkingRoot("audio", "voices");
-const assetDirectory = process.env.POR_ASSETS_DIR ?? fromWorkingRoot("audio");
-const enhancedAudioDirectory = process.env.POR_ENHANCED_AUDIO_DIR ?? fromWorkingRoot("audio", "enhanced");
 const gameFont = (() => {
-  for (const path of new Set([join(upgrades, "font.woff2"), fromWorkingRoot("upgrades", "font.woff2")])) {
-    try {
-      return readFileSync(path);
-    } catch (error) {
-      if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced font", error);
-    }
+  try {
+    return resources.readNow("font");
+  } catch (error) {
+    console.error("Cannot load enhanced font", error);
   }
 })();
 const artwork = loadUpgradeArt(undefined, gameRoot);
+function artworkPath(id: string) { return artwork.get(id)?.path; }
 const portraitAssetKeys = new Map([...artwork]
   .filter(([id]) => id.startsWith("portrait:")).map(([id, art]) => [art.path, id]));
 const materialMasks = loadCombatMaterialMasks(artwork);
@@ -183,7 +193,7 @@ const runnerArguments = process.env.POR_RUNNER ? [process.env.POR_RUNNER] : ["--
 const runner = spawn(process.execPath, runnerArguments, {
   env: {
     ...process.env,
-    POR_GAMEDATA: gameRoot,
+    POR_GAMEDATA: gameDirectory,
     POR_BROWSER_PLAY: "1",
     // A played game rolls different dice each launch, as on DOS. Replays set POR_CLOCK=fixed.
     POR_CLOCK: process.env.POR_CLOCK ?? "real",
@@ -409,14 +419,10 @@ const server = createServer(async (req, res) => {
   } else if (req.method === "GET" && /^\/code-wheel\/[a-z0-9-]+\.png$/.test(req.url ?? "")) {
     const id = req.url!.slice("/code-wheel/".length, -4);
     const source = wheelRunes.get(id) ??
-      (wheelArt.has(id) ? join(runeDirectory, `${id}.png`) : undefined);
-    try {
-      if (!source) { res.writeHead(404).end(); return; }
-      const bytes = readFileSync(source);
-      res.writeHead(200, { "content-type": "image/png" }).end(bytes);
-    } catch {
-      res.writeHead(404).end();
-    }
+      (wheelArt.has(id) ? `codewheel:${id}.png` : undefined);
+    const bytes = source && readResource(source);
+    if (bytes) res.writeHead(200, { "content-type": "image/png" }).end(bytes);
+    else res.writeHead(404).end();
   } else if (req.method === "GET" && req.url === "/renderer.js") {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(streetRenderer);
   } else if (req.method === "GET" && req.url === "/exploration-materials/phlan") {
@@ -459,47 +465,31 @@ const server = createServer(async (req, res) => {
   } else if (req.method === "GET" && req.url === "/atlas.json") {
     res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(atlasManifest);
   } else if (req.method === "GET" && req.url?.startsWith("/atlas/") && atlasFiles.has(req.url.slice(7))) {
-    try {
-      const plate = readFileSync(fromPortRoot("upgrades", "maps", req.url.slice(7)));
-      res.writeHead(200, { "content-type": "image/png", "content-length": plate.length }).end(plate);
-    } catch {
-      res.writeHead(404).end();
-    }
+    const plate = readResource(`atlas:${req.url.slice(7)}`);
+    if (plate) res.writeHead(200, { "content-type": "image/png", "content-length": plate.length }).end(plate);
+    else res.writeHead(404).end();
   } else if (req.method === "GET" && req.url?.startsWith("/enhanced-audio/") && enhancedSoundFiles.has(req.url.slice(16))) {
-    try {
-      const file = req.url.slice(16);
-      const audio = readFileSync(join(enhancedAudioDirectory, file));
-      const contentType = file.endsWith(".mp3") ? "audio/mpeg" : "audio/wav";
-      res.writeHead(200, { "content-type": contentType, "content-length": audio.length }).end(audio);
-    } catch {
-      res.writeHead(404).end();
-    }
+    const file = req.url.slice(16);
+    const audio = readResource(`audio:enhanced:${file}`);
+    const contentType = file.endsWith(".mp3") ? "audio/mpeg" : "audio/wav";
+    if (audio) res.writeHead(200, { "content-type": contentType, "content-length": audio.length }).end(audio);
+    else res.writeHead(404).end();
   } else if (req.method === "GET" && req.url?.startsWith("/narration/")) {
     const asset = decodeURIComponent(req.url.slice(11));
     if (!narrationFiles.has(asset)) { res.writeHead(404).end(); return; }
-    try {
-      const mp3 = readFileSync(join(assetDirectory, asset));
-      res.writeHead(200, { "content-type": "audio/mpeg", "content-length": mp3.length }).end(mp3);
-    } catch {
-      res.writeHead(404).end();
-    }
+    const mp3 = readResource(`narration:${asset}`);
+    if (mp3) res.writeHead(200, { "content-type": "audio/mpeg", "content-length": mp3.length }).end(mp3);
+    else res.writeHead(404).end();
   } else if (req.method === "GET" && req.url?.startsWith("/voice/") && voiceFiles.has(req.url.slice(7))) {
-    try {
-      const wav = readFileSync(join(voiceDirectory, req.url.slice(7)));
-      res.writeHead(200, { "content-type": "audio/wav", "content-length": wav.length }).end(wav);
-    } catch {
-      res.writeHead(404).end();
-    }
+    const wav = readResource(`voice:${req.url.slice(7)}`);
+    if (wav) res.writeHead(200, { "content-type": "audio/wav", "content-length": wav.length }).end(wav);
+    else res.writeHead(404).end();
   } else if (req.method === "GET" && req.url === "/font.woff2" && gameFont) {
     res.writeHead(200, { "content-type": "font/woff2" }).end(gameFont);
   } else if (req.method === "GET" && /^\/audio\/(?:pc-speaker|tandy)-(?:0[1-9]|1\d|20)\.wav$/.test(req.url ?? "")) {
-    try {
-      if (!audioDirectory) { res.writeHead(404).end(); return; }
-      const wav = readFileSync(join(audioDirectory, req.url!.slice(7)));
-      res.writeHead(200, { "content-type": "audio/wav", "content-length": wav.length }).end(wav);
-    } catch {
-      res.writeHead(404).end();
-    }
+    const wav = readResource(`audio:classic:${req.url!.slice(7)}`);
+    if (wav) res.writeHead(200, { "content-type": "audio/wav", "content-length": wav.length }).end(wav);
+    else res.writeHead(404).end();
   } else if (req.method === "GET" && req.url?.startsWith("/art-materials/")) {
     const id = req.url.slice("/art-materials/".length);
     const base = partyRecolorKey.exec(id)?.[1];
@@ -537,7 +527,7 @@ const server = createServer(async (req, res) => {
     }));
   } else if (req.method === "GET" && req.url === "/original-files" && originalFilesSetting) {
     // What this start plays with, and what the setting names for the next one.
-    const setting = readOriginalFilesSetting(originalFilesSetting);
+    const setting = readOriginalFilesSetting(resources);
     res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({
       inUse: originalFilesInUse, path: setting.path ?? null, problem: setting.problem ?? null, example: originalFilesExample,
     }));
@@ -560,12 +550,12 @@ const server = createServer(async (req, res) => {
       res.writeHead(status, { "content-type": "application/json" }).end(JSON.stringify(reply));
     try {
       if (path === null) {
-        writeOriginalFilesSetting(originalFilesSetting, undefined);
+        writeOriginalFilesSetting(resources, undefined);
         answer(200, { path: null });
       } else if (typeof path === "string" && path.trim()) {
         const found = inspectOriginalFiles(path);
         if ("problem" in found) { answer(422, { problem: found.problem }); return; }
-        writeOriginalFilesSetting(originalFilesSetting, found.folder);
+        writeOriginalFilesSetting(resources, found.folder);
         answer(200, { path: found.folder, release: found.release });
       } else res.writeHead(400).end();
     } catch (error) {

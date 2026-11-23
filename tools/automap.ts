@@ -3,6 +3,7 @@ import { fromPortRoot } from "./port-root.js";
 import { listGameFiles, readGameFile } from "./gamedata.js";
 import { parseDax } from "../src/lib/dax.js";
 import { parseGeo } from "../src/lib/world.js";
+import { hasResources, readJsonNow, resources } from "../src/resources/provider.js";
 
 /** The four wall types of one tile: north, east, south, west. */
 export type AutomapWalls = [number, number, number, number];
@@ -82,8 +83,9 @@ export function openAutomap(root: string) {
     }
   }
   // An illustrated plate that names a map id marks a floor kept apart from its area's own map.
-  const sheets = JSON.parse(readFileSync(fromPortRoot("src", "maps", "atlas.json"), "utf8")) as
-    { areas: number[]; mapId?: number }[];
+  type Sheet = { areas: number[]; mapId?: number };
+  const sheets = hasResources() ? readJsonNow<Sheet[]>(resources(), "map:atlas.json") ?? []
+    : JSON.parse(readFileSync(fromPortRoot("src", "maps", "atlas.json"), "utf8")) as Sheet[];
   let data: AutomapData = {};
   let revision = 0;
 

@@ -9,6 +9,32 @@ import { decodePicture, isPicture } from "../src/lib/picture.js";
 import { findGameRoot, isPortGameRoot, listGameFiles, portGame, readGameFile } from "./gamedata.js";
 import { pngDimensions, pngHeaderDimensions } from "./png.js";
 import { fromWorkingRoot } from "./port-root.js";
+import { hasResources, resources } from "../src/resources/provider.js";
+
+/**
+ * Where the catalogue's files are read: a path on disk (the tools), or an `upgrades:` id of the
+ * resource layer (the play path, #224). A resource path is `upgrades:<dir>/<file>`.
+ */
+const isResourcePath = (path: string) => path.startsWith("upgrades:");
+const parentOf = (path: string) => isResourcePath(path) ? path.slice(0, path.lastIndexOf("/") + 1) || "upgrades:" : dirname(path);
+const within = (directory: string, file: string) => isResourcePath(directory)
+  ? (directory.endsWith(":") || directory.endsWith("/") ? directory : directory + "/") + file : join(directory, file);
+function readArtFile(path: string, length?: number): Buffer {
+  if (isResourcePath(path)) {
+    const bytes = resources().readNow(path, length);
+    if (!bytes) throw Object.assign(new Error(`${path} not found`), { code: "ENOENT" });
+    return Buffer.from(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  }
+  if (length === undefined) return readFileSync(path);
+  const header = Buffer.alloc(length);
+  const descriptor = openSync(path, "r");
+  try { readSync(descriptor, header, 0, header.length, 0); } finally { closeSync(descriptor); }
+  return header;
+}
+function listArtDirectory(directory: string): string[] {
+  if (!isResourcePath(directory)) return readdirSync(directory);
+  return resources().listNow(directory).map((id) => id.slice(directory.length)).filter((name) => !name.includes("/"));
+}
 
 interface LoadedArtwork {
   file: string;
@@ -28,12 +54,12 @@ export function loadCombatMaterialMasks(artwork: ReadonlyMap<string, LoadedArtwo
   for (const [id, art] of artwork) {
     const party = partyCombatKey.exec(id);
     if (!party || party[3]) continue;
-    const directory = dirname(art.path);
+    const directory = parentOf(art.path);
     let files = filesByDirectory.get(directory);
-    if (!files) filesByDirectory.set(directory, files = new Set(readdirSync(directory)));
+    if (!files) filesByDirectory.set(directory, files = new Set(listArtDirectory(directory)));
     const name = art.file.replace(/\.png$/i, "-materials.png");
     if (name === art.file || !files.has(name)) continue;
-    const mask = readFileSync(join(directory, name));
+    const mask = readArtFile(within(directory, name));
     const size = pngDimensions(mask);
     if (size?.width === art.width && size.height === art.height) masks.set(id, mask);
   }
@@ -48,7 +74,12 @@ export interface ArtworkLoadIssue {
 
 /** Resolve the same assets for the browser and the production inventory. */
 export function loadUpgradeArt(upgrades = process.env.POR_UPGRADES_DIR, gameRoot = findGameRoot(),
-  report?: (issue: ArtworkLoadIssue) => void) {
+  report?: (issue: ArtworkLoadIssue) => void, fromResources = upgrades === process.env.POR_UPGRADES_DIR && hasResources()) {
+  // Through the resource layer `upgrades:` is POR_UPGRADES_DIR, or the working upgrades/ with its slums/ set.
+  if (fromResources) {
+    const manifests = process.env.POR_UPGRADES_DIR === undefined ? ["upgrades:slums/manifest.json", "upgrades:manifest.json"] : ["upgrades:manifest.json"];
+    return loadUpgradeArtFromManifests(manifests, gameRoot, report);
+  }
   const artworkDirectories = upgrades === undefined ? [fromWorkingRoot("upgrades", "slums"), fromWorkingRoot("upgrades")] : [upgrades];
   return loadUpgradeArtFromManifests(artworkDirectories.map((directory) => join(directory, "manifest.json")), gameRoot, report);
 }
@@ -75,7 +106,7 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
   for (const manifestPath of paths) {
     const reject = (reason: string, id?: string) => report?.({ manifest: manifestPath, id, reason });
     try {
-      const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as OverrideManifest;
+      const manifest = JSON.parse(readArtFile(manifestPath).toString("utf8")) as OverrideManifest;
       if (manifest.version !== 1 || !manifest.assets) {
         reject("Unsupported manifest version or missing assets.");
         continue;
@@ -107,15 +138,12 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
           continue;
         }
         try {
-          const path = join(dirname(manifestPath), file);
+          const path = within(parentOf(manifestPath), file);
           // Many area and scene keys share one PNG. Read its header once per load
           // and validate the expected dimensions separately for each binding.
           let dimensions = dimensionsByPath.get(path);
           if (!dimensions) {
-            const header = Buffer.alloc(33);
-            const descriptor = openSync(path, "r");
-            try { readSync(descriptor, header, 0, header.length, 0); } finally { closeSync(descriptor); }
-            dimensions = pngHeaderDimensions(header);
+            dimensions = pngHeaderDimensions(readArtFile(path, 33));
             if (!dimensions) {
               reject("Invalid PNG header.", id);
               continue;
@@ -192,7 +220,7 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
             continue;
           }
           const explorationTile = id.startsWith("tile:");
-          artwork.set(id, { file, path, get png() { return readFileSync(path); }, encounter, width, height,
+          artwork.set(id, { file, path, get png() { return readArtFile(path); }, encounter, width, height,
             reflected: explorationTile && reflectedTiles.has(id) || undefined,
             screenCellOnly: explorationTile && screenCellsOnly.has(id) || undefined });
         } catch (error) {

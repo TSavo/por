@@ -1,19 +1,18 @@
-import { readFileSync, renameSync, writeFileSync } from "node:fs";
-import { randomUUID } from "node:crypto";
+import { readTextNow, type ResidentResources } from "../src/resources/provider.js";
+import { NodeDiskResources } from "./resources/node-disk.js";
 import { discoveredLeads, refreshJournalLead, type JournalLead } from "../src/runtime/adventure-log.js";
 
 const statusRank = { offered: 1, accepted: 2, "ready-to-report": 3, "reward-pending": 4, "turned-in": 5 };
 
-/** An explicitly selected party's journal, stored outside DOS guest memory. */
-export function openJournalProfile(path?: string) {
+/**
+ * An explicitly selected party's journal, stored outside DOS guest memory: a file named by its path
+ * (POR_JOURNAL_PROFILE), or the resource layer's `journal:profile` (#224).
+ */
+export function openJournalProfile(path?: string | ResidentResources) {
   const leads = new Map<string, JournalLead>();
-  if (path) {
-    let raw: string | undefined;
-    try {
-      raw = readFileSync(path, "utf8");
-    } catch (error) {
-      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
-    }
+  let store: ResidentResources | undefined = typeof path === "string" ? path ? new NodeDiskResources({ journalProfile: path }) : undefined : path;
+  if (store) {
+    const raw = readTextNow(store, "journal:profile");
     if (raw !== undefined) {
       const data = JSON.parse(raw);
       if (data.version !== 1 || !Array.isArray(data.leads)) throw new Error("Invalid journal profile");
@@ -48,18 +47,14 @@ export function openJournalProfile(path?: string) {
       changed = true;
     }
     const result = [...leads.values()];
-    if (path && changed) {
-      const pending = `${path}.${randomUUID()}.tmp`;
-      writeFileSync(pending, JSON.stringify({ version: 1, leads: result }, null, 2) + "\n", { flag: "wx" });
-      renameSync(pending, path);
-    }
+    if (store && changed) store.putNow("journal:profile", JSON.stringify({ version: 1, leads: result }, null, 2) + "\n");
     return result;
   };
   return Object.assign(update, {
     restore(saved: readonly JournalLead[]) {
       leads.clear();
       for (const lead of saved) leads.set(lead.id, refreshJournalLead(lead));
-      path = undefined;
+      store = undefined;
     },
   });
 }

@@ -10,9 +10,11 @@
  * release (GAME.OVR starting with its overlay manager's TPOV) gives the Classic display its pictures,
  * while the game runs from the port's own data in game/ (`POR_CLASSIC_PICTURES`, tools/gamedata.ts).
  */
-import { closeSync, existsSync, openSync, readFileSync, readSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { closeSync, openSync, readSync, readdirSync, statSync } from "node:fs";
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
+import { readTextNow, type ResidentResources } from "../../src/resources/provider.js";
+import { NodeDiskResources } from "../resources/node-disk.js";
 
 export type OriginalRelease = "1.3" | "first";
 export interface OriginalFolder { folder: string; release: OriginalRelease }
@@ -68,20 +70,28 @@ export function inspectOriginalFiles(named: string): OriginalFolder | { problem:
   }
 }
 
+/** `setting:original-files` of the resource layer (#224): the file a release names, or a provider's own. */
+const settingStore = (setting: string | ResidentResources) =>
+  typeof setting === "string" ? new NodeDiskResources({ originalFilesSetting: setting }) : setting;
+const settingLabel = (setting: string | ResidentResources) => typeof setting === "string" ? setting
+  : setting instanceof NodeDiskResources ? setting.path("setting:original-files") ?? "the original-files setting" : "the original-files setting";
+
 /** The folder the setting file names, or why it names none. No setting at all is neither. */
-export function readOriginalFilesSetting(setting: string): { path?: string; problem?: string } {
-  if (!existsSync(setting)) return {};
+export function readOriginalFilesSetting(setting: string | ResidentResources): { path?: string; problem?: string } {
   try {
-    const path = (JSON.parse(readFileSync(setting, "utf8")) as { path?: unknown }).path;
-    if (typeof path !== "string" || !path) return { problem: `${setting} names no "path"` };
+    const text = readTextNow(settingStore(setting), "setting:original-files");
+    if (text === undefined) return {};
+    const path = (JSON.parse(text) as { path?: unknown }).path;
+    if (typeof path !== "string" || !path) return { problem: `${settingLabel(setting)} names no "path"` };
     return { path };
   } catch (error) {
-    return { problem: `cannot read ${setting} (${(error as Error).message})` };
+    return { problem: `cannot read ${settingLabel(setting)} (${(error as Error).message})` };
   }
 }
 
 /** Name the player's folder for the next start, or, with undefined, stop using one. */
-export function writeOriginalFilesSetting(setting: string, folder: string | undefined): void {
-  if (folder === undefined) rmSync(setting, { force: true });
-  else writeFileSync(setting, JSON.stringify({ path: folder }, null, 2) + "\n");
+export function writeOriginalFilesSetting(setting: string | ResidentResources, folder: string | undefined): void {
+  const store = settingStore(setting);
+  if (folder === undefined) store.removeNow("setting:original-files");
+  else store.putNow("setting:original-files", JSON.stringify({ path: folder }, null, 2) + "\n");
 }
