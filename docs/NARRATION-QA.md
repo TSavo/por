@@ -163,6 +163,18 @@ after the portrait and greeting text paint. The Valjevo scribe's timed
 illustration also stayed on screen for its entire 7.28-second recording
 in both data modes. The alarm appeared after the recording finished.
 
+Automatic transitions keep the current illustrated passage while its
+recording plays. In the Lizardman Keep pool, the illustration formerly
+cleared after 1.2 seconds, leaving 3.78 seconds of narration over the
+damage prompt. Both Chrome data modes now show the illustration through
+all 4.8 seconds. The damage prompt follows without another key. With the
+audio request forced to fail, the original illustration timer still runs
+and the damage prompt appears.
+
+A deliberate key can leave a passage while its audio is queued or loading.
+Such an unheard recording is logged as skipped. A recording the player
+has already started can still finish after Enter or Space.
+
 ## The silent cases
 
 Each is a moment where the narrator should have spoken and nothing was chosen. The table requires

@@ -554,12 +554,14 @@ function beginVoice(line) {
   voice.volume = audioPreferences.muted ? 0 : audioPreferences.master * audioPreferences.narration;
   currentVoice = voice;
   logVoice(voice, line);
-  voice.addEventListener("ended", () => {
+  const finish = () => {
     if (currentVoice !== voice) return;
     currentVoice = undefined;
     visibilityPausedVoice = undefined;
     playNextNarration();
-  }, { once: true });
+  };
+  voice.addEventListener("ended", finish, { once: true });
+  voice.addEventListener("error", finish, { once: true });
   voice.play().catch((error) => {
     if (line.log && !line.log.outcome) line.log.refused = error?.name ?? "refused";
     if (currentVoice !== voice) return;
