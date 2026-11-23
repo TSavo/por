@@ -329,7 +329,13 @@ const eclCandidates = scripts.flatMap(record => {
       const sameCloseEncounter = current?.opcode === 0x0c && load.opcode === 0x0c &&
         literal(load.operands[0]!) !== null && literal(current.operands[0]!) === literal(load.operands[0]!) &&
         literal(load.operands[1]!) === 0 && literal(current.operands[1]!) === 0;
-      if (!current || (!combatPrelude.has(current.opcode) && !sameCloseEncounter)) return null;
+      // This rest ambush calls its roster setup before going straight to combat.
+      const podalRoster = archive === 1 && scriptBlock === 18 && load.address === 0x9964 &&
+        (current?.address === 0x9de2 && current.opcode === 0x02 &&
+          current.operands[0]?.word === 0xa0a0 && current.next === 0x9de6 ||
+         current && [[0xa0af, 0x11], [0xa0b3, 0x11], [0xa0c2, 0x2a], [0xa0d6, 0x2a]]
+           .some(([address, opcode]) => address === current.address && opcode === current.opcode));
+      if (!current || (!combatPrelude.has(current.opcode) && !sameCloseEncounter && !podalRoster)) return null;
       // Re-entering an active state leaves an unproven route to the fight.
       results.set(key, null);
       const [next, ...alternatives] = successors(state, instructions);

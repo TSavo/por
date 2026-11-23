@@ -3519,6 +3519,16 @@ const illustrationRoutes = new Map([
     inputs: ["e", "r", "h", ...Array(8).fill("i"), "r"],
     prompt: /RUSHTOATTACK|ABATTLEBEGINS|HITPOINTS.*MOVEVIEWAIM/i,
   }],
+  ["podal-goblin-patrol-sneak-hold", {
+    slot: "I", stockInput: true, fixedClockStart: 4320000,
+    // Start from qa/fixtures/podal-patrol-sneaking/I.json.
+    inputs: Array.from({ length: 13 }, (_, index) => index % 2 ? "down" : "up"),
+    prompt: /YOUSPOTAGROUPOFGOBLINS.*PRESS<ENTER>\/<RETURN>TOCONTINUE/i,
+    heldApproachPrompt: /YOUSPOTAGROUPOFGOBLINS/i,
+    heldApproachPosition: [18, 11, 10],
+    heldApproachPlacement: [56, 32, "encounter:area:18:ecl:b240:caller:9d1f:SPRIT1.DAX:2:1:0", 32, 65],
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /YOUSTOP,ANDTHEYMOVEON/i },
+  }],
   ["textile-skullcrusher-body", {
     slot: "B", inputs: ["up"],
     portraitStops: { 0: null },
