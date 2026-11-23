@@ -145,6 +145,22 @@ to play has ended and none is queued, so each line plays whole on the frame that
 passage. The keys still go through `send()`, so the run says nothing about what a key does to a
 line; `verify:narration-playback` pass 2 measures that.
 
+### Waiting for the picture to paint
+
+The runner publishes narration with the view that owns it. A completed
+script print can attach its recording to a transient illustration in an
+animation batch. The page queues the recording after that view and its
+text have finished decoding and have been put on screen. The playback
+ledger reports the decoded layers, including the first-person view or
+runes when they supply the picture.
+
+On Rolf's tour, holding the greeting portrait request for 2.4 seconds
+made the earlier page start audio about 2.38 seconds before the portrait.
+In GOG 1.3 and bundled Chrome, the updated page starts 33–35 milliseconds
+after the portrait and greeting text paint. The Valjevo scribe's timed
+illustration also stayed on screen for its entire 7.28-second recording
+in both data modes. The alarm appeared after the recording finished.
+
 ## The silent cases
 
 Each is a moment where the narrator should have spoken and nothing was chosen. The table requires
