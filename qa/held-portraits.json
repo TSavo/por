@@ -14246,6 +14246,86 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL5.DAX:7:a255",
+      "prompt": "9932/a345",
+      "variants": [
+        {
+          "caption": "IS IT A DEAL?",
+          "checkpoint": "valjevo-genheeris-portraits/full-party-B.json",
+          "portrait": "portrait:area:7:ecl:9932:caller:a345:HEAD5.DAX:59:BODY5.DAX:31",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 THEURGIST 8 13 CURATE 3 14 E 00:08 'IS IT A DEAL? Yes No",
+            "idlePolls": 64,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 64,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              }
+            ],
+            "drawCursor": "a25c",
+            "composed": {
+              "source": "HEAD5.DAX:59:BODY5.DAX:31",
+              "headWrite": "a24f",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a30f"
+            },
+            "clearedPanelSha256": "82292a819276f81d0717c08f019b5d61cf67910fcd25ee838c0cd926717824d1"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-genheeris-full-party",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46THEURGIST813CURATE314E00:08'ISITADEAL?YesNo",
+              "portrait": "portrait:area:7:ecl:9932:caller:a345:HEAD5.DAX:59:BODY5.DAX:31",
+              "checkpointSha256": "2b77127d05dce42a145d0a191b95c0b0a15bad1f45fddf1cecf8db6d7321e710",
+              "artSha256": "1d3752a10077f674b322edd32e07c390006587a10e1c42e01ef78407755f8e41",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3650,
+              "samples": 220,
+              "poses": [
+                "portrait:area:7:ecl:9932:caller:a345:HEAD5.DAX:59:BODY5.DAX:31"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-genheeris-full-party",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46THEURGIST813CURATE314E00:08'ISITADEAL?YesNo",
+              "portrait": "portrait:area:7:ecl:9932:caller:a345:HEAD5.DAX:59:BODY5.DAX:31",
+              "checkpointSha256": "2b77127d05dce42a145d0a191b95c0b0a15bad1f45fddf1cecf8db6d7321e710",
+              "artSha256": "1d3752a10077f674b322edd32e07c390006587a10e1c42e01ef78407755f8e41",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3666,
+              "samples": 220,
+              "poses": [
+                "portrait:area:7:ecl:9932:caller:a345:HEAD5.DAX:59:BODY5.DAX:31"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
     }
   ],
   "approachTransitions": [

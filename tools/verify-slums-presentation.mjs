@@ -2319,6 +2319,15 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:7:ecl:a3ba:HEAD5.DAX:59:BODY5.DAX:31",
     prompt: /ABATTLEBEGINS/i,
   }],
+  ["valjevo-genheeris-full-party", {
+    slot: "B", inputs: ["up", "enter", "enter", "a", "a", "p", "h", "enter"],
+    portrait: "portrait:area:7:ecl:9932:caller:a345:HEAD5.DAX:59:BODY5.DAX:31",
+    prompt: /THEURGIST.*CURATE.*'ISITADEAL\?YesNo/i,
+    staticPortraitMenu: true,
+    continuation: {
+      inputs: ["y"], clearsPortrait: true, prompt: /IWILLNOTIFYSOMEOTHERS.*HEQUICKLYGETSUPANDLEAVESTHEROOM/i,
+    },
+  }],
   ["zhentil-dinner-escort", {
     slot: "A", inputs: ["up", "enter", "r"],
     portrait: "scene-illustration:area:28:ecl:a74e",
