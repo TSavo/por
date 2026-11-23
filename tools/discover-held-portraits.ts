@@ -595,7 +595,7 @@ const eclCandidates = scripts.flatMap(record => {
         bodyOperand: 2 };
     }
     if (address === 0xab0a) {
-      // Hassad's second approach composes the portrait held for the choice and the thank-you.
+      // Hassad's setup composes the portrait held for the choice and the thank-you.
       const head = instructions.get(0xab04);
       const setup = instructions.get(address);
       const arrival = instructions.get(0xab17);
