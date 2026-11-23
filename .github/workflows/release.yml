@@ -1,0 +1,221 @@
+name: release
+
+# Builds every package and publishes a GitHub release.
+#   A tag push (v<package.json version>, e.g. v0.1.0) builds and publishes the release for that tag.
+#   Run workflow (workflow_dispatch) with dry_run on (the default) builds everything and keeps the
+#   packages and SHA256SUMS as workflow artifacts only; nothing is published.
+# Windows and Linux pack on Battleaxe (makensis, Pillow) with POR_ASSETS_DIR=$HOME/por-assets, so
+# release:pack's byte check against por-assets runs. The Mac images need macOS's tools and pack on a
+# GitHub-hosted Mac, which has no por-assets: each mounted image is listed there and the list is
+# checked against por-assets on Battleaxe. Nothing of por-assets is read anywhere but Battleaxe.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run: build and keep the packages as workflow artifacts; publish nothing'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  app:
+    name: Version and compiled app (Battleaxe)
+    runs-on: [self-hosted, Linux, X64, por, battleaxe]
+    timeout-minutes: 30
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      tag: ${{ steps.version.outputs.tag }}
+      publish: ${{ steps.version.outputs.publish }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          lfs: false
+      - name: Version matches the tag
+        id: version
+        env:
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+        run: |
+          version=$(node -p 'require("./package.json").version')
+          echo "package.json version: $version; ref: $GITHUB_REF ($GITHUB_REF_TYPE)"
+          if [ "$GITHUB_REF_TYPE" = tag ]; then
+            if [ "$GITHUB_REF_NAME" != "v$version" ]; then
+              echo "::error::Tag $GITHUB_REF_NAME does not match package.json version $version: the tag must be v$version. Set the version in package.json, commit, and tag that commit."
+              exit 1
+            fi
+            tag="$GITHUB_REF_NAME"
+          else
+            tag="v$version"
+          fi
+          if [ "$DRY_RUN" = true ]; then
+            publish=false
+          elif [ "$GITHUB_REF_TYPE" = tag ]; then
+            publish=true
+          else
+            echo "::error::Publishing needs a tag: push v$version (git tag v$version && git push origin v$version), or run this with dry_run on."
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "publish=$publish" >> "$GITHUB_OUTPUT"
+          echo "Version $version, tag $tag, publish $publish" >> "$GITHUB_STEP_SUMMARY"
+      - run: node --version && npm ci --no-audit --no-fund
+      - name: Compile the server, runner and launcher (release:build)
+        run: npm run -s release:build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app
+          path: dist/app/
+          retention-days: 3
+          if-no-files-found: error
+
+  windows-linux:
+    name: Windows installer and Linux archive (Battleaxe)
+    needs: app
+    runs-on: [self-hosted, Linux, X64, por, battleaxe]
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          lfs: false
+      - run: npm ci --no-audit --no-fund
+      - uses: actions/download-artifact@v4
+        with:
+          name: app
+          path: dist/app
+      - name: Pack windows and linux
+        run: |
+          export POR_ASSETS_DIR="$HOME/por-assets"
+          npx tsx tools/release/pack.ts windows linux
+          ls -l dist/*.exe dist/*.tar.gz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: package-windows
+          path: dist/Pool-of-Radiance-*-windows-setup.exe
+          compression-level: 0
+          retention-days: 7
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: package-linux
+          path: dist/pool-of-radiance-*-linux-x64.tar.gz
+          compression-level: 0
+          retention-days: 7
+          if-no-files-found: error
+
+  mac:
+    name: Mac disk images (GitHub-hosted macOS)
+    needs: app
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          lfs: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci --no-audit --no-fund
+      - uses: actions/download-artifact@v4
+        with:
+          name: app
+          path: dist/app
+      - name: Pack mac-arm64 and mac-x64
+        run: |
+          npx tsx tools/release/pack.ts mac
+          ls -l dist/*.dmg
+      - name: List each mounted image for the por-assets check
+        run: |
+          mkdir -p manifests
+          for dmg in dist/*.dmg; do
+            mount=$(mktemp -d)
+            hdiutil attach -readonly -nobrowse -noautoopen -mountpoint "$mount" "$dmg" > /dev/null
+            npx tsx tools/release/manifest.ts list "$mount/Pool of Radiance.app/Contents" > "manifests/$(basename "$dmg" .dmg).json"
+            hdiutil detach "$mount" > /dev/null || hdiutil detach -force "$mount" > /dev/null
+            echo "$dmg: $(node -p "require('./manifests/$(basename "$dmg" .dmg).json').length") files listed"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mac-manifests
+          path: manifests/
+          retention-days: 7
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: package-mac
+          path: dist/*.dmg
+          compression-level: 0
+          retention-days: 7
+          if-no-files-found: error
+
+  mac-check:
+    name: Mac images against por-assets (Battleaxe)
+    needs: mac
+    runs-on: [self-hosted, Linux, X64, por, battleaxe]
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          lfs: false
+      - run: npm ci --no-audit --no-fund
+      - uses: actions/download-artifact@v4
+        with:
+          name: mac-manifests
+          path: manifests
+      - name: Check every file of both images
+        run: POR_ASSETS_DIR="$HOME/por-assets" npx tsx tools/release/manifest.ts check manifests/*.json
+
+  release:
+    name: SHA256SUMS and the GitHub release
+    needs: [app, windows-linux, mac, mac-check]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: package-*
+          path: packages
+          merge-multiple: true
+      - name: SHA256SUMS
+        working-directory: packages
+        run: |
+          ls -l
+          test "$(ls | wc -l)" -eq 4 || { echo "::error::expected 4 packages, found $(ls | wc -l)"; exit 1; }
+          sha256sum * > SHA256SUMS
+          cat SHA256SUMS
+          { echo '```'; cat SHA256SUMS; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SHA256SUMS
+          path: packages/SHA256SUMS
+          retention-days: 7
+      - name: Create or update the release
+        if: needs.app.outputs.publish == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.app.outputs.tag }}
+          VERSION: ${{ needs.app.outputs.version }}
+        working-directory: packages
+        run: |
+          if gh release view "$TAG" -R "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            echo "Updating release $TAG"
+          else
+            prerelease=; case "$VERSION" in *-*) prerelease=--prerelease ;; esac
+            gh release create "$TAG" -R "$GITHUB_REPOSITORY" --verify-tag $prerelease \
+              --title "Pool of Radiance $VERSION" \
+              --notes "Pool of Radiance $VERSION, built from $GITHUB_SHA by $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Mac: open the disk image for your Mac (arm64 for Apple silicon, x64 for Intel) and drag the app to Applications. Windows: run the setup. Linux: unpack and run ./pool-of-radiance. SHA256SUMS lists every file's sha256."
+          fi
+          gh release upload "$TAG" -R "$GITHUB_REPOSITORY" --clobber ./*
