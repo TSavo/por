@@ -1,20 +1,20 @@
 {
  "schema": 2,
  "heldPortraits": {
-  "verified": 230,
+  "verified": 0,
   "unreachable": 4,
   "reachable": 230,
-  "oneShotsVerified": 43,
-  "measured": 230,
+  "oneShotsVerified": 0,
+  "measured": 200,
   "total": 234,
   "scenesMeasured": 385,
-  "scenesVerified": 385,
+  "scenesVerified": 0,
   "unmappedScenes": 0,
-  "remaining": 0
+  "remaining": 230
  },
  "enhancedFallbacks": {
   "observer": 2,
-  "frames": 28,
+  "frames": 0,
   "presented": 6776,
   "walks": 45,
   "recordedWalks": 45,
@@ -43,12 +43,7 @@
   ],
   "runs": 42,
   "additionalReplays": 2,
-  "keys": [
-   {
-    "key": "surface:area:25:first-person",
-    "frames": 28
-   }
-  ]
+  "keys": []
  },
  "overlandTerrain": {
   "atlasReady": true,
