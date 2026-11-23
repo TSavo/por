@@ -53,14 +53,35 @@ interface SceneryProof {
   encounter?: EncounterPaint;
 }
 
-interface SceneryPrompt {
+interface IllustratedSceneryProof extends Omit<SceneryProof, "position" | "encounter"> {
+  portrait: string;
+  sha256: string;
+  paneSampleSha256: string;
+  durationMs: number;
+  samples: number;
+  poses: string[];
+}
+
+type SceneryPrompt = {
   producer: string;
   prompt: string;
   caption: string;
   checkpoint: string;
+} & ({
   position: [number, number, number];
+  illustration?: never;
   chrome: { original: SceneryProof; port: SceneryProof };
-}
+} | {
+  illustration: {
+    id: string;
+    native: {
+      heldCaption: string;
+      viewportSha256: string;
+      pictureDraws: 0;
+    };
+  };
+  chrome: { original: IllustratedSceneryProof; port: IllustratedSceneryProof };
+});
 
 interface StaticPortraitChromeProof extends Omit<OneShotProof, "producer"> {
   caption: string;
@@ -357,13 +378,32 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
   function verifiedSceneryPrompt(producer: string, prompt: string) {
     return inventory.sceneryPrompts?.some(proof => {
       if (proof.producer !== producer || proof.prompt !== prompt) return false;
-      const { original, port } = proof.chrome;
       const fixture = path("qa", "fixtures", proof.checkpoint);
       const caption = normalizeCaption(proof.caption);
-      if (!caption || original.route !== port.route || !existsSync(fixture)) return false;
+      if (!caption || proof.chrome.original.route !== proof.chrome.port.route || !existsSync(fixture)) return false;
+      const checkpoint = checkpointDigests(fixture);
+      if (proof.illustration) {
+        const { id, native } = proof.illustration;
+        const [, area] = producer.split(":");
+        const [cursor, caller] = prompt.split("/");
+        const expectedId = "scene-illustration:area:" + area + ":ecl:" + cursor + (caller ? ":caller:" + caller : "");
+        const image = assets.get(id);
+        const pane = proof.chrome.original.paneSampleSha256;
+        if (id !== expectedId || !image || !existsSync(image) ||
+            native.pictureDraws !== 0 || !/^[a-f0-9]{64}$/.test(native.viewportSha256) ||
+            !normalizeCaption(native.heldCaption).includes(caption) || !/^[a-f0-9]{64}$/.test(pane)) return false;
+        const sha256 = digest(readFileSync(image));
+        return (["original", "port"] as const).every(data => {
+          const observed = proof.chrome[data];
+          return observed.data === data && matchesRenderer(observed.rendererSha256) &&
+            checkpoint.has(observed.checkpointSha256) && normalizeCaption(observed.caption).includes(caption) &&
+            observed.portrait === id && observed.sha256 === sha256 && observed.paneSampleSha256 === pane &&
+            observed.durationMs >= 2000 && observed.samples >= 30 && isDeepStrictEqual(observed.poses, [id]);
+        });
+      }
+      const { original, port } = proof.chrome;
       if (!isDeepStrictEqual(original.encounter, port.encounter) ||
           (original.encounter && !verifiedEncounterAsset(original.encounter))) return false;
-      const checkpoint = checkpointDigests(fixture);
       return (["original", "port"] as const).every(data => {
         const observed = proof.chrome[data];
         const reviewed = [landmarkOverlandRenderer, wetOverlandRenderer, localOverlandRenderer, auctionMenusRenderer, captivePenMenusRenderer, pittMenuRenderer, rendererBeforePittMenus];
