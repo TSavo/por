@@ -223,6 +223,7 @@ const saltlineExplorationRenderer = "90fb7e1b9dd389ea45605810f27ca019f6c0e116509
 const explorationMovementRenderer = "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f";
 const titleBuildVersionRenderer = "14d61fd7ee9265e1b34205a359a7631c932bdba29f274fcf406065a2f4969489";
 const battleEntryRenderer = "1ff8ef0a4d635d4390caaad3f85782fd99c4728df2051a01d8477381403db6ed";
+const narratedHoldRenderer = "e62e010495688a4127fca9ed51f189281aaee5941ace3ae63b9e27e7e63330de";
 const scopedNarrationQueueRenderer = "f5da1e3cb9dd1d689e4e40c9d6e38dbb83288868a8de56e6b4e6f059298dd90e";
 const paintedNarrationRenderer = "2c5dc5cd44f9c251a7297d2876678b31be834fd2517d3968f49f052fbc784290";
 const shaderSkyRenderer = "0f23c88facb85c98d1a44ae15023f6e5954a84895ab0135173a66411a54f638c";
@@ -238,6 +239,9 @@ const rendererBeforePittMenus = "c3582f5d74fae550739186491060b39f7fcbd25c399b99d
 // Exact reviewed revisions that preserve the held portrait paint and timing code.
 // This covers narration logging, the wilderness atlas, settings, and Classic palette-only clips.
 const previousRendererProof = new Map<string, string>([
+  // A narrated insert can retain its already painted picture past its minimum
+  // hold. Paired pool checks verify placement and the native acknowledgement.
+  [narratedHoldRenderer, scopedNarrationQueueRenderer],
   // Skipping unheard narration after its picture leaves changes audio only.
   [scopedNarrationQueueRenderer, paintedNarrationRenderer],
   // Narration starts at the committed paint. Rolf and the timed scribe
@@ -518,7 +522,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       return (["original", "port"] as const).every(data => {
         const observed = proof.chrome[data];
         const reviewed = [landmarkOverlandRenderer, wetOverlandRenderer, localOverlandRenderer, auctionMenusRenderer, captivePenMenusRenderer, pittMenuRenderer, rendererBeforePittMenus];
-        const sceneryRevision = (hash: string) => hash === scopedNarrationQueueRenderer ||
+        const sceneryRevision = (hash: string) => hash === narratedHoldRenderer || hash === scopedNarrationQueueRenderer ||
           hash === paintedNarrationRenderer || hash === shaderSkyRenderer || hash === tripwireKeysRenderer || hash === roofLightingRenderer ||
           hash === titleBuildVersionRenderer || hash === battleEntryRenderer
           ? explorationMovementRenderer : hash;

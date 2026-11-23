@@ -96,7 +96,8 @@ async function openLeg(name) {
   if (broken === "overlap") {
     await chrome.evaluate(`playNextNarration = () => { const line = narrationQueue.shift(); if (line) beginVoice(line); }`);
   }
-  const playback = () => chrome.evaluate("porNarrationPlayback()");
+  const playback = () => chrome.evaluate(
+    "({ ...porNarrationPlayback(), painting: Boolean(animationFrame || renderingSequence !== undefined) })");
   let frame = await chrome.nextFrame();
   return {
     chrome, playback,
@@ -107,7 +108,7 @@ async function openLeg(name) {
       for (const deadline = Date.now() + 30_000; ;) {
         const pressed = await chrome.evaluate(`(() => {
           if (state.sequence !== ${frame.sequence}) throw new Error("The game advanced before input");
-          if (!state.ready || posting || renderingSequence === state.sequence) return false;
+          if (!state.ready || posting || renderingSequence === state.sequence || animationFrame?.approach) return false;
           window.dispatchEvent(new KeyboardEvent("keydown", ${event}));
           return true;
         })()`);
@@ -134,7 +135,7 @@ async function openLeg(name) {
   };
 }
 
-const silent = (log) => !log.queued && !log.sounding && log.lines.every((line) => line.outcome);
+const silent = (log) => !log.painting && !log.queued && !log.sounding && log.lines.every((line) => line.outcome);
 const ledgerOf = (name) => readFileSync(join(directory, `${name}.jsonl`), "utf8").split("\n").filter(Boolean)
   .map((line) => JSON.parse(line)).filter((line) => line.t === "n");
 
@@ -224,14 +225,11 @@ async function pressThroughRolfPortraitDecode(leg, key) {
 console.log(`Pass 1: wait for every line to finish before pressing on${broken ? ` (broken on purpose: ${broken})` : ""}`);
 {
   const leg = await openLeg("waiting");
-  /** By narration id: the artwork of the frame that printed its passage, and when the page had that frame. */
-  const passageArt = new Map();
   let heldRolfPortrait = false;
   let log;
   try {
     for (let presses = 0; presses < 80; presses++) {
-      // A narration is sent with the frame that prints its text; give the page a moment to queue it.
-      await delay(300);
+      // The native scene can arrive with movement clips before its narration is eligible.
       log = await leg.until(silent);
       if (!log) { log = await leg.playback(); fail(`the narration did not finish within 90s at "${textOf(leg.frame).slice(-80).trim()}"`); break; }
       const text = textOf(leg.frame);
@@ -239,10 +237,6 @@ console.log(`Pass 1: wait for every line to finish before pressing on${broken ? 
       const key = nextKey(text);
       if (!heldRolfPortrait && await pressThroughRolfPortraitDecode(leg, key)) heldRolfPortrait = true;
       else await leg.press(key);
-      // The frame that has now arrived prints the passage of every narration queued since the key:
-      // its artwork is theirs.
-      const drawn = await leg.chrome.evaluate("({ art: state.portrait ?? state.encounter?.[2] ?? null, at: porNarrationPlayback().at, last: porNarrationPlayback().lines.at(-1)?.id ?? 0 })");
-      for (let id = passageArt.size + 1; id <= drawn.last; id++) passageArt.set(id, drawn);
     }
     log ??= await leg.playback();
   } finally { await leg.chrome.close(); }
@@ -265,12 +259,9 @@ console.log(`Pass 1: wait for every line to finish before pressing on${broken ? 
     const elapsed = line.endedAt - line.startedAt;
     if (Math.abs(elapsed - line.duration) > tolerance) fail(`${name} took ${elapsed.toFixed(2)}s to play ${line.duration}s: it did not run in real time`);
     if (line.pauses) fail(`${name} was paused ${line.pauses} times while it played`);
-    const own = passageArt.get(line.id);
-    if (!own?.art) fail(`${name}: the frame that printed its passage showed no Enhanced artwork`);
-    else if (line.artSeen.length !== 1 || line.artSeen[0] !== own.art || line.artAtEnd !== own.art) {
-      const arrived = line.artSeen.indexOf(own.art);
-      fail(`${name} did not have its artwork on screen from start to end: it started under ${line.artSeen[0] ?? "no artwork"}; its own, ${own.art}, was drawn ` +
-        (arrived > 0 ? `${line.artTimes[arrived]}s into the ${line.duration}s line` : `${(own.at - line.endedAt).toFixed(1)}s after the line had ended`));
+    if (!line.expectedArt) fail(`${name}: the frame that printed its passage named no Enhanced artwork`);
+    else if (line.artSeen.length !== 1 || line.artSeen[0] !== line.expectedArt || line.artAtEnd !== line.expectedArt) {
+      fail(`${name}: expected ${line.expectedArt} throughout playback, saw ${line.artSeen.join(" then ")} and ended on ${line.artAtEnd}`);
     }
     // A line with another ahead of it waited its turn: in this pass, which waits for silence, none may.
     // Otherwise the time from queue to sound is the fetch and Chrome starting its audio output: 0.34s

@@ -124,7 +124,8 @@ let paintedNarrationView;
 let paintedNarrationCue;
 let pendingNarrationKey;
 let narrationKey;
-const narratedViews = new WeakSet();
+const narratedViews = new WeakMap();
+let narrationHeldClip;
 const narratedScenes = new Set();
 let state = { sequence: -1 };
 let posting = false;
@@ -462,6 +463,7 @@ function finishAnimation() {
   animationTimer = undefined;
   advanceAnimation = undefined;
   animationFrame = undefined;
+  narrationHeldClip = undefined;
   animationQueue = [];
 }
 
@@ -473,9 +475,9 @@ const voiceLines = new WeakMap();
 const soundingVoices = new Map();
 let shownArtwork = null;
 const playbackSeconds = () => Math.round(performance.now()) / 1000;
-function logNarrationQueued(narration) {
+function logNarrationQueued(narration, expectedArt) {
   const entry = { id: narration.id, unitId: narration.unitId, ...(narration.variantId ? { variantId: narration.variantId } : {}),
-    asset: narration.asset, queuedAt: playbackSeconds(), queuedFrame: state.sequence,
+    asset: narration.asset, expectedArt, queuedAt: playbackSeconds(), queuedFrame: state.sequence,
     // Lines sounding or waiting when this one was queued: it has to wait its turn behind them.
     ...(currentVoice || blockedVoice || narrationQueue.length ? { ahead: narrationQueue.length + (currentVoice || blockedVoice ? 1 : 0) } : {}),
     // A recording from voices.json is speaking: the page matched it to the text this narration reads.
@@ -601,10 +603,12 @@ function playNextNarration() {
   if (line) beginVoice(line);
 }
 
-function enqueueNarration(narration) {
-  narrationQueue.push({ type: "narration", queuedNarration: true, log: logNarrationQueued(narration),
+function enqueueNarration(narration, expectedArt) {
+  const log = logNarrationQueued(narration, expectedArt);
+  narrationQueue.push({ type: "narration", queuedNarration: true, log,
     cue: paintedNarrationCue, url: `/narration/${encodeURIComponent(narration.asset)}` });
   playNextNarration();
+  return log;
 }
 
 document.addEventListener("visibilitychange", () => {
@@ -646,20 +650,29 @@ function playPendingVoice() {
   }
 }
 
-function presentNarration(view) {
+function presentNarration(view, expectedArt) {
   paintedNarrationView = view;
   // The same native picture can arrive at a new sequence after an ignored key.
   paintedNarrationCue = { frame: view.frame, artwork: shownArtwork };
   retireUnstartedNarration();
   if (view.narrations?.length && !narratedViews.has(view)) {
-    narratedViews.add(view);
+    const entries = [];
+    narratedViews.set(view, entries);
     if (enhanced) {
       for (const narration of view.narrations) {
-        if (narration.id > (initialNarrationId ?? 0)) enqueueNarration(narration);
+        if (narration.id > (initialNarrationId ?? 0)) entries.push(enqueueNarration(narration, expectedArt));
       }
     }
   }
   playNextNarration();
+}
+
+function narrationHoldsView(view) {
+  if (!enhanced || blockedVoice || !view?.narrations?.length) return false;
+  const entries = narratedViews.get(view);
+  // Automatic advancement may be due before the view has finished decoding.
+  return entries ? entries.some(entry => !entry.outcome)
+    : view.narrations.some(narration => narration.id > (initialNarrationId ?? 0));
 }
 
 // When the last batch of an animation the game plays by itself arrived, or the key that began it was sent.
@@ -741,11 +754,12 @@ function overlandImage(id) {
 }
 
 function holdAnimationFrame(view) {
-  if (view !== animationFrame || animationTimer !== undefined || !advanceAnimation) return;
+  if (view !== animationFrame || animationTimer !== undefined || !advanceAnimation || narrationHeldClip === view) return;
   const ms = view.durationMs ?? 120;
   animationTimer = setTimeout(() => {
     animationTimer = undefined;
-    advanceAnimation?.();
+    if (narrationHoldsView(view)) narrationHeldClip = view;
+    else advanceAnimation?.();
   }, enhanced && view.approach ? Math.max(enhancedApproachMs, ms) : ms);
 }
 
@@ -782,6 +796,7 @@ function togglePresentation() {
     // Let the new presentation finish decoding before timing the frame again.
     clearTimeout(animationTimer);
     animationTimer = undefined;
+    narrationHeldClip = undefined;
   }
   showScreen();
   renderCodeWheel();
@@ -1879,8 +1894,10 @@ async function showScreen() {
   const picture = portraitShown ? portraitId : encounterShown ? view.encounter?.[2] : undefined;
   logShownArtwork(sceneArt ? view.scene ?? view.art : picture ?? (runesShown ? "runes in the picture window"
     : streetShown ? "the first-person view" : null));
+  const expectedArt = view.scene ?? portraitId ?? view.encounter?.[2] ??
+    (runesShown ? "runes in the picture window" : streetScene ? "the first-person view" : null);
   renderingSequence = undefined;
-  presentNarration(view);
+  presentNarration(view, expectedArt);
   holdAnimationFrame(view);
 }
 
@@ -2477,9 +2494,14 @@ async function poll() {
     }
     // Show the battle notice or automatic turn before asking the game for the next frame. A
     // self-playing animation (#121) can ask immediately, while the current clips play (#125).
+    if (narrationHeldClip && !narrationHoldsView(narrationHeldClip)) {
+      narrationHeldClip = undefined;
+      advanceAnimation?.();
+    }
     const shown = !animationFrame && performance.now() >= quickPollAfter;
     const battlePoll = (state.automaticCombat || state.battleEntryPolling) && shown;
-    if ((battlePoll || state.presentationPolling) && !state.journal && !codeWheelTool() && state.ready) {
+    if ((battlePoll || state.presentationPolling) && !narrationHoldsView(animationFrame) &&
+      !narrationHoldsView(state) && !state.journal && !codeWheelTool() && state.ready) {
       void send(":poll");
     }
     followTravel();
