@@ -737,6 +737,13 @@ function checkSokalQuestProgress(): void {
     eclStore(m);
   };
 
+  const landed = discoveredLeads("THE BOAT DISEMBARKS YOU AT SOKAL KEEP.");
+  saveSokalState(0);
+  deepStrictEqual(questProgress(m, offered, m.ds), []);
+  deepStrictEqual(questProgress(m, landed, m.ds), []);
+  const active = questProgress(m, [...offered, ...landed], m.ds);
+  strictEqual(active[0]?.status, "accepted", "The offered commission becomes active when the party lands");
+
   saveSokalState(254);
   const ready = questProgress(m, offered, m.ds);
   if (ready[0]?.status !== "ready-to-report" || !currentObjective(ready).nextStep.includes("council clerk") ||

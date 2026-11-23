@@ -735,7 +735,8 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
         status: "accepted", clearedEncounters: value,
       });
     }
-    const accepted = (commission.id === "graveyard" && global(0x4a96) === 255) ||
+    const accepted = (commission.id === "sokal" && known.some(({ id: clue }) => clue === "sokal-arrival")) ||
+      (commission.id === "graveyard" && global(0x4a96) === 255) ||
       (commission.id === "auction" && value === 1) ||
       (commission.id === "textile" && global(0x4a97) === 255) ||
       (commission.id === "zhentil" && global(0x4a98) === 255) ||
