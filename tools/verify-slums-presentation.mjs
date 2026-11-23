@@ -9,6 +9,15 @@ import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const battleEntryRoutes = new Map([
+  ["swamp-rubble-lizard-surprise", {
+    slot: "A", fixedClockStart: "4320307",
+    promptSchedule: "qa/fixtures/swamp-rubble-lizard-surprise/prompts.jsonl",
+    notice: /SUDDENLY3GIANTLIZARDSAPPEARFROMBEHINDAMOUNDOFRUBBLE.*ABATTLEBEGINS/i,
+    portrait: "scene-illustration:area:16:ecl:a6ce:cue:giant-lizard-surprise",
+    file: "swamp-giant-lizard-surprise.png", noticeScreenshot: "swamp-rubble-lizard-surprise.png",
+    pollFrames: 1, combatTimeout: 180_000,
+    producer: "ECL8.DAX:16:a959",
+  }],
   ["swamp-tunnel-lizard-charge", {
     slot: "A", prefix: ["s", "up"],
     promptSchedule: "qa/fixtures/swamp-tunnel-lizard-charge/prompts.jsonl",
@@ -9650,7 +9659,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...(nomadShamanReward || controlledBattleIllustration || combatPose?.developerSetup || routeName === "swamp-drawbridge-hold" ? { POR_DEV_COMBAT: "1" } : {}),
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
-    POR_FIXED_CLOCK_START: browserEnvironment.POR_FIXED_CLOCK_START ?? illustration?.fixedClockStart ??
+    POR_FIXED_CLOCK_START: browserEnvironment.POR_FIXED_CLOCK_START ?? battleEntry?.fixedClockStart ?? illustration?.fixedClockStart ??
       (residentRestore || ohloStudy ? "4320000" : undefined) ??
       (["valjevo-street-giants-loop", "valjevo-tower-troll-encounter-loop"].includes(routeName) ? "4320100" :
         routeName === "valjevo-tower-troll-ambush-loop" ? "4322783" :

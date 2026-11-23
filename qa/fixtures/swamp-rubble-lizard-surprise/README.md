@@ -1,0 +1,1 @@
+Historical L-shaped ruin checkpoint at (4,7), facing north. A fixed DOS clock of 4320307 gives the original SURPRISE routine its party-surprised result. Up triggers the native lizard ambush, the approach and painted warning, then the automatic battle opening. No guest script or combat-state changes.
