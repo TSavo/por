@@ -2295,7 +2295,7 @@ const illustrationRoutes = new Map([
     ] },
     portrait: "scene-illustration:area:17:ecl:9da2:caller:a711",
     prompt: /YOUARETREATEDASHONOREDGUESTS.*THEREARECONTESTSOFSTRENGTHANDSKILL/i,
-    finalPhaseCapture: "nomad-morning-contests.png",
+    finalPhaseCapture: "nomad-morning-contests.png", recordTimedHandoff: true,
     continuation: { inputs: ["enter"], portrait: "scene-illustration:area:17:ecl:9da2:caller:a7a2",
       prompt: /THENOMADSBUILDAHUGECAMPFIRE.*THEWHOLETRIBEGATHERSFORTHEFEAST/i },
   }],
@@ -13315,12 +13315,34 @@ try {
         if (illustration.staticPortraitStops?.[index]) {
           await verifyStaticPortrait(interimPortrait, illustration.staticPortraitStops[index], false);
         }
+        const upcoming = [].concat(illustration.transientPortraits?.[index + 1] ?? []);
+        if (illustration.recordTimedHandoff && upcoming.length) {
+          const keys = upcoming.map(({ id }) => id).concat(portrait);
+          await run(`(() => {
+            const keys = ${JSON.stringify(keys)};
+            const outgoing = keys.at(-1);
+            const trace = window.timedHandoff = { paints: [], settled: false };
+            function sample(now) {
+              const picture = document.querySelector("#tile-art:not([hidden]) .encounter-portrait");
+              const id = picture?.getAttribute("src")?.slice(5);
+              if (picture?.complete && picture.naturalWidth === 352 && keys.includes(id)) {
+                if (trace.paints.at(-1)?.id !== id) trace.paints.push({ id, atMs: now });
+                if (id === outgoing && !animationFrame && renderingSequence === undefined) {
+                  trace.settled = true;
+                  return;
+                }
+              }
+              requestAnimationFrame(sample);
+            }
+            requestAnimationFrame(sample);
+          })()`);
+        }
         await advance(key);
         if (routeName === "valhingen-skeleton-enclave" && index === 1) {
           await waitFor("both Enhanced skeleton enclave approach distances", () =>
             run(`window.observedApproach.size === ${approachSequence.length}`));
         }
-        for (const transient of [].concat(illustration.transientPortraits?.[index + 1] ?? [])) {
+        for (const transient of upcoming) {
           const clip = frame.animation?.find(phase => phase.portrait === transient.id &&
             (transient.durationMs === undefined || phase.durationMs === transient.durationMs) &&
             transient.prompt.test(phase.text.toSorted(([a], [b]) => a - b)
@@ -13542,6 +13564,31 @@ try {
     if (illustration.finalPhaseCapture) {
       const phaseShot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, illustration.finalPhaseCapture), Buffer.from(phaseShot.data, "base64"));
+      if (illustration.recordTimedHandoff) {
+        const outgoing = await waitFor("the timed sequence's painted handoff", () => run(
+          "window.timedHandoff?.settled && window.timedHandoff.paints"));
+        const expected = Object.values(illustration.transientPortraits).flat();
+        assert.deepEqual(outgoing.map(({ id }) => id), [...expected.map(({ id }) => id), portrait]);
+        for (const [index, beat] of expected.entries()) {
+          const paintedMs = outgoing[index + 1].atMs - outgoing[index].atMs;
+          assert.ok(Math.abs(paintedMs - beat.durationMs) <= 150,
+            `Expected ${beat.id} to paint for ${beat.durationMs} ms, measured ${Math.round(paintedMs)} ms`);
+          const proof = heldPortraitEvidence.find(row => row.portrait === beat.id);
+          if (proof) proof.paintedMs = paintedMs;
+        }
+        if (heldPortraitEvidenceFile) {
+          const [renderer, art] = await Promise.all([fetch(origin + "/play.js"), fetch(origin + "/art/" + portrait)]);
+          assert.ok(renderer.ok && art.ok);
+          heldPortraitEvidence.push({
+            route: routeName, data: frame.classicAvailable === false ? "port" : "original", portrait, settled: true,
+            caption: frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+            rendererSha256: createHash("sha256").update((await renderer.text()).replace(/\r\n/g, "\n")).digest("hex"),
+            checkpointSha256: createHash("sha256").update(readFileSync(checkpoint)).digest("hex"),
+            artSha256: createHash("sha256").update(Buffer.from(await art.arrayBuffer())).digest("hex"),
+            screenshotSha256: createHash("sha256").update(Buffer.from(phaseShot.data, "base64")).digest("hex"),
+          });
+        }
+      }
     }
     if (routeName === "pyramid-lizardfolk-patrol-phases") {
       const patrolPhaseShot = await command("Page.captureScreenshot", { format: "png" });

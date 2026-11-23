@@ -22,6 +22,7 @@ interface HeldPortraitInventory {
   }[];
   sceneryPrompts?: SceneryPrompt[];
   staticPortraitPrompts?: StaticPortraitPrompt[];
+  timedPortraitScenes?: TimedPortraitScene[];
   approachTransitions?: ApproachTransition[];
   combatWithoutPortraits?: CombatWithoutPortrait[];
   podolPatrols?: PodolPatrolProof[];
@@ -182,6 +183,35 @@ interface CombatWithoutPortrait {
   checkpoint: string;
   native: { approachDraws: Record<ChromeProof["data"], number>; evidence: string };
   chrome: Record<ChromeProof["data"], OneShotProof & { checkpointSha256: string }>;
+}
+
+interface TimedPortraitCue {
+  portrait: string;
+  caption: string;
+}
+
+interface TimedPortraitPaint extends TimedPortraitCue {
+  artSha256: string;
+  screenshotSha256: string;
+}
+
+interface TimedPortraitScene {
+  producer: string;
+  checkpoint: string;
+  native: {
+    drawCursor: string;
+    composed: string;
+    beats: (TimedPortraitCue & { durationMs: number })[];
+    outgoing: TimedPortraitCue;
+  };
+  chrome: Record<ChromeProof["data"], {
+    route: string;
+    data: ChromeProof["data"];
+    checkpointSha256: string;
+    rendererSha256: string;
+    beats: (TimedPortraitPaint & { durationMs: number; paintedMs: number })[];
+    outgoing: TimedPortraitPaint;
+  }>;
 }
 
 type ScriptSite = typeof heldPortraitDiscovery.eclCandidates[number];
@@ -677,12 +707,58 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       return Boolean(file && existsSync(file) && digest(readFileSync(file)) === expected);
     },
   };
+  const timedPortraitScenes = inventory.timedPortraitScenes ?? [];
+  const timedByProducer = new Map(timedPortraitScenes.map(proof => [proof.producer, proof]));
+  if (timedByProducer.size !== timedPortraitScenes.length ||
+      timedPortraitScenes.some(({ producer }) => !eclCandidates.some(site => scriptSiteId(site) === producer))) {
+    throw new Error("Unknown or duplicate timed portrait producer");
+  }
+
+  function timedPortraitProblem(site: ScriptSite, proof: TimedPortraitScene) {
+    const { native, chrome, checkpoint } = proof;
+    if (site.promptCandidates.length || !site.composedPortrait || native.drawCursor !== site.next ||
+        native.composed !== site.composedPortrait.source) return "native timed composition no longer matches the script";
+    if (!native.beats.length || native.beats.some(({ durationMs }) => !Number.isInteger(durationMs) || durationMs <= 0)) {
+      return "native timed beats need positive durations";
+    }
+    const cues = [...native.beats, native.outgoing];
+    if (cues.some(({ portrait, caption }) => !normalizeCaption(caption) ||
+        !portrait.startsWith(`scene-illustration:area:${site.scriptBlock}:ecl:`) ||
+        !scriptIllustrations.has(portrait))) return "native timed cues must match their scene and area";
+    if (!chrome.original.route || chrome.original.route !== chrome.port.route) return "timed Chrome replays disagree";
+    for (const data of ["original", "port"] as const) {
+      const recorded = chrome[data];
+      if (recorded.data !== data || !patrolChecks.fixture(checkpoint, recorded.checkpointSha256) ||
+          !patrolChecks.renderer(recorded.rendererSha256)) return "timed Chrome replay predates the fixture or renderer";
+      if (recorded.beats.length !== native.beats.length) return "timed Chrome replay has different beats";
+      const paints = [...recorded.beats, recorded.outgoing];
+      if (paints.some(({ portrait, caption, artSha256, screenshotSha256 }, index) => {
+        const cue = cues[index]!;
+        return portrait !== cue.portrait || !normalizeCaption(caption).includes(normalizeCaption(cue.caption)) ||
+          !patrolChecks.art(portrait, artSha256) || !/^[a-f0-9]{64}$/.test(screenshotSha256);
+      })) return "timed Chrome replay differs at a painted cue or its outgoing artwork";
+      if (recorded.beats.some(({ durationMs, paintedMs }, index) => {
+        const expected = native.beats[index]!.durationMs;
+        return durationMs !== expected || !Number.isFinite(paintedMs) || paintedMs <= 0 ||
+          Math.abs(paintedMs - expected) > 150;
+      })) return "timed Chrome replay differs from the native hold duration";
+    }
+    return null;
+  }
+
   const sites = eclCandidates.map(site => {
     const id = scriptSiteId(site);
     if (site.unreachableOriginal) return {
       id, source: `${site.pictureArchive}:${site.block}`, measured: false, verified: false, unmeasured: [], scenes: [],
       unreachableOriginal: true, reason: site.unreachableOriginal,
     };
+    const timed = timedByProducer.get(id);
+    if (timed) {
+      const reason = timedPortraitProblem(site, timed);
+      return { id, source: site.composedPortrait?.source ?? `${site.pictureArchive}:${site.block}`,
+        measured: true, verified: reason === null, unmeasured: [], scenes: [],
+        reason: reason ?? "paired Chrome checks confirmed timed native portraits and the outgoing cue" };
+    }
     const patrol = podolPatrolCoverage(id, site, inventory.podolPatrols ?? [], patrolChecks);
     if (patrol) return {
       id, source: `${site.pictureArchive}:${site.boundedBlocks?.join(", ") ?? "actor selector"}`,

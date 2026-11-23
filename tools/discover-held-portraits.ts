@@ -594,6 +594,20 @@ const eclCandidates = scripts.flatMap(record => {
       return { source: "HEAD7.DAX:61:BODY7.DAX:30", headWrite: authored(head.address), headSlot: "6de1",
         bodyOperand: 2 };
     }
+    if (address === 0xa5f8) {
+      // The morning greeting composes Hassad before the timed walk.
+      const head = instructions.get(0xa5f2);
+      const setup = instructions.get(address);
+      const reset = setup && instructions.get(setup.next);
+      if (head?.opcode !== 0x09 || head.next !== address ||
+          literal(head.operands[0]!) !== 74 || memory(head.operands[1]!) !== 0x6de1 ||
+          setup?.opcode !== 0x0c || literal(setup.operands[0]!) !== 11 ||
+          literal(setup.operands[1]!) !== 2 || literal(setup.operands[2]!) !== 30 ||
+          reset?.opcode !== 0x09 || literal(reset.operands[0]!) !== 0xff ||
+          memory(reset.operands[1]!) !== 0x6de1) return undefined;
+      return { source: "HEAD7.DAX:74:BODY7.DAX:30", headWrite: authored(head.address), headSlot: "6de1",
+        bodyOperand: 2, headReset: authored(reset.address) };
+    }
     if (address === 0xab0a) {
       // Hassad's setup composes the portrait held for the choice and the thank-you.
       const head = instructions.get(0xab04);
