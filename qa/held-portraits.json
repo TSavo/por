@@ -48087,6 +48087,150 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL7.DAX:17:ab0a",
+      "prompt": "ab82",
+      "variants": [
+        {
+          "caption": "ABOUT MY REQUEST OF LAST NIGHT, WHAT IS YOUR DECISION?",
+          "checkpoint": "nomad-headman-held/A.json",
+          "portrait": "scene-illustration:area:17:ecl:ab82",
+          "native": {
+            "drawCursor": "ab11",
+            "composed": {
+              "source": "HEAD7.DAX:74:BODY7.DAX:30",
+              "headWrite": "ab04",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "9de0"
+            },
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 S 00:29 THE HEADMAN COMES TO YOU AND SAYS, 'ABOUT MY REQUEST OF LAST NIGHT, WHAT IS YOUR DECISION?' Stay and fight Leave",
+            "idlePolls": 15,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 8,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 15,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              }
+            ],
+            "clearedPanelSha256": "9ecfe61254b396ec09d038b6dadbcac6932f6409d65ef72f186428c21cb7aa48"
+          },
+          "chrome": {
+            "original": {
+              "route": "nomad-morning-promise",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29THEHEADMANCOMESTOYOUANDSAYS,'ABOUTMYREQUESTOFLASTNIGHT,WHATISYOURDECISION?'StayandfightLeave",
+              "portrait": "scene-illustration:area:17:ecl:ab82",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "ae2421a430be116a34c9ffb4cf46a10b38c44a4c40c2735c750d8f59de66c800",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3652,
+              "samples": 220,
+              "poses": [
+                "scene-illustration:area:17:ecl:ab82"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "nomad-morning-promise",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29THEHEADMANCOMESTOYOUANDSAYS,'ABOUTMYREQUESTOFLASTNIGHT,WHATISYOURDECISION?'StayandfightLeave",
+              "portrait": "scene-illustration:area:17:ecl:ab82",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "ae2421a430be116a34c9ffb4cf46a10b38c44a4c40c2735c750d8f59de66c800",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3657,
+              "samples": 220,
+              "poses": [
+                "scene-illustration:area:17:ecl:ab82"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL7.DAX:17:ab0a",
+      "prompt": "9da2/ac1e",
+      "variants": [
+        {
+          "caption": "I AND MY PEOPLE THANK YOU",
+          "checkpoint": "nomad-headman-held/A.json",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:ac1e",
+          "native": {
+            "drawCursor": "ab11",
+            "composed": {
+              "source": "HEAD7.DAX:74:BODY7.DAX:30",
+              "headWrite": "ab04",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "9de0"
+            },
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 S 00:29 'I AND MY PEOPLE THANK YOU. AND KNOW THAT WE HAVE HONOR. YOU SHALL BE RICHLY REWARDED FOR YOUR GENEROUS AID. ' Press button or <return> to continue",
+            "idlePolls": 15,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 8,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 15,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              }
+            ],
+            "clearedPanelSha256": "9ecfe61254b396ec09d038b6dadbcac6932f6409d65ef72f186428c21cb7aa48"
+          },
+          "chrome": {
+            "original": {
+              "route": "nomad-morning-promise",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29'IANDMYPEOPLETHANKYOU.ANDKNOWTHATWEHAVEHONOR.YOUSHALLBERICHLYREWARDEDFORYOURGENEROUSAID.'Pressbuttonor<return>tocontinue",
+              "portrait": "scene-illustration:area:17:ecl:9da2:caller:ac1e",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "5b7592d25f97e7c5e1ec5f9c0d2bfd22a1bab7bd0c6cdd3a145bffcdd7a50e92",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3654,
+              "samples": 221,
+              "poses": [
+                "scene-illustration:area:17:ecl:9da2:caller:ac1e"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "nomad-morning-promise",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S00:29'IANDMYPEOPLETHANKYOU.ANDKNOWTHATWEHAVEHONOR.YOUSHALLBERICHLYREWARDEDFORYOURGENEROUSAID.'Pressbuttonor<return>tocontinue",
+              "portrait": "scene-illustration:area:17:ecl:9da2:caller:ac1e",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "5b7592d25f97e7c5e1ec5f9c0d2bfd22a1bab7bd0c6cdd3a145bffcdd7a50e92",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3652,
+              "samples": 220,
+              "poses": [
+                "scene-illustration:area:17:ecl:9da2:caller:ac1e"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
     }
   ],
   "approachTransitions": [
