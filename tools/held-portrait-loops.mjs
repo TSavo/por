@@ -24,6 +24,8 @@ const slumsOrcPoseOrder = [0, 1, 2, 1];
 const slumsOrcPoseTimes = [1510, 20, 710, 20];
 const slumsHobgoblinPoseOrder = [0, 1, 2, 1];
 const slumsHobgoblinPoseTimes = [1710, 110, 1510, 110];
+const slumsGrainPoseOrder = [0, 1, 2, 3, 4, 3, 2, 1];
+const slumsGrainPoseTimes = [1310, 20, 20, 20, 510, 110, 110, 210];
 const auctionPoseTimes = [610, 210, 410, 210, 410, 610];
 const baneGatePoseTimes = [1510, 20, 710, 20];
 
@@ -231,6 +233,12 @@ const portraitLoops = [
     /SOMEHOBGOBLINSAREARGUINGOVERAPILEOFGOLD/i, slumsHobgoblinPoseTimes],
   ["portrait:area:20:ecl:9e02:PIC2.DAX:0:", [0, 1, 2, 1], undefined,
     /^(?!.*ABATTLEBEGINS).*YOUHAVESURPRISEDAPARTYOFKOBOLDS/i, [210, 210, 210, 210]],
+  ["portrait:area:20:ecl:b6df:caller:a4f8:PIC2.DAX:0:", [0, 1, 2, 1], "portrait:area:20:PIC2.DAX:0:0:0",
+    /^(?!.*ABATTLEBEGINS).*YOUINTERRUPTSOMEFEEDINGKOBOLDS/i, [210, 210, 210, 210]],
+  ["portrait:area:20:ecl:b6df:caller:ac2f:PIC2.DAX:2:", 2, undefined,
+    /^(?!.*ABATTLEBEGINS).*YOUHAVEALERTEDTHEGUARDS/i, [310, 310]],
+  ["portrait:area:20:ecl:b6df:caller:b0ec:PIC2.DAX:31:", slumsGrainPoseOrder, "portrait:area:20:PIC2.DAX:31:0:0",
+    /^(?!.*ABATTLEBEGINS).*SOMEMONSTERSARETOSSINGASACKOFGRAIN/i, slumsGrainPoseTimes],
   ["portrait:area:5:ecl:9ff9:PIC5.DAX:31:", towerTrollPoseOrder, "portrait:area:5:PIC5.DAX:31:0:0",
     /^(?!.*ABATTLEBEGINS).*YOUSEEAPACKOFTROLLS.*THEYSEEMUNAWAREOFYOU/i, towerTrollPoseTimes],
   ["portrait:area:5:ecl:9fa2:PIC5.DAX:31:", towerTrollPoseOrder, undefined,

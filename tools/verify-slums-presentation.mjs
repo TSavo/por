@@ -3410,6 +3410,23 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:20:PIC2.DAX:0:0:0", prompt: /YOUINTERRUPTSOMEFEEDINGKOBOLDS/i,
     approachSequence: [[48, 32, "encounter:area:20:ecl:a4d4:SPRIT2.DAX:0:0:0", 40, 80]],
   }],
+  ["slums-feeding-kobolds-hold", {
+    slot: "B", fixedClockStart: "4320000", stockInput: true, inputs: ["up"],
+    portrait: "portrait:area:20:PIC2.DAX:0:0:0", prompt: /YOUINTERRUPTSOMEFEEDINGKOBOLDS/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => member
+      ? `portrait:area:20:ecl:b6df:caller:a4f8:PIC2.DAX:0:${member}:0` : "portrait:area:20:PIC2.DAX:0:0:0"),
+  }],
+  ["slums-goblin-guard-alert-hold", {
+    slot: "B", fixedClockStart: "4320000", stockInput: true, inputs: ["up", "b"],
+    portrait: "portrait:area:20:ecl:b6df:caller:ac2f:PIC2.DAX:2:0:0", prompt: /YOUHAVEALERTEDTHEGUARDS/i,
+    heldPortraitLoop: [0, 1].map(member => `portrait:area:20:ecl:b6df:caller:ac2f:PIC2.DAX:2:${member}:0`),
+  }],
+  ["slums-grain-sack-hold", {
+    slot: "B", fixedClockStart: "4320000", stockInput: true, inputs: ["up"],
+    portrait: "portrait:area:20:PIC2.DAX:31:0:0", prompt: /SOMEMONSTERSARETOSSINGASACKOFGRAIN/i,
+    heldPortraitLoop: [0, 1, 2, 3, 4, 3, 2, 1].map(member => member
+      ? `portrait:area:20:ecl:b6df:caller:b0ec:PIC2.DAX:31:${member}:0` : "portrait:area:20:PIC2.DAX:31:0:0"),
+  }],
   ["new-phlan-innkeeper", {
     slot: "A", inputs: ["up", "enter"],
     portrait: "portrait:area:0:HEAD3.DAX:45:BODY3.DAX:24", prompt: /ITWILLCOSTYOU1PLATINUMPIECETORESTHERE/i,
