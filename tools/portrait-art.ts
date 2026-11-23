@@ -589,6 +589,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:17:ecl:9da2:caller:a12a", /THEHEADMANTORALLYHISPEOPLE.*HELEADSHISTRIBEINTOBATTLE/i],
   ["scene-illustration:area:17:ecl:9da2:caller:af47", /AHORDEOFKOBOLDSISATTACKINGTHECAMP.*AFAMILYEMERGESFROMAHUTANDCHARGESTHEKOBOLDS/i],
   ["scene-illustration:area:17:ecl:9da2:caller:b0fb", /KOBOLDSMOVINGRELUN?CTANTLYFORWARD.*THEHEADMANWALKSUPANDSLAPSYOUONTHEBACK/i],
+  ["scene-illustration:area:17:ecl:9da2:caller:b1b6", /THEHEADMANSNEERS.*FORHYRNKA.*HEANDHISTWOGUARDSCHARGEINTOTHEPACK/i],
+  ["scene-illustration:area:17:ecl:9da2:caller:b235", /AFLURRYOFARROWSSTRIKETHEM.*AGUARDFALLSWITHASCOREOFWOUNDS/i],
   ["scene-illustration:area:17:ecl:b13d", "WELLDONE!WHATSAYWEFINISHTHISTOGETHER"],
   ["scene-illustration:area:17:ecl:9da2:caller:b629", /THEHEADMAN,HISSHAMANANDGUARDSATTACK.*ATTHESAMETIMEKOBOLDSATTACK/i],
   ["scene-illustration:area:23:ecl:a33a:cue:research-notebook", "YOUFINDANOTEBOOK.ATYPICALENTRYREADS"],

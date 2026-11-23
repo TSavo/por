@@ -10,5 +10,7 @@ at 00:29, with its original alliance, roster, and other state intact.
 Encamp, Rest, Hours, Increment 18 times, then Rest. Space opens the
 interrupt menu and No continues resting to 18:29. Enter shows the horde
 and the headman's greeting. Enter again opens his Destroy the Kobolds
-or Flee offer. D leads to the guest's native battle notice. Both replays
-use ordinary keys and leave the resulting combat to the game.
+or Flee offer. D leads to the guest's native battle notice. F instead
+shows Hassad and his two guards charging. Enter advances to the volley
+that strikes them. These inputs exercise the same unmodified game
+script and leave the resulting combat to the game.

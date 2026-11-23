@@ -832,6 +832,8 @@ const tyrmorPriestChisel = {
 };
 
 const nomadSentryWalk = ["up", "up", "up", "up", "left", "up"];
+const nomadRaidWarCries = ["e", "r", "h", ...Array(18).fill("i"), "r", "space", "n"];
+const nomadRaidAlliance = [...nomadRaidWarCries, "enter", "enter"];
 const nomadGuardWalk = [...nomadSentryWalk, "enter", "p", "enter", "y", "enter", "enter", "e",
   "left", "left", "up", "up", "left", "up", "right", "up"];
 const nomadSentryPortrait = "portrait:HEAD7.DAX:61:BODY7.DAX:30";
@@ -1902,7 +1904,7 @@ const illustrationRoutes = new Map([
       screenshot: "nomad-camp-sentry-battle-notice.png" },
   }],
   ["nomad-raid-first-attack", {
-    slot: "A", inputs: ["e", "r", "h", ...Array(18).fill("i"), "r", "space", "n", "enter"], fixedClockStart: 4320000,
+    slot: "A", inputs: [...nomadRaidWarCries, "enter"], fixedClockStart: 4320000,
     portrait: "scene-illustration:area:17:ecl:9da2:caller:af47",
     prompt: /AHORDEOFKOBOLDSISATTACKINGTHECAMP.*AFAMILYEMERGESFROMAHUTANDCHARGESTHEKOBOLDS/i,
     illustratedScenery: true, finalPhaseCapture: "nomad-raid-first-attack.png",
@@ -1912,7 +1914,7 @@ const illustrationRoutes = new Map([
         placement: [56, 32, "encounter:area:17:SPRIT7.DAX:0:1:0", 24, 65] } },
   }],
   ["nomad-raid-alliance", {
-    slot: "A", inputs: ["e", "r", "h", ...Array(18).fill("i"), "r", "space", "n", "enter"], fixedClockStart: 4320000,
+    slot: "A", inputs: [...nomadRaidWarCries, "enter"], fixedClockStart: 4320000,
     portrait: "scene-illustration:area:17:ecl:9da2:caller:b0fb",
     prompt: /KOBOLDSMOVINGRELUN?CTANTLYFORWARD.*THEHEADMANWALKSUPANDSLAPSYOUONTHEBACK/i,
     illustratedScenery: true, finalPhaseCapture: "nomad-raid-alliance.png",
@@ -1921,11 +1923,26 @@ const illustrationRoutes = new Map([
       screenshot: "nomad-raid-alliance-offer.png" },
   }],
   ["nomad-raid-alliance-offer", {
-    slot: "A", inputs: ["e", "r", "h", ...Array(18).fill("i"), "r", "space", "n", "enter", "enter"], fixedClockStart: 4320000,
+    slot: "A", inputs: nomadRaidAlliance, fixedClockStart: 4320000,
     portrait: "scene-illustration:area:17:ecl:b13d",
     prompt: /WELLDONE!WHATSAYWEFINISHTHISTOGETHER.*DESTROYTHEKOBOLDSFLEE/i,
     illustratedScenery: true, finalPhaseCapture: "nomad-raid-alliance-offer.png",
     continuation: { inputs: ["d"], clearsPortrait: true, prompt: /THENLETUSDOIT!.*ABATTLEBEGINS/i },
+  }],
+  ["nomad-raid-alliance-refusal", {
+    slot: "A", inputs: [...nomadRaidAlliance, "f"], fixedClockStart: 4320000,
+    portrait: "scene-illustration:area:17:ecl:9da2:caller:b1b6",
+    prompt: /THEHEADMANSNEERS.*FORHYRNKA.*HEANDHISTWOGUARDSCHARGEINTOTHEPACK/i,
+    illustratedScenery: true, finalPhaseCapture: "nomad-raid-hassad-charge.png",
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:17:ecl:9da2:caller:b235",
+      prompt: /AFLURRYOFARROWSSTRIKETHEM.*AGUARDFALLSWITHASCOREOFWOUNDS/i,
+      screenshot: "nomad-raid-arrow-volley-after-charge.png" },
+  }],
+  ["nomad-raid-alliance-volley", {
+    slot: "A", inputs: [...nomadRaidAlliance, "f", "enter"], fixedClockStart: 4320000,
+    portrait: "scene-illustration:area:17:ecl:9da2:caller:b235",
+    prompt: /AFLURRYOFARROWSSTRIKETHEM.*AGUARDFALLSWITHASCOREOFWOUNDS/i,
+    illustratedScenery: true, finalPhaseCapture: "nomad-raid-arrow-volley.png",
   }],
   ["nomad-raid-betrayal", {
     slot: "A", inputs: ["e", "r", "h", "i", "r", "enter"], fixedClockStart: 4320000,
@@ -9008,7 +9025,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "sokal-barracks-ghost-phases" ||
       /^nomad-camp-sentry-(families|parlay|combat)$/.test(routeName) ||
       /^nomad-guard-(follow|attack)$/.test(routeName) ||
-      /^nomad-raid-(alliance(?:-offer)?|betrayal|first-attack)$/.test(routeName) ||
+      /^nomad-raid-(alliance(?:-offer|-refusal|-volley)?|betrayal|first-attack)$/.test(routeName) ||
       routeName === "nomad-morning-walk" ||
       routeName === "nomad-feast-held-sequence" ||
       /^nomad-pursuit-(combat|flee|menu)$/.test(routeName) ||
