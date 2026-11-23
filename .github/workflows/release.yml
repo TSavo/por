@@ -4,7 +4,7 @@ name: release
 #   A tag push (v<package.json version>, e.g. v0.1.0) builds and publishes the release for that tag.
 #   Run workflow (workflow_dispatch) with dry_run on (the default) builds everything and keeps the
 #   packages and SHA256SUMS as workflow artifacts only; nothing is published.
-# Windows and Linux pack on Battleaxe (makensis, Pillow) with POR_ASSETS_DIR=$HOME/por-assets, so
+# Windows and Linux pack on Battleaxe (makensis, Pillow, the Electron runtime) with POR_ASSETS_DIR=$HOME/por-assets, so
 # release:pack's byte check against por-assets runs. The Mac images need macOS's tools and pack on a
 # GitHub-hosted Mac, which has no por-assets: each mounted image is listed there and the list is
 # checked against por-assets on Battleaxe. Nothing of por-assets is read anywhere but Battleaxe.
@@ -68,12 +68,14 @@ jobs:
           echo "publish=$publish" >> "$GITHUB_OUTPUT"
           echo "Version $version, tag $tag, publish $publish" >> "$GITHUB_STEP_SUMMARY"
       - run: node --version && npm ci --no-audit --no-fund
-      - name: Compile the server, runner and launcher (release:build)
+      - name: Compile the Electron main process and packaged web files (release:build)
         run: npm run -s release:build
       - uses: actions/upload-artifact@v4
         with:
           name: app
-          path: dist/app/
+          path: |
+            dist/electron/
+            dist/web/
           retention-days: 3
           if-no-files-found: error
 
@@ -91,7 +93,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: app
-          path: dist/app
+          path: dist
       - name: Pack windows and linux
         run: |
           export POR_ASSETS_DIR="$HOME/por-assets"
@@ -129,7 +131,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: app
-          path: dist/app
+          path: dist
       - name: Pack mac-arm64 and mac-x64
         run: |
           npx tsx tools/release/pack.ts mac

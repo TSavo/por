@@ -2,27 +2,28 @@
  * npm run release:pack [-- mac windows linux]: build the installers into dist/ from the committed port.
  * mac-arm64 or mac-x64 in place of mac builds that one disk image.
  * Run after npm run release:build (the npm script does both). The Mac app needs macOS for its tools:
- * osacompile, hdiutil, sips, iconutil and codesign come with it. makensis builds the Windows installer: here
+ * hdiutil, sips, iconutil and codesign come with it. makensis builds the Windows installer: here
  * when it is installed, else on the machine POR_NSIS_HOST names over ssh (apt-get install nsis there);
  * with neither, the installer is skipped with a message.
  *
  *   dist/Pool-of-Radiance-<version>-mac-arm64.dmg       Pool of Radiance.app for Apple silicon, to drag to Applications
  *   dist/Pool-of-Radiance-<version>-mac-x64.dmg         the same for Intel Macs
  *   dist/Pool-of-Radiance-<version>-windows-setup.exe   NSIS installer to Program Files
- *   dist/pool-of-radiance-<version>-linux-x64.tar.gz    a folder with a start script
+ *   dist/pool-of-radiance-<version>-linux-x64.tar.gz    a folder with the Electron app
  *
- * Every package holds the same files (docs/RELEASE.md lists them), the compiled app from dist/app and
- * the official Node runtime for its platform, checked against nodejs.org's SHASUMS256.txt.
+ * Every package holds the same game files (docs/RELEASE.md lists them), the compiled Electron main
+ * process from dist/electron, the packaged page from dist/web, and the official Electron runtime for
+ * its platform, checked against the release's SHASUMS256.txt.
  *
  * Packing is where nothing of por-assets may go in. The build fails if:
  *   1. a file in a package is an original game file (START.EXE, GAME.OVR, *.DAX, POOL.CFG and the other
- *      kinds .gitignore keeps out), a link, or a path naming por-assets; or a Classic sound
+ *      kinds .gitignore keeps out), a link out of the package, or a path naming por-assets; or a Classic sound
  *      (pc-speaker-NN.wav, tandy-NN.wav) or, where a por-assets directory sits beside the checkout (or
  *      POR_ASSETS_DIR names one), a file
  *      with the bytes of any file in it, unless it is the committed file at its own path in audio/classic
  *      (the port's own renders of the Classic sounds, which ship);
  *   2. game/ in a package is not byte for byte the committed game/ (the same files, the same git blobs);
- *   3. the compiled server, runner or launcher contains the string por-assets.
+ *   3. the compiled Electron main process contains the string por-assets.
  *
  * `npx tsx tools/release/pack.ts --check <directory>` runs checks 1 and 2 alone on an unpacked package
  * or an install, such as the Contents of an installed Mac app.
@@ -30,16 +31,24 @@
 import { execFileSync, execSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
-  chmodSync, constants, copyFileSync, existsSync, lstatSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync,
-  statSync, symlinkSync, writeFileSync,
+  chmodSync, constants, copyFileSync, existsSync, lstatSync, mkdirSync, readdirSync, readFileSync, readlinkSync,
+  realpathSync, renameSync, rmSync, statSync, symlinkSync, writeFileSync,
 } from "node:fs";
-import { basename, dirname, join, relative } from "node:path";
+import { basename, dirname, join, relative, resolve, sep } from "node:path";
 import { fromPortRoot } from "../port-root.js";
 
-const nodeVersion = "v26.13.1";
-const version = (JSON.parse(readFileSync(fromPortRoot("package.json"), "utf8")) as { version: string }).version;
+const packageJson = JSON.parse(readFileSync(fromPortRoot("package.json"), "utf8")) as {
+  version: string;
+  devDependencies: { electron?: string };
+};
+const version = packageJson.version;
+const electronVersion = `v${(packageJson.devDependencies.electron ?? "").replace(/^v/, "")}`;
+if (!/^v\d+\.\d+\.\d+$/.test(electronVersion)) {
+  throw new Error(`package.json's electron version must be exact (got ${packageJson.devDependencies.electron})`);
+}
 const dist = fromPortRoot("dist");
-const app = join(dist, "app");
+const electronApp = join(dist, "electron");
+const webFiles = join(dist, "web");
 const stages = join(dist, "stage");
 const cache = join(dist, "cache");
 const requested = process.argv.slice(2);
@@ -50,10 +59,10 @@ for (const platform of platforms) {
   }
 }
 // The Mac disk images to build: both for mac, or the one architecture named.
-const macArchitectures = platforms.includes("mac") ? ["arm64", "x64"]
-  : platforms.flatMap((platform) => platform.startsWith("mac-") ? [platform.slice(4)] : []);
+const macArchitectures: Array<"arm64" | "x64"> = platforms.includes("mac") ? ["arm64", "x64"]
+  : platforms.flatMap((platform) => platform === "mac-arm64" ? ["arm64"] : platform === "mac-x64" ? ["x64"] : []);
 const onMac = process.platform === "darwin";
-// The Mac app needs macOS's own tools (hdiutil, osacompile, sips, iconutil, codesign). The Windows installer
+// The Mac app needs macOS's own tools (hdiutil, sips, iconutil, codesign). The Windows installer
 // and the Linux archive can be packed elsewhere: their icon is cut with python3 and Pillow, and makensis
 // builds the installer where it is installed (apt-get install nsis).
 if (!onMac && macArchitectures.length) throw new Error("release:pack for mac uses macOS's own tools; on this machine pack windows or linux");
@@ -64,16 +73,13 @@ const run = (command: string, args: string[], options: { cwd?: string } = {}) =>
   execFileSync(command, args, { stdio: ["ignore", "pipe", "inherit"], maxBuffer: 1 << 28, ...options }).toString("utf8");
 const git = (...args: string[]) => run("git", ["-C", fromPortRoot(), ...args]);
 
-/** The port's own files the server and runner read, as committed. */
+/** The port's own files the page and engine read, as committed. The packaged page itself is dist/web. */
 const payloadPaths = [
   "game", "upgrades", "audio", "qa/art-worklist-cells.json",
   "src/audio/voices.json", "src/audio/voice-master-manifest.json", "src/audio/original-sounds.json",
   "src/maps/geography-model.json", "src/maps/atlas.json", "src/codewheel/wheel.json",
-  "tools/play.html", "tools/play.js", "tools/loading.html", "tools/renderer.js",
-  "tools/held-portrait-loops.mjs",
-  "tools/code-wheel.html", "tools/code-wheel.js", "tools/code-wheel-draw.js", "tools/rune-glyphs.js",
 ];
-const compiled = ["launch.mjs", "server.mjs", "runner.mjs"];
+const compiled = ["main.js", "package.json"];
 
 function files(directory: string, base = directory): string[] {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -92,6 +98,24 @@ function cloneInto(from: string, to: string): void {
     else if (entry.isFile()) copyFileSync(source, target, constants.COPYFILE_FICLONE);
     else throw new Error(`${source} is not a plain file`);
   }
+}
+
+/** Copy a tree, including in-package symlinks (Electron's Mac framework uses them). */
+function copyTree(from: string, to: string): void {
+  mkdirSync(to, { recursive: true });
+  for (const entry of readdirSync(from, { withFileTypes: true })) {
+    const source = join(from, entry.name), target = join(to, entry.name);
+    if (entry.isSymbolicLink()) symlinkSync(readlinkSync(source), target);
+    else if (entry.isDirectory()) copyTree(source, target);
+    else if (entry.isFile()) copyFileSync(source, target, constants.COPYFILE_FICLONE);
+    else throw new Error(`${source} is not a plain file`);
+  }
+}
+
+function isInside(root: string, path: string): boolean {
+  const base = resolve(root);
+  const full = resolve(path);
+  return full === base || full.startsWith(base + sep);
 }
 
 const sha256 = (data: Uint8Array) => createHash("sha256").update(data).digest("hex");
@@ -125,6 +149,7 @@ function checkGame(root: string, label: string): void {
 // ---- Check 1: nothing from por-assets, nothing of the original game. ----
 const originalName = /^(?:start\.exe|game\.ovr|pool\.cfg)$|\.(?:dax|ovr|ex_|pic|cmp)$/i;
 const classicSound = /^(?:pc-speaker|tandy)-\d\d\.wav$/i;
+const payloadProgram = /(?:^|\/)(?:game|upgrades|audio|web|src|qa|Resources\/app|app)\//i;
 // Beside the checkout, as the owner keeps it, or the directory POR_ASSETS_DIR names (the release workflow
 // names $HOME/por-assets on Battleaxe, and then it must exist). Read only to prove that no packaged file is
 // one of its files.
@@ -145,20 +170,29 @@ const assetHashes = new Map<string, string>();
 // only when it is the committed file at its own path, blob for blob; the same sound anywhere else, or
 // changed, is refused.
 const committedClassic = committedBlobs("audio/classic");
-function checkNothingOriginal(root: string, label: string, executables: string[]): void {
+function checkNothingOriginal(root: string, label: string): void {
   const problems: string[] = [];
   let compared = 0, classic = 0;
   for (const path of files(root)) {
     const full = join(root, path);
     const name = basename(path);
-    // Inside the Mac app the port's files are under Resources.
+    // Inside the Mac app the port's files are under Resources; in the Electron app they stay there.
     const payloadPath = path.startsWith("Resources/") ? path.slice("Resources/".length) : path;
-    const committedClassicSound = committedClassic.has(payloadPath) && committedClassic.get(payloadPath) === gitBlob(full);
-    if (committedClassicSound) classic++;
-    if (lstatSync(full).isSymbolicLink()) problems.push(`${path} is a link`);
+    const info = lstatSync(full);
+    if (info.isSymbolicLink()) {
+      let target: string;
+      try { target = realpathSync(full); } catch {
+        problems.push(`${path} is a broken link`);
+        continue;
+      }
+      if (!isInside(root, target)) problems.push(`${path} is a link`);
+    }
     if (/por-assets/i.test(path)) problems.push(`${path} names por-assets`);
     if (originalName.test(name)) problems.push(`${path} is an original game file`);
-    if (/\.exe$/i.test(name) && !executables.includes(path)) problems.push(`${path} is a program`);
+    if (/\.exe$/i.test(name) && payloadProgram.test(path.replace(/\\/g, "/"))) problems.push(`${path} is a program`);
+    if (!info.isFile()) continue;
+    const committedClassicSound = committedClassic.has(payloadPath) && committedClassic.get(payloadPath) === gitBlob(full);
+    if (committedClassicSound) classic++;
     if (classicSound.test(name) && !committedClassicSound) problems.push(`${path} is a Classic sound that is not the committed audio/classic file`);
     const candidates = assetsBySize.get(statSync(full).size);
     if (candidates && !committedClassicSound) {
@@ -174,7 +208,7 @@ function checkNothingOriginal(root: string, label: string, executables: string[]
   const against = existsSync(porAssets)
     ? `; no other file has the bytes of any of por-assets' files (${compared} same-size comparisons)`
     : "; no por-assets beside the checkout to compare bytes with";
-  log(`check 1 passed in ${label}: no original game file, link or por-assets path; ${classic} files are the committed ` +
+  log(`check 1 passed in ${label}: no original game file, outbound link or por-assets path; ${classic} files are the committed ` +
     `audio/classic, and no other is a Classic sound${against}`);
 }
 
@@ -182,18 +216,17 @@ function checkNothingOriginal(root: string, label: string, executables: string[]
 if (requested[0] === "--check") {
   const directory = requested[1];
   if (!directory) throw new Error("--check needs the directory to check");
-  checkNothingOriginal(directory, directory, ["node/node.exe", "Uninstall.exe"]);
+  checkNothingOriginal(directory, directory);
   checkGame(existsSync(join(directory, "game")) ? directory : join(directory, "Resources"), directory);
   process.exit(0);
 }
 
-// ---- The payload: the committed files, the compiled app, the icons. ----
-for (const name of compiled) if (!existsSync(join(app, name))) throw new Error(`${join(app, name)} is missing: run npm run release:build`);
-// Check 3: nothing compiled names por-assets.
-for (const name of compiled) {
-  if (readFileSync(join(app, name), "utf8").includes("por-assets")) throw new Error(`Check 3 failed: dist/app/${name} names por-assets`);
-}
-log(`check 3 passed: ${compiled.join(", ")} do not name por-assets`);
+// ---- The payload: the committed files, the compiled app, the packaged page, the icons. ----
+for (const name of compiled) if (!existsSync(join(electronApp, name))) throw new Error(`${join(electronApp, name)} is missing: run npm run release:build`);
+if (!existsSync(join(webFiles, "play.html"))) throw new Error(`${join(webFiles, "play.html")} is missing: run npm run release:build`);
+// Check 3: the compiled main process does not name por-assets.
+if (readFileSync(join(electronApp, "main.js"), "utf8").includes("por-assets")) throw new Error("Check 3 failed: dist/electron/main.js names por-assets");
+log("check 3 passed: dist/electron/main.js does not name por-assets");
 
 rmSync(stages, { recursive: true, force: true });
 const payload = join(stages, "payload");
@@ -202,8 +235,18 @@ const commit = git("rev-parse", "--short", "HEAD").trim();
 log(`extracting the committed port at ${commit}`);
 execSync(`git -C '${fromPortRoot()}' archive --format=tar HEAD -- ${payloadPaths.map((path) => `'${path}'`).join(" ")} | tar -xf - -C '${payload}'`,
   { stdio: ["ignore", "inherit", "inherit"] });
-cloneInto(app, join(payload, "app"));
+cloneInto(webFiles, join(payload, "web"));
 for (const path of payloadPaths) if (!existsSync(join(payload, path))) throw new Error(`${path} is not in the commit`);
+if (!existsSync(join(payload, "web", "play.html"))) throw new Error("dist/web/play.html was not staged");
+
+/** The game's files and the Electron main process, under an Electron resources/ directory. */
+function installApp(resources: string): void {
+  rmSync(join(resources, "default_app.asar"), { force: true });
+  mkdirSync(join(resources, "app"), { recursive: true });
+  copyFileSync(join(electronApp, "main.js"), join(resources, "app", "main.js"));
+  copyFileSync(join(electronApp, "package.json"), join(resources, "app", "package.json"));
+  cloneInto(payload, resources);
+}
 
 // Icons from the title picture: the middle of the harbour, square.
 const icons = join(stages, "icons");
@@ -236,12 +279,11 @@ ico.writeUInt32LE(22, 18);
 writeFileSync(join(icons, "pool-of-radiance.ico"), Buffer.concat([ico, png256]));
 copyFileSync(join(iconset, "icon_256x256.png"), join(icons, "pool-of-radiance.png"));
 
-// ---- Node, from nodejs.org, checked against its published sums. ----
+// ---- Electron, from its GitHub releases, checked against its published sums. ----
 mkdirSync(cache, { recursive: true });
-async function download(file: string): Promise<string> {
+async function download(url: string, file: string): Promise<string> {
   const target = join(cache, file);
   if (existsSync(target)) return target;
-  const url = `https://nodejs.org/dist/${nodeVersion}/${file}`;
   log(`downloading ${url}`);
   const response = await fetch(url);
   if (!response.ok) throw new Error(`${url}: ${response.status}`);
@@ -249,53 +291,48 @@ async function download(file: string): Promise<string> {
   renameSync(`${target}.part`, target);
   return target;
 }
-const sums = new Map(readFileSync(await download("SHASUMS256.txt"), "utf8").trim().split("\n")
-  .map((line) => line.split(/\s+/)).map(([sum, file]) => [file!, sum!]));
-/** bin/node or node.exe, and LICENSE, of one Node build, in their own directory. */
-async function nodeBuild(build: string, kind: "tar.gz" | "tar.xz" | "zip"): Promise<string> {
-  const file = `node-${nodeVersion}-${build}.${kind}`;
-  const archive = await download(file);
-  if (sha256(readFileSync(archive)) !== sums.get(file)) throw new Error(`${file} does not match nodejs.org's SHASUMS256.txt`);
-  const out = join(cache, `node-${nodeVersion}-${build}`);
-  if (existsSync(join(out, "LICENSE"))) return out;
+const electronBase = `https://github.com/electron/electron/releases/download/${electronVersion}`;
+const electronSums = new Map(readFileSync(await download(`${electronBase}/SHASUMS256.txt`, `electron-${electronVersion}-SHASUMS256.txt`), "utf8")
+  .trim().split("\n").map((line) => line.split(/\s+/)).map(([sum, file]) => [file!, sum!]));
+/** One official Electron build, unzipped. */
+async function electronDist(platform: "linux" | "win32" | "darwin", arch: "x64" | "arm64"): Promise<string> {
+  const file = `electron-${electronVersion}-${platform}-${arch}.zip`;
+  const archive = await download(`${electronBase}/${file}`, file);
+  if (sha256(readFileSync(archive)) !== electronSums.get(file)) throw new Error(`${file} does not match Electron's SHASUMS256.txt`);
+  const out = join(cache, `electron-${electronVersion}-${platform}-${arch}`);
+  const marker = platform === "darwin" ? join(out, "Electron.app", "Contents", "Info.plist") : join(out, "LICENSE");
+  if (existsSync(marker)) return out;
   mkdirSync(out, { recursive: true });
-  const prefix = `node-${nodeVersion}-${build}`;
-  if (kind === "zip") run("unzip", ["-q", "-o", "-j", archive, `${prefix}/node.exe`, `${prefix}/LICENSE`, "-d", out]);
-  else run("tar", [kind === "tar.gz" ? "-xzf" : "-xJf", archive, "-C", out, "--strip-components", "1", `${prefix}/bin/node`, `${prefix}/LICENSE`]);
+  log(`unpacking ${file}`);
+  run("unzip", ["-q", "-o", archive, "-d", out]);
   return out;
 }
 
 const outputs: string[] = [];
 const size = (path: string) => `${(statSync(path).size / 1e6).toFixed(0)} MB`;
 
-// One disk image per architecture: each holds a single Node, not the two joined with lipo (150 MB less each).
 for (const arch of macArchitectures) {
-  const nodeDir = await nodeBuild(`darwin-${arch}`, "tar.gz");
+  const electron = await electronDist("darwin", arch);
   const dmgFolder = join(stages, `mac-${arch}`);
   const bundle = join(dmgFolder, "Pool of Radiance.app");
   mkdirSync(dmgFolder, { recursive: true });
-  log(`compiling the Mac app (${arch})`);
-  run("osacompile", ["-s", "-o", bundle, fromPortRoot("tools", "release", "mac-app.applescript")]);
+  log(`building the Mac app (${arch})`);
+  copyTree(join(electron, "Electron.app"), bundle);
   const contents = join(bundle, "Contents");
-  cloneInto(payload, join(contents, "Resources"));
-  copyFileSync(join(nodeDir, "bin", "node"), join(contents, "MacOS", "node"));
-  chmodSync(join(contents, "MacOS", "node"), 0o755);
-  mkdirSync(join(contents, "Resources", "licenses"), { recursive: true });
-  copyFileSync(join(nodeDir, "LICENSE"), join(contents, "Resources", "licenses", "node-LICENSE"));
-  copyFileSync(icns, join(contents, "Resources", "applet.icns"));
-  rmSync(join(contents, "Resources", "Assets.car"), { force: true });
+  renameSync(join(contents, "MacOS", "Electron"), join(contents, "MacOS", "Pool of Radiance"));
+  installApp(join(contents, "Resources"));
+  copyFileSync(icns, join(contents, "Resources", "electron.icns"));
   const plist = join(contents, "Info.plist");
-  try { run("plutil", ["-remove", "CFBundleIconName", plist]); } catch { /* osacompile did not set one */ }
   for (const [key, value] of [
     ["CFBundleIdentifier", "io.github.tsavo.pool-of-radiance"], ["CFBundleName", "Pool of Radiance"],
-    ["CFBundleDisplayName", "Pool of Radiance"], ["CFBundleShortVersionString", version], ["CFBundleVersion", version],
-    ["LSMinimumSystemVersion", "13.5"], ["CFBundleIconFile", "applet"],
+    ["CFBundleDisplayName", "Pool of Radiance"], ["CFBundleExecutable", "Pool of Radiance"],
+    ["CFBundleShortVersionString", version], ["CFBundleVersion", version],
+    ["LSMinimumSystemVersion", "13.5"], ["CFBundleIconFile", "electron.icns"],
   ]) run("plutil", ["-replace", key!, "-string", value!, plist]);
-  checkNothingOriginal(contents, `the Mac app (${arch})`, []);
+  checkNothingOriginal(contents, `the Mac app (${arch})`);
   checkGame(join(contents, "Resources"), `the Mac app (${arch})`);
-  // The app is changed after osacompile signed it. An ad-hoc signature seals it again; a Developer ID replaces it.
   log("sealing the app with an ad-hoc signature");
-  run("codesign", ["--force", "--sign", "-", bundle]);
+  run("codesign", ["--force", "--deep", "--sign", "-", bundle]);
   run("codesign", ["--verify", "--strict", bundle]);
   symlinkSync("/Applications", join(dmgFolder, "Applications"));
   const dmg = join(dist, `Pool-of-Radiance-${version}-mac-${arch}.dmg`);
@@ -307,15 +344,15 @@ for (const arch of macArchitectures) {
 }
 
 if (platforms.includes("windows")) {
-  const node = await nodeBuild("win-x64", "zip");
+  const electron = await electronDist("win32", "x64");
   const stage = join(stages, "windows");
-  cloneInto(payload, stage);
-  mkdirSync(join(stage, "node"), { recursive: true });
-  copyFileSync(join(node, "node.exe"), join(stage, "node", "node.exe"));
-  copyFileSync(join(node, "LICENSE"), join(stage, "node", "LICENSE"));
+  log("building the Windows install");
+  copyTree(electron, stage);
+  renameSync(join(stage, "electron.exe"), join(stage, "Pool of Radiance.exe"));
+  installApp(join(stage, "resources"));
   copyFileSync(join(icons, "pool-of-radiance.ico"), join(stage, "pool-of-radiance.ico"));
-  checkNothingOriginal(stage, "the Windows install", ["node/node.exe"]);
-  checkGame(stage, "the Windows install");
+  checkNothingOriginal(stage, "the Windows install");
+  checkGame(join(stage, "resources"), "the Windows install");
   let makensis: string | undefined;
   try { makensis = run("sh", ["-c", "command -v makensis"]).trim(); } catch { makensis = undefined; }
   const nsisHost = process.env.POR_NSIS_HOST;
@@ -347,33 +384,25 @@ if (platforms.includes("windows")) {
 }
 
 if (platforms.includes("linux")) {
-  const node = await nodeBuild("linux-x64", "tar.xz");
+  const electron = await electronDist("linux", "x64");
   const name = `pool-of-radiance-${version}`;
   const stage = join(stages, "linux", name);
-  cloneInto(payload, stage);
-  mkdirSync(join(stage, "node", "bin"), { recursive: true });
-  copyFileSync(join(node, "bin", "node"), join(stage, "node", "bin", "node"));
-  chmodSync(join(stage, "node", "bin", "node"), 0o755);
-  copyFileSync(join(node, "LICENSE"), join(stage, "node", "LICENSE"));
+  log("building the Linux folder");
+  copyTree(electron, stage);
+  renameSync(join(stage, "electron"), join(stage, "pool-of-radiance"));
+  chmodSync(join(stage, "pool-of-radiance"), 0o755);
+  installApp(join(stage, "resources"));
   copyFileSync(join(icons, "pool-of-radiance.png"), join(stage, "pool-of-radiance.png"));
-  writeFileSync(join(stage, "pool-of-radiance"), [
-    "#!/bin/sh",
-    "# Starts Pool of Radiance and opens it in the browser. Ctrl-C or closing the terminal stops it.",
-    'here=$(dirname "$(readlink -f "$0")")',
-    'exec "$here/node/bin/node" "$here/app/launch.mjs" "$@"',
-    "",
-  ].join("\n"), { mode: 0o755 });
+  copyFileSync(join(icons, "pool-of-radiance.png"), join(stage, "resources", "pool-of-radiance.png"));
   writeFileSync(join(stage, "README.txt"), [
     "Pool of Radiance",
     "",
-    "Run ./pool-of-radiance from this folder (or double-click it, if your file manager runs scripts).",
-    "It starts the game and opens it in your browser; Chrome is recommended. If no browser opens, open",
-    "the address it prints. Press Ctrl-C or close the terminal to stop the game.",
-    "Saves are kept in ~/.local/share/pool-of-radiance/saves.",
+    "Run ./pool-of-radiance from this folder (or double-click it, if your file manager runs it).",
+    "Saves are kept in ~/.config/Pool of Radiance.",
     "",
   ].join("\n"));
-  checkNothingOriginal(stage, "the Linux folder", []);
-  checkGame(stage, "the Linux folder");
+  checkNothingOriginal(stage, "the Linux folder");
+  checkGame(join(stage, "resources"), "the Linux folder");
   const archive = join(dist, `${name}-linux-x64.tar.gz`);
   log("building the Linux archive");
   // No macOS extended attributes or AppleDouble files, which tar on Linux warns about.

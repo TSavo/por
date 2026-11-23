@@ -20,31 +20,39 @@ import { pageFiles, playPage, soundManifest } from "./static-files.js";
 
 export const looseOutput = fileURLToPath(new URL("../../out/loose/", import.meta.url));
 
-export async function buildLoose(output = looseOutput) {
-  const started = Date.now();
+/** The computed page, bundles, resource index, sound manifest and party recolour masks, under `webDir`. */
+export async function writeLooseWeb(webDir: string) {
   const bundle = await buildWeb(undefined, { quiet: true });
-  rmSync(output, { recursive: true, force: true });
+  rmSync(webDir, { recursive: true, force: true });
   const write = (relative: string, data: string | Uint8Array) => {
-    mkdirSync(dirname(join(output, relative)), { recursive: true });
-    writeFileSync(join(output, relative), data);
+    mkdirSync(dirname(join(webDir, relative)), { recursive: true });
+    writeFileSync(join(webDir, relative), data);
   };
   const { resources } = useNodeResources(fromPortRoot("game"), { artFile: (id) => artwork.get(id)?.path });
   const artwork = loadUpgradeArt(undefined, "res:game");
   const masks = loadCombatMaterialMasks(artwork);
-  // What the local server computes.
-  write("web/resource-index.json", JSON.stringify(resourceIndex(resources, artwork, masks)));
-  write("web/sound-manifest.json", soundManifest(resources));
-  write("web/play.html", playPage());
-  for (const [base, png] of masks) write(`web/art-materials/${base}.png`, png);
+  write("resource-index.json", JSON.stringify(resourceIndex(resources, artwork, masks)));
+  write("sound-manifest.json", soundManifest(resources));
+  write("play.html", playPage());
+  for (const [base, png] of masks) write(`art-materials/${base}.png`, png);
   const sources = pageFiles();
   for (const [url, relative] of loosePageFiles()) {
     const source = sources.get(url === "/" ? "" : url);
-    if (source) { mkdirSync(dirname(join(output, relative)), { recursive: true }); copyFileSync(source, join(output, relative)); }
+    if (!source) continue;
+    const dest = relative.startsWith("web/") ? relative.slice("web/".length) : relative;
+    mkdirSync(dirname(join(webDir, dest)), { recursive: true });
+    copyFileSync(source, join(webDir, dest));
   }
   for (const file of Object.keys(bundle.metafile.outputs)) {
     const name = file.split("/").at(-1)!;
-    copyFileSync(join(webOutput, name), join(output, "web", name));
+    copyFileSync(join(webOutput, name), join(webDir, name));
   }
+}
+
+export async function buildLoose(output = looseOutput) {
+  const started = Date.now();
+  rmSync(output, { recursive: true, force: true });
+  await writeLooseWeb(join(output, "web"));
   // The port's own files, in its layout.
   for (const folder of ["game", "upgrades", "audio", join("src", "maps")]) {
     mkdirSync(dirname(join(output, folder)), { recursive: true });
