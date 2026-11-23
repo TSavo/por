@@ -49,6 +49,10 @@ plus a camera-local torch or lantern indoors. Today's per-face brightness
 can stay as a starting term. Do not invent a day/night cycle or weather
 the game does not already have.
 
+**Scene-captured reflections.** Capture the built scene and sky once and
+use that environment for ambient and specular on materials (Saltline's
+PMREM-from-scene approach). Recapture when the area changes.
+
 **Soft shadows.** One sun or torch shadow map of the 16×16 grid. Watch
 bias on gates and pilings.
 
