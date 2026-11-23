@@ -437,3 +437,16 @@ checked by its binaries only (it cannot run on this Intel Mac).
   and desktop shortcuts, the uninstall entry, SmartScreen's prompt, and the finish page's Play.
 - The historical notes above describe the earlier Node launcher, which opened the game in a browser.
   The current packages are the Electron app.
+
+### Mac time to first visible window
+
+The internal Alpha 1 Electron disk images were opened three times each on fresh native GitHub-hosted Macs. Each time starts at Launch Services invocation and ends when WindowServer reports the first on-screen, normal-layer window belonging to the app, at least 320 by 200 points. Between launches the app quit and kept the same profile.
+
+| Runner | First launch | Second launch | Third launch |
+| --- | ---: | ---: | ---: |
+| Intel, macOS 15.7.9 | 10.136 s | 2.952 s | 3.134 s |
+| Apple Silicon, macOS 15.8.2 | 0.779 s | 0.541 s | 0.561 s |
+
+On the first Intel launch, Launch Services registered the app at 0.973 s. Another 9.163 s elapsed before the window appeared. The first Apple Silicon registration came at 0.068 s. The disk images, copied apps and main executables all lacked a quarantine attribute. These measurements leave the cause of the Intel delay and the experience opening a browser-downloaded copy in Finder unresolved. The older 30–40 s observation used the legacy Node launcher. [Packaged images](https://github.com/TSavo/por/actions/runs/45289483504) · [Native launch measurements](https://github.com/TSavo/por/actions/runs/45291537972) · [Issue #184](https://github.com/TSavo/por/issues/184)
+
+To repeat, dispatch the **Mac packaged first launch** workflow with the internal packaging run ID while its **package-mac** artifact is available.
