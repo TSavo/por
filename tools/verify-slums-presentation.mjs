@@ -3185,6 +3185,13 @@ const illustrationRoutes = new Map([
       prompt: /THEREMAINSOFANEVILALTARARENEARBY/i,
     },
   }],
+  ["bane-altar-destruction-one-shot", {
+    slot: "A", inputs: ["up", "d"], oneShotProducer: "ECL1.DAX:24:a9bb",
+    portrait: "scene-illustration:area:24:ecl:abbd:cue:altar-destruction-ambush",
+    prompt: /ASYOUDESTROYTHEALTAR.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "bane-altar-destruction-notice.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
   ["bane-camp-orc-ambush", {
     slot: "A", inputs: ["e", "enter", "r", "h", ...Array(6).fill("i"), "r", "enter", "enter"],
     portraitStops: {
@@ -8736,7 +8743,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "diogenes-silver-directions-loop" ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       /^tyrmor-prison-(kobolds|lizardfolk|displacer|stirge)-loop$/.test(routeName) ||
-      ["bane-captive-goblin-held", "bane-gate-inspection-holds", "bane-mansion-ogre-one-shot", "bane-mansion-symbol-hold", "bane-mansion-barracks-one-shot", "sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
+      ["bane-captive-goblin-held", "bane-gate-inspection-holds", "bane-mansion-ogre-one-shot", "bane-mansion-symbol-hold", "bane-mansion-barracks-one-shot", "bane-altar-destruction-one-shot", "sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
         "new-phlan-training-duels", "new-phlan-training-north-junction", "new-phlan-training-fighters-door",
         "new-phlan-training-rogues-door", "new-phlan-training-entrance-notice",
