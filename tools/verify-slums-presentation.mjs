@@ -4963,7 +4963,7 @@ const illustrationRoutes = new Map([
     prompt: /THEMANRUNSSCREAMINGINTOTHEBACKOFTHEBOOTH.*ABATTLEBEGINS/i,
     oneShotProducer: "ECL2.DAX:20:af46",
     finalPhaseCapture: "slums-potion-booth-ambush.png",
-    continuation: { automaticBattle: true, clearsPortrait: true, prompt: /HITPOINTS/i },
+    continuation: { automaticBattle: "opening-turn", clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
   ["slums-monster-council-phases", {
     slot: "B", inputs: ["up", "enter", "enter", ...Array(18).fill("q")],
@@ -13101,10 +13101,11 @@ try {
         });
       } else if (continuation.automaticBattle) {
         const sequence = frame.sequence;
-        frame = await waitFor("the manual combat turn after the notice", async () => {
+        frame = await waitFor("the combat turn after the notice", async () => {
           const next = await latest();
           const text = next.text.map(([, character]) => String.fromCharCode(character)).join("");
-          return next.ready && next.sequence > sequence && next.awaitsKey && !next.portrait && continuation.prompt.test(text) && next;
+          const inTurn = next.awaitsKey || (continuation.automaticBattle === "opening-turn" && next.automaticCombat);
+          return next.ready && next.sequence > sequence && inTurn && !next.portrait && continuation.prompt.test(text) && next;
         });
       } else {
         for (const key of continuation.inputs) await advance(key);
