@@ -432,6 +432,14 @@
     <iframe id="boot-wheel" title="Code word translation wheel" style="width:100%;height:46rem;border:0" hidden></iframe>
     <p id="status" role="status">Starting the game…</p>
     <p id="storage-status" role="status" hidden></p>
+    <dialog id="original-files-restart" aria-labelledby="original-files-restart-title">
+      <form method="dialog">
+        <h2 id="original-files-restart-title">Restart the game?</h2>
+        <p>Changing the original files restarts the game. Cancel and save first to keep your progress.</p>
+        <button type="submit" autofocus>Cancel</button>
+        <button id="original-files-continue" type="button">Continue</button>
+      </form>
+    </dialog>
     <dialog id="storage-error" aria-labelledby="storage-message">
       <p id="storage-message"></p>
       <button type="button" id="retry-storage" autofocus>Retry save</button>

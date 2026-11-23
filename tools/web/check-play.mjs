@@ -271,12 +271,42 @@ try {
   if (server !== "runner" && original) {
     await chrome.key("f10");
     await chrome.until("Classic again", "!enhanced");
-    const removed = await chrome.evaluate(`gameFetch("/original-files", {
-      method: "POST", body: JSON.stringify({ path: null }),
-    }).then(response => response.ok)`);
-    await chrome.until("the game to stop using the original files", "state.classicAvailable === false");
-    expect("removing the originals switches back to Enhanced and hides the Classic control",
-      removed && await chrome.evaluate("enhanced && presentation.hidden"));
+    await chrome.evaluate(`{
+      window.dispatchEvent(new Event("por-original-files-changed"));
+      if (document.querySelector("#settings").hidden) window.porShell.settings();
+    }`);
+    await chrome.until("the original files settings", '!document.querySelector("#original-files-stop").hidden');
+    const currentGame = () => chrome.evaluate("JSON.stringify([state.sequence, state.exploration, state.saveSlot, state.text, enhanced])");
+    const beforeChange = await currentGame();
+    const requestChange = async (action) => {
+      await chrome.evaluate(`document.querySelector("#original-files-${action}").click()`);
+      await chrome.until("the restart warning", 'document.querySelector("#original-files-restart").open');
+    };
+    const cancelChange = async () => {
+      await chrome.key("escape");
+      await chrome.until("the restart warning to close", '!document.querySelector("#original-files-restart").open');
+    };
+    const continueChange = () => chrome.evaluate('document.querySelector("#original-files-continue").click()');
+
+    await requestChange("use");
+    await cancelChange();
+    expect("canceling a folder change leaves the party and Classic display in place", await currentGame() === beforeChange);
+    await chrome.evaluate(`window.showDirectoryPicker = async () => {
+      window.testPickerCanceled = true;
+      throw new DOMException("Canceled", "AbortError");
+    }`);
+    await requestChange("use");
+    await continueChange();
+    await chrome.until("the canceled picker to return", 'window.testPickerCanceled && !document.querySelector("#original-files-use").disabled');
+    expect("canceling the picker leaves the party and Classic display in place", await currentGame() === beforeChange);
+
+    await requestChange("stop");
+    await cancelChange();
+    expect("canceling removal leaves the party and Classic display in place", await currentGame() === beforeChange);
+    await requestChange("stop");
+    await continueChange();
+    await chrome.until("the game to stop using the original files", "state.classicAvailable === false && enhanced && presentation.hidden");
+    expect("confirming removal restarts in Enhanced and hides the Classic control", true);
   }
 } catch (error) {
   failures.push(error.message);
