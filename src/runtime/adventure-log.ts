@@ -380,6 +380,11 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("rescue-inside-pen")) nextStep = "Choose Get Him and escort the boy out of the base.";
       else if (knows("rescue-stampede")) nextStep = "Head to the slave pen while the guards are rounding up the animals.";
       else if (knows("rescue-animal-pens")) nextStep = "Choose Release Animals at the animal pens to draw the guards away from the slave pen.";
+      else if (knows("rescue-captain-admitted")) nextStep = "Go through the guarded door and speak to the captain.";
+      else if (knows("rescue-captain-door")) nextStep = knows("rescue-pass-offered")
+        ? "At the guarded door, choose Show Pass. If you still need a pass, return to the merchant, choose Buy Pass, then Take."
+        : "At the guarded door, choose Show Pass if you have one. You can also choose Bribe or Leave.";
+      else if (knows("rescue-pass-offered")) nextStep = "Choose Buy Pass, then Take to collect the pass. Use it to ask for an audience with the captain.";
       else if (knows("rescue-sneak-blocked")) nextStep = "The guards spotted your approach. Choose Attack Guards or Leave to try another route.";
       else if (knows("rescue-pen-gate")) nextStep = "At the gate, choose Try to Sneak By or Attack.";
       else if (knows("rescue-merchant-alarm")) nextStep = "The merchant called his guards. Once clear of them, return to the slave pen to reach the boy.";
@@ -1159,6 +1164,18 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("YOUR ONLY HOPE IS TO RUN FOR THE FRONT GATE")) {
     leads.push({ id: "rescue-escape-alarm", title: "The alarm sounded", detail: "The front gate is the way out of the compound." });
+  }
+  if (text.includes("WANT TO BUY A PASS TO SEE THE CAPTAIN")) {
+    leads.push({ id: "rescue-pass-offered", title: "A pass to see the captain",
+      detail: "A merchant offered to sell the party a pass to see the Buccaneer Captain." });
+  }
+  if (text.includes("DO YOU HAVE A PASS TO SEE THE CAPTAIN")) {
+    leads.push({ id: "rescue-captain-door", title: "The captain's guarded door",
+      detail: "Two guards asked for a pass before they would let the party see the captain." });
+  }
+  if (text.includes("THE GUARDS LOOK AT YOUR PASS AND LET YOU PASS")) {
+    leads.push({ id: "rescue-captain-admitted", title: "The guards accepted the pass",
+      detail: "The guards allowed the party through to see the captain." });
   }
   if (text.includes("I CAN LET YOU BUY THE YOUNG BOY")) {
     leads.push({ id: "rescue-captain-price", title: "The captain named a price", detail: journalLeadDetails.get("rescue-captain-price")! });
