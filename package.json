@@ -25,6 +25,7 @@
     "verify:game-data": "tsx tools/verify-game-data.ts",
     "verify:game-data-records": "tsx tools/verify-game-data-records.ts",
     "verify:art-catalogue": "tsx tools/verify-art-catalogue.ts",
+    "verify:node-resources": "tsx tools/verify-node-resources.ts",
     "verify:art-files": "tsx tools/verify-art-files.ts",
     "art:worklist": "tsx tools/art-worklist.ts",
     "verify:art-worklist": "tsx tools/art-worklist.ts --verify",

@@ -48,7 +48,7 @@ interface LoadedArtwork {
 }
 
 export function loadCombatMaterialMasks(artwork: ReadonlyMap<string, LoadedArtwork>) {
-  const masks = new Map<string, Buffer>();
+  const masks = new Map<string, { readonly png: Buffer | undefined }>();
   const filesByDirectory = new Map<string, Set<string>>();
   // A companion PNG records the original material index for each enhanced pixel.
   for (const [id, art] of artwork) {
@@ -59,9 +59,16 @@ export function loadCombatMaterialMasks(artwork: ReadonlyMap<string, LoadedArtwo
     if (!files) filesByDirectory.set(directory, files = new Set(listArtDirectory(directory)));
     const name = art.file.replace(/\.png$/i, "-materials.png");
     if (name === art.file || !files.has(name)) continue;
-    const mask = readArtFile(within(directory, name));
-    const size = pngDimensions(mask);
-    if (size?.width === art.width && size.height === art.height) masks.set(id, mask);
+    const path = within(directory, name);
+    const size = pngHeaderDimensions(readArtFile(path, 33));
+    if (size?.width !== art.width || size.height !== art.height) continue;
+    masks.set(id, {
+      get png() {
+        const bytes = readArtFile(path);
+        const dimensions = pngDimensions(bytes);
+        return dimensions?.width === art.width && dimensions.height === art.height ? bytes : undefined;
+      },
+    });
   }
   return masks;
 }

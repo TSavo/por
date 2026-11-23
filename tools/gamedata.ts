@@ -4,6 +4,7 @@ import { parseDax, type DaxEntry } from "../src/lib/dax.js";
 import { loadExecutable, type LoadImage } from "../src/lib/exepack.js";
 import { dataFiles, GAME_DATA_FORMAT, loadPortGame, samePictureShape, type OriginalBlock, type PortGame } from "../src/runtime/game-data.js";
 import { fromPortRoot } from "./port-root.js";
+import { NodeDiskResources } from "./resources/node-disk.js";
 import { readJsonNow, resources } from "../src/resources/provider.js";
 
 const GAME_FILE = /\.(dax|exe|ovr|ex_|pic)$/i;
@@ -140,17 +141,10 @@ function readResource(root: ResourceRoot, name: string): Uint8Array {
 
 /** True when `dir` holds the port's own data files rather than the original game. */
 export function isPortGameRoot(dir: string): boolean {
-  if (isResourceRoot(dir)) {
-    try {
-      return readJsonNow<{ format?: string }>(resources(), `${rootKind(dir)}:manifest.json`)?.format === GAME_DATA_FORMAT;
-    } catch {
-      return false;
-    }
-  }
-  const manifest = path.join(dir, "manifest.json");
-  if (!fs.existsSync(manifest)) return false;
   try {
-    return (JSON.parse(fs.readFileSync(manifest, "utf8")) as { format?: string }).format === GAME_DATA_FORMAT;
+    const provider = isResourceRoot(dir) ? resources() : new NodeDiskResources({ game: dir });
+    const kind = isResourceRoot(dir) ? rootKind(dir) : "game";
+    return readJsonNow<{ format?: string }>(provider, `${kind}:manifest.json`)?.format === GAME_DATA_FORMAT;
   } catch {
     return false;
   }

@@ -16,7 +16,7 @@ import { fromPortRoot } from "../port-root.js";
 import { buildWeb, webOutput } from "./build.js";
 import { looseMaskPath, loosePageFiles } from "./loose-files.js";
 import { resourceIndex } from "./resource-index.js";
-import { pageFiles, playPage, soundManifest } from "./static-files.js";
+import { pageFiles, pageSources, playPage, soundManifest } from "./static-files.js";
 
 export const looseOutput = fileURLToPath(new URL("../../out/loose/", import.meta.url));
 
@@ -28,13 +28,16 @@ export async function writeLooseWeb(webDir: string) {
     mkdirSync(dirname(join(webDir, relative)), { recursive: true });
     writeFileSync(join(webDir, relative), data);
   };
-  const { resources } = useNodeResources(fromPortRoot("game"), { artFile: (id) => artwork.get(id)?.path });
+  const { resources } = useNodeResources(fromPortRoot("game"), { pages: pageSources(), artFile: (id) => artwork.get(id)?.path });
   const artwork = loadUpgradeArt(undefined, "res:game");
   const masks = loadCombatMaterialMasks(artwork);
   write("resource-index.json", JSON.stringify(resourceIndex(resources, artwork, masks)));
   write("sound-manifest.json", soundManifest(resources));
-  write("play.html", playPage());
-  for (const [base, png] of masks) write(looseMaskPath(base), png);
+  write("play.html", playPage(resources));
+  for (const [base, mask] of masks) {
+    const png = mask.png;
+    if (png) write(looseMaskPath(base), png);
+  }
   const sources = pageFiles();
   for (const [url, relative] of loosePageFiles()) {
     const source = sources.get(url === "/" ? "" : url);
