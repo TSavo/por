@@ -133,7 +133,7 @@
       font: 700 2.55cqw / 1 "Game Web Font", ui-monospace, monospace; }
     #journal { position: absolute; inset: 4%; overflow: auto; padding: clamp(12px, 3vw, 26px); background: #17232e; border: 1px solid #8495a8; }
     #automap { position: absolute; inset: 4%; z-index: 4; display: grid; grid-template-rows: auto minmax(0, 1fr); overflow: auto;
-      padding: clamp(10px, 2vw, 18px); background: #17120dF2; border: 1px solid #a28658; }
+      padding: clamp(10px, 2vw, 18px); background: #17120d; border: 1px solid #a28658; }
     #automap[hidden] { display: none; }
     #automap header { min-height: 0; flex-wrap: wrap; }
     #automap h2 { margin: 0; }
@@ -145,11 +145,16 @@
     #atlas-view select { font: inherit; max-width: 100%; }
     #atlas-image-link { display: block; min-height: 0; }
     #atlas-image { display: block; width: 100%; height: 100%; object-fit: contain; }
-    #automap .floor { fill: #6f5b3b55; }
-    #automap .wall { stroke: #e2c587; stroke-width: .13; stroke-linecap: square; }
+    #automap .floor { fill: #b0895088; }
+    #automap .wall { stroke: #f3d9a0; stroke-width: .22; stroke-linecap: square; }
+    #automap .door { stroke: #6ed6ff; stroke-width: .18; stroke-linecap: square; }
     #automap .party { fill: #f3d36d; stroke: #3a2813; stroke-width: .08; }
     #automap .landmark { fill: #cf765a; stroke: #2d180f; stroke-width: .06; }
     #automap .landmark-label { fill: #f4ead5; font: .42px Georgia, serif; paint-order: stroke; stroke: #17120d; stroke-width: .08px; }
+    #automap .entrance { fill: #5ec8ff; stroke: #123044; stroke-width: .07; }
+    #automap .entrance-label { fill: #d9f4ff; font: .4px Georgia, serif; paint-order: stroke; stroke: #102030; stroke-width: .08px; }
+    #automap .legend-back { fill: #17120deb; stroke: #a28658; stroke-width: .04; }
+    #automap .legend-label { fill: #f4ead5; font: .5px Georgia, serif; paint-order: stroke; stroke: #17120d; stroke-width: .07px; }
     #automap .region-paper { fill: #b99a61; }
     #automap .region-coast { fill: #54757b; stroke: #273e42; stroke-width: .8; }
     #automap .region-land { fill: #8f8054; stroke: #4a3c27; stroke-width: .7; }

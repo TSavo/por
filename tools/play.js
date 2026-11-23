@@ -1459,6 +1459,49 @@ function discoveredLocalMap({ area, mapId }) {
   return mapId === undefined ? map : map?.floors?.[mapId];
 }
 
+
+// ovl29 0x0350: an open side always passes; a wall passes when its two passage bits are not 0.
+const automapSides = [
+  { x1: 0, y1: 0, x2: 1, y2: 0, ix: 0, iy: 1 },
+  { x1: 1, y1: 0, x2: 1, y2: 1, ix: -1, iy: 0 },
+  { x1: 0, y1: 1, x2: 1, y2: 1, ix: 0, iy: -1 },
+  { x1: 0, y1: 0, x2: 0, y2: 1, ix: 1, iy: 0 },
+];
+
+function addAutomapSide(lines, x, y, side, walls, passage) {
+  if (!walls[side]) return;
+  const s = automapSides[side];
+  const x1 = x + s.x1, y1 = y + s.y1, x2 = x + s.x2, y2 = y + s.y2;
+  // A nonzero wall is a door when this side's passage bits are set.
+  if (passage && passage[side]) {
+    const dx = s.x2 - s.x1, dy = s.y2 - s.y1, jamb = 0.28;
+    lines.push(`<line class="wall" x1="${x1}" y1="${y1}" x2="${x1 + dx * jamb}" y2="${y1 + dy * jamb}"/>`);
+    lines.push(`<line class="wall" x1="${x2 - dx * jamb}" y1="${y2 - dy * jamb}" x2="${x2}" y2="${y2}"/>`);
+    const mx = (x1 + x2) / 2, my = (y1 + y2) / 2, leaf = 0.34, hinge = 0.08;
+    lines.push(`<line class="door" x1="${mx}" y1="${my}" x2="${mx + s.ix * leaf}" y2="${my + s.iy * leaf}"/>`);
+    lines.push(`<line class="door" x1="${mx - dx * hinge}" y1="${my - dy * hinge}" x2="${mx + dx * hinge}" y2="${my + dy * hinge}"/>`);
+    return;
+  }
+  lines.push(`<line class="wall" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`);
+}
+
+function automapLegend() {
+  return [
+    `<g class="map-legend" transform="translate(0.05 16.2)">`,
+    `<rect class="legend-back" x="-0.15" y="-0.12" width="16.4" height="1.35" rx="0.15"/>`,
+    `<line class="wall" x1="0.2" y1="0.55" x2="1.15" y2="0.55"/>`,
+    `<text class="legend-label" x="1.35" y="0.72">Wall</text>`,
+    `<line class="wall" x1="3.35" y1="0.55" x2="3.62" y2="0.55"/>`,
+    `<line class="wall" x1="4.18" y1="0.55" x2="4.45" y2="0.55"/>`,
+    `<line class="door" x1="3.9" y1="0.55" x2="3.9" y2="0.88"/>`,
+    `<line class="door" x1="3.82" y1="0.55" x2="3.98" y2="0.55"/>`,
+    `<text class="legend-label" x="4.65" y="0.72">Door</text>`,
+    `<path class="entrance" d="M .5 .16 L .82 .5 L .5 .84 L .18 .5 Z" transform="translate(7.15 0.05) scale(0.9)"/>`,
+    `<text class="legend-label" x="8.2" y="0.72">Entrance</text>`,
+    `</g>`,
+  ].join("");
+}
+
 function renderAutomap() {
   const position = state.exploration;
   if (!position) return;
@@ -1475,7 +1518,7 @@ function renderAutomap() {
   markMap.hidden = mapMode !== "local";
   if (mapMode === "atlas") { renderAtlas(sheets, position); return; }
   if (mapMode === "region") { renderRegionMap(position); return; }
-  automapSvg.setAttribute("viewBox", "-0.5 -0.5 17 17");
+  automapSvg.setAttribute("viewBox", "-0.5 -0.5 17 18.2");
   automapSvg.setAttribute("aria-label", "Discovered area map");
   if (!moveTween) shownDiscoveredMaps = discoveredMaps;
   const map = discoveredCells(position, moveTween ? shownDiscoveredMaps : discoveredMaps);
@@ -1483,21 +1526,28 @@ function renderAutomap() {
   automapTitle.textContent = `${title ?? areaNames[position.area] ?? `Area ${position.area}`} — discovered map`;
   const lines = [];
   for (const cell of Object.values(map.cells)) {
-    const { x, y, walls } = cell;
+    const { x, y, walls, passage } = cell;
     lines.push(`<rect class="floor" x="${x}" y="${y}" width="1" height="1"/>`);
-    if (walls[0]) lines.push(`<line class="wall" x1="${x}" y1="${y}" x2="${x + 1}" y2="${y}"/>`);
-    if (walls[1]) lines.push(`<line class="wall" x1="${x + 1}" y1="${y}" x2="${x + 1}" y2="${y + 1}"/>`);
-    if (walls[2]) lines.push(`<line class="wall" x1="${x}" y1="${y + 1}" x2="${x + 1}" y2="${y + 1}"/>`);
-    if (walls[3]) lines.push(`<line class="wall" x1="${x}" y1="${y}" x2="${x}" y2="${y + 1}"/>`);
+    for (let side = 0; side < 4; side++) addAutomapSide(lines, x, y, side, walls, passage);
     if (cell.label) {
       lines.push(`<circle class="landmark" cx="${x + .5}" cy="${y + .5}" r=".18"/>`);
       lines.push(`<text class="landmark-label" x="${x + .75}" y="${y + .37}">${escapeMapText(cell.label)}</text>`);
+    }
+  }
+  for (const entrance of map.entrances ?? []) {
+    const { x, y, to } = entrance;
+    lines.push(`<path class="entrance" d="M .5 .16 L .82 .5 L .5 .84 L .18 .5 Z" transform="translate(${x} ${y})"/>`);
+    if (to?.name) {
+      const hasLabel = map.cells[`${x},${y}`]?.label;
+      const ty = hasLabel ? y + 0.92 : y + 0.38;
+      lines.push(`<text class="entrance-label" x="${x + .75}" y="${ty}">${escapeMapText(to.name)}</text>`);
     }
   }
   const logical = map.position ?? position;
   const p = movePose() ?? logical;
   const angle = p.facing * 45;
   lines.push(`<path class="party" d="M .5 .12 L .82 .82 L .5 .68 L .18 .82 Z" transform="translate(${p.x} ${p.y}) rotate(${angle} .5 .5)"/>`);
+  lines.push(automapLegend());
   automapSvg.innerHTML = lines.join("");
 }
 
