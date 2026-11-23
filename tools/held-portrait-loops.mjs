@@ -327,6 +327,8 @@ const portraitLoops = [
     [["scene-illustration:area:15:ecl:99b5:caller:ae7b", 0]]],
   ["portrait:area:16:ecl:a535:PIC8.DAX:57:", 4, undefined,
     /COMBATWAITFLEEPARLAY/i, [210, 210, 210, 210]],
+  ["portrait:area:16:ecl:a65a:PIC8.DAX:57:", 4, undefined,
+    /^(?!.*ABATTLEBEGINS).*LIZARDMENANDAGIANTLIZARDCHARGEATYOU/i, [210, 210, 210, 210], [["scene-illustration:area:16:ecl:a65a", 0]]],
   ["portrait:area:16:ecl:a947:PIC8.DAX:59:", 2, "portrait:area:16:PIC8.DAX:59:0:0",
     /^(?!.*ABATTLEBEGINS).*GIANTLIZARDSCHARGETOWARDYOU/i, [510, 1510]],
   // The blank third member restores the base picture for 20 ms.
