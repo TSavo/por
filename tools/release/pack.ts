@@ -42,6 +42,13 @@ const packageJson = JSON.parse(readFileSync(fromPortRoot("package.json"), "utf8"
   devDependencies: { electron?: string };
 };
 const version = packageJson.version;
+// Native version fields use numeric components. Keep SemVer for filenames and display strings.
+const [baseVersion, prerelease] = version.split("-", 2);
+const stageVersion = /^(alpha|beta|rc)\.(\d+)$/.exec(prerelease ?? "");
+const revision = stageVersion?.[2] ?? "0";
+const macStage = stageVersion?.[1] === "rc" ? "fc" : stageVersion?.[1]?.[0];
+const macBuild = macStage ? `${baseVersion}${macStage}${revision}` : baseVersion!;
+const windowsVersion = `${baseVersion}.${revision}`;
 const electronVersion = `v${(packageJson.devDependencies.electron ?? "").replace(/^v/, "")}`;
 if (!/^v\d+\.\d+\.\d+$/.test(electronVersion)) {
   throw new Error(`package.json's electron version must be exact (got ${packageJson.devDependencies.electron})`);
@@ -330,7 +337,7 @@ for (const arch of macArchitectures) {
   for (const [key, value] of [
     ["CFBundleIdentifier", "io.github.tsavo.pool-of-radiance"], ["CFBundleName", "Pool of Radiance"],
     ["CFBundleDisplayName", "Pool of Radiance"], ["CFBundleExecutable", "Pool of Radiance"],
-    ["CFBundleShortVersionString", version], ["CFBundleVersion", version],
+    ["CFBundleShortVersionString", baseVersion!], ["CFBundleVersion", macBuild],
     ["LSMinimumSystemVersion", "13.5"], ["CFBundleIconFile", "electron.icns"],
   ]) run("plutil", ["-replace", key!, "-string", value!, plist]);
   checkNothingOriginal(contents, `the Mac app (${arch})`);
@@ -364,7 +371,7 @@ if (platforms.includes("windows")) {
   const setup = join(dist, `Pool-of-Radiance-${version}-windows-setup.exe`);
   if (makensis) {
     log("building the Windows installer");
-    run(makensis, ["-V2", `-DSTAGE=${stage}`, `-DOUTFILE=${setup}`, `-DVERSION=${version}`, script]);
+    run(makensis, ["-V2", `-DSTAGE=${stage}`, `-DOUTFILE=${setup}`, `-DVERSION=${version}`, `-DNUMERIC_VERSION=${windowsVersion}`, script]);
   } else if (nsisHost) {
     // makensis on another machine (apt-get install nsis): the stage goes to its /tmp, the installer comes back.
     if (!/^[\w.@-]+$/.test(nsisHost)) throw new Error(`POR_NSIS_HOST ${nsisHost} is not a host name`);
@@ -375,7 +382,7 @@ if (platforms.includes("windows")) {
     run("scp", ["-q", "-o", "BatchMode=yes", script, `${nsisHost}:${remote}/windows-installer.nsi`]);
     try {
       run("ssh", ["-n", "-o", "BatchMode=yes", nsisHost,
-        `makensis -V2 -DSTAGE=${remote}/stage -DOUTFILE=${remote}/setup.exe -DVERSION=${version} ${remote}/windows-installer.nsi`]);
+        `makensis -V2 -DSTAGE=${remote}/stage -DOUTFILE=${remote}/setup.exe -DVERSION=${version} -DNUMERIC_VERSION=${windowsVersion} ${remote}/windows-installer.nsi`]);
       run("scp", ["-q", "-o", "BatchMode=yes", `${nsisHost}:${remote}/setup.exe`, setup]);
     } finally {
       run("ssh", ["-n", "-o", "BatchMode=yes", nsisHost, `rm -rf ${remote}`]);

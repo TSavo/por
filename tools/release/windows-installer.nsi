@@ -27,7 +27,10 @@ Name "${PRODUCT}"
 OutFile "${OUTFILE}"
 InstallDir "$PROGRAMFILES64\${PRODUCT}"
 InstallDirRegKey HKLM "Software\${PRODUCT}" "InstallDir"
-VIProductVersion "${VERSION}.0"
+!ifndef NUMERIC_VERSION
+  !define NUMERIC_VERSION "${VERSION}.0"
+!endif
+VIProductVersion "${NUMERIC_VERSION}"
 VIAddVersionKey "ProductName" "${PRODUCT}"
 VIAddVersionKey "FileDescription" "${PRODUCT} installer"
 VIAddVersionKey "ProductVersion" "${VERSION}"

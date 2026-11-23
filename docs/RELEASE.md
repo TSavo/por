@@ -43,6 +43,14 @@ against its `SHASUMS256.txt`; each Mac image carries the Electron of its own arc
 The Mac images need macOS's own tools (hdiutil, sips, iconutil, codesign); the Windows installer and the
 Linux archive pack on Linux too (python3 with Pillow cuts their icon). `dist/` is not committed.
 
+## Numbered betas
+
+Run `npm run release:next-beta` to prepare the next beta on the current major, minor and patch.
+For example, `0.1.0` becomes `0.1.0-beta.1`, then `0.1.0-beta.2`. This updates the package
+manifest and lockfile together. Commit the change. When ready to publish, tag that commit with
+the full version (for example, `v0.1.0-beta.2`) and push the tag. GitHub publishes it as a prerelease.
+The title screen shows `v0.1 Beta 2` followed by the build commit.
+
 ## Releases from GitHub Actions
 
 `.github/workflows/release.yml` builds all four packages and publishes them as a GitHub release.

@@ -18,7 +18,9 @@ export type BuildVersionParts = {
 };
 
 export function formatBuildVersion({ version, sha, dirty = false, release = false }: BuildVersionParts): string {
-  const tag = version.startsWith("v") ? version : `v${version}`;
+  const beta = /^v?(\d+\.\d+)\.(\d+)-beta\.(\d+)$/.exec(version);
+  const tag = beta ? `v${beta[1]}${beta[2] === "0" ? "" : "." + beta[2]} Beta ${beta[3]}`
+    : version.startsWith("v") ? version : `v${version}`;
   const kind = release ? "" : "-dev";
   const commit = dirty ? `${sha}-dirty` : sha;
   return `${tag}${kind} (${commit})`;

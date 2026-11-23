@@ -1,7 +1,7 @@
 {
   "name": "pool-of-radiance",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.0-beta.1",
   "type": "module",
   "description": "Port of SSI Pool of Radiance: Turbo Pascal procedures translated from START.EXE and GAME.OVR, plus a classic/upgraded presentation.",
   "scripts": {
@@ -14,6 +14,7 @@
     "web:build-loose": "tsx tools/web/build-loose.ts",
     "web:check-boot": "node tools/web/check-boot.mjs",
     "web:check-saves": "node tools/web/check-saves.mjs",
+    "release:next-beta": "node tools/release/next-beta.mjs",
     "release:build": "tsx tools/release/build.ts",
     "release:pack": "npm run release:build && tsx tools/release/pack.ts",
     "verify:campaign": "node tools/verify-fresh-party.mjs --campaign",
