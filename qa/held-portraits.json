@@ -23198,6 +23198,137 @@
           }
         }
       }
+    },
+    {
+      "id": "area:13:ecl:a624:PIC8.DAX:70",
+      "producer": "ECL8.DAX:13:a5be",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 20,
+          "viewport": "8fa885f95732242031e3e549f96b4e3b2637c3bae63a50489bce9eb44066bec5"
+        },
+        {
+          "member": 1,
+          "durationMs": 20,
+          "viewport": "5d270153d3393cb49dd9f2df5bd812b6f43701562a1f00c39f8908da16c86950"
+        },
+        {
+          "member": 2,
+          "durationMs": 20,
+          "viewport": "c4373f85f32a61ddf6355c37b6f6fd3497b0254e33ea9e5db5bbdb370769c0ae"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kobold-cave-efreeti-dialogue",
+          "portrait": "portrait:PIC8.DAX:70:0:0",
+          "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+          "bindingSha256": "6c2130d63493b4e2d8fc750b0893a4cb82115e5fac3b92444ac52ca1b6527c44",
+          "paints": [
+            {
+              "key": "portrait:area:13:ecl:a624:PIC8.DAX:70:2:0",
+              "atMs": 14.80000004768408
+            },
+            {
+              "key": "portrait:PIC8.DAX:70:0:0",
+              "atMs": 31.50000004768299
+            },
+            {
+              "key": "portrait:area:13:ecl:a624:PIC8.DAX:70:1:0",
+              "atMs": 48.200000047683716
+            },
+            {
+              "key": "portrait:area:13:ecl:a624:PIC8.DAX:70:2:0",
+              "atMs": 64.80000004768408
+            },
+            {
+              "key": "portrait:PIC8.DAX:70:0:0",
+              "atMs": 81.40000004768444
+            },
+            {
+              "key": "portrait:area:13:ecl:a624:PIC8.DAX:70:1:0",
+              "atMs": 114.80000004768408
+            },
+            {
+              "key": "portrait:area:13:ecl:a624:PIC8.DAX:70:2:0",
+              "atMs": 131.500000047683
+            },
+            {
+              "key": "portrait:PIC8.DAX:70:0:0",
+              "atMs": 148.10000004768335
+            },
+            {
+              "key": "portrait:area:13:ecl:a624:PIC8.DAX:70:1:0",
+              "atMs": 164.80000004768408
+            },
+            {
+              "key": "portrait:area:13:ecl:a624:PIC8.DAX:70:2:0",
+              "atMs": 181.40000004768444
+            }
+          ],
+          "data": "original",
+          "sha256": {
+            "portrait:PIC8.DAX:70:0:0": "919e5275c93c780f47c3bf7b3120881ba11d53d50290b6033748d98d1ab53e40",
+            "portrait:area:13:ecl:a624:PIC8.DAX:70:1:0": "3bb9cd812984219c898cbb04e41f7b44e6139cee2509ea2bbf8e858d16e5c7b6",
+            "portrait:area:13:ecl:a624:PIC8.DAX:70:2:0": "38fe9a2c7cf0884fccf3723d58638f45fc320f400f5380798de78e01527e98d1"
+          }
+        },
+        "port": {
+          "route": "kobold-cave-efreeti-dialogue",
+          "portrait": "portrait:PIC8.DAX:70:0:0",
+          "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+          "bindingSha256": "6c2130d63493b4e2d8fc750b0893a4cb82115e5fac3b92444ac52ca1b6527c44",
+          "paints": [
+            {
+              "key": "portrait:area:13:ecl:a624:PIC8.DAX:70:2:0",
+              "atMs": 15
+            },
+            {
+              "key": "portrait:PIC8.DAX:70:0:0",
+              "atMs": 31.700000000000728
+            },
+            {
+              "key": "portrait:area:13:ecl:a624:PIC8.DAX:70:1:0",
+              "atMs": 48.29999999999927
+            },
+            {
+              "key": "portrait:area:13:ecl:a624:PIC8.DAX:70:2:0",
+              "atMs": 65.10000000000036
+            },
+            {
+              "key": "portrait:PIC8.DAX:70:0:0",
+              "atMs": 81.70000000000073
+            },
+            {
+              "key": "portrait:area:13:ecl:a624:PIC8.DAX:70:1:0",
+              "atMs": 115.10000000000036
+            },
+            {
+              "key": "portrait:area:13:ecl:a624:PIC8.DAX:70:2:0",
+              "atMs": 131.60000000000036
+            },
+            {
+              "key": "portrait:PIC8.DAX:70:0:0",
+              "atMs": 148.39999999999964
+            },
+            {
+              "key": "portrait:area:13:ecl:a624:PIC8.DAX:70:1:0",
+              "atMs": 165
+            },
+            {
+              "key": "portrait:area:13:ecl:a624:PIC8.DAX:70:2:0",
+              "atMs": 181.70000000000073
+            }
+          ],
+          "data": "port",
+          "sha256": {
+            "portrait:PIC8.DAX:70:0:0": "919e5275c93c780f47c3bf7b3120881ba11d53d50290b6033748d98d1ab53e40",
+            "portrait:area:13:ecl:a624:PIC8.DAX:70:1:0": "3bb9cd812984219c898cbb04e41f7b44e6139cee2509ea2bbf8e858d16e5c7b6",
+            "portrait:area:13:ecl:a624:PIC8.DAX:70:2:0": "38fe9a2c7cf0884fccf3723d58638f45fc320f400f5380798de78e01527e98d1"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
