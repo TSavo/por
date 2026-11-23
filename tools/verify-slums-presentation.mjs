@@ -1334,6 +1334,8 @@ const illustrationRoutes = new Map([
   ...[
     ["goblins", "4320518", 69, 2],
     ["hobgoblins", "4320296", 45, 6],
+    ["ogres", "4320371", 1, 8],
+    ["orcs", "4320549", 1, 4],
   ].map(([species, fixedClockStart, moves, block]) => [`bane-rampart-ambush-${species}`, {
     slot: "A", stockInput: true, fixedClockStart,
     promptSchedule: `qa/fixtures/bane-black-hand-patrol-warning/ambush-${species}-prompts.jsonl`,
