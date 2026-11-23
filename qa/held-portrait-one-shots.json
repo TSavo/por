@@ -767,5 +767,98 @@
         "artSha256": "e88c44d59b401adcd7d4ba93be6569b754fe4d260550c92bc8b5c859e265ac5a"
       }
     }
+  },
+  {
+    "producer": "ECL8.DAX:13:a0f8",
+    "combat": "a14a",
+    "native": {
+      "drawCursor": "a0ff",
+      "members": [
+        0
+      ],
+      "evidence": "Paired 1.3 direct draw and exact native battle handoff logs at E:/por-codex/art-qa/kobold-caves-selector/direct-first-throne-poll-{original,port}/. Up, Enter, then two native idle polls."
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL8.DAX:13:a0f8",
+        "route": "kobold-throne-first-audience",
+        "data": "original",
+        "portrait": "portrait:area:13:ecl:a14b:PIC8.DAX:0:0:0",
+        "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "8d33aa7cabe60933c907ecdff0429cff1594d390ee793c8dca4f14742f96fa4e"
+      },
+      "port": {
+        "producer": "ECL8.DAX:13:a0f8",
+        "route": "kobold-throne-first-audience",
+        "data": "port",
+        "portrait": "portrait:area:13:ecl:a14b:PIC8.DAX:0:0:0",
+        "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "8d33aa7cabe60933c907ecdff0429cff1594d390ee793c8dca4f14742f96fa4e"
+      }
+    }
+  },
+  {
+    "producer": "ECL1.DAX:24:a9bb",
+    "combat": "abbc",
+    "native": {
+      "drawCursor": "b605",
+      "members": [
+        0
+      ],
+      "evidence": "https://github.com/TSavo/por/issues/131#issuecomment-7092458205"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL1.DAX:24:a9bb",
+        "route": "bane-altar-destruction-one-shot",
+        "data": "original",
+        "portrait": "scene-illustration:area:24:ecl:abbd:cue:altar-destruction-ambush",
+        "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "f50f7f64a184d2b70c4d31b2212282c7c0762fac613a48a906e2f83d4284a78d"
+      },
+      "port": {
+        "producer": "ECL1.DAX:24:a9bb",
+        "route": "bane-altar-destruction-one-shot",
+        "data": "port",
+        "portrait": "scene-illustration:area:24:ecl:abbd:cue:altar-destruction-ambush",
+        "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "f50f7f64a184d2b70c4d31b2212282c7c0762fac613a48a906e2f83d4284a78d"
+      }
+    }
+  },
+  {
+    "producer": "ECL1.DAX:24:aa67",
+    "combat": "abbc",
+    "native": {
+      "drawCursor": "aa6e",
+      "members": [
+        0
+      ],
+      "evidence": "https://github.com/TSavo/por/issues/131#issuecomment-7092458205"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL1.DAX:24:aa67",
+        "route": "bane-temple-exit-one-shot",
+        "data": "original",
+        "portrait": "portrait:area:24:ecl:abbd:PIC1.DAX:4:0:0",
+        "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "498fdf9e7b9bbcc4f9d0fbe299db8769ecd8c8efe946791acc03e1de67b763e1"
+      },
+      "port": {
+        "producer": "ECL1.DAX:24:aa67",
+        "route": "bane-temple-exit-one-shot",
+        "data": "port",
+        "portrait": "portrait:area:24:ecl:abbd:PIC1.DAX:4:0:0",
+        "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "498fdf9e7b9bbcc4f9d0fbe299db8769ecd8c8efe946791acc03e1de67b763e1"
+      }
+    }
   }
 ]

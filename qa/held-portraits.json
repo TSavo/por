@@ -9856,7 +9856,7 @@
           "paints": [
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
-              "atMs": -1.192074705613777e-8
+              "atMs": -1.192074705613777e-08
             },
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
@@ -30592,6 +30592,113 @@
           "sha256": "799b17e2255fe35aff734e1e40c33048c991353ec845d17290eb23a30ff87a0f"
         }
       }
+    },
+    {
+      "producer": "ECL7.DAX:17:b5aa",
+      "prompt": "9da2/b629",
+      "caption": "THE HEADMAN, HIS SHAMAN AND GUARDS ATTACK",
+      "checkpoint": "nomad-raid-betrayal/A.json",
+      "illustration": {
+        "id": "scene-illustration:area:17:ecl:9da2:caller:b629",
+        "native": {
+          "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 S 18:09 JUST AS YOU THINK YOURSELVES FREE OF DANGER, THE HEADMAN, HIS SHAMAN AND GUARDS ATTACK WITH CRIES OF 'FOUL TRAITORS!' AT THE SAME TIME KOBOLDS ATTACK. Press button or <return> to continue",
+          "viewportSha256": "71d90788e2c77a7b50434dcf18c2b4d48fe3aa5438fb9fecb751d3997de4e42f",
+          "pictureDraws": 0
+        }
+      },
+      "chrome": {
+        "original": {
+          "route": "nomad-raid-betrayal",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:09JUSTASYOUTHINKYOURSELVESFREEOFDANGER,THEHEADMAN,HISSHAMANANDGUARDSATTACKWITHCRIESOF'FOULTRAITORS!'ATTHESAMETIMEKOBOLDSATTACK.Pressbuttonor<return>tocontinue",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:b629",
+          "checkpointSha256": "0c5f3eff973a995963aed1d6b49a3ba3b2f3333e828e88424b13983db5759a5a",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3653,
+          "samples": 221,
+          "poses": [
+            "scene-illustration:area:17:ecl:9da2:caller:b629"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "07be436edc3a78ef02f1c98d5d96d422678b40fe0e6f5ad3a4cbf49078258cca",
+          "sha256": "16ea8d417fdf04c13a053664c87a61c5fe475e6c7ef88b353f22234b438623d2"
+        },
+        "port": {
+          "route": "nomad-raid-betrayal",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:09JUSTASYOUTHINKYOURSELVESFREEOFDANGER,THEHEADMAN,HISSHAMANANDGUARDSATTACKWITHCRIESOF'FOULTRAITORS!'ATTHESAMETIMEKOBOLDSATTACK.Pressbuttonor<return>tocontinue",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:b629",
+          "checkpointSha256": "0c5f3eff973a995963aed1d6b49a3ba3b2f3333e828e88424b13983db5759a5a",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3651,
+          "samples": 220,
+          "poses": [
+            "scene-illustration:area:17:ecl:9da2:caller:b629"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "07be436edc3a78ef02f1c98d5d96d422678b40fe0e6f5ad3a4cbf49078258cca",
+          "sha256": "16ea8d417fdf04c13a053664c87a61c5fe475e6c7ef88b353f22234b438623d2"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:17:b629",
+      "prompt": "b648",
+      "caption": "Combat Wait Flee Advance",
+      "checkpoint": "nomad-raid-betrayal/A.json",
+      "position": [
+        17,
+        9,
+        11
+      ],
+      "chrome": {
+        "original": {
+          "route": "nomad-raid-betrayal",
+          "data": "original",
+          "position": [
+            17,
+            9,
+            11
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:09CombatWaitFleeAdvance",
+          "checkpointSha256": "0c5f3eff973a995963aed1d6b49a3ba3b2f3333e828e88424b13983db5759a5a",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:17:SPRIT7.DAX:11:1:0",
+              24,
+              65
+            ],
+            "sha256": "33c91515f6ad6e71cd3e1f913f1d5bb021a8d880fabd36a8e12d3f8b64dc8412"
+          }
+        },
+        "port": {
+          "route": "nomad-raid-betrayal",
+          "data": "port",
+          "position": [
+            17,
+            9,
+            11
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:09CombatWaitFleeAdvance",
+          "checkpointSha256": "0c5f3eff973a995963aed1d6b49a3ba3b2f3333e828e88424b13983db5759a5a",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:17:SPRIT7.DAX:11:1:0",
+              24,
+              65
+            ],
+            "sha256": "33c91515f6ad6e71cd3e1f913f1d5bb021a8d880fabd36a8e12d3f8b64dc8412"
+          }
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [
@@ -37989,6 +38096,102 @@
               "samples": 221,
               "poses": [
                 "portrait:area:17:ecl:9da2:caller:aa68:HEAD7.DAX:61:BODY7.DAX:30"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL8.DAX:29:a3b2",
+      "prompt": "af2f/a31b",
+      "variants": [
+        {
+          "caption": "A BAND OF KOBOLDS CLIMBS FROM THE WELL AND ATTACKS.",
+          "checkpoint": "kuto-well-south/J.json",
+          "portrait": "scene-illustration:area:29:ecl:af2f:caller:a31b:cue:kobolds-climb-from-well",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,8 N 22:06 A BAND OF KOBOLDS CLIMBS FROM THE WELL AND ATTACKS. Press <enter>/<return> to continue",
+            "idlePolls": 9,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 2,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 3,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 4,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 5,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 6,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 7,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 8,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              }
+            ],
+            "drawCursor": "a3b9",
+            "members": [
+              0
+            ],
+            "battlePanelSha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+          },
+          "chrome": {
+            "original": {
+              "route": "kuto-well-kobold-reinforcements-hold",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,8N22:06ABANDOFKOBOLDSCLIMBSFROMTHEWELLANDATTACKS.Press<enter>/<return>tocontinue",
+              "portrait": "scene-illustration:area:29:ecl:af2f:caller:a31b:cue:kobolds-climb-from-well",
+              "checkpointSha256": "7523346d9da696a5ac725d7f9fc648d711f998e5e7d60a465924025bca37e911",
+              "artSha256": "6fb551c71ec6e2d59b38ecf62833b042d48672d37085ad52894edc1e9636a2b1",
+              "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3659,
+              "samples": 220,
+              "poses": [
+                "scene-illustration:area:29:ecl:af2f:caller:a31b:cue:kobolds-climb-from-well"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "kuto-well-kobold-reinforcements-hold",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,8N22:06ABANDOFKOBOLDSCLIMBSFROMTHEWELLANDATTACKS.Press<enter>/<return>tocontinue",
+              "portrait": "scene-illustration:area:29:ecl:af2f:caller:a31b:cue:kobolds-climb-from-well",
+              "checkpointSha256": "7523346d9da696a5ac725d7f9fc648d711f998e5e7d60a465924025bca37e911",
+              "artSha256": "6fb551c71ec6e2d59b38ecf62833b042d48672d37085ad52894edc1e9636a2b1",
+              "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3664,
+              "samples": 220,
+              "poses": [
+                "scene-illustration:area:29:ecl:af2f:caller:a31b:cue:kobolds-climb-from-well"
               ],
               "replaced": false
             }
