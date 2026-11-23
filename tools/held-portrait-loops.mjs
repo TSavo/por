@@ -16,7 +16,17 @@ const fountainPoseTimes = [20, 20, 20];
 const podalOrcPoseOrder = [0, 1, 2, 1];
 const podalOrcPoseTimes = [1510, 20, 710, 20];
 const auctionPoseTimes = [610, 210, 410, 210, 410, 610];
+
+// The last captive-pen member repeats pose 3 on all three narration pauses.
+const penPoseOrder = [0, 1, 2, 3, 4, 3];
+const penPoseTimes = [410, 310, 110, 210, 310, 210];
 const portraitLoops = [
+  ["portrait:area:1:ecl:b5f7:caller:9e66:PIC6.DAX:42:", penPoseOrder, undefined,
+    /PENFORHOLDINGSLAVES/i, penPoseTimes],
+  ["portrait:area:1:ecl:b5f7:caller:9eda:PIC6.DAX:42:", penPoseOrder, undefined,
+    /HEART-SHAPEDBIRTHMARKONHISLEFTSHOULDER/i, penPoseTimes],
+  ["portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:", penPoseOrder, undefined,
+    /WILLBRINGAGOODPRICEATZHENTILKEEP/i, penPoseTimes],
   ["portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:", 5, undefined,
     /^(?!.*ABATTLEBEGINS).*LUMBERINGFIGURESREACHFORYOU/i, Array(5).fill(110)],
   ["portrait:area:10:ecl:b50b:PIC4.DAX:34:", 4],

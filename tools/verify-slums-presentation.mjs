@@ -742,6 +742,31 @@ const sokalBarracksParlay = ["up", "enter", "a", "a", "p", "n", ..."lux", "enter
 const sokalBarracksChorus = [0, 1, 2].map(member => `portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:${member}:0`);
 const sokalBarracksDiary = [0, 1, 2].map(member => `portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:${member}:0`);
 const illustrationRoutes = new Map([
+  ["buccaneer-captive-pen-overview-loop", {
+    slot: "A", inputs: ["right", "right", "up", "left", "up", "right", "up", "enter"],
+    portrait: "portrait:area:1:ecl:b5f7:caller:9e66:PIC6.DAX:42:0:0",
+    prompt: /PENFORHOLDINGSLAVES/i,
+    heldPortraitLoop: [0, 1, 2, 3, 4, 3].map(member => `portrait:area:1:ecl:b5f7:caller:9e66:PIC6.DAX:42:${member}:0`),
+    finalPhaseCapture: "buccaneer-captive-pen-overview.png",
+    continuation: { inputs: ["enter"], portrait: "portrait:area:1:ecl:b5f7:caller:9eda:PIC6.DAX:42:0:0",
+      prompt: /HEART-SHAPEDBIRTHMARK/i },
+  }],
+  ["buccaneer-captive-pen-birthmark-loop", {
+    slot: "A", inputs: ["right", "right", "up", "left", "up", "right", "up", "enter", "enter"],
+    portrait: "portrait:area:1:ecl:b5f7:caller:9eda:PIC6.DAX:42:0:0",
+    prompt: /HEART-SHAPEDBIRTHMARKONHISLEFTSHOULDER/i,
+    heldPortraitLoop: [0, 1, 2, 3, 4, 3].map(member => `portrait:area:1:ecl:b5f7:caller:9eda:PIC6.DAX:42:${member}:0`),
+    finalPhaseCapture: "buccaneer-captive-pen-birthmark.png",
+    continuation: { inputs: ["enter"], portrait: "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:0:0",
+      prompt: /WILLBRINGAGOODPRICE/i },
+  }],
+  ["buccaneer-captive-pen-merchant-loop", {
+    slot: "A", inputs: ["right", "right", "up", "left", "up", "right", "up", "enter", "enter", "enter"],
+    portrait: "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:0:0",
+    prompt: /WILLBRINGAGOODPRICEATZHENTILKEEP/i,
+    heldPortraitLoop: [0, 1, 2, 3, 4, 3].map(member => `portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:${member}:0`),
+    finalPhaseCapture: "buccaneer-captive-pen-merchant.png",
+  }],
   ["pyramid-vats-mutants-loop", {
     slot: "A", inputs: ["s", "up"],
     portrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:0:0",
