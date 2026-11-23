@@ -3240,10 +3240,17 @@ const illustrationRoutes = new Map([
   }],
   ["western-ankheg-eruption", {
     slot: "A", inputs: ["down", "up"],
-    portrait: "scene-illustration:area:25:ecl:9d1a:cue:western-ankheg-eruption",
-    prompt: /TWOANHKHEGSERUPTFROMTHEGROUNDBENEATHYOU/i,
-    finalPhaseCapture: "western-ankheg-eruption.png",
-    continuation: { inputs: ["up"], clearsPortrait: true, prompt: /ABATTLEBEGINS/i },
+    combatWithoutPortraitProducer: "ECL6.DAX:25:9cc8",
+    approachSequence: [[48, 32, "encounter:area:25:SPRIT6.DAX:65:1:0", 48, 65]],
+    requireTiledApproach: false,
+    transientPortraits: { 2: {
+      id: "scene-illustration:area:25:ecl:9d0c:cue:western-ankheg-eruption",
+      prompt: /TWOANHKHEGSERUPTFROMTHEGROUNDBENEATHYOU/i, durationMs: 900,
+      screenshot: "western-ankheg-eruption.png",
+    } },
+    prompt: /TWOANHKHEGSERUPTFROMTHEGROUNDBENEATHYOU.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "western-ankheg-battle-notice.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /ALDAHITPOINTS\d+AC\d+.*MOVEVIEWAIM/i },
   }],
   ["wild-cave-shed-skin", {
     slot: "A", inputs: ["up"],
@@ -11013,6 +11020,7 @@ try {
     const { inputs, prompt, continuation, journalLead, approachSequence } = illustration;
     const combatProducer = illustration.oneShotProducer ?? illustration.combatWithoutPortraitProducer;
     let { portrait } = illustration;
+    let transientCombatPortrait;
     let alreadyPassedPatrol;
     if (approachSequence) await observeApproach(approachSequence, illustration.requireTiledApproach);
     else if (illustration.heldApproachPrompt && heldPortraitEvidenceFile) {
@@ -11254,25 +11262,28 @@ try {
           await verifyStaticPortrait(interimPortrait, illustration.staticPortraitStop.caption);
         }
         await advance(key);
-        if (combatProducer && frame.animation?.some(phase => phase.approach)) {
-          // HTTP replay keys bypass the page's input guard during an encounter approach.
-          await waitFor("the complete encounter approach", () => run(`
-            state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined
-          `));
-        }
         if (routeName === "valhingen-skeleton-enclave" && index === 1) {
           await waitFor("both Enhanced skeleton enclave approach distances", () =>
             run(`window.observedApproach.size === ${approachSequence.length}`));
         }
         for (const transient of [].concat(illustration.transientPortraits?.[index + 1] ?? [])) {
           assert.ok(frame.animation?.some(phase => phase.portrait === transient.id &&
+            (transient.durationMs === undefined || phase.durationMs === transient.durationMs) &&
             transient.prompt.test(phase.text.toSorted(([a], [b]) => a - b)
-              .map(([, char]) => String.fromCharCode(char)).join(""))));
+              .map(([, char]) => String.fromCharCode(char)).join(""))),
+          `Missing timed illustration: ${transient.id}`);
           await waitFor("the transient illustration", () => run(`
             animationFrame?.portrait === "${transient.id}" &&
             document.querySelector('.encounter-portrait[src="/art/${transient.id}"]')?.naturalWidth === 352`));
           const shot = await command("Page.captureScreenshot", { format: "png" });
           writeFileSync(resolve(directory, transient.screenshot), Buffer.from(shot.data, "base64"));
+          if (illustration.combatWithoutPortraitProducer) transientCombatPortrait = transient.id;
+        }
+        if (combatProducer && frame.animation?.some(phase => phase.approach)) {
+          // HTTP replay keys bypass the page's input guard during an encounter approach.
+          await waitFor("the complete encounter approach", () => run(`
+            state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined
+          `));
         }
       }
     }
@@ -11686,15 +11697,18 @@ try {
       if (combatProducer && heldPortraitEvidenceFile) {
         assert.equal(frame.portrait, undefined);
         const renderer = await fetch(origin + "/play.js");
-        const art = await fetch(origin + "/art/" + portrait);
+        const proofPortrait = portrait ?? transientCombatPortrait;
+        assert.ok(proofPortrait);
+        const art = await fetch(origin + "/art/" + proofPortrait);
         assert.ok(renderer.ok && art.ok);
         const { result: binding } = await command("Runtime.evaluate", {
-          expression: `portraitLoopBindings.then(module => module.portraitLoopSignature(${JSON.stringify(portrait)}))`,
+          expression: `portraitLoopBindings.then(module => module.portraitLoopSignature(${JSON.stringify(proofPortrait)}))`,
           awaitPromise: true, returnByValue: true,
         });
         assert.equal(typeof binding.value, "string");
         heldPortraitEvidence.push({
-          producer: combatProducer, route: routeName, data: frame.classicAvailable === false ? "port" : "original", portrait,
+          producer: combatProducer, route: routeName, data: frame.classicAvailable === false ? "port" : "original",
+          portrait: proofPortrait,
           ...(illustration.combatWithoutPortraitProducer ? {
             checkpointSha256: createHash("sha256").update(readFileSync(checkpoint)).digest("hex"),
           } : {}),

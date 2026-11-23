@@ -495,6 +495,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         illustrationScope = wellDaylight;
       }
       if (baneCacheCue) illustrationScope = `${scriptKey}:cue:${baneCacheCue}`;
+      // The ankheg caption survives into COMBAT's pause at 9d1c. Its illustration
+      // belongs to that timed picture, before the battle notice takes over.
+      if (message === "picture" && scriptKey === "scene-illustration:area:25:ecl:9d1c") {
+        illustrationScope = "scene-illustration:area:25:ecl:9d0c";
+      }
       if (area === 4 && battleCursor === 0x9b63 && explorationPosition) {
         const { x, y } = explorationPosition;
         if (x === 4 && y === 2) illustrationScope = "scene-illustration:area:4:ecl:9ed5:caller:a08a";
