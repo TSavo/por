@@ -114,6 +114,8 @@ const portraitLoops = [
     /THEAUCTIONISCANCELLED.*THEAUCTIONEERASHEFLEES/i, auctionPoseTimes],
   ["portrait:area:18:ecl:b240:caller:a79b:PIC1.DAX:16:", 6, undefined,
     /WANDOFILLUMINATION.*ISEEINTHEDARKANYWAY/i, auctionPoseTimes],
+  ["portrait:area:18:ecl:b240:caller:a7cd:PIC1.DAX:16:", 6, undefined,
+    /STAFFOFCOMMAND.*ICOULDHAVEMYOWNARMY/i, auctionPoseTimes],
   ["portrait:area:18:ecl:b240:caller:a8af:PIC1.DAX:16:", 6, undefined,
     /YOUUPTHEBID.*MONSTERSNEARBYTURNSTAREGRUMBLEANDTURNAWAY/i, auctionPoseTimes],
   ["portrait:area:18:ecl:b240:caller:a49c:PIC1.DAX:16:", 6, undefined,

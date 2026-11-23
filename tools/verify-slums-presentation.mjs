@@ -1570,6 +1570,15 @@ const illustrationRoutes = new Map([
     heldPortraitLoop: Array.from({ length: 6 }, (_, member) =>
       `portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:${member}:0`),
   }],
+  ["podal-auction-staff", {
+    slot: "I", fixedClockStart: "4320001", inputs: ["up", "enter", "enter", "enter", "end", "end", "enter"],
+    portrait: "portrait:area:18:ecl:b240:caller:a7cd:PIC1.DAX:16:0:0",
+    prompt: /STAFFOFCOMMAND.*ICOULDHAVEMYOWNARMY/i,
+    heldPortraitLoop: Array.from({ length: 6 }, (_, member) =>
+      `portrait:area:18:ecl:b240:caller:a7cd:PIC1.DAX:16:${member}:0`),
+    continuation: { inputs: ["enter"], portrait: "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:0:0",
+      prompt: /THEBIDDINGESCALATES/i },
+  }],
   ["podal-auction-high-bid-phases", {
     slot: "I", inputs: ["up", ...Array(4).fill("enter")],
     portrait: "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:0:0",
