@@ -2337,14 +2337,13 @@ const illustrationRoutes = new Map([
       25: { position: [17, 13, 9], prompt: /WARCRIESANDTHECLANGOFMETALBEHINDYOU/i },
       26: { position: [17, 13, 9], prompt: /WARCRIESANDTHECLANGOFMETALINFRONTOFYOU/i },
     },
-    prompt: /18:09/i,
+    prompt: /18:09/i, heldApproachCapture: "nomad-betrayal-nowhere-left.png",
     continuation: {
       inputs: ["f"], clearsPortrait: true, prompt: /THEREISNOWHERELEFTTORETREAT/i,
       heldApproach: {
         position: [17, 13, 9],
         placement: [56, 32, "encounter:area:17:SPRIT7.DAX:11:2:0", 16, 49],
       },
-      capture: "nomad-betrayal-nowhere-left.png",
     },
   }],
   ["nomad-raid-betrayal", {
