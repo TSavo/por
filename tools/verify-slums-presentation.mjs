@@ -4309,6 +4309,31 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kobold-throne-first-audience.png",
     continuation: { inputs: [":travel-poll", ":travel-poll"], clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
+  ["kobold-ballista-battle-entry", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    oneShotProducer: "ECL8.DAX:13:a1af",
+    promptSchedule: "qa/fixtures/kobold-throne-ballista-entry/prompts.jsonl",
+    approachSequence: [
+      [56, 32, "encounter:area:13:ecl:a1b6:SPRIT8.DAX:0:1:0", 24, 65],
+      [48, 32, "encounter:area:13:ecl:a1b6:SPRIT8.DAX:0:0:0", 40, 80],
+    ],
+    portraitStops: { 1: "scene-illustration:area:13:ecl:a1af" },
+    portrait: "portrait:area:13:ecl:a1d4:PIC8.DAX:0:0:0", prompt: /ABATTLEBEGINS/i,
+    finalPhaseCapture: "kobold-throne-ballista-battle-entry.png",
+    continuation: { inputs: [":travel-poll", ":travel-poll"], clearsPortrait: true, prompt: /WILDBOARHITPOINTS/i },
+  }],
+  ["kobold-envoy-rematch-one-shot", {
+    slot: "A", inputs: ["up"],
+    oneShotProducer: "ECL8.DAX:13:a278",
+    promptSchedule: "qa/fixtures/kobold-throne-envoy-rematch/prompts.jsonl",
+    approachSequence: [
+      [56, 32, "encounter:area:13:ecl:a27f:SPRIT8.DAX:16:1:0", 24, 65],
+      [48, 32, "encounter:area:13:ecl:a27f:SPRIT8.DAX:16:0:0", 40, 80],
+    ],
+    portrait: "portrait:HEAD8.DAX:69:BODY8.DAX:1", prompt: /AREMATCHTHEN.PREPAREFORDEATH.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "kobold-throne-envoy-rematch.png",
+    continuation: { inputs: [":travel-poll"], clearsPortrait: true, prompt: /KOBOLDHITPOINTS/i },
+  }],
   ["kobold-envoy-rematch", {
     slot: "B", inputs: ["up", "enter"],
     approachSequence: [
@@ -8827,6 +8852,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "kobold-white-flag-envoy" || routeName === "kobold-white-flag-escort-phase" || routeName === "kobold-white-flag-refusal" ||
       routeName === "kobold-kings-quarters-native" || routeName === "kobold-cave-efreeti-dialogue" ||
       koboldGuideHeld || koboldGuideWallTap || koboldThroneHordeHold || koboldRoamingHold ||
+      routeName === "kobold-ballista-battle-entry" || routeName === "kobold-envoy-rematch-one-shot" ||
       routeName === "kobold-throne-first-audience" ||
       routeName === "valjevo-medusa-phases" || routeName === "valhingen-mummy-sarcophagi-phases" ||
       routeName === "valjevo-fire-giant-loop" ||

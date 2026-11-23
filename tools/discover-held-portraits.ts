@@ -651,6 +651,21 @@ const eclCandidates = scripts.flatMap(record => {
       bodyOperand: 0, headReset: authored(feastReset.address),
     } : nomadPortrait ?? (tyrmorPictures?.compositions.length === 1 ? tyrmorPictures.compositions[0] : undefined);
     const address = authored(load.address);
+    // The envoy fight sets a composed head before the approach, then clears it
+    // immediately after combat yields control to the script.
+    if (archive === 8 && scriptBlock === 13 && load.address === 0xa278 && opcode === 0x0c) {
+      const head = instructions.get(0xa272);
+      const reset = instructions.get(0xa2a4);
+      const fight = instructions.get(0xa2a3);
+      if (head?.opcode === 0x09 && head.next === load.address &&
+          literal(head.operands[0]!) === 69 && memory(head.operands[1]!) === 0x6de1 &&
+          literal(operands[2]!) === 1 && instructions.get(load.next)?.opcode === 0x0d &&
+          fight?.opcode === 0x24 && fight.next === reset?.address && reset?.opcode === 0x09 &&
+          literal(reset.operands[0]!) === 255 && memory(reset.operands[1]!) === 0x6de1) {
+        composedPortrait = { source: "HEAD8.DAX:69:BODY8.DAX:1", headWrite: "a272", headSlot: "6de1",
+          bodyOperand: 2, headReset: "a2a4" };
+      }
+    }
     const falseThrone = scriptBlock === 5 && address === "a98a";
     const forgePatrol = scriptBlock === 6 && ["a9e6", "aa49"].includes(address);
     const mazePatrol = scriptBlock === 4 && ["9ce6", "9d49"].includes(address);
