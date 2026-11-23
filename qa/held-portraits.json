@@ -2162,49 +2162,49 @@
         "original": {
           "route": "slums-roaming-kobold-loop",
           "data": "original",
-          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
           "bindingSha256": "5229de6af2f68711b9e859c33e347ff94d5b2da8150e6ade1a40f21c508c31e7",
           "portrait": "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0",
           "paints": [
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0",
-              "atMs": 12.800000023842586
+              "atMs": 7.40000002384113
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:1:0",
-              "atMs": 179.60000002384186
+              "atMs": 140.7000000238404
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:2:0",
-              "atMs": 379.60000002384186
+              "atMs": 357.3000000238426
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:1:0",
-              "atMs": 596.2000000238404
+              "atMs": 574.1000000238419
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0",
-              "atMs": 812.9000000238411
+              "atMs": 774.1000000238419
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:1:0",
-              "atMs": 1012.9000000238411
+              "atMs": 990.7000000238404
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:2:0",
-              "atMs": 1229.5000000238433
+              "atMs": 1190.7000000238404
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:1:0",
-              "atMs": 1429.6000000238419
+              "atMs": 1407.3000000238426
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0",
-              "atMs": 1646.1000000238419
+              "atMs": 1624.0000000238433
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:1:0",
-              "atMs": 1862.8000000238426
+              "atMs": 1824.0000000238433
             }
           ],
           "sha256": {
@@ -2216,49 +2216,49 @@
         "port": {
           "route": "slums-roaming-kobold-loop",
           "data": "port",
-          "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+          "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
           "bindingSha256": "5229de6af2f68711b9e859c33e347ff94d5b2da8150e6ade1a40f21c508c31e7",
           "portrait": "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0",
           "paints": [
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0",
-              "atMs": 9.599999976155232
+              "atMs": 13.900000035762787
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:1:0",
-              "atMs": 109.49999997615669
+              "atMs": 147.20000003576206
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:2:0",
-              "atMs": 326.19999997616105
+              "atMs": 363.9000000357628
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:1:0",
-              "atMs": 526.2999999761596
+              "atMs": 580.5000000357613
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0",
-              "atMs": 742.8999999761581
+              "atMs": 780.6000000357635
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:1:0",
-              "atMs": 959.5999999761552
+              "atMs": 997.2000000357621
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:2:0",
-              "atMs": 1159.5999999761552
+              "atMs": 1197.200000035762
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:1:0",
-              "atMs": 1376.199999976161
+              "atMs": 1413.9000000357628
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0",
-              "atMs": 1576.199999976161
+              "atMs": 1630.5000000357613
             },
             {
               "key": "portrait:area:20:ecl:9e02:PIC2.DAX:0:1:0",
-              "atMs": 1792.8999999761581
+              "atMs": 1830.5000000357613
             }
           ],
           "sha256": {

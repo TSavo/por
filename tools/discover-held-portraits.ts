@@ -225,6 +225,40 @@ const eclCandidates = scripts.flatMap(record => {
     return [...new Set(indices.map(index => script.byte(0xb269 + index)))].sort((a, b) => a - b);
   }
 
+  function slumsRoamingPictureBlocks(address: number, portrait: ReturnType<typeof selector>) {
+    const menus = [0x9c1e, 0x9cc5, 0x9d1d, 0x9d7e, 0x9dde];
+    if (archive !== 2 || scriptBlock !== 20 || !menus.includes(address) || portrait.address !== 0x6e80 ||
+        portrait.possibleWriters.length !== 1 || portrait.possibleWriters[0]?.address !== "9bd9") return undefined;
+
+    // The roaming party roll selects the caption, sprite and portrait from parallel tables.
+    const index = 0x6e7f;
+    const roll = instructions.get(0x9b8a);
+    const dispatch = roll && instructions.get(roll.next);
+    const read = instructions.get(0x9bd9);
+    const table = 0xb6e6;
+    const nameTargets = [0x9b9f, 0x9bb1, 0x9bc3];
+    if (roll?.opcode !== 0x08 || literal(roll.operands[0]!) !== 2 || memory(roll.operands[1]!) !== index ||
+        dispatch?.opcode !== 0x25 || memory(dispatch.operands[0]!) !== index ||
+        literal(dispatch.operands[1]!) !== 3 ||
+        !nameTargets.every((target, i) => dispatch.operands[i + 2]?.word === target) ||
+        read?.opcode !== 0x2a || memory(read.operands[0]!) !== table || memory(read.operands[1]!) !== index ||
+        memory(read.operands[2]!) !== portrait.address || !script.inRange(table + 2)) return undefined;
+
+    const [kobolds, goblins, orcs] = nameTargets.map(target => instructions.get(target));
+    if (kobolds?.opcode !== 0x09 || goblins?.opcode !== 0x09 || orcs?.opcode !== 0x09) return undefined;
+    const returns = [instructions.get(kobolds.next), instructions.get(goblins.next)];
+    if (returns.some(jump => jump?.opcode !== 0x01 || jump.operands[0]?.word !== 0x9bcf) ||
+        orcs.next !== 0x9bcf || instructions.get(0x9bcf)?.next !== read.address) return undefined;
+    const protectedEntries = new Set([dispatch.address, ...nameTargets, 0x9bcf, read.address]);
+    if (readEntryVector(script).some(entry => protectedEntries.has(entry)) ||
+        decoded.some(instruction => [0x01, 0x02, 0x25, 0x26].includes(instruction.opcode) &&
+          instruction !== dispatch && !returns.includes(instruction) &&
+          instruction.operands.slice(instruction.opcode <= 0x02 ? 0 : 2)
+            .some(operand => operand.word != null && protectedEntries.has(operand.word)))) return undefined;
+
+    return [...new Set([0, 1, 2].map(member => script.byte(table + member)))].sort((a, b) => a - b);
+  }
+
   // Scripted encounters call the patrol helper only to fetch monster data. The
   // caller sets the return flag and the helper exits before either roaming menu.
   function valhingenReturnsBeforePatrolMenu(address: number, caller: number | undefined) {
@@ -398,7 +432,7 @@ const eclCandidates = scripts.flatMap(record => {
     const block = portrait.literal === null ? null : portrait.literal & 255;
     const tyrmorPictures = tyrmorPrisonPictures(load.address, portrait);
     const boundedBlocks = podalPatrolPictureBlocks(load.address, portrait) ?? valhingenPatrolPictureBlocks(load.address, portrait) ??
-      tyrmorPictures?.blocks;
+      slumsRoamingPictureBlocks(load.address, portrait) ?? tyrmorPictures?.blocks;
     const pictureBlocks = block === null ? boundedBlocks ?? [] : [block];
     const possiblePictures = animated.filter(picture => picture.file === pictureArchive &&
       picture.block !== undefined && pictureBlocks.includes(picture.block)).map(describePicture);
