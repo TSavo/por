@@ -3605,7 +3605,7 @@ const illustrationRoutes = new Map([
     portrait: "portrait:HEAD3.DAX:55:BODY3.DAX:1",
     prompt: /PRESENTTHISPACKETTOITSCOMMANDANT.*DONOTBREAKTHESEALS/i,
     staticPortraitMenu: true,
-    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /^(?!.*PRESENTTHISPACKETTOITSCOMMANDANT).*NAMEACHP/i },
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
   ["new-phlan-council-guard-hold", {
     slot: "F", fixedClockStart: "4320000", stockInput: true, inputs: ["up"],
