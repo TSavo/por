@@ -386,12 +386,19 @@ atlasImage.addEventListener("error", () => {
   atlasImageLink.hidden = true;
   atlasError.hidden = false;
 });
-audioToggle.addEventListener("click", () => {
+function toggleSettings() {
   settingsPanel.hidden = !settingsPanel.hidden;
   audioToggle.setAttribute("aria-expanded", String(!settingsPanel.hidden));
   if (settingsPanel.hidden) (journal.hidden ? screen : closeJournal).focus({ preventScroll: true });
   resumeBlockedAudio();
-});
+}
+audioToggle.addEventListener("click", toggleSettings);
+function toggleJournal() {
+  void send("j");
+  if (journal.hidden) screen.focus({ preventScroll: true });
+}
+journalToggle.addEventListener("click", toggleJournal);
+window.porShell = { settings: toggleSettings, journal: toggleJournal, map: toggleAutomap };
 
 // "Use my original files" (#74). Only a release offers it: the server answers /original-files when the
 // launcher names the setting's file. The launcher reads the setting when the game starts, so a change
@@ -2594,10 +2601,6 @@ function repeatsToGame(event) {
   return repeatingKeys.has(keypadDirections[event.code] ?? commands[event.key]);
 }
 closeJournal.addEventListener("click", () => send("j"));
-journalToggle.addEventListener("click", () => {
-  void send("j");
-  if (journal.hidden) screen.focus({ preventScroll: true });
-});
 autoTrack.addEventListener("click", () => send("track auto"));
 presentation.addEventListener("click", () => {
   togglePresentation();

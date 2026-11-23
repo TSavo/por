@@ -85,10 +85,26 @@ function registerProtocol(loose: LooseFiles): void {
   });
 }
 
+function runInPage(script: string): void {
+  void gameWindow?.webContents.executeJavaScript(script);
+}
+
 function applicationMenu(): Menu {
   const mac = process.platform === "darwin";
+  // J and M are shown on the items but not registered as accelerators: those letters also belong to
+  // the game (Move, Magic, Join, …), and the page already applies the shortcuts only at menus that
+  // do not use the letter (tools/play.js hostShortcutFree).
+  const gameMenu: MenuItemConstructorOptions = {
+    label: "Game",
+    submenu: [
+      { label: "Settings", click: () => runInPage("window.porShell?.settings()") },
+      { label: "Journal", accelerator: "J", registerAccelerator: false, click: () => runInPage("window.porShell?.journal()") },
+      { label: "Map", accelerator: "M", registerAccelerator: false, click: () => runInPage("window.porShell?.map()") },
+    ],
+  };
   const template: MenuItemConstructorOptions[] = [
     ...(mac ? [{ role: "appMenu" as const }] : [{ label: "File", submenu: [{ role: "quit" as const }] }]),
+    gameMenu,
     { role: "editMenu" },
     ...(mac ? [{ role: "windowMenu" as const }] : []),
   ];
@@ -106,9 +122,10 @@ function openWindow(): void {
   const win = new BrowserWindow({
     title: "Pool of Radiance",
     width: 1280,
-    height: 880,
+    height: 960,
+    useContentSize: true,
     backgroundColor: "#000000",
-    autoHideMenuBar: process.platform !== "darwin",
+    autoHideMenuBar: false,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
