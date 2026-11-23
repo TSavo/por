@@ -804,6 +804,14 @@ const tyrmorPriestChisel = {
   staticPortraitMenu: true,
 };
 
+const nomadSentryWalk = ["up", "up", "up", "up", "left", "up"];
+const nomadSentryPortrait = "portrait:HEAD7.DAX:61:BODY7.DAX:30";
+const nomadSentryStandoff = {
+  slot: "A", inputs: [...nomadSentryWalk, "enter"],
+  portrait: nomadSentryPortrait, prompt: /THENOMADSWAITFORYOUTOMAKETHEFIRSTMOVE/i,
+  staticPortraitMenu: true,
+};
+
 const illustrationRoutes = new Map([
   ["wild-cave-boar-sow-warning-loop", {
     slot: "A", inputs: ["up"],
@@ -1731,6 +1739,28 @@ const illustrationRoutes = new Map([
     prompt: /THEHEADMANTORALLYHISPEOPLE.*HELEADSHISTRIBEINTOBATTLE/i,
     finalPhaseCapture: "nomad-headman-rally.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /COMBATWAITFLEEADVANCE/i },
+  }],
+  ["nomad-camp-sentry-families", {
+    slot: "A", inputs: nomadSentryWalk,
+    approachSequence: [
+      [56, 32, "encounter:area:17:SPRIT7.DAX:11:2:0", 16, 49],
+      [56, 32, "encounter:area:17:ecl:9dd6:caller:a289:SPRIT7.DAX:11:1:0", 24, 65],
+      [40, 32, "encounter:area:17:ecl:9dd6:caller:a2e8:SPRIT7.DAX:11:0:0", 48, 80],
+    ],
+    portrait: "scene-illustration:area:17:ecl:9da2:caller:a33c",
+    prompt: /YOUCANSEECHILDRENPEERINGOUTOFTHETENTOPENINGS.*PUSHEDBACKINSIDEBYTHEIRMOTHERS/i,
+    staticPortraitMenu: true,
+    continuation: { inputs: ["enter"], portrait: nomadSentryPortrait, prompt: nomadSentryStandoff.prompt },
+  }],
+  ["nomad-camp-sentry-parlay", {
+    ...nomadSentryStandoff,
+    continuation: { inputs: ["p"], portrait: "portrait:area:17:ecl:9da2:caller:a416:HEAD7.DAX:74:BODY7.DAX:30",
+      prompt: /THEBIGGEST,MEANEST,DIRTIESTNOMADPUSHESHISWAYTOTHEFRONTOFTHECROWD/i },
+  }],
+  ["nomad-camp-sentry-combat", {
+    ...nomadSentryStandoff,
+    continuation: { inputs: ["c"], portrait: nomadSentryPortrait, prompt: /ABATTLEBEGINS/i,
+      screenshot: "nomad-camp-sentry-battle-notice.png" },
   }],
   ["nomad-headman-lodging", {
     slot: "A", inputs: [...Array(4).fill("up"), "left", "up", "up", "enter", "enter", "p", "enter", "y"],
@@ -8314,6 +8344,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName.startsWith("yarash-study-") ||
       routeName === "valhingen-grave-claws" || routeName === "valhingen-vampire-reveal-phases" ||
       routeName === "sokal-barracks-ghost-phases" ||
+      /^nomad-camp-sentry-(families|parlay|combat)$/.test(routeName) ||
       /^tyrmor-priest-(benediction-hold|tone-hold|peace-hold|chisel-hold|chisel-help)$/.test(routeName) ||
       sokalBarracksHeld ||
       routeName === "valhingen-wight-ambush-loop" || routeName === "valhingen-spirits-tower-wight-loop" ||
@@ -12178,6 +12209,11 @@ try {
         `));
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, "lizard-wilds-stirge-swarm-battle.png"), Buffer.from(shot.data, "base64"));
+      }
+      if (routeName === "nomad-camp-sentry-combat") {
+        await advance("enter");
+        assert.equal(frame.portrait, undefined);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /NOMADHITPOINTS/i);
       }
       if (routeName === "new-phlan-city-hall-exit") {
         assert.deepEqual([frame.exploration?.area, frame.scenery?.x, frame.scenery?.y], [0, 4, 3]);
