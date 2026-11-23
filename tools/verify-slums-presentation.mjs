@@ -771,7 +771,7 @@ const wildCaveBoarAmbush = {
 const nomadEntrancePoses = ["portrait:area:26:PIC7.DAX:30:0:0", "portrait:area:26:ecl:9c49:PIC7.DAX:30:1:0"];
 const nomadEntrance = {
   slot: "A", inputs: ["down"], portrait: nomadEntrancePoses[0],
-  prompt: /(?=.*STUMBLEDUPONALARGENOMADCAMP)(?=.*WILLYOUENTERIT)(?=.*ENTERLEAVE)/i,
+  prompt: /STUMBLEDUPONALARGENOMADCAMP\.WILLYOUENTERIT\?/i,
   heldPortraitLoop: nomadEntrancePoses,
 };
 
