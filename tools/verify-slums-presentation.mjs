@@ -11382,7 +11382,7 @@ try {
     }
     if (illustration.heldPortraitLoop) await verifyHeldPortraitLoop(illustration.heldPortraitLoop);
     if (illustration.staticPortraitMenu) await verifyStaticPortrait(portrait, prompt, false);
-    if (combatProducer) {
+    if (combatProducer && portrait !== undefined) {
       await waitFor("the single portrait before combat", () => run(`
         state.sequence === ${frame.sequence} && !animationFrame &&
         document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352
