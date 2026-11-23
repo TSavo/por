@@ -123,6 +123,36 @@ POR_GAME_SOURCE=original POR_GAMEDATA=/path/to/POOLRAD \
 `npm run acceptance:new-phlan` passed all eight New Phlan scenarios on
 Battleaxe with GOG 1.3.
 
+### Painted material reloads
+
+The renderer derives a 2048×1024 material-detail texture from the painted
+atlas. The scene shader reads the two normal channels, height, and
+roughness from that texture. The [New Phlan gate](screenshots/renderer-look/new-phlan-gate.png)
+and [Valjevo Barracks](screenshots/renderer-look/valjevo-barracks.png)
+comparisons preserve the native wall grids, camera positions, and guest
+times. The masonry and paving remain readable at gameplay size.
+
+The tracked `visit-training-hall` Chrome replay enters the hall from New
+Phlan on input 16 and returns to the street on input 76. An instrumented
+run in each data mode observed four detail-texture uploads, each sampled
+during a live draw. Each run released all 18 displaced texture handles
+on the same WebGL context and retained the six textures for its current
+view. Both matched the recorded final screen.
+
+### Harbor sky and distance fog
+
+The [matched New Phlan harbor pair](screenshots/renderer-look/harbor-water-fog.png)
+shows (15,1) west after the first 43 inputs of
+`qa/fixtures/walk-commission-5-reward`. Both GOG 1.3 and bundled Chrome
+preserve the camera and walls between `cd03785b` and `a80c66a1`.
+Distant water gains more haze than foreground water. The sampled sky,
+masonry, pilings, and dry deck match byte for byte. The final WebGL
+canvas is opaque and supplies its own sky.
+
+The same Chrome comparison at the roofed Valjevo Barracks camera
+matches pixel for pixel. The GOG Classic frames also match on both
+routes. The open-night Kuto's Well replay below passed in both data modes.
+
 ### Open sky at night
 
 [Kuto's Well at 22:08](screenshots/renderer-look/kuto-open-shaft-night.png)
