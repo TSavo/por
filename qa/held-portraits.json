@@ -35420,6 +35420,142 @@
           }
         }
       }
+    },
+    {
+      "id": "area:24:ecl:af84:PIC1.DAX:4",
+      "producer": "ECL1.DAX:24:af4f",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1510,
+          "viewport": "2373d5229332a0dfc341c6a97e4371ba1ae0d83ad6f1803324a7219abb335440"
+        },
+        {
+          "member": 1,
+          "durationMs": 20,
+          "viewport": "d2f3c3b368fa6294d4fc0dea3c62279342392566accc8be7550c6eb450c383f7"
+        },
+        {
+          "member": 2,
+          "durationMs": 710,
+          "viewport": "cafbf84bf2bf53ef48f7de6e14d01f8c972602943b6b26d2fcf5622814911ab7"
+        },
+        {
+          "member": 3,
+          "durationMs": 20,
+          "viewport": "d2f3c3b368fa6294d4fc0dea3c62279342392566accc8be7550c6eb450c383f7"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "bane-rampart-startled-orc-patrol",
+          "data": "original",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "b5b361bf35940b1fa80cc7e99d5cce40cb55165e69add7c72d25aeb9dbab45eb",
+          "portrait": "portrait:area:24:ecl:af84:PIC1.DAX:4:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:0:0",
+              "atMs": 7.199999976158324
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:1:0",
+              "atMs": 1457.099999976158
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:2:0",
+              "atMs": 1490.4999999761585
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:1:0",
+              "atMs": 2190.399999976158
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:0:0",
+              "atMs": 2207.099999976158
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:1:0",
+              "atMs": 3723.6999999761574
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:2:0",
+              "atMs": 3740.399999976158
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:1:0",
+              "atMs": 4456.9999999761585
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:0:0",
+              "atMs": 4473.699999976157
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:1:0",
+              "atMs": 5990.299999976158
+            }
+          ],
+          "sha256": {
+            "portrait:area:24:ecl:af84:PIC1.DAX:4:0:0": "ff407e5bc38feb282cee573f9344a76c0d492c1c9b55d3fe4cd156964402e81f",
+            "portrait:area:24:ecl:af84:PIC1.DAX:4:1:0": "b8e83d7264b30a6cae054a11316bac5241d2876f4ca4319a5438678803714a2d",
+            "portrait:area:24:ecl:af84:PIC1.DAX:4:2:0": "1f29e842ff0ba8b702124e88217b3c83f579d243a9f7f9f52758a352610a9f57"
+          }
+        },
+        "port": {
+          "route": "bane-rampart-startled-orc-patrol",
+          "data": "port",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "b5b361bf35940b1fa80cc7e99d5cce40cb55165e69add7c72d25aeb9dbab45eb",
+          "portrait": "portrait:area:24:ecl:af84:PIC1.DAX:4:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:0:0",
+              "atMs": 12.200000011920565
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:1:0",
+              "atMs": 1428.9000000119213
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:2:0",
+              "atMs": 1445.5000000119217
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:1:0",
+              "atMs": 2162.2000000119206
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:0:0",
+              "atMs": 2178.9000000119213
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:1:0",
+              "atMs": 3695.5000000119217
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:2:0",
+              "atMs": 3712.2000000119206
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:1:0",
+              "atMs": 4428.800000011921
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:0:0",
+              "atMs": 4445.400000011921
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:4:1:0",
+              "atMs": 5945.400000011921
+            }
+          ],
+          "sha256": {
+            "portrait:area:24:ecl:af84:PIC1.DAX:4:0:0": "ff407e5bc38feb282cee573f9344a76c0d492c1c9b55d3fe4cd156964402e81f",
+            "portrait:area:24:ecl:af84:PIC1.DAX:4:1:0": "b8e83d7264b30a6cae054a11316bac5241d2876f4ca4319a5438678803714a2d",
+            "portrait:area:24:ecl:af84:PIC1.DAX:4:2:0": "1f29e842ff0ba8b702124e88217b3c83f579d243a9f7f9f52758a352610a9f57"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
@@ -39398,6 +39534,63 @@
         }
       },
       "prompt": "9f54"
+    },
+    {
+      "producer": "ECL8.DAX:27:9f85",
+      "prompt": "9fa5",
+      "caption": "YOU ARE SURPRISED BY A GROUP OF GNOLLS",
+      "position": [
+        27,
+        36,
+        14
+      ],
+      "checkpoint": "visit-lizardman-keep/F.json",
+      "chrome": {
+        "original": {
+          "route": "east-wilderness-gnolls-surprise",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA51DORN58ENNA46FENN4836,14S02:22YOUARESURPRISEDBYAGROUPOFGNOLLSCombatWaitFleeParlay",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "checkpointSha256": "069c48757f0eaef3fe6c9e6ac7e7b2c1bab2ab9fdc32b7e5467fabbbf8adb632",
+          "encounter": {
+            "placement": [
+              48,
+              32,
+              "encounter:area:27:SPRIT8.DAX:73:1:0",
+              40,
+              73
+            ],
+            "sha256": "68a84cb2071970ee84a30cedca02d8d489102921015094f020d39e07b09bc66d"
+          },
+          "position": [
+            27,
+            36,
+            14
+          ]
+        },
+        "port": {
+          "route": "east-wilderness-gnolls-surprise",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA51DORN58ENNA46FENN4836,14S02:22YOUARESURPRISEDBYAGROUPOFGNOLLSCombatWaitFleeParlay",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "checkpointSha256": "069c48757f0eaef3fe6c9e6ac7e7b2c1bab2ab9fdc32b7e5467fabbbf8adb632",
+          "encounter": {
+            "placement": [
+              48,
+              32,
+              "encounter:area:27:SPRIT8.DAX:73:1:0",
+              40,
+              73
+            ],
+            "sha256": "68a84cb2071970ee84a30cedca02d8d489102921015094f020d39e07b09bc66d"
+          },
+          "position": [
+            27,
+            36,
+            14
+          ]
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [
