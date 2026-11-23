@@ -453,7 +453,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
   const observed = new Map<ScriptSite, { prompt: string; block: number; scene: typeof scenes[number] }[]>();
   const unmapped = [];
   for (const scene of scenes) {
-    const scope = /^area:(\d+):ecl:([a-f\d]{4})(?::caller:([a-f\d]{4}))?:(PIC[1-8]\.DAX):(\d+)$/.exec(scene.id);
+    const scope = /^area:(\d+):ecl:([a-f\d]{4})(?::caller:([a-f\d]{4}))?(?::cue:[\w-]+)?:(PIC[1-8]\.DAX):(\d+)$/.exec(scene.id);
     if (!scope) throw new Error(`Invalid held portrait scene ${scene.id}`);
     const [, area, cursor, caller, archive, block] = scope;
     const prompt = promptId(cursor!, caller ?? null);
@@ -790,8 +790,9 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       if (site.requiredLoopCues) {
         const [cursor] = prompt.split("/");
         return site.requiredLoopCues.filter(cue => {
-          const opening = `portrait:area:${site.scriptBlock}:ecl:${cursor}:cue:${cue}:${site.pictureArchive}:${site.block}:0:0`;
-          return !evidence.some(entry => entry.prompt === prompt && entry.scene.verified && entry.scene.loopOpening === opening);
+          const id = `area:${site.scriptBlock}:ecl:${cursor}:cue:${cue}:${site.pictureArchive}:${site.block}`;
+          return !evidence.some(entry => entry.prompt === prompt && entry.scene.verified && entry.scene.id === id &&
+            entry.scene.loopOpening === `portrait:${id}:0:0`);
         }).map(cue => `${prompt} (${cue})`);
       }
       if (site.composedPortraitVariants) {
