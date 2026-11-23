@@ -9856,7 +9856,7 @@
           "paints": [
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
-              "atMs": -1.192074705613777e-8
+              "atMs": -1.192074705613777e-08
             },
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
@@ -31823,7 +31823,7 @@
           ],
           "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:25AGROUPOFNOMADSSPOTYOU.THEYSHOUTANDCHARGE.ASTHEYCOMECLOSERTHEIRNUMBERSSWELLWITHARRIVALS.Pressbuttonor<return>tocontinue",
           "checkpointSha256": "613741292eb972b2aa12b62d76d6931ae10a684a10cbb0667519057292b3a13d",
-          "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
           "encounter": {
             "placement": [
               56,
@@ -31845,7 +31845,7 @@
           ],
           "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:25AGROUPOFNOMADSSPOTYOU.THEYSHOUTANDCHARGE.ASTHEYCOMECLOSERTHEIRNUMBERSSWELLWITHARRIVALS.Pressbuttonor<return>tocontinue",
           "checkpointSha256": "613741292eb972b2aa12b62d76d6931ae10a684a10cbb0667519057292b3a13d",
-          "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
           "encounter": {
             "placement": [
               56,
@@ -31932,7 +31932,7 @@
           ],
           "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N12:24BEFOREYOUISAHORDEOFKOBOLDS.BEHINDTHEMARETWOMENANDANANCIENTKOBOLDONAWOODENTHRONE.Press<return>orbuttontocontinue.",
           "checkpointSha256": "45201a8ea1f09a0ead3a550a7fbcad25450246a52fbafbb70db7ed68fa9ab882",
-          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
           "encounter": {
             "placement": [
               56,
@@ -31954,7 +31954,7 @@
           ],
           "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N12:24BEFOREYOUISAHORDEOFKOBOLDS.BEHINDTHEMARETWOMENANDANANCIENTKOBOLDONAWOODENTHRONE.Press<return>orbuttontocontinue.",
           "checkpointSha256": "45201a8ea1f09a0ead3a550a7fbcad25450246a52fbafbb70db7ed68fa9ab882",
-          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
           "encounter": {
             "placement": [
               56,
@@ -32164,6 +32164,170 @@
             "scene-illustration:area:29:ecl:af2f:caller:a10f"
           ],
           "sha256": "5275e6b58ec0b77639945eeef5eaf27b6cd5928b59b59b21afcd37364d235347"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:17:aec9",
+      "prompt": "9da2/af47",
+      "caption": "A HORDE OF KOBOLDS IS ATTACKING THE CAMP. A LONE SENTRY CHARGES BUT IS QUICKLY CUT DOWN. A FAMILY EMERGES FROM A HUT AND CHARGES THE KOBOLDS.",
+      "checkpoint": "nomad-raid-first-attack/A.json",
+      "illustration": {
+        "id": "scene-illustration:area:17:ecl:9da2:caller:af47",
+        "native": {
+          "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 S 18:29 A HORDE OF KOBOLDS IS ATTACKING THE CAMP. A LONE SENTRY CHARGES BUT IS QUICKLY CUT DOWN. A FAMILY EMERGES FROM A HUT AND CHARGES THE KOBOLDS. Press button or <return> to continue",
+          "viewportSha256": "cb70e9f8c56215deccda91b8ab3c2ca198daee6a8a53c487d559943d3a9314e9",
+          "pictureDraws": 0
+        }
+      },
+      "chrome": {
+        "original": {
+          "route": "nomad-raid-first-attack",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29AHORDEOFKOBOLDSISATTACKINGTHECAMP.ALONESENTRYCHARGESBUTISQUICKLYCUTDOWN.AFAMILYEMERGESFROMAHUTANDCHARGESTHEKOBOLDS.Pressbuttonor<return>tocontinue",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:af47",
+          "checkpointSha256": "407be0c1f12ddc4393ed7cc5d50b9ae01bee8fe845aafbcb61a81b3110d5c24a",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3658,
+          "samples": 220,
+          "poses": [
+            "scene-illustration:area:17:ecl:9da2:caller:af47"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "7d0ede4cec115cd2157f88515dc264bc0a698f86da8bdb60fb5ffc5d79384a34",
+          "sha256": "946b96ad1a67180b719fe72373b2f308be263bf135fe724f6068290080f06a9a"
+        },
+        "port": {
+          "route": "nomad-raid-first-attack",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29AHORDEOFKOBOLDSISATTACKINGTHECAMP.ALONESENTRYCHARGESBUTISQUICKLYCUTDOWN.AFAMILYEMERGESFROMAHUTANDCHARGESTHEKOBOLDS.Pressbuttonor<return>tocontinue",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:af47",
+          "checkpointSha256": "407be0c1f12ddc4393ed7cc5d50b9ae01bee8fe845aafbcb61a81b3110d5c24a",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3652,
+          "samples": 221,
+          "poses": [
+            "scene-illustration:area:17:ecl:9da2:caller:af47"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "7d0ede4cec115cd2157f88515dc264bc0a698f86da8bdb60fb5ffc5d79384a34",
+          "sha256": "946b96ad1a67180b719fe72373b2f308be263bf135fe724f6068290080f06a9a"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:17:9914",
+      "prompt": "9933/af4b",
+      "caption": "Combat Wait Flee Advance",
+      "checkpoint": "nomad-raid-first-attack/A.json",
+      "position": [
+        17,
+        9,
+        11
+      ],
+      "chrome": {
+        "original": {
+          "route": "nomad-raid-first-attack",
+          "data": "original",
+          "position": [
+            17,
+            9,
+            11
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29CombatWaitFleeAdvance",
+          "checkpointSha256": "407be0c1f12ddc4393ed7cc5d50b9ae01bee8fe845aafbcb61a81b3110d5c24a",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:17:SPRIT7.DAX:0:1:0",
+              24,
+              65
+            ],
+            "sha256": "d47ef4bc067ab78ef3fbd28ec3713ed9866957761886b08d335a1b692f659006"
+          }
+        },
+        "port": {
+          "route": "nomad-raid-first-attack",
+          "data": "port",
+          "position": [
+            17,
+            9,
+            11
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29CombatWaitFleeAdvance",
+          "checkpointSha256": "407be0c1f12ddc4393ed7cc5d50b9ae01bee8fe845aafbcb61a81b3110d5c24a",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:17:SPRIT7.DAX:0:1:0",
+              24,
+              65
+            ],
+            "sha256": "d47ef4bc067ab78ef3fbd28ec3713ed9866957761886b08d335a1b692f659006"
+          }
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:17:993a",
+      "prompt": "9959/a09f",
+      "caption": "Combat Wait Flee Advance",
+      "checkpoint": "nomad-pursuit/A.json",
+      "position": [
+        17,
+        8,
+        1
+      ],
+      "chrome": {
+        "original": {
+          "route": "nomad-pursuit-menu",
+          "data": "original",
+          "position": [
+            17,
+            8,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:25CombatWaitFleeAdvance",
+          "checkpointSha256": "613741292eb972b2aa12b62d76d6931ae10a684a10cbb0667519057292b3a13d",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:17:ecl:9959:caller:a09f:SPRIT7.DAX:11:2:0",
+              16,
+              49
+            ],
+            "sha256": "85e5b5127646d607b6901771d706af7faeda2173f655ca206677d8b657255ccc"
+          }
+        },
+        "port": {
+          "route": "nomad-pursuit-menu",
+          "data": "port",
+          "position": [
+            17,
+            8,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:25CombatWaitFleeAdvance",
+          "checkpointSha256": "613741292eb972b2aa12b62d76d6931ae10a684a10cbb0667519057292b3a13d",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:17:ecl:9959:caller:a09f:SPRIT7.DAX:11:2:0",
+              16,
+              49
+            ],
+            "sha256": "85e5b5127646d607b6901771d706af7faeda2173f655ca206677d8b657255ccc"
+          }
         }
       }
     }
@@ -39659,6 +39823,102 @@
               "samples": 220,
               "poses": [
                 "scene-illustration:area:29:ecl:af2f:caller:a31b:cue:kobolds-climb-from-well"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL8.DAX:29:af89",
+      "prompt": "af2f/a31b",
+      "variants": [
+        {
+          "caption": "MONSTERS FROM THE SURROUNDING BUILDINGS ATTACK YOU.",
+          "checkpoint": "kuto-well-south/J.json",
+          "portrait": "scene-illustration:area:29:ecl:af2f:caller:a31b",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,8 N 22:05 MONSTERS FROM THE SURROUNDING BUILDINGS ATTACK YOU. Press <enter>/<return> to continue",
+            "idlePolls": 9,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 2,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 3,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 4,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 5,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 6,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 7,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 8,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+              }
+            ],
+            "drawCursor": "af91",
+            "members": [
+              0
+            ],
+            "battlePanelSha256": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+          },
+          "chrome": {
+            "original": {
+              "route": "kuto-well-surrounding-buildings-hold",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,8N22:05MONSTERSFROMTHESURROUNDINGBUILDINGSATTACKYOU.Press<enter>/<return>tocontinue",
+              "portrait": "scene-illustration:area:29:ecl:af2f:caller:a31b",
+              "checkpointSha256": "7523346d9da696a5ac725d7f9fc648d711f998e5e7d60a465924025bca37e911",
+              "artSha256": "63b88a022e59b7612d4ab6f42b3348f7b87479916c27a5599abf70d00ab70290",
+              "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3658,
+              "samples": 218,
+              "poses": [
+                "scene-illustration:area:29:ecl:af2f:caller:a31b"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "kuto-well-surrounding-buildings-hold",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,8N22:05MONSTERSFROMTHESURROUNDINGBUILDINGSATTACKYOU.Press<enter>/<return>tocontinue",
+              "portrait": "scene-illustration:area:29:ecl:af2f:caller:a31b",
+              "checkpointSha256": "7523346d9da696a5ac725d7f9fc648d711f998e5e7d60a465924025bca37e911",
+              "artSha256": "63b88a022e59b7612d4ab6f42b3348f7b87479916c27a5599abf70d00ab70290",
+              "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3661,
+              "samples": 220,
+              "poses": [
+                "scene-illustration:area:29:ecl:af2f:caller:a31b"
               ],
               "replaced": false
             }

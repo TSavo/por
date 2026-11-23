@@ -784,7 +784,7 @@
         "route": "kobold-throne-first-audience",
         "data": "original",
         "portrait": "portrait:area:13:ecl:a14b:PIC8.DAX:0:0:0",
-        "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+        "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
         "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "artSha256": "8d33aa7cabe60933c907ecdff0429cff1594d390ee793c8dca4f14742f96fa4e"
       },
@@ -793,7 +793,7 @@
         "route": "kobold-throne-first-audience",
         "data": "port",
         "portrait": "portrait:area:13:ecl:a14b:PIC8.DAX:0:0:0",
-        "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+        "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
         "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "artSha256": "8d33aa7cabe60933c907ecdff0429cff1594d390ee793c8dca4f14742f96fa4e"
       }
@@ -889,6 +889,66 @@
         "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
         "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "artSha256": "8235c27c26580c878689b895c0b5f311d69d077ebee6c974834e3da762538858"
+      }
+    }
+  },
+  {
+    "producer": "ECL8.DAX:13:a1af",
+    "combat": "a1d3",
+    "native": {
+      "drawCursor": "a1b6",
+      "evidence": "Paired original and bundled direct native draws and battlefield handoff at E:/por-codex/art-qa/kobold-caves-selector/direct-ballista-{stock,poll}-{original,port}/.",
+      "members": [
+        0
+      ]
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL8.DAX:13:a1af",
+        "route": "kobold-ballista-battle-entry",
+        "data": "original",
+        "portrait": "portrait:area:13:ecl:a1d4:PIC8.DAX:0:0:0",
+        "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "718536a0d5ae21d85d819e06d85975ab55669bb34da5779935cd72272911e766"
+      },
+      "port": {
+        "producer": "ECL8.DAX:13:a1af",
+        "route": "kobold-ballista-battle-entry",
+        "data": "port",
+        "portrait": "portrait:area:13:ecl:a1d4:PIC8.DAX:0:0:0",
+        "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "718536a0d5ae21d85d819e06d85975ab55669bb34da5779935cd72272911e766"
+      }
+    }
+  },
+  {
+    "producer": "ECL8.DAX:13:a278",
+    "combat": "a2a3",
+    "native": {
+      "drawCursor": "a27f",
+      "evidence": "Paired original and bundled direct native draws and battlefield handoff at E:/por-codex/art-qa/kobold-caves-selector/direct-envoy-{stock,poll}-{original,port}/.",
+      "composed": "HEAD8.DAX:69:BODY8.DAX:1"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL8.DAX:13:a278",
+        "route": "kobold-envoy-rematch-one-shot",
+        "data": "original",
+        "portrait": "portrait:HEAD8.DAX:69:BODY8.DAX:1",
+        "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "1038a4034c4aaf2d2e18db1890035be9217cfaa2df9c370808ba72527019f577"
+      },
+      "port": {
+        "producer": "ECL8.DAX:13:a278",
+        "route": "kobold-envoy-rematch-one-shot",
+        "data": "port",
+        "portrait": "portrait:HEAD8.DAX:69:BODY8.DAX:1",
+        "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "1038a4034c4aaf2d2e18db1890035be9217cfaa2df9c370808ba72527019f577"
       }
     }
   }
