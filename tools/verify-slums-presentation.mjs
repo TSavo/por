@@ -1900,6 +1900,24 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "nomad-headman-lodging.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HEREYOUMAYREST/i },
   }],
+  ["nomad-morning-walk", {
+    slot: "A", fixedClockStart: 4320000,
+    inputs: [...nomadSentryWalk, "enter", "p", "enter", "y", "enter", "enter", "r", "y",
+      ...Array(6).fill("i"), "r"],
+    transientPortraits: { 21: [
+      { id: "scene-illustration:area:17:ecl:9dd6:caller:9de0",
+        durationMs: 900, prompt: /THEHEADMANWALKSUPTOYOUWITHHISGUARDS.*GOODMORNING/i,
+        screenshot: "nomad-headman-morning-greeting.png", recordTiming: true },
+      { id: "scene-illustration:area:17:ecl:9d5e:caller:9d31",
+        durationMs: 7200, prompt: /LETTHEREBEGAMESFOROURGUESTS.*HELEADSYOUTOTHECAMP.SCENTRALCLEARING/i,
+        screenshot: "nomad-headman-walk-to-games.png", recordTiming: true },
+    ] },
+    portrait: "scene-illustration:area:17:ecl:9da2:caller:a711",
+    prompt: /YOUARETREATEDASHONOREDGUESTS.*THEREARECONTESTSOFSTRENGTHANDSKILL/i,
+    finalPhaseCapture: "nomad-morning-contests.png",
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:17:ecl:9da2:caller:a7a2",
+      prompt: /THENOMADSBUILDAHUGECAMPFIRE.*THEWHOLETRIBEGATHERSFORTHEFEAST/i },
+  }],
   ["nomad-feast-held-sequence", {
     slot: "A", inputs: [...nomadSentryWalk, "enter", "p", "enter", "y", "enter", "enter", "r", "y",
       ...Array(6).fill("i"), "r", "enter", "enter", "enter", "enter", "enter"],
@@ -8865,6 +8883,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       /^nomad-camp-sentry-(families|parlay|combat)$/.test(routeName) ||
       /^nomad-guard-(follow|attack)$/.test(routeName) ||
       /^nomad-raid-(betrayal|first-attack)$/.test(routeName) ||
+      routeName === "nomad-morning-walk" ||
       routeName === "nomad-feast-held-sequence" ||
       /^nomad-pursuit-(combat|flee|menu)$/.test(routeName) ||
       routeName === "nomad-rally-retained-approach" ||
@@ -12324,16 +12343,31 @@ try {
             run(`window.observedApproach.size === ${approachSequence.length}`));
         }
         for (const transient of [].concat(illustration.transientPortraits?.[index + 1] ?? [])) {
-          assert.ok(frame.animation?.some(phase => phase.portrait === transient.id &&
+          const clip = frame.animation?.find(phase => phase.portrait === transient.id &&
             (transient.durationMs === undefined || phase.durationMs === transient.durationMs) &&
             transient.prompt.test(phase.text.toSorted(([a], [b]) => a - b)
-              .map(([, char]) => String.fromCharCode(char)).join(""))),
+              .map(([, char]) => String.fromCharCode(char)).join("")));
+          assert.ok(clip,
           `Missing timed illustration: ${transient.id}; poses: ${JSON.stringify(frame.animation?.map(phase => [phase.portrait, phase.encounter, phase.durationMs]))}`);
           await waitFor("the transient illustration", () => run(`
             animationFrame?.portrait === "${transient.id}" &&
             document.querySelector('.encounter-portrait[src="/art/${transient.id}"]')?.naturalWidth === 352`));
           const shot = await command("Page.captureScreenshot", { format: "png" });
-          writeFileSync(resolve(directory, transient.screenshot), Buffer.from(shot.data, "base64"));
+          const screenshot = Buffer.from(shot.data, "base64");
+          writeFileSync(resolve(directory, transient.screenshot), screenshot);
+          if (transient.recordTiming && heldPortraitEvidenceFile) {
+            const [renderer, art] = await Promise.all([fetch(origin + "/play.js"), fetch(origin + "/art/" + transient.id)]);
+            assert.ok(renderer.ok && art.ok);
+            heldPortraitEvidence.push({
+              route: routeName, data: frame.classicAvailable === false ? "port" : "original",
+              portrait: transient.id, durationMs: clip.durationMs,
+              caption: clip.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+              rendererSha256: createHash("sha256").update((await renderer.text()).replace(/\r\n/g, "\n")).digest("hex"),
+              checkpointSha256: createHash("sha256").update(readFileSync(checkpoint)).digest("hex"),
+              artSha256: createHash("sha256").update(Buffer.from(await art.arrayBuffer())).digest("hex"),
+              screenshotSha256: createHash("sha256").update(screenshot).digest("hex"),
+            });
+          }
           if (illustration.combatWithoutPortraitProducer) transientCombatPortrait = transient.id;
         }
         if ((combatProducer || illustration.approachBeforeHeld || routeName === "kobold-throne-first-audience") &&

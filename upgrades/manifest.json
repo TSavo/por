@@ -10764,6 +10764,8 @@
     "encounter:area:27:ecl:9ff0:SPRIT8.DAX:57:2:0": "eastern-marches-lizardfolk-approach-far.png",
     "portrait:area:17:ecl:9da2:caller:a82f:HEAD7.DAX:74:BODY7.DAX:30": "nomad-headman-feast.png",
     "scene-illustration:area:17:ecl:a70d": "nomad-welcome-contests.png",
+    "scene-illustration:area:17:ecl:9dd6:caller:9de0": "nomad-headman-greeting.png",
+    "scene-illustration:area:17:ecl:9d5e:caller:9d31": "nomad-headman-walk-to-games.png",
     "scene-illustration:area:17:ecl:9da2:caller:a711": "nomad-welcome-contests.png",
     "scene-illustration:area:17:ecl:a79e": "nomad-feast-campfire.png",
     "scene-illustration:area:17:ecl:9da2:caller:a7a2": "nomad-feast-campfire.png",
