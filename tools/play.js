@@ -317,8 +317,18 @@ function showTitleName() {
   }
 }
 
+const buildVersionLabel = document.querySelector("#build-version");
+function showBuildVersion() {
+  // Presentation only: the same label in Classic and Enhanced, only while the title is up.
+  const label = state.buildVersion;
+  const showing = Boolean(label) && state.scene === "scene:title";
+  buildVersionLabel.hidden = !showing;
+  if (showing && buildVersionLabel.textContent !== label) buildVersionLabel.textContent = label;
+}
+
 function playTitleCue() {
   showTitleName();
+  showBuildVersion();
   if (!enhanced || (state.scene !== "scene:title" && state.scene !== "scene:publisher")) {
     titleCueStarted = false;
     return;
