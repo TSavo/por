@@ -3517,6 +3517,8 @@ const illustrationRoutes = new Map([
   ["podal-patrol-rest-ambush", {
     slot: "I", stockInput: true, fixedClockStart: 4320000,
     inputs: ["e", "r", "h", ...Array(8).fill("i"), "r"],
+    approachSequence: [[56, 32, "encounter:area:18:ecl:996d:SPRIT1.DAX:2:2:0", 24, 49]],
+    requireTiledApproach: false,
     prompt: /RUSHTOATTACK|ABATTLEBEGINS|HITPOINTS.*MOVEVIEWAIM/i,
   }],
   ["podal-goblin-patrol-sneak-hold", {
