@@ -49,7 +49,9 @@ const kutoWellLookFacing = new Map([["7,8", 0], ["6,7", 2], ["7,6", 4], ["8,7", 
 const ohloElixirIllustration = "scene-illustration:area:20:ecl:a38f";
 const slumsStableIllustration = "scene-illustration:area:20:ecl:a453";
 const valjevoScribeFlight = "scene-illustration:area:4:ecl:b1c7:cue:records-scribe-flight";
+const baneDirtenFarewell = "scene-illustration:area:24:ecl:acc3:cue:dirten-farewell";
 const transientScriptIllustrations = new Map([
+  ["1:24:acc3", baneDirtenFarewell],
   ["2:20:a38f", ohloElixirIllustration],
   ["2:20:a453", slumsStableIllustration],
   ["5:4:b1c7", valjevoScribeFlight],
@@ -64,6 +66,7 @@ const transientScriptIllustrationDurations = new Map([
   [ohloElixirIllustration, 17000], // 15.961 s
   [slumsStableIllustration, 8750], // 7.706 s
   [valjevoScribeFlight, 8350], // 7.340 s
+  [baneDirtenFarewell, 7200],
 ]);
 export interface OverlandTerrainFrame {
   slots: readonly number[];

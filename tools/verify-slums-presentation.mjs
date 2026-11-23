@@ -3545,6 +3545,20 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "bane-temple-exit-notice.png",
     continuation: { inputs: [":travel-poll", ":travel-poll"], clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
+  ["bane-dirten-farewell", {
+    slot: "A", stockInput: true,
+    // The focused checkpoint uses the party that accepted Dirten and a save at the altar.
+    // Enable POR_DEV_COMBAT=1 to reach the dialogue with the guest's normal reward sequence.
+    inputs: ["up", "d", ":travel-poll", ":travel-poll", ":win-combat", "d", "g", "enter",
+      ...Array.from({ length: 5 }, () => ["d", "g"]).flat(), "n", "enter", "e", "n"],
+    transientPortraits: { 22: {
+      id: "scene-illustration:area:24:ecl:acc3:cue:dirten-farewell",
+      prompt: /DIRTENSAYS.*IBIDYOUFAREWELL/i, durationMs: 7200,
+      screenshot: "bane-dirten-farewell.png", recordTiming: true,
+    } },
+    prompt: /DIRTENSAYS.*IBIDYOUFAREWELL.*AREACASTVIEWENCAMPSEARCHLOOK/i,
+    sceneryPrompt: [24, 14, 8, 6],
+  }],
   ["bane-rampart-camp-orc-ambush", {
     slot: "A", stockInput: true,
     oneShotProducer: "ECL1.DAX:24:b692",
