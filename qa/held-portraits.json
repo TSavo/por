@@ -29235,6 +29235,158 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL7.DAX:17:a213",
+      "prompt": "9da2/a33c",
+      "variants": [
+        {
+          "caption": "YOU CAN SEE CHILDREN PEERING OUT OF THE TENT OPENINGS",
+          "checkpoint": "nomad-headman-held/A.json",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:a33c",
+          "native": {
+            "drawCursor": "9dd6",
+            "composed": {
+              "source": "HEAD7.DAX:61:BODY7.DAX:30",
+              "headWrite": "a20d",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a37e"
+            },
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 N 22:29 YOU CAN SEE CHILDREN PEERING OUT OF THE TENT OPENINGS, ONLY TO BE PUSHED BACK INSIDE BY THEIR MOTHERS. Press button or <return> to continue",
+            "idlePolls": 60,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "e15f492d6da3717cb00340d84ab2f8ded4cc9a58f22509dbfc5289ded40348c0"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "e15f492d6da3717cb00340d84ab2f8ded4cc9a58f22509dbfc5289ded40348c0"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "e15f492d6da3717cb00340d84ab2f8ded4cc9a58f22509dbfc5289ded40348c0"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "e15f492d6da3717cb00340d84ab2f8ded4cc9a58f22509dbfc5289ded40348c0"
+              }
+            ],
+            "battlePanelSha256": "e15f492d6da3717cb00340d84ab2f8ded4cc9a58f22509dbfc5289ded40348c0"
+          },
+          "chrome": {
+            "original": {
+              "route": "nomad-camp-sentry-families",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:29YOUCANSEECHILDRENPEERINGOUTOFTHETENTOPENINGS,ONLYTOBEPUSHEDBACKINSIDEBYTHEIRMOTHERS.Pressbuttonor<return>tocontinue",
+              "portrait": "scene-illustration:area:17:ecl:9da2:caller:a33c",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "08daa62951dbe81c74db341c693cd53dbf4578d9ad196a3ddc75e744dc060bd6",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3664,
+              "samples": 221,
+              "poses": [
+                "scene-illustration:area:17:ecl:9da2:caller:a33c"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "nomad-camp-sentry-families",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:29YOUCANSEECHILDRENPEERINGOUTOFTHETENTOPENINGS,ONLYTOBEPUSHEDBACKINSIDEBYTHEIRMOTHERS.Pressbuttonor<return>tocontinue",
+              "portrait": "scene-illustration:area:17:ecl:9da2:caller:a33c",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "08daa62951dbe81c74db341c693cd53dbf4578d9ad196a3ddc75e744dc060bd6",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3661,
+              "samples": 221,
+              "poses": [
+                "scene-illustration:area:17:ecl:9da2:caller:a33c"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL7.DAX:17:a33c",
+      "prompt": "a37e",
+      "variants": [
+        {
+          "caption": "THE NOMADS WAIT FOR YOU TO MAKE THE FIRST MOVE",
+          "checkpoint": "nomad-headman-held/A.json",
+          "portrait": "portrait:HEAD7.DAX:61:BODY7.DAX:30",
+          "native": {
+            "drawCursor": "9dd6",
+            "composed": {
+              "source": "HEAD7.DAX:61:BODY7.DAX:30",
+              "headWrite": "a20d",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a37e"
+            },
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 N 22:29 THE NOMADS WAIT FOR YOU TO MAKE THE FIRST MOVE. Combat Wait Flee Parlay",
+            "idlePolls": 60,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "e15f492d6da3717cb00340d84ab2f8ded4cc9a58f22509dbfc5289ded40348c0"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "e15f492d6da3717cb00340d84ab2f8ded4cc9a58f22509dbfc5289ded40348c0"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "e15f492d6da3717cb00340d84ab2f8ded4cc9a58f22509dbfc5289ded40348c0"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "e15f492d6da3717cb00340d84ab2f8ded4cc9a58f22509dbfc5289ded40348c0"
+              }
+            ],
+            "battlePanelSha256": "e15f492d6da3717cb00340d84ab2f8ded4cc9a58f22509dbfc5289ded40348c0"
+          },
+          "chrome": {
+            "original": {
+              "route": "nomad-camp-sentry-parlay",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:29THENOMADSWAITFORYOUTOMAKETHEFIRSTMOVE.CombatWaitFleeParlay",
+              "portrait": "portrait:HEAD7.DAX:61:BODY7.DAX:30",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "df5ff50f42fb3af941d137a1dfa6a32580d17d1eb14e3589c583a2347c217c55",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3660,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD7.DAX:61:BODY7.DAX:30"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "nomad-camp-sentry-parlay",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:29THENOMADSWAITFORYOUTOMAKETHEFIRSTMOVE.CombatWaitFleeParlay",
+              "portrait": "portrait:HEAD7.DAX:61:BODY7.DAX:30",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "df5ff50f42fb3af941d137a1dfa6a32580d17d1eb14e3589c583a2347c217c55",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3660,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD7.DAX:61:BODY7.DAX:30"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
     }
   ],
   "approachTransitions": [
