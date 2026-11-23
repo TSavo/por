@@ -1,6 +1,6 @@
 # Pool of Radiance
 
-<img src="docs/readme/harbor-title.png" width="960" alt="The harbor of New Phlan at night: lanterns on the dock, boats on black water, and a green glow over the ruined city">
+<img src="docs/readme/title-screen.png" width="960" alt="The Special Edition title screen: Pool of Radiance over the night harbor of New Phlan, with the build number in the corner">
 
 This is SSI's Pool of Radiance — the same adventure through the ruins of Phlan, the same party, the same fights, the same dragon under Valjevo Castle. What has changed is how it feels to be there.
 
@@ -10,21 +10,25 @@ On top of that come the things the original never had. A Journal that remembers 
 
 And here is the kicker. Once you have pointed the game at your own original files, you can hit **F10** at any moment and drop back into Classic — the 1988 game, exactly as it was — then hit **F10** again and return. Flip between them at will, the way *The Secret of Monkey Island: Special Edition* lets you. Same save, same party, same square. How to get those files is in [Playing Classic mode](#playing-classic-mode) below. Without them, the game stays in Enhanced, which is where it starts, and you do not need a single original file to play.
 
+One more bonus, for anyone who remembers the cardboard wheel. The GOG release quietly dropped the copy protection: any word would do. We put the check back, and we built the translation wheel into the game — both discs, the runes, the paths — so in Enhanced you can match them and type the word the way it was originally meant to be done.
+
+<img src="docs/readme/code-wheel.png" width="960" alt="The interactive translation wheel in the desktop app: two rune discs, a dotted path, and the prompt to input the code word">
+
 ## Walking Phlan
 
-Step off the ferry at dusk and the keep is already ahead of you, lanterns on the wet boards, the walls catching the last of the light. Walk the civic streets of New Phlan in daylight, or descend the open shaft at Kuto's Well after dark, and the 3D world holds: sunlight on carved stone, a warm glow under a roof, shadows that move when you turn. The game still decides where the walls are. What you see now is a place.
+Step off the ferry and Rolf is already on the dock, the city ahead of you under a clear sky. Walk the civic streets of New Phlan and the 3D world holds: sunlight on stone, vines on a wall, shadows that move when you turn. The game still decides where the walls are. What you see now is a place.
 
 Story paintings and combat have their own presentation. The 3D view is the world you explore.
 
 <table>
   <tr>
-    <td align="center" width="55%">
-      <img src="docs/screenshots/renderer-look/kuto-open-shaft-night.png" width="480" alt="Enhanced first-person view down an open shaft at night, with the party roster beside it"><br>
-      <em>Kuto's Well, at night</em>
+    <td align="center" width="50%">
+      <img src="docs/readme/harbor-dock.png" width="480" alt="The Enhanced 3D explorer on the New Phlan dock: Rolf walks toward the party between the pilings, water on both sides, under a clear sky"><br>
+      <em>Rolf on the dock at New Phlan</em>
     </td>
-    <td align="center" width="45%">
-      <img src="docs/readme/temple-of-tyr.png" width="360" alt="The Temple of Tyr in the Enhanced 3D explorer, sunlit, with shadows on the carved facade"><br>
-      <em>The Temple of Tyr</em>
+    <td align="center" width="50%">
+      <img src="docs/readme/new-phlan-street.png" width="480" alt="The Enhanced 3D explorer looking down a sunlit street in New Phlan, with vines on the walls and the party roster beside it"><br>
+      <em>A street in New Phlan</em>
     </td>
   </tr>
 </table>
@@ -87,13 +91,15 @@ The pictures are new. Tyranthraxus is no longer a small composed portrait: he is
 
 Press **J** and the Journal opens on what the party has actually discovered: commissions, proclamations, clues. Track a lead and it becomes the current objective. The game waits while you read. Save the party, and the Journal is in the same slot.
 
+<img src="docs/readme/proclamations.png" width="800" alt="In the desktop app, the party copies proclamations from a wall into the Journal, shown as a painted scene of hands writing in an open book">
+
 Open **Map** and you can leave the long walk behind. On the overland map, the illustrated Moonsea *is* the travel map. Destinations glow. Click one, or focus it and press Enter, and the party walks there using the original game's own movement. Travel stops at encounters and at story prompts; **Escape** cancels the route. Select **Phlan** to choose a district — City Hall, the Training Hall, the Slums, Kuto's Well — and the port takes the original road, gate, or ferry that actually gets you there. The boat to Sokal Keep still goes through the harbor master, and if he wants a fare, you pay it in the original menu.
 
 The same **Map** has a Local view: an automap that records each tile you stand on, with the walls the game drew there. It does not hand you the whole floor at the start. Interiors and underground are remembered as their own floors. **Mark location** labels the square you are in. Load a save, and the map comes back as it was.
 
 <img src="docs/readme/moonsea.png" width="800" alt="Illustrated map of Phlan and the Moonsea, with destinations such as Valjevo Castle, Sokal Keep, and the Kobold Caves">
 
-<img src="docs/screenshots/renderer-look/moonsea-atlas.png" width="640" alt="The Moonsea atlas in the Enhanced travel view, beside the party roster">
+<img src="docs/readme/new-phlan-atlas.png" width="800" alt="The illustrated atlas of New Phlan in the desktop app Map view, labeling City Hall, the temples, the docks, and the gate to the Slums">
 
 ## By the numbers
 
