@@ -3263,6 +3263,14 @@ const illustrationRoutes = new Map([
       prompt: /ABATTLEBEGINS/i,
     },
   }],
+  ["bane-treasury-retaliation-one-shot", {
+    slot: "A", inputs: ["s", "up", "o", "enter", "e", "n"], oneShotProducer: "ECL1.DAX:24:aaff",
+    promptSchedule: "qa/fixtures/bane-treasury-retaliation/prompts.jsonl",
+    portrait: "portrait:area:24:ecl:ab06:PIC1.DAX:4:0:0",
+    prompt: /THEMINUTEYOUFINDTHETREASURE.*STEALFROMOURTEMPLE.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "bane-treasury-retaliation-notice.png",
+    continuation: { inputs: [":travel-poll", ":travel-poll"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
   ["bane-treasury-ambush", {
     slot: "A", inputs: ["s", "enter", "up", "o", "enter", "enter", "e", "n", "enter", "enter"],
     portrait: "portrait:area:24:ecl:ab06:PIC1.DAX:4:0:0",
@@ -8794,7 +8802,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName.startsWith("diogenes-silver-") ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       /^tyrmor-prison-(kobolds|lizardfolk|displacer|stirge)-loop$/.test(routeName) ||
-      ["bane-captive-goblin-held", "bane-gate-inspection-holds", "bane-mansion-ogre-one-shot", "bane-mansion-symbol-hold", "bane-mansion-barracks-one-shot", "bane-altar-destruction-one-shot", "bane-temple-exit-one-shot", "sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
+      ["bane-captive-goblin-held", "bane-gate-inspection-holds", "bane-mansion-ogre-one-shot", "bane-mansion-symbol-hold", "bane-mansion-barracks-one-shot", "bane-altar-destruction-one-shot", "bane-temple-exit-one-shot", "bane-treasury-retaliation-one-shot", "sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
         "new-phlan-training-duels", "new-phlan-training-north-junction", "new-phlan-training-fighters-door",
         "new-phlan-training-rogues-door", "new-phlan-training-entrance-notice",
