@@ -341,7 +341,11 @@ Set `POR_TRACE_ENHANCED_FALLBACKS=1` and run
 `npm run verify:campaign -- <chrome> --replay-leg qa/fixtures/wilderness-walk`.
 The Chrome replay saves `enhanced-fallbacks.json` in its leg directory.
 It records the art keys from committed picture layers and counts each
-displayed view once, including the views within an animation.
+displayed view once, including the views within an animation. Observer
+version 2 also counts uncovered cells when a first-person view draws
+over the native framebuffer. Area maps use their own tile layout. The
+ledger keeps earlier receipts for reference and counts current-version
+receipts in the worklist.
 
 Use GOG 1.3 for the census and rerun with `POR_GAME_SOURCE=port` to check the
 bundled display. Run `npm run verify:enhanced-fallbacks -- --record wilderness-walk <chrome-leg>`

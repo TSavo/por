@@ -933,7 +933,7 @@ function document(list: Worklist): string {
     "Run `npm run verify:held-portraits` for every site and its evidence.",
     "",
     `**Enhanced fallbacks (#142).** ${list.enhancedFallbacks.frames} fallback frames / ${list.enhancedFallbacks.keys.length} distinct keys across ${list.enhancedFallbacks.presented} Chrome views.`,
-    `Recorded walks measured in Chrome with GOG 1.3: ${list.enhancedFallbacks.walks} / ${list.enhancedFallbacks.recordedWalks}. Run \`npm run verify:enhanced-fallbacks\` for the captured keys and walks still to measure.`,
+    `Recorded walks measured in Chrome with GOG 1.3 and fallback observer v${list.enhancedFallbacks.observer}: ${list.enhancedFallbacks.walks} / ${list.enhancedFallbacks.recordedWalks}. Run \`npm run verify:enhanced-fallbacks\` for the captured keys and walks still to measure.`,
     ...(list.enhancedFallbacks.additionalReplays
       ? [`${list.enhancedFallbacks.additionalReplays} additional replay captures are included.`] : []),
     ...list.enhancedFallbacks.aliasedWalks.map(({ walk, receipt }) => `\`${walk}\` shares the \`${receipt}\` capture because the replay inputs are identical.`),

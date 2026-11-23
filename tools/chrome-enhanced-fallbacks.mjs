@@ -4,7 +4,7 @@ export function observeEnhancedFallbacks() {
   const seen = new WeakMap();
   const frames = [];
   let presented = 0;
-  window.porEnhancedFallbacks = () => ({ data: state.classicAvailable ? "original" : "port", presented, frames });
+  window.porEnhancedFallbacks = () => ({ observer: 2, data: state.classicAvailable ? "original" : "port", presented, frames });
 
   function inspect() {
     if (!enhanced || document.querySelector("#screen-loading").hidden === false) return;
@@ -59,11 +59,25 @@ export function observeEnhancedFallbacks() {
       } else {
         const tiles = view.tiles ?? [];
         const painted = layers.filter(layer => layer.matches(".terrain-tile"));
-        if (tiles.length !== painted.length) {
-          const paintedKeys = new Set(painted.map(layer => layer.getAttribute("src")));
-          for (const [, , key] of tiles) if (!paintedKeys.has(`/art/${key}`)) missing.add(key);
+        const paintedCounts = new Map();
+        for (const layer of painted) {
+          const path = layer.getAttribute("src");
+          paintedCounts.set(path, (paintedCounts.get(path) ?? 0) + 1);
         }
-        if (!painted.length && !tiles.length) missing.add(`surface${scope}:first-person`);
+        for (const [, , key] of tiles) {
+          const path = `/art/${key}`;
+          const count = paintedCounts.get(path) ?? 0;
+          if (count) paintedCounts.set(path, count - 1);
+          else missing.add(key);
+        }
+
+        // The first-person panel covers 11 by 11 native cells. A partial
+        // tile list can paint every requested asset and still expose the
+        // original framebuffer behind it. Area maps have their own layout.
+        const paintedCells = new Set(painted.map(({ style }) => `${style.left},${style.top}`)).size;
+        if ((!painted.length && !tiles.length) || (!view.areaView && paintedCells < 11 * 11)) {
+          missing.add(`surface${scope}:first-person`);
+        }
       }
     }
     if (!missing.size && screen.getAttribute("src") === `data:image/png;base64,${view.frame}` &&

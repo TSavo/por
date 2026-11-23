@@ -14,6 +14,7 @@ interface Capture {
   presented: number;
   frames: FallbackFrame[];
   fixtureSha256?: string;
+  observer?: number;
 }
 
 interface Ledger {
@@ -22,6 +23,7 @@ interface Ledger {
 }
 
 const file = "qa/enhanced-fallbacks.json";
+const observerVersion = 2;
 
 const fixtureEndpoints = ["end-frame.json", "last-screen.txt"];
 const hasEndpoint = (directory: string) => fixtureEndpoints.some(name => existsSync(join(directory, name)));
@@ -55,7 +57,10 @@ function recordedWalkNames(fixtures: string, path = ""): string[] {
 }
 
 export function enhancedFallbackCoverage(root: string) {
-  const { runs } = readLedger(root);
+  // Keep the earlier receipts for reference. They could miss a view
+  // where every announced tile painted but part of the panel was exposed.
+  const { runs: ledgerRuns } = readLedger(root);
+  const runs = Object.fromEntries(Object.entries(ledgerRuns).filter(([, run]) => run.observer === observerVersion));
   const fixtures = join(root, "qa", "fixtures");
   const recordedWalks = recordedWalkNames(fixtures).sort();
   const directWalks = recordedWalks.filter(name => runs[name]?.fixtureSha256 === fixtureDigest(join(fixtures, name)));
@@ -82,7 +87,7 @@ export function enhancedFallbackCoverage(root: string) {
     for (const frame of run.frames) for (const key of frame.keys) keys.set(key, (keys.get(key) ?? 0) + 1);
   }
   return {
-    frames, presented, walks: recordedWalks.length - missingWalks.length, recordedWalks: recordedWalks.length,
+    observer: observerVersion, frames, presented, walks: recordedWalks.length - missingWalks.length, recordedWalks: recordedWalks.length,
     missingWalks, aliasedWalks, runs: currentRuns.length, additionalReplays: currentRuns.length - directWalks.length,
     keys: [...keys].sort(([a], [b]) => a.localeCompare(b)).map(([key, count]) => ({ key, frames: count })),
   };
@@ -95,8 +100,9 @@ function main(): void {
     assert.ok(name && /^[a-z0-9][a-z0-9-]*(?:\/[a-z0-9][a-z0-9-]*)*$/.test(name) && directory,
       "Pass a recording name and the completed Chrome leg directory");
     assert.ok(existsSync(resolve(directory, "end-frame.json")), "The replay must reach its expected final frame");
-    const { data, presented, frames } = JSON.parse(readFileSync(resolve(directory, "enhanced-fallbacks.json"), "utf8")) as
+    const { observer, data, presented, frames } = JSON.parse(readFileSync(resolve(directory, "enhanced-fallbacks.json"), "utf8")) as
       Capture & { data: string };
+    assert.equal(observer, observerVersion, "Replay with the current Enhanced fallback observer");
     assert.equal(data, "original", "Count original-picture fallbacks with the GOG 1.3 files");
     assert.ok(Number.isSafeInteger(presented) && presented > 0 && Array.isArray(frames) && frames.length <= presented,
       "The Chrome fallback capture is missing its frame count");
@@ -128,7 +134,7 @@ function main(): void {
         "The Chrome replay ended on a different screen from the recorded walk");
     }
     const ledger = readLedger(root);
-    ledger.runs[name] = { presented, frames, fixtureSha256: fixtureDigest(fixture) };
+    ledger.runs[name] = { observer, presented, frames, fixtureSha256: fixtureDigest(fixture) };
     ledger.runs = Object.fromEntries(Object.entries(ledger.runs).sort(([a], [b]) => a.localeCompare(b)));
     writeFileSync(join(root, file), JSON.stringify(ledger, null, 1) + "\n");
   } else assert.ok(command === undefined, "Usage: verify:enhanced-fallbacks [--record NAME CHROME_LEG [SOURCE_LEG]]");
