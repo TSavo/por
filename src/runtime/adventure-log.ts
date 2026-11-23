@@ -432,7 +432,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (knows("zhentil-envoy-left") && knows("zhentil-packet-delivered")) nextStep = "Return to the council clerk in New Phlan and report the delivery.";
       else if (knows("zhentil-climbable-wall")) nextStep = "Choose Climb Over Wall to leave the outpost.";
       else if (knows("zhentil-quarters-attacked")) nextStep = "Get past the guards and look for a way out of the outpost.";
-      else if (knows("zhentil-night")) nextStep = "Choose Goto Sleep or Sleep With a Watch in your quarters.";
+      else if (knows("zhentil-night")) nextStep = "In your quarters, press End, then Enter to choose Sleep With a Watch. Press Enter on Goto Sleep to sleep immediately.";
       else if (knows("zhentil-dinner")) nextStep = "Speak with the commandant over dinner and follow the guard back to your quarters.";
       else if (knows("zhentil-relax")) nextStep = "Choose Relax in your quarters to wait for dinner.";
       else if (knows("zhentil-quarters")) nextStep = "Return to the entrance of your assigned quarters for the choice to wait or walk around.";
