@@ -98,19 +98,28 @@ const valjevoPatrolDispatch = new Map<string, readonly number[]>([
   ["6:a9e6", [0xaa31, 0x9c3e, 0xabd4, 0xa87d, 0xabd4]],
 ]);
 
-const lizardFaceToFaceProof = JSON.parse(readFileSync(fromPortRoot("qa", "held-portrait-unreachable.json"), "utf8")) as {
+interface UnreachablePromptProof {
   producer: string;
   prompt: string;
   scriptSha256: string;
+  reason: string;
+}
+
+const lizardFaceToFaceProof = JSON.parse(readFileSync(fromPortRoot("qa", "held-portrait-unreachable.json"), "utf8")) as UnreachablePromptProof & {
   gogStartSha256: string;
   gogOverlaySha256: string;
   translatedRoutines: Record<string, string>;
-  reason: string;
+  slums: {
+    scriptSha256: string;
+    bothSurprised: Omit<UnreachablePromptProof, "scriptSha256">;
+    angryParlay: { producer: string; entry: string; reason: string };
+  };
 };
+const slumsProof = lizardFaceToFaceProof.slums;
+const digest = (bytes: string | Uint8Array) => createHash("sha256").update(bytes).digest("hex");
 
 function lizardFaceToFaceUnreachable(script: Uint8Array, instructions: ReadonlyMap<number, Instruction>): boolean {
   const proof = lizardFaceToFaceProof;
-  const digest = (bytes: string | Uint8Array) => createHash("sha256").update(bytes).digest("hex");
   if (proof.producer !== "ECL7.DAX:26:a26c" || proof.prompt !== "a28c" || digest(script) !== proof.scriptSha256) return false;
 
   // ovl03:175f assigns 3, then 1769 repeats the unchanged comparison and 1778 replaces it with 2.
@@ -121,6 +130,35 @@ function lizardFaceToFaceUnreachable(script: Uint8Array, instructions: ReadonlyM
   if (dispatch?.opcode !== 0x25 || memory(dispatch.operands[0]!) !== 0x6dcb || dispatch.operands[5]?.word !== 0xa242 ||
       preceding?.opcode !== 0x25 || memory(preceding.operands[0]!) !== 0x6e79 || literal(preceding.operands[1]!) !== 4) return false;
 
+  return matchesSurpriseProof("ECL7.DAX", 26, proof.scriptSha256);
+}
+
+function slumsAngryMenuProven(instructions: ReadonlyMap<number, Instruction>): boolean {
+  const menu = instructions.get(0x9cc5);
+  const preceding = instructions.get(0x9cef);
+  return menu?.opcode === 0x29 && memory(menu.operands[3]!) === 0x9802 &&
+    [0, 0, 0, 1, 0].every((action, index) => literal(menu.operands[index + 4]!) === action) &&
+    preceding?.opcode === 0x25 && memory(preceding.operands[0]!) === 0x9802 && literal(preceding.operands[1]!) === 4 &&
+    [0xb250, 0xb157, 0xb225, 0xb254].every((target, index) => preceding.operands[index + 2]?.word === target);
+}
+
+function slumsBothSurprisedUnreachable(instructions: ReadonlyMap<number, Instruction>): boolean {
+  const proof = slumsProof.bothSurprised;
+  const surprise = instructions.get(0x9c08);
+  const comparison = instructions.get(0x9c74);
+  const branch = instructions.get(0x9c7b);
+  const encounter = instructions.get(0x9d1d);
+  // The pinned script enters 9d01 only when the result of SURPRISE is 3. The four
+  // jump-table targets consume every result from the preceding encounter menu.
+  return proof.producer === "ECL2.DAX:20:9d1d" && proof.prompt === "9d40" &&
+    surprise?.opcode === 0x23 &&
+    comparison?.opcode === 0x03 && memory(comparison.operands[0]!) === 0x6dcb && literal(comparison.operands[1]!) === 3 &&
+    instructions.get(0x9c7a)?.opcode === 0x16 && branch?.opcode === 0x01 && branch.operands[0]?.word === 0x9d01 &&
+    encounter?.opcode === 0x29 && encounter.next === 0x9d40;
+}
+
+function matchesSurpriseProof(file: string, blockId: number, scriptSha256: string): boolean {
+  const proof = lizardFaceToFaceProof;
   const source = readFileSync(fromPortRoot("src", "translated-1.3", "ovl03.ts"), "utf8").replace(/\r\n/g, "\n");
   for (const offset of ["0e5e", "1629", "16c9", "18f8", "1ef8", "2f2d"]) {
     const routine = source.split("export function ovl03_" + offset + "(")[1]?.split("\n}\n")[0];
@@ -132,9 +170,8 @@ function lizardFaceToFaceUnreachable(script: Uint8Array, instructions: ReadonlyM
   if (!original) return false;
   if (isPortGameRoot(original)) return true;
   try {
-    const file = "ECL7.DAX";
-    const block = parseDax(file, readGameFile(original, file)).entries.find(entry => entry.id === 26);
-    return block !== undefined && digest(scriptFromBlock(block.data).bytes) === proof.scriptSha256 &&
+    const block = parseDax(file, readGameFile(original, file)).entries.find(entry => entry.id === blockId);
+    return block !== undefined && digest(scriptFromBlock(block.data).bytes) === scriptSha256 &&
       digest(readGameFile(original, "START.EXE")) === proof.gogStartSha256 &&
       digest(readGameFile(original, "GAME.OVR")) === proof.gogOverlaySha256;
   } catch {
@@ -153,6 +190,10 @@ const eclCandidates = scripts.flatMap(record => {
   const instructions = new Map(decoded.map(instruction => [instruction.address, instruction]));
   const faceToFaceUnreachable = archive === 7 && scriptBlock === 26 &&
     lizardFaceToFaceUnreachable(script.bytes, instructions);
+  const slumsAngryDispatchProven = archive === 2 && scriptBlock === 20 &&
+    digest(script.bytes) === slumsProof.scriptSha256 && slumsAngryMenuProven(instructions) &&
+    matchesSurpriseProof("ECL2.DAX", 20, slumsProof.scriptSha256);
+  const bothSurprisedUnreachable = slumsAngryDispatchProven && slumsBothSurprisedUnreachable(instructions);
   const contexts = new Map<number, State[]>();
   walk(readEntryVector(script).map(address => ({ address, returns: [] })), instructions, state => {
     const states = contexts.get(state.address) ?? [];
@@ -479,8 +520,11 @@ const eclCandidates = scripts.flatMap(record => {
       resultBranch.next === patrolDispatch[0] &&
       patrolDispatch.slice(1).every((target, index) => resultBranch.operands[index + 2]?.word === target)
       ? resultBranch.next : undefined;
+    const angryParlay = slumsAngryDispatchProven && slumsProof.angryParlay.producer === "ECL2.DAX:20:9cc5" &&
+      slumsProof.angryParlay.entry === "b254" && load.address === 0x9cc5 ? slumsProof.angryParlay : undefined;
     walk(scope.flatMap(state => successors(state, instructions)), instructions, (state, instruction) => {
-      if (state.address === disguiseEntry || pictureBoundaries.has(instruction.opcode)) return false;
+      if (state.address === disguiseEntry || pictureBoundaries.has(instruction.opcode) ||
+          angryParlay && (state.address === 0xb254 || state.address === instructions.get(0x9cef)?.next)) return false;
       if (instruction.opcode === 0x0d) {
         if (direct) return false;
         approaches.add(authored(state.address));
@@ -617,6 +661,9 @@ const eclCandidates = scripts.flatMap(record => {
       ...(tyrmorPictures && tyrmorPictures.compositions.length > 1 ? { composedPortraitVariants: tyrmorPictures.compositions } : {}),
       ...(faceToFaceUnreachable && authored(load.address) === "a26c" && authored(load.next) === lizardFaceToFaceProof.prompt
         ? { unreachableOriginal: lizardFaceToFaceProof.reason } : {}),
+      ...(bothSurprisedUnreachable && authored(load.address) === "9d1d" && authored(load.next) === slumsProof.bothSurprised.prompt
+        ? { unreachableOriginal: slumsProof.bothSurprised.reason } : {}),
+      ...(angryParlay ? { unreachableContinuation: angryParlay } : {}),
       ...(direct ? {} : { approachSelectors: { sprite: selector(operands[0]!), distance: selector(operands[1]!) } }),
       approachSites: [...approaches].sort(),
       approachHandoff,
