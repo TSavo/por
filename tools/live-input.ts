@@ -1222,6 +1222,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const command = readCommand();
       if (command === undefined || command === ":quit") throw new Error("Live session closed");
       if (command === ":poll" && (automaticCombat || battleEntryPolling) || command === ":travel-poll" && nonblockingPoll) {
+        // A native battle can present many turns without receiving a player key.
+        if (battlePoll) cpu.stepBudget = Math.max(cpu.stepBudget, cpu.steps + liveIdleBudget);
         nextPrompt = cpu.steps + 1_000_000;
         return;
       }
