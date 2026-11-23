@@ -342,12 +342,13 @@ export class PlaySession {
       command === ":travel-poll" && (frame.travelPolling || recordedPoll));
     // While the game plays an animation by itself it takes no key: the page only asks for more of it.
     if (frame.presentationPolling && !validPoll) return 409;
+    const unlockCombat = command === ":idspispopd" && expected === String(sequence);
     const validDeveloperVictory = command === developerVictoryCommand && expected === String(sequence) &&
       frame.developerVictoryAvailable;
     const validLabel = /^:map-label(?: [\x20-\x7e]{0,40})?$/.test(command) && Boolean(frame.exploration);
     if (command.length > 16 && !validLabel) return 400;
     const gameKey = command.startsWith("key ") ? command.slice(4) : command;
-    if ((!validTrack && !validPoll && !validDeveloperVictory && !validLabel && getKey(gameKey) === undefined) ||
+    if ((!validTrack && !validPoll && !unlockCombat && !validDeveloperVictory && !validLabel && getKey(gameKey) === undefined) ||
         (frame.journal && command.toLowerCase() !== "j" && !validTrack)) return 400;
     const enableCodeWheel = codeWheel && this.options.codeWheelAvailable &&
       command === "backspace" && expected === String(sequence) &&

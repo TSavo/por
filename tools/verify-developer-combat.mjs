@@ -19,13 +19,15 @@ const saves = mkdtempSync(join(tmpdir(), "por-developer-combat-"));
 for (const name of readdirSync(fixture).filter((name) => /^(?:[A-J]|roster)\.json$/.test(name))) cpSync(join(fixture, name), join(saves, name));
 const game = await startGame({ pregen: false, saves, seconds: 1200, env: {
   POR_GAME_SOURCE: process.env.POR_GAME_SOURCE ?? "port",
-  POR_BOOT_KEYS: boot.bootKeys, POR_LIVE_AT: boot.startAt, POR_DEV_COMBAT: "1", POR_INPUT_COMPAT: boot.inputCompat ?? "",
+  POR_BOOT_KEYS: boot.bootKeys, POR_LIVE_AT: boot.startAt, POR_DEV_COMBAT: "0", POR_INPUT_COMPAT: boot.inputCompat ?? "",
   POR_PROMPT_SCHEDULE_IN: resolve(fixture, "prompts.jsonl"),
 } });
 try {
   // The walk's commands up to its first developer's win in the courtyard fight; the walk may go on
   // past the fight, and the rest is this check's own.
   const commands = readFileSync(join(fixture, "commands.jsonl"), "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line));
+  if (game.frame.developerVictoryAvailable || await game.send(":win-combat")) game.fail("Victory was unlocked at startup.");
+  if (!await game.send(":idspispopd")) game.fail("The session refused the combat unlock.");
   let courtyard = false;
   for (const [index, command] of commands.entries()) {
     if (!await game.send(command)) game.fail(`The runner refused the walk's command ${index}, ${JSON.stringify(command)}.`);

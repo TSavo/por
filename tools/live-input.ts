@@ -307,7 +307,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const viewportMark = () => cellWriteMark(3, 3, 11, 11);
   const viewportUntouched = (mark: number) => !standalone || mark === viewportMark();
   const browser = env.POR_BROWSER_PLAY === "1";
-  const developerCombat = env.POR_DEV_COMBAT === "1";
+  let developerCombat = env.POR_DEV_COMBAT === "1";
   // Replays recorded before 2026-11-21 answered the game's discard polls with a key press.
   // They set this until each is re-recorded with one press per input.
   const promptAtDiscardPolls = env.POR_INPUT_COMPAT === "discard-poll-prompt";
@@ -1157,10 +1157,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     const battlefield = hasBattlefieldBorder(screen) ||
       (standalone && cpu.read8(unit.data, data.gameState) === 5 && hasBattlefieldFrame());
     const battlePoll = !blocking && isAt(cpu, cpu.ip, code.keyPressedPoll) && battlefield;
-    const combatMenu = developerCombat ? menuText(visibleGameText()) : "";
-    // Combat can pause on a hostile's first turn before the party gets a menu.
-    developerVictoryAvailable = developerCombat && canWinDeveloperCombat(cpu) &&
-      ((battlePoll && combatMenu === "") || (combatMenu.startsWith("MOVEVIEWAIM") && battlefield));
+    function victoryAvailableHere(): boolean {
+      if (!developerCombat || !canWinDeveloperCombat(cpu)) return false;
+      const combatMenu = menuText(visibleGameText());
+      // Combat can pause on a hostile's first turn before the party gets a menu.
+      return (battlePoll && combatMenu === "") || (combatMenu.startsWith("MOVEVIEWAIM") && battlefield);
+    }
+    developerVictoryAvailable = victoryAvailableHere();
     const kovelTransition = kovelJournalTransition(cpu, unit.data);
     if (kovelTransition !== undefined && kovelTransition !== previousKovelTransition) journal();
     previousKovelTransition = kovelTransition;
@@ -1225,6 +1228,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         if (battlePoll) cpu.stepBudget = Math.max(cpu.stepBudget, cpu.steps + liveIdleBudget);
         nextPrompt = cpu.steps + 1_000_000;
         return;
+      }
+      if (command === ":idspispopd") {
+        developerCombat = true;
+        developerVictoryAvailable = victoryAvailableHere();
+        showFrame(undefined, undefined, false, automaticCombat);
+        continue;
       }
       if (command.startsWith(":map-label")) {
         if (mappedPosition) automap?.label(mappedPosition, command.slice(":map-label".length));

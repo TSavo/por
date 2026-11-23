@@ -389,7 +389,9 @@ atlasImage.addEventListener("error", () => {
   atlasImageLink.hidden = true;
   atlasError.hidden = false;
 });
+let combatCodeKeys = "";
 function toggleSettings() {
+  combatCodeKeys = "";
   settingsPanel.hidden = !settingsPanel.hidden;
   audioToggle.setAttribute("aria-expanded", String(!settingsPanel.hidden));
   if (settingsPanel.hidden) (journal.hidden ? screen : closeJournal).focus({ preventScroll: true });
@@ -2666,6 +2668,24 @@ atlasSheet.addEventListener("change", renderAutomap);
 window.addEventListener("keydown", (event) => {
   if (originalFiles.restart.open || document.querySelector("#storage-error[open]")) return;
   resumeBlockedAudio();
+  if (!settingsPanel.hidden) {
+    if (!event.repeat && !event.isComposing && !event.ctrlKey && !event.altKey && !event.metaKey &&
+        /^[a-z]$/i.test(event.key)) {
+      const code = "idspispopd";
+      combatCodeKeys = (combatCodeKeys + event.key.toLowerCase()).slice(-code.length);
+      if (combatCodeKeys === code) {
+        combatCodeKeys = "";
+        const notice = document.querySelector("#combat-code-status");
+        void send(":idspispopd").then(ok => {
+          notice.hidden = false;
+          notice.textContent = ok ? "F9 combat victory enabled for this session." : "Wait for the game prompt and enter the code again.";
+        });
+      }
+      if (!(event.target instanceof HTMLElement && event.target.closest("#settings"))) event.preventDefault();
+      return;
+    }
+    if (event.key !== "Shift" && !event.repeat) combatCodeKeys = "";
+  }
   if (event.key !== "F10" && event.target instanceof HTMLElement && event.target.closest("#settings")) return;
   // On the publisher screen a key goes to the title, and no further: the game is at its title
   // already, and a key sent to it there leaves the title unseen (#127). The browser keeps its own keys.
