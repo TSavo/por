@@ -115,6 +115,7 @@ try {
   const classicAvailable = await chrome.evaluate("state.classicAvailable");
   expect(original ? "Classic is available with the original files" : "Classic is not available without original files",
     classicAvailable === Boolean(original), classicAvailable);
+  expect("the display switch reflects Classic availability", await chrome.evaluate("!presentation.hidden") === classicAvailable);
   await screenshot("1-first-menu");
 
   // 2. SSI's ready-made characters.
@@ -190,6 +191,16 @@ try {
   const loaded = await position();
   expect("loads slot A where the party saved", exploring.test(text) && JSON.stringify(loaded) === JSON.stringify(saved), { saved, loaded });
   await screenshot("5-loaded");
+  if (server !== "runner" && original) {
+    await chrome.key("f10");
+    await chrome.until("Classic again", "!enhanced");
+    const removed = await chrome.evaluate(`gameFetch("/original-files", {
+      method: "POST", body: JSON.stringify({ path: null }),
+    }).then(response => response.ok)`);
+    await chrome.until("the game to stop using the original files", "state.classicAvailable === false");
+    expect("removing the originals switches back to Enhanced and hides the Classic control",
+      removed && await chrome.evaluate("enhanced && presentation.hidden"));
+  }
 } catch (error) {
   failures.push(error.message);
   log(`FAIL ${error.stack}`);

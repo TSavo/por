@@ -7,7 +7,7 @@
 import { inspectPickedFolder, type PickedFile, type PickedOriginalFolder } from "../../src/resources/original-folder.js";
 import type { ResourceId } from "../../src/resources/provider.js";
 
-export type OriginalChoice = PickedOriginalFolder | { problem: string };
+export type OriginalChoice = PickedOriginalFolder | { problem: string; remembered?: string };
 
 // The folder handle, under one key of one store. A handle is a reference to the folder, not its files.
 const database = () => new Promise<IDBDatabase>((done, failed) => {
@@ -20,9 +20,10 @@ async function handleStore<T>(mode: IDBTransactionMode, act: (store: IDBObjectSt
   const db = await database();
   try {
     return await new Promise<T>((done, failed) => {
-      const request = act(db.transaction("handles", mode).objectStore("handles"));
-      request.onsuccess = () => done(request.result);
-      request.onerror = () => failed(request.error);
+      const transaction = db.transaction("handles", mode);
+      const request = act(transaction.objectStore("handles"));
+      transaction.oncomplete = () => done(request.result);
+      transaction.onerror = transaction.onabort = () => failed(transaction.error ?? request.error);
     });
   } finally { db.close(); }
 }
@@ -30,7 +31,8 @@ async function handleStore<T>(mode: IDBTransactionMode, act: (store: IDBObjectSt
 interface DirectoryHandle {
   name: string; kind: "directory";
   values(): AsyncIterable<DirectoryHandle | { kind: "file"; name: string; getFile(): Promise<File> }>;
-  queryPermission?(options: { mode: "read" }): Promise<PermissionState>;
+  queryPermission(options: { mode: "read" }): Promise<PermissionState>;
+  requestPermission(options: { mode: "read" }): Promise<PermissionState>;
 }
 const fileBytes = async (file: Blob) => new Uint8Array(await file.arrayBuffer());
 
@@ -72,12 +74,16 @@ export async function pickOriginalFolder(): Promise<OriginalChoice | undefined> 
 }
 
 /** The folder kept from an earlier choice, read again now; undefined if there is none. */
-export async function restoreOriginalFolder(): Promise<OriginalChoice | undefined> {
+export async function restoreOriginalFolder(requestAccess = false): Promise<OriginalChoice | undefined> {
   if (typeof indexedDB === "undefined") return;
   const handle = await handleStore<DirectoryHandle | undefined>("readonly", (store) => store.get("folder")).catch(() => undefined);
   if (!handle) return;
-  if (await handle.queryPermission?.({ mode: "read" }) !== "granted") return { problem: `the browser no longer lets the game read ${handle.name}: choose the folder again` };
   try {
+    const options = { mode: "read" } as const;
+    const permission = requestAccess ? await handle.requestPermission(options) : await handle.queryPermission(options);
+    if (permission !== "granted") {
+      return { problem: `Restore read access to ${handle.name} to enable Classic display.`, remembered: handle.name };
+    }
     return await inspectPickedFolder(handle.name, await handleFiles(handle));
   } catch (error) {
     return { problem: `cannot read ${handle.name} (${(error as Error).message})` };

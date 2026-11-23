@@ -16,6 +16,7 @@ import { engineRoot, preloadEngineResources, startEngine, type RunningEngine } f
 import { IdbResources } from "./idb-provider.js";
 import { forgetOriginalFolder, originalEntries, originalFolderAt, pickOriginalFolder, restoreOriginalFolder, type OriginalChoice } from "./original-picker.js";
 import type { ResourceIndex } from "./resource-index.js";
+import type { HostOriginalFiles } from "../electron/preload.js";
 
 if (typeof window !== "undefined" && (window.porElectron || /\bElectron\//.test(navigator.userAgent))) {
   document.documentElement.classList.add("electron-app");
@@ -34,6 +35,7 @@ let session: PlaySession;
 let engine: RunningEngine | undefined;
 let original: PickedOriginalFolder | undefined;
 let originalProblem: string | undefined;
+let originalRemembered: string | undefined;
 
 /** Start the game from its beginning, with the original files chosen now (none, or the player's). */
 async function start() {
@@ -72,15 +74,10 @@ async function useOriginal(choice: OriginalChoice | undefined) {
   if (choice && "problem" in choice) return choice;
   original = choice;
   originalProblem = undefined;
+  originalRemembered = undefined;
   await start();
   return choice ? { folder: choice.folder, release: choice.release } : {};
 }
-
-type HostOriginalFiles = {
-  folder: string;
-  release: "1.3" | "first";
-  files: { name: string; data: Uint8Array }[];
-};
 
 function originalFromHost(payload: HostOriginalFiles): PickedOriginalFolder {
   return {
@@ -94,11 +91,16 @@ const ready = (async () => {
   provider = await IdbResources.open();
   index = (await provider.getJson<ResourceIndex>("index"))!;
   gameEntries = await preloadEngineResources(provider, index, ["manifest:src/audio/voices.json", "manifest:qa/art-worklist-cells.json"]);
-  const host = window.porElectron ? await window.porElectron.getOriginalFiles() : undefined;
-  const kept = host ? originalFromHost(host)
-    : await restoreOriginalFolder().catch((error: Error) => ({ problem: error.message }));
+  const kept = await (async (): Promise<OriginalChoice | undefined> => {
+    if (!window.porElectron) return restoreOriginalFolder();
+    const host = await window.porElectron.getOriginalFiles();
+    return host && "release" in host ? originalFromHost(host) : host ?? undefined;
+  })().catch((error: Error): OriginalChoice => ({ problem: error.message }));
   if (kept && "release" in kept) original = kept;
-  else originalProblem = kept && "problem" in kept ? kept.problem : undefined;
+  else {
+    originalProblem = kept?.problem;
+    originalRemembered = kept?.remembered;
+  }
   await start();
 })();
 ready.catch((error) => console.error("The game cannot start", error));
@@ -144,18 +146,19 @@ async function gameFetch(input: RequestInfo | URL, init: RequestInit = {}): Prom
   }
   if (path === "/original-files" && method === "GET") {
     // The browser picks a folder rather than naming a path (#226).
-    return json({ picker: true, inUse: original ? { folder: original.folder, release: original.release } : null, path: null, problem: originalProblem ?? null });
+    return json({ picker: true, inUse: original ? { folder: original.folder, release: original.release } : null, path: null, problem: originalProblem ?? null, remembered: originalRemembered ?? null });
   }
   if (path === "/original-files" && method === "POST") {
-    let body: { pick?: unknown; path?: unknown };
+    let body: { pick?: unknown; path?: unknown; restore?: unknown };
     try { body = JSON.parse(String(init.body)) as typeof body; } catch { return empty(400); }
     if (body.path === null) {
-      await forgetOriginalFolder();
+      if (window.porElectron) await window.porElectron.forgetOriginalFiles();
+      else await forgetOriginalFolder();
       await useOriginal(undefined);
       return json({ path: null, started: true });
     }
-    if (body.pick !== true) return empty(400);
-    const choice = await pickOriginalFolder();
+    if (window.porElectron || (body.pick !== true && body.restore !== true)) return empty(400);
+    const choice = body.restore === true ? await restoreOriginalFolder(true) : await pickOriginalFolder();
     if (!choice) return json({ cancelled: true });
     const used = await useOriginal(choice);
     if ("problem" in used) return json({ problem: used.problem }, 422);
@@ -171,7 +174,8 @@ declare global {
     porTestUseOriginalFolder(url: string): Promise<unknown>;
     /** The Electron shell: original files from File > Use Original Files… or original-files.json. */
     porElectron?: {
-      getOriginalFiles(): Promise<HostOriginalFiles | null>;
+      getOriginalFiles(): Promise<HostOriginalFiles | { problem: string } | null>;
+      forgetOriginalFiles(): Promise<void>;
       onOriginalFiles(callback: (payload: HostOriginalFiles) => void): void;
     };
   }
@@ -181,4 +185,9 @@ window.porTestUseOriginalFolder = async (url) => {
   await ready;
   return useOriginal(await originalFolderAt(url));
 };
-window.porElectron?.onOriginalFiles((payload) => { void ready.then(() => useOriginal(originalFromHost(payload))); });
+window.porElectron?.onOriginalFiles((payload) => {
+  void ready.then(async () => {
+    await useOriginal(originalFromHost(payload));
+    window.dispatchEvent(new Event("por-original-files-changed"));
+  }).catch((error) => console.error("Cannot open the original files", error));
+});

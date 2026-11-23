@@ -13,7 +13,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { app, BrowserWindow, Menu, dialog, ipcMain, net, protocol } from "electron";
-import type { MenuItemConstructorOptions } from "electron";
+import type { IpcMainInvokeEvent, MenuItemConstructorOptions } from "electron";
 import {
   inspectOriginalFiles, originalFilesSettingName, readOriginalFilesSetting, writeOriginalFilesSetting,
 } from "../release/original-files.js";
@@ -22,6 +22,10 @@ import type { HostOriginalFiles } from "./preload.js";
 
 const scheme = "por";
 const gameOrigin = `${scheme}://localhost`;
+function isGamePage(url: string): boolean {
+  const { protocol, host, pathname } = new URL(url);
+  return protocol === `${scheme}:` && host === "localhost" && (pathname === "/" || pathname === "/play.html");
+}
 
 protocol.registerSchemesAsPrivileged([{
   scheme,
@@ -98,36 +102,55 @@ function originalSettingPath(): string {
 function loadOriginalFiles(named: string): HostOriginalFiles | { problem: string } {
   const found = inspectOriginalFiles(named);
   if ("problem" in found) return found;
-  const files = readdirSync(found.folder, { withFileTypes: true })
-    .filter((entry) => entry.isFile())
-    .map((entry) => ({ name: entry.name, data: new Uint8Array(readFileSync(join(found.folder, entry.name))) }));
-  return { folder: found.folder, release: found.release, files };
+  try {
+    const files = readdirSync(found.folder, { withFileTypes: true })
+      .filter((entry) => entry.isFile())
+      .map((entry) => ({ name: entry.name.toUpperCase(), data: new Uint8Array(readFileSync(join(found.folder, entry.name))) }));
+    return { folder: found.folder, release: found.release, files };
+  } catch (error) {
+    return { problem: `Cannot read ${found.folder} (${(error as Error).message})` };
+  }
 }
 
-function currentOriginalFiles(): HostOriginalFiles | undefined {
-  const setting = readOriginalFilesSetting(originalSettingPath());
-  if (!setting.path) return;
-  const loaded = loadOriginalFiles(setting.path);
-  return "problem" in loaded ? undefined : loaded;
+function currentOriginalFiles(): HostOriginalFiles | { problem: string } | null {
+  const { path, problem } = readOriginalFilesSetting(originalSettingPath());
+  if (problem) return { problem };
+  return path ? loadOriginalFiles(path) : null;
 }
 
 async function pickOriginalFiles(): Promise<void> {
-  if (!gameWindow) return;
-  const picked = await dialog.showOpenDialog(gameWindow, {
+  const win = gameWindow;
+  if (!win) return;
+  const picked = await dialog.showOpenDialog(win, {
     title: "Use Original Files",
     properties: ["openDirectory"],
+    defaultPath: readOriginalFilesSetting(originalSettingPath()).path,
   });
-  if (picked.canceled || !picked.filePaths[0]) return;
+  if (picked.canceled || !picked.filePaths[0] || win.isDestroyed()) return;
   const loaded = loadOriginalFiles(picked.filePaths[0]);
   if ("problem" in loaded) {
-    await dialog.showMessageBox(gameWindow, { type: "warning", title: "Use Original Files", message: loaded.problem });
+    await dialog.showMessageBox(win, { type: "warning", title: "Use Original Files", message: loaded.problem });
     return;
   }
   writeOriginalFilesSetting(originalSettingPath(), loaded.folder);
-  gameWindow.webContents.send("original-files:used", loaded);
+  win.webContents.send("original-files:used", loaded);
 }
 
-ipcMain.handle("original-files:get", () => currentOriginalFiles() ?? null);
+function requireGameWindow(event: IpcMainInvokeEvent): void {
+  const frame = event.senderFrame;
+  if (!frame || event.sender !== gameWindow?.webContents || frame !== event.sender.mainFrame || !isGamePage(frame.url)) {
+    throw new Error("Original files are available only to the game window.");
+  }
+}
+
+ipcMain.handle("original-files:get", (event) => {
+  requireGameWindow(event);
+  return currentOriginalFiles();
+});
+ipcMain.handle("original-files:forget", (event) => {
+  requireGameWindow(event);
+  writeOriginalFilesSetting(originalSettingPath(), undefined);
+});
 
 function runInPage(script: string): void {
   void gameWindow?.webContents.executeJavaScript(script);
@@ -195,7 +218,7 @@ function openWindow(): void {
   win.on("closed", () => { gameWindow = undefined; });
   win.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
   win.webContents.on("will-navigate", (event, url) => {
-    if (new URL(url).origin !== gameOrigin) event.preventDefault();
+    if (!isGamePage(url)) event.preventDefault();
   });
   win.webContents.on("dom-ready", () => {
     void win.webContents.executeJavaScript('document.documentElement.classList.add("electron-app")');
