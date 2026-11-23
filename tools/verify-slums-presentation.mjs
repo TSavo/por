@@ -5440,6 +5440,15 @@ const illustrationRoutes = new Map([
       inputs: ["enter", "enter"], portrait: "portrait:area:9:ecl:a577:HEAD2.DAX:11:BODY2.DAX:2", prompt: /COMBATWAITFLEEPARLAY/i,
     },
   }],
+  ["stojanow-bugbear-gate-ambush", {
+    slot: "A", inputs: ["up"], fixedClockStart: 4320000,
+    approachSequence: [[56, 32, "encounter:area:9:SPRIT2.DAX:63:0:0", 24, 73]],
+    portrait: "portrait:area:9:ecl:ad64:PIC2.DAX:63:0:0",
+    prompt: /BUGBEARSWEREWAITINGONTHEOTHERSIDEOFTHEGATE/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:9:ecl:ad64:PIC2.DAX:63:${member}:0`),
+    finalPhaseCapture: "stojanow-bugbear-gate-ambush.png",
+    continuation: { inputs: ["c", "enter"], clearsPortrait: true, prompt: /HITPOINTS.*MOVEVIEWAIM/i },
+  }],
   ["stojanow-tower-charge", {
     slot: "A", inputs: ["up", "enter", "enter"],
     approachSequence: [[48, 32, "encounter:area:9:ecl:a577:SPRIT2.DAX:24:0:0", 32, 73]],
@@ -8656,6 +8665,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName.startsWith("valjevo-tower-giants-") ||
       /^slums-roaming-(?:kobold|(?:kobold|orc|goblin)-(?:surprise|advance|spotted)|(?:orc|goblin)-party-surprised|(?:surprised-)?(?:kobold|orc|goblin)-(?:demand|surrender|leave|advice|stop|rebuke)-parlay)-loop$/.test(routeName) ||
       /^valjevo-giant-barracks-password-(haughty|sly)-loop$/.test(routeName) ||
+      routeName === "stojanow-bugbear-gate-ambush" ||
       /^lizardman-keep-(giant-lizards|drythh-followers)-hold$/.test(routeName) ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||

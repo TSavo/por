@@ -221,6 +221,9 @@ const portraitLoops = [
     /YOUDONTHAVEENOUGHMONEY/i, [1310, 110, 510, 20]],
   ["portrait:area:9:ecl:a778:PIC2.DAX:63:", [0, 1, 2, 1], undefined,
     /THEYAREIMPOSTERSALLRIGHTTHROWDOWNYOURWEAPONS/i, [1310, 110, 510, 20]],
+  // Native member 3 repeats the middle sword position.
+  ["portrait:area:9:ecl:ad64:PIC2.DAX:63:", [0, 1, 2, 1], undefined,
+    /BUGBEARSWEREWAITINGONTHEOTHERSIDEOFTHEGATE/i, [1310, 110, 510, 20]],
   ["portrait:area:9:ecl:a945:PIC2.DAX:63:", [0, 1, 2, 1], "portrait:area:9:PIC2.DAX:63:0:0",
     /THELEADERSWINGSATYOU/i, [1310, 110, 510, 20]],
   ["portrait:area:10:ecl:b695:caller:9f7a:PIC4.DAX:35:", 5, "portrait:area:10:PIC4.DAX:35:0:0",
