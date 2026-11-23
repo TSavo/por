@@ -12487,6 +12487,326 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL5.DAX:7:a184",
+      "prompt": "a1d7",
+      "variants": [
+        {
+          "caption": "SO WHAT MESSAGE FROM TYRANTHRAXUS",
+          "checkpoint": "valjevo-genheeris-portraits/B.json",
+          "portrait": "portrait:HEAD5.DAX:59:BODY5.DAX:31",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 E 00:08 'SO WHAT MESSAGE FROM TYRANTHRAXUS REQUIRES ALL OF YOU TO DELIVER IT?' Combat Wait Flee Parlay",
+            "idlePolls": 64,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 64,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              }
+            ],
+            "drawCursor": "a1d7",
+            "composed": {
+              "source": "HEAD5.DAX:59:BODY5.DAX:31",
+              "headWrite": "a17e",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a1d7"
+            },
+            "clearedPanelSha256": "4c1c5dff76b19bb7d259eedd813cb32185e5aaadce28b1d70987fc8a7d3154d1"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-genheeris-orders",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:08'SOWHATMESSAGEFROMTYRANTHRAXUSREQUIRESALLOFYOUTODELIVERIT?'CombatWaitFleeParlay",
+              "portrait": "portrait:HEAD5.DAX:59:BODY5.DAX:31",
+              "checkpointSha256": "4cc1000dc9741f7153e7f30ab0d2ebea30e52cbc9e626a5c107fb66a4d311efb",
+              "artSha256": "6918382675b4cdd685500e3388611f8c55c8c48b54dd4a2574ca63466acf0642",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3658,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD5.DAX:59:BODY5.DAX:31"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-genheeris-orders",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:08'SOWHATMESSAGEFROMTYRANTHRAXUSREQUIRESALLOFYOUTODELIVERIT?'CombatWaitFleeParlay",
+              "portrait": "portrait:HEAD5.DAX:59:BODY5.DAX:31",
+              "checkpointSha256": "4cc1000dc9741f7153e7f30ab0d2ebea30e52cbc9e626a5c107fb66a4d311efb",
+              "artSha256": "6918382675b4cdd685500e3388611f8c55c8c48b54dd4a2574ca63466acf0642",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3657,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD5.DAX:59:BODY5.DAX:31"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL5.DAX:7:a184",
+      "prompt": "a246",
+      "variants": [
+        {
+          "caption": "TELL AL-HYAM DHAZID TO EXECUTE PHASE 2 OF PLAN A",
+          "checkpoint": "valjevo-genheeris-portraits/B.json",
+          "portrait": "portrait:area:7:ecl:a246:HEAD5.DAX:59:BODY5.DAX:31",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 E 00:08 'TELL AL-HYAM DHAZID TO EXECUTE PHASE 2 OF PLAN A. DISMISSED.' Leave Stay",
+            "idlePolls": 64,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 64,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              }
+            ],
+            "drawCursor": "a1d7",
+            "composed": {
+              "source": "HEAD5.DAX:59:BODY5.DAX:31",
+              "headWrite": "a17e",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a1d7"
+            },
+            "clearedPanelSha256": "4c1c5dff76b19bb7d259eedd813cb32185e5aaadce28b1d70987fc8a7d3154d1"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-genheeris-orders",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:08'TELLAL-HYAMDHAZIDTOEXECUTEPHASE2OFPLANA.DISMISSED.'LeaveStay",
+              "portrait": "portrait:area:7:ecl:a246:HEAD5.DAX:59:BODY5.DAX:31",
+              "checkpointSha256": "4cc1000dc9741f7153e7f30ab0d2ebea30e52cbc9e626a5c107fb66a4d311efb",
+              "artSha256": "2414fcbb985816dee64f49fb0a8e8f7c58b46138fb1cd092dd92f00486293c4d",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3659,
+              "samples": 220,
+              "poses": [
+                "portrait:area:7:ecl:a246:HEAD5.DAX:59:BODY5.DAX:31"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-genheeris-orders",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:08'TELLAL-HYAMDHAZIDTOEXECUTEPHASE2OFPLANA.DISMISSED.'LeaveStay",
+              "portrait": "portrait:area:7:ecl:a246:HEAD5.DAX:59:BODY5.DAX:31",
+              "checkpointSha256": "4cc1000dc9741f7153e7f30ab0d2ebea30e52cbc9e626a5c107fb66a4d311efb",
+              "artSha256": "2414fcbb985816dee64f49fb0a8e8f7c58b46138fb1cd092dd92f00486293c4d",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3665,
+              "samples": 221,
+              "poses": [
+                "portrait:area:7:ecl:a246:HEAD5.DAX:59:BODY5.DAX:31"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL5.DAX:7:a255",
+      "prompt": "995f/a2df",
+      "variants": [
+        {
+          "caption": "IF YOU KILL HIM INSTEAD OF ME I WILL MAKE YOU ALL GENERALS",
+          "checkpoint": "valjevo-genheeris-portraits/B.json",
+          "portrait": "portrait:area:7:ecl:995f:caller:a2df:HEAD5.DAX:59:BODY5.DAX:31",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 E 00:08 A SUDDEN LOOK OF FEAR COMES OVER HIS FACE. 'IF YOU'VE COME FROM TYRANTHRAXUS I CAN OFFER A BETTER DEAL. IF YOU KILL HIM INSTEAD OF ME I WILL MAKE YOU ALL GENERALS!' Press button or return to continue",
+            "idlePolls": 64,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 64,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              }
+            ],
+            "drawCursor": "a25c",
+            "composed": {
+              "source": "HEAD5.DAX:59:BODY5.DAX:31",
+              "headWrite": "a24f",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a30f"
+            },
+            "clearedPanelSha256": "82292a819276f81d0717c08f019b5d61cf67910fcd25ee838c0cd926717824d1"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-genheeris-bargain",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:08ASUDDENLOOKOFFEARCOMESOVERHISFACE.'IFYOU'VECOMEFROMTYRANTHRAXUSICANOFFERABETTERDEAL.IFYOUKILLHIMINSTEADOFMEIWILLMAKEYOUALLGENERALS!'Pressbuttonorreturntocontinue",
+              "portrait": "portrait:area:7:ecl:995f:caller:a2df:HEAD5.DAX:59:BODY5.DAX:31",
+              "checkpointSha256": "4cc1000dc9741f7153e7f30ab0d2ebea30e52cbc9e626a5c107fb66a4d311efb",
+              "artSha256": "1d3752a10077f674b322edd32e07c390006587a10e1c42e01ef78407755f8e41",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3658,
+              "samples": 220,
+              "poses": [
+                "portrait:area:7:ecl:995f:caller:a2df:HEAD5.DAX:59:BODY5.DAX:31"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-genheeris-bargain",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:08ASUDDENLOOKOFFEARCOMESOVERHISFACE.'IFYOU'VECOMEFROMTYRANTHRAXUSICANOFFERABETTERDEAL.IFYOUKILLHIMINSTEADOFMEIWILLMAKEYOUALLGENERALS!'Pressbuttonorreturntocontinue",
+              "portrait": "portrait:area:7:ecl:995f:caller:a2df:HEAD5.DAX:59:BODY5.DAX:31",
+              "checkpointSha256": "4cc1000dc9741f7153e7f30ab0d2ebea30e52cbc9e626a5c107fb66a4d311efb",
+              "artSha256": "1d3752a10077f674b322edd32e07c390006587a10e1c42e01ef78407755f8e41",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3666,
+              "samples": 221,
+              "poses": [
+                "portrait:area:7:ecl:995f:caller:a2df:HEAD5.DAX:59:BODY5.DAX:31"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL5.DAX:7:a255",
+      "prompt": "9932/a30f",
+      "variants": [
+        {
+          "caption": "IN FACT I WILL JOIN YOU. IS IT A DEAL",
+          "checkpoint": "valjevo-genheeris-portraits/B.json",
+          "portrait": "portrait:area:7:ecl:9932:caller:a30f:HEAD5.DAX:59:BODY5.DAX:31",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 E 00:08 'IN FACT I WILL JOIN YOU. IS IT A DEAL?' Yes No",
+            "idlePolls": 64,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              },
+              {
+                "idlePolls": 64,
+                "sha256": "5dbc93c5bba51745c1e308a81bc624658f137e4582fba7c1830bd65e1ca03996"
+              }
+            ],
+            "drawCursor": "a25c",
+            "composed": {
+              "source": "HEAD5.DAX:59:BODY5.DAX:31",
+              "headWrite": "a24f",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a30f"
+            },
+            "clearedPanelSha256": "82292a819276f81d0717c08f019b5d61cf67910fcd25ee838c0cd926717824d1"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-genheeris-bargain",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:08'INFACTIWILLJOINYOU.ISITADEAL?'YesNo",
+              "portrait": "portrait:area:7:ecl:9932:caller:a30f:HEAD5.DAX:59:BODY5.DAX:31",
+              "checkpointSha256": "4cc1000dc9741f7153e7f30ab0d2ebea30e52cbc9e626a5c107fb66a4d311efb",
+              "artSha256": "1d3752a10077f674b322edd32e07c390006587a10e1c42e01ef78407755f8e41",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3655,
+              "samples": 220,
+              "poses": [
+                "portrait:area:7:ecl:9932:caller:a30f:HEAD5.DAX:59:BODY5.DAX:31"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-genheeris-bargain",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:08'INFACTIWILLJOINYOU.ISITADEAL?'YesNo",
+              "portrait": "portrait:area:7:ecl:9932:caller:a30f:HEAD5.DAX:59:BODY5.DAX:31",
+              "checkpointSha256": "4cc1000dc9741f7153e7f30ab0d2ebea30e52cbc9e626a5c107fb66a4d311efb",
+              "artSha256": "1d3752a10077f674b322edd32e07c390006587a10e1c42e01ef78407755f8e41",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3658,
+              "samples": 220,
+              "poses": [
+                "portrait:area:7:ecl:9932:caller:a30f:HEAD5.DAX:59:BODY5.DAX:31"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
     }
   ],
   "approachTransitions": [

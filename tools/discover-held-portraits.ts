@@ -182,25 +182,29 @@ const eclCandidates = scripts.flatMap(record => {
 
     // Confirm the selected HEAD and BODY from each measured encounter's script.
     let composedPortrait;
-    const falseThrone = archive === 5 && scriptBlock === 5 && authored(load.address) === "a98a";
-    if (archive === 5 && opcode === 0x29 &&
-        (scriptBlock === 7 && authored(load.address) === "a56c" ||
-         scriptBlock === 5 && authored(load.address) === "a256" || falseThrone)) {
+    const address = authored(load.address);
+    const falseThrone = scriptBlock === 5 && address === "a98a";
+    const genheerisOffer = scriptBlock === 7 && opcode === 0x0c && address === "a255";
+    if (archive === 5 && (genheerisOffer || opcode === 0x29 &&
+        (scriptBlock === 7 && ["a184", "a56c"].includes(address) ||
+         scriptBlock === 5 && address === "a256" || falseThrone))) {
       // The false throne sets the head before the approach, then reuses the
       // same body when it opens the encounter menu.
       const setup = falseThrone ? decoded.find(instruction => authored(instruction.address) === "a953") : undefined;
       const headWrite = decoded.find(instruction => instruction.next === (setup?.address ?? load.address));
-      const headReset = instructions.get(load.next);
+      // Both versions of the bargain reset the head when the Yes/No helper returns.
+      const resetAddresses = genheerisOffer ? ["a30f", "a345"] : [authored(load.next)];
+      const headResets = resetAddresses.map(reset => decoded.find(instruction => authored(instruction.address) === reset));
       if ((!falseThrone || setup?.opcode === 0x0c && literal(setup.operands[2]!) === portrait.literal) &&
-          headWrite?.opcode === 0x09 && headReset?.opcode === 0x09 &&
-          memory(headWrite.operands[1]!) === 0x6de1 && memory(headReset.operands[1]!) === 0x6de1 &&
-          literal(headReset.operands[0]!) === 0xff && portrait.literal !== null) {
+          headWrite?.opcode === 0x09 && memory(headWrite.operands[1]!) === 0x6de1 &&
+          headResets.every(reset => reset?.opcode === 0x09 && memory(reset.operands[1]!) === 0x6de1 &&
+            literal(reset.operands[0]!) === 0xff) && portrait.literal !== null) {
         const head = literal(headWrite.operands[0]!);
         if (head !== null && head >= 0 && head < 0xff && portrait.literal >= 0 && portrait.literal <= 0xff) {
           composedPortrait = {
             source: `HEAD${archive}.DAX:${head}:BODY${archive}.DAX:${portrait.literal}`,
             headWrite: authored(headWrite.address), headSlot: "6de1", bodyOperand: 2,
-            headReset: authored(headReset.address),
+            headReset: resetAddresses[0]!,
           };
         }
       }

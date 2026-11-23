@@ -12809,12 +12809,20 @@ try {
       [56, 32, "encounter:area:7:SPRIT5.DAX:24:1:0", 24, 65],
       [48, 32, "encounter:area:7:SPRIT5.DAX:24:0:0", 32, 73],
     ]) {
+      // The bundled game can settle at the audience in the same input as the near approach.
+      if (heldPortraitEvidenceFile && frame.classicAvailable === false &&
+          frame.portrait === "portrait:HEAD5.DAX:59:BODY5.DAX:31") break;
       assert.deepEqual(frame.encounter, placement);
       const [, , , width, height] = placement;
       await waitFor("Genheeris's approach sprite", () => run(
         `document.querySelector(".encounter-sprite")?.naturalWidth === ${width * 4} && document.querySelector(".encounter-sprite")?.naturalHeight === ${height * 4}`));
       await switchBothWays();
       await advance("a");
+    }
+    if (heldPortraitEvidenceFile) {
+      const audience = "portrait:HEAD5.DAX:59:BODY5.DAX:31";
+      assert.equal(frame.portrait, audience);
+      await verifyStaticPortrait(audience, /SOWHATMESSAGEFROMTYRANTHRAXUS/i, false);
     }
     for (const key of ["p", genheerisOrders ? "n" : "h"]) await advance(key);
     const portrait = genheerisOrders ? "portrait:area:7:ecl:a246:HEAD5.DAX:59:BODY5.DAX:31"
@@ -12824,6 +12832,11 @@ try {
       [...document.querySelectorAll(".encounter-portrait")].some(image =>
         image.naturalWidth === 352 && image.src.endsWith(${JSON.stringify(portrait)}))`));
     await switchBothWays();
+    if (heldPortraitEvidenceFile) {
+      const caption = genheerisOrders ? /TELLAL-HYAMDHAZIDTOEXECUTEPHASE2OFPLANA/i
+        : /IFYOUKILLHIMINSTEADOFMEIWILLMAKEYOUALLGENERALS/i;
+      await verifyStaticPortrait(portrait, caption, false);
+    }
     await advance("j");
     assert.equal(knows("castle-genheeris-orders"), genheerisOrders);
     assert.equal(knows("castle-genheeris-offer"), !genheerisOrders);
@@ -12836,18 +12849,22 @@ try {
       assert.ok(!knows("castle-genheeris-deal"));
       for (const key of ["j", "enter"]) await advance(key);
       assert.equal(frame.portrait, "portrait:area:7:ecl:9932:caller:a30f:HEAD5.DAX:59:BODY5.DAX:31");
+      if (heldPortraitEvidenceFile) await verifyStaticPortrait(frame.portrait, /INFACTIWILLJOINYOU\.ISITADEAL/i, false);
       await advance("y");
       const dealAccepted = "scene-illustration:area:7:ecl:a326";
-      assert.equal(frame.portrait, dealAccepted);
       assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /GOOD\./i);
-      await waitFor("Genheeris sealing the bargain", () => run(
-        'state.sequence === ' + frame.sequence +
-        ' && document.querySelector(\'.encounter-portrait[src="/art/' + dealAccepted + '"]\')?.naturalWidth === 352'));
-      await verifyPortraitPanel();
-      const acceptedShot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, "valjevo-genheeris-deal-accepted.png"), Buffer.from(acceptedShot.data, "base64"));
-      await switchBothWays();
-      await advance("enter");
+      // A hold capture can land directly on exploration after the nonblocking acceptance cue.
+      if (!heldPortraitEvidenceFile || frame.portrait === dealAccepted) {
+        assert.equal(frame.portrait, dealAccepted);
+        await waitFor("Genheeris sealing the bargain", () => run(
+          'state.sequence === ' + frame.sequence +
+          ' && document.querySelector(\'.encounter-portrait[src="/art/' + dealAccepted + '"]\')?.naturalWidth === 352'));
+        await verifyPortraitPanel();
+        const acceptedShot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "valjevo-genheeris-deal-accepted.png"), Buffer.from(acceptedShot.data, "base64"));
+        await switchBothWays();
+        await advance("enter");
+      }
       assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /GENHEERIS/i);
       assert.equal(frame.portrait, undefined);
       await waitForExplorationViewport();
