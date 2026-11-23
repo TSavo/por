@@ -10931,6 +10931,406 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL5.DAX:5:a98a",
+      "prompt": "a9a8",
+      "variants": [
+        {
+          "caption": "WHAT IS YOUR BUSINESS WITH TYRANTHRAXUS",
+          "checkpoint": "valjevo-false-throne-portraits/B.json",
+          "portrait": "portrait:HEAD5.DAX:54:BODY5.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 N 00:08 'WHAT IS YOUR BUSINESS WITH TYRANTHRAXUS, LORD OF PHLAN?' Combat Wait Flee Parlay",
+            "idlePolls": 64,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 64,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              }
+            ],
+            "drawCursor": "a9a8",
+            "composed": {
+              "source": "HEAD5.DAX:54:BODY5.DAX:1",
+              "headWrite": "a94d",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a9a8"
+            },
+            "clearedPanelSha256": "2d15b49104e4737e4035a2aba044997e0b70a7ac87f1c88eeb4ba55b601ca41e"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-false-throne",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:08'WHATISYOURBUSINESSWITHTYRANTHRAXUS,LORDOFPHLAN?'CombatWaitFleeParlay",
+              "portrait": "portrait:HEAD5.DAX:54:BODY5.DAX:1",
+              "checkpointSha256": "e0a21002870d5d3108608b4b1c519df0c208569d8cd96712899908f1da8f1f0d",
+              "artSha256": "0d49332eadafb07dff5de61d1718d10e9d1f1f95cc5fe428f730749e6b3bc3b8",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3657,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD5.DAX:54:BODY5.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-false-throne",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:08'WHATISYOURBUSINESSWITHTYRANTHRAXUS,LORDOFPHLAN?'CombatWaitFleeParlay",
+              "portrait": "portrait:HEAD5.DAX:54:BODY5.DAX:1",
+              "checkpointSha256": "e0a21002870d5d3108608b4b1c519df0c208569d8cd96712899908f1da8f1f0d",
+              "artSha256": "0d49332eadafb07dff5de61d1718d10e9d1f1f95cc5fe428f730749e6b3bc3b8",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3658,
+              "samples": 220,
+              "poses": [
+                "portrait:HEAD5.DAX:54:BODY5.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL5.DAX:5:a98a",
+      "prompt": "9a5a/aa76",
+      "variants": [
+        {
+          "caption": "HE JUST HIRED ME TO IMPERSONATE HIM",
+          "checkpoint": "valjevo-false-throne-portraits/B.json",
+          "portrait": "portrait:area:5:ecl:9a5a:caller:aa76:HEAD5.DAX:54:BODY5.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 N 00:08 HE SEEMS TO COLLAPSE. 'ALL RIGHT. I'M NOT TYRANTHRAXUS. HE JUST HIRED ME TO IMPERSONATE HIM. IT'S NOT A BAD LIFE, BUT, HEY! I CAN TELL WHICH WAY THE WIND'S BLOWING.' Press button or <return> to continue",
+            "idlePolls": 64,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 64,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              }
+            ],
+            "drawCursor": "a9a8",
+            "composed": {
+              "source": "HEAD5.DAX:54:BODY5.DAX:1",
+              "headWrite": "a94d",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a9a8"
+            },
+            "clearedPanelSha256": "2d15b49104e4737e4035a2aba044997e0b70a7ac87f1c88eeb4ba55b601ca41e"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-false-throne",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:08HESEEMSTOCOLLAPSE.'ALLRIGHT.I'MNOTTYRANTHRAXUS.HEJUSTHIREDMETOIMPERSONATEHIM.IT'SNOTABADLIFE,BUT,HEY!ICANTELLWHICHWAYTHEWIND'SBLOWING.'Pressbuttonor<return>tocontinue",
+              "portrait": "portrait:area:5:ecl:9a5a:caller:aa76:HEAD5.DAX:54:BODY5.DAX:1",
+              "checkpointSha256": "e0a21002870d5d3108608b4b1c519df0c208569d8cd96712899908f1da8f1f0d",
+              "artSha256": "4c21883172e70e25d1c2a409118256838ab3ede5d80a3c4f1a4a5b7e15641ae8",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3666,
+              "samples": 222,
+              "poses": [
+                "portrait:area:5:ecl:9a5a:caller:aa76:HEAD5.DAX:54:BODY5.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-false-throne",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:08HESEEMSTOCOLLAPSE.'ALLRIGHT.I'MNOTTYRANTHRAXUS.HEJUSTHIREDMETOIMPERSONATEHIM.IT'SNOTABADLIFE,BUT,HEY!ICANTELLWHICHWAYTHEWIND'SBLOWING.'Pressbuttonor<return>tocontinue",
+              "portrait": "portrait:area:5:ecl:9a5a:caller:aa76:HEAD5.DAX:54:BODY5.DAX:1",
+              "checkpointSha256": "e0a21002870d5d3108608b4b1c519df0c208569d8cd96712899908f1da8f1f0d",
+              "artSha256": "4c21883172e70e25d1c2a409118256838ab3ede5d80a3c4f1a4a5b7e15641ae8",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3652,
+              "samples": 220,
+              "poses": [
+                "portrait:area:5:ecl:9a5a:caller:aa76:HEAD5.DAX:54:BODY5.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL5.DAX:5:a98a",
+      "prompt": "9a2c/aa8e",
+      "variants": [
+        {
+          "caption": "JUST LET ME GO",
+          "checkpoint": "valjevo-false-throne-portraits/B.json",
+          "portrait": "portrait:area:5:ecl:9a2c:caller:aa8e:HEAD5.DAX:54:BODY5.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 N 00:08 'JUST LET ME GO, OKAY? Yes No",
+            "idlePolls": 64,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 64,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              }
+            ],
+            "drawCursor": "a9a8",
+            "composed": {
+              "source": "HEAD5.DAX:54:BODY5.DAX:1",
+              "headWrite": "a94d",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a9a8"
+            },
+            "clearedPanelSha256": "2d15b49104e4737e4035a2aba044997e0b70a7ac87f1c88eeb4ba55b601ca41e"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-false-throne",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:08'JUSTLETMEGO,OKAY?YesNo",
+              "portrait": "portrait:area:5:ecl:9a2c:caller:aa8e:HEAD5.DAX:54:BODY5.DAX:1",
+              "checkpointSha256": "e0a21002870d5d3108608b4b1c519df0c208569d8cd96712899908f1da8f1f0d",
+              "artSha256": "4c21883172e70e25d1c2a409118256838ab3ede5d80a3c4f1a4a5b7e15641ae8",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3652,
+              "samples": 221,
+              "poses": [
+                "portrait:area:5:ecl:9a2c:caller:aa8e:HEAD5.DAX:54:BODY5.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-false-throne",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:08'JUSTLETMEGO,OKAY?YesNo",
+              "portrait": "portrait:area:5:ecl:9a2c:caller:aa8e:HEAD5.DAX:54:BODY5.DAX:1",
+              "checkpointSha256": "e0a21002870d5d3108608b4b1c519df0c208569d8cd96712899908f1da8f1f0d",
+              "artSha256": "4c21883172e70e25d1c2a409118256838ab3ede5d80a3c4f1a4a5b7e15641ae8",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3653,
+              "samples": 220,
+              "poses": [
+                "portrait:area:5:ecl:9a2c:caller:aa8e:HEAD5.DAX:54:BODY5.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL5.DAX:5:a98a",
+      "prompt": "9a2c/aacc",
+      "variants": [
+        {
+          "caption": "THERE IS TREASURE ALL ABOUT",
+          "checkpoint": "valjevo-false-throne-portraits/B.json",
+          "portrait": "portrait:area:5:ecl:9a2c:caller:aacc:HEAD5.DAX:54:BODY5.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 N 00:08 HE RUNS OUT OF THE HALL. THERE IS TREASURE ALL ABOUT. DO YOU TAKE IT? Yes No",
+            "idlePolls": 64,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 64,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              }
+            ],
+            "drawCursor": "a9a8",
+            "composed": {
+              "source": "HEAD5.DAX:54:BODY5.DAX:1",
+              "headWrite": "a94d",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a9a8"
+            },
+            "clearedPanelSha256": "2d15b49104e4737e4035a2aba044997e0b70a7ac87f1c88eeb4ba55b601ca41e"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-false-throne",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:08HERUNSOUTOFTHEHALL.THEREISTREASUREALLABOUT.DOYOUTAKEIT?YesNo",
+              "portrait": "portrait:area:5:ecl:9a2c:caller:aacc:HEAD5.DAX:54:BODY5.DAX:1",
+              "checkpointSha256": "e0a21002870d5d3108608b4b1c519df0c208569d8cd96712899908f1da8f1f0d",
+              "artSha256": "34460c6a8fc3e1acda8f5c2440124ac345f968f9c4339f6eae5488f9c88c6afa",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3665,
+              "samples": 221,
+              "poses": [
+                "portrait:area:5:ecl:9a2c:caller:aacc:HEAD5.DAX:54:BODY5.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-false-throne",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:08HERUNSOUTOFTHEHALL.THEREISTREASUREALLABOUT.DOYOUTAKEIT?YesNo",
+              "portrait": "portrait:area:5:ecl:9a2c:caller:aacc:HEAD5.DAX:54:BODY5.DAX:1",
+              "checkpointSha256": "e0a21002870d5d3108608b4b1c519df0c208569d8cd96712899908f1da8f1f0d",
+              "artSha256": "34460c6a8fc3e1acda8f5c2440124ac345f968f9c4339f6eae5488f9c88c6afa",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3653,
+              "samples": 220,
+              "poses": [
+                "portrait:area:5:ecl:9a2c:caller:aacc:HEAD5.DAX:54:BODY5.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL5.DAX:5:a98a",
+      "prompt": "9a2c/ab99",
+      "variants": [
+        {
+          "caption": "BEGONE OR FEEL THE WRATH AND POWER OF TYRANTHRAXUS",
+          "checkpoint": "valjevo-false-throne-portraits/B.json",
+          "portrait": "portrait:HEAD5.DAX:54:BODY5.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 N 00:08 'BEGONE OR FEEL THE WRATH AND POWER OF TYRANTHRAXUS!' DO YOU LEAVE? Yes No",
+            "idlePolls": 64,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              },
+              {
+                "idlePolls": 64,
+                "sha256": "64d095458af35107f66e2d61e0e1d0e1b8d729c29ab67f5ad380b5fd842d9789"
+              }
+            ],
+            "drawCursor": "a9a8",
+            "composed": {
+              "source": "HEAD5.DAX:54:BODY5.DAX:1",
+              "headWrite": "a94d",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a9a8"
+            },
+            "clearedPanelSha256": "2570b0c09ce11fd8a0bd42ab763e41cf1c74e87086c571dbc9779ec8cd8a7dc7"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-false-throne-dismissal",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:08'BEGONEORFEELTHEWRATHANDPOWEROFTYRANTHRAXUS!'DOYOULEAVE?YesNo",
+              "portrait": "portrait:HEAD5.DAX:54:BODY5.DAX:1",
+              "checkpointSha256": "e0a21002870d5d3108608b4b1c519df0c208569d8cd96712899908f1da8f1f0d",
+              "artSha256": "0d49332eadafb07dff5de61d1718d10e9d1f1f95cc5fe428f730749e6b3bc3b8",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3661,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD5.DAX:54:BODY5.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-false-throne-dismissal",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46N00:08'BEGONEORFEELTHEWRATHANDPOWEROFTYRANTHRAXUS!'DOYOULEAVE?YesNo",
+              "portrait": "portrait:HEAD5.DAX:54:BODY5.DAX:1",
+              "checkpointSha256": "e0a21002870d5d3108608b4b1c519df0c208569d8cd96712899908f1da8f1f0d",
+              "artSha256": "0d49332eadafb07dff5de61d1718d10e9d1f1f95cc5fe428f730749e6b3bc3b8",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3651,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD5.DAX:54:BODY5.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
     }
   ]
 }
