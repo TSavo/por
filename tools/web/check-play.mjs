@@ -87,13 +87,35 @@ async function startServer() {
 }
 
 let chrome;
+const gameHttpRequests = new Set();
 // Present the browser with lowercase DOS filenames to exercise case-insensitive folder loading.
 const originalServer = server !== "runner" && original
   ? await serveOriginalFolder(original, { lowercaseFiles: true }) : undefined;
 async function openGame(game) {
-  if (!chrome) chrome = await openChrome(game.url, { bypassCsp: Boolean(originalServer), log: (line) => /exception|error/i.test(line) && log(`  page ${line}`) });
-  else await chrome.command("Page.navigate", { url: game.url });
+  if (!chrome) {
+    chrome = await openChrome("about:blank", { bypassCsp: Boolean(originalServer), log: (line) => /exception|error/i.test(line) && log(`  page ${line}`) });
+    if (server !== "runner") {
+      await chrome.command("Network.enable");
+      chrome.listeners.push(({ method, params }) => {
+        if (method !== "Network.requestWillBeSent") return;
+        const { origin, pathname } = new URL(params.request.url);
+        if (origin === new URL(game.url).origin && ["/key", "/state"].includes(pathname)) gameHttpRequests.add(pathname);
+      });
+      await chrome.command("Page.addScriptToEvaluateOnNewDocument", { source: `
+        window.startedWorkers = [];
+        window.Worker = class extends Worker {
+          constructor(url, options) {
+            super(url, options);
+            window.startedWorkers.push(new URL(url, location.href).pathname);
+          }
+        };` });
+    }
+  }
+  await chrome.command("Page.navigate", { url: game.url });
   await chrome.until("the game's first frame", "typeof state === 'object' && state.sequence > 0 && state.ready", 240);
+  if (server !== "runner") {
+    expect("the page started the game worker", await chrome.evaluate('window.startedWorkers.includes("/web/engine-worker.js")'));
+  }
   if (server !== "runner" && original) {
     // The folder picker's own code path, given the player's files as the browser's picker gives them.
     const used = await chrome.evaluate(`porTestUseOriginalFolder(${JSON.stringify(originalServer.url)})`);
@@ -308,6 +330,9 @@ try {
     await continueChange();
     await chrome.until("the game to stop using the original files", "state.classicAvailable === false && enhanced && presentation.hidden");
     expect("confirming removal restarts in Enhanced and hides the Classic control", true);
+  }
+  if (server !== "runner") {
+    expect("the page handled keys and state without HTTP requests", gameHttpRequests.size === 0, [...gameHttpRequests]);
   }
 } catch (error) {
   failures.push(error.message);
