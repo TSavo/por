@@ -745,7 +745,19 @@ const mendorFighterHeldPoses = (cursor, caller) => [0, 1, 2, 3, 4].map(
   member => "portrait:area:15:ecl:" + cursor + ":caller:" + caller + ":PIC2.DAX:25:" + member + ":0",
 );
 
+const mountedEscort = {
+  slot: "A",
+  portrait: "portrait:PIC6.DAX:39:0:0",
+  prompt: /ABANDOFBUCCANEERSRIDEOUTTOESCORTYOUIN.*ENTERLEAVE/i,
+  heldPortraitLoop: ["portrait:PIC6.DAX:39:0:0", "portrait:area:25:ecl:9e08:PIC6.DAX:39:1:0"],
+  continuation: { inputs: ["e"], clearsPortrait: true, prompt: /8,10S.*MERCHANTS'?CAMPAREA/i },
+};
+
 const illustrationRoutes = new Map([
+  ["buccaneer-mounted-escort-loop", { ...mountedEscort, inputs: ["down"] }],
+  ["buccaneer-mounted-escort-random-loop", {
+    ...mountedEscort, inputs: ["up"], fixedClockStart: "4320016",
+  }],
 ["buccaneer-bivant-rescue-loop", {
     slot: "A", inputs: ["left", "left", ...Array(6).fill("up"), "right", "up", "up", "up", "right", "up",
       "r", "enter", "right", "right", "up", "left", ...Array(4).fill("up"), "left", "up", "up", "b", "enter"],
@@ -14888,18 +14900,11 @@ try {
     }
     await switchBothWays();
     if (!classicPortrait) {
-      const escortPhase = "portrait:area:25:ecl:9e08:PIC6.DAX:39:1:0";
-      for (const key of ["z", "z"]) await advance(key);
-      assert.equal(frame.portrait, escortPhase);
-      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
-        /ABANDOFBUCCANEERSRIDEOUTTOESCORTYOUIN/i);
-      await waitFor("the alternate escort illustration", () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector('.encounter-portrait[src="/art/${escortPhase}"]')?.naturalWidth === 352`));
-      await switchBothWays();
+      await verifyHeldPortraitLoop(mountedEscort.heldPortraitLoop);
+      const escortPhase = mountedEscort.heldPortraitLoop[1];
+      await waitFor("the alternate escort illustration", () => run(`state.sequence === ${frame.sequence} &&\n        document.querySelector('.encounter-portrait[src="/art/${escortPhase}"]')?.naturalWidth === 352`));
       const escortShot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "buccaneer-escort-coastal-phase.png"), Buffer.from(escortShot.data, "base64"));
-      for (const key of ["z", "z"]) await advance(key);
-      assert.equal(frame.portrait, "portrait:PIC6.DAX:39:0:0");
     }
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === base));

@@ -134,6 +134,8 @@ const portraitLoops = [
     /ALARGEDRAGONFLYSABOVEYOU/i, [310, 310]],
   ["portrait:PIC6.DAX:32:", 2, undefined,
     /MOUNTAINSYOUSEEALARGECAVE/i, [310, 310]],
+  ["portrait:area:25:ecl:9e08:PIC6.DAX:39:", 2, "portrait:PIC6.DAX:39:0:0",
+    /ABANDOFBUCCANEERSRIDEOUTTOESCORTYOUIN.*ENTERLEAVE/i, [310, 310]],
   ["portrait:area:25:ecl:a622:PIC6.DAX:120:", 3],
   ["portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:", silverDragonPoseOrder, "portrait:PIC6.DAX:117:0:0",
     /STANDINGBEFOREYOUNOWISAGREATSILVERDRAGON/i, silverDragonPoseTimes],
