@@ -18,6 +18,7 @@ import { exactTextNarrations as exactTextUnits, NarrationCatalog, normalizeSpeec
 import { buildNewPhlanMaterials } from "./new-phlan-3d-materials.js";
 import { phlanHarborLayout } from "./renderer.js";
 import { buildExplorationMaterials, explorationMaterialArea } from "./exploration-materials.js";
+import { readBuildVersion } from "./build-version.js";
 import { fromPortRoot, fromWorkingRoot } from "./port-root.js";
 import { classicSoundDirectory } from "./classic-sounds.js";
 import type { NativeExploration } from "./native-exploration.js";
@@ -29,6 +30,7 @@ if (!Number.isInteger(port) || port < 1 || port > 65535) {
   throw new Error("POR_PLAY_PORT must be a TCP port between 1 and 65535");
 }
 const origin = `http://127.0.0.1:${port}`;
+const buildVersion = readBuildVersion();
 const gameRoot = requireBrowserGameRoot();
 // The player's first-release files, whose pictures the runner puts under the 1.3 game (#74).
 const classicPictures = isPortGameRoot(gameRoot) ? process.env.POR_CLASSIC_PICTURES || undefined : undefined;
@@ -525,7 +527,7 @@ const server = createServer(async (req, res) => {
     };
     res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({
       ...snapshot, sounds, soundId, messages, textId, narrations, narrationId, automapRevision,
-      sequence, ready, codeWheelAvailable, classicAvailable, saveSlot: saveSlot ?? null, saveSlotEvent, saveSlotAction: saveSlotAction ?? null,
+      sequence, ready, codeWheelAvailable, classicAvailable, buildVersion, saveSlot: saveSlot ?? null, saveSlotEvent, saveSlotAction: saveSlotAction ?? null,
       stopped: stopped ?? null, notice: notice ?? null,
     }));
   } else if (req.method === "GET" && req.url === "/original-files" && originalFilesSetting) {

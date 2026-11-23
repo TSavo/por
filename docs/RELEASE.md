@@ -25,6 +25,9 @@ installer comes back into `dist/`. With neither, the Windows installer is skippe
 
 `npm run release:build` alone compiles `tools/browser-play.ts`, `tools/boot-translated.ts` and
 `tools/release/launch.ts` with esbuild into `dist/app/server.mjs`, `runner.mjs` and `launch.mjs`.
+The title screen's lower-right label (`v0.1.0 (0c83fe2)`, for example) is compiled into that app, because
+a packaged game has no `.git`. A checkout of `npm run play` reads the same value from package.json and git
+and marks it `-dev` (and `-dirty` when the tree is unclean).
 `release:pack` runs it, then builds, into `dist/`:
 
 | File | What it is |

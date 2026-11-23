@@ -59,6 +59,12 @@
     #title-edition { transition-delay: 4s; }
     #title-name.shown, #title-edition.shown { opacity: 1; }
     #title-name[hidden], #title-edition[hidden] { display: none; }
+    /* Build version, lower-right of the title in Classic and Enhanced. Under the publisher splash. */
+    #build-version { position: absolute; right: 1.2%; bottom: 1.5%; z-index: 2; margin: 0;
+      padding: 0.12em 0.45em; font: 500 clamp(9px, 1.35cqi, 13px)/1.2 ui-sans-serif, system-ui, sans-serif;
+      letter-spacing: 0.03em; color: #f3efe4; text-shadow: 0 0 3px #000, 0 1px 2px #000;
+      background: rgba(0, 0, 0, 0.35); border-radius: 2px; pointer-events: none; user-select: none; }
+    #build-version[hidden] { display: none; }
     /* Until the game's first screen arrives: no broken picture, just a word. */
     #screen:not([src]) { visibility: hidden; }
     #screen-loading { position: absolute; inset: 0; margin: 0; display: grid; place-items: center; background: #0b0d16;
@@ -274,6 +280,7 @@
       <img id="publisher-splash" alt="Strategic Simulations, Inc. presents" hidden>
       <img id="title-name" alt="Pool of Radiance" hidden>
       <img id="title-edition" alt="Special Edition" hidden>
+      <p id="build-version" hidden></p>
       <div id="tile-art" aria-hidden="true" hidden></div>
       <div id="game-text" aria-hidden="true" hidden></div>
       <section id="travel-map" aria-label="Illustrated Moonsea travel map" hidden>
