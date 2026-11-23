@@ -5,7 +5,7 @@ import { join } from "node:path";
 import { parseDax } from "../src/lib/dax.js";
 import { parseGeo } from "../src/lib/world.js";
 import { cleanAutomap, openAutomap } from "./automap.js";
-import { findGameRoot } from "./gamedata.js";
+import { findGameRoot, readGameFile } from "./gamedata.js";
 import { openSaveSlots } from "./save-slots.js";
 
 // The discovered map belongs to the running game. It is recorded from the
@@ -13,7 +13,7 @@ import { openSaveSlots } from "./save-slots.js";
 
 const root = findGameRoot();
 if (!root) throw new Error("Pool of Radiance game data not found");
-const newPhlan = parseDax("GEO3.DAX", new Uint8Array(readFileSync(join(root, "GEO3.DAX")))).entries
+const newPhlan = parseDax("GEO3.DAX", readGameFile(root, "GEO3.DAX")).entries
   .find(entry => entry.id === 0 && entry.rawSize === 0x402);
 ok(newPhlan, "GEO3.DAX has no New Phlan map");
 const walls = parseGeo(newPhlan.data, 0).cells[1 * 16 + 15]!.wall;
@@ -26,9 +26,11 @@ deepStrictEqual(map.snapshot(), {});
 const dock = map.locate({ area: 0, x: 15, y: 1, facing: 6 });
 deepStrictEqual(dock.walls, walls);
 strictEqual(dock.mapId, undefined);
+const passage = dock.passage;
+deepStrictEqual(passage, [0, 0, 0, 0]);
 map.record(dock);
 strictEqual(map.revision, 1);
-deepStrictEqual(map.snapshot(), { 0: { cells: { "15,1": { x: 15, y: 1, walls } }, position: { x: 15, y: 1, facing: 6 } } });
+deepStrictEqual(map.snapshot(), { 0: { cells: { "15,1": { x: 15, y: 1, walls, passage } }, position: { x: 15, y: 1, facing: 6 } } });
 map.record(dock);
 strictEqual(map.revision, 1, "Standing still does not change the map");
 map.record({ ...dock, facing: 4 });
@@ -42,8 +44,12 @@ const catacombs = map.locate({ area: 29, x: 9, y: 9, facing: 0 },
   { area: 29, x: 4, y: 3, facing: 2, mapId: 32, walls: drawn.toString("base64") });
 deepStrictEqual(catacombs, { area: 29, x: 4, y: 3, facing: 2, mapId: 32, walls: [1, 2, 3, 4] });
 map.record(catacombs);
+deepStrictEqual(map.snapshot()[0]!.entrances, [
+  { x: 15, y: 1, to: { area: 29, mapId: 32, name: "Kuto's Catacombs" } },
+]);
 deepStrictEqual(map.snapshot()[29], { cells: {},
-  floors: { 32: { cells: { "4,3": { x: 4, y: 3, walls: [1, 2, 3, 4] } }, position: { x: 4, y: 3, facing: 2 } } } });
+  floors: { 32: { cells: { "4,3": { x: 4, y: 3, walls: [1, 2, 3, 4] } }, position: { x: 4, y: 3, facing: 2 },
+    entrances: [{ x: 4, y: 3, to: { area: 0, name: "New Phlan" } }] } } });
 
 // Positions outside the 16-by-16 map and tiles without walls are not recorded.
 const before = map.revision;
@@ -88,7 +94,7 @@ ok(adopted.adopt({
   0: { cells: { "15,1": { x: 15, y: 1, walls: [9, 9, 9, 9], label: "Old" }, "14,1": { x: 14, y: 1, walls: [1, 0, 1, 0] } } },
   29: { cells: {}, floors: { 32: { cells: { "4,3": { x: 4, y: 3, walls: [1, 2, 3, 4] } } } } },
 }));
-deepStrictEqual(adopted.snapshot()[0]!.cells["15,1"], { x: 15, y: 1, walls });
+deepStrictEqual(adopted.snapshot()[0]!.cells["15,1"], { x: 15, y: 1, walls, passage: [0, 0, 0, 0] });
 deepStrictEqual(adopted.snapshot()[0]!.cells["14,1"], { x: 14, y: 1, walls: [1, 0, 1, 0] });
 ok(adopted.snapshot()[29]!.floors![32]!.cells["4,3"]);
 ok(!adopted.adopt({ 0: { cells: { "15,1": { x: 15, y: 1, walls: [9, 9, 9, 9] } } } }), "Nothing new to add");

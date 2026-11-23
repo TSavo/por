@@ -10,6 +10,8 @@ export interface NativeExploration {
   areaView?: boolean;
   viewportCleared?: boolean;
   walls: string;
+  /** GEO extra plane, 256 bytes: two passage bits on each side of a square. */
+  extra?: string;
   frontSlots: string;
   glyphs: Record<number, string>;
   skyColor: number;
@@ -35,6 +37,7 @@ export function captureNativeExploration(cpu: Cpu, includeCellGeometry = false):
 
   // The first two planes contain the four wall nibbles for each tile.
   const walls = Buffer.from(Array.from({ length: 512 }, (_, i) => cpu.read8(geoSegment, geoOffset + i)));
+  const extra = Buffer.from(Array.from({ length: 256 }, (_, i) => cpu.read8(geoSegment, geoOffset + 0x300 + i)));
   // Bit 7 of the following per-square flag plane selects the guest's covered sky.
   const roofed = (cpu.read8(geoSegment, geoOffset + 512 + y * 16 + x) & 0x80) !== 0;
   const slots = Buffer.from(Array.from({ length: 15 * 56 }, (_, i) =>
@@ -77,6 +80,6 @@ export function captureNativeExploration(cpu: Cpu, includeCellGeometry = false):
     bandColor: cpu.read8(ds, data.skyColor + 2) & 15,
   } : undefined;
   const areaView = cpu.read8(ds, data.areaViewActive) !== 0 || undefined;
-  return { x, y, facing, roofed, mapId, areaView, walls: walls.toString("base64"), frontSlots: slots.toString("base64"), glyphs,
+  return { x, y, facing, roofed, mapId, areaView, walls: walls.toString("base64"), extra: extra.toString("base64"), frontSlots: slots.toString("base64"), glyphs,
     skyColor: cpu.read8(ds, data.skyColor) & 15, groundColor: cpu.read8(ds, data.groundColor) & 15, cellGeometry };
 }
