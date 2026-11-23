@@ -25585,6 +25585,370 @@
           }
         }
       }
+    },
+    {
+      "id": "area:20:ecl:b6df:caller:b484:PIC2.DAX:0",
+      "producer": "ECL2.DAX:20:9d7e",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "slums-roaming-kobold-surrender-parlay-loop",
+          "data": "original",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "8d179a750a9ec8883b6c80b6710b88b673b19a8c622791c2f5a72fe8e80cdfb4",
+          "portrait": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0",
+              "atMs": 14.19999995231592
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 130.89999995231665
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:2:0",
+              "atMs": 347.499999952317
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 547.5999999523156
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0",
+              "atMs": 764.1999999523159
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 964.1999999523159
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:2:0",
+              "atMs": 1180.8999999523166
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 1397.499999952317
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0",
+              "atMs": 1597.499999952317
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 1814.0999999523156
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0": "6b5be27b24b2e82eaf06f970ef0e56fd7f90400a5eebece3ed2cd293c91842c1",
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0": "e557a6716d54065690d9bac3feb7d306e111473a87e1d7e50fd758e9e31b730e",
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:2:0": "8fe8fefee1c1a4badfa3fbc297218bd23ecc84b3d1a5854b2b0cd304e3cd0111"
+          }
+        },
+        "port": {
+          "route": "slums-roaming-kobold-surrender-parlay-loop",
+          "data": "port",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "8d179a750a9ec8883b6c80b6710b88b673b19a8c622791c2f5a72fe8e80cdfb4",
+          "portrait": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0",
+              "atMs": 6.599999988079162
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 189.8999999880789
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:2:0",
+              "atMs": 406.59999998807916
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 606.5999999880792
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0",
+              "atMs": 823.1999999880791
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 1039.899999988079
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:2:0",
+              "atMs": 1239.899999988079
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 1456.4999999880793
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0",
+              "atMs": 1656.4999999880793
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0",
+              "atMs": 1873.199999988079
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:0:0": "6b5be27b24b2e82eaf06f970ef0e56fd7f90400a5eebece3ed2cd293c91842c1",
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:1:0": "e557a6716d54065690d9bac3feb7d306e111473a87e1d7e50fd758e9e31b730e",
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:0:2:0": "8fe8fefee1c1a4badfa3fbc297218bd23ecc84b3d1a5854b2b0cd304e3cd0111"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:20:ecl:b6df:caller:b484:PIC2.DAX:2",
+      "producer": "ECL2.DAX:20:9d7e",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 310,
+          "viewport": "a22361feb58b6fc42bb5e0833cd6e54072df64abfee49b139eac5fa7a0878312"
+        },
+        {
+          "member": 1,
+          "durationMs": 310,
+          "viewport": "e579cb908b4bbfe27909da489faa62cbef2c3f2b4573d7cb931b9a6f0be3a2b2"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "slums-roaming-goblin-surrender-parlay-loop",
+          "data": "original",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "874cb191db35c4ec62b0847c4206529bbb50e2341284814884cf80c2704374b7",
+          "portrait": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:0:0",
+              "atMs": 10.800000000000182
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:1:0",
+              "atMs": 310.8000000000002
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:0:0",
+              "atMs": 610.8999999999996
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:1:0",
+              "atMs": 927.5
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:0:0",
+              "atMs": 1227.5
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:1:0",
+              "atMs": 1544.1000000000004
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:0:0": "037688d67c3350c17c60dbb7005eba239f7d4fbf209408b7f6eb26e921439f04",
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:1:0": "3a3cd44731baa3187977690d185fd566ea181d8588970ff1f79657d8dd772690"
+          }
+        },
+        "port": {
+          "route": "slums-roaming-goblin-surrender-parlay-loop",
+          "data": "port",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "874cb191db35c4ec62b0847c4206529bbb50e2341284814884cf80c2704374b7",
+          "portrait": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:0:0",
+              "atMs": 1.699999999999818
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:1:0",
+              "atMs": 268.4000000000001
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:0:0",
+              "atMs": 585
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:1:0",
+              "atMs": 885
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:0:0",
+              "atMs": 1201.6999999999998
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:1:0",
+              "atMs": 1518.3000000000002
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:0:0": "037688d67c3350c17c60dbb7005eba239f7d4fbf209408b7f6eb26e921439f04",
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:2:1:0": "3a3cd44731baa3187977690d185fd566ea181d8588970ff1f79657d8dd772690"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:20:ecl:b6df:caller:b484:PIC2.DAX:4",
+      "producer": "ECL2.DAX:20:9d7e",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1510,
+          "viewport": "2373d5229332a0dfc341c6a97e4371ba1ae0d83ad6f1803324a7219abb335440"
+        },
+        {
+          "member": 1,
+          "durationMs": 20,
+          "viewport": "d2f3c3b368fa6294d4fc0dea3c62279342392566accc8be7550c6eb450c383f7"
+        },
+        {
+          "member": 2,
+          "durationMs": 710,
+          "viewport": "cafbf84bf2bf53ef48f7de6e14d01f8c972602943b6b26d2fcf5622814911ab7"
+        },
+        {
+          "member": 3,
+          "durationMs": 20,
+          "viewport": "d2f3c3b368fa6294d4fc0dea3c62279342392566accc8be7550c6eb450c383f7"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "slums-roaming-orc-surrender-parlay-loop",
+          "data": "original",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "f0cce7278a58816053144854655e2246f9b93cd42d2cb20b740a740df5db9a25",
+          "portrait": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:0:0",
+              "atMs": 14.600000035763514
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:1:0",
+              "atMs": 1464.6000000357635
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:2:0",
+              "atMs": 1481.3000000357624
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:1:0",
+              "atMs": 2181.200000035762
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:0:0",
+              "atMs": 2214.6000000357635
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:1:0",
+              "atMs": 3714.500000035763
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:2:0",
+              "atMs": 3731.200000035762
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:1:0",
+              "atMs": 4447.800000035762
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:0:0",
+              "atMs": 4464.500000035763
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:1:0",
+              "atMs": 5981.1000000357635
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:0:0": "2d9c0a4252fc8d610c243565ca4c91d2f3965f00051493ffa08f055f7747b525",
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:1:0": "60e507d56fe6392603e7dfa954600ca596a76959743d025ef4078df620420818",
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:2:0": "a4e3f42d1a97a232de29b3aa4c8d4025cb72e0f8dfd4b5b065d8f4eaafe7e37b"
+          }
+        },
+        "port": {
+          "route": "slums-roaming-orc-surrender-parlay-loop",
+          "data": "port",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "f0cce7278a58816053144854655e2246f9b93cd42d2cb20b740a740df5db9a25",
+          "portrait": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:0:0",
+              "atMs": 8.50000003576315
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:1:0",
+              "atMs": 1491.8000000357624
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:2:0",
+              "atMs": 1508.5000000357632
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:1:0",
+              "atMs": 2208.400000035763
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:0:0",
+              "atMs": 2241.8000000357624
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:1:0",
+              "atMs": 3741.700000035762
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:2:0",
+              "atMs": 3758.3000000357624
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:1:0",
+              "atMs": 4475.000000035763
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:0:0",
+              "atMs": 4491.700000035762
+            },
+            {
+              "key": "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:1:0",
+              "atMs": 6008.300000035762
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:0:0": "2d9c0a4252fc8d610c243565ca4c91d2f3965f00051493ffa08f055f7747b525",
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:1:0": "60e507d56fe6392603e7dfa954600ca596a76959743d025ef4078df620420818",
+            "portrait:area:20:ecl:b6df:caller:b484:PIC2.DAX:4:2:0": "a4e3f42d1a97a232de29b3aa4c8d4025cb72e0f8dfd4b5b065d8f4eaafe7e37b"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
