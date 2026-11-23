@@ -27679,6 +27679,142 @@
           }
         }
       }
+    },
+    {
+      "id": "area:13:ecl:b511:caller:b3f4:PIC8.DAX:0",
+      "producer": "ECL8.DAX:13:b3ca",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kobold-cave-roaming-hold",
+          "data": "original",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "cea4ae68cf82095aa138db3309b3bb4c4c5cc5a1e2a2938a6337edd5e7679f26",
+          "portrait": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:0:0",
+              "atMs": 11.40000002384113
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:1:0",
+              "atMs": 144.70000002384222
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:2:0",
+              "atMs": 361.3000000238426
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:1:0",
+              "atMs": 561.3000000238426
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:0:0",
+              "atMs": 778.0000000238415
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:1:0",
+              "atMs": 994.7000000238422
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:2:0",
+              "atMs": 1194.7000000238422
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:1:0",
+              "atMs": 1411.3000000238426
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:0:0",
+              "atMs": 1611.3000000238426
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:1:0",
+              "atMs": 1828.0000000238415
+            }
+          ],
+          "sha256": {
+            "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:0:0": "a382e0496c1565669cc59cbf06f517125ce89506e37e71c0eff4f1792ee160ed",
+            "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:1:0": "e79abc5083e69d03626625e2e9531862682ad836f4a1ead3c57d10afa7bb6810",
+            "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:2:0": "f13801924f7ff2211b570972dfe2bdfddf4435a5e2e2e212be7efb8f24a5648b"
+          }
+        },
+        "port": {
+          "route": "kobold-cave-roaming-hold",
+          "data": "port",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "cea4ae68cf82095aa138db3309b3bb4c4c5cc5a1e2a2938a6337edd5e7679f26",
+          "portrait": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:0:0",
+              "atMs": 10.100000023841858
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:1:0",
+              "atMs": 160.10000002384186
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:2:0",
+              "atMs": 376.8000000238426
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:1:0",
+              "atMs": 593.3000000238426
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:0:0",
+              "atMs": 793.4000000238411
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:1:0",
+              "atMs": 1010.0000000238415
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:2:0",
+              "atMs": 1210.0000000238415
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:1:0",
+              "atMs": 1426.7000000238422
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:0:0",
+              "atMs": 1643.3000000238426
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:1:0",
+              "atMs": 1843.4000000238411
+            }
+          ],
+          "sha256": {
+            "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:0:0": "a382e0496c1565669cc59cbf06f517125ce89506e37e71c0eff4f1792ee160ed",
+            "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:1:0": "e79abc5083e69d03626625e2e9531862682ad836f4a1ead3c57d10afa7bb6810",
+            "portrait:area:13:ecl:b511:caller:b3f4:PIC8.DAX:0:2:0": "f13801924f7ff2211b570972dfe2bdfddf4435a5e2e2e212be7efb8f24a5648b"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
@@ -35985,6 +36121,148 @@
               "samples": 221,
               "poses": [
                 "portrait:area:9:ecl:b0f9:HEAD2.DAX:11:BODY2.DAX:2"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL7.DAX:17:9dce",
+      "prompt": "a9fe",
+      "variants": [
+        {
+          "caption": "A GUARD APPEARS BEFORE YOU",
+          "checkpoint": "nomad-headman-held/A.json",
+          "portrait": "portrait:area:17:ecl:a9fe:HEAD7.DAX:61:BODY7.DAX:30",
+          "native": {
+            "drawCursor": "9dd5",
+            "composed": {
+              "source": "HEAD7.DAX:61:BODY7.DAX:30",
+              "headWrite": "9dc8",
+              "headSlot": "6de1",
+              "bodyOperand": 2
+            },
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 N 22:32 A GUARD APPEARS BEFORE YOU, 'YOU MUST HAVE MADE A MISTAKE. ALLOW ME TO ESCORT YOU TO YOUR LODGING.' Follow the guard Attack the guard",
+            "idlePolls": 30,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "e15f492d6da3717cb00340d84ab2f8ded4cc9a58f22509dbfc5289ded40348c0"
+              },
+              {
+                "idlePolls": 15,
+                "sha256": "e15f492d6da3717cb00340d84ab2f8ded4cc9a58f22509dbfc5289ded40348c0"
+              },
+              {
+                "idlePolls": 30,
+                "sha256": "e15f492d6da3717cb00340d84ab2f8ded4cc9a58f22509dbfc5289ded40348c0"
+              }
+            ],
+            "clearedPanelSha256": "60df02c72b4206e3bc13884aad5018afccb10025ab39e3f7211ab3ca67ec868f"
+          },
+          "chrome": {
+            "original": {
+              "route": "nomad-guard-follow",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:32AGUARDAPPEARSBEFOREYOU,'YOUMUSTHAVEMADEAMISTAKE.ALLOWMETOESCORTYOUTOYOURLODGING.'FollowtheguardAttacktheguard",
+              "portrait": "portrait:area:17:ecl:a9fe:HEAD7.DAX:61:BODY7.DAX:30",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "f595fea0105527f215ecacfe65ddf55e93fb5522ef99d4e29751c59710d6cbf8",
+              "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3656,
+              "samples": 221,
+              "poses": [
+                "portrait:area:17:ecl:a9fe:HEAD7.DAX:61:BODY7.DAX:30"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "nomad-guard-follow",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:32AGUARDAPPEARSBEFOREYOU,'YOUMUSTHAVEMADEAMISTAKE.ALLOWMETOESCORTYOUTOYOURLODGING.'FollowtheguardAttacktheguard",
+              "portrait": "portrait:area:17:ecl:a9fe:HEAD7.DAX:61:BODY7.DAX:30",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "f595fea0105527f215ecacfe65ddf55e93fb5522ef99d4e29751c59710d6cbf8",
+              "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3653,
+              "samples": 220,
+              "poses": [
+                "portrait:area:17:ecl:a9fe:HEAD7.DAX:61:BODY7.DAX:30"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL7.DAX:17:9dce",
+      "prompt": "9da2/aa68",
+      "variants": [
+        {
+          "caption": "WITH A CHOKED CRY HE COLLAPSES",
+          "checkpoint": "nomad-headman-held/A.json",
+          "portrait": "portrait:area:17:ecl:9da2:caller:aa68:HEAD7.DAX:61:BODY7.DAX:30",
+          "native": {
+            "drawCursor": "9dd5",
+            "composed": {
+              "source": "HEAD7.DAX:61:BODY7.DAX:30",
+              "headWrite": "9dc8",
+              "headSlot": "6de1",
+              "bodyOperand": 2
+            },
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 N 22:32 AS THE GUARD TURNS TO ESCORT YOU BACK TO YOUR TENT, YOU SMILE AND STICK HIM IN THE BACK. WITH A CHOKED CRY HE COLLAPSES. Press button or <return> to continue",
+            "idlePolls": 30,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "e15f492d6da3717cb00340d84ab2f8ded4cc9a58f22509dbfc5289ded40348c0"
+              },
+              {
+                "idlePolls": 15,
+                "sha256": "e15f492d6da3717cb00340d84ab2f8ded4cc9a58f22509dbfc5289ded40348c0"
+              },
+              {
+                "idlePolls": 30,
+                "sha256": "e15f492d6da3717cb00340d84ab2f8ded4cc9a58f22509dbfc5289ded40348c0"
+              }
+            ],
+            "clearedPanelSha256": "60df02c72b4206e3bc13884aad5018afccb10025ab39e3f7211ab3ca67ec868f"
+          },
+          "chrome": {
+            "original": {
+              "route": "nomad-guard-attack",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:32ASTHEGUARDTURNSTOESCORTYOUBACKTOYOURTENT,YOUSMILEANDSTICKHIMINTHEBACK.WITHACHOKEDCRYHECOLLAPSES.Pressbuttonor<return>tocontinue",
+              "portrait": "portrait:area:17:ecl:9da2:caller:aa68:HEAD7.DAX:61:BODY7.DAX:30",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "48fee457756cf66e3046579feca2abf1bc02df739f5b78f24abf1ea0b4f1561c",
+              "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3666,
+              "samples": 220,
+              "poses": [
+                "portrait:area:17:ecl:9da2:caller:aa68:HEAD7.DAX:61:BODY7.DAX:30"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "nomad-guard-attack",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:32ASTHEGUARDTURNSTOESCORTYOUBACKTOYOURTENT,YOUSMILEANDSTICKHIMINTHEBACK.WITHACHOKEDCRYHECOLLAPSES.Pressbuttonor<return>tocontinue",
+              "portrait": "portrait:area:17:ecl:9da2:caller:aa68:HEAD7.DAX:61:BODY7.DAX:30",
+              "checkpointSha256": "cd185eda8c0c3825095686161b0d22a6fc5a8a626621d18dc59472f8f40291a2",
+              "artSha256": "48fee457756cf66e3046579feca2abf1bc02df739f5b78f24abf1ea0b4f1561c",
+              "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3665,
+              "samples": 221,
+              "poses": [
+                "portrait:area:17:ecl:9da2:caller:aa68:HEAD7.DAX:61:BODY7.DAX:30"
               ],
               "replaced": false
             }
