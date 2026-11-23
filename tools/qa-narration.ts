@@ -69,6 +69,10 @@ interface Coverage {
   /** What Chrome's audio element did with the narrations the page was told to play. */
   playback?: Playback;
 }
+interface PlaybackArtCheck {
+  run: string; leg: string; unitId: string; variantId?: string; asset: string;
+  expected: string | null; caption: string; seen: (string | null)[]; end: string | null;
+}
 interface Playback {
   /** Every merged playback log, and how its lines ended. */
   runs: Record<string, { log: string; legs: number; lines: number; toTheEnd: number; endedByPlayer: number; cutOff: number;
@@ -79,6 +83,8 @@ interface Playback {
   played: Record<string, { run: string; asset: string; variantId?: string; seconds: number; waited: number; art?: string;
     /** A playing to the end during which the artwork changed or was absent: what was on screen, in order. */
     saw?: (string | null)[] }>;
+  /** Exact per-passage evidence from a played frame that names its owning artwork. */
+  artChecks?: Record<string, PlaybackArtCheck>;
   /** Lines that stopped before their end, or never started, with no key from the player to explain it. Must be empty. */
   cutOff: Record<string, { run: string; leg: string; unitId: string; asset: string; what: "cut off" | "never started"; reason: string;
     at?: number; of?: number; lost?: number; frame: number; behind?: string }>;
@@ -91,7 +97,7 @@ interface PlaybackLine {
   startedAt?: number; startFrame?: number; duration?: number; artAtStart?: string | null; artSeen?: (string | null)[]; artTimes?: number[];
   startedOver?: (string | number)[]; talkedOverBy?: string | number; pauses?: number; refused?: string;
   outcome?: "ended" | "stopped" | "never-started"; reason?: string; endedAt?: number; endFrame?: number; position?: number;
-  artAtEnd?: string | null; behind?: number; behindVoiceLine?: string;
+  artAtEnd?: string | null; expectedArt?: string | null; caption?: string; behind?: number; behindVoiceLine?: string;
 }
 /** A recording counts as played to its end when the audio element reported `ended` this close to its duration. */
 const endTolerance = 0.25;
@@ -117,6 +123,7 @@ if (mergeAt >= 0) {
   writeFileSync(coveragePath, JSON.stringify({ ...coverage, runs: sorted(coverage.runs), units: sorted(coverage.units),
     variants: sorted(coverage.variants), selectors: sorted(coverage.selectors), silent: sorted(coverage.silent),
     ...(coverage.playback ? { playback: { runs: sorted(coverage.playback.runs), played: sorted(coverage.playback.played),
+      ...(coverage.playback.artChecks ? { artChecks: sorted(coverage.playback.artChecks) } : {}),
       cutOff: sorted(coverage.playback.cutOff), overlaps: sorted(coverage.playback.overlaps) } } : {}) }, null, 1) + "\n");
 }
 
@@ -138,7 +145,7 @@ function mergePlayback(path: string): void {
   const run = (lines[0] as Extract<Line, { t: "playback" }>).run;
   const playback = coverage.playback ??= { runs: {}, played: {}, cutOff: {}, overlaps: {} };
   // A run merged again replaces what that run said: the units it played, and its cut-off and overlapping lines.
-  for (const record of [playback.played, playback.cutOff, playback.overlaps]) {
+  for (const record of [playback.played, playback.artChecks ?? {}, playback.cutOff, playback.overlaps]) {
     for (const [key, entry] of Object.entries(record)) if (entry.run === run) delete record[key];
   }
   const count = { legs: 0, lines: 0, toTheEnd: 0, endedByPlayer: 0, cutOff: 0, unfinished: 0, startedLate: 0 };
@@ -156,10 +163,20 @@ function mergePlayback(path: string): void {
       count.toTheEnd++;
       const seen = line.artSeen ?? [];
       const art = seen.length === 1 && seen[0] && line.artAtEnd === seen[0] ? seen[0] : undefined;
-      const entry = playback.played[line.unitId] ??= { run, asset: line.asset, ...(line.variantId ? { variantId: line.variantId } : {}),
-        seconds: line.duration!, waited: Math.round((line.startedAt! - line.queuedAt) * 1000) / 1000 };
-      if (art) { entry.art ??= art; delete entry.saw; }
-      else if (!entry.art) entry.saw ??= [...seen, ...(line.artAtEnd === seen.at(-1) ? [] : [line.artAtEnd ?? null])];
+      const variant = line.variantId ? { variantId: line.variantId } : {};
+      if (line.expectedArt !== undefined && line.caption !== undefined) {
+        (playback.artChecks ??= {})[key] = {
+          run, leg, unitId: line.unitId, ...variant, asset: line.asset,
+          expected: line.expectedArt, caption: line.caption, seen, end: line.artAtEnd ?? null,
+        };
+      }
+      const previous = playback.played[line.unitId];
+      // Keep all the fields from one hearing, including its recording and variant.
+      if (!previous || (!previous.art && art)) {
+        playback.played[line.unitId] = { run, asset: line.asset, ...variant,
+          seconds: line.duration!, waited: Math.round((line.startedAt! - line.queuedAt) * 1000) / 1000,
+          ...(art ? { art } : { saw: [...seen, ...(line.artAtEnd === seen.at(-1) ? [] : [line.artAtEnd ?? null])] }) };
+      }
     } else if (verdict === "ended by the player") count.endedByPlayer++;
     else if (verdict === "unfinished") count.unfinished++;
     else {
@@ -328,17 +345,59 @@ const overlaps = Object.values(playback.overlaps);
 rows.push({ part: "Lines that started while another was still playing (must be 0)", left: overlaps.length,
   note: overlaps.length ? "two voices sounded at once" : "no line started over another voice",
   list: overlaps.map(entry => `${where(entry.unitId)} started over ${entry.over.join(", ")}; ${entry.run} ${entry.leg}, frame ${entry.frame}`) });
-// One artwork throughout is not enough: it has to be the passage's. The runner's ledger says which artwork
-// the passage's own frame showed (coverage.units[unit].art); a line that played under another picture, as
-// one does when it is sent before its frame is drawn, does not count.
-const ownArt = (unit: Unit) => coverage.units[unit.id]?.art?.key;
-const playedWithArt = playedUnits.filter(unit => playback.played[unit.id]!.art && playback.played[unit.id]!.art === ownArt(unit));
+// A passage can choose another actor or be reached from another map. Compare
+// the actual paint to this playback's owning frame whenever it is recorded.
+const artChecks = Object.values(coverage.playback?.artChecks ?? {});
+const captionWords = (text: string) => text.toUpperCase().match(/[A-Z0-9]+/g) ?? [];
+function samePassage(caption: string, scriptText: string, actor?: string): boolean {
+  if (!caption) return false;
+  const shown = ` ${captionWords(caption).join(" ")} `;
+  const words = captionWords(scriptText);
+  const phraseLength = Math.min(words.length, 4);
+  if (!phraseLength) return false;
+  const value = captionWords(actor ?? "").join(" ");
+  if (value && ` ${words.join(" ")} `.includes(` ${value} `) && !shown.includes(` ${value} `)) return false;
+  return words.some((_, index) => index + phraseLength <= words.length &&
+    shown.includes(` ${words.slice(index, index + phraseLength).join(" ")} `));
+}
+
+function matchedArt(check: PlaybackArtCheck): boolean {
+  const unit = unitById.get(check.unitId);
+  const variant = check.variantId ? unit?.runtimeVariants?.find(item => item.id === check.variantId) : undefined;
+  const asset = variant?.asset ?? unit?.asset;
+  return Boolean(check.expected && check.seen.length === 1 && check.seen[0] === check.expected &&
+    check.end === check.expected && asset === check.asset &&
+    samePassage(check.caption, variant?.text ?? unit?.spokenText ?? "", variant?.dynamicValue));
+}
+const verifiedArtChecks = artChecks.filter(matchedArt);
+const currentArtUnits = new Set(verifiedArtChecks.map(check => check.unitId));
+const checkedArtUnits = new Set(artChecks.map(check => check.unitId));
+const ownArt = (unit: Unit) => {
+  const receipt = playback.played[unit.id]!;
+  const selected = coverage.units[unit.id];
+  // A legacy receipt has no owning frame. For a variant only use the
+  // selected art when it came from the same observed selection.
+  if (receipt.variantId) {
+    const variant = coverage.variants[receipt.variantId];
+    if (variant?.run !== selected?.run || variant?.step !== selected?.step) return;
+  }
+  return selected?.art?.key;
+};
+const playedWithArt = playedUnits.filter(unit => currentArtUnits.has(unit.id) ||
+  (!checkedArtUnits.has(unit.id) && Boolean(playback.played[unit.id]!.art && playback.played[unit.id]!.art === ownArt(unit))));
 rows.push({ part: "Played with their artwork on screen from start to end", done: playedWithArt.length, total: playedUnits.length,
   left: playedUnits.length - playedWithArt.length,
-  note: "of the units played to the end: the artwork of the passage's own frame (from the ledger) was drawn when the line started and stayed until it ended",
+  note: "of the units played to the end: the artwork of the passage's own frame was drawn when the line started and stayed until it ended",
   list: playedUnits.filter(unit => !playedWithArt.includes(unit)).map(unit =>
     `${where(unit.id)}: on screen ${playback.played[unit.id]!.art ?? ((playback.played[unit.id]!.saw ?? []).map(key => key ?? "no artwork").join(" then ") || "not recorded")}; ` +
     `the passage's artwork is ${ownArt(unit) ?? "none (the ledger saw no Enhanced artwork on its frame)"} (${playback.played[unit.id]!.run})`) });
+rows.push({ part: "Complete playback captures with their own artwork", done: verifiedArtChecks.length, total: artChecks.length,
+  left: artChecks.length - verifiedArtChecks.length, counted: false,
+  note: `captures that name their picture and prove a matching printed passage, including ${new Set(verifiedArtChecks.flatMap(check => check.variantId ? [check.variantId] : [])).size} individually verified variants`,
+  list: artChecks.filter(check => !matchedArt(check)).map(check =>
+    `${where(check.unitId)}${check.variantId ? ` (${check.variantId})` : ""}: expected ${check.expected ?? "no owned artwork"}, ` +
+    `saw ${check.seen.map(key => key ?? "no artwork").join(" then ") || "not recorded"}, ended on ${check.end ?? "no artwork"}; ` +
+    `printed caption ${check.caption ? say(check.caption) : "absent"} (${check.run} ${check.leg})`) });
 const variantsHeard = [...variantOwner.keys()].filter(id => coverage.variants[id]);
 const families = units.filter(unit => unit.runtimeVariants?.length);
 rows.push({ part: "Dynamic variants selected", done: variantsHeard.length, total: variantTotal, left: variantTotal - variantsHeard.length,

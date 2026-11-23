@@ -475,9 +475,9 @@ const voiceLines = new WeakMap();
 const soundingVoices = new Map();
 let shownArtwork = null;
 const playbackSeconds = () => Math.round(performance.now()) / 1000;
-function logNarrationQueued(narration, expectedArt) {
+function logNarrationQueued(narration, expectedArt, caption) {
   const entry = { id: narration.id, unitId: narration.unitId, ...(narration.variantId ? { variantId: narration.variantId } : {}),
-    asset: narration.asset, expectedArt, queuedAt: playbackSeconds(), queuedFrame: state.sequence,
+    asset: narration.asset, expectedArt, caption, queuedAt: playbackSeconds(), queuedFrame: state.sequence,
     // Lines sounding or waiting when this one was queued: it has to wait its turn behind them.
     ...(currentVoice || blockedVoice || narrationQueue.length ? { ahead: narrationQueue.length + (currentVoice || blockedVoice ? 1 : 0) } : {}),
     // A recording from voices.json is speaking: the page matched it to the text this narration reads.
@@ -605,8 +605,8 @@ function playNextNarration() {
   if (line) beginVoice(line);
 }
 
-function enqueueNarration(narration, expectedArt) {
-  const log = logNarrationQueued(narration, expectedArt);
+function enqueueNarration(narration, expectedArt, caption) {
+  const log = logNarrationQueued(narration, expectedArt, caption);
   narrationQueue.push({ type: "narration", queuedNarration: true, log,
     cue: paintedNarrationCue, url: `/narration/${encodeURIComponent(narration.asset)}` });
   playNextNarration();
@@ -661,8 +661,13 @@ function presentNarration(view, expectedArt) {
     const entries = [];
     narratedViews.set(view, entries);
     if (enhanced) {
+      const cells = Array(360).fill(" ");
+      for (const [cell, character] of view.text ?? []) {
+        if (cell >= 640 && cell < 1000) cells[cell - 640] = String.fromCharCode(character);
+      }
+      const caption = cells.join("").replace(/\s+/g, " ").trim();
       for (const narration of view.narrations) {
-        if (narration.id > (initialNarrationId ?? 0)) entries.push(enqueueNarration(narration, expectedArt));
+        if (narration.id > (initialNarrationId ?? 0)) entries.push(enqueueNarration(narration, expectedArt, caption));
       }
     }
   }

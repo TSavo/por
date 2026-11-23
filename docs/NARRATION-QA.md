@@ -78,6 +78,7 @@ told by the player when it stops a voice. It starts, stops and queues nothing.
 | `behindVoiceLine` | a recording from `src/audio/voices.json` was speaking when this was queued: the page had matched it to the same text |
 | `refused` | `play()` was rejected (Chrome's autoplay rule, with no click on the page yet). The player retries on the next key or click |
 | `startedAt`, `startFrame`, `duration` | the audio element's `playing` event, and the recording's length as Chrome decoded it |
+| `expectedArt`, `caption` | the artwork key and native dialogue or menu text of the view that owns the recording |
 | `artAtStart`, `artSeen`, `artAtEnd` | the Enhanced artwork key drawn (`portrait`, encounter picture or scene); with none, `"runes in the picture window"` or `"the first-person view"` where the frame shows them (the names the ledger uses), else `null`: at the start, each change while the line sounded, and at the end. `artTimes` gives the seconds into the line of each entry of `artSeen` |
 | `startedOver` | voices still sounding when this one started. Must never appear |
 | `talkedOverBy` | a voice that started while this one was sounding. Must never appear |
@@ -181,6 +182,14 @@ pool ambush, and Valjevo scribe playback.
 A deliberate key can leave a passage while its audio is queued or loading.
 Such an unheard recording is logged as skipped. A recording the player
 has already started can still finish after Enter or Space.
+
+The per-playback check keeps the intended art, printed caption, and
+recording variant from the same visit. It requires the matching asset,
+the same art through the recording's end, and consecutive words in
+both the spoken passage and printed caption. It also checks a variant's
+visible actor or other distinguishing words when they occur in the
+spoken passage. A bare scenery frame with no caption cannot satisfy
+this check. Older playback receipts use their native ledger evidence.
 
 ## The silent cases
 
