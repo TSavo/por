@@ -58,13 +58,13 @@ Tags: **[V]** means I read it directly in the file at that line. **[I]** means I
 **New Phlan "phlan" layout:**
 - Harbor = area 0 and mapId 0. It gets water and pilings plus `layout:"phlan"` (`browser-play.ts:94-103`).
 - `/exploration-materials/phlan` → `buildNewPhlanMaterials`: GEO3 block 0, WALLDEF3 block 0, 8X8D1 block 203, 8X8D3 blocks 101-103. It **throws** on any unresolved wall slot or a missing ground/sky tile, and the server returns 503 (`new-phlan-3d-materials.ts:177`, `190`; `browser-play.ts:299-305`).
-- Geometry: water plane at x 13..24, four piers at z=1,3,5,7 with pilings, wall type 14 skipped at x≥12/z<8, gate type 1 at x 0 or 13 with a taller arch, a real cut-out opening, recess and jambs (`new-phlan-webgl.js:106-161`).
+- Geometry: water plane at x 13..24, four piers at z=1,3,5,7 with pilings, wall type 14 skipped at x≥12/z<8, gate type 1 at x 0 or 13 with a taller arch, a real cut-out opening, recess and jambs (`renderer.js:106-161`).
 - Legacy pose fallback: area 0 camera bytes are used as the "phlan" material (`play.js:446-450`).
-- Missing art inside the atlas paints a magenta checker (`new-phlan-webgl.js:254-260`). Under normal flow this should not appear [I].
+- Missing art inside the atlas paints a magenta checker (`renderer.js:254-260`). Under normal flow this should not appear [I].
 
 ### 1.4 Overland WebGL view
 - Used when `view.overlandMap` is set, which requires the menu text `CASTVIEWENCAMPSEARCHLOOK` (`live-input.ts:316`).
-- Draws an 88×88 crop of the Enhanced frame with nearest-neighbour filtering (`new-phlan-webgl.js:313-370`; `play.js:732-745`).
+- Draws an 88×88 crop of the Enhanced frame with nearest-neighbour filtering (`renderer.js:313-370`; `play.js:732-745`).
 - Seen when Travel art is off, or while travel or animation hides the illustrated map. A failure removes the layer (`play.js:1152-1160`).
 
 ### 1.5 Encounter approach sprites
@@ -403,7 +403,7 @@ Tags: **[V]** means I read it directly in the file at that line. **[I]** means I
 **Other files:**
 - `play.html:199-222`: 12 hotspot coordinates.
 - `browser-play.ts:94`: harbor = area 0 / mapId 0.
-- `new-phlan-webgl.js`: dock geometry (L106-129), type-14 skip (L134), gate arch (L141).
+- `renderer.js`: dock geometry (L106-129), type-14 skip (L134), gate arch (L141).
 - `new-phlan-3d-materials.ts`: block ids (L18-25), districts {0,8,11} (L34), water/pile fingerprints and crops (L185-186).
 - `encounter-art.ts:8-12`: area-20 legacy anchors.
 - `combat-art.ts`: RANDCOM frame 0 mirror (L254); fallen key (L21).

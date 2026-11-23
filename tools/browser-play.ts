@@ -16,6 +16,7 @@ import { enhancedArtEnv, packagedTerrain as packagedTerrainFor, packagedTiles } 
 import type { EncounterPlacement } from "./encounter-art.js";
 import { exactTextNarrations as exactTextUnits, NarrationCatalog, normalizeSpeech, type NarrationTrigger, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
 import { buildNewPhlanMaterials } from "./new-phlan-3d-materials.js";
+import { phlanHarborLayout } from "./renderer.js";
 import { buildExplorationMaterials, explorationMaterialArea } from "./exploration-materials.js";
 import { fromPortRoot, fromWorkingRoot } from "./port-root.js";
 import { classicSoundDirectory } from "./classic-sounds.js";
@@ -48,7 +49,7 @@ const planTravel = loadOverlandTravel(gameRoot);
 const page = readFileSync(fromPortRoot("tools", "play.html"));
 const script = readFileSync(fromPortRoot("tools", "play.js"));
 const heldPortraitLoops = readFileSync(fromPortRoot("tools", "held-portrait-loops.mjs"));
-const streetRenderer = readFileSync(fromPortRoot("tools", "new-phlan-webgl.js"));
+const streetRenderer = readFileSync(fromPortRoot("tools", "renderer.js"));
 const wheelPage = readFileSync(fromPortRoot("tools", "code-wheel.html"));
 const wheelScript = readFileSync(fromPortRoot("tools", "code-wheel.js"));
 const wheelDrawing = readFileSync(fromPortRoot("tools", "code-wheel-draw.js"));
@@ -164,7 +165,7 @@ function prepareScenery(view: ExplorationFrame) {
     const materials = buildExplorationMaterials(native, artwork, packagedTerrain?.glyphs(native));
     if (harbor) {
       const { water, dockPiling } = newPhlanMaterials();
-      localMaterialSets.set(materialId, JSON.stringify({ ...materials, water, dockPiling, layout: "phlan" }));
+      localMaterialSets.set(materialId, JSON.stringify({ ...materials, water, dockPiling, layout: phlanHarborLayout }));
     } else localMaterialSets.set(materialId, JSON.stringify(materials));
   }
   view.scenery = { x, y, facing, walls, materialId, area, mapId };
@@ -409,7 +410,7 @@ const server = createServer(async (req, res) => {
     } catch {
       res.writeHead(404).end();
     }
-  } else if (req.method === "GET" && req.url === "/new-phlan-webgl.js") {
+  } else if (req.method === "GET" && req.url === "/renderer.js") {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(streetRenderer);
   } else if (req.method === "GET" && req.url === "/exploration-materials/phlan") {
     try {

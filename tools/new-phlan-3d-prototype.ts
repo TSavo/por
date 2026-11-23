@@ -48,7 +48,7 @@ const files = new Set([
 ]);
 const textures = [...files].map(file => [file, "data:image/png;base64," + readFileSync(file).toString("base64")]);
 const views = referenceFiles.map(({name,pose:[x,y,facing]})=>({name,x,y,facing}));
-const renderer = readFileSync(new URL("./new-phlan-webgl.js", import.meta.url),"utf8");
+const renderer = readFileSync(new URL("./renderer.js", import.meta.url),"utf8");
 
 const out = `<!doctype html><meta charset="utf-8"><title>New Phlan • 3D prototype</title>
 <style>
@@ -99,13 +99,13 @@ try {
   let drawId = 0;
   async function draw(highlight) {
     const id = ++drawId;
-    const {atlas,skyUrl} = await createNewPhlanAtlas(materials,art=>textures.get(art.file),highlight);
+    const {atlas,skyUrl} = await createExplorationAtlas(materials,art=>textures.get(art.file),highlight);
     if (id !== drawId) return;
     for (const viewport of viewports) viewport.dispose();
     viewports = ${JSON.stringify(views)}.map((view,i)=>{
       const canvas = document.getElementById("view"+i);
       canvas.style.backgroundImage = "url("+skyUrl+")";
-      const viewport = createNewPhlanViewport(canvas, materials.walls, atlas);
+      const viewport = createExplorationViewport(canvas, materials.walls, atlas);
       viewport.draw(view);
       return viewport;
     });
