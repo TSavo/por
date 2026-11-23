@@ -1006,7 +1006,7 @@ const illustrationRoutes = new Map([
       requireWebGL: true, heldApproachPosition: [29, x, 1], heldApproachPlacement: far,
       heldApproachPrompt: new RegExp(caption + "COMBATWAITFLEEADVANCE", "i"),
       heldApproachCapture: `kuto-bloodthirsty-${species}-far.png`,
-      portrait: portrait(0), prompt: new RegExp(caption + "COMBATWAITFLEEPARLAY", "i"),
+      portrait: portrait(0), prompt: new RegExp(caption, "i"),
       heldPortraitLoop: members.map(portrait),
       continuation: {
         inputs: ["c"], portrait: `scene-illustration:area:29:ecl:ad16:cue:bloodthirsty-${species}`,
