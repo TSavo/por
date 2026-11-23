@@ -581,8 +581,8 @@
   {
    "area": 25,
    "name": "Wilderness, west",
-   "established": false,
-   "why": "only 22 cells of this area have artwork so far, too few to confirm the tool's reading of its maps and wall sets against",
+   "established": true,
+   "why": "all 22 local cells match the original Wilderness window map and wall bank",
    "maps": [
     25
    ],
@@ -622,8 +622,8 @@
   {
    "area": 27,
    "name": "Wilderness, east",
-   "established": false,
-   "why": "only 22 cells of this area have artwork so far, too few to confirm the tool's reading of its maps and wall sets against",
+   "established": true,
+   "why": "all 21 local cells match the original Wilderness window map and wall bank",
    "maps": [
     27
    ],

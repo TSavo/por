@@ -132,9 +132,9 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 22 | Yarash's Pyramid | yes | 87 | 87 | 0 | 95 of 95 (8 as WebGL wall materials) |
 | 23 | Yarash's Pyramid, lower | yes | 78 | 78 | 0 | 83 of 83 (5 as WebGL wall materials) |
 | 24 | Temple of Bane | yes | 244 | 244 | 0 | 256 of 256 (12 as WebGL wall materials) |
-| 25 | Wilderness, west | not yet | 22 | 22 |  | 22 of 22 |
+| 25 | Wilderness, west | yes | 22 | 22 | 0 | 22 of 22 |
 | 26 | Wilderness, middle | yes | 214 | 214 | 0 | 285 of 285 (69 as first views of the next area, 2 as WebGL wall materials) |
-| 27 | Wilderness, east | not yet | 21 | 21 |  | 22 of 22 (1 as first views of the next area) |
+| 27 | Wilderness, east | yes | 21 | 21 | 0 | 22 of 22 (1 as first views of the next area) |
 | 28 | Zhentil Keep Outpost | yes | 127 | 127 | 0 | 128 of 128 (1 as WebGL wall materials) |
 | 29 | Kuto's Well | yes | 660 | 660 | 0 | 674 of 674 (1 as first views of the next area, 13 as WebGL wall materials) |
 | 31 | Temple of Bane, interior | yes | 94 | 94 | 0 | 94 of 94 |
@@ -183,11 +183,6 @@ Struck off, not held: 115 cells the tool once tried under a sky or ground the ar
 
 Struck off, not held: 72 distinct BACPAC cells of slots 25–33 that no battlefield draws. Outdoor setup replaces all 40 slots. Indoors every battlefield draw (overlay 0x1f at 0206, 067d, 06de and 0966) takes its slot from the kind table at DS:2747, and the indoor builder (overlay 0x0a at 0810, through 0221 and 0000) and combat's later writes store only kinds 1–31, which name slots 0–24 and 34–39. Slots 25–33 are kinds 0x39–0x41, written only by the outdoor builder at 11b4 after it has loaded WILDCOM over them. 17 Slums fights traced with POR_TRACE_BATTLE_DRAW=1 and the Bane, Valjevo and wyvern traces in docs/ART-INVENTORY.md drew no slot from 25 to 33.
 
-Areas not confirmed, and why:
-
-- Area 25 (Wilderness, west): only 22 cells of this area have artwork so far, too few to confirm the tool's reading of its maps and wall sets against.
-- Area 27 (Wilderness, east): only 22 cells of this area have artwork so far, too few to confirm the tool's reading of its maps and wall sets against.
-
 ### Local overland encounter terrain (#193)
 
 248 / 248 native world-map slots have their 96×96 terrain materials and any required landmarks. 0 slots are incomplete.
@@ -231,7 +226,6 @@ The native approach blitter skips palette index 0. Every pixel in each of these 
 
 These tiles are in the 8 by 8 tile sets and no first-person view of any map can put them on screen, for the reason given. They need no art. Do not add keys for them.
 The proof is by trying: the tool draws the view from every square of every map, facing each way, with the wall sets each script loads beside that map, and these tiles are in none of those views.
-It holds as far as the tool's reading of each area holds: for the areas marked "not yet" above (Valjevo's areas 3, 5 and 7 above all) a tile of their sets listed here may yet turn out to be shown.
 
 | Tile set | Tiles | Why no view shows them |
 | --- | --- | --- |

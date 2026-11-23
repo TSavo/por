@@ -59,6 +59,15 @@ interface ObservedArea {
   notShown?: { backdrop: Backdrop; reason: string }[];
   /** Exact tile IDs captured from the native overhead Area command. */
   overheadCells?: { keys: string[]; how: string };
+  /** Complete local Wilderness window backed by the original map, wall and glyph data. */
+  wildernessWindow?: {
+    archive: number;
+    mapSha256: string;
+    wallSha256: string;
+    tilesSha256: string;
+    localCells: number;
+    arrivalCell?: string;
+  };
 }
 function readObserved(): Record<string, ObservedArea> {
   return existsSync(at(OBSERVED)) ? (JSON.parse(readFileSync(at(OBSERVED), "utf8")) as { areas: Record<string, ObservedArea> }).areas : {};
@@ -542,10 +551,31 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       } else report.unaccountedKeys.push(`tile:${label}:${hash}`);
     }
 
+    // These audited window maps have fewer than 30 distinct cells even with every local view covered.
+    // Keep the ordinary threshold unless the map and bank still match the original data in the proof.
+    const window = observed[label]?.wildernessWindow;
+    const [context] = mine;
+    const windowMap = window && world.maps.get(`${window.archive}:${label}`);
+    const windowWalls = window && world.wallBlocks.get(`${window.archive}:17`);
+    const windowTiles = window && world.tileBlocks.get(`8X8D${window.archive}.DAX:17`);
+    const completeWindow = window && mine.length === 1 &&
+      context?.script.area === label && context.script.archive === window.archive && context.map === label &&
+      context.slots.operands.join() === "17,17,17" &&
+      windowMap && sha256(Buffer.concat([windowMap.walls, windowMap.flags, windowMap.passage])) === window.mapSha256 &&
+      windowWalls && sha256(Buffer.concat(windowWalls)) === window.wallSha256 &&
+      windowTiles && sha256(Buffer.from(windowTiles.join(""))) === window.tilesSha256 &&
+      report.unaccountedKeys.length === 0 &&
+      report.cellsTheViewsCanShow === window.localCells && report.cellsWithArt === window.localCells &&
+      report.existingKeysOnlyAsArrivalViews === Number(Boolean(window.arrivalCell)) &&
+      (!window.arrivalCell || have.has(window.arrivalCell) && arrivalHashes.has(window.arrivalCell));
     const note = (reason: string, count = 1) => { report.notEstablished[reason] = (report.notEstablished[reason] ?? 0) + count; };
-    if (have.size < 30) report.why = `only ${have.size} cells of this area have artwork so far, too few to confirm the tool's reading of its maps and wall sets against`;
+    if (have.size < 30 && !completeWindow) report.why = `only ${have.size} cells of this area have artwork so far, too few to confirm the tool's reading of its maps and wall sets against`;
     else if (report.unaccountedKeys.length) report.why = `${report.unaccountedKeys.length} of the ${have.size} cells that have artwork are not among the cells the tool works out for this area, so its reading of the area is not complete`;
-    else { report.established = true; report.why = `all ${have.size} cells that have artwork are among the cells the tool works out`; }
+    else {
+      report.established = true;
+      report.why = completeWindow ? `all ${window.localCells} local cells match the original Wilderness window map and wall bank`
+        : `all ${have.size} cells that have artwork are among the cells the tool works out`;
+    }
 
     // Backdrops the existing artwork confirms: a cell with art that only one backdrop can make.
     const confirmed = new Set<Backdrop>(["-"]);
@@ -1039,8 +1069,11 @@ function document(list: Worklist): string {
     for (const { area, reason, count } of struck) add(`- Area ${area.area} (${area.name}), ${count} cells: ${reason}`);
   }
   if (list.battlefieldStruckOff?.cells) add("", `Struck off, not held: ${list.battlefieldStruckOff.cells} ${list.battlefieldStruckOff.reason}.`);
-  add("", "Areas not confirmed, and why:", "");
-  for (const area of list.areas) if (!area.established) add(`- Area ${area.area} (${area.name}): ${area.why}.`);
+  const unconfirmedAreas = list.areas.filter((area) => !area.established);
+  if (unconfirmedAreas.length) {
+    add("", "Areas not confirmed, and why:", "");
+    for (const area of unconfirmedAreas) add(`- Area ${area.area} (${area.name}): ${area.why}.`);
+  }
   const local = list.overlandTerrain;
   add("", "### Local overland encounter terrain (#193)", "",
     `${local.covered} / ${local.total} native world-map slots have their 96×96 terrain materials and any required landmarks. ${local.missingSlots.length} slots are incomplete.`,
@@ -1064,9 +1097,11 @@ function document(list: Worklist): string {
     ...list.blankApproachSprites.map(frame => `- \`${frame}\``));
   add("", "## Stored tiles no map can show", "",
     "These tiles are in the 8 by 8 tile sets and no first-person view of any map can put them on screen, for the reason given. They need no art. Do not add keys for them.",
-    "The proof is by trying: the tool draws the view from every square of every map, facing each way, with the wall sets each script loads beside that map, and these tiles are in none of those views.",
-    "It holds as far as the tool's reading of each area holds: for the areas marked \"not yet\" above (Valjevo's areas 3, 5 and 7 above all) a tile of their sets listed here may yet turn out to be shown.", "",
-    "| Tile set | Tiles | Why no view shows them |", "| --- | --- | --- |");
+    "The proof is by trying: the tool draws the view from every square of every map, facing each way, with the wall sets each script loads beside that map, and these tiles are in none of those views.");
+  if (unconfirmedAreas.length) {
+    add("A tile from an area marked \"not yet\" above may still appear in a view the tool has not confirmed.");
+  }
+  add("", "| Tile set | Tiles | Why no view shows them |", "| --- | --- | --- |");
   for (const { block, reason, tiles } of list.storedTilesNoMapShows) add(`| ${block} | ${tiles.join(", ")} | ${reason} |`);
   add("", "## Narrated passages with nothing to see", "",
     "Placeholder. `npm run qa:narration` (being built by another agent) will list narrated passages that describe something to see and have no artwork. They will be linked here.", "");
