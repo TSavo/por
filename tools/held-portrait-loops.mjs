@@ -8,6 +8,8 @@ const towerTrollPoseTimes = [1310, 20, 20, 20, 510, 110, 110, 210];
 const silverDragonPoseOrder = [0, 1, 2, 3, 4, 0, 2];
 const silverDragonPoseTimes = [1610, 510, 410, 1210, 1010, 1410, 1510];
 const conjurerPoseTimes = [410, 910, 20];
+const vampirePoseOrder = [0, 1, 2, 1];
+const vampirePoseTimes = [710, 310, 310, 210];
 const portraitLoops = [
   ["portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:", 5, undefined,
     /^(?!.*ABATTLEBEGINS).*LUMBERINGFIGURESREACHFORYOU/i, Array(5).fill(110)],
@@ -76,7 +78,10 @@ const portraitLoops = [
     /THELEADERSWINGSATYOU/i, [1310, 110, 510, 20]],
   ["portrait:area:10:ecl:b695:caller:9f7a:PIC4.DAX:35:", 5, "portrait:area:10:PIC4.DAX:35:0:0",
     /ZOMBIESSHUFFLEDOWNTHESTAIRS/i, Array(5).fill(110)],
-  ["portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:", 3],
+  ["portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:", vampirePoseOrder, undefined,
+    /^(?!.*ABATTLEBEGINS).*THEREISAVAMPIREHERE/i, vampirePoseTimes],
+  ["portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:", vampirePoseOrder, undefined,
+    /^(?!.*ABATTLEBEGINS).*THECHAMBERLIGHTSUPTOREVEALATALLPALEMANWITHVERYWHITETEETH/i, vampirePoseTimes],
   // Successive native members 5 and 6 share the same picture.
   ["portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:", [0, 1, 2, 3, 4, 1, 7], "portrait:area:10:PIC4.DAX:11:0:0",
     /^(?!.*ABATTLEBEGINS).*CLAWSRISEFROMTHESOIL/i, [710, 210, 20, 310, 310, 230, 410]],

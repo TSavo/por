@@ -670,7 +670,7 @@ const encounterRoutes = new Map([
       [56, 32, "encounter:area:10:SPRIT4.DAX:23:1:0", 24, 65],
       [56, 32, "encounter:area:10:SPRIT4.DAX:23:0:0", 32, 80],
     ],
-    dialogue: { key: "enter", portrait: "scene-illustration:area:10:ecl:b695:caller:b126", prompt: /THEREISAVAMPIREHERE/i },
+    dialogue: { key: "enter", portrait: "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0", prompt: /THEREISAVAMPIREHERE/i },
   }],
   ["stojanow-bugbear-approach", {
     slot: "A", inputs: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "left"],
@@ -3311,9 +3311,10 @@ const illustrationRoutes = new Map([
     portraitStops: { 1: "scene-illustration:area:10:ecl:b109", 2: null },
     phaseCaptures: { 1: "valhingen-black-marble-crypt-return.png" },
     approachStops: { 2: [56, 32, "encounter:area:10:SPRIT4.DAX:23:0:0", 32, 80] },
-    portrait: "scene-illustration:area:10:ecl:b695:caller:b126",
+    portrait: "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
     prompt: /THEREISAVAMPIREHERE/i,
     finalPhaseCapture: "valhingen-black-marble-crypt-vampire.png",
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:${member}:0`),
     continuation: {
       inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:b162",
       prompt: /THEREISAVAMPIREHERE.*ABATTLEBEGINS/i,
@@ -4122,11 +4123,11 @@ const illustrationRoutes = new Map([
       prompt: /THESPIRITOFTYRANTHRAXUSFLARESUP/i },
   }],
   ["valhingen-vampire-reveal-phases", {
-    slot: "A", inputs: ["j", "j", "up", "enter", "j", "j", "y", "enter", "enter"],
+    slot: "A", inputs: ["up"],
     portrait: "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0",
     prompt: /THECHAMBERLIGHTSUPTOREVEALATALL,PALEMANWITHVERYWHITETEETH/i,
     finalPhaseCapture: "valhingen-vampire-chamber-loop.png",
-    heldPortraitLoop: 3,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:${member}:0`),
     continuation: {
       inputs: ["enter"], portrait: "scene-illustration:area:10:ecl:b271",
       prompt: /THECHAMBERLIGHTSUPTOREVEALATALL,PALEMAN.*ABATTLEBEGINS/i,
@@ -7682,7 +7683,8 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...(textileScorpionLoop ? { POR_PROMPT_SCHEDULE_IN: resolve(textileScorpionWalk, "prompts.jsonl") } : {}),
     POR_INPUT_COMPAT: textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "pyramid-vats-mutants-loop" ||
-      routeName === "valhingen-grave-claws" || routeName === "sokal-barracks-ghost-phases" ||
+      routeName === "valhingen-grave-claws" || routeName === "valhingen-vampire-reveal-phases" ||
+      routeName === "sokal-barracks-ghost-phases" ||
       sokalBarracksHeld ||
       routeName === "valhingen-wight-ambush-loop" || routeName === "valhingen-spirits-tower-wight-loop" ||
       routeName === "valhingen-skeleton-roaming-ambush-loop" ||
