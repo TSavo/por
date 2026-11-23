@@ -1831,6 +1831,16 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["c"], portrait: nomadSentryPortrait, prompt: /ABATTLEBEGINS/i,
       screenshot: "nomad-camp-sentry-battle-notice.png" },
   }],
+  ["nomad-raid-betrayal", {
+    slot: "A", inputs: ["e", "r", "h", "i", "r", "enter"], fixedClockStart: 4320000,
+    portrait: "scene-illustration:area:17:ecl:9da2:caller:b629",
+    prompt: /THEHEADMAN,HISSHAMANANDGUARDSATTACK.*ATTHESAMETIMEKOBOLDSATTACK/i,
+    illustratedScenery: true, finalPhaseCapture: "nomad-raid-betrayal.png",
+    heldApproachCapture: "nomad-raid-betrayal-returned-approach.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /COMBATWAITFLEEADVANCE/i,
+      heldApproach: { position: [17, 9, 11],
+        placement: [56, 32, "encounter:area:17:SPRIT7.DAX:11:1:0", 24, 65] } },
+  }],
   ["nomad-guard-follow", {
     slot: "A", inputs: nomadGuardWalk,
     portrait: "portrait:area:17:ecl:a9fe:HEAD7.DAX:61:BODY7.DAX:30",
@@ -8706,6 +8716,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "sokal-barracks-ghost-phases" ||
       /^nomad-camp-sentry-(families|parlay|combat)$/.test(routeName) ||
       /^nomad-guard-(follow|attack)$/.test(routeName) ||
+      routeName === "nomad-raid-betrayal" ||
       routeName === "nomad-feast-held-sequence" ||
       /^nomad-pursuit-(combat|flee)$/.test(routeName) ||
       routeName === "nomad-rally-retained-approach" ||
