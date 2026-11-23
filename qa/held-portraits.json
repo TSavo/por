@@ -35922,6 +35922,506 @@
           }
         }
       }
+    },
+    {
+      "id": "area:24:ecl:ae0e:PIC1.DAX:8",
+      "producer": "ECL1.DAX:24:add9",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 310,
+          "viewport": "479c7724d5defedb6b7352f9aaf34967b4ef5e0b17ebb734de0cde0b72bf2b8a"
+        },
+        {
+          "member": 1,
+          "durationMs": 20,
+          "viewport": "9644d9c3761a53474adc6ed5132ccc9310a9f3f426d0e9345ec39e5e992582b7"
+        },
+        {
+          "member": 2,
+          "durationMs": 1310,
+          "viewport": "2e4c7d2c6519d9ee05f29c00792f4e773419156213adbd0498595a0981a53561"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "9644d9c3761a53474adc6ed5132ccc9310a9f3f426d0e9345ec39e5e992582b7"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "bane-rampart-ae0e-ogre",
+          "data": "original",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "360419adb5d243f782bb1519a5597f336424b09ace83378f5dd6355626e749b4",
+          "portrait": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:0:0",
+              "atMs": 10.600000023841858
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:1:0",
+              "atMs": 244.0000000238415
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:2:0",
+              "atMs": 260.7000000238422
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:1:0",
+              "atMs": 1560.6000000238419
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:0:0",
+              "atMs": 1777.3000000238426
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:1:0",
+              "atMs": 2093.900000023841
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:2:0",
+              "atMs": 2110.600000023842
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:1:0",
+              "atMs": 3410.600000023842
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:0:0",
+              "atMs": 3627.200000023842
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:1:0",
+              "atMs": 3943.8000000238426
+            }
+          ],
+          "sha256": {
+            "portrait:area:24:ecl:ae0e:PIC1.DAX:8:0:0": "e436b5664cb177c89a181b141bae94269c1b24243585dcc71a17a2148a266e92",
+            "portrait:area:24:ecl:ae0e:PIC1.DAX:8:1:0": "3ece87f401c1b58b6f330c0019fbf06b107552593334cafe562c94cb39bd2234",
+            "portrait:area:24:ecl:ae0e:PIC1.DAX:8:2:0": "ef8e8ea710a1f0ed6c31620e93625aaa9e74b678903a034240c0e90916055996"
+          }
+        },
+        "port": {
+          "route": "bane-rampart-ae0e-ogre",
+          "data": "port",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "360419adb5d243f782bb1519a5597f336424b09ace83378f5dd6355626e749b4",
+          "portrait": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:0:0",
+              "atMs": 14.80000004768408
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:1:0",
+              "atMs": 264.8000000476841
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:2:0",
+              "atMs": 281.5000000476839
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:1:0",
+              "atMs": 1598.2000000476837
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:0:0",
+              "atMs": 1814.800000047684
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:1:0",
+              "atMs": 2114.800000047684
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:2:0",
+              "atMs": 2131.500000047683
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:1:0",
+              "atMs": 3448.1000000476834
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:0:0",
+              "atMs": 3664.7000000476837
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:8:1:0",
+              "atMs": 3964.800000047684
+            }
+          ],
+          "sha256": {
+            "portrait:area:24:ecl:ae0e:PIC1.DAX:8:0:0": "e436b5664cb177c89a181b141bae94269c1b24243585dcc71a17a2148a266e92",
+            "portrait:area:24:ecl:ae0e:PIC1.DAX:8:1:0": "3ece87f401c1b58b6f330c0019fbf06b107552593334cafe562c94cb39bd2234",
+            "portrait:area:24:ecl:ae0e:PIC1.DAX:8:2:0": "ef8e8ea710a1f0ed6c31620e93625aaa9e74b678903a034240c0e90916055996"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:24:ecl:ae0e:PIC1.DAX:6",
+      "producer": "ECL1.DAX:24:add9",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1710,
+          "viewport": "1018abb851c4006ac7ed5edd1a7f5317cfaecf61708e2cafca6469ab5780e5e7"
+        },
+        {
+          "member": 1,
+          "durationMs": 110,
+          "viewport": "8512b24c74b292ef227f6168fc93617370609a8e6a039c973f841c0efe1621f1"
+        },
+        {
+          "member": 2,
+          "durationMs": 1510,
+          "viewport": "78759297e50b4319486b1c88a106583d46ebb6a9c458d271dd6aa939a69e84b7"
+        },
+        {
+          "member": 3,
+          "durationMs": 110,
+          "viewport": "8512b24c74b292ef227f6168fc93617370609a8e6a039c973f841c0efe1621f1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "bane-rampart-ae0e-hobgoblin",
+          "data": "original",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "1ce4e3b3f0c6d599d736b7d87c4d05ecbc4038fa894da253ad9af1e06b0b03fb",
+          "portrait": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:0:0",
+              "atMs": 10.400000035762787
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:1:0",
+              "atMs": 1660.4000000357628
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:2:0",
+              "atMs": 1777.0000000357632
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:1:0",
+              "atMs": 3293.6000000357635
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:0:0",
+              "atMs": 3393.700000035762
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:1:0",
+              "atMs": 5110.300000035762
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:2:0",
+              "atMs": 5210.200000035762
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:1:0",
+              "atMs": 6726.800000035764
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:0:0",
+              "atMs": 6843.500000035761
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:1:0",
+              "atMs": 8543.400000035763
+            }
+          ],
+          "sha256": {
+            "portrait:area:24:ecl:ae0e:PIC1.DAX:6:0:0": "139f4d8981d5fb0d6c215a9ef55d3633aaf7a33fddf2435f554f066af6859797",
+            "portrait:area:24:ecl:ae0e:PIC1.DAX:6:1:0": "8df5177f3fb0f7eb34c796f69cb1252cc86a381ad07beca6af74c6c6679056a1",
+            "portrait:area:24:ecl:ae0e:PIC1.DAX:6:2:0": "e3720b391fcf709f9174f2eec0746511d6acc90e9eb31a6ce9928a866659d328"
+          }
+        },
+        "port": {
+          "route": "bane-rampart-ae0e-hobgoblin",
+          "data": "port",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "1ce4e3b3f0c6d599d736b7d87c4d05ecbc4038fa894da253ad9af1e06b0b03fb",
+          "portrait": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:0:0",
+              "atMs": 6.3000000238425855
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:1:0",
+              "atMs": 1706.3000000238426
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:2:0",
+              "atMs": 1822.9000000238411
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:1:0",
+              "atMs": 3322.8000000238426
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:0:0",
+              "atMs": 3439.600000023842
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:1:0",
+              "atMs": 5139.400000023841
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:2:0",
+              "atMs": 5256.100000023842
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:1:0",
+              "atMs": 6772.70000002384
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:0:0",
+              "atMs": 6872.70000002384
+            },
+            {
+              "key": "portrait:area:24:ecl:ae0e:PIC1.DAX:6:1:0",
+              "atMs": 8589.300000023843
+            }
+          ],
+          "sha256": {
+            "portrait:area:24:ecl:ae0e:PIC1.DAX:6:0:0": "139f4d8981d5fb0d6c215a9ef55d3633aaf7a33fddf2435f554f066af6859797",
+            "portrait:area:24:ecl:ae0e:PIC1.DAX:6:1:0": "8df5177f3fb0f7eb34c796f69cb1252cc86a381ad07beca6af74c6c6679056a1",
+            "portrait:area:24:ecl:ae0e:PIC1.DAX:6:2:0": "e3720b391fcf709f9174f2eec0746511d6acc90e9eb31a6ce9928a866659d328"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:24:ecl:af84:PIC1.DAX:2",
+      "producer": "ECL1.DAX:24:af4f",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 310,
+          "viewport": "a22361feb58b6fc42bb5e0833cd6e54072df64abfee49b139eac5fa7a0878312"
+        },
+        {
+          "member": 1,
+          "durationMs": 310,
+          "viewport": "e579cb908b4bbfe27909da489faa62cbef2c3f2b4573d7cb931b9a6f0be3a2b2"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "bane-rampart-af84-goblin",
+          "data": "original",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "de42692aa7bb2b0ad1f722b7f566461f28b42447dfa32a74c38cb080bc5f5032",
+          "portrait": "portrait:area:24:ecl:af84:PIC1.DAX:2:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:2:0:0",
+              "atMs": 13.60000001192111
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:2:1:0",
+              "atMs": 280.30000001192093
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:2:0:0",
+              "atMs": 596.9000000119213
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:2:1:0",
+              "atMs": 896.9000000119213
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:2:0:0",
+              "atMs": 1213.5000000119207
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:2:1:0",
+              "atMs": 1513.600000011921
+            }
+          ],
+          "sha256": {
+            "portrait:area:24:ecl:af84:PIC1.DAX:2:0:0": "209e90d384f8001d5e8ba0ae13c002659fe537d01b18dec49622bdb3c6eec161",
+            "portrait:area:24:ecl:af84:PIC1.DAX:2:1:0": "490bd141ddbe5ff079deaa4a64a0d62a0a36b257d621e3bb5832db01b695b45c"
+          }
+        },
+        "port": {
+          "route": "bane-rampart-af84-goblin",
+          "data": "port",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "de42692aa7bb2b0ad1f722b7f566461f28b42447dfa32a74c38cb080bc5f5032",
+          "portrait": "portrait:area:24:ecl:af84:PIC1.DAX:2:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:2:0:0",
+              "atMs": 6.700000011920565
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:2:1:0",
+              "atMs": 290.1000000119211
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:2:0:0",
+              "atMs": 590.0000000119207
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:2:1:0",
+              "atMs": 906.7000000119206
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:2:0:0",
+              "atMs": 1206.7000000119206
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:2:1:0",
+              "atMs": 1523.4000000119213
+            }
+          ],
+          "sha256": {
+            "portrait:area:24:ecl:af84:PIC1.DAX:2:0:0": "209e90d384f8001d5e8ba0ae13c002659fe537d01b18dec49622bdb3c6eec161",
+            "portrait:area:24:ecl:af84:PIC1.DAX:2:1:0": "490bd141ddbe5ff079deaa4a64a0d62a0a36b257d621e3bb5832db01b695b45c"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:24:ecl:af84:PIC1.DAX:6",
+      "producer": "ECL1.DAX:24:af4f",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1710,
+          "viewport": "1018abb851c4006ac7ed5edd1a7f5317cfaecf61708e2cafca6469ab5780e5e7"
+        },
+        {
+          "member": 1,
+          "durationMs": 110,
+          "viewport": "8512b24c74b292ef227f6168fc93617370609a8e6a039c973f841c0efe1621f1"
+        },
+        {
+          "member": 2,
+          "durationMs": 1510,
+          "viewport": "78759297e50b4319486b1c88a106583d46ebb6a9c458d271dd6aa939a69e84b7"
+        },
+        {
+          "member": 3,
+          "durationMs": 110,
+          "viewport": "8512b24c74b292ef227f6168fc93617370609a8e6a039c973f841c0efe1621f1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "bane-rampart-af84-hobgoblin",
+          "data": "original",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "8506fa1c1ba1a76c2b72d7bd296a7f980b1f4b9a2b54f2577dce676c68e2ad33",
+          "portrait": "portrait:area:24:ecl:af84:PIC1.DAX:6:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:0:0",
+              "atMs": 15.90000002384113
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:1:0",
+              "atMs": 1699.2000000238422
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:2:0",
+              "atMs": 1799.2000000238422
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:1:0",
+              "atMs": 3315.8000000238426
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:0:0",
+              "atMs": 3432.400000023841
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:1:0",
+              "atMs": 5132.400000023841
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:2:0",
+              "atMs": 5249.0000000238415
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:1:0",
+              "atMs": 6749.0000000238415
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:0:0",
+              "atMs": 6865.600000023842
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:1:0",
+              "atMs": 8582.300000023843
+            }
+          ],
+          "sha256": {
+            "portrait:area:24:ecl:af84:PIC1.DAX:6:0:0": "b7d6ee2a6e1544fa653bc9ede1edaf788002dc9e2262d10b7db8414afd4521ad",
+            "portrait:area:24:ecl:af84:PIC1.DAX:6:1:0": "e040afdc404c879a00a1e8bee13fb6ca6fb4180c3d353f5aa8a21c50d15e56f2",
+            "portrait:area:24:ecl:af84:PIC1.DAX:6:2:0": "13a9b824a4b3ebe96a9dbe72249e3f92ffca9c82e9690243844034ea47d613dc"
+          }
+        },
+        "port": {
+          "route": "bane-rampart-af84-hobgoblin",
+          "data": "port",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "8506fa1c1ba1a76c2b72d7bd296a7f980b1f4b9a2b54f2577dce676c68e2ad33",
+          "portrait": "portrait:area:24:ecl:af84:PIC1.DAX:6:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:0:0",
+              "atMs": 11.59999997615887
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:1:0",
+              "atMs": 1628.1999999761574
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:2:0",
+              "atMs": 1744.7999999761578
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:1:0",
+              "atMs": 3244.799999976158
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:0:0",
+              "atMs": 3361.399999976158
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:1:0",
+              "atMs": 5077.9999999761585
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:2:0",
+              "atMs": 5178.099999976159
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:1:0",
+              "atMs": 6694.599999976159
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:0:0",
+              "atMs": 6794.599999976159
+            },
+            {
+              "key": "portrait:area:24:ecl:af84:PIC1.DAX:6:1:0",
+              "atMs": 8511.199999976157
+            }
+          ],
+          "sha256": {
+            "portrait:area:24:ecl:af84:PIC1.DAX:6:0:0": "b7d6ee2a6e1544fa653bc9ede1edaf788002dc9e2262d10b7db8414afd4521ad",
+            "portrait:area:24:ecl:af84:PIC1.DAX:6:1:0": "e040afdc404c879a00a1e8bee13fb6ca6fb4180c3d353f5aa8a21c50d15e56f2",
+            "portrait:area:24:ecl:af84:PIC1.DAX:6:2:0": "13a9b824a4b3ebe96a9dbe72249e3f92ffca9c82e9690243844034ea47d613dc"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
