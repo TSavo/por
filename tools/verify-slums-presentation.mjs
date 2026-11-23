@@ -1797,6 +1797,25 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "nomad-headman-lodging.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HEREYOUMAYREST/i },
   }],
+  ["nomad-feast-held-sequence", {
+    slot: "A", inputs: [...nomadSentryWalk, "enter", "p", "enter", "y", "enter", "enter", "r", "y",
+      ...Array(6).fill("i"), "r", "enter", "enter", "enter", "enter", "enter"],
+    portraitStops: {
+      23: "portrait:area:17:ecl:9da2:caller:a82f:HEAD7.DAX:74:BODY7.DAX:30",
+      24: "portrait:area:17:ecl:9da2:caller:a8ac:HEAD7.DAX:74:BODY7.DAX:30",
+      25: "portrait:area:17:ecl:9da2:caller:a928:HEAD7.DAX:74:BODY7.DAX:30",
+    },
+    staticPortraitStops: {
+      23: /HASSADAHWAL.STALKENTRY55/i,
+      24: /THEHEADMANSEEMSVERYUNEASY.*PRACTICALLYBEGSYOUTOSTAY/i,
+      25: /MYSCOUTSHAVESEENEVIDENCEOFALARGEBANDOFKOBOLDS/i,
+    },
+    portrait: "scene-illustration:area:17:ecl:9da2:caller:a980",
+    prompt: /PLEASETHINKABOUTITOVERNIGHT.*ESCORTEDTOYOURLODGING/i,
+    staticPortraitMenu: true,
+    continuation: { inputs: ["enter", "enter"], portrait: "portrait:area:17:ecl:9ed7:PIC7.DAX:29:0:0",
+      prompt: /THEPARTYMAKESCAMP/i },
+  }],
   ["nomad-feast-arrival", {
     slot: "A", inputs: ["up", ...Array(4).fill("enter"), "p", "enter", "enter", "y", "enter"],
     portraitStops: { 9: "scene-illustration:area:17:ecl:9da2:caller:a711" },
@@ -8467,6 +8486,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valhingen-grave-claws" || routeName === "valhingen-vampire-reveal-phases" ||
       routeName === "sokal-barracks-ghost-phases" ||
       /^nomad-camp-sentry-(families|parlay|combat)$/.test(routeName) ||
+      routeName === "nomad-feast-held-sequence" ||
       /^nomad-pursuit-(combat|flee)$/.test(routeName) ||
       routeName === "nomad-rally-retained-approach" ||
       /^tyrmor-priest-(benediction-hold|tone-hold|peace-hold|chisel-hold|chisel-help)$/.test(routeName) ||
@@ -11870,6 +11890,9 @@ try {
         if (illustration.staticPortraitStop?.index === index) {
           await verifyStaticPortrait(interimPortrait, illustration.staticPortraitStop.caption,
             illustration.staticPortraitStop.expectsContinue);
+        }
+        if (illustration.staticPortraitStops?.[index]) {
+          await verifyStaticPortrait(interimPortrait, illustration.staticPortraitStops[index], false);
         }
         await advance(key);
         if (routeName === "valhingen-skeleton-enclave" && index === 1) {

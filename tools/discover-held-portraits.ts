@@ -440,6 +440,16 @@ const eclCandidates = scripts.flatMap(record => {
 
     const scope = (contexts.get(load.address) ?? []).filter(state =>
       !valhingenReturnsBeforePatrolMenu(load.address, state.returns.at(-1)));
+    const feastHead = instructions.get(0xa7a2);
+    const feastReset = instructions.get(load.next);
+    const nomadFeast = archive === 7 && scriptBlock === 17 && load.address === 0xa7a8 && direct && block === 30 &&
+      feastHead?.opcode === 0x09 && feastHead.next === load.address &&
+      literal(feastHead.operands[0]!) === 74 && memory(feastHead.operands[1]!) === 0x6de1 &&
+      feastReset?.opcode === 0x09 && literal(feastReset.operands[0]!) === 0xff &&
+      memory(feastReset.operands[1]!) === 0x6de1;
+    // The guest resumes the feast after the timed camp and scripted relocation.
+    // Start at the witnessed fixed composition to trace its local holds.
+    if (nomadFeast && !scope.length) scope.push({ address: load.address, returns: [] });
     const prompts = new Map<string, {
       address: string; next: string; caller: string | null; opcode: number; name: string; labels: string[];
     }>();
@@ -517,8 +527,10 @@ const eclCandidates = scripts.flatMap(record => {
 
     // Confirm the selected HEAD and BODY from each measured encounter's script.
     const sentryComposition = nomadSentryComposition(load.address);
-    let composedPortrait = sentryComposition ??
-      (tyrmorPictures?.compositions.length === 1 ? tyrmorPictures.compositions[0] : undefined);
+    let composedPortrait = nomadFeast ? {
+      source: "HEAD7.DAX:74:BODY7.DAX:30", headWrite: authored(feastHead.address), headSlot: "6de1",
+      bodyOperand: 0, headReset: authored(feastReset.address),
+    } : sentryComposition ?? (tyrmorPictures?.compositions.length === 1 ? tyrmorPictures.compositions[0] : undefined);
     const address = authored(load.address);
     const falseThrone = scriptBlock === 5 && address === "a98a";
     const forgePatrol = scriptBlock === 6 && ["a9e6", "aa49"].includes(address);
