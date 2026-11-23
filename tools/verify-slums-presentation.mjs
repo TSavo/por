@@ -1020,6 +1020,11 @@ const illustrationRoutes = new Map([
       ["kobolds", "4320002", 14, 3, false],
       ["lizardmen", "4320073", 6, 3, false],
     ]],
+    ["avoided", "a5e8", "YOUAREBEINGAVOIDEDBYSOME", [
+      ["gnolls", "4320014", 2, 3, false],
+      ["kobolds", "4320063", 14, 3, false],
+      ["lizardmen", "4322144", 0, 3, false],
+    ]],
     ["party-surprised", "a64b", "YOUHAVESURPRISEDAPARTYOF", [
       ["gnolls", "4321397", 3, 4, true],
       ["kobolds", "4321111", null, 4, false],
