@@ -79,7 +79,7 @@ const payloadPaths = [
   "src/audio/voices.json", "src/audio/voice-master-manifest.json", "src/audio/original-sounds.json",
   "src/maps/geography-model.json", "src/maps/atlas.json", "src/codewheel/wheel.json",
 ];
-const compiled = ["main.js", "package.json"];
+const compiled = ["main.js", "preload.cjs", "package.json"];
 
 function files(directory: string, base = directory): string[] {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -244,6 +244,7 @@ function installApp(resources: string): void {
   rmSync(join(resources, "default_app.asar"), { force: true });
   mkdirSync(join(resources, "app"), { recursive: true });
   copyFileSync(join(electronApp, "main.js"), join(resources, "app", "main.js"));
+  copyFileSync(join(electronApp, "preload.cjs"), join(resources, "app", "preload.cjs"));
   copyFileSync(join(electronApp, "package.json"), join(resources, "app", "package.json"));
   cloneInto(payload, resources);
 }

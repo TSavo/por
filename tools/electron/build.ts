@@ -17,21 +17,22 @@ const version = (JSON.parse(readFileSync(fromPortRoot("package.json"), "utf8")) 
 export async function buildElectron() {
   rmSync(electronOutput, { recursive: true, force: true });
   mkdirSync(electronOutput, { recursive: true });
-  await build({
+  const common = {
     absWorkingDir: fromPortRoot(),
-    entryPoints: [join(here, "main.ts")],
-    outfile: join(electronOutput, "main.js"),
     bundle: true,
-    platform: "node",
-    format: "esm",
+    platform: "node" as const,
     target: "es2022",
     minifySyntax: true,
-    legalComments: "none",
-    logLevel: "warning",
+    legalComments: "none" as const,
+    logLevel: "warning" as const,
     external: ["electron"],
-  });
-  const main = join(electronOutput, "main.js");
-  if (readFileSync(main, "utf8").includes("por-assets")) throw new Error(`${main} names por-assets`);
+  };
+  await build({ ...common, entryPoints: [join(here, "main.ts")], outfile: join(electronOutput, "main.js"), format: "esm" });
+  await build({ ...common, entryPoints: [join(here, "preload.ts")], outfile: join(electronOutput, "preload.cjs"), format: "cjs" });
+  for (const name of ["main.js", "preload.cjs"]) {
+    const file = join(electronOutput, name);
+    if (readFileSync(file, "utf8").includes("por-assets")) throw new Error(`${file} names por-assets`);
+  }
   writeFileSync(join(electronOutput, "package.json"), JSON.stringify({
     name: "pool-of-radiance",
     version,

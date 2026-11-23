@@ -9,12 +9,16 @@
  * A packaged app reads the files from `process.resourcesPath`. A checkout names them in
  * POR_LOOSE_DIR, or uses out/loose/ under the working directory.
  */
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { app, BrowserWindow, Menu, net, protocol } from "electron";
+import { app, BrowserWindow, Menu, dialog, ipcMain, net, protocol } from "electron";
 import type { MenuItemConstructorOptions } from "electron";
+import {
+  inspectOriginalFiles, originalFilesSettingName, readOriginalFilesSetting, writeOriginalFilesSetting,
+} from "../release/original-files.js";
 import { looseResponse, openLooseFiles, type LooseFiles } from "../web/loose-files.js";
+import type { HostOriginalFiles } from "./preload.js";
 
 const scheme = "por";
 const gameOrigin = `${scheme}://localhost`;
@@ -85,6 +89,46 @@ function registerProtocol(loose: LooseFiles): void {
   });
 }
 
+
+function originalSettingPath(): string {
+  return join(app.getPath("userData"), originalFilesSettingName);
+}
+
+/** The game's files in a named folder, through inspectOriginalFiles (#74, #226). */
+function loadOriginalFiles(named: string): HostOriginalFiles | { problem: string } {
+  const found = inspectOriginalFiles(named);
+  if ("problem" in found) return found;
+  const files = readdirSync(found.folder, { withFileTypes: true })
+    .filter((entry) => entry.isFile())
+    .map((entry) => ({ name: entry.name, data: new Uint8Array(readFileSync(join(found.folder, entry.name))) }));
+  return { folder: found.folder, release: found.release, files };
+}
+
+function currentOriginalFiles(): HostOriginalFiles | undefined {
+  const setting = readOriginalFilesSetting(originalSettingPath());
+  if (!setting.path) return;
+  const loaded = loadOriginalFiles(setting.path);
+  return "problem" in loaded ? undefined : loaded;
+}
+
+async function pickOriginalFiles(): Promise<void> {
+  if (!gameWindow) return;
+  const picked = await dialog.showOpenDialog(gameWindow, {
+    title: "Use Original Files",
+    properties: ["openDirectory"],
+  });
+  if (picked.canceled || !picked.filePaths[0]) return;
+  const loaded = loadOriginalFiles(picked.filePaths[0]);
+  if ("problem" in loaded) {
+    await dialog.showMessageBox(gameWindow, { type: "warning", title: "Use Original Files", message: loaded.problem });
+    return;
+  }
+  writeOriginalFilesSetting(originalSettingPath(), loaded.folder);
+  gameWindow.webContents.send("original-files:used", loaded);
+}
+
+ipcMain.handle("original-files:get", () => currentOriginalFiles() ?? null);
+
 function runInPage(script: string): void {
   void gameWindow?.webContents.executeJavaScript(script);
 }
@@ -102,8 +146,16 @@ function applicationMenu(): Menu {
       { label: "Map", accelerator: "M", registerAccelerator: false, click: () => runInPage("window.porShell?.map()") },
     ],
   };
+  const fileMenu: MenuItemConstructorOptions = {
+    label: "File",
+    submenu: [
+      { label: "Use Original Files…", click: () => { void pickOriginalFiles(); } },
+      ...(!mac ? [{ type: "separator" as const }, { role: "quit" as const }] : []),
+    ],
+  };
   const template: MenuItemConstructorOptions[] = [
-    ...(mac ? [{ role: "appMenu" as const }] : [{ label: "File", submenu: [{ role: "quit" as const }] }]),
+    ...(mac ? [{ role: "appMenu" as const }] : []),
+    fileMenu,
     gameMenu,
     { role: "editMenu" },
     ...(mac ? [{ role: "windowMenu" as const }] : []),
@@ -127,6 +179,7 @@ function openWindow(): void {
     backgroundColor: "#000000",
     autoHideMenuBar: false,
     webPreferences: {
+      preload: join(dirname(fileURLToPath(import.meta.url)), "preload.cjs"),
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: true,

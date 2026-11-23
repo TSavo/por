@@ -71,13 +71,29 @@ async function useOriginal(choice: OriginalChoice | undefined) {
   return choice ? { folder: choice.folder, release: choice.release } : {};
 }
 
+type HostOriginalFiles = {
+  folder: string;
+  release: "1.3" | "first";
+  files: { name: string; data: Uint8Array }[];
+};
+
+function originalFromHost(payload: HostOriginalFiles): PickedOriginalFolder {
+  return {
+    folder: payload.folder,
+    release: payload.release,
+    files: new Map(payload.files.map((file) => [file.name, { path: file.name, read: async () => file.data }])),
+  };
+}
+
 const ready = (async () => {
   provider = await IdbResources.open();
   index = (await provider.getJson<ResourceIndex>("index"))!;
   gameEntries = await preloadEngineResources(provider, index, ["manifest:src/audio/voices.json", "manifest:qa/art-worklist-cells.json"]);
-  const kept = await restoreOriginalFolder().catch((error: Error) => ({ problem: error.message }));
+  const host = window.porElectron ? await window.porElectron.getOriginalFiles() : undefined;
+  const kept = host ? originalFromHost(host)
+    : await restoreOriginalFolder().catch((error: Error) => ({ problem: error.message }));
   if (kept && "release" in kept) original = kept;
-  else originalProblem = kept?.problem;
+  else originalProblem = kept && "problem" in kept ? kept.problem : undefined;
   await start();
 })();
 ready.catch((error) => console.error("The game cannot start", error));
@@ -148,6 +164,11 @@ declare global {
     porGameHost: { fetch: typeof gameFetch };
     /** For the browser checks, which have no folder picker: a served folder, as a picked one is read (#226). */
     porTestUseOriginalFolder(url: string): Promise<unknown>;
+    /** The Electron shell: original files from File > Use Original Files… or original-files.json. */
+    porElectron?: {
+      getOriginalFiles(): Promise<HostOriginalFiles | null>;
+      onOriginalFiles(callback: (payload: HostOriginalFiles) => void): void;
+    };
   }
 }
 window.porGameHost = { fetch: gameFetch };
@@ -155,3 +176,4 @@ window.porTestUseOriginalFolder = async (url) => {
   await ready;
   return useOriginal(await originalFolderAt(url));
 };
+window.porElectron?.onOriginalFiles((payload) => { void ready.then(() => useOriginal(originalFromHost(payload))); });
