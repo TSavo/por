@@ -6,7 +6,8 @@
  * the result `-dev`, plus `-dirty` when the tree has uncommitted changes.
  */
 import { execFileSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { readJsonNow } from "../src/resources/provider.js";
+import { NodeDiskResources } from "./resources/node-disk.js";
 import { fromPortRoot } from "./port-root.js";
 
 export type BuildVersionParts = {
@@ -37,7 +38,9 @@ function git(repo: string, ...args: string[]): string | undefined {
 /** package.json plus git, as a checkout reports it. Used by the release build and by the dev fallback. */
 export function checkoutBuildVersion(options: { release?: boolean } = {}): string {
   const root = fromPortRoot();
-  const version = (JSON.parse(readFileSync(fromPortRoot("package.json"), "utf8")) as { version: string }).version;
+  const build = readJsonNow<{ version: string }>(new NodeDiskResources(), "config:build");
+  if (!build) throw new Error("Missing package.json for checkout build version");
+  const { version } = build;
   const sha = git(root, "rev-parse", "--short=7", "HEAD") ?? "unknown";
   const dirty = Boolean(git(root, "status", "--porcelain"));
   return formatBuildVersion({ version, sha, dirty, release: options.release });

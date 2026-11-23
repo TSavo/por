@@ -22,7 +22,7 @@ export type ResourceData = Uint8Array | string;
 /** The kinds of id. A name follows the kind and its colon; `font` and `index` have none. */
 export const resourceKinds = [
   "game", "original", "upgrades", "art", "art-materials", "atlas", "codewheel", "font", "audio", "voice",
-  "narration", "map", "manifest", "save", "setting", "journal", "index",
+  "narration", "map", "manifest", "save", "setting", "journal", "index", "page", "config",
 ] as const;
 export type ResourceKind = typeof resourceKinds[number];
 

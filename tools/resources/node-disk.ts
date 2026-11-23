@@ -13,6 +13,10 @@ import { classicSoundDirectory } from "../classic-sounds.js";
 import { fromPortRoot, fromWorkingRoot } from "../port-root.js";
 
 export interface NodeDiskOptions {
+  /** The runner's generated catalogue of selected Enhanced artwork. */
+  enhancedArtFile?: string;
+  /** Page sources and built scripts by their local URL. */
+  pages?: ReadonlyMap<string, string>;
   /** The port's own game data (`game:`), a directory with manifest.json. */
   game?: string;
   /** The player's own original files (`original:`), read where they are. */
@@ -61,6 +65,12 @@ export class NodeDiskResources implements ResidentResources, ResourceProvider {
     const parsed = resourceKind(id);
     if (!parsed) return;
     const { kind, name } = parsed;
+    if (kind === "config") {
+      if (name === "build") return fromPortRoot("package.json");
+      if (name === "enhanced-art") return this.options.enhancedArtFile;
+      return;
+    }
+    if (kind === "page") return this.options.pages?.get(`/${name}`);
     if (kind === "setting") return name === "original-files" ? this.options.originalFilesSetting : undefined;
     if (kind === "journal") return name === "profile" ? this.options.journalProfile : undefined;
     if (kind === "art") {
