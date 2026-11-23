@@ -4146,6 +4146,23 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "slums-grain-sack-ambush-phase-3.png",
     continuation: { inputs: ["enter"], portrait: "portrait:area:20:ecl:b10d:PIC2.DAX:31:3:0", prompt: /ABATTLEBEGINS/i },
   }],
+  ["diogenes-mountain-sighting-loop", {
+    slot: "A", inputs: ["up", "enter"],
+    portrait: "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0",
+    prompt: /ALARGEDRAGONFLYSABOVEYOU/i,
+    heldPortraitLoop: [0, 1].map(member => `portrait:area:25:ecl:9c97:PIC6.DAX:32:${member}:0`),
+    finalPhaseCapture: "diogenes-mountain-sighting.png",
+    continuation: { inputs: ["i"], clearsPortrait: true, prompt: /CastViewEncampSearchLook/i },
+  }],
+  ["diogenes-mountain-revisit-loop", {
+    slot: "A", inputs: ["up", "enter", "i", "down", "up", "enter"],
+    portrait: "portrait:PIC6.DAX:32:0:0",
+    prompt: /MOUNTAINSYOUSEEALARGECAVE/i,
+    heldPortraitLoop: [0, 1].map(member => `portrait:PIC6.DAX:32:${member}:0`),
+    finalPhaseCapture: "diogenes-mountain-revisit.png",
+    continuation: { inputs: ["e", "enter"], portrait: "portrait:PIC6.DAX:12:0:0",
+      prompt: /AMAGICMOUTHAPPEARS.*WHOENTERSTHEHOMEOFDIOGENES/i },
+  }],
   ["diogenes-mountain-sighting-phases", {
     slot: "A", inputs: ["up", "enter", "q", "q"],
     portraitStops: { 2: "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0" },
