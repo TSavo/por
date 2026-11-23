@@ -23557,6 +23557,278 @@
           }
         }
       }
+    },
+    {
+      "id": "area:20:ecl:b54b:PIC2.DAX:0",
+      "producer": "ECL2.DAX:20:9d7e",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "slums-roaming-kobold-leave-parlay-loop",
+          "data": "original",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "c6af5fb636636a2476de6ad51be107129a504e73101865ecf18d7d19c6f4062d",
+          "portrait": "portrait:area:20:ecl:b54b:PIC2.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:0:0",
+              "atMs": 2.2000000000007276
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:1:0",
+              "atMs": 168.79999999999927
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:2:0",
+              "atMs": 385.39999999999964
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:1:0",
+              "atMs": 585.3999999999996
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:0:0",
+              "atMs": 802.1000000000004
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:1:0",
+              "atMs": 1002.1000000000004
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:2:0",
+              "atMs": 1218.7999999999993
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:1:0",
+              "atMs": 1435.3999999999996
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:0:0",
+              "atMs": 1635.5
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:1:0",
+              "atMs": 1852.1000000000004
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b54b:PIC2.DAX:0:0:0": "6b5be27b24b2e82eaf06f970ef0e56fd7f90400a5eebece3ed2cd293c91842c1",
+            "portrait:area:20:ecl:b54b:PIC2.DAX:0:1:0": "e557a6716d54065690d9bac3feb7d306e111473a87e1d7e50fd758e9e31b730e",
+            "portrait:area:20:ecl:b54b:PIC2.DAX:0:2:0": "8fe8fefee1c1a4badfa3fbc297218bd23ecc84b3d1a5854b2b0cd304e3cd0111"
+          }
+        },
+        "port": {
+          "route": "slums-roaming-kobold-leave-parlay-loop",
+          "data": "port",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "c6af5fb636636a2476de6ad51be107129a504e73101865ecf18d7d19c6f4062d",
+          "portrait": "portrait:area:20:ecl:b54b:PIC2.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:0:0",
+              "atMs": 12.899999988079799
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:1:0",
+              "atMs": 146.19999998807907
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:2:0",
+              "atMs": 362.8999999880798
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:1:0",
+              "atMs": 562.8999999880798
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:0:0",
+              "atMs": 779.4999999880783
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:1:0",
+              "atMs": 979.5999999880805
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:2:0",
+              "atMs": 1196.199999988079
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:1:0",
+              "atMs": 1412.7999999880776
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:0:0",
+              "atMs": 1612.8999999880798
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:0:1:0",
+              "atMs": 1829.4999999880783
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b54b:PIC2.DAX:0:0:0": "6b5be27b24b2e82eaf06f970ef0e56fd7f90400a5eebece3ed2cd293c91842c1",
+            "portrait:area:20:ecl:b54b:PIC2.DAX:0:1:0": "e557a6716d54065690d9bac3feb7d306e111473a87e1d7e50fd758e9e31b730e",
+            "portrait:area:20:ecl:b54b:PIC2.DAX:0:2:0": "8fe8fefee1c1a4badfa3fbc297218bd23ecc84b3d1a5854b2b0cd304e3cd0111"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:20:ecl:b54b:PIC2.DAX:4",
+      "producer": "ECL2.DAX:20:9d7e",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1510,
+          "viewport": "2373d5229332a0dfc341c6a97e4371ba1ae0d83ad6f1803324a7219abb335440"
+        },
+        {
+          "member": 1,
+          "durationMs": 20,
+          "viewport": "d2f3c3b368fa6294d4fc0dea3c62279342392566accc8be7550c6eb450c383f7"
+        },
+        {
+          "member": 2,
+          "durationMs": 710,
+          "viewport": "cafbf84bf2bf53ef48f7de6e14d01f8c972602943b6b26d2fcf5622814911ab7"
+        },
+        {
+          "member": 3,
+          "durationMs": 20,
+          "viewport": "d2f3c3b368fa6294d4fc0dea3c62279342392566accc8be7550c6eb450c383f7"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "slums-roaming-orc-leave-parlay-loop",
+          "data": "original",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "9924f1d6d1cd2f38e39835f3e91d9e08106188b0e7854bc48798cae9f705e132",
+          "portrait": "portrait:area:20:ecl:b54b:PIC2.DAX:4:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:0:0",
+              "atMs": 14.399999999999636
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:1:0",
+              "atMs": 1464.2999999999993
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:2:0",
+              "atMs": 1481
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:1:0",
+              "atMs": 2197.7000000000007
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:0:0",
+              "atMs": 2214.2999999999993
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:1:0",
+              "atMs": 3730.8999999999996
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:2:0",
+              "atMs": 3747.6000000000004
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:1:0",
+              "atMs": 4447.5
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:0:0",
+              "atMs": 4480.9000000000015
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:1:0",
+              "atMs": 5980.9000000000015
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b54b:PIC2.DAX:4:0:0": "2d9c0a4252fc8d610c243565ca4c91d2f3965f00051493ffa08f055f7747b525",
+            "portrait:area:20:ecl:b54b:PIC2.DAX:4:1:0": "60e507d56fe6392603e7dfa954600ca596a76959743d025ef4078df620420818",
+            "portrait:area:20:ecl:b54b:PIC2.DAX:4:2:0": "a4e3f42d1a97a232de29b3aa4c8d4025cb72e0f8dfd4b5b065d8f4eaafe7e37b"
+          }
+        },
+        "port": {
+          "route": "slums-roaming-orc-leave-parlay-loop",
+          "data": "port",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "9924f1d6d1cd2f38e39835f3e91d9e08106188b0e7854bc48798cae9f705e132",
+          "portrait": "portrait:area:20:ecl:b54b:PIC2.DAX:4:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:0:0",
+              "atMs": 8.100000035763514
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:1:0",
+              "atMs": 1424.8000000357624
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:2:0",
+              "atMs": 1441.5000000357632
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:1:0",
+              "atMs": 2158.000000035763
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:0:0",
+              "atMs": 2174.700000035762
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:1:0",
+              "atMs": 3691.3000000357624
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:2:0",
+              "atMs": 3708.000000035763
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:1:0",
+              "atMs": 4424.6000000357635
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:0:0",
+              "atMs": 4441.300000035762
+            },
+            {
+              "key": "portrait:area:20:ecl:b54b:PIC2.DAX:4:1:0",
+              "atMs": 5957.900000035763
+            }
+          ],
+          "sha256": {
+            "portrait:area:20:ecl:b54b:PIC2.DAX:4:0:0": "2d9c0a4252fc8d610c243565ca4c91d2f3965f00051493ffa08f055f7747b525",
+            "portrait:area:20:ecl:b54b:PIC2.DAX:4:1:0": "60e507d56fe6392603e7dfa954600ca596a76959743d025ef4078df620420818",
+            "portrait:area:20:ecl:b54b:PIC2.DAX:4:2:0": "a4e3f42d1a97a232de29b3aa4c8d4025cb72e0f8dfd4b5b065d8f4eaafe7e37b"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [

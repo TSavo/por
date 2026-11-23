@@ -2595,13 +2595,15 @@ const illustrationRoutes = new Map([
     }];
   }),
   ...[
-    ["orc-demand", "4320010", 3, [], 4, "b38d", /GIVEUSSUMPTINANMAYBE/i, [0, 1, 2, 1]],
-    ["goblin-rebuke", "4320600", 2, ["a"], 2, "b6df:caller:b691", /YOUHAVEANGEREDTHEGOBLINS.*THEYATTACK/i, [0, 1]],
-  ].map(([scene, fixedClockStart, moves, approach, block, cursor, prompt, members]) => {
+    ["orc-demand", "4320010", 3, [], "n", 4, "b38d", /GIVEUSSUMPTINANMAYBE/i, [0, 1, 2, 1]],
+    ["goblin-rebuke", "4320600", 2, ["a"], "n", 2, "b6df:caller:b691", /YOUHAVEANGEREDTHEGOBLINS.*THEYATTACK/i, [0, 1]],
+    ["kobold-leave", "4320030", 1, [], "a", 0, "b54b", /HAVETORUNYOUIN/i, [0, 1, 2, 1]],
+    ["orc-leave", "4320010", 3, [], "a", 4, "b54b", /HAVETORUNYOUIN/i, [0, 1, 2, 1]],
+  ].map(([scene, fixedClockStart, moves, approach, tone, block, cursor, prompt, members]) => {
     const inputs = [...Array.from({ length: moves }, () => ["up", "enter", "down"]).flat(), "up", ...approach, "p"];
     const portrait = member => `portrait:area:20:ecl:${cursor}:PIC2.DAX:${block}:${member}:0`;
     return [`slums-roaming-${scene}-parlay-loop`, {
-      slot: "B", fixedClockStart, inputs: [...inputs, "n"],
+      slot: "B", fixedClockStart, inputs: [...inputs, tone],
       portraitStops: { [inputs.length]: `portrait:area:20:ecl:b2cc:PIC2.DAX:${block}:0:0` },
       portrait: portrait(0), prompt, heldPortraitLoop: members.map(portrait),
     }];
@@ -8578,7 +8580,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valjevo-fire-giant-refusal-loop" ||
       routeName === "valjevo-fire-giant-intruder-loop" ||
       routeName.startsWith("valjevo-tower-giants-") ||
-      /^slums-roaming-(?:kobold|(?:kobold|orc|goblin)-(?:surprise|advance|spotted)|(?:orc|goblin)-party-surprised|(?:orc-demand|goblin-rebuke)-parlay)-loop$/.test(routeName) ||
+      /^slums-roaming-(?:kobold|(?:kobold|orc|goblin)-(?:surprise|advance|spotted)|(?:orc|goblin)-party-surprised|(?:orc-demand|goblin-rebuke|(?:kobold|orc)-leave)-parlay)-loop$/.test(routeName) ||
       /^valjevo-giant-barracks-password-(haughty|sly)-loop$/.test(routeName) ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||
