@@ -14881,7 +14881,10 @@ try {
     assert.equal(frame.journal?.trackedId, "commission-river");
     assert.ok(!knows("river-fountain") && !knows("river-equipment-destroyed"));
     for (const key of ["j", "up", "b"]) await advance(key);
-    assert.equal(frame.portrait, "portrait:PIC7.DAX:45:0:0");
+    const fountain = (cursor) => [0, 1, 2].map(member => `portrait:area:23:ecl:${cursor}:PIC7.DAX:45:${member}:0`);
+    const central = fountain("9a04:caller:a5ff");
+    assert.equal(frame.portrait, central[0]);
+    await verifyHeldPortraitLoop(central, "yarash-central-fountain");
     await waitFor("the fountain illustration", () => run(`(() => {
       const image = document.querySelector(".encounter-portrait");
       return image?.naturalWidth === 352 && image?.naturalHeight === 352;
@@ -14891,16 +14894,13 @@ try {
     assert.ok(knows("river-fountain") && !knows("river-equipment-destroyed"));
     assert.match(frame.journal.objective.nextStep, /Destroy the Equipment/);
     await advance("j");
-    const inlet = [0, 1, 2].map(member => `portrait:area:23:ecl:9a04:caller:a689:PIC7.DAX:45:${member}:0`);
+    const inlet = fountain("9a04:caller:a689");
+    const decision = fountain("a6bf");
     for (const phase of [1, 2]) {
       await advance("enter");
-      const fountainFrame = phase === 1 ? inlet[1] : "portrait:PIC7.DAX:45:2:0";
-      assert.equal(frame.portrait, fountainFrame);
-      if (phase === 1) await verifyHeldPortraitLoop(inlet, "yarash-fountain-right-inlet");
-      else {
-        await waitFor("the fountain decision illustration", () => run(`state.sequence === ${frame.sequence} &&
-          document.querySelector('.encounter-portrait[src="/art/${fountainFrame}"]')?.naturalWidth === 352`));
-      }
+      const poses = phase === 1 ? inlet : decision;
+      assert.equal(frame.portrait, poses[phase]);
+      await verifyHeldPortraitLoop(poses, phase === 1 ? "yarash-fountain-right-inlet" : "yarash-fountain-decision");
       await verifyPortraitPanel();
       const shot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, `pyramid-fountain-phase-${phase}.png`), Buffer.from(shot.data, "base64"));

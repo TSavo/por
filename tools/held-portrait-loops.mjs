@@ -12,6 +12,7 @@ const silverDragonPoseTimes = [1610, 510, 410, 1210, 1010, 1410, 1510];
 const conjurerPoseTimes = [410, 910, 20];
 const vampirePoseOrder = [0, 1, 2, 1];
 const vampirePoseTimes = [710, 310, 310, 210];
+const fountainPoseTimes = [20, 20, 20];
 const portraitLoops = [
   ["portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:", 5, undefined,
     /^(?!.*ABATTLEBEGINS).*LUMBERINGFIGURESREACHFORYOU/i, Array(5).fill(110)],
@@ -191,8 +192,21 @@ const portraitLoops = [
     /MUTILATINGSCUM.*BUTYOUWILLDIEFIRST/i, [210, 210, 210, 210]],
   ["portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:", 4, undefined,
     /POKINGAROUNDINTHEVATS/i, [210, 210, 210, 210]],
+  ["portrait:area:23:ecl:9a04:caller:a5ff:PIC7.DAX:45:", 3, undefined,
+    /COLUMNOFBLACKFOULWATER/i, fountainPoseTimes],
+  ["portrait:area:23:ecl:a6bf:PIC7.DAX:45:", 3, undefined,
+    /WHATDOYOUDO(?=.*MOVEQUICKLYAWAY)(?=.*DESTROYTHEEQUIPMENT)/i, fountainPoseTimes],
+  // The warning uses its print cursor for cels so it can share the inlet's return without sharing art.
+  ["portrait:area:23:ecl:a76f:PIC7.DAX:45:", 3, undefined,
+    /YOUHEARAWHININGFROMTHEPIPES/i, fountainPoseTimes, [["scene-illustration:area:23:ecl:9a04:caller:a689", 0]]],
+  ["portrait:area:23:ecl:9a04:caller:a855:PIC7.DAX:45:", 3, undefined,
+    /YOUHEARANENORMOUSEXPLOSION/i, fountainPoseTimes, [["scene-illustration:area:23:ecl:9a04:caller:a855", 1]]],
+  ["portrait:area:23:ecl:9a04:caller:a887:PIC7.DAX:45:", 3, undefined,
+    /YOUSTARTTORUNFORTHEEXIT/i, fountainPoseTimes, [["scene-illustration:area:23:ecl:9a04:caller:a887", 2]]],
+  ["portrait:area:23:ecl:9a04:caller:a8e0:PIC7.DAX:45:", 3, undefined,
+    /THEREISANENORMOUSEXPLOSIONBITSOFPIPE/i, fountainPoseTimes, [["scene-illustration:area:23:ecl:9a04:caller:a8e0", 0]]],
   ["portrait:area:23:ecl:9a04:caller:a689:PIC7.DAX:45:", 3, undefined,
-    /ANOTHERPIPERUNNINGFROMTHEWALLACROSSANDTOYOURRIGHTPUMPSINSTREAMSOFTHEFOULLIQUID/i, [20, 20, 20]],
+    /ANOTHERPIPERUNNINGFROMTHEWALLACROSSANDTOYOURRIGHTPUMPSINSTREAMSOFTHEFOULLIQUID/i, fountainPoseTimes],
   ["portrait:area:23:ecl:aa03:PIC7.DAX:57:", 4, undefined,
     /^(?=.*THEYRECOILINFEAR)(?=.*COMBATWAITFLEEPARLAY)/i, [210, 210, 210, 210]],
   ["portrait:area:24:ecl:aeda:caller:ad99:PIC1.DAX:4:", [0, 1, 2, 1], "portrait:area:24:ecl:aeda:PIC1.DAX:4:0:0",
