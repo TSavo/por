@@ -342,6 +342,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let pictureLoopBatch = 2;
   let pictureLoopPasses = 0;
   let pictureLoopClip: PresentationAnimationFrame | undefined;
+  let finaleRecallPose: string | undefined;
   // The last encounter picture drawn as an approach clip, and the pauses that followed it (#129).
   let approachClip: PresentationAnimationFrame | undefined;
   let approachClipMs = 0;
@@ -536,10 +537,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           illustrationScope = `${scriptKey}:cue:lab-door`;
         }
       }
-      const illustration = scene || wellLookAway || towerLookAway || barracksFloorNote ||
+      const scriptedIllustration = scene || wellLookAway || towerLookAway || barracksFloorNote ||
         (councilRewardScreen && !finalCouncilReward)
         ? undefined : matchScriptIllustration(
           typeof captureIllustration === "string" ? captureIllustration : illustrationScope, illustrationText, portraitKeys);
+      // The dissolved spirit stays gone while the native recall caption waits for input.
+      const illustration = scriptedIllustration === "scene-illustration:area:7:ecl:a82d:cue:pool-recall"
+        ? finaleRecallPose ?? scriptedIllustration : scriptedIllustration;
       if (captureIllustration && (!illustration || animation.at(-1)?.portrait === illustration)) return;
       const menu = menuText(text);
       // The overland map shares the native viewport blit and omits Area.
@@ -1391,7 +1395,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       pictureLoopClip = animation.at(-1);
       // Enhanced shows the pose drawn for this member where there is one (tools/portrait-art.ts endingPortraitKey).
       const pose = `portrait:area:7:FINAL5.DAX:${block}:${member}:0`;
-      if (pictureLoopClip && portraitKeys.includes(pose)) pictureLoopClip.portrait = pose;
+      const authoredPose = portraitKeys.includes(pose) ? pose : undefined;
+      if (pictureLoopClip && authoredPose) pictureLoopClip.portrait = authoredPose;
+      finaleRecallPose = block === 8 ? authoredPose : undefined;
     } : undefined,
     captureCombatStrike: browser && attackKeys.size > 0 ? (cpu: Cpu) => {
       if (scene) return;

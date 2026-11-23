@@ -533,7 +533,7 @@ export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4
 export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
 // The ending loop reports its member directly. Its placement differs from the
 // normal Classic portrait window used by the framebuffer matcher.
-export const endingPortraitKey = /^portrait:area:7:FINAL5\.DAX:(?:2:[0-3]|7:[0-5]):0$/;
+export const endingPortraitKey = /^portrait:area:7:FINAL5\.DAX:(?:2:[0-3]|[78]:[0-5]):0$/;
 export function usesPortraitDelta(key: string) {
   return /^portrait:PIC[78]\.DAX:51:[0-4]:0$/.test(key) || roamingZombieAnimationKey.test(key) ||
     riverLizardfolkDeltaKey.test(key) || verifiedPortraitDeltaKeys.has(key);

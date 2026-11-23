@@ -12614,8 +12614,8 @@ try {
           state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined`));
         const poses = await run("window.observeFinale = false; window.finalePoses");
         // The controlled save plays fifteen cycles of each native sequence at its saved game speed.
-        const expected = [[2, 4], [7, 6]].flatMap(([block, members]) =>
-          Array.from({ length: 15 * members }, (_, index) => `${block}:${index % members}:0`));
+        const expected = [[2, 4, 15], [7, 6, 15], [8, 6, 1]].flatMap(([block, members, cycles]) =>
+          Array.from({ length: cycles * members }, (_, index) => `${block}:${index % members}:0`));
         writeFileSync(resolve(directory, "valjevo-finale-poses.json"), JSON.stringify(poses));
         // How long the panel held each pose before the next one was painted (#125).
         const paintTimes = await run("window.finalePaintTimes");
@@ -12631,7 +12631,7 @@ try {
         assert.equal(frame.portrait, undefined);
         assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /gatewaytotheunsettledareas/i);
         await waitForExplorationViewport();
-        console.log("Verified 150 finale poses, castle departure, and WebGL return to Phlan in Chrome:", directory);
+        console.log(`Verified ${expected.length} finale poses, castle departure, and WebGL return to Phlan in Chrome:`, directory);
       }
       if (routeName === "new-phlan-innkeeper") {
         const declinedRoomShot = await command("Page.captureScreenshot", { format: "png" });
