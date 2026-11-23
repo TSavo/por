@@ -2617,10 +2617,10 @@ const illustrationRoutes = new Map([
     }];
   }),
   ...[
-    ["kobold", "4320030", 1, [], 0, [0, 1, 2, 1]],
-    ["goblin", "4320217", 0, ["a"], 2, [0, 1]],
-    ["orc", "4320010", 3, [], 4, [0, 1, 2, 1]],
-  ].flatMap(([creature, clock, moves, approach, block, members]) => {
+    ["kobold", "4320030", "4320047", 1, [], 0, [0, 1, 2, 1]],
+    ["goblin", "4320217", "4320015", 0, ["a"], 2, [0, 1]],
+    ["orc", "4320010", "4320027", 3, [], 4, [0, 1, 2, 1]],
+  ].flatMap(([creature, spottedClock, surprisedClock, moves, approach, block, members]) => {
     // Encamp, Alter, Order: put Brother Sean first for the favorable reaction.
     const reorder = ["e", "a", "o", "end", "end", "end", "s", "home", "home", "home", "p", "e", "e", "e"];
     return [
@@ -2629,17 +2629,22 @@ const illustrationRoutes = new Map([
       ["leave", ["a"], "b54b", /HAVETORUNYOUIN/i],
       ["advice", ["a"], "b5fe", /LETMEGIVEYOUAPIECEOFADVICE/i, reorder],
       ["stop", ["a", "s"], "b6df:caller:b657", /HOWDAREYOUINTERFERE/i, reorder],
-      ["rebuke", [creature === "goblin" ? "n" : "h"], "b6df:caller:b691", /YOUHAVEANGEREDTHE.*THEYATTACK/i],
-    ].map(([scene, choices, cursor, prompt, preparation = []]) => {
+      ["rebuke", ["h"], "b6df:caller:b691", /YOUHAVEANGEREDTHE.*THEYATTACK/i],
+    ].flatMap(([scene, choices, cursor, prompt, preparation = []]) => {
       const oldGoblinRebuke = creature === "goblin" && scene === "rebuke";
       const walk = Array.from({ length: oldGoblinRebuke ? 2 : moves }, () => ["up", "enter", "down"]).flat();
-      const inputs = [...preparation, ...walk, "up", ...approach, "p"];
-      const portrait = member => `portrait:area:20:ecl:${cursor}:PIC2.DAX:${block}:${member}:0`;
-      return [`slums-roaming-${creature}-${scene}-parlay-loop`, {
-        slot: "B", fixedClockStart: oldGoblinRebuke ? "4320600" : clock, inputs: [...inputs, ...choices],
-        portraitStops: { [inputs.length]: `portrait:area:20:ecl:b2cc:PIC2.DAX:${block}:0:0` },
-        portrait: portrait(0), prompt, heldPortraitLoop: members.map(portrait),
-      }];
+      return [
+        ["", oldGoblinRebuke ? "4320600" : spottedClock, [...walk, "up", ...approach], oldGoblinRebuke ? ["n"] : choices],
+        ["surprised-", surprisedClock, ["up", "enter", "down", "up"], choices],
+      ].map(([prefix, fixedClockStart, encounter, response]) => {
+        const inputs = [...preparation, ...encounter, "p"];
+        const portrait = member => `portrait:area:20:ecl:${cursor}:PIC2.DAX:${block}:${member}:0`;
+        return [`slums-roaming-${prefix}${creature}-${scene}-parlay-loop`, {
+          slot: "B", fixedClockStart, inputs: [...inputs, ...response],
+          portraitStops: { [inputs.length]: `portrait:area:20:ecl:b2cc:PIC2.DAX:${block}:0:0` },
+          portrait: portrait(0), prompt, heldPortraitLoop: members.map(portrait),
+        }];
+      });
     });
   }),
   ...[
@@ -8632,7 +8637,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valjevo-fire-giant-refusal-loop" ||
       routeName === "valjevo-fire-giant-intruder-loop" ||
       routeName.startsWith("valjevo-tower-giants-") ||
-      /^slums-roaming-(?:kobold|(?:kobold|orc|goblin)-(?:surprise|advance|spotted)|(?:orc|goblin)-party-surprised|(?:kobold|orc|goblin)-(?:demand|surrender|leave|advice|stop|rebuke)-parlay)-loop$/.test(routeName) ||
+      /^slums-roaming-(?:kobold|(?:kobold|orc|goblin)-(?:surprise|advance|spotted)|(?:orc|goblin)-party-surprised|(?:surprised-)?(?:kobold|orc|goblin)-(?:demand|surrender|leave|advice|stop|rebuke)-parlay)-loop$/.test(routeName) ||
       /^valjevo-giant-barracks-password-(haughty|sly)-loop$/.test(routeName) ||
       /^lizardman-keep-(giant-lizards|drythh-followers)-hold$/.test(routeName) ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||

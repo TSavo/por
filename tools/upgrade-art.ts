@@ -56,6 +56,7 @@ export function loadUpgradeArt(upgrades = process.env.POR_UPGRADES_DIR, gameRoot
 export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot = findGameRoot(),
   report?: (issue: ArtworkLoadIssue) => void) {
   const artwork = new Map<string, LoadedArtwork>();
+  const dimensionsByPath = new Map<string, NonNullable<ReturnType<typeof pngHeaderDimensions>>>();
   const gameFiles = new Map(gameRoot ? listGameFiles(gameRoot).map(file => [file.toUpperCase(), file]) : []);
   const archives = new Map<string, ReturnType<typeof parseDax>>();
   const packagedPictures = gameRoot && isPortGameRoot(gameRoot)
@@ -107,15 +108,19 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
         }
         try {
           const path = join(dirname(manifestPath), file);
-          // Only the header is read now: start-up reading all 480 MB took 16 seconds. The picture is read
-          // from disk when it is asked for (the getter below).
-          const header = Buffer.alloc(33);
-          const descriptor = openSync(path, "r");
-          try { readSync(descriptor, header, 0, header.length, 0); } finally { closeSync(descriptor); }
-          const dimensions = pngHeaderDimensions(header);
+          // Many area and scene keys share one PNG. Read its header once per load
+          // and validate the expected dimensions separately for each binding.
+          let dimensions = dimensionsByPath.get(path);
           if (!dimensions) {
-            reject("Invalid PNG header.", id);
-            continue;
+            const header = Buffer.alloc(33);
+            const descriptor = openSync(path, "r");
+            try { readSync(descriptor, header, 0, header.length, 0); } finally { closeSync(descriptor); }
+            dimensions = pngHeaderDimensions(header);
+            if (!dimensions) {
+              reject("Invalid PNG header.", id);
+              continue;
+            }
+            dimensionsByPath.set(path, dimensions);
           }
           let sourceWidth = 8;
           let sourceHeight = 8;
