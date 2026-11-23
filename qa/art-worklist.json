@@ -15,24 +15,20 @@
  "enhancedFallbacks": {
   "observer": 2,
   "frames": 0,
-  "presented": 3562,
-  "walks": 28,
+  "presented": 4416,
+  "walks": 36,
   "recordedWalks": 40,
   "missingWalks": [
-   "campaign-castle-approach-leg",
-   "campaign-full/leg-8",
-   "campaign-full/leg-9",
-   "campaign-tower-leg",
-   "castle-guards",
-   "podal-clerk",
-   "walk-library-cleared",
-   "walk-library-locked-temple",
    "walk-new-phlan-training",
    "walk-textile-house-cleared",
    "walk-yarash-pyramid",
    "wilderness-walk"
   ],
   "aliasedWalks": [
+   {
+    "walk": "campaign-castle-approach-leg",
+    "receipt": "campaign-full/leg-8"
+   },
    {
     "walk": "campaign-end-leg",
     "receipt": "campaign-full/leg-11"
@@ -44,9 +40,13 @@
    {
     "walk": "campaign-sokal-leg",
     "receipt": "campaign-full/leg-7"
+   },
+   {
+    "walk": "campaign-tower-leg",
+    "receipt": "campaign-full/leg-9"
    }
   ],
-  "runs": 27,
+  "runs": 33,
   "additionalReplays": 2,
   "keys": []
  },

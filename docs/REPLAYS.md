@@ -347,6 +347,14 @@ over the native framebuffer. Area maps use their own tile layout. The
 ledger keeps earlier receipts for reference and counts current-version
 receipts in the worklist.
 
+On the old Yarash replay (`d4a3ba5f`), both data sources painted every
+announced tile at the south-facing pumping-room prompt. GOG painted 113
+cells and bundled data painted 83, out of a full 121. Observer v2 reports
+`surface:area:23:first-person` at command 269 in each. The native actor
+is the distant `encounter:area:23:ecl:aa03:SPRIT7.DAX:57:2:0` cel.
+After #181, the same input in both data modes shows that sprite and the
+active WebGL room with zero findings in the entire captured prefix.
+
 Use GOG 1.3 for the census and rerun with `POR_GAME_SOURCE=port` to check the
 bundled display. Run `npm run verify:enhanced-fallbacks -- --record wilderness-walk <chrome-leg>`
 on the completed GOG replay and refresh the evidence in the worklist with

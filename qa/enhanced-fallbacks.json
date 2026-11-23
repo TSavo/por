@@ -71,19 +71,22 @@
    "fixtureSha256": "f3bee43e0f751f5e9b62ed0911e9e5e874585c65b9f9e0c61a4344792d45a457"
   },
   "campaign-full/leg-8": {
-   "presented": 122,
+   "observer": 2,
+   "presented": 126,
    "frames": [],
    "fixtureSha256": "e97518f9ab50ae0c5b1bb06ecfc094922525f190ead5de2aafa134f18590d5d8"
   },
   "campaign-full/leg-9": {
+   "observer": 2,
    "presented": 97,
    "frames": [],
    "fixtureSha256": "99509cc19d144fe15d67ce4b0e86a32b20c7481a37d53dad78d19ed93f2f3909"
   },
   "castle-guards": {
+   "observer": 2,
    "presented": 5,
    "frames": [],
-   "fixtureSha256": "02b1f5b93af91077e9a28097a2838bb80b1d6235c6ac2ea7de83944d954e5cf2"
+   "fixtureSha256": "0879a3b1ec68f3df35048d9a61ed616fc2b911b7729254fcdf49ea6ae86d9de4"
   },
   "narration/campaign-f": {
    "observer": 2,
@@ -98,9 +101,10 @@
    "fixtureSha256": "98eef0995eefb87dae769c3509e0ac105be541f0bae47fe1c73fc8b8d062a5b9"
   },
   "podal-clerk": {
+   "observer": 2,
    "presented": 5,
    "frames": [],
-   "fixtureSha256": "85b4c85dee9d4c3b7fa379798af22f01352a181ba564da635d64a93b92427fb5"
+   "fixtureSha256": "463287f225b8f87433a02701eb3af7fac3969086ef2707bee1d7d077d2496497"
   },
   "visit-kobold-caves": {
    "observer": 2,
@@ -199,11 +203,13 @@
    "fixtureSha256": "666a28491f4c2b16c9d6b396ed1b9a37a043c8e70166942589389fdad6916f2f"
   },
   "walk-library-cleared": {
+   "observer": 2,
    "presented": 221,
    "frames": [],
    "fixtureSha256": "ce75903ba702e4a51c26248f43c5ac90c9704251127ba40ac71cf362fbca53c6"
   },
   "walk-library-locked-temple": {
+   "observer": 2,
    "presented": 400,
    "frames": [],
    "fixtureSha256": "031ab6e4267e2dfd789af9961836cbad59f85e8b5d8d32324234dfd40c3bd9af"
