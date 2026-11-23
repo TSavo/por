@@ -2927,6 +2927,22 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "bane-gate-patrol-admission.png",
     continuation: { inputs: ["up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK.*3,7E|3,7E.*AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["bane-gate-inspection-holds", {
+    slot: "A", inputs: ["up"],
+    portrait: "portrait:area:24:PIC1.DAX:4:0:0",
+    prompt: /THEAGEDORCCOMESGRASPINGTOWARDYOU/i,
+    heldPortraitLoop: [
+      "portrait:area:24:PIC1.DAX:4:0:0",
+      ...[1, 2, 1].map(member => `portrait:area:24:ecl:a4f3:PIC1.DAX:4:${member}:0`),
+    ],
+    finalPhaseCapture: "bane-gate-reach.png",
+    continuation: {
+      inputs: ["b"], portrait: "portrait:area:24:ecl:a586:PIC1.DAX:4:0:0",
+      prompt: /IMUSTCHECKIFYOUAREWORTHYTOENTERTHETEMPLEOFBANE/i,
+      heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:24:ecl:a586:PIC1.DAX:4:${member}:0`),
+      screenshot: "bane-gate-reassurance.png",
+    },
+  }],
   ["bane-gate-direct-attack", {
     slot: "A", inputs: ["up", "enter", "enter", "a"],
     portraitStops: { 3: "portrait:area:24:PIC1.DAX:4:0:0" },
@@ -8649,7 +8665,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "diogenes-silver-directions-loop" ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       /^tyrmor-prison-(kobolds|lizardfolk|displacer|stirge)-loop$/.test(routeName) ||
-      ["bane-captive-goblin-held", "sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
+      ["bane-captive-goblin-held", "bane-gate-inspection-holds", "sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
         "new-phlan-training-duels", "new-phlan-training-north-junction", "new-phlan-training-fighters-door",
         "new-phlan-training-rogues-door", "new-phlan-training-entrance-notice",

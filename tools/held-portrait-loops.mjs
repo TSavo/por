@@ -23,6 +23,7 @@ const slumsOrcPoseTimes = [1510, 20, 710, 20];
 const slumsHobgoblinPoseOrder = [0, 1, 2, 1];
 const slumsHobgoblinPoseTimes = [1710, 110, 1510, 110];
 const auctionPoseTimes = [610, 210, 410, 210, 410, 610];
+const baneGatePoseTimes = [1510, 20, 710, 20];
 
 // The last captive-pen member repeats pose 3 on all three narration pauses.
 const penPoseOrder = [0, 1, 2, 3, 4, 3];
@@ -367,6 +368,10 @@ const portraitLoops = [
     /^(?=.*THEYRECOILINFEAR)(?=.*COMBATWAITFLEEPARLAY)/i, [210, 210, 210, 210]],
   ["portrait:area:24:ecl:aeda:caller:ad99:PIC1.DAX:4:", [0, 1, 2, 1], "portrait:area:24:ecl:aeda:PIC1.DAX:4:0:0",
     /THEORCSREADYTHEIRSPEARS.*COMBATWAITFLEEPARLAY/i, [1510, 20, 710, 20]],
+  ["portrait:area:24:ecl:a4f3:PIC1.DAX:4:", [0, 1, 2, 1], "portrait:area:24:PIC1.DAX:4:0:0",
+    /THEAGEDORCCOMESGRASPINGTOWARDYOU/i, baneGatePoseTimes, [[3, 3]]],
+  ["portrait:area:24:ecl:a586:PIC1.DAX:4:", [0, 1, 2, 1], undefined,
+    /IMUSTCHECKIFYOUAREWORTHYTOENTERTHETEMPLEOFBANE/i, baneGatePoseTimes, [[3, 3]]],
   ["portrait:area:26:ecl:9c49:PIC7.DAX:30:", 2, "portrait:area:26:PIC7.DAX:30:0:0",
     /STUMBLEDUPONALARGENOMADCAMP.*WILLYOUENTERIT/i, [410, 510]],
   ["portrait:area:26:ecl:a00a:PIC7.DAX:36:", 3, "portrait:PIC7.DAX:36:0:0",
