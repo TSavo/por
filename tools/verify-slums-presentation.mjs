@@ -112,6 +112,15 @@ const encounterRoutes = new Map([
     placement: [56, 32, "encounter:area:26:ecl:a230:SPRIT7.DAX:12:1:0", 24, 65],
     battleStart: { input: "c", prompt: /ABATTLEBEGINS/i },
   }],
+  ["kuto-surprised-gnoll-party", {
+    slot: "B",
+    inputs: ["up", "left", "up", "up", ...Array.from({ length: 10 }, () => ["down", "up"]).flat()],
+    placement: [56, 32, "encounter:area:29:ecl:a64b:SPRIT8.DAX:73:2:0", 24, 57],
+    prompt: /YOUHAVESURPRISEDAPARTYOFGNOLLS/i,
+    heldPosition: [29, 3, 1],
+    approachSteps: [{ inputs: ["a"], placement: [48, 32, "encounter:area:29:ecl:a64b:SPRIT8.DAX:73:1:0", 40, 73],
+      prompt: /YOUHAVESURPRISEDAPARTYOFGNOLLS/i }],
+  }],
   ["kuto-sickly-kobold-scouts", {
     slot: "B",
     requireTiledApproach: false,
@@ -8942,7 +8951,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...(battleEntry ? { POR_PROMPT_SCHEDULE_IN: "" } : {}),
     POR_INPUT_COMPAT: battleEntry || illustration?.stockInput || encounterRoute?.stockInput ||
       controlledBattleIllustration?.staticHold || controlledBattleIllustration?.heldPortraitLoop ||
-      routeName === "kuto-well-waiting-kobolds-hold" || textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
+      routeName === "kuto-well-waiting-kobolds-hold" || routeName === "kuto-surprised-gnoll-party" || textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "kuto-well-catacomb-volley-hold" || routeName === "kuto-well-surrounding-buildings-hold" ||
       routeName === "pyramid-vats-mutants-loop" || routeName.startsWith("pyramid-exterior-") ||
       routeName.startsWith("yarash-study-") ||
