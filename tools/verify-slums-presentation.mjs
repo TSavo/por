@@ -4091,7 +4091,7 @@ const illustrationRoutes = new Map([
     staticPortraitMenu: true,
     // Selecting the duelist leaves the Master on the battle notice.
     // Acknowledge that notice before checking the first combat turn.
-    continuation: { inputs: ["enter", "enter"], prompt: /HITPOINTS.*MOVEVIEWAIM.*QUICKDONE/i, clearsPortrait: true },
+    continuation: { inputs: ["enter", "enter"], prompt: /ROLFHitpoints6AC10Move\/Attack,MoveLeft=12/i, clearsPortrait: true },
   }],
   ["new-phlan-training-arena-full-party", {
     slot: "A", stockInput: true, fixedClockStart: "4320000",
