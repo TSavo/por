@@ -5143,7 +5143,7 @@ const illustrationRoutes = new Map([
     portraitStops: { 1: "scene-illustration:area:13:ecl:a1af" },
     portrait: "portrait:area:13:ecl:a1d4:PIC8.DAX:0:0:0", prompt: /ABATTLEBEGINS/i,
     finalPhaseCapture: "kobold-throne-ballista-battle-entry.png",
-    continuation: { inputs: [":travel-poll", ":travel-poll"], clearsPortrait: true, prompt: /WILDBOARHITPOINTS/i },
+    continuation: { automaticBattle: "opening-turn", clearsPortrait: true, prompt: /WILDBOARHITPOINTS/i },
   }],
   ["kobold-envoy-rematch-one-shot", {
     slot: "A", inputs: ["up"],
@@ -13421,6 +13421,10 @@ try {
             await verifyPortraitPanel();
           }
         }
+        if (routeName === "kobold-ballista-battle-entry" && interimPortrait) {
+          assert.ok(frame.awaitsKey, "The damage acknowledgement must wait for the player");
+          await switchBothWays(frame.frame);
+        }
         if (routeName === "stojanow-ettin-guardroom" && interimPortrait) {
           const captions = [
             /ALLBUTTWOOFTHEBEDSARE14FEETLONG/i,
@@ -14134,6 +14138,9 @@ try {
           const inTurn = next.awaitsKey || (continuation.automaticBattle === "opening-turn" && next.automaticCombat);
           return next.ready && next.sequence > sequence && inTurn && !next.portrait && continuation.prompt.test(text) && next;
         });
+        if (routeName === "kobold-ballista-battle-entry") {
+          assert.equal(frame.sequence, sequence + 2, "The browser must advance the notice with two native polls");
+        }
       } else {
         for (const key of continuation.inputs) await advance(key);
       }
