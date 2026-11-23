@@ -969,6 +969,19 @@ const illustrationRoutes = new Map([
       portraits: [0, 1, 2, 3].map(member => "portrait:area:23:ecl:a23f:PIC7.DAX:57:" + member + ":0"),
       pressOnPortrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:2:0", retainPose: true },
   }],
+  ["kuto-kobold-surprise-loop", {
+    slot: "B", fixedClockStart: "4322612", stockInput: true,
+    inputs: ["up", "left", "up", "up", "down", "up", "down", "up"],
+    portrait: "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:0:0:0",
+    prompt: /YOUARESURPRISEDBYKOBOLDS\./i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:0:${member}:0`),
+    continuation: {
+      inputs: ["enter"], portrait: "scene-illustration:area:29:ecl:ad16:caller:a49f:cue:kobold-surprise",
+      prompt: /YOUARESURPRISEDBYKOBOLDS\..*ABATTLEBEGINS/i,
+      pressOnPortrait: "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:0:2:0",
+      retainPose: true, automaticBattle: true,
+    },
+  }],
   ["kuto-gnoll-surprise-loop", {
     slot: "B", fixedClockStart: "4321092", stockInput: true,
     inputs: ["up", "left", "up", "up", "down", "up", "down", "up"],
