@@ -80,9 +80,9 @@ export async function openChrome(url, { chromePath = process.env.POR_CHROME ?? "
       writeFileSync(file, Buffer.from((await command("Page.captureScreenshot", { format: "png" })).data, "base64"));
     },
     async close() {
-      const exited = new Promise((done) => chrome.exitCode !== null ? done() : chrome.once("exit", done));
+      const exited = new Promise((done) => chrome.exitCode !== null || chrome.signalCode !== null ? done() : chrome.once("exit", done));
       // Browser.close lets Chrome's helper processes finish with the profile before it is removed.
-      await command("Browser.close").catch(() => chrome.kill());
+      await Promise.race([exited, command("Browser.close").catch(() => chrome.kill())]);
       socket?.close();
       await exited;
       try { rmSync(profile, { recursive: true, force: true, maxRetries: 10, retryDelay: 200 }); } catch {}
