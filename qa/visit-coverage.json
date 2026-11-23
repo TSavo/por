@@ -512,6 +512,28 @@
     "original-visits.jsonl",
     "port-visits.jsonl"
    ]
+  },
+  "walk-lizardfolk-pledge": {
+   "areas": [
+    0,
+    8,
+    16,
+    27
+   ],
+   "commissions": [
+    "auction",
+    "kobolds",
+    "kovel",
+    "lizardmen",
+    "nomads",
+    "records",
+    "river",
+    "sokal",
+    "textile"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
