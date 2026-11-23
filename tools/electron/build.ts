@@ -1,0 +1,46 @@
+/**
+ * Compile the Electron main process (#108) to dist/electron/main.js, bundled so a packaged app has
+ * no node_modules of its own. electron stays external: the packaged runtime provides it.
+ *
+ *   tsx tools/electron/build.ts
+ */
+import { build } from "esbuild";
+import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { fromPortRoot } from "../port-root.js";
+
+export const electronOutput = fromPortRoot("dist", "electron");
+const here = fileURLToPath(new URL(".", import.meta.url));
+const version = (JSON.parse(readFileSync(fromPortRoot("package.json"), "utf8")) as { version: string }).version;
+
+export async function buildElectron() {
+  rmSync(electronOutput, { recursive: true, force: true });
+  mkdirSync(electronOutput, { recursive: true });
+  await build({
+    absWorkingDir: fromPortRoot(),
+    entryPoints: [join(here, "main.ts")],
+    outfile: join(electronOutput, "main.js"),
+    bundle: true,
+    platform: "node",
+    format: "esm",
+    target: "es2022",
+    minifySyntax: true,
+    legalComments: "none",
+    logLevel: "warning",
+    external: ["electron"],
+  });
+  const main = join(electronOutput, "main.js");
+  if (readFileSync(main, "utf8").includes("por-assets")) throw new Error(`${main} names por-assets`);
+  writeFileSync(join(electronOutput, "package.json"), JSON.stringify({
+    name: "pool-of-radiance",
+    version,
+    private: true,
+    type: "module",
+    main: "main.js",
+    productName: "Pool of Radiance",
+  }, null, 2) + "\n");
+  console.log(`Compiled the Electron main process to ${electronOutput}`);
+}
+
+if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) await buildElectron();

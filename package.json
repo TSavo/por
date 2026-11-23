@@ -9,6 +9,7 @@
     "play": "tsx tools/web/serve.ts",
     "play:node": "tsx tools/browser-play.ts",
     "play:loose": "tsx tools/web/serve-loose.ts",
+    "play:electron": "npm run web:build-loose && tsx tools/electron/build.ts && env POR_LOOSE_DIR=out/loose electron dist/electron/main.js",
     "web:build": "tsx tools/web/build.ts",
     "web:build-loose": "tsx tools/web/build-loose.ts",
     "web:check-boot": "node tools/web/check-boot.mjs",
@@ -97,6 +98,7 @@
   "devDependencies": {
     "@types/node": "^24.10.1",
     "buffer": "^6.0.3",
+    "electron": "45.4.1",
     "esbuild": "^0.28.2",
     "fflate": "^0.8.3",
     "tsx": "^4.20.5",
