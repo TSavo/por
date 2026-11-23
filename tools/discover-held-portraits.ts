@@ -226,6 +226,7 @@ const eclCandidates = scripts.flatMap(record => {
   // This exact Bane script matches the GOG and bundled 1.3 extracts.
   const baneRampart = archive === 1 && scriptBlock === 24 &&
     digest(script.bytes) === "bb8e6cfeecbe8f3d23f1f9882bcbbe5c7aee11cc467c2116ee046dfa60953b7f";
+  const baneSurpriseProven = baneRampart && matchesSurpriseProof("ECL1.DAX", 24, digest(script.bytes));
   const decoded = disassemble(script).instructions;
   const instructions = new Map(decoded.map(instruction => [instruction.address, instruction]));
   const faceToFaceUnreachable = archive === 7 && scriptBlock === 26 &&
@@ -887,6 +888,12 @@ const eclCandidates = scripts.flatMap(record => {
     }
 
     const combat = scope.length && opcode === 0x0c ? immediateCombatAfter(load) : undefined;
+    // In the pinned Bane script the normal patrol menu writes 0–3 and every
+    // value branches at ae14. The Black Hand warning is entered separately.
+    if (baneSurpriseProven && load.address === 0xadd9) prompts.delete("ae96:");
+    // Only adad's fourth branch can reach afb9. Both prior menu dispatches
+    // consume all 0–3 choices, and SURPRISE's result 3 is overwritten with 2.
+    const baneBothSurprisedUnreachable = baneSurpriseProven && load.address === 0xafe7;
     return [{
       kind: "ecl", status: "candidate", scriptArchive: record.file, scriptBlock, address: authored(load.address),
       next: authored(load.next), opcode, name: load.name, pictureArchive, block, selector: portrait, possiblePictures,
@@ -895,6 +902,9 @@ const eclCandidates = scripts.flatMap(record => {
       ...(nomadPortrait && load.address === 0xa33c
         ? { retainedComposedDraw: { prompt: authored(load.next), cursor: authored(0x9dd6) } } : {}),
       ...(tyrmorPictures && tyrmorPictures.compositions.length > 1 ? { composedPortraitVariants: tyrmorPictures.compositions } : {}),
+      ...(baneBothSurprisedUnreachable ? {
+        unreachableOriginal: "The Bane face-to-face branch needs SURPRISE result 3, which the 1.3 routine overwrites with 2. All earlier menu results branch before its entry.",
+      } : {}),
       ...(faceToFaceUnreachable && authored(load.address) === "a26c" && authored(load.next) === lizardFaceToFaceProof.prompt
         ? { unreachableOriginal: lizardFaceToFaceProof.reason } : {}),
       ...(bothSurprisedUnreachable && authored(load.address) === "9d1d" && authored(load.next) === slumsProof.bothSurprised.prompt
