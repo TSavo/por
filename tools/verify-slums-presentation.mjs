@@ -1015,33 +1015,49 @@ const illustrationRoutes = new Map([
       pressOnPortrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:2:0", retainPose: true },
   }],
   ...[
-    ["gnolls", "4320001", null, 73, 4, [48, 40, 73], [40, 56], [0, 1]],
-    ["kobolds", "4320002", 14, 0, 3, [56, 24, 65], [48, 40], [0, 1, 2, 1]],
-    ["lizardmen", "4320073", 6, 57, 3, [56, 32, 65], [48, 48], [0, 1, 2, 3]],
-  ].map(([species, fixedClockStart, repeats, block, x, middle, near, members]) => {
+    ["bloodthirsty", "a524", "YOUSEESOMEBLOODTHIRSTY", [
+      ["gnolls", "4320001", null, 4, false],
+      ["kobolds", "4320002", 14, 3, false],
+      ["lizardmen", "4320073", 6, 3, false],
+    ]],
+    ["party-surprised", "a64b", "YOUHAVESURPRISEDAPARTYOF", [
+      ["gnolls", "4321397", 3, 4, true],
+      ["kobolds", "4321111", null, 4, false],
+      ["lizardmen", "4322056", 12, 3, false],
+    ]],
+  ].flatMap(([scene, cursor, message, routes]) => routes.map(([species, fixedClockStart, repeats, x, close]) => {
+    const [block, middle, near, members] = {
+      gnolls: [73, [48, 40, 73], [40, 56], [0, 1]],
+      kobolds: [0, [56, 24, 65], [48, 40], [0, 1, 2, 1]],
+      lizardmen: [57, [56, 32, 65], [48, 48], [0, 1, 2, 3]],
+    }[species];
     const walk = ["up", "left", "up"];
     if (repeats !== null) walk.push("up", ...Array.from({ length: repeats }, () => ["down", "up"]).flat());
-    const sprite = distance => `encounter:area:29:ecl:a524:SPRIT8.DAX:${block}:${distance}:0`;
-    const portrait = member => `portrait:area:29:ecl:a524:PIC8.DAX:${block}:${member}:0`;
+    const sprite = distance => `encounter:area:29:ecl:${cursor}:SPRIT8.DAX:${block}:${distance}:0`;
+    const portrait = member => `portrait:area:29:ecl:${cursor}:PIC8.DAX:${block}:${member}:0`;
     const far = [56, 32, sprite(2), 24, 57];
     const closer = [middle[0], 32, sprite(1), middle[1], middle[2]];
     const closest = [near[0], 32, sprite(0), near[1], 80];
-    const caption = `YOUSEESOMEBLOODTHIRSTY${species}[.]?`;
-    return [`kuto-bloodthirsty-${species}`, {
-      slot: "B", fixedClockStart, stockInput: true, inputs: [...walk, "a", "a"],
-      approachSequence: [far, closer, closest], approachStops: { [walk.length]: far, [walk.length + 1]: closer },
-      requireWebGL: true, heldApproachPosition: [29, x, 1], heldApproachPlacement: far,
-      heldApproachPrompt: new RegExp(caption + "COMBATWAITFLEEADVANCE", "i"),
-      heldApproachCapture: `kuto-bloodthirsty-${species}-far.png`,
+    const caption = `${message}${species}[.]?`;
+    const route = `kuto-${scene}-${species}`;
+    return [route, {
+      slot: "B", fixedClockStart, stockInput: true, inputs: close ? walk : [...walk, "a", "a"],
+      requireWebGL: true, approachSequence: close ? [closest] : [far, closer, closest],
+      ...(!close && {
+        approachStops: { [walk.length]: far, [walk.length + 1]: closer },
+        heldApproachPosition: [29, x, 1], heldApproachPlacement: far,
+        heldApproachPrompt: new RegExp(caption + "COMBATWAITFLEEADVANCE", "i"),
+        heldApproachCapture: `${route}-far.png`,
+      }),
       portrait: portrait(0), prompt: new RegExp(caption, "i"),
       heldPortraitLoop: members.map(portrait),
       continuation: {
-        inputs: ["c"], portrait: `scene-illustration:area:29:ecl:ad16:cue:bloodthirsty-${species}`,
+        inputs: ["c"], portrait: `scene-illustration:area:29:ecl:ad16:cue:${scene}-${species}`,
         prompt: new RegExp(caption + "ABATTLEBEGINS", "i"), pressOnPortrait: portrait(members.length === 2 ? 1 : 2),
         retainPose: true, automaticBattle: true,
       },
     }];
-  }),
+  })),
   ["kuto-kobold-surprise-loop", {
     slot: "B", fixedClockStart: "4322612", stockInput: true,
     inputs: ["up", "left", "up", "up", "down", "up", "down", "up"],
