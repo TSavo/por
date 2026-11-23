@@ -24,7 +24,7 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
-import { runningScriptAddress } from "../src/runtime/bindings.js";
+import { runningScriptAddress, useGameVersion } from "../src/runtime/bindings.js";
 import { contentBytes, readGameData, type PictureRecord, type TileCatalogue } from "../src/runtime/game-data.js";
 import { portGameRoot } from "./gamedata.js";
 import { pngDimensions } from "./png.js";
@@ -32,9 +32,12 @@ import { endingPortraitKey, portraitHoldAction, scriptIllustrations } from "./po
 import { blankApproachSprites } from "./encounter-art.js";
 import { readExplorationCellHashes } from "./exploration-cells.js";
 import { monsterCombatKey } from "./combat-art.js";
+import { overlandLandmarkSlots, overlandMapSlots } from "./overland-travel.js";
 
 const read = (path: string) => new Uint8Array(readFileSync(join(portGameRoot, path)));
 const data = readGameData(read);
+useGameVersion("1.3");
+const terrainSlots = new Set(overlandMapSlots(portGameRoot));
 const records = new Map(data.pictures.map((record) => [`${record.file}:${record.block}`, record]));
 const { historicalBattleFramebuffer } = JSON.parse(readFileSync(new URL("../qa/art-worklist-observed.json", import.meta.url), "utf8")) as {
   historicalBattleFramebuffer: { route: string; traceSha256: string; frames: number; cells: { key: string; occurrences: number }[] };
@@ -176,7 +179,24 @@ function frame(file: string, block: string, member = "0", index = "0"): string |
 }
 
 const scoped = "(?:area:(\\d{1,3}):(?:ecl:([a-f0-9]{4}):(?:caller:([a-f0-9]{4}):)?)?)?";
-const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
+function requiredPngSize(path: string, width: number, height: number): string | undefined {
+  try {
+    const size = pngDimensions(readFileSync(path));
+    if (size?.width === width && size.height === height) return;
+  } catch {
+    return "its PNG could not be read";
+  }
+  return "its PNG must be " + width + "x" + height;
+}
+
+const rules: [RegExp, (match: RegExpExecArray, path: string) => string | undefined][] = [
+  [/^overland-(tile|detail|landmark):(0|[1-9]\d{0,2})$/, ([, kind, rawSlot], path) => {
+    const slot = Number(rawSlot);
+    if (!terrainSlots.has(slot)) return "its slot does not appear in the native terrain table";
+    if (kind === "landmark" && !overlandLandmarkSlots.has(slot)) return "its slot does not draw an overland landmark";
+    return requiredPngSize(path, 96, 96);
+  }],
+  [/^overland-materials$/, (_, path) => requiredPngSize(path, 1024, 2048)],
   [/^tile:(\d{1,3}):([a-f0-9]{64})$/, ([, , hash]) => {
     const tiles = tileHashes.get(hash!) ?? tilesOverColour.get(hash!)?.sources;
     if (!tiles) {
@@ -260,14 +280,14 @@ for (const manifest of ["upgrades/manifest.json", "upgrades/slums/manifest.json"
   const assets = (JSON.parse(readFileSync(manifest, "utf8")) as { assets: Record<string, string> }).assets;
   for (const [key, file] of Object.entries(assets)) {
     total++;
-    const kind = key.slice(0, key.indexOf(":"));
+    const kind = key.split(":", 1)[0]!;
     const count = counts.get(kind) ?? { total: 0, reachable: 0, historical: 0 };
     counts.set(kind, count);
     count.total++;
     let reason: string | undefined = "the catalogue does not know this shape of key";
     for (const [pattern, rule] of rules) {
       const match = pattern.exec(key);
-      if (match) { reason = rule(match); break; }
+      if (match) { reason = rule(match, join(dirname(manifest), file)); break; }
     }
     if (!reason) count.reachable++;
     else if (kind === "battle-tile" && historicalBattleKeys.has(key)) {
@@ -390,7 +410,7 @@ if (unreachable.length) {
   console.error(`\nverify:art-catalogue: ${unreachable.length} of ${total} artwork keys were not resolved by the static audit. The first of each kind:`);
   const shown = new Set<string>();
   for (const { key, reason } of unreachable) {
-    const kind = key.slice(0, key.indexOf(":"));
+    const kind = key.split(":", 1)[0]!;
     if (shown.has(kind)) continue;
     shown.add(kind);
     console.error(`  ${key}: ${reason}`);
