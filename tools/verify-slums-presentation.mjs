@@ -8,6 +8,23 @@ import { dirname, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
+const battleEntryRoutes = new Map([
+  ["bane-altar-automatic-battle-entry", {
+    slot: "A", trigger: { key: "d", code: "KeyD", windowsVirtualKeyCode: 68 }, input: "d",
+    decision: /DESTROYALTARLEAVEIT/i,
+    notice: /ASYOUDESTROYTHEALTAR.*ABATTLEBEGINS/i,
+    portrait: "scene-illustration:area:24:ecl:abbd:cue:altar-destruction-ambush",
+    file: "bane-altar-shattered-ambush.png",
+  }],
+  ["kobold-throne-automatic-battle-entry", {
+    slot: "B", trigger: { key: "Enter", code: "Enter", windowsVirtualKeyCode: 13 }, input: "enter",
+    decision: /BEFOREYOUISAHORDEOFKOBOLDS/i,
+    notice: /THESEMENAREENEMIES.*ABATTLEBEGINS/i,
+    portrait: "portrait:area:13:ecl:a14b:PIC8.DAX:0:0:0",
+    file: "kobold-throne-before-battle.png",
+  }],
+]);
+const battleEntry = battleEntryRoutes.get(routeName);
 const textileScorpionLoop = routeName === "textile-house-scorpion-held-loop";
 const sokalBarracksHeld = routeName === "sokal-barracks-chorus-loop" || routeName === "sokal-barracks-diary-loop";
 const textileScorpionWalk = "qa/fixtures/walk-textile-house-cleared";
@@ -8492,7 +8509,7 @@ const mendorCouncilRewards = new Map([
   ["mendor-history-of-the-north-reward", [8, "history-of-the-north-reward", /THESEHISTORIESCONTAINMUCHUSEFULINFORMATION/i, 550]],
   ["mendor-grand-historian-reward", [21, "grand-historian-reward", /THERECORDSPROVIDEINSIGHTSINTOMUCHTHATWASPUZZLING/i, 600]],
 ]);
-const routes = ["yarash-desk-papers-reload", "sokal-floorboard-diary-reload", "buccaneer-empty-manual-aim", "textile-stinking-cloud", "buccaneer-arrow-down", "buccaneer-oil-flask", "buccaneer-sling-shot", "bivant-reward-reload", "tyrmor-journal-reload", "new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-goblins-aftermath", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
+const routes = ["yarash-desk-papers-reload", "sokal-floorboard-diary-reload", "buccaneer-empty-manual-aim", "textile-stinking-cloud", "buccaneer-arrow-down", "buccaneer-oil-flask", "buccaneer-sling-shot", "bivant-reward-reload", "tyrmor-journal-reload", "new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-goblins-aftermath", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), ...battleEntryRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
 routes.push("river-passage-reload", "new-phlan-council-reward-reload", "slums-mage-wand", "nomad-headman-rest-reload", "nomad-headman-rest-portrait", "nomad-headman-raid");
 routes.push("nomad-headman-decline-reload");
 routes.push("podal-infirmary-heal");
@@ -8826,7 +8843,7 @@ mkdirSync("out", { recursive: true });
 const outputDirectory = resolve(process.env.POR_PRESENTATION_OUTPUT_DIR || "out");
 mkdirSync(outputDirectory, { recursive: true });
 const directory = mkdtempSync(resolve(outputDirectory, "slums-presentation-"));
-const slot = (wideManualAim || norrisSurrenderReload ? "J" : (routeName === "tyrmor-journal-reload" || routeName === "kobold-king-treasury" || routeName === "mendor-manual-loot" || routeName === "mendor-floorboard-jar-loot") ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || poolReturnStairs || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || koboldThroneHordeHold || koboldRoamingHold || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
+const slot = (wideManualAim || norrisSurrenderReload ? "J" : (routeName === "tyrmor-journal-reload" || routeName === "kobold-king-treasury" || routeName === "mendor-manual-loot" || routeName === "mendor-floorboard-jar-loot") ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? battleEntry?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || poolReturnStairs || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || koboldThroneHordeHold || koboldRoamingHold || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
 const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
@@ -12151,6 +12168,94 @@ try {
     await switchBothWays();
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the wagon deal and both warnings after reloading slot B in Chrome.");
+  } else if (battleEntry) {
+    // Drive only the real browser keyboard. CDP observes the page's own no-key requests.
+    await command("Network.enable", { maxPostDataSize: 64 });
+    const posts = new Map();
+    socket.addEventListener("message", event => {
+      const { method, params } = JSON.parse(event.data);
+      if (method === "Network.requestWillBeSent" && params.request.method === "POST" &&
+          params.request.url === origin + "/key") {
+        const headers = Object.fromEntries(Object.entries(params.request.headers)
+          .map(([name, value]) => [name.toLowerCase(), value]));
+        posts.set(params.requestId, { input: params.request.postData, sequence: Number(headers["x-por-frame"]) });
+      } else if (method === "Network.responseReceived" && posts.has(params.requestId)) {
+        posts.get(params.requestId).status = params.response.status;
+      }
+    });
+    await waitFor("the Enhanced exploration prompt", () => run(`
+      state.ready && state.awaitsKey && !state.battleEntryPolling && !animationFrame &&
+      renderingSequence === undefined && !document.querySelector("#game-text").hidden
+    `));
+    await run(`(() => {
+      window.battleEntryTrace = { polls: [] };
+      const expectedArt = ${JSON.stringify("/art/" + battleEntry.portrait)};
+      const capture = window.battleEntryTrace;
+      function observe(now) {
+        const layer = document.querySelector("#tile-art:not([hidden])");
+        const portrait = layer?.querySelector(".encounter-portrait");
+        const caption = state.text?.toSorted(([a], [b]) => a - b)
+          .map(([, ch]) => String.fromCharCode(ch)).join("");
+        if (state.ready && state.battleEntryPolling && capture.polls.at(-1) !== state.sequence) {
+          capture.polls.push(state.sequence);
+        }
+        if (state.battleEntryPolling && !state.awaitsKey && !capture.notice &&
+            ${battleEntry.notice}.test(caption ?? "") && portrait?.getAttribute("src") === expectedArt &&
+            portrait.complete && portrait.getClientRects().length &&
+            portrait.naturalWidth === 352 && portrait.naturalHeight === 352) {
+          capture.notice = { sequence: state.sequence, src: portrait.getAttribute("src"),
+            width: portrait.naturalWidth, height: portrait.naturalHeight, caption, at: now };
+        }
+        if (capture.notice && state.ready && state.awaitsKey && !state.battleEntryPolling && !state.automaticCombat &&
+            !animationFrame && renderingSequence === undefined && !portrait &&
+            /HITPOINTS.*MOVEVIEWAIM.*QUICKDONE/i.test(caption ?? "")) {
+          if (capture.combat?.sequence !== state.sequence) {
+            capture.combat = { sequence: state.sequence, caption, at: now };
+          }
+          capture.combat.heldMs = now - capture.combat.at;
+        }
+        requestAnimationFrame(observe);
+      }
+      requestAnimationFrame(observe);
+    })()`);
+    async function pressBattleEntryKey(key) {
+      await run("screen.focus({ preventScroll: true })");
+      await command("Input.dispatchKeyEvent", { type: "keyDown", ...key });
+      await command("Input.dispatchKeyEvent", { type: "keyUp", ...key });
+    }
+    await pressBattleEntryKey({ key: "ArrowUp", code: "ArrowUp", windowsVirtualKeyCode: 38 });
+    await waitFor("the native battle choice", () => run(`
+      state.ready && state.awaitsKey && !state.battleEntryPolling && !animationFrame &&
+      renderingSequence === undefined &&
+      ${battleEntry.decision}.test(state.text?.toSorted(([a], [b]) => a - b)
+        .map(([, ch]) => String.fromCharCode(ch)).join(""))
+    `));
+    assert.deepEqual([...posts.values()].map(({ input }) => input), ["up"]);
+    await pressBattleEntryKey(battleEntry.trigger);
+    const notice = await waitFor("the actual battle notice painting", () => run("window.battleEntryTrace.notice"));
+    assert.equal(notice.src, "/art/" + battleEntry.portrait);
+    const settled = await waitFor("the first manual combat menu without sending another key", () =>
+      run("window.battleEntryTrace.combat?.heldMs >= 250 && window.battleEntryTrace"), 60_000);
+    assert.ok(settled.combat.sequence > notice.sequence);
+    assert.equal(settled.polls.length, 2);
+    const sent = [...posts.values()];
+    assert.deepEqual(sent.filter(({ input }) => input !== ":poll").map(({ input }) => input), ["up", battleEntry.input]);
+    for (const sequence of settled.polls) {
+      assert.deepEqual(sent.filter(post => post.sequence === sequence).map(({ input, status }) => [input, status]),
+        [[":poll", 204]], "The page must advance each ready battle entry exactly once without injecting a game key");
+    }
+    assert.ok(sent.every(({ sequence, status }) => sequence < settled.combat.sequence && status === 204));
+    const art = await fetch(origin + notice.src);
+    assert.ok(art.ok);
+    const png = Buffer.from(await art.arrayBuffer());
+    assert.deepEqual(png, readFileSync(resolve("upgrades", battleEntry.file)));
+    const capture = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "first-manual-combat.png"), Buffer.from(capture.data, "base64"));
+    const evidence = { route: routeName, source: process.env.POR_GAME_SOURCE, fixture: checkpoint,
+      artSha256: createHash("sha256").update(png).digest("hex"), ...settled, posts: sent };
+    const receipt = resolve(directory, "automatic-battle-entry.json");
+    writeFileSync(receipt, JSON.stringify(evidence, null, 2) + "\n");
+    console.log("Verified the authored battle notice and first manual combat menu with no extra key:", receipt);
   } else if (illustration) {
     const { inputs, prompt, continuation, journalLead, approachSequence } = illustration;
     const combatProducer = illustration.oneShotProducer ?? illustration.combatWithoutPortraitProducer;
