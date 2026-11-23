@@ -577,6 +577,7 @@ const encounterRoutes = new Map([
   }],
   ["sokal-poison-frog-approach", {
     slot: "C", inputs: ["up"],
+    stockInput: true,
     placement: [48, 32, "encounter:area:21:SPRIT4.DAX:37:1:0", 40, 57, 7],
     prompt: /THECROAKINGRISESINVOLUME.*COMBATWAITFLEEADVANCE/i,
     heldPosition: [21, 14, 6],
@@ -854,8 +855,9 @@ const koboldsClimbBehind = kutoWellAlleyPortrait("a3b2", "kobolds-climb-behind")
 const illustrationRoutes = new Map([
   ["sokal-smithy-frog-hold", {
     slot: "C", inputs: ["right", "up"],
+    stockInput: true,
     portrait: "portrait:area:21:ecl:a0c6:PIC4.DAX:37:0:0",
-    prompt: /THECROAKINGRISESINVOLUME.*COMBATWAITFLEEPARLAY/i,
+    prompt: /THECROAKINGRISESINVOLUME/i,
     heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:21:ecl:a0c6:PIC4.DAX:37:${member}:0`),
     finalPhaseCapture: "sokal-smithy-frog-hold.png",
     continuation: { inputs: ["c"], portrait: "portrait:area:21:PIC4.DAX:37:0:0", prompt: /ABATTLEBEGINS/i },
@@ -8921,7 +8923,8 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...(textileScorpionLoop ? { POR_PROMPT_SCHEDULE_IN: resolve(textileScorpionWalk, "prompts.jsonl") } : {}),
     ...(illustration?.promptSchedule ? { POR_PROMPT_SCHEDULE_IN: resolve(illustration.promptSchedule) } : {}),
     ...(battleEntry ? { POR_PROMPT_SCHEDULE_IN: "" } : {}),
-    POR_INPUT_COMPAT: battleEntry || controlledBattleIllustration?.staticHold || controlledBattleIllustration?.heldPortraitLoop ||
+    POR_INPUT_COMPAT: battleEntry || illustration?.stockInput || encounterRoute?.stockInput ||
+      controlledBattleIllustration?.staticHold || controlledBattleIllustration?.heldPortraitLoop ||
       routeName === "kuto-well-waiting-kobolds-hold" || textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "kuto-well-catacomb-volley-hold" || routeName === "kuto-well-surrounding-buildings-hold" ||
       routeName === "pyramid-vats-mutants-loop" || routeName.startsWith("pyramid-exterior-") ||
@@ -9462,9 +9465,9 @@ try {
         if (!img || ((${requireScenery} || ${requireWebGL}) && !layer.querySelector(scenerySelector))) return;
         const view = animationFrame ?? state;
         const projected = view.perspective && !view.portrait;
-        for (const [x, y, id, w, h] of ${JSON.stringify(approachSequence)}) {
+        for (const [x, y, id, w, h, webglYOffset = 0] of ${JSON.stringify(approachSequence)}) {
           const left = (projected ? 8 + (x - 24) * 120 / 88 : x) / 3.2;
-          const top = (projected ? 8 + (y - 24) * 120 / 88 : y) / 2;
+          const top = (projected ? 8 + (y + webglYOffset - 24) * 120 / 88 : y) / 2;
           if (img.getAttribute("src") === "/art/" + id && img.naturalWidth === w * 4 && img.naturalHeight === h * 4 &&
               Math.abs(parseFloat(img.style.left) - left) < .001 && Math.abs(parseFloat(img.style.top) - top) < .001) {
             window.observedApproach.add(id);

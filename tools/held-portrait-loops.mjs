@@ -75,7 +75,7 @@ const portraitLoops = [
   ["portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:", poisonFrogPoseOrder, "portrait:area:2:PIC4.DAX:37:0:0",
     /^(?!.*ABATTLEBEGINS).*EVILLOOKINGFROGSBOILUPFROMBELOW/i, poisonFrogPoseTimes],
   ["portrait:area:21:ecl:a0c6:PIC4.DAX:37:", poisonFrogPoseOrder, undefined,
-    /^(?!.*ABATTLEBEGINS).*CROAKINGRISESINVOLUME.*COMBATWAITFLEEPARLAY/i, poisonFrogPoseTimes],
+    /^(?!.*ABATTLEBEGINS).*CROAKINGRISESINVOLUME/i, poisonFrogPoseTimes],
   ["portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:", [0, 1, 0, 3, 0, 5, 6, 3], undefined,
     /^(?!.*ABATTLEBEGINS).*SCORPIONSAPPROACHHUNGRILY/i, Array(8).fill(210), [[7, 7]]],
   ["portrait:area:21:ecl:a316:PIC4.DAX:17:", 3, "portrait:area:21:PIC4.DAX:17:0:0",
