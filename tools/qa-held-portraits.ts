@@ -242,7 +242,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     }
     return null;
   }
-  const observed = new Map<ScriptSite, { prompt: string; scene: typeof scenes[number] }[]>();
+  const observed = new Map<ScriptSite, { prompt: string; block: number; scene: typeof scenes[number] }[]>();
   const unmapped = [];
   for (const scene of scenes) {
     const scope = /^area:(\d+):ecl:([a-f\d]{4})(?::caller:([a-f\d]{4}))?:(PIC[1-8]\.DAX):(\d+)$/.exec(scene.id);
@@ -251,6 +251,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     const prompt = promptId(cursor!, caller ?? null);
     const matches = eclCandidates.filter(site => (scene.producer ? scriptSiteId(site) === scene.producer : site.scriptBlock === Number(area)) &&
       site.pictureArchive === archive && (site.block === null || site.block === Number(block)) &&
+      (!site.boundedBlocks || site.boundedBlocks.includes(Number(block))) &&
       site.promptCandidates.some(lead => promptId(lead.next, lead.caller) === prompt));
     // A shared scene key alone cannot identify which of two loads supplied the picture.
     if (matches.length !== 1) {
@@ -259,7 +260,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     }
     const site = matches[0]!;
     const evidence = observed.get(site) ?? [];
-    evidence.push({ prompt, scene });
+    evidence.push({ prompt, block: Number(block), scene });
     observed.set(site, evidence);
   }
 
@@ -413,23 +414,28 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     const staticEvidence = staticBySite.get(site);
     const held = staticEvidence ? [...staticEvidence.values()].flatMap(proof => proof.scenes) : [];
     // One instruction can display several captions at the same cursor.
+    const missingPrompts = site.boundedBlocks
+      ? prompts.flatMap(prompt => site.boundedBlocks!.filter(block =>
+        !evidence.some(entry => entry.prompt === prompt && entry.block === block && entry.scene.verified))
+        .map(block => `${prompt} (${site.pictureArchive}:${block})`))
+      : prompts.filter(prompt => !scenery.has(prompt) && !staticEvidence?.get(prompt)?.verified &&
+        !evidence.some(entry => entry.prompt === prompt));
     const unmeasured = [
-      ...prompts.filter(prompt => !scenery.has(prompt) && !staticEvidence?.get(prompt)?.verified &&
-        !evidence.some(entry => entry.prompt === prompt)),
+      ...missingPrompts,
       ...new Set(evidence.flatMap(({ scene }) => scene.remainingCues ?? [])),
     ];
     const approach = verifiedApproachTransition(site);
     const measured = evidence.length > 0 || held.length > 0 || scenery.size > 0 || oneShot !== undefined || Boolean(approach);
     // A variable selector may feed several portraits into the same prompt.
     // Observing one portrait cannot discharge the other possible selections.
-    const verified = oneShot ? oneShotReason === null : site.block !== null && measured &&
+    const verified = oneShot ? oneShotReason === null : (site.block !== null || Boolean(site.boundedBlocks)) && measured &&
       !unmeasured.length && held.every(scene => scene.verified) && evidence.every(({ scene }) => scene.verified);
     return {
       id,
-      source: site.composedPortrait?.source ?? `${site.pictureArchive}:${site.block ?? `selector ${site.selector.address?.toString(16) ?? "unknown"}`}`,
+      source: site.composedPortrait?.source ?? `${site.pictureArchive}:${site.block ?? site.boundedBlocks?.join(", ") ?? `selector ${site.selector.address?.toString(16) ?? "unknown"}`}`,
       measured, verified, unmeasured, scenes: [...evidence.map(({ scene }) => scene.id), ...held.map(scene => scene.id)],
       reason: oneShot ? oneShotReason ?? "single native draw, paired Chrome checks passed" :
-        site.block === null ? "selector unresolved" : scenery.size ? "paired Chrome checks confirmed scenery at " + [...scenery].join(", ") :
+        site.block === null && !site.boundedBlocks ? "selector unresolved" : scenery.size ? "paired Chrome checks confirmed scenery at " + [...scenery].join(", ") :
           approach ? "paired Chrome checks confirmed approach into " + site.approachHandoff!.menu :
             prompts.length ? null : "no prompt lead resolved",
     };

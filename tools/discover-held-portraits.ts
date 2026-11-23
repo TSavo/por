@@ -143,14 +143,39 @@ const eclCandidates = scripts.flatMap(record => {
     return { ...operand(op), possibleWriters };
   }
 
+  function podalPatrolPictureBlocks(address: number, portrait: ReturnType<typeof selector>) {
+    if (archive !== 1 || scriptBlock !== 18 || address !== 0x9d86 || portrait.address !== 0x4a02 ||
+        portrait.possibleWriters.length !== 1 || portrait.possibleWriters[0]?.address !== "9fa6") return undefined;
+
+    // The patrol helper rolls 0 through 8, then reads the patrol type and picture block in order.
+    const roll = instructions.get(0x9f86);
+    const reset = roll && instructions.get(roll.next);
+    const types = reset && instructions.get(reset.next);
+    const names = types && instructions.get(types.next);
+    const pictures = names && instructions.get(names.next);
+    const tableIs = (instruction: Instruction | undefined, table: number, index: number, output: number) =>
+      instruction?.opcode === 0x2a && memory(instruction.operands[0]!) === table &&
+      memory(instruction.operands[1]!) === index && memory(instruction.operands[2]!) === output;
+    if (roll?.opcode !== 0x08 || literal(roll.operands[0]!) !== 8 || memory(roll.operands[1]!) !== 0x6e79 ||
+        reset?.opcode !== 0x09 || literal(reset.operands[0]!) !== 0 || memory(reset.operands[1]!) !== 0x4a03 ||
+        !tableIs(types, 0xb260, 0x6e79, 0x4a04) || !tableIs(names, 0xb27b, 0x4a04, 0x4a0b) ||
+        !tableIs(pictures, 0xb269, 0x4a04, 0x4a02) ||
+        !script.inRange(0xb260 + 8)) return undefined;
+    const indices = Array.from({ length: 9 }, (_, index) => script.byte(0xb260 + index));
+    if (!indices.every(index => index < 0xb275 - 0xb269 && script.inRange(0xb269 + index))) return undefined;
+    return [...new Set(indices.map(index => script.byte(0xb269 + index)))].sort((a, b) => a - b);
+  }
+
   return decoded.flatMap(load => {
     const { opcode, operands } = load;
     if (opcode !== 0x0e && opcode !== 0x0c && opcode !== 0x29) return [];
     const direct = opcode === 0x0e;
     const portrait = selector(operands[direct ? 0 : 2]!);
     const block = portrait.literal === null ? null : portrait.literal & 255;
-    const possiblePictures = (block === null ? [] : animated.filter(picture =>
-      picture.file === pictureArchive && picture.block === block)).map(describePicture);
+    const boundedBlocks = podalPatrolPictureBlocks(load.address, portrait);
+    const pictureBlocks = block === null ? boundedBlocks ?? [] : [block];
+    const possiblePictures = animated.filter(picture => picture.file === pictureArchive &&
+      picture.block !== undefined && pictureBlocks.includes(picture.block)).map(describePicture);
     if (block !== null && !possiblePictures.length) return [];
 
     const scope = contexts.get(load.address) ?? [];
@@ -231,6 +256,7 @@ const eclCandidates = scripts.flatMap(record => {
     return [{
       kind: "ecl", status: "candidate", scriptArchive: record.file, scriptBlock, address: authored(load.address),
       next: authored(load.next), opcode, name: load.name, pictureArchive, block, selector: portrait, possiblePictures,
+      boundedBlocks,
       composedPortrait,
       ...(direct ? {} : { approachSelectors: { sprite: selector(operands[0]!), distance: selector(operands[1]!) } }),
       approachSites: [...approaches].sort(),
@@ -240,7 +266,7 @@ const eclCandidates = scripts.flatMap(record => {
       uncertainties: [
         "selected-head-may-use-composed-portrait",
         ...(direct ? [] : ["portrait-requires-zero-distance-and-viewport-state"]),
-        ...(block === null ? ["unresolved-picture-selector"] : []),
+        ...(block === null && !boundedBlocks ? ["unresolved-picture-selector"] : []),
         ...(scope.length ? [] : ["no-local-entry-path-found"]),
       ],
     }];
