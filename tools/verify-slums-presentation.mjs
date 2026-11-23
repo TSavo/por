@@ -11692,7 +11692,7 @@ try {
     for (const key of walk) await step(key);
     assert.match(text(), caption);
     if (heldApproachPosition) {
-      await verifyPatrolApproach(caption, heldApproachPosition);
+      await verifyHeldApproach(caption, heldApproachPosition, patrolApproachPlacement(heldApproachPosition[0]));
       await step("enter");
       for (let advances = 0; advances < 4 && !frame.portrait; advances++) await step("a");
       assert.equal(frame.portrait, patrolCaptain);
