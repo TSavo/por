@@ -264,7 +264,11 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     if (!evidence.native.evidence) return "native draw evidence is missing";
     if ("composed" in evidence.native) {
       const source = evidence.native.composed;
-      if (source !== site.composedPortrait?.source || !evidence.chrome.original.portrait.endsWith(`:${source}`)) {
+      const portrait = evidence.chrome.original.portrait;
+      const combatIllustration = /^scene-illustration:area:(\d+):ecl:([a-f0-9]+)(?::cue:[\w-]+)?$/.exec(portrait);
+      const matchesCombat = Number(combatIllustration?.[1]) === site.scriptBlock &&
+        (combatIllustration?.[2] === site.immediateCombat || combatIllustration?.[2] === site.immediateCombatResume);
+      if (source !== site.composedPortrait?.source || (!portrait.endsWith(":" + source) && !matchesCombat)) {
         return "native evidence must match the composed portrait selected by the script";
       }
     } else if (evidence.native.members.length !== 1 || evidence.native.members[0] !== 0) {

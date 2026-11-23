@@ -184,7 +184,7 @@ const eclCandidates = scripts.flatMap(record => {
       return fight;
     }
     const fight = fightFrom({ address: load.next, returns: [] });
-    return fight === null ? null : authored(fight);
+    return fight === null ? undefined : { address: authored(fight), resume: authored(instructions.get(fight)!.next) };
   }
 
   function selector(op: Operand) {
@@ -531,7 +531,15 @@ const eclCandidates = scripts.flatMap(record => {
     const stojanowBarracks = archive === 2 && scriptBlock === 9 && opcode === 0x29 && ["a23f", "a372"].includes(address);
     const nomadHeadman = archive === 7 && scriptBlock === 17 && opcode === 0x0c && address === "a39c";
     const yarashStudy = archive === 7 && scriptBlock === 23 && opcode === 0x29 && address === "abd5";
-    if (nomadHeadman || stojanowBarracks || yarashStudy || archive === 5 && (sentinel || mazeWatch || outerWatch || genheerisOffer || opcode === 0x29 &&
+    // The merchant's guards retain their selected head through both advances.
+    const merchantGuards = archive === 6 && scriptBlock === 1 && opcode === 0x0c && address === "9fe8" &&
+      literal(operands[1]!) === 2 && load.next === 0x9fef &&
+      ([[0x9fef, 0x3a, 0x9ff0], [0x9ff0, 0x0d, 0x9ff1], [0x9ff1, 0x3a, 0x9ff2], [0x9ff2, 0x0d, 0x9ff3]] as const)
+        .every(([at, operation, next]) => {
+          const step = instructions.get(at);
+          return step?.opcode === operation && step.next === next;
+        });
+    if (nomadHeadman || stojanowBarracks || yarashStudy || merchantGuards || archive === 5 && (sentinel || mazeWatch || outerWatch || genheerisOffer || opcode === 0x29 &&
         (scriptBlock === 7 && ["a184", "a56c"].includes(address) ||
          scriptBlock === 5 && address === "a256" || falseThrone || forgePatrol || mazePatrol || outerPatrol))) {
       const before = (at: number) => decoded.find(instruction => instruction.next === at);
@@ -552,7 +560,7 @@ const eclCandidates = scripts.flatMap(record => {
         stojanowBarracks ? dialogue : outerWatch ? before(load.address) : setup ?? load;
       const headWrite = prelude && (!stojanowBarracks || prelude.opcode === 0x12) ? before(prelude.address) : undefined;
       // Both versions of the bargain reset the head when the Yes/No helper returns.
-      const resetAddresses = genheerisOffer ? ["a30f", "a345"] : [authored(load.next)];
+      const resetAddresses = genheerisOffer ? ["a30f", "a345"] : [merchantGuards ? "9ff3" : authored(load.next)];
       const headResets = resetAddresses.map(reset => decoded.find(instruction => authored(instruction.address) === reset));
       if ((!setupAddress || setup?.opcode === 0x0c && literal(setup.operands[2]!) === portrait.literal &&
             literal(setup.operands[0]!) === literal(operands[0]!)) &&
@@ -586,6 +594,7 @@ const eclCandidates = scripts.flatMap(record => {
       }
     }
 
+    const combat = scope.length && opcode === 0x0c ? immediateCombatAfter(load) : undefined;
     return [{
       kind: "ecl", status: "candidate", scriptArchive: record.file, scriptBlock, address: authored(load.address),
       next: authored(load.next), opcode, name: load.name, pictureArchive, block, selector: portrait, possiblePictures,
@@ -599,7 +608,8 @@ const eclCandidates = scripts.flatMap(record => {
       ...(direct ? {} : { approachSelectors: { sprite: selector(operands[0]!), distance: selector(operands[1]!) } }),
       approachSites: [...approaches].sort(),
       approachHandoff,
-      immediateCombat: scope.length && opcode === 0x0c ? immediateCombatAfter(load) : null,
+      immediateCombat: combat?.address ?? null,
+      immediateCombatResume: combat?.resume,
       promptCandidates: [...prompts.values()].sort((a, b) => a.address.localeCompare(b.address) || (a.caller ?? "").localeCompare(b.caller ?? "")),
       ...(retainedVerticalMenus.size ? { retainedVerticalMenus: Object.fromEntries(retainedVerticalMenus) } : {}),
       uncertainties: [

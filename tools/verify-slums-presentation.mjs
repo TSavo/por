@@ -5518,6 +5518,19 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter"],
     portrait: "portrait:area:1:HEAD6.DAX:10:BODY6.DAX:9", prompt: /WANTTOBUYAPASSTOSEETHECAPTAIN/i,
   }],
+  ["buccaneer-merchant-guard-close-up", {
+    slot: "A", inputs: ["right", "right", "up", "left", "up", "right", "up", "enter", "enter", "enter", "enter"],
+    portrait: "scene-illustration:area:1:ecl:a002:cue:merchant-guards",
+    prompt: /THEMERCHANTYELLSFORHISGUARDSANDTHEYCOMERUNNING.*ABATTLEBEGINS/i,
+    transientPortraits: {
+      11: { id: "scene-illustration:area:1:ecl:9ff0:cue:merchant-guards", durationMs: 2700,
+        prompt: /THEMERCHANTYELLSFORHISGUARDSANDTHEYCOMERUNNING/i,
+        screenshot: "buccaneer-guard-during-alarm.png" },
+    },
+    oneShotProducer: "ECL6.DAX:1:9fe8",
+    finalPhaseCapture: "buccaneer-guard-close-up.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
   ["buccaneer-merchant-guards-first-draw", {
     slot: "A", inputs: ["down", "up", "left", "up", "right", "up", ...Array(4).fill("enter"), "right", "enter"],
     portrait: "scene-illustration:area:1:ecl:9fef:cue:merchant-guards", prompt: /THEMERCHANTYELLSFORHISGUARDSANDTHEYCOMERUNNING/i,
@@ -8405,6 +8418,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "lizard-wilds-stirge-swarm-ambush" ||
       routeName === "lizard-wilds-displacer-pair-ambush" ||
       /^wild-grove-(mutant-hut|lizardfolk-hut|large-lizardfolk)-ambush$/.test(routeName) ||
+      routeName === "buccaneer-merchant-guard-close-up" ||
       routeName === "buccaneer-mounted-escort-loop" || routeName === "buccaneer-mounted-escort-random-loop" ||
       routeName === "mendor-storeroom-kobold-phases" || routeName === "mendor-storeroom-mercy-loop" ||
       routeName === "mendor-storeroom-kobold-map" ||
@@ -11800,7 +11814,7 @@ try {
             (transient.durationMs === undefined || phase.durationMs === transient.durationMs) &&
             transient.prompt.test(phase.text.toSorted(([a], [b]) => a - b)
               .map(([, char]) => String.fromCharCode(char)).join(""))),
-          `Missing timed illustration: ${transient.id}`);
+          `Missing timed illustration: ${transient.id}; poses: ${JSON.stringify(frame.animation?.map(phase => [phase.portrait, phase.encounter, phase.durationMs]))}`);
           await waitFor("the transient illustration", () => run(`
             animationFrame?.portrait === "${transient.id}" &&
             document.querySelector('.encounter-portrait[src="/art/${transient.id}"]')?.naturalWidth === 352`));
@@ -11892,6 +11906,15 @@ try {
     }
     if (illustration.heldPortraitLoop) await verifyHeldPortraitLoop(illustration.heldPortraitLoop);
     if (illustration.staticPortraitMenu) await verifyStaticPortrait(portrait, prompt, false);
+    if (routeName === "buccaneer-merchant-guard-close-up") {
+      const [alarmPortrait, closeUp] = await Promise.all(
+        [illustration.transientPortraits[inputs.length].id, portrait].map(async id => {
+          const response = await fetch(origin + "/art/" + id);
+          assert.ok(response.ok);
+          return Buffer.from(await response.arrayBuffer());
+        }));
+      assert.deepEqual(alarmPortrait, closeUp, "The guard close-up should stay visible through the battle notice");
+    }
     if (combatProducer && portrait !== undefined) {
       await waitFor("the single portrait before combat", () => run(`
         state.sequence === ${frame.sequence} && !animationFrame &&
