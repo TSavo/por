@@ -661,6 +661,8 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
         return missing.length || held?.verified ? missing : [prompt];
       }
       if (site.boundedBlocks && !site.composedPortrait) {
+        // A measured scenery prompt can precede the sole possible picture.
+        if (site.boundedBlocks.length === 1 && scenery.has(prompt)) return [];
         return site.boundedBlocks.filter(block =>
           !evidence.some(entry => entry.prompt === prompt && entry.block === block && entry.scene.verified))
           .map(block => `${prompt} (${site.pictureArchive}:${block})`);
