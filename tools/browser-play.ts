@@ -119,7 +119,7 @@ function newPhlanMaterials() {
 }
 type ExplorationFrame = {
   nativeScenery?: NativeExploration & { area: number };
-  scenery?: Pick<NativeExploration, "x" | "y" | "facing" | "walls" | "mapId" | "roofed"> & { materialId: string; area: number };
+  scenery?: Pick<NativeExploration, "x" | "y" | "facing" | "walls" | "mapId" | "roofed" | "skyColor"> & { materialId: string; area: number };
   overlandMap?: boolean;
   overlandTerrain?: OverlandTerrainFrame;
   areaView?: boolean;
@@ -147,7 +147,7 @@ function prepareScenery(view: ExplorationFrame) {
   const native = view.nativeScenery;
   if (!native) return;
   delete view.nativeScenery;
-  const { x, y, facing, walls, area, mapId, roofed } = native;
+  const { x, y, facing, walls, area, mapId, roofed, skyColor } = native;
   if (packagedTerrain && !native.viewportCleared) {
     const cells: TileInventoryCell[] = [];
     view.tiles = packagedTiles(packagedTerrain, artwork, native, cells);
@@ -160,7 +160,7 @@ function prepareScenery(view: ExplorationFrame) {
   const materialArea = explorationMaterialArea(native);
   const harbor = materialArea === 0 && mapId === 0;
   const materialId = createHash("sha256")
-    .update(JSON.stringify([area,materialArea,harbor,native.frontSlots,native.glyphs,native.skyColor,native.groundColor,
+    .update(JSON.stringify([area,materialArea,harbor,native.frontSlots,native.glyphs,skyColor,native.groundColor,
       ...(packagedTerrain ? [mapId, native.cellGeometry?.wallSymbols] : [])])).digest("hex");
   if (!localMaterialSets.has(materialId)) {
     if (localMaterialSets.size >= 32) localMaterialSets.delete(localMaterialSets.keys().next().value!);
@@ -170,7 +170,7 @@ function prepareScenery(view: ExplorationFrame) {
       localMaterialSets.set(materialId, JSON.stringify({ ...materials, water, dockPiling, layout: phlanHarborLayout }));
     } else localMaterialSets.set(materialId, JSON.stringify(materials));
   }
-  view.scenery = { x, y, facing, walls, materialId, area, mapId, roofed };
+  view.scenery = { x, y, facing, walls, materialId, area, mapId, roofed, skyColor };
 }
 const reflectedTiles = [...artwork].filter(([, art]) => art.reflected).map(([id]) => id);
 let tileTrace = process.env.POR_TILE_TRACE_FILE;

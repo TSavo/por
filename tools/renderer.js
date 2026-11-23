@@ -555,7 +555,7 @@ const sceneFragment = `
     float lightLen = length(lightUV);
     float bumpShadow = 1.0;
     // Height self-shadow on walls only, and kept soft so it doesn't blob.
-    if (lightLen > 0.01 && indoor < 0.5 && floorSurface < 0.5) {
+    if (lightLen > 0.01 && sunColor.r > 0.0 && floorSurface < 0.5) {
       vec2 lStep = (lightUV / lightLen) * 0.018;
       float rise = max(dot(L, Ngeo), 0.0) * 0.32;
       for (int i = 1; i <= 4; i++) {
@@ -622,13 +622,15 @@ const skyFragment = `
     const float focalLength = 0.60;
     vec3 dir = normalize(ahead + side * (uv.x * aspect / focalLength) + up * ((uv.y - 0.11) / focalLength));
     float elev = dir.y;
-    vec3 zenith = vec3(0.38, 0.56, 0.82);
-    vec3 horizon = fogColor;
-    vec3 color = mix(horizon, zenith, clamp(elev * 1.5 + 0.12, 0.0, 1.0));
-    float sunCore = pow(max(dot(dir, sunDir), 0.0), 320.0);
-    float sunHalo = pow(max(dot(dir, sunDir), 0.0), 48.0);
-    color += vec3(1.8, 1.35, 0.8) * sunHalo * 0.22;
-    color += vec3(2.8, 2.2, 1.4) * sunCore * 1.55;
+    bool hasSun = sunColor.r > 0.0;
+    vec3 zenith = hasSun ? vec3(0.38, 0.56, 0.82) : vec3(0.016, 0.023, 0.042);
+    vec3 color = mix(fogColor, zenith, clamp(elev * 1.5 + 0.12, 0.0, 1.0));
+    if (hasSun) {
+      float sunCore = pow(max(dot(dir, sunDir), 0.0), 320.0);
+      float sunHalo = pow(max(dot(dir, sunDir), 0.0), 48.0);
+      color += vec3(1.8, 1.35, 0.8) * sunHalo * 0.22;
+      color += vec3(2.8, 2.2, 1.4) * sunCore * 1.55;
+    }
     gl_FragColor = vec4(color, 0.0);
   }
 `;
@@ -868,10 +870,12 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
       const aspect = canvas.width / canvas.height;
       // Bit 7 of the GEO flag on this square (ovl26 0x016d): under a roof.
       const indoor = view.roofed ? 1 : 0;
-      const sunColor = indoor ? [0, 0, 0] : [1.28, 0.96, 0.62];
-      const skyColor = indoor ? [0.07, 0.07, 0.08] : [0.36, 0.48, 0.70];
-      const groundColor = indoor ? [0.08, 0.07, 0.06] : [0.30, 0.22, 0.14];
-      const fogColor = indoor ? [0.055, 0.05, 0.045] : [0.62, 0.72, 0.88];
+      // The ECL script selects the native backdrop. Palette index zero is black.
+      const darkSky = view.skyColor === 0;
+      const sunColor = indoor || darkSky ? [0, 0, 0] : [1.28, 0.96, 0.62];
+      const skyColor = indoor ? [0.07, 0.07, 0.08] : darkSky ? [0.14, 0.18, 0.28] : [0.36, 0.48, 0.70];
+      const groundColor = indoor ? [0.08, 0.07, 0.06] : darkSky ? [0.15, 0.13, 0.12] : [0.30, 0.22, 0.14];
+      const fogColor = indoor ? [0.055, 0.05, 0.045] : darkSky ? [0.035, 0.044, 0.065] : [0.62, 0.72, 0.88];
 
       gl.bindFramebuffer(gl.FRAMEBUFFER, sceneFbo);
       gl.viewport(0, 0, width, height);
