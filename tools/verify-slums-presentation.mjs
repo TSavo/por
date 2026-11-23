@@ -2274,6 +2274,12 @@ const illustrationRoutes = new Map([
     staticPortraitMenu: true, finalPhaseCapture: "nomad-samir-collapse.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /THEYHAVESLAINSAMIR/i },
   }],
+  ["nomad-guard-attack-fallout", {
+    slot: "A", fixedClockStart: 4320000, inputs: [...nomadGuardWalk, "a", "enter", "enter"],
+    phasePrompts: { 23: /THEYHAVESLAINSAMIR.*THECAMPBEGINSTOSTIR/i },
+    sceneryPrompt: [17, 8, 10],
+    prompt: /COMBATWAITFLEEPARLAY/i,
+  }],
   ["nomad-headman-lodging", {
     slot: "A", inputs: [...Array(4).fill("up"), "left", "up", "up", "enter", "enter", "p", "enter", "y"],
     portrait: "portrait:area:17:ecl:9da2:caller:a5b5:HEAD7.DAX:74:BODY7.DAX:30",
@@ -9572,7 +9578,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "sokal-barracks-ghost-phases" ||
       routeName === "nomad-camp-tripwire-menu" ||
       /^nomad-camp-sentry-(families|parlay|combat)$/.test(routeName) ||
-      /^nomad-guard-(follow|attack)$/.test(routeName) ||
+      /^nomad-guard-(follow|attack(?:-fallout)?)$/.test(routeName) ||
       /^nomad-raid-(alliance(?:-offer|-refusal|-volley|-aftermath)?|betrayal|camp-perimeter|cornered-kobolds|first-attack|retreat-cues|retreat-melee)$/.test(routeName) ||
       routeName === "nomad-morning-walk" ||
       routeName === "nomad-morning-promise" ||
