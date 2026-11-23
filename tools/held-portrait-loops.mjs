@@ -32,7 +32,8 @@ const baneGatePoseTimes = [1510, 20, 710, 20];
 const baneCacheLoops = ["northern", "eastern", "southern"].map(location => {
   const prefix = `portrait:area:24:ecl:aa47:cue:${location}-cache:PIC1.DAX:1:`;
   return {
-    cue: /VIEWTAKEPOOLEXIT$/i,
+    // The server only selects this scoped portrait at the matching loot menu.
+    cue: undefined,
     phaseTimes: [410, 610, 110, 210],
     phases: [0, 1, 2, 1].map(member => `${prefix}${member}:0`),
     entryAliases: undefined,
