@@ -3481,6 +3481,7 @@ const illustrationRoutes = new Map([
   }],
   ["bane-rampart-camp-orc-ambush", {
     slot: "A", stockInput: true,
+    oneShotProducer: "ECL1.DAX:24:b692",
     inputs: ["e", "r", "h", ...Array(6).fill("i"), "r"],
     promptSchedule: "qa/fixtures/bane-black-hand-patrol-warning/camp-prompts.jsonl",
     portrait: "scene-illustration:area:24:ecl:b6a2:cue:orc-rampart-camp-ambush",

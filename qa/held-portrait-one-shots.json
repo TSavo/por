@@ -1042,5 +1042,36 @@
       }
     },
     "producer": "ECL8.DAX:27:a616"
+  },
+  {
+    "producer": "ECL8.DAX:27:a68b",
+    "chrome": {
+      "port": {
+        "producer": "ECL8.DAX:27:a68b",
+        "route": "wild-cave-gnoll-ambush",
+        "data": "port",
+        "portrait": "portrait:area:27:ecl:a6ce:PIC8.DAX:73:0:0",
+        "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "baac7b931cf6b3bfd32cc5d1a32a96183b5a4f8c17e7fe5d6b8d57b44a746abf"
+      },
+      "original": {
+        "producer": "ECL8.DAX:27:a68b",
+        "route": "wild-cave-gnoll-ambush",
+        "data": "original",
+        "portrait": "portrait:area:27:ecl:a6ce:PIC8.DAX:73:0:0",
+        "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "baac7b931cf6b3bfd32cc5d1a32a96183b5a4f8c17e7fe5d6b8d57b44a746abf"
+      }
+    },
+    "combat": "a6cd",
+    "native": {
+      "members": [
+        0
+      ],
+      "drawCursor": "a693",
+      "evidence": "E:/por-codex/art-qa/issue-131-east-cave-gnolls/native-original3/draws.jsonl"
+    }
   }
 ]

@@ -32684,6 +32684,98 @@
           }
         }
       }
+    },
+    {
+      "id": "area:29:ecl:af2f:caller:a495:PIC8.DAX:73",
+      "producer": "ECL8.DAX:29:a46d",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 510,
+          "viewport": "61384c484becc699a39e82ac3b53eed7825662e59fd4149712745485fcd75fca"
+        },
+        {
+          "member": 1,
+          "durationMs": 1510,
+          "viewport": "3636c6efb7395283dbc7bd364b5058375317bf7647856e53d341e342238f4ce1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-gnoll-surprise-loop",
+          "data": "original",
+          "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+          "bindingSha256": "ae3d878c58fd1d290bb3d7d7c9773c9a9793acb624d89bcbed45c429389d8464",
+          "portrait": "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:0:0",
+              "atMs": 2.3999999880797986
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:1:0",
+              "atMs": 485.69999998807907
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:0:0",
+              "atMs": 2002.2999999880794
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:1:0",
+              "atMs": 2502.199999988079
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:0:0",
+              "atMs": 4018.89999998808
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:1:0",
+              "atMs": 4518.89999998808
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:0:0": "7fe65099c899eea2245b51f665414c8e94fba14913860d18f2c788da7d109925",
+            "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:1:0": "b0adf48c319d616ca36c937b7ee1fec0462423b0948a4594755237c6e0f5d427"
+          }
+        },
+        "port": {
+          "route": "kuto-gnoll-surprise-loop",
+          "data": "port",
+          "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+          "bindingSha256": "ae3d878c58fd1d290bb3d7d7c9773c9a9793acb624d89bcbed45c429389d8464",
+          "portrait": "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:0:0",
+              "atMs": 12.700000000000728
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:1:0",
+              "atMs": 412.7000000000007
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:0:0",
+              "atMs": 1929.2999999999993
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:1:0",
+              "atMs": 2429.2999999999993
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:0:0",
+              "atMs": 3945.8999999999996
+            },
+            {
+              "key": "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:1:0",
+              "atMs": 4445.9
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:0:0": "7fe65099c899eea2245b51f665414c8e94fba14913860d18f2c788da7d109925",
+            "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:73:1:0": "b0adf48c319d616ca36c937b7ee1fec0462423b0948a4594755237c6e0f5d427"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
