@@ -1925,8 +1925,7 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:17:ecl:b13d",
     prompt: /WELLDONE!WHATSAYWEFINISHTHISTOGETHER.*DESTROYTHEKOBOLDSFLEE/i,
     illustratedScenery: true, finalPhaseCapture: "nomad-raid-alliance-offer.png",
-    continuation: { inputs: ["d"], clearsPortrait: true, prompt: /THENLETUSDOIT!.*ABATTLEBEGINS/i,
-      screenshot: "nomad-raid-alliance-battle-notice.png" },
+    continuation: { inputs: ["d"], clearsPortrait: true, prompt: /THENLETUSDOIT!.*ABATTLEBEGINS/i },
   }],
   ["nomad-raid-betrayal", {
     slot: "A", inputs: ["e", "r", "h", "i", "r", "enter"], fixedClockStart: 4320000,
@@ -13056,6 +13055,17 @@ try {
       if (continuation.heldApproach) {
         const { position, placement } = continuation.heldApproach;
         await verifyHeldApproach(continuation.prompt, position, placement);
+      }
+      if (routeName === "nomad-raid-alliance-offer") {
+        const kobold = "encounter:area:17:SPRIT7.DAX:0:1:0";
+        assert.deepEqual(frame.encounter, [56, 32, kobold, 24, 65]);
+        await waitFor("the middle-distance kobold at the battle notice", () => run(`
+          state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined &&
+          !document.querySelector("#tile-art .encounter-portrait") &&
+          document.querySelector('.encounter-sprite[src="/art/${kobold}"]')?.naturalHeight === 260
+        `));
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "nomad-raid-alliance-battle-notice.png"), Buffer.from(shot.data, "base64"));
       }
       if (routeName === "kuto-well-surrounding-buildings-hold") {
         assert.deepEqual(frame.animation?.filter(phase => phase.portrait).map(({ portrait, durationMs }) => [portrait, durationMs]),
