@@ -4525,6 +4525,28 @@ const illustrationRoutes = new Map([
     prompt: /YOUHAVEFOUNDTHEBANDIT.STREASURE.*DOYOUTAKEIT/i,
     journalLead: "kuto-bandit-treasure",
   }],
+  ...[
+    ["western", "a133", 4, 13, "a13a", []],
+    ["northern", "a15a", 2, 10, "a161", ["enter", "up", "up", "right", "up", "up", "up"]],
+  ].map(([side, caller, x, y, aftermath, extra]) => {
+    const archer = scope => [56, 32, `encounter:area:29:ecl:${scope}:SPRIT8.DAX:0:2:0`, 24, 57];
+    const walk = ["down", "up", "enter", "enter", "enter", "up", "up", "right", "up", "up",
+      "left", "up", "up", "up", "right", "up", ...extra];
+    const hit = archer(`a168:caller:${caller}`);
+    const approaches = [archer("a0a4"), archer("a168:caller:a133")];
+    if (caller === "a15a") approaches.push(hit);
+    return [`kuto-catacombs-${side}-arrow`, {
+      slot: "J", stockInput: true, fixedClockStart: "4320000", inputs: [...walk, "enter"],
+      requireWebGL: true, approachSequence: approaches,
+      heldApproachAt: walk.length, heldApproachPrompt: /PRESS<ENTER>\/<RETURN>TOCONTINUE/i,
+      heldApproachPosition: [32, x, y], heldApproachPlacement: hit,
+      heldApproachCapture: `kuto-catacombs-${side}-archer.png`,
+      portrait: `scene-illustration:area:29:ecl:${aftermath}`,
+      prompt: /ADIMLYSEENFIGUREFIRESANARROWINTOTHEPARTY.*THEFIGUREFADESAWAY/i,
+      finalPhaseCapture: `kuto-catacombs-${side}-arrow-aftermath.png`,
+      continuation: { inputs: ["up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMP/i },
+    }];
+  }),
   ["kuto-well-catacomb-volley-hold", {
     slot: "J", inputs: ["down", "up", "enter", "enter"], illustratedScenery: true,
     portraitStops: { 2: "scene-illustration:area:29:ecl:af2f:caller:a08a", 3: "scene-illustration:area:29:ecl:a105" },
@@ -13096,6 +13118,7 @@ try {
       let heldApproachRecorded = false;
       for (const [index, key] of inputs.entries()) {
         if (!heldApproachRecorded && illustration.heldApproachPrompt && heldPortraitEvidenceFile &&
+            (illustration.heldApproachAt === undefined || illustration.heldApproachAt === index) &&
             frame.encounter && illustration.heldApproachPrompt.test(frame.text.toSorted(([a], [b]) => a - b)
               .map(([, char]) => String.fromCharCode(char)).join(""))) {
           await verifyHeldApproach(illustration.heldApproachPrompt, illustration.heldApproachPosition, heldApproachPlacement);
