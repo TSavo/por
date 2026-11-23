@@ -14,7 +14,7 @@ import { useNodeResources } from "../resources/node-play.js";
 import { loadCombatMaterialMasks, loadUpgradeArt } from "../upgrade-art.js";
 import { fromPortRoot } from "../port-root.js";
 import { buildWeb, webOutput } from "./build.js";
-import { loosePageFiles } from "./loose-files.js";
+import { looseMaskPath, loosePageFiles } from "./loose-files.js";
 import { resourceIndex } from "./resource-index.js";
 import { pageFiles, playPage, soundManifest } from "./static-files.js";
 
@@ -34,7 +34,7 @@ export async function writeLooseWeb(webDir: string) {
   write("resource-index.json", JSON.stringify(resourceIndex(resources, artwork, masks)));
   write("sound-manifest.json", soundManifest(resources));
   write("play.html", playPage());
-  for (const [base, png] of masks) write(`art-materials/${base}.png`, png);
+  for (const [base, png] of masks) write(looseMaskPath(base), png);
   const sources = pageFiles();
   for (const [url, relative] of loosePageFiles()) {
     const source = sources.get(url === "/" ? "" : url);
