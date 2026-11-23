@@ -3166,15 +3166,15 @@ const illustrationRoutes = new Map([
     heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:20:ecl:9e02:PIC2.DAX:0:${member}:0`),
   }],
   ["slums-roaming-orc-surprise-loop", {
-    slot: "B",
+    slot: "B", stockInput: true,
     inputs: [...Array.from({ length: 4 }, () => ["up", "enter", "down"]).flat(), "up"],
-    settleInputs: ["enter", "enter"],
     portrait: "portrait:area:20:ecl:b6df:caller:9c64:PIC2.DAX:4:0:0",
     prompt: /YOUARESURPRISEDBYORCS/i,
     heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:20:ecl:b6df:caller:9c64:PIC2.DAX:4:${member}:0`),
     continuation: {
       inputs: ["enter"], portrait: "portrait:area:20:ecl:b1bb:PIC2.DAX:4:0:0", prompt: /ABATTLEBEGINS/i,
-      pressOnPortrait: "portrait:area:20:ecl:b6df:caller:9c64:PIC2.DAX:4:2:0", retainPose: true,
+      pressOnPortrait: "portrait:area:20:ecl:b6df:caller:9c64:PIC2.DAX:4:2:0",
+      retainPose: true, automaticBattle: true,
     },
   }],
   ["slums-roaming-goblin-surprise-loop", {
@@ -14331,6 +14331,12 @@ try {
         assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /NOMADHITPOINTS/i);
       }
       if (continuation.retainPose) {
+        const orcSurprise = routeName === "slums-roaming-orc-surprise-loop";
+        if (orcSurprise) {
+          assert.equal(frame.prompt, "poll");
+          assert.equal(frame.battleEntryPolling, true, "The Orc notice should advance through a native battle-entry poll");
+          assert.ok(!frame.awaitsKey && !frame.automaticCombat);
+        }
         if (!continuation.automaticBattle) await switchBothWays(frame.frame);
         await waitForPortraitPaint(frame.sequence, continuation.pressOnPortrait);
         const shot = await command("Page.captureScreenshot", { format: "png" });
@@ -14345,6 +14351,11 @@ try {
           for (const key of continuation.battleNoticeInputs ?? ["enter"]) await advance(key);
         }
         assert.equal(frame.portrait, undefined);
+        if (orcSurprise) {
+          assert.ok(frame.ready && frame.awaitsKey && !frame.battleEntryPolling && !frame.automaticCombat);
+          const text = frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join("");
+          assert.match(text, /RHIANNONHITPOINTS7AC0BROADSWORD.*MOVEVIEWAIMUSECASTQUICKDONE/i);
+        }
         await waitFor("the battlefield without the encounter portrait", () => run(`
           state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined &&
           !document.querySelector(".encounter-portrait") &&
