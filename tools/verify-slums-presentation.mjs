@@ -11161,7 +11161,7 @@ try {
     const position = [20, 13, 10];
     const greeting = "scene-illustration:area:20:ecl:9fed";
     const directions = "scene-illustration:area:20:ecl:b6df:caller:a251";
-    await observeApproach([actor], true, true);
+    await observeApproach([actor]);
     await advance("up");
     await advance("b");
     if (ohloStudy.branch === "reward") {
@@ -11169,9 +11169,11 @@ try {
     } else {
       assert.equal(frame.portrait, greeting);
       if (ohloStudy.branch === "accept") {
-        assert.ok(frame.animation?.some(clip => JSON.stringify(clip.encounter) === JSON.stringify(actor)));
+        assert.deepEqual(frame.animation?.flatMap(({ encounter }) => encounter ? [encounter] : []), [actor]);
+        await waitFor("Ohlo's writing-stand approach to paint", () => run(`
+          window.observedApproach.has(${JSON.stringify(actor[2])})
+        `));
         await verifyStaticPortrait(greeting, /HESETSDOWNHISPENANDGAZESSTERNLYATYOU.*LEAVETALKATTACK/i, false, true);
-        assert.ok(await run(`window.observedApproach.has(${JSON.stringify(actor[2])})`));
       }
       await advance("t");
       assert.equal(frame.portrait, undefined);
