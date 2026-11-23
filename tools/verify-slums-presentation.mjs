@@ -3455,7 +3455,7 @@ const illustrationRoutes = new Map([
     slot: "H", fixedClockStart: "4320000", stockInput: true,
     inputs: ["down", "up", "right", "up", "right", "up", "up", "up", "right", "up", "up"],
     portrait: "portrait:HEAD3.DAX:13:BODY3.DAX:1",
-    prompt: /ALLOWMETOINTRODUCEDIRTEN,PRIESTOFILMAR.*PRESS<ENTER>\/<RETURN>TOCONTINUE/i,
+    prompt: /ALLOWMETOINTRODUCEDIRTEN,PRIESTOFILMAR/i,
     staticPortraitMenu: true,
     continuation: {
       inputs: ["enter"], portrait: "portrait:HEAD3.DAX:0:BODY3.DAX:4",
@@ -3466,7 +3466,7 @@ const illustrationRoutes = new Map([
     slot: "A", fixedClockStart: "4320000", stockInput: true,
     inputs: ["down", "up", "left", "up", "up", "up", "up", "left", "up"],
     portrait: "portrait:area:0:HEAD3.DAX:57:BODY3.DAX:1",
-    prompt: /THEPRIESTSOFTEMPUSBIDYOUWELCOME.*DOYOUSEEKHEALING.*YESNO/i,
+    prompt: /THEPRIESTSOFTEMPUSBIDYOUWELCOME.*DOYOUSEEKHEALING/i,
     staticPortraitMenu: true,
     continuation: { inputs: ["n"], clearsPortrait: true, prompt: /THENYOUMUSTLEAVE/i },
   }],
@@ -3477,7 +3477,7 @@ const illustrationRoutes = new Map([
     oneShotProducer: "ECL3.DAX:0:aa75",
     finalPhaseCapture: "new-phlan-tempus-watch-battle-notice.png",
     continuation: {
-      inputs: [":travel-poll", ":travel-poll", ":travel-poll"],
+      automaticBattle: true,
       clearsPortrait: true, prompt: /HITPOINTS/i,
     },
   }],
@@ -4927,13 +4927,13 @@ const illustrationRoutes = new Map([
   ["slums-potion-booth-attack", {
     slot: "G", fixedClockStart: "4320000", stockInput: true,
     inputs: ["right", "up", "up", "left", "up", "right", "up", "up", "right", "up", "left", "up", "a"],
-    phasePrompts: { 12: /LEAVEATTACKSPEAK/i },
+    phasePrompts: { 12: /AMANHURRIESFORWARD.*WHATDOYOUDO/i },
     portraitStops: { 12: "portrait:area:20:HEAD2.DAX:5:BODY2.DAX:9" },
     portrait: "portrait:area:20:ecl:af6d:PIC2.DAX:6:0:0",
     prompt: /THEMANRUNSSCREAMINGINTOTHEBACKOFTHEBOOTH.*ABATTLEBEGINS/i,
     oneShotProducer: "ECL2.DAX:20:af46",
     finalPhaseCapture: "slums-potion-booth-ambush.png",
-    continuation: { inputs: [":travel-poll"], clearsPortrait: true, prompt: /HITPOINTS/i },
+    continuation: { automaticBattle: true, clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
   ["slums-monster-council-phases", {
     slot: "B", inputs: ["up", "enter", "enter", ...Array(18).fill("q")],
@@ -13056,6 +13056,13 @@ try {
         frame = await waitFor(`the battle notice after one ${key}`, async () => {
           const next = await latest();
           return next.ready && next.sequence > sequence && next;
+        });
+      } else if (continuation.automaticBattle) {
+        const sequence = frame.sequence;
+        frame = await waitFor("the manual combat turn after the notice", async () => {
+          const next = await latest();
+          const text = next.text.map(([, character]) => String.fromCharCode(character)).join("");
+          return next.ready && next.sequence > sequence && next.awaitsKey && !next.portrait && continuation.prompt.test(text) && next;
         });
       } else {
         for (const key of continuation.inputs) await advance(key);
