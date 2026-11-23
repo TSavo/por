@@ -4750,12 +4750,24 @@ const illustrationRoutes = new Map([
   }],
   ["valjevo-forge-patrol", {
     slot: "B", inputs: ["up", "enter", "enter", "a", "a"],
+    settleInputs: ["a"],
     approachSequence: [
       [56, 32, "encounter:area:6:SPRIT5.DAX:16:2:0", 16, 49],
       [56, 32, "encounter:area:6:SPRIT5.DAX:16:1:0", 24, 65],
       [48, 32, "encounter:area:6:ecl:aa19:SPRIT5.DAX:16:0:0", 40, 80],
     ],
     portrait: "portrait:area:6:HEAD5.DAX:9:BODY5.DAX:1", prompt: /THEYADVANCE,?WEAPONSREADY/i,
+    staticPortraitMenu: true,
+    continuation: { inputs: ["f"], clearsPortrait: true, prompt: /ABATTLEBEGINS/i },
+  }],
+  ["valjevo-forge-patrol-disguise", {
+    slot: "B", inputs: ["up", "enter", "enter", "a", "a"],
+    settleInputs: ["a"],
+    portrait: "portrait:area:6:HEAD5.DAX:9:BODY5.DAX:1", prompt: /WHATAREYOUDOINGHERE/i,
+    staticPortraitMenu: true,
+    continuation: {
+      inputs: ["p", "m", ..."harash", "enter"], clearsPortrait: true, prompt: /WITHANODOFTHEHEADYOUARELEFTALONE/i,
+    },
   }],
   ["zhentil-quarters-ambush", {
     slot: "A", inputs: ["up", "enter", "s", "enter"],

@@ -184,18 +184,20 @@ const eclCandidates = scripts.flatMap(record => {
     let composedPortrait;
     const address = authored(load.address);
     const falseThrone = scriptBlock === 5 && address === "a98a";
+    const forgePatrol = scriptBlock === 6 && ["a9e6", "aa49"].includes(address);
     const genheerisOffer = scriptBlock === 7 && opcode === 0x0c && address === "a255";
     if (archive === 5 && (genheerisOffer || opcode === 0x29 &&
         (scriptBlock === 7 && ["a184", "a56c"].includes(address) ||
-         scriptBlock === 5 && address === "a256" || falseThrone))) {
-      // The false throne sets the head before the approach, then reuses the
-      // same body when it opens the encounter menu.
-      const setup = falseThrone ? decoded.find(instruction => authored(instruction.address) === "a953") : undefined;
+         scriptBlock === 5 && address === "a256" || falseThrone || forgePatrol))) {
+      // The false throne and forge patrol reuse the head selected by their approach setup.
+      const setupAddress = falseThrone ? "a953" : forgePatrol ? "a8fc" : undefined;
+      const setup = setupAddress ? decoded.find(instruction => authored(instruction.address) === setupAddress) : undefined;
       const headWrite = decoded.find(instruction => instruction.next === (setup?.address ?? load.address));
       // Both versions of the bargain reset the head when the Yes/No helper returns.
       const resetAddresses = genheerisOffer ? ["a30f", "a345"] : [authored(load.next)];
       const headResets = resetAddresses.map(reset => decoded.find(instruction => authored(instruction.address) === reset));
-      if ((!falseThrone || setup?.opcode === 0x0c && literal(setup.operands[2]!) === portrait.literal) &&
+      if ((!setupAddress || setup?.opcode === 0x0c && literal(setup.operands[2]!) === portrait.literal &&
+            literal(setup.operands[0]!) === literal(operands[0]!)) &&
           headWrite?.opcode === 0x09 && memory(headWrite.operands[1]!) === 0x6de1 &&
           headResets.every(reset => reset?.opcode === 0x09 && memory(reset.operands[1]!) === 0x6de1 &&
             literal(reset.operands[0]!) === 0xff) && portrait.literal !== null) {

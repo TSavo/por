@@ -13972,6 +13972,166 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL5.DAX:6:a9e6",
+      "prompt": "aa19",
+      "variants": [
+        {
+          "caption": "THEY ADVANCE, WEAPONS READY",
+          "portrait": "portrait:area:6:HEAD5.DAX:9:BODY5.DAX:1",
+          "checkpoint": "valjevo-forge-patrol/B.json",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 W 00:10 THEY ADVANCE, WEAPONS READY Combat Wait Flee Parlay",
+            "idlePolls": 64,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              },
+              {
+                "idlePolls": 64,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              }
+            ],
+            "drawCursor": "aa19",
+            "composed": {
+              "source": "HEAD5.DAX:9:BODY5.DAX:1",
+              "headWrite": "a8f6",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "aa19"
+            },
+            "clearedPanelSha256": "f90ca58df4f158e7ccb6101447ba02a063453f023796c8c60f974a0aef8ba381"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-forge-patrol",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46W00:10THEYADVANCE,WEAPONSREADYCombatWaitFleeParlay",
+              "portrait": "portrait:area:6:HEAD5.DAX:9:BODY5.DAX:1",
+              "checkpointSha256": "b64515ffe5f72e82688ae18f8223269af06d5d8ed996e7908ae3d70422099a16",
+              "artSha256": "20e7631ab50ca5401c5c0bec552976d7623bb8a05854f1ae4fc6399fca2d2369",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3661,
+              "samples": 220,
+              "poses": [
+                "portrait:area:6:HEAD5.DAX:9:BODY5.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-forge-patrol",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46W00:10THEYADVANCE,WEAPONSREADYCombatWaitFleeParlay",
+              "portrait": "portrait:area:6:HEAD5.DAX:9:BODY5.DAX:1",
+              "checkpointSha256": "b64515ffe5f72e82688ae18f8223269af06d5d8ed996e7908ae3d70422099a16",
+              "artSha256": "20e7631ab50ca5401c5c0bec552976d7623bb8a05854f1ae4fc6399fca2d2369",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3655,
+              "samples": 220,
+              "poses": [
+                "portrait:area:6:HEAD5.DAX:9:BODY5.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL5.DAX:6:aa49",
+      "prompt": "aa8a",
+      "variants": [
+        {
+          "caption": "WHAT ARE YOU DOING HERE",
+          "portrait": "portrait:area:6:HEAD5.DAX:9:BODY5.DAX:1",
+          "checkpoint": "valjevo-forge-patrol/disguised-B.json",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 W 00:10 'WHAT ARE YOU DOING HERE?' Combat Wait Flee Parlay",
+            "idlePolls": 64,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              },
+              {
+                "idlePolls": 64,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              }
+            ],
+            "drawCursor": "aa8a",
+            "composed": {
+              "source": "HEAD5.DAX:9:BODY5.DAX:1",
+              "headWrite": "a8f6",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "aa8a"
+            },
+            "clearedPanelSha256": "b4e92c2ed027ffb3e82b043dd2d885c422483a1f1dada44147e86154d17ee6dd"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-forge-patrol-disguise",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46W00:10'WHATAREYOUDOINGHERE?'CombatWaitFleeParlay",
+              "portrait": "portrait:area:6:HEAD5.DAX:9:BODY5.DAX:1",
+              "checkpointSha256": "6167ceb3051d0cc29e83012a1189f74c03c02e2e5df0089899d48e937066b96a",
+              "artSha256": "20e7631ab50ca5401c5c0bec552976d7623bb8a05854f1ae4fc6399fca2d2369",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3663,
+              "samples": 221,
+              "poses": [
+                "portrait:area:6:HEAD5.DAX:9:BODY5.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-forge-patrol-disguise",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46W00:10'WHATAREYOUDOINGHERE?'CombatWaitFleeParlay",
+              "portrait": "portrait:area:6:HEAD5.DAX:9:BODY5.DAX:1",
+              "checkpointSha256": "6167ceb3051d0cc29e83012a1189f74c03c02e2e5df0089899d48e937066b96a",
+              "artSha256": "20e7631ab50ca5401c5c0bec552976d7623bb8a05854f1ae4fc6399fca2d2369",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3666,
+              "samples": 221,
+              "poses": [
+                "portrait:area:6:HEAD5.DAX:9:BODY5.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
     }
   ],
   "approachTransitions": [
