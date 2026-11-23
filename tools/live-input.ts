@@ -48,9 +48,11 @@ const kutoWellLookFacing = new Map([["7,8", 0], ["6,7", 2], ["7,6", 4], ["8,7", 
 // Use the loaded script's area so the artwork follows the print during district transitions.
 const ohloElixirIllustration = "scene-illustration:area:20:ecl:a38f";
 const slumsStableIllustration = "scene-illustration:area:20:ecl:a453";
+const valjevoScribeFlight = "scene-illustration:area:4:ecl:b1c7:cue:records-scribe-flight";
 const transientScriptIllustrations = new Map([
   ["2:20:a38f", ohloElixirIllustration],
   ["2:20:a453", slumsStableIllustration],
+  ["5:4:b1c7", valjevoScribeFlight],
   ["7:26:9be2", "scene-illustration:area:26:ecl:9be2"],
   ["8:13:ad39", "scene-illustration:area:13:ecl:ad39"],
   ["8:16:aab7", "scene-illustration:area:16:ecl:aab7"],
@@ -61,6 +63,7 @@ const transientScriptIllustrations = new Map([
 const transientScriptIllustrationDurations = new Map([
   [ohloElixirIllustration, 17000], // 15.961 s
   [slumsStableIllustration, 8750], // 7.706 s
+  [valjevoScribeFlight, 8350], // 7.340 s
 ]);
 export interface OverlandTerrainFrame {
   slots: readonly number[];
@@ -1571,6 +1574,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
       }
       captureEclContext(cpu);
+      // Classic still needs the guest's original pause for the caption already illustrated in Enhanced.
+      if (pauseMs !== undefined && area === 4 && battleCursor === 0x99d9 && portraitCaller === 0xb1cb &&
+          animation.at(-1)?.portrait === valjevoScribeFlight) {
+        showFrame(undefined, undefined, false, false, pauseMs, undefined, false, "picture");
+        animation.at(-1)!.classicOnly = true;
+        pauseOutcome = "picture";
+        return;
+      }
       const queueFull = animation.length >= 12 && !animation.some(flightFrame);
       const battlefield = (nativeBattleActive && hasBattlefieldFrame()) || hasBattlefieldBorder(screen);
       // Combat prints action and result text below the actor's stats in

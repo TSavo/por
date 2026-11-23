@@ -1587,6 +1587,14 @@ const illustrationRoutes = new Map([
     prompt: /BEHINDTHEALTERARETWOCROSSEDSWORDS.*DOYOUTAKETHEM/i,
     continuation: { inputs: ["y"], prompt: /EACHCHARACTERRECEIVES400EXPERIENCEPOINTS/i, clearsPortrait: true },
   }],
+  ["valjevo-records-scribe-flight", {
+    slot: "C", fixedClockStart: "4321731", stockInput: true, inputs: ["up", "y", "enter", "enter", "enter"],
+    transientPortraits: { 5: {
+      id: "scene-illustration:area:4:ecl:b1c7:cue:records-scribe-flight",
+      prompt: /ASCRIBEWALKSINTOTHEROOM.*DROPSHISBOOKSANDRUNSOUTTHEDOOR/i, durationMs: 8350,
+    } },
+    prompt: /ANALARMSTARTSRINGING/i,
+  }],
   ["valjevo-dungeon-armory", {
     slot: "B", inputs: ["up", "enter"],
     portraitStops: { 1: "scene-illustration:area:4:ecl:9a5a:caller:a6de" },
