@@ -1586,16 +1586,11 @@ const illustrationRoutes = new Map([
       `portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:${member}:0`),
   }],
   ["podal-auction-hostile-crowd-phases", {
-    slot: "I", inputs: ["up", ...Array(11).fill("enter"), ...Array(11).fill("z")],
-    portraitStops: {
-      12: "portrait:area:18:ecl:b240:caller:a7f0:PIC1.DAX:16:0:0",
-      16: "portrait:area:18:ecl:b240:caller:a7f0:PIC1.DAX:16:1:0",
-      17: "portrait:area:18:ecl:b240:caller:a7f0:PIC1.DAX:16:2:0",
-      19: "portrait:area:18:ecl:b240:caller:a7f0:PIC1.DAX:16:3:0",
-      20: "portrait:area:18:ecl:b240:caller:a7f0:PIC1.DAX:16:4:0",
-    },
-    portrait: "portrait:area:18:ecl:b240:caller:a7f0:PIC1.DAX:16:5:0",
+    slot: "I", inputs: ["up", ...Array(11).fill("enter")],
+    portrait: "portrait:area:18:ecl:b240:caller:a7f0:PIC1.DAX:16:0:0",
     prompt: /THEMONSTERSLOOKAROUNDFORASCAPEGOAT/i,
+    heldPortraitLoop: Array.from({ length: 6 }, (_, member) =>
+      `portrait:area:18:ecl:b240:caller:a7f0:PIC1.DAX:16:${member}:0`),
   }],
   ["podal-auction-raised-bid-phases", {
     slot: "I", inputs: ["up", ...Array(6).fill("enter")],

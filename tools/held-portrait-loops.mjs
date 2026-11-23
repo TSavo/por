@@ -99,6 +99,8 @@ const portraitLoops = [
     /THEBIDDINGESCALATESTOGOLDPIECES.*NEXTTOANOGRE/i, auctionPoseTimes],
   ["portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:", 6, undefined,
     /THEOGREISTACKLEDANDSEARCHED.*DOESNTHAVETHEITEM/i, auctionPoseTimes],
+  ["portrait:area:18:ecl:b240:caller:a7f0:PIC1.DAX:16:", 6, undefined,
+    /THEMONSTERSLOOKAROUNDFORASCAPEGOAT.*SETTLERS/i, auctionPoseTimes],
   ["portrait:area:18:ecl:b240:caller:a637:PIC1.DAX:16:", 6, undefined,
     /GOINGGOINGGONETHEAUCTIONEERCRIES/i, auctionPoseTimes],
   // The accusation and the wand exchange share a839. Use the accusation's
