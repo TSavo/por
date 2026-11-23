@@ -12221,11 +12221,6 @@ try {
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, "lizard-wilds-stirge-swarm-battle.png"), Buffer.from(shot.data, "base64"));
       }
-      if (routeName === "nomad-camp-sentry-combat") {
-        await advance("enter");
-        assert.equal(frame.portrait, undefined);
-        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /NOMADHITPOINTS/i);
-      }
       if (routeName === "new-phlan-city-hall-exit") {
         assert.deepEqual([frame.exploration?.area, frame.scenery?.x, frame.scenery?.y], [0, 4, 3]);
         await waitForExplorationViewport();
@@ -12293,6 +12288,11 @@ try {
         await waitForExplorationViewport();
       }
       if (!continuation.clearsPortrait) await verifyPortraitPanel();
+      if (routeName === "nomad-camp-sentry-combat") {
+        await advance("enter");
+        assert.equal(frame.portrait, undefined);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /NOMADHITPOINTS/i);
+      }
       if (continuation.retainPose) {
         await switchBothWays(frame.frame);
         await waitForPortraitPaint(frame.sequence, continuation.pressOnPortrait);
