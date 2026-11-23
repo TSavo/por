@@ -16,6 +16,7 @@ const battleEntryRoutes = new Map([
     file: "wild-cave-two-guard-lizards.png",
     noticeScreenshot: "wild-cave-two-guard-lizards.png",
     pollFrames: 1,
+    producer: "ECL8.DAX:27:a616",
   }],
   ["bane-altar-automatic-battle-entry", {
     slot: "A", trigger: { key: "d", code: "KeyD", windowsVirtualKeyCode: 68 }, input: "d",
@@ -12431,6 +12432,22 @@ try {
     assert.deepEqual(png, readFileSync(resolve("upgrades", battleEntry.file)));
     const capture = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, "first-manual-combat.png"), Buffer.from(capture.data, "base64"));
+    if (battleEntry.producer && heldPortraitEvidenceFile) {
+      const renderer = await fetch(origin + "/play.js");
+      assert.ok(renderer.ok);
+      const { result } = await command("Runtime.evaluate", {
+        expression: `portraitLoopBindings.then(module => module.portraitLoopSignature(${JSON.stringify(battleEntry.portrait)}))`,
+        awaitPromise: true, returnByValue: true,
+      });
+      assert.equal(typeof result.value, "string");
+      heldPortraitEvidence.push({
+        producer: battleEntry.producer, route: routeName,
+        data: frame.classicAvailable === false ? "port" : "original", portrait: battleEntry.portrait,
+        rendererSha256: createHash("sha256").update((await renderer.text()).replace(/\r\n/g, "\n")).digest("hex"),
+        bindingSha256: createHash("sha256").update(result.value).digest("hex"),
+        artSha256: createHash("sha256").update(png).digest("hex"),
+      });
+    }
     const evidence = { route: routeName, source: process.env.POR_GAME_SOURCE, fixture: checkpoint,
       artSha256: createHash("sha256").update(png).digest("hex"), ...settled, posts: sent };
     const receipt = resolve(directory, "automatic-battle-entry.json");
