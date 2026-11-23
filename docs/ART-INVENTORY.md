@@ -1038,15 +1038,15 @@ Enhanced uses the illustrated map. Both source copies and their slot
 ranges are available under `POR_TRACE_BATTLE_DRAW=1`.
 
 Indoor setup copies DUNGCOM into slots 0–24 and RANDCOM into slots
-34–39. The worklist holds any uncovered BACPAC hashes from the
-remaining slots 25–33 pending evidence of indoor use.
+34–39. Slots 25–33 retain BACPAC.
 
 GOG 1.3 arena kind entries 0–31 in `DS:2747` reference only slots 0–24
 and 34–39. The Bane ogre, Valjevo hill giants and paired wyvern traces
 produced 375 indoor draws from DUNGCOM or RANDCOM. The Bane and
 Valjevo replays captured terrain before stopping on their expected
-combat art keys. The untouched slots stay in the QA list until the
-arena initialization and later writes account for every visible cell.
+combat art keys. The [worklist](ART-WORKLIST.md#not-established) records
+the arena initialization, later writes, and combat traces that rule out
+indoor use of slots 25–33.
 
 The scoped `bane-ogre-commander-combat` replay passed standing and strike
 checks in both GOG 1.3 data modes. All 255 distinct draw records agreed
