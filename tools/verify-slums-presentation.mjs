@@ -754,6 +754,19 @@ const mountedEscort = {
 };
 
 const illustrationRoutes = new Map([
+  ["wild-cave-boar-sow-warning-loop", {
+    slot: "A", inputs: ["up"],
+    portrait: "portrait:area:25:ecl:a622:PIC6.DAX:120:0:0",
+    prompt: /WILDBOARSOWFEEDINGHERYOUNG.*SHEGROWLSAWARNINGTOSTAYAWAY/i,
+    heldPortraitLoop: [
+      "portrait:area:25:ecl:a622:PIC6.DAX:120:0:0",
+      "portrait:area:25:ecl:a622:PIC6.DAX:120:1:0",
+      "portrait:area:25:ecl:a622:PIC6.DAX:120:2:0",
+    ],
+    finalPhaseCapture: "wild-cave-boar-sow-warning.png",
+    continuation: { inputs: ["a"], portrait: "portrait:area:25:ecl:a66c:PIC6.DAX:120:0:0",
+      prompt: /HAIRBRISTLESANDSHEATTACKS.*ABATTLEBEGINS/i },
+  }],
   ["buccaneer-mounted-escort-loop", { ...mountedEscort, inputs: ["down"] }],
   ["buccaneer-mounted-escort-random-loop", {
     ...mountedEscort, inputs: ["up"], fixedClockStart: "4320016",
@@ -7969,6 +7982,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
+      routeName === "wild-cave-boar-sow-warning-loop" ||
       routeName === "diogenes-silver-directions-loop" ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       /^tyrmor-prison-(kobolds|lizardfolk|displacer|stirge)-loop$/.test(routeName) ||
