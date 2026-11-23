@@ -35301,7 +35301,8 @@
             "scene-illustration:area:24:ecl:ae96:caller:ad99:cue:black-hand-warning"
           ],
           "replaced": false,
-          "paneSampleSha256": "3d3f8f5412da5c9032efdc62e8838fa9820ca212e721c604137a211c1bb96514"
+          "paneSampleSha256": "3d3f8f5412da5c9032efdc62e8838fa9820ca212e721c604137a211c1bb96514",
+          "sha256": "e97aff181a9932bdbce9131d67d76050e7b26081bddddaaf884bdd16c2b67b82"
         },
         "port": {
           "route": "bane-black-hand-patrol-warning",
@@ -35318,7 +35319,8 @@
             "scene-illustration:area:24:ecl:ae96:caller:ad99:cue:black-hand-warning"
           ],
           "replaced": false,
-          "paneSampleSha256": "3d3f8f5412da5c9032efdc62e8838fa9820ca212e721c604137a211c1bb96514"
+          "paneSampleSha256": "3d3f8f5412da5c9032efdc62e8838fa9820ca212e721c604137a211c1bb96514",
+          "sha256": "e97aff181a9932bdbce9131d67d76050e7b26081bddddaaf884bdd16c2b67b82"
         }
       }
     }
