@@ -1,6 +1,6 @@
 # Pool of Radiance
 
-<img src="docs/readme/title-screen.png" width="960" alt="The Special Edition title screen: Pool of Radiance over the night harbor of New Phlan, with the build number in the corner">
+<img src="docs/readme/title-screen.gif" width="960" alt="The Special Edition title screen: Pool of Radiance over the rippling night harbor of New Phlan">
 
 This is SSI's Pool of Radiance — the same adventure through the ruins of Phlan, the same party, the same fights, the same dragon under Valjevo Castle. What has changed is how it feels to be there.
 
