@@ -939,6 +939,19 @@ const illustrationRoutes = new Map([
       portraits: [0, 1, 2, 3].map(member => "portrait:area:23:ecl:a23f:PIC7.DAX:57:" + member + ":0"),
       pressOnPortrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:2:0", retainPose: true },
   }],
+  ["kuto-lizardfolk-surprise-loop", {
+    slot: "B", fixedClockStart: "4320107", stockInput: true,
+    inputs: ["up", "left", "up", "up", ...Array.from({ length: 14 }, () => ["down", "up"]).flat()],
+    portrait: "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:57:0:0",
+    prompt: /YOUARESURPRISEDBYLIZARDMEN\./i,
+    heldPortraitLoop: [0, 1, 2, 3].map(member => `portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:57:${member}:0`),
+    continuation: {
+      inputs: ["enter"], portrait: "scene-illustration:area:29:ecl:ad16:caller:a49f:cue:lizardfolk-surprise",
+      prompt: /YOUARESURPRISEDBYLIZARDMEN\..*ABATTLEBEGINS/i,
+      pressOnPortrait: "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:57:2:0", retainPose: true,
+      screenshot: "kuto-lizardfolk-surprise-battle-notice.png",
+    },
+  }],
   ["kuto-well-waiting-kobolds-hold", {
     slot: "J", inputs: kutoWellAlleyInputs,
     ...waitingKobolds,

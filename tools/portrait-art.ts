@@ -1743,6 +1743,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:29:ecl:afa1", "BEFOREYOULIESKUTO'SWELL.ITISASOURCEOFWATERINALLSEASONS"],
   ["scene-illustration:area:29:ecl:afa1:cue:daylight", "BEFOREYOULIESKUTO'SWELL.ITISASOURCEOFWATERINALLSEASONS"],
   [kutoWellAmbush, "MONSTERSFROMTHESURROUNDINGBUILDINGSATTACKYOU"],
+  ["scene-illustration:area:29:ecl:ad16:caller:a49f:cue:lizardfolk-surprise", "YOUARESURPRISEDBYLIZARDMEN."],
   [kutoWellReinforcements, "ABANDOFKOBOLDSCLIMBSFROMTHEWELLANDATTACKS"],
   [kutoWellWaitingKobolds, "YOUSTUMBLEONSOMEWAITINGKOBOLDS"],
   [kutoWellKoboldsBehind, "ABANDOFKOBOLDSCLIMBSFROMTHEWELLBEHINDYOUANDATTACKS"],
