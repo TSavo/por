@@ -603,6 +603,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:17:ecl:9da2:caller:a980", "PLEASETHINKABOUTITOVERNIGHT"],
   ["scene-illustration:area:17:ecl:9da2:caller:a12a", /THEHEADMANTORALLYHISPEOPLE.*HELEADSHISTRIBEINTOBATTLE/i],
   ["scene-illustration:area:17:ecl:9da2:caller:af47:cue:melee", /AHEADYOUSEEALARGEGROUPOFKOBOLDSENGAGEDINMELEEWITHSOMENOMADS/i],
+  ["scene-illustration:area:17:ecl:9da2:caller:b4c8:cue:advance", /ADVANCINGONYOUISALARGEBANDOFKOBOLDSWITHBLOODLUSTINTHEIREYES/i],
   ["scene-illustration:area:17:ecl:9da2:caller:b4c8:cue:perimeter", /AHORDEOFKOBOLDSISATTACKINGTHECAMP/i],
   ["scene-illustration:area:17:ecl:9da2:caller:af47", /AHORDEOFKOBOLDSISATTACKINGTHECAMP.*AFAMILYEMERGESFROMAHUTANDCHARGESTHEKOBOLDS/i],
   ["scene-illustration:area:17:ecl:9da2:caller:b0fb", /KOBOLDSMOVINGRELUN?CTANTLYFORWARD.*THEHEADMANWALKSUPANDSLAPSYOUONTHEBACK/i],

@@ -10809,6 +10809,8 @@
     "scene-illustration:area:17:ecl:a011": "nomad-headman-refusal-attack.png",
     "scene-illustration:area:17:ecl:9da2:caller:a12a": "nomad-headman-rallies-tribe.png",
     "scene-illustration:area:17:ecl:9da2:caller:af47:cue:melee": "nomad-raid-distant-melee.png",
+    "scene-illustration:area:17:ecl:9da2:caller:b4c8:cue:advance": "nomad-raid-cornered-kobolds.png",
+    "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:0:0": "nomad-raid-cornered-kobolds.png",
     "scene-illustration:area:17:ecl:9da2:caller:b4c8:cue:perimeter": "nomad-raid-camp-perimeter.png",
     "scene-illustration:area:17:ecl:9da2:caller:af47": "nomad-raid-first-attack.png",
     "scene-illustration:area:17:ecl:9da2:caller:b0fb": "nomad-raid-kobold-alliance.png",
