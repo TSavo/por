@@ -16,3 +16,6 @@ The `slums-roaming-kobold-advance-loop`, `slums-roaming-goblin-advance-loop`,
 and `slums-roaming-orc-advance-loop` routes use the same checkpoint to
 check the approaching sprite, the portrait after Advance, and the start
 of combat at each angry-party selection.
+
+The corresponding `slums-roaming-*-spotted-loop` routes check the
+close portrait and combat notice after spotting a roaming party.

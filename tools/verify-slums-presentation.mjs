@@ -2562,6 +2562,24 @@ const illustrationRoutes = new Map([
     },
   }],
   ...[
+    ["kobold", "4320030", 1, 0, [0, 1, 2, 1], ["b1bb", "b1e5", "b216"]],
+    ["goblin", "4320600", 2, 2, [0, 1], ["b1e5"]],
+    ["orc", "4320010", 3, 4, [0, 1, 2, 1], ["b1bb"]],
+  ].map(([creature, fixedClockStart, steps, block, members, battleCursors]) => {
+    const portrait = member => `portrait:area:20:ecl:9da2:PIC2.DAX:${block}:${member}:0`;
+    return [`slums-roaming-${creature}-spotted-loop`, {
+      slot: "B", fixedClockStart,
+      inputs: [...Array.from({ length: steps }, () => ["up", "enter", "down"]).flat(), "up"],
+      settleInputs: ["enter", "a", "a"],
+      portrait: portrait(0), prompt: new RegExp(`YOUSPYAGROUPOFSEEDY-LOOKING${creature}S`, "i"),
+      heldPortraitLoop: members.map(portrait),
+      continuation: {
+        inputs: ["c"], portraits: battleCursors.map(cursor => `portrait:area:20:ecl:${cursor}:PIC2.DAX:${block}:0:0`),
+        prompt: /ABATTLEBEGINS/i, pressOnPortrait: portrait(block === 2 ? 1 : 2), retainPose: true,
+      },
+    }];
+  }),
+  ...[
     ["kobold", "4320150", 0, [0, 1, 2, 1], [56, 32, "encounter:SPRIT2.DAX:0:1:0", 24, 65]],
     ["goblin", "4320100", 2, [0, 1], [56, 32, "encounter:area:20:SPRIT2.DAX:2:1:0", 32, 65]],
     ["orc", "4320350", 4, [0, 1, 2, 1], [56, 32, "encounter:SPRIT2.DAX:4:1:0", 32, 65]],
@@ -8533,7 +8551,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valjevo-fire-giant-refusal-loop" ||
       routeName === "valjevo-fire-giant-intruder-loop" ||
       routeName.startsWith("valjevo-tower-giants-") ||
-      /^slums-roaming-(?:kobold|(?:kobold|orc|goblin)-(?:surprise|advance))-loop$/.test(routeName) ||
+      /^slums-roaming-(?:kobold|(?:kobold|orc|goblin)-(?:surprise|advance|spotted))-loop$/.test(routeName) ||
       /^valjevo-giant-barracks-password-(haughty|sly)-loop$/.test(routeName) ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||
