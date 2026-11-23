@@ -291,13 +291,36 @@ const eclCandidates = scripts.flatMap(record => {
   const easternMarchesFaceToFaceUnreachable = archive === 8 && scriptBlock === 27 &&
     easternMarchesBothSurprisedUnreachable(script.bytes, instructions, roots);
   const poolMenu = archive === 8 && scriptBlock === 16 ? lizardPoolRetainedMenu(instructions, roots) : undefined;
+  const nomadHutFacingIsEast = (() => {
+    if (archive !== 7 || scriptBlock !== 17) return false;
+    const facing = instructions.get(0xae64);
+    const caption = instructions.get(0xae6a);
+    const call = instructions.get(0xae92);
+    const compare = instructions.get(0x9c5b);
+    const condition = instructions.get(0x9c61);
+    const skipSpin = instructions.get(0x9c62);
+    return facing?.opcode === 0x09 && literal(facing.operands[0]!) === 1 &&
+      memory(facing.operands[1]!) === 0xc04d && facing.next === caption?.address &&
+      caption?.opcode === 0x12 && caption.next === call?.address &&
+      call?.opcode === 0x02 && call.operands[0]?.word === compare?.address && call.next === 0xae96 &&
+      compare?.opcode === 0x03 && memory(compare.operands[0]!) === 0xc04d &&
+      literal(compare.operands[1]!) === 3 && compare.next === condition?.address &&
+      condition?.opcode === 0x16 && condition.next === skipSpin?.address &&
+      skipSpin?.opcode === 0x01 && skipSpin.operands[0]?.word === 0x9d7f && skipSpin.next === 0x9c66;
+  })();
+  function followsScriptBranch(from: State, to: State) {
+    // The hut exit turns east before calling the war cries helper.
+    // Only callers that enter facing west skip the spin acknowledgement.
+    return !nomadHutFacingIsEast || from.address !== 0x9c61 ||
+      from.returns.at(-1) !== 0xae96 || to.address !== 0x9c62;
+  }
   const contexts = new Map<number, State[]>();
   walk(roots, instructions, state => {
     const states = contexts.get(state.address) ?? [];
     states.push(state);
     contexts.set(state.address, states);
     return true;
-  });
+  }, followsScriptBranch);
 
   function immediateCombatAfter(load: Instruction) {
     // The first throne fight initializes four guest actors before COMBAT.
@@ -838,7 +861,7 @@ const eclCandidates = scripts.flatMap(record => {
         prompt(state, instruction, 0);
       }
       return true;
-    });
+    }, followsScriptBranch);
 
     const retainedVerticalMenus = new Map<string, string>();
     if (archive === 6 && scriptBlock === 1 && load.address === 0x9dc8) {
