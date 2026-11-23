@@ -4145,6 +4145,36 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:26:ecl:a982:PIC7.DAX:57:0:0", prompt: /INSIDETHISHUTAREFOURLIZARDMEN.*ABATTLEBEGINS/i,
     finalPhaseCapture: "old-phlan-hut-lizardfolk-battle-opening.png",
   }],
+  ["wild-grove-mutant-hut-ambush", {
+    slot: "A", inputs: ["up"],
+    oneShotProducer: "ECL7.DAX:26:a899",
+    approachSequence: [[48, 32, "encounter:area:26:ecl:a8a0:SPRIT7.DAX:57:0:0", 48, 80]],
+    requireTiledApproach: false,
+    portrait: "portrait:area:26:ecl:a91d:PIC7.DAX:57:0:0",
+    prompt: /(?=.*POOLOFBLACKMUCKARETWOHORRIBLYMUTATEDLIZARDMEN)(?=.*ABATTLEBEGINS)/i,
+    finalPhaseCapture: "wild-grove-mutant-hut-ambush.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
+  ["wild-grove-lizardfolk-hut-ambush", {
+    slot: "A", inputs: ["up"],
+    oneShotProducer: "ECL7.DAX:26:a93d",
+    approachSequence: [[48, 32, "encounter:area:26:ecl:a944:SPRIT7.DAX:57:0:0", 48, 80]],
+    requireTiledApproach: false,
+    portrait: "portrait:area:26:ecl:a982:PIC7.DAX:57:0:0",
+    prompt: /(?=.*INSIDETHISHUTAREFOURLIZARDMEN\.THEYATTACKYOUIMMEDIATELY)(?=.*ABATTLEBEGINS)/i,
+    finalPhaseCapture: "wild-grove-lizardfolk-hut-ambush.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
+  ["wild-grove-large-lizardfolk-ambush", {
+    slot: "A", inputs: ["up"],
+    oneShotProducer: "ECL7.DAX:26:a9a2",
+    approachSequence: [[48, 32, "encounter:area:26:ecl:a9a9:SPRIT7.DAX:57:0:0", 48, 80]],
+    requireTiledApproach: false,
+    portrait: "portrait:area:26:ecl:aa07:PIC7.DAX:57:0:0",
+    prompt: /(?=.*FOURLARGELIZARDMEN.*ONEOFTHEMYELLS'KILL'ANDTHEYATTACK)(?=.*ABATTLEBEGINS)/i,
+    finalPhaseCapture: "wild-grove-large-lizardfolk-ambush.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
   ["slums-monster-council-phases", {
     slot: "B", inputs: ["up", "enter", "enter", ...Array(18).fill("q")],
     portraitStops: {
@@ -8091,6 +8121,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       /^valjevo-dungeon-kitchen-(entry|rescue|warning|oil)-loop$/.test(routeName) ||
       routeName === "lizard-wilds-kobold-prisoners" || routeName === "lizard-wilds-pool-dialogue" ||
       routeName === "lizard-wilds-displacer-pair-ambush" ||
+      /^wild-grove-(mutant-hut|lizardfolk-hut|large-lizardfolk)-ambush$/.test(routeName) ||
       routeName === "buccaneer-mounted-escort-loop" || routeName === "buccaneer-mounted-escort-random-loop" ||
       routeName === "mendor-storeroom-kobold-phases" || routeName === "mendor-storeroom-mercy-loop" ||
       routeName === "mendor-storeroom-kobold-map" ||
