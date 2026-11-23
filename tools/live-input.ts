@@ -46,7 +46,9 @@ const travelRoadScripts = new Set([...travelRoadAreas, ...[...travelRoadArrivals
 const kutoWellLookFacing = new Map([["7,8", 0], ["6,7", 2], ["7,6", 4], ["8,7", 6]]);
 // The completed print cursors of captions the guest clears before its next usable prompt.
 // Use the loaded script's area so the artwork follows the print during district transitions.
+const ohloElixirIllustration = "scene-illustration:area:20:ecl:a38f";
 const transientScriptIllustrations = new Map([
+  ["2:20:a38f", ohloElixirIllustration],
   ["7:26:9be2", "scene-illustration:area:26:ecl:9be2"],
   ["8:13:ad39", "scene-illustration:area:13:ecl:ad39"],
   ["8:16:aab7", "scene-illustration:area:16:ecl:aab7"],
@@ -1445,7 +1447,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const block = cpu.read8(unit.data, data.eclBlock);
       const cursor = authoredScriptPosition(cpu, cpu.read16(unit.data, data.eclCursor), unit.data);
       const scope = transientScriptIllustrations.get(`${archive}:${block}:${cursor.toString(16)}`);
-      if (scope && portraitKeys.includes(scope)) showFrame(undefined, undefined, false, false, 1200, undefined, scope);
+      if (scope && portraitKeys.includes(scope)) {
+        // Ohlo's queued narration runs for 16 seconds. Give its complete caption time to play before the reward screen.
+        const durationMs = scope === ohloElixirIllustration ? 17000 : 1200;
+        showFrame(undefined, undefined, false, false, durationMs, undefined, scope);
+      }
     } : undefined,
     capturePresentationDelay: browser ? (cpu: Cpu, effectDelay = false, messageMs?: number, pauseMs?: number) => {
       // The game pauses on the encounter picture it just drew (DELAY between APPROACHes, Rolf's
