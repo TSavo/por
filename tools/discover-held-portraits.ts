@@ -239,8 +239,20 @@ const eclCandidates = scripts.flatMap(record => {
       });
     }
     if (opcode === 0x29) for (const state of scope) prompt(state, load, 9);
+
+    // The Valjevo forge patrol's native encounter handler writes only 0–3
+    // to its result slot. All four values branch away from the disguised
+    // acknowledgement. Its real entries originate at the approach setup.
+    const headReset = instructions.get(load.next);
+    const resultBranch = headReset?.opcode === 0x09 && literal(headReset.operands[0]!) === 255 &&
+      memory(headReset.operands[1]!) === 0x6de1 ? instructions.get(headReset.next) : undefined;
+    const forgeDisguiseEntry = archive === 5 && scriptBlock === 6 && load.address === 0xa9e6 && opcode === 0x29 &&
+      resultBranch?.opcode === 0x25 && memory(resultBranch.operands[0]!) === memory(operands[3]!) &&
+      memory(operands[3]!) === 0x6e82 && literal(resultBranch.operands[1]!) === 4 &&
+      [0x9c3e, 0xabd4, 0xa87d, 0xabd4].every((target, index) => resultBranch.operands[index + 2]?.word === target) &&
+      resultBranch.next === 0xaa31 ? resultBranch.next : undefined;
     walk(scope.flatMap(state => successors(state, instructions)), instructions, (state, instruction) => {
-      if (pictureBoundaries.has(instruction.opcode)) return false;
+      if (state.address === forgeDisguiseEntry || pictureBoundaries.has(instruction.opcode)) return false;
       if (instruction.opcode === 0x0d) {
         if (direct) return false;
         approaches.add(authored(state.address));

@@ -52,6 +52,12 @@ recursive call sites, follow opaque native calls into another script, or
 prove that a picture remains visible at the menu. Treat both the presence
 and absence of a prompt candidate as leads for native tracing.
 
+For the Valjevo forge patrol, the GOG 1.3 encounter handler at overlay 3
+offset `1ef8` returns only 0–3. The `a9e6` hostile menu branches on all four
+values at `aa1f`. The disguised acknowledgement at `9b14/aa49` comes from
+the `a8fc` approach. Native replays of both branches confirm the split,
+and the paired Chrome receipts cover the approach and both captain menus.
+
 ## Native rows
 
 The two resident `PIC` restore branches retain their call sites and list
