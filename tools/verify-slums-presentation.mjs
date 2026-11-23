@@ -929,6 +929,15 @@ const illustrationRoutes = new Map([
     heldPortraitLoop: [0, 1, 2, 3, 4, 3].map(member => `portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:${member}:0`),
     finalPhaseCapture: "buccaneer-captive-pen-merchant.png",
   }],
+  ["pyramid-vats-quiet-entry", {
+    // From the ambush checkpoint at (13, 11) facing east, step out and return without Search.
+    slot: "A", stockInput: true, inputs: ["left", "up", "right", "right", "up"],
+    portrait: "scene-illustration:area:23:ecl:a19c",
+    prompt: /LARGEVATS.*OILYBLACKSTUFF.*SHELVESOFBOTTLESANDFLASKS/i,
+    continuation: { inputs: ["left", "s", "up"],
+      portrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:0:0",
+      prompt: /POKINGAROUNDINTHEVATS.*TWOOTHERSQUICKLYJOINHIM/i },
+  }],
   ["pyramid-vats-mutants-loop", {
     slot: "A", inputs: ["s", "up"],
     portrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:0:0",
