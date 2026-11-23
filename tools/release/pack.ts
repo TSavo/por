@@ -177,7 +177,7 @@ function checkNothingOriginal(root: string, label: string): void {
     const full = join(root, path);
     const name = basename(path);
     // Inside the Mac app the port's files are under Resources; in the Electron app they stay there.
-    const payloadPath = path.startsWith("Resources/") ? path.slice("Resources/".length) : path;
+    const payloadPath = path.replace(/^(?:Resources|resources)\//, "");
     const info = lstatSync(full);
     if (info.isSymbolicLink()) {
       let target: string;
@@ -293,7 +293,7 @@ async function download(url: string, file: string): Promise<string> {
 }
 const electronBase = `https://github.com/electron/electron/releases/download/${electronVersion}`;
 const electronSums = new Map(readFileSync(await download(`${electronBase}/SHASUMS256.txt`, `electron-${electronVersion}-SHASUMS256.txt`), "utf8")
-  .trim().split("\n").map((line) => line.split(/\s+/)).map(([sum, file]) => [file!, sum!]));
+  .trim().split("\n").map((line) => line.split(/\s+/)).map(([sum, file]) => [file!.replace(/^\*/, ""), sum!]));
 /** One official Electron build, unzipped. */
 async function electronDist(platform: "linux" | "win32" | "darwin", arch: "x64" | "arm64"): Promise<string> {
   const file = `electron-${electronVersion}-${platform}-${arch}.zip`;
