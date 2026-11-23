@@ -357,6 +357,32 @@ const eclCandidates = scripts.flatMap(record => {
     return [...new Set([0, 1, 2].map(member => script.byte(table + member)))].sort((a, b) => a - b);
   }
 
+  function kutoSurprisePictureBlocks(address: number, portrait: ReturnType<typeof selector>) {
+    if (archive !== 8 || scriptBlock !== 29 || address !== 0xa46d || portrait.address !== 0x6e80 ||
+        portrait.possibleWriters.length !== 1 || portrait.possibleWriters[0]?.address !== "a40c") return undefined;
+
+    // The same random index names the assailants and reads the close picture.
+    const roll = instructions.get(0xa3ed);
+    const read = instructions.get(0xa40c);
+    const index = 0x6e7f;
+    const table = 0xafa5;
+    if (roll?.opcode !== 0x08 || literal(roll.operands[0]!) !== 2 || memory(roll.operands[1]!) !== index ||
+        selector(roll.operands[1]!).possibleWriters.length !== 1 ||
+        read?.opcode !== 0x2a || memory(read.operands[0]!) !== table || memory(read.operands[1]!) !== index ||
+        memory(read.operands[2]!) !== portrait.address || !script.inRange(table + 2)) return undefined;
+
+    // No entry may read the table before this roll or set up the surprise before that read.
+    for (const [required, target] of [[roll.address, read.address], [read.address, address]]) {
+      let bypass = false;
+      walk(roots, instructions, state => {
+        if (state.address === target) bypass = true;
+        return !bypass && state.address !== required;
+      });
+      if (bypass) return undefined;
+    }
+    return [0, 1, 2].map(index => script.byte(table + index)).sort((a, b) => a - b);
+  }
+
   // Scripted encounters call the patrol helper only to fetch monster data. The
   // caller sets the return flag and the helper exits before either roaming menu.
   function valhingenReturnsBeforePatrolMenu(address: number, caller: number | undefined) {
@@ -557,7 +583,7 @@ const eclCandidates = scripts.flatMap(record => {
     const block = portrait.literal === null ? null : portrait.literal & 255;
     const tyrmorPictures = tyrmorPrisonPictures(load.address, portrait);
     const boundedBlocks = podalPatrolPictureBlocks(load.address, portrait) ?? valhingenPatrolPictureBlocks(load.address, portrait) ??
-      slumsRoamingPictureBlocks(load.address, portrait) ?? tyrmorPictures?.blocks;
+      slumsRoamingPictureBlocks(load.address, portrait) ?? kutoSurprisePictureBlocks(load.address, portrait) ?? tyrmorPictures?.blocks;
     const pictureBlocks = block === null ? boundedBlocks ?? [] : [block];
     const possiblePictures = animated.filter(picture => picture.file === pictureArchive &&
       picture.block !== undefined && pictureBlocks.includes(picture.block)).map(describePicture);

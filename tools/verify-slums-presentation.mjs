@@ -3487,7 +3487,7 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:24:ecl:b6a2:cue:orc-rampart-camp-ambush",
     prompt: /WHILEINCAMPYOUARESUDDENLYATTACKEDBYORCS.*ABATTLEBEGINS/i,
     finalPhaseCapture: "bane-rampart-camp-orc-ambush.png",
-    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+    continuation: { automaticBattle: "opening-turn", clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
   ["bane-camp-orc-ambush", {
     slot: "A", inputs: ["e", "enter", "r", "h", ...Array(6).fill("i"), "r", "enter", "enter"],
