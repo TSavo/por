@@ -1336,6 +1336,7 @@ const illustrationRoutes = new Map([
     ["hobgoblins", "4320296", 45, 6],
   ].map(([species, fixedClockStart, moves, block]) => [`bane-rampart-ambush-${species}`, {
     slot: "A", stockInput: true, fixedClockStart,
+    promptSchedule: `qa/fixtures/bane-black-hand-patrol-warning/ambush-${species}-prompts.jsonl`,
     inputs: Array.from({ length: moves }, (_, i) => i % 2 ? "down" : "up"),
     portrait: `portrait:area:24:ecl:b058:PIC1.DAX:${block}:0:0`,
     prompt: new RegExp(`YOUARESURPRISEDBY${species}.*ABATTLEBEGINS`, "i"),

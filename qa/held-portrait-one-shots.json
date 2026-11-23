@@ -1166,5 +1166,69 @@
         "artSha256": "1f7964c32b1a6f55d3d91809c32f6b5adf014869a105bc2563367fa5a90fa1f8"
       }
     }
+  },
+  {
+    "producer": "ECL1.DAX:24:af03",
+    "combat": "b085",
+    "native": {
+      "drawCursor": "af0c",
+      "members": [
+        0
+      ],
+      "block": 2,
+      "evidence": "E:/por-codex/art-qa/bane-rampart-stock-batch/seed-4320518/draws.jsonl"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL1.DAX:24:af03",
+        "route": "bane-rampart-ambush-goblins",
+        "data": "original",
+        "portrait": "portrait:area:24:ecl:b058:PIC1.DAX:2:0:0",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "056ab4f905301371eda5b9bf0be805580a605b3bc5187da5e756821b49a81eee"
+      },
+      "port": {
+        "producer": "ECL1.DAX:24:af03",
+        "route": "bane-rampart-ambush-goblins",
+        "data": "port",
+        "portrait": "portrait:area:24:ecl:b058:PIC1.DAX:2:0:0",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "056ab4f905301371eda5b9bf0be805580a605b3bc5187da5e756821b49a81eee"
+      }
+    }
+  },
+  {
+    "producer": "ECL1.DAX:24:af03",
+    "combat": "b085",
+    "native": {
+      "drawCursor": "af0c",
+      "members": [
+        0
+      ],
+      "block": 6,
+      "evidence": "E:/por-codex/art-qa/bane-rampart-stock-batch/seed-4320296/draws.jsonl"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL1.DAX:24:af03",
+        "route": "bane-rampart-ambush-hobgoblins",
+        "data": "original",
+        "portrait": "portrait:area:24:ecl:b058:PIC1.DAX:6:0:0",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "1601a7836fb5e4b95d97270b90d2e22aab2239c52d236c2041b8113eae62d46a"
+      },
+      "port": {
+        "producer": "ECL1.DAX:24:af03",
+        "route": "bane-rampart-ambush-hobgoblins",
+        "data": "port",
+        "portrait": "portrait:area:24:ecl:b058:PIC1.DAX:6:0:0",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "1601a7836fb5e4b95d97270b90d2e22aab2239c52d236c2041b8113eae62d46a"
+      }
+    }
   }
 ]
