@@ -30,6 +30,7 @@
 // from there (`node tools/record-walk.mjs <fixture>/after G <next fixture>`). The `leg` walk reads
 // only the fixture's top-level saves.
 //
+// POR_DEV_COMBAT=0 records stock play and leaves battle outcomes to ordinary game commands.
 // POR_RECORD_WATCH=4a45,4ab2 adds those script variables (hex) to each answer, as the game holds them.
 import { appendFileSync, cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
@@ -98,7 +99,12 @@ if (replaying) {
 // The load key: L on the first menu, then the slot's letter (its scan code and character).
 const scanCodes = { A: 0x1e, B: 0x30, C: 0x2e, D: 0x20, E: 0x12, F: 0x21, G: 0x22, H: 0x23, I: 0x17, J: 0x24 };
 const slotKey = ((scanCodes[letter] << 8) | letter.toLowerCase().charCodeAt(0)).toString(16).padStart(4, "0");
-const boot = { bootKeys: `31000000:1c0d,45000000:266c,52000000:${slotKey}`, startAt: "85000000", developerCombat: true, inputCompat: "" };
+const boot = {
+  bootKeys: `31000000:1c0d,45000000:266c,52000000:${slotKey}`,
+  startAt: "85000000",
+  developerCombat: process.env.POR_DEV_COMBAT !== "0",
+  inputCompat: "",
+};
 
 mkdirSync(fixture, { recursive: true });
 for (const name of readdirSync(fixture).filter((name) => /^(?:[A-J]|roster)\.json$|\.jsonl$/.test(name))) rmSync(join(fixture, name));
@@ -112,7 +118,7 @@ const commandsFile = join(fixture, "commands.jsonl");
 writeFileSync(commandsFile, "");
 
 const game = await startGame({ pregen: false, saves, seconds: 4 * 3600, watch, env: { ...portEnv,
-  POR_BOOT_KEYS: boot.bootKeys, POR_LIVE_AT: boot.startAt, POR_DEV_COMBAT: "1", POR_INPUT_COMPAT: boot.inputCompat,
+  POR_BOOT_KEYS: boot.bootKeys, POR_LIVE_AT: boot.startAt, POR_DEV_COMBAT: boot.developerCombat ? "1" : "0", POR_INPUT_COMPAT: boot.inputCompat,
   POR_PROMPT_SCHEDULE_IN: "", POR_PROMPT_SCHEDULE_OUT: resolve(fixture, "prompts.jsonl"),
   POR_TRACE_VISITS: resolve(fixture, "visits.jsonl"),
 } });
@@ -128,7 +134,7 @@ game.send = async (command) => {
 game.settle = async () => {
   for (let polls = 0; !game.frame.awaitsKey; polls++) {
     if (polls >= 3000) game.fail("The game was still running by itself after 3000 keyboard polls.");
-    const command = game.frame.developerVictoryAvailable ? ":win-combat" : ":travel-poll";
+    const command = boot.developerCombat && game.frame.developerVictoryAvailable ? ":win-combat" : ":travel-poll";
     if (!await game.send(command)) game.fail(`The runner refused ${command} at a frame that does not wait for a key.`);
   }
   return game.frame;

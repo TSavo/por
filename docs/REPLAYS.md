@@ -401,6 +401,9 @@ display and menu.
 
 ## Checkpoints for the presentation replays
 
+Use `POR_DEV_COMBAT=0` with `tools/record-walk.mjs` to record ordinary
+combat. The recorded boot settings retain this mode for replay.
+
 `node tools/verify-slums-presentation.mjs <checkpoint> <chrome> <route> [option]` plays one of about 1,250
 routes from a saved game. The checkpoint is a slot file whose `name` and party files carry the slot letter the
 route loads (the route's table says which; a save of another letter is relabelled, see below). Only
