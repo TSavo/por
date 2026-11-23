@@ -13465,11 +13465,17 @@ try {
     }
     if (illustration.podolProof && heldPortraitEvidenceFile) {
       const view = illustration.podolProof;
-      const caption = () => frame.text.toSorted(([a], [b]) => a - b)
+      const caption = ({ text }) => text.toSorted(([a], [b]) => a - b)
         .map(([, char]) => String.fromCharCode(char)).join("");
       if (view === "battle") {
-        if (/ABATTLEBEGINS/i.test(caption())) await advance("enter");
-        assert.match(caption(), /HITPOINTS.*MOVEVIEWAIM/i);
+        if (frame.awaitsKey && !frame.battleEntryPolling && /ABATTLEBEGINS/i.test(caption(frame))) {
+          await advance("enter");
+        }
+        frame = await waitFor("the first manual Podol combat menu", async () => {
+          const next = await latest();
+          return next.ready && next.awaitsKey && !next.battleEntryPolling && !next.automaticCombat &&
+            /HITPOINTS.*MOVEVIEWAIM.*QUICKDONE/i.test(caption(next)) && next;
+        }, 60_000);
         assert.equal(frame.portrait, undefined);
         assert.equal(frame.encounter, undefined);
       }
@@ -13484,7 +13490,7 @@ try {
       assert.ok(renderer.ok);
       const still = view === "portrait" ? heldPortraitEvidence.at(-1) : undefined;
       heldPortraitEvidence.push({
-        route: routeName, view, approaches, caption: caption(),
+        route: routeName, view, approaches, caption: caption(frame),
         data: frame.classicAvailable === false ? "port" : "original",
         checkpointSha256: createHash("sha256").update(readFileSync(checkpoint)).digest("hex"),
         rendererSha256: createHash("sha256").update((await renderer.text()).replace(/\r\n/g, "\n")).digest("hex"),
