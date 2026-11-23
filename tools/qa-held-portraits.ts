@@ -120,7 +120,7 @@ interface OneShotProof {
 interface OneShot {
   producer: string;
   combat: string;
-  native: { drawCursor: string; members: number[]; evidence: string };
+  native: { drawCursor: string; evidence: string } & ({ members: number[] } | { composed: string });
   chrome: { original: OneShotProof; port: OneShotProof };
 }
 
@@ -254,7 +254,13 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     if (evidence.native.drawCursor !== site.next && !site.approachSites.includes(evidence.native.drawCursor)) {
       return "native draw cursor no longer matches the measured producer";
     }
-    if (evidence.native.members.length !== 1 || evidence.native.members[0] !== 0 || !evidence.native.evidence) {
+    if (!evidence.native.evidence) return "native draw evidence is missing";
+    if ("composed" in evidence.native) {
+      const source = evidence.native.composed;
+      if (source !== site.composedPortrait?.source || !evidence.chrome.original.portrait.endsWith(`:${source}`)) {
+        return "native evidence must match the composed portrait selected by the script";
+      }
+    } else if (evidence.native.members.length !== 1 || evidence.native.members[0] !== 0) {
       return "native evidence must show a single draw of member 0";
     }
     return combatArtProblem(evidence.producer, evidence.chrome);

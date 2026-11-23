@@ -88,7 +88,7 @@ const promptOperands = new Map([[0x15, 3], [0x2b, 2]]);
 const pictureBoundaries = new Set([0x0c, 0x0e, 0x20, 0x21, 0x24, 0x29, 0x2d, 0x31, 0x37, 0x38]);
 const writers = new Set([0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x2a, 0x2f, 0x30]);
 // These instructions can prepare a fight without a new picture or player input.
-const combatPrelude = new Set([0x01, 0x02, 0x03, 0x04, 0x08, 0x09, 0x0b, 0x0d, 0x12, 0x13, 0x17, 0x1b, 0x1c, 0x3a, 0x3d]);
+const combatPrelude = new Set([0x01, 0x02, 0x03, 0x04, 0x08, 0x09, 0x0b, 0x0d, 0x12, 0x13, 0x16, 0x17, 0x1b, 0x1c, 0x3a, 0x3d]);
 const valjevoPatrolDispatch = new Map<string, readonly number[]>([
   ["4:9ce6", [0x9d31, 0x9b5d, 0x9dd1, 0x9b7d, 0x9dd1]],
   ["6:a9e6", [0xaa31, 0x9c3e, 0xabd4, 0xa87d, 0xabd4]],
@@ -309,10 +309,11 @@ const eclCandidates = scripts.flatMap(record => {
     const falseThrone = scriptBlock === 5 && address === "a98a";
     const forgePatrol = scriptBlock === 6 && ["a9e6", "aa49"].includes(address);
     const mazePatrol = scriptBlock === 4 && ["9ce6", "9d49"].includes(address);
+    const mazeSentinel = scriptBlock === 4 && opcode === 0x0c && address === "9f0c";
     const genheerisOffer = scriptBlock === 7 && opcode === 0x0c && address === "a255";
     const stojanowBarracks = archive === 2 && scriptBlock === 9 && opcode === 0x29 && ["a23f", "a372"].includes(address);
     const nomadHeadman = archive === 7 && scriptBlock === 17 && opcode === 0x0c && address === "a39c";
-    if (nomadHeadman || stojanowBarracks || archive === 5 && (genheerisOffer || opcode === 0x29 &&
+    if (nomadHeadman || stojanowBarracks || archive === 5 && (mazeSentinel || genheerisOffer || opcode === 0x29 &&
         (scriptBlock === 7 && ["a184", "a56c"].includes(address) ||
          scriptBlock === 5 && address === "a256" || falseThrone || forgePatrol || mazePatrol))) {
       const before = (at: number) => decoded.find(instruction => instruction.next === at);

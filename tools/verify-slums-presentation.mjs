@@ -4961,11 +4961,14 @@ const illustrationRoutes = new Map([
     journalLead: "phlan-training-thieves",
   }],
   ["valjevo-sentinel-alarm", {
-    slot: "B", inputs: ["up", "enter"],
+    slot: "B", inputs: ["up", "enter", "enter"],
+    oneShotProducer: "ECL5.DAX:4:9f0c",
     approachSequence: [[48, 32, "encounter:area:4:ecl:9f13:SPRIT5.DAX:16:0:0", 40, 80]],
-    portrait: "portrait:area:4:ecl:9f57:HEAD5.DAX:52:BODY5.DAX:1", prompt: /ANALARMSTARTSRINGING/i,
+    portraitStops: { 2: "portrait:area:4:ecl:9f57:HEAD5.DAX:52:BODY5.DAX:1" },
+    phasePrompts: { 2: /ANALARMSTARTSRINGING/i },
+    portrait: "portrait:area:4:ecl:9f58:HEAD5.DAX:52:BODY5.DAX:1", prompt: /ANALARMSTARTSRINGING.*ABATTLEBEGINS/i,
     continuation: {
-      inputs: ["enter"], portrait: "portrait:area:4:ecl:9f58:HEAD5.DAX:52:BODY5.DAX:1", prompt: /ABATTLEBEGINS/i,
+      inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS\d+AC\d+.*MOVEVIEWAIM/i,
     },
   }],
   ["valjevo-forge-patrol", {
