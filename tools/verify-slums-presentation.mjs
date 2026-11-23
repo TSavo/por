@@ -775,6 +775,18 @@ const nomadEntrance = {
   heldPortraitLoop: nomadEntrancePoses,
 };
 
+const groveCaptives = {
+  slot: "A", inputs: ["up"],
+  approachSequence: [[48, 32, "encounter:area:26:ecl:a729:SPRIT7.DAX:0:0:0", 40, 80]],
+  requireTiledApproach: false,
+  portrait: "portrait:area:26:PIC7.DAX:0:0:0",
+  prompt: /FOURKOBOLDSCHAINEDTOTHEWALL.*RELEASEUS/i,
+  heldPortraitLoop: [
+    "portrait:area:26:PIC7.DAX:0:0:0",
+    "portrait:area:26:ecl:a7b4:PIC7.DAX:0:1:0", "portrait:area:26:ecl:a7b4:PIC7.DAX:0:2:0", "portrait:area:26:ecl:a7b4:PIC7.DAX:0:1:0",
+  ],
+};
+
 const illustrationRoutes = new Map([
   ["wild-cave-boar-sow-warning-loop", {
     slot: "A", inputs: ["up"],
@@ -3185,14 +3197,20 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["l"], clearsPortrait: true, prompt: /25,11S.*CASTVIEWENCAMPSEARCHLOOK/i },
   }],
   ["lizard-wilds-kobold-prisoners", {
-    slot: "A", inputs: ["up"],
-    portrait: "portrait:area:26:PIC7.DAX:0:0:0", prompt: /RELEASEUS/i,
-    heldPortraitLoop: [
-      "portrait:area:26:PIC7.DAX:0:0:0",
-      ...[1, 2, 1].map(member => `portrait:area:26:ecl:a7b4:PIC7.DAX:0:${member}:0`),
-    ],
-    continuation: { inputs: ["r"], prompt: /WATCHOUTFORTHEMUTANTLIZARDMEN.*THENRUNOUTTHEDOOR/i, portrait: "scene-illustration:area:26:ecl:a842" },
+    ...groveCaptives,
+    finalPhaseCapture: "lizard-wilds-kobold-prisoners.png",
+    continuation: { inputs: ["r"], prompt: /WATCHOUTFORTHEMUTANTLIZARDMEN.*THENRUNOUTTHEDOOR/i,
+      portrait: "scene-illustration:area:26:ecl:a842", screenshot: "lizard-wilds-kobold-prisoners-released.png" },
     journalLead: "lizard-wilds-mutant-warning",
+  }],
+  ["lizard-wilds-kobold-prisoners-attack", {
+    ...groveCaptives,
+    continuation: { inputs: ["a"], prompt: /ANAWFULSTENCHISCOMINGFROMTHEWEST/i,
+      portrait: "scene-illustration:area:26:ecl:a88e:cue:western-stench", screenshot: "lizard-wilds-kobold-prisoners-attack.png" },
+  }],
+  ["lizard-wilds-kobold-prisoners-leave", {
+    ...groveCaptives,
+    continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
   ["lizard-wilds-pool-dialogue", {
     slot: "A", inputs: ["up", "a"],
@@ -8215,7 +8233,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valjevo-dungeon-kitchen-choice" ||
       /^valjevo-dungeon-kitchen-(entry|rescue|warning|oil)-loop$/.test(routeName) ||
       routeName === "nomad-entrance-enter" || routeName === "nomad-entrance-leave" ||
-      routeName === "lizard-wilds-kobold-prisoners" || routeName === "lizard-wilds-pool-dialogue" ||
+      /^lizard-wilds-kobold-prisoners(?:-(attack|leave))?$/.test(routeName) || routeName === "lizard-wilds-pool-dialogue" ||
       routeName === "lizard-wilds-stirge-swarm-ambush" ||
       routeName === "lizard-wilds-displacer-pair-ambush" ||
       /^wild-grove-(mutant-hut|lizardfolk-hut|large-lizardfolk)-ambush$/.test(routeName) ||
