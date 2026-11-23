@@ -394,6 +394,38 @@ function toggleSettings() {
   resumeBlockedAudio();
 }
 audioToggle.addEventListener("click", toggleSettings);
+if (window.porGameHost) {
+  const panel = document.querySelector("#save-import");
+  const button = document.querySelector("#save-import-button");
+  const input = document.querySelector("#save-import-folder");
+  const status = document.querySelector("#save-import-status");
+  panel.hidden = false;
+  button.addEventListener("click", () => input.click());
+  input.addEventListener("change", async () => {
+    const files = [...input.files].filter(file =>
+      file.webkitRelativePath.split("/").length === 2 && /^(?:[A-J]|roster)\.json$/i.test(file.name));
+    input.value = "";
+    button.disabled = true;
+    try {
+      const records = await Promise.all(files.map(async file => {
+        const name = file.name.slice(0, -5);
+        return [name.length === 1 ? name.toUpperCase() : "roster", await file.text()];
+      }));
+      const response = await gameFetch("/save-import", { method: "POST", body: JSON.stringify(records) });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.problem);
+      const names = records => records.map(id => id.slice(5)).sort().join(", ");
+      status.textContent = [
+        result.imported.length ? `Imported ${names(result.imported)}. Restart the game to use these saves.` : "",
+        result.kept.length ? `Existing records kept: ${names(result.kept)}.` : "",
+      ].filter(Boolean).join(" ");
+    } catch (error) {
+      status.textContent = `Could not import saves. ${error.message}`;
+    } finally {
+      button.disabled = false;
+    }
+  });
+}
 function toggleJournal() {
   void send("j");
   if (journal.hidden) screen.focus({ preventScroll: true });
