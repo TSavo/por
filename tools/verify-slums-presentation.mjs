@@ -11015,6 +11015,9 @@ try {
     if (encounterRoute.transient) {
       assert.deepEqual(frame.animation?.flatMap(({ encounter }) => encounter ? [encounter] : []),
         approachSequence);
+      await waitFor("the transient encounter sprite to paint", () => run(`
+        window.observedApproach.has(${JSON.stringify(encounterRoute.placement[2])})
+      `));
       await switchBothWays();
     } else {
       await verifyApproach(encounterRoute.placement, encounterRoute.prompt);
