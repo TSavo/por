@@ -954,7 +954,7 @@ const koboldsClimbBehind = kutoWellAlleyPortrait("a3b2", "kobolds-climb-behind")
 const baneCacheHold = (location) => {
   const prefix = `portrait:area:24:ecl:aa47:cue:${location}-cache:PIC1.DAX:1:`;
   const heldPortraitLoop = [0, 1, 2, 1].map(member => `${prefix}${member}:0`);
-  return { portrait: heldPortraitLoop[0], heldPortraitLoop };
+  return { portrait: heldPortraitLoop[0], heldPortraitLoop, sortCaption: true };
 };
 
 const illustrationRoutes = new Map([
@@ -13495,7 +13495,8 @@ try {
     if (!heldPortraitOrder.includes(frame.portrait)) {
       assert.equal(frame.portrait, portrait, frame.text.map(([, char]) => String.fromCharCode(char)).join(""));
     }
-    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), prompt);
+    const promptGlyphs = illustration.sortCaption ? frame.text.toSorted(([a], [b]) => a - b) : frame.text;
+    assert.match(promptGlyphs.map(([, char]) => String.fromCharCode(char)).join(""), prompt);
     if (portrait === undefined) {
       await waitFor("the transient illustration to clear", () => run(`
         state.sequence === ${frame.sequence} && !animationFrame && !document.querySelector(".encounter-portrait")
@@ -14011,7 +14012,9 @@ try {
         `));
         if (departureReachedAt) console.log(`Departure picture shown ${Date.now() - departureReachedAt} ms after the game reached it`);
       }
-      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
+      // Highlighted loot menu letters can arrive after the other glyphs in the frame.
+      const continuationGlyphs = continuation.sortCaption ? frame.text.toSorted(([a], [b]) => a - b) : frame.text;
+      assert.match(continuationGlyphs.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
       if (continuation.heldApproach) {
         const { position, placement } = continuation.heldApproach;
         await verifyHeldApproach(continuation.prompt, position, placement);
