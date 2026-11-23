@@ -132,6 +132,16 @@ async function pickOriginalFiles(): Promise<void> {
     await dialog.showMessageBox(win, { type: "warning", title: "Use Original Files", message: loaded.problem });
     return;
   }
+  const confirmRestart = await win.webContents.executeJavaScript("window.porShell?.originalFilesNeedConfirmation() ?? true");
+  if (win.isDestroyed()) return;
+  if (confirmRestart) {
+    const confirmation = await dialog.showMessageBox(win, {
+      type: "warning", title: "Use Original Files", message: "Restart the game?",
+      detail: "Changing the original files restarts the game. Cancel and save first to keep your progress.",
+      buttons: ["Restart game", "Cancel"], defaultId: 1, cancelId: 1,
+    });
+    if (confirmation.response !== 0 || win.isDestroyed()) return;
+  }
   writeOriginalFilesSetting(originalSettingPath(), loaded.folder);
   win.webContents.send("original-files:used", loaded);
 }

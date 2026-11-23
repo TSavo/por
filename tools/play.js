@@ -96,6 +96,8 @@ const originalFiles = {
   panel: document.querySelector("#original-files"), status: document.querySelector("#original-files-status"),
   path: document.querySelector("#original-files-path"), use: document.querySelector("#original-files-use"),
   restore: document.querySelector("#original-files-restore"),
+  restart: document.querySelector("#original-files-restart"),
+  proceed: document.querySelector("#original-files-continue"),
   stop: document.querySelector("#original-files-stop"), message: document.querySelector("#original-files-message"),
 };
 const audioControls = {
@@ -431,7 +433,10 @@ function toggleJournal() {
   if (journal.hidden) screen.focus({ preventScroll: true });
 }
 journalToggle.addEventListener("click", toggleJournal);
-window.porShell = { settings: toggleSettings, journal: toggleJournal, map: toggleAutomap };
+function originalFilesNeedConfirmation() {
+  return !state.stopped && state.scene !== "scene:publisher" && state.scene !== "scene:title";
+}
+window.porShell = { settings: toggleSettings, journal: toggleJournal, map: toggleAutomap, originalFilesNeedConfirmation };
 
 // "Use my original files" (#74). Only a release offers it: the server answers /original-files when the
 // launcher names the setting's file. The launcher reads the setting when the game starts, so a change
@@ -500,17 +505,36 @@ async function chooseOriginalFiles(selection) {
     originalFiles.use.disabled = originalFiles.restore.disabled = originalFiles.stop.disabled = false;
   }
 }
+let originalFilesChange;
+function requestOriginalFiles(selection) {
+  if (originalFiles.restart.open) return;
+  if (originalFilesState?.picker && originalFilesNeedConfirmation()) {
+    originalFilesChange = selection;
+    originalFiles.restart.showModal();
+  } else void chooseOriginalFiles(selection);
+}
+originalFiles.restart.addEventListener("close", () => {
+  if (!originalFiles.restart.open) originalFilesChange = undefined;
+});
+originalFiles.proceed.addEventListener("click", () => {
+  const selection = originalFilesChange;
+  if (!selection) return;
+  originalFilesChange = undefined;
+  originalFiles.restart.close();
+  // Open the folder picker from this click so it has a user gesture.
+  void chooseOriginalFiles(selection);
+});
 originalFiles.use.addEventListener("click", () => {
-  if (originalFilesState?.picker) { chooseOriginalFiles({ pick: true }); return; }
+  if (originalFilesState?.picker) { requestOriginalFiles({ pick: true }); return; }
   const path = originalFiles.path.value.trim();
-  if (path) chooseOriginalFiles({ path });
+  if (path) requestOriginalFiles({ path });
   else originalFiles.message.textContent = "Name the folder first.";
 });
 originalFiles.path.addEventListener("keydown", (event) => {
   if (event.key === "Enter") originalFiles.use.click();
 });
-originalFiles.restore.addEventListener("click", () => chooseOriginalFiles({ restore: true }));
-originalFiles.stop.addEventListener("click", () => chooseOriginalFiles({ path: null }));
+originalFiles.restore.addEventListener("click", () => requestOriginalFiles({ restore: true }));
+originalFiles.stop.addEventListener("click", () => requestOriginalFiles({ path: null }));
 for (const key of ["hardware", "master", "effects", "narration", "muted"]) {
   audioControls[key].addEventListener("input", () => {
     audioPreferences = { ...audioPreferences, [key]: key === "muted"
@@ -2657,7 +2681,7 @@ regionMap.addEventListener("click", () => { mapMode = "region"; renderAutomap();
 atlasMap.addEventListener("click", () => { mapMode = "atlas"; renderAutomap(); });
 atlasSheet.addEventListener("change", renderAutomap);
 window.addEventListener("keydown", (event) => {
-  if (document.querySelector("#storage-error[open]")) return;
+  if (originalFiles.restart.open || document.querySelector("#storage-error[open]")) return;
   resumeBlockedAudio();
   if (event.key !== "F10" && event.target instanceof HTMLElement && event.target.closest("#settings")) return;
   // On the publisher screen a key goes to the title, and no further: the game is at its title
