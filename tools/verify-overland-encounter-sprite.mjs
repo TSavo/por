@@ -13,6 +13,20 @@ const westernTigers = {
   fixture: "western-ankheg-eruption", caption: /YOUSURPRISEAGROUPOFTIGERS/i,
 };
 const scenes = {
+  "wetland-tigers": {
+    area: 25, archive: 6, cursor: "a204", block: 119, x: 48, width: 40, height: 65,
+    fixture: "western-ankheg-eruption", clock: "4325156", caption: /YOUSURPRISEAGROUPOFTIGERS/i,
+    terrain: { center: [8, 22], slots: [82, 78, 90, 1, 0, 83, 78, 79, 0, 1, 84, 78, 90, 1, 0, 1, 83, 91, 0, 1, 0, 82, 78, 90, 0],
+      detailSlots: [82, 78, 90, 83, 79, 84, 91] },
+    inputs: ["up", "down", "up", "down", "up", "down", "up", "down", "up", "enter", "c"],
+  },
+  "shoreline-tigers": {
+    area: 25, archive: 6, cursor: "a204", block: 119, x: 48, width: 40, height: 65,
+    fixture: "buccaneer-mounted-escort", clock: "4325156", caption: /YOUSURPRISEAGROUPOFTIGERS/i,
+    terrain: { center: [8, 31], slots: [1, 83, 80, 0, 1, 0, 84, 85, 1, 0, 1, 0, 1, 0, 1, 172, 1, 0, 1, 0, 77, 171, 176, 172, 169],
+      detailSlots: [83, 80, 84, 85, 172, 77, 171, 176, 169] },
+    inputs: ["left", "left", "left", "left", "down", "up", "down", "up", "down", "enter", "c"],
+  },
   spotted: {
     cursor: "a194", block: 61, height: 57, clock: "4320000", caption: /YOUSPOTAGROUPOFSTIRGES/i,
     terrain: { center: [20, 9], slots: [33, 35, 33, 30, 3, 10, 33, 30, 17, 6, 26, 27, 21, 3, 17, 17, 18, 0, 22, 20, 215, 147, 1, 0, 1] },

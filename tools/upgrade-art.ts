@@ -88,7 +88,7 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
         const random = randomCombatKey.exec(id);
         const effect = combatEffectKey.exec(id);
         const combatSelection = combatSelectionKey.exec(id);
-        const overlandTile = /^overland-tile:(0|[1-9]\d{0,2})$/.exec(id);
+        const overlandTile = /^overland-(?:tile|detail|landmark):(0|[1-9]\d{0,2})$/.exec(id);
         const validOverlandTile = overlandTile !== null && Number(overlandTile[1]) <= 255;
         const overlandMaterials = id === "overland-materials";
         const sheetPart = characterSheetPartKey.exec(id);
