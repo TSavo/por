@@ -3862,6 +3862,15 @@ const illustrationRoutes = new Map([
     prompt: /YOUHAVEFOUNDTHEBANDIT.STREASURE.*DOYOUTAKEIT/i,
     journalLead: "kuto-bandit-treasure",
   }],
+  ["kuto-well-catacomb-volley-hold", {
+    slot: "J", inputs: ["down", "up", "enter", "enter"], illustratedScenery: true,
+    portraitStops: { 2: "scene-illustration:area:29:ecl:af2f:caller:a08a", 3: "scene-illustration:area:29:ecl:a105" },
+    approachSequence: [[56, 32, "encounter:area:29:ecl:a0a4:SPRIT8.DAX:0:2:0", 24, 57]],
+    approachBeforeHeld: true,
+    portrait: "scene-illustration:area:29:ecl:af2f:caller:a10f",
+    prompt: /AVOLLEYOFARROWSTEARSINTOTHEGROUP.*PRESS<ENTER>\/<RETURN>TOCONTINUE/i,
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMP/i },
+  }],
   ["kuto-well-waterline", {
     slot: "J", inputs: ["up", "y", "enter", "enter"],
     portraitStops: { 1: "scene-illustration:area:29:ecl:af80:caller:ae87", 2: "scene-illustration:area:29:ecl:aebd" },
@@ -8751,6 +8760,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...(textileScorpionLoop ? { POR_PROMPT_SCHEDULE_IN: resolve(textileScorpionWalk, "prompts.jsonl") } : {}),
     ...(illustration?.promptSchedule ? { POR_PROMPT_SCHEDULE_IN: resolve(illustration.promptSchedule) } : {}),
     POR_INPUT_COMPAT: controlledBattleIllustration?.staticHold || textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
+      routeName === "kuto-well-catacomb-volley-hold" ||
       routeName === "pyramid-vats-mutants-loop" || routeName.startsWith("pyramid-exterior-") ||
       routeName.startsWith("yarash-study-") ||
       routeName === "textile-grishnak-from-chest" ||
@@ -12225,7 +12235,7 @@ try {
           writeFileSync(resolve(directory, transient.screenshot), Buffer.from(shot.data, "base64"));
           if (illustration.combatWithoutPortraitProducer) transientCombatPortrait = transient.id;
         }
-        if ((combatProducer || routeName === "kobold-throne-first-audience") &&
+        if ((combatProducer || illustration.approachBeforeHeld || routeName === "kobold-throne-first-audience") &&
             frame.animation?.some(phase => phase.approach)) {
           // HTTP replay keys bypass the page's input guard during an encounter approach.
           await waitFor("the complete encounter approach", () => run(`
@@ -12665,6 +12675,14 @@ try {
       if (continuation.heldApproach) {
         const { position, placement } = continuation.heldApproach;
         await verifyHeldApproach(continuation.prompt, position, placement);
+      }
+      if (routeName === "kuto-well-catacomb-volley-hold") {
+        assert.equal(frame.encounter, undefined);
+        assert.equal(frame.exploration?.mapId, 32);
+        await waitFor("the empty corridor after the volley", () => run(`state.sequence === ${frame.sequence} && !animationFrame &&
+          !document.querySelector("#tile-art .encounter-sprite, #tile-art .encounter-portrait")`));
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "kuto-well-catacomb-volley-cleared.png"), Buffer.from(shot.data, "base64"));
       }
       if (illustration.sceneryPrompt && continuation.clearsPortrait) await verifySceneryPrompt(illustration.sceneryPrompt);
       if (combatProducer && heldPortraitEvidenceFile) {
