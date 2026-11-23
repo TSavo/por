@@ -12594,8 +12594,14 @@ try {
     await advance("j");
     await advance(declineDirten ? "n" : "y");
     assert.equal(frame.portrait, undefined);
-    assert.equal(frame.text.map(([, char]) => String.fromCharCode(char)).join("").includes("MIRA105DIRTEN"), !declineDirten);
-    console.log("Verified the Braccio-to-Dirten portrait transition and quest invitation in Chrome.");
+    const partyRoster = frame.text.filter(([cell]) => cell >= 4 * 40 && cell < 13 * 40 && cell % 40 > 16)
+      .map(([, char]) => String.fromCharCode(char)).join("");
+    assert.equal(partyRoster.includes("DIRTEN"), !declineDirten);
+    await advance("j");
+    const mission = frame.journal?.leads.find(({ id }) => id === "commission-bane");
+    assert.equal(mission?.status, declineDirten ? "offered" : "accepted");
+    if (!declineDirten) assert.match(mission.detail, /choose Bay.*choose South/);
+    console.log("Verified the Braccio-to-Dirten invitation and journal outcome in Chrome.");
   } else if (routeName === "cadorna-envoy-briefing") {
     for (const key of ["up", "enter"]) await advance(key);
     const briefing = "portrait:area:8:ecl:b5c3:caller:b0ea:HEAD3.DAX:55:BODY3.DAX:1";

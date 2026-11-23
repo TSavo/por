@@ -326,7 +326,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
         : `Take the holy symbol the party is carrying to ${templeEntrance}.`;
       else if (knows("bane-temple-symbol")) nextStep = `Bring a holy symbol of Bane to ${templeEntrance}.`;
       else if (knows("bane-temple-guard-check")) nextStep = "At the entrance, decide whether to let the blind guard check the party.";
-      else if (knows("bane-dirten")) nextStep = `Decide whether to accompany Dirten. If you agree, cross the river with him and head to ${templeEntrance}.`;
+      else if (tracked?.status !== "accepted" && knows("bane-dirten")) nextStep = `Decide whether to accompany Dirten. If you agree, cross the river with him and head to ${templeEntrance}.`;
     }
     if (commission.id === "records") {
       if (leads.some(({ id, status }) => /^mendor-book-\d+$/.test(id) && status === "ready-to-report")) {
@@ -735,7 +735,10 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
         status: "accepted", clearedEncounters: value,
       });
     }
-    const accepted = (commission.id === "sokal" && known.some(({ id: clue }) => clue === "sokal-arrival")) ||
+    // The native study sets 0x4a9c to 128 when it asks. Successful recruitment sets it to 255.
+    const dirtenRecruited = commission.id === "bane" && global(0x4a9c) === 255 &&
+      known.some(({ id }) => id === "bane-dirten");
+    const accepted = dirtenRecruited || (commission.id === "sokal" && known.some(({ id: clue }) => clue === "sokal-arrival")) ||
       (commission.id === "graveyard" && global(0x4a96) === 255) ||
       (commission.id === "auction" && value === 1) ||
       (commission.id === "textile" && global(0x4a97) === 255) ||
