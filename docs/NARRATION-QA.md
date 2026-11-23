@@ -171,6 +171,13 @@ all 4.8 seconds. The damage prompt follows without another key. With the
 audio request forced to fail, the original illustration timer still runs
 and the damage prompt appears.
 
+The tracked Rolf tour verifier waits for the last movement clip to paint
+before it tests whether audio has finished. GOG 1.3 and bundled Chrome
+both played all eight tour lines over their owning artwork for their
+full lengths. The ignored arrow, Enter, and active arrow controls also
+passed in each mode. The coverage ledger includes the verified tour,
+pool ambush, and Valjevo scribe playback.
+
 A deliberate key can leave a passage while its audio is queued or loading.
 Such an unheard recording is logged as skipped. A recording the player
 has already started can still finish after Enter or Space.

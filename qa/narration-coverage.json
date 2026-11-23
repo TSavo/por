@@ -38,6 +38,12 @@
    "decisions": 91,
    "heard": 14
   },
+  "issue-100-pool-transient": {
+   "ledger": "native.jsonl",
+   "games": 1,
+   "decisions": 1,
+   "heard": 1
+  },
   "kovel-casket-c-gems-reveal-after": {
    "ledger": "kovel-casket-c-gems-lock-final.jsonl",
    "games": 1,
@@ -79,6 +85,12 @@
    "games": 1,
    "decisions": 11,
    "heard": 3
+  },
+  "valjevo-records-scribe-flight": {
+   "ledger": "native-narration.jsonl",
+   "games": 1,
+   "decisions": 15,
+   "heard": 5
   },
   "verify-narration-playback-pressing": {
    "ledger": "pressing.jsonl",
@@ -1682,8 +1694,8 @@
    "run": "walk-lizardman-1",
    "step": 394960420,
    "art": {
-    "kind": "view",
-    "key": "the first-person view"
+    "kind": "portrait",
+    "key": "scene-illustration:area:16:ecl:aab7"
    },
    "withoutArt": {
     "run": "walk-lizardman-1-v13",
@@ -3156,6 +3168,46 @@
    "art": {
     "kind": "portrait",
     "key": "portrait:area:3:ecl:ac1e:PIC5.DAX:55:0:0"
+   }
+  },
+  "por.voice.ecl5.b4-99e0": {
+   "run": "valjevo-records-scribe-flight",
+   "step": 90736697,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:HEAD5.DAX:72:BODY5.DAX:30"
+   }
+  },
+  "por.voice.ecl5.b4-af30-af51": {
+   "run": "valjevo-records-scribe-flight",
+   "step": 85458988,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:4:ecl:9a2c:caller:af7c"
+   }
+  },
+  "por.voice.ecl5.b4-afcb": {
+   "run": "valjevo-records-scribe-flight",
+   "step": 86059613,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:4:ecl:9a5a:caller:b00a"
+   }
+  },
+  "por.voice.ecl5.b4-b014-b087": {
+   "run": "valjevo-records-scribe-flight",
+   "step": 87008734,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:4:ecl:9a5a:caller:b087"
+   }
+  },
+  "por.voice.ecl5.b4-b176": {
+   "run": "valjevo-records-scribe-flight",
+   "step": 90544226,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:4:ecl:b1c7:cue:records-scribe-flight"
    }
   },
   "por.voice.ecl5.b5-9b4b": {
@@ -4671,6 +4723,26 @@
     "unfinished": 4,
     "startedLate": 9
    },
+   "issue-100-pool-transient": {
+    "log": "narration-playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "valjevo-records-scribe-flight": {
+    "log": "narration-playback.jsonl",
+    "legs": 1,
+    "lines": 4,
+    "toTheEnd": 4,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
    "verify-narration-playback-pressing": {
     "log": "pressing.playback.jsonl",
     "legs": 1,
@@ -4760,6 +4832,13 @@
     "saw": [
      null
     ]
+   },
+   "ecl8-b16-aa7c": {
+    "run": "issue-100-pool-transient",
+    "asset": "voices/narration/ecl8/block-16/ecl8-b16-aa7c.mp3",
+    "seconds": 4.8,
+    "waited": 0.01,
+    "art": "scene-illustration:area:16:ecl:aab7"
    },
    "por.narration.sokal.ecl4-b21-9923": {
     "run": "campaign-full",
@@ -4995,49 +5074,49 @@
     "run": "verify-narration-playback-waiting",
     "asset": "voices/narration/ecl3/b0-b1c2.mp3",
     "seconds": 13.52,
-    "waited": 0.009,
-    "art": "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9"
+    "waited": 0.007,
+    "art": "scene-illustration:area:0:ecl:af3f:caller:b256"
    },
    "por.voice.ecl3.b0-b257": {
     "run": "verify-narration-playback-waiting",
     "asset": "voices/narration/ecl3/b0-b257.mp3",
     "seconds": 11.84,
-    "waited": 0.01,
-    "art": "scene-illustration:area:0:ecl:af3f:caller:b256"
+    "waited": 0.012,
+    "art": "scene-illustration:area:0:ecl:af3f:caller:b2f2"
    },
    "por.voice.ecl3.b0-b2f3": {
     "run": "verify-narration-playback-waiting",
     "asset": "voices/narration/ecl3/b0-b2f3.mp3",
     "seconds": 9.12,
-    "waited": 0.016,
-    "art": "scene-illustration:area:0:ecl:af3f:caller:b2f2"
+    "waited": 0.005,
+    "art": "scene-illustration:area:0:ecl:af3f:caller:b369"
    },
    "por.voice.ecl3.b0-b36a": {
     "run": "verify-narration-playback-waiting",
     "asset": "voices/narration/ecl3/b0-b36a.mp3",
     "seconds": 12.32,
-    "waited": 0.013,
-    "art": "scene-illustration:area:0:ecl:af3f:caller:b369"
+    "waited": 0.117,
+    "art": "scene-illustration:area:0:ecl:af3f:caller:b3ff"
    },
    "por.voice.ecl3.b0-b400": {
     "run": "verify-narration-playback-waiting",
     "asset": "voices/narration/ecl3/b0-b400.mp3",
     "seconds": 11.84,
-    "waited": 0.011,
-    "art": "scene-illustration:area:0:ecl:af3f:caller:b3ff"
+    "waited": 0.026,
+    "art": "scene-illustration:area:0:ecl:af3f:caller:b48e"
    },
    "por.voice.ecl3.b0-b48f": {
     "run": "verify-narration-playback-waiting",
     "asset": "voices/narration/ecl3/b0-b48f.mp3",
     "seconds": 11.28,
-    "waited": 0.011,
-    "art": "scene-illustration:area:0:ecl:af3f:caller:b48e"
+    "waited": 0.004,
+    "art": "scene-illustration:area:0:ecl:af3f:caller:b51c"
    },
    "por.voice.ecl3.b0-b51c": {
     "run": "verify-narration-playback-waiting",
     "asset": "voices/narration/ecl3/b0-b51c.mp3",
     "seconds": 9.92,
-    "waited": 0.011,
+    "waited": 0.007,
     "art": "scene-illustration:area:0:ecl:af3f:caller:b58e"
    },
    "por.voice.ecl3.b8-9a7d": {
@@ -5153,6 +5232,34 @@
     "saw": [
      null
     ]
+   },
+   "por.voice.ecl5.b4-af30-af51": {
+    "run": "valjevo-records-scribe-flight",
+    "asset": "voices/narration/ecl5/b4-af30-af51.mp3",
+    "seconds": 5.44,
+    "waited": 0.011,
+    "art": "scene-illustration:area:4:ecl:9a2c:caller:af7c"
+   },
+   "por.voice.ecl5.b4-afcb": {
+    "run": "valjevo-records-scribe-flight",
+    "asset": "voices/narration/ecl5/b4-afcb.mp3",
+    "seconds": 5.04,
+    "waited": 0.01,
+    "art": "scene-illustration:area:4:ecl:9a5a:caller:b00a"
+   },
+   "por.voice.ecl5.b4-b014-b087": {
+    "run": "valjevo-records-scribe-flight",
+    "asset": "voices/narration/ecl5/b4-b014-b087.mp3",
+    "seconds": 19.36,
+    "waited": 0.006,
+    "art": "scene-illustration:area:4:ecl:9a5a:caller:b087"
+   },
+   "por.voice.ecl5.b4-b176": {
+    "run": "valjevo-records-scribe-flight",
+    "asset": "voices/narration/ecl5/b4-b176.mp3",
+    "seconds": 7.28,
+    "waited": 0.017,
+    "art": "scene-illustration:area:4:ecl:b1c7:cue:records-scribe-flight"
    },
    "por.voice.ecl5.b5-9b4b": {
     "run": "campaign-full",
