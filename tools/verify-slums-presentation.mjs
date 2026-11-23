@@ -4203,6 +4203,15 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-cave-elven-remains.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["kobold-kings-quarters-native", {
+    slot: "B", inputs: ["s", "up"],
+    oneShotProducer: "ECL8.DAX:13:a48f",
+    approachSequence: [[48, 32, "encounter:area:13:ecl:a496:SPRIT8.DAX:0:0:0", 40, 80]],
+    portrait: "portrait:area:13:ecl:a4ba:PIC8.DAX:0:0:0",
+    prompt: /CONFRONTHISGUARDS.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "kobold-kings-quarters-battle-notice.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
   ["kobold-cave-efreeti-threat", {
     slot: "A", inputs: ["s", "up", "p", "enter", "enter", "y"],
     portrait: "scene-illustration:area:13:ecl:a6d3:cue:efreeti-threat",
@@ -8447,6 +8456,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "mendor-storeroom-kobold-phases" || routeName === "mendor-storeroom-mercy-loop" ||
       routeName === "mendor-storeroom-kobold-map" ||
       routeName === "kobold-white-flag-envoy" || routeName === "kobold-white-flag-escort-phase" || routeName === "kobold-white-flag-refusal" ||
+      routeName === "kobold-kings-quarters-native" ||
       routeName === "valjevo-medusa-phases" || routeName === "valhingen-mummy-sarcophagi-phases" ||
       routeName === "valjevo-fire-giant-loop" ||
       routeName === "valjevo-fire-giant-refusal-loop" ||
