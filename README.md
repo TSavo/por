@@ -21,6 +21,9 @@ from the port's own data in `game/`. To unlock Classic, choose your own original
 **Settings → Use my original files**; the page reads them where they are and copies nothing. Saves
 are kept by the browser.
 
+`npm run play:loose` serves the game from the loose files a packaged app carries
+(`npm run web:build-loose` writes them to `out/loose/`), as the app's own protocol will answer them.
+
 `npm run play:node` runs the game as before, in a Node runner beside its server. Unpacked original files in `gamedata/pool/` are used when
 present (they win over `game/`); to keep them elsewhere, set `POR_GAMEDATA`
 first. `POR_GAME_SOURCE=port` forces the port's own data and
