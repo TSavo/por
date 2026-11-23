@@ -25949,6 +25949,144 @@
           }
         }
       }
+    },
+    {
+      "id": "area:16:ecl:ab2e:PIC8.DAX:57",
+      "producer": "ECL8.DAX:16:aa75",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "23d56c7c7cc28878887ed0709df68230589317bc294ce1fbd4137ffd4b7ba13a"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "d7e2dbd9fdb05b653da924ebf7d908c35163734da32993168b2b4f0051b0da46"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "241352ef99b2096ee6a8746d9404db0c545c5f1bc0f6abb3a2e45e3b3f349f59"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "lizardman-keep-pool-retreat-hold",
+          "data": "original",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "b56187fe5806aa11b350032799e63fe9e8eeef433d3b4ecf166eef5c667c967b",
+          "portrait": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:0:0",
+              "atMs": 8.399999976158142
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:1:0",
+              "atMs": 208.4999999761585
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:2:0",
+              "atMs": 425.09999997615887
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:3:0",
+              "atMs": 625.0999999761589
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:0:0",
+              "atMs": 841.6999999761574
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:1:0",
+              "atMs": 1041.6999999761574
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:2:0",
+              "atMs": 1258.3999999761581
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:3:0",
+              "atMs": 1475.0999999761589
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:0:0",
+              "atMs": 1674.9999999761585
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:1:0",
+              "atMs": 1891.6999999761574
+            }
+          ],
+          "sha256": {
+            "portrait:area:16:ecl:ab2e:PIC8.DAX:57:0:0": "8000a12431a6771472e09b78713355462db1cf5507f7a16645aaf8bad253ae47",
+            "portrait:area:16:ecl:ab2e:PIC8.DAX:57:1:0": "ebc58312c73ba733033d8a9801f239442dd4dcfd2ab631be41ad90370ab4f88f",
+            "portrait:area:16:ecl:ab2e:PIC8.DAX:57:2:0": "c2189b92e51aebe89ab9825e03c29b9d043693afcf42c5bdd59a2fe86c4f8ea2",
+            "portrait:area:16:ecl:ab2e:PIC8.DAX:57:3:0": "8898a70075e0ec5ace03e40f749c9d512e5365207dff4f8900606bbdc5d6ab89"
+          }
+        },
+        "port": {
+          "route": "lizardman-keep-pool-retreat-hold",
+          "data": "port",
+          "rendererSha256": "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497",
+          "bindingSha256": "b56187fe5806aa11b350032799e63fe9e8eeef433d3b4ecf166eef5c667c967b",
+          "portrait": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:0:0",
+              "atMs": -0.10000002384185791
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:1:0",
+              "atMs": 133.29999997615823
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:2:0",
+              "atMs": 349.89999997615814
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:3:0",
+              "atMs": 566.599999976158
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:0:0",
+              "atMs": 766.599999976158
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:1:0",
+              "atMs": 983.2999999761578
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:2:0",
+              "atMs": 1183.1999999761583
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:3:0",
+              "atMs": 1399.8999999761581
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:0:0",
+              "atMs": 1616.4999999761585
+            },
+            {
+              "key": "portrait:area:16:ecl:ab2e:PIC8.DAX:57:1:0",
+              "atMs": 1816.4999999761585
+            }
+          ],
+          "sha256": {
+            "portrait:area:16:ecl:ab2e:PIC8.DAX:57:0:0": "8000a12431a6771472e09b78713355462db1cf5507f7a16645aaf8bad253ae47",
+            "portrait:area:16:ecl:ab2e:PIC8.DAX:57:1:0": "ebc58312c73ba733033d8a9801f239442dd4dcfd2ab631be41ad90370ab4f88f",
+            "portrait:area:16:ecl:ab2e:PIC8.DAX:57:2:0": "c2189b92e51aebe89ab9825e03c29b9d043693afcf42c5bdd59a2fe86c4f8ea2",
+            "portrait:area:16:ecl:ab2e:PIC8.DAX:57:3:0": "8898a70075e0ec5ace03e40f749c9d512e5365207dff4f8900606bbdc5d6ab89"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [

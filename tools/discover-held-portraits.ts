@@ -179,6 +179,43 @@ function matchesSurpriseProof(file: string, blockId: number, scriptSha256: strin
   }
 }
 
+function lizardPoolRetainedMenu(instructions: ReadonlyMap<number, Instruction>, roots: State[]) {
+  // The pool's javelin setup draws PIC8:57. The damage and surprise checks
+  // either leave for ab3a or reach aaf5 with that same close picture.
+  const route = [
+    [0xaa75, 0x0c], [0xaa7c, 0x12], [0xaab7, 0x3a], [0xaab8, 0x2e],
+    [0xaac4, 0x2f], [0xaacd, 0x16], [0xaace, 0x01], [0xaad2, 0x22],
+    [0xaad9, 0x23], [0xaae4, 0x03], [0xaaea, 0x16], [0xaaeb, 0x01],
+    [0xaaef, 0x09], [0xaaf5, 0x29], [0xab2e, 0x25],
+  ] as const;
+  if (!route.every(([address, opcode], index) => {
+    const step = instructions.get(address);
+    const next = route[index + 1]?.[0];
+    return step?.opcode === opcode && (next === undefined || step.next === next);
+  })) return undefined;
+
+  const setup = instructions.get(0xaa75)!;
+  const menu = instructions.get(0xaaf5)!;
+  const preserveState = instructions.get(0xaaef)!;
+  if (![57, 0, 57].every((value, index) =>
+    literal(setup.operands[index]!) === value && literal(menu.operands[index]!) === value) ||
+    [0xaace, 0xaaeb].some(address => instructions.get(address)?.operands[0]?.word !== 0xab3a) ||
+    literal(preserveState.operands[0]!) !== 2 || memory(preserveState.operands[1]!) !== 0x6dcb ||
+    memory(menu.operands[3]!) !== 0x6e82 ||
+    !menu.operands.slice(4, 9).every(op => literal(op) === 2) ||
+    menu.operands[9]?.text !== "THEY TURN TO DIVE BACK IN THE WATER." ||
+    !menu.operands.slice(10, 12).every(op => op.text === "") ||
+    !menu.operands.slice(12).every(op => literal(op) === 0)) return undefined;
+
+  // Keep the menu as a separate candidate if any entry reaches it without the setup.
+  let bypassesSetup = false;
+  walk(roots, instructions, state => {
+    if (state.address === menu.address) bypassesSetup = true;
+    return !bypassesSetup && state.address !== setup.address;
+  });
+  return bypassesSetup ? undefined : menu;
+}
+
 const scripts = data.content.filter(record => /^ECL[1-8]\.DAX$/.test(record.file));
 const eclCandidates = scripts.flatMap(record => {
   if (record.block === undefined) throw new Error(`Missing script block for ${record.file}`);
@@ -194,8 +231,10 @@ const eclCandidates = scripts.flatMap(record => {
     digest(script.bytes) === slumsProof.scriptSha256 && slumsAngryMenuProven(instructions) &&
     matchesSurpriseProof("ECL2.DAX", 20, slumsProof.scriptSha256);
   const bothSurprisedUnreachable = slumsAngryDispatchProven && slumsBothSurprisedUnreachable(instructions);
+  const roots = readEntryVector(script).map(address => ({ address, returns: [] }));
+  const poolMenu = archive === 8 && scriptBlock === 16 ? lizardPoolRetainedMenu(instructions, roots) : undefined;
   const contexts = new Map<number, State[]>();
-  walk(readEntryVector(script).map(address => ({ address, returns: [] })), instructions, state => {
+  walk(roots, instructions, state => {
     const states = contexts.get(state.address) ?? [];
     states.push(state);
     contexts.set(state.address, states);
@@ -466,6 +505,7 @@ const eclCandidates = scripts.flatMap(record => {
   }
 
   return decoded.flatMap(load => {
+    if (load.address === poolMenu?.address) return [];
     const { opcode, operands } = load;
     if (opcode !== 0x0e && opcode !== 0x0c && opcode !== 0x29) return [];
     const direct = opcode === 0x0e;
@@ -523,6 +563,10 @@ const eclCandidates = scripts.flatMap(record => {
     const angryParlay = slumsAngryDispatchProven && slumsProof.angryParlay.producer === "ECL2.DAX:20:9cc5" &&
       slumsProof.angryParlay.entry === "b254" && load.address === 0x9cc5 ? slumsProof.angryParlay : undefined;
     walk(scope.flatMap(state => successors(state, instructions)), instructions, (state, instruction) => {
+      if (load.address === 0xaa75 && instruction.address === poolMenu?.address) {
+        prompt(state, instruction, 9);
+        return false;
+      }
       if (state.address === disguiseEntry || pictureBoundaries.has(instruction.opcode) ||
           angryParlay && (state.address === 0xb254 || state.address === instructions.get(0x9cef)?.next)) return false;
       if (instruction.opcode === 0x0d) {
