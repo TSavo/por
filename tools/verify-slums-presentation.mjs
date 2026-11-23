@@ -3241,6 +3241,16 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:27:ecl:a5aa", prompt: /FOURGIANTLIZARDSANDTWOMINOTAURS.*ORDERTHELIZARDSTOATTACK/i,
     continuation: { inputs: ["enter"], portrait: "scene-illustration:area:27:ecl:a5b2", prompt: /ABATTLEBEGINS/i },
   }],
+  ["lizard-wilds-stirge-swarm-ambush", {
+    slot: "A", inputs: ["up"],
+    oneShotProducer: "ECL7.DAX:26:aa2d",
+    approachSequence: [[48, 32, "encounter:area:26:SPRIT7.DAX:61:0:0", 40, 73]],
+    requireTiledApproach: false,
+    portrait: "portrait:area:26:PIC7.DAX:61:0:0",
+    prompt: /(?=.*ASWARMOFSTIRGESSWOOPSDOWNANDATTACKSTHEPARTY)(?=.*ABATTLEBEGINS)/i,
+    finalPhaseCapture: "lizard-wilds-stirge-swarm-ambush.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /STIRGEHITPOINTS/i },
+  }],
   ["lizard-wilds-stirge-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:26:PIC7.DAX:61:0:0", prompt: /ASWARMOFSTIRGESSWOOPSDOWN/i,
@@ -8206,6 +8216,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       /^valjevo-dungeon-kitchen-(entry|rescue|warning|oil)-loop$/.test(routeName) ||
       routeName === "nomad-entrance-enter" || routeName === "nomad-entrance-leave" ||
       routeName === "lizard-wilds-kobold-prisoners" || routeName === "lizard-wilds-pool-dialogue" ||
+      routeName === "lizard-wilds-stirge-swarm-ambush" ||
       routeName === "lizard-wilds-displacer-pair-ambush" ||
       /^wild-grove-(mutant-hut|lizardfolk-hut|large-lizardfolk)-ambush$/.test(routeName) ||
       routeName === "buccaneer-mounted-escort-loop" || routeName === "buccaneer-mounted-escort-random-loop" ||
@@ -12046,6 +12057,17 @@ try {
           bindingSha256: createHash("sha256").update(binding.value).digest("hex"),
           artSha256: createHash("sha256").update(Buffer.from(await art.arrayBuffer())).digest("hex"),
         });
+      }
+      if (routeName === "lizard-wilds-stirge-swarm-ambush") {
+        const stirge = "combat:area:26:CPIC7.DAX:61";
+        assert.equal(frame.combatArt.filter(([, , id]) => id === stirge).length, 6);
+        await waitFor("all six stirges in combat", () => run(`
+          state.sequence === ${frame.sequence} && !animationFrame && !renderingSequence &&
+          [...document.querySelectorAll('.combat-sprite[src="/art/${stirge}"]')]
+            .filter(image => image.complete && image.naturalWidth === 96 && image.checkVisibility()).length === 6
+        `));
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "lizard-wilds-stirge-swarm-battle.png"), Buffer.from(shot.data, "base64"));
       }
       if (routeName === "new-phlan-city-hall-exit") {
         assert.deepEqual([frame.exploration?.area, frame.scenery?.x, frame.scenery?.y], [0, 4, 3]);
