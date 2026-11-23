@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "ee31d8b0be727538ae5fed6ed087c58ca73830a5f5d49b27b713c344686cfdc0",
+  "audioSha256": "75688d169156b24e41bcf6b4a0cfcfe4e6abd5abd57095be5abf9074e41ba7d3",
+  "bytes": 21777,
+  "directionSent": "nervous, deferential, cunning",
+  "heardByWhisper": "The roof collapses.",
+  "generatedAt": "2026-11-22T22:50:02.802Z",
+  "sourceRecording": {
+    "file": "audio/voices/narration/ecl8/block-13/ecl8-b13-9ce1-9d05.mp3",
+    "sha256": "bef9387ec7e322d7f2d4d54b7dfbdbe8642421ff8ddedebd17075fecddf11c4a",
+    "startMs": 0,
+    "endMs": 1290
+  }
+}

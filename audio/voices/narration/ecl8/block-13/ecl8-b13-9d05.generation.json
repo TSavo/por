@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "b0ffedd793038417841546c2f6e2c3951dfde9c19555a92ba8f66a5876aa9a59",
+  "audioSha256": "7de6598e82f5f034964e5c1529605039a93d5a6818f12dba68d0bd6a3e671118",
+  "bytes": 48109,
+  "directionSent": "nervous, deferential, cunning",
+  "heardByWhisper": "Before you recover, kobolds arrive.",
+  "generatedAt": "2026-11-22T22:50:02.802Z",
+  "sourceRecording": {
+    "file": "audio/voices/narration/ecl8/block-13/ecl8-b13-9ce1-9d05.mp3",
+    "sha256": "bef9387ec7e322d7f2d4d54b7dfbdbe8642421ff8ddedebd17075fecddf11c4a",
+    "startMs": 1290,
+    "endMs": 4240
+  }
+}

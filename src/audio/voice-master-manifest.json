@@ -16,8 +16,8 @@
     "classifiedEvents": 2025,
     "voicedSourceEvents": 1688,
     "unvoicedEvents": 337,
-    "narrationUnits": 1436,
-    "resolvedUnits": 1436,
+    "narrationUnits": 1437,
+    "resolvedUnits": 1437,
     "unresolvedDynamicUnits": 0,
     "finiteRuntimeVariantFamilies": 70,
     "finiteRuntimeVariantAssets": 384
@@ -45501,7 +45501,7 @@
       "sourceDigest": "bc9b9d1aa4b2374036e22f05d54c24b05c09b077f7517c9d619794a55c984791",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "ecl8-b13-9ce1-9d05"
+        "ecl8-b13-9ce1"
       ]
     },
     {
@@ -45525,7 +45525,7 @@
       "sourceDigest": "6d1024fa3577959b5d206980bcde2cef3fc165e76bf8ba82b05f391eb60e38eb",
       "classification": "voiced-source",
       "narrationUnitIds": [
-        "ecl8-b13-9ce1-9d05"
+        "ecl8-b13-9d05"
       ]
     },
     {
@@ -96890,22 +96890,44 @@
       }
     },
     {
-      "id": "ecl8-b13-9ce1-9d05",
+      "id": "ecl8-b13-9ce1",
       "archive": "ECL8.DAX",
       "triggerSourceId": "por.review.ecl-8.block-13.at-9ce1",
       "coveredSourceIds": [
-        "por.review.ecl-8.block-13.at-9ce1",
-        "por.review.ecl-8.block-13.at-9d05"
+        "por.review.ecl-8.block-13.at-9ce1"
       ],
       "variant": null,
-      "spokenText": "THE ROOF COLLAPSES. BEFORE YOU RECOVER, KOBOLDS ARRIVE.",
+      "spokenText": "THE ROOF COLLAPSES.",
       "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration",
       "characterId": "kobold-guide",
       "sourceParts": [
         {
           "sourceId": "por.review.ecl-8.block-13.at-9ce1",
           "rawText": "THE ROOF COLLAPSES."
-        },
+        }
+      ],
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/ecl8/block-13/ecl8-b13-9ce1.mp3",
+      "runtimeVariants": [],
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      }
+    },
+    {
+      "id": "ecl8-b13-9d05",
+      "archive": "ECL8.DAX",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9d05",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9d05"
+      ],
+      "variant": null,
+      "spokenText": "BEFORE YOU RECOVER, KOBOLDS ARRIVE.",
+      "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration",
+      "characterId": "kobold-guide",
+      "sourceParts": [
         {
           "sourceId": "por.review.ecl-8.block-13.at-9d05",
           "rawText": "BEFORE YOU RECOVER, KOBOLDS ARRIVE."
@@ -96914,7 +96936,7 @@
       "resolution": "resolved",
       "generationEligible": true,
       "model": "eleven_v4",
-      "asset": "voices/narration/ecl8/block-13/ecl8-b13-9ce1-9d05.mp3",
+      "asset": "voices/narration/ecl8/block-13/ecl8-b13-9d05.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,

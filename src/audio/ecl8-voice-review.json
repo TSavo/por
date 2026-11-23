@@ -8,8 +8,8 @@
     "queue": "newly reached standalone unit plays after current narration"
   },
   "eventCount": 277,
-  "narrationUnitCount": 184,
-  "readyUnitCount": 166,
+  "narrationUnitCount": 185,
+  "readyUnitCount": 167,
   "unresolvedUnitCount": 18,
   "characters": [
     {
@@ -524,7 +524,7 @@
       "classification": "voiced-narration",
       "reason": "manually reviewed narration source",
       "narrationUnitIds": [
-        "ecl8-b13-9ce1-9d05"
+        "ecl8-b13-9ce1"
       ]
     },
     {
@@ -548,7 +548,7 @@
       "classification": "voiced-narration",
       "reason": "manually reviewed narration source",
       "narrationUnitIds": [
-        "ecl8-b13-9ce1-9d05"
+        "ecl8-b13-9d05"
       ]
     },
     {
@@ -7066,24 +7066,37 @@
       "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
     },
     {
-      "id": "ecl8-b13-9ce1-9d05",
+      "id": "ecl8-b13-9ce1",
       "block": 13,
       "triggerSourceId": "por.review.ecl-8.block-13.at-9ce1",
       "coveredSourceIds": [
-        "por.review.ecl-8.block-13.at-9ce1",
-        "por.review.ecl-8.block-13.at-9d05"
+        "por.review.ecl-8.block-13.at-9ce1"
       ],
       "sourceTextParts": [
         {
           "sourceId": "por.review.ecl-8.block-13.at-9ce1",
           "rawText": "THE ROOF COLLAPSES."
-        },
+        }
+      ],
+      "spokenText": "THE ROOF COLLAPSES.",
+      "status": "ready",
+      "characterId": "kobold-guide",
+      "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-9d05",
+      "block": 13,
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9d05",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9d05"
+      ],
+      "sourceTextParts": [
         {
           "sourceId": "por.review.ecl-8.block-13.at-9d05",
           "rawText": "BEFORE YOU RECOVER, KOBOLDS ARRIVE."
         }
       ],
-      "spokenText": "THE ROOF COLLAPSES. BEFORE YOU RECOVER, KOBOLDS ARRIVE.",
+      "spokenText": "BEFORE YOU RECOVER, KOBOLDS ARRIVE.",
       "status": "ready",
       "characterId": "kobold-guide",
       "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"

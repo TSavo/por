@@ -38,14 +38,23 @@
       "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
     },
     {
-      "id": "ecl8-b13-9ce1-9d05",
+      "id": "ecl8-b13-9ce1",
       "triggerSourceId": "por.review.ecl-8.block-13.at-9ce1",
       "coveredSourceIds": [
-        "por.review.ecl-8.block-13.at-9ce1",
+        "por.review.ecl-8.block-13.at-9ce1"
+      ],
+      "output": "audio/voices/narration/ecl8/block-13/ecl8-b13-9ce1.mp3",
+      "text": "THE ROOF COLLAPSES.",
+      "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-9d05",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9d05",
+      "coveredSourceIds": [
         "por.review.ecl-8.block-13.at-9d05"
       ],
-      "output": "audio/voices/narration/ecl8/block-13/ecl8-b13-9ce1-9d05.mp3",
-      "text": "THE ROOF COLLAPSES. BEFORE YOU RECOVER, KOBOLDS ARRIVE.",
+      "output": "audio/voices/narration/ecl8/block-13/ecl8-b13-9d05.mp3",
+      "text": "BEFORE YOU RECOVER, KOBOLDS ARRIVE.",
       "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
     },
     {

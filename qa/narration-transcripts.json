@@ -7004,6 +7004,14 @@
   "audio/voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v05-4.mp3": {
    "sha256": "74e52dc6b812212876c0fb92010dc6b18fade2168e2f0d706302ae100fa04adb",
    "heard": "And yours?"
+  },
+  "audio/voices/narration/ecl8/block-13/ecl8-b13-9ce1.mp3": {
+   "sha256": "75688d169156b24e41bcf6b4a0cfcfe4e6abd5abd57095be5abf9074e41ba7d3",
+   "heard": "The roof collapses."
+  },
+  "audio/voices/narration/ecl8/block-13/ecl8-b13-9d05.mp3": {
+   "sha256": "7de6598e82f5f034964e5c1529605039a93d5a6818f12dba68d0bd6a3e671118",
+   "heard": "Before you recover, kobolds arrive."
   }
  }
 }
