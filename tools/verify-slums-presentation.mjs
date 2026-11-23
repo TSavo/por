@@ -559,9 +559,12 @@ const encounterRoutes = new Map([
     battleStart: { input: "enter", prompt: /ADRUMBEGINSTOBEATANDHOBGOBLINSATTACK.*ABATTLEBEGINS/i },
   }],
   ["sokal-poison-frog-approach", {
-    slot: "C", inputs: ["up", "enter"],
+    slot: "C", inputs: ["up"],
     placement: [48, 32, "encounter:area:21:SPRIT4.DAX:37:1:0", 40, 57, 7],
+    prompt: /THECROAKINGRISESINVOLUME.*COMBATWAITFLEEADVANCE/i,
+    heldPosition: [21, 14, 6],
     requireWebGL: true,
+    battleStart: { input: "a", prompt: /ABATTLEBEGINS/i },
   }],
   ["valhingen-wight-approach", {
     slot: "A", inputs: ["up", "b"],
@@ -10519,7 +10522,10 @@ try {
   } else if (encounterRoute) {
     const approachProof = [];
     const approachSequence = encounterRoute.transient ? [encounterRoute.placement] : encounterRoute.approachSequence;
-    if (approachSequence) await observeApproach(approachSequence, encounterRoute.requireTiledApproach, encounterRoute.requireWebGL);
+    const recordHeld = encounterRoute.heldPosition && heldPortraitEvidenceFile;
+    if (approachSequence || recordHeld) {
+      await observeApproach(approachSequence ?? [encounterRoute.placement], encounterRoute.requireTiledApproach, encounterRoute.requireWebGL);
+    }
     const terrainPatterns = new Set();
     let terrainViews = 0;
     const terrain = encounterRoute.terrain;
@@ -10592,6 +10598,7 @@ try {
       await switchBothWays();
     } else {
       await verifyApproach(encounterRoute.placement, encounterRoute.prompt);
+      if (recordHeld) await verifyHeldApproach(encounterRoute.prompt, encounterRoute.heldPosition, encounterRoute.placement);
       if (encounterRoute.requireWebGL) {
         await waitForExplorationViewport();
         if (routeName === "swamp-giant-lizard-approach") {
