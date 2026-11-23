@@ -71,19 +71,36 @@ const scenes = {
     terrain: { center: [16, 9], slots: [35, 33, 10, 35, 33, 10, 35, 33, 11, 10, 11, 10, 35, 31, 26, 30, 28, 27, 3, 17, 17, 6, 3, 17, 215] },
     inputs: [...Array(11).fill("left"), "down", "enter", "c"],
   },
+  "ridge-north-merchants": {
+    cursor: "a230", block: 12, height: 65, clock: "4327656", caption: /YOUSURPRISEAGROUPOFMERCHANTS/i,
+    terrain: { center: [22, 2], slots: [0, 1, 0, 1, 0, 5, 7, 8, 0, 1, 6, 3, 17, 15, 0, 32, 3, 17, 6, 15, 10, 32, 3, 17, 6] },
+    inputs: [...Array(5).fill("left"), ...Array(6).fill("up"), "enter", "c"],
+  },
+  "ridge-west-stirges": {
+    cursor: "a230", block: 61, height: 57, clock: "4322452", caption: /YOUSURPRISEAGROUPOFSTIRGES/i,
+    terrain: { center: [17, 3], slots: [0, 1, 0, 1, 4, 5, 7, 5, 2, 17, 13, 14, 34, 17, 12, 33, 11, 10, 9, 11, 35, 33, 11, 10, 35] },
+    inputs: [...Array(10).fill("left"), ...Array(5).fill("up"), "enter", "c"],
+  },
+  "ridge-far-west-tigers": {
+    area: 25, archive: 6, cursor: "a204", block: 119, x: 48, width: 40, height: 65,
+    fixture: "western-ankheg-eruption", clock: "4325156", caption: /YOUSURPRISEAGROUPOFTIGERS/i,
+    terrain: { center: [8, 14], slots: [33, 35, 33, 30, 3, 10, 33, 30, 3, 17, 29, 30, 3, 17, 6, 24, 19, 20, 22, 23, 0, 1, 0, 1, 0] },
+    inputs: [...Array(9).fill("up"), "enter", "c"],
+  },
 };
 const [chromePath, encounter, outputRoot = "out"] = process.argv.slice(2);
 assert.ok(chromePath && Object.hasOwn(scenes, encounter),
   `Usage: node tools/verify-overland-encounter-sprite.mjs <chrome> <${Object.keys(scenes).join("|")}> [output-root]`);
-const { cursor, block, height, clock, caption, terrain } = scenes[encounter];
+const scene = scenes[encounter];
+const { area = 26, archive = 7, cursor, block, x = 56, width = 24, height, clock, caption, terrain } = scene;
 const spotted = encounter === "spotted";
-const fixture = resolve("qa/fixtures", spotted ? "wilderness-walk" : "lizard-wilds-stirge-surprise");
+const fixture = resolve("qa/fixtures", scene.fixture ?? (spotted ? "wilderness-walk" : "lizard-wilds-stirge-surprise"));
 const slot = spotted ? "F.json" : "A.json";
 let boot = {
   bootKeys: "31000000:1c0d,45000000:266c,52000000:1e61",
   startAt: "85000000", inputCompat: "discard-poll-prompt",
 };
-let inputs = scenes[encounter].inputs;
+let inputs = scene.inputs;
 let schedule;
 if (spotted) {
   boot = JSON.parse(readFileSync(join(fixture, "boot.json"), "utf8"));
@@ -92,7 +109,7 @@ if (spotted) {
   schedule = join(fixture, "prompts.jsonl");
 }
 
-const sprite = `encounter:area:26:ecl:${cursor}:SPRIT7.DAX:${block}:1:0`;
+const sprite = `encounter:area:${area}:ecl:${cursor}:SPRIT${archive}.DAX:${block}:1:0`;
 const screenText = frame => frame.text.toSorted(([a], [b]) => a - b).map(([, glyph]) => String.fromCharCode(glyph)).join("");
 const digest = bytes => createHash("sha256").update(bytes).digest("hex");
 mkdirSync(outputRoot, { recursive: true });
@@ -140,7 +157,7 @@ try {
   })`);
   assert.equal(held.missing, false);
   assert.ok(held.samples > 38);
-  assert.deepEqual(held.sprites, [{ id: "/art/" + sprite, anchor: [56, 32, sprite, 24, height], width: 96, height: height * 4 }]);
+  assert.deepEqual(held.sprites, [{ id: "/art/" + sprite, anchor: [x, 32, sprite, width, height], width: width * 4, height: height * 4 }]);
   assert.deepEqual(await chrome.evaluate("state.overlandTerrain"), terrain);
   const surface = await chrome.evaluate(`(() => {
     const canvas = document.querySelector(".local-overland-encounter");
