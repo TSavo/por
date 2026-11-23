@@ -102,11 +102,11 @@ background when the source sprite and surrounding pixels match. Tile
 selection then uses the restored view, so the enhanced sprite draws over
 the enhanced masonry without retaining pixels from the original figure.
 
-Enhanced gameplay uses Geist Mono for text captured from the game's EGA
+Enhanced gameplay uses Alegreya SC Bold for text captured from the game's EGA
 character renderer. Use a local `font.woff2` in your upgrades directory to
 choose a different font. Letters remain in the game's original cells and
 retain their menu highlight colors. Text embedded in art stays part of that
-image. The bundled font's license is in [Geist-OFL.txt](Geist-OFL.txt).
+image. The bundled font's license is in [AlegreyaSC-OFL.txt](AlegreyaSC-OFL.txt).
 
 Entries in this directory's manifest take precedence over the bundled Slums
 entries. Set `POR_UPGRADES_DIR` to use a single custom artwork directory.
