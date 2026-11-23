@@ -344,10 +344,12 @@ const encounterRoutes = new Map([
     closer: [56, 32, "encounter:area:2:SPRIT4.DAX:6:1:0", 24, 65], closerKey: "enter",
   }],
   ["slums-ohlo-study-approach", {
-    slot: "B", inputs: ["up", "b", "b"],
+    slot: "B", inputs: ["up", "b"], settleInputs: ["b"],
     placement: [56, 32, "encounter:area:20:SPRIT2.DAX:24:1:0", 24, 65],
+    transient: true,
+    prompt: /HESETSDOWNHISPENANDGAZESSTERNLYATYOU.*LEAVETALKATTACK/i,
     approachSteps: [{
-      inputs: ["t", "n"], placement: [56, 32, "encounter:area:20:SPRIT2.DAX:24:1:0", 24, 65],
+      inputs: ["n"], placement: [56, 32, "encounter:area:20:SPRIT2.DAX:24:1:0", 24, 65],
     }],
     dialogue: { key: "a", portrait: "scene-illustration:area:20:ecl:b6df:caller:a251",
       prompt: /ITWAITSINABOOTHINTHEOLDROPEGUILD.*SPEAKMYNAME,OHLO/i },
@@ -10909,6 +10911,16 @@ try {
       const screenshot = resolve(directory, `${routeName}.png`);
       writeFileSync(screenshot, Buffer.from(capture.data, "base64"));
       console.log(`Verified ${terrainPatterns.size} cave terrain patterns across ${terrainViews} views:`, screenshot);
+    }
+    if (routeName === "slums-ohlo-study-approach") {
+      const greeting = "scene-illustration:area:20:ecl:9fed";
+      assert.equal(frame.portrait, greeting);
+      assert.equal(frame.encounter, undefined);
+      await verifyStaticPortrait(greeting, encounterRoute.prompt, false);
+      await advance("t");
+      assert.equal(frame.portrait, undefined);
+      assert.match(approachCaption(), /HAUGHTYSLYNICEMEEKABUSIVE/i);
+      await verifyApproach(encounterRoute.placement);
     }
     const approachSteps = encounterRoute.approachSteps ?? (encounterRoute.closer
       ? [{ inputs: [encounterRoute.closerKey ?? "a"], placement: encounterRoute.closer }]
