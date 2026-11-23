@@ -571,7 +571,8 @@ export function portraitHoldAction(record: PictureRecord, member: number, frame 
 }
 
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
-const kutoWellReinforcements = "scene-illustration:area:29:ecl:af2f:caller:a31b:cue:kobolds-climb-from-well";
+const kutoWellAmbush = "scene-illustration:area:29:ecl:af2f:caller:a31b";
+const kutoWellReinforcements = `${kutoWellAmbush}:cue:kobolds-climb-from-well`;
 
 export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:17:ecl:a97c", "PLEASETHINKABOUTITOVERNIGHT"],
@@ -1723,17 +1724,17 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:13:ecl:ad39", "AMONGSTANESTOFLOGSYOUFINDSOMETREASURE."],
   ["scene-illustration:area:29:ecl:afa1", "BEFOREYOULIESKUTO'SWELL.ITISASOURCEOFWATERINALLSEASONS"],
   ["scene-illustration:area:29:ecl:afa1:cue:daylight", "BEFOREYOULIESKUTO'SWELL.ITISASOURCEOFWATERINALLSEASONS"],
-  ["scene-illustration:area:29:ecl:af2f:caller:a31b", "MONSTERSFROMTHESURROUNDINGBUILDINGSATTACKYOU"],
+  [kutoWellAmbush, "MONSTERSFROMTHESURROUNDINGBUILDINGSATTACKYOU"],
   [kutoWellReinforcements, "ABANDOFKOBOLDSCLIMBSFROMTHEWELLANDATTACKS"],
   ["scene-illustration:area:29:ecl:a3b9", "ABANDOFKOBOLDSCLIMBSFROMTHEWELLANDATTACKS"],
   ["scene-illustration:area:29:ecl:a75e:cue:scouts-pleading", "WEONLYSEEKTORETURNTOOURFAMILIES"],
   ["scene-illustration:area:29:ecl:a75e:cue:scouts-questioned", /THEKOBOLDSCOLLAPSEINTOAPATHETIC.MEWINGHEAP/i],
 ]);
-// The close approach and the shared battle notice hold the reinforcements
-// illustration whenever the exact second-wave caption is still on screen.
+// The scripted close approach belongs to the reinforcements. Each of the
+// shared battle notices keeps the illustration selected by its own caption.
 const retainedIllustrationScopes = new Map([
   ["scene-illustration:area:29:ecl:a3ba", kutoWellReinforcements],
-  ["scene-illustration:area:29:ecl:a338", kutoWellReinforcements],
+  ["scene-illustration:area:29:ecl:a338", kutoWellAmbush],
 ]);
 export function matchScriptIllustration(context: string, dialogue: string, installed: readonly string[]) {
   const scope = retainedIllustrationScopes.get(context) ?? context;

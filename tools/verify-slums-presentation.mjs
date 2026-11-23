@@ -891,6 +891,15 @@ const illustrationRoutes = new Map([
       portraits: [0, 1, 2, 3].map(member => "portrait:area:23:ecl:a23f:PIC7.DAX:57:" + member + ":0"),
       pressOnPortrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:2:0", retainPose: true },
   }],
+  ["kuto-well-surrounding-buildings-hold", {
+    slot: "J", inputs: ["up"],
+    approachSequence: [[48, 32, "encounter:area:29:SPRIT8.DAX:0:0:0", 40, 80]],
+    portrait: "scene-illustration:area:29:ecl:af2f:caller:a31b",
+    prompt: /MONSTERSFROMTHESURROUNDINGBUILDINGSATTACKYOU/i,
+    staticPortraitMenu: true,
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:29:ecl:af2f:caller:a31b",
+      prompt: /ABATTLEBEGINS/i },
+  }],
   ["kuto-well-surface-ambush", {
     slot: "J", inputs: ["up", "y", "enter", "enter", "down", "up"],
     portrait: "scene-illustration:area:29:ecl:af2f:caller:a31b",
@@ -8784,7 +8793,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...(textileScorpionLoop ? { POR_PROMPT_SCHEDULE_IN: resolve(textileScorpionWalk, "prompts.jsonl") } : {}),
     ...(illustration?.promptSchedule ? { POR_PROMPT_SCHEDULE_IN: resolve(illustration.promptSchedule) } : {}),
     POR_INPUT_COMPAT: controlledBattleIllustration?.staticHold || textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
-      routeName === "kuto-well-catacomb-volley-hold" ||
+      routeName === "kuto-well-catacomb-volley-hold" || routeName === "kuto-well-surrounding-buildings-hold" ||
       routeName === "pyramid-vats-mutants-loop" || routeName.startsWith("pyramid-exterior-") ||
       routeName.startsWith("yarash-study-") ||
       routeName === "textile-grishnak-from-chest" ||
@@ -12703,6 +12712,15 @@ try {
       if (continuation.heldApproach) {
         const { position, placement } = continuation.heldApproach;
         await verifyHeldApproach(continuation.prompt, position, placement);
+      }
+      if (routeName === "kuto-well-surrounding-buildings-hold") {
+        assert.deepEqual(frame.animation?.filter(phase => phase.portrait).map(({ portrait, durationMs }) => [portrait, durationMs]),
+          [[portrait, 900]]);
+        await waitFor("the first-wave battle notice to paint", () => run(`state.sequence === ${frame.sequence} && !animationFrame &&
+          document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "kuto-well-surrounding-buildings-battle-notice.png"), Buffer.from(shot.data, "base64"));
       }
       if (routeName === "kuto-well-catacomb-volley-hold") {
         assert.equal(frame.encounter, undefined);
