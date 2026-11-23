@@ -217,6 +217,15 @@ function openWindow(): void {
   win.once("ready-to-show", () => win.show());
   win.on("closed", () => { gameWindow = undefined; });
   win.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
+  win.webContents.on("will-prevent-unload", (event) => {
+    const choice = dialog.showMessageBoxSync(win, {
+      type: "warning",
+      message: "A save is still pending.",
+      detail: "Stay to finish saving, or leave and keep your last completed save.",
+      buttons: ["Stay", "Leave"], defaultId: 0, cancelId: 0,
+    });
+    if (choice === 1) event.preventDefault();
+  });
   win.webContents.on("will-navigate", (event, url) => {
     if (!isGamePage(url)) event.preventDefault();
   });

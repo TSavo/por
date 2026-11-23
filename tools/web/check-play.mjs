@@ -27,6 +27,7 @@ const option = (name) => { const at = args.indexOf(name); return at >= 0 ? args[
 const server = option("--server") ?? "runner";
 const original = option("--original") && resolve(option("--original"));
 const saveFaults = args.includes("--save-faults");
+if (saveFaults && server === "runner") throw new Error("--save-faults requires --server web or loose");
 const shots = option("--shots") && resolve(option("--shots"));
 if (shots) mkdirSync(shots, { recursive: true });
 const work = mkdtempSync(join(tmpdir(), "por-check-play-"));

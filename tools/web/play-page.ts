@@ -61,7 +61,7 @@ async function commitRecord(id: ResourceId, data: Uint8Array | undefined) {
         return;
       } catch (error) {
         console.error(`Cannot store ${id}`, error);
-        storageMessage.textContent = `Could not save ${label}. Your previous save is still available.`;
+        storageMessage.textContent = `Could not save ${label}. Your saved data was unchanged.`;
         await new Promise<void>((retry) => {
           retryStorage.addEventListener("click", () => retry(), { once: true });
           storageError.showModal();
@@ -79,13 +79,13 @@ storageError.addEventListener("cancel", (event) => event.preventDefault());
 /** Start the game from its beginning, with the original files chosen now (none, or the player's). */
 async function start() {
   const entries = [...gameEntries, ...original ? await originalEntries(original) : []];
+  if (storageWrite) await storageWrite;
   const root = engineRoot(original);
   // The page reads the same game data as the engine: the overland routes, the packaged terrain, New Phlan's street.
   useResources(new MemoryResources(entries));
   useGameRoot(root);
   const build = detectGameVersion(readGameFile(root, "GAME.OVR"));
   useGameVersion(build);
-  if (storageWrite) await storageWrite;
   engine?.stop();
   const previous = session as PlaySession | undefined;
   let running: RunningEngine | undefined;
