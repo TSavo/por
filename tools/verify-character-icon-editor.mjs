@@ -3,8 +3,9 @@ import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { openChromeCampaignLeg } from "./chrome-campaign-replay.mjs";
 
-const [chromePath, output = "out"] = process.argv.slice(2);
-assert.ok(chromePath, "Usage: node tools/verify-character-icon-editor.mjs <Chrome executable> [output directory]");
+const [chromePath, output = "out", option, size] = process.argv.slice(2);
+assert.ok(chromePath, "Usage: node tools/verify-character-icon-editor.mjs <Chrome executable> [output directory] [--sweep small|tall]");
+assert.ok(option === undefined && size === undefined || option === "--sweep" && ["small", "tall"].includes(size), "Use --sweep small or --sweep tall");
 mkdirSync(output, { recursive: true });
 const directory = mkdtempSync(resolve(output, "icon-editor-"));
 const saves = join(directory, "saves");
@@ -75,13 +76,68 @@ async function creationMenu() {
   assert.match(text(), /CreateNewCharacter/i);
 }
 
-try {
+async function sweepEditor(size) {
+  const offset = size === "tall" ? 64 : 0;
+  if (offset) await press("s", "l", "k");
+  await press("p", "h");
+  for (let body = 0; body < 32; body++) {
+    if (body % 4 === 0) {
+      await game.evaluate(`(() => {
+        const canvas = document.createElement("canvas");
+        canvas.width = 50 + 14 * 96;
+        canvas.height = 20 + 8 * 96;
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#343330";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#f0e9d8";
+        ctx.font = "12px sans-serif";
+        for (let h = 0; h < 14; h++) ctx.fillText("Head " + (h + ${offset}), 54 + h * 96, 14);
+        window.iconReviewSheet = canvas;
+      })()`);
+    }
+    for (let head = 0; head < 14; head++) {
+      const rendered = await game.evaluate(`(() => {
+        const images = [...document.querySelectorAll("#tile-art:not([hidden]) .combat-sprite")]
+          .filter(image => parseFloat(image.style.top) === 52)
+          .sort((a, b) => parseFloat(a.style.left) - parseFloat(b.style.left));
+        const keys = state.combatArt.filter(([, y]) => y === 104)
+          .sort(([a], [b]) => a - b).map(([, , key]) => key);
+        const ctx = window.iconReviewSheet.getContext("2d");
+        return images.map((image, pose) => {
+          const key = image.dataset.partyPalette ?? decodeURI(new URL(image.src).pathname).slice("/art/".length);
+          const row = 20 + (${body % 4} * 2 + pose) * 96;
+          if (${head} === 0) ctx.fillText(String(${offset + body} + 128 * pose), 4, row + 48);
+          ctx.drawImage(image, 50 + ${head} * 96, row);
+          return [key, keys[pose], image.naturalWidth, image.naturalHeight];
+        });
+      })()`);
+      assert.equal(rendered.length, 2, `Missing preview at head ${head}, body ${body}`);
+      for (const [pose, [painted, requested, width, height]] of rendered.entries()) {
+        const base = (h) => `combat:party:${offset + h}:${offset + body + 128 * pose}`;
+        const alias = !offset && head >= 11 ? head - 11 : head;
+        assert.ok([base(head), base(alias)].includes(requested), `Selected ${base(head)}, got ${requested}`);
+        assert.deepEqual([painted, width, height], [requested, 96, 96]);
+      }
+      await press("n");
+    }
+    if (body % 4 === 3) {
+      const image = await game.evaluate("window.iconReviewSheet.toDataURL('image/png')");
+      writeFileSync(join(directory, `sheet-${offset + body - 3}-${offset + body}.png`), Buffer.from(image.split(",")[1], "base64"));
+      console.log(`Verified bodies ${offset + body - 3}–${offset + body}`);
+    }
+    if (body < 31) await press("k", "w", "n", "k", "h");
+  }
+  console.log(`Verified all 448 ${size} selections and 896 painted poses through Chrome keyboard input. Captures in ${directory}`);
+}
+
+async function verify() {
   await creationMenu();
   await press("c");
   for (let i = 0; i < 6 && !/Keepthischaracter/i.test(text()); i++) await press("enter");
   assert.match(text(), /Keepthischaracter/i);
   await press("y", ..."iconqa", "enter", "k");
   assert.match(text(), /Partscolor-1color-2SizeExit/i);
+  if (option === "--sweep") return sweepEditor(size);
 
   // CBODY 3/131 supplies both flail poses. Only the upper part of each image
   // should change as all fourteen small CHEAD choices cycle back to the first.
@@ -179,6 +235,10 @@ try {
   assert.ok(seen.has(0), "The reloaded character should paint the kept ready icon in combat");
   assert.ok(seen.has(1), "The reloaded character should paint the kept action icon in combat");
   console.log(`Verified both icon preview poses and both combat poses after roster and slot reload. Captures in ${directory}`);
+}
+
+try {
+  await verify();
 } finally {
   await game.close();
 }
