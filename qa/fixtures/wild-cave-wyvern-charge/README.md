@@ -1,0 +1,1 @@
+From the existing eastern cave replay save, set only the three location bytes to (4,0) south. One Up triggers the native charge wyvern charge. Chrome paints its notice and advances into combat through ordinary polling.

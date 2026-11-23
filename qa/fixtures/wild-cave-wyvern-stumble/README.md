@@ -1,0 +1,1 @@
+From the existing eastern cave replay save, set only the three location bytes to (5,2) east. One Up triggers the native stumble wyvern charge. Chrome paints its notice and advances into combat through ordinary polling.

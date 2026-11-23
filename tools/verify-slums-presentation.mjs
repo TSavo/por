@@ -9,6 +9,24 @@ import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const battleEntryRoutes = new Map([
+  ["wild-cave-wyvern-stumble", {
+    slot: "B",
+    notice: /YOUHAVESTUMBLEDACROSSAFEROCIOUSWYVERN.*ABATTLEBEGINS/i,
+    portrait: "portrait:area:27:ecl:a428:PIC8.DAX:121:0:0",
+    file: "wild-cave-wyvern-interior-charge.png",
+    noticeScreenshot: "wild-cave-wyvern-stumble.png",
+    pollFrames: 1,
+    producer: "ECL8.DAX:27:a3c9",
+  }],
+  ["wild-cave-wyvern-charge", {
+    slot: "B",
+    notice: /ATERRIBLEWYVERNCHARGESTOATTACKTHEPARTY.*ABATTLEBEGINS/i,
+    portrait: "portrait:area:27:ecl:a49c:PIC8.DAX:121:0:0",
+    file: "wild-cave-wyvern-interior-charge.png",
+    noticeScreenshot: "wild-cave-wyvern-charge.png",
+    pollFrames: 1,
+    producer: "ECL8.DAX:27:a44e",
+  }],
   ["wild-cave-gnoll-ambush", {
     slot: "B",
     prefix: ["up", ...Array.from({ length: 13 }, () => ["down", "up"]).flat(), "down"],
@@ -339,7 +357,7 @@ const encounterRoutes = new Map([
       [40, 32, "encounter:area:27:SPRIT8.DAX:121:1:0", 56, 65],
       [24, 32, "encounter:area:27:SPRIT8.DAX:121:0:0", 88, 80],
     ],
-    dialogue: { key: "enter", portrait: "portrait:area:27:PIC8.DAX:121:0:0", prompt: /FEROCIOUSWYVERN/i },
+    dialogue: { key: "enter", portrait: "portrait:area:27:ecl:a428:PIC8.DAX:121:0:0", prompt: /FEROCIOUSWYVERN/i },
   }],
   ["slums-hobgoblin-ringleader-approach", {
     slot: "B", inputs: ["up", "enter"],
