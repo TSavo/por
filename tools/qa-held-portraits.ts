@@ -20,11 +20,26 @@ interface HeldPortraitInventory {
   }[];
   sceneryPrompts?: SceneryPrompt[];
   staticPortraitPrompts?: StaticPortraitPrompt[];
+  approachTransitions?: ApproachTransition[];
 }
 
 interface EncounterPaint {
   placement: EncounterPlacement;
   sha256: string;
+}
+
+interface ApproachTransitionProof extends EncounterPaint {
+  route: string;
+  data: ChromeProof["data"];
+  checkpointSha256: string;
+  rendererSha256: string;
+  nextPortrait: string;
+}
+
+interface ApproachTransition {
+  producer: string;
+  checkpoint: string;
+  chrome: { original: ApproachTransitionProof; port: ApproachTransitionProof };
 }
 
 interface SceneryProof {
@@ -361,6 +376,33 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     allScenes.push(...observedVariants);
   }
 
+  function verifiedApproachTransition(site: ScriptSite) {
+    const handoff = site.approachHandoff;
+    if (!handoff) return false;
+    const menu = eclCandidates.find(candidate => candidate.scriptArchive === site.scriptArchive &&
+      candidate.scriptBlock === site.scriptBlock && candidate.address === handoff.menu);
+    const proof = menu && staticBySite.get(menu)?.get(handoff.prompt);
+    if (!menu || !proof?.verified) return false;
+    return inventory.approachTransitions?.some(transition => {
+      if (transition.producer !== scriptSiteId(site)) return false;
+      const { original, port } = transition.chrome;
+      const checkpoint = path("qa", "fixtures", transition.checkpoint);
+      if (!existsSync(checkpoint) || original.route !== port.route ||
+          original.placement[2] !== handoff.sprite || !verifiedEncounterAsset(original) ||
+          !isDeepStrictEqual(original.placement, port.placement) || original.sha256 !== port.sha256 ||
+          original.nextPortrait !== port.nextPortrait ||
+          !inventory.staticPortraitPrompts?.some(prompt => prompt.producer === scriptSiteId(menu) &&
+            prompt.prompt === handoff.prompt && prompt.variants.some(variant =>
+              variant.portrait === original.nextPortrait && variant.checkpoint === transition.checkpoint &&
+              variant.chrome?.original.route === original.route))) return false;
+      const hash = digest(readFileSync(checkpoint));
+      return (["original", "port"] as const).every(data => {
+        const observed = transition.chrome[data];
+        return observed.data === data && observed.checkpointSha256 === hash && matchesRenderer(observed.rendererSha256);
+      });
+    });
+  }
+
   const sites = eclCandidates.map(site => {
     const id = scriptSiteId(site);
     const oneShot = oneShotByProducer.get(id);
@@ -376,7 +418,8 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
         !evidence.some(entry => entry.prompt === prompt)),
       ...new Set(evidence.flatMap(({ scene }) => scene.remainingCues ?? [])),
     ];
-    const measured = evidence.length > 0 || held.length > 0 || scenery.size > 0 || oneShot !== undefined;
+    const approach = verifiedApproachTransition(site);
+    const measured = evidence.length > 0 || held.length > 0 || scenery.size > 0 || oneShot !== undefined || Boolean(approach);
     // A variable selector may feed several portraits into the same prompt.
     // Observing one portrait cannot discharge the other possible selections.
     const verified = oneShot ? oneShotReason === null : site.block !== null && measured &&
@@ -387,7 +430,8 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       measured, verified, unmeasured, scenes: [...evidence.map(({ scene }) => scene.id), ...held.map(scene => scene.id)],
       reason: oneShot ? oneShotReason ?? "single native draw, paired Chrome checks passed" :
         site.block === null ? "selector unresolved" : scenery.size ? "paired Chrome checks confirmed scenery at " + [...scenery].join(", ") :
-          prompts.length ? null : "no prompt lead resolved",
+          approach ? "paired Chrome checks confirmed approach into " + site.approachHandoff!.menu :
+            prompts.length ? null : "no prompt lead resolved",
     };
   });
   for (const site of nativeCandidates.filter(({ status }) => status === "candidate")) {

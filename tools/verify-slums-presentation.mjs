@@ -13288,11 +13288,16 @@ try {
     }
   } else if (falseTyranthraxus) {
     const portrait = "portrait:HEAD5.DAX:54:BODY5.DAX:1";
+    const approach = [48, 32, "encounter:area:5:SPRIT5.DAX:16:0:0", 40, 80];
     const knows = () => frame.journal?.leads.some(({ id }) => id === "castle-impostor");
+    await observeApproach([approach], false);
     for (const key of ["up", "enter"]) await advance(key);
-    assert.deepEqual(frame.encounter, [48, 32, "encounter:area:5:SPRIT5.DAX:16:0:0", 40, 80]);
+    assert.deepEqual(frame.encounter, approach);
+    assert.equal(frame.portrait, undefined);
     await waitFor("the throne-room figure's approach", () => run(
-      'document.querySelector(".encounter-sprite")?.naturalWidth === 160 && document.querySelector(".encounter-sprite")?.naturalHeight === 320'));
+      `state.sequence === ${frame.sequence} && !animationFrame &&
+        window.observedApproach.has(${JSON.stringify(approach[2])}) &&
+        !document.querySelector("#tile-art:not([hidden]) .encounter-portrait")`));
     await switchBothWays();
     await advance("enter");
     assert.equal(frame.portrait, portrait);
@@ -13334,6 +13339,15 @@ try {
       assert.equal(frame.portrait, undefined);
       await waitFor("the released impostor's portrait to clear", () => run(`state.sequence === ${frame.sequence} &&
         !document.querySelector("#tile-art:not([hidden]) .encounter-portrait")`));
+      const [renderer, art] = await Promise.all([fetch(origin + "/play.js"), fetch(origin + "/art/" + approach[2])]);
+      assert.ok(renderer.ok && art.ok);
+      heldPortraitEvidence.push({
+        route: routeName, data: frame.classicAvailable === false ? "port" : "original",
+        placement: approach, nextPortrait: portrait,
+        checkpointSha256: createHash("sha256").update(readFileSync(checkpoint)).digest("hex"),
+        sha256: createHash("sha256").update(Buffer.from(await art.arrayBuffer())).digest("hex"),
+        rendererSha256: createHash("sha256").update((await renderer.text()).replace(/\r\n/g, "\n")).digest("hex"),
+      });
     }
     console.log("Verified the false throne portrait and witnessed confession and release in Chrome.");
   } else if (restalGuide) {

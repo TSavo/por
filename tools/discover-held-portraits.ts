@@ -206,12 +206,29 @@ const eclCandidates = scripts.flatMap(record => {
       }
     }
 
+    let approachHandoff;
+    if (opcode === 0x0c && approaches.size === 1 && !prompts.size &&
+        literal(operands[1]!) === 1 && literal(operands[0]!) !== null && block !== null) {
+      let step = instructions.get(load.next);
+      while (step && ["PRINTCLEAR", "APPROACH", "DELAY"].includes(step.name)) {
+        step = instructions.get(step.next);
+      }
+      if (step?.opcode === 0x29 && literal(step.operands[1]!) === 0 &&
+          literal(step.operands[0]!) === literal(operands[0]!) && literal(step.operands[2]!) === block) {
+        approachHandoff = {
+          menu: authored(step.address), prompt: authored(step.next),
+          sprite: `encounter:area:${scriptBlock}:SPRIT${archive}.DAX:${literal(operands[0]!)}:0:0`,
+        };
+      }
+    }
+
     return [{
       kind: "ecl", status: "candidate", scriptArchive: record.file, scriptBlock, address: authored(load.address),
       next: authored(load.next), opcode, name: load.name, pictureArchive, block, selector: portrait, possiblePictures,
       composedPortrait,
       ...(direct ? {} : { approachSelectors: { sprite: selector(operands[0]!), distance: selector(operands[1]!) } }),
       approachSites: [...approaches].sort(),
+      approachHandoff,
       immediateCombat: scope.length && opcode === 0x0c ? immediateCombatAfter(load) : null,
       promptCandidates: [...prompts.values()].sort((a, b) => a.address.localeCompare(b.address) || (a.caller ?? "").localeCompare(b.caller ?? "")),
       uncertainties: [
