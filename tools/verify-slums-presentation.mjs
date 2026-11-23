@@ -5288,6 +5288,26 @@ const illustrationRoutes = new Map([
     prompt: /FARTOTHEEASTTHEREISALARGEKOBOLDCOMPLEX.*SILVERBOTTLEOFGREATPOWER/i,
     heldPortraitLoop: [0, 1, 2, 3, 4, 0, 2].map(member => `portrait:area:25:ecl:a58b:caller:9c11:PIC6.DAX:117:${member}:0`),
   }],
+  ...[
+    ["pledge-intro", 2, [], "a58b:caller:9b70", /ALARGESILVERDRAGONSTANDSBEFOREYOU/i],
+    ["pledge-orders", 2, ["enter"], "a58b:caller:9c11", /IACCEPTYOURPLEDGE.*RECOVERAPOWERFULMAGICALBOTTLE/i],
+    ["challenge-intro", 1, [], "a58b:caller:9d07", /ALARGESILVERDRAGONLANDSBEFORETHEADVENTURERS/i],
+    ["challenge-choice", 1, ["enter"], "9d94", /IAMAGOODSILVERDRAGON/i],
+    ["apology", 1, ["enter", "a"], "a58b:caller:9e28", /AFTERHEARINGYOURAPOLOGY/i],
+    ["apology-orders", 1, ["enter", "a", "enter"], "a58b:caller:9c11", /FARTOTHEEASTTHEREISALARGEKOBOLDCOMMUNITY.*POWERFULSILVERBOTTLE/i],
+    ["flight", 1, ["enter", "s"], "a58b:caller:9f43", /THEDRAGONTAKESFLIGHT/i],
+    ["follow-choice", 1, ["enter", "s", "enter"], "9fb5", /YOUMAYEASILYFOLLOWTHEDRAGONBYCLIMBINGUPAWALL/i],
+    ["upper-ledge", 1, ["enter", "s", "enter", "f"], "a03a", /YOUCLIMBTOTHESECONDLEVELOFTHEDRAGON'?SDEN/i],
+    ["gift-intro", 3, [], "a58b:caller:a2f6", /AHUGESILVERDRAGONFLIESDOWNTOMEETTHEM/i],
+    ["gift-refusal", 3, ["enter"], "a58b:caller:a378", /LOOKSTHEPARTYOVER/i],
+    ["gift-orders", 3, ["enter", "enter"], "a58b:caller:9c11", /THEREYOUSHALLFINDAMAGICALBOTTLE/i],
+  ].map(([scene, menuMoves, continuation, cursor, prompt]) => {
+    const art = member => `portrait:area:25:ecl:${cursor}:PIC6.DAX:117:${member}:0`;
+    return [`diogenes-silver-${scene}-loop`, {
+      slot: "A", inputs: ["up", "e", "s", "enter", ...Array(menuMoves).fill("end"), "enter", ...continuation],
+      portrait: art(0), prompt, heldPortraitLoop: [0, 1, 2, 3, 4, 0, 2].map(art),
+    }];
+  }),
   ["tyrmor-prison-minotaur-combat-base", {
     slot: "B", inputs: ["s", ...Array.from({ length: 3 }, () => ["up", "down"]).flat(), "up", "enter", "down", "up"],
     portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:62:0:0", prompt: /ONELICKSITSLIPS/i,
@@ -8771,7 +8791,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
       routeName === "wild-cave-boar-sow-warning-loop" ||
       routeName === "wild-cave-two-boar-ambush" || routeName === "wild-cave-three-boar-ambush" ||
-      routeName === "diogenes-silver-directions-loop" ||
+      routeName.startsWith("diogenes-silver-") ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       /^tyrmor-prison-(kobolds|lizardfolk|displacer|stirge)-loop$/.test(routeName) ||
       ["bane-captive-goblin-held", "bane-gate-inspection-holds", "bane-mansion-ogre-one-shot", "bane-mansion-symbol-hold", "bane-mansion-barracks-one-shot", "bane-altar-destruction-one-shot", "bane-temple-exit-one-shot", "sokal-ceiling-insects-phases", "textile-altar-portrait-release", "slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance", "new-phlan-city-hall-exit",
