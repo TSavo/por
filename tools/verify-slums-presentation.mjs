@@ -12188,7 +12188,7 @@ try {
       renderingSequence === undefined && !document.querySelector("#game-text").hidden
     `));
     await run(`(() => {
-      window.battleEntryTrace = { polls: [] };
+      window.battleEntryTrace = { polls: [], frames: [] };
       const expectedArt = ${JSON.stringify("/art/" + battleEntry.portrait)};
       const capture = window.battleEntryTrace;
       function observe(now) {
@@ -12196,6 +12196,13 @@ try {
         const portrait = layer?.querySelector(".encounter-portrait");
         const caption = state.text?.toSorted(([a], [b]) => a - b)
           .map(([, ch]) => String.fromCharCode(ch)).join("");
+        const observed = { sequence: state.sequence, ready: state.ready, awaitsKey: state.awaitsKey,
+          battleEntryPolling: state.battleEntryPolling, automaticCombat: state.automaticCombat, caption,
+          portrait: state.portrait, renderedArt: portrait?.getAttribute("src"), width: portrait?.naturalWidth };
+        const signature = JSON.stringify(observed);
+        if (capture.frames.at(-1)?.signature !== signature) {
+          capture.frames.push({ signature, at: now });
+        }
         if (state.ready && state.battleEntryPolling && capture.polls.at(-1) !== state.sequence) {
           capture.polls.push(state.sequence);
         }
@@ -12232,7 +12239,12 @@ try {
     `));
     assert.deepEqual([...posts.values()].map(({ input }) => input), ["up"]);
     await pressBattleEntryKey(battleEntry.trigger);
-    const notice = await waitFor("the actual battle notice painting", () => run("window.battleEntryTrace.notice"));
+    const notice = await waitFor("the actual battle notice painting", () => run("window.battleEntryTrace.notice")).catch(async error => {
+      const trace = await run("window.battleEntryTrace");
+      const failure = { ...trace, posts: [...posts.values()] };
+      writeFileSync(resolve(directory, "battle-entry-failure.json"), JSON.stringify(failure, null, 2) + "\n");
+      throw error;
+    });
     assert.equal(notice.src, "/art/" + battleEntry.portrait);
     const settled = await waitFor("the first manual combat menu without sending another key", () =>
       run("window.battleEntryTrace.combat?.heldMs >= 250 && window.battleEntryTrace"), 60_000);
