@@ -108,6 +108,10 @@ stepping forward brings up a dedicated 352×352 guard illustration at
 area 1, ECL cursor `a001`. The `buccaneer-bivant-punch` Chrome replay
 checks the preceding merchant portrait, the guard illustration's
 full-panel placement, and switching back to the original Classic frame.
+The ordinary input route `buccaneer-merchant-guard-close-up` also checks the
+close-up during the 2700 ms alarm at `9ff0` and its continued display at
+the `a002` battle notice. Both GOG 1.3 and bundled Enhanced clear it on the
+first combat turn.
 The tracked rescue objective records the alarm only after the party
 hears it and points back to the slave pen once the guards are dealt with.
 When combat starts, the original script advances to cursor `a002`.
