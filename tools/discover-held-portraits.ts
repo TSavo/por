@@ -205,6 +205,25 @@ const eclCandidates = scripts.flatMap(record => {
       return true;
     });
 
+    // Parlay after sneaking up on a roaming patrol retains its original portrait.
+    // The noticed menu also has direct entries that must keep their own producer.
+    if (archive === 4 && scriptBlock === 10 && load.address === 0xb4e9 && opcode === 0x29) {
+      const branch = instructions.get(load.next);
+      const reset = instructions.get(0xb51d);
+      const notice = reset && instructions.get(reset.next);
+      const jump = notice && instructions.get(notice.next);
+      const menu = instructions.get(0xb549);
+      if (branch?.opcode === 0x25 && memory(branch.operands[0]!) === memory(operands[3]!) &&
+          branch.operands[5]?.word === reset?.address && reset?.opcode === 0x09 &&
+          literal(reset.operands[0]!) === 0 && memory(reset.operands[1]!) === 0x6dcb &&
+          notice?.opcode === 0x12 && notice.operands[0]?.text === "YOU ARE NOTICED." &&
+          jump?.opcode === 0x01 && jump.operands[0]?.word === menu?.address && menu?.opcode === 0x29 &&
+          [0, 1, 2, 3].every(index => memory(operands[index]!) !== null &&
+            memory(operands[index]!) === memory(menu.operands[index]!))) {
+        for (const state of scope) prompt({ address: menu.address, returns: state.returns }, menu, 9);
+      }
+    }
+
     // Confirm the selected HEAD and BODY from each measured encounter's script.
     let composedPortrait;
     const address = authored(load.address);

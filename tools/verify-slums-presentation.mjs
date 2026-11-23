@@ -2322,6 +2322,7 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "down", "a", "a"],
     portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:34:0:0",
     prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMESKELETONS/i,
+    heldPortraitLoop: [0, 1, 2, 3, 2, 1].map(member => `portrait:area:10:ecl:b50b:PIC4.DAX:34:${member}:0`),
   }],
   ["tyranthraxus-battle-opening", {
     slot: "B",
@@ -4222,7 +4223,7 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:34:0:0",
     prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMESKELETONS/i,
     finalPhaseCapture: "valhingen-skeleton-roam-loop.png",
-    heldPortraitLoop: 4,
+    heldPortraitLoop: [0, 1, 2, 3, 2, 1].map(member => `portrait:area:10:ecl:b50b:PIC4.DAX:34:${member}:0`),
     continuation: {
       inputs: ["c"], portrait: "scene-illustration:area:10:ecl:b5c7:cue:skeleton-patrol-attack",
       prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMESKELETONS.*ABATTLEBEGINS/i,
