@@ -22717,6 +22717,63 @@
           }
         }
       }
+    },
+    {
+      "producer": "ECL7.DAX:17:a026",
+      "prompt": "9da2/a09b",
+      "caption": "A GROUP OF NOMADS SPOT YOU. THEY SHOUT AND CHARGE. AS THEY COME CLOSER THEIR NUMBERS SWELL WITH ARRIVALS.",
+      "checkpoint": "nomad-pursuit/A.json",
+      "position": [
+        17,
+        8,
+        1
+      ],
+      "chrome": {
+        "original": {
+          "route": "nomad-pursuit-combat",
+          "data": "original",
+          "position": [
+            17,
+            8,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:25AGROUPOFNOMADSSPOTYOU.THEYSHOUTANDCHARGE.ASTHEYCOMECLOSERTHEIRNUMBERSSWELLWITHARRIVALS.Pressbuttonor<return>tocontinue",
+          "checkpointSha256": "613741292eb972b2aa12b62d76d6931ae10a684a10cbb0667519057292b3a13d",
+          "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:17:ecl:9da2:caller:a09b:SPRIT7.DAX:11:2:0",
+              16,
+              49
+            ],
+            "sha256": "85e5b5127646d607b6901771d706af7faeda2173f655ca206677d8b657255ccc"
+          }
+        },
+        "port": {
+          "route": "nomad-pursuit-combat",
+          "data": "port",
+          "position": [
+            17,
+            8,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:25AGROUPOFNOMADSSPOTYOU.THEYSHOUTANDCHARGE.ASTHEYCOMECLOSERTHEIRNUMBERSSWELLWITHARRIVALS.Pressbuttonor<return>tocontinue",
+          "checkpointSha256": "613741292eb972b2aa12b62d76d6931ae10a684a10cbb0667519057292b3a13d",
+          "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:17:ecl:9da2:caller:a09b:SPRIT7.DAX:11:2:0",
+              16,
+              49
+            ],
+            "sha256": "85e5b5127646d607b6901771d706af7faeda2173f655ca206677d8b657255ccc"
+          }
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [
