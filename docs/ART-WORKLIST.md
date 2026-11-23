@@ -190,31 +190,30 @@ Areas not confirmed, and why:
 
 ### Local overland encounter terrain (#193)
 
-41 / 248 native world-map slots have a 96×96 material mask. 207 slots lack a mask.
+45 / 248 native world-map slots have a 96×96 material mask. 203 slots lack a mask.
 The Enhanced overland encounter view uses one set of painted materials with the native slots and world position. Normal travel uses the regional atlas.
 The table counts slots in the native map data. Paired replays establish which local 5×5 compositions appear during encounters.
 The shared 1024×2048 material atlas is installed.
 
 Missing slot keys
 
-`overland-tile:2`, `overland-tile:4`, `overland-tile:5`, `overland-tile:7`, `overland-tile:8`, `overland-tile:9`, `overland-tile:12`, `overland-tile:13`, `overland-tile:14`, `overland-tile:19`, `overland-tile:23`, `overland-tile:24`
-`overland-tile:25`, `overland-tile:28`, `overland-tile:29`, `overland-tile:31`, `overland-tile:34`, `overland-tile:36`, `overland-tile:37`, `overland-tile:42`, `overland-tile:43`, `overland-tile:44`, `overland-tile:45`, `overland-tile:46`
-`overland-tile:47`, `overland-tile:48`, `overland-tile:49`, `overland-tile:51`, `overland-tile:53`, `overland-tile:55`, `overland-tile:56`, `overland-tile:57`, `overland-tile:58`, `overland-tile:59`, `overland-tile:60`, `overland-tile:61`
-`overland-tile:62`, `overland-tile:63`, `overland-tile:64`, `overland-tile:65`, `overland-tile:66`, `overland-tile:67`, `overland-tile:68`, `overland-tile:69`, `overland-tile:70`, `overland-tile:71`, `overland-tile:72`, `overland-tile:73`
-`overland-tile:74`, `overland-tile:75`, `overland-tile:76`, `overland-tile:77`, `overland-tile:78`, `overland-tile:79`, `overland-tile:80`, `overland-tile:81`, `overland-tile:82`, `overland-tile:83`, `overland-tile:84`, `overland-tile:85`
-`overland-tile:86`, `overland-tile:87`, `overland-tile:88`, `overland-tile:89`, `overland-tile:90`, `overland-tile:91`, `overland-tile:92`, `overland-tile:93`, `overland-tile:94`, `overland-tile:95`, `overland-tile:96`, `overland-tile:98`
-`overland-tile:100`, `overland-tile:101`, `overland-tile:102`, `overland-tile:103`, `overland-tile:104`, `overland-tile:105`, `overland-tile:106`, `overland-tile:107`, `overland-tile:108`, `overland-tile:109`, `overland-tile:110`, `overland-tile:111`
-`overland-tile:112`, `overland-tile:113`, `overland-tile:114`, `overland-tile:115`, `overland-tile:116`, `overland-tile:117`, `overland-tile:118`, `overland-tile:124`, `overland-tile:125`, `overland-tile:126`, `overland-tile:127`, `overland-tile:128`
-`overland-tile:129`, `overland-tile:130`, `overland-tile:131`, `overland-tile:132`, `overland-tile:133`, `overland-tile:134`, `overland-tile:135`, `overland-tile:136`, `overland-tile:137`, `overland-tile:139`, `overland-tile:140`, `overland-tile:141`
-`overland-tile:142`, `overland-tile:143`, `overland-tile:150`, `overland-tile:151`, `overland-tile:152`, `overland-tile:153`, `overland-tile:156`, `overland-tile:157`, `overland-tile:158`, `overland-tile:159`, `overland-tile:160`, `overland-tile:161`
-`overland-tile:162`, `overland-tile:163`, `overland-tile:165`, `overland-tile:166`, `overland-tile:167`, `overland-tile:168`, `overland-tile:169`, `overland-tile:170`, `overland-tile:171`, `overland-tile:172`, `overland-tile:173`, `overland-tile:174`
-`overland-tile:175`, `overland-tile:176`, `overland-tile:177`, `overland-tile:178`, `overland-tile:179`, `overland-tile:180`, `overland-tile:181`, `overland-tile:182`, `overland-tile:183`, `overland-tile:184`, `overland-tile:185`, `overland-tile:186`
-`overland-tile:187`, `overland-tile:188`, `overland-tile:189`, `overland-tile:190`, `overland-tile:191`, `overland-tile:193`, `overland-tile:194`, `overland-tile:195`, `overland-tile:196`, `overland-tile:197`, `overland-tile:198`, `overland-tile:199`
-`overland-tile:200`, `overland-tile:201`, `overland-tile:202`, `overland-tile:203`, `overland-tile:204`, `overland-tile:205`, `overland-tile:206`, `overland-tile:207`, `overland-tile:208`, `overland-tile:209`, `overland-tile:210`, `overland-tile:211`
-`overland-tile:212`, `overland-tile:213`, `overland-tile:214`, `overland-tile:216`, `overland-tile:217`, `overland-tile:218`, `overland-tile:219`, `overland-tile:220`, `overland-tile:221`, `overland-tile:222`, `overland-tile:223`, `overland-tile:224`
-`overland-tile:225`, `overland-tile:226`, `overland-tile:227`, `overland-tile:228`, `overland-tile:229`, `overland-tile:230`, `overland-tile:231`, `overland-tile:232`, `overland-tile:233`, `overland-tile:234`, `overland-tile:235`, `overland-tile:236`
-`overland-tile:237`, `overland-tile:238`, `overland-tile:240`, `overland-tile:241`, `overland-tile:242`, `overland-tile:243`, `overland-tile:244`, `overland-tile:245`, `overland-tile:248`, `overland-tile:249`, `overland-tile:250`, `overland-tile:251`
-`overland-tile:252`, `overland-tile:253`, `overland-tile:254`
+`overland-tile:2`, `overland-tile:4`, `overland-tile:5`, `overland-tile:7`, `overland-tile:8`, `overland-tile:13`, `overland-tile:14`, `overland-tile:19`, `overland-tile:23`, `overland-tile:24`, `overland-tile:25`, `overland-tile:29`
+`overland-tile:34`, `overland-tile:36`, `overland-tile:37`, `overland-tile:42`, `overland-tile:43`, `overland-tile:44`, `overland-tile:45`, `overland-tile:46`, `overland-tile:47`, `overland-tile:48`, `overland-tile:49`, `overland-tile:51`
+`overland-tile:53`, `overland-tile:55`, `overland-tile:56`, `overland-tile:57`, `overland-tile:58`, `overland-tile:59`, `overland-tile:60`, `overland-tile:61`, `overland-tile:62`, `overland-tile:63`, `overland-tile:64`, `overland-tile:65`
+`overland-tile:66`, `overland-tile:67`, `overland-tile:68`, `overland-tile:69`, `overland-tile:70`, `overland-tile:71`, `overland-tile:72`, `overland-tile:73`, `overland-tile:74`, `overland-tile:75`, `overland-tile:76`, `overland-tile:77`
+`overland-tile:78`, `overland-tile:79`, `overland-tile:80`, `overland-tile:81`, `overland-tile:82`, `overland-tile:83`, `overland-tile:84`, `overland-tile:85`, `overland-tile:86`, `overland-tile:87`, `overland-tile:88`, `overland-tile:89`
+`overland-tile:90`, `overland-tile:91`, `overland-tile:92`, `overland-tile:93`, `overland-tile:94`, `overland-tile:95`, `overland-tile:96`, `overland-tile:98`, `overland-tile:100`, `overland-tile:101`, `overland-tile:102`, `overland-tile:103`
+`overland-tile:104`, `overland-tile:105`, `overland-tile:106`, `overland-tile:107`, `overland-tile:108`, `overland-tile:109`, `overland-tile:110`, `overland-tile:111`, `overland-tile:112`, `overland-tile:113`, `overland-tile:114`, `overland-tile:115`
+`overland-tile:116`, `overland-tile:117`, `overland-tile:118`, `overland-tile:124`, `overland-tile:125`, `overland-tile:126`, `overland-tile:127`, `overland-tile:128`, `overland-tile:129`, `overland-tile:130`, `overland-tile:131`, `overland-tile:132`
+`overland-tile:133`, `overland-tile:134`, `overland-tile:135`, `overland-tile:136`, `overland-tile:137`, `overland-tile:139`, `overland-tile:140`, `overland-tile:141`, `overland-tile:142`, `overland-tile:143`, `overland-tile:150`, `overland-tile:151`
+`overland-tile:152`, `overland-tile:153`, `overland-tile:156`, `overland-tile:157`, `overland-tile:158`, `overland-tile:159`, `overland-tile:160`, `overland-tile:161`, `overland-tile:162`, `overland-tile:163`, `overland-tile:165`, `overland-tile:166`
+`overland-tile:167`, `overland-tile:168`, `overland-tile:169`, `overland-tile:170`, `overland-tile:171`, `overland-tile:172`, `overland-tile:173`, `overland-tile:174`, `overland-tile:175`, `overland-tile:176`, `overland-tile:177`, `overland-tile:178`
+`overland-tile:179`, `overland-tile:180`, `overland-tile:181`, `overland-tile:182`, `overland-tile:183`, `overland-tile:184`, `overland-tile:185`, `overland-tile:186`, `overland-tile:187`, `overland-tile:188`, `overland-tile:189`, `overland-tile:190`
+`overland-tile:191`, `overland-tile:193`, `overland-tile:194`, `overland-tile:195`, `overland-tile:196`, `overland-tile:197`, `overland-tile:198`, `overland-tile:199`, `overland-tile:200`, `overland-tile:201`, `overland-tile:202`, `overland-tile:203`
+`overland-tile:204`, `overland-tile:205`, `overland-tile:206`, `overland-tile:207`, `overland-tile:208`, `overland-tile:209`, `overland-tile:210`, `overland-tile:211`, `overland-tile:212`, `overland-tile:213`, `overland-tile:214`, `overland-tile:216`
+`overland-tile:217`, `overland-tile:218`, `overland-tile:219`, `overland-tile:220`, `overland-tile:221`, `overland-tile:222`, `overland-tile:223`, `overland-tile:224`, `overland-tile:225`, `overland-tile:226`, `overland-tile:227`, `overland-tile:228`
+`overland-tile:229`, `overland-tile:230`, `overland-tile:231`, `overland-tile:232`, `overland-tile:233`, `overland-tile:234`, `overland-tile:235`, `overland-tile:236`, `overland-tile:237`, `overland-tile:238`, `overland-tile:240`, `overland-tile:241`
+`overland-tile:242`, `overland-tile:243`, `overland-tile:244`, `overland-tile:245`, `overland-tile:248`, `overland-tile:249`, `overland-tile:250`, `overland-tile:251`, `overland-tile:252`, `overland-tile:253`, `overland-tile:254`
 
 ### Other pictures no key names
 
