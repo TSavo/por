@@ -328,19 +328,37 @@ export function createOverlandViewport(canvas) {
       varying vec2 uv;
       uniform sampler2D map;
       uniform sampler2D materials;
+      uniform sampler2D details;
       uniform bool local;
+      uniform bool hasDetails;
       uniform vec2 origin;
+      struct SurfacePaint {
+        vec3 meadow;
+        vec3 warmRock;
+        vec3 coolRock;
+        vec3 snow;
+        vec3 canopy;
+        vec3 water;
+        vec3 marsh;
+        vec3 silt;
+      };
       vec3 terrainColor(vec2 material, vec2 scale) {
         // Inset a texel to keep filtering inside each cell of the atlas.
         return texture2D(materials, (material * 512.0 + scale * 510.0 + 1.0) / vec2(1024.0, 2048.0)).rgb;
       }
-      vec3 paintMaterials(vec4 mask, vec3 meadow, vec3 warmRock, vec3 coolRock, vec3 snow, vec3 canopy) {
+      vec3 paintMaterials(vec4 mask, vec2 point, SurfacePaint paint) {
         // Red marks meadow, green marks snow and blue blends the two rock materials.
-        vec3 rock = mix(warmRock, coolRock, mask.b);
-        rock = mix(rock, snow, mask.g);
-        vec3 ground = mix(rock, meadow, mask.r);
+        vec3 rock = mix(paint.warmRock, paint.coolRock, mask.b);
+        rock = mix(rock, paint.snow, mask.g);
+        vec3 ground = mix(rock, paint.meadow, mask.r);
         // Alpha carries inverse canopy coverage.
-        if (mask.a < 1.0) ground = mix(canopy, ground, mask.a);
+        if (mask.a < 1.0) ground = mix(paint.canopy, ground, mask.a);
+        if (hasDetails) {
+          vec3 wet = texture2D(details, point).rgb;
+          ground = mix(ground, paint.silt, wet.b);
+          ground = mix(ground, paint.marsh, wet.g);
+          ground = mix(ground, paint.water, wet.r);
+        }
         return ground;
       }
 
@@ -352,27 +370,29 @@ export function createOverlandViewport(canvas) {
         }
         // Both sides of a join shade the same world coordinate in the material sheet.
         vec2 scale = fract((origin + uv * 352.0) / 512.0);
-        vec3 meadow = terrainColor(vec2(0.0, 0.0), scale);
-        vec3 warmRock = terrainColor(vec2(1.0, 0.0), scale);
-        vec3 coolRock = terrainColor(vec2(0.0, 1.0), scale);
-        vec3 snow = terrainColor(vec2(1.0, 1.0), scale);
-        vec3 canopy = terrainColor(vec2(0.0, 2.0), scale);
-        vec3 ground = paintMaterials(pixel, meadow, warmRock, coolRock, snow, canopy);
+        SurfacePaint paint = SurfacePaint(
+          terrainColor(vec2(0.0, 0.0), scale), terrainColor(vec2(1.0, 0.0), scale),
+          terrainColor(vec2(0.0, 1.0), scale), terrainColor(vec2(1.0, 1.0), scale),
+          terrainColor(vec2(0.0, 2.0), scale),
+          hasDetails ? terrainColor(vec2(1.0, 2.0), scale) : vec3(0.0),
+          hasDetails ? terrainColor(vec2(0.0, 3.0), scale) : vec3(0.0),
+          hasDetails ? terrainColor(vec2(1.0, 3.0), scale) : vec3(0.0)
+        );
+        vec3 ground = paintMaterials(pixel, uv, paint);
 
         // Each mask is 96 px wide. The 64 px crop places the first join at 32 px.
         vec2 seam = mod(uv * 352.0 + 64.0 + 48.0, 96.0) - 48.0;
         vec2 blend = 0.5 * (1.0 - smoothstep(0.0, 8.0, abs(seam)));
         vec2 opposite = uv - (seam + sign(seam) * 0.5) / 352.0;
         if (blend.x > 0.0) {
-          vec4 neighbor = texture2D(map, vec2(opposite.x, uv.y));
-          ground = mix(ground, paintMaterials(neighbor, meadow, warmRock, coolRock, snow, canopy), blend.x);
+          vec2 neighbor = vec2(opposite.x, uv.y);
+          ground = mix(ground, paintMaterials(texture2D(map, neighbor), neighbor, paint), blend.x);
         }
         if (blend.y > 0.0) {
-          vec4 neighbor = texture2D(map, vec2(uv.x, opposite.y));
-          vec3 nextRow = paintMaterials(neighbor, meadow, warmRock, coolRock, snow, canopy);
+          vec2 neighbor = vec2(uv.x, opposite.y);
+          vec3 nextRow = paintMaterials(texture2D(map, neighbor), neighbor, paint);
           if (blend.x > 0.0) {
-            vec4 diagonal = texture2D(map, opposite);
-            nextRow = mix(nextRow, paintMaterials(diagonal, meadow, warmRock, coolRock, snow, canopy), blend.x);
+            nextRow = mix(nextRow, paintMaterials(texture2D(map, opposite), opposite, paint), blend.x);
           }
           ground = mix(ground, nextRow, blend.y);
         }
@@ -407,25 +427,48 @@ export function createOverlandViewport(canvas) {
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 255]));
+  const detailTexture = gl.createTexture();
+  gl.activeTexture(gl.TEXTURE2);
+  gl.bindTexture(gl.TEXTURE_2D, detailTexture);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, 1, 1, 0, gl.RGB, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0]));
   gl.activeTexture(gl.TEXTURE0);
   const local = gl.getUniformLocation(program, "local");
+  const hasDetails = gl.getUniformLocation(program, "hasDetails");
   const origin = gl.getUniformLocation(program, "origin");
   gl.uniform1i(gl.getUniformLocation(program, "map"), 0);
   gl.uniform1i(gl.getUniformLocation(program, "materials"), 1);
+  gl.uniform1i(gl.getUniformLocation(program, "details"), 2);
   let loadedMaterials;
   const tile = document.createElement("canvas");
   tile.width = tile.height = 352;
   const paint = tile.getContext("2d");
   paint.imageSmoothingEnabled = false;
+  const detailTile = document.createElement("canvas");
+  detailTile.width = detailTile.height = 352;
+  const paintDetails = detailTile.getContext("2d", { alpha: false });
+  paintDetails.imageSmoothingEnabled = false;
+  function drawTerrainTiles(context, images) {
+    images.forEach((image, index) => {
+      if (image) context.drawImage(image, index % 5 * 96 - 64, Math.floor(index / 5) * 96 - 64);
+    });
+  }
   return {
     draw(frame, terrain) {
       if (gl.isContextLost()) throw new Error("WebGL context lost");
       paint.clearRect(0, 0, 352, 352);
       if (terrain) {
         // The guest's 88px viewport is centered in the 120px terrain sheet.
-        terrain.tiles.forEach((image, index) => {
-          paint.drawImage(image, index % 5 * 96 - 64, Math.floor(index / 5) * 96 - 64);
-        });
+        drawTerrainTiles(paint, terrain.tiles);
+        if (terrain.details) {
+          paintDetails.clearRect(0, 0, 352, 352);
+          drawTerrainTiles(paintDetails, terrain.details);
+          gl.activeTexture(gl.TEXTURE2);
+          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, detailTile);
+        }
         if (loadedMaterials !== terrain.materials) {
           gl.activeTexture(gl.TEXTURE1);
           gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, terrain.materials);
@@ -435,6 +478,7 @@ export function createOverlandViewport(canvas) {
         gl.uniform2f(origin, (x * 96 - 128) % 512, (y * 96 - 128) % 512);
       } else paint.drawImage(frame, 24, 24, 88, 88, 0, 0, 352, 352);
       gl.uniform1i(local, terrain ? 1 : 0);
+      gl.uniform1i(hasDetails, terrain?.details ? 1 : 0);
       gl.activeTexture(gl.TEXTURE0);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tile);
       gl.viewport(0,0,canvas.width,canvas.height);

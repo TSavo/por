@@ -1425,11 +1425,14 @@ async function showScreen() {
   let overlandTerrain;
   if (overland && view.overlandTerrain && !failedOverlandTerrain.has(view)) {
     try {
-      const [materials, ...tiles] = await Promise.all([
+      const { slots, center, detailSlots } = view.overlandTerrain;
+      const detailIds = new Set(detailSlots);
+      const [materials, tiles, details] = await Promise.all([
         overlandImage("overland-materials"),
-        ...view.overlandTerrain.slots.map(slot => overlandImage(`overland-tile:${slot}`)),
+        Promise.all(slots.map(slot => overlandImage(`overland-tile:${slot}`))),
+        detailSlots && Promise.all(slots.map(slot => detailIds.has(slot) ? overlandImage(`overland-detail:${slot}`) : undefined)),
       ]);
-      overlandTerrain = { materials, tiles, center: view.overlandTerrain.center };
+      overlandTerrain = { materials, tiles, details, center };
     } catch { failedOverlandTerrain.add(view); }
     if (render !== screenRender) return;
   }

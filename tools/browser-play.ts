@@ -126,8 +126,15 @@ type ExplorationFrame = {
 
 function prepareScenery(view: ExplorationFrame) {
   // Keep the current travel surface until every slot in the local composition has artwork.
-  if (view.overlandTerrain && (!artwork.has("overland-materials") ||
-      view.overlandTerrain.slots.some(slot => !artwork.has(`overland-tile:${slot}`)))) delete view.overlandTerrain;
+  const terrain = view.overlandTerrain;
+  if (terrain) {
+    if (!artwork.has("overland-materials") || terrain.slots.some(slot => !artwork.has(`overland-tile:${slot}`))) {
+      delete view.overlandTerrain;
+    } else {
+      const detailSlots = [...new Set(terrain.slots)].filter(slot => artwork.has(`overland-detail:${slot}`));
+      if (detailSlots.length) view.overlandTerrain = { ...terrain, detailSlots };
+    }
+  }
   const native = view.nativeScenery;
   if (!native) return;
   delete view.nativeScenery;

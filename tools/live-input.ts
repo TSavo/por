@@ -56,6 +56,7 @@ const transientScriptIllustrations = new Map([
 export interface OverlandTerrainFrame {
   slots: readonly number[];
   center: readonly [number, number];
+  detailSlots?: readonly number[];
 }
 export interface PresentationAnimationFrame {
   portrait?: string;
