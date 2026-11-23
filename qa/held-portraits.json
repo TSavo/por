@@ -29931,22 +29931,22 @@
       "caption": "SOME GHOULS DECIDE TO ADD YOU TO THEIR MENU.",
       "checkpoint": "textile-ghoul-ambush/B.json",
       "position": [
+        2,
         5,
-        11,
-        4
+        11
       ],
       "chrome": {
         "original": {
           "route": "textile-ghoul-battle-entry",
           "data": "original",
           "position": [
+            2,
             5,
-            11,
-            4
+            11
           ],
           "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1055,11S23:16searchSOMEGHOULSDECIDETOADDYOUTOTHEIRMENU.Press<return>orbuttontocontinue.",
           "checkpointSha256": "098c21a3e7052d3f7c424f0c0eb5d104bffdaa5d27ca46df52292eb2342af22b",
-          "rendererSha256": "63ed7feeedcc946fa2d875929600db3ad193e883eb12beb0e83f2ec54c1c85b9",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
           "encounter": {
             "placement": [
               56,
@@ -29962,13 +29962,13 @@
           "route": "textile-ghoul-battle-entry",
           "data": "port",
           "position": [
+            2,
             5,
-            11,
-            4
+            11
           ],
           "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1055,11S23:16searchSOMEGHOULSDECIDETOADDYOUTOTHEIRMENU.Press<return>orbuttontocontinue.",
           "checkpointSha256": "098c21a3e7052d3f7c424f0c0eb5d104bffdaa5d27ca46df52292eb2342af22b",
-          "rendererSha256": "63ed7feeedcc946fa2d875929600db3ad193e883eb12beb0e83f2ec54c1c85b9",
+          "rendererSha256": "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f",
           "encounter": {
             "placement": [
               56,
