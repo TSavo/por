@@ -17,6 +17,11 @@ import { IdbResources } from "./idb-provider.js";
 import { forgetOriginalFolder, originalEntries, originalFolderAt, pickOriginalFolder, restoreOriginalFolder, type OriginalChoice } from "./original-picker.js";
 import type { ResourceIndex } from "./resource-index.js";
 
+if (typeof window !== "undefined" && (window.porElectron || /\bElectron\//.test(navigator.userAgent))) {
+  document.documentElement.classList.add("electron-app");
+}
+
+
 /** The runner's settings as tools/browser-play.ts starts it; the index's (the server's passed settings) come after. */
 const runnerEnv = {
   POR_BROWSER_PLAY: "1", POR_CLOCK: "real", POR_LIVE_AT: "24000000", POR_PICTURE_LOOP_FRAMES: "1", POR_BOOT_STEPS: "100000000",

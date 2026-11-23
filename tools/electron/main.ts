@@ -197,6 +197,9 @@ function openWindow(): void {
   win.webContents.on("will-navigate", (event, url) => {
     if (new URL(url).origin !== gameOrigin) event.preventDefault();
   });
+  win.webContents.on("dom-ready", () => {
+    void win.webContents.executeJavaScript('document.documentElement.classList.add("electron-app")');
+  });
   void win.loadURL(`${gameOrigin}/`);
 }
 
