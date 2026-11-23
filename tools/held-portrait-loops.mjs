@@ -169,6 +169,8 @@ const portraitLoops = [
     /YOUARESURPRISEDBYORCS/i, slumsOrcPoseTimes],
   ["portrait:area:20:ecl:b6df:caller:9c64:PIC2.DAX:2:", 2, undefined,
     /YOUARESURPRISEDBYGOBLINS/i, [310, 310]],
+  ["portrait:area:20:ecl:b6df:caller:9c64:PIC2.DAX:0:", [0, 1, 2, 1], undefined,
+    /YOUARESURPRISEDBYKOBOLDS/i, [210, 210, 210, 210]],
   ["portrait:area:20:ecl:b6df:caller:abd5:PIC2.DAX:6:", slumsHobgoblinPoseOrder, "portrait:area:20:PIC2.DAX:6:0:0",
     /YOUINTRUDEONAGATHERINGOFMONSTERLEADERS/i, slumsHobgoblinPoseTimes],
   ["portrait:area:20:ecl:b6df:caller:aa6c:PIC2.DAX:6:", slumsHobgoblinPoseOrder, undefined,

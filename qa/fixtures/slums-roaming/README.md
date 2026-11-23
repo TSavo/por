@@ -9,3 +9,5 @@ Use `orc-B.json` with `slums-roaming-orc-surprise-loop` to check the
 orc surprise, its portrait timing, and the handoff to combat in both modes.
 The same checkpoint with `slums-roaming-goblin-surprise-loop` reaches the
 goblin branch with its own fixed replay clock.
+Use `slums-roaming-kobold-surprise-loop` with that checkpoint for the
+kobold branch of the same party-surprise prompt.
