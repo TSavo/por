@@ -19870,6 +19870,121 @@
           }
         }
       }
+    },
+    {
+      "id": "area:25:ecl:a622:PIC6.DAX:120",
+      "producer": "ECL6.DAX:25:a5aa",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1310,
+          "viewport": "207bb6600b215e7e91598b2888cefd3c7debd05380ee9fdc56f0642f150eb5b1"
+        },
+        {
+          "member": 1,
+          "durationMs": 110,
+          "viewport": "baeb52752fb993c227cdc0daf2ddae0e15d0056ef1d5bd129a3f133e62abd47a"
+        },
+        {
+          "member": 2,
+          "durationMs": 510,
+          "viewport": "c862463c283b06fc408402f8842d22aad0752f73c9a129f6d3406975f3b5f38e"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "wild-cave-boar-sow-warning-loop",
+          "data": "original",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "fa85f565bdc187e4adc66de8ee847c2f08d5f8599349eb3b335e5eebec491309",
+          "portrait": "portrait:area:25:ecl:a622:PIC6.DAX:120:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:25:ecl:a622:PIC6.DAX:120:0:0",
+              "atMs": 14.700000035762969
+            },
+            {
+              "key": "portrait:area:25:ecl:a622:PIC6.DAX:120:1:0",
+              "atMs": 1248.0000000357632
+            },
+            {
+              "key": "portrait:area:25:ecl:a622:PIC6.DAX:120:2:0",
+              "atMs": 1364.6000000357626
+            },
+            {
+              "key": "portrait:area:25:ecl:a622:PIC6.DAX:120:0:0",
+              "atMs": 1881.3000000357624
+            },
+            {
+              "key": "portrait:area:25:ecl:a622:PIC6.DAX:120:1:0",
+              "atMs": 3181.200000035762
+            },
+            {
+              "key": "portrait:area:25:ecl:a622:PIC6.DAX:120:2:0",
+              "atMs": 3297.8000000357624
+            },
+            {
+              "key": "portrait:area:25:ecl:a622:PIC6.DAX:120:0:0",
+              "atMs": 3797.8000000357624
+            },
+            {
+              "key": "portrait:area:25:ecl:a622:PIC6.DAX:120:1:0",
+              "atMs": 5114.400000035763
+            }
+          ],
+          "sha256": {
+            "portrait:area:25:ecl:a622:PIC6.DAX:120:0:0": "69abdc69ddf6c77975a1b585cd481e749674d84e9c7a75ab4fc4b916b3b58d56",
+            "portrait:area:25:ecl:a622:PIC6.DAX:120:1:0": "5fad2b42a31970d71039235f8537287d506c12feef2960f8f50591c09172e34e",
+            "portrait:area:25:ecl:a622:PIC6.DAX:120:2:0": "3d17111d0b5730e44cb0d7e3f3c074d2ef68483bc8b9009caaa9e7eedc07dfc7"
+          }
+        },
+        "port": {
+          "route": "wild-cave-boar-sow-warning-loop",
+          "data": "port",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "fa85f565bdc187e4adc66de8ee847c2f08d5f8599349eb3b335e5eebec491309",
+          "portrait": "portrait:area:25:ecl:a622:PIC6.DAX:120:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:25:ecl:a622:PIC6.DAX:120:0:0",
+              "atMs": 14.300000000000182
+            },
+            {
+              "key": "portrait:area:25:ecl:a622:PIC6.DAX:120:1:0",
+              "atMs": 1280.8999999999996
+            },
+            {
+              "key": "portrait:area:25:ecl:a622:PIC6.DAX:120:2:0",
+              "atMs": 1380.8999999999996
+            },
+            {
+              "key": "portrait:area:25:ecl:a622:PIC6.DAX:120:0:0",
+              "atMs": 1897.6000000000004
+            },
+            {
+              "key": "portrait:area:25:ecl:a622:PIC6.DAX:120:1:0",
+              "atMs": 3214.2
+            },
+            {
+              "key": "portrait:area:25:ecl:a622:PIC6.DAX:120:2:0",
+              "atMs": 3314.2
+            },
+            {
+              "key": "portrait:area:25:ecl:a622:PIC6.DAX:120:0:0",
+              "atMs": 3830.8999999999996
+            },
+            {
+              "key": "portrait:area:25:ecl:a622:PIC6.DAX:120:1:0",
+              "atMs": 5130.799999999999
+            }
+          ],
+          "sha256": {
+            "portrait:area:25:ecl:a622:PIC6.DAX:120:0:0": "69abdc69ddf6c77975a1b585cd481e749674d84e9c7a75ab4fc4b916b3b58d56",
+            "portrait:area:25:ecl:a622:PIC6.DAX:120:1:0": "5fad2b42a31970d71039235f8537287d506c12feef2960f8f50591c09172e34e",
+            "portrait:area:25:ecl:a622:PIC6.DAX:120:2:0": "3d17111d0b5730e44cb0d7e3f3c074d2ef68483bc8b9009caaa9e7eedc07dfc7"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
@@ -24373,6 +24488,40 @@
           "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
           "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
           "artSha256": "22e2a022d1dad6cd7ecb1ef044ee335c622b36cd4b97c134713f5547870fe630"
+        }
+      }
+    },
+    {
+      "producer": "ECL6.DAX:25:a7d4",
+      "combat": "a817",
+      "checkpoint": "wild-cave-ankheg-lunge/A.json",
+      "native": {
+        "approachDraws": {
+          "original": 1,
+          "port": 1
+        },
+        "evidence": "https://github.com/TSavo/por/issues/131#issuecomment-7089670486"
+      },
+      "chrome": {
+        "original": {
+          "producer": "ECL6.DAX:25:a7d4",
+          "route": "wild-cave-ankheg-lunge",
+          "data": "original",
+          "portrait": "scene-illustration:area:25:ecl:a80f:cue:wild-cave-ankheg-lunge",
+          "checkpointSha256": "ce1a8ba0ddfdf198eedb279168fda74bc9640437888ea56168062af08a5fdbf2",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "artSha256": "771cbc4f4219502d83fc2ef330812e15d6195fe424cf741add49d2f417f3ad35"
+        },
+        "port": {
+          "producer": "ECL6.DAX:25:a7d4",
+          "route": "wild-cave-ankheg-lunge",
+          "data": "port",
+          "portrait": "scene-illustration:area:25:ecl:a80f:cue:wild-cave-ankheg-lunge",
+          "checkpointSha256": "ce1a8ba0ddfdf198eedb279168fda74bc9640437888ea56168062af08a5fdbf2",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "artSha256": "771cbc4f4219502d83fc2ef330812e15d6195fe424cf741add49d2f417f3ad35"
         }
       }
     }
