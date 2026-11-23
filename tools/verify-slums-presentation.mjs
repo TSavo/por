@@ -8409,6 +8409,12 @@ const controlledBattleIllustrations = new Map([
     portrait: "scene-illustration:area:28:ecl:a5b5",
     caption: /ASYOUDEFEATTHEGUARDSSOMEMOREMENRUNINANDATTACK/i,
   }],
+  ["kuto-well-kobold-reinforcements-hold", {
+    slot: "J", inputs: ["up"],
+    portrait: "scene-illustration:area:29:ecl:af2f:caller:a31b:cue:kobolds-climb-from-well",
+    caption: /ABANDOFKOBOLDSCLIMBSFROMTHEWELLANDATTACKS/i,
+    staticHold: true,
+  }],
   ["kuto-well-kobold-reinforcements", {
     slot: "J", inputs: ["up", "y", "enter", "enter", "down", "up"],
     portrait: "scene-illustration:area:29:ecl:a3b9",
@@ -8708,7 +8714,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
         routeName === "valjevo-tower-troll-ambush-loop" ? "4322783" :
         routeName === "valhingen-skeleton-roaming-ambush-loop" || routeName === "valhingen-wight-ambush-loop" ? "4320042" : undefined),
     ...(textileScorpionLoop ? { POR_PROMPT_SCHEDULE_IN: resolve(textileScorpionWalk, "prompts.jsonl") } : {}),
-    POR_INPUT_COMPAT: textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
+    POR_INPUT_COMPAT: controlledBattleIllustration?.staticHold || textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "pyramid-vats-mutants-loop" || routeName.startsWith("pyramid-exterior-") ||
       routeName.startsWith("yarash-study-") ||
       routeName === "textile-grishnak-from-chest" ||
@@ -11507,7 +11513,7 @@ try {
     console.log("Verified all five native roaming zombie portrait phases and the battle opening in Chrome:", directory);
   } else if (controlledBattleIllustration) {
     const { inputs, portrait, caption, afterBattle = caption, walk = [], reinforcements = [],
-      heldApproachPosition, patrolCaptain, victoryInputs = [] } = controlledBattleIllustration;
+      heldApproachPosition, patrolCaptain, staticHold, victoryInputs = [] } = controlledBattleIllustration;
     if (heldApproachPosition) await observeApproach([patrolApproachPlacement(heldApproachPosition[0])]);
     const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
     await run(`const sendCombatNoteKey = send; send = key => key === ":poll" ? undefined : sendCombatNoteKey(key);`);
@@ -11553,6 +11559,15 @@ try {
       assert.match(text(), /ABATTLEBEGINS/i);
     } else {
       assert.equal(frame.portrait, portrait);
+      if (staticHold) {
+        assert.ok(frame.animation?.some(phase => phase.portrait === portrait && phase.durationMs === 1800),
+          `Missing the close approach illustration: ${JSON.stringify(frame.animation?.map(({ portrait, durationMs }) => [portrait, durationMs]))}`);
+        await waitFor("the close approach illustration", () => run(`animationFrame?.portrait === ${JSON.stringify(portrait)} &&
+          document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352`));
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, `${routeName}-approach.png`), Buffer.from(shot.data, "base64"));
+        await verifyStaticPortrait(portrait, caption);
+      }
       await waitFor("the post-battle illustration", () => run(`state.sequence === ${frame.sequence} &&
         document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352`));
       await verifyPortraitPanel();
@@ -11560,7 +11575,17 @@ try {
       writeFileSync(resolve(directory, `${routeName}.png`), Buffer.from(shot.data, "base64"));
       await switchBothWays();
     }
-    if (routeName === "new-phlan-tavern-watch-stay") {
+    if (staticHold) {
+      await step("enter");
+      assert.match(text(), /ABATTLEBEGINS/i);
+      assert.equal(frame.portrait, portrait);
+      assert.ok(frame.animation?.some(phase => phase.portrait === portrait && phase.durationMs === 900));
+      await waitFor("the retained picture at the battle notice", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, `${routeName}-battle-notice.png`), Buffer.from(shot.data, "base64"));
+    } else if (routeName === "new-phlan-tavern-watch-stay") {
       await step("s");
       const reinforcements = "portrait:area:0:ecl:add3:HEAD3.DAX:9:BODY3.DAX:7";
       assert.match(text(), /THECITYWATCHRESPONDSTOTHENOISE/i);
