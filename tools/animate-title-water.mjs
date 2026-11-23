@@ -15,12 +15,10 @@ const lights = [
   [197,484,17,21], [325,521,8,12], [491,527,7,10],
   [621,488,6,9], [843,489,3,5], [1151,476,5,9],
 ];
-// Pass the bright-ripple and quiet-water ImageGen edits of the same source painting.
-const edits = process.argv.slice(2);
-if (edits.length !== 2) throw new Error("Expected the two ImageGen keyframe PNG paths.");
-const paintings = edits.map(path => execFileSync("ffmpeg", ["-loglevel", "error", "-i", path,
-  "-vf", "scale=1280:800:flags=area", "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"],
-  { maxBuffer: width * height * 4 }));
+// ImageGen keyframes store only the lower part of the painting that contains moving light.
+const paintings = [original, ...["bright","amber","quiet"].map(name => execFileSync("ffmpeg",
+  ["-loglevel", "error", "-i", `tools/art-source/harbor/${name}.png`, "-vf", "pad=1280:800:0:410",
+    "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], { maxBuffer: width * height * 4 }))];
 function falloff(x,y,cx,cy,rx,ry) {
   return Math.max(0, 1 - ((x-cx)/rx)**2 - ((y-cy)/ry)**2);
 }
@@ -42,16 +40,17 @@ for (let y=410; y<height; y++) {
 }
 const dir = mkdtempSync(join(tmpdir(), "por-harbor-"));
 try {
-  // Original, bright, original, quiet, then back to the original across the loop seam.
+  // Ease between adjacent paintings, including the last back to the first.
   for (let frame=0; frame<frames; frame++) {
-    const phase=frame/frames;
-    const painting=paintings[phase<.5 ? 0 : 1];
-    const weight=Math.sin(phase*2*Math.PI)**2;
+    const phase=frame*paintings.length/frames;
+    const index=Math.floor(phase);
+    const from=paintings[index], to=paintings[(index+1)%paintings.length];
+    const weight=(1-Math.cos((phase-index)*Math.PI))/2;
     const pixels=Buffer.from(original);
     for(let n=0;n<mask.length;n++){
       if (!mask[n]) continue;
       for(let k=n*3;k<n*3+3;k++)
-        pixels[k]=Math.round(original[k]+weight*mask[n]*(painting[k]-original[k]));
+        pixels[k]=Math.round(original[k]+mask[n]*(from[k]+weight*(to[k]-from[k])-original[k]));
     }
     writeFileSync(join(dir,`frame-${String(frame).padStart(2,"0")}.rgb`),pixels);
   }
