@@ -71,7 +71,7 @@
   "battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain)": "not counted: needs the game's battlefield builder read",
   "other picture frames no key names (listed below)": 0,
   "other symbols drawn outside the first-person view": "not counted",
-  "narrated passages that describe something to see and have no artwork": "will come from npm run qa:narration"
+  "artwork observed during narration": "recorded in [Narration QA](NARRATION-QA.md)"
  },
  "areas": [
   {

@@ -172,7 +172,7 @@ Do not start on these. Each is something the tool could not confirm can appear, 
 | battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain) | not counted: needs the game's battlefield builder read |
 | other picture frames no key names (listed below) | 0 |
 | other symbols drawn outside the first-person view | not counted |
-| narrated passages that describe something to see and have no artwork | will come from npm run qa:narration |
+| artwork observed during narration | recorded in [Narration QA](NARRATION-QA.md) |
 
 Struck off, not held: 115 cells the tool once tried under a sky or ground the area's script shows cannot occur there (`qa/art-worklist-observed.json`):
 
@@ -314,6 +314,6 @@ The proof is by trying: the tool draws the view from every square of every map, 
 | 8X8D8 block 23 | 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68 | wall definitions name it, but only in pieces of wall types that no view of any map that loads them places in the 11 by 11 window |
 | 8X8D8 block 23 | 41 | no symbol of the wall definitions loaded with its block names it |
 
-## Narrated passages with nothing to see
+## Artwork during narration
 
-Placeholder. `npm run qa:narration` (being built by another agent) will list narrated passages that describe something to see and have no artwork. They will be linked here.
+The narration QA ledger records the picture or view present when a line was selected. Its playback and timing checks are tracked separately. See [Narration QA](NARRATION-QA.md).

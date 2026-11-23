@@ -1103,8 +1103,8 @@ function document(list: Worklist): string {
   }
   add("", "| Tile set | Tiles | Why no view shows them |", "| --- | --- | --- |");
   for (const { block, reason, tiles } of list.storedTilesNoMapShows) add(`| ${block} | ${tiles.join(", ")} | ${reason} |`);
-  add("", "## Narrated passages with nothing to see", "",
-    "Placeholder. `npm run qa:narration` (being built by another agent) will list narrated passages that describe something to see and have no artwork. They will be linked here.", "");
+  add("", "## Artwork during narration", "",
+    "The narration QA ledger records the picture or view present when a line was selected. Its playback and timing checks are tracked separately. See [Narration QA](NARRATION-QA.md).", "");
   return lines.join("\n");
 }
 
@@ -1202,7 +1202,7 @@ function main(): void {
   notEstablished["other picture frames no key names (listed below)"] = otherPicturesNoKeyNames.length;
   if ("error" in others && others.error) notEstablished["other picture frames: " + others.error] = "?";
   notEstablished["other symbols drawn outside the first-person view"] = "not counted";
-  notEstablished["narrated passages that describe something to see and have no artwork"] = "will come from npm run qa:narration";
+  notEstablished["artwork observed during narration"] = "recorded in [Narration QA](NARRATION-QA.md)";
 
   const cellItems = first.items;
   const totals: Record<string, number | string> = {
