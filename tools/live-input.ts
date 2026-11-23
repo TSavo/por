@@ -299,6 +299,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   }
   let drawnPerspective: { pixels: Buffer; mark: number; localEcl?: number; native?: NativeExploration } | undefined;
   let lastLocalPerspective: typeof drawnPerspective;
+  // The text box: the 8 rows of 40 cells below the view, above the menu line. Its write mark changes
+  // whenever the game prints, colours or clears anything there.
+  const textBoxMark = () => cellWriteMark(0, 16, 40, 8);
+  /** Where the script left the party when it showed the current passage's illustration, and the keys given by then. */
+  let illustrationAnchor: { textMark: number; script: string; pose: string; keys: number; leftBehind: boolean } | undefined;
   let priorPerspectiveDraw: Buffer | undefined;
   let previousPerspective: { area: number; pixels: Buffer; mark: number } | undefined;
   // From the port's own data the scenery's pictures are blank, and so is a menu, a list or a sheet
@@ -602,10 +607,27 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           illustrationScope = `${scriptKey}:cue:lab-door`;
         }
       }
-      const scriptedIllustration = scene || wellLookAway || towerLookAway || podalShopLookAway || barracksFloorNote ||
+      // A script illustration belongs to its passage while the party stands where the script left it.
+      // When the script is done the original leaves the caption in the text box, and the party can
+      // turn or step where no event runs: the game draws the new view and writes nothing in the box.
+      // The illustration goes once the player's own key has moved the party from where the script
+      // left it (the script can move the party itself, as the inn does when it turns the party out),
+      // until the game writes in the box again or the script moves on.
+      const viewPose = JSON.stringify([explorationPosition?.area, livePosition?.x, livePosition?.y, explorationPosition?.facing]);
+      const anchor = typeof captureIllustration !== "string" && illustrationAnchor?.textMark === textBoxMark() &&
+        illustrationAnchor.script === illustrationScope ? illustrationAnchor : undefined;
+      if (anchor && !anchor.leftBehind && anchor.pose !== viewPose) {
+        if (anchor.keys === keysGiven) anchor.pose = viewPose;
+        else anchor.leftBehind = true;
+      }
+      const passageLeftBehind = Boolean(anchor?.leftBehind);
+      const scriptedIllustration = scene || passageLeftBehind || wellLookAway || towerLookAway || podalShopLookAway || barracksFloorNote ||
         (councilRewardScreen && !finalCouncilReward)
         ? undefined : matchScriptIllustration(
           typeof captureIllustration === "string" ? captureIllustration : illustrationScope, illustrationText, portraitKeys);
+      if (scriptedIllustration && (illustrationAnchor?.textMark !== textBoxMark() || illustrationAnchor.script !== illustrationScope)) {
+        illustrationAnchor = { textMark: textBoxMark(), script: illustrationScope, pose: viewPose, keys: keysGiven, leftBehind: false };
+      }
       // The central keep's DAMAGE handler can replace the warning with another
       // damage line without clearing the native picture. Keep the selected warning's art.
       const javelinScope = area === 16 && (battleCursor === 0xa837 || battleCursor === 0xa843 || battleCursor === 0xa6ce) &&
