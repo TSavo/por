@@ -29580,6 +29580,133 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL7.DAX:17:a026",
+      "prompt": "9da2/a12a",
+      "variants": [
+        {
+          "caption": "THE HEADMAN TO RALLY HIS PEOPLE. WITH A TREMENDOUS CRY HE LEADS HIS TRIBE INTO BATTLE.",
+          "checkpoint": "nomad-headman-rally/A.json",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:a12a",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 N 22:25 THE HEROIC DEATHS OF THOSE YOU HAVE JUST BATTLED HAS BOUGHT TIME FOR THE HEADMAN TO RALLY HIS PEOPLE. WITH A TREMENDOUS CRY HE LEADS HIS TRIBE INTO BATTLE. Press button or <return> to continue",
+            "idlePolls": 60,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "f2a9db7e24e5211d4011be0723730df96f4910659044b08dcdb62f60fa8d0030"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "f2a9db7e24e5211d4011be0723730df96f4910659044b08dcdb62f60fa8d0030"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "f2a9db7e24e5211d4011be0723730df96f4910659044b08dcdb62f60fa8d0030"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "f2a9db7e24e5211d4011be0723730df96f4910659044b08dcdb62f60fa8d0030"
+              }
+            ],
+            "drawCursor": "a02d",
+            "retainedApproach": {
+              "placement": [
+                56,
+                32,
+                "encounter:area:17:SPRIT7.DAX:11:2:0",
+                16,
+                49
+              ],
+              "position": [
+                17,
+                8,
+                1
+              ],
+              "returnedPanelSha256": "f2a9db7e24e5211d4011be0723730df96f4910659044b08dcdb62f60fa8d0030"
+            }
+          },
+          "chrome": {
+            "original": {
+              "route": "nomad-rally-retained-approach",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:25THEHEROICDEATHSOFTHOSEYOUHAVEJUSTBATTLEDHASBOUGHTTIMEFORTHEHEADMANTORALLYHISPEOPLE.WITHATREMENDOUSCRYHELEADSHISTRIBEINTOBATTLE.Pressbuttonor<return>tocontinue",
+              "portrait": "scene-illustration:area:17:ecl:9da2:caller:a12a",
+              "checkpointSha256": "29ae331666ba9b7fb118e0f80d052d6456e090cfc7ff7fdb28753a4c36142fca",
+              "artSha256": "3b261f57613c5534cb5fd00590b50155945aabf99c75bc882b186aad02e9fe32",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3660,
+              "samples": 221,
+              "poses": [
+                "scene-illustration:area:17:ecl:9da2:caller:a12a"
+              ],
+              "replaced": false,
+              "returnedApproach": {
+                "route": "nomad-rally-retained-approach",
+                "data": "original",
+                "position": [
+                  17,
+                  8,
+                  1
+                ],
+                "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:25CombatWaitFleeAdvance",
+                "checkpointSha256": "29ae331666ba9b7fb118e0f80d052d6456e090cfc7ff7fdb28753a4c36142fca",
+                "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+                "encounter": {
+                  "placement": [
+                    56,
+                    32,
+                    "encounter:area:17:SPRIT7.DAX:11:2:0",
+                    16,
+                    49
+                  ],
+                  "sha256": "4b4fe9c0a5fe63756c59ca2b06d7b5d62626a4b15d6f6ea1c889b4c21e94c57b"
+                }
+              }
+            },
+            "port": {
+              "route": "nomad-rally-retained-approach",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:25THEHEROICDEATHSOFTHOSEYOUHAVEJUSTBATTLEDHASBOUGHTTIMEFORTHEHEADMANTORALLYHISPEOPLE.WITHATREMENDOUSCRYHELEADSHISTRIBEINTOBATTLE.Pressbuttonor<return>tocontinue",
+              "portrait": "scene-illustration:area:17:ecl:9da2:caller:a12a",
+              "checkpointSha256": "29ae331666ba9b7fb118e0f80d052d6456e090cfc7ff7fdb28753a4c36142fca",
+              "artSha256": "3b261f57613c5534cb5fd00590b50155945aabf99c75bc882b186aad02e9fe32",
+              "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3659,
+              "samples": 221,
+              "poses": [
+                "scene-illustration:area:17:ecl:9da2:caller:a12a"
+              ],
+              "replaced": false,
+              "returnedApproach": {
+                "route": "nomad-rally-retained-approach",
+                "data": "port",
+                "position": [
+                  17,
+                  8,
+                  1
+                ],
+                "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:25CombatWaitFleeAdvance",
+                "checkpointSha256": "29ae331666ba9b7fb118e0f80d052d6456e090cfc7ff7fdb28753a4c36142fca",
+                "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+                "encounter": {
+                  "placement": [
+                    56,
+                    32,
+                    "encounter:area:17:SPRIT7.DAX:11:2:0",
+                    16,
+                    49
+                  ],
+                  "sha256": "4b4fe9c0a5fe63756c59ca2b06d7b5d62626a4b15d6f6ea1c889b4c21e94c57b"
+                }
+              }
+            }
+          }
+        }
+      ]
     }
   ],
   "approachTransitions": [
