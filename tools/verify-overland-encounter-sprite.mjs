@@ -322,7 +322,7 @@ try {
       ]);
       const canvas = document.createElement("canvas");
       canvas.width = canvas.height = 352;
-      const { createOverlandViewport } = await import("/new-phlan-webgl.js");
+      const { createOverlandViewport } = await import("/renderer.js");
       createOverlandViewport(canvas).draw(undefined, { materials, tiles, details: masks, center });
       return canvas.toDataURL();
     })()`);
@@ -344,7 +344,7 @@ try {
     encounter, data: await chrome.evaluate('state.classicAvailable === false ? "port" : "original"'),
     fixtureSha256,
     rendererSha256: digest(readFileSync("tools/play.js")),
-    webglRendererSha256: digest(readFileSync("tools/new-phlan-webgl.js")),
+    webglRendererSha256: digest(readFileSync("tools/renderer.js")),
     terrain, landmarks, terrainSha256: digest(surface.png),
     held: { caption: heldCaption, ...held },
     nativeProducer: scene.nativeProducer, inputs: scene.nativeProducer ? inputs : undefined, sprite: spriteProof,
