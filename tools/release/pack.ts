@@ -17,7 +17,8 @@
  * Packing is where nothing of por-assets may go in. The build fails if:
  *   1. a file in a package is an original game file (START.EXE, GAME.OVR, *.DAX, POOL.CFG and the other
  *      kinds .gitignore keeps out), a link, or a path naming por-assets; or a Classic sound
- *      (pc-speaker-NN.wav, tandy-NN.wav) or, where a por-assets directory sits beside the checkout, a file
+ *      (pc-speaker-NN.wav, tandy-NN.wav) or, where a por-assets directory sits beside the checkout (or
+ *      POR_ASSETS_DIR names one), a file
  *      with the bytes of any file in it, unless it is the committed file at its own path in audio/classic
  *      (the port's own renders of the Classic sounds, which ship);
  *   2. game/ in a package is not byte for byte the committed game/ (the same files, the same git blobs);
@@ -124,9 +125,12 @@ function checkGame(root: string, label: string): void {
 // ---- Check 1: nothing from por-assets, nothing of the original game. ----
 const originalName = /^(?:start\.exe|game\.ovr|pool\.cfg)$|\.(?:dax|ovr|ex_|pic|cmp)$/i;
 const classicSound = /^(?:pc-speaker|tandy)-\d\d\.wav$/i;
-// Beside the checkout, as the owner keeps it. Read only to prove that no packaged file is one of its files.
+// Beside the checkout, as the owner keeps it, or the directory POR_ASSETS_DIR names (the release workflow
+// names $HOME/por-assets on Battleaxe, and then it must exist). Read only to prove that no packaged file is
+// one of its files.
 const commonDir = run("git", ["-C", fromPortRoot(), "rev-parse", "--path-format=absolute", "--git-common-dir"]).trim();
-const porAssets = join(dirname(commonDir), "..", "por-assets");
+const porAssets = process.env.POR_ASSETS_DIR || join(dirname(commonDir), "..", "por-assets");
+if (process.env.POR_ASSETS_DIR && !existsSync(porAssets)) throw new Error(`POR_ASSETS_DIR ${porAssets} does not exist`);
 const assetsBySize = new Map<number, string[]>();
 if (existsSync(porAssets)) {
   for (const path of files(porAssets)) {
