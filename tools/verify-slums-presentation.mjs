@@ -2329,6 +2329,14 @@ const illustrationRoutes = new Map([
     prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMESKELETONS/i,
     heldPortraitLoop: [0, 1, 2, 3, 2, 1].map(member => `portrait:area:10:ecl:b50b:PIC4.DAX:34:${member}:0`),
   }],
+  ["valhingen-skeleton-roam-direct", {
+    slot: "A", fixedClockStart: "4320891", inputs: ["up", "enter", "a", "a"], settleInputs: ["a"],
+    portrait: "portrait:area:10:ecl:b56c:PIC4.DAX:34:0:0", prompt: /YOUFINDSOMEUNDEAD/i,
+    heldPortraitLoop: [0, 1, 2, 3, 2, 1].map(member => `portrait:area:10:ecl:b56c:PIC4.DAX:34:${member}:0`),
+    continuation: {
+      inputs: ["p"], portrait: "portrait:area:10:ecl:b58c:PIC4.DAX:34:0:0", prompt: /YOUFINDSOMEUNDEAD/i,
+    },
+  }],
   ["tyranthraxus-battle-opening", {
     slot: "B",
     inputs: ["up", "up", ...Array(5).fill("enter"), ...Array(6).fill("a")],
