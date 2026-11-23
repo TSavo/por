@@ -957,8 +957,8 @@ const illustrationRoutes = new Map([
     continuation: {
       inputs: ["enter"], portrait: "scene-illustration:area:29:ecl:ad16:caller:a49f:cue:lizardfolk-surprise",
       prompt: /YOUARESURPRISEDBYLIZARDMEN\..*ABATTLEBEGINS/i,
-      pressOnPortrait: "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:57:2:0", retainPose: true,
-      screenshot: "kuto-lizardfolk-surprise-battle-notice.png",
+      pressOnPortrait: "portrait:area:29:ecl:af2f:caller:a495:PIC8.DAX:57:2:0",
+      retainPose: true, automaticBattle: true,
     },
   }],
   ["kuto-well-waiting-kobolds-hold", {
@@ -12751,7 +12751,7 @@ try {
         return image?.naturalWidth === 352 && image.naturalHeight === 352 &&
           ${JSON.stringify(visiblePortraits)}.includes(new URL(image.src).pathname);
       })()`));
-      if (!continuation?.automaticBattle) await switchBothWays();
+      if (!continuation?.automaticBattle || continuation.pressOnPortrait) await switchBothWays();
       await verifyPortraitPanel();
     }
     if (illustration.heldPortrait) {
@@ -13295,11 +13295,19 @@ try {
         assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /NOMADHITPOINTS/i);
       }
       if (continuation.retainPose) {
-        await switchBothWays(frame.frame);
+        if (!continuation.automaticBattle) await switchBothWays(frame.frame);
         await waitForPortraitPaint(frame.sequence, continuation.pressOnPortrait);
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, `${routeName}-battle-notice.png`), Buffer.from(shot.data, "base64"));
-        for (const key of continuation.battleNoticeInputs ?? ["enter"]) await advance(key);
+        if (continuation.automaticBattle) {
+          const sequence = frame.sequence;
+          frame = await waitFor("the manual combat turn after the retained portrait", async () => {
+            const next = await latest();
+            return next.ready && next.sequence > sequence && next.awaitsKey && !next.portrait && next;
+          });
+        } else {
+          for (const key of continuation.battleNoticeInputs ?? ["enter"]) await advance(key);
+        }
         assert.equal(frame.portrait, undefined);
         await waitFor("the battlefield without the encounter portrait", () => run(`
           state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined &&
