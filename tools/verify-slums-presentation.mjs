@@ -3404,6 +3404,16 @@ const illustrationRoutes = new Map([
       prompt: /ABATTLEBEGINS/i,
     },
   }],
+  ["lizard-wilds-displacer-pair-ambush", {
+    slot: "A", inputs: ["up"],
+    oneShotProducer: "ECL7.DAX:26:a6be",
+    approachSequence: [[40, 32, "encounter:area:26:ecl:a6c5:SPRIT7.DAX:68:0:0", 64, 80]],
+    requireTiledApproach: false,
+    portrait: "portrait:area:26:ecl:a70d:PIC7.DAX:68:0:0",
+    prompt: /(?=.*AMBUSHEDBYTWODISPLACERBEASTS)(?=.*ABATTLEBEGINS)/i,
+    finalPhaseCapture: "lizard-wilds-displacer-pair-ambush.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /DISPLACERBEASTHITPOINTS/i },
+  }],
   ["lizard-wilds-displacer-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
     approachStops: { 2: [40, 32, "encounter:area:26:ecl:a6c5:SPRIT7.DAX:68:0:0", 64, 80] },
@@ -8057,6 +8067,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valjevo-dungeon-kitchen-choice" ||
       /^valjevo-dungeon-kitchen-(entry|rescue|warning|oil)-loop$/.test(routeName) ||
       routeName === "lizard-wilds-kobold-prisoners" || routeName === "lizard-wilds-pool-dialogue" ||
+      routeName === "lizard-wilds-displacer-pair-ambush" ||
       routeName === "buccaneer-mounted-escort-loop" || routeName === "buccaneer-mounted-escort-random-loop" ||
       routeName === "mendor-storeroom-kobold-phases" || routeName === "mendor-storeroom-mercy-loop" ||
       routeName === "mendor-storeroom-kobold-map" ||
