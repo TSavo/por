@@ -6,5 +6,5 @@ replay. It starts at (0, 4), facing east, at 22:12. Its SHA-256 is
 
 The `valhingen-ghoul-approach` replay checks the three approach distances.
 The `valhingen-ghoul-ambush` replay checks the held scene and the battle
-notice. Use this directory as the checkpoint and run each route with
+notice. Pass `A.json` as the checkpoint and run each route with
 original GOG 1.3 and bundled data.
