@@ -21,6 +21,7 @@ interface HeldPortraitInventory {
   sceneryPrompts?: SceneryPrompt[];
   staticPortraitPrompts?: StaticPortraitPrompt[];
   approachTransitions?: ApproachTransition[];
+  combatWithoutPortraits?: CombatWithoutPortrait[];
 }
 
 interface EncounterPaint {
@@ -121,6 +122,14 @@ interface OneShot {
   combat: string;
   native: { drawCursor: string; members: number[]; evidence: string };
   chrome: { original: OneShotProof; port: OneShotProof };
+}
+
+interface CombatWithoutPortrait {
+  producer: string;
+  combat: string;
+  checkpoint: string;
+  native: { approachDraws: Record<ChromeProof["data"], number>; evidence: string };
+  chrome: Record<ChromeProof["data"], OneShotProof & { checkpointSha256: string }>;
 }
 
 type ScriptSite = typeof heldPortraitDiscovery.eclCandidates[number];
@@ -248,15 +257,46 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     if (evidence.native.members.length !== 1 || evidence.native.members[0] !== 0 || !evidence.native.evidence) {
       return "native evidence must show a single draw of member 0";
     }
-    const { original, port } = evidence.chrome;
+    return combatArtProblem(evidence.producer, evidence.chrome);
+  }
+
+  function combatArtProblem(producer: string, { original, port }: OneShot["chrome"]) {
     if (original.route !== port.route || original.portrait !== port.portrait) return "Chrome replays disagree";
-    for (const [data, proof] of Object.entries(evidence.chrome)) {
-      if (proof.data !== data || proof.producer !== evidence.producer || !matchesRenderer(proof.rendererSha256) ||
+    for (const [data, proof] of Object.entries({ original, port })) {
+      if (proof.data !== data || proof.producer !== producer || !matchesRenderer(proof.rendererSha256) ||
           proof.bindingSha256 !== digest(portraitLoopSignature(proof.portrait))) return "Chrome proof predates the current renderer or binding";
       const image = assets.get(proof.portrait);
       if (!image || digest(readFileSync(image)) !== proof.artSha256) return "Chrome proof predates the current artwork";
     }
     return null;
+  }
+
+  const combatWithoutPortraits = inventory.combatWithoutPortraits ?? [];
+  const combatWithoutPortraitByProducer = new Map(combatWithoutPortraits.map(proof => [proof.producer, proof]));
+  if (combatWithoutPortraitByProducer.size !== combatWithoutPortraits.length) {
+    throw new Error("Duplicate combat producer without a native portrait");
+  }
+  for (const { producer } of combatWithoutPortraits) {
+    if (oneShotByProducer.has(producer) || !eclCandidates.some(site => scriptSiteId(site) === producer)) {
+      throw new Error(`Invalid combat producer without a native portrait ${producer}`);
+    }
+  }
+
+  function combatWithoutPortraitProblem(site: ScriptSite, proof: CombatWithoutPortrait) {
+    if (site.opcode !== 0x0c || site.block === null || site.promptCandidates.length || site.immediateCombat !== proof.combat) {
+      return "native script no longer leads directly to the measured fight";
+    }
+    const { original, port } = proof.native.approachDraws;
+    if (!proof.native.evidence || !Number.isInteger(original) || original < 0 || original !== port) {
+      return "native approach counts do not match";
+    }
+    const fixture = path("qa", "fixtures", proof.checkpoint);
+    if (!existsSync(fixture)) return "combat replay save is missing";
+    const hashes = checkpointDigests(fixture);
+    if (!hashes.has(proof.chrome.original.checkpointSha256) || !hashes.has(proof.chrome.port.checkpointSha256)) {
+      return "Chrome proof predates the current replay save";
+    }
+    return combatArtProblem(proof.producer, proof.chrome);
   }
   const observed = new Map<ScriptSite, { prompt: string; block: number; scene: typeof scenes[number] }[]>();
   const unmapped = [];
@@ -454,6 +494,8 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     const id = scriptSiteId(site);
     const oneShot = oneShotByProducer.get(id);
     const oneShotReason = oneShot ? oneShotProblem(site, oneShot) : null;
+    const combatWithoutPortrait = combatWithoutPortraitByProducer.get(id);
+    const combatWithoutPortraitReason = combatWithoutPortrait ? combatWithoutPortraitProblem(site, combatWithoutPortrait) : null;
     const evidence = observed.get(site) ?? [];
     const prompts = [...new Set(site.promptCandidates.map(({ next, caller }) => promptId(next, caller)))];
     const scenery = new Set(prompts.filter(prompt => verifiedSceneryPrompt(id, prompt)));
@@ -471,16 +513,18 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       ...new Set(evidence.flatMap(({ scene }) => scene.remainingCues ?? [])),
     ];
     const approach = verifiedApproachTransition(site);
-    const measured = evidence.length > 0 || held.length > 0 || scenery.size > 0 || oneShot !== undefined || Boolean(approach);
+    const measured = evidence.length > 0 || held.length > 0 || scenery.size > 0 || Boolean(oneShot || combatWithoutPortrait || approach);
     // A variable selector may feed several portraits into the same prompt.
     // Observing one portrait cannot discharge the other possible selections.
-    const verified = oneShot ? oneShotReason === null : (site.block !== null || Boolean(site.boundedBlocks)) && measured &&
+    const verified = oneShot ? oneShotReason === null : combatWithoutPortrait ? combatWithoutPortraitReason === null :
+      (site.block !== null || Boolean(site.boundedBlocks)) && measured &&
       !unmeasured.length && held.every(scene => scene.verified) && evidence.every(({ scene }) => scene.verified);
     return {
       id,
       source: site.composedPortrait?.source ?? `${site.pictureArchive}:${site.block ?? site.boundedBlocks?.join(", ") ?? `selector ${site.selector.address?.toString(16) ?? "unknown"}`}`,
       measured, verified, unmeasured, scenes: [...evidence.map(({ scene }) => scene.id), ...held.map(scene => scene.id)],
       reason: oneShot ? oneShotReason ?? "single native draw, paired Chrome checks passed" :
+        combatWithoutPortrait ? combatWithoutPortraitReason ?? "no native portrait draw, paired Chrome checks passed" :
         site.block === null && !site.boundedBlocks ? "selector unresolved" : scenery.size ? "paired Chrome checks confirmed scenery at " + [...scenery].join(", ") :
           approach ? "paired Chrome checks confirmed approach into " + site.approachHandoff!.menu :
             prompts.length ? null : "no prompt lead resolved",

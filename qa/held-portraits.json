@@ -18174,6 +18174,190 @@
           }
         }
       }
+    },
+    {
+      "id": "area:18:ecl:b240:caller:a825:PIC1.DAX:16",
+      "producer": "ECL1.DAX:18:a2b1",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 610,
+          "viewport": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+        },
+        {
+          "member": 2,
+          "durationMs": 410,
+          "viewport": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+        },
+        {
+          "member": 4,
+          "durationMs": 410,
+          "viewport": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+        },
+        {
+          "member": 5,
+          "durationMs": 610,
+          "viewport": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "podal-auction-cancelled",
+          "data": "original",
+          "portrait": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:0:0",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "42966071b19fe8f7455911bb8ca2ee3f83b055b8139f06b07444e38005ceea1b",
+          "paints": [
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:1:0",
+              "atMs": 613.2999999880776
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:2:0",
+              "atMs": 829.8999999880798
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:3:0",
+              "atMs": 1229.8999999880798
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:4:0",
+              "atMs": 1446.5999999880805
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:5:0",
+              "atMs": 1863.199999988079
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:0:0",
+              "atMs": 2463.199999988079
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:1:0",
+              "atMs": 3079.7999999880776
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:2:0",
+              "atMs": 3279.89999998808
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:3:0",
+              "atMs": 3696.4999999880783
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:4:0",
+              "atMs": 3913.0999999880805
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:5:0",
+              "atMs": 4313.0999999880805
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:0:0",
+              "atMs": 4929.799999988078
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:1:0",
+              "atMs": 5546.39999998808
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:2:0",
+              "atMs": 5746.39999998808
+            }
+          ],
+          "sha256": {
+            "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:0:0": "abc190ddb1bc7038ab37b12854728aec67a19e43c21bce01ff9b2af8634fab51",
+            "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:1:0": "14372350678399ba5bb20c4e5b2f52072c20a8fa287cfaa67618608f4c694ed2",
+            "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:2:0": "268126493d6cb553b625b728fe47ac9ba7b32e05806bab73fdf604793cca9192",
+            "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:3:0": "99c4fe4227438b8f2d5bc0fa957ead0639964d51a6494eca2bab475ec68fa9f3",
+            "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:4:0": "004f3e19deef46f4ae29686ddb35eaddf4e1dad315f3e624d24196292742af14",
+            "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:5:0": "bd45f2fee0d2b9f9fc083e2835d796c27eb1feb692c16ed65863588a579120a1"
+          }
+        },
+        "port": {
+          "route": "podal-auction-cancelled",
+          "data": "port",
+          "portrait": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:0:0",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "42966071b19fe8f7455911bb8ca2ee3f83b055b8139f06b07444e38005ceea1b",
+          "paints": [
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:1:0",
+              "atMs": 606.5999999761589
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:2:0",
+              "atMs": 823.2999999761578
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:3:0",
+              "atMs": 1239.8999999761581
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:4:0",
+              "atMs": 1439.9999999761585
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:5:0",
+              "atMs": 1856.5999999761589
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:0:0",
+              "atMs": 2456.4999999761585
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:1:0",
+              "atMs": 3073.1999999761574
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:2:0",
+              "atMs": 3289.899999976158
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:3:0",
+              "atMs": 3689.899999976158
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:4:0",
+              "atMs": 3906.4999999761585
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:5:0",
+              "atMs": 4306.4999999761585
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:0:0",
+              "atMs": 4923.099999976159
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:1:0",
+              "atMs": 5539.699999976157
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:2:0",
+              "atMs": 5739.699999976157
+            }
+          ],
+          "sha256": {
+            "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:0:0": "abc190ddb1bc7038ab37b12854728aec67a19e43c21bce01ff9b2af8634fab51",
+            "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:1:0": "14372350678399ba5bb20c4e5b2f52072c20a8fa287cfaa67618608f4c694ed2",
+            "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:2:0": "268126493d6cb553b625b728fe47ac9ba7b32e05806bab73fdf604793cca9192",
+            "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:3:0": "99c4fe4227438b8f2d5bc0fa957ead0639964d51a6494eca2bab475ec68fa9f3",
+            "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:4:0": "004f3e19deef46f4ae29686ddb35eaddf4e1dad315f3e624d24196292742af14",
+            "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:5:0": "bd45f2fee0d2b9f9fc083e2835d796c27eb1feb692c16ed65863588a579120a1"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
@@ -18611,6 +18795,63 @@
               57
             ],
             "sha256": "2df95cbbe7bae1313210550cd701c30bbd7197e897c15adc9f27b947c24ce372"
+          }
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:17:a130",
+      "prompt": "a14f",
+      "caption": "Combat Wait Flee Advance",
+      "checkpoint": "nomad-headman-rally/A.json",
+      "position": [
+        17,
+        8,
+        1
+      ],
+      "chrome": {
+        "original": {
+          "route": "nomad-headman-rally",
+          "data": "original",
+          "position": [
+            17,
+            8,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:25CombatWaitFleeAdvance",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "checkpointSha256": "29ae331666ba9b7fb118e0f80d052d6456e090cfc7ff7fdb28753a4c36142fca",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:17:SPRIT7.DAX:11:2:0",
+              16,
+              49
+            ],
+            "sha256": "4b4fe9c0a5fe63756c59ca2b06d7b5d62626a4b15d6f6ea1c889b4c21e94c57b"
+          }
+        },
+        "port": {
+          "route": "nomad-headman-rally",
+          "data": "port",
+          "position": [
+            17,
+            8,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105N22:25CombatWaitFleeAdvance",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "checkpointSha256": "29ae331666ba9b7fb118e0f80d052d6456e090cfc7ff7fdb28753a4c36142fca",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:17:SPRIT7.DAX:11:2:0",
+              16,
+              49
+            ],
+            "sha256": "4b4fe9c0a5fe63756c59ca2b06d7b5d62626a4b15d6f6ea1c889b4c21e94c57b"
           }
         }
       }
@@ -22276,6 +22517,42 @@
           "checkpointSha256": "e0a21002870d5d3108608b4b1c519df0c208569d8cd96712899908f1da8f1f0d",
           "sha256": "d5e38d753388f3d2206be4e711e64029d367bf43eced141e8c71d1742e030240",
           "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e"
+        }
+      }
+    }
+  ],
+  "combatWithoutPortraits": [
+    {
+      "producer": "ECL4.DAX:10:abc7",
+      "combat": "abd7",
+      "checkpoint": "valhingen-brass-doors/A.json",
+      "native": {
+        "approachDraws": {
+          "original": 2,
+          "port": 2
+        },
+        "evidence": "https://github.com/TSavo/por/issues/131#issuecomment-7089362972"
+      },
+      "chrome": {
+        "original": {
+          "producer": "ECL4.DAX:10:abc7",
+          "route": "valhingen-shadow-beyond-brass-doors",
+          "data": "original",
+          "portrait": "scene-illustration:area:10:ecl:abd8",
+          "checkpointSha256": "4a851cec9b1f0781cd47952780d6034b4495386150664d6fd5d4bb6b0a30e470",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "artSha256": "c879ae91433358e6a6b3809f14e99540eb265572fe46db224637ac65f146f57e"
+        },
+        "port": {
+          "producer": "ECL4.DAX:10:abc7",
+          "route": "valhingen-shadow-beyond-brass-doors",
+          "data": "port",
+          "portrait": "scene-illustration:area:10:ecl:abd8",
+          "checkpointSha256": "4a851cec9b1f0781cd47952780d6034b4495386150664d6fd5d4bb6b0a30e470",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "artSha256": "c879ae91433358e6a6b3809f14e99540eb265572fe46db224637ac65f146f57e"
         }
       }
     }

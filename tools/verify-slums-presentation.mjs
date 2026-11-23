@@ -4999,6 +4999,7 @@ const illustrationRoutes = new Map([
   }],
   ["valhingen-shadow-beyond-brass-doors", {
     slot: "A", inputs: ["left", "up", "up", "left", "up", "enter"],
+    combatWithoutPortraitProducer: "ECL4.DAX:10:abc7",
     portraitStops: { 5: "scene-illustration:area:10:ecl:abce" },
     phaseCaptures: { 5: "valhingen-shadow-beyond-brass-doors.png" },
     portrait: "scene-illustration:area:10:ecl:abd8",
@@ -11010,6 +11011,7 @@ try {
     console.log("Verified the wagon deal and both warnings after reloading slot B in Chrome.");
   } else if (illustration) {
     const { inputs, prompt, continuation, journalLead, approachSequence } = illustration;
+    const combatProducer = illustration.oneShotProducer ?? illustration.combatWithoutPortraitProducer;
     let { portrait } = illustration;
     let alreadyPassedPatrol;
     if (approachSequence) await observeApproach(approachSequence, illustration.requireTiledApproach);
@@ -11141,6 +11143,12 @@ try {
         }
         const phaseCapture = illustration.phaseCaptures?.[index];
         if (phaseCapture) {
+          if (illustration.combatWithoutPortraitProducer && interimPortrait) {
+            await waitFor("the opening illustration before combat", () => run(`
+              state.sequence === ${frame.sequence} && !animationFrame &&
+              document.querySelector('.encounter-portrait[src="/art/${interimPortrait}"]')?.naturalWidth === 352
+            `));
+          }
           const phaseShot = await command("Page.captureScreenshot", { format: "png" });
           writeFileSync(resolve(directory, phaseCapture), Buffer.from(phaseShot.data, "base64"));
         }
@@ -11246,7 +11254,7 @@ try {
           await verifyStaticPortrait(interimPortrait, illustration.staticPortraitStop.caption);
         }
         await advance(key);
-        if (illustration.oneShotProducer && frame.animation?.some(phase => phase.approach)) {
+        if (combatProducer && frame.animation?.some(phase => phase.approach)) {
           // HTTP replay keys bypass the page's input guard during an encounter approach.
           await waitFor("the complete encounter approach", () => run(`
             state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined
@@ -11341,7 +11349,7 @@ try {
     }
     if (illustration.heldPortraitLoop) await verifyHeldPortraitLoop(illustration.heldPortraitLoop);
     if (illustration.staticPortraitMenu) await verifyStaticPortrait(portrait, prompt, false);
-    if (illustration.oneShotProducer) {
+    if (combatProducer) {
       await waitFor("the single portrait before combat", () => run(`
         state.sequence === ${frame.sequence} && !animationFrame &&
         document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352
@@ -11363,7 +11371,7 @@ try {
           requestAnimationFrame(sample);
         })`,
       });
-      assert.equal(result.value, false, "A one-shot portrait should stay on its first member until combat");
+      assert.equal(result.value, false, "The encounter artwork should remain visible until combat");
     }
     if (illustration.finalPhaseCapture) {
       const phaseShot = await command("Page.captureScreenshot", { format: "png" });
@@ -11675,7 +11683,7 @@ try {
       }
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
       if (illustration.sceneryPrompt && continuation.clearsPortrait) await verifySceneryPrompt(illustration.sceneryPrompt);
-      if (illustration.oneShotProducer && heldPortraitEvidenceFile) {
+      if (combatProducer && heldPortraitEvidenceFile) {
         assert.equal(frame.portrait, undefined);
         const renderer = await fetch(origin + "/play.js");
         const art = await fetch(origin + "/art/" + portrait);
@@ -11686,7 +11694,10 @@ try {
         });
         assert.equal(typeof binding.value, "string");
         heldPortraitEvidence.push({
-          producer: illustration.oneShotProducer, route: routeName, data: frame.classicAvailable === false ? "port" : "original", portrait,
+          producer: combatProducer, route: routeName, data: frame.classicAvailable === false ? "port" : "original", portrait,
+          ...(illustration.combatWithoutPortraitProducer ? {
+            checkpointSha256: createHash("sha256").update(readFileSync(checkpoint)).digest("hex"),
+          } : {}),
           rendererSha256: createHash("sha256").update((await renderer.text()).replace(/\r\n/g, "\n")).digest("hex"),
           bindingSha256: createHash("sha256").update(binding.value).digest("hex"),
           artSha256: createHash("sha256").update(Buffer.from(await art.arrayBuffer())).digest("hex"),
