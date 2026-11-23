@@ -43,6 +43,8 @@ against its `SHASUMS256.txt`; each Mac image carries the Electron of its own arc
 The Mac images need macOS's own tools (hdiutil, sips, iconutil, codesign); the Windows installer and the
 Linux archive pack on Linux too (python3 with Pillow cuts their icon). `dist/` is not committed.
 
+The current internal test build is **0.1 Alpha 1** (`0.1.0-alpha.1`). Build it from the checkout for internal testing.
+
 ## Numbered betas
 
 Run `npm run release:next-beta` to prepare the next beta on the current major, minor and patch.
