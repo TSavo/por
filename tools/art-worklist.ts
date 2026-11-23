@@ -861,7 +861,7 @@ function otherPictures(data: PortGameData, read: (path: string) => Uint8Array): 
 function overlandTerrainCoverage(art: Map<string, Art>) {
   useGameVersion("1.3");
   const slots = overlandMapSlots(at("game"));
-  const atlasReady = !missing(art, "overland-materials", 1024, 1024);
+  const atlasReady = !missing(art, "overland-materials", 1024, 2048);
   const missingSlots = slots.filter(slot => missing(art, `overland-tile:${slot}`, 96, 96));
   return { atlasReady, total: slots.length, covered: slots.length - missingSlots.length, missingSlots };
 }
@@ -1041,7 +1041,7 @@ function document(list: Worklist): string {
     `${local.covered} / ${local.total} native world-map slots have a 96×96 material mask. ${local.missingSlots.length} slots lack a mask.`,
     "The Enhanced overland encounter view uses one set of painted materials with the native slots and world position. Normal travel uses the regional atlas.",
     "The table counts slots in the native map data. Paired replays establish which local 5×5 compositions appear during encounters.",
-    local.atlasReady ? "The shared 1024×1024 material atlas is installed." : "The shared 1024×1024 material atlas is missing.",
+    local.atlasReady ? "The shared 1024×2048 material atlas is installed." : "The shared 1024×2048 material atlas is missing.",
     "",
     "Missing slot keys", "",
     ...Array.from({ length: Math.ceil(local.missingSlots.length / 12) }, (_, row) =>

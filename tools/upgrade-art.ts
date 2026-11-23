@@ -133,7 +133,7 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
             ({ width: sourceWidth, height: sourceHeight } = encounter);
           } else if (startupScene) [sourceWidth, sourceHeight] = [320, 200];
           else if (validOverlandTile) sourceWidth = sourceHeight = 24;
-          else if (overlandMaterials) sourceWidth = sourceHeight = 256;
+          else if (overlandMaterials) [sourceWidth, sourceHeight] = [256, 512];
           else if (random) {
             const entry = originalArchive(random[1])?.entries.find(({ id }) => id === Number(random[2]));
             if (!entry || !randomCombatPixels(entry.data, Number(random[4]))) {

@@ -26,10 +26,20 @@ const scenes = {
     cursor: "a194", block: 15, height: 65, clock: "4320320", caption: /YOUSPOTAGROUPOFBANDITS/i,
     terrain: ridgeTerrain, inputs: ["right", "enter", "c"],
   },
+  "woodland-bandits": {
+    cursor: "a230", block: 15, height: 65, clock: "4320121", caption: /YOUSURPRISEAGROUPOFBANDITS/i,
+    terrain: { center: [28, 12], slots: [0, 1, 0, 41, 99, 1, 0, 1, 0, 41, 148, 1, 0, 1, 0, 122, 148, 1, 0, 1, 144, 122, 148, 1, 0] },
+    inputs: ["down", "down", "down", "down", "right", "enter", "c"],
+  },
+  "woodland-merchants": {
+    cursor: "a230", block: 12, height: 65, clock: "4321424", caption: /YOUSURPRISEAGROUPOFMERCHANTS/i,
+    terrain: { center: [28, 13], slots: [1, 0, 1, 0, 41, 148, 1, 0, 1, 0, 122, 148, 1, 0, 1, 144, 122, 148, 1, 0, 122, 144, 145, 149, 1] },
+    inputs: ["down", "down", "down", "down", "right", "down", "enter", "c"],
+  },
 };
 const [chromePath, encounter, outputRoot = "out"] = process.argv.slice(2);
 assert.ok(chromePath && Object.hasOwn(scenes, encounter),
-  "Usage: node tools/verify-overland-encounter-sprite.mjs <chrome> <spotted|surprise|ridge-merchants|ridge-bandits> [output-root]");
+  `Usage: node tools/verify-overland-encounter-sprite.mjs <chrome> <${Object.keys(scenes).join("|")}> [output-root]`);
 const { cursor, block, height, clock, caption, terrain } = scenes[encounter];
 const spotted = encounter === "spotted";
 const fixture = resolve("qa/fixtures", spotted ? "wilderness-walk" : "lizard-wilds-stirge-surprise");

@@ -331,8 +331,8 @@ export function createOverlandViewport(canvas) {
       uniform bool local;
       uniform vec2 origin;
       vec3 terrainColor(vec2 material, vec2 scale) {
-        // Inset a texel to keep filtering inside each quarter of the atlas.
-        return texture2D(materials, material * 0.5 + (scale * 510.0 + 1.0) / 1024.0).rgb;
+        // Inset a texel to keep filtering inside each cell of the atlas.
+        return texture2D(materials, (material * 512.0 + scale * 510.0 + 1.0) / vec2(1024.0, 2048.0)).rgb;
       }
       void main() {
         vec4 pixel = texture2D(map, uv);
@@ -344,7 +344,10 @@ export function createOverlandViewport(canvas) {
         vec2 scale = fract((origin + uv * 352.0) / 512.0);
         vec3 rock = mix(terrainColor(vec2(1.0, 0.0), scale), terrainColor(vec2(0.0, 1.0), scale), pixel.b);
         rock = mix(rock, terrainColor(vec2(1.0, 1.0), scale), pixel.g);
-        gl_FragColor = vec4(mix(rock, terrainColor(vec2(0.0, 0.0), scale), pixel.r), 1.0);
+        vec3 ground = mix(rock, terrainColor(vec2(0.0, 0.0), scale), pixel.r);
+        // Opaque masks use the underlying terrain. Forest edges carry inverse canopy coverage in alpha.
+        if (pixel.a < 1.0) ground = mix(terrainColor(vec2(0.0, 2.0), scale), ground, pixel.a);
+        gl_FragColor = vec4(ground, 1.0);
       }
     `],
   ]) {
