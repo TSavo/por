@@ -5,7 +5,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { isDeepStrictEqual } from "node:util";
 import type { EncounterAnchor } from "../src/lib/assets.js";
 import { heldPortraitDiscovery } from "./discover-held-portraits.js";
-import type { EncounterPlacement } from "./encounter-art.js";
+import { encounterKey, type EncounterPlacement } from "./encounter-art.js";
 import { portraitLoopSignature } from "./held-portrait-loops.mjs";
 import { verifyHeldPortraitPaint, type ChromeProof, type Pose } from "./verify-held-portrait-paint.js";
 
@@ -65,6 +65,7 @@ interface SceneryPrompt {
 interface StaticPortraitChromeProof extends Omit<OneShotProof, "producer"> {
   caption: string;
   incomingPortrait?: string;
+  returnedApproach?: SceneryProof;
   checkpointSha256: string;
   durationMs: number;
   samples: number;
@@ -88,6 +89,16 @@ interface StaticPortraitVariant {
     composed?: ScriptSite["composedPortrait"];
   } & ({ battlePanelSha256: string; clearedPanelSha256?: never } |
        { battlePanelSha256?: never; clearedPanelSha256: string }) | {
+    inheritedFrom?: never;
+    inheritedMember?: never;
+    drawCursor: string;
+    composed?: never;
+    retainedApproach: {
+      placement: EncounterPlacement;
+      position: SceneryProof["position"];
+      returnedPanelSha256: string;
+    };
+  } | {
     inheritedFrom: string;
     inheritedMember?: number;
   });
@@ -372,7 +383,17 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
           (index > 0 && sample.idlePolls <= samples[index - 1]!.idlePolls))) {
       return "native samples must hold the same picture through the prompt";
     }
-    if (native.inheritedFrom !== undefined) {
+    if ("retainedApproach" in native) {
+      const { placement, position, returnedPanelSha256 } = native.retainedApproach;
+      const sprite = encounterKey.exec(placement[2]);
+      if (site.opcode !== 0x0c || !portrait.startsWith("scene-illustration:") || native.drawCursor !== site.next ||
+          !sprite || Number(sprite[1]) !== site.scriptBlock || sprite[4] !== "SPRIT" + site.scriptArchive[3] + ".DAX" ||
+          Number(sprite[5]) !== site.approachSelectors?.sprite.literal ||
+          Number(sprite[6]) !== site.approachSelectors?.distance.literal ||
+          position[0] !== site.scriptBlock || returnedPanelSha256 !== panel) {
+        return "native illustration must retain the measured approach at the same position";
+      }
+    } else if (native.inheritedFrom !== undefined) {
       const producer = scriptSiteId(site);
       const source = inventory.scenes.find(scene => scene.id === native.inheritedFrom && scene.producer === producer);
       const verified = scenes.some(scene => scene.id === native.inheritedFrom && scene.producer === producer && scene.verified);
@@ -428,6 +449,16 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
           proof.portrait !== portrait || proof.replaced !== false || !(proof.durationMs >= 3000) ||
           !(proof.samples >= 90) || !isDeepStrictEqual(proof.poses, [portrait])) {
         return "Chrome did not hold the expected portrait and caption";
+      }
+      if ("retainedApproach" in native) {
+        const returned = proof.returnedApproach;
+        if (!returned?.encounter || returned.route !== proof.route || returned.data !== proof.data ||
+            returned.checkpointSha256 !== proof.checkpointSha256 || returned.rendererSha256 !== proof.rendererSha256 ||
+            !isDeepStrictEqual(returned.position, native.retainedApproach.position) ||
+            !isDeepStrictEqual(returned.encounter.placement, native.retainedApproach.placement) ||
+            !verifiedEncounterAsset(returned.encounter)) {
+          return "Chrome must restore the measured approach after the illustration";
+        }
       }
     }
     return null;

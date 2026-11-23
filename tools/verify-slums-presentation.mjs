@@ -1750,6 +1750,16 @@ const illustrationRoutes = new Map([
     ...nomadPursuit,
     continuation: { inputs: ["f"], clearsPortrait: true, prompt: /ABATTLEBEGINS/i },
   }],
+  ["nomad-rally-retained-approach", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:17:ecl:9da2:caller:a12a",
+    prompt: /THEHEADMANTORALLYHISPEOPLE.*HELEADSHISTRIBEINTOBATTLE/i,
+    staticPortraitMenu: true,
+    heldApproachCapture: "nomad-rally-returned-approach.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /COMBATWAITFLEEADVANCE/i,
+      heldApproach: { position: [17, 8, 1],
+        placement: [56, 32, "encounter:area:17:SPRIT7.DAX:11:2:0", 16, 49] } },
+  }],
   ["nomad-headman-rally", {
     slot: "A", inputs: ["up", "down"],
     portrait: "scene-illustration:area:17:ecl:9da2:caller:a12a",
@@ -8417,6 +8427,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "sokal-barracks-ghost-phases" ||
       /^nomad-camp-sentry-(families|parlay|combat)$/.test(routeName) ||
       /^nomad-pursuit-(combat|flee)$/.test(routeName) ||
+      routeName === "nomad-rally-retained-approach" ||
       /^tyrmor-priest-(benediction-hold|tone-hold|peace-hold|chisel-hold|chisel-help)$/.test(routeName) ||
       sokalBarracksHeld ||
       routeName === "valhingen-wight-ambush-loop" || routeName === "valhingen-spirits-tower-wight-loop" ||
@@ -12149,6 +12160,7 @@ try {
       writeFileSync(resolve(directory, "stojanow-gate-bugbear-lookouts.png"), Buffer.from(lookoutsShot.data, "base64"));
     }
     if (continuation) {
+      if (continuation.heldApproach) await observeApproach([continuation.heldApproach.placement], false);
       const waitForPortraitPaint = (sequence, portrait) => waitFor("the displayed continuation pose", () => run(`(() => {
         const image = document.querySelector("#tile-art:not([hidden]) .encounter-portrait");
         return state.sequence === ${sequence} && !animationFrame && renderingSequence === undefined &&
@@ -12261,6 +12273,10 @@ try {
         if (departureReachedAt) console.log(`Departure picture shown ${Date.now() - departureReachedAt} ms after the game reached it`);
       }
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
+      if (continuation.heldApproach) {
+        const { position, placement } = continuation.heldApproach;
+        await verifyHeldApproach(continuation.prompt, position, placement);
+      }
       if (illustration.sceneryPrompt && continuation.clearsPortrait) await verifySceneryPrompt(illustration.sceneryPrompt);
       if (combatProducer && heldPortraitEvidenceFile) {
         assert.equal(frame.portrait, undefined);
