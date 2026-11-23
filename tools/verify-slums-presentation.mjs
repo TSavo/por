@@ -2004,6 +2004,16 @@ const illustrationRoutes = new Map([
       heldApproach: { position: [17, 9, 11],
         placement: [56, 32, "encounter:area:17:SPRIT7.DAX:0:1:0", 24, 65] } },
   }],
+  ["nomad-raid-retreat-melee", {
+    slot: "A", inputs: [...nomadRaidWarCries, "enter", "enter", "f", "enter", "enter"], fixedClockStart: 4320000,
+    portrait: "scene-illustration:area:17:ecl:9da2:caller:af47:cue:melee",
+    prompt: /AHEADYOUSEEALARGEGROUPOFKOBOLDSENGAGEDINMELEEWITHSOMENOMADS/i,
+    illustratedScenery: true, finalPhaseCapture: "nomad-raid-distant-melee.png",
+    heldApproachCapture: "nomad-raid-distant-melee-returned.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /COMBATWAITFLEEADVANCE/i,
+      heldApproach: { position: [17, 13, 9],
+        placement: [56, 32, "encounter:area:17:SPRIT7.DAX:0:2:0", 24, 57] } },
+  }],
   ["nomad-raid-alliance", {
     slot: "A", inputs: [...nomadRaidWarCries, "enter"], fixedClockStart: 4320000,
     portrait: "scene-illustration:area:17:ecl:9da2:caller:b0fb",
@@ -9195,7 +9205,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "nomad-camp-tripwire-menu" ||
       /^nomad-camp-sentry-(families|parlay|combat)$/.test(routeName) ||
       /^nomad-guard-(follow|attack)$/.test(routeName) ||
-      /^nomad-raid-(alliance(?:-offer|-refusal|-volley|-aftermath)?|betrayal|first-attack)$/.test(routeName) ||
+      /^nomad-raid-(alliance(?:-offer|-refusal|-volley|-aftermath)?|betrayal|first-attack|retreat-melee)$/.test(routeName) ||
       routeName === "nomad-morning-walk" ||
       routeName === "nomad-feast-held-sequence" ||
       /^nomad-pursuit-(combat|flee|menu)$/.test(routeName) ||
