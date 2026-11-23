@@ -1382,6 +1382,18 @@ const illustrationRoutes = new Map([
       prompt: /ALLRIGHT,GETOUTOFHERETHEN.*COMEBACKWHENYOU'VELEARNEDTHERULES/i,
     },
   }],
+  ["stojanow-toll-shortfall", {
+    slot: "B", inputs: [...stojanowTollApproach, "y"],
+    portraitStops: { 18: "portrait:area:9:ecl:9c35:caller:abdf:PIC2.DAX:63:0:0" },
+    portrait: "portrait:area:9:ecl:9c63:caller:9a0d:PIC2.DAX:63:0:0",
+    prompt: /YOUDON'THAVEENOUGHMONEY/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:9:ecl:9c63:caller:9a0d:PIC2.DAX:63:${member}:0`),
+    finalPhaseCapture: "stojanow-bugbear-toll-shortfall.png",
+    continuation: {
+      inputs: ["enter"], portrait: "scene-illustration:area:9:ecl:a0a7:cue:bugbear-toll-refused",
+      prompt: /ALLRIGHT,GETOUTOFHERETHEN.*COMEBACKWHENYOU'VELEARNEDTHERULES/i,
+    },
+  }],
   ["stojanow-toll-refused", {
     slot: "B", inputs: [...stojanowTollApproach, "n"],
     portraitStops: { 18: stojanowTollPortrait },
