@@ -9,6 +9,14 @@ import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const battleEntryRoutes = new Map([
+  ["wild-cave-two-guard-lizards", {
+    slot: "B",
+    notice: /GUARDINGTHISCHAMBERARETWOGIANTLIZARDS.*ABATTLEBEGINS/i,
+    portrait: "portrait:area:27:ecl:a668:PIC8.DAX:59:0:0",
+    file: "wild-cave-two-guard-lizards.png",
+    noticeScreenshot: "wild-cave-two-guard-lizards.png",
+    pollFrames: 1,
+  }],
   ["bane-altar-automatic-battle-entry", {
     slot: "A", trigger: { key: "d", code: "KeyD", windowsVirtualKeyCode: 68 }, input: "d",
     decision: /DESTROYALTARLEAVEIT/i,
@@ -12378,14 +12386,16 @@ try {
       await command("Input.dispatchKeyEvent", { type: "keyUp", ...key });
     }
     await pressBattleEntryKey({ key: "ArrowUp", code: "ArrowUp", windowsVirtualKeyCode: 38 });
-    await waitFor("the native battle choice", () => run(`
-      state.ready && state.awaitsKey && !state.battleEntryPolling && !animationFrame &&
-      renderingSequence === undefined &&
-      ${battleEntry.decision}.test(state.text?.toSorted(([a], [b]) => a - b)
-        .map(([, ch]) => String.fromCharCode(ch)).join(""))
-    `));
-    assert.deepEqual([...posts.values()].map(({ input }) => input), ["up"]);
-    await pressBattleEntryKey(battleEntry.trigger);
+    if (battleEntry.decision) {
+      await waitFor("the native battle choice", () => run(`
+        state.ready && state.awaitsKey && !state.battleEntryPolling && !animationFrame &&
+        renderingSequence === undefined &&
+        ${battleEntry.decision}.test(state.text?.toSorted(([a], [b]) => a - b)
+          .map(([, ch]) => String.fromCharCode(ch)).join(""))
+      `));
+      assert.deepEqual([...posts.values()].map(({ input }) => input), ["up"]);
+      await pressBattleEntryKey(battleEntry.trigger);
+    }
     const notice = await waitFor("the actual battle notice painting", () => run("window.battleEntryTrace.notice")).catch(async error => {
       const trace = await run("window.battleEntryTrace");
       const failure = { ...trace, posts: [...posts.values()] };
@@ -12393,12 +12403,16 @@ try {
       throw error;
     });
     assert.equal(notice.src, "/art/" + battleEntry.portrait);
+    if (battleEntry.noticeScreenshot) {
+      const screenshot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, battleEntry.noticeScreenshot), Buffer.from(screenshot.data, "base64"));
+    }
     const settled = await waitFor("the first manual combat menu without sending another key", () =>
       run("window.battleEntryTrace.combat?.heldMs >= 250 && window.battleEntryTrace"), 60_000);
     assert.ok(settled.combat.sequence > notice.sequence);
-    assert.equal(settled.polls.length, 2);
+    assert.equal(settled.polls.length, battleEntry.pollFrames ?? 2);
     const sent = [...posts.values()];
-    assert.deepEqual(sent.filter(({ input }) => input !== ":poll").map(({ input }) => input), ["up", battleEntry.input]);
+    assert.deepEqual(sent.filter(({ input }) => input !== ":poll").map(({ input }) => input), battleEntry.input ? ["up", battleEntry.input] : ["up"]);
     for (const sequence of settled.polls) {
       assert.deepEqual(sent.filter(post => post.sequence === sequence).map(({ input, status }) => [input, status]),
         [[":poll", 204]], "The page must advance each ready battle entry exactly once without injecting a game key");

@@ -1,0 +1,1 @@
+The controlled area 27 checkpoint uses the existing local wild-cave lizard replay save with only the three location bytes set to (2,15) facing west. One Up enters the chamber and the browser carries on from the painted notice to the first manual combat turn.
