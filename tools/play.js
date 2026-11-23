@@ -2657,6 +2657,7 @@ regionMap.addEventListener("click", () => { mapMode = "region"; renderAutomap();
 atlasMap.addEventListener("click", () => { mapMode = "atlas"; renderAutomap(); });
 atlasSheet.addEventListener("change", renderAutomap);
 window.addEventListener("keydown", (event) => {
+  if (document.querySelector("#storage-error[open]")) return;
   resumeBlockedAudio();
   if (event.key !== "F10" && event.target instanceof HTMLElement && event.target.closest("#settings")) return;
   // On the publisher screen a key goes to the title, and no further: the game is at its title

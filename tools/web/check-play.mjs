@@ -149,7 +149,8 @@ async function checkFailedOverwrite(page) {
   assert.doesNotMatch(await page.text(), /Quit TO DOS/i);
   log("ok   failed overwrite stays retryable and preserves slot A");
 
-  await chrome.evaluate('saveFault.action = null; document.querySelector("#retry-storage").click()');
+  await chrome.evaluate("saveFault.action = null");
+  await chrome.key("enter");
   await chrome.until("the retry transaction", "saveFault.count === 2", 15);
   const dialog = new Promise((resolve, reject) => {
     const timer = setTimeout(() => reject(new Error("No reload confirmation for pending save")), 10000);
