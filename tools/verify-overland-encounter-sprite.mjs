@@ -13,6 +13,17 @@ const westernTigers = {
   fixture: "western-ankheg-eruption", caption: /YOUSURPRISEAGROUPOFTIGERS/i,
 };
 const scenes = {
+  "phlan-waterfront-merchants": {
+    cursor: "a230", block: 12, height: 65, clock: "4320000", caption: /YOUSURPRISEAGROUPOFMERCHANTS/i,
+    fixture: "wilderness-walk", recordedInputs: 28,
+    terrain: { center: [23,28],
+      slots: [88,108,108,101,108,146,89,88,243,252,120,122,121,86,244,123,144,146,132,77,127,128,130,131,77],
+      detailSlots: [88,108,101,89,243,252,86,244,132,77,127,130,131], landmarkSlots: [243,252,244] },
+    // A roof, a quay and the islet, all within the part of each cell visible in this window.
+    landmarkProbes: [[243,70,48], [252,11,43], [244,25,19]],
+    inputs: ["up", "right", "right", "right", "up",
+      ...Array.from({ length: 6 }, () => ["down", "up"]).flat(), "down", "c"],
+  },
   "silt-river-stirges": {
     area: 26, archive: 7, cursor: "a230", block: 61, x: 56, width: 24, height: 57,
     fixture: "pyramid-exterior", clock: "4321092", caption: /YOUSURPRISEAGROUPOFSTIRGES/i,
@@ -143,16 +154,22 @@ const scene = scenes[encounter];
 const { area = 26, archive = 7, cursor, block, x = 56, width = 24, height, clock, caption, terrain } = scene;
 const spotted = encounter === "spotted";
 const fixture = resolve("qa/fixtures", scene.fixture ?? (spotted ? "wilderness-walk" : "lizard-wilds-stirge-surprise"));
-const slot = spotted ? "F.json" : "A.json";
+const recordedInputs = spotted ? 121 : scene.recordedInputs;
+const slot = recordedInputs ? "F.json" : "A.json";
 let boot = {
   bootKeys: "31000000:1c0d,45000000:266c,52000000:1e61",
   startAt: "85000000", inputCompat: "discard-poll-prompt",
 };
 let inputs = scene.inputs;
 let schedule;
-if (spotted) {
+if (recordedInputs) {
   boot = JSON.parse(readFileSync(join(fixture, "boot.json"), "utf8"));
-  inputs = readFileSync(join(fixture, "commands.jsonl"), "utf8").trim().split("\n").map(line => JSON.parse(line)).slice(0, 121);
+  const prefix = readFileSync(join(fixture, "commands.jsonl"), "utf8").trim().split("\n")
+    .map(line => JSON.parse(line)).slice(0, recordedInputs);
+  assert.equal(prefix.length, recordedInputs);
+  inputs = [...prefix, ...(inputs ?? [])];
+}
+if (spotted) {
   assert.equal(inputs.at(-1), "f");
   schedule = join(fixture, "prompts.jsonl");
 }
@@ -171,7 +188,7 @@ const chrome = await openChromeCampaignLeg({
 });
 try {
   let frame = await chrome.nextFrame();
-  if (!spotted) {
+  if (!recordedInputs) {
     assert.equal(await chrome.evaluate(`!document.querySelector("#travel-map").hidden &&
       !document.querySelector(".local-overland-encounter")`), true, "The regular travel map stays visible before the encounter");
     writeFileSync(join(output, "travel.png"), await chrome.screenshot());
@@ -207,6 +224,33 @@ try {
   assert.ok(held.samples > 38);
   assert.deepEqual(held.sprites, [{ id: "/art/" + sprite, anchor: [x, 32, sprite, width, height], width: width * 4, height: height * 4 }]);
   assert.deepEqual(await chrome.evaluate("state.overlandTerrain"), terrain);
+  let landmarks;
+  if (scene.landmarkProbes) {
+    // Compare pixels from each source cel against the translated world position in the WebGL buffer.
+    landmarks = await chrome.evaluate(`(async () => {
+      const canvas = document.querySelector(".local-overland-encounter");
+      const gl = canvas.getContext("webgl");
+      const sample = document.createElement("canvas").getContext("2d", { willReadFrequently: true });
+      return Promise.all(${JSON.stringify(scene.landmarkProbes)}.map(async ([slot, x, y]) => {
+        const image = new Image();
+        image.src = "/art/overland-landmark:" + slot;
+        await image.decode();
+        sample.clearRect(0, 0, 1, 1);
+        sample.drawImage(image, x, y, 1, 1, 0, 0, 1, 1);
+        const source = [...sample.getImageData(0, 0, 1, 1).data];
+        const index = state.overlandTerrain.slots.indexOf(slot);
+        const viewX = index % 5 * 96 - 64 + x, viewY = Math.floor(index / 5) * 96 - 64 + y;
+        const rendered = new Uint8Array(4);
+        gl.readPixels(viewX, canvas.height - 1 - viewY, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, rendered);
+        return { slot, x: viewX, y: viewY, source, rendered: [...rendered] };
+      }));
+    })()`);
+    for (const { slot, source, rendered } of landmarks) {
+      assert.ok(source[3] >= 250 && rendered[3] === 255);
+      assert.ok(rendered.slice(0, 3).every((value, i) => Math.abs(value - source[i]) <= 8),
+        `Landmark ${slot} is missing or misaligned in the WebGL terrain`);
+    }
+  }
   const surface = await chrome.evaluate(`(() => {
     const canvas = document.querySelector(".local-overland-encounter");
     const gl = canvas.getContext("webgl");
@@ -263,7 +307,7 @@ try {
     fixtureSha256: digest(readFileSync(join(fixture, slot))),
     rendererSha256: digest(readFileSync("tools/play.js")),
     webglRendererSha256: digest(readFileSync("tools/new-phlan-webgl.js")),
-    terrain, terrainSha256: digest(surface.png),
+    terrain, landmarks, terrainSha256: digest(surface.png),
     held: { caption: heldCaption, ...held },
     handoff: { choice, notice },
   }, null, 2) + "\n");
