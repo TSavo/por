@@ -1,0 +1,25 @@
+
+
+                 Name            AC  HP
+
+                 ALDA             3   5
+                 BRIN             1   0
+                 CORA             3  16
+                 DORN             3   8
+                 ENNA             2  13
+                 FENN             2  12
+                 THEURGIST        8  13
+
+
+
+
+
+
+ YOU ARE ATTACKED BY FOUR GUARDS IN
+ YOUR SLEEP
+ BRIN dies.
+
+
+
+
+press <enter>/<return> to continue
