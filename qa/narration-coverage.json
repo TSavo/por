@@ -110,6 +110,18 @@
    "decisions": 70,
    "heard": 24
   },
+  "issue-241-kobold-roof-original": {
+   "ledger": "narration.jsonl",
+   "games": 1,
+   "decisions": 4,
+   "heard": 4
+  },
+  "issue-241-kobold-roof-port": {
+   "ledger": "narration.jsonl",
+   "games": 1,
+   "decisions": 4,
+   "heard": 4
+  },
   "issue-99-training-original": {
    "ledger": "narration.jsonl",
    "games": 1,
@@ -1500,12 +1512,20 @@
     "key": "the first-person view"
    }
   },
-  "ecl8-b13-9ce1-9d05": {
-   "run": "walk-kobold-1",
-   "step": 1845031698,
+  "ecl8-b13-9ce1": {
+   "run": "issue-241-kobold-roof-original",
+   "step": 99011378,
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse"
+   }
+  },
+  "ecl8-b13-9d05": {
+   "run": "issue-241-kobold-roof-original",
+   "step": 103694109,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:13:ecl:9d4a:PIC8.DAX:0:0:0"
    }
   },
   "ecl8-b13-9d7b": {
@@ -5007,6 +5027,26 @@
     "unfinished": 0,
     "startedLate": 6
    },
+   "issue-241-kobold-roof-original": {
+    "log": "narration.playback.jsonl",
+    "legs": 1,
+    "lines": 4,
+    "toTheEnd": 4,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-241-kobold-roof-port": {
+    "log": "narration.playback.jsonl",
+    "legs": 1,
+    "lines": 4,
+    "toTheEnd": 4,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
    "issue-99-training-original": {
     "log": "narration.playback.jsonl",
     "legs": 1,
@@ -5200,12 +5240,19 @@
     "waited": 0.177,
     "art": "the first-person view"
    },
-   "ecl8-b13-9ce1-9d05": {
-    "run": "issue-240-clerk-a891-port",
-    "asset": "voices/narration/ecl8/block-13/ecl8-b13-9ce1-9d05.mp3",
-    "seconds": 4.24,
-    "waited": 0.027,
+   "ecl8-b13-9ce1": {
+    "run": "issue-241-kobold-roof-original",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-9ce1.mp3",
+    "seconds": 1.29,
+    "waited": 0.005,
     "art": "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse"
+   },
+   "ecl8-b13-9d05": {
+    "run": "issue-241-kobold-roof-original",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-9d05.mp3",
+    "seconds": 2.95,
+    "waited": 0.004,
+    "art": "portrait:area:13:ecl:9d4a:PIC8.DAX:0:0:0"
    },
    "ecl8-b13-ac72": {
     "run": "issue-240-clerk-a891-port",
@@ -6619,18 +6666,6 @@
     ],
     "end": "scene-illustration:area:8:ecl:af78:caller:a891:cue:commissions-closed"
    },
-   "issue-240-clerk-a891-port | l | 3 | ecl8-b13-9ce1-9d05": {
-    "run": "issue-240-clerk-a891-port",
-    "leg": "l",
-    "unitId": "ecl8-b13-9ce1-9d05",
-    "asset": "voices/narration/ecl8/block-13/ecl8-b13-9ce1-9d05.mp3",
-    "expected": "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse",
-    "caption": "THE ROOF COLLAPSES. BRIN is hit FOR 2 points of Damage. DORN is hit FOR 2 points of Damage. ENNA is hit FOR 2 points of Damage. press <enter>/<return> to continue",
-    "seen": [
-     "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse"
-    ],
-    "end": "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse"
-   },
    "issue-240-clerk-a891-port | l | 4 | ecl8-b13-99c1": {
     "run": "issue-240-clerk-a891-port",
     "leg": "l",
@@ -6702,6 +6737,102 @@
      "scene-illustration:area:8:ecl:9b8a:caller:9a4a"
     ],
     "end": "scene-illustration:area:8:ecl:9b8a:caller:9a4a"
+   },
+   "issue-241-kobold-roof-original | walk-clerk-pays-three-roof | 1 | ecl8-b13-acab": {
+    "run": "issue-241-kobold-roof-original",
+    "leg": "walk-clerk-pays-three-roof",
+    "unitId": "ecl8-b13-acab",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-acab.mp3",
+    "expected": "scene-illustration:area:13:ecl:ace3:cue:dining-room",
+    "caption": "HERE CRUDE TABLES, LITTERED WITH BONES, ARE SCATTERED AROUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:13:ecl:ace3:cue:dining-room"
+    ],
+    "end": "scene-illustration:area:13:ecl:ace3:cue:dining-room"
+   },
+   "issue-241-kobold-roof-original | walk-clerk-pays-three-roof | 2 | ecl8-b13-ac72": {
+    "run": "issue-241-kobold-roof-original",
+    "leg": "walk-clerk-pays-three-roof",
+    "unitId": "ecl8-b13-ac72",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-ac72.mp3",
+    "expected": "scene-illustration:area:13:ecl:aca3:cue:pantry",
+    "caption": "RATS ARE HUNG HERE TO AGE. MOLDY ROOTS LIE IN PILES. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:13:ecl:aca3:cue:pantry"
+    ],
+    "end": "scene-illustration:area:13:ecl:aca3:cue:pantry"
+   },
+   "issue-241-kobold-roof-original | walk-clerk-pays-three-roof | 3 | ecl8-b13-9ce1": {
+    "run": "issue-241-kobold-roof-original",
+    "leg": "walk-clerk-pays-three-roof",
+    "unitId": "ecl8-b13-9ce1",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-9ce1.mp3",
+    "expected": "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse",
+    "caption": "THE ROOF COLLAPSES. BRIN is hit FOR 2 points of Damage. DORN is hit FOR 2 points of Damage. ENNA is hit FOR 2 points of Damage. press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse"
+    ],
+    "end": "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse"
+   },
+   "issue-241-kobold-roof-original | walk-clerk-pays-three-roof | 4 | ecl8-b13-9d05": {
+    "run": "issue-241-kobold-roof-original",
+    "leg": "walk-clerk-pays-three-roof",
+    "unitId": "ecl8-b13-9d05",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-9d05.mp3",
+    "expected": "portrait:area:13:ecl:9d4a:PIC8.DAX:0:0:0",
+    "caption": "BEFORE YOU RECOVER, KOBOLDS ARRIVE. A battle begins...",
+    "seen": [
+     "portrait:area:13:ecl:9d4a:PIC8.DAX:0:0:0"
+    ],
+    "end": "portrait:area:13:ecl:9d4a:PIC8.DAX:0:0:0"
+   },
+   "issue-241-kobold-roof-port | walk-clerk-pays-three-roof | 1 | ecl8-b13-acab": {
+    "run": "issue-241-kobold-roof-port",
+    "leg": "walk-clerk-pays-three-roof",
+    "unitId": "ecl8-b13-acab",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-acab.mp3",
+    "expected": "scene-illustration:area:13:ecl:ace3:cue:dining-room",
+    "caption": "HERE CRUDE TABLES, LITTERED WITH BONES, ARE SCATTERED AROUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:13:ecl:ace3:cue:dining-room"
+    ],
+    "end": "scene-illustration:area:13:ecl:ace3:cue:dining-room"
+   },
+   "issue-241-kobold-roof-port | walk-clerk-pays-three-roof | 2 | ecl8-b13-ac72": {
+    "run": "issue-241-kobold-roof-port",
+    "leg": "walk-clerk-pays-three-roof",
+    "unitId": "ecl8-b13-ac72",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-ac72.mp3",
+    "expected": "scene-illustration:area:13:ecl:aca3:cue:pantry",
+    "caption": "RATS ARE HUNG HERE TO AGE. MOLDY ROOTS LIE IN PILES. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:13:ecl:aca3:cue:pantry"
+    ],
+    "end": "scene-illustration:area:13:ecl:aca3:cue:pantry"
+   },
+   "issue-241-kobold-roof-port | walk-clerk-pays-three-roof | 3 | ecl8-b13-9ce1": {
+    "run": "issue-241-kobold-roof-port",
+    "leg": "walk-clerk-pays-three-roof",
+    "unitId": "ecl8-b13-9ce1",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-9ce1.mp3",
+    "expected": "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse",
+    "caption": "THE ROOF COLLAPSES. BRIN is hit FOR 2 points of Damage. DORN is hit FOR 2 points of Damage. ENNA is hit FOR 2 points of Damage. press <enter>/<return> to continue",
+    "seen": [
+     "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse"
+    ],
+    "end": "scene-illustration:area:13:ecl:9cfe:cue:roof-collapse"
+   },
+   "issue-241-kobold-roof-port | walk-clerk-pays-three-roof | 4 | ecl8-b13-9d05": {
+    "run": "issue-241-kobold-roof-port",
+    "leg": "walk-clerk-pays-three-roof",
+    "unitId": "ecl8-b13-9d05",
+    "asset": "voices/narration/ecl8/block-13/ecl8-b13-9d05.mp3",
+    "expected": "portrait:area:13:ecl:9d4a:PIC8.DAX:0:0:0",
+    "caption": "BEFORE YOU RECOVER, KOBOLDS ARRIVE. A battle begins...",
+    "seen": [
+     "portrait:area:13:ecl:9d4a:PIC8.DAX:0:0:0"
+    ],
+    "end": "portrait:area:13:ecl:9d4a:PIC8.DAX:0:0:0"
    },
    "issue-99-training-original | visit-training-hall | 1 | por.voice.ecl3.b11-9a74": {
     "run": "issue-99-training-original",
