@@ -1646,7 +1646,7 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
   ["nomad-headman-rally", {
-    slot: "A", inputs: ["up"],
+    slot: "A", inputs: ["up", "down"],
     portrait: "scene-illustration:area:17:ecl:9da2:caller:a12a",
     prompt: /THEHEADMANTORALLYHISPEOPLE.*HELEADSHISTRIBEINTOBATTLE/i,
     finalPhaseCapture: "nomad-headman-rally.png",
