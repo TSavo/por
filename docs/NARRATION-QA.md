@@ -191,6 +191,15 @@ visible actor or other distinguishing words when they occur in the
 spoken passage. A bare scenery frame with no caption cannot satisfy
 this check. Older playback receipts use their native ledger evidence.
 
+In GOG 1.3 and bundled Chrome, the Sokal Pale Form and Valjevo bodyguard
+recordings formerly started while the view still lacked the encounter
+caption. Both now start on the rendered encounter menu. The ghost stays
+visible through all 3.12 seconds, and the Valjevo bodyguards stay through
+all 7.52 seconds. The Slums Kobold and Goblin captions at the shared
+`9dde` script position also match their own recordings and pictures in
+bundled Chrome. Swapping those captions in copies of the playback logs
+fails verification even when each picture key matches.
+
 ## The silent cases
 
 Each is a moment where the narrator should have spoken and nothing was chosen. The table requires
@@ -217,10 +226,10 @@ variant or selector that is not listed has not been.
 
 Rows that come from play:
 
-- **Units selected at their passage** (of 1,432): a run chose the unit at its trigger and the page
+- **Units selected at their passage** (of 1,436): a run chose the unit at its trigger and the page
   was told to play it. It proves the script position, the selector and the variant. It does not
   prove that anything sounded. Its `left` is shown in brackets and is not counted in the total.
-- **Units played to the end in Chrome** (of 1,432): in some Chrome run the audio element started
+- **Units played to the end in Chrome** (of 1,436): in some Chrome run the audio element started
   the unit's recording and reported `ended` within 0.25s of its length. This row drives the total.
   It proves the file loads and runs to its end in the page. It does not prove the line was in step
   with the screen: its note counts the lines that started more than a second after they were
@@ -237,10 +246,13 @@ Rows that come from play:
   where the passage's own artwork was drawn when the line started and no other frame replaced it
   before the line ended. The passage's own artwork is what the runner's ledger saw on the frame
   that printed it. One picture throughout is not enough: a line sent before its frame is drawn
-  plays under the previous passage's picture, and does not count. It does not compare the
-  picture's variant with the narration's variant. `--list` gives what was on screen instead.
+  plays under the previous passage's picture, and does not count. `--list` gives what was on
+  screen instead.
+- **Complete playback captures with their own artwork**: each completed visit with a caption
+  proves that the printed passage, selected recording variant, and artwork match through playback.
+  This also counts how many different variants passed.
 - **Dynamic variants selected** (of 402): the variant's condition matched the game's state.
-- **Deferred selectors resolved** (of 43): play reached the selector's passage and it chose a unit
+- **Deferred selectors resolved** (of 45): play reached the selector's passage and it chose a unit
   (or its silent case).
 - **Silent cases found in play** (must be 0).
 - **Selected passages with their artwork showing**: of the units selected, those where an Enhanced

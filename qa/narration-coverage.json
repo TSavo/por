@@ -38,11 +38,35 @@
    "decisions": 91,
    "heard": 14
   },
+  "issue-100-9dde-goblin-port": {
+   "ledger": "narration.jsonl",
+   "games": 1,
+   "decisions": 4,
+   "heard": 1
+  },
+  "issue-100-9dde-kobold-port": {
+   "ledger": "narration.jsonl",
+   "games": 1,
+   "decisions": 4,
+   "heard": 1
+  },
   "issue-100-pool-transient": {
    "ledger": "native.jsonl",
    "games": 1,
    "decisions": 1,
    "heard": 1
+  },
+  "issue-237-main-original": {
+   "ledger": "narration.jsonl",
+   "games": 1,
+   "decisions": 11,
+   "heard": 3
+  },
+  "issue-237-main-port": {
+   "ledger": "narration.jsonl",
+   "games": 1,
+   "decisions": 11,
+   "heard": 3
   },
   "kovel-casket-c-gems-reveal-after": {
    "ledger": "kovel-casket-c-gems-lock-final.jsonl",
@@ -78,6 +102,18 @@
    "ledger": "kovel-tapestry-after-reveal.jsonl",
    "games": 2,
    "decisions": 1,
+   "heard": 1
+  },
+  "pale-form-original": {
+   "ledger": "pale-native.jsonl",
+   "games": 1,
+   "decisions": 5,
+   "heard": 1
+  },
+  "pale-form-port": {
+   "ledger": "pale-native.jsonl",
+   "games": 1,
+   "decisions": 5,
    "heard": 1
   },
   "sokal-arrival-art": {
@@ -4642,6 +4678,12 @@
    "unitId": "ecl4-b2-9f6a-9ff2-skullcrusher-absent",
    "value": 0
   },
+  "por.review.ecl-4.block-21.at-aa0a": {
+   "run": "pale-form-original",
+   "step": 86935802,
+   "unitId": "por.narration.sokal.ecl4-b21-aa0a-menu",
+   "value": 9
+  },
   "por.review.ecl-5.block-3.at-9d1f": {
    "run": "walk-valjevo-g4",
    "step": 797384776,
@@ -4659,6 +4701,12 @@
    "step": 115015649,
    "unitId": "por.voice.ecl5.b7-9b74-9bbe",
    "value": 2
+  },
+  "por.review.ecl-5.block-7.at-a56c": {
+   "run": "issue-237-main-original",
+   "step": 87697349,
+   "unitId": "por.voice.ecl5.b7-a56c-operand-9",
+   "value": 9
   },
   "por.review.ecl-7.block-17.at-a435": {
    "run": "walk-nomads-1",
@@ -4723,8 +4771,68 @@
     "unfinished": 4,
     "startedLate": 9
    },
+   "issue-100-9dde-goblin-port": {
+    "log": "narration.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-100-9dde-kobold-port": {
+    "log": "narration.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
    "issue-100-pool-transient": {
     "log": "narration-playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-237-main-original": {
+    "log": "narration.playback.jsonl",
+    "legs": 1,
+    "lines": 3,
+    "toTheEnd": 3,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-237-main-port": {
+    "log": "narration.playback.jsonl",
+    "legs": 1,
+    "lines": 3,
+    "toTheEnd": 3,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "pale-form-original": {
+    "log": "pale-native.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "pale-form-port": {
+    "log": "pale-native.playback.jsonl",
     "legs": 1,
     "lines": 1,
     "toTheEnd": 1,
@@ -4954,13 +5062,11 @@
     "art": "scene-illustration:area:21:ecl:a9fa"
    },
    "por.narration.sokal.ecl4-b21-aa0a-menu": {
-    "run": "campaign-full",
+    "run": "pale-form-original",
     "asset": "voices/narration/sokal-keep/ecl4-b21-aa0a-menu.mp3",
     "seconds": 3.12,
-    "waited": 0.026,
-    "saw": [
-     null
-    ]
+    "waited": 0.006,
+    "art": "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0"
    },
    "por.narration.sokal.ecl4-b21-aad6": {
     "run": "campaign-full",
@@ -5289,13 +5395,11 @@
     ]
    },
    "por.voice.ecl5.b7-9a52": {
-    "run": "campaign-full",
+    "run": "issue-237-main-original",
     "asset": "voices/narration/ecl5/b7-9a52.mp3",
     "seconds": 2.24,
-    "waited": 1.863,
-    "saw": [
-     null
-    ]
+    "waited": 0.037,
+    "art": "the first-person view"
    },
    "por.voice.ecl5.b7-9a74": {
     "run": "campaign-full",
@@ -5323,14 +5427,11 @@
     "art": "scene-illustration:area:7:ecl:995f:caller:a4dd"
    },
    "por.voice.ecl5.b7-a56c-operand-9": {
-    "run": "campaign-full",
+    "run": "issue-237-main-original",
     "asset": "voices/narration/ecl5/b7-a56c-operand-9.mp3",
     "seconds": 7.52,
-    "waited": 0.026,
-    "saw": [
-     "portrait:area:7:ecl:995f:caller:a54b:PIC5.DAX:66:0:0",
-     null
-    ]
+    "waited": 0.006,
+    "art": "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1"
    },
    "por.voice.ecl5.b7-a63a-a6a7": {
     "run": "campaign-full",
@@ -5367,6 +5468,130 @@
     "seconds": 5.2,
     "waited": 0.037,
     "art": "portrait:area:0:PIC3.DAX:41:0:0"
+   }
+  },
+  "artChecks": {
+   "issue-100-9dde-goblin-port | 9dde-goblin | 1 | ecl2-b20-9dde-runtime-text": {
+    "run": "issue-100-9dde-goblin-port",
+    "leg": "9dde-goblin",
+    "unitId": "ecl2-b20-9dde-runtime-text",
+    "variantId": "ecl2-b20-9dde-runtime-text.variant-02-you-have-surprised-a-party-of-goblins",
+    "asset": "voices/narration/dynamic-resolved/ecl2-b20-9dde-runtime-text-v02-you-have-surprised-a-party-of-goblins.mp3",
+    "expected": "portrait:area:20:ecl:9e02:PIC2.DAX:2:0:0",
+    "caption": "YOU HAVE SURPRISED A PARTY OF GOBLINS. Combat Wait Flee Parlay",
+    "seen": [
+     "portrait:area:20:ecl:9e02:PIC2.DAX:2:0:0"
+    ],
+    "end": "portrait:area:20:ecl:9e02:PIC2.DAX:2:0:0"
+   },
+   "issue-100-9dde-kobold-port | 9dde-kobold | 1 | ecl2-b20-9dde-runtime-text": {
+    "run": "issue-100-9dde-kobold-port",
+    "leg": "9dde-kobold",
+    "unitId": "ecl2-b20-9dde-runtime-text",
+    "variantId": "ecl2-b20-9dde-runtime-text.variant-01-you-have-surprised-a-party-of-kobolds",
+    "asset": "voices/narration/dynamic-resolved/ecl2-b20-9dde-runtime-text-v01-you-have-surprised-a-party-of-kobolds.mp3",
+    "expected": "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0",
+    "caption": "YOU HAVE SURPRISED A PARTY OF KOBOLDS. Combat Wait Flee Parlay",
+    "seen": [
+     "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0"
+    ],
+    "end": "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0"
+   },
+   "issue-237-main-original | browser | 1 | por.voice.ecl5.b7-9a52": {
+    "run": "issue-237-main-original",
+    "leg": "browser",
+    "unitId": "por.voice.ecl5.b7-9a52",
+    "asset": "voices/narration/ecl5/b7-9a52.mp3",
+    "expected": "the first-person view",
+    "caption": "DO YOU WANT TO GO DOWN THESE STAIRS? Yes No",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-237-main-original | browser | 2 | por.voice.ecl5.b7-a463-a4dd": {
+    "run": "issue-237-main-original",
+    "leg": "browser",
+    "unitId": "por.voice.ecl5.b7-a463-a4dd",
+    "asset": "voices/narration/ecl5/b7-a463-a4dd.mp3",
+    "expected": "scene-illustration:area:7:ecl:995f:caller:a4dd",
+    "caption": "YOU ARE IN THE AUDIENCE HALL OF TYRANTHRAXUS, CONQUEROR OF PHLAN. THE CEILING HAS BEEN TORN AWAY LEAVING THE ENTIRE SECTION OF THE TOWER OPEN TO THE SKY. Press button or return to continue",
+    "seen": [
+     "scene-illustration:area:7:ecl:995f:caller:a4dd"
+    ],
+    "end": "scene-illustration:area:7:ecl:995f:caller:a4dd"
+   },
+   "issue-237-main-original | browser | 3 | por.voice.ecl5.b7-a56c-operand-9": {
+    "run": "issue-237-main-original",
+    "leg": "browser",
+    "unitId": "por.voice.ecl5.b7-a56c-operand-9",
+    "asset": "voices/narration/ecl5/b7-a56c-operand-9.mp3",
+    "expected": "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1",
+    "caption": "TWO GUARDS MOVE TO BAR YOUR PATH. THE DRAGON LOOKS AT YOU WITH MALEVOLENCE. 'GUARDS, KILL THESE PESTS.' Combat Wait Flee Parlay",
+    "seen": [
+     "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1"
+    ],
+    "end": "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1"
+   },
+   "issue-237-main-port | browser | 1 | por.voice.ecl5.b7-9a52": {
+    "run": "issue-237-main-port",
+    "leg": "browser",
+    "unitId": "por.voice.ecl5.b7-9a52",
+    "asset": "voices/narration/ecl5/b7-9a52.mp3",
+    "expected": "the first-person view",
+    "caption": "DO YOU WANT TO GO DOWN THESE STAIRS? Yes No",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-237-main-port | browser | 2 | por.voice.ecl5.b7-a463-a4dd": {
+    "run": "issue-237-main-port",
+    "leg": "browser",
+    "unitId": "por.voice.ecl5.b7-a463-a4dd",
+    "asset": "voices/narration/ecl5/b7-a463-a4dd.mp3",
+    "expected": "scene-illustration:area:7:ecl:995f:caller:a4dd",
+    "caption": "YOU ARE IN THE AUDIENCE HALL OF TYRANTHRAXUS, CONQUEROR OF PHLAN. THE CEILING HAS BEEN TORN AWAY LEAVING THE ENTIRE SECTION OF THE TOWER OPEN TO THE SKY. Press button or return to continue",
+    "seen": [
+     "scene-illustration:area:7:ecl:995f:caller:a4dd"
+    ],
+    "end": "scene-illustration:area:7:ecl:995f:caller:a4dd"
+   },
+   "issue-237-main-port | browser | 3 | por.voice.ecl5.b7-a56c-operand-9": {
+    "run": "issue-237-main-port",
+    "leg": "browser",
+    "unitId": "por.voice.ecl5.b7-a56c-operand-9",
+    "asset": "voices/narration/ecl5/b7-a56c-operand-9.mp3",
+    "expected": "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1",
+    "caption": "TWO GUARDS MOVE TO BAR YOUR PATH. THE DRAGON LOOKS AT YOU WITH MALEVOLENCE. 'GUARDS, KILL THESE PESTS.' Combat Wait Flee Parlay",
+    "seen": [
+     "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1"
+    ],
+    "end": "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1"
+   },
+   "pale-form-original | browser | 1 | por.narration.sokal.ecl4-b21-aa0a-menu": {
+    "run": "pale-form-original",
+    "leg": "browser",
+    "unitId": "por.narration.sokal.ecl4-b21-aa0a-menu",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-aa0a-menu.mp3",
+    "expected": "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0",
+    "caption": "A PALE FORM RISES BEFORE YOU. Combat Wait Flee Parlay",
+    "seen": [
+     "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0"
+    ],
+    "end": "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0"
+   },
+   "pale-form-port | browser | 1 | por.narration.sokal.ecl4-b21-aa0a-menu": {
+    "run": "pale-form-port",
+    "leg": "browser",
+    "unitId": "por.narration.sokal.ecl4-b21-aa0a-menu",
+    "asset": "voices/narration/sokal-keep/ecl4-b21-aa0a-menu.mp3",
+    "expected": "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0",
+    "caption": "A PALE FORM RISES BEFORE YOU. Combat Wait Flee Parlay",
+    "seen": [
+     "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0"
+    ],
+    "end": "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0"
    }
   },
   "cutOff": {},

@@ -78,14 +78,19 @@ if (sokalResolution.status === "resolved") {
 }
 console.log("verified real Sokal ECL observation and enhanced-only narration queueing");
 
-// Authored menu text is observed at its exact operand and resolves normally.
+// The Pale Form speaks once its encounter menu paints the native caption.
 cpu.write16(cpu.ds, 0x494e, 0xaa0a);
 cpu.write8(bufferSegment, (bufferOffset + 0xaa0a + 0x6700) & 0xffff, 0x29);
-const menuEvent = observer.observe(cpu);
+const paleFormCaption = "A PALE FORM RISES BEFORE YOU.";
+assert.equal(observer.observe(cpu), undefined, "wait for the apparition and caption");
+assert.equal(observer.observeRenderedText(cpu, "THE MONSTERS PREPARE"), undefined);
+const menuEvent = observer.observeRenderedText(cpu, paleFormCaption);
 assert.equal(menuEvent?.sourceId, "por.review.ecl-4.block-21.at-aa0a");
 assert.equal(menuEvent?.operand, 9);
 assert.equal(menuEvent?.sourceOperandId, "por.review.ecl-4.block-21.at-aa0a.operand-9");
+assert.equal(menuEvent?.unitId, "por.narration.sokal.ecl4-b21-aa0a-menu");
 assert.equal(realCatalog.resolve(menuEvent!).status, "resolved");
+assert.equal(observer.observeRenderedText(cpu, paleFormCaption), undefined, "repainting stays silent");
 
 // A later print covered by an earlier joined narration unit is identified but
 // suppressed by the catalog instead of attaching a second audio clip.
