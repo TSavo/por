@@ -1653,6 +1653,14 @@ const illustrationRoutes = new Map([
     prompt: /EXPLOSIONOFLIGHTNINGREVEALS.*GRAVEYARDTURNEDUPSIDEDOWN/i,
     continuation: { inputs: ["up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["nomad-headman-lodging", {
+    slot: "A", inputs: [...Array(4).fill("up"), "left", "up", "up", "enter", "enter", "p", "enter", "y"],
+    portrait: "portrait:area:17:ecl:9da2:caller:a5b5:HEAD7.DAX:74:BODY7.DAX:30",
+    prompt: /WEWILLPROVIDEYOUWITHLODGING.*HELEADSTHEWAYTOAHUT/i,
+    staticPortraitMenu: true,
+    finalPhaseCapture: "nomad-headman-lodging.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HEREYOUMAYREST/i },
+  }],
   ["nomad-feast-arrival", {
     slot: "A", inputs: ["up", ...Array(4).fill("enter"), "p", "enter", "enter", "y", "enter"],
     portraitStops: { 9: "scene-illustration:area:17:ecl:9da2:caller:a711" },
