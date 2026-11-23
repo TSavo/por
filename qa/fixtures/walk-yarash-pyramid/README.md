@@ -27,9 +27,8 @@ THE PYRAMID?" Yes, and Enter at the secret door.
 **Teleporters.** Level 1 (15,0): south to (15,7), west into TA (14,7): "YOU SEE ROCKS SCATTERED ABOUT
 THE SMOOTH FLAGSTONES.", "AS YOU MOVE THROUGH THE ROOM THERE IS A FLASH": level 2 at (4,15). North to
 (4,12), east ("A SECRET DOOR IS FOUND TO YOUR RIGHT." at (9,12)) to TE (15,12): Go back / Move on /
-Throw a rock. Move on puts the party at (15,7) on level 1. The claim
-acceptance.yarashs-pyramid.teleporter-te says the default goes to Te, level 2 (11,3), and a rock to
-(15,7); here it is the other way round. West into TA again (Move on) to (4,15), and east to TE: Throw
+Throw a rock. Move on puts the party at Tf (15,7) on level 1 facing east. West into TA again
+(Move on) to (4,15), and east to TE: Throw
 a rock ("YOU THROW A ROCK. SUDDENLY IT DISAPPEARS WITH A FLASH!"), Move on: Te (11,3). The long way
 round to TG (12,3): Throw a rock, Move on: Th (0,4), level 3. North to TJ (0,2): Throw a rock, Move
 on: Tk (0,0).

@@ -2,6 +2,13 @@
   "schema": 1,
   "checks": [
     {
+      "id": "yarash-te",
+      "title": "After TA, TE sends the party to Level 1 without a rock and Level 2 after one rock",
+      "command": "node tools/verify-yarash-te.mjs",
+      "reference": "original",
+      "needs": ["game files"]
+    },
+    {
       "id": "translation-coverage",
       "title": "Every original procedure has a translation",
       "command": "tsx tools/verify-translation-coverage.ts",

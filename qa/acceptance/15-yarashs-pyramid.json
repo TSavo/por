@@ -399,29 +399,35 @@
     },
     {
       "id": "acceptance.yarashs-pyramid.teleporter-te",
-      "title": "Teleporter TE (15,12): Te, L2 (11,3); rock toggles to Tf, L1 (15,7)",
+      "title": "Teleporter TE after TA: Tf on Level 1, or Te on Level 2 after one rock",
       "kind": "main",
       "steps": [
-        "Walk onto TE (15,12) without throwing a rock.",
-        "In a second run, at the prompt (\"AS YOU CAREFULLY SEARCH THE ROOM YOU FEEL A STRANGE TINGLE AS YOU GET CLOSE TO A BARE AREA.\") choose THROW A ROCK, then walk on."
+        "From Level 1, use TA to reach Level 2 (4,15). Walk to TE (15,12) and choose MOVE ON.",
+        "Return through TA and walk to TE again. Choose THROW A ROCK once, then MOVE ON."
       ],
       "expect": [
-        "Default: the party is at Te, Level 2 (11,3).",
-        "After one rock: the party is at Tf, Level 1 (15,7)."
+        "Without a rock after TA, the party lands at Tf on Level 1 (15,7), facing east.",
+        "With one rock after TA, the party lands at Te on Level 2 (11,3), facing south."
       ],
       "branches": [],
       "fights": [],
       "data": [
-        "TE (15,12) -> Te L2 (11,3); toggled -> Tf L1 (15,7)."
+        "TA sets bit 0 at 0x4a4d. TE sends the set bit to Tf and the clear bit to Te. Throwing a rock toggles the bit. Moving on takes the selected destination and toggles the bit for the next use."
       ],
       "sources": [
         "[P] §3.15 (qa/research/guides-digest.md)",
         "Clue Book p.33-34",
-        "game text ECL7.DAX block 23 at 0x9ced, 0x999c (src/audio/voice-master-manifest.json)"
+        "game text ECL7.DAX block 23 at 0x9ced, 0x999c (src/audio/voice-master-manifest.json)",
+        "GOG ECL7.DAX block 22 at 0xa612 and block 23 at 0x9caa, 0x9ce7, 0x9cea, 0x9db3, 0x9e08"
       ],
-      "disagreements": [],
-      "coveredBy": [],
-      "notes": "The digest lists the source squares TE-TL under 'Levels 2 and 3' without saying which level each source is on; read the level from the map data. Arrival prints \"AS YOU MOVE THROUGH THE ROOM THERE IS A FLASH AND YOU SUDDENLY FIND YOURSELF ELSEWHERE.\". Te (11,3) is next to TG (12,3)."
+      "disagreements": [
+        "The guide digest lists Te first. Entering through TA selects Tf first in the game."
+      ],
+      "coveredBy": [
+        "qa/fixtures/walk-yarash-pyramid"
+      ],
+      "check": "yarash-te",
+      "notes": "The recorded walk takes both branches on successive visits through TA. Te (11,3) is next to TG (12,3)."
     },
     {
       "id": "acceptance.yarashs-pyramid.teleporter-tg",
@@ -447,7 +453,7 @@
       ],
       "disagreements": [],
       "coveredBy": [],
-      "notes": "The digest lists the source squares TE-TL under 'Levels 2 and 3' without saying which level each source is on; read the level from the map data. Arrival prints \"AS YOU MOVE THROUGH THE ROOM THERE IS A FLASH AND YOU SUDDENLY FIND YOURSELF ELSEWHERE.\". Tg (14,12) is next to TE (15,12), so TE and TG default to each other's neighbourhood."
+      "notes": "The digest lists the source squares TE-TL under 'Levels 2 and 3' without saying which level each source is on; read the level from the map data. Arrival prints \"AS YOU MOVE THROUGH THE ROOM THERE IS A FLASH AND YOU SUDDENLY FIND YOURSELF ELSEWHERE.\". Tg (14,12) is next to TE (15,12), and Te (11,3) is next to TG (12,3)."
     },
     {
       "id": "acceptance.yarashs-pyramid.teleporter-ti",
@@ -554,12 +560,9 @@
         "[P] §3.15 (qa/research/guides-digest.md) ([CB] step list, 'a cross-check, not from [P]')",
         "Clue Book p.33-34"
       ],
-      "disagreements": [
-        "Number of rocks: the Clue Book and [GB] throw a rock at the second, third and fourth teleporters. Using [P]'s table as digested, the chain TA (default, to L2 (4,15)) -> TE (default, to (11,3)) -> TG (rock, to L3 (0,4)) -> TJ (rock, to Tk L3 (0,0)) needs a rock at only the third and fourth; a rock at TE would send the party to Tf, 'L1 (15,7)'.",
-        "The two readings agree if a use also flips the set's direction (Clue Book rule), so that a rock before the second teleport restores 'forward'."
-      ],
+      "disagreements": [],
       "coveredBy": [],
-      "notes": "This is the scenario that decides the toggle semantics. The digest's teleporter table and the Clue Book route cannot both be right under a rock-only, per-teleporter toggle; one of them (or the digest's level label for Tf) is wrong. Read the ECL 22/23 scripts and fix the expectation; until then assert only the end state 'Level 3'."
+      "notes": "TA sets the shared direction bit. Throwing a stone at TE selects Te (11,3). The recorded walk also shows the later rock-assisted jumps from TG to Th (0,4) and TJ to Tk (0,0). The recorded detour through Tf is outside the fast route."
     },
     {
       "id": "acceptance.yarashs-pyramid.five-lizardmen-parley",

@@ -708,7 +708,7 @@ These three lair magic items are "the only repeatably lootable random magical it
 
 **Levels 2 and 3** (no random encounters; always safe to rest; flee goes to L2 (3,8) or to Tk on L3 (0,0))
 - **Teleporters:**
-  - TE (15,12) → Te, L2 (11,3); a rock toggles it to Tf, L1 (15,7).
+  - TE (15,12) → Te, L2 (11,3); a rock toggles it to Tf, L1 (15,7). Game check: TA sets the shared direction bit, so on arrival via TA the no-rock destination is Tf and one rock selects Te.
   - TG (12,3) → Tg, L2 (14,12); toggles to Th, L3 (0,4).
   - TI (15,8) → Ti, L2 (3,13).
   - TJ (0,2) → Tj, L2 (13,3); toggles to **Tk, L3 (0,0)**.
