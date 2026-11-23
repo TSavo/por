@@ -49510,6 +49510,334 @@
           "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
         }
       }
+    },
+    {
+      "producer": "ECL1.DAX:18:9b6d",
+      "route": "podal-goblin-patrol-sneak-hold",
+      "native": {
+        "draw": "9b7b",
+        "prompt": "b240/9d1f",
+        "sha256": "2efdfbec167335978e424c65fe4f831ec94b3cf5e92e22d49e2db7f555f70f5b",
+        "caption": "YOU SPOT A GROUP OF GOBLINS. Press <enter>/<return> to continue",
+        "idlePolls": 24
+      },
+      "chrome": {
+        "original": {
+          "route": "podal-goblin-patrol-sneak-hold",
+          "view": "encounter",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:b240:caller:9d1f:SPRIT1.DAX:2:1:0",
+              "sha256": "d5720105c2d9b97d6b0abc828e42999c9fef96620998e234d4a443e49ff82deb"
+            }
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104511,10E19:01YOUSPOTAGROUPOFGOBLINS.Press<enter>/<return>tocontinue",
+          "data": "original",
+          "checkpointSha256": "8af7572e20d301f3e4291496aeefc97f737d5ccd4c936854172614095983f2ca",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "podal-goblin-patrol-sneak-hold",
+          "view": "encounter",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:b240:caller:9d1f:SPRIT1.DAX:2:1:0",
+              "sha256": "d5720105c2d9b97d6b0abc828e42999c9fef96620998e234d4a443e49ff82deb"
+            }
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104511,10E19:01YOUSPOTAGROUPOFGOBLINS.Press<enter>/<return>tocontinue",
+          "data": "port",
+          "checkpointSha256": "8af7572e20d301f3e4291496aeefc97f737d5ccd4c936854172614095983f2ca",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL1.DAX:18:9b6d",
+      "route": "podal-goblin-patrol-demands-identity",
+      "native": {
+        "draw": "9bce",
+        "prompt": "9c3f",
+        "sha256": "a22361feb58b6fc42bb5e0833cd6e54072df64abfee49b139eac5fa7a0878312",
+        "caption": "YOU SPOT A GROUP OF GOBLINS. THEY GLARE AT YOUR PARTY, AND DEMAND, 'WHO ARE YOU?' Haughty Sly Nice Meek Abusive",
+        "idlePolls": 24
+      },
+      "chrome": {
+        "original": {
+          "route": "podal-goblin-patrol-demands-identity",
+          "view": "portrait",
+          "approaches": [],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104511,10E18:55YOUSPOTAGROUPOFGOBLINS.THEYGLAREATYOURPARTY,ANDDEMAND,'WHOAREYOU?'HaughtySlyNiceMeekAbusive",
+          "data": "original",
+          "checkpointSha256": "3e3dd7dd4a9d6055fe0f2fb365ee78db8d7e2f0af01ac6c15c536f81ce059239",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "portrait": {
+            "id": "portrait:area:18:ecl:9c3f:PIC1.DAX:2:0:0",
+            "sha256": "d5561034aaa7fc1c542e4e0b17fe3b10090f3480ddc613ed1f52b352a6f5d672",
+            "durationMs": 3657
+          }
+        },
+        "port": {
+          "route": "podal-goblin-patrol-demands-identity",
+          "view": "portrait",
+          "approaches": [],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104511,10E18:55YOUSPOTAGROUPOFGOBLINS.THEYGLAREATYOURPARTY,ANDDEMAND,'WHOAREYOU?'HaughtySlyNiceMeekAbusive",
+          "data": "port",
+          "checkpointSha256": "3e3dd7dd4a9d6055fe0f2fb365ee78db8d7e2f0af01ac6c15c536f81ce059239",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "portrait": {
+            "id": "portrait:area:18:ecl:9c3f:PIC1.DAX:2:0:0",
+            "sha256": "d5561034aaa7fc1c542e4e0b17fe3b10090f3480ddc613ed1f52b352a6f5d672",
+            "durationMs": 3665
+          }
+        }
+      }
+    },
+    {
+      "producer": "ECL1.DAX:18:9b6d",
+      "route": "podal-orc-patrol-sneak-hold",
+      "native": {
+        "draw": "9b7b",
+        "prompt": "b240/9d1f",
+        "sha256": "92d08646f6809f5ab1cf4611cef6c4fabe78c899e5008d549ec6f967a25d82e3",
+        "caption": "YOU SPOT A GROUP OF ORCS. Press <enter>/<return> to continue",
+        "idlePolls": 24
+      },
+      "chrome": {
+        "original": {
+          "route": "podal-orc-patrol-sneak-hold",
+          "view": "encounter",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:b240:caller:9d1f:SPRIT1.DAX:4:1:0",
+              "sha256": "9d9e4c2c28c3d8f3e652bb9abe821b217ba1c749bb27be5ad2fbd48a5abddcb9"
+            }
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104512,10E18:56YOUSPOTAGROUPOFORCS.Press<enter>/<return>tocontinue",
+          "data": "original",
+          "checkpointSha256": "8af7572e20d301f3e4291496aeefc97f737d5ccd4c936854172614095983f2ca",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "podal-orc-patrol-sneak-hold",
+          "view": "encounter",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:b240:caller:9d1f:SPRIT1.DAX:4:1:0",
+              "sha256": "9d9e4c2c28c3d8f3e652bb9abe821b217ba1c749bb27be5ad2fbd48a5abddcb9"
+            }
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104512,10E18:56YOUSPOTAGROUPOFORCS.Press<enter>/<return>tocontinue",
+          "data": "port",
+          "checkpointSha256": "8af7572e20d301f3e4291496aeefc97f737d5ccd4c936854172614095983f2ca",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL1.DAX:18:9b6d",
+      "route": "podal-orc-patrol-demands-identity",
+      "native": {
+        "draw": "9bce",
+        "prompt": "9c3f",
+        "sha256": "2373d5229332a0dfc341c6a97e4371ba1ae0d83ad6f1803324a7219abb335440",
+        "caption": "YOU SPOT A GROUP OF ORCS. THEY CHECK OUT YOUR PARTY, AND DEMAND, 'WHO ARE YOU?' Haughty Sly Nice Meek Abusive",
+        "idlePolls": 24
+      },
+      "chrome": {
+        "original": {
+          "route": "podal-orc-patrol-demands-identity",
+          "view": "portrait",
+          "approaches": [],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104511,10E19:39YOUSPOTAGROUPOFORCS.THEYCHECKOUTYOURPARTY,ANDDEMAND,'WHOAREYOU?'HaughtySlyNiceMeekAbusive",
+          "data": "original",
+          "checkpointSha256": "3e3dd7dd4a9d6055fe0f2fb365ee78db8d7e2f0af01ac6c15c536f81ce059239",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "portrait": {
+            "id": "portrait:area:18:ecl:9c3f:PIC1.DAX:4:0:0",
+            "sha256": "3c82b8d73e44900dca5138f576506e9098328e2130c8168729e9613dbfcc230f",
+            "durationMs": 3653
+          }
+        },
+        "port": {
+          "route": "podal-orc-patrol-demands-identity",
+          "view": "portrait",
+          "approaches": [],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104511,10E19:39YOUSPOTAGROUPOFORCS.THEYCHECKOUTYOURPARTY,ANDDEMAND,'WHOAREYOU?'HaughtySlyNiceMeekAbusive",
+          "data": "port",
+          "checkpointSha256": "3e3dd7dd4a9d6055fe0f2fb365ee78db8d7e2f0af01ac6c15c536f81ce059239",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "portrait": {
+            "id": "portrait:area:18:ecl:9c3f:PIC1.DAX:4:0:0",
+            "sha256": "3c82b8d73e44900dca5138f576506e9098328e2130c8168729e9613dbfcc230f",
+            "durationMs": 3656
+          }
+        }
+      }
+    },
+    {
+      "producer": "ECL1.DAX:18:9b6d",
+      "route": "podal-hobgoblin-patrol-sneak-hold",
+      "native": {
+        "draw": "9b7b",
+        "prompt": "b240/9d1f",
+        "sha256": "cdcd3a918d396a5cb9bf4532ae6f94bfabadf7ce3e38c23f30a05c3101895ca8",
+        "caption": "YOU SPOT A GROUP OF HOBGOBLINS. Press <enter>/<return> to continue",
+        "idlePolls": 24
+      },
+      "chrome": {
+        "original": {
+          "route": "podal-hobgoblin-patrol-sneak-hold",
+          "view": "encounter",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:b240:caller:9d1f:SPRIT1.DAX:6:1:0",
+              "sha256": "aafdd108b427058e67c2b3c6231aa39a4ec1959229f616a9e331dc81b1585093"
+            }
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104511,10E18:55YOUSPOTAGROUPOFHOBGOBLINS.Press<enter>/<return>tocontinue",
+          "data": "original",
+          "checkpointSha256": "8af7572e20d301f3e4291496aeefc97f737d5ccd4c936854172614095983f2ca",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "podal-hobgoblin-patrol-sneak-hold",
+          "view": "encounter",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:b240:caller:9d1f:SPRIT1.DAX:6:1:0",
+              "sha256": "aafdd108b427058e67c2b3c6231aa39a4ec1959229f616a9e331dc81b1585093"
+            }
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104511,10E18:55YOUSPOTAGROUPOFHOBGOBLINS.Press<enter>/<return>tocontinue",
+          "data": "port",
+          "checkpointSha256": "8af7572e20d301f3e4291496aeefc97f737d5ccd4c936854172614095983f2ca",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL1.DAX:18:9b6d",
+      "route": "podal-hobgoblin-patrol-demands-identity",
+      "native": {
+        "draw": "9bce",
+        "prompt": "9c3f",
+        "sha256": "1018abb851c4006ac7ed5edd1a7f5317cfaecf61708e2cafca6469ab5780e5e7",
+        "caption": "YOU SPOT A GROUP OF HOBGOBLINS. THEY GLARE AT YOUR PARTY, AND DEMAND, 'WHO ARE YOU?' Haughty Sly Nice Meek Abusive",
+        "idlePolls": 24
+      },
+      "chrome": {
+        "original": {
+          "route": "podal-hobgoblin-patrol-demands-identity",
+          "view": "portrait",
+          "approaches": [],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104511,10E19:01YOUSPOTAGROUPOFHOBGOBLINS.THEYGLAREATYOURPARTY,ANDDEMAND,'WHOAREYOU?'HaughtySlyNiceMeekAbusive",
+          "data": "original",
+          "checkpointSha256": "3e3dd7dd4a9d6055fe0f2fb365ee78db8d7e2f0af01ac6c15c536f81ce059239",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "portrait": {
+            "id": "portrait:area:18:ecl:9c3f:PIC1.DAX:6:0:0",
+            "sha256": "29060870128449fc93ef06f7a3d174d2ae84b193e71ab9f75668ffa2848e9c4a",
+            "durationMs": 3662
+          }
+        },
+        "port": {
+          "route": "podal-hobgoblin-patrol-demands-identity",
+          "view": "portrait",
+          "approaches": [],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104511,10E19:01YOUSPOTAGROUPOFHOBGOBLINS.THEYGLAREATYOURPARTY,ANDDEMAND,'WHOAREYOU?'HaughtySlyNiceMeekAbusive",
+          "data": "port",
+          "checkpointSha256": "3e3dd7dd4a9d6055fe0f2fb365ee78db8d7e2f0af01ac6c15c536f81ce059239",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "portrait": {
+            "id": "portrait:area:18:ecl:9c3f:PIC1.DAX:6:0:0",
+            "sha256": "29060870128449fc93ef06f7a3d174d2ae84b193e71ab9f75668ffa2848e9c4a",
+            "durationMs": 3666
+          }
+        }
+      }
+    },
+    {
+      "producer": "ECL1.DAX:18:9b6d",
+      "route": "podal-ogre-patrol-sneak-hold",
+      "native": {
+        "draw": "9b7b",
+        "prompt": "b240/9d1f",
+        "sha256": "8c01fd0bf35a3fe7e624bf4189e9f6ca8c2e2c2082c27c243ff4b887ef67b189",
+        "caption": "YOU SPOT A GROUP OF OGRES. Press <enter>/<return> to continue",
+        "idlePolls": 24
+      },
+      "chrome": {
+        "original": {
+          "route": "podal-ogre-patrol-sneak-hold",
+          "view": "encounter",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:b240:caller:9d1f:SPRIT1.DAX:8:1:0",
+              "sha256": "879bdee77c1bfd8f78589f05cc8ca0c8f01c7dc4c2d0c24e0f511d8c8ff90dbd"
+            }
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104513,9N18:58YOUSPOTAGROUPOFOGRES.Press<enter>/<return>tocontinue",
+          "data": "original",
+          "checkpointSha256": "8af7572e20d301f3e4291496aeefc97f737d5ccd4c936854172614095983f2ca",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "podal-ogre-patrol-sneak-hold",
+          "view": "encounter",
+          "approaches": [
+            {
+              "id": "encounter:area:18:ecl:b240:caller:9d1f:SPRIT1.DAX:8:1:0",
+              "sha256": "879bdee77c1bfd8f78589f05cc8ca0c8f01c7dc4c2d0c24e0f511d8c8ff90dbd"
+            }
+          ],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104513,9N18:58YOUSPOTAGROUPOFOGRES.Press<enter>/<return>tocontinue",
+          "data": "port",
+          "checkpointSha256": "8af7572e20d301f3e4291496aeefc97f737d5ccd4c936854172614095983f2ca",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL1.DAX:18:9b6d",
+      "route": "podal-ogre-patrol-demands-identity",
+      "native": {
+        "draw": "9bce",
+        "prompt": "9c3f",
+        "sha256": "479c7724d5defedb6b7352f9aaf34967b4ef5e0b17ebb734de0cde0b72bf2b8a",
+        "caption": "YOU SPOT A GROUP OF OGRES. THEY GLARE AT YOUR PARTY, AND DEMAND, 'WHO ARE YOU?' Haughty Sly Nice Meek Abusive",
+        "idlePolls": 24
+      },
+      "chrome": {
+        "original": {
+          "route": "podal-ogre-patrol-demands-identity",
+          "view": "portrait",
+          "approaches": [],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104513,9N18:58YOUSPOTAGROUPOFOGRES.THEYGLAREATYOURPARTY,ANDDEMAND,'WHOAREYOU?'HaughtySlyNiceMeekAbusive",
+          "data": "original",
+          "checkpointSha256": "3e3dd7dd4a9d6055fe0f2fb365ee78db8d7e2f0af01ac6c15c536f81ce059239",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "portrait": {
+            "id": "portrait:area:18:ecl:9c3f:PIC1.DAX:8:0:0",
+            "sha256": "de7eccd1de95ceb1096fad98b5492ceb5e01a4ec5bdb0146c50cd108f0a1bee9",
+            "durationMs": 3653
+          }
+        },
+        "port": {
+          "route": "podal-ogre-patrol-demands-identity",
+          "view": "portrait",
+          "approaches": [],
+          "caption": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104513,9N18:58YOUSPOTAGROUPOFOGRES.THEYGLAREATYOURPARTY,ANDDEMAND,'WHOAREYOU?'HaughtySlyNiceMeekAbusive",
+          "data": "port",
+          "checkpointSha256": "3e3dd7dd4a9d6055fe0f2fb365ee78db8d7e2f0af01ac6c15c536f81ce059239",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "portrait": {
+            "id": "portrait:area:18:ecl:9c3f:PIC1.DAX:8:0:0",
+            "sha256": "de7eccd1de95ceb1096fad98b5492ceb5e01a4ec5bdb0146c50cd108f0a1bee9",
+            "durationMs": 3660
+          }
+        }
+      }
     }
   ]
 }
