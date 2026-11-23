@@ -33686,6 +33686,278 @@
           }
         }
       }
+    },
+    {
+      "id": "area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0",
+      "producer": "ECL7.DAX:17:b4e4",
+      "poses": [
+        {
+          "member": 0,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2",
+          "durationMs": 210
+        },
+        {
+          "member": 1,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1",
+          "durationMs": 210
+        },
+        {
+          "member": 2,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312",
+          "durationMs": 210
+        },
+        {
+          "member": 3,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1",
+          "durationMs": 210
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "nomad-raid-cornered-kobolds",
+          "data": "original",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "bbb0cfcb673808faa230dcafea22d6ae36d5274c7598d49f2e1179c7cf70b1e0",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:b4c8:cue:advance",
+          "paints": [
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:1:0",
+              "atMs": 4.899999999999636
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:2:0",
+              "atMs": 188.29999999999927
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:1:0",
+              "atMs": 388.2999999999993
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:0:0",
+              "atMs": 604.8999999999996
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:1:0",
+              "atMs": 821.6000000000004
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:2:0",
+              "atMs": 1021.6000000000004
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:1:0",
+              "atMs": 1238.2999999999993
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:0:0",
+              "atMs": 1438.2999999999993
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:1:0",
+              "atMs": 1654.8999999999996
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:2:0",
+              "atMs": 1871.6000000000004
+            }
+          ],
+          "sha256": {
+            "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:1:0": "1fac9b76d0982dfaf1ea601e47f75b02d3eb0269c84bf8dfd012844159e10fcf",
+            "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:2:0": "fe33c7c3b404081936b42b4248c0b41816b55c2806319a595f1b32aaeb872286",
+            "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:0:0": "b5b55428d3fae4a91e3aaa55a9d5fa48d5e54a382a89d2890b436217cfafe4f4"
+          }
+        },
+        "port": {
+          "route": "nomad-raid-cornered-kobolds",
+          "data": "port",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "bbb0cfcb673808faa230dcafea22d6ae36d5274c7598d49f2e1179c7cf70b1e0",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:b4c8:cue:advance",
+          "paints": [
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:1:0",
+              "atMs": 5.100000011920201
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:2:0",
+              "atMs": 205.1000000119202
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:1:0",
+              "atMs": 421.70000001192057
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:0:0",
+              "atMs": 621.8000000119209
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:1:0",
+              "atMs": 838.4000000119213
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:2:0",
+              "atMs": 1038.4000000119213
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:1:0",
+              "atMs": 1255.1000000119202
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:0:0",
+              "atMs": 1471.7000000119206
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:1:0",
+              "atMs": 1671.7000000119206
+            },
+            {
+              "key": "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:2:0",
+              "atMs": 1888.4000000119213
+            }
+          ],
+          "sha256": {
+            "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:1:0": "1fac9b76d0982dfaf1ea601e47f75b02d3eb0269c84bf8dfd012844159e10fcf",
+            "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:2:0": "fe33c7c3b404081936b42b4248c0b41816b55c2806319a595f1b32aaeb872286",
+            "portrait:area:17:ecl:9da2:caller:b4c8:PIC7.DAX:0:0:0": "b5b55428d3fae4a91e3aaa55a9d5fa48d5e54a382a89d2890b436217cfafe4f4"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:17:ecl:9933:caller:b4d0:PIC7.DAX:0",
+      "producer": "ECL7.DAX:17:9914",
+      "poses": [
+        {
+          "member": 0,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2",
+          "durationMs": 210
+        },
+        {
+          "member": 1,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1",
+          "durationMs": 210
+        },
+        {
+          "member": 2,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312",
+          "durationMs": 210
+        },
+        {
+          "member": 3,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1",
+          "durationMs": 210
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "nomad-raid-cornered-kobolds",
+          "data": "original",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "7716f6f442ca16a7bbe646c670b334cb4c944743e79618717e0c6079202266c1",
+          "portrait": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:0:0",
+              "atMs": 7.5
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:1:0",
+              "atMs": 174.10000000000036
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:2:0",
+              "atMs": 390.7999999999993
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:1:0",
+              "atMs": 590.7999999999993
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:0:0",
+              "atMs": 807.3999999999996
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:1:0",
+              "atMs": 1024.2000000000007
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:2:0",
+              "atMs": 1224.1000000000004
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:1:0",
+              "atMs": 1440.7999999999993
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:0:0",
+              "atMs": 1640.7999999999993
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:1:0",
+              "atMs": 1857.5
+            }
+          ],
+          "sha256": {
+            "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:0:0": "b5b55428d3fae4a91e3aaa55a9d5fa48d5e54a382a89d2890b436217cfafe4f4",
+            "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:1:0": "1fac9b76d0982dfaf1ea601e47f75b02d3eb0269c84bf8dfd012844159e10fcf",
+            "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:2:0": "fe33c7c3b404081936b42b4248c0b41816b55c2806319a595f1b32aaeb872286"
+          }
+        },
+        "port": {
+          "route": "nomad-raid-cornered-kobolds",
+          "data": "port",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "bindingSha256": "7716f6f442ca16a7bbe646c670b334cb4c944743e79618717e0c6079202266c1",
+          "portrait": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:0:0",
+              "atMs": 10.000000011921657
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:1:0",
+              "atMs": 143.30000001192093
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:2:0",
+              "atMs": 359.9000000119213
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:1:0",
+              "atMs": 560.0000000119217
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:0:0",
+              "atMs": 776.6000000119202
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:1:0",
+              "atMs": 993.3000000119209
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:2:0",
+              "atMs": 1193.300000011921
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:1:0",
+              "atMs": 1409.9000000119213
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:0:0",
+              "atMs": 1609.9000000119213
+            },
+            {
+              "key": "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:1:0",
+              "atMs": 1826.6000000119202
+            }
+          ],
+          "sha256": {
+            "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:0:0": "b5b55428d3fae4a91e3aaa55a9d5fa48d5e54a382a89d2890b436217cfafe4f4",
+            "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:1:0": "1fac9b76d0982dfaf1ea601e47f75b02d3eb0269c84bf8dfd012844159e10fcf",
+            "portrait:area:17:ecl:9933:caller:b4d0:PIC7.DAX:0:2:0": "fe33c7c3b404081936b42b4248c0b41816b55c2806319a595f1b32aaeb872286"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [

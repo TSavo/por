@@ -415,7 +415,8 @@ const eclCandidates = scripts.flatMap(record => {
   }
 
   function kutoSurprisePictureBlocks(address: number, portrait: ReturnType<typeof selector>) {
-    if (archive !== 8 || scriptBlock !== 29 || address !== 0xa46d || portrait.address !== 0x6e80 ||
+    if (archive !== 8 || scriptBlock !== 29 || ![0xa46d, 0xa500, 0xa56b, 0xa5c4, 0xa627].includes(address) ||
+        portrait.address !== 0x6e80 ||
         portrait.possibleWriters.length !== 1 || portrait.possibleWriters[0]?.address !== "a40c") return undefined;
 
     // The same random index names the assailants and reads the close picture.
@@ -944,6 +945,12 @@ const eclCandidates = scripts.flatMap(record => {
     // In the pinned Bane script the normal patrol menu writes 0–3 and every
     // value branches at ae14. The Black Hand warning is entered separately.
     if (baneSurpriseProven && load.address === 0xadd9) prompts.delete("ae7a:null");
+    // A retreat retaining a49f jumps through 9a23, which clears the rest flag.
+    // The separate interrupted-rest entry sets 4a1a to 200 before selecting the actor.
+    // Without that flag, only SURPRISE result 3 could enter a53f. The 1.3 routine returns 2 instead.
+    const kutoRestScript = "adefc15133b2c51f0d20fd1684da14018684806e94d909f4ba14dd1b31610396";
+    if (archive === 8 && scriptBlock === 29 && load.address === 0xa56b && digest(script.bytes) === kutoRestScript &&
+        matchesSurpriseProof("ECL8.DAX", 29, kutoRestScript)) prompts.delete("a56b:a49f");
     // Only adad's fourth branch can reach afb9. Both prior menu dispatches
     // consume all 0–3 choices, and SURPRISE's result 3 is overwritten with 2.
     const baneBothSurprisedUnreachable = baneSurpriseProven && load.address === 0xafe7;
