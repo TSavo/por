@@ -793,6 +793,17 @@ const groveCaptives = {
   ],
 };
 
+const tyrmorPriestPortrait = "portrait:area:22:ecl:9d3b:HEAD7.DAX:16:BODY7.DAX:30";
+const tyrmorPriestBenediction = /HESMILESATYOUANDRAISESHISHANDINBENEDICTION/i;
+const tyrmorPriestApproach = ["up", "enter", "a"];
+const tyrmorPriestParlay = [...tyrmorPriestApproach, "p", "m"];
+const tyrmorPriestChisel = {
+  slot: "B", inputs: [...tyrmorPriestParlay, "enter", "a", "p", "m"],
+  portrait: "scene-illustration:area:22:ecl:9991:caller:9def:cue:priest-chisel",
+  prompt: /IHAVECHISELEDALMOSTALLTHEWAYTHROUGHTOTHEOUTSIDE.*WILLYOUTRY/i,
+  staticPortraitMenu: true,
+};
+
 const illustrationRoutes = new Map([
   ["wild-cave-boar-sow-warning-loop", {
     slot: "A", inputs: ["up"],
@@ -4016,6 +4027,33 @@ const illustrationRoutes = new Map([
     approachStops: { 29: [48, 32, "encounter:area:22:ecl:a2f9:SPRIT7.DAX:57:0:0", 48, 80] },
     portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:57:0:0", prompt: /ONELICKSITSLIPS/i,
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:57:0:0", prompt: /ABATTLEBEGINS/i },
+  }],
+  ["tyrmor-priest-benediction-hold", {
+    slot: "B", inputs: tyrmorPriestApproach,
+    approachSequence: [
+      [56, 32, "encounter:area:22:ecl:9d3b:SPRIT7.DAX:12:1:0", 24, 65],
+      [56, 32, "encounter:area:22:ecl:9d3b:SPRIT7.DAX:12:0:0", 24, 80],
+    ],
+    requireTiledApproach: false,
+    portrait: tyrmorPriestPortrait, prompt: tyrmorPriestBenediction, staticPortraitMenu: true,
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:HEAD7.DAX:16:BODY7.DAX:30",
+      prompt: /ABATTLEBEGINS/i },
+  }],
+  ["tyrmor-priest-peace-hold", {
+    slot: "B", inputs: tyrmorPriestParlay,
+    portrait: "portrait:area:22:ecl:9a06:caller:9ef6:HEAD7.DAX:16:BODY7.DAX:30",
+    prompt: /PEACEBROTHER.*AREONEOFMYFLOCK.*MAYPRAYNOMORE/i,
+    staticPortraitMenu: true,
+    continuation: { inputs: ["enter"], portrait: tyrmorPriestPortrait, prompt: tyrmorPriestBenediction },
+  }],
+  ["tyrmor-priest-chisel-hold", {
+    ...tyrmorPriestChisel,
+    continuation: { inputs: ["n"], portrait: tyrmorPriestPortrait, prompt: tyrmorPriestBenediction },
+  }],
+  ["tyrmor-priest-chisel-help", {
+    ...tyrmorPriestChisel,
+    continuation: { inputs: ["y"], portrait: "scene-illustration:area:22:ecl:9a06:caller:9e3a:cue:priest-breakthrough",
+      prompt: /YOUBREAKTHROUGH.*THEPRIESTTEARFULLYTHANKSYOU/i },
   }],
   ["tyrmor-priest-chisel", {
     slot: "B", priestParlay: true, inputs: [],
@@ -8255,6 +8293,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName.startsWith("yarash-study-") ||
       routeName === "valhingen-grave-claws" || routeName === "valhingen-vampire-reveal-phases" ||
       routeName === "sokal-barracks-ghost-phases" ||
+      /^tyrmor-priest-(benediction-hold|peace-hold|chisel-hold|chisel-help)$/.test(routeName) ||
       sokalBarracksHeld ||
       routeName === "valhingen-wight-ambush-loop" || routeName === "valhingen-spirits-tower-wight-loop" ||
       routeName === "valhingen-skeleton-roaming-ambush-loop" ||

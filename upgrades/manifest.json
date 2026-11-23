@@ -10636,6 +10636,7 @@
     "encounter:area:22:ecl:9d3b:SPRIT7.DAX:12:1:0": "tyrmor-prison-priest-approach-middle.png",
     "encounter:area:22:ecl:9d3b:SPRIT7.DAX:12:0:0": "tyrmor-prison-priest-approach-near.png",
     "portrait:area:22:ecl:9d3b:HEAD7.DAX:16:BODY7.DAX:30": "tyrmor-prison-priest-dialogue.png",
+    "portrait:area:22:ecl:9a06:caller:9ef6:HEAD7.DAX:16:BODY7.DAX:30": "tyrmor-prison-priest-dialogue.png",
     "scene-illustration:area:22:ecl:99e3:caller:a151:cue:teleport-flash": "tyrmor-teleport-flash.png",
     "scene-illustration:area:22:ecl:a012:cue:scattered-rocks": "tyrmor-portal-rocks.png",
     "scene-illustration:area:22:ecl:9a06:caller:a016:cue:scattered-rocks": "tyrmor-portal-rocks.png",
