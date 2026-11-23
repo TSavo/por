@@ -1568,6 +1568,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:25:ecl:adce:cue:western-mounted-guards", "AGROUPOFARMEDGUARDSRIDEBY"],
   ["scene-illustration:area:25:ecl:9d0c:cue:western-ankheg-eruption", "TWOANHKHEGSERUPTFROMTHEGROUNDBENEATHYOU"],
   ["scene-illustration:area:25:ecl:9d1a:cue:western-ankheg-eruption", "TWOANHKHEGSERUPTFROMTHEGROUNDBENEATHYOU"],
+  ["scene-illustration:area:25:ecl:a80f:cue:wild-cave-ankheg-lunge", "FROMTHESOUTH,ALARGEANHKHEGLUNGESOUTANDATTACKSTHEPARTY"],
   ["scene-illustration:area:25:ecl:a856:cue:shed-snake-skin", "LYINGONTHEFLOORISALARGE,SHEDDEDSNAKESKIN"],
   ["scene-illustration:area:25:ecl:a857:cue:shed-snake-skin", "LYINGONTHEFLOORISALARGE,SHEDDEDSNAKESKIN"],
   ["scene-illustration:area:25:ecl:a906", "AGIANTSNAKEFALLSONTOPOFTHEPARTY"],

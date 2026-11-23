@@ -3266,6 +3266,19 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "western-ankheg-battle-notice.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /ALDAHITPOINTS\d+AC\d+.*MOVEVIEWAIM/i },
   }],
+  ["wild-cave-ankheg-lunge", {
+    slot: "A", inputs: ["up", "enter"],
+    combatWithoutPortraitProducer: "ECL6.DAX:25:a7d4",
+    approachSequence: [[48, 32, "encounter:area:25:SPRIT6.DAX:65:1:0", 48, 65]],
+    transientPortraits: { 2: {
+      id: "scene-illustration:area:25:ecl:a80f:cue:wild-cave-ankheg-lunge",
+      prompt: /ALARGEANHKHEGLUNGESOUTANDATTACKS/i, durationMs: 900,
+      screenshot: "wild-cave-ankheg-lunge.png",
+    } },
+    prompt: /ALARGEANHKHEGLUNGESOUTANDATTACKS.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "wild-cave-ankheg-lunge-battle-notice.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /ENNAHITPOINTS\d+AC\d+HANDAXE/i },
+  }],
   ["wild-cave-shed-skin", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:25:ecl:a857:cue:shed-snake-skin",
