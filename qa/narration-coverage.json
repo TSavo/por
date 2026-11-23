@@ -62,6 +62,12 @@
    "decisions": 1,
    "heard": 1
   },
+  "issue-100-vote-caption-live-original": {
+   "ledger": "native-narration.jsonl",
+   "games": 1,
+   "decisions": 35,
+   "heard": 10
+  },
   "issue-237-main-original": {
    "ledger": "narration.jsonl",
    "games": 1,
@@ -127,6 +133,12 @@
    "games": 1,
    "decisions": 11,
    "heard": 3
+  },
+  "v100-castle-votes-port": {
+   "ledger": "narration.jsonl",
+   "games": 1,
+   "decisions": 35,
+   "heard": 10
   },
   "valjevo-records-scribe-flight": {
    "ledger": "native-narration.jsonl",
@@ -4817,6 +4829,16 @@
     "unfinished": 0,
     "startedLate": 0
    },
+   "issue-100-vote-caption-live-original": {
+    "log": "narration-playback.jsonl",
+    "legs": 1,
+    "lines": 10,
+    "toTheEnd": 10,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
    "issue-237-main-original": {
     "log": "narration.playback.jsonl",
     "legs": 1,
@@ -4852,6 +4874,16 @@
     "legs": 1,
     "lines": 1,
     "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "v100-castle-votes-port": {
+    "log": "narration.playback.jsonl",
+    "legs": 1,
+    "lines": 10,
+    "toTheEnd": 10,
     "endedByPlayer": 0,
     "cutOff": 0,
     "unfinished": 0,
@@ -5687,6 +5719,156 @@
     ],
     "end": "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0"
    },
+   "issue-100-vote-caption-live-original | b | 1 | por.voice.ecl5.b7-9a52": {
+    "run": "issue-100-vote-caption-live-original",
+    "leg": "b",
+    "unitId": "por.voice.ecl5.b7-9a52",
+    "asset": "voices/narration/ecl5/b7-9a52.mp3",
+    "expected": "the first-person view",
+    "caption": "DO YOU WANT TO GO DOWN THESE STAIRS? Yes No",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-100-vote-caption-live-original | b | 10 | por.voice.ecl5.b7-a738-a73c": {
+    "run": "issue-100-vote-caption-live-original",
+    "leg": "b",
+    "unitId": "por.voice.ecl5.b7-a738-a73c",
+    "variantId": "por.voice.ecl5.b7-a738-a73c.variant-06-5",
+    "asset": "voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v02-1.mp3",
+    "expected": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "caption": "FENN HOW DO YOU VOTE? Attack Join tyranthraxus",
+    "seen": [
+     "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"
+    ],
+    "end": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "captionSelection": {
+     "value": "5",
+     "text": "FENN HOW DO YOU VOTE?"
+    }
+   },
+   "issue-100-vote-caption-live-original | b | 2 | por.voice.ecl5.b7-a463-a4dd": {
+    "run": "issue-100-vote-caption-live-original",
+    "leg": "b",
+    "unitId": "por.voice.ecl5.b7-a463-a4dd",
+    "asset": "voices/narration/ecl5/b7-a463-a4dd.mp3",
+    "expected": "scene-illustration:area:7:ecl:995f:caller:a4dd",
+    "caption": "YOU ARE IN THE AUDIENCE HALL OF TYRANTHRAXUS, CONQUEROR OF PHLAN. THE CEILING HAS BEEN TORN AWAY LEAVING THE ENTIRE SECTION OF THE TOWER OPEN TO THE SKY. Press button or return to continue",
+    "seen": [
+     "scene-illustration:area:7:ecl:995f:caller:a4dd"
+    ],
+    "end": "scene-illustration:area:7:ecl:995f:caller:a4dd"
+   },
+   "issue-100-vote-caption-live-original | b | 3 | por.voice.ecl5.b7-a56c-operand-9": {
+    "run": "issue-100-vote-caption-live-original",
+    "leg": "b",
+    "unitId": "por.voice.ecl5.b7-a56c-operand-9",
+    "asset": "voices/narration/ecl5/b7-a56c-operand-9.mp3",
+    "expected": "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1",
+    "caption": "TWO GUARDS MOVE TO BAR YOUR PATH. THE DRAGON LOOKS AT YOU WITH MALEVOLENCE. 'GUARDS, KILL THESE PESTS.' Combat Wait Flee Parlay",
+    "seen": [
+     "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1"
+    ],
+    "end": "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1"
+   },
+   "issue-100-vote-caption-live-original | b | 4 | por.voice.ecl5.b7-a63a-a6a7": {
+    "run": "issue-100-vote-caption-live-original",
+    "leg": "b",
+    "unitId": "por.voice.ecl5.b7-a63a-a6a7",
+    "asset": "voices/narration/ecl5/b7-a63a-a6a7.mp3",
+    "expected": "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0",
+    "caption": "THE DRAGON LOOKS AT YOU WITH INTEREST. 'YOU ARE INDEED MIGHTY WARRIORS. EVEN SO, THERE IS NO HOPE OF YOUR SUCCESS. BUT YOU INTEREST ME.' Press button or return to continue",
+    "seen": [
+     "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0"
+    ],
+    "end": "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0"
+   },
+   "issue-100-vote-caption-live-original | b | 5 | por.voice.ecl5.b7-a738-a73c": {
+    "run": "issue-100-vote-caption-live-original",
+    "leg": "b",
+    "unitId": "por.voice.ecl5.b7-a738-a73c",
+    "variantId": "por.voice.ecl5.b7-a738-a73c.variant-01-0",
+    "asset": "voices/narration/static-resolved/ecl5-b7-a738-a73c.mp3",
+    "expected": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "caption": "ALDA HOW DO YOU VOTE? Attack Join tyranthraxus",
+    "seen": [
+     "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"
+    ],
+    "end": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "captionSelection": {
+     "value": "0",
+     "text": "ALDA HOW DO YOU VOTE?"
+    }
+   },
+   "issue-100-vote-caption-live-original | b | 6 | por.voice.ecl5.b7-a738-a73c": {
+    "run": "issue-100-vote-caption-live-original",
+    "leg": "b",
+    "unitId": "por.voice.ecl5.b7-a738-a73c",
+    "variantId": "por.voice.ecl5.b7-a738-a73c.variant-02-1",
+    "asset": "voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v02-1.mp3",
+    "expected": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "caption": "BRIN HOW DO YOU VOTE? Attack Join tyranthraxus",
+    "seen": [
+     "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"
+    ],
+    "end": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "captionSelection": {
+     "value": "1",
+     "text": "BRIN HOW DO YOU VOTE?"
+    }
+   },
+   "issue-100-vote-caption-live-original | b | 7 | por.voice.ecl5.b7-a738-a73c": {
+    "run": "issue-100-vote-caption-live-original",
+    "leg": "b",
+    "unitId": "por.voice.ecl5.b7-a738-a73c",
+    "variantId": "por.voice.ecl5.b7-a738-a73c.variant-03-2",
+    "asset": "voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v03-2.mp3",
+    "expected": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "caption": "CORA HOW DO YOU VOTE? Attack Join tyranthraxus",
+    "seen": [
+     "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"
+    ],
+    "end": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "captionSelection": {
+     "value": "2",
+     "text": "CORA HOW DO YOU VOTE?"
+    }
+   },
+   "issue-100-vote-caption-live-original | b | 8 | por.voice.ecl5.b7-a738-a73c": {
+    "run": "issue-100-vote-caption-live-original",
+    "leg": "b",
+    "unitId": "por.voice.ecl5.b7-a738-a73c",
+    "variantId": "por.voice.ecl5.b7-a738-a73c.variant-04-3",
+    "asset": "voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v04-3.mp3",
+    "expected": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "caption": "DORN HOW DO YOU VOTE? Attack Join tyranthraxus",
+    "seen": [
+     "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"
+    ],
+    "end": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "captionSelection": {
+     "value": "3",
+     "text": "DORN HOW DO YOU VOTE?"
+    }
+   },
+   "issue-100-vote-caption-live-original | b | 9 | por.voice.ecl5.b7-a738-a73c": {
+    "run": "issue-100-vote-caption-live-original",
+    "leg": "b",
+    "unitId": "por.voice.ecl5.b7-a738-a73c",
+    "variantId": "por.voice.ecl5.b7-a738-a73c.variant-05-4",
+    "asset": "voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v05-4.mp3",
+    "expected": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "caption": "ENNA HOW DO YOU VOTE? Attack Join tyranthraxus",
+    "seen": [
+     "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"
+    ],
+    "end": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "captionSelection": {
+     "value": "4",
+     "text": "ENNA HOW DO YOU VOTE?"
+    }
+   },
    "issue-237-main-original | browser | 1 | por.voice.ecl5.b7-9a52": {
     "run": "issue-237-main-original",
     "leg": "browser",
@@ -5782,6 +5964,156 @@
      "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0"
     ],
     "end": "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0"
+   },
+   "v100-castle-votes-port | leg | 1 | por.voice.ecl5.b7-9a52": {
+    "run": "v100-castle-votes-port",
+    "leg": "leg",
+    "unitId": "por.voice.ecl5.b7-9a52",
+    "asset": "voices/narration/ecl5/b7-9a52.mp3",
+    "expected": "the first-person view",
+    "caption": "DO YOU WANT TO GO DOWN THESE STAIRS? Yes No",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "v100-castle-votes-port | leg | 10 | por.voice.ecl5.b7-a738-a73c": {
+    "run": "v100-castle-votes-port",
+    "leg": "leg",
+    "unitId": "por.voice.ecl5.b7-a738-a73c",
+    "variantId": "por.voice.ecl5.b7-a738-a73c.variant-06-5",
+    "asset": "voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v02-1.mp3",
+    "expected": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "caption": "FENN HOW DO YOU VOTE? Attack Join tyranthraxus",
+    "seen": [
+     "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"
+    ],
+    "end": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "captionSelection": {
+     "value": "5",
+     "text": "FENN HOW DO YOU VOTE?"
+    }
+   },
+   "v100-castle-votes-port | leg | 2 | por.voice.ecl5.b7-a463-a4dd": {
+    "run": "v100-castle-votes-port",
+    "leg": "leg",
+    "unitId": "por.voice.ecl5.b7-a463-a4dd",
+    "asset": "voices/narration/ecl5/b7-a463-a4dd.mp3",
+    "expected": "scene-illustration:area:7:ecl:995f:caller:a4dd",
+    "caption": "YOU ARE IN THE AUDIENCE HALL OF TYRANTHRAXUS, CONQUEROR OF PHLAN. THE CEILING HAS BEEN TORN AWAY LEAVING THE ENTIRE SECTION OF THE TOWER OPEN TO THE SKY. Press button or return to continue",
+    "seen": [
+     "scene-illustration:area:7:ecl:995f:caller:a4dd"
+    ],
+    "end": "scene-illustration:area:7:ecl:995f:caller:a4dd"
+   },
+   "v100-castle-votes-port | leg | 3 | por.voice.ecl5.b7-a56c-operand-9": {
+    "run": "v100-castle-votes-port",
+    "leg": "leg",
+    "unitId": "por.voice.ecl5.b7-a56c-operand-9",
+    "asset": "voices/narration/ecl5/b7-a56c-operand-9.mp3",
+    "expected": "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1",
+    "caption": "TWO GUARDS MOVE TO BAR YOUR PATH. THE DRAGON LOOKS AT YOU WITH MALEVOLENCE. 'GUARDS, KILL THESE PESTS.' Combat Wait Flee Parlay",
+    "seen": [
+     "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1"
+    ],
+    "end": "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1"
+   },
+   "v100-castle-votes-port | leg | 4 | por.voice.ecl5.b7-a63a-a6a7": {
+    "run": "v100-castle-votes-port",
+    "leg": "leg",
+    "unitId": "por.voice.ecl5.b7-a63a-a6a7",
+    "asset": "voices/narration/ecl5/b7-a63a-a6a7.mp3",
+    "expected": "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0",
+    "caption": "THE DRAGON LOOKS AT YOU WITH INTEREST. 'YOU ARE INDEED MIGHTY WARRIORS. EVEN SO, THERE IS NO HOPE OF YOUR SUCCESS. BUT YOU INTEREST ME.' Press button or return to continue",
+    "seen": [
+     "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0"
+    ],
+    "end": "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0"
+   },
+   "v100-castle-votes-port | leg | 5 | por.voice.ecl5.b7-a738-a73c": {
+    "run": "v100-castle-votes-port",
+    "leg": "leg",
+    "unitId": "por.voice.ecl5.b7-a738-a73c",
+    "variantId": "por.voice.ecl5.b7-a738-a73c.variant-01-0",
+    "asset": "voices/narration/static-resolved/ecl5-b7-a738-a73c.mp3",
+    "expected": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "caption": "ALDA HOW DO YOU VOTE? Attack Join tyranthraxus",
+    "seen": [
+     "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"
+    ],
+    "end": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "captionSelection": {
+     "value": "0",
+     "text": "ALDA HOW DO YOU VOTE?"
+    }
+   },
+   "v100-castle-votes-port | leg | 6 | por.voice.ecl5.b7-a738-a73c": {
+    "run": "v100-castle-votes-port",
+    "leg": "leg",
+    "unitId": "por.voice.ecl5.b7-a738-a73c",
+    "variantId": "por.voice.ecl5.b7-a738-a73c.variant-02-1",
+    "asset": "voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v02-1.mp3",
+    "expected": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "caption": "BRIN HOW DO YOU VOTE? Attack Join tyranthraxus",
+    "seen": [
+     "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"
+    ],
+    "end": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "captionSelection": {
+     "value": "1",
+     "text": "BRIN HOW DO YOU VOTE?"
+    }
+   },
+   "v100-castle-votes-port | leg | 7 | por.voice.ecl5.b7-a738-a73c": {
+    "run": "v100-castle-votes-port",
+    "leg": "leg",
+    "unitId": "por.voice.ecl5.b7-a738-a73c",
+    "variantId": "por.voice.ecl5.b7-a738-a73c.variant-03-2",
+    "asset": "voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v03-2.mp3",
+    "expected": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "caption": "CORA HOW DO YOU VOTE? Attack Join tyranthraxus",
+    "seen": [
+     "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"
+    ],
+    "end": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "captionSelection": {
+     "value": "2",
+     "text": "CORA HOW DO YOU VOTE?"
+    }
+   },
+   "v100-castle-votes-port | leg | 8 | por.voice.ecl5.b7-a738-a73c": {
+    "run": "v100-castle-votes-port",
+    "leg": "leg",
+    "unitId": "por.voice.ecl5.b7-a738-a73c",
+    "variantId": "por.voice.ecl5.b7-a738-a73c.variant-04-3",
+    "asset": "voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v04-3.mp3",
+    "expected": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "caption": "DORN HOW DO YOU VOTE? Attack Join tyranthraxus",
+    "seen": [
+     "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"
+    ],
+    "end": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "captionSelection": {
+     "value": "3",
+     "text": "DORN HOW DO YOU VOTE?"
+    }
+   },
+   "v100-castle-votes-port | leg | 9 | por.voice.ecl5.b7-a738-a73c": {
+    "run": "v100-castle-votes-port",
+    "leg": "leg",
+    "unitId": "por.voice.ecl5.b7-a738-a73c",
+    "variantId": "por.voice.ecl5.b7-a738-a73c.variant-05-4",
+    "asset": "voices/narration/dynamic-resolved/ecl5-b7-a738-a73c-v05-4.mp3",
+    "expected": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "caption": "ENNA HOW DO YOU VOTE? Attack Join tyranthraxus",
+    "seen": [
+     "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"
+    ],
+    "end": "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0",
+    "captionSelection": {
+     "value": "4",
+     "text": "ENNA HOW DO YOU VOTE?"
+    }
    }
   },
   "cutOff": {},
