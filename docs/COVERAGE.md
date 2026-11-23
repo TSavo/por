@@ -1146,6 +1146,17 @@ The `river-pumping` replay enters at controlled slot A near `4,4 E`,
 advances twice to Parlay, and chooses Nice. It checks that the liberated
 prisoners' advice and entry 35 appear only after that choice. The
 translation checks also cover the hostile outcome.
+The south-facing pumping-room entry uses the distant prisoner pose
+first. `node tools/verify-yarash-pumping-entry.mjs /usr/bin/google-chrome`
+replays the recorded `walk-yarash-pyramid` prefix to the recoil prompt.
+Both data sources paint the authored distant pose over the live WebGL
+room at map 23, (5,4) south. One Advance swaps to the middle pose at the
+same camera. The recorded prefix uses developer victory in earlier
+unrelated fights.
+
+The paired `verify:port-parity` leg compares 336 frames with zero
+differences. Four corridor views now use Yarash's tile banks when a
+previous map's unused wall slot remains loaded.
 The lizardfolk commission now uses the pumping-room clue when the party
 knows it. The translation verifier checks the elder's approach, friend-word
 prompt, story, champion request, pledge, and hostile turns against the
