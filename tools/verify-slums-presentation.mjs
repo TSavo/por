@@ -786,6 +786,17 @@ const encounterRoutes = new Map([
   }],
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
+const residentRestoreRoutes = new Map([
+  ["camp-view-portrait-restore", {
+    slot: "A", producer: "START.EXE:33fd", inputs: ["e"],
+    portrait: "portrait:PIC3.DAX:29:0:0", menu: /Camp:SaveViewMagicRestAlterExit/i,
+  }],
+  ["loot-view-portrait-restore", {
+    slot: "H", producer: "START.EXE:347d", inputs: ["up", "b", "g", "enter"],
+    portrait: "portrait:PIC1.DAX:1:0:0", menu: /ViewTakePoolShareExit/i,
+  }],
+]);
+const residentRestore = residentRestoreRoutes.get(routeName);
 const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "enter", "enter", "enter",
   "left", "left", "up", "right", "up", "left", "up", "left", "up", "right", "up", "up", "up",
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
@@ -8872,7 +8883,7 @@ const mendorCouncilRewards = new Map([
   ["mendor-history-of-the-north-reward", [8, "history-of-the-north-reward", /THESEHISTORIESCONTAINMUCHUSEFULINFORMATION/i, 550]],
   ["mendor-grand-historian-reward", [21, "grand-historian-reward", /THERECORDSPROVIDEINSIGHTSINTOMUCHTHATWASPUZZLING/i, 600]],
 ]);
-const routes = ["yarash-desk-papers-reload", "sokal-floorboard-diary-reload", "buccaneer-empty-manual-aim", "textile-stinking-cloud", "buccaneer-arrow-down", "buccaneer-oil-flask", "buccaneer-sling-shot", "bivant-reward-reload", "tyrmor-journal-reload", "new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-goblins-aftermath", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), ...battleEntryRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
+const routes = ["yarash-desk-papers-reload", "sokal-floorboard-diary-reload", "buccaneer-empty-manual-aim", "textile-stinking-cloud", "buccaneer-arrow-down", "buccaneer-oil-flask", "buccaneer-sling-shot", "bivant-reward-reload", "tyrmor-journal-reload", "new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-goblins-aftermath", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...encounterRoutes.keys(), ...residentRestoreRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), ...battleEntryRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
 routes.push("river-passage-reload", "new-phlan-council-reward-reload", "slums-mage-wand", "nomad-headman-rest-reload", "nomad-headman-rest-portrait", "nomad-headman-raid");
 routes.push("nomad-headman-decline-reload");
 routes.push("podal-infirmary-heal");
@@ -9206,7 +9217,7 @@ mkdirSync("out", { recursive: true });
 const outputDirectory = resolve(process.env.POR_PRESENTATION_OUTPUT_DIR || "out");
 mkdirSync(outputDirectory, { recursive: true });
 const directory = mkdtempSync(resolve(outputDirectory, "slums-presentation-"));
-const slot = (wideManualAim || norrisSurrenderReload ? "J" : (routeName === "tyrmor-journal-reload" || routeName === "kobold-king-treasury" || routeName === "mendor-manual-loot" || routeName === "mendor-floorboard-jar-loot") ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? battleEntry?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || poolReturnStairs || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || koboldThroneHordeHold || koboldRoamingHold || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
+const slot = (wideManualAim || norrisSurrenderReload ? "J" : (routeName === "tyrmor-journal-reload" || routeName === "kobold-king-treasury" || routeName === "mendor-manual-loot" || routeName === "mendor-floorboard-jar-loot") ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? residentRestore?.slot ?? battleEntry?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || poolReturnStairs || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || koboldThroneHordeHold || koboldRoamingHold || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
 const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
@@ -9278,6 +9289,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_FIXED_CLOCK_START: browserEnvironment.POR_FIXED_CLOCK_START ?? illustration?.fixedClockStart ??
+      (residentRestore ? "4320000" : undefined) ??
       (["valjevo-street-giants-loop", "valjevo-tower-troll-encounter-loop"].includes(routeName) ? "4320100" :
         routeName === "valjevo-tower-troll-ambush-loop" ? "4322783" :
         routeName === "valhingen-skeleton-roaming-ambush-loop" || routeName === "valhingen-wight-ambush-loop" ? "4320042" : undefined),
@@ -9285,7 +9297,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...((battleEntry?.promptSchedule ?? illustration?.promptSchedule)
       ? { POR_PROMPT_SCHEDULE_IN: resolve(battleEntry?.promptSchedule ?? illustration.promptSchedule) } : {}),
     ...(battleEntry ? { POR_PROMPT_SCHEDULE_IN: "" } : {}),
-    POR_INPUT_COMPAT: battleEntry || illustration?.stockInput || encounterRoute?.stockInput ||
+    POR_INPUT_COMPAT: residentRestore || battleEntry || illustration?.stockInput || encounterRoute?.stockInput ||
       controlledBattleIllustration?.staticHold || controlledBattleIllustration?.heldPortraitLoop ||
       routeName === "kuto-well-waiting-kobolds-hold" || routeName === "kuto-surprised-gnoll-party" || textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "kuto-well-catacomb-volley-hold" || routeName === "kuto-well-surrounding-buildings-hold" ||
@@ -11063,6 +11075,57 @@ try {
       writeFileSync(resolve(directory, "valjevo-save-scene.json"), JSON.stringify(expected));
       console.log("Native save:", saved);
     }
+  } else if (residentRestore) {
+    const { inputs, menu, portrait, producer } = residentRestore;
+    const caption = () => frame.text.toSorted(([a], [b]) => a - b)
+      .map(([, character]) => String.fromCharCode(character)).join("");
+    const settlePaint = () => waitFor("the completed replay frame", () => run(`
+      state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined`));
+    const checkPortrait = async () => {
+      assert.equal(frame.portrait, portrait);
+      assert.match(caption(), menu);
+      await waitFor("the existing illustration", () => run(`(() => {
+        const image = document.querySelector("#tile-art:not([hidden]) .encounter-portrait");
+        return state.sequence === ${frame.sequence} && !animationFrame && image?.complete &&
+          image.naturalWidth === 352 && image.naturalHeight === 352 &&
+          image.getAttribute("src") === ${JSON.stringify("/art/" + portrait)};
+      })()`));
+      await verifyPortraitPanel();
+      return frame.portrait;
+    };
+    for (const key of inputs) {
+      await advance(key);
+      await settlePaint();
+    }
+    const before = await checkPortrait();
+    await advance("v");
+    assert.match(caption(), /View:Items.*Exit/i);
+    assert.equal(frame.portrait, undefined);
+    await settlePaint();
+    assert.equal(await run('Boolean(document.querySelector("#tile-art:not([hidden]) .encounter-portrait"))'), false);
+    await advance("e");
+    const restored = await checkPortrait();
+    await switchBothWays(frame.frame);
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, routeName + ".png"), Buffer.from(shot.data, "base64"));
+    if (heldPortraitEvidenceFile) {
+      const [renderer, artwork] = await Promise.all([fetch(origin + "/play.js"), fetch(origin + "/art/" + portrait)]);
+      assert.ok(renderer.ok && artwork.ok);
+      const { result, exceptionDetails } = await command("Runtime.evaluate", {
+        awaitPromise: true, returnByValue: true,
+        expression: `portraitLoopBindings.then(module => module.portraitLoopSignature(${JSON.stringify(portrait)}))`,
+      });
+      assert.ok(!exceptionDetails, exceptionDetails?.text);
+      heldPortraitEvidence.push({
+        producer, route: routeName, data: frame.classicAvailable === false ? "port" : "original", portrait,
+        menuPortraits: [before, null, restored],
+        checkpointSha256: createHash("sha256").update(readFileSync(checkpoint)).digest("hex"),
+        rendererSha256: createHash("sha256").update((await renderer.text()).replace(/\r\n/g, "\n")).digest("hex"),
+        bindingSha256: createHash("sha256").update(result.value).digest("hex"),
+        artSha256: createHash("sha256").update(Buffer.from(await artwork.arrayBuffer())).digest("hex"),
+      });
+    }
+    console.log("Verified the existing portrait returns when closing the character sheet in Chrome:", directory);
   } else if (encounterRoute) {
     const approachProof = [];
     const approachSequence = encounterRoute.transient ? [encounterRoute.placement] : encounterRoute.approachSequence;
