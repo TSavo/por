@@ -4,7 +4,7 @@ import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-const width = 1280, height = 800, frames = 32;
+const width = 1280, height = 800, frames = 48;
 const original = execFileSync("ffmpeg", ["-loglevel", "error", "-i", "upgrades/harbor-title.png",
   "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], { maxBuffer: width * height * 4 });
 // Leftmost open water at each scanline. Keep a still margin around the skiffs, quay and mooring ropes.
@@ -16,7 +16,7 @@ const lights = [
   [621,488,6,9], [843,489,3,5], [1151,476,5,9],
 ];
 // ImageGen keyframes store only the lower part of the painting that contains moving light.
-const paintings = [original, ...["bright","amber","quiet"].map(name => execFileSync("ffmpeg",
+const paintings = [original, ...["bright","arch-lit","amber","quiet","arch-dim"].map(name => execFileSync("ffmpeg",
   ["-loglevel", "error", "-i", `tools/art-source/harbor/${name}.png`, "-vf", "pad=1280:800:0:410",
     "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], { maxBuffer: width * height * 4 }))];
 function falloff(x,y,cx,cy,rx,ry) {
@@ -31,7 +31,7 @@ for (let y=410; y<height; y++) {
     const n=y*width+x, k=n*3;
     const water=Math.max(0,Math.min(1,(x-left)/12,(y-624)/6));
     const cyan=Math.min(1,Math.max(0,(original[k+1]-original[k]-22)/80));
-    let amount=Math.max(.29*water,.32*cyan*falloff(x,y,925,553,139,232));
+    let amount=Math.max(.29*water,.52*cyan*falloff(x,y,925,553,139,232));
     if (original[k]>original[k+2]*1.5) {
       for(const light of lights) amount=Math.max(amount,.46*falloff(x,y,...light));
     }
