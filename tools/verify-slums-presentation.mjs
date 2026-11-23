@@ -3512,7 +3512,21 @@ const illustrationRoutes = new Map([
     slot: "I", stockInput: true, fixedClockStart: 4320702, inputs: ["up", "up", "up", "left", "up"],
     portrait: "portrait:area:18:ecl:9c3f:PIC1.DAX:8:0:0",
     prompt: /GROUPOFOGRES\.THEYGLAREATYOURPARTY,ANDDEMAND,'WHOAREYOU\?'.*HAUGHTYSLYNICEMEEKABUSIVE/i,
+    staticPortraitMenu: true, podolProof: "portrait",
   }],
+  ...[
+    { name: "goblin", block: 2, moves: 1, clock: 4321137 },
+    { name: "orc", block: 4, moves: 89, clock: 4320000 },
+    { name: "hobgoblin", block: 6, moves: 13, clock: 4321254 },
+  ].map(({ name, block, moves, clock }) => [
+    `podal-${name}-patrol-demands-identity`, {
+      slot: "I", stockInput: true, fixedClockStart: clock,
+      inputs: Array.from({ length: moves }, (_, index) => index % 2 ? "down" : "up"),
+      portrait: `portrait:area:18:ecl:9c3f:PIC1.DAX:${block}:0:0`,
+      prompt: new RegExp(`GROUPOF${name}S.*ANDDEMAND,'WHOAREYOU\\?'.*HAUGHTYSLYNICEMEEKABUSIVE`, "i"),
+      staticPortraitMenu: true, approachBeforeHeld: true, podolProof: "portrait",
+    },
+  ]),
   ...podalOverheard.map(({ name, block, moves, clock, position, far, middle, near }) => [
     `podal-${name}-overheard-patrol`, {
       slot: "I", stockInput: true, fixedClockStart: clock,
@@ -3526,15 +3540,23 @@ const illustrationRoutes = new Map([
       ],
       prompt: new RegExp(`ASYOUMOVEYOUOVERHEARSOME${name}SSAY,`, "i"),
       sceneryPrompt: position,
+      approachBeforeHeld: true, podolProof: "scenery",
     },
   ]),
-  ["podal-patrol-rest-ambush", {
-    slot: "I", stockInput: true, fixedClockStart: 4320000,
-    inputs: ["e", "r", "h", ...Array(8).fill("i"), "r"],
-    approachSequence: [[56, 32, "encounter:area:18:ecl:996d:SPRIT1.DAX:2:2:0", 24, 49]],
-    requireTiledApproach: false,
-    prompt: /RUSHTOATTACK|ABATTLEBEGINS|HITPOINTS.*MOVEVIEWAIM/i,
-  }],
+  ...[
+    { route: "podal-patrol-rest-ambush", block: 2, clock: 4320000, x: 56, width: 24, height: 49 },
+    { route: "podal-orc-rest-ambush", block: 4, clock: 4320333, x: 64, width: 16, height: 49 },
+    { route: "podal-hobgoblin-rest-ambush", block: 6, clock: 4320702, x: 56, width: 24, height: 49 },
+    { route: "podal-ogre-rest-ambush", block: 8, clock: 4321254, x: 56, width: 24, height: 57 },
+  ].map(({ route, block, clock, x, width, height }) => [
+    route, {
+      slot: "I", stockInput: true, fixedClockStart: clock,
+      inputs: ["e", "r", "h", ...Array(8).fill("i"), "r"],
+      approachSequence: [[x, 32, `encounter:area:18:ecl:996d:SPRIT1.DAX:${block}:2:0`, width, height]],
+      requireTiledApproach: false, podolProof: "battle",
+      prompt: /RUSHTOATTACK|ABATTLEBEGINS|HITPOINTS.*MOVEVIEWAIM/i,
+    },
+  ]),
   ["podal-goblin-patrol-sneak-hold", {
     slot: "I", stockInput: true, fixedClockStart: 4320000,
     // Start from qa/fixtures/podal-patrol-sneaking/I.json.
@@ -3543,6 +3565,7 @@ const illustrationRoutes = new Map([
     heldApproachPrompt: /YOUSPOTAGROUPOFGOBLINS/i,
     heldApproachPosition: [18, 11, 10],
     heldApproachPlacement: [56, 32, "encounter:area:18:ecl:b240:caller:9d1f:SPRIT1.DAX:2:1:0", 32, 65],
+    podolProof: "encounter",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /YOUSTOP,ANDTHEYMOVEON/i },
   }],
   ...[
@@ -3556,6 +3579,7 @@ const illustrationRoutes = new Map([
       heldApproachPrompt: new RegExp(`YOUSPOTAGROUPOF${name}S`, "i"),
       heldApproachPosition: position,
       heldApproachPlacement: [56, 32, `encounter:area:18:ecl:b240:caller:9d1f:SPRIT1.DAX:${block}:1:0`, width, 65],
+      podolProof: "encounter",
       continuation: { inputs: ["enter"], clearsPortrait: true,
         prompt: block === 8 ? /YOURPARTYSLIPSPASTTHEM/i : /YOUSTOP,ANDTHEYMOVEON/i },
     },
@@ -13281,6 +13305,10 @@ try {
         }
       }
       if (illustration.heldApproachPrompt && heldPortraitEvidenceFile) {
+        if (!heldApproachRecorded && illustration.podolProof === "encounter") {
+          await verifyHeldApproach(illustration.heldApproachPrompt, illustration.heldApproachPosition, heldApproachPlacement);
+          heldApproachRecorded = true;
+        }
         assert.ok(heldApproachRecorded, "The replay must visit the held patrol approach");
       }
     }
@@ -13382,6 +13410,34 @@ try {
     if (illustration.heldPortraitLoop) await verifyHeldPortraitLoop(illustration.heldPortraitLoop, routeName === "swamp-drawbridge-hold" ? routeName : undefined);
     if (illustration.staticPortraitMenu || illustration.illustratedScenery) {
       await verifyStaticPortrait(portrait, prompt, false, illustration.illustratedScenery);
+    }
+    if (illustration.podolProof && heldPortraitEvidenceFile) {
+      const view = illustration.podolProof;
+      const caption = () => frame.text.toSorted(([a], [b]) => a - b)
+        .map(([, char]) => String.fromCharCode(char)).join("");
+      if (view === "battle") {
+        if (/ABATTLEBEGINS/i.test(caption())) await advance("enter");
+        assert.match(caption(), /HITPOINTS.*MOVEVIEWAIM/i);
+        assert.equal(frame.portrait, undefined);
+        assert.equal(frame.encounter, undefined);
+      }
+      const ids = view === "encounter" ? [heldApproachPlacement[2]] :
+        (approachSequence ?? []).map(([, , id]) => id);
+      const approaches = await Promise.all(ids.map(async id => {
+        const art = await fetch(origin + "/art/" + id);
+        assert.ok(art.ok, id);
+        return { id, sha256: createHash("sha256").update(Buffer.from(await art.arrayBuffer())).digest("hex") };
+      }));
+      const renderer = await fetch(origin + "/play.js");
+      assert.ok(renderer.ok);
+      const still = view === "portrait" ? heldPortraitEvidence.at(-1) : undefined;
+      heldPortraitEvidence.push({
+        route: routeName, view, approaches, caption: caption(),
+        data: frame.classicAvailable === false ? "port" : "original",
+        checkpointSha256: createHash("sha256").update(readFileSync(checkpoint)).digest("hex"),
+        rendererSha256: createHash("sha256").update((await renderer.text()).replace(/\r\n/g, "\n")).digest("hex"),
+        ...(still ? { portrait: { id: still.portrait, sha256: still.artSha256, durationMs: still.durationMs } } : {}),
+      });
     }
     if (routeName === "mendor-spectre-battle-notice") {
       assert.deepEqual(frame.animation?.map(({ encounter, portrait, durationMs }) => [encounter, portrait, durationMs]), [
