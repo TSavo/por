@@ -972,7 +972,11 @@ const eclCandidates = scripts.flatMap(record => {
       }
     }
 
-    const combat = scope.length && opcode === 0x0c ? immediateCombatAfter(load) : undefined;
+    // The exact Bane surprise prints the species, jumps to the monster loader,
+    // and enters b085 without a choice or an intervening portrait instruction.
+    const baneSurpriseCombat = baneSurpriseProven && load.address === 0xaf03;
+    const combat = baneSurpriseCombat ? { address: authored(0xb085), resume: authored(0xb086) } :
+      scope.length && opcode === 0x0c ? immediateCombatAfter(load) : undefined;
     // In the pinned Bane script the normal patrol menu writes 0–3 and every
     // value branches at ae14. The Black Hand warning is entered separately.
     if (baneSurpriseProven && load.address === 0xadd9) prompts.delete("ae7a:null");

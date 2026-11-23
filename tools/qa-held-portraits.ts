@@ -172,7 +172,7 @@ interface ResidentRestore {
 interface OneShot {
   producer: string;
   combat: string;
-  native: { drawCursor: string; evidence: string } & ({ members: number[] } | { composed: string });
+  native: { drawCursor: string; evidence: string; block?: number } & ({ members: number[] } | { composed: string });
   chrome: { original: OneShotProof; port: OneShotProof };
 }
 
@@ -276,11 +276,17 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     scenes: { route: string; producer: string; caption: string; position: SceneryProof["position"]; placement: EncounterPlacement }[];
   };
   const oneShots = JSON.parse(readFileSync(path("qa", "held-portrait-one-shots.json"), "utf8")) as OneShot[];
-  const oneShotByProducer = new Map(oneShots.map(proof => [proof.producer, proof]));
+  const oneShotByProducer = new Map<string, OneShot[]>();
+  for (const proof of oneShots) {
+    const group = oneShotByProducer.get(proof.producer) ?? [];
+    group.push(proof);
+    oneShotByProducer.set(proof.producer, group);
+  }
   const residentRestores = JSON.parse(readFileSync(path("qa", "held-portrait-restores.json"), "utf8")) as ResidentRestore[];
   const restoreByProducer = new Map(residentRestores.map(proof => [proof.producer, proof]));
   if (restoreByProducer.size !== residentRestores.length) throw new Error("Duplicate resident portrait restore");
-  if (oneShotByProducer.size !== oneShots.length) throw new Error("Duplicate one-shot portrait producer");
+  const oneShotKeys = new Set(oneShots.map(proof => `${proof.producer}:${proof.native.block ?? ""}`));
+  if (oneShotKeys.size !== oneShots.length) throw new Error("Duplicate one-shot portrait source");
   const assets = new Map<string, string>();
   const encounters = new Map<string, EncounterAnchor>();
   for (const name of ["upgrades/slums/manifest.json", "upgrades/manifest.json"]) {
@@ -341,13 +347,19 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     if (!eclCandidates.some(site => scriptSiteId(site) === producer)) throw new Error(`Unknown one-shot portrait producer ${producer}`);
   }
   function oneShotProblem(site: ScriptSite, evidence: OneShot): string | null {
-    if (site.block === null || site.promptCandidates.length || site.immediateCombat !== evidence.combat) {
+    if (site.promptCandidates.length || site.immediateCombat !== evidence.combat) {
       return "native script no longer leads directly to the measured fight";
     }
     if (evidence.native.drawCursor !== site.next && !site.approachSites.includes(evidence.native.drawCursor)) {
       return "native draw cursor no longer matches the measured producer";
     }
     if (!evidence.native.evidence) return "native draw evidence is missing";
+    const block = evidence.native.block;
+    if (site.block === null && (block === undefined || !site.boundedBlocks?.includes(block) ||
+          !evidence.chrome.original.portrait.endsWith(`:${site.pictureArchive}:${block}:0:0`)) ||
+        site.block !== null && block !== undefined && block !== site.block) {
+      return "one-shot evidence must name the exact native picture block";
+    }
     if ("composed" in evidence.native) {
       const source = evidence.native.composed;
       const portrait = evidence.chrome.original.portrait;
@@ -678,7 +690,10 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       reason: patrol.missing.length ? "Podol patrol replays pending" : "paired Chrome checks confirmed every Podol patrol actor and route",
     };
     const oneShot = oneShotByProducer.get(id);
-    const oneShotReason = oneShot ? oneShotProblem(site, oneShot) : null;
+    const missingOneShots = oneShot && site.boundedBlocks?.filter(block =>
+      !oneShot.some(proof => proof.native.block === block)) || [];
+    const oneShotReason = oneShot?.map(proof => oneShotProblem(site, proof)).find(reason => reason !== null) ??
+      (missingOneShots.length ? "remaining single-draw picture blocks: " + missingOneShots.join(", ") : null);
     const combatWithoutPortrait = combatWithoutPortraitByProducer.get(id);
     const combatWithoutPortraitReason = combatWithoutPortrait ? combatWithoutPortraitProblem(site, combatWithoutPortrait) : null;
     const evidence = observed.get(site) ?? [];
