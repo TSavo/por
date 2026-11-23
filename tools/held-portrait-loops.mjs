@@ -24,7 +24,7 @@ const penPoseOrder = [0, 1, 2, 3, 4, 3];
 const penPoseTimes = [410, 310, 110, 210, 310, 210];
 const portraitLoops = [
 ["portrait:area:1:ecl:b52f:PIC6.DAX:42:", penPoseOrder, undefined,
-    /STANDINGNEARYOUISTHEYOUNGBOY.*GETHIMLEAVE/i, penPoseTimes],
+    /STANDINGNEARYOUISTHEYOUNGBOY/i, penPoseTimes],
   ["portrait:area:1:ecl:b5f7:caller:9e66:PIC6.DAX:42:", penPoseOrder, undefined,
     /PENFORHOLDINGSLAVES/i, penPoseTimes],
   ["portrait:area:1:ecl:b5f7:caller:9eda:PIC6.DAX:42:", penPoseOrder, undefined,

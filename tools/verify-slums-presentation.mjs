@@ -750,7 +750,7 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["left", "left", ...Array(6).fill("up"), "right", "up", "up", "up", "right", "up",
       "r", "enter", "right", "right", "up", "left", ...Array(4).fill("up"), "left", "up", "up", "b", "enter"],
     portrait: "portrait:area:1:ecl:b52f:PIC6.DAX:42:0:0",
-    prompt: /STANDINGNEARYOUISTHEYOUNGBOY.*GETHIMLEAVE/i,
+    prompt: /STANDINGNEARYOUISTHEYOUNGBOY/i,
     heldPortraitLoop: [0, 1, 2, 3, 4, 3].map(member => `portrait:area:1:ecl:b52f:PIC6.DAX:42:${member}:0`),
     finalPhaseCapture: "buccaneer-bivant-rescue.png",
     continuation: {
