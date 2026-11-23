@@ -1376,6 +1376,15 @@ const illustrationRoutes = new Map([
       prompt: /ABATTLEBEGINS/i,
     },
   }],
+  ["lizardman-keep-pool-retreat-hold", {
+    slot: "J", inputs: ["up", "enter", "n", "down", "up", "down", "up", "enter"],
+    portrait: "portrait:area:16:ecl:ab2e:PIC8.DAX:57:0:0", prompt: /THEYTURNTODIVEBACKINTHEWATER/i,
+    heldPortraitLoop: [0, 1, 2, 3].map(member => "portrait:area:16:ecl:ab2e:PIC8.DAX:57:" + member + ":0"),
+    continuation: {
+      inputs: ["c"], portrait: "portrait:area:16:ecl:abdd:PIC8.DAX:57:0:0", prompt: /ABATTLEBEGINS/i,
+      pressOnPortrait: "portrait:area:16:ecl:ab2e:PIC8.DAX:57:3:0", retainPose: true,
+    },
+  }],
   ["lizardman-keep-giant-lizards-hold", {
     slot: "J", inputs: ["up"],
     portrait: "portrait:area:16:PIC8.DAX:59:0:0",
@@ -8675,7 +8684,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       /^slums-roaming-(?:kobold|(?:kobold|orc|goblin)-(?:surprise|advance|spotted)|(?:orc|goblin)-party-surprised|(?:surprised-)?(?:kobold|orc|goblin)-(?:demand|surrender|leave|advice|stop|rebuke)-parlay)-loop$/.test(routeName) ||
       /^valjevo-giant-barracks-password-(haughty|sly)-loop$/.test(routeName) ||
       routeName === "stojanow-bugbear-gate-ambush" ||
-      /^lizardman-keep-(giant-lizards|drythh-followers|roofless-defenders)-hold$/.test(routeName) ||
+      /^lizardman-keep-(giant-lizards|drythh-followers|pool-retreat|roofless-defenders)-hold$/.test(routeName) ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
