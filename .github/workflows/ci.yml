@@ -1,0 +1,37 @@
+name: ci
+
+# Fast checks that need no original game files: typecheck plus the quick
+# verify scripts (a few seconds each). The long replay, parity and audio checks
+# stay manual on Battleaxe (see AGENTS.md).
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: [self-hosted, Linux, X64, por, battleaxe]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - run: node --version && npm ci --no-audit --no-fund
+      - name: Typecheck
+        run: npx tsc --noEmit -p .
+      - name: Self-test
+        run: npm run -s selftest
+      - name: Art files and catalogue
+        run: npm run -s verify:art-files && npm run -s verify:art-catalogue && npm run -s verify:art-worklist
+      - name: DOS calls served
+        run: npm run -s verify:dos-calls
+      - name: Enhanced fallbacks
+        run: npm run -s verify:enhanced-fallbacks

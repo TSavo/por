@@ -1,0 +1,34 @@
+# The 32 flat sprites tracked in issue #207 (repainted on main Nov 22 2026).
+# The audit fails if any of these goes missing or is flagged flat again.
+upgrades/slums/hobgoblin-combat-guard.png
+upgrades/slums/hobgoblin-combat-strike.png
+upgrades/slums/orc-leader-combat-guard.png
+upgrades/slums/orc-leader-combat-strike.png
+upgrades/slums/orc-combat-guard.png
+upgrades/slums/orc-combat-swing.png
+upgrades/slums/orc-encounter-near.png
+upgrades/slums/orc-encounter-middle.png
+upgrades/slums/orc-encounter-far.png
+upgrades/slums/kobold-combat-0.png
+upgrades/slums/kobold-combat-attack.png
+upgrades/slums/kobold-encounter-near.png
+upgrades/slums/kobold-encounter-middle.png
+upgrades/slums/kobold-encounter-far.png
+upgrades/sokal-skeleton-guard.png
+upgrades/sokal-skeleton-strike.png
+upgrades/sokal-undead-patrol-near.png
+upgrades/sokal-undead-patrol-middle.png
+upgrades/sokal-undead-patrol-far.png
+upgrades/altar-priestess-strike.png
+upgrades/goblin-veteran-strike.png
+upgrades/nomad-sword-ready-approach.png
+upgrades/slums-goblin-lesson-mid.png
+upgrades/slums-goblin-lesson-far.png
+upgrades/kobold-cave-wyvern-mid.png
+upgrades/kobold-cave-wyvern-far.png
+upgrades/swamp-giant-lizard-mid.png
+upgrades/swamp-giant-lizard-far.png
+upgrades/wild-cave-giant-lizard-mid.png
+upgrades/wild-cave-giant-lizard-far.png
+upgrades/wild-cave-gnoll-mid.png
+upgrades/wild-cave-gnoll-far.png

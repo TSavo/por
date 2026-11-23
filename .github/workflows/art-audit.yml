@@ -1,0 +1,89 @@
+name: art-audit
+
+# Flags flat or off-style art under upgrades/ (tools/art-audit/art_audit.py).
+# PRs and pushes fail only on images they add or change; the weekly run
+# checks everything and opens or updates an "Art-style audit" issue.
+on:
+  pull_request:
+    paths: ['upgrades/**', 'tools/art-audit/**', '.github/workflows/art-audit.yml']
+  push:
+    branches: [main]
+    paths: ['upgrades/**', 'tools/art-audit/**', '.github/workflows/art-audit.yml']
+  schedule:
+    - cron: '17 13 * * 1'   # Mondays 13:17 UTC (05:17 PT)
+  workflow_dispatch:
+    inputs:
+      open_issue:
+        description: 'Open or update the findings issue (full run)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: art-audit-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: [self-hosted, Linux, X64, por, battleaxe]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          lfs: false
+      - name: Fetch the comparison commit
+        id: base
+        run: |
+          case "${{ github.event_name }}" in
+            pull_request) base="${{ github.event.pull_request.base.sha }}" ;;
+            push) base="${{ github.event.before }}" ;;
+            *) base="" ;;
+          esac
+          # Every image is still measured (and flagged ones get contact sheets), but only
+          # images this change adds or modifies can fail it; the weekly run fails on all.
+          if [ -z "$base" ] || [ "$base" = "0000000000000000000000000000000000000000" ] \
+             || ! git fetch -q --depth=1 origin "$base"; then
+            base=""
+          fi
+          echo "ref=$base" >> "$GITHUB_OUTPUT"
+      - name: Audit
+        id: audit
+        run: |
+          if [ -n "${{ steps.base.outputs.ref }}" ]; then
+            mode="--changed-from ${{ steps.base.outputs.ref }}"
+          else
+            mode="--all"
+          fi
+          set +e
+          python3 tools/art-audit/art_audit.py $mode --out art-audit-out
+          rc=$?
+          cat art-audit-out/report.md >> "$GITHUB_STEP_SUMMARY"
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: art-audit
+          path: art-audit-out/
+          retention-days: 30
+      - name: Open or update the findings issue
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.open_issue)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title="Art-style audit: flat or off-style art"
+          n=$(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[0].number // empty')
+          { cat art-audit-out/report.md; echo; echo "Run: $RUN_URL (contact sheets in the \`art-audit\` artifact)."; } > body.md
+          if [ "${{ steps.audit.outputs.rc }}" = "0" ]; then
+            [ -n "$n" ] && gh issue comment "$n" --body "Weekly audit is clean: $RUN_URL" && gh issue close "$n"
+            exit 0
+          fi
+          if [ -n "$n" ]; then gh issue comment "$n" --body-file body.md
+          else gh issue create --title "$title" --body-file body.md; fi
+      - name: Result
+        run: exit ${{ steps.audit.outputs.rc }}
