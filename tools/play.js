@@ -119,7 +119,9 @@ let pendingVoiceStop;
 let visibilityPausedEffect;
 let visibilityPausedVoice;
 let lastTextId = null;
-let lastNarrationId = null;
+let initialNarrationId = null;
+let paintedNarrationView;
+const narratedViews = new WeakSet();
 const narratedScenes = new Set();
 let state = { sequence: -1 };
 let posting = false;
@@ -353,9 +355,14 @@ function resumeBlockedAudio() {
     playSound(sound);
   }
   if (blockedVoice && enhanced) {
-    const line = blockedVoice;
-    blockedVoice = undefined;
-    beginVoice(line);
+    if (blockedVoice.queuedNarration) {
+      blockedVoice.retryOnPaint = true;
+      playNextNarration();
+    } else {
+      const line = blockedVoice;
+      blockedVoice = undefined;
+      beginVoice(line);
+    }
   }
 }
 
@@ -564,7 +571,15 @@ function playVoice(line) {
 }
 
 function playNextNarration() {
-  if (!enhanced || currentVoice || blockedVoice) return;
+  if (!enhanced || currentVoice || paintedNarrationView !== (animationFrame ?? state)) return;
+  if (blockedVoice) {
+    if (!blockedVoice.retryOnPaint) return;
+    const line = blockedVoice;
+    blockedVoice = undefined;
+    line.retryOnPaint = false;
+    beginVoice(line);
+    return;
+  }
   const line = narrationQueue.shift();
   if (line) beginVoice(line);
 }
@@ -614,13 +629,17 @@ function playPendingVoice() {
   }
 }
 
-function playPendingNarration() {
-  if (lastNarrationId === null) lastNarrationId = state.narrationId ?? 0;
-  for (const narration of state.narrations ?? []) {
-    if (narration.id <= lastNarrationId) continue;
-    lastNarrationId = narration.id;
-    if (enhanced) enqueueNarration(narration);
+function presentNarration(view) {
+  paintedNarrationView = view;
+  if (view.narrations?.length && !narratedViews.has(view)) {
+    narratedViews.add(view);
+    if (enhanced) {
+      for (const narration of view.narrations) {
+        if (narration.id > (initialNarrationId ?? 0)) enqueueNarration(narration);
+      }
+    }
   }
+  playNextNarration();
 }
 
 // When the last batch of an animation the game plays by itself arrived, or the key that began it was sent.
@@ -1817,11 +1836,6 @@ async function showScreen() {
   tileArt.replaceChildren(...layers);
   tileArt.hidden = !showArt;
   renderTravelMap(view);
-  // With no artwork drawn, the picture window holds the first-person view of the square or a page of
-  // runes: named as the narration ledger names them (tools/qa-narration.ts), so the two can be compared.
-  const runesInPicture = (view.runes ?? []).some(([cell]) => cell % 40 < 16 && cell < 16 * 40);
-  logShownArtwork(sceneArt ? view.scene ?? view.art : showArt ? portraitId ?? view.encounter?.[2] ?? null
-    : runesInPicture ? "runes in the picture window" : view.perspective ? "the first-person view" : null);
   if (view === state && view.ready && view.portrait && !battleNoticePose && !view.automaticCombat) {
     const portrait = tileArt.querySelector(".encounter-portrait");
     if (portrait) void animateHeldPortrait(portrait, view);
@@ -1837,7 +1851,16 @@ async function showScreen() {
       return glyph;
     }), ...gameRunes(view));
   }
+  // Record the layers that decoded and made it to the page.
+  const portraitShown = layers.some(layer => layer.matches(".encounter-portrait, .reward-illustration"));
+  const encounterShown = layers.some(layer => layer.matches(".encounter-sprite"));
+  const runesShown = !gameText.hidden && view.runes?.some(([cell]) => cell % 40 < 16 && cell < 16 * 40);
+  const streetShown = layers.some(layer => layer === streetCanvas || layer.matches(".terrain-tile"));
+  const picture = portraitShown ? portraitId : encounterShown ? view.encounter?.[2] : undefined;
+  logShownArtwork(sceneArt ? view.scene ?? view.art : picture ?? (runesShown ? "runes in the picture window"
+    : streetShown ? "the first-person view" : null));
   renderingSequence = undefined;
+  presentNarration(view);
   holdAnimationFrame(view);
 }
 
@@ -2367,7 +2390,7 @@ async function poll() {
     if (next.superseded) { showSuperseded(); return; }
     if (lastSoundId === null) lastSoundId = next.soundId ?? 0;
     if (lastTextId === null) lastTextId = next.textId ?? 0;
-    if (lastNarrationId === null) lastNarrationId = next.narrationId ?? 0;
+    if (initialNarrationId === null) initialNarrationId = next.narrationId ?? 0;
     const changed = next.sequence !== state.sequence;
     // A frame that follows one of an animation the game plays by itself carries the clips after it.
     const continuesAnimation = changed && Boolean(state.presentationPolling);
@@ -2438,7 +2461,6 @@ async function poll() {
     playPendingSounds();
     playTitleCue();
     playPendingVoice();
-    playPendingNarration();
     status.textContent = state.stopped ?? state.notice ??
       (codeWheel.ended ? "The game has ended. Reload the page to start again." : undefined) ??
       codeWheelStatus() ??

@@ -96,6 +96,8 @@ export interface PresentationAnimationFrame {
   encounter?: EncounterPlacement;
   tiles?: TilePlacement[];
   durationMs?: number;
+  /** Guest steps of the completed print that produced an authored transient illustration. */
+  textSteps?: [start: number, end: number];
   /** True for a message on the bottom line that the game shows for a moment and clears by itself. */
   statusMessage?: boolean;
   /** True for an encounter picture drawn as it approaches the party (SETUP MONSTER, APPROACH). */
@@ -1498,14 +1500,17 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       showFrame(undefined, undefined, false, false, ms, undefined, false, "palette");
       paletteClip = animation.at(-1);
     } : undefined,
-    captureCompletedScriptText: browser ? (cpu: Cpu) => {
+    captureCompletedScriptText: browser ? (cpu: Cpu, start: number) => {
       const archive = cpu.read8(unit.data, data.eclArchive);
       const block = cpu.read8(unit.data, data.eclBlock);
       const cursor = authoredScriptPosition(cpu, cpu.read16(unit.data, data.eclCursor), unit.data);
       const scope = transientScriptIllustrations.get(`${archive}:${block}:${cursor.toString(16)}`);
       if (scope && portraitKeys.includes(scope)) {
         const durationMs = transientScriptIllustrationDurations.get(scope) ?? 1200;
+        const previous = animation.at(-1);
         showFrame(undefined, undefined, false, false, durationMs, undefined, scope);
+        const clip = animation.at(-1);
+        if (clip && clip !== previous) clip.textSteps = [start, cpu.steps];
       }
     } : undefined,
     capturePresentationDelay: browser ? (cpu: Cpu, effectDelay = false, messageMs?: number, pauseMs?: number) => {

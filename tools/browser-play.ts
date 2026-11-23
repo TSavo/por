@@ -198,7 +198,13 @@ const runner = spawn(process.execPath, runnerArguments, {
   windowsHide: true,
 });
 
-interface FrameState extends ExplorationFrame {
+type PendingNarration = {
+  step: number; unitId: string; variantId?: string;
+  sourceId: string; coveredSourceIds: string[]; asset: string; text: string;
+};
+type FrameNarrations = { narrations?: (PendingNarration & { id: number })[] };
+
+interface FrameState extends ExplorationFrame, FrameNarrations {
   travelPosition?: TravelState;
   travelPolling?: boolean;
   phlanArrival?: PhlanApproach;
@@ -231,7 +237,7 @@ interface FrameState extends ExplorationFrame {
   combatEffect?: [number, number, string];
   battleTiles?: [number, number, string][];
   battleProps?: CombatArtPlacement[];
-  animation?: (PresentationAnimationFrame & ExplorationFrame)[];
+  animation?: (PresentationAnimationFrame & ExplorationFrame & FrameNarrations)[];
   automaticCombat?: boolean;
   battleEntryPolling?: boolean;
   presentationPolling?: number;
@@ -263,20 +269,17 @@ let automapRevision = -1;
 /** The page that plays the game: the newest window to start (see /state). */
 let activePage: string | undefined;
 let narrationId = 0;
-const narrations: Array<{ id: number; step: number; unitId: string; variantId?: string;
-  sourceId: string; coveredSourceIds: string[]; asset: string; text: string }> = [];
-// The runner names a narration the moment the script prints its passage, which is before the game
-// has drawn the screen and stopped for the player. Sent at once, the page spoke each line under the
-// previous picture (measured in Chrome on Rolf's tour: every line began before its own picture, by
-// seconds on a busy machine). A narration is therefore held here and given to the page with the next
-// frame the game sends, so the narrator speaks when the picture he describes is up.
-const heldNarrations: typeof narrations = [];
+// Narration arrives before its picture. The guest step identifies a narrated
+// transient illustration within the batch. Other lines belong to the settled frame.
+const heldNarrations: PendingNarration[] = [];
 createInterface({ input: runner.stdout }).on("line", (line) => {
   if (line.startsWith("POR_FRAME ")) {
     frame = JSON.parse(line.slice("POR_FRAME ".length)) as FrameState;
-    if (heldNarrations.length) {
-      narrations.push(...heldNarrations.splice(0));
-      while (narrations.length > 256) narrations.shift();
+    for (const narration of heldNarrations.splice(0)) {
+      const clip = frame.animation?.find(({ textSteps }) => textSteps &&
+        narration.step >= textSteps[0] && narration.step <= textSteps[1]);
+      const target = clip ?? frame;
+      (target.narrations ??= []).push({ id: ++narrationId, ...narration });
     }
     if (frame.travelPosition) {
       const { x, y, sector } = frame.travelPosition;
@@ -345,20 +348,18 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
     const exact = [...new Map((exactTextNarrations.get(normalized) ?? []).map(unit => [unit.id, unit])).values()];
     if (!text.fromEclText && !handledByExplicitVoice && exact.length === 1) {
       const unit = exact[0]!;
-      heldNarrations.push({ id: ++narrationId, step: text.step, unitId: unit.id,
+      heldNarrations.push({ step: text.step, unitId: unit.id,
         sourceId: unit.triggerSourceId, coveredSourceIds: unit.coveredSourceIds,
         asset: unit.asset!, text: unit.spokenText });
-      if (narrations.length > 256) narrations.shift();
     }
   } else if (line.startsWith("POR_NARRATION ")) {
     const event = JSON.parse(line.slice("POR_NARRATION ".length)) as NarrationTrigger & { step?: number };
     const resolved = narrationCatalog.resolve(event);
     if (resolved.status === "resolved") {
       const narration = resolved.narration;
-      heldNarrations.push({ id: ++narrationId, step: event.step ?? 0, unitId: narration.unitId,
+      heldNarrations.push({ step: event.step ?? 0, unitId: narration.unitId,
         ...(narration.variantId ? { variantId: narration.variantId } : {}), sourceId: narration.triggerSourceId,
         coveredSourceIds: narration.coveredSourceIds, asset: narration.asset, text: narration.text });
-      if (narrations.length > 256) narrations.shift();
     } else if (resolved.status === "ambiguous" || resolved.status === "selector-required") {
       console.error(`Narration ${event.sourceId}: ${resolved.status}`);
     }
@@ -527,7 +528,7 @@ const server = createServer(async (req, res) => {
       art: frame.scene && artwork.has(frame.scene) ? `/art/${frame.scene}` : undefined,
     };
     res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({
-      ...snapshot, sounds, soundId, messages, textId, narrations, narrationId, automapRevision,
+      ...snapshot, sounds, soundId, messages, textId, narrationId, automapRevision,
       sequence, ready, codeWheelAvailable, classicAvailable, buildVersion, saveSlot: saveSlot ?? null, saveSlotEvent, saveSlotAction: saveSlotAction ?? null,
       stopped: stopped ?? null, notice: notice ?? null,
     }));

@@ -167,12 +167,47 @@ function requireSelectedWerePlayed(name, lines) {
   return { selected, covered: ledger.filter((line) => line.outcome === "covered") };
 }
 
+// Let the new frame arrive but keep its portrait undecoded until the check
+// has observed the old picture. A fast audio file used to start in this gap.
+async function pressThroughRolfPortraitDecode(leg, key) {
+  const approach = "encounter:area:0:SPRIT3.DAX:12:0:0";
+  const portrait = "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9";
+  const greeting = "por.voice.ecl3.b0-b0b6";
+  const armed = await leg.chrome.evaluate(`(() => {
+    if (state.encounter?.[2] !== ${JSON.stringify(approach)}) return false;
+    const decode = HTMLImageElement.prototype.decode;
+    const entered = Promise.withResolvers();
+    const released = Promise.withResolvers();
+    window.rolfPortraitDecode = { entered: entered.promise, release: released.resolve };
+    HTMLImageElement.prototype.decode = function () {
+      if (decodeURIComponent(new URL(this.src).pathname) !== ${JSON.stringify("/art/" + portrait)}) {
+        return decode.call(this);
+      }
+      HTMLImageElement.prototype.decode = decode;
+      entered.resolve();
+      return released.promise.then(() => decode.call(this));
+    };
+    return true;
+  })()`);
+  if (!armed) return false;
+  await leg.press(key, false);
+  const observed = await leg.chrome.evaluate(`rolfPortraitDecode.entered.then(() => ({
+    art: shownArtwork, queued: porNarrationPlayback().lines.some(line => line.unitId === ${JSON.stringify(greeting)})
+  }))`);
+  await leg.chrome.evaluate("rolfPortraitDecode.release()");
+  assert.equal(observed.art, approach, "The previous approach should still be displayed while the portrait decodes");
+  if (observed.queued) fail("Rolf's greeting queued before the portrait decoded");
+  await leg.sync();
+  return true;
+}
+
 // ---- pass 1: wait for every line -----------------------------------------------------------------------------------
 console.log(`Pass 1: wait for every line to finish before pressing on${broken ? ` (broken on purpose: ${broken})` : ""}`);
 {
   const leg = await openLeg("waiting");
   /** By narration id: the artwork of the frame that printed its passage, and when the page had that frame. */
   const passageArt = new Map();
+  let heldRolfPortrait = false;
   let log;
   try {
     for (let presses = 0; presses < 80; presses++) {
@@ -182,7 +217,9 @@ console.log(`Pass 1: wait for every line to finish before pressing on${broken ? 
       if (!log) { log = await leg.playback(); fail(`the narration did not finish within 90s at "${textOf(leg.frame).slice(-80).trim()}"`); break; }
       const text = textOf(leg.frame);
       if (/our tour is ended/.test(text) && /area cast view encamp search look/.test(text)) break;
-      await leg.press(nextKey(text));
+      const key = nextKey(text);
+      if (!heldRolfPortrait && await pressThroughRolfPortraitDecode(leg, key)) heldRolfPortrait = true;
+      else await leg.press(key);
       // The frame that has now arrived prints the passage of every narration queued since the key:
       // its artwork is theirs.
       const drawn = await leg.chrome.evaluate("({ art: state.portrait ?? state.encounter?.[2] ?? null, at: porNarrationPlayback().at, last: porNarrationPlayback().lines.at(-1)?.id ?? 0 })");
@@ -190,6 +227,7 @@ console.log(`Pass 1: wait for every line to finish before pressing on${broken ? 
     }
     log ??= await leg.playback();
   } finally { await leg.chrome.close(); }
+  assert.ok(heldRolfPortrait, "The tour must exercise the held portrait decode");
   writeFileSync(join(directory, "waiting-playback.json"), JSON.stringify(log, null, 1) + "\n");
   report(log.lines);
   const { covered } = requireSelectedWerePlayed("waiting", log.lines);

@@ -420,7 +420,7 @@ const cpu = fresh(requestKey, (name, data, written) => slotClosed(name, data, wr
 const soundTracePath = process.env.POR_SOUND_TRACE;
 const browserSound = process.env.POR_BROWSER_PLAY === "1";
 let narrationObserver: EclNarrationObserver | undefined;
-const eclTextHandlers: boolean[] = [];
+const eclTextStarts: (number | undefined)[] = [];
 const tracePictureProducer = input?.traceHeldPortrait !== undefined ||
   browserSound && Boolean(process.env.POR_PORTRAIT_DRAW_TRACE);
 const eclPictureProducers: (string | undefined)[] = [];
@@ -434,7 +434,8 @@ if (browserSound) {
 if (narrationObserver || tracePictureProducer) {
   cpu.onEclInstruction = entering => {
     if (!entering) {
-      if (eclTextHandlers.pop()) input?.captureCompletedScriptText?.(cpu);
+      const start = eclTextStarts.pop();
+      if (start !== undefined) input?.captureCompletedScriptText?.(cpu, start);
       eclPictureProducers.pop();
       return;
     }
@@ -451,7 +452,7 @@ if (narrationObserver || tracePictureProducer) {
       eclPictureProducers.push(producer);
     }
     if (!narrationObserver) return;
-    eclTextHandlers.push(eclTextOpcodes.has(opcode));
+    eclTextStarts.push(eclTextOpcodes.has(opcode) ? cpu.steps : undefined);
     const event = narrationObserver.observe(cpu);
     if (event) console.log(`POR_NARRATION ${JSON.stringify(event)}`);
   };
@@ -550,7 +551,7 @@ adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || browserSound || liveAt 
       // Capture the seal's state before the original menu can resolve the offer.
       if (message.includes("WE CAN DUPLICATE THE SEAL ON THAT CHEST")) journal();
       if (!browserSound) return;
-      const fromEclText = eclTextHandlers.at(-1) === true;
+      const fromEclText = eclTextStarts.at(-1) !== undefined;
       console.log(`POR_TEXT ${JSON.stringify({ step: cpu.steps, message, fromEclText })}`);
       narrationLedger?.text(cpu.steps, message, fromEclText);
       const event = fromEclText ? narrationObserver?.observeRenderedText(cpu, message) : undefined;
