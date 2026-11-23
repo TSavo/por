@@ -56,6 +56,18 @@
    "decisions": 4,
    "heard": 1
   },
+  "issue-100-city-watch-original": {
+   "ledger": "narration.jsonl",
+   "games": 1,
+   "decisions": 7,
+   "heard": 3
+  },
+  "issue-100-city-watch-port": {
+   "ledger": "narration.jsonl",
+   "games": 1,
+   "decisions": 7,
+   "heard": 3
+  },
   "issue-100-pool-transient": {
    "ledger": "native.jsonl",
    "games": 1,
@@ -4831,6 +4843,26 @@
     "unfinished": 0,
     "startedLate": 0
    },
+   "issue-100-city-watch-original": {
+    "log": "narration.playback.jsonl",
+    "legs": 1,
+    "lines": 3,
+    "toTheEnd": 3,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-100-city-watch-port": {
+    "log": "narration.playback.jsonl",
+    "legs": 1,
+    "lines": 3,
+    "toTheEnd": 3,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
    "issue-100-pool-transient": {
     "log": "narration-playback.jsonl",
     "legs": 1,
@@ -5734,6 +5766,78 @@
      "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0"
     ],
     "end": "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0"
+   },
+   "issue-100-city-watch-original | city-watch-both-directions | 1 | por.voice.ecl3.b0-aad5": {
+    "run": "issue-100-city-watch-original",
+    "leg": "city-watch-both-directions",
+    "unitId": "por.voice.ecl3.b0-aad5",
+    "asset": "voices/narration/ecl3/b0-aad5.mp3",
+    "expected": "scene-illustration:area:0:ecl:ab23",
+    "caption": "YOU ARE BY THE GATEWAY TO THE UNSETTLED AREAS. THE CITY WATCH EYES YOU SUSPICIOUSLY. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:0:ecl:ab23"
+    ],
+    "end": "scene-illustration:area:0:ecl:ab23"
+   },
+   "issue-100-city-watch-original | city-watch-both-directions | 2 | ecl2-b20-9ab8": {
+    "run": "issue-100-city-watch-original",
+    "leg": "city-watch-both-directions",
+    "unitId": "ecl2-b20-9ab8",
+    "asset": "voices/narration/ecl2/block-20/ecl2-b20-9ab8.mp3",
+    "expected": "scene-illustration:area:0:ecl:9b68",
+    "caption": "YOU HAVE ENTERED THE MONSTER-CRAWLING SLUMS OF PHLAN. SMALL, UGLY THINGS SCURRY FROM BENEATH YOUR FEET. IN THE DISTANCE, AN ALARM SOUNDS. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:0:ecl:9b68"
+    ],
+    "end": "scene-illustration:area:0:ecl:9b68"
+   },
+   "issue-100-city-watch-original | city-watch-both-directions | 3 | por.voice.ecl3.b0-aad5": {
+    "run": "issue-100-city-watch-original",
+    "leg": "city-watch-both-directions",
+    "unitId": "por.voice.ecl3.b0-aad5",
+    "asset": "voices/narration/ecl3/b0-aad5.mp3",
+    "expected": "scene-illustration:area:20:ecl:ab23",
+    "caption": "YOU ARE BY THE GATEWAY TO THE UNSETTLED AREAS. THE CITY WATCH EYES YOU SUSPICIOUSLY. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:20:ecl:ab23"
+    ],
+    "end": "scene-illustration:area:20:ecl:ab23"
+   },
+   "issue-100-city-watch-port | city-watch-both-directions | 1 | por.voice.ecl3.b0-aad5": {
+    "run": "issue-100-city-watch-port",
+    "leg": "city-watch-both-directions",
+    "unitId": "por.voice.ecl3.b0-aad5",
+    "asset": "voices/narration/ecl3/b0-aad5.mp3",
+    "expected": "scene-illustration:area:0:ecl:ab23",
+    "caption": "YOU ARE BY THE GATEWAY TO THE UNSETTLED AREAS. THE CITY WATCH EYES YOU SUSPICIOUSLY. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:0:ecl:ab23"
+    ],
+    "end": "scene-illustration:area:0:ecl:ab23"
+   },
+   "issue-100-city-watch-port | city-watch-both-directions | 2 | ecl2-b20-9ab8": {
+    "run": "issue-100-city-watch-port",
+    "leg": "city-watch-both-directions",
+    "unitId": "ecl2-b20-9ab8",
+    "asset": "voices/narration/ecl2/block-20/ecl2-b20-9ab8.mp3",
+    "expected": "scene-illustration:area:0:ecl:9b68",
+    "caption": "YOU HAVE ENTERED THE MONSTER-CRAWLING SLUMS OF PHLAN. SMALL, UGLY THINGS SCURRY FROM BENEATH YOUR FEET. IN THE DISTANCE, AN ALARM SOUNDS. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:0:ecl:9b68"
+    ],
+    "end": "scene-illustration:area:0:ecl:9b68"
+   },
+   "issue-100-city-watch-port | city-watch-both-directions | 3 | por.voice.ecl3.b0-aad5": {
+    "run": "issue-100-city-watch-port",
+    "leg": "city-watch-both-directions",
+    "unitId": "por.voice.ecl3.b0-aad5",
+    "asset": "voices/narration/ecl3/b0-aad5.mp3",
+    "expected": "scene-illustration:area:20:ecl:ab23",
+    "caption": "YOU ARE BY THE GATEWAY TO THE UNSETTLED AREAS. THE CITY WATCH EYES YOU SUSPICIOUSLY. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:20:ecl:ab23"
+    ],
+    "end": "scene-illustration:area:20:ecl:ab23"
    },
    "issue-100-vote-caption-live-original | b | 1 | por.voice.ecl5.b7-9a52": {
     "run": "issue-100-vote-caption-live-original",
