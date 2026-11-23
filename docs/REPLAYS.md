@@ -136,6 +136,12 @@ new icon, restarts from the saved roster, and takes the character through the
 tour. It saves in slot A, restarts again, loads the slot, and checks both
 the ready and strike pixels against the editor in live combat.
 
+To check every editable combat icon through a running worker or loose-package server,
+run `node tools/web/check-icon-materials.mjs <game URL> <Chrome executable>`.
+It decodes the ready and attack images for each head, body and size, applies a test
+palette with the game's recoloring code and checks the painted result. Every pose
+must change visible color while retaining its silhouette and unmasked pixels.
+
 ## Dice
 
 `POR_CLOCK=fixed` starts a replay on fixed dice. Version 1.3 draws one
