@@ -199,7 +199,11 @@ const encounterRoutes = new Map([
   ["podal-pitt-monster-patrons", {
     slot: "I", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:18:ecl:ab2c:SPRIT1.DAX:2:0:0", 48, 80],
-    dialogue: { key: "enter", portrait: "portrait:area:18:PIC1.DAX:2:0:0", prompt: /THECREATURESIGNOREYOUFORTHEMOMENT/i },
+    dialogue: {
+      key: "enter", portrait: "portrait:area:18:ecl:b240:caller:ab51:PIC1.DAX:2:0:0",
+      prompt: /THECREATURESIGNOREYOUFORTHEMOMENT/i,
+      heldPortraitLoop: [0, 1].map(member => `portrait:area:18:ecl:b240:caller:ab51:PIC1.DAX:2:${member}:0`),
+    },
   }],
   ["wild-cave-rearing-snake-approach", {
     slot: "A", inputs: ["up", "enter"],
@@ -225,9 +229,12 @@ const encounterRoutes = new Map([
     placement: [48, 32, "encounter:area:18:ecl:b0ce:SPRIT1.DAX:4:0:0", 40, 80],
     approachSequence: [[48, 32, "encounter:area:18:ecl:b0ce:SPRIT1.DAX:4:0:0", 40, 80]],
     dialogue: {
-      keys: ["enter", "enter"], portrait: "portrait:area:18:ecl:b16f:PIC1.DAX:4:0:0",
+      key: "enter", portrait: "portrait:area:18:ecl:b240:caller:b141:PIC1.DAX:4:0:0",
       prompt: /MANYCREATURESHAVEGATHERED/i,
+      heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:18:ecl:b240:caller:b141:PIC1.DAX:4:${member}:0`),
+      skipLoopCapture: "portrait:area:18:ecl:b240:caller:b141:PIC1.DAX:4:1:0",
     },
+    battleStart: { input: "enter", prompt: /ABATTLEBEGINS/i },
   }],
   ["podal-shrine-recruiter-approach", {
     slot: "I", inputs: ["up", "up"],
