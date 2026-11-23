@@ -50707,6 +50707,152 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL8.DAX:16:a7b6",
+      "prompt": "a843",
+      "variants": [
+        {
+          "caption": "SUDDENLY LIZARD MEN JUMP UP FROM WHERE THEY WERE HIDING AND THROW JAVELINS AT YOU. AT THE SAME TIME GIANT LIZARDS CHARGE OUT OF HIDDEN TUNNELS",
+          "checkpoint": "swamp-keep-javelins-and-lizards/A.json",
+          "portrait": "scene-illustration:area:16:ecl:a843:cue:keep-javelins-and-lizards",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 2 DORN 5 8 ENNA 4 6 MIRA 10 5 SUDDENLY LIZARD MEN JUMP UP FROM WHERE THEY WERE HIDING AND THROW JAVELINS AT YOU. AT THE SAME TIME GIANT LIZARDS CHARGE OUT OF HIDDEN TUNNELS. CORA is hit FOR 4 points of Damage. Press any key to continue",
+            "idlePolls": 120,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+              },
+              {
+                "idlePolls": 30,
+                "sha256": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+              },
+              {
+                "idlePolls": 90,
+                "sha256": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+              }
+            ],
+            "drawCursor": "a7bd",
+            "members": [
+              0
+            ],
+            "battlePanelSha256": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+          },
+          "chrome": {
+            "original": {
+              "route": "swamp-keep-javelins-and-lizards",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA52DORN58ENNA46MIRA105SUDDENLYLIZARDMENJUMPUPFROMWHERETHEYWEREHIDINGANDTHROWJAVELINSATYOU.ATTHESAMETIMEGIANTLIZARDSCHARGEOUTOFHIDDENTUNNELS.CORAishitFOR4pointsofDamage.Pressanykeytocontinue",
+              "portrait": "scene-illustration:area:16:ecl:a843:cue:keep-javelins-and-lizards",
+              "checkpointSha256": "771dda37ce0b16719e91080024619a6bc4ec1978c1d3fac14dd099f2d6aa7c54",
+              "artSha256": "156c4b31b2f63e07abfc710a48224319b57f21522e9320757a57350e50ced612",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3661,
+              "samples": 220,
+              "poses": [
+                "scene-illustration:area:16:ecl:a843:cue:keep-javelins-and-lizards"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "swamp-keep-javelins-and-lizards",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA52DORN58ENNA46MIRA105SUDDENLYLIZARDMENJUMPUPFROMWHERETHEYWEREHIDINGANDTHROWJAVELINSATYOU.ATTHESAMETIMEGIANTLIZARDSCHARGEOUTOFHIDDENTUNNELS.CORAishitFOR4pointsofDamage.Pressanykeytocontinue",
+              "portrait": "scene-illustration:area:16:ecl:a843:cue:keep-javelins-and-lizards",
+              "checkpointSha256": "771dda37ce0b16719e91080024619a6bc4ec1978c1d3fac14dd099f2d6aa7c54",
+              "artSha256": "156c4b31b2f63e07abfc710a48224319b57f21522e9320757a57350e50ced612",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3659,
+              "samples": 221,
+              "poses": [
+                "scene-illustration:area:16:ecl:a843:cue:keep-javelins-and-lizards"
+              ],
+              "replaced": false
+            }
+          }
+        },
+        {
+          "caption": "SUDDENLY LIZARD MEN JUMP UP FROM WHERE THEY WERE HIDING AND THROW JAVELINS AT YOU",
+          "checkpoint": "swamp-keep-javelins-only/A.json",
+          "portrait": "scene-illustration:area:16:ecl:a843:cue:keep-javelins-only",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 0 DORN 5 8 ENNA 4 6 MIRA 10 5 SUDDENLY LIZARD MEN JUMP UP FROM WHERE THEY WERE HIDING AND THROW JAVELINS AT YOU. CORA is hit FOR 4 points of Damage. CORA is hit FOR 5 points of Damage. press <enter>/<return> to continue",
+            "idlePolls": 120,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+              },
+              {
+                "idlePolls": 30,
+                "sha256": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+              },
+              {
+                "idlePolls": 90,
+                "sha256": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+              }
+            ],
+            "drawCursor": "a7bd",
+            "members": [
+              0
+            ],
+            "battlePanelSha256": "061f1f378318158e97e31dc2bd0a0921519b1c1d5640c37de8878e39eaea5dde"
+          },
+          "chrome": {
+            "original": {
+              "route": "swamp-keep-javelins-only",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA50DORN58ENNA46MIRA105SUDDENLYLIZARDMENJUMPUPFROMWHERETHEYWEREHIDINGANDTHROWJAVELINSATYOU.CORAishitFOR4pointsofDamage.CORAishitFOR5pointsofDamage.press<enter>/<return>tocontinue",
+              "portrait": "scene-illustration:area:16:ecl:a843:cue:keep-javelins-only",
+              "checkpointSha256": "ecbb85a1389fd2265516400247ea16bacf2fb65d8d00b3a9d25f02cf4aae475e",
+              "artSha256": "45a63114d588dd733bff0020fa47d52d23274bf1972113bfbc38ae9b10ab3b44",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3663,
+              "samples": 220,
+              "poses": [
+                "scene-illustration:area:16:ecl:a843:cue:keep-javelins-only"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "swamp-keep-javelins-only",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA50DORN58ENNA46MIRA105SUDDENLYLIZARDMENJUMPUPFROMWHERETHEYWEREHIDINGANDTHROWJAVELINSATYOU.CORAishitFOR4pointsofDamage.CORAishitFOR5pointsofDamage.press<enter>/<return>tocontinue",
+              "portrait": "scene-illustration:area:16:ecl:a843:cue:keep-javelins-only",
+              "checkpointSha256": "ecbb85a1389fd2265516400247ea16bacf2fb65d8d00b3a9d25f02cf4aae475e",
+              "artSha256": "45a63114d588dd733bff0020fa47d52d23274bf1972113bfbc38ae9b10ab3b44",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3661,
+              "samples": 221,
+              "poses": [
+                "scene-illustration:area:16:ecl:a843:cue:keep-javelins-only"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
     }
   ],
   "approachTransitions": [
