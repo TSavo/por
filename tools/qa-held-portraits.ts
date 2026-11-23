@@ -147,6 +147,7 @@ type ScriptSite = typeof heldPortraitDiscovery.eclCandidates[number];
 const scriptSiteId = (site: ScriptSite) => `${site.scriptArchive}:${site.scriptBlock}:${site.address}`;
 const promptId = (cursor: string, caller: string | null) => caller ? `${cursor}/${caller}` : cursor;
 
+const landmarkOverlandRenderer = "e57b7792a347ed2c98757fbe4f30fde819f94b2d103865f7d07ad5a0abb78497";
 const wetOverlandRenderer = "9bfeac762a897378393767763da854233f71e30be96d9d080c8c1454d1f7715a";
 const localOverlandRenderer = "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74";
 const auctionMenusRenderer = "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b";
@@ -157,6 +158,8 @@ const rendererBeforePittMenus = "c3582f5d74fae550739186491060b39f7fcbd25c399b99d
 // Exact reviewed revisions that preserve the held portrait paint and timing code.
 // This covers narration logging, the wilderness atlas, settings, and Classic palette-only clips.
 const previousRendererProof = new Map<string, string>([
+  // The local landmark plane is drawn only inside a window with authored feature artwork.
+  [landmarkOverlandRenderer, wetOverlandRenderer],
   // Detail masks are loaded only for a complete local window that uses authored wet terrain.
   [wetOverlandRenderer, localOverlandRenderer],
   // The local terrain branch needs a native overland encounter with complete authored slots.
@@ -363,7 +366,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       const checkpoint = checkpointDigests(fixture);
       return (["original", "port"] as const).every(data => {
         const observed = proof.chrome[data];
-        const reviewed = [wetOverlandRenderer, localOverlandRenderer, auctionMenusRenderer, captivePenMenusRenderer, pittMenuRenderer, rendererBeforePittMenus];
+        const reviewed = [landmarkOverlandRenderer, wetOverlandRenderer, localOverlandRenderer, auctionMenusRenderer, captivePenMenusRenderer, pittMenuRenderer, rendererBeforePittMenus];
         const revision = reviewed.indexOf(renderer);
         const sameSceneryRenderer = observed.rendererSha256 === renderer ||
           (revision >= 0 && reviewed.slice(revision + 1).includes(observed.rendererSha256));

@@ -13,6 +13,27 @@ const westernTigers = {
   fixture: "western-ankheg-eruption", caption: /YOUSURPRISEAGROUPOFTIGERS/i,
 };
 const scenes = {
+  "silt-river-stirges": {
+    area: 26, archive: 7, cursor: "a230", block: 61, x: 56, width: 24, height: 57,
+    fixture: "pyramid-exterior", clock: "4321092", caption: /YOUSURPRISEAGROUPOFSTIRGES/i,
+    terrain: { center: [21, 19], slots: [225, 226, 110, 0, 124, 113, 101, 111, 1, 0, 103, 102, 112, 0, 1, 104, 108, 111, 1, 0, 105, 106, 114, 0, 1],
+      detailSlots: [225, 226, 110, 113, 101, 111, 103, 102, 112, 104, 108, 105, 106, 114] },
+    inputs: ["right", "right", ...Array(6).fill("down"), "enter", "c"],
+  },
+  "landmark-buccaneer-tigers": {
+    area: 25, archive: 6, cursor: "a204", block: 119, x: 48, width: 40, height: 65,
+    fixture: "western-ankheg-eruption", clock: "4326226", caption: /YOUSURPRISEAGROUPOFTIGERS/i,
+    terrain: { center: [11, 30], slots: [79, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 248, 175, 1, 0, 1, 175, 77],
+      detailSlots: [79, 175, 77], landmarkSlots: [248] },
+    inputs: [...Array(3).fill("right"), ...Array(7).fill("down"), "enter", "c"],
+  },
+  "landmark-zhentil-thri-kreens": {
+    area: 25, archive: 6, cursor: "a204", block: 118, x: 56, width: 24, height: 65,
+    fixture: "western-ankheg-eruption", clock: "4321061", caption: /YOUSURPRISEAGROUPOFTHRI.KREENS/i,
+    terrain: { center: [4, 31], slots: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 253, 0, 1, 172, 176, 172, 169, 174, 77],
+      detailSlots: [172, 176, 169, 174, 77], landmarkSlots: [253] },
+    inputs: [...Array(4).fill("left"), ...Array(8).fill("down"), "enter", "c"],
+  },
   "wetland-tigers": {
     area: 25, archive: 6, cursor: "a204", block: 119, x: 48, width: 40, height: 65,
     fixture: "western-ankheg-eruption", clock: "4325156", caption: /YOUSURPRISEAGROUPOFTIGERS/i,
@@ -203,6 +224,30 @@ try {
   assert.deepEqual([surface.width, surface.height], [352, 352]);
   writeFileSync(join(output, "terrain.png"), Buffer.from(surface.png.split(",")[1], "base64"));
   writeFileSync(join(output, "held.png"), await chrome.screenshot());
+  if (terrain.landmarkSlots?.length) {
+    const landWithoutMarkers = await chrome.evaluate(`(async () => {
+      const { slots, center, detailSlots } = state.overlandTerrain;
+      const load = async id => {
+        const image = new Image();
+        image.src = "/art/" + id;
+        await image.decode();
+        return image;
+      };
+      const details = new Set(detailSlots);
+      const [materials, tiles, masks] = await Promise.all([
+        load("overland-materials"), Promise.all(slots.map(slot => load("overland-tile:" + slot))),
+        detailSlots && Promise.all(slots.map(slot => details.has(slot) ? load("overland-detail:" + slot) : undefined)),
+      ]);
+      const canvas = document.createElement("canvas");
+      canvas.width = canvas.height = 352;
+      const { createOverlandViewport } = await import("/new-phlan-webgl.js");
+      createOverlandViewport(canvas).draw(undefined, { materials, tiles, details: masks, center });
+      return canvas.toDataURL();
+    })()`);
+    assert.notEqual(surface.png, landWithoutMarkers, "The visible landmark should add pixels to the local terrain");
+    writeFileSync(join(output, "terrain-without-landmarks.png"), Buffer.from(landWithoutMarkers.split(",")[1], "base64"));
+  }
+
 
   const choice = inputs.at(-1);
   await chrome.send(choice);

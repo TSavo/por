@@ -57,6 +57,7 @@ export interface OverlandTerrainFrame {
   slots: readonly number[];
   center: readonly [number, number];
   detailSlots?: readonly number[];
+  landmarkSlots?: readonly number[];
 }
 export interface PresentationAnimationFrame {
   portrait?: string;

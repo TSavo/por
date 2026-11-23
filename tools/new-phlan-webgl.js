@@ -329,8 +329,10 @@ export function createOverlandViewport(canvas) {
       uniform sampler2D map;
       uniform sampler2D materials;
       uniform sampler2D details;
+      uniform sampler2D landmarks;
       uniform bool local;
       uniform bool hasDetails;
+      uniform bool hasLandmarks;
       uniform vec2 origin;
       struct SurfacePaint {
         vec3 meadow;
@@ -396,6 +398,10 @@ export function createOverlandViewport(canvas) {
           }
           ground = mix(ground, nextRow, blend.y);
         }
+        if (hasLandmarks) {
+          vec4 landmark = texture2D(landmarks, uv);
+          ground = mix(ground, landmark.rgb, landmark.a);
+        }
         gl_FragColor = vec4(ground, 1.0);
       }
     `],
@@ -427,30 +433,43 @@ export function createOverlandViewport(canvas) {
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 255]));
-  const detailTexture = gl.createTexture();
-  gl.activeTexture(gl.TEXTURE2);
-  gl.bindTexture(gl.TEXTURE_2D, detailTexture);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, 1, 1, 0, gl.RGB, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0]));
+  const details = createTileLayer(2, false);
+  const landmarks = createTileLayer(3, true);
   gl.activeTexture(gl.TEXTURE0);
   const local = gl.getUniformLocation(program, "local");
   const hasDetails = gl.getUniformLocation(program, "hasDetails");
+  const hasLandmarks = gl.getUniformLocation(program, "hasLandmarks");
   const origin = gl.getUniformLocation(program, "origin");
   gl.uniform1i(gl.getUniformLocation(program, "map"), 0);
   gl.uniform1i(gl.getUniformLocation(program, "materials"), 1);
   gl.uniform1i(gl.getUniformLocation(program, "details"), 2);
+  gl.uniform1i(gl.getUniformLocation(program, "landmarks"), 3);
   let loadedMaterials;
   const tile = document.createElement("canvas");
   tile.width = tile.height = 352;
   const paint = tile.getContext("2d");
   paint.imageSmoothingEnabled = false;
-  const detailTile = document.createElement("canvas");
-  detailTile.width = detailTile.height = 352;
-  const paintDetails = detailTile.getContext("2d", { alpha: false });
-  paintDetails.imageSmoothingEnabled = false;
+  function createTileLayer(unit, alpha) {
+    const layer = document.createElement("canvas");
+    layer.width = layer.height = 352;
+    const context = layer.getContext("2d", { alpha });
+    context.imageSmoothingEnabled = false;
+    const texture = gl.createTexture();
+    gl.activeTexture(gl.TEXTURE0 + unit);
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));
+    return images => {
+      if (!images) return;
+      context.clearRect(0, 0, 352, 352);
+      drawTerrainTiles(context, images);
+      gl.activeTexture(gl.TEXTURE0 + unit);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, layer);
+    };
+  }
   function drawTerrainTiles(context, images) {
     images.forEach((image, index) => {
       if (image) context.drawImage(image, index % 5 * 96 - 64, Math.floor(index / 5) * 96 - 64);
@@ -463,12 +482,8 @@ export function createOverlandViewport(canvas) {
       if (terrain) {
         // The guest's 88px viewport is centered in the 120px terrain sheet.
         drawTerrainTiles(paint, terrain.tiles);
-        if (terrain.details) {
-          paintDetails.clearRect(0, 0, 352, 352);
-          drawTerrainTiles(paintDetails, terrain.details);
-          gl.activeTexture(gl.TEXTURE2);
-          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, detailTile);
-        }
+        details(terrain.details);
+        landmarks(terrain.landmarks);
         if (loadedMaterials !== terrain.materials) {
           gl.activeTexture(gl.TEXTURE1);
           gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, terrain.materials);
@@ -479,6 +494,7 @@ export function createOverlandViewport(canvas) {
       } else paint.drawImage(frame, 24, 24, 88, 88, 0, 0, 352, 352);
       gl.uniform1i(local, terrain ? 1 : 0);
       gl.uniform1i(hasDetails, terrain?.details ? 1 : 0);
+      gl.uniform1i(hasLandmarks, terrain?.landmarks ? 1 : 0);
       gl.activeTexture(gl.TEXTURE0);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tile);
       gl.viewport(0,0,canvas.width,canvas.height);

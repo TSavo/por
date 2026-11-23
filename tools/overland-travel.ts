@@ -5,6 +5,11 @@ import { data, eclGlobalOffset, segment as unit } from "../src/runtime/bindings.
 
 const width = 44;
 const height = 36;
+
+// Geographic features painted over individual terrain slots in local encounter views.
+export const overlandLandmarkSlots: ReadonlySet<number> = new Set([
+  231, 232, 243, 244, 248, 249, 250, 251, 252, 253, 254,
+]);
 const sectors = [
   { area: 25, offset: 0, archive: 6, blocked: 0xadce, count: 8 },
   { area: 26, offset: 13, archive: 7, blocked: 0xb019, count: 29 },

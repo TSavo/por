@@ -1425,14 +1425,19 @@ async function showScreen() {
   let overlandTerrain;
   if (overland && view.overlandTerrain && !failedOverlandTerrain.has(view)) {
     try {
-      const { slots, center, detailSlots } = view.overlandTerrain;
-      const detailIds = new Set(detailSlots);
-      const [materials, tiles, details] = await Promise.all([
+      const { slots, center, detailSlots, landmarkSlots } = view.overlandTerrain;
+      function loadLayer(name, ids) {
+        if (!ids) return;
+        const present = new Set(ids);
+        return Promise.all(slots.map(slot => present.has(slot) ? overlandImage(`overland-${name}:${slot}`) : undefined));
+      }
+      const [materials, tiles, details, landmarks] = await Promise.all([
         overlandImage("overland-materials"),
         Promise.all(slots.map(slot => overlandImage(`overland-tile:${slot}`))),
-        detailSlots && Promise.all(slots.map(slot => detailIds.has(slot) ? overlandImage(`overland-detail:${slot}`) : undefined)),
+        loadLayer("detail", detailSlots),
+        loadLayer("landmark", landmarkSlots),
       ]);
-      overlandTerrain = { materials, tiles, details, center };
+      overlandTerrain = { materials, tiles, details, landmarks, center };
     } catch { failedOverlandTerrain.add(view); }
     if (render !== screenRender) return;
   }

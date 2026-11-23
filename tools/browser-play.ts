@@ -20,7 +20,7 @@ import { buildExplorationMaterials, explorationMaterialArea } from "./exploratio
 import { fromPortRoot, fromWorkingRoot } from "./port-root.js";
 import { classicSoundDirectory } from "./classic-sounds.js";
 import type { NativeExploration } from "./native-exploration.js";
-import { loadOverlandTravel, type PhlanApproach, type SokalPrompt, type SokalQuay, type TravelState } from "./overland-travel.js";
+import { loadOverlandTravel, overlandLandmarkSlots, type PhlanApproach, type SokalPrompt, type SokalQuay, type TravelState } from "./overland-travel.js";
 import { inspectOriginalFiles, readOriginalFilesSetting, writeOriginalFilesSetting } from "./release/original-files.js";
 
 const port = Number(process.env.POR_PLAY_PORT ?? 43124);
@@ -128,11 +128,17 @@ function prepareScenery(view: ExplorationFrame) {
   // Keep the current travel surface until every slot in the local composition has artwork.
   const terrain = view.overlandTerrain;
   if (terrain) {
-    if (!artwork.has("overland-materials") || terrain.slots.some(slot => !artwork.has(`overland-tile:${slot}`))) {
+    const slots = [...new Set(terrain.slots)];
+    const landmarks = slots.filter(slot => overlandLandmarkSlots.has(slot));
+    if (!artwork.has("overland-materials") || slots.some(slot => !artwork.has(`overland-tile:${slot}`)) ||
+        landmarks.some(slot => !artwork.has(`overland-landmark:${slot}`))) {
       delete view.overlandTerrain;
     } else {
-      const detailSlots = [...new Set(terrain.slots)].filter(slot => artwork.has(`overland-detail:${slot}`));
-      if (detailSlots.length) view.overlandTerrain = { ...terrain, detailSlots };
+      const details = slots.filter(slot => artwork.has(`overland-detail:${slot}`));
+      view.overlandTerrain = {
+        ...terrain, detailSlots: details.length ? details : undefined,
+        landmarkSlots: landmarks.length ? landmarks : undefined,
+      };
     }
   }
   const native = view.nativeScenery;

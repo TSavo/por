@@ -34,7 +34,7 @@ import { contentBytes, readGameData, type PictureRecord, type PortGameData } fro
 import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
 import { endingPortraitKey } from "./portrait-art.js";
 import { useGameVersion } from "../src/runtime/bindings.js";
-import { overlandMapSlots } from "./overland-travel.js";
+import { overlandLandmarkSlots, overlandMapSlots } from "./overland-travel.js";
 import {
   areaViewCells, covered, frontWallSymbols, HORIZON, namedTiles, reachable, readWorld, sha256, symbolTile, viewCells,
   type AreaScript, type Lower, type TileName, type ViewContext, type WallSlots, type WorldData,
@@ -864,7 +864,9 @@ function overlandTerrainCoverage(art: Map<string, Art>) {
   const atlasReady = !missing(art, "overland-materials", 1024, 2048);
   const missingSlots = slots.filter(slot => {
     const detail = `overland-detail:${slot}`;
-    return missing(art, `overland-tile:${slot}`, 96, 96) || (art.has(detail) && missing(art, detail, 96, 96));
+    return missing(art, `overland-tile:${slot}`, 96, 96) ||
+      (art.has(detail) && missing(art, detail, 96, 96)) ||
+      (overlandLandmarkSlots.has(slot) && missing(art, `overland-landmark:${slot}`, 96, 96));
   });
   return { atlasReady, total: slots.length, covered: slots.length - missingSlots.length, missingSlots };
 }
@@ -1041,7 +1043,7 @@ function document(list: Worklist): string {
   for (const area of list.areas) if (!area.established) add(`- Area ${area.area} (${area.name}): ${area.why}.`);
   const local = list.overlandTerrain;
   add("", "### Local overland encounter terrain (#193)", "",
-    `${local.covered} / ${local.total} native world-map slots have a 96×96 material mask. ${local.missingSlots.length} slots lack a mask.`,
+    `${local.covered} / ${local.total} native world-map slots have their 96×96 terrain materials and any required landmarks. ${local.missingSlots.length} slots are incomplete.`,
     "The Enhanced overland encounter view combines painted materials with the native slots and world position. A slot can add a separate 96×96 mask for water, marsh, and river silt. Normal travel uses the regional atlas.",
     "The table counts slots in the native map data. Paired replays establish which local 5×5 compositions appear during encounters.",
     local.atlasReady ? "The shared 1024×2048 material atlas is installed." : "The shared 1024×2048 material atlas is missing.",

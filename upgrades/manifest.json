@@ -3244,6 +3244,12 @@
   ],
   "assets": {
     "overland-materials": "overland-wilderness-water-materials.png",
+    "overland-tile:232": "overland-terrain-077-materials.png",
+    "overland-detail:232": "overland-terrain-077-wet.png",
+    "overland-landmark:232": "overland-pyramid-island-232.png",
+    "overland-tile:231": "overland-terrain-077-materials.png",
+    "overland-detail:231": "overland-terrain-077-wet.png",
+    "overland-landmark:231": "overland-pyramid-island-231.png",
     "overland-tile:77": "overland-terrain-077-materials.png",
     "overland-detail:77": "overland-terrain-077-wet.png",
     "overland-tile:78": "overland-terrain-077-materials.png",
