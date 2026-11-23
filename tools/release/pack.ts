@@ -363,9 +363,9 @@ if (platforms.includes("windows")) {
     log("building the Windows installer");
     run(makensis, ["-V2", `-DSTAGE=${stage}`, `-DOUTFILE=${setup}`, `-DVERSION=${version}`, script]);
   } else if (nsisHost) {
-    // makensis on another machine (apt-get install nsis): the stage goes to its /dev/shm, the installer comes back.
+    // makensis on another machine (apt-get install nsis): the stage goes to its /tmp, the installer comes back.
     if (!/^[\w.@-]+$/.test(nsisHost)) throw new Error(`POR_NSIS_HOST ${nsisHost} is not a host name`);
-    const remote = `/dev/shm/por-nsis-${process.pid}`;
+    const remote = `/tmp/por-nsis-${process.pid}`;
     log(`building the Windows installer on ${nsisHost}`);
     execSync(`tar --no-xattrs --no-mac-metadata -cf - -C '${stage}' . | ssh -o BatchMode=yes ${nsisHost} ` +
       `'rm -rf ${remote} && mkdir -p ${remote}/stage && tar -xf - -C ${remote}/stage'`, { stdio: ["ignore", "inherit", "inherit"] });
