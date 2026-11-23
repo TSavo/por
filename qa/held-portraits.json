@@ -16587,6 +16587,190 @@
           }
         }
       }
+    },
+    {
+      "id": "area:25:ecl:9c97:PIC6.DAX:32",
+      "producer": "ECL6.DAX:25:9bb1",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 310,
+          "viewport": "3b9d2eda5010111267327f7343e2a968f57e81cd64a137b08725c498196a7cc4"
+        },
+        {
+          "member": 1,
+          "durationMs": 310,
+          "viewport": "06fffa75fae8114b2d806871a4735d8b17a33fbfe7cef12569c21e04fdf033a0"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "diogenes-mountain-sighting-loop",
+          "data": "original",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "dc0a6f4402ec6552dd4d70657dd39ad690d6dacbea1ce8b4791a3627f6b64bba",
+          "portrait": "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0",
+              "atMs": 4.000000011920747
+            },
+            {
+              "key": "portrait:area:25:ecl:9c97:PIC6.DAX:32:1:0",
+              "atMs": 237.40000001192084
+            },
+            {
+              "key": "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0",
+              "atMs": 554.0000000119207
+            },
+            {
+              "key": "portrait:area:25:ecl:9c97:PIC6.DAX:32:1:0",
+              "atMs": 854.0000000119207
+            },
+            {
+              "key": "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0",
+              "atMs": 1170.600000011921
+            },
+            {
+              "key": "portrait:area:25:ecl:9c97:PIC6.DAX:32:1:0",
+              "atMs": 1470.600000011921
+            }
+          ],
+          "sha256": {
+            "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0": "1d8dc3da62f90da78821496621dd7b74b584a6771fbea07865a0211443f16e5f",
+            "portrait:area:25:ecl:9c97:PIC6.DAX:32:1:0": "fd75bf0af83966889456200cff37e7d865a0df6c7671038d629520fd1a66ec8d"
+          }
+        },
+        "port": {
+          "route": "diogenes-mountain-sighting-loop",
+          "data": "port",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "dc0a6f4402ec6552dd4d70657dd39ad690d6dacbea1ce8b4791a3627f6b64bba",
+          "portrait": "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0",
+              "atMs": 1.800000011920929
+            },
+            {
+              "key": "portrait:area:25:ecl:9c97:PIC6.DAX:32:1:0",
+              "atMs": 301.80000001192093
+            },
+            {
+              "key": "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0",
+              "atMs": 601.8000000119209
+            },
+            {
+              "key": "portrait:area:25:ecl:9c97:PIC6.DAX:32:1:0",
+              "atMs": 918.4000000119208
+            },
+            {
+              "key": "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0",
+              "atMs": 1218.4000000119208
+            },
+            {
+              "key": "portrait:area:25:ecl:9c97:PIC6.DAX:32:1:0",
+              "atMs": 1535.100000011921
+            }
+          ],
+          "sha256": {
+            "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0": "1d8dc3da62f90da78821496621dd7b74b584a6771fbea07865a0211443f16e5f",
+            "portrait:area:25:ecl:9c97:PIC6.DAX:32:1:0": "fd75bf0af83966889456200cff37e7d865a0df6c7671038d629520fd1a66ec8d"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:25:ecl:9c97:PIC6.DAX:32",
+      "producer": "ECL6.DAX:25:9bb1",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 310,
+          "viewport": "3b9d2eda5010111267327f7343e2a968f57e81cd64a137b08725c498196a7cc4"
+        },
+        {
+          "member": 1,
+          "durationMs": 310,
+          "viewport": "06fffa75fae8114b2d806871a4735d8b17a33fbfe7cef12569c21e04fdf033a0"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "diogenes-mountain-revisit-loop",
+          "data": "original",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "bd2f422a8c4d5d7e1d8bfb1b088a80c125132afb21b4aa6c54e68fe5ffa20ca2",
+          "portrait": "portrait:PIC6.DAX:32:0:0",
+          "paints": [
+            {
+              "key": "portrait:PIC6.DAX:32:0:0",
+              "atMs": 1.1000000000003638
+            },
+            {
+              "key": "portrait:PIC6.DAX:32:1:0",
+              "atMs": 251.10000000000036
+            },
+            {
+              "key": "portrait:PIC6.DAX:32:0:0",
+              "atMs": 551.1000000000004
+            },
+            {
+              "key": "portrait:PIC6.DAX:32:1:0",
+              "atMs": 867.6999999999998
+            },
+            {
+              "key": "portrait:PIC6.DAX:32:0:0",
+              "atMs": 1184.3999999999996
+            },
+            {
+              "key": "portrait:PIC6.DAX:32:1:0",
+              "atMs": 1484.3999999999996
+            }
+          ],
+          "sha256": {
+            "portrait:PIC6.DAX:32:0:0": "be7de113522ab0d2fe228ecef3cda4f6a0858c42f417418b32d19bbfed1caa34",
+            "portrait:PIC6.DAX:32:1:0": "a3c11eb2a037b45d0d6ea2cccb4f2443f196826fa9aeee674842bfec3cec21de"
+          }
+        },
+        "port": {
+          "route": "diogenes-mountain-revisit-loop",
+          "data": "port",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "bd2f422a8c4d5d7e1d8bfb1b088a80c125132afb21b4aa6c54e68fe5ffa20ca2",
+          "portrait": "portrait:PIC6.DAX:32:0:0",
+          "paints": [
+            {
+              "key": "portrait:PIC6.DAX:32:0:0",
+              "atMs": 6.599999964237213
+            },
+            {
+              "key": "portrait:PIC6.DAX:32:1:0",
+              "atMs": 239.9999999642373
+            },
+            {
+              "key": "portrait:PIC6.DAX:32:0:0",
+              "atMs": 539.9999999642373
+            },
+            {
+              "key": "portrait:PIC6.DAX:32:1:0",
+              "atMs": 856.5999999642372
+            },
+            {
+              "key": "portrait:PIC6.DAX:32:0:0",
+              "atMs": 1173.299999964237
+            },
+            {
+              "key": "portrait:PIC6.DAX:32:1:0",
+              "atMs": 1473.299999964237
+            }
+          ],
+          "sha256": {
+            "portrait:PIC6.DAX:32:0:0": "be7de113522ab0d2fe228ecef3cda4f6a0858c42f417418b32d19bbfed1caa34",
+            "portrait:PIC6.DAX:32:1:0": "a3c11eb2a037b45d0d6ea2cccb4f2443f196826fa9aeee674842bfec3cec21de"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
