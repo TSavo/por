@@ -79,6 +79,7 @@ told by the player when it stops a voice. It starts, stops and queues nothing.
 | `refused` | `play()` was rejected (Chrome's autoplay rule, with no click on the page yet). The player retries on the next key or click |
 | `startedAt`, `startFrame`, `duration` | the audio element's `playing` event, and the recording's length as Chrome decoded it |
 | `expectedArt`, `caption` | the artwork key and native dialogue or menu text of the view that owns the recording |
+| `captionSelection` | for a voiced variant with an explicit selector, the guest's selector value and its independently read output text |
 | `artAtStart`, `artSeen`, `artAtEnd` | the Enhanced artwork key drawn (`portrait`, encounter picture or scene); with none, `"runes in the picture window"` or `"the first-person view"` where the frame shows them (the names the ledger uses), else `null`: at the start, each change while the line sounded, and at the end. `artTimes` gives the seconds into the line of each entry of `artSeen` |
 | `startedOver` | voices still sounding when this one started. Must never appear |
 | `talkedOverBy` | a voice that started while this one was sounding. Must never appear |
@@ -198,7 +199,10 @@ visible through all 3.12 seconds, and the Valjevo bodyguards stay through
 all 7.52 seconds. The Slums Kobold and Goblin captions at the shared
 `9dde` script position also match their own recordings and pictures in
 bundled Chrome. Swapping those captions in copies of the playback logs
-fails verification even when each picture key matches.
+fails verification even when each picture key matches. At Tyranthraxus'
+vote the recordings use short alternate questions. Those captions must
+match the complete native question and voter name, and the asset's
+variant must match the voter slot read when the game prints the name.
 
 ## The silent cases
 

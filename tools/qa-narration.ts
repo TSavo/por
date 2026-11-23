@@ -2,7 +2,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { disassemble, readEntryVector, scriptFromBlock, type Instruction } from "../src/lib/ecl.js";
 import { runningScriptAddress } from "../src/runtime/bindings.js";
-import { EclNarrationObserver, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
+import { EclNarrationObserver, type EclNarrationEvent, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 import type { LedgerFrame, LedgerNarration } from "./narration-ledger.js";
 
 // The narration, measured.
@@ -26,6 +26,7 @@ interface Variant { id: string; condition: string; dynamicValue: string; text: s
 interface Unit {
   id: string; archive: string; triggerSourceId: string; coveredSourceIds: string[]; spokenText: string;
   asset: string | null; runtimeVariants?: Variant[];
+  selector?: ObserverManifest["units"][number]["selector"];
 }
 interface Manifest extends Omit<ObserverManifest, "units" | "events"> {
   events: (ObserverManifest["events"][number] & { normalizedText: string })[];
@@ -72,6 +73,7 @@ interface Coverage {
 interface PlaybackArtCheck {
   run: string; leg: string; unitId: string; variantId?: string; asset: string;
   expected: string | null; caption: string; seen: (string | null)[]; end: string | null;
+  captionSelection?: EclNarrationEvent["captionSelection"];
 }
 interface Playback {
   /** Every merged playback log, and how its lines ended. */
@@ -98,6 +100,7 @@ interface PlaybackLine {
   startedOver?: (string | number)[]; talkedOverBy?: string | number; pauses?: number; refused?: string;
   outcome?: "ended" | "stopped" | "never-started"; reason?: string; endedAt?: number; endFrame?: number; position?: number;
   artAtEnd?: string | null; expectedArt?: string | null; caption?: string; behind?: number; behindVoiceLine?: string;
+  captionSelection?: EclNarrationEvent["captionSelection"];
 }
 /** A recording counts as played to its end when the audio element reported `ended` this close to its duration. */
 const endTolerance = 0.25;
@@ -168,6 +171,7 @@ function mergePlayback(path: string): void {
         (playback.artChecks ??= {})[key] = {
           run, leg, unitId: line.unitId, ...variant, asset: line.asset,
           expected: line.expectedArt, caption: line.caption, seen, end: line.artAtEnd ?? null,
+          ...(line.captionSelection ? { captionSelection: line.captionSelection } : {}),
         };
       }
       const previous = playback.played[line.unitId];
@@ -323,9 +327,11 @@ const playback = coverage.playback ?? { runs: {}, played: {}, cutOff: {}, overla
 const playedUnits = units.filter(unit => playback.played[unit.id]);
 const playbackRuns = Object.values(playback.runs);
 const sum = (pick: (run: Playback["runs"][string]) => number) => playbackRuns.reduce((total, run) => total + pick(run), 0);
-const where = (unitId: string) => {
+const where = (unitId: string, variantId?: string) => {
   const unit = unitById.get(unitId);
-  return unit ? `${scriptOf(unit.triggerSourceId)} ${address(unit.triggerSourceId)} ${say(unit.spokenText || unit.runtimeVariants?.[0]?.text || "")}` : unitId;
+  if (!unit) return unitId;
+  const variant = unit.runtimeVariants?.find(item => item.id === variantId);
+  return `${scriptOf(unit.triggerSourceId)} ${address(unit.triggerSourceId)} ${say(variant?.text || unit.spokenText || unit.runtimeVariants?.[0]?.text || "")}`;
 };
 rows.push({ part: "Units played to the end in Chrome", done: playedUnits.length, total: units.length, left: units.length - playedUnits.length,
   note: `the audio element reported the recording's end within ${endTolerance}s of its length. From ${playbackRuns.length} playback logs holding ${sum(run => run.lines)} lines: ` +
@@ -364,10 +370,15 @@ function samePassage(caption: string, scriptText: string, actor?: string): boole
 function matchedArt(check: PlaybackArtCheck): boolean {
   const unit = unitById.get(check.unitId);
   const variant = check.variantId ? unit?.runtimeVariants?.find(item => item.id === check.variantId) : undefined;
-  const asset = variant?.asset ?? unit?.asset;
-  return Boolean(check.expected && check.seen.length === 1 && check.seen[0] === check.expected &&
-    check.end === check.expected && asset === check.asset &&
-    samePassage(check.caption, variant?.text ?? unit?.spokenText ?? "", variant?.dynamicValue));
+  if (!unit || (unit.runtimeVariants?.length ? !variant : check.variantId)) return false;
+  const asset = variant?.asset ?? unit.asset;
+  const native = check.captionSelection;
+  const passage = unit.selector
+    ? native && variant?.dynamicValue === native.value && captionWords(native.text).length > 0 &&
+      ` ${captionWords(check.caption).join(" ")} `.startsWith(` ${captionWords(native.text).join(" ")} `)
+    : samePassage(check.caption, variant?.text ?? unit.spokenText, variant?.dynamicValue);
+  return Boolean(passage && check.expected && check.seen.length === 1 && check.seen[0] === check.expected &&
+    check.end === check.expected && asset === check.asset);
 }
 const verifiedArtChecks = artChecks.filter(matchedArt);
 const currentArtUnits = new Set(verifiedArtChecks.map(check => check.unitId));
@@ -395,7 +406,7 @@ rows.push({ part: "Complete playback captures with their own artwork", done: ver
   left: artChecks.length - verifiedArtChecks.length, counted: false,
   note: `captures that name their picture and prove a matching printed passage, including ${new Set(verifiedArtChecks.flatMap(check => check.variantId ? [check.variantId] : [])).size} individually verified variants`,
   list: artChecks.filter(check => !matchedArt(check)).map(check =>
-    `${where(check.unitId)}${check.variantId ? ` (${check.variantId})` : ""}: expected ${check.expected ?? "no owned artwork"}, ` +
+    `${where(check.unitId, check.variantId)}${check.variantId ? ` (${check.variantId})` : ""}: expected ${check.expected ?? "no owned artwork"}, ` +
     `saw ${check.seen.map(key => key ?? "no artwork").join(" then ") || "not recorded"}, ended on ${check.end ?? "no artwork"}; ` +
     `printed caption ${check.caption ? say(check.caption) : "absent"} (${check.run} ${check.leg})`) });
 const variantsHeard = [...variantOwner.keys()].filter(id => coverage.variants[id]);

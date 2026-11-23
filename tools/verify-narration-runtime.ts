@@ -259,9 +259,20 @@ for (const [archive, block, address, expected] of [
 // and the typed name on screen. The first is asked "How do you vote?" and each next one a different
 // line: the same question six times sounded stuck (#126).
 loadBlock(5, 7);
+const voterSegment = 0x5000;
+const voterOffset = 0x0200;
+selectCpu.write16(selectCpu.ds, data.actor, voterOffset);
+selectCpu.write16(selectCpu.ds, data.actor + 2, voterSegment);
 const votes = Array.from({ length: 8 }, (_, index) => {
   selectCpu.write16(variableSegment, variableOffset(0x9800), index);
-  const vote = realCatalog.resolve(reach(0xa738, 0x12)!);
+  const voter = `VOTER ${index + 1}`;
+  selectCpu.write8(voterSegment, voterOffset, voter.length);
+  for (const [offset, byte] of Buffer.from(voter, "ascii").entries()) {
+    selectCpu.write8(voterSegment, voterOffset + 1 + offset, byte);
+  }
+  const event = reach(0xa738, 0x12)!;
+  assert.deepEqual(event.captionSelection, { value: String(index), text: `${voter} HOW DO YOU VOTE?` });
+  const vote = realCatalog.resolve(event);
   assert.equal(vote.status, "resolved", `voter ${index + 1} has a recording`);
   return vote.status === "resolved" ? vote.narration : undefined;
 });

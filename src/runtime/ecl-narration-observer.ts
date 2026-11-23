@@ -16,6 +16,7 @@ export interface EclNarrationEvent extends NarrationTrigger {
   address: string;
   operand?: number;
   sourceOperandId?: string;
+  captionSelection?: { value: string; text: string };
   step: number;
 }
 
@@ -226,8 +227,14 @@ export class EclNarrationObserver {
     const spoken = candidates.length === 1 ? candidates[0]!.spokenText.trim() : "";
     const matchingOperands = literalOperands.filter(part => spoken && part.rawText?.trim() === spoken);
     const operand = matchingOperands.length === 1 ? matchingOperands[0]!.operandIndex : undefined;
+    // A named selector can choose a read that differs from the literal text (for example a party vote).
+    // Keep the guest's actual output values for playback QA alongside the selected recording.
+    const captionSelection = candidate?.selector && dynamicValue !== undefined
+      ? { value: dynamicValue, text: this.readUnitPrintedSentence(cpu, candidate) }
+      : undefined;
     const reached: EclNarrationEvent = {
       sourceId: event.sourceId,
+      ...(captionSelection ? { captionSelection } : {}),
       ...(candidates.length === 1 ? { unitId: candidates[0]!.id } : {}),
       ...(dynamicValue !== undefined ? { dynamicValue } : {}),
       archive: this.archive,
@@ -403,14 +410,25 @@ export class EclNarrationObserver {
    * that no variant matches it and the ledger shows what the game said.
    */
   private readUnitSentenceValue(cpu: Cpu, unit: ObserverManifest["units"][number]): string {
-    const sentence = this.normalizeMenuText(unit.coveredSourceIds.flatMap(id => this.eventsById.get(id)?.outputParts ?? [])
-      .map(part => part.kind === "literal" ? part.rawText ?? ""
-        : part.kind === "dynamic-string" && part.address ? this.readEclString(cpu, part.address)
-        : part.address ? String(this.readEclValue(cpu, this.hex(part.address))) : "").join(""));
+    const sentence = this.readUnitPrintedSentence(cpu, unit);
     return unit.runtimeVariants!.find(variant => this.normalizeMenuText(variant.text) === sentence)?.dynamicValue ?? sentence;
   }
 
+  private readUnitPrintedSentence(cpu: Cpu, unit: ObserverManifest["units"][number]): string {
+    return this.normalizeMenuText(unit.coveredSourceIds.flatMap(id => this.eventsById.get(id)?.outputParts ?? [])
+      .map(part => part.kind === "literal" ? part.rawText ?? ""
+        : part.kind === "dynamic-string" && part.address ? this.readEclString(cpu, part.address)
+        : part.address ? String(this.readEclValue(cpu, this.hex(part.address))) : "").join(""));
+  }
+
   private readEclString(cpu: Cpu, address: string): string {
+    if (address === "0x6b00") {
+      // The ECL print routine reads this operand from the selected actor's Pascal name.
+      const offset = cpu.read16(cpu.ds, data.actor);
+      const segment = cpu.read16(cpu.ds, data.actor + 2);
+      const length = Math.min(15, cpu.read8(segment, offset));
+      return String.fromCharCode(...Array.from({ length }, (_, index) => cpu.read8(segment, (offset + index + 1) & 0xffff)));
+    }
     const { segment, offset, stride } = this.eclStorage(cpu, this.hex(address));
     // ECL SAVE writes zero-terminated characters, one per addressable slot.
     let text = "";

@@ -26,6 +26,12 @@
    "decisions": 359,
    "heard": 57
   },
+  "campaign-castle-approach-bundled-caption": {
+   "ledger": "castle-approach.jsonl",
+   "games": 1,
+   "decisions": 50,
+   "heard": 15
+  },
   "campaign-full": {
    "ledger": "campaign-full.jsonl",
    "games": 11,
@@ -4751,6 +4757,16 @@
  "silent": {},
  "playback": {
   "runs": {
+   "campaign-castle-approach-bundled-caption": {
+    "log": "castle-approach.playback.jsonl",
+    "legs": 1,
+    "lines": 15,
+    "toTheEnd": 15,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
    "campaign-full": {
     "log": "campaign-full.playback.jsonl",
     "legs": 11,
@@ -4874,13 +4890,11 @@
   },
   "played": {
    "ecl1-b18-9a36-prompt": {
-    "run": "campaign-full",
+    "run": "campaign-castle-approach-bundled-caption",
     "asset": "voices/narration/ecl1/block-18/ecl1-b18-9a36-prompt.mp3",
     "seconds": 4.72,
-    "waited": 0.039,
-    "saw": [
-     null
-    ]
+    "waited": 0.007,
+    "art": "the first-person view"
    },
    "ecl2-b20-9ab8": {
     "run": "campaign-full",
@@ -4933,13 +4947,11 @@
     "art": "scene-illustration:area:9:ecl:9c63:caller:ae22"
    },
    "ecl2-b9-b056": {
-    "run": "campaign-full",
+    "run": "campaign-castle-approach-bundled-caption",
     "asset": "voices/narration/ecl2/block-9/ecl2-b9-b056.mp3",
     "seconds": 3.44,
-    "waited": 0.037,
-    "saw": [
-     null
-    ]
+    "waited": 0.062,
+    "art": "the first-person view"
    },
    "ecl8-b16-aa7c": {
     "run": "issue-100-pool-transient",
@@ -5111,13 +5123,11 @@
     "art": "portrait:area:0:HEAD3.DAX:16:BODY3.DAX:7"
    },
    "por.voice.ecl3.b0-9d2f": {
-    "run": "campaign-full",
+    "run": "campaign-castle-approach-bundled-caption",
     "asset": "voices/narration/ecl3/b0-9d2f.mp3",
     "seconds": 2.64,
-    "waited": 0.038,
-    "saw": [
-     null
-    ]
+    "waited": 0.005,
+    "art": "the first-person view"
    },
    "por.voice.ecl3.b0-9d54": {
     "run": "campaign-full",
@@ -5471,6 +5481,186 @@
    }
   },
   "artChecks": {
+   "campaign-castle-approach-bundled-caption | leg-8 | 1 | por.voice.ecl3.b8-9b3c": {
+    "run": "campaign-castle-approach-bundled-caption",
+    "leg": "leg-8",
+    "unitId": "por.voice.ecl3.b8-9b3c",
+    "asset": "voices/narration/ecl3/b8-9b3c.mp3",
+    "expected": "scene-illustration:area:8:ecl:9b8a:caller:9a4a",
+    "caption": "YOU ARE OUTSIDE THE CLERK'S OFFICE. GUARDS POSTED AROUND A DOOR IN THE SOUTH WALL WATCH YOU CLOSELY. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:8:ecl:9b8a:caller:9a4a"
+    ],
+    "end": "scene-illustration:area:8:ecl:9b8a:caller:9a4a"
+   },
+   "campaign-castle-approach-bundled-caption | leg-8 | 10 | ecl2-b9-add9": {
+    "run": "campaign-castle-approach-bundled-caption",
+    "leg": "leg-8",
+    "unitId": "ecl2-b9-add9",
+    "asset": "voices/narration/ecl2/block-9/ecl2-b9-add9.mp3",
+    "expected": "scene-illustration:area:9:ecl:9c63:caller:ae22",
+    "caption": "A MAN DRIVING A WAGON FULL OF FOOD AND EQUIPMENT STARTS TO DRIVE PAST YOU, GOING NORTH. Press button or <return> to continue",
+    "seen": [
+     "scene-illustration:area:9:ecl:9c63:caller:ae22"
+    ],
+    "end": "scene-illustration:area:9:ecl:9c63:caller:ae22"
+   },
+   "campaign-castle-approach-bundled-caption | leg-8 | 11 | ecl2-b9-b056": {
+    "run": "campaign-castle-approach-bundled-caption",
+    "leg": "leg-8",
+    "unitId": "ecl2-b9-b056",
+    "asset": "voices/narration/ecl2/block-9/ecl2-b9-b056.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU QUICKLY KILL THE TRADER AND GRAB HIS WAGON. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "campaign-castle-approach-bundled-caption | leg-8 | 12 | ecl2-b9-a9d9": {
+    "run": "campaign-castle-approach-bundled-caption",
+    "leg": "leg-8",
+    "unitId": "ecl2-b9-a9d9",
+    "asset": "voices/narration/ecl2/block-9/ecl2-b9-a9d9.mp3",
+    "expected": "scene-illustration:area:9:ecl:9c63:caller:aa57",
+    "caption": "BEFORE YOU IS STOJANOW GATE. THIS ANCIENT EDIFICE IS BUILT ACROSS THE BEND OF THE RIVER, THUS ISOLATING THE OLD TOWN AND THE CASTLE FROM THE REST OF THE CITY. Press button or <return> to continue",
+    "seen": [
+     "scene-illustration:area:9:ecl:9c63:caller:aa57"
+    ],
+    "end": "scene-illustration:area:9:ecl:9c63:caller:aa57"
+   },
+   "campaign-castle-approach-bundled-caption | leg-8 | 13 | ecl2-b9-aa57": {
+    "run": "campaign-castle-approach-bundled-caption",
+    "leg": "leg-8",
+    "unitId": "ecl2-b9-aa57",
+    "asset": "voices/narration/ecl2/block-9/ecl2-b9-aa57.mp3",
+    "expected": "scene-illustration:area:9:ecl:9c63:caller:aabb",
+    "caption": "THE MAIN WALL RISES 30 FEET WHILE THE TWO WATCHTOWER RISE TO 50 FEET. LOUNGING AROUND THE ENTRANCE ARE A GROUP OF BUGBEARS. Press button or <return> to continue",
+    "seen": [
+     "scene-illustration:area:9:ecl:9c63:caller:aabb"
+    ],
+    "end": "scene-illustration:area:9:ecl:9c63:caller:aabb"
+   },
+   "campaign-castle-approach-bundled-caption | leg-8 | 14 | ecl2-b9-aba1": {
+    "run": "campaign-castle-approach-bundled-caption",
+    "leg": "leg-8",
+    "unitId": "ecl2-b9-aba1",
+    "asset": "voices/narration/ecl2/block-9/ecl2-b9-aba1.mp3",
+    "expected": "portrait:area:9:ecl:9c35:caller:abdf:PIC2.DAX:63:0:0",
+    "caption": "A BUGBEAR WALKS UP TO YOU. 'OKAY, LETS HAVE THE 15 GOLD.' DO YOU PAY HIM? Yes No",
+    "seen": [
+     "portrait:area:9:ecl:9c35:caller:abdf:PIC2.DAX:63:0:0"
+    ],
+    "end": "portrait:area:9:ecl:9c35:caller:abdf:PIC2.DAX:63:0:0"
+   },
+   "campaign-castle-approach-bundled-caption | leg-8 | 15 | ecl2-b9-ac4b": {
+    "run": "campaign-castle-approach-bundled-caption",
+    "leg": "leg-8",
+    "unitId": "ecl2-b9-ac4b",
+    "asset": "voices/narration/ecl2/block-9/ecl2-b9-ac4b.mp3",
+    "expected": "scene-illustration:area:9:ecl:acb7",
+    "caption": "THE BUGBEAR TAKES THE MONEY AND THE GATE OPENS. YOU PROCEED THROUGH. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:9:ecl:acb7"
+    ],
+    "end": "scene-illustration:area:9:ecl:acb7"
+   },
+   "campaign-castle-approach-bundled-caption | leg-8 | 2 | por.voice.ecl3.b0-abd2": {
+    "run": "campaign-castle-approach-bundled-caption",
+    "leg": "leg-8",
+    "unitId": "por.voice.ecl3.b0-abd2",
+    "asset": "voices/narration/ecl3/b0-abd2.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU ARE OUTSIDE THE CITY HALL. THE CITY CLERK WAITS INSIDE TO AWARD COMMISSIONS. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "campaign-castle-approach-bundled-caption | leg-8 | 3 | por.voice.ecl3.b0-9de8": {
+    "run": "campaign-castle-approach-bundled-caption",
+    "leg": "leg-8",
+    "unitId": "por.voice.ecl3.b0-9de8",
+    "asset": "voices/narration/ecl3/b0-9de8.mp3",
+    "expected": "scene-illustration:area:0:ecl:9e07",
+    "caption": "TO THE NORTH IS THE PASSENGER DOCK. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:0:ecl:9e07"
+    ],
+    "end": "scene-illustration:area:0:ecl:9e07"
+   },
+   "campaign-castle-approach-bundled-caption | leg-8 | 4 | por.voice.ecl3.b0-9c67": {
+    "run": "campaign-castle-approach-bundled-caption",
+    "leg": "leg-8",
+    "unitId": "por.voice.ecl3.b0-9c67",
+    "asset": "voices/narration/ecl3/b0-9c67.mp3",
+    "expected": "portrait:area:0:HEAD3.DAX:16:BODY3.DAX:7",
+    "caption": "THE HARBOR MASTER TELLS YOU BOATS LEAVE FOR THE WEST, THE EAST, SOKAL KEEP, AND THE NORTH SIDE OF THE BAY. 'ROUND TRIP PASSAGE IS 1 PLATINUM PIECE. WHAT PASSAGE CAN I SELL YOU?' Sokal East West Bay None",
+    "seen": [
+     "portrait:area:0:HEAD3.DAX:16:BODY3.DAX:7"
+    ],
+    "end": "portrait:area:0:HEAD3.DAX:16:BODY3.DAX:7"
+   },
+   "campaign-castle-approach-bundled-caption | leg-8 | 5 | por.voice.ecl3.b0-9d2f": {
+    "run": "campaign-castle-approach-bundled-caption",
+    "leg": "leg-8",
+    "unitId": "por.voice.ecl3.b0-9d2f",
+    "asset": "voices/narration/ecl3/b0-9d2f.mp3",
+    "expected": "the first-person view",
+    "caption": "'CATCH THE BOAT AT THE END OF THE PIER.' Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "campaign-castle-approach-bundled-caption | leg-8 | 6 | por.voice.ecl3.b0-9bc2": {
+    "run": "campaign-castle-approach-bundled-caption",
+    "leg": "leg-8",
+    "unitId": "por.voice.ecl3.b0-9bc2",
+    "asset": "voices/narration/ecl3/b0-9bc2.mp3",
+    "expected": "portrait:area:0:PIC3.DAX:41:0:0",
+    "caption": "YOU BOARD A BOAT. Press <enter>/<return> to continue",
+    "seen": [
+     "portrait:area:0:PIC3.DAX:41:0:0"
+    ],
+    "end": "portrait:area:0:PIC3.DAX:41:0:0"
+   },
+   "campaign-castle-approach-bundled-caption | leg-8 | 7 | por.voice.ecl7.b26-a037": {
+    "run": "campaign-castle-approach-bundled-caption",
+    "leg": "leg-8",
+    "unitId": "por.voice.ecl7.b26-a037",
+    "asset": "voices/narration/ecl7/b26-a037.mp3",
+    "expected": "portrait:area:0:PIC3.DAX:41:0:0",
+    "caption": "THERE IS A BOAT HERE THAT WILL TAKE YOU BACK TO THE CIVILISED SECTION OF PHLAN. WILL YOU TAKE IT? Take boat Stay",
+    "seen": [
+     "portrait:area:0:PIC3.DAX:41:0:0"
+    ],
+    "end": "portrait:area:0:PIC3.DAX:41:0:0"
+   },
+   "campaign-castle-approach-bundled-caption | leg-8 | 8 | por.voice.ecl7.b26-9e46": {
+    "run": "campaign-castle-approach-bundled-caption",
+    "leg": "leg-8",
+    "unitId": "por.voice.ecl7.b26-9e46",
+    "asset": "voices/narration/ecl7/b26-9e46.mp3",
+    "expected": "portrait:area:26:ecl:9ed3:PIC7.DAX:40:0:0",
+    "caption": "YOU ARE ON THE WESTERN EDGE OF THE CITY. THERE ARE TWO ENTERANCES INTO THE CITY, A NORTH ENTRANCE AND A SOUTH ENTRANCE. WHICH ENTRANCE WILL YOU TAKE? North South Leave",
+    "seen": [
+     "portrait:area:26:ecl:9ed3:PIC7.DAX:40:0:0"
+    ],
+    "end": "portrait:area:26:ecl:9ed3:PIC7.DAX:40:0:0"
+   },
+   "campaign-castle-approach-bundled-caption | leg-8 | 9 | ecl1-b18-9a36-prompt": {
+    "run": "campaign-castle-approach-bundled-caption",
+    "leg": "leg-8",
+    "unitId": "ecl1-b18-9a36-prompt",
+    "asset": "voices/narration/ecl1/block-18/ecl1-b18-9a36-prompt.mp3",
+    "expected": "the first-person view",
+    "caption": "THE PLAZA AHEAD IS CROWDED WITH MONSTERS. HOW WILL YOU PROCEDE? STRIDE BOLDLY FORWARD! DISGUISE PARTY AS MONSTERS. SNEAK, REMAINING UNSEEN",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
    "issue-100-9dde-goblin-port | 9dde-goblin | 1 | ecl2-b20-9dde-runtime-text": {
     "run": "issue-100-9dde-goblin-port",
     "leg": "9dde-goblin",

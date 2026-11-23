@@ -14,7 +14,8 @@ import { partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
 import type { CharacterSheetPart } from "./portrait-art.js";
 import { enhancedArtEnv, packagedTerrain as packagedTerrainFor, packagedTiles } from "./enhanced-runner.js";
 import type { EncounterPlacement } from "./encounter-art.js";
-import { exactTextNarrations as exactTextUnits, NarrationCatalog, normalizeSpeech, type NarrationTrigger, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
+import { exactTextNarrations as exactTextUnits, NarrationCatalog, normalizeSpeech, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
+import type { EclNarrationEvent } from "../src/runtime/ecl-narration-observer.js";
 import { buildNewPhlanMaterials } from "./new-phlan-3d-materials.js";
 import { phlanHarborLayout } from "./renderer.js";
 import { buildExplorationMaterials, explorationMaterialArea } from "./exploration-materials.js";
@@ -201,6 +202,7 @@ const runner = spawn(process.execPath, runnerArguments, {
 type PendingNarration = {
   step: number; unitId: string; variantId?: string;
   sourceId: string; coveredSourceIds: string[]; asset: string; text: string;
+  captionSelection?: EclNarrationEvent["captionSelection"];
 };
 type FrameNarrations = { narrations?: (PendingNarration & { id: number })[] };
 
@@ -353,13 +355,14 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
         asset: unit.asset!, text: unit.spokenText });
     }
   } else if (line.startsWith("POR_NARRATION ")) {
-    const event = JSON.parse(line.slice("POR_NARRATION ".length)) as NarrationTrigger & { step?: number };
+    const event = JSON.parse(line.slice("POR_NARRATION ".length)) as EclNarrationEvent;
     const resolved = narrationCatalog.resolve(event);
     if (resolved.status === "resolved") {
       const narration = resolved.narration;
       heldNarrations.push({ step: event.step ?? 0, unitId: narration.unitId,
         ...(narration.variantId ? { variantId: narration.variantId } : {}), sourceId: narration.triggerSourceId,
-        coveredSourceIds: narration.coveredSourceIds, asset: narration.asset, text: narration.text });
+        coveredSourceIds: narration.coveredSourceIds, asset: narration.asset, text: narration.text,
+        ...(event.captionSelection ? { captionSelection: event.captionSelection } : {}) });
     } else if (resolved.status === "ambiguous" || resolved.status === "selector-required") {
       console.error(`Narration ${event.sourceId}: ${resolved.status}`);
     }
