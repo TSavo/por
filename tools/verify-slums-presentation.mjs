@@ -5769,7 +5769,7 @@ const illustrationRoutes = new Map([
     slot: "A", stockInput: true, inputs: ["up", "enter", "up", "enter", "a", "a", "p", "m"],
     portrait: "scene-illustration:area:23:ecl:9bef:cue:patrol-stands-down",
     prompt: /WEWILLNOTKILLYOU.*THEENEMYOFMYENEMYISNOTMYENEMY/i,
-    continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i, clearsPortrait: true },
+    continuation: { inputs: ["up"], prompt: /^(?!.*THEENEMYOFMYENEMY).*NAMEACHP/i, clearsPortrait: true },
   }],
   ["pyramid-lizardfolk-patrol-sighting", {
     slot: "A", inputs: ["up"],
