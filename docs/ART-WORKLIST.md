@@ -215,12 +215,6 @@ The paired GOG 1.3 Chrome replays verified the illustrated ending and council re
 - `FINAL5.DAX:4:0:0`
 - `FINAL5.DAX:5:0:0`
 - `FINAL5.DAX:6:0:0`
-- `FINAL5.DAX:8:0:0`
-- `FINAL5.DAX:8:1:0`
-- `FINAL5.DAX:8:2:0`
-- `FINAL5.DAX:8:3:0`
-- `FINAL5.DAX:8:4:0`
-- `FINAL5.DAX:8:5:0`
 
 ### Blank approach sprite frames
 

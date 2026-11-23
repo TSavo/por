@@ -32,6 +32,12 @@
   "additionalReplays": 2,
   "keys": []
  },
+ "overlandTerrain": {
+  "atlasReady": true,
+  "total": 248,
+  "covered": 248,
+  "missingSlots": []
+ },
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining, no invalid tile artwork and zero Enhanced fallbacks across the recorded walks. The artwork is done when, as well, nothing is left under notEstablished.",
  "remaining": 0,
@@ -2331,60 +2337,6 @@
    "keyForm": "covered by the Enhanced ending illustrations",
    "pngSize": "-",
    "evidence": "native placement confirmed by the GOG 1.3 valjevo-dragon-loot draw trace (see docs/ART-INVENTORY.md); Enhanced covers this part of the sequence with scene illustrations"
-  },
-  {
-   "frame": "FINAL5.DAX:8:0:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the ending",
-   "keyForm": "covered by the Enhanced ending illustrations",
-   "pngSize": "-",
-   "evidence": "native placement confirmed by the GOG 1.3 valjevo-dragon-loot draw trace (see docs/ART-INVENTORY.md); Enhanced covers this part of the sequence with scene illustrations"
-  },
-  {
-   "frame": "FINAL5.DAX:8:1:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the ending",
-   "keyForm": "covered by the Enhanced ending illustrations",
-   "pngSize": "-",
-   "evidence": "native placement confirmed by the GOG 1.3 valjevo-dragon-loot draw trace (see docs/ART-INVENTORY.md); Enhanced covers this part of the sequence with scene illustrations"
-  },
-  {
-   "frame": "FINAL5.DAX:8:2:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the ending",
-   "keyForm": "covered by the Enhanced ending illustrations",
-   "pngSize": "-",
-   "evidence": "native placement confirmed by the GOG 1.3 valjevo-dragon-loot draw trace (see docs/ART-INVENTORY.md); Enhanced covers this part of the sequence with scene illustrations"
-  },
-  {
-   "frame": "FINAL5.DAX:8:3:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the ending",
-   "keyForm": "covered by the Enhanced ending illustrations",
-   "pngSize": "-",
-   "evidence": "native placement confirmed by the GOG 1.3 valjevo-dragon-loot draw trace (see docs/ART-INVENTORY.md); Enhanced covers this part of the sequence with scene illustrations"
-  },
-  {
-   "frame": "FINAL5.DAX:8:4:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the ending",
-   "keyForm": "covered by the Enhanced ending illustrations",
-   "pngSize": "-",
-   "evidence": "native placement confirmed by the GOG 1.3 valjevo-dragon-loot draw trace (see docs/ART-INVENTORY.md); Enhanced covers this part of the sequence with scene illustrations"
-  },
-  {
-   "frame": "FINAL5.DAX:8:5:0",
-   "width": 88,
-   "height": 88,
-   "what": "a picture of the ending",
-   "keyForm": "covered by the Enhanced ending illustrations",
-   "pngSize": "-",
-   "evidence": "native placement confirmed by the GOG 1.3 valjevo-dragon-loot draw trace (see docs/ART-INVENTORY.md); Enhanced covers this part of the sequence with scene illustrations"
   }
  ],
  "blankApproachSprites": [
@@ -2428,11 +2380,5 @@
    }
   ]
  },
- "items": [],
- "overlandTerrain": {
-  "atlasReady": true,
-  "total": 248,
-  "covered": 248,
-  "missingSlots": []
- }
+ "items": []
 }
