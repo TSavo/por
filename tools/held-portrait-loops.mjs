@@ -7,6 +7,8 @@ const towerTrollPoseOrder = [0, 1, 2, 3, 4, 3, 2, 1];
 const towerTrollPoseTimes = [1310, 20, 20, 20, 510, 110, 110, 210];
 const sokalPatrolPoseOrder = [0, 1, 2, 3, 2, 1];
 const sokalPatrolPoseTimes = [1310, 110, 110, 910, 110, 110];
+const poisonFrogPoseOrder = [0, 1, 2, 1];
+const poisonFrogPoseTimes = [1310, 110, 310, 20];
 const silverDragonPoseOrder = [0, 1, 2, 3, 4, 0, 2];
 const silverDragonPoseTimes = [1610, 510, 410, 1210, 1010, 1410, 1510];
 const conjurerPoseTimes = [410, 910, 20];
@@ -70,8 +72,10 @@ const portraitLoops = [
   ["portrait:area:21:ecl:ae31:caller:a613:PIC4.DAX:18:", [0, 1, 0, 3, 0, 5, 6, 3], "portrait:area:21:PIC4.DAX:18:0:0",
     /^(?!.*ABATTLEBEGINS).*THEINTERIORISOVERRUNWITHINSECTS/i, Array(8).fill(210), [[7, 7]]],
   // The poison frog's fourth native frame repeats the open-mouthed second painting.
-  ["portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:", [0, 1, 2, 1], "portrait:area:2:PIC4.DAX:37:0:0",
-    /^(?!.*ABATTLEBEGINS).*EVILLOOKINGFROGSBOILUPFROMBELOW/i, [1310, 110, 310, 20]],
+  ["portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:", poisonFrogPoseOrder, "portrait:area:2:PIC4.DAX:37:0:0",
+    /^(?!.*ABATTLEBEGINS).*EVILLOOKINGFROGSBOILUPFROMBELOW/i, poisonFrogPoseTimes],
+  ["portrait:area:21:ecl:a0c6:PIC4.DAX:37:", poisonFrogPoseOrder, undefined,
+    /^(?!.*ABATTLEBEGINS).*CROAKINGRISESINVOLUME.*COMBATWAITFLEEPARLAY/i, poisonFrogPoseTimes],
   ["portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:", [0, 1, 0, 3, 0, 5, 6, 3], undefined,
     /^(?!.*ABATTLEBEGINS).*SCORPIONSAPPROACHHUNGRILY/i, Array(8).fill(210), [[7, 7]]],
   ["portrait:area:21:ecl:a316:PIC4.DAX:17:", 3, "portrait:area:21:PIC4.DAX:17:0:0",

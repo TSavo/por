@@ -827,6 +827,14 @@ const nomadPursuit = {
 };
 
 const illustrationRoutes = new Map([
+  ["sokal-smithy-frog-hold", {
+    slot: "C", inputs: ["right", "up"],
+    portrait: "portrait:area:21:ecl:a0c6:PIC4.DAX:37:0:0",
+    prompt: /THECROAKINGRISESINVOLUME.*COMBATWAITFLEEPARLAY/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:21:ecl:a0c6:PIC4.DAX:37:${member}:0`),
+    finalPhaseCapture: "sokal-smithy-frog-hold.png",
+    continuation: { inputs: ["c"], portrait: "portrait:area:21:PIC4.DAX:37:0:0", prompt: /ABATTLEBEGINS/i },
+  }],
   ["wild-cave-boar-sow-warning-loop", {
     slot: "A", inputs: ["up"],
     portrait: "portrait:area:25:ecl:a622:PIC6.DAX:120:0:0",
