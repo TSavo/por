@@ -13487,6 +13487,8 @@
     "combat:area:17:CPIC7.DAX:140": "nomad-warrior-strike.png",
     "portrait:HEAD2.DAX:52:BODY2.DAX:31": "stojanow-plotting-mage.png",
     "portrait:HEAD2.DAX:11:BODY2.DAX:2": "stojanow-plotting-fighter.png",
+    "portrait:area:9:ecl:a577:HEAD2.DAX:11:BODY2.DAX:2": "stojanow-charging-officer.png",
+    "portrait:area:9:ecl:b0f9:HEAD2.DAX:11:BODY2.DAX:2": "stojanow-charging-officer.png",
     "tile:6:df30f16f431986f2cd1656a4b4e52c16bef9f85d526fc012b5b3718ca3694c8f": "valjevo-east-screen-terrain-01.png",
     "tile:6:5073fed19218b31e25fe949a437664fe32b7c96cbaa20c93e5e796af062a2ecb": "valjevo-east-screen-terrain-02.png",
     "scene-illustration:area:9:ecl:b1ac:caller:a1ba": "stojanow-ettin-guardroom.png",

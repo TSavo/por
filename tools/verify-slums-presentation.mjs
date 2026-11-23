@@ -5353,7 +5353,7 @@ const illustrationRoutes = new Map([
     prompt: /MONSTERSTHUNDERDOWNTHESTEPSOFTHETOWERNEXTTOYOU/i,
     finalPhaseCapture: "stojanow-near-tower-charge.png",
     continuation: {
-      inputs: ["enter", "enter"], portrait: "portrait:HEAD2.DAX:11:BODY2.DAX:2", prompt: /COMBATWAITFLEEPARLAY/i,
+      inputs: ["enter", "enter"], portrait: "portrait:area:9:ecl:a577:HEAD2.DAX:11:BODY2.DAX:2", prompt: /COMBATWAITFLEEPARLAY/i,
     },
   }],
   ["stojanow-far-tower-charge", {
@@ -5362,7 +5362,7 @@ const illustrationRoutes = new Map([
     prompt: /MONSTERSARECHARGINGTOWARDYOUFROMTHEFARTOWER\.(?!ATTHESAMETIME)/i,
     finalPhaseCapture: "stojanow-far-tower-charge.png",
     continuation: {
-      inputs: ["enter", "enter"], portrait: "portrait:HEAD2.DAX:11:BODY2.DAX:2", prompt: /COMBATWAITFLEEPARLAY/i,
+      inputs: ["enter", "enter"], portrait: "portrait:area:9:ecl:a577:HEAD2.DAX:11:BODY2.DAX:2", prompt: /COMBATWAITFLEEPARLAY/i,
     },
   }],
   ["stojanow-dual-tower-ambush", {
@@ -5371,18 +5371,22 @@ const illustrationRoutes = new Map([
     prompt: /MONSTERSARECHARGINGTOWARDYOUFROMTHEFARTOWER.*MONSTERSBURSTONYOUFROMTHETOWERNEXTTOYOU/i,
     finalPhaseCapture: "stojanow-dual-tower-ambush.png",
     continuation: {
-      inputs: ["enter", "enter"], portrait: "portrait:HEAD2.DAX:11:BODY2.DAX:2", prompt: /COMBATWAITFLEEPARLAY/i,
+      inputs: ["enter", "enter"], portrait: "portrait:area:9:ecl:a577:HEAD2.DAX:11:BODY2.DAX:2", prompt: /COMBATWAITFLEEPARLAY/i,
     },
   }],
   ["stojanow-tower-charge", {
     slot: "A", inputs: ["up", "enter", "enter"],
     approachSequence: [[48, 32, "encounter:area:9:ecl:a577:SPRIT2.DAX:24:0:0", 32, 73]],
-    portrait: "portrait:HEAD2.DAX:11:BODY2.DAX:2", prompt: /COMBATWAITFLEEPARLAY/i,
+    portrait: "portrait:area:9:ecl:a577:HEAD2.DAX:11:BODY2.DAX:2", prompt: /COMBATWAITFLEEPARLAY/i,
+    staticPortraitMenu: true, finalPhaseCapture: "stojanow-tower-charge-officer.png",
+    continuation: { inputs: ["c", "enter"], clearsPortrait: true, prompt: /ABATTLEBEGINS/i },
   }],
   ["stojanow-wall-ambush", {
     slot: "A", inputs: ["up", "enter", "enter"],
     approachSequence: [[48, 32, "encounter:area:9:ecl:b0f9:SPRIT2.DAX:24:0:0", 32, 73]],
-    portrait: "portrait:HEAD2.DAX:11:BODY2.DAX:2", prompt: /THEYRUSHTOWARDYOU/i,
+    portrait: "portrait:area:9:ecl:b0f9:HEAD2.DAX:11:BODY2.DAX:2", prompt: /THEYRUSHTOWARDYOU/i,
+    staticPortraitMenu: true, finalPhaseCapture: "stojanow-wall-ambush-officer.png",
+    continuation: { inputs: ["c", "enter"], clearsPortrait: true, prompt: /ABATTLEBEGINS/i },
   }],
   ["stojanow-plotting-mage", {
     slot: "A", inputs: ["up", "enter", "enter", "enter", "enter"],
