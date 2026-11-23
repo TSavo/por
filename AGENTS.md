@@ -77,7 +77,7 @@ is a USB drive: avoid needless reinstalls. A Python segfault with no traceback t
   the parity check's `leg` walk replays one (`POR_PARITY_ONLY=leg POR_PARITY_LEG=qa/fixtures/<walk>`).
 - **Docs:** `docs/STANDALONE.md` (the shipped game, `verify:port-parity`), `docs/REPLAYS.md`,
   `docs/RELEASE.md` (packages, installers, what was tested), `docs/AUDIO.md`, `docs/NARRATION-QA.md`,
-  `docs/ART-WORKLIST.md`, `docs/RENDERER.md` (optional Enhanced WebGL look).
+  `docs/ART-WORKLIST.md`, `docs/RENDERER.md` (Enhanced WebGL look).
 
 ## The owner's standing decisions
 
