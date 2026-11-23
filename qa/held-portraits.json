@@ -24667,6 +24667,1482 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL1.DAX:18:a2b1",
+      "prompt": "a378",
+      "variants": [
+        {
+          "caption": "STAND AND LISTEN",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:0:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU WISH TO: STAND AND LISTEN MOVE IN CLOSER LISTEN TO COMMENTS LEAVE",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a333:PIC1.DAX:16",
+            "inheritedMember": 0
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a378-pose-0",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:STANDANDLISTENMOVEINCLOSERLISTENTOCOMMENTSLEAVE",
+              "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:0:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:0:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "8fe2276b9970981f7d51d09cf31f2a745a322ba1f50fe214cb4c75147915ba71",
+              "poses": [
+                "portrait:area:18:ecl:a378:PIC1.DAX:16:0:0"
+              ],
+              "samples": 185,
+              "durationMs": 3055.1000000357635,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a378-pose-0",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:STANDANDLISTENMOVEINCLOSERLISTENTOCOMMENTSLEAVE",
+              "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:0:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:0:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "8fe2276b9970981f7d51d09cf31f2a745a322ba1f50fe214cb4c75147915ba71",
+              "poses": [
+                "portrait:area:18:ecl:a378:PIC1.DAX:16:0:0"
+              ],
+              "samples": 184,
+              "durationMs": 3052.300000011921,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        },
+        {
+          "caption": "STAND AND LISTEN",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:1:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU WISH TO: STAND AND LISTEN MOVE IN CLOSER LISTEN TO COMMENTS LEAVE",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a333:PIC1.DAX:16",
+            "inheritedMember": 1
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a378-pose-1",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:STANDANDLISTENMOVEINCLOSERLISTENTOCOMMENTSLEAVE",
+              "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:1:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:1:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "c632a40f3526b5e234871f241940ae3677e958af2972b409e48eb6009fe679d3",
+              "poses": [
+                "portrait:area:18:ecl:a378:PIC1.DAX:16:1:0"
+              ],
+              "samples": 185,
+              "durationMs": 3055.800000011921,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a378-pose-1",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:STANDANDLISTENMOVEINCLOSERLISTENTOCOMMENTSLEAVE",
+              "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:1:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:1:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "c632a40f3526b5e234871f241940ae3677e958af2972b409e48eb6009fe679d3",
+              "poses": [
+                "portrait:area:18:ecl:a378:PIC1.DAX:16:1:0"
+              ],
+              "samples": 184,
+              "durationMs": 3060.399999976158,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        },
+        {
+          "caption": "STAND AND LISTEN",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:2:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU WISH TO: STAND AND LISTEN MOVE IN CLOSER LISTEN TO COMMENTS LEAVE",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a333:PIC1.DAX:16",
+            "inheritedMember": 2
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a378-pose-2",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:STANDANDLISTENMOVEINCLOSERLISTENTOCOMMENTSLEAVE",
+              "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:2:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:2:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "a745d7592b83e85fcb391197070c03305a87177b045bac29a8399bc32a85a66e",
+              "poses": [
+                "portrait:area:18:ecl:a378:PIC1.DAX:16:2:0"
+              ],
+              "samples": 184,
+              "durationMs": 3056.399999976158,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a378-pose-2",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:STANDANDLISTENMOVEINCLOSERLISTENTOCOMMENTSLEAVE",
+              "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:2:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:2:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "a745d7592b83e85fcb391197070c03305a87177b045bac29a8399bc32a85a66e",
+              "poses": [
+                "portrait:area:18:ecl:a378:PIC1.DAX:16:2:0"
+              ],
+              "samples": 184,
+              "durationMs": 3059.400000023841,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        },
+        {
+          "caption": "STAND AND LISTEN",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:3:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU WISH TO: STAND AND LISTEN MOVE IN CLOSER LISTEN TO COMMENTS LEAVE",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a333:PIC1.DAX:16",
+            "inheritedMember": 3
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a378-pose-3",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:STANDANDLISTENMOVEINCLOSERLISTENTOCOMMENTSLEAVE",
+              "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:3:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:3:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "a8c36a6f1ffd49488b114a89c6c52f3d80ab59fdf15f443ab80ed4483c146086",
+              "poses": [
+                "portrait:area:18:ecl:a378:PIC1.DAX:16:3:0"
+              ],
+              "samples": 184,
+              "durationMs": 3059.099999976159,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a378-pose-3",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:STANDANDLISTENMOVEINCLOSERLISTENTOCOMMENTSLEAVE",
+              "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:3:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:3:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "a8c36a6f1ffd49488b114a89c6c52f3d80ab59fdf15f443ab80ed4483c146086",
+              "poses": [
+                "portrait:area:18:ecl:a378:PIC1.DAX:16:3:0"
+              ],
+              "samples": 184,
+              "durationMs": 3057.7999999880794,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        },
+        {
+          "caption": "STAND AND LISTEN",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:4:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU WISH TO: STAND AND LISTEN MOVE IN CLOSER LISTEN TO COMMENTS LEAVE",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a333:PIC1.DAX:16",
+            "inheritedMember": 4
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a378-pose-4",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:STANDANDLISTENMOVEINCLOSERLISTENTOCOMMENTSLEAVE",
+              "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:4:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:4:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "aa3bdee20915732b9dbcecc861fd44fd2deefc5044fbdbc27272b809aa0358dc",
+              "poses": [
+                "portrait:area:18:ecl:a378:PIC1.DAX:16:4:0"
+              ],
+              "samples": 185,
+              "durationMs": 3050.9999999880783,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a378-pose-4",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:STANDANDLISTENMOVEINCLOSERLISTENTOCOMMENTSLEAVE",
+              "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:4:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:4:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "aa3bdee20915732b9dbcecc861fd44fd2deefc5044fbdbc27272b809aa0358dc",
+              "poses": [
+                "portrait:area:18:ecl:a378:PIC1.DAX:16:4:0"
+              ],
+              "samples": 184,
+              "durationMs": 3055.7000000000007,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        },
+        {
+          "caption": "STAND AND LISTEN",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:5:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU WISH TO: STAND AND LISTEN MOVE IN CLOSER LISTEN TO COMMENTS LEAVE",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a333:PIC1.DAX:16",
+            "inheritedMember": 5
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a378-pose-5",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:STANDANDLISTENMOVEINCLOSERLISTENTOCOMMENTSLEAVE",
+              "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:5:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:5:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "277149ffa0deb09469aee531493cfb5ce67da88f67c63310123b4c96447976b8",
+              "poses": [
+                "portrait:area:18:ecl:a378:PIC1.DAX:16:5:0"
+              ],
+              "samples": 185,
+              "durationMs": 3051.7999999880794,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a378-pose-5",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:STANDANDLISTENMOVEINCLOSERLISTENTOCOMMENTSLEAVE",
+              "portrait": "portrait:area:18:ecl:a378:PIC1.DAX:16:5:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:5:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "277149ffa0deb09469aee531493cfb5ce67da88f67c63310123b4c96447976b8",
+              "poses": [
+                "portrait:area:18:ecl:a378:PIC1.DAX:16:5:0"
+              ],
+              "samples": 185,
+              "durationMs": 3056.2000000119206,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL1.DAX:18:a2b1",
+      "prompt": "a413",
+      "variants": [
+        {
+          "caption": "MAKE A BID",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:0:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU WISH TO: MAKE A BID WAIT FOR WINNER TRY TO LEAVE",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a3dc:PIC1.DAX:16",
+            "inheritedMember": 0
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a413-pose-0",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:MAKEABIDWAITFORWINNERTRYTOLEAVE",
+              "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:0:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:0:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "59a6a9cacc1411c736c1c4b53b55c7a0ec35684118de881277bb7aa1762bf8dc",
+              "poses": [
+                "portrait:area:18:ecl:a413:PIC1.DAX:16:0:0"
+              ],
+              "samples": 184,
+              "durationMs": 3053.400000035763,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a413-pose-0",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:MAKEABIDWAITFORWINNERTRYTOLEAVE",
+              "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:0:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:0:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "59a6a9cacc1411c736c1c4b53b55c7a0ec35684118de881277bb7aa1762bf8dc",
+              "poses": [
+                "portrait:area:18:ecl:a413:PIC1.DAX:16:0:0"
+              ],
+              "samples": 185,
+              "durationMs": 3055.300000011921,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        },
+        {
+          "caption": "MAKE A BID",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:1:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU WISH TO: MAKE A BID WAIT FOR WINNER TRY TO LEAVE",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a3dc:PIC1.DAX:16",
+            "inheritedMember": 1
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a413-pose-1",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:MAKEABIDWAITFORWINNERTRYTOLEAVE",
+              "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:1:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:1:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "55f3bffcb5c46ba3d6787c1c116eba32aa0eb5cba96493d827a3b34eadbc3403",
+              "poses": [
+                "portrait:area:18:ecl:a413:PIC1.DAX:16:1:0"
+              ],
+              "samples": 184,
+              "durationMs": 3055.39999998808,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a413-pose-1",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:MAKEABIDWAITFORWINNERTRYTOLEAVE",
+              "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:1:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:1:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "55f3bffcb5c46ba3d6787c1c116eba32aa0eb5cba96493d827a3b34eadbc3403",
+              "poses": [
+                "portrait:area:18:ecl:a413:PIC1.DAX:16:1:0"
+              ],
+              "samples": 184,
+              "durationMs": 3052.099999976159,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        },
+        {
+          "caption": "MAKE A BID",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:2:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU WISH TO: MAKE A BID WAIT FOR WINNER TRY TO LEAVE",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a3dc:PIC1.DAX:16",
+            "inheritedMember": 2
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a413-pose-2",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:MAKEABIDWAITFORWINNERTRYTOLEAVE",
+              "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:2:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:2:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "dba8d30c0856bfdcb51da67464422012f51bc2c9786d6fd9e5a6f543f6c6ab02",
+              "poses": [
+                "portrait:area:18:ecl:a413:PIC1.DAX:16:2:0"
+              ],
+              "samples": 185,
+              "durationMs": 3052.0999999999985,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a413-pose-2",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:MAKEABIDWAITFORWINNERTRYTOLEAVE",
+              "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:2:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:2:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "dba8d30c0856bfdcb51da67464422012f51bc2c9786d6fd9e5a6f543f6c6ab02",
+              "poses": [
+                "portrait:area:18:ecl:a413:PIC1.DAX:16:2:0"
+              ],
+              "samples": 184,
+              "durationMs": 3058.2000000119206,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        },
+        {
+          "caption": "MAKE A BID",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:3:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU WISH TO: MAKE A BID WAIT FOR WINNER TRY TO LEAVE",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a3dc:PIC1.DAX:16",
+            "inheritedMember": 3
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a413-pose-3",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:MAKEABIDWAITFORWINNERTRYTOLEAVE",
+              "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:3:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:3:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "4b20d668fa7c76964908703f4e7436447d04c2ff61a68b1e5478ca3a6ab2c847",
+              "poses": [
+                "portrait:area:18:ecl:a413:PIC1.DAX:16:3:0"
+              ],
+              "samples": 184,
+              "durationMs": 3058.3999999642365,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a413-pose-3",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:MAKEABIDWAITFORWINNERTRYTOLEAVE",
+              "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:3:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:3:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "4b20d668fa7c76964908703f4e7436447d04c2ff61a68b1e5478ca3a6ab2c847",
+              "poses": [
+                "portrait:area:18:ecl:a413:PIC1.DAX:16:3:0"
+              ],
+              "samples": 185,
+              "durationMs": 3052.599999964237,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        },
+        {
+          "caption": "MAKE A BID",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:4:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU WISH TO: MAKE A BID WAIT FOR WINNER TRY TO LEAVE",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a3dc:PIC1.DAX:16",
+            "inheritedMember": 4
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a413-pose-4",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:MAKEABIDWAITFORWINNERTRYTOLEAVE",
+              "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:4:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:4:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "c69f3f2b0e38fcb2544e7e0bdc6764b5df487e01a5b86a2763a605d37a0d0d1d",
+              "poses": [
+                "portrait:area:18:ecl:a413:PIC1.DAX:16:4:0"
+              ],
+              "samples": 185,
+              "durationMs": 3053.5000000238433,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a413-pose-4",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:MAKEABIDWAITFORWINNERTRYTOLEAVE",
+              "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:4:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:4:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "c69f3f2b0e38fcb2544e7e0bdc6764b5df487e01a5b86a2763a605d37a0d0d1d",
+              "poses": [
+                "portrait:area:18:ecl:a413:PIC1.DAX:16:4:0"
+              ],
+              "samples": 184,
+              "durationMs": 3055.400000035763,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        },
+        {
+          "caption": "MAKE A BID",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:5:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU WISH TO: MAKE A BID WAIT FOR WINNER TRY TO LEAVE",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a3dc:PIC1.DAX:16",
+            "inheritedMember": 5
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a413-pose-5",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:MAKEABIDWAITFORWINNERTRYTOLEAVE",
+              "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:5:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:5:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "62e536d0c51e18387ead821c75cdb5cadbe916e5e77f39859d57f5864eb27084",
+              "poses": [
+                "portrait:area:18:ecl:a413:PIC1.DAX:16:5:0"
+              ],
+              "samples": 184,
+              "durationMs": 3054.5999999999985,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a413-pose-5",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOUWISHTO:MAKEABIDWAITFORWINNERTRYTOLEAVE",
+              "portrait": "portrait:area:18:ecl:a413:PIC1.DAX:16:5:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:5:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "62e536d0c51e18387ead821c75cdb5cadbe916e5e77f39859d57f5864eb27084",
+              "poses": [
+                "portrait:area:18:ecl:a413:PIC1.DAX:16:5:0"
+              ],
+              "samples": 184,
+              "durationMs": 3057.0999999999985,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL1.DAX:18:a2b1",
+      "prompt": "a51e",
+      "variants": [
+        {
+          "caption": "FOLLOW THE OGRE",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:0:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU: FOLLOW THE OGRE MOVE QUIETLY AWAY LOOK FOR THE MAN IN PLAIN CLOTHES",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a4d8:PIC1.DAX:16",
+            "inheritedMember": 0
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a51e-pose-0",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOU:FOLLOWTHEOGREMOVEQUIETLYAWAYLOOKFORTHEMANINPLAINCLOTHES",
+              "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:0:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:0:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "3a6ec8f4434cd6875883cb7f2a56d5fe76ea249af31c7253b1990e40b8ab80b6",
+              "poses": [
+                "portrait:area:18:ecl:a51e:PIC1.DAX:16:0:0"
+              ],
+              "samples": 185,
+              "durationMs": 3054.100000023842,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a51e-pose-0",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOU:FOLLOWTHEOGREMOVEQUIETLYAWAYLOOKFORTHEMANINPLAINCLOTHES",
+              "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:0:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:0:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "3a6ec8f4434cd6875883cb7f2a56d5fe76ea249af31c7253b1990e40b8ab80b6",
+              "poses": [
+                "portrait:area:18:ecl:a51e:PIC1.DAX:16:0:0"
+              ],
+              "samples": 185,
+              "durationMs": 3054.6999999761574,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        },
+        {
+          "caption": "FOLLOW THE OGRE",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:1:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU: FOLLOW THE OGRE MOVE QUIETLY AWAY LOOK FOR THE MAN IN PLAIN CLOTHES",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a4d8:PIC1.DAX:16",
+            "inheritedMember": 1
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a51e-pose-1",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOU:FOLLOWTHEOGREMOVEQUIETLYAWAYLOOKFORTHEMANINPLAINCLOTHES",
+              "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:1:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:1:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "c37b7f3d43ef84e08b1be9c6c5a46530330394de16d7a1c01cfa2129abeddd21",
+              "poses": [
+                "portrait:area:18:ecl:a51e:PIC1.DAX:16:1:0"
+              ],
+              "samples": 185,
+              "durationMs": 3056.7999999999993,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a51e-pose-1",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOU:FOLLOWTHEOGREMOVEQUIETLYAWAYLOOKFORTHEMANINPLAINCLOTHES",
+              "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:1:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:1:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "c37b7f3d43ef84e08b1be9c6c5a46530330394de16d7a1c01cfa2129abeddd21",
+              "poses": [
+                "portrait:area:18:ecl:a51e:PIC1.DAX:16:1:0"
+              ],
+              "samples": 185,
+              "durationMs": 3061.8000000238426,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        },
+        {
+          "caption": "FOLLOW THE OGRE",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:2:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU: FOLLOW THE OGRE MOVE QUIETLY AWAY LOOK FOR THE MAN IN PLAIN CLOTHES",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a4d8:PIC1.DAX:16",
+            "inheritedMember": 2
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a51e-pose-2",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOU:FOLLOWTHEOGREMOVEQUIETLYAWAYLOOKFORTHEMANINPLAINCLOTHES",
+              "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:2:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:2:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "d30076d5a6d80634e90bbda4dcfdbc3629fba702bbb6af7ba7b50d022d0cb2f7",
+              "poses": [
+                "portrait:area:18:ecl:a51e:PIC1.DAX:16:2:0"
+              ],
+              "samples": 184,
+              "durationMs": 3061.1999999761574,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a51e-pose-2",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOU:FOLLOWTHEOGREMOVEQUIETLYAWAYLOOKFORTHEMANINPLAINCLOTHES",
+              "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:2:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:2:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "d30076d5a6d80634e90bbda4dcfdbc3629fba702bbb6af7ba7b50d022d0cb2f7",
+              "poses": [
+                "portrait:area:18:ecl:a51e:PIC1.DAX:16:2:0"
+              ],
+              "samples": 184,
+              "durationMs": 3059.5000000238433,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        },
+        {
+          "caption": "FOLLOW THE OGRE",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:3:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU: FOLLOW THE OGRE MOVE QUIETLY AWAY LOOK FOR THE MAN IN PLAIN CLOTHES",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a4d8:PIC1.DAX:16",
+            "inheritedMember": 3
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a51e-pose-3",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOU:FOLLOWTHEOGREMOVEQUIETLYAWAYLOOKFORTHEMANINPLAINCLOTHES",
+              "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:3:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:3:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "c8d3cce73ced5d5eee390949f4ae15a1e7b88ec06f904366fb0bf7cc0fa2aac7",
+              "poses": [
+                "portrait:area:18:ecl:a51e:PIC1.DAX:16:3:0"
+              ],
+              "samples": 185,
+              "durationMs": 3055.2000000119224,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a51e-pose-3",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOU:FOLLOWTHEOGREMOVEQUIETLYAWAYLOOKFORTHEMANINPLAINCLOTHES",
+              "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:3:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:3:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "c8d3cce73ced5d5eee390949f4ae15a1e7b88ec06f904366fb0bf7cc0fa2aac7",
+              "poses": [
+                "portrait:area:18:ecl:a51e:PIC1.DAX:16:3:0"
+              ],
+              "samples": 184,
+              "durationMs": 3059.6999999642358,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        },
+        {
+          "caption": "FOLLOW THE OGRE",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:4:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU: FOLLOW THE OGRE MOVE QUIETLY AWAY LOOK FOR THE MAN IN PLAIN CLOTHES",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a4d8:PIC1.DAX:16",
+            "inheritedMember": 4
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a51e-pose-4",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOU:FOLLOWTHEOGREMOVEQUIETLYAWAYLOOKFORTHEMANINPLAINCLOTHES",
+              "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:4:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:4:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "b3af7eb0a71ce96b24e5d4a5ccc9d20360a1380a6b7f4294a7d66c1b2e98a734",
+              "poses": [
+                "portrait:area:18:ecl:a51e:PIC1.DAX:16:4:0"
+              ],
+              "samples": 185,
+              "durationMs": 3056.5000000119217,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a51e-pose-4",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOU:FOLLOWTHEOGREMOVEQUIETLYAWAYLOOKFORTHEMANINPLAINCLOTHES",
+              "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:4:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:4:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "b3af7eb0a71ce96b24e5d4a5ccc9d20360a1380a6b7f4294a7d66c1b2e98a734",
+              "poses": [
+                "portrait:area:18:ecl:a51e:PIC1.DAX:16:4:0"
+              ],
+              "samples": 185,
+              "durationMs": 3054.2000000238404,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        },
+        {
+          "caption": "FOLLOW THE OGRE",
+          "checkpoint": "podal-auction/I.json",
+          "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:5:0",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 7,6 E 18:55 DO YOU: FOLLOW THE OGRE MOVE QUIETLY AWAY LOOK FOR THE MAN IN PLAIN CLOTHES",
+            "idlePolls": 140,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              },
+              {
+                "idlePolls": 140,
+                "sha256": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+              }
+            ],
+            "inheritedFrom": "area:18:ecl:b240:caller:a4d8:PIC1.DAX:16",
+            "inheritedMember": 5
+          },
+          "chrome": {
+            "original": {
+              "route": "podal-auction-menu-a51e-pose-5",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOU:FOLLOWTHEOGREMOVEQUIETLYAWAYLOOKFORTHEMANINPLAINCLOTHES",
+              "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:5:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:5:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "434e37f0ca27d24742037079d7d8963c1adfbf120176082c9659bbe2dfda1a2e",
+              "poses": [
+                "portrait:area:18:ecl:a51e:PIC1.DAX:16:5:0"
+              ],
+              "samples": 184,
+              "durationMs": 3058.900000035763,
+              "replaced": false,
+              "data": "original"
+            },
+            "port": {
+              "route": "podal-auction-menu-a51e-pose-5",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,6E18:55DOYOU:FOLLOWTHEOGREMOVEQUIETLYAWAYLOOKFORTHEMANINPLAINCLOTHES",
+              "portrait": "portrait:area:18:ecl:a51e:PIC1.DAX:16:5:0",
+              "incomingPortrait": "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:5:0",
+              "checkpointSha256": "f1933e2f5578be53d38ed38007527fccfbef7a5dc6186aecaa2d326729a14491",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "artSha256": "434e37f0ca27d24742037079d7d8963c1adfbf120176082c9659bbe2dfda1a2e",
+              "poses": [
+                "portrait:area:18:ecl:a51e:PIC1.DAX:16:5:0"
+              ],
+              "samples": 184,
+              "durationMs": 3060.099999964237,
+              "replaced": false,
+              "data": "port"
+            }
+          }
+        }
+      ]
     }
   ],
   "approachTransitions": [
