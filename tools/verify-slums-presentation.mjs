@@ -1610,6 +1610,7 @@ const illustrationRoutes = new Map([
     transientPortraits: { 5: {
       id: "scene-illustration:area:4:ecl:b1c7:cue:records-scribe-flight",
       prompt: /ASCRIBEWALKSINTOTHEROOM.*DROPSHISBOOKSANDRUNSOUTTHEDOOR/i, durationMs: 8350,
+      screenshot: "valjevo-records-scribe-flight.png",
     } },
     prompt: /ANALARMSTARTSRINGING/i,
   }],
@@ -6129,6 +6130,7 @@ const illustrationRoutes = new Map([
     settleInputs: ["a"],
     heldApproachPrompt: /SURPRISESYOU.*THAT'STHEM!GETTHEM!/i,
     heldApproachPosition: [6, 13, 4],
+    approachStops: { 3: [56, 32, "encounter:area:6:SPRIT5.DAX:16:1:0", 24, 65] },
     approachSequence: [
       [56, 32, "encounter:area:6:SPRIT5.DAX:16:2:0", 16, 49],
       [56, 32, "encounter:area:6:SPRIT5.DAX:16:1:0", 24, 65],
