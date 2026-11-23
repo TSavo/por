@@ -2581,6 +2581,24 @@ const illustrationRoutes = new Map([
     journalLead: "textile-prisoner-left", journalLeadAtDiscovery: true,
     continuation: { inputs: ["up"], clearsPortrait: true, prompt: /YOUAREINAVERYSMALL,DARKROOM/i },
   }],
+  ["podal-orc-patrol-portrait-phase", {
+    slot: "I", inputs: ["up", "up", "enter", "enter"], fixedClockStart: 4321254,
+    portrait: "portrait:area:18:ecl:9dca:PIC1.DAX:4:0:0", prompt: /THEMONSTERSSTANDREADY/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:18:ecl:9dca:PIC1.DAX:4:${member}:0`),
+    finalPhaseCapture: "podal-orc-patrol.png",
+  }],
+  ["podal-hobgoblin-patrol-portrait-phase", {
+    slot: "I", inputs: ["up", "enter", "enter"], fixedClockStart: 4321731,
+    portrait: "portrait:area:18:ecl:9dca:PIC1.DAX:6:0:0", prompt: /THEMONSTERSSTANDREADY/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:18:ecl:9dca:PIC1.DAX:6:${member}:0`),
+    finalPhaseCapture: "podal-hobgoblin-patrol.png",
+  }],
+  ["podal-ogre-patrol-portrait-phase", {
+    slot: "I", inputs: ["up", "up", "up", "left", "up", "enter", "enter"], fixedClockStart: 4320702,
+    portrait: "portrait:area:18:ecl:9dca:PIC1.DAX:8:0:0", prompt: /THEMONSTERSSTANDREADY/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:18:ecl:9dca:PIC1.DAX:8:${member}:0`),
+    finalPhaseCapture: "podal-ogre-patrol.png",
+  }],
   ["podal-goblin-patrol-portrait-phase", {
     slot: "I", inputs: ["up", "up", "up", "left", "up", "up", "left", "up", "up", "left", "up", "up", "enter"],
     portrait: "portrait:area:18:ecl:9dca:PIC1.DAX:2:0:0", prompt: /THEMONSTERSSTANDREADY/i,
@@ -7725,6 +7743,8 @@ if (terrainOnly || classicPortrait) {
 const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.ts"], {
   env: {
     ...browserEnvironment, POR_PLAY_PORT: port, POR_SAVE_DIR: directory,
+    ...(illustration?.fixedClockStart === undefined ? {} :
+      { POR_FIXED_CLOCK_START: String(illustration.fixedClockStart) }),
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
     POR_TRACE_BATTLE_TILES: dragon || routeName === "lizardfolk-battle-wall" ? "1" : browserEnvironment.POR_TRACE_BATTLE_TILES,
     POR_BOOT_KEYS: freshRolf ? "31000000:1c0d,45000000:2e63" : "31000000:1c0d,45000000:266c,52000000:" + boot,
