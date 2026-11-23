@@ -8,6 +8,7 @@ import { heldPortraitDiscovery } from "./discover-held-portraits.js";
 import { encounterKey, type EncounterPlacement } from "./encounter-art.js";
 import { scriptIllustrations } from "./portrait-art.js";
 import { portraitLoopSignature } from "./held-portrait-loops.mjs";
+import { podolPatrolCoverage, type PodolPatrolProof } from "./podol-patrol-proof.js";
 import { verifyHeldPortraitPaint, type ChromeProof, type Pose } from "./verify-held-portrait-paint.js";
 
 interface HeldPortraitInventory {
@@ -23,6 +24,7 @@ interface HeldPortraitInventory {
   staticPortraitPrompts?: StaticPortraitPrompt[];
   approachTransitions?: ApproachTransition[];
   combatWithoutPortraits?: CombatWithoutPortrait[];
+  podolPatrols?: PodolPatrolProof[];
 }
 
 interface EncounterPaint {
@@ -652,11 +654,28 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     });
   }
 
+  const patrolChecks = {
+    fixture: (name: string, expected: string) => {
+      const file = path("qa", "fixtures", name);
+      return existsSync(file) && checkpointDigests(file).has(expected);
+    },
+    renderer: matchesRenderer,
+    art: (key: string, expected: string) => {
+      const file = assets.get(key);
+      return Boolean(file && existsSync(file) && digest(readFileSync(file)) === expected);
+    },
+  };
   const sites = eclCandidates.map(site => {
     const id = scriptSiteId(site);
     if (site.unreachableOriginal) return {
       id, source: `${site.pictureArchive}:${site.block}`, measured: false, verified: false, unmeasured: [], scenes: [],
       unreachableOriginal: true, reason: site.unreachableOriginal,
+    };
+    const patrol = podolPatrolCoverage(id, site, inventory.podolPatrols ?? [], patrolChecks);
+    if (patrol) return {
+      id, source: `${site.pictureArchive}:${site.boundedBlocks?.join(", ") ?? "actor selector"}`,
+      measured: patrol.measured, verified: patrol.missing.length === 0, unmeasured: patrol.missing, scenes: [],
+      reason: patrol.missing.length ? "Podol patrol replays pending" : "paired Chrome checks confirmed every Podol patrol actor and route",
     };
     const oneShot = oneShotByProducer.get(id);
     const oneShotReason = oneShot ? oneShotProblem(site, oneShot) : null;
