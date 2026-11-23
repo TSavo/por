@@ -538,6 +538,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // The maze watch and Scriptorium guards finish the nod at the same ECL cursor.
       let illustrationScope = finalCouncilReward && illustrationText.includes("VIEWTAKEPOOLSHAREEXIT")
         ? `${scriptKey}:cue:council-victory-payout` : scriptKey;
+      // The same Orc camping script can interrupt the party under a roof or on the rampart.
+      const campScenery = lastLocalPerspective?.native;
+      if ((area === 24 || area === 31) &&
+          (battleCursor === 0xb692 || battleCursor === 0xb699 || battleCursor === 0xb6a2) &&
+          campScenery?.mapId === 31 && !campScenery.roofed &&
+          campScenery.x === livePosition?.x && campScenery.y === livePosition.y) {
+        illustrationScope = `${scriptKey}:cue:orc-rampart-camp-ambush`;
+      }
       const wellDaylight = "scene-illustration:area:29:ecl:afa1:cue:daylight";
       if (scriptKey === "scene-illustration:area:29:ecl:afa1" &&
           drawnPerspective?.native?.skyColor === 11 && portraitKeys.includes(wellDaylight)) {

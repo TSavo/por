@@ -3469,6 +3469,15 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "bane-temple-exit-notice.png",
     continuation: { inputs: [":travel-poll", ":travel-poll"], clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
+  ["bane-rampart-camp-orc-ambush", {
+    slot: "A", stockInput: true,
+    inputs: ["e", "r", "h", ...Array(6).fill("i"), "r"],
+    promptSchedule: "qa/fixtures/bane-black-hand-patrol-warning/camp-prompts.jsonl",
+    portrait: "scene-illustration:area:24:ecl:b6a2:cue:orc-rampart-camp-ambush",
+    prompt: /WHILEINCAMPYOUARESUDDENLYATTACKEDBYORCS.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "bane-rampart-camp-orc-ambush.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
   ["bane-camp-orc-ambush", {
     slot: "A", inputs: ["e", "enter", "r", "h", ...Array(6).fill("i"), "r", "enter", "enter"],
     portraitStops: {

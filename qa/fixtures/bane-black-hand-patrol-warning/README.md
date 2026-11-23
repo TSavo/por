@@ -9,3 +9,8 @@ following spear-ready menu in GOG 1.3 and bundled data.
 
 Both native traces report ECL1 block 24 at ae96, map 31, and no portrait for the
 warning. Enter continues to the original encounter menu at aeda.
+
+The same slot also starts the outdoor camp ambush replay. At (15, 4),
+Encamp, Rest, Hours, six Increases then Rest triggers the Orc attack at 03:03.
+The active map is 31 and the square's native roof bit is clear. The camp
+prompt timing is in `camp-prompts.jsonl`.
