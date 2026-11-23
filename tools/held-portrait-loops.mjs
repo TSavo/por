@@ -102,6 +102,8 @@ const portraitLoops = [
     [["scene-illustration:area:18:ecl:b240:caller:a839", 0]]],
   ["portrait:area:18:ecl:b240:caller:a839:PIC1.DAX:16:", 6, undefined,
     /AMANANDOGREEXCHANGETHEWANDANDALARGEBAG/i, auctionPoseTimes],
+  ["portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:", 6, undefined,
+    /THEAUCTIONISCANCELLED.*THEAUCTIONEERASHEFLEES/i, auctionPoseTimes],
   ["portrait:area:18:ecl:b240:caller:a79b:PIC1.DAX:16:", 6, undefined,
     /WANDOFILLUMINATION.*ISEEINTHEDARKANYWAY/i, auctionPoseTimes],
   ["portrait:area:18:ecl:b240:caller:a8af:PIC1.DAX:16:", 6, undefined,

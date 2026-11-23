@@ -1636,6 +1636,8 @@ const illustrationRoutes = new Map([
       inputs: ["enter", "enter"],
       portrait: "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:0:0",
       prompt: /THEAUCTIONISCANCELLED/i,
+      heldPortraitLoop: Array.from({ length: 6 }, (_, member) =>
+        `portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:${member}:0`),
     },
   }],
   ["valhingen-storm-entrance", {
