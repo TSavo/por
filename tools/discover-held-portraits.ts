@@ -211,13 +211,22 @@ const eclCandidates = scripts.flatMap(record => {
     const falseThrone = scriptBlock === 5 && address === "a98a";
     const forgePatrol = scriptBlock === 6 && ["a9e6", "aa49"].includes(address);
     const genheerisOffer = scriptBlock === 7 && opcode === 0x0c && address === "a255";
-    if (archive === 5 && (genheerisOffer || opcode === 0x29 &&
+    const stojanowBarracks = archive === 2 && scriptBlock === 9 && opcode === 0x29 && ["a23f", "a372"].includes(address);
+    if (stojanowBarracks || archive === 5 && (genheerisOffer || opcode === 0x29 &&
         (scriptBlock === 7 && ["a184", "a56c"].includes(address) ||
          scriptBlock === 5 && address === "a256" || falseThrone || forgePatrol))) {
+      const before = (at: number) => decoded.find(instruction => instruction.next === at);
       // The false throne and forge patrol reuse the head selected by their approach setup.
       const setupAddress = falseThrone ? "a953" : forgePatrol ? "a8fc" : undefined;
       const setup = setupAddress ? decoded.find(instruction => authored(instruction.address) === setupAddress) : undefined;
-      const headWrite = decoded.find(instruction => instruction.next === (setup?.address ?? load.address));
+      // At the Stojanow barracks the quoted dialogue and its acknowledgement
+      // keep the selected head before either encounter menu.
+      const acknowledgement = stojanowBarracks ? before(load.address) : undefined;
+      const acknowledgementTarget = acknowledgement?.operands[0]?.word;
+      const dialogue = acknowledgement?.opcode === 0x02 && acknowledgementTarget != null &&
+        authored(acknowledgementTarget) === "9c40" ? before(acknowledgement.address) : undefined;
+      const prelude = stojanowBarracks ? dialogue : setup ?? load;
+      const headWrite = prelude && (!stojanowBarracks || prelude.opcode === 0x12) ? before(prelude.address) : undefined;
       // Both versions of the bargain reset the head when the Yes/No helper returns.
       const resetAddresses = genheerisOffer ? ["a30f", "a345"] : [authored(load.next)];
       const headResets = resetAddresses.map(reset => decoded.find(instruction => authored(instruction.address) === reset));
