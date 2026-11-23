@@ -90,6 +90,8 @@ const portraitLoops = [
     /YOUBOARDABOAT/i, ferryPoseTimes],
   ["portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:", ferryPoseOrder, "portrait:area:0:PIC3.DAX:41:0:0",
     /YOUBOARDABOAT/i, ferryPoseTimes],
+  ["portrait:PIC8.DAX:24:", 3, undefined,
+    /ANOLDWORNDRAWBRIDGEISTHEONLYSAFEWAYACROSSTHEQUAGMIRE.*WILLYOUENTERTHERUINEDCASTLE/i, [310, 610, 410]],
   ["portrait:area:27:ecl:9e4b:PIC8.DAX:41:", ferryPoseOrder, "portrait:PIC8.DAX:41:0:0",
     /BOATDOCKEDHERETHATWILLRETURNYOU/i, ferryPoseTimes],
   ["portrait:area:26:ecl:a098:PIC7.DAX:41:", ferryPoseOrder, undefined,

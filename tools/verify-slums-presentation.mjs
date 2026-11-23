@@ -4442,6 +4442,17 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kobold-throne-first-audience.png",
     continuation: { inputs: [":travel-poll", ":travel-poll"], clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
+  ["swamp-drawbridge-hold", {
+    slot: "F",
+    inputs: readFileSync("qa/fixtures/visit-lizardman-keep/commands.jsonl", "utf8")
+      .trim().split("\n").slice(0, 83).map(line => JSON.parse(line)),
+    promptSchedule: "qa/fixtures/visit-lizardman-keep/prompts.jsonl",
+    portrait: "portrait:PIC8.DAX:24:0:0",
+    prompt: /ANOLDWORNDRAWBRIDGEISTHEONLYSAFEWAYACROSSTHEQUAGMIRE.*WILLYOUENTERTHERUINEDCASTLE/i,
+    heldPortraitLoop: [0, 1, 2].map(member => `portrait:PIC8.DAX:24:${member}:0`),
+    continuation: { inputs: ["e"], prompt: /YOUSENSEANANTI-MAGICSHELLAROUNDYOU/i,
+      portrait: "scene-illustration:area:27:ecl:9a87:caller:9c48" },
+  }],
   ["kobold-cave-rock-ambush", {
     slot: "I", inputs: ["e", ...Array.from({ length: 11 }, () => ["r", "h", ...Array(8).fill("i"), "r"]).flat(), "enter"],
     promptSchedule: "qa/fixtures/kobold-cave-rock-ambush/prompts.jsonl",
@@ -8956,7 +8967,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
     POR_TRACE_BATTLE_TILES: dragon || routeName === "lizardfolk-battle-wall" ? "1" : browserEnvironment.POR_TRACE_BATTLE_TILES,
     POR_BOOT_KEYS: freshRolf ? "31000000:1c0d,45000000:2e63" : "31000000:1c0d,45000000:266c,52000000:" + boot,
-    ...(controlledBattleIllustration || combatPose?.developerSetup ? { POR_DEV_COMBAT: "1" } : {}),
+    ...(controlledBattleIllustration || combatPose?.developerSetup || routeName === "swamp-drawbridge-hold" ? { POR_DEV_COMBAT: "1" } : {}),
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_FIXED_CLOCK_START: browserEnvironment.POR_FIXED_CLOCK_START ?? illustration?.fixedClockStart ??
@@ -9005,7 +9016,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "kobold-kings-quarters-native" || routeName === "kobold-cave-efreeti-dialogue" ||
       koboldGuideHeld || koboldGuideWallTap || koboldThroneHordeHold || koboldRoamingHold ||
       routeName === "kobold-ballista-battle-entry" || routeName === "kobold-envoy-rematch-one-shot" ||
-      routeName === "kobold-cave-rock-ambush" ||
+      routeName === "kobold-cave-rock-ambush" || routeName === "swamp-drawbridge-hold" ||
       routeName === "kobold-throne-first-audience" ||
       routeName === "valjevo-medusa-phases" || routeName === "valhingen-mummy-sarcophagi-phases" ||
       routeName === "valjevo-fire-giant-loop" ||
@@ -12688,7 +12699,7 @@ try {
       }
       assert.deepEqual([...phases.keys()], []);
     }
-    if (illustration.heldPortraitLoop) await verifyHeldPortraitLoop(illustration.heldPortraitLoop);
+    if (illustration.heldPortraitLoop) await verifyHeldPortraitLoop(illustration.heldPortraitLoop, routeName === "swamp-drawbridge-hold" ? routeName : undefined);
     if (illustration.staticPortraitMenu || illustration.illustratedScenery) {
       await verifyStaticPortrait(portrait, prompt, false, illustration.illustratedScenery);
     }
@@ -16431,20 +16442,7 @@ try {
       return image?.naturalWidth === 352 && image?.naturalHeight === 352;
     })()`));
     await verifyPortraitPanel();
-    const drawbridgePhases = new Set();
-    for (let i = 0; i < 12 && drawbridgePhases.size < 2; i++) {
-      await advance("z");
-      const id = frame.portrait;
-      const phase = /^portrait:PIC8\.DAX:24:([12]):0$/.exec(id ?? "")?.[1];
-      if (!phase || drawbridgePhases.has(phase)) continue;
-      await waitFor(`the swamp drawbridge phase ${phase}`, () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector('.encounter-portrait[src="/art/${id}"]')?.naturalWidth === 352`));
-      await verifyPortraitPanel();
-      const shot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, `swamp-castle-drawbridge-phase-${phase}.png`), Buffer.from(shot.data, "base64"));
-      drawbridgePhases.add(phase);
-    }
-    assert.deepEqual([...drawbridgePhases].sort(), ["1", "2"]);
+    await verifyHeldPortraitLoop([0, 1, 2].map(member => `portrait:PIC8.DAX:24:${member}:0`), "swamp-castle-drawbridge");
     await switchBothWays();
     await advance("j");
     assert.ok(knows("swamp-drawbridge") && !knows("swamp-anti-magic"));
