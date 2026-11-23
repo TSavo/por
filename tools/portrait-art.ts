@@ -462,6 +462,8 @@ const verifiedPortraitDeltaKeys = new Set([
   "portrait:area:18:ecl:9dca:PIC1.DAX:6:2:0",
   "portrait:area:18:ecl:9dca:PIC1.DAX:8:1:0",
   "portrait:area:18:ecl:9dca:PIC1.DAX:8:2:0",
+  "portrait:area:18:ecl:9c3f:PIC1.DAX:8:1:0",
+  "portrait:area:18:ecl:9c3f:PIC1.DAX:8:2:0",
   "portrait:area:18:ecl:9dca:PIC1.DAX:2:1:0",
   "portrait:area:18:ecl:b240:caller:ab51:PIC1.DAX:2:1:0",
   "portrait:area:18:ecl:ab8d:PIC1.DAX:2:1:0",
@@ -1164,6 +1166,9 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:17:ecl:ab82", "ABOUTMYREQUESTOFLASTNIGHT,WHATISYOURDECISION"],
   ["scene-illustration:area:18:ecl:b1bb:cue:abandoned-shop", "ANABANDONEDSHOP.BROKENSHELVESAREALLTHATREMAIN."],
   ["scene-illustration:area:18:ecl:a608", "GARWIN,I'LLGETYOU"],
+  ["scene-illustration:area:18:ecl:9e23:cue:orc-patrol-walks-on", "YOUSPOTAGROUPOFORCS.THEYCHECKOUTYOURPARTY,ANDWALKON."],
+  ["scene-illustration:area:18:ecl:9e23:cue:goblin-patrol-walks-on", "YOUSPOTAGROUPOFGOBLINS.THEYCHECKOUTYOURPARTY,LAUGHTOTHEMSELVESANDWALKON."],
+  ["scene-illustration:area:18:ecl:9e23:cue:hobgoblin-patrol-walks-on", "YOUSPOTAGROUPOFHOBGOBLINS.THEYGLAREATYOURPARTY,LAUGHTOTHEMSELVESANDWALKON."],
   ["scene-illustration:area:18:ecl:b240:caller:a839", "THEMANHASESCAPEDINTHECONFUSION"],
   ["scene-illustration:area:18:ecl:b240:caller:aa1e", "THEBATTLEISOVER,THEPATRONSRETURNTODRINKING"],
   ["scene-illustration:area:19:ecl:aeeb:cue:diogenes-bottle-departure", "AFTERSPEAKINGDIOGENESFLIESTHROUGHAHOLE"],
@@ -1761,6 +1766,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
 // The scripted close approach belongs to the reinforcements. Each of the
 // shared battle notices keeps the illustration selected by its own caption.
 const retainedIllustrationScopes = new Map([
+  ["scene-illustration:area:18:ecl:9cf2", "scene-illustration:area:18:ecl:9e23"],
+  ["scene-illustration:area:18:ecl:9d11", "scene-illustration:area:18:ecl:9e23"],
   ["scene-illustration:area:23:ecl:a29f", "scene-illustration:area:23:ecl:a2a9"],
   ["scene-illustration:area:23:ecl:a192", "scene-illustration:area:23:ecl:a19c"],
   ["scene-illustration:area:23:ecl:9f90", "scene-illustration:area:23:ecl:9bef:cue:patrol-stands-down"],

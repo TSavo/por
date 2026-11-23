@@ -3286,6 +3286,27 @@ const illustrationRoutes = new Map([
     idlePortraits: ["portrait:area:18:ecl:9dca:PIC1.DAX:2:1:0"],
     heldPortraitLoop: 2,
   }],
+  ["podal-orc-patrol-walks-on", {
+    slot: "I", stockInput: true, fixedClockStart: 4321254, inputs: ["up", "up"],
+    portrait: "scene-illustration:area:18:ecl:9e23:cue:orc-patrol-walks-on",
+    prompt: /GROUPOFORCS\.THEYCHECKOUTYOURPARTY,ANDWALKON/i,
+  }],
+  ["podal-goblin-patrol-walks-on", {
+    slot: "I", stockInput: true, fixedClockStart: 4320000,
+    inputs: ["up", "up", "up", "left", "up", "up", "left", "up", "up", "left", "up"],
+    portrait: "scene-illustration:area:18:ecl:9e23:cue:goblin-patrol-walks-on",
+    prompt: /GROUPOFGOBLINS\.THEYCHECKOUTYOURPARTY,LAUGHTOTHEMSELVESANDWALKON/i,
+  }],
+  ["podal-hobgoblin-patrol-walks-on", {
+    slot: "I", stockInput: true, fixedClockStart: 4321731, inputs: ["up"],
+    portrait: "scene-illustration:area:18:ecl:9e23:cue:hobgoblin-patrol-walks-on",
+    prompt: /GROUPOFHOBGOBLINS\.THEYGLAREATYOURPARTY,LAUGHTOTHEMSELVESANDWALKON/i,
+  }],
+  ["podal-ogre-patrol-demands-identity", {
+    slot: "I", stockInput: true, fixedClockStart: 4320702, inputs: ["up", "up", "up", "left", "up"],
+    portrait: "portrait:area:18:ecl:9c3f:PIC1.DAX:8:0:0",
+    prompt: /GROUPOFOGRES\.THEYGLAREATYOURPARTY,ANDDEMAND,'WHOAREYOU\?'HAUGHTYSLYNICEMEEKABUSIVE/i,
+  }],
   ["textile-skullcrusher-body", {
     slot: "B", inputs: ["up"],
     portraitStops: { 0: null },
