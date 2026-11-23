@@ -243,7 +243,7 @@ function playSound(sound) {
   if (sound.index === 13 && replacement && !sound.enhancedOnly) return;
   stopEffect();
   const source = replacement ? `/enhanced-audio/${replacement}`
-    : `/audio/${audioPreferences.hardware}-${String(sound.index).padStart(2, "0")}.wav`;
+    : `/audio/${audioPreferences.hardware}-${String(sound.index).padStart(2, "0")}.mp3`;
   const effect = new Audio(source);
   effect.volume = audioPreferences.muted ? 0 : audioPreferences.master * audioPreferences.effects;
   effect.loop = !replacement && (entry?.loop ?? [13, 14, 15].includes(sound.index));

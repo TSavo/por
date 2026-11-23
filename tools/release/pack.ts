@@ -18,7 +18,7 @@
  * Packing is where nothing of por-assets may go in. The build fails if:
  *   1. a file in a package is an original game file (START.EXE, GAME.OVR, *.DAX, POOL.CFG and the other
  *      kinds .gitignore keeps out), a link out of the package, or a path naming por-assets; or a Classic sound
- *      (pc-speaker-NN.wav, tandy-NN.wav) or, where a por-assets directory sits beside the checkout (or
+ *      (pc-speaker-NN.mp3, tandy-NN.mp3) or, where a por-assets directory sits beside the checkout (or
  *      POR_ASSETS_DIR names one), a file
  *      with the bytes of any file in it, unless it is the committed file at its own path in audio/classic
  *      (the port's own renders of the Classic sounds, which ship);
@@ -148,7 +148,7 @@ function checkGame(root: string, label: string): void {
 
 // ---- Check 1: nothing from por-assets, nothing of the original game. ----
 const originalName = /^(?:start\.exe|game\.ovr|pool\.cfg)$|\.(?:dax|ovr|ex_|pic|cmp)$/i;
-const classicSound = /^(?:pc-speaker|tandy)-\d\d\.wav$/i;
+const classicSound = /^(?:pc-speaker|tandy)-\d\d\.mp3$/i;
 const payloadProgram = /(?:^|\/)(?:game|upgrades|audio|web|src|qa|Resources\/app|app)\//i;
 // Beside the checkout, as the owner keeps it, or the directory POR_ASSETS_DIR names (the release workflow
 // names $HOME/por-assets on Battleaxe, and then it must exist). Read only to prove that no packaged file is

@@ -56,7 +56,7 @@ if (mode === "list") {
       return [path, meta.split(" ")[2]!];
     }));
   const originalName = /^(?:start\.exe|game\.ovr|pool\.cfg)$|\.(?:dax|ovr|ex_|pic|cmp)$/i;
-  const classicSound = /^(?:pc-speaker|tandy)-\d\d\.wav$/i;
+  const classicSound = /^(?:pc-speaker|tandy)-\d\d\.mp3$/i;
   let failed = false;
   for (const manifest of args) {
     const entries = JSON.parse(readFileSync(manifest, "utf8")) as Entry[];
