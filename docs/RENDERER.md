@@ -153,6 +153,18 @@ The same Chrome comparison at the roofed Valjevo Barracks camera
 matches pixel for pixel. The GOG Classic frames also match on both
 routes. The open-night Kuto's Well replay below passed in both data modes.
 
+### Harbor post-processing
+
+The [matched harbor post-processing captures](screenshots/renderer-look/harbor-post-processing.png)
+face east at (15,1), after two Left inputs from the recorded west-facing
+harbor pose. Exposure is fixed. Both GOG 1.3 and bundled Chrome matched the
+HDR render byte for byte across the fix. With half-float extensions
+masked, the revised highlight threshold affected 5,441 pixels confined
+to the sun. The water, piers, and other sky pixels matched the baseline.
+Forcing the half-float probe framebuffer to be incomplete produced the
+same RGBA8 capture as masking the extensions. All paths rendered 276,480
+opaque, nonblack pixels and reported zero WebGL errors.
+
 ### Open sky at night
 
 [Kuto's Well at 22:08](screenshots/renderer-look/kuto-open-shaft-night.png)
