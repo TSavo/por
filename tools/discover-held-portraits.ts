@@ -310,10 +310,11 @@ const eclCandidates = scripts.flatMap(record => {
     const forgePatrol = scriptBlock === 6 && ["a9e6", "aa49"].includes(address);
     const mazePatrol = scriptBlock === 4 && ["9ce6", "9d49"].includes(address);
     const mazeSentinel = scriptBlock === 4 && opcode === 0x0c && address === "9f0c";
+    const mazeWatch = scriptBlock === 4 && opcode === 0x29 && address === "9ffa";
     const genheerisOffer = scriptBlock === 7 && opcode === 0x0c && address === "a255";
     const stojanowBarracks = archive === 2 && scriptBlock === 9 && opcode === 0x29 && ["a23f", "a372"].includes(address);
     const nomadHeadman = archive === 7 && scriptBlock === 17 && opcode === 0x0c && address === "a39c";
-    if (nomadHeadman || stojanowBarracks || archive === 5 && (mazeSentinel || genheerisOffer || opcode === 0x29 &&
+    if (nomadHeadman || stojanowBarracks || archive === 5 && (mazeSentinel || mazeWatch || genheerisOffer || opcode === 0x29 &&
         (scriptBlock === 7 && ["a184", "a56c"].includes(address) ||
          scriptBlock === 5 && address === "a256" || falseThrone || forgePatrol || mazePatrol))) {
       const before = (at: number) => decoded.find(instruction => instruction.next === at);
@@ -322,14 +323,15 @@ const eclCandidates = scripts.flatMap(record => {
       const setup = setupAddress ? decoded.find(instruction => authored(instruction.address) === setupAddress) : undefined;
       // At the Stojanow barracks the quoted dialogue and its acknowledgement
       // keep the selected head before either encounter menu.
-      const acknowledgement = stojanowBarracks ? before(load.address) : undefined;
+      const acknowledgement = stojanowBarracks || mazeWatch ? before(load.address) : undefined;
       const acknowledgementTarget = acknowledgement?.operands[0]?.word;
       const dialogue = acknowledgement?.opcode === 0x02 && acknowledgementTarget != null &&
-        authored(acknowledgementTarget) === "9c40" ? before(acknowledgement.address) : undefined;
+        authored(acknowledgementTarget) === (mazeWatch ? "9a37" : "9c40") ? before(acknowledgement.address) : undefined;
       // The Nomad headman retains the composition drawn immediately before its setup.
       const picture = nomadHeadman ? before(load.address) : undefined;
       const headmanPrelude = picture?.opcode === 0x0e && literal(picture.operands[0]!) === portrait.literal ? picture : undefined;
-      const prelude = nomadHeadman ? headmanPrelude : stojanowBarracks ? dialogue : setup ?? load;
+      const prelude = nomadHeadman ? headmanPrelude : mazeWatch ? dialogue && acknowledgement :
+        stojanowBarracks ? dialogue : setup ?? load;
       const headWrite = prelude && (!stojanowBarracks || prelude.opcode === 0x12) ? before(prelude.address) : undefined;
       // Both versions of the bargain reset the head when the Yes/No helper returns.
       const resetAddresses = genheerisOffer ? ["a30f", "a345"] : [authored(load.next)];

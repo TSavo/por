@@ -2482,7 +2482,24 @@ const illustrationRoutes = new Map([
     slot: "B", inputs: ["up", "enter", "enter", "p", "h", "enter"],
     portrait: "portrait:area:4:ecl:a123:HEAD5.DAX:52:BODY5.DAX:1",
     prompt: /LUNGESFORTHEDOORANDHITSABUTTON.*STAYANDFIGHTRUN/i,
+    staticPortraitMenu: true,
     continuation: { inputs: ["r"], prompt: /ANALARMSTARTSRINGING/i, clearsPortrait: true },
+  }],
+  ["valjevo-maze-watch-challenge", {
+    slot: "B", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:HEAD5.DAX:52:BODY5.DAX:1", prompt: /WHATAREYOUDOINGHERE.*COMBATWAITFLEEPARLAY/i,
+    staticPortraitMenu: true,
+    continuation: {
+      inputs: ["p", "m", ..."harash", "enter"], portrait: "scene-illustration:area:4:ecl:9ed5:caller:a08a",
+      prompt: /WITHANODOFTHEHEADYOUARELEFTALONE/i,
+    },
+  }],
+  ["valjevo-maze-watch-giants-charge", {
+    slot: "B", inputs: ["up", "enter", "enter", "p", "s"],
+    portrait: "scene-illustration:area:4:ecl:9a5a:caller:a252",
+    prompt: /AGROUPOFFOURGIANTSCHARGEOUTOFANEARBYBUILDING/i,
+    staticPortraitMenu: true,
+    continuation: { inputs: ["enter", "enter"], clearsPortrait: true, prompt: /THEYCOMERUNNINGTOWARDYOU/i },
   }],
   ["valjevo-maze-watch-reinforcements", {
     slot: "B", inputs: ["up", "enter", "enter", "p", "h", "enter", "s"],
@@ -7753,6 +7770,12 @@ const valhingenBrassDoorBattle = {
   afterBattle: /9,1W.*AREACASTVIEWENCAMPSEARCHLOOK/i,
 };
 const controlledBattleIllustrations = new Map([
+  ["valjevo-maze-watch-patrol", {
+    slot: "B", inputs: ["up", "enter", "enter", "c", "s", "enter"],
+    caption: /APATROLROUNDSTHECORNER/i,
+    heldApproachPosition: [4, 5, 2],
+    victoryInputs: ["enter", "enter", "enter", "enter", "d", "g", "d", "g", "n", "enter", "enter", "e", "n", "enter"],
+  }],
   ["zhentil-quarters-second-wave", {
     slot: "A", inputs: ["up", "enter", "s", "enter", "enter", "enter"],
     portrait: "scene-illustration:area:28:ecl:a5b5",
@@ -10813,7 +10836,9 @@ try {
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified all five native roaming zombie portrait phases and the battle opening in Chrome:", directory);
   } else if (controlledBattleIllustration) {
-    const { inputs, portrait, caption, afterBattle = caption, walk = [], reinforcements = [] } = controlledBattleIllustration;
+    const { inputs, portrait, caption, afterBattle = caption, walk = [], reinforcements = [],
+      heldApproachPosition, victoryInputs = [] } = controlledBattleIllustration;
+    if (heldApproachPosition) await observeApproach([patrolApproachPlacement(heldApproachPosition[0])]);
     const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
     await run(`const sendCombatNoteKey = send; send = key => key === ":poll" ? undefined : sendCombatNoteKey(key);`);
     const step = async key => {
@@ -10826,6 +10851,10 @@ try {
       for (let prompt = 0; prompt < 15 && !frame.developerVictoryAvailable; prompt++) await step("enter");
       assert.equal(frame.developerVictoryAvailable, true);
       await step(":win-combat");
+      for (const key of victoryInputs) {
+        if (ending.test(text())) break;
+        await step(key);
+      }
       for (let turn = 0; turn < 40 && !ending.test(text()); turn++) {
         const visible = text();
         if (/ContinueBattle:YesNo|StillTreasureLeft/i.test(visible)) await step("n");
@@ -10839,13 +10868,28 @@ try {
     }
     for (const key of walk) await step(key);
     assert.match(text(), caption);
-    assert.equal(frame.portrait, portrait);
-    await waitFor("the post-battle illustration", () => run(`state.sequence === ${frame.sequence} &&
-      document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352`));
-    await verifyPortraitPanel();
-    const shot = await command("Page.captureScreenshot", { format: "png" });
-    writeFileSync(resolve(directory, `${routeName}.png`), Buffer.from(shot.data, "base64"));
-    await switchBothWays();
+    if (heldApproachPosition) {
+      await verifyPatrolApproach(caption, heldApproachPosition);
+      await step("enter");
+      for (let advances = 0; advances < 4 && !frame.portrait; advances++) await step("a");
+      assert.equal(frame.portrait, "portrait:area:4:ecl:9d19:HEAD5.DAX:9:BODY5.DAX:1");
+      assert.match(text(), /THEYADVANCE,?WEAPONSREADY/i);
+      await waitFor("the post-battle patrol captain", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${frame.portrait}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays();
+      await step("f");
+      assert.equal(frame.portrait, undefined);
+      assert.match(text(), /ABATTLEBEGINS/i);
+    } else {
+      assert.equal(frame.portrait, portrait);
+      await waitFor("the post-battle illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, `${routeName}.png`), Buffer.from(shot.data, "base64"));
+      await switchBothWays();
+    }
     if (routeName === "new-phlan-tavern-watch-stay") {
       await step("s");
       const reinforcements = "portrait:area:0:ecl:add3:HEAD3.DAX:9:BODY3.DAX:7";
@@ -11036,7 +11080,7 @@ try {
     } else if (routeName === "zhentil-quarters-second-wave") {
       await step("enter");
       assert.notEqual(frame.portrait, portrait);
-    } else {
+    } else if (!heldApproachPosition) {
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-courtyard-note"));
       await advance("j");
