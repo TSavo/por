@@ -144,6 +144,11 @@ must change visible color while retaining its silhouette and unmasked pixels.
 Append `--each-color` to test each painted, native-visible dye channel in isolation.
 Run `npm run verify:icon-materials` alongside it to check for missing masks and channels.
 
+Pass an output directory followed by `--sweep small` or `--sweep tall` to
+walk the entire icon editor with Chrome keyboard input. Each sweep selects
+448 combinations, checks the ready and strike art against the game's selected
+keys, and saves eight labeled sheets of the images Chrome drew.
+
 ## Dice
 
 `POR_CLOCK=fixed` starts a replay on fixed dice. Version 1.3 draws one
