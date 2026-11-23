@@ -2319,6 +2319,14 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:20:0:0",
     prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMEWIGHTS/i,
   }],
+  ["valhingen-wight-roam-direct", {
+    slot: "A", fixedClockStart: "4320891", inputs: ["up", "enter", "a"], settleInputs: ["a", "a"],
+    portrait: "portrait:area:10:ecl:b56c:PIC4.DAX:20:0:0", prompt: /YOUFINDSOMEUNDEAD/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:10:ecl:b56c:PIC4.DAX:20:${member}:0`),
+    continuation: {
+      inputs: ["p"], portrait: "portrait:area:10:ecl:b58c:PIC4.DAX:20:0:0", prompt: /YOUFINDSOMEUNDEAD/i,
+    },
+  }],
   ["slums-roaming-kobold-loop", {
     slot: "B", inputs: [...Array.from({ length: 18 }, () => ["up", "enter", "down"]).flat(), "up", "enter", "a"],
     portrait: "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0",
