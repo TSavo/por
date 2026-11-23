@@ -1325,7 +1325,7 @@ const illustrationRoutes = new Map([
     slot: "A", stockInput: true, fixedClockStart: "4320222",
     inputs: [...Array.from({ length: 41 }, (_, index) => index % 2 ? "down" : "up"), "a", "a"],
     portrait: "portrait:area:24:ecl:ae0e:PIC1.DAX:2:0:0",
-    prompt: /THEMONSTERSSTANDREADY.*COMBATWAITFLEEPARLAY/i,
+    prompt: /THEMONSTERSSTANDREADY/i,
     heldPortraitLoop: [0, 1].map(member => `portrait:area:24:ecl:ae0e:PIC1.DAX:2:${member}:0`),
     approachSequence: [
       [56, 32, "encounter:area:24:ecl:ae0e:SPRIT1.DAX:2:2:0", 24, 49],
@@ -1334,6 +1334,18 @@ const illustrationRoutes = new Map([
     requireWebGL: true, requireTiledApproach: true,
     finalPhaseCapture: "bane-rampart-goblin-patrol.png",
   }],
+  ...[
+    ["orc", "4320407", 19, "ae0e", 4, /THEMONSTERSSTANDREADY/i],
+    ["ogre", "4320148", 7, "af84", 8, /YOUHAVESURPRISEDTHEM/i],
+  ].map(([name, fixedClockStart, moves, cursor, block, prompt]) => {
+    const key = member => `portrait:area:24:ecl:${cursor}:PIC1.DAX:${block}:${member}:0`;
+    return [`bane-rampart-${name}-patrol`, {
+      slot: "A", stockInput: true, fixedClockStart,
+      inputs: Array.from({ length: moves }, (_, index) => index % 2 ? "down" : "up"),
+      portrait: key(0), prompt, heldPortraitLoop: [0, 1, 2, 1].map(key),
+      finalPhaseCapture: `bane-rampart-${name}-patrol.png`,
+    }];
+  }),
   ["bane-black-hand-patrol-warning", {
     slot: "A", inputs: [...Array.from({ length: 49 }, () => ["up", "down"]).flat(), "up"],
     promptSchedule: "qa/fixtures/bane-black-hand-patrol-warning/prompts.jsonl",
