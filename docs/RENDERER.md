@@ -30,8 +30,9 @@ and saturation, and bloom on the sun. Indoor views get a dimmer fill and
 a warm light at the party. The camera, geometry and atlas packing are
 unchanged.
 
-Overland pastes the illustrated Moonsea (or a local 5×5 sheet during
-encounters) onto a 352×352 quad and is left as it was.
+Overland shows the illustrated Moonsea in the travel map's SVG image.
+Encounters place a 352×352 WebGL view of the local 5×5 terrain behind
+the creature sprite.
 
 The renderer only reads game state and draws
 ([ARCHITECTURE.md](ARCHITECTURE.md)). Keep `preserveDrawingBuffer: true`;
@@ -78,9 +79,12 @@ turns.
 use that environment for ambient and specular on materials (Saltline's
 PMREM-from-scene approach). Recapture when the area changes.
 
-**Overland.** Left alone in this pass. A lighter grade and horizon fog
-can come later (#202) without wrinkling the illustrated map. (#193 is
-separate.)
+**Overland.** A mild grade lifts dark terrain details and slightly softens
+saturation on the Moonsea image and the local WebGL terrain canvas.
+The browser composites the grade on those two painted layers. Destination
+markers, creatures, menus and Classic display retain their original colors.
+The grade uses the existing WebGL terrain and allocates no shadow resources.
+See the [paired Moonsea and Buccaneer captures](screenshots/renderer-look/moonsea-grade.png).
 
 Today's context is WebGL 1. Newer APIs are fine where they exist; never
 leave a black view if they do not.
@@ -106,9 +110,10 @@ pre-lighting `3c29ba82` and lit `c3f4496b`.
 | Buccaneer Base encounter | [Tiger encounter capture](screenshots/renderer-look/buccaneer-tigers.png) | From the atlas, three Rights, seven Downs, then Enter. (11,30) south, 10:12. |
 
 The gate's decoded Classic framebuffer is byte-identical in both
-builds. Both overland art panels match pixel for pixel, including the
-tiger overlay. The local encounter's 352×352 WebGL terrain PNG also
-matches byte for byte. The atlas uses the authored map image.
+builds. In those historical captures, taken before the overland grade,
+both overland art panels match pixel for pixel, including the tiger
+overlay. The local encounter's 352×352 WebGL terrain PNG also matches
+byte for byte. The atlas uses the authored map image.
 
 For the overland captures, use the existing verifier with the GOG 1.3
 data outside the repository. It loads the above fixture, applies the
@@ -149,6 +154,10 @@ Distant water gains more haze than foreground water. The sampled sky,
 masonry, pilings, and dry deck match byte for byte. The final WebGL
 canvas is opaque and supplies its own sky.
 
+The roofed Valjevo Barracks camera matches pixel for pixel in the fog
+comparison. The GOG Classic frames also match on both
+routes. The open-night Kuto's Well replay below passed in both data modes.
+
 ### Corner contact shading
 
 The [matched Valjevo Barracks captures](screenshots/renderer-look/barracks-corner-shading.png)
@@ -160,10 +169,6 @@ Chrome each keep the recorded camera and wall grid at the barracks and
 harbor. In a direct bake check, a straight wall, duplicate shared edges,
 and the sunlight channel each produce the same values as their controls.
 The renderer uses the wall grid for this effect.
-
-The same Chrome comparison at the roofed Valjevo Barracks camera
-matches pixel for pixel. The GOG Classic frames also match on both
-routes. The open-night Kuto's Well replay below passed in both data modes.
 
 ### Harbor post-processing
 
