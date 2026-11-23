@@ -43469,6 +43469,531 @@
           }
         }
       ]
+    },
+    {
+      "producer": "ECL3.DAX:11:9bee",
+      "prompt": "a0cc/9c66",
+      "variants": [
+        {
+          "caption": "THE ARENA MASTER ASKS IF YOU WISH TO DUEL. 'THE DUELS ARE EVENLY MATCHED AND NORMALLY NOT TO THE DEATH. DO YOU DUEL?'",
+          "checkpoint": "visit-training-hall/A.json",
+          "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 10 6 BRIN 8 6 CORA 10 6 DORN 10 8 ENNA 9 6 FENN 9 8 7,1 E 00:10 THE ARENA MASTER ASKS IF YOU WISH TO DUEL. 'THE DUELS ARE EVENLY MATCHED AND NORMALLY NOT TO THE DEATH. DO YOU DUEL?' Yes No",
+            "idlePolls": 24,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 8,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 16,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 24,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              }
+            ],
+            "drawCursor": "9bf8",
+            "composed": {
+              "source": "HEAD3.DAX:9:BODY3.DAX:1",
+              "headWrite": "9be8",
+              "headSlot": "6de1",
+              "bodyOperand": 2
+            },
+            "clearedPanelSha256": "907b3cfcee47b35935630c1c204573baffbe07de8a04b4b4ee5cef71c2dbf6af"
+          },
+          "chrome": {
+            "original": {
+              "route": "new-phlan-training-arena-hiring",
+              "data": "original",
+              "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:10THEARENAMASTERASKSIFYOUWISHTODUEL.'THEDUELSAREEVENLYMATCHEDANDNORMALLYNOTTOTHEDEATH.DOYOUDUEL?'YesNo",
+              "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+              "checkpointSha256": "543559a628137d429f18c1fa574ab911d135795819b84670bbd7b45aa837ddfc",
+              "artSha256": "80c2607149c08a3f5c0f1bd34f496c6d27368e39b8ec2ed7896283cb901efe33",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3658,
+              "samples": 220,
+              "poses": [
+                "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "new-phlan-training-arena-hiring",
+              "data": "port",
+              "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:10THEARENAMASTERASKSIFYOUWISHTODUEL.'THEDUELSAREEVENLYMATCHEDANDNORMALLYNOTTOTHEDEATH.DOYOUDUEL?'YesNo",
+              "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+              "checkpointSha256": "543559a628137d429f18c1fa574ab911d135795819b84670bbd7b45aa837ddfc",
+              "artSha256": "80c2607149c08a3f5c0f1bd34f496c6d27368e39b8ec2ed7896283cb901efe33",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3654,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL3.DAX:11:9bee",
+      "prompt": "9c80",
+      "variants": [
+        {
+          "caption": "WHO WILL DUEL?",
+          "checkpoint": "visit-training-hall/A.json",
+          "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 10 6 BRIN 8 6 CORA 10 6 DORN 10 8 ENNA 9 6 FENN 9 8 7,1 E 00:10 WHO WILL DUEL? Select",
+            "idlePolls": 24,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 8,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 16,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 24,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              }
+            ],
+            "drawCursor": "9bf8",
+            "composed": {
+              "source": "HEAD3.DAX:9:BODY3.DAX:1",
+              "headWrite": "9be8",
+              "headSlot": "6de1",
+              "bodyOperand": 2
+            },
+            "clearedPanelSha256": "ee2a06414b8fd1fa8a54fba7e939119dce5277b18ae2f9ce646f48404a5fa480"
+          },
+          "chrome": {
+            "original": {
+              "route": "new-phlan-training-arena-duelist",
+              "data": "original",
+              "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:10WHOWILLDUEL?Select",
+              "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+              "checkpointSha256": "543559a628137d429f18c1fa574ab911d135795819b84670bbd7b45aa837ddfc",
+              "artSha256": "80c2607149c08a3f5c0f1bd34f496c6d27368e39b8ec2ed7896283cb901efe33",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3661,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "new-phlan-training-arena-duelist",
+              "data": "port",
+              "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:10WHOWILLDUEL?Select",
+              "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+              "checkpointSha256": "543559a628137d429f18c1fa574ab911d135795819b84670bbd7b45aa837ddfc",
+              "artSha256": "80c2607149c08a3f5c0f1bd34f496c6d27368e39b8ec2ed7896283cb901efe33",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3654,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL3.DAX:11:9bee",
+      "prompt": "a0cc/9ce3",
+      "variants": [
+        {
+          "caption": "'DO YOU SEEK A PARTNER FOR YOUR ADVENTURING?'",
+          "checkpoint": "visit-training-hall/A.json",
+          "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 10 6 BRIN 8 6 CORA 10 6 DORN 10 8 ENNA 9 6 FENN 9 8 7,1 E 00:10 'DO YOU SEEK A PARTNER FOR YOUR ADVENTURING?' Yes No",
+            "idlePolls": 24,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 8,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 16,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 24,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              }
+            ],
+            "drawCursor": "9bf8",
+            "composed": {
+              "source": "HEAD3.DAX:9:BODY3.DAX:1",
+              "headWrite": "9be8",
+              "headSlot": "6de1",
+              "bodyOperand": 2
+            },
+            "clearedPanelSha256": "907b3cfcee47b35935630c1c204573baffbe07de8a04b4b4ee5cef71c2dbf6af"
+          },
+          "chrome": {
+            "original": {
+              "route": "new-phlan-training-arena-hiring",
+              "data": "original",
+              "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:10'DOYOUSEEKAPARTNERFORYOURADVENTURING?'YesNo",
+              "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+              "checkpointSha256": "543559a628137d429f18c1fa574ab911d135795819b84670bbd7b45aa837ddfc",
+              "artSha256": "80c2607149c08a3f5c0f1bd34f496c6d27368e39b8ec2ed7896283cb901efe33",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3663,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "new-phlan-training-arena-hiring",
+              "data": "port",
+              "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:10'DOYOUSEEKAPARTNERFORYOURADVENTURING?'YesNo",
+              "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+              "checkpointSha256": "543559a628137d429f18c1fa574ab911d135795819b84670bbd7b45aa837ddfc",
+              "artSha256": "80c2607149c08a3f5c0f1bd34f496c6d27368e39b8ec2ed7896283cb901efe33",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3653,
+              "samples": 220,
+              "poses": [
+                "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL3.DAX:11:9bee",
+      "prompt": "a0cc/9ef0",
+      "variants": [
+        {
+          "caption": "'THERE IS A FINE SWORDSMAN WHO WILL JOIN YOU FOR 3 SHARES . IS THIS ACCEPTABLE?'",
+          "checkpoint": "visit-training-hall/A.json",
+          "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 10 6 BRIN 8 6 CORA 10 6 DORN 10 8 ENNA 9 6 FENN 9 8 7,1 E 00:10 'THERE IS A FINE SWORDSMAN WHO WILL JOIN YOU FOR 3 SHARES . IS THIS ACCEPTABLE?' Yes No",
+            "idlePolls": 24,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 8,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 16,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 24,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              }
+            ],
+            "drawCursor": "9bf8",
+            "composed": {
+              "source": "HEAD3.DAX:9:BODY3.DAX:1",
+              "headWrite": "9be8",
+              "headSlot": "6de1",
+              "bodyOperand": 2
+            },
+            "clearedPanelSha256": "907b3cfcee47b35935630c1c204573baffbe07de8a04b4b4ee5cef71c2dbf6af"
+          },
+          "chrome": {
+            "original": {
+              "route": "new-phlan-training-arena-hiring",
+              "data": "original",
+              "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:10'THEREISAFINESWORDSMANWHOWILLJOINYOUFOR3SHARES.ISTHISACCEPTABLE?'YesNo",
+              "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+              "checkpointSha256": "543559a628137d429f18c1fa574ab911d135795819b84670bbd7b45aa837ddfc",
+              "artSha256": "80c2607149c08a3f5c0f1bd34f496c6d27368e39b8ec2ed7896283cb901efe33",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3652,
+              "samples": 220,
+              "poses": [
+                "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "new-phlan-training-arena-hiring",
+              "data": "port",
+              "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:10'THEREISAFINESWORDSMANWHOWILLJOINYOUFOR3SHARES.ISTHISACCEPTABLE?'YesNo",
+              "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+              "checkpointSha256": "543559a628137d429f18c1fa574ab911d135795819b84670bbd7b45aa837ddfc",
+              "artSha256": "80c2607149c08a3f5c0f1bd34f496c6d27368e39b8ec2ed7896283cb901efe33",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3660,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL3.DAX:11:9bee",
+      "prompt": "a0cc/9f4a",
+      "variants": [
+        {
+          "caption": "'WOULD YOU LIKE TO CONSIDER SOMEONE ELSE?'",
+          "checkpoint": "visit-training-hall/A.json",
+          "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 10 6 BRIN 8 6 CORA 10 6 DORN 10 8 ENNA 9 6 FENN 9 8 7,1 E 00:10 'WOULD YOU LIKE TO CONSIDER SOMEONE ELSE?' Yes No",
+            "idlePolls": 24,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 8,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 16,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 24,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              }
+            ],
+            "drawCursor": "9bf8",
+            "composed": {
+              "source": "HEAD3.DAX:9:BODY3.DAX:1",
+              "headWrite": "9be8",
+              "headSlot": "6de1",
+              "bodyOperand": 2
+            },
+            "clearedPanelSha256": "907b3cfcee47b35935630c1c204573baffbe07de8a04b4b4ee5cef71c2dbf6af"
+          },
+          "chrome": {
+            "original": {
+              "route": "new-phlan-training-arena-hiring",
+              "data": "original",
+              "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:10'WOULDYOULIKETOCONSIDERSOMEONEELSE?'YesNo",
+              "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+              "checkpointSha256": "543559a628137d429f18c1fa574ab911d135795819b84670bbd7b45aa837ddfc",
+              "artSha256": "80c2607149c08a3f5c0f1bd34f496c6d27368e39b8ec2ed7896283cb901efe33",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3654,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "new-phlan-training-arena-hiring",
+              "data": "port",
+              "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:10'WOULDYOULIKETOCONSIDERSOMEONEELSE?'YesNo",
+              "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+              "checkpointSha256": "543559a628137d429f18c1fa574ab911d135795819b84670bbd7b45aa837ddfc",
+              "artSha256": "80c2607149c08a3f5c0f1bd34f496c6d27368e39b8ec2ed7896283cb901efe33",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3662,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL3.DAX:11:9f9e",
+      "prompt": "a0cc/a03d",
+      "variants": [
+        {
+          "caption": "'WE TRAIN ONLY FIGHTERS HERE. DO YOU WANT TO TRAIN?'",
+          "checkpoint": "visit-training-hall/A.json",
+          "portrait": "portrait:HEAD3.DAX:16:BODY3.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 10 6 BRIN 8 6 CORA 10 6 DORN 10 8 ENNA 9 6 FENN 9 8 8,0 N 00:12 'WE TRAIN ONLY FIGHTERS HERE. DO YOU WANT TO TRAIN?' Yes No",
+            "idlePolls": 24,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "3d4e3fd904c1b8e5d29762d39d172aadc28e2939b5b209f83c5113f39002f77b"
+              },
+              {
+                "idlePolls": 8,
+                "sha256": "3d4e3fd904c1b8e5d29762d39d172aadc28e2939b5b209f83c5113f39002f77b"
+              },
+              {
+                "idlePolls": 16,
+                "sha256": "3d4e3fd904c1b8e5d29762d39d172aadc28e2939b5b209f83c5113f39002f77b"
+              },
+              {
+                "idlePolls": 24,
+                "sha256": "3d4e3fd904c1b8e5d29762d39d172aadc28e2939b5b209f83c5113f39002f77b"
+              }
+            ],
+            "drawCursor": "9fa1",
+            "composed": {
+              "source": "HEAD3.DAX:16:BODY3.DAX:1",
+              "headWrite": "9f98",
+              "headSlot": "6de1",
+              "bodyOperand": 0
+            },
+            "clearedPanelSha256": "3cf40ea128a0115fb9e1c5c72178c1a5bb0b9d80b60b24709d3e0f61ca56def4"
+          },
+          "chrome": {
+            "original": {
+              "route": "new-phlan-training-fighter-hold",
+              "data": "original",
+              "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN988,0N00:12'WETRAINONLYFIGHTERSHERE.DOYOUWANTTOTRAIN?'YesNo",
+              "portrait": "portrait:HEAD3.DAX:16:BODY3.DAX:1",
+              "checkpointSha256": "543559a628137d429f18c1fa574ab911d135795819b84670bbd7b45aa837ddfc",
+              "artSha256": "058b0c2a533317e087ba5f3caa9c207ac13d9a8de9c84f539bd3019955678a31",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3664,
+              "samples": 220,
+              "poses": [
+                "portrait:HEAD3.DAX:16:BODY3.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "new-phlan-training-fighter-hold",
+              "data": "port",
+              "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN988,0N00:12'WETRAINONLYFIGHTERSHERE.DOYOUWANTTOTRAIN?'YesNo",
+              "portrait": "portrait:HEAD3.DAX:16:BODY3.DAX:1",
+              "checkpointSha256": "543559a628137d429f18c1fa574ab911d135795819b84670bbd7b45aa837ddfc",
+              "artSha256": "058b0c2a533317e087ba5f3caa9c207ac13d9a8de9c84f539bd3019955678a31",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3652,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD3.DAX:16:BODY3.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL3.DAX:11:9bee",
+      "prompt": "a167/a115",
+      "variants": [
+        {
+          "caption": "YOUR PARTY IS TOO LARGE TO JOIN AT THIS TIME. RETURN WHEN IT IS SMALLER.",
+          "checkpoint": "visit-training-hall/A.json",
+          "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 10 6 BRIN 8 6 CORA 10 6 DORN 10 8 ENNA 9 6 FENN 9 8 SWORDSMAN 5 18 WARRIOR 3 13 7,1 E 00:10 'YOUR PARTY IS TOO LARGE TO JOIN AT THIS TIME. RETURN WHEN IT IS SMALLER. ' Press <enter>/<return> to continue",
+            "idlePolls": 24,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 8,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 16,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              },
+              {
+                "idlePolls": 24,
+                "sha256": "0435f4ecc89e546f526e166624076700f8e683109c550ff238da260ef70274cc"
+              }
+            ],
+            "drawCursor": "9bf8",
+            "composed": {
+              "source": "HEAD3.DAX:9:BODY3.DAX:1",
+              "headWrite": "9be8",
+              "headSlot": "6de1",
+              "bodyOperand": 2
+            },
+            "clearedPanelSha256": "907b3cfcee47b35935630c1c204573baffbe07de8a04b4b4ee5cef71c2dbf6af"
+          },
+          "chrome": {
+            "original": {
+              "route": "new-phlan-training-arena-full-party",
+              "data": "original",
+              "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN98SWORDSMAN518WARRIOR3137,1E00:10'YOURPARTYISTOOLARGETOJOINATTHISTIME.RETURNWHENITISSMALLER.'Press<enter>/<return>tocontinue",
+              "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+              "checkpointSha256": "543559a628137d429f18c1fa574ab911d135795819b84670bbd7b45aa837ddfc",
+              "artSha256": "80c2607149c08a3f5c0f1bd34f496c6d27368e39b8ec2ed7896283cb901efe33",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3659,
+              "samples": 221,
+              "poses": [
+                "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "new-phlan-training-arena-full-party",
+              "data": "port",
+              "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN98SWORDSMAN518WARRIOR3137,1E00:10'YOURPARTYISTOOLARGETOJOINATTHISTIME.RETURNWHENITISSMALLER.'Press<enter>/<return>tocontinue",
+              "portrait": "portrait:HEAD3.DAX:9:BODY3.DAX:1",
+              "checkpointSha256": "543559a628137d429f18c1fa574ab911d135795819b84670bbd7b45aa837ddfc",
+              "artSha256": "80c2607149c08a3f5c0f1bd34f496c6d27368e39b8ec2ed7896283cb901efe33",
+              "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3664,
+              "samples": 220,
+              "poses": [
+                "portrait:HEAD3.DAX:9:BODY3.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
     }
   ],
   "approachTransitions": [
