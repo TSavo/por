@@ -1,7 +1,11 @@
 // The boot proof of #225: the same walk through the Node runner (the pipe) and through the bundled
 // engine in a Web Worker in headless Chrome (tools/web/boot.html), frame for frame.
 //
-//   node tools/web/check-boot.mjs
+//   node tools/web/check-boot.mjs [--original <folder>]
+//
+// With --original (#226), the player's own original files: the runner is given them as the launcher
+// gives them (POR_GAMEDATA for version 1.3, POR_CLASSIC_PICTURES for the first release); the page reads
+// them as a picked folder (tools/web/original-picker.ts), and a folder without the game is refused.
 //
 // The Node runner plays the walk the way the acceptance harness does (tools/acceptance/harness.mjs): it
 // answers a poll the game makes by itself with ":travel-poll" and gives the next key when the game
@@ -11,14 +15,25 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createInterface } from "node:readline";
 import { exploring, pressReturn } from "../acceptance/harness.mjs";
 import { openChrome } from "./chrome-check.mjs";
-const originalEnv = { POR_GAME_SOURCE: "port", POR_GAMEDATA: "" };
+import { serveOriginalFolder } from "./original-test-server.mjs";
+
+const argument = (name) => { const at = process.argv.indexOf(name); return at < 0 ? undefined : process.argv[at + 1]; };
+const originalFolder = argument("--original");
+// The game's folder: the one named, or the one inside it with GAME.OVR (GOG's POOLRAD).
+const gameFolder = originalFolder && [originalFolder, ...readdirSync(originalFolder).map((name) => join(originalFolder, name))]
+  .find((folder) => existsSync(join(folder, "GAME.OVR")));
+const release = gameFolder && { FBOV: "1.3", TPOV: "first" }[readFileSync(join(gameFolder, "GAME.OVR")).subarray(0, 4).toString("latin1")];
+if (originalFolder) assert.ok(release, `${originalFolder} holds no original game.`);
+const originalEnv = release === "1.3" ? { POR_GAME_SOURCE: "", POR_GAMEDATA: gameFolder }
+  : release === "first" ? { POR_GAME_SOURCE: "port", POR_GAMEDATA: "", POR_CLASSIC_PICTURES: gameFolder }
+  : { POR_GAME_SOURCE: "port", POR_GAMEDATA: "" };
 
 const work = mkdtempSync(join(tmpdir(), "por-check-boot-"));
 const probe = createServer();
@@ -81,16 +96,31 @@ await new Promise((done) => {
   runner.on("exit", done);
 });
 const nodeMs = Date.now() - nodeStarted;
+console.log(`${originalFolder ? `${originalFolder} (${release === "1.3" ? "version 1.3" : "the first release"})` : "the port's own data"}`);
 console.log(`node runner: ${nodeFrames.length} frames for ${commands.length} commands in ${nodeMs} ms; last: ${nodeFrames.at(-1)?.text}`);
 assert.ok(exploring.test(nodeFrames.at(-1)?.text ?? ""), "The walk must end at the exploration menu.");
 
 // 2. The browser engine, given the same commands.
 const page = await openChrome(`${origin}/boot.html`);
-let browser;
+const served = originalFolder && await serveOriginalFolder(originalFolder);
+// A folder without the game: refused with the launcher's kind of problem.
+const notGame = originalFolder && await serveOriginalFolder(join(process.cwd(), "src", "maps"));
+let browser, refused;
 try {
   await page.until("the boot page", "typeof window.porBootCheck === 'function'");
-  browser = await page.evaluate(`porBootCheck(${JSON.stringify({ env, commands })})`);
+  if (notGame) {
+    refused = await page.evaluate(`porBootCheck(${JSON.stringify({ env, commands: [], original: notGame.url })})`);
+    console.log(`a folder without the game: ${refused.problem}`);
+    assert.match(refused.problem ?? "", /^maps has no START\.EXE, GAME\.OVR, ECL1\.DAX$/);
+  }
+  browser = await page.evaluate(`porBootCheck(${JSON.stringify({ env, commands, original: served?.url })})`);
+  if (served) {
+    console.log(`original files: ${JSON.stringify(browser.original)}`);
+    assert.equal(browser.original?.release, release);
+  }
 } finally {
+  served?.close();
+  notGame?.close();
   await page.close();
   server.kill();
   rmSync(work, { recursive: true, force: true });
@@ -106,7 +136,7 @@ for (; same < Math.min(nodeFrames.length, browserFrames.length); same++) {
 console.log(`frames identical (text, position, pixels): ${same} / ${nodeFrames.length}`);
 if (same < nodeFrames.length) {
   console.log("node   :", JSON.stringify(nodeFrames[same]).slice(0, 400));
-  console.log("browser:", JSON.stringify(browserFrames[same]).slice(0, 400));
+  console.log("browser:", JSON.stringify(browserFrames[same] ?? null).slice(0, 400));
   console.log("browser lines:", browser.other.join("\n"));
 }
 assert.equal(browserFrames.length, nodeFrames.length, "The browser engine must draw as many frames as the runner.");

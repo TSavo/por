@@ -13,33 +13,25 @@
 import { closeSync, openSync, readSync, readdirSync, statSync } from "node:fs";
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
+import { missingOriginalFiles, originalRelease, releaseName, type OriginalRelease } from "../../src/resources/original-folder.js";
 import { readTextNow, type ResidentResources } from "../../src/resources/provider.js";
 import { NodeDiskResources } from "../resources/node-disk.js";
 
-export type OriginalRelease = "1.3" | "first";
+export type { OriginalRelease };
+export { releaseName };
 export interface OriginalFolder { folder: string; release: OriginalRelease }
 
 export const originalFilesSettingName = "original-files.json";
 
-/** The files the game server requires of an original directory. */
-const required = ["START.EXE", "GAME.OVR", "ECL1.DAX"];
-
-/** The overlay manager's name at the start of GAME.OVR tells the releases apart (src/runtime/bindings.ts). */
-const releases: Record<string, OriginalRelease> = { FBOV: "1.3", TPOV: "first" };
-
-export const releaseName = (release: OriginalRelease): string => release === "1.3" ? "version 1.3" : "the first release";
-
 function inspectFolder(folder: string): OriginalFolder | { problem: string } {
   const names = new Map(readdirSync(folder).map((name) => [name.toUpperCase(), name]));
-  const missing = required.filter((name) => !names.has(name));
+  const missing = missingOriginalFiles(names.keys());
   if (missing.length) return { problem: `${folder} has no ${missing.join(", ")}` };
   const overlay = Buffer.alloc(4);
   const file = openSync(join(folder, names.get("GAME.OVR")!), "r");
   try { readSync(file, overlay, 0, 4, 0); } finally { closeSync(file); }
-  const magic = overlay.toString("latin1");
-  const release = releases[magic];
-  if (!release) return { problem: `${folder} is not Pool of Radiance version 1.3 or its first release (its GAME.OVR starts ${JSON.stringify(magic)})` };
-  return { folder, release };
+  const release = originalRelease(folder, overlay);
+  return typeof release === "string" ? { folder, release } : release;
 }
 
 /**

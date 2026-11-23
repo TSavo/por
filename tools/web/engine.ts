@@ -1,11 +1,14 @@
 /**
  * Start the engine's worker from the page (#225): preload what the engine reads synchronously, the
- * port's own game data (`game:`) and the engine's own manifests, then hand the bytes over. Art, audio and the atlas are never preloaded:
+ * port's own game data (`game:`), the player's original files and saves when there are any, and the
+ * engine's own manifests, then hand the bytes over. Art, audio and the atlas are never preloaded:
  * the page fetches them by URL when they are on screen.
  */
+import type { PickedOriginalFolder } from "../../src/resources/original-folder.js";
 import type { ResourceId, ResourceProvider } from "../../src/resources/provider.js";
 import { CommandWriter, createCommandBuffer } from "./command-channel.js";
 import type { EngineMessage, EngineStart } from "./engine-worker.js";
+import { originalEntries } from "./original-picker.js";
 import type { ResourceIndex } from "./resource-index.js";
 
 /** What the engine reads besides its game files, by id. */
@@ -18,7 +21,7 @@ export const engineManifests: readonly ResourceId[] = [
 export interface EngineOptions {
   /** Every resource the engine reads synchronously, read beforehand (preloadEngineResources). */
   entries: [ResourceId, Uint8Array][];
-  /** Which root the engine runs from: the port's own data, or the player's version 1.3 files. */
+  /** Which root the engine runs from: the port's own data, or the player's version 1.3 files (#226). */
   root: "res:game" | "res:original";
   /** The engine's settings: the artwork keys and the runner's settings. */
   env: Record<string, string>;
@@ -44,6 +47,9 @@ export async function preloadEngineResources(provider: ResourceProvider, index: 
   }));
 }
 
+/** The engine's root for the player's original files: version 1.3 is run from as it is (#226). */
+export const engineRoot = (original?: PickedOriginalFolder) => original?.release === "1.3" ? "res:original" as const : "res:game" as const;
+
 /** Start the engine's worker with copies of the entries: the page keeps its own. */
 export function startEngine(options: EngineOptions): RunningEngine {
   const commands = createCommandBuffer();
@@ -62,3 +68,5 @@ export function startEngine(options: EngineOptions): RunningEngine {
     stop() { writer.close(); worker.terminate(); },
   };
 }
+
+export { originalEntries };
