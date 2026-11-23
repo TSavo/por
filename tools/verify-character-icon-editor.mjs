@@ -83,6 +83,17 @@ try {
   await press("y", ..."iconqa", "enter", "k");
   assert.match(text(), /Partscolor-1color-2SizeExit/i);
 
+  // CBODY 3/131 supplies both flail poses. Only the upper part of each image
+  // should change as all fourteen small CHEAD choices cycle back to the first.
+  await press("p", "w", "n", "n", "n", "k", "h");
+  const flail = (await editorIcons(64)).current;
+  for (let head = 1; head <= 14; head++) {
+    await press("n");
+    assert.deepEqual((await editorIcons(64)).current, flail,
+      `Changing to flail head ${head % 14} changed the legs or weapon`);
+  }
+  await press("k", "w", "p", "p", "p", "k", "e");
+
   const initial = await editorIcons();
   // A head edit must preserve the unarmed body's legs, belt, and equipment in both poses (#275).
   const initialBody = (await editorIcons(48)).current;

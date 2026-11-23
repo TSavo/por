@@ -131,7 +131,7 @@ Run `node tools/verify-character-icon-editor.mjs <Chrome executable>`
 with `POR_GAME_SOURCE=original` and `POR_GAMEDATA` set to the GOG 1.3 files,
 or with `POR_GAME_SOURCE=port` for the bundled data. The replay uses
 Chrome's keyboard input and checks the painted ready and action icons
-as the player changes head, weapon, both colours and size. It keeps the
+as the player changes head, weapon, both colours and size. It cycles all fourteen small flail heads and checks that both lower-body poses retain their pixels. It keeps the
 new icon, restarts from the saved roster, and takes the character through the
 tour. It saves in slot A, restarts again, loads the slot, and checks both
 the ready and strike pixels against the editor in live combat.
