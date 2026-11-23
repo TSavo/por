@@ -1,0 +1,26 @@
+[
+  {
+    "producer": "START.EXE:33fd",
+    "route": "camp-view-portrait-restore",
+    "checkpoint": "guide-party-new-phlan/A.json",
+    "native": {
+      "gameState": 2,
+      "archive": "PIC3.DAX",
+      "member": 0,
+      "initialViewport": "1ef14db0ddbf8ef3559ad2a5a41b26be503885f9f9864f3f349e93c11dbdc5a9",
+      "restoredViewport": "1ef14db0ddbf8ef3559ad2a5a41b26be503885f9f9864f3f349e93c11dbdc5a9"
+    }
+  },
+  {
+    "producer": "START.EXE:347d",
+    "route": "loot-view-portrait-restore",
+    "checkpoint": "ohlo-loot-view-restore/H.json",
+    "native": {
+      "gameState": 6,
+      "archive": "PIC2.DAX",
+      "member": 0,
+      "initialViewport": "fd7cdd44166665fb595cceb84b793565b96edb9c69eb96e39e69d43006396bd0",
+      "restoredViewport": "fd7cdd44166665fb595cceb84b793565b96edb9c69eb96e39e69d43006396bd0"
+    }
+  }
+]

@@ -150,6 +150,23 @@ interface OneShotProof {
   artSha256: string;
 }
 
+interface ResidentRestore {
+  producer: string;
+  route: string;
+  checkpoint: string;
+  native: {
+    gameState: number;
+    archive: string;
+    member: number;
+    initialViewport: string;
+    restoredViewport: string;
+  };
+  chrome?: Record<ChromeProof["data"], OneShotProof & {
+    checkpointSha256: string;
+    menuPortraits: [string, null, string];
+  }>;
+}
+
 interface OneShot {
   producer: string;
   combat: string;
@@ -253,6 +270,9 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
   const inventory = JSON.parse(readFileSync(path("qa", "held-portraits.json"), "utf8")) as HeldPortraitInventory;
   const oneShots = JSON.parse(readFileSync(path("qa", "held-portrait-one-shots.json"), "utf8")) as OneShot[];
   const oneShotByProducer = new Map(oneShots.map(proof => [proof.producer, proof]));
+  const residentRestores = JSON.parse(readFileSync(path("qa", "held-portrait-restores.json"), "utf8")) as ResidentRestore[];
+  const restoreByProducer = new Map(residentRestores.map(proof => [proof.producer, proof]));
+  if (restoreByProducer.size !== residentRestores.length) throw new Error("Duplicate resident portrait restore");
   if (oneShotByProducer.size !== oneShots.length) throw new Error("Duplicate one-shot portrait producer");
   const assets = new Map<string, string>();
   const encounters = new Map<string, EncounterAnchor>();
@@ -670,10 +690,40 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
             prompts.length ? null : "no prompt lead resolved",
     };
   });
-  for (const site of nativeCandidates.filter(({ status }) => status === "candidate")) {
+  const residentSites = nativeCandidates.filter(site => "residentRestore" in site);
+  for (const producer of restoreByProducer.keys()) {
+    if (!residentSites.some(site => `${site.unit}:${site.address}` === producer)) {
+      throw new Error("Unknown resident portrait restore " + producer);
+    }
+  }
+  for (const site of residentSites) {
+    const id = `${site.unit}:${site.address}`;
+    const restore = restoreByProducer.get(id);
+    const expected = site.residentRestore;
+    const native = restore?.native;
+    const anchor = native && site.possiblePictures.find(picture => picture.file === native.archive);
+    const measured = Boolean(native && native.gameState === expected.gameState && native.member === 0 &&
+      anchor?.members.some(({ member }) => member === native.member) &&
+      /^[a-f0-9]{64}$/.test(native.initialViewport) && native.initialViewport === native.restoredViewport);
+    const fixture = restore && path("qa", "fixtures", restore.checkpoint);
+    const image = assets.get(expected.portrait);
+    let verified = false;
+    if (measured && restore?.chrome && fixture && existsSync(fixture) && image && existsSync(image)) {
+      const checkpointHashes = checkpointDigests(fixture);
+      const artworkHash = digest(readFileSync(image));
+      const bindingHash = digest(portraitLoopSignature(expected.portrait));
+      verified = (["original", "port"] as const).every(data => {
+        const proof = restore.chrome?.[data];
+        return proof && proof.data === data && proof.producer === id && proof.route === restore.route &&
+          proof.portrait === expected.portrait && isDeepStrictEqual(proof.menuPortraits, [expected.portrait, null, expected.portrait]) &&
+          checkpointHashes.has(proof.checkpointSha256) && proof.artSha256 === artworkHash &&
+          proof.bindingSha256 === bindingHash && matchesRenderer(proof.rendererSha256);
+      });
+    }
     sites.push({
-      id: `${site.unit}:${site.address}`, source: `${site.pictureArchive}:${site.block}`,
-      measured: false, verified: false, unmeasured: [], scenes: [], reason: "restore bank and prompt unresolved",
+      id, source: `${native?.archive ?? site.pictureArchive}:${site.block}`, measured, verified, unmeasured: [], scenes: [],
+      reason: verified ? "paired Chrome checks confirmed restoration of the same portrait" :
+        measured ? "resident redraw measured, paired Chrome restoration proof pending" : "restore bank and prompt unresolved",
     });
   }
   const unreachable = sites.filter(site => site.unreachableOriginal).length;

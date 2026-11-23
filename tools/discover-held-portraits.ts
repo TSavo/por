@@ -885,10 +885,14 @@ const eclCandidates = scripts.flatMap(record => {
 // Resident restore branches load PIC from the active bank. FINAL uses an argument
 // from its caller and advances in its own timed loop, outside a held menu.
 const nativeCandidates = [
-  ...[{ address: "33fd", block: 29 }, { address: "347d", block: 1 }].map(({ address, block }) => ({
+  ...[
+    { address: "33fd", block: 29, gameState: 2, portrait: "portrait:PIC3.DAX:29:0:0" },
+    { address: "347d", block: 1, gameState: 6, portrait: "portrait:PIC1.DAX:1:0:0" },
+  ].map(({ address, block, gameState, portrait }) => ({
     kind: "native", status: "candidate", unit: "START.EXE", address, pictureArchive: "PIC<active-bank>.DAX", block,
     possiblePictures: animated.filter(record => /^PIC[1-8]\.DAX$/.test(record.file) && record.block === block).map(describePicture),
-    uncertainties: ["runtime-bank", "resident-restore-may-repaint-an-existing-scene"],
+    residentRestore: { gameState, portrait },
+    uncertainties: ["runtime-bank"],
   })),
   {
     kind: "native", status: "outside-held-menu", unit: "ovl18", address: "0047", pictureArchive: "FINAL<active-bank>.DAX",
