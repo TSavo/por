@@ -102,6 +102,16 @@ const arenaMasterDistances = [
   [56, 32, "encounter:area:11:ecl:9bf6:SPRIT3.DAX:16:1:0", 24, 65],
   [56, 32, "encounter:area:11:ecl:9bf8:SPRIT3.DAX:16:1:0", 24, 65],
 ];
+// Stock inputs from qa/fixtures/visit-training-hall/A.json.
+const trainingHallArena = [
+  "right", "right", "up", "up", "right", "right", "right", "up", "up", "right",
+  "up", "up", "up", "up", "left", "up", "right", "up", "enter",
+];
+const trainingArenaMaster = "portrait:HEAD3.DAX:9:BODY3.DAX:1";
+const trainingDuel = /THEARENAMASTERASKSIFYOUWISHTODUEL.*DOYOUDUEL/i;
+const trainingHire = /DOYOUSEEKAPARTNERFORYOURADVENTURING/i;
+const trainingOffer = /THEREISAFINE(?:ACOLYTE|WARRIOR|EVOKER|SWORDSMAN|ROBBER|CURATE|HERO|THEURGIST)WHOWILLJOINYOUFOR.*ISTHISACCEPTABLE/i;
+const trainingExploration = /AREACASTVIEWENCAMPSEARCHLOOK/i;
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
@@ -4024,14 +4034,36 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:0:HEAD3.DAX:9:BODY3.DAX:7", prompt: /GO.*STAY/i,
   }],
   ["new-phlan-training-watch-rousted", {
-    slot: "A", stockInput: true,
-    // From the visit-training-hall save, enter the duel room, decline both offers and rest eight hours.
-    inputs: ["right", "right", "up", "up", "right", "right", "right", "up", "up", "right",
-      "up", "up", "up", "up", "left", "up", "right", "up", "enter", "n", "n", "e", "r", "h",
-      ...Array(8).fill("i"), "r"],
+    slot: "A", stockInput: true, fixedClockStart: "4320000",
+    // Decline both offers and begin an eight-hour rest to trigger the Watch.
+    inputs: [...trainingHallArena, "n", "n", "e", "r", "h", ...Array(8).fill("i"), "r"],
     portrait: "scene-illustration:area:11:ecl:9a0c",
     prompt: /YOUAREROUSTEDBYTHECITYWATCHANDTOLDTOMOVEALONG.*GOFIGHT/i,
-    continuation: { inputs: ["g"], prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i, clearsPortrait: true },
+    staticPortraitMenu: true,
+    continuation: { inputs: ["g"], prompt: trainingExploration, clearsPortrait: true },
+  }],
+  ["new-phlan-training-arena-hiring", {
+    slot: "A", stockInput: true, fixedClockStart: "4320000",
+    inputs: [...trainingHallArena, "n", "y", "n"],
+    portraitStops: { 19: trainingArenaMaster, 20: trainingArenaMaster, 21: trainingArenaMaster },
+    staticPortraitStops: { 19: trainingDuel, 20: trainingHire, 21: trainingOffer },
+    portrait: trainingArenaMaster, prompt: /WOULDYOULIKETOCONSIDERSOMEONEELSE/i,
+    staticPortraitMenu: true,
+    continuation: { inputs: ["n"], prompt: trainingExploration, clearsPortrait: true },
+  }],
+  ["new-phlan-training-arena-duelist", {
+    slot: "A", stockInput: true, fixedClockStart: "4320000",
+    inputs: [...trainingHallArena, "y"],
+    portrait: trainingArenaMaster, prompt: /WHOWILLDUEL\?SELECT/i,
+    staticPortraitMenu: true,
+  }],
+  ["new-phlan-training-fighter-hold", {
+    slot: "A", stockInput: true, fixedClockStart: "4320000",
+    inputs: [...trainingHallArena, "n", "n", "up", "left", "up"],
+    portrait: "portrait:HEAD3.DAX:16:BODY3.DAX:1",
+    prompt: /WETRAINONLYFIGHTERSHERE.*DOYOUWANTTOTRAIN/i,
+    staticPortraitMenu: true,
+    continuation: { inputs: ["n"], prompt: trainingExploration, clearsPortrait: true },
   }],
   ["nomad-entrance-enter", {
     ...nomadEntrance,

@@ -656,6 +656,12 @@ const eclCandidates = scripts.flatMap(record => {
       }
       const firstLabel = promptOperands.get(instruction.opcode);
       if (firstLabel !== undefined) prompt(state, instruction, firstLabel);
+      // The Arena Master's portrait survives the native character picker.
+      if (archive === 3 && scriptBlock === 11 && load.address === 0x9bee &&
+          instruction.address === 0x9c72 && instruction.opcode === 0x39 &&
+          instruction.next === 0x9c80 && instruction.operands[0]?.text === "WHO WILL DUEL?") {
+        prompt(state, instruction, 0);
+      }
       return true;
     });
 
@@ -701,6 +707,25 @@ const eclCandidates = scripts.flatMap(record => {
       bodyOperand: 0, headReset: authored(feastReset.address),
     } : nomadPortrait ?? (tyrmorPictures?.compositions.length === 1 ? tyrmorPictures.compositions[0] : undefined);
     const address = authored(load.address);
+    if (archive === 3 && scriptBlock === 11 && block === 1) {
+      const training = [
+        { producer: 0x99b6, writer: 0x99b0, head: 57, sprite: 15, approaches: ["99be", "99c0"] },
+        { producer: 0x9bee, writer: 0x9be8, head: 9, sprite: 16, approaches: ["9bf6", "9bf8"] },
+        { producer: 0x9f9e, writer: 0x9f98, head: 16, sprite: undefined, approaches: [] },
+      ].find(entry => entry.producer === load.address);
+      const head = training && instructions.get(training.writer);
+      if (training && head?.opcode === 0x09 && head.next === load.address &&
+          literal(head.operands[0]!) === training.head && memory(head.operands[1]!) === 0x6de1 &&
+          (training.sprite === undefined ? direct :
+            opcode === 0x0c && literal(operands[0]!) === training.sprite && literal(operands[1]!) === 2 &&
+            approaches.size === training.approaches.length &&
+            training.approaches.every(cursor => approaches.has(cursor)))) {
+        composedPortrait = {
+          source: `HEAD3.DAX:${training.head}:BODY3.DAX:1`,
+          headWrite: authored(head.address), headSlot: "6de1", bodyOperand: direct ? 0 : 2,
+        };
+      }
+    }
     if (archive === 3 && scriptBlock === 0 && block === 1 && ["9eb7", "a9e1", "aa75"].includes(address)) {
       const at = (position: string) => decoded.find(instruction => authored(instruction.address) === position);
       const selectsHead = (instruction: Instruction | undefined, head: number) => instruction?.opcode === 0x09 &&
