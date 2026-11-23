@@ -159,7 +159,10 @@ uses (15,1) west after the first 43 inputs of
 the masonry behind the deck also receives the sun's shadows.
 
 GOG 1.3 and bundled Chrome produced identical daylight comparison frames
-at the matched native cameras and wall grids. With float extensions
+at the matched native cameras and wall grids. A material mask measured
+2,723 harbor wall pixels, 73,014 near-gate wall pixels, and 24,451
+approach wall pixels darkening by more than five luma levels. Every sky
+pixel in those views matched. With float extensions
 masked, the sun pass still rendered to RGBA8. Forcing its framebuffer to
 be incomplete reproduced the earlier baked view byte for byte. The
 roofed Valjevo Barracks and Kuto's Well night controls kept their previous
