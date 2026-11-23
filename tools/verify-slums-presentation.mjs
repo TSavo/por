@@ -8489,7 +8489,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "mendor-storeroom-kobold-phases" || routeName === "mendor-storeroom-mercy-loop" ||
       routeName === "mendor-storeroom-kobold-map" ||
       routeName === "kobold-white-flag-envoy" || routeName === "kobold-white-flag-escort-phase" || routeName === "kobold-white-flag-refusal" ||
-      routeName === "kobold-kings-quarters-native" ||
+      routeName === "kobold-kings-quarters-native" || routeName === "kobold-cave-efreeti-dialogue" ||
       routeName === "valjevo-medusa-phases" || routeName === "valhingen-mummy-sarcophagi-phases" ||
       routeName === "valjevo-fire-giant-loop" ||
       routeName === "valjevo-fire-giant-refusal-loop" ||
@@ -12901,8 +12901,8 @@ try {
       "portrait:PIC8.DAX:70:0:0",
       ...[1, 2].map(member => `portrait:area:13:ecl:a624:PIC8.DAX:70:${member}:0`),
     ];
-    for (const key of ["s", "up", "p", "enter", "enter"]) await advance(key);
-    assert.equal(frame.portrait, phases[2]);
+    for (const key of ["s", "up", "p"]) await advance(key);
+    assert.equal(frame.portrait, phases[0]);
     assert.match(text(), /IAMTHEEFREETISAMIRAHWAHL.*AREYOU,PERCHANCE,VAMPIRES/i);
     await waitFor("the efreeti dialogue illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
