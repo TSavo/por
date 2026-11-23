@@ -47,13 +47,20 @@ const kutoWellLookFacing = new Map([["7,8", 0], ["6,7", 2], ["7,6", 4], ["8,7", 
 // The completed print cursors of captions the guest clears before its next usable prompt.
 // Use the loaded script's area so the artwork follows the print during district transitions.
 const ohloElixirIllustration = "scene-illustration:area:20:ecl:a38f";
+const slumsStableIllustration = "scene-illustration:area:20:ecl:a453";
 const transientScriptIllustrations = new Map([
   ["2:20:a38f", ohloElixirIllustration],
+  ["2:20:a453", slumsStableIllustration],
   ["7:26:9be2", "scene-illustration:area:26:ecl:9be2"],
   ["8:13:ad39", "scene-illustration:area:13:ecl:ad39"],
   ["8:16:aab7", "scene-illustration:area:16:ecl:aab7"],
   ["8:27:9c50", "scene-illustration:area:27:ecl:9c50"],
   ["8:27:a1b4", "scene-illustration:area:27:ecl:a1b4:cue:trolls-insult"],
+]);
+// Hold narrated plates slightly longer than their installed recordings.
+const transientScriptIllustrationDurations = new Map([
+  [ohloElixirIllustration, 17000], // 15.961 s
+  [slumsStableIllustration, 8750], // 7.706 s
 ]);
 export interface OverlandTerrainFrame {
   slots: readonly number[];
@@ -1460,8 +1467,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const cursor = authoredScriptPosition(cpu, cpu.read16(unit.data, data.eclCursor), unit.data);
       const scope = transientScriptIllustrations.get(`${archive}:${block}:${cursor.toString(16)}`);
       if (scope && portraitKeys.includes(scope)) {
-        // Ohlo's queued narration runs for 16 seconds. Give its complete caption time to play before the reward screen.
-        const durationMs = scope === ohloElixirIllustration ? 17000 : 1200;
+        const durationMs = transientScriptIllustrationDurations.get(scope) ?? 1200;
         showFrame(undefined, undefined, false, false, durationMs, undefined, scope);
       }
     } : undefined,
