@@ -2298,6 +2298,18 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter"], portrait: "scene-illustration:area:17:ecl:9da2:caller:a7a2",
       prompt: /THENOMADSBUILDAHUGECAMPFIRE.*THEWHOLETRIBEGATHERSFORTHEFEAST/i },
   }],
+  ["nomad-morning-promise", {
+    slot: "A", fixedClockStart: 4320000,
+    inputs: [...nomadSentryWalk, "enter", "p", "enter", "y", "enter", "enter", "r", "y",
+      ...Array(6).fill("i"), "r", ...Array(7).fill("enter"), "r", "h", ...Array(8).fill("i"), "r", "s"],
+    portraitStops: { 39: "scene-illustration:area:17:ecl:ab82" },
+    staticPortraitStops: { 39: /ABOUTMYREQUESTOFLASTNIGHT,WHATISYOURDECISION.*STAYANDFIGHTLEAVE/i },
+    portrait: "scene-illustration:area:17:ecl:9da2:caller:ac1e",
+    prompt: /IANDMYPEOPLETHANKYOU.*RICHLYREWARDEDFORYOURGENEROUSAID/i,
+    staticPortraitMenu: true, finalPhaseCapture: "nomad-hassad-thanks.png",
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:17:ecl:a5f3",
+      prompt: /YOUMAYWANDERASYOUWILLORYOUMAYSTAYHEREANDRESTANDSTUDY/i },
+  }],
   ["nomad-feast-held-sequence", {
     slot: "A", inputs: [...nomadSentryWalk, "enter", "p", "enter", "y", "enter", "enter", "r", "y",
       ...Array(6).fill("i"), "r", "enter", "enter", "enter", "enter", "enter"],
@@ -9557,6 +9569,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       /^nomad-guard-(follow|attack)$/.test(routeName) ||
       /^nomad-raid-(alliance(?:-offer|-refusal|-volley|-aftermath)?|betrayal|camp-perimeter|cornered-kobolds|first-attack|retreat-cues|retreat-melee)$/.test(routeName) ||
       routeName === "nomad-morning-walk" ||
+      routeName === "nomad-morning-promise" ||
       routeName === "nomad-feast-held-sequence" ||
       /^nomad-pursuit-(combat|flee|menu)$/.test(routeName) ||
       routeName === "nomad-rally-retained-approach" ||

@@ -594,6 +594,23 @@ const eclCandidates = scripts.flatMap(record => {
       return { source: "HEAD7.DAX:61:BODY7.DAX:30", headWrite: authored(head.address), headSlot: "6de1",
         bodyOperand: 2 };
     }
+    if (address === 0xab0a) {
+      // Hassad's second approach composes the portrait held for the choice and the thank-you.
+      const head = instructions.get(0xab04);
+      const setup = instructions.get(address);
+      const arrival = instructions.get(0xab17);
+      const reset = instructions.get(0x9de0);
+      if (head?.opcode !== 0x09 || head.next !== address ||
+          literal(head.operands[0]!) !== 74 || memory(head.operands[1]!) !== 0x6de1 ||
+          setup?.opcode !== 0x0c || literal(setup.operands[0]!) !== 11 ||
+          literal(setup.operands[1]!) !== 2 || literal(setup.operands[2]!) !== 30 ||
+          arrival?.opcode !== 0x02 || arrival.operands[0]?.word !== 0x9dd8 ||
+          [0x9dd8, 0x9ddc].some(cursor => instructions.get(cursor)?.operands[0]?.word !== 0x9dd5) ||
+          instructions.get(0x9dd6)?.opcode !== 0x0d || reset?.opcode !== 0x09 ||
+          literal(reset.operands[0]!) !== 0xff || memory(reset.operands[1]!) !== 0x6de1) return undefined;
+      return { source: "HEAD7.DAX:74:BODY7.DAX:30", headWrite: authored(head.address), headSlot: "6de1",
+        bodyOperand: 2, headReset: authored(reset.address) };
+    }
     if (address === 0xb23c) {
       // The headman addresses the party after the refused alliance and the fight.
       const head = instructions.get(0xb236);
