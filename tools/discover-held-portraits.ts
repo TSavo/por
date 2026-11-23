@@ -580,6 +580,27 @@ const eclCandidates = scripts.flatMap(record => {
     return { blocks, compositions: [...new Map(compositions.map(entry => [entry.source, entry])).values()] };
   }
 
+  const nomadAudiencePicture = (() => {
+    if (archive !== 7 || scriptBlock !== 17) return undefined;
+    const head = instructions.get(0xa393);
+    const picture = instructions.get(0xa399);
+    const setup = instructions.get(0xa39c);
+    const reset = instructions.get(0xa3a3);
+    if (head?.opcode !== 0x09 || literal(head.operands[0]!) !== 74 ||
+        memory(head.operands[1]!) !== 0x6de1 || head.next !== picture?.address ||
+        picture?.opcode !== 0x0e || literal(picture.operands[0]!) !== 30 ||
+        picture.next !== setup?.address || setup?.opcode !== 0x0c ||
+        literal(setup.operands[0]!) !== 11 || literal(setup.operands[1]!) !== 0 ||
+        literal(setup.operands[2]!) !== 30 || setup.next !== reset?.address ||
+        reset?.opcode !== 0x09 || literal(reset.operands[0]!) !== 0xff ||
+        memory(reset.operands[1]!) !== 0x6de1) return undefined;
+    return {
+      picture: picture.address, redraw: setup.address,
+      composition: { source: "HEAD7.DAX:74:BODY7.DAX:30", headWrite: authored(head.address),
+        headSlot: "6de1", bodyOperand: 0, headReset: authored(reset.address) },
+    };
+  })();
+
   function nomadComposition(address: number) {
     if (archive !== 7 || scriptBlock !== 17) return undefined;
     if (address === 0x9dce) {
@@ -744,6 +765,7 @@ const eclCandidates = scripts.flatMap(record => {
       resultBranch.next === patrolDispatch[0] &&
       patrolDispatch.slice(1).every((target, index) => resultBranch.operands[index + 2]?.word === target)
       ? resultBranch.next : undefined;
+    const audience = load.address === nomadAudiencePicture?.picture ? nomadAudiencePicture : undefined;
     const angryParlay = slumsAngryDispatchProven && slumsProof.angryParlay.producer === "ECL2.DAX:20:9cc5" &&
       slumsProof.angryParlay.entry === "b254" && load.address === 0x9cc5 ? slumsProof.angryParlay : undefined;
     walk(scope.flatMap(state => successors(state, instructions)), instructions, (state, instruction) => {
@@ -751,7 +773,10 @@ const eclCandidates = scripts.flatMap(record => {
         prompt(state, instruction, 9);
         return false;
       }
-      if (state.address === disguiseEntry || pictureBoundaries.has(instruction.opcode) ||
+      // PICTURE and the immediately following near SETUP draw the same head and body
+      // at identical pixels before the Nomad audience text reaches its first hold.
+      if (state.address === disguiseEntry ||
+          (state.address !== audience?.redraw && pictureBoundaries.has(instruction.opcode)) ||
           angryParlay && (state.address === 0xb254 || state.address === instructions.get(0x9cef)?.next)) return false;
       if (instruction.opcode === 0x0d) {
         if (direct) return false;
@@ -811,7 +836,7 @@ const eclCandidates = scripts.flatMap(record => {
     }
 
     // Confirm the selected HEAD and BODY from each measured encounter's script.
-    const nomadPortrait = nomadComposition(load.address);
+    const nomadPortrait = audience?.composition ?? nomadComposition(load.address);
     let composedPortrait = nomadFeast ? {
       source: "HEAD7.DAX:74:BODY7.DAX:30", headWrite: authored(feastHead.address), headSlot: "6de1",
       bodyOperand: 0, headReset: authored(feastReset.address),
