@@ -1631,6 +1631,8 @@ const illustrationRoutes = new Map([
     portraitStops: { 10: "portrait:area:18:ecl:a51e:PIC1.DAX:16:0:0" },
     portrait: "scene-illustration:area:18:ecl:b240:caller:a839",
     prompt: /GARWIN,I'LLGETYOU.*THEMANHASESCAPEDINTHECONFUSION/i,
+    heldPortraitLoop: Array.from({ length: 6 }, (_, member) =>
+      `portrait:area:18:ecl:a5c0:PIC1.DAX:16:${member}:0`),
     journalLead: "auction-garwin-escaped", journalLeadAtDiscovery: true,
     continuation: { inputs: ["enter"], portrait: "scene-illustration:area:18:ecl:9e23", prompt: /THEAUCTIONOVER,THEMONSTERSGRUMBLEANDTURNAWAY/i },
   }],

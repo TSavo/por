@@ -91,6 +91,11 @@ const portraitLoops = [
     /THEAUCTIONEERCRIES.*WELCOMETOTHISAUCTION/i, auctionPoseTimes],
   ["portrait:area:18:ecl:b240:caller:a637:PIC1.DAX:16:", 6, undefined,
     /GOINGGOINGGONETHEAUCTIONEERCRIES/i, auctionPoseTimes],
+  // The accusation and the wand exchange share a839. Use the accusation's
+  // print address for its cels and enter the loop only from its own scene art.
+  ["portrait:area:18:ecl:a5c0:PIC1.DAX:16:", 6, undefined,
+    /GARWINILLGETYOU.*THEMANHASESCAPEDINTHECONFUSION/i, auctionPoseTimes,
+    [["scene-illustration:area:18:ecl:b240:caller:a839", 0]]],
   ["portrait:area:18:ecl:b240:caller:a79b:PIC1.DAX:16:", 6, undefined,
     /WANDOFILLUMINATION.*ISEEINTHEDARKANYWAY/i, auctionPoseTimes],
   ["portrait:area:18:ecl:b240:caller:a8af:PIC1.DAX:16:", 6, undefined,
