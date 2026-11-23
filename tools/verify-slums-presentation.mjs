@@ -5696,6 +5696,15 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["up", "enter"], portrait: "portrait:area:15:PIC2.DAX:17:0:0",
       prompt: /IDEFENDEDTHESEBOOKSINLIFE/i },
   }],
+  ["mendor-spectre-battle-notice", {
+    slot: "H", inputs: ["up"], portrait: "portrait:area:15:PIC2.DAX:17:0:0",
+    approachSequence: [[56, 32, "encounter:area:15:SPRIT2.DAX:17:0:0", 32, 80]],
+    requireTiledApproach: true,
+    prompt: /ASPECTRESUDDENLYAPPEARS.*IDEFENDEDTHESEBOOKSINLIFE.*ABATTLEBEGINS/i,
+    oneShotProducer: "ECL2.DAX:15:9a35",
+    finalPhaseCapture: "mendor-spectre-battle-notice.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
   ["mendor-spectre-dialogue", {
     slot: "B", inputs: ["up", "up", "enter"],
     portrait: "portrait:area:15:PIC2.DAX:17:0:0", prompt: /IDEFENDEDTHESEBOOKSINLIFE/i,
@@ -8452,6 +8461,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "lizard-wilds-displacer-pair-ambush" ||
       /^wild-grove-(mutant-hut|lizardfolk-hut|large-lizardfolk)-ambush$/.test(routeName) ||
       routeName === "buccaneer-merchant-guard-close-up" ||
+      routeName === "mendor-spectre-battle-notice" ||
       routeName === "buccaneer-mounted-escort-loop" || routeName === "buccaneer-mounted-escort-random-loop" ||
       routeName === "mendor-storeroom-kobold-phases" || routeName === "mendor-storeroom-mercy-loop" ||
       routeName === "mendor-storeroom-kobold-map" ||
@@ -11940,6 +11950,13 @@ try {
     }
     if (illustration.heldPortraitLoop) await verifyHeldPortraitLoop(illustration.heldPortraitLoop);
     if (illustration.staticPortraitMenu) await verifyStaticPortrait(portrait, prompt, false);
+    if (routeName === "mendor-spectre-battle-notice") {
+      assert.deepEqual(frame.animation?.map(({ encounter, portrait, durationMs }) => [encounter, portrait, durationMs]), [
+        [approachSequence[0], undefined, undefined],
+        [undefined, portrait, 225],
+        [undefined, portrait, 225],
+      ], "The native approach should lead into two holds of the same spectre portrait");
+    }
     if (routeName === "buccaneer-merchant-guard-close-up") {
       const [alarmPortrait, closeUp] = await Promise.all(
         [illustration.transientPortraits[inputs.length].id, portrait].map(async id => {

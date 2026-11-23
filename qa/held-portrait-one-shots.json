@@ -643,5 +643,36 @@
         "artSha256": "b2200ab6c1736cc72c5edff11cc6a6d1ac3593181558f490b108c3019c6ba6ad"
       }
     }
+  },
+  {
+    "producer": "ECL2.DAX:15:9a35",
+    "combat": "9ad0",
+    "native": {
+      "drawCursor": "9a3c",
+      "members": [
+        0
+      ],
+      "evidence": "https://github.com/TSavo/por/issues/131#issuecomment-7090857013"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL2.DAX:15:9a35",
+        "route": "mendor-spectre-battle-notice",
+        "data": "original",
+        "portrait": "portrait:area:15:PIC2.DAX:17:0:0",
+        "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "e8e3ae790af8407a502ee9290a54e90af1ebe07189398363b39401727d0c691c"
+      },
+      "port": {
+        "producer": "ECL2.DAX:15:9a35",
+        "route": "mendor-spectre-battle-notice",
+        "data": "port",
+        "portrait": "portrait:area:15:PIC2.DAX:17:0:0",
+        "rendererSha256": "670f378f0b468f4d0a0a1423a530f58a201df0c691dbdbf085d0781222ddea74",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "e8e3ae790af8407a502ee9290a54e90af1ebe07189398363b39401727d0c691c"
+      }
+    }
   }
 ]
