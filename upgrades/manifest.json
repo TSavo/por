@@ -12681,6 +12681,8 @@
     "encounter:area:16:ecl:a947:SPRIT8.DAX:59:0:0": "swamp-giant-lizard-trio-approach.png",
     "encounter:area:16:SPRIT8.DAX:59:1:0": "swamp-giant-lizard-mid.png",
     "encounter:area:16:SPRIT8.DAX:59:2:0": "swamp-giant-lizard-far.png",
+    "portrait:area:16:ecl:9e1f:PIC8.DAX:59:0:0": "swamp-tunnel-lizard-charge.png",
+    "portrait:area:16:ecl:9e37:PIC8.DAX:59:0:0": "swamp-tunnel-lizard-charge.png",
     "portrait:area:16:PIC8.DAX:59:0:0": "swamp-giant-lizard-dialogue.png",
     "tile:22:0d2e0d812f7dc3c9ee7a5bab17469c2963e072b186b7427d4a1ffb9a552ba0ee": "yarash-inner-court-terrain-0d2e0d812f7d.png",
     "tile:22:3fac91ee9d1b24c2e56fcbe21729beb84a920355197406acbbe3102e64ef83a9": "yarash-inner-court-terrain-3fac91ee9d1b.png",

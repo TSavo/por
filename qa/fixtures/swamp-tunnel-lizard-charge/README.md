@@ -1,0 +1,1 @@
+Controlled keep save from the hidden-tunnel replay. The prior defender count at ECL address 4A5F is zero; standard script and game code remain intact. Search, walk forward twice, then choose Yes to descend. Native monster setup 9da2 draws its approach before the battle at 9e36.

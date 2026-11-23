@@ -9,6 +9,17 @@ import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const battleEntryRoutes = new Map([
+  ["swamp-tunnel-lizard-charge", {
+    slot: "A", prefix: ["s", "up"],
+    promptSchedule: "qa/fixtures/swamp-tunnel-lizard-charge/prompts.jsonl",
+    trigger: { key: "y", code: "KeyY", windowsVirtualKeyCode: 89 }, input: "y",
+    decision: /HIDDENTUNNELLEADINGDOWN.*DOYOUTAKEIT/i,
+    notice: /YOUARENOLONGERGOINGDOWN.*GIANTLIZARDSCHARGING.*ABATTLEBEGINS/i,
+    portrait: "portrait:area:16:ecl:9e37:PIC8.DAX:59:0:0",
+    file: "swamp-tunnel-lizard-charge.png", noticeScreenshot: "swamp-tunnel-lizard-charge.png",
+    pollFrames: 1, combatTimeout: 180_000,
+    producer: "ECL8.DAX:16:9da2",
+  }],
   ["wild-cave-wyvern-stumble", {
     slot: "B",
     notice: /YOUHAVESTUMBLEDACROSSAFEROCIOUSWYVERN.*ABATTLEBEGINS/i,
@@ -9568,7 +9579,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...(textileScorpionLoop ? { POR_PROMPT_SCHEDULE_IN: resolve(textileScorpionWalk, "prompts.jsonl") } : {}),
     ...((battleEntry?.promptSchedule ?? illustration?.promptSchedule)
       ? { POR_PROMPT_SCHEDULE_IN: resolve(battleEntry?.promptSchedule ?? illustration.promptSchedule) } : {}),
-    ...(battleEntry ? { POR_PROMPT_SCHEDULE_IN: "" } : {}),
+    ...(battleEntry && !battleEntry.promptSchedule ? { POR_PROMPT_SCHEDULE_IN: "" } : {}),
     POR_INPUT_COMPAT: residentRestore || ohloStudy || battleEntry || illustration?.stockInput || encounterRoute?.stockInput ||
       controlledBattleIllustration?.staticHold || controlledBattleIllustration?.heldPortraitLoop ||
       routeName === "kuto-well-waiting-kobolds-hold" || routeName === "kuto-surprised-gnoll-party" || textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
