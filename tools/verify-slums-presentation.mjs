@@ -12773,6 +12773,8 @@ try {
         state.sequence === ${frame.sequence} && !animationFrame &&
         document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352
       `));
+    }
+    if (combatProducer && portrait !== undefined && !continuation?.automaticBattle) {
       const { result } = await command("Runtime.evaluate", {
         awaitPromise: true, returnByValue: true,
         expression: `new Promise(resolve => {
