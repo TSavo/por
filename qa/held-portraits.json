@@ -18766,6 +18766,558 @@
           }
         }
       }
+    },
+    {
+      "id": "area:18:ecl:b240:caller:a333:PIC1.DAX:16",
+      "producer": "ECL1.DAX:18:a2b1",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 610,
+          "viewport": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+        },
+        {
+          "member": 2,
+          "durationMs": 410,
+          "viewport": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+        },
+        {
+          "member": 4,
+          "durationMs": 410,
+          "viewport": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+        },
+        {
+          "member": 5,
+          "durationMs": 610,
+          "viewport": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "podal-auction-wand-or-staff",
+          "data": "original",
+          "portrait": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:0:0",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "651772a0a735f5500647516376d264a71dcbeec9114cde7d68e4dfa4b90faa9d",
+          "paints": [
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:1:0",
+              "atMs": 594.9999999880793
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:2:0",
+              "atMs": 811.5999999880787
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:3:0",
+              "atMs": 1228.2999999880794
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:4:0",
+              "atMs": 1428.2999999880794
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:5:0",
+              "atMs": 1844.9999999880783
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:0:0",
+              "atMs": 2444.9999999880783
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:1:0",
+              "atMs": 3061.5999999880787
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:2:0",
+              "atMs": 3278.2999999880794
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:3:0",
+              "atMs": 3678.199999988079
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:4:0",
+              "atMs": 3894.89999998808
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:5:0",
+              "atMs": 4294.799999988079
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:0:0",
+              "atMs": 4911.499999988078
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:1:0",
+              "atMs": 5528.199999988079
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:2:0",
+              "atMs": 5728.099999988079
+            }
+          ],
+          "sha256": {
+            "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:0:0": "8fe2276b9970981f7d51d09cf31f2a745a322ba1f50fe214cb4c75147915ba71",
+            "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:1:0": "c632a40f3526b5e234871f241940ae3677e958af2972b409e48eb6009fe679d3",
+            "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:2:0": "a745d7592b83e85fcb391197070c03305a87177b045bac29a8399bc32a85a66e",
+            "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:3:0": "a8c36a6f1ffd49488b114a89c6c52f3d80ab59fdf15f443ab80ed4483c146086",
+            "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:4:0": "aa3bdee20915732b9dbcecc861fd44fd2deefc5044fbdbc27272b809aa0358dc",
+            "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:5:0": "277149ffa0deb09469aee531493cfb5ce67da88f67c63310123b4c96447976b8"
+          }
+        },
+        "port": {
+          "route": "podal-auction-wand-or-staff",
+          "data": "port",
+          "portrait": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:0:0",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "651772a0a735f5500647516376d264a71dcbeec9114cde7d68e4dfa4b90faa9d",
+          "paints": [
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:1:0",
+              "atMs": 650.5999999880787
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:2:0",
+              "atMs": 850.5999999880787
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:3:0",
+              "atMs": 1267.2999999880794
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:4:0",
+              "atMs": 1467.2999999880794
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:5:0",
+              "atMs": 1883.899999988079
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:0:0",
+              "atMs": 2500.5999999880787
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:1:0",
+              "atMs": 3100.5999999880787
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:2:0",
+              "atMs": 3317.199999988079
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:3:0",
+              "atMs": 3717.2999999880794
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:4:0",
+              "atMs": 3933.7999999880794
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:5:0",
+              "atMs": 4350.499999988078
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:0:0",
+              "atMs": 4950.499999988078
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:1:0",
+              "atMs": 5567.099999988079
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:2:0",
+              "atMs": 5767.199999988079
+            }
+          ],
+          "sha256": {
+            "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:0:0": "8fe2276b9970981f7d51d09cf31f2a745a322ba1f50fe214cb4c75147915ba71",
+            "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:1:0": "c632a40f3526b5e234871f241940ae3677e958af2972b409e48eb6009fe679d3",
+            "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:2:0": "a745d7592b83e85fcb391197070c03305a87177b045bac29a8399bc32a85a66e",
+            "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:3:0": "a8c36a6f1ffd49488b114a89c6c52f3d80ab59fdf15f443ab80ed4483c146086",
+            "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:4:0": "aa3bdee20915732b9dbcecc861fd44fd2deefc5044fbdbc27272b809aa0358dc",
+            "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:5:0": "277149ffa0deb09469aee531493cfb5ce67da88f67c63310123b4c96447976b8"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:18:ecl:b240:caller:a3dc:PIC1.DAX:16",
+      "producer": "ECL1.DAX:18:a2b1",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 610,
+          "viewport": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+        },
+        {
+          "member": 2,
+          "durationMs": 410,
+          "viewport": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+        },
+        {
+          "member": 4,
+          "durationMs": 410,
+          "viewport": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+        },
+        {
+          "member": 5,
+          "durationMs": 610,
+          "viewport": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "podal-auction-high-bid",
+          "data": "original",
+          "portrait": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:0:0",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "00edfab9f58a7440b55e095eebe494d00433b24c486a2ce659735a99cbe59d82",
+          "paints": [
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:1:0",
+              "atMs": 606.9000000238411
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:2:0",
+              "atMs": 823.6000000238419
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:3:0",
+              "atMs": 1223.6000000238419
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:4:0",
+              "atMs": 1440.2000000238404
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:5:0",
+              "atMs": 1840.3000000238426
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:0:0",
+              "atMs": 2456.900000023841
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:1:0",
+              "atMs": 3073.5000000238433
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:2:0",
+              "atMs": 3273.5000000238433
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:3:0",
+              "atMs": 3690.100000023842
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:4:0",
+              "atMs": 3890.100000023842
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:5:0",
+              "atMs": 4306.800000023843
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:0:0",
+              "atMs": 4923.400000023841
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:1:0",
+              "atMs": 5523.400000023841
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:2:0",
+              "atMs": 5740.100000023842
+            }
+          ],
+          "sha256": {
+            "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:0:0": "59a6a9cacc1411c736c1c4b53b55c7a0ec35684118de881277bb7aa1762bf8dc",
+            "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:1:0": "55f3bffcb5c46ba3d6787c1c116eba32aa0eb5cba96493d827a3b34eadbc3403",
+            "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:2:0": "dba8d30c0856bfdcb51da67464422012f51bc2c9786d6fd9e5a6f543f6c6ab02",
+            "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:3:0": "4b20d668fa7c76964908703f4e7436447d04c2ff61a68b1e5478ca3a6ab2c847",
+            "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:4:0": "c69f3f2b0e38fcb2544e7e0bdc6764b5df487e01a5b86a2763a605d37a0d0d1d",
+            "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:5:0": "62e536d0c51e18387ead821c75cdb5cadbe916e5e77f39859d57f5864eb27084"
+          }
+        },
+        "port": {
+          "route": "podal-auction-high-bid",
+          "data": "port",
+          "portrait": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:0:0",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "00edfab9f58a7440b55e095eebe494d00433b24c486a2ce659735a99cbe59d82",
+          "paints": [
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:1:0",
+              "atMs": 612.7999999880794
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:2:0",
+              "atMs": 829.3999999880798
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:3:0",
+              "atMs": 1229.3999999880798
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:4:0",
+              "atMs": 1446.0999999880787
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:5:0",
+              "atMs": 1845.9999999880783
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:0:0",
+              "atMs": 2462.699999988079
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:1:0",
+              "atMs": 3079.2999999880794
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:2:0",
+              "atMs": 3279.2999999880794
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:3:0",
+              "atMs": 3695.89999998808
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:4:0",
+              "atMs": 3895.89999998808
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:5:0",
+              "atMs": 4312.5999999880805
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:0:0",
+              "atMs": 4929.199999988079
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:1:0",
+              "atMs": 5529.199999988079
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:2:0",
+              "atMs": 5745.799999988078
+            }
+          ],
+          "sha256": {
+            "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:0:0": "59a6a9cacc1411c736c1c4b53b55c7a0ec35684118de881277bb7aa1762bf8dc",
+            "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:1:0": "55f3bffcb5c46ba3d6787c1c116eba32aa0eb5cba96493d827a3b34eadbc3403",
+            "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:2:0": "dba8d30c0856bfdcb51da67464422012f51bc2c9786d6fd9e5a6f543f6c6ab02",
+            "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:3:0": "4b20d668fa7c76964908703f4e7436447d04c2ff61a68b1e5478ca3a6ab2c847",
+            "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:4:0": "c69f3f2b0e38fcb2544e7e0bdc6764b5df487e01a5b86a2763a605d37a0d0d1d",
+            "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:5:0": "62e536d0c51e18387ead821c75cdb5cadbe916e5e77f39859d57f5864eb27084"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:18:ecl:b240:caller:a566:PIC1.DAX:16",
+      "producer": "ECL1.DAX:18:a2b1",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 610,
+          "viewport": "ae58a17c20e5bc8c49d7979ed6a15810aae67625f0a2df6f00e7d19f01d48466"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "9146d3b9ef346becbfc1569f616465cb16e4d1c6660bb362e68e5a37d5da5230"
+        },
+        {
+          "member": 2,
+          "durationMs": 410,
+          "viewport": "8ea4af817bc48103740d18880aa580f7e12dd386173210ce0f57b61177d3e125"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "385655faedc2a396f67d222293ac8539be6d614d237772596b2c4d6123b87843"
+        },
+        {
+          "member": 4,
+          "durationMs": 410,
+          "viewport": "113c158feec43919d263d661c6a2ce6825a6609f5501cd8e9f5a2887e8705a0f"
+        },
+        {
+          "member": 5,
+          "durationMs": 610,
+          "viewport": "5f5277add2520e529b62734e18207560ff4c80ca861111c6911afa98211f90b6"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "podal-auction-searched",
+          "data": "original",
+          "portrait": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:0:0",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "0a45f7e74117a29c5546078b00ac1a59bbf9a46cf7819ff89d1c8fe4d4ff8e02",
+          "paints": [
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:1:0",
+              "atMs": 607.7000000000007
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:2:0",
+              "atMs": 824.2999999999993
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:3:0",
+              "atMs": 1224.4000000000015
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:4:0",
+              "atMs": 1441
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:5:0",
+              "atMs": 1841
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:0:0",
+              "atMs": 2457.5999999999985
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:1:0",
+              "atMs": 3074.2999999999993
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:2:0",
+              "atMs": 3274.2999999999993
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:3:0",
+              "atMs": 3691
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:4:0",
+              "atMs": 3890.9000000000015
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:5:0",
+              "atMs": 4307.5999999999985
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:0:0",
+              "atMs": 4924.299999999999
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:1:0",
+              "atMs": 5524.200000000001
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:2:0",
+              "atMs": 5740.799999999999
+            }
+          ],
+          "sha256": {
+            "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:0:0": "59495f08ee947a539eff37928216896341bf4b279c4e2bf39b355eea3572419e",
+            "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:1:0": "f5c78565b4f3f9b6f2353526f28f866c7b59e9c4488c85027e1de3f4babfc518",
+            "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:2:0": "d7fa36e7e39d512b846bc52c2244813e5b107d8f2c18d0f5ae8683e8ec2f5ee9",
+            "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:3:0": "0217b8a385b9213e4c02e42c081e8f25a5168020839fa2bdb5a2b2a5548b48c2",
+            "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:4:0": "c60a9d9ed292e62641434edc11fbef9d13d084d3c0cebbfe769a5d13d2c45c6e",
+            "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:5:0": "cae0dc57d075bcdb80863996035d205ec97a37a2d7e113b6846e6ca8b59fa5f3"
+          }
+        },
+        "port": {
+          "route": "podal-auction-searched",
+          "data": "port",
+          "portrait": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:0:0",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "0a45f7e74117a29c5546078b00ac1a59bbf9a46cf7819ff89d1c8fe4d4ff8e02",
+          "paints": [
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:1:0",
+              "atMs": 599.1999999761574
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:2:0",
+              "atMs": 799.1999999761574
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:3:0",
+              "atMs": 1215.7999999761596
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:4:0",
+              "atMs": 1432.3999999761581
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:5:0",
+              "atMs": 1832.3999999761581
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:0:0",
+              "atMs": 2448.9999999761567
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:1:0",
+              "atMs": 3049.099999976159
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:2:0",
+              "atMs": 3265.6999999761574
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:3:0",
+              "atMs": 3682.399999976158
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:4:0",
+              "atMs": 3882.2999999761596
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:5:0",
+              "atMs": 4298.999999976157
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:0:0",
+              "atMs": 4898.999999976157
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:1:0",
+              "atMs": 5515.599999976159
+            },
+            {
+              "key": "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:2:0",
+              "atMs": 5732.199999976157
+            }
+          ],
+          "sha256": {
+            "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:0:0": "59495f08ee947a539eff37928216896341bf4b279c4e2bf39b355eea3572419e",
+            "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:1:0": "f5c78565b4f3f9b6f2353526f28f866c7b59e9c4488c85027e1de3f4babfc518",
+            "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:2:0": "d7fa36e7e39d512b846bc52c2244813e5b107d8f2c18d0f5ae8683e8ec2f5ee9",
+            "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:3:0": "0217b8a385b9213e4c02e42c081e8f25a5168020839fa2bdb5a2b2a5548b48c2",
+            "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:4:0": "c60a9d9ed292e62641434edc11fbef9d13d084d3c0cebbfe769a5d13d2c45c6e",
+            "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:5:0": "cae0dc57d075bcdb80863996035d205ec97a37a2d7e113b6846e6ca8b59fa5f3"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
