@@ -2580,6 +2580,21 @@ const illustrationRoutes = new Map([
     }];
   }),
   ...[
+    ["goblin", "4320015", 2, [0, 1], "b1e5"],
+    ["orc", "4320027", 4, [0, 1, 2, 1], "b1bb"],
+  ].map(([creature, fixedClockStart, block, members, battleCursor]) => {
+    const portrait = member => `portrait:area:20:ecl:9e02:PIC2.DAX:${block}:${member}:0`;
+    return [`slums-roaming-${creature}-party-surprised-loop`, {
+      slot: "B", fixedClockStart, inputs: ["up", "enter", "down", "up"],
+      portrait: portrait(0), prompt: new RegExp(`YOUHAVESURPRISEDAPARTYOF${creature}S`, "i"),
+      heldPortraitLoop: members.map(portrait),
+      continuation: {
+        inputs: ["c"], portrait: `portrait:area:20:ecl:${battleCursor}:PIC2.DAX:${block}:0:0`,
+        prompt: /ABATTLEBEGINS/i, pressOnPortrait: portrait(block === 2 ? 1 : 2), retainPose: true,
+      },
+    }];
+  }),
+  ...[
     ["orc-demand", "4320010", 3, [], 4, "b38d", /GIVEUSSUMPTINANMAYBE/i, [0, 1, 2, 1]],
     ["goblin-rebuke", "4320600", 2, ["a"], 2, "b6df:caller:b691", /YOUHAVEANGEREDTHEGOBLINS.*THEYATTACK/i, [0, 1]],
   ].map(([scene, fixedClockStart, moves, approach, block, cursor, prompt, members]) => {
@@ -8563,7 +8578,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valjevo-fire-giant-refusal-loop" ||
       routeName === "valjevo-fire-giant-intruder-loop" ||
       routeName.startsWith("valjevo-tower-giants-") ||
-      /^slums-roaming-(?:kobold|(?:kobold|orc|goblin)-(?:surprise|advance|spotted)|(?:orc-demand|goblin-rebuke)-parlay)-loop$/.test(routeName) ||
+      /^slums-roaming-(?:kobold|(?:kobold|orc|goblin)-(?:surprise|advance|spotted)|(?:orc|goblin)-party-surprised|(?:orc-demand|goblin-rebuke)-parlay)-loop$/.test(routeName) ||
       /^valjevo-giant-barracks-password-(haughty|sly)-loop$/.test(routeName) ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||

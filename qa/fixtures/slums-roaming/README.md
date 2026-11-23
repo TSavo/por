@@ -25,3 +25,7 @@ The `slums-roaming-orc-demand-parlay-loop` and
 checkpoint. Parlay opens the tone menu, and Nice leads to the orc's
 payment demand or the goblin's rebuke. Both routes check the street
 portrait during the tone menu and the held pose cycle that follows.
+
+The `slums-roaming-goblin-party-surprised-loop` and
+`slums-roaming-orc-party-surprised-loop` routes check the portrait when
+the party surprises the monsters and its last pose at the battle notice.
