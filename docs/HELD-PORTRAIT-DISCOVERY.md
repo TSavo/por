@@ -79,3 +79,18 @@ selectors and unresolved prompt leads remain open.
 Use [Held portrait timing](REPLAYS.md#held-portrait-timing) to record a
 candidate. Multiple measured prompts can belong to the same site. The
 number of captured prompts appears separately from the site total.
+
+## Verified census
+
+The November 23 audit visually verified all 230 reachable sites in paired
+Chrome replays using GOG 1.3 and bundled data. The evidence covers 385
+captured prompts. Four of the 234 candidates have native proofs of
+unreachability. The current counts are generated in
+[ART-WORKLIST.md](ART-WORKLIST.md).
+
+Run `npm run verify:held-portraits -- --summary` to check for outstanding
+sites. The final reachable site, the roofless Lizardman Keep ambush at
+`ECL8.DAX:16:a66c`, runs from the tracked Ruins checkpoint with a fixed DOS
+clock. The replay checks that the native approach and illustration paint
+before combat and that the picture clears for the giant lizard's first
+automatic turn.
