@@ -32,6 +32,14 @@
       "evidence": ["After 0xa109, 0x4a73 == 255 exits; 0x4a73 == 128 jumps to 0xa3fc; every other value falls through to the chained-prisoner text at 0xa147."]
     },
     {
+      "triggerSourceId": "por.review.ecl-4.block-21.at-aa0a",
+      "resolution": "during-trigger",
+      "discriminator": {"kind": "encounterMenuOutputOperandIndex"},
+      "variants": [
+        {"unitId": "por.narration.sokal.ecl4-b21-aa0a-menu", "when": {"equals": 9}}
+      ]
+    },
+    {
       "triggerSourceId": "por.review.ecl-5.block-3.at-9d1f",
       "resolution": "at-trigger",
       "discriminator": {"kind": "orderedConditions"},

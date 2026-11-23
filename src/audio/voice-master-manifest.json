@@ -849,6 +849,22 @@
       "source": "static-narration-selectors-ecl4-6.json"
     },
     {
+      "triggerSourceId": "por.review.ecl-4.block-21.at-aa0a",
+      "resolution": "during-trigger",
+      "discriminator": {
+        "kind": "encounterMenuOutputOperandIndex"
+      },
+      "variants": [
+        {
+          "unitId": "por.narration.sokal.ecl4-b21-aa0a-menu",
+          "when": {
+            "equals": 9
+          }
+        }
+      ],
+      "source": "static-narration-selectors-ecl4-6.json"
+    },
+    {
       "triggerSourceId": "por.review.ecl-5.block-3.at-9d1f",
       "resolution": "at-trigger",
       "discriminator": {
