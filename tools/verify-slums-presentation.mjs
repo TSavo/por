@@ -1954,6 +1954,11 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "nomad-headman-rally.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /COMBATWAITFLEEADVANCE/i },
   }],
+  ["nomad-camp-tripwire-menu", {
+    slot: "A", inputs: ["up", "left", "up", "down", "up", "down", "up", "down", "up", "down", "up", "up"],
+    fixedClockStart: 4320000, portrait: "scene-illustration:area:17:ecl:9fa7",
+    prompt: /YOUTRIPONAWIRETOTHEACCOMPANIMENTOFBELLSTINKLING/i,
+  }],
   ["nomad-camp-sentry-families", {
     slot: "A", inputs: nomadSentryWalk,
     approachSequence: [
@@ -9119,6 +9124,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "textile-grishnak-from-chest" ||
       routeName === "valhingen-grave-claws" || routeName === "valhingen-vampire-reveal-phases" ||
       routeName === "sokal-barracks-ghost-phases" ||
+      routeName === "nomad-camp-tripwire-menu" ||
       /^nomad-camp-sentry-(families|parlay|combat)$/.test(routeName) ||
       /^nomad-guard-(follow|attack)$/.test(routeName) ||
       /^nomad-raid-(alliance(?:-offer|-refusal|-volley|-aftermath)?|betrayal|first-attack)$/.test(routeName) ||
@@ -12871,6 +12877,42 @@ try {
         writeFileSync(resolve(directory, `${routeName}-phase-${phase}.png`), Buffer.from(shot.data, "base64"));
       }
       assert.deepEqual([...phases.keys()], []);
+    }
+    if (routeName === "nomad-camp-tripwire-menu") {
+      function litMenu() {
+        return frame.text.filter(([cell, , color]) => cell >= 960 && color === 15)
+          .toSorted(([left], [right]) => left - right)
+          .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase();
+      }
+      async function pressTripwireKey(key, code, windowsVirtualKeyCode) {
+        const sequence = frame.sequence;
+        await run("screen.focus({ preventScroll: true })");
+        await command("Input.dispatchKeyEvent", { type: "keyDown", key, code, windowsVirtualKeyCode });
+        await command("Input.dispatchKeyEvent", { type: "keyUp", key, code, windowsVirtualKeyCode });
+        frame = await waitFor(`native tripwire menu after ${key}`, async () => {
+          const state = await latest();
+          return state.ready && state.sequence > sequence && state;
+        });
+        await waitFor(`painted tripwire menu after ${key}`, () => run(
+          `state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined`));
+      }
+      assert.equal(litMenu(), "FLEEAA");
+      await pressTripwireKey(",", "Comma", 188);
+      assert.equal(frame.portrait, portrait);
+      assert.equal(litMenu(), "FAATTACK");
+      const attack = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "nomad-tripwire-attack-highlight.png"), Buffer.from(attack.data, "base64"));
+      await pressTripwireKey(".", "Period", 190);
+      assert.equal(litMenu(), "FLEEAA");
+      await pressTripwireKey(".", "Period", 190);
+      assert.equal(litMenu(), "FADVANCECAUTIOUSLYA");
+      const advanceShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "nomad-tripwire-advance-highlight.png"), Buffer.from(advanceShot.data, "base64"));
+      await pressTripwireKey("a", "KeyA", 65);
+      assert.equal(frame.portrait, "scene-illustration:area:17:ecl:9da2:caller:a33c");
+      const text = frame.text.toSorted(([left], [right]) => left - right)
+        .map(([, character]) => String.fromCharCode(character)).join("");
+      assert.match(text, /YOUCANSEECHILDRENPEERINGOUTOFTHETENTOPENINGS/i);
     }
     if (illustration.heldPortraitLoop) await verifyHeldPortraitLoop(illustration.heldPortraitLoop, routeName === "swamp-drawbridge-hold" ? routeName : undefined);
     if (illustration.staticPortraitMenu || illustration.illustratedScenery) {

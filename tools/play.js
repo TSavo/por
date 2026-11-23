@@ -2484,6 +2484,7 @@ const commands = {
   ArrowUp: "up", ArrowDown: "down", ArrowLeft: "left", ArrowRight: "right",
   Home: "home", PageUp: "pageup", End: "end", PageDown: "pagedown",
   Enter: "enter", Escape: "escape", " ": "space", Backspace: "backspace",
+  ",": ",", ".": ".",
 };
 const keypadDirections = {
   Numpad1: "end", Numpad2: "down", Numpad3: "pagedown",

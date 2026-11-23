@@ -34,7 +34,7 @@ const controls: Record<string, number> = {
   space: 0x3920, tab: 0x0f09, backspace: 0x0e08,
   "alt-q": 0x1000, "alt-m": 0x3200,
 };
-const scanRows = ["1234567890", "qwertyuiop", "asdfghjkl", "zxcvbnm"];
+const scanRows = ["1234567890", "qwertyuiop", "asdfghjkl", "zxcvbnm,."];
 const firstScans = [2, 16, 30, 44];
 const liveIdleBudget = 150_000_000;
 /** The code-wheel question the game is asking: its number in the game's table, and its entry in wheel.json. */
