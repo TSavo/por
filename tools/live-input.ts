@@ -1508,6 +1508,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if (scope && portraitKeys.includes(scope)) {
         const durationMs = transientScriptIllustrationDurations.get(scope) ?? 1200;
         showFrame(undefined, undefined, false, false, durationMs, undefined, scope);
+      } else if (sourceId === "por.review.ecl-3.block-8.at-af4b") {
+        // The native print pauses on its illustration before writing the closing punctuation.
+        if (previous?.portrait?.startsWith("scene-illustration:area:8:ecl:af78:caller:") &&
+            previous.portrait.endsWith(":cue:commissions-closed")) {
+          previous.text = visibleGameText();
+          previous.textSteps = [start, cpu.steps];
+        }
       } else if (sourceId === "por.review.ecl-5.block-5.at-a467") {
         // The Tower prints the upstairs notice and immediately loads the next floor.
         // Preserve the completed guest caption so it owns its narration before the next menu.
