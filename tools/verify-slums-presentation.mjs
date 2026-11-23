@@ -7743,15 +7743,13 @@ if (terrainOnly || classicPortrait) {
 const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.ts"], {
   env: {
     ...browserEnvironment, POR_PLAY_PORT: port, POR_SAVE_DIR: directory,
-    ...(illustration?.fixedClockStart === undefined ? {} :
-      { POR_FIXED_CLOCK_START: String(illustration.fixedClockStart) }),
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
     POR_TRACE_BATTLE_TILES: dragon || routeName === "lizardfolk-battle-wall" ? "1" : browserEnvironment.POR_TRACE_BATTLE_TILES,
     POR_BOOT_KEYS: freshRolf ? "31000000:1c0d,45000000:2e63" : "31000000:1c0d,45000000:266c,52000000:" + boot,
     ...(controlledBattleIllustration || combatPose?.developerSetup ? { POR_DEV_COMBAT: "1" } : {}),
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
-    POR_FIXED_CLOCK_START: browserEnvironment.POR_FIXED_CLOCK_START ??
+    POR_FIXED_CLOCK_START: browserEnvironment.POR_FIXED_CLOCK_START ?? illustration?.fixedClockStart ??
       (["valjevo-street-giants-loop", "valjevo-tower-troll-encounter-loop"].includes(routeName) ? "4320100" :
         routeName === "valjevo-tower-troll-ambush-loop" ? "4322783" :
         routeName === "valhingen-skeleton-roaming-ambush-loop" || routeName === "valhingen-wight-ambush-loop" ? "4320042" : undefined),
