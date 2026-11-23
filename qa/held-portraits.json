@@ -12709,6 +12709,506 @@
           }
         }
       }
+    },
+    {
+      "id": "area:18:ecl:9dca:PIC1.DAX:2",
+      "producer": "ECL1.DAX:18:9d86",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 310,
+          "viewport": "a22361feb58b6fc42bb5e0833cd6e54072df64abfee49b139eac5fa7a0878312"
+        },
+        {
+          "member": 1,
+          "durationMs": 310,
+          "viewport": "e579cb908b4bbfe27909da489faa62cbef2c3f2b4573d7cb931b9a6f0be3a2b2"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "podal-goblin-patrol-portrait-phase",
+          "data": "original",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "e4a88942ac9916cdc9555d033d030653e7415848d99415dc60da15b3dc439c40",
+          "portrait": "portrait:area:18:ecl:9dca:PIC1.DAX:2:1:0",
+          "paints": [
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:2:1:0",
+              "atMs": 4.799999988079435
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:2:0:0",
+              "atMs": 304.79999998807943
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:2:1:0",
+              "atMs": 604.6999999880791
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:2:0:0",
+              "atMs": 921.4999999880793
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:2:1:0",
+              "atMs": 1221.399999988079
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:2:0:0",
+              "atMs": 1537.9999999880793
+            }
+          ],
+          "sha256": {
+            "portrait:area:18:ecl:9dca:PIC1.DAX:2:1:0": "7a88d623f2bcfbc4ef8b96a3ac09824c99684eeea5426acdbf9c02567a7bf236",
+            "portrait:area:18:ecl:9dca:PIC1.DAX:2:0:0": "d5561034aaa7fc1c542e4e0b17fe3b10090f3480ddc613ed1f52b352a6f5d672"
+          }
+        },
+        "port": {
+          "route": "podal-goblin-patrol-portrait-phase",
+          "data": "port",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "e4a88942ac9916cdc9555d033d030653e7415848d99415dc60da15b3dc439c40",
+          "portrait": "portrait:area:18:ecl:9dca:PIC1.DAX:2:1:0",
+          "paints": [
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:2:1:0",
+              "atMs": 4.400000011920838
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:2:0:0",
+              "atMs": 254.40000001192084
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:2:1:0",
+              "atMs": 554.4000000119208
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:2:0:0",
+              "atMs": 871.0000000119207
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:2:1:0",
+              "atMs": 1171.100000011921
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:2:0:0",
+              "atMs": 1487.7000000119206
+            }
+          ],
+          "sha256": {
+            "portrait:area:18:ecl:9dca:PIC1.DAX:2:1:0": "7a88d623f2bcfbc4ef8b96a3ac09824c99684eeea5426acdbf9c02567a7bf236",
+            "portrait:area:18:ecl:9dca:PIC1.DAX:2:0:0": "d5561034aaa7fc1c542e4e0b17fe3b10090f3480ddc613ed1f52b352a6f5d672"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:18:ecl:9dca:PIC1.DAX:4",
+      "producer": "ECL1.DAX:18:9d86",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1510,
+          "viewport": "2373d5229332a0dfc341c6a97e4371ba1ae0d83ad6f1803324a7219abb335440"
+        },
+        {
+          "member": 1,
+          "durationMs": 20,
+          "viewport": "d2f3c3b368fa6294d4fc0dea3c62279342392566accc8be7550c6eb450c383f7"
+        },
+        {
+          "member": 2,
+          "durationMs": 710,
+          "viewport": "cafbf84bf2bf53ef48f7de6e14d01f8c972602943b6b26d2fcf5622814911ab7"
+        },
+        {
+          "member": 3,
+          "durationMs": 20,
+          "viewport": "d2f3c3b368fa6294d4fc0dea3c62279342392566accc8be7550c6eb450c383f7"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "podal-orc-patrol-portrait-phase",
+          "data": "original",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "37ad7e809dee99de07876c04087db642e3269317c97f2ccb9e45d0adc31e1e27",
+          "portrait": "portrait:area:18:ecl:9dca:PIC1.DAX:4:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:0:0",
+              "atMs": 5.300000023841676
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:1:0",
+              "atMs": 1438.6000000238419
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:2:0",
+              "atMs": 1471.900000023842
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:1:0",
+              "atMs": 2171.8000000238417
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:0:0",
+              "atMs": 2188.5000000238415
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:1:0",
+              "atMs": 3705.100000023842
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:2:0",
+              "atMs": 3721.8000000238417
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:1:0",
+              "atMs": 4438.400000023841
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:0:0",
+              "atMs": 4455.0000000238415
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:1:0",
+              "atMs": 5971.700000023842
+            }
+          ],
+          "sha256": {
+            "portrait:area:18:ecl:9dca:PIC1.DAX:4:0:0": "3c82b8d73e44900dca5138f576506e9098328e2130c8168729e9613dbfcc230f",
+            "portrait:area:18:ecl:9dca:PIC1.DAX:4:1:0": "6423217cdb71a13c4376a1dc614ecafd878613aa0cfa4c6ccfddfe0d518d718e",
+            "portrait:area:18:ecl:9dca:PIC1.DAX:4:2:0": "483c28a2ad3839db22181122aeb22de1482fb21f90b2905ae607cc51e3d98991"
+          }
+        },
+        "port": {
+          "route": "podal-orc-patrol-portrait-phase",
+          "data": "port",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "37ad7e809dee99de07876c04087db642e3269317c97f2ccb9e45d0adc31e1e27",
+          "portrait": "portrait:area:18:ecl:9dca:PIC1.DAX:4:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:0:0",
+              "atMs": 2.5
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:1:0",
+              "atMs": 1435.8000000000002
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:2:0",
+              "atMs": 1452.5
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:1:0",
+              "atMs": 2169.1000000000004
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:0:0",
+              "atMs": 2185.8
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:1:0",
+              "atMs": 3702.3999999999996
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:2:0",
+              "atMs": 3719.1000000000004
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:1:0",
+              "atMs": 4435.7
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:0:0",
+              "atMs": 4452.3
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:4:1:0",
+              "atMs": 5969
+            }
+          ],
+          "sha256": {
+            "portrait:area:18:ecl:9dca:PIC1.DAX:4:0:0": "3c82b8d73e44900dca5138f576506e9098328e2130c8168729e9613dbfcc230f",
+            "portrait:area:18:ecl:9dca:PIC1.DAX:4:1:0": "6423217cdb71a13c4376a1dc614ecafd878613aa0cfa4c6ccfddfe0d518d718e",
+            "portrait:area:18:ecl:9dca:PIC1.DAX:4:2:0": "483c28a2ad3839db22181122aeb22de1482fb21f90b2905ae607cc51e3d98991"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:18:ecl:9dca:PIC1.DAX:6",
+      "producer": "ECL1.DAX:18:9d86",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 1710,
+          "viewport": "1018abb851c4006ac7ed5edd1a7f5317cfaecf61708e2cafca6469ab5780e5e7"
+        },
+        {
+          "member": 1,
+          "durationMs": 110,
+          "viewport": "8512b24c74b292ef227f6168fc93617370609a8e6a039c973f841c0efe1621f1"
+        },
+        {
+          "member": 2,
+          "durationMs": 1510,
+          "viewport": "78759297e50b4319486b1c88a106583d46ebb6a9c458d271dd6aa939a69e84b7"
+        },
+        {
+          "member": 3,
+          "durationMs": 110,
+          "viewport": "8512b24c74b292ef227f6168fc93617370609a8e6a039c973f841c0efe1621f1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "podal-hobgoblin-patrol-portrait-phase",
+          "data": "original",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "e90112bcf8de50fa7fe7a999ef395f1b75786a9695e5437a79d9b2a465962d72",
+          "portrait": "portrait:area:18:ecl:9dca:PIC1.DAX:6:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:0:0",
+              "atMs": 1.000000011920747
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:1:0",
+              "atMs": 1634.300000011921
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:2:0",
+              "atMs": 1751.0000000119207
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:1:0",
+              "atMs": 3250.9000000119213
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:0:0",
+              "atMs": 3367.60000001192
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:1:0",
+              "atMs": 5084.300000011921
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:2:0",
+              "atMs": 5184.200000011921
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:1:0",
+              "atMs": 6700.800000011921
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:0:0",
+              "atMs": 6800.800000011921
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:1:0",
+              "atMs": 8517.400000011921
+            }
+          ],
+          "sha256": {
+            "portrait:area:18:ecl:9dca:PIC1.DAX:6:0:0": "29060870128449fc93ef06f7a3d174d2ae84b193e71ab9f75668ffa2848e9c4a",
+            "portrait:area:18:ecl:9dca:PIC1.DAX:6:1:0": "646e2306f89e16d87124a8329e4e6f75f28d9c4583efdcbada7a9949d57f4ff9",
+            "portrait:area:18:ecl:9dca:PIC1.DAX:6:2:0": "02233adee916e91890c8223f87853698f0fdcc0bb29531bedaec5ccd76fcede5"
+          }
+        },
+        "port": {
+          "route": "podal-hobgoblin-patrol-portrait-phase",
+          "data": "port",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "e90112bcf8de50fa7fe7a999ef395f1b75786a9695e5437a79d9b2a465962d72",
+          "portrait": "portrait:area:18:ecl:9dca:PIC1.DAX:6:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:0:0",
+              "atMs": -0.49999998807925294
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:1:0",
+              "atMs": 1649.4000000119213
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:2:0",
+              "atMs": 1766.100000011921
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:1:0",
+              "atMs": 3282.600000011921
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:0:0",
+              "atMs": 3382.7000000119206
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:1:0",
+              "atMs": 5099.300000011921
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:2:0",
+              "atMs": 5199.200000011921
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:1:0",
+              "atMs": 6715.900000011921
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:0:0",
+              "atMs": 6832.500000011922
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:6:1:0",
+              "atMs": 8532.500000011922
+            }
+          ],
+          "sha256": {
+            "portrait:area:18:ecl:9dca:PIC1.DAX:6:0:0": "29060870128449fc93ef06f7a3d174d2ae84b193e71ab9f75668ffa2848e9c4a",
+            "portrait:area:18:ecl:9dca:PIC1.DAX:6:1:0": "646e2306f89e16d87124a8329e4e6f75f28d9c4583efdcbada7a9949d57f4ff9",
+            "portrait:area:18:ecl:9dca:PIC1.DAX:6:2:0": "02233adee916e91890c8223f87853698f0fdcc0bb29531bedaec5ccd76fcede5"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:18:ecl:9dca:PIC1.DAX:8",
+      "producer": "ECL1.DAX:18:9d86",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 310,
+          "viewport": "479c7724d5defedb6b7352f9aaf34967b4ef5e0b17ebb734de0cde0b72bf2b8a"
+        },
+        {
+          "member": 1,
+          "durationMs": 20,
+          "viewport": "9644d9c3761a53474adc6ed5132ccc9310a9f3f426d0e9345ec39e5e992582b7"
+        },
+        {
+          "member": 2,
+          "durationMs": 1310,
+          "viewport": "2e4c7d2c6519d9ee05f29c00792f4e773419156213adbd0498595a0981a53561"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "9644d9c3761a53474adc6ed5132ccc9310a9f3f426d0e9345ec39e5e992582b7"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "podal-ogre-patrol-portrait-phase",
+          "data": "original",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "3a19a85f731637816480bf1cf8b320cca44cc1ff334502c13b4cc0b988f3dd0d",
+          "portrait": "portrait:area:18:ecl:9dca:PIC1.DAX:8:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:0:0",
+              "atMs": 7.700000023841767
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:1:0",
+              "atMs": 224.40000002384204
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:2:0",
+              "atMs": 257.70000002384177
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:1:0",
+              "atMs": 1557.7000000238422
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:0:0",
+              "atMs": 1774.400000023842
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:1:0",
+              "atMs": 2074.400000023842
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:2:0",
+              "atMs": 2107.700000023842
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:1:0",
+              "atMs": 3407.600000023842
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:0:0",
+              "atMs": 3624.3000000238417
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:1:0",
+              "atMs": 3924.3000000238417
+            }
+          ],
+          "sha256": {
+            "portrait:area:18:ecl:9dca:PIC1.DAX:8:0:0": "de7eccd1de95ceb1096fad98b5492ceb5e01a4ec5bdb0146c50cd108f0a1bee9",
+            "portrait:area:18:ecl:9dca:PIC1.DAX:8:1:0": "05594255ce877ba81087dc3ed36f03e3ea1b57e6daa33aec90d32d50509e1e62",
+            "portrait:area:18:ecl:9dca:PIC1.DAX:8:2:0": "6fa440b9216b14796ce26ca2097fd5d71921d225412454a08d31d5f0a5c12064"
+          }
+        },
+        "port": {
+          "route": "podal-ogre-patrol-portrait-phase",
+          "data": "port",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "3a19a85f731637816480bf1cf8b320cca44cc1ff334502c13b4cc0b988f3dd0d",
+          "portrait": "portrait:area:18:ecl:9dca:PIC1.DAX:8:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:0:0",
+              "atMs": 4.199999976158324
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:1:0",
+              "atMs": 270.79999997615823
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:2:0",
+              "atMs": 304.09999997615796
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:1:0",
+              "atMs": 1604.099999976158
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:0:0",
+              "atMs": 1820.7999999761578
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:1:0",
+              "atMs": 2120.6999999761583
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:2:0",
+              "atMs": 2153.9999999761585
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:1:0",
+              "atMs": 3453.9999999761585
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:0:0",
+              "atMs": 3670.6999999761583
+            },
+            {
+              "key": "portrait:area:18:ecl:9dca:PIC1.DAX:8:1:0",
+              "atMs": 3970.599999976158
+            }
+          ],
+          "sha256": {
+            "portrait:area:18:ecl:9dca:PIC1.DAX:8:0:0": "de7eccd1de95ceb1096fad98b5492ceb5e01a4ec5bdb0146c50cd108f0a1bee9",
+            "portrait:area:18:ecl:9dca:PIC1.DAX:8:1:0": "05594255ce877ba81087dc3ed36f03e3ea1b57e6daa33aec90d32d50509e1e62",
+            "portrait:area:18:ecl:9dca:PIC1.DAX:8:2:0": "6fa440b9216b14796ce26ca2097fd5d71921d225412454a08d31d5f0a5c12064"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
