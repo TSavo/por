@@ -220,6 +220,7 @@ function openWindow(): void {
   win.webContents.on("will-prevent-unload", (event) => {
     const choice = dialog.showMessageBoxSync(win, {
       type: "warning",
+      title: "Save in progress",
       message: "A save is still pending.",
       detail: "Stay to finish saving, or leave and keep your last completed save.",
       buttons: ["Stay", "Leave"], defaultId: 0, cancelId: 0,
