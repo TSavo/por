@@ -1385,5 +1385,36 @@
         "artSha256": "9bece26098f0a3cf4b80999313d1ff24792ab181c218625a9792fe46df8d38a0"
       }
     }
+  },
+  {
+    "combat": "a6cd",
+    "producer": "ECL8.DAX:16:a66c",
+    "native": {
+      "drawCursor": "a673",
+      "members": [
+        0
+      ],
+      "evidence": "E:/por-codex/art-qa/issue-131-swamp-roofless-surprise/native-original/draws.jsonl"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL8.DAX:16:a66c",
+        "route": "swamp-ruin-defenders-surprise",
+        "data": "original",
+        "portrait": "scene-illustration:area:16:ecl:a6ce:cue:ruin-defenders-surprise",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "4bba103153622e2a06e507e73f6059dce4f5c6cb11a8702c33866ce90ed745ad"
+      },
+      "port": {
+        "producer": "ECL8.DAX:16:a66c",
+        "route": "swamp-ruin-defenders-surprise",
+        "data": "port",
+        "portrait": "scene-illustration:area:16:ecl:a6ce:cue:ruin-defenders-surprise",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "4bba103153622e2a06e507e73f6059dce4f5c6cb11a8702c33866ce90ed745ad"
+      }
+    }
   }
 ]
