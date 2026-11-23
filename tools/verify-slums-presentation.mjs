@@ -4897,6 +4897,17 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-grove-large-lizardfolk-ambush.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
+  ["slums-potion-booth-attack", {
+    slot: "G", fixedClockStart: "4320000",
+    inputs: ["right", "up", "up", "left", "up", "right", "up", "up", "right", "up", "left", "up", "a"],
+    phasePrompts: { 12: /LEAVEATTACKSPEAK/i },
+    portraitStops: { 12: "portrait:area:20:HEAD2.DAX:5:BODY2.DAX:9" },
+    portrait: "portrait:area:20:ecl:af6d:PIC2.DAX:6:0:0",
+    prompt: /THEMANRUNSSCREAMINGINTOTHEBACKOFTHEBOOTH.*ABATTLEBEGINS/i,
+    oneShotProducer: "ECL2.DAX:20:af46",
+    finalPhaseCapture: "slums-potion-booth-ambush.png",
+    continuation: { inputs: [":travel-poll"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
   ["slums-monster-council-phases", {
     slot: "B", inputs: ["up", "enter", "enter", ...Array(18).fill("q")],
     portraitStops: {
