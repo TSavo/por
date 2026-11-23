@@ -305,10 +305,7 @@ const encounterRoutes = new Map([
     dialogueSteps: [{
       key: "enter", portrait: "portrait:area:20:ecl:b6df:caller:aa6c:PIC2.DAX:6:0:0",
       prompt: /SOMEHOBGOBLINSAREARGUINGOVERAPILEOFGOLD/i,
-      heldPortrait: "portrait:area:20:ecl:b6df:caller:aa6c:PIC2.DAX:6:2:0",
-    }, {
-      keys: Array(8).fill("z"), portrait: "portrait:area:20:ecl:b6df:caller:aa6c:PIC2.DAX:6:1:0",
-      prompt: /SOMEHOBGOBLINSAREARGUINGOVERAPILEOFGOLD/i,
+      heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:20:ecl:b6df:caller:aa6c:PIC2.DAX:6:${member}:0`),
     }],
   }],
   ["sokal-courtyard-hobgoblin-approach", {
@@ -4374,6 +4371,23 @@ const illustrationRoutes = new Map([
     phaseCaptures: { 13: "slums-monster-council-phase-2.png" },
     finalPhaseCapture: "slums-monster-council-phase-1.png",
   }],
+  ...[
+    ["council", "abd5", /YOUINTRUDEONAGATHERINGOFMONSTERLEADERS/i,
+      "portrait:area:20:PIC2.DAX:6:0:0", "encounter:area:20:SPRIT2.DAX:6:0:0", "portrait:area:20:PIC2.DAX:6:0:0"],
+    ["gold-room", "aa6c", /SOMEHOBGOBLINSAREARGUINGOVERAPILEOFGOLD/i,
+      "portrait:area:20:ecl:b6df:caller:aa6c:PIC2.DAX:6:0:0", "encounter:area:20:ecl:aa1f:SPRIT2.DAX:6:0:0",
+      "portrait:area:20:ecl:aa81:PIC2.DAX:6:0:0"],
+  ].map(([scene, caller, prompt, portrait, sprite, battlePortrait]) => {
+    const phase = member => `portrait:area:20:ecl:b6df:caller:${caller}:PIC2.DAX:6:${member}:0`;
+    return [`slums-hobgoblin-${scene}-loop`, {
+      slot: "B", inputs: ["up", "enter", "enter"], portrait, prompt,
+      approachSequence: [[48, 32, sprite, 48, 80]],
+      requireTiledApproach: false,
+      heldPortraitLoop: [portrait, phase(1), phase(2), phase(1)],
+      continuation: { inputs: ["enter"], portrait: battlePortrait, prompt: /ABATTLEBEGINS/i,
+        pressOnPortrait: phase(2), retainPose: true },
+    }];
+  }),
   ["textile-ghoul-battle-entry", {
     slot: "B", inputs: ["s", "up", "up", "down", "up", "down", "enter"],
     portraitStops: { 6: null },
