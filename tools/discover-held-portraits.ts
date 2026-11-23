@@ -169,7 +169,12 @@ const eclCandidates = scripts.flatMap(record => {
       if (cached !== undefined) return cached;
       const current = instructions.get(state.address);
       if (current?.opcode === 0x24) return current.address;
-      if (!current || !combatPrelude.has(current.opcode)) return null;
+      // Some pre-battle speeches repeat the same close encounter setup before
+      // loading the combat roster. The paint trace still decides which picture drew.
+      const sameCloseEncounter = current?.opcode === 0x0c && load.opcode === 0x0c &&
+        literal(load.operands[0]!) !== null && literal(current.operands[0]!) === literal(load.operands[0]!) &&
+        literal(load.operands[1]!) === 0 && literal(current.operands[1]!) === 0;
+      if (!current || (!combatPrelude.has(current.opcode) && !sameCloseEncounter)) return null;
       // Re-entering an active state leaves an unproven route to the fight.
       results.set(key, null);
       const [next, ...alternatives] = successors(state, instructions);

@@ -2841,6 +2841,16 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "textile-graffiti-room.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /YOUENCOUNTERHOBGOBLINS.*COMBATWAITFLEEPARLAY/i },
   }],
+  ["textile-grishnak-from-chest", {
+    slot: "H", inputs: [
+      "right", "s", "up", "s", "up", "up", "right", "up", "left", "up", "right", "up", "up",
+      "left", "up", "up", "up", "up", "s", "up", "enter",
+    ],
+    portrait: "portrait:PIC4.DAX:9:0:0", prompt: /IAMTHEMIGHTYGRISHNAK.*ABATTLEBEGINS/i,
+    oneShotProducer: "ECL4.DAX:2:a663",
+    finalPhaseCapture: "textile-grishnak-battle-notice.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
   ["textile-altar-portrait-release", {
     slot: "I", inputs: ["up", "enter"],
     portrait: "portrait:PIC4.DAX:9:0:0", prompt: /IAMTHEMIGHTYGRISHNAK.*ABATTLEBEGINS/i,
@@ -8342,6 +8352,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_INPUT_COMPAT: textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "pyramid-vats-mutants-loop" || routeName.startsWith("pyramid-exterior-") ||
       routeName.startsWith("yarash-study-") ||
+      routeName === "textile-grishnak-from-chest" ||
       routeName === "valhingen-grave-claws" || routeName === "valhingen-vampire-reveal-phases" ||
       routeName === "sokal-barracks-ghost-phases" ||
       /^nomad-camp-sentry-(families|parlay|combat)$/.test(routeName) ||
