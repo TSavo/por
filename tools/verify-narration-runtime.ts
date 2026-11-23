@@ -161,6 +161,16 @@ assert.equal(reach(0x9d1f, 0x12), undefined, "action:none must be explicitly sil
 assert.equal(reach(0x9df1, 0x29), undefined, "menu narration waits for the rendered operand");
 assert.equal(selectObserver.observeMenuOperand(selectCpu, 10)?.unitId, "por.voice.ecl5.b3-9df1-operand-10");
 
+loadBlock(5, 7);
+const guardUnit = realManifest.units.find(unit => unit.id === "por.voice.ecl5.b7-a56c-operand-9")!;
+assert.equal(reach(0xa56c, 0x29), undefined, "the preceding view flushes before the bodyguards arrive");
+assert.equal(selectObserver.observeRenderedText(selectCpu, "THE MONSTERS PREPARE"), undefined);
+const guardCaption = selectObserver.observeRenderedText(selectCpu, guardUnit.spokenText);
+assert.equal(guardCaption?.unitId, guardUnit.id);
+assert.equal(guardCaption?.operand, 9);
+assert.equal(realCatalog.resolve(guardCaption!).status, "resolved");
+assert.equal(selectObserver.observeRenderedText(selectCpu, guardUnit.spokenText), undefined, "draw the caption without replaying the recording");
+
 loadBlock(1, 18);
 assert.equal(reach(0x9d86, 0x29), undefined, "encounter menu narration waits for rendered text");
 assert.equal(selectObserver.observeRenderedText(selectCpu, "THE MONSTERS PREPARE")?.unitId,

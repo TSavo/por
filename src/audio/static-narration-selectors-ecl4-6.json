@@ -130,6 +130,15 @@
       "evidence": ["0x9b89 dispatches ON GOSUB using 0xc04d to the four listed suffix prints in order: 0x9ba0, 0x9bb0, 0x9bbe, 0x9bcb."]
     },
     {
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a56c",
+      "resolution": "during-trigger",
+      "discriminator": {"kind": "encounterMenuOutputOperandIndex"},
+      "variants": [
+        {"unitId": "por.voice.ecl5.b7-a56c-operand-9", "when": {"equals": 9}}
+      ],
+      "evidence": ["The encounter flushes the preceding view before it prints operand 9 with the guard portrait."]
+    },
+    {
       "triggerSourceId": "por.review.ecl-6.block-1.at-b39c",
       "resolution": "at-trigger",
       "discriminator": {"kind": "memoryByte", "address": "0x4a09"},

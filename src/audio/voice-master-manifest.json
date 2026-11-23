@@ -1220,6 +1220,25 @@
       "source": "static-narration-selectors-ecl4-6.json"
     },
     {
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a56c",
+      "resolution": "during-trigger",
+      "discriminator": {
+        "kind": "encounterMenuOutputOperandIndex"
+      },
+      "variants": [
+        {
+          "unitId": "por.voice.ecl5.b7-a56c-operand-9",
+          "when": {
+            "equals": 9
+          }
+        }
+      ],
+      "evidence": [
+        "The encounter flushes the preceding view before it prints operand 9 with the guard portrait."
+      ],
+      "source": "static-narration-selectors-ecl4-6.json"
+    },
+    {
       "triggerSourceId": "por.review.ecl-6.block-1.at-b39c",
       "resolution": "at-trigger",
       "discriminator": {
