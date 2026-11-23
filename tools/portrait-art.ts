@@ -626,6 +626,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:22:ecl:9a06:caller:a151:cue:teleport-flash", "ANDYOUSUDDENLYFINDYOURSELVES"],
   ["scene-illustration:area:23:ecl:9e5c:cue:five-lizardfolk", "YOUSEEAGROUPOFFIVELIZARDMEN"],
   ["scene-illustration:area:23:ecl:9a04:caller:9e60:cue:five-lizardfolk", "YOUSEEAGROUPOFFIVELIZARDMEN"],
+  ["scene-illustration:area:23:ecl:9bef:cue:patrol-stands-down", "WEWILLNOTKILLYOU.THEENEMYOFMYENEMYISNOTMYENEMY"],
   ["scene-illustration:area:22:ecl:a20f:cue:dwarven-fighters", "YOUSURPRISEDWARVENFIGHTERS"],
   ["scene-illustration:area:22:ecl:9a06:caller:a213:cue:dwarven-fighters", "YOUSURPRISEDWARVENFIGHTERS"],
   ["scene-illustration:area:22:ecl:9cdf:cue:human-priest", "YOUSEEAHUMANPRIEST"],
@@ -1759,6 +1760,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
 const retainedIllustrationScopes = new Map([
   ["scene-illustration:area:23:ecl:a29f", "scene-illustration:area:23:ecl:a2a9"],
   ["scene-illustration:area:23:ecl:a192", "scene-illustration:area:23:ecl:a19c"],
+  ["scene-illustration:area:23:ecl:9f90", "scene-illustration:area:23:ecl:9bef:cue:patrol-stands-down"],
   ["scene-illustration:area:11:ecl:99fc", "scene-illustration:area:11:ecl:9a0c"],
   ["scene-illustration:area:29:ecl:a3ba", kutoWellReinforcements],
   ["scene-illustration:area:29:ecl:a338", kutoWellAmbush],

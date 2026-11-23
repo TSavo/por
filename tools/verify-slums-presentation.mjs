@@ -5736,6 +5736,13 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["p"], portrait: "portrait:area:23:ecl:9f2a:PIC7.DAX:57:3:0",
       prompt: /THEYAREWARY,BUTNOTHOSTILE.*HAUGHTYSLYNICEMEEKABUSIVE/i },
   }],
+  ["pyramid-lizardfolk-patrol-stands-down", {
+    // Start from the patrol secret-door checkpoint and take the Meek parlay option at close range.
+    slot: "A", stockInput: true, inputs: ["up", "enter", "up", "enter", "a", "a", "p", "m"],
+    portrait: "scene-illustration:area:23:ecl:9bef:cue:patrol-stands-down",
+    prompt: /WEWILLNOTKILLYOU.*THEENEMYOFMYENEMYISNOTMYENEMY/i,
+    continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i, clearsPortrait: true },
+  }],
   ["pyramid-lizardfolk-patrol-sighting", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:23:ecl:9a04:caller:9e60:cue:five-lizardfolk", prompt: /YOUSEEAGROUPOFFIVELIZARDMEN.*THEYHISSATYOU/i,
