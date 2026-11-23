@@ -1902,6 +1902,23 @@ const illustrationRoutes = new Map([
       heldApproach: { position: [17, 9, 11],
         placement: [56, 32, "encounter:area:17:SPRIT7.DAX:0:1:0", 24, 65] } },
   }],
+  ["nomad-raid-alliance", {
+    slot: "A", inputs: ["e", "r", "h", ...Array(18).fill("i"), "r", "space", "n", "enter"], fixedClockStart: 4320000,
+    portrait: "scene-illustration:area:17:ecl:9da2:caller:b0fb",
+    prompt: /KOBOLDSMOVINGRELUN?CTANTLYFORWARD.*THEHEADMANWALKSUPANDSLAPSYOUONTHEBACK/i,
+    illustratedScenery: true, finalPhaseCapture: "nomad-raid-alliance.png",
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:17:ecl:b13d",
+      prompt: /WELLDONE!WHATSAYWEFINISHTHISTOGETHER.*DESTROYTHEKOBOLDSFLEE/i,
+      screenshot: "nomad-raid-alliance-offer.png" },
+  }],
+  ["nomad-raid-alliance-offer", {
+    slot: "A", inputs: ["e", "r", "h", ...Array(18).fill("i"), "r", "space", "n", "enter", "enter"], fixedClockStart: 4320000,
+    portrait: "scene-illustration:area:17:ecl:b13d",
+    prompt: /WELLDONE!WHATSAYWEFINISHTHISTOGETHER.*DESTROYTHEKOBOLDSFLEE/i,
+    illustratedScenery: true, finalPhaseCapture: "nomad-raid-alliance-offer.png",
+    continuation: { inputs: ["d"], clearsPortrait: true, prompt: /THENLETUSDOIT!.*ABATTLEBEGINS/i,
+      screenshot: "nomad-raid-alliance-battle-notice.png" },
+  }],
   ["nomad-raid-betrayal", {
     slot: "A", inputs: ["e", "r", "h", "i", "r", "enter"], fixedClockStart: 4320000,
     portrait: "scene-illustration:area:17:ecl:9da2:caller:b629",
@@ -8934,7 +8951,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "sokal-barracks-ghost-phases" ||
       /^nomad-camp-sentry-(families|parlay|combat)$/.test(routeName) ||
       /^nomad-guard-(follow|attack)$/.test(routeName) ||
-      /^nomad-raid-(betrayal|first-attack)$/.test(routeName) ||
+      /^nomad-raid-(alliance(?:-offer)?|betrayal|first-attack)$/.test(routeName) ||
       routeName === "nomad-morning-walk" ||
       routeName === "nomad-feast-held-sequence" ||
       /^nomad-pursuit-(combat|flee|menu)$/.test(routeName) ||
