@@ -101,6 +101,18 @@ and `tools/browser-play.ts` for layout config). Do not put shaders in
 
 ## Before and after
 
+The [complete New Phlan gate comparison](screenshots/renderer-look/new-phlan-gate-current.png)
+shows `3c29ba82` and `35fa3924` at the same gameplay size. Both use slot H
+of `qa/fixtures/guide-party-slums-first-training`, at (0,4) west, 08:39.
+The packed wall grid, guest caption, and Classic frame match exactly.
+The current live draw binds both the sun map and the scene environment.
+
+The 82-input Training Hall round trip passed in GOG 1.3 and bundled
+Chrome. Each sampled environment capture rendered six faces and built
+one mip chain. Chrome released the superseded cubes on transitions.
+Forcing each environment framebuffer to be incomplete preserved the
+Enhanced view throughout the replay with zero WebGL errors.
+
 The first-person comparisons show the earlier renderer on the left and
 Enhanced lighting on the right. The gate and barracks were captured from
 the live WebGL canvas with matching camera, wall grid, and guest time in
