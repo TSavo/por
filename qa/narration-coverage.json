@@ -134,6 +134,18 @@
    "decisions": 11,
    "heard": 3
   },
+  "tower-source-original": {
+   "ledger": "tower-native.jsonl",
+   "games": 1,
+   "decisions": 18,
+   "heard": 9
+  },
+  "tower-source-port": {
+   "ledger": "tower-native.jsonl",
+   "games": 1,
+   "decisions": 18,
+   "heard": 9
+  },
   "v100-castle-votes-port": {
    "ledger": "narration.jsonl",
    "games": 1,
@@ -4879,6 +4891,26 @@
     "unfinished": 0,
     "startedLate": 0
    },
+   "tower-source-original": {
+    "log": "tower-native.playback.jsonl",
+    "legs": 1,
+    "lines": 9,
+    "toTheEnd": 9,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "tower-source-port": {
+    "log": "tower-native.playback.jsonl",
+    "legs": 1,
+    "lines": 9,
+    "toTheEnd": 9,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
    "v100-castle-votes-port": {
     "log": "narration.playback.jsonl",
     "legs": 1,
@@ -5355,31 +5387,25 @@
     ]
    },
    "por.voice.ecl5.b3-a8d0-prompt": {
-    "run": "campaign-full",
+    "run": "tower-source-original",
     "asset": "voices/narration/ecl5/b3-a8d0-prompt.mp3",
     "seconds": 3.6,
-    "waited": 0.041,
-    "saw": [
-     null
-    ]
+    "waited": 0.012,
+    "art": "the first-person view"
    },
    "por.voice.ecl5.b3-aa3e": {
-    "run": "campaign-full",
+    "run": "tower-source-original",
     "asset": "voices/narration/ecl5/b3-aa3e.mp3",
     "seconds": 2.08,
-    "waited": 0.015,
-    "saw": [
-     null
-    ]
+    "waited": 0.011,
+    "art": "the first-person view"
    },
    "por.voice.ecl5.b3-aa6c": {
-    "run": "campaign-full",
+    "run": "tower-source-original",
     "asset": "voices/narration/ecl5/b3-aa6c.mp3",
     "seconds": 5.92,
-    "waited": 0.039,
-    "saw": [
-     null
-    ]
+    "waited": 0.19,
+    "art": "the first-person view"
    },
    "por.voice.ecl5.b4-af30-af51": {
     "run": "valjevo-records-scribe-flight",
@@ -5410,31 +5436,25 @@
     "art": "scene-illustration:area:4:ecl:b1c7:cue:records-scribe-flight"
    },
    "por.voice.ecl5.b5-9b4b": {
-    "run": "campaign-full",
+    "run": "tower-source-original",
     "asset": "voices/narration/ecl5/b5-9b4b.mp3",
     "seconds": 5.12,
-    "waited": 0.041,
-    "saw": [
-     null
-    ]
+    "waited": 0.02,
+    "art": "the first-person view"
    },
    "por.voice.ecl5.b5-9b99": {
-    "run": "campaign-full",
+    "run": "tower-source-original",
     "asset": "voices/narration/ecl5/b5-9b99.mp3",
     "seconds": 3.68,
-    "waited": 0.036,
-    "saw": [
-     null
-    ]
+    "waited": 0.011,
+    "art": "the first-person view"
    },
    "por.voice.ecl5.b5-a467": {
-    "run": "campaign-full",
+    "run": "tower-source-original",
     "asset": "voices/narration/ecl5/b5-a467.mp3",
     "seconds": 1.76,
-    "waited": 0.031,
-    "saw": [
-     null
-    ]
+    "waited": 0.061,
+    "art": "the first-person view"
    },
    "por.voice.ecl5.b7-9a52": {
     "run": "issue-237-main-original",
@@ -5444,22 +5464,18 @@
     "art": "the first-person view"
    },
    "por.voice.ecl5.b7-9a74": {
-    "run": "campaign-full",
+    "run": "tower-source-original",
     "asset": "voices/narration/ecl5/b7-9a74.mp3",
     "seconds": 2.08,
-    "waited": 0.021,
-    "saw": [
-     null
-    ]
+    "waited": 0.01,
+    "art": "the first-person view"
    },
    "por.voice.ecl5.b7-9b74-9bb0": {
-    "run": "campaign-full",
+    "run": "tower-source-original",
     "asset": "voices/narration/ecl5/b7-9b74-9bb0.mp3",
     "seconds": 3.04,
-    "waited": 0.03,
-    "saw": [
-     null
-    ]
+    "waited": 0.015,
+    "art": "the first-person view"
    },
    "por.voice.ecl5.b7-a463-a4dd": {
     "run": "campaign-full",
@@ -5964,6 +5980,222 @@
      "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0"
     ],
     "end": "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0"
+   },
+   "tower-source-original | leg-1 | 1 | por.voice.ecl5.b3-a8d0-prompt": {
+    "run": "tower-source-original",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b3-a8d0-prompt",
+    "asset": "voices/narration/ecl5/b3-a8d0-prompt.mp3",
+    "expected": "the first-person view",
+    "caption": "A DEEP VOICE CALLS DOWN, 'WHAT IS THE PASSWORD?' GIVE THE PASSWORD FORCE THE GATE OPEN Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "tower-source-original | leg-1 | 2 | por.voice.ecl5.b3-aa3e": {
+    "run": "tower-source-original",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b3-aa3e",
+    "asset": "voices/narration/ecl5/b3-aa3e.mp3",
+    "expected": "the first-person view",
+    "caption": "WHAT PASSWORD DO YOU GIVE?",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "tower-source-original | leg-1 | 3 | por.voice.ecl5.b3-aa6c": {
+    "run": "tower-source-original",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b3-aa6c",
+    "asset": "voices/narration/ecl5/b3-aa6c.mp3",
+    "expected": "the first-person view",
+    "caption": "'ALL RIGHT, THEN. PASS!' AND WITH THAT THE GATES SWING OPEN AND YOU PASS THROUGH THE GATE. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "tower-source-original | leg-1 | 4 | por.voice.ecl5.b5-9b4b": {
+    "run": "tower-source-original",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b5-9b4b",
+    "asset": "voices/narration/ecl5/b5-9b4b.mp3",
+    "expected": "the first-person view",
+    "caption": "THERE IS A HEDGE WITH POISONOUS THORNS IN THAT DIRECTION. DO YOU WANT TO TRY TO CUT THROUGH? Yes No",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "tower-source-original | leg-1 | 5 | por.voice.ecl5.b5-9b99": {
+    "run": "tower-source-original",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b5-9b99",
+    "asset": "voices/narration/ecl5/b5-9b99.mp3",
+    "expected": "the first-person view",
+    "caption": "AS YOU SLICE THROUGH SOMEONE IS PRICKED BY A THORN. press <enter>/<return> to continue",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "tower-source-original | leg-1 | 6 | por.voice.ecl5.b5-a467": {
+    "run": "tower-source-original",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b5-a467",
+    "asset": "voices/narration/ecl5/b5-a467.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU GO UPSTAIRS. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "tower-source-original | leg-1 | 7 | por.voice.ecl5.b7-9a52": {
+    "run": "tower-source-original",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b7-9a52",
+    "asset": "voices/narration/ecl5/b7-9a52.mp3",
+    "expected": "the first-person view",
+    "caption": "DO YOU WANT TO GO DOWN THESE STAIRS? Yes No",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "tower-source-original | leg-1 | 8 | por.voice.ecl5.b7-9b74-9bb0": {
+    "run": "tower-source-original",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b7-9b74-9bb0",
+    "asset": "voices/narration/ecl5/b7-9b74-9bb0.mp3",
+    "expected": "the first-person view",
+    "caption": "A SECRET DOOR IS FOUND TO YOUR LEFT. Press button or return to continue",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "tower-source-original | leg-1 | 9 | por.voice.ecl5.b7-9a74": {
+    "run": "tower-source-original",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b7-9a74",
+    "asset": "voices/narration/ecl5/b7-9a74.mp3",
+    "expected": "the first-person view",
+    "caption": "DO YOU WANT TO GO UP THESE STAIRS? Yes No",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "tower-source-port | leg-1 | 1 | por.voice.ecl5.b3-a8d0-prompt": {
+    "run": "tower-source-port",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b3-a8d0-prompt",
+    "asset": "voices/narration/ecl5/b3-a8d0-prompt.mp3",
+    "expected": "the first-person view",
+    "caption": "A DEEP VOICE CALLS DOWN, 'WHAT IS THE PASSWORD?' GIVE THE PASSWORD FORCE THE GATE OPEN Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "tower-source-port | leg-1 | 2 | por.voice.ecl5.b3-aa3e": {
+    "run": "tower-source-port",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b3-aa3e",
+    "asset": "voices/narration/ecl5/b3-aa3e.mp3",
+    "expected": "the first-person view",
+    "caption": "WHAT PASSWORD DO YOU GIVE?",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "tower-source-port | leg-1 | 3 | por.voice.ecl5.b3-aa6c": {
+    "run": "tower-source-port",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b3-aa6c",
+    "asset": "voices/narration/ecl5/b3-aa6c.mp3",
+    "expected": "the first-person view",
+    "caption": "'ALL RIGHT, THEN. PASS!' AND WITH THAT THE GATES SWING OPEN AND YOU PASS THROUGH THE GATE. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "tower-source-port | leg-1 | 4 | por.voice.ecl5.b5-9b4b": {
+    "run": "tower-source-port",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b5-9b4b",
+    "asset": "voices/narration/ecl5/b5-9b4b.mp3",
+    "expected": "the first-person view",
+    "caption": "THERE IS A HEDGE WITH POISONOUS THORNS IN THAT DIRECTION. DO YOU WANT TO TRY TO CUT THROUGH? Yes No",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "tower-source-port | leg-1 | 5 | por.voice.ecl5.b5-9b99": {
+    "run": "tower-source-port",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b5-9b99",
+    "asset": "voices/narration/ecl5/b5-9b99.mp3",
+    "expected": "the first-person view",
+    "caption": "AS YOU SLICE THROUGH SOMEONE IS PRICKED BY A THORN. press <enter>/<return> to continue",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "tower-source-port | leg-1 | 6 | por.voice.ecl5.b5-a467": {
+    "run": "tower-source-port",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b5-a467",
+    "asset": "voices/narration/ecl5/b5-a467.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU GO UPSTAIRS. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "tower-source-port | leg-1 | 7 | por.voice.ecl5.b7-9a52": {
+    "run": "tower-source-port",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b7-9a52",
+    "asset": "voices/narration/ecl5/b7-9a52.mp3",
+    "expected": "the first-person view",
+    "caption": "DO YOU WANT TO GO DOWN THESE STAIRS? Yes No",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "tower-source-port | leg-1 | 8 | por.voice.ecl5.b7-9b74-9bb0": {
+    "run": "tower-source-port",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b7-9b74-9bb0",
+    "asset": "voices/narration/ecl5/b7-9b74-9bb0.mp3",
+    "expected": "the first-person view",
+    "caption": "A SECRET DOOR IS FOUND TO YOUR LEFT. Press button or return to continue",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "tower-source-port | leg-1 | 9 | por.voice.ecl5.b7-9a74": {
+    "run": "tower-source-port",
+    "leg": "leg-1",
+    "unitId": "por.voice.ecl5.b7-9a74",
+    "asset": "voices/narration/ecl5/b7-9a74.mp3",
+    "expected": "the first-person view",
+    "caption": "DO YOU WANT TO GO UP THESE STAIRS? Yes No",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
    },
    "v100-castle-votes-port | leg | 1 | por.voice.ecl5.b7-9a52": {
     "run": "v100-castle-votes-port",
