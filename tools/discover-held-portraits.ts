@@ -647,17 +647,19 @@ const eclCandidates = scripts.flatMap(record => {
       return { source: "HEAD7.DAX:74:BODY7.DAX:30", headWrite: authored(head.address), headSlot: "6de1",
         bodyOperand: 2, headReset: authored(reset.address) };
     }
-    if (address === 0xb23c) {
-      // The headman addresses the party after the refused alliance and the fight.
-      const head = instructions.get(0xb236);
+    if (address === 0xb23c || address === 0xb3cb) {
+      // The headman speaks after a refusal. The shaman rewards the allied party.
+      const shamanReward = address === 0xb3cb;
+      const selectedHead = shamanReward ? 62 : 74;
+      const head = instructions.get(shamanReward ? 0xb3c5 : 0xb236);
       const picture = instructions.get(address);
       const reset = picture && instructions.get(picture.next);
       if (head?.opcode !== 0x09 || head.next !== address ||
-          literal(head.operands[0]!) !== 74 || memory(head.operands[1]!) !== 0x6de1 ||
+          literal(head.operands[0]!) !== selectedHead || memory(head.operands[1]!) !== 0x6de1 ||
           picture?.opcode !== 0x0e || literal(picture.operands[0]!) !== 30 ||
           reset?.opcode !== 0x09 || literal(reset.operands[0]!) !== 0xff ||
           memory(reset.operands[1]!) !== 0x6de1) return undefined;
-      return { source: "HEAD7.DAX:74:BODY7.DAX:30", headWrite: authored(head.address), headSlot: "6de1",
+      return { source: `HEAD7.DAX:${selectedHead}:BODY7.DAX:30`, headWrite: authored(head.address), headSlot: "6de1",
         bodyOperand: 0, headReset: authored(reset.address) };
     }
     if (address !== 0xa213 && address !== 0xa33c) return undefined;
@@ -1052,8 +1054,12 @@ const eclCandidates = scripts.flatMap(record => {
     // The exact Bane surprise prints the species, jumps to the monster loader,
     // and enters b085 without a choice or an intervening portrait instruction.
     const baneSurpriseCombat = baneSurpriseProven && load.address === 0xaf03;
+    // The shaman's picture runs directly into the stock treasure-only COMBAT
+    // invocation. The same straight-line check still rejects input or a redraw.
+    const shamanReward = archive === 7 && scriptBlock === 17 && load.address === 0xb3cb &&
+      nomadPortrait?.source === "HEAD7.DAX:62:BODY7.DAX:30";
     const combat = baneSurpriseCombat ? { address: authored(0xb085), resume: authored(0xb086) } :
-      scope.length && opcode === 0x0c ? immediateCombatAfter(load) : undefined;
+      scope.length && (opcode === 0x0c || shamanReward) ? immediateCombatAfter(load) : undefined;
     // In the pinned Bane script the normal patrol menu writes 0–3 and every
     // value branches at ae14. The Black Hand warning is entered separately.
     if (baneSurpriseProven && load.address === 0xadd9) prompts.delete("ae7a:null");

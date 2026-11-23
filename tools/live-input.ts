@@ -50,11 +50,13 @@ const ohloElixirIllustration = "scene-illustration:area:20:ecl:a38f";
 const slumsStableIllustration = "scene-illustration:area:20:ecl:a453";
 const valjevoScribeFlight = "scene-illustration:area:4:ecl:b1c7:cue:records-scribe-flight";
 const baneDirtenFarewell = "scene-illustration:area:24:ecl:acc3:cue:dirten-farewell";
+const nomadShamanReward = "scene-illustration:area:17:ecl:b43b:cue:shaman-reward";
 const transientScriptIllustrations = new Map([
   ["1:24:acc3", baneDirtenFarewell],
   ["2:20:a38f", ohloElixirIllustration],
   ["2:20:a453", slumsStableIllustration],
   ["5:4:b1c7", valjevoScribeFlight],
+  ["7:17:b428", nomadShamanReward],
   ["7:26:9be2", "scene-illustration:area:26:ecl:9be2"],
   ["8:13:ad39", "scene-illustration:area:13:ecl:ad39"],
   ["8:16:aab7", "scene-illustration:area:16:ecl:aab7"],
@@ -67,6 +69,7 @@ const transientScriptIllustrationDurations = new Map([
   [slumsStableIllustration, 8750], // 7.706 s
   [valjevoScribeFlight, 8350], // 7.340 s
   [baneDirtenFarewell, 7200],
+  [nomadShamanReward, 6500],
 ]);
 export interface OverlandTerrainFrame {
   slots: readonly number[];
@@ -1019,9 +1022,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           if (flight < 0) return;
           animation.splice(flight, 1);
         }
+        // These captions print before the guest clears the answered loot question.
+        const answeredLootPrompt = captureIllustration === baneDirtenFarewell || captureIllustration === nomadShamanReward;
         animation.push({ frame: state.frame, enhancedFrame: state.enhancedFrame, portrait: captureIllustration ? portrait : undefined,
-          // This print runs before the guest clears the already answered loot question.
-          text: captureIllustration === baneDirtenFarewell ? state.text.filter(([cell]) => cell < 960) : state.text,
+          text: answeredLootPrompt ? state.text.filter(([cell]) => cell < 960) : state.text,
           combatArt: liveActors(animationCombat),
           combatSelections: state.combatSelections,
           combatEffect: state.combatEffect,
