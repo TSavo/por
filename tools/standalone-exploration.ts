@@ -75,12 +75,16 @@ export function standaloneExploration(world: WorldData, compositeHashes: Record<
     }
   }
 
+  function matchesActiveMap(layout: WallLayout, native: ActiveScenery) {
+    return layout.context.script.area === native.area &&
+      (native.mapId === undefined || layout.maps.has(native.mapId));
+  }
+
   function compatibleLayouts(native: ActiveScenery, wholeDefinition: boolean): WallLayout[] {
     const layouts = definitions.get(native.frontSlots) ?? [];
     const exact = layouts.filter(layout => layout.allSymbols === native.cellGeometry?.wallSymbols);
     const candidates = wholeDefinition || exact.length ? exact : layouts;
-    const scoped = candidates.filter(layout => layout.context.script.area === native.area &&
-      (native.mapId === undefined || layout.maps.has(native.mapId)));
+    const scoped = candidates.filter(layout => matchesActiveMap(layout, native));
     return scoped.length ? scoped : candidates;
   }
 
@@ -142,7 +146,12 @@ export function standaloneExploration(world: WorldData, compositeHashes: Record<
         return hash && `tile:${native.area}:${hash}`;
       });
     }
-    const layouts = exactLayouts.length ? exactLayouts : retainedSlotLayouts(native, geometry.wallSymbols, walls);
+    // An identical wall definition in another archive can use different tile
+    // banks. Prefer the active map's validated layout when it has a retained slot.
+    const retained = exactLayouts.some(layout => matchesActiveMap(layout, native))
+      ? [] : retainedSlotLayouts(native, geometry.wallSymbols, walls);
+    const layouts = !exactLayouts.length || retained.some(layout => matchesActiveMap(layout, native))
+      ? retained : exactLayouts;
     if (!layouts.length) return [];
     const horizon = `h${skyColor}.${geometry.lineColor}.${geometry.bandColor}.${groundColor}`;
     const views = layouts.map(({ context }) =>
