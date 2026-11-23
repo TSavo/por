@@ -2316,6 +2316,18 @@ const illustrationRoutes = new Map([
     staticPortraitMenu: true, finalPhaseCapture: "nomad-raid-hassad-aftermath.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /THEPARTYHASFOUNDTREASURE/i },
   }],
+  ["nomad-raid-reluctant-horde", {
+    slot: "A", fixedClockStart: 4320000, stockInput: true,
+    inputs: ["e", "r", "h", "i", "r", "enter"],
+    phasePrompts: { 5: /THESOUNDOFWARCRIESDRAWSYOUOUTOFTHEHUT/i },
+    portrait: "scene-illustration:area:17:ecl:9da2:caller:b58c",
+    prompt: /AHUGEGROUPOFKOBOLDSMOVINGRELUNCTANTLYFORWARDUNDERTHECURSESOFTHEIRLEADER/i,
+    illustratedScenery: true, finalPhaseCapture: "nomad-raid-reluctant-horde.png",
+    heldApproachCapture: "nomad-raid-reluctant-horde-returned.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /COMBATWAITFLEEADVANCE/i,
+      heldApproach: { position: [17, 9, 11],
+        placement: [56, 32, "encounter:area:17:SPRIT7.DAX:0:1:0", 24, 65] } },
+  }],
   ["nomad-raid-betrayal", {
     slot: "A", inputs: ["e", "r", "h", "i", "r", "enter"], fixedClockStart: 4320000,
     portrait: "scene-illustration:area:17:ecl:9da2:caller:b629",
