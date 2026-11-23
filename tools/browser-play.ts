@@ -119,7 +119,7 @@ function newPhlanMaterials() {
 }
 type ExplorationFrame = {
   nativeScenery?: NativeExploration & { area: number };
-  scenery?: Pick<NativeExploration, "x" | "y" | "facing" | "walls" | "mapId"> & { materialId: string; area: number };
+  scenery?: Pick<NativeExploration, "x" | "y" | "facing" | "walls" | "mapId" | "roofed"> & { materialId: string; area: number };
   overlandMap?: boolean;
   overlandTerrain?: OverlandTerrainFrame;
   areaView?: boolean;
@@ -147,7 +147,7 @@ function prepareScenery(view: ExplorationFrame) {
   const native = view.nativeScenery;
   if (!native) return;
   delete view.nativeScenery;
-  const { x, y, facing, walls, area, mapId } = native;
+  const { x, y, facing, walls, area, mapId, roofed } = native;
   if (packagedTerrain && !native.viewportCleared) {
     const cells: TileInventoryCell[] = [];
     view.tiles = packagedTiles(packagedTerrain, artwork, native, cells);
@@ -170,7 +170,7 @@ function prepareScenery(view: ExplorationFrame) {
       localMaterialSets.set(materialId, JSON.stringify({ ...materials, water, dockPiling, layout: phlanHarborLayout }));
     } else localMaterialSets.set(materialId, JSON.stringify(materials));
   }
-  view.scenery = { x, y, facing, walls, materialId, area, mapId };
+  view.scenery = { x, y, facing, walls, materialId, area, mapId, roofed };
 }
 const reflectedTiles = [...artwork].filter(([, art]) => art.reflected).map(([id]) => id);
 let tileTrace = process.env.POR_TILE_TRACE_FILE;

@@ -426,6 +426,10 @@ function checkExplorationGlyphMask(): void {
   }
   const scene = captureNativeExploration(cpu);
   ok(scene);
+  strictEqual(scene.roofed, false);
+  cpu.write8(0x3000, 0x201, 0x80);
+  cpu.write8(cpu.ds, data.cameraX, 1);
+  strictEqual(captureNativeExploration(cpu)?.roofed, true, "The active GEO square supplies the roof at the drawn camera");
   strictEqual(scene.glyphs[2]?.slice(0, 6), "0d000f", "Mask keeps see-through, black and white separate");
   const face = buildExplorationMaterials({ ...scene, area: 0 }, new Map()).wallFaces[0]!;
   deepStrictEqual(face.parts[0]?.art?.pixels?.slice(0, 3), [16, 0, 15]);

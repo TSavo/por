@@ -843,8 +843,7 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
       const forward = [Math.sin(radians), -Math.cos(radians)];
       const right = [Math.cos(radians), Math.sin(radians)];
       const aspect = canvas.width / canvas.height;
-      const sky = canvas.style.getPropertyValue("--sky-texture") || getComputedStyle(canvas).getPropertyValue("--sky-texture");
-      const indoor = sky && sky.trim() && sky.trim() !== "none" ? 0 : 1;
+      const indoor = view.roofed ? 1 : 0;
       const sunColor = indoor ? [0.18, 0.20, 0.24] : [1.28, 0.96, 0.62];
       const skyColor = indoor ? [0.09, 0.11, 0.15] : [0.36, 0.48, 0.70];
       const groundColor = indoor ? [0.07, 0.06, 0.05] : [0.26, 0.20, 0.14];

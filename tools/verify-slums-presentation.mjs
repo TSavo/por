@@ -4387,7 +4387,7 @@ const illustrationRoutes = new Map([
     heldApproachPrompt: /KOBOLDSAPPEARANDBOMBARDYOUWITHROCKS/i,
     heldApproachPosition: [13, 10, 1],
     heldApproachPlacement: [56, 32, "encounter:area:13:ecl:b495:SPRIT8.DAX:0:1:0", 24, 65],
-    heldApproachCapture: "kobold-cave-rock-ambush.png",
+    heldApproachCapture: "kobold-cave-rock-ambush.png", heldApproachRoofed: true,
     sceneryPrompt: [13, 10, 1],
   }],
   ["kobold-ballista-battle-entry", {
@@ -9410,6 +9410,20 @@ try {
     if (illustration?.heldApproachCapture) {
       const shot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, illustration.heldApproachCapture), Buffer.from(shot.data, "base64"));
+    }
+    if (illustration?.heldApproachRoofed) {
+      const overhead = await run(`(() => {
+        const canvas = document.querySelector("#tile-art:not([hidden]) canvas.street-viewport");
+        if (!canvas) return null;
+        const gl = canvas.getContext("webgl");
+        const pixel = new Uint8Array(4);
+        gl.readPixels(Math.floor(canvas.width / 2), Math.floor(canvas.height * .94), 1, 1,
+          gl.RGBA, gl.UNSIGNED_BYTE, pixel);
+        return [...pixel];
+      })()`);
+      assert.ok(overhead && overhead[3] === 255 && Math.max(...overhead.slice(0, 3)) < 48,
+        `Expected the lit WebGL viewport to show dark cave overhead, got ${JSON.stringify(overhead)}`);
+      assert.equal(frame.scenery?.roofed, true);
     }
     const [renderer, art] = await Promise.all([fetch(origin + "/play.js"), fetch(origin + "/art/" + actor)]);
     assert.ok(renderer.ok && art.ok);
