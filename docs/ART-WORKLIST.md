@@ -2,7 +2,7 @@
 
 ## What to do now
 
-**Held portrait animations (#131).** 156 / 234 candidate sites visually verified (measured 165, one-shot 31). Reachable: 232. Proven unreachable in the original: 2. R = 76.
+**Held portrait animations (#131).** 157 / 234 candidate sites visually verified (measured 166, one-shot 31). Reachable: 232. Proven unreachable in the original: 2. R = 75.
 The site inventory comes from static script and native picture discovery. 315 / 315 captured native prompts passed paired Chrome checks.
 Run `npm run verify:held-portraits` for every site and its evidence.
 

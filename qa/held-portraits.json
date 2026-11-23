@@ -32939,6 +32939,63 @@
           }
         }
       }
+    },
+    {
+      "position": [
+        13,
+        10,
+        1
+      ],
+      "checkpoint": "walk-kobold-king/after/I.json",
+      "producer": "ECL8.DAX:13:b460",
+      "prompt": "b495",
+      "chrome": {
+        "port": {
+          "route": "kobold-cave-rock-ambush",
+          "data": "port",
+          "position": [
+            13,
+            10,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN33CORA51DORN54ENNA43FENN41KOBOLDSAPPEARANDBOMBARDYOUWITHROCKS.FENNishitFOR5pointsofDamage.CORAishitFOR2pointsofDamage.DORNishitFOR4pointsofDamage.press<enter>/<return>tocontinue",
+          "checkpointSha256": "499fc3bfb6cb30da740f86a0c3a85fca76e8c7c2f640ef655b95a4e2714f57e8",
+          "rendererSha256": "14d61fd7ee9265e1b34205a359a7631c932bdba29f274fcf406065a2f4969489",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:13:ecl:b495:SPRIT8.DAX:0:1:0",
+              24,
+              65
+            ],
+            "sha256": "5aa9a12cf32d0b67be996e7701813086c5ecc1c88182e09a48f1bc185caead14"
+          }
+        },
+        "original": {
+          "route": "kobold-cave-rock-ambush",
+          "data": "original",
+          "position": [
+            13,
+            10,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN33CORA51DORN54ENNA43FENN41KOBOLDSAPPEARANDBOMBARDYOUWITHROCKS.FENNishitFOR5pointsofDamage.CORAishitFOR2pointsofDamage.DORNishitFOR4pointsofDamage.press<enter>/<return>tocontinue",
+          "checkpointSha256": "499fc3bfb6cb30da740f86a0c3a85fca76e8c7c2f640ef655b95a4e2714f57e8",
+          "rendererSha256": "14d61fd7ee9265e1b34205a359a7631c932bdba29f274fcf406065a2f4969489",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:13:ecl:b495:SPRIT8.DAX:0:1:0",
+              24,
+              65
+            ],
+            "sha256": "5aa9a12cf32d0b67be996e7701813086c5ecc1c88182e09a48f1bc185caead14"
+          }
+        }
+      },
+      "caption": "KOBOLDS APPEAR AND BOMBARD YOU WITH ROCKS."
     }
   ],
   "staticPortraitPrompts": [
