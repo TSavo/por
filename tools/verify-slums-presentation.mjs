@@ -5156,6 +5156,40 @@ const illustrationRoutes = new Map([
       inputs: ["p", "m", ..."harash", "enter"], clearsPortrait: true, prompt: /WITHANODOFTHEHEADYOUARELEFTALONE/i,
     },
   }],
+  ["valjevo-outer-patrol-hostile", {
+    slot: "B", inputs: ["s", "enter", "up", "enter", "enter", "up", "enter", "enter", "a", "a"], settleInputs: ["a"],
+    heldApproachPrompt: /SURPRISESYOU.*THAT'STHEM!GETTHEM!/i,
+    heldApproachPosition: [5, 8, 12],
+    heldApproachArea: 3,
+    approachSequence: [
+      [56, 32, "encounter:area:3:SPRIT5.DAX:16:2:0", 16, 49],
+      [56, 32, "encounter:area:3:SPRIT5.DAX:16:1:0", 24, 65],
+      [48, 32, "encounter:area:3:ecl:9dc4:SPRIT5.DAX:16:0:0", 40, 80],
+    ],
+    portrait: "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1", prompt: /THEYADVANCE,?WEAPONSREADY/i,
+    staticPortraitMenu: true,
+    continuation: { inputs: ["f"], clearsPortrait: true, prompt: /ABATTLEBEGINS/i },
+  }],
+  ["valjevo-outer-patrol-disguise", {
+    slot: "B", inputs: ["s", "enter", "up", "enter", "enter", "up", "enter", "enter", "a", "a"], settleInputs: ["a"],
+    portrait: "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1", prompt: /WHATAREYOUDOINGHERE/i,
+    staticPortraitMenu: true,
+    continuation: {
+      inputs: ["p", "m", ..."harash", "enter"],
+      portraits: ["scene-illustration:area:3:ecl:9f7e:caller:9e79", "scene-illustration:area:3:ecl:9bf8:cue:giant-patrol-passage"],
+      prompt: /WITHANODOFTHEHEADYOUARELEFTALONE/i,
+    },
+  }],
+  ["valjevo-outer-sentry-alarm", {
+    slot: "B", inputs: ["up", "enter", "enter"],
+    oneShotProducer: "ECL5.DAX:3:9fb6",
+    approachSequence: [[48, 32, "encounter:area:3:ecl:9fbd:SPRIT5.DAX:16:0:0", 40, 80]],
+    requireTiledApproach: false,
+    portraitStops: { 2: "portrait:HEAD5.DAX:12:BODY5.DAX:1" },
+    phasePrompts: { 2: /ANALARMSTARTSRINGING/i },
+    portrait: "portrait:area:3:ecl:a002:HEAD5.DAX:12:BODY5.DAX:1", prompt: /ANALARMSTARTSRINGING.*ABATTLEBEGINS/i,
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS\d+AC\d+.*MOVEVIEWAIM/i },
+  }],
   ["zhentil-quarters-ambush", {
     slot: "A", inputs: ["up", "enter", "s", "enter"],
     approachSequence: [[48, 32, "encounter:area:28:ecl:a534:SPRIT5.DAX:16:0:0", 40, 80]],
@@ -8556,8 +8590,8 @@ try {
   function patrolApproachPlacement(area) {
     return [56, 32, `encounter:area:${area}:SPRIT5.DAX:16:2:0`, 16, 49];
   }
-  async function verifyPatrolApproach(expectedCaption, expectedPosition) {
-    const placement = patrolApproachPlacement(expectedPosition[0]);
+  async function verifyPatrolApproach(expectedCaption, expectedPosition, area = expectedPosition[0]) {
+    const placement = patrolApproachPlacement(area);
     const [, , actor, width, height] = placement;
     const caption = frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join("");
     assert.match(caption, expectedCaption);
@@ -11276,7 +11310,7 @@ try {
     let alreadyPassedPatrol;
     if (approachSequence) await observeApproach(approachSequence, illustration.requireTiledApproach);
     else if (illustration.heldApproachPrompt && heldPortraitEvidenceFile) {
-      await observeApproach([patrolApproachPlacement(illustration.heldApproachPosition[0])]);
+      await observeApproach([patrolApproachPlacement(illustration.heldApproachArea ?? illustration.heldApproachPosition[0])]);
     }
     if (journalLead) {
       await advance("j");
@@ -11360,7 +11394,7 @@ try {
         if (!heldApproachRecorded && illustration.heldApproachPrompt && heldPortraitEvidenceFile &&
             frame.encounter && illustration.heldApproachPrompt.test(frame.text.toSorted(([a], [b]) => a - b)
               .map(([, char]) => String.fromCharCode(char)).join(""))) {
-          await verifyPatrolApproach(illustration.heldApproachPrompt, illustration.heldApproachPosition);
+          await verifyPatrolApproach(illustration.heldApproachPrompt, illustration.heldApproachPosition, illustration.heldApproachArea);
           heldApproachRecorded = true;
         }
         const phasePrompt = illustration.phasePrompts?.[index];

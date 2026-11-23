@@ -20906,6 +20906,63 @@
           }
         }
       }
+    },
+    {
+      "producer": "ECL5.DAX:3:9ca7",
+      "prompt": "9a5a/9d91",
+      "caption": "SURPRISES YOU",
+      "checkpoint": "valjevo-outer-patrol/B.json",
+      "position": [
+        5,
+        8,
+        12
+      ],
+      "chrome": {
+        "original": {
+          "route": "valjevo-outer-patrol-hostile",
+          "data": "original",
+          "position": [
+            5,
+            8,
+            12
+          ],
+          "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:28searchAPATROLOFGIANTSLEDBYAHUMANFIGHTERSURPRISESYOU.'THAT'STHEM!GETTHEM!'Pressbuttonor<return>tocontinue",
+          "checkpointSha256": "1163c6d7c3fced0f16544068115ec35bce1063824463d5adde9468bf14835a2c",
+          "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:3:SPRIT5.DAX:16:2:0",
+              16,
+              49
+            ],
+            "sha256": "11627b2f934309107b7240c42cfa65d7636a08ff3bf702563152f21d07f00ee2"
+          }
+        },
+        "port": {
+          "route": "valjevo-outer-patrol-hostile",
+          "data": "port",
+          "position": [
+            5,
+            8,
+            12
+          ],
+          "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:28searchAPATROLOFGIANTSLEDBYAHUMANFIGHTERSURPRISESYOU.'THAT'STHEM!GETTHEM!'Pressbuttonor<return>tocontinue",
+          "checkpointSha256": "1163c6d7c3fced0f16544068115ec35bce1063824463d5adde9468bf14835a2c",
+          "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:3:SPRIT5.DAX:16:2:0",
+              16,
+              49
+            ],
+            "sha256": "11627b2f934309107b7240c42cfa65d7636a08ff3bf702563152f21d07f00ee2"
+          }
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [
@@ -26392,6 +26449,158 @@
               "durationMs": 3060.099999964237,
               "replaced": false,
               "data": "port"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL5.DAX:3:9d91",
+      "prompt": "9dc4",
+      "variants": [
+        {
+          "caption": "THEY ADVANCE, WEAPONS READY",
+          "portrait": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1",
+          "checkpoint": "valjevo-outer-patrol/B.json",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 E 00:28 search THEY ADVANCE, WEAPONS READY Combat Wait Flee Parlay",
+            "idlePolls": 25,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              }
+            ],
+            "drawCursor": "9dc4",
+            "composed": {
+              "source": "HEAD5.DAX:9:BODY5.DAX:1",
+              "headWrite": "9ca1",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "9dc4"
+            },
+            "clearedPanelSha256": "fe2f23a7a3d3d87c36887ba4ed02dfc7bf3ee374b6e6ba8f2e937d242669d153"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-outer-patrol-hostile",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:28searchTHEYADVANCE,WEAPONSREADYCombatWaitFleeParlay",
+              "portrait": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1",
+              "checkpointSha256": "1163c6d7c3fced0f16544068115ec35bce1063824463d5adde9468bf14835a2c",
+              "artSha256": "3daeeaeee658ec3102f7e2c93b971d3330859950d424dbe81028605fec3713f3",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3659,
+              "samples": 221,
+              "poses": [
+                "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-outer-patrol-hostile",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:28searchTHEYADVANCE,WEAPONSREADYCombatWaitFleeParlay",
+              "portrait": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1",
+              "checkpointSha256": "1163c6d7c3fced0f16544068115ec35bce1063824463d5adde9468bf14835a2c",
+              "artSha256": "3daeeaeee658ec3102f7e2c93b971d3330859950d424dbe81028605fec3713f3",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3650,
+              "samples": 220,
+              "poses": [
+                "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL5.DAX:3:9df1",
+      "prompt": "9e32",
+      "variants": [
+        {
+          "caption": "WHAT ARE YOU DOING HERE",
+          "portrait": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1",
+          "checkpoint": "valjevo-outer-patrol/disguised-B.json",
+          "native": {
+            "heldCaption": "Name AC HP THRENDER GRONE 1 11 BAKSHI 4 7 RHIANNON 0 7 BROTHER SEAN 2 10 DARKSTAR 7 5 PHINEAS 4 6 E 00:28 search 'WHAT ARE YOU DOING HERE?' Combat Wait Flee Parlay",
+            "idlePolls": 25,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              },
+              {
+                "idlePolls": 1,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              },
+              {
+                "idlePolls": 9,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              },
+              {
+                "idlePolls": 25,
+                "sha256": "46b61e1351dc1000e9df97f538f623f1dea328ed2f06d611f1f01d38531fbd58"
+              }
+            ],
+            "drawCursor": "9e32",
+            "composed": {
+              "source": "HEAD5.DAX:9:BODY5.DAX:1",
+              "headWrite": "9ca1",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "9e32"
+            },
+            "clearedPanelSha256": "fe2f23a7a3d3d87c36887ba4ed02dfc7bf3ee374b6e6ba8f2e937d242669d153"
+          },
+          "chrome": {
+            "original": {
+              "route": "valjevo-outer-patrol-disguise",
+              "data": "original",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:28search'WHATAREYOUDOINGHERE?'CombatWaitFleeParlay",
+              "portrait": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1",
+              "checkpointSha256": "7095c5974505c1c9fcfd192fb39a5dd8641e19ccc8829ccc12dacab87e513e75",
+              "artSha256": "3daeeaeee658ec3102f7e2c93b971d3330859950d424dbe81028605fec3713f3",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3651,
+              "samples": 220,
+              "poses": [
+                "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "valjevo-outer-patrol-disguise",
+              "data": "port",
+              "caption": "NameACHPTHRENDERGRONE111BAKSHI47RHIANNON07BROTHERSEAN210DARKSTAR75PHINEAS46E00:28search'WHATAREYOUDOINGHERE?'CombatWaitFleeParlay",
+              "portrait": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1",
+              "checkpointSha256": "7095c5974505c1c9fcfd192fb39a5dd8641e19ccc8829ccc12dacab87e513e75",
+              "artSha256": "3daeeaeee658ec3102f7e2c93b971d3330859950d424dbe81028605fec3713f3",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3657,
+              "samples": 221,
+              "poses": [
+                "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
+              ],
+              "replaced": false
             }
           }
         }

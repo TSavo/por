@@ -90,6 +90,7 @@ const writers = new Set([0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x2a, 0x2f, 0x30]);
 // These instructions can prepare a fight without a new picture or player input.
 const combatPrelude = new Set([0x01, 0x02, 0x03, 0x04, 0x08, 0x09, 0x0b, 0x0d, 0x12, 0x13, 0x16, 0x17, 0x1b, 0x1c, 0x27, 0x3a, 0x3d]);
 const valjevoPatrolDispatch = new Map<string, readonly number[]>([
+  ["3:9d91", [0x9ddc, 0x9bf2, 0x9e79, 0x9c28, 0x9e79]],
   ["4:9ce6", [0x9d31, 0x9b5d, 0x9dd1, 0x9b7d, 0x9dd1]],
   ["6:a9e6", [0xaa31, 0x9c3e, 0xabd4, 0xa87d, 0xabd4]],
 ]);
@@ -309,17 +310,18 @@ const eclCandidates = scripts.flatMap(record => {
     const falseThrone = scriptBlock === 5 && address === "a98a";
     const forgePatrol = scriptBlock === 6 && ["a9e6", "aa49"].includes(address);
     const mazePatrol = scriptBlock === 4 && ["9ce6", "9d49"].includes(address);
-    const mazeSentinel = scriptBlock === 4 && opcode === 0x0c && address === "9f0c";
+    const outerPatrol = scriptBlock === 3 && ["9d91", "9df1"].includes(address);
+    const sentinel = opcode === 0x0c && (scriptBlock === 4 && address === "9f0c" || scriptBlock === 3 && address === "9fb6");
     const mazeWatch = scriptBlock === 4 && opcode === 0x29 && address === "9ffa";
     const genheerisOffer = scriptBlock === 7 && opcode === 0x0c && address === "a255";
     const stojanowBarracks = archive === 2 && scriptBlock === 9 && opcode === 0x29 && ["a23f", "a372"].includes(address);
     const nomadHeadman = archive === 7 && scriptBlock === 17 && opcode === 0x0c && address === "a39c";
-    if (nomadHeadman || stojanowBarracks || archive === 5 && (mazeSentinel || mazeWatch || genheerisOffer || opcode === 0x29 &&
+    if (nomadHeadman || stojanowBarracks || archive === 5 && (sentinel || mazeWatch || genheerisOffer || opcode === 0x29 &&
         (scriptBlock === 7 && ["a184", "a56c"].includes(address) ||
-         scriptBlock === 5 && address === "a256" || falseThrone || forgePatrol || mazePatrol))) {
+         scriptBlock === 5 && address === "a256" || falseThrone || forgePatrol || mazePatrol || outerPatrol))) {
       const before = (at: number) => decoded.find(instruction => instruction.next === at);
-      // The false throne and both patrols reuse the head selected by their approach setup.
-      const setupAddress = falseThrone ? "a953" : forgePatrol ? "a8fc" : mazePatrol ? "9bfc" : undefined;
+      // The false throne and these patrols reuse the head selected by their approach setup.
+      const setupAddress = falseThrone ? "a953" : forgePatrol ? "a8fc" : mazePatrol ? "9bfc" : outerPatrol ? "9ca7" : undefined;
       const setup = setupAddress ? decoded.find(instruction => authored(instruction.address) === setupAddress) : undefined;
       // At the Stojanow barracks the quoted dialogue and its acknowledgement
       // keep the selected head before either encounter menu.
