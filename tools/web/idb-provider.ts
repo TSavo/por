@@ -56,6 +56,26 @@ export class IdbResources extends HttpResources {
     await finished(transaction);
   }
 
+  /** Copy a legacy save folder in one transaction and keep every occupied record. */
+  async importMissingSaves(records: ReadonlyMap<ResourceId, Uint8Array>) {
+    const transaction = this.db.transaction("records", "readwrite", { durability: "strict" });
+    const store = transaction.objectStore("records");
+    const imported = new Map<ResourceId, Uint8Array>();
+    const kept: ResourceId[] = [];
+    for (const [id, bytes] of records) {
+      const lookup = store.getKey(id);
+      lookup.onsuccess = () => {
+        if (lookup.result === undefined) {
+          store.add(bytes, id);
+          imported.set(id, bytes);
+        } else kept.push(id);
+      };
+    }
+    await finished(transaction);
+    for (const [id, bytes] of imported) this.local.set(id, bytes);
+    return { imported: [...imported.keys()], kept };
+  }
+
   /** The records the engine reads at its start: the saves and the roster. */
   residentRecords(): [ResourceId, Uint8Array][] {
     return [...this.local].filter(([id]) => id.startsWith("save:"));

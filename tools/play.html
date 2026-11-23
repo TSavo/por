@@ -289,6 +289,12 @@
         <label>Narration <input id="audio-narration" type="range" min="0" max="1" step="0.05" value="1"></label>
         <label class="inline"><input id="audio-muted" type="checkbox"> Mute</label>
       </fieldset>
+      <fieldset id="save-import" hidden>
+        <legend>Saved games</legend>
+        <button id="save-import-button" type="button">Import save folder…</button>
+        <input id="save-import-folder" type="file" webkitdirectory hidden>
+        <p id="save-import-status" role="status"></p>
+      </fieldset>
       <!-- A release only (#74): the server offers it when the launcher names the setting's file. -->
       <fieldset id="original-files" hidden>
         <legend>Use my original files</legend>

@@ -46,6 +46,8 @@ At start-up the version 1.3 game asks for a word from its translation wheel. Enh
 
 Use **Encamp → Save** and **Load Saved Game** to save and restore the party, its journal, and its discovered map in the same slot. The browser build keeps slots in the browser (IndexedDB). `npm run play:node` stores them under `out/saves/` for each game-data directory; set `POR_SAVE_DIR` to select a different folder.
 
+To bring disk-backed saves or a character roster into the browser or Electron, choose **Settings → Saved games → Import save folder** and select the folder containing the slot JSON files or `roster.json`. Restart the game to load the imported slots. Existing records in the new profile keep their place.
+
 In combat, **Home**, **Page Up**, **End**, and **Page Down** move or aim diagonally. The numeric keypad's 7, 9, 1, and 3 provide them, with Num Lock on or off (the runner reads the physical key, not the character).
 
 The game seeds its dice from the clock when it starts, as it did on DOS, so

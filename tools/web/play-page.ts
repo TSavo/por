@@ -12,6 +12,7 @@ import { MemoryResources, useResources, type ResourceId } from "../../src/resour
 import { detectGameVersion, useGameVersion } from "../../src/runtime/bindings.js";
 import { readGameFile, useGameRoot } from "../gamedata.js";
 import { PlaySession } from "../play-session.js";
+import { openSaveSlots } from "../save-slots.js";
 import { engineRoot, preloadEngineResources, startEngine, type RunningEngine } from "./engine.js";
 import { IdbResources } from "./idb-provider.js";
 import { forgetOriginalFolder, originalEntries, originalFolderAt, pickOriginalFolder, restoreOriginalFolder, type OriginalChoice } from "./original-picker.js";
@@ -109,13 +110,33 @@ const json = (body: unknown, status = 200) => new Response(typeof body === "stri
   { status, headers: { "content-type": "application/json" } });
 const empty = (status: number) => new Response(null, { status });
 
+function legacySaveRecords(body: unknown): Map<ResourceId, Uint8Array> {
+  if (!Array.isArray(body) || body.length < 1 || body.length > 11) {
+    throw new Error("The folder must contain save slots A.json through J.json or roster.json.");
+  }
+  const records = new Map<ResourceId, Uint8Array>();
+  const encode = new TextEncoder();
+  for (const file of body) {
+    if (!Array.isArray(file) || file.length !== 2 || typeof file[0] !== "string" ||
+        !/^(?:[A-J]|roster)$/.test(file[0]) || typeof file[1] !== "string") {
+      throw new Error("Invalid save file.");
+    }
+    const id: ResourceId = `save:${file[0]}`;
+    if (records.has(id)) throw new Error(`The folder contains more than one copy of ${file[0]}.json.`);
+    records.set(id, encode.encode(file[1]));
+  }
+  // These are the same records the engine will read when it next starts.
+  openSaveSlots(new MemoryResources(records));
+  return records;
+}
+
 async function gameFetch(input: RequestInfo | URL, init: RequestInit = {}): Promise<Response> {
   const url = new URL(input instanceof Request ? input.url : String(input), location.href);
   if (url.origin !== location.origin) return fetch(input, init);
   const method = (init.method ?? "GET").toUpperCase();
   const headers = new Headers(init.headers);
   const path = url.pathname;
-  const answered = ["/state", "/key", "/automap.json", "/automap", "/original-files"].includes(path) || path.startsWith("/exploration-materials/");
+  const answered = ["/state", "/key", "/automap.json", "/automap", "/original-files", "/save-import"].includes(path) || path.startsWith("/exploration-materials/");
   if (!answered) return fetch(input, init);
   await ready;
   if (path === "/state" && method === "GET") {
@@ -143,6 +164,13 @@ async function gameFetch(input: RequestInfo | URL, init: RequestInit = {}): Prom
   if (/^\/exploration-materials\/[0-9a-f]{64}$/.test(path) && method === "GET") {
     const materials = session.materials(path.slice("/exploration-materials/".length));
     return materials ? json(materials) : empty(404);
+  }
+  if (path === "/save-import" && method === "POST") {
+    let records: Map<ResourceId, Uint8Array>;
+    try { records = legacySaveRecords(JSON.parse(String(init.body))); }
+    catch (error) { return json({ problem: (error as Error).message }, 422); }
+    try { return json(await provider.importMissingSaves(records)); }
+    catch (error) { return json({ problem: (error as Error).message }, 500); }
   }
   if (path === "/original-files" && method === "GET") {
     // The browser picks a folder rather than naming a path (#226).
