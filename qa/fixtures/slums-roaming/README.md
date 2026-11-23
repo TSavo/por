@@ -11,3 +11,8 @@ The same checkpoint with `slums-roaming-goblin-surprise-loop` reaches the
 goblin branch with its own fixed replay clock.
 Use `slums-roaming-kobold-surprise-loop` with that checkpoint for the
 kobold branch of the same party-surprise prompt.
+
+The `slums-roaming-kobold-advance-loop`, `slums-roaming-goblin-advance-loop`,
+and `slums-roaming-orc-advance-loop` routes use the same checkpoint to
+check the approaching sprite, the portrait after Advance, and the start
+of combat at each angry-party selection.

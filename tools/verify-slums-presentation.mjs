@@ -2561,6 +2561,24 @@ const illustrationRoutes = new Map([
       prompt: /ABATTLEBEGINS/i, pressOnPortrait: "portrait:area:20:ecl:b6df:caller:9c64:PIC2.DAX:0:2:0", retainPose: true,
     },
   }],
+  ...[
+    ["kobold", "4320150", 0, [0, 1, 2, 1], [56, 32, "encounter:SPRIT2.DAX:0:1:0", 24, 65]],
+    ["goblin", "4320100", 2, [0, 1], [56, 32, "encounter:area:20:SPRIT2.DAX:2:1:0", 32, 65]],
+    ["orc", "4320350", 4, [0, 1, 2, 1], [56, 32, "encounter:SPRIT2.DAX:4:1:0", 32, 65]],
+  ].map(([creature, fixedClockStart, block, members, approach]) => {
+    const portrait = member => `portrait:area:20:ecl:9ce9:PIC2.DAX:${block}:${member}:0`;
+    return [`slums-roaming-${creature}-advance-loop`, {
+      slot: "B", fixedClockStart, inputs: ["up", "a"],
+      approachSequence: [approach], approachStops: { 1: approach },
+      requireWebGL: true, portrait: portrait(0),
+      prompt: new RegExp(`YOUAREBEINGAPPROACHEDBYSOMEANGRY${creature}S`, "i"),
+      heldPortraitLoop: members.map(portrait),
+      continuation: {
+        inputs: ["c"], portraits: ["b1bb", "b1e5"].map(cursor => `portrait:area:20:ecl:${cursor}:PIC2.DAX:${block}:0:0`),
+        prompt: /ABATTLEBEGINS/i, pressOnPortrait: portrait(block === 2 ? 1 : 2), retainPose: true,
+      },
+    }];
+  }),
   ["valhingen-skeleton-roam-dialogue", {
     slot: "A", inputs: ["up", "down", "a", "a"],
     portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:34:0:0",
@@ -8515,7 +8533,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valjevo-fire-giant-refusal-loop" ||
       routeName === "valjevo-fire-giant-intruder-loop" ||
       routeName.startsWith("valjevo-tower-giants-") ||
-      /^slums-roaming-(?:kobold|(?:kobold|orc|goblin)-surprise)-loop$/.test(routeName) ||
+      /^slums-roaming-(?:kobold|(?:kobold|orc|goblin)-(?:surprise|advance))-loop$/.test(routeName) ||
       /^valjevo-giant-barracks-password-(haughty|sly)-loop$/.test(routeName) ||
       routeName === "swamp-drythh-followers-wait-base" || routeName === "kobold-cave-wyvern-dialogue" ||
       routeName === "bane-black-hand-emissary-loop" ||
@@ -11647,7 +11665,7 @@ try {
     let alreadyPassedPatrol;
     const heldApproachPlacement = illustration.heldApproachPrompt && (illustration.heldApproachPlacement ??
       patrolApproachPlacement(illustration.heldApproachArea ?? illustration.heldApproachPosition[0]));
-    if (approachSequence) await observeApproach(approachSequence, illustration.requireTiledApproach);
+    if (approachSequence) await observeApproach(approachSequence, illustration.requireTiledApproach, illustration.requireWebGL);
     else if (heldApproachPlacement && heldPortraitEvidenceFile) {
       await observeApproach([heldApproachPlacement]);
     }
