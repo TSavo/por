@@ -10,9 +10,8 @@
  * shared command buffer (tools/web/command-channel.ts). The settings the launcher passes to its runner
  * (POR_CLOCK, POR_PREGEN_PARTY, POR_TRACE_KEYS) are passed to the page's engine in the resource index.
  */
-import { readFileSync, statSync } from "node:fs";
 import { createServer } from "node:http";
-import { extname, join } from "node:path";
+import { basename, extname, join } from "node:path";
 import { serverId } from "../../src/resources/urls.js";
 import { partyRecolorKey } from "../combat-art.js";
 import { useNodeResources } from "../resources/node-play.js";
@@ -20,14 +19,19 @@ import { loadCombatMaterialMasks, loadUpgradeArt } from "../upgrade-art.js";
 import { fromPortRoot } from "../port-root.js";
 import { buildWeb, webOutput } from "./build.js";
 import { codeWheelRunes, resourceIndex } from "./resource-index.js";
-import { pageFiles, playPage, soundManifest, wheelArt } from "./static-files.js";
+import { pageSources, playPage, soundManifest, wheelArt } from "./static-files.js";
 
 const port = Number(process.env.POR_PLAY_PORT ?? 43124);
 if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error("POR_PLAY_PORT must be a TCP port between 1 and 65535");
 const origin = `http://127.0.0.1:${port}`;
 
-await buildWeb(undefined, { quiet: true });
-const { resources } = useNodeResources(fromPortRoot("game"), { artFile: (id) => artwork.get(id)?.path });
+const bundle = await buildWeb(undefined, { quiet: true });
+const files = pageSources();
+for (const output of Object.keys(bundle.metafile.outputs)) {
+  const name = basename(output);
+  files.set(`/web/${name}`, join(webOutput, name));
+}
+const { resources } = useNodeResources(fromPortRoot("game"), { pages: files, artFile: (id) => artwork.get(id)?.path });
 const artwork = loadUpgradeArt(undefined, "res:game");
 const materialMasks = loadCombatMaterialMasks(artwork);
 const passed = Object.fromEntries(["POR_CLOCK", "POR_PREGEN_PARTY", "POR_TRACE_KEYS"]
@@ -42,14 +46,13 @@ const types: Record<string, string> = {
   ".json": "application/json; charset=utf-8", ".png": "image/png", ".wav": "audio/wav", ".mp3": "audio/mpeg",
   ".woff2": "font/woff2",
 };
-const files = pageFiles();
 
 /** A piece of art's PNG: the art itself, or for a party recolour the base art or its material mask. */
 function art(path: string): Uint8Array | undefined {
   if (path.startsWith("/art-materials/")) {
     const id = path.slice("/art-materials/".length);
     const base = partyRecolorKey.exec(id)?.[1];
-    return base && !artwork.has(id) ? materialMasks.get(base) : undefined;
+    return base && !artwork.has(id) ? materialMasks.get(base)?.png : undefined;
   }
   const id = path.slice("/art/".length);
   const base = partyRecolorKey.exec(id)?.[1];
@@ -68,16 +71,17 @@ const server = createServer((req, res) => {
   try {
     if (path === "/" || path === "/play.html") {
       res.setHeader("content-security-policy", "default-src 'self'; img-src 'self' data:; style-src 'unsafe-inline'");
-      send(playPage(), types[".html"]!);
+      send(playPage(resources), types[".html"]!);
       return;
     }
     if (path === "/resource-index.json") { send(index, types[".json"]!); return; }
     if (path === "/sound-manifest.json") { send(sounds, types[".json"]!); return; }
     const file = files.get(path);
-    if (file) { send(readFileSync(file), types[extname(file)] ?? "text/plain"); return; }
-    if (/^\/web\/[\w.-]+\.js$/.test(path)) {
-      const bundle = join(webOutput, path.slice(5));
-      if (statSync(bundle, { throwIfNoEntry: false })?.isFile()) { send(readFileSync(bundle), types[".js"]!); return; }
+    if (file) {
+      const bytes = resources.readNow(`page:${path.slice(1)}`);
+      if (bytes) send(bytes, types[extname(file)] ?? "text/plain");
+      else res.writeHead(404).end();
+      return;
     }
     if (path.startsWith("/art/") || path.startsWith("/art-materials/")) {
       const png = art(path);

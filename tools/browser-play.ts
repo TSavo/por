@@ -1,6 +1,6 @@
 import { spawn } from "node:child_process";
 import { detectGameVersion, useGameVersion } from "../src/runtime/bindings.js";
-import { appendFileSync, readFileSync } from "node:fs";
+import { appendFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
 import { isPortGameRoot, readGameFile, requireBrowserGameRoot } from "./gamedata.js";
@@ -10,7 +10,7 @@ import { partyRecolorKey } from "./combat-art.js";
 import { enhancedArtEnv } from "./enhanced-runner.js";
 import { NarrationCatalog, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
 import { readBuildVersion } from "./build-version.js";
-import { fromPortRoot } from "./port-root.js";
+import { pageSources } from "./web/static-files.js";
 import { useNodeResources } from "./resources/node-play.js";
 import { inspectOriginalFiles, readOriginalFilesSetting, writeOriginalFilesSetting } from "./release/original-files.js";
 
@@ -31,7 +31,7 @@ const originalFilesInUse = !isPortGameRoot(gameDirectory) ? { folder: gameDirect
   : classicPictures ? { folder: classicPictures, release: "first" } : null;
 // Every file the server reads goes through the resource layer (#224); the game root is a resource root.
 const { root: gameRoot, resources } = useNodeResources(gameDirectory, {
-  classicPictures, originalFilesSetting, artFile: (id) => artworkPath(id),
+  classicPictures, originalFilesSetting, pages: pageSources(), artFile: (id) => artworkPath(id),
 });
 /** A resource's bytes for a response, or undefined when it cannot be read (a 404, as before). */
 const readResource = (id: string) => {
@@ -53,14 +53,14 @@ const originalFilesExample = process.platform === "win32" ? "C:\\GOG Games\\Pool
 // Everything the server reads from the program depends on which build the directory holds.
 const gameBuild = detectGameVersion(readGameFile(gameRoot, "GAME.OVR"));
 useGameVersion(gameBuild);
-const page = readFileSync(fromPortRoot("tools", "play.html"));
-const script = readFileSync(fromPortRoot("tools", "play.js"));
-const heldPortraitLoops = readFileSync(fromPortRoot("tools", "held-portrait-loops.mjs"));
-const streetRenderer = readFileSync(fromPortRoot("tools", "renderer.js"));
-const wheelPage = readFileSync(fromPortRoot("tools", "code-wheel.html"));
-const wheelScript = readFileSync(fromPortRoot("tools", "code-wheel.js"));
-const wheelDrawing = readFileSync(fromPortRoot("tools", "code-wheel-draw.js"));
-const runeGlyphs = readFileSync(fromPortRoot("tools", "rune-glyphs.js"));
+const page = resourceText("page:play.html");
+const script = resourceText("page:play.js");
+const heldPortraitLoops = resourceText("page:held-portrait-loops.mjs");
+const streetRenderer = resourceText("page:renderer.js");
+const wheelPage = resourceText("page:code-wheel");
+const wheelScript = resourceText("page:code-wheel.js");
+const wheelDrawing = resourceText("page:code-wheel-draw.js");
+const runeGlyphs = resourceText("page:rune-glyphs.js");
 const wheelLayout = resourceText("manifest:src/codewheel/wheel.json");
 const wheelRunes = new Map(resources.listNow("codewheel:").map(id => id.slice("codewheel:".length))
   .filter(name => /^(espruar|dethek)-\d{2}\.png$/.test(name))
@@ -94,13 +94,6 @@ const atlasSheets = JSON.parse(atlasManifest.toString("utf8")) as { file: string
 const atlasFiles = new Set(atlasSheets.map(({ file }) => file));
 const enhancedSoundFiles = new Set((JSON.parse(soundManifest.toString("utf8")) as
   { events: { enhancedFile?: string }[] }).events.flatMap(({ enhancedFile }) => enhancedFile ? [enhancedFile] : []));
-const gameFont = (() => {
-  try {
-    return resources.readNow("font");
-  } catch (error) {
-    console.error("Cannot load enhanced font", error);
-  }
-})();
 const artwork = loadUpgradeArt(undefined, gameRoot);
 function artworkPath(id: string) { return artwork.get(id)?.path; }
 const materialMasks = loadCombatMaterialMasks(artwork);
@@ -263,8 +256,10 @@ const server = createServer(async (req, res) => {
     const wav = readResource(`voice:${req.url.slice(7)}`);
     if (wav) res.writeHead(200, { "content-type": "audio/wav", "content-length": wav.length }).end(wav);
     else res.writeHead(404).end();
-  } else if (req.method === "GET" && req.url === "/font.woff2" && gameFont) {
-    res.writeHead(200, { "content-type": "font/woff2" }).end(gameFont);
+  } else if (req.method === "GET" && req.url === "/font.woff2") {
+    const font = readResource("font");
+    if (font) res.writeHead(200, { "content-type": "font/woff2" }).end(font);
+    else res.writeHead(404).end();
   } else if (req.method === "GET" && /^\/audio\/(?:pc-speaker|tandy)-(?:0[1-9]|1\d|20)\.mp3$/.test(req.url ?? "")) {
     const wav = readResource(`audio:classic:${req.url!.slice(7)}`);
     if (wav) res.writeHead(200, { "content-type": "audio/mpeg", "content-length": wav.length }).end(wav);
@@ -272,7 +267,7 @@ const server = createServer(async (req, res) => {
   } else if (req.method === "GET" && req.url?.startsWith("/art-materials/")) {
     const id = req.url.slice("/art-materials/".length);
     const base = partyRecolorKey.exec(id)?.[1];
-    const png = base && !artwork.has(id) ? materialMasks.get(base) : undefined;
+    const png = base && !artwork.has(id) ? materialMasks.get(base)?.png : undefined;
     if (png) res.writeHead(200, { "content-type": "image/png" }).end(png);
     else res.writeHead(204).end();
   } else if (req.method === "GET" && req.url?.startsWith("/art/")) {

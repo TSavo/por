@@ -2,7 +2,7 @@
 // browser server (tools/browser-play.ts) and the check that compares the two data sources
 // (tools/verify-port-parity.mjs), so that the check runs the game exactly as the shipped one runs.
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { existsSync, renameSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { isPortGameRoot, portGame, readPortGameData } from "./gamedata.js";

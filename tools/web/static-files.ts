@@ -3,8 +3,7 @@
  * server (tools/browser-play.ts) serves them, for the local server (tools/web/serve.ts) and the loose
  * files of a packaged game (tools/web/build-loose.ts).
  */
-import { readFileSync } from "node:fs";
-import { readJsonNow, type ResidentResources } from "../../src/resources/provider.js";
+import { readJsonNow, readTextNow, type ResidentResources } from "../../src/resources/provider.js";
 import { fromPortRoot } from "../port-root.js";
 
 /** The page's own files by URL: the game page's scripts, the code wheel's page, and the boot check. */
@@ -21,11 +20,16 @@ export function pageFiles(): Map<string, string> {
   ]);
 }
 
+/** Include the HTML template when serving source files through the Node provider. */
+export function pageSources() {
+  return pageFiles().set("/play.html", fromPortRoot("tools", "play.html"));
+}
+
 /** tools/play.html with the browser build's page module, which play.js asks before anything else. */
-export function playPage(): string {
-  const page = readFileSync(fromPortRoot("tools", "play.html"), "utf8");
+export function playPage(resources: ResidentResources): string {
+  const page = readTextNow(resources, "page:play.html");
   const script = '<script src="/play.js" defer></script>';
-  if (!page.includes(script)) throw new Error("tools/play.html no longer loads /play.js as the browser build expects");
+  if (!page?.includes(script)) throw new Error("tools/play.html no longer loads /play.js as the browser build expects");
   return page.replace(script, `<script type="module" src="/web/play-page.js"></script>\n  ${script}`);
 }
 

@@ -10,7 +10,7 @@
  * release (GAME.OVR starting with its overlay manager's TPOV) gives the Classic display its pictures,
  * while the game runs from the port's own data in game/ (`POR_CLASSIC_PICTURES`, tools/gamedata.ts).
  */
-import { closeSync, openSync, readSync, readdirSync, statSync } from "node:fs";
+import { readdirSync, statSync } from "node:fs";
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
 import { missingOriginalFiles, originalRelease, releaseName, type OriginalRelease } from "../../src/resources/original-folder.js";
@@ -27,9 +27,9 @@ function inspectFolder(folder: string): OriginalFolder | { problem: string } {
   const names = new Map(readdirSync(folder).map((name) => [name.toUpperCase(), name]));
   const missing = missingOriginalFiles(names.keys());
   if (missing.length) return { problem: `${folder} has no ${missing.join(", ")}` };
-  const overlay = Buffer.alloc(4);
-  const file = openSync(join(folder, names.get("GAME.OVR")!), "r");
-  try { readSync(file, overlay, 0, 4, 0); } finally { closeSync(file); }
+  const resources = new NodeDiskResources({ original: folder });
+  const overlay = resources.readNow(`original:${names.get("GAME.OVR")!}`, 4);
+  if (!overlay) return { problem: `${folder} has no GAME.OVR` };
   const release = originalRelease(folder, overlay);
   return typeof release === "string" ? { folder, release } : release;
 }
