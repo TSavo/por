@@ -105,6 +105,8 @@ const verifiedPortraitDeltaKeys = new Set([
   "portrait:area:24:ecl:aeda:caller:ad99:PIC1.DAX:4:1:0",
   "portrait:area:24:ecl:aeda:caller:ad99:PIC1.DAX:4:2:0",
   "portrait:area:24:ecl:b2ac:caller:ad99:PIC1.DAX:4:2:0",
+  "portrait:area:9:ecl:a778:PIC2.DAX:63:1:0",
+  "portrait:area:9:ecl:a778:PIC2.DAX:63:2:0",
   "portrait:area:9:ecl:a945:PIC2.DAX:63:1:0",
   "portrait:area:9:ecl:a945:PIC2.DAX:63:2:0",
   "portrait:area:9:ecl:a959:PIC2.DAX:63:1:0",
@@ -861,10 +863,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:9:ecl:a689", "YOUHAVESLAINTHEGARRISON"],
   ["scene-illustration:area:9:ecl:a6fb", "YOUHAVETAKENTHEGATE"],
   ["scene-illustration:area:9:ecl:a709", "YOUHAVETAKENTHEGATE"],
-  ...["acf8", "a778"].map(scope => [
-    `scene-illustration:area:9:ecl:${scope}:cue:bugbear-wagon-imposters`,
-    "THEYAREIMPOSTERS!ALLRIGHT,THROWDOWNYOURWEAPONS",
-  ] as const),
+  ["scene-illustration:area:9:ecl:acf8:cue:bugbear-wagon-imposters", "THEYAREIMPOSTERS!ALLRIGHT,THROWDOWNYOURWEAPONS"],
   ...["ac32", "a0a7"].map(scope => [
     `scene-illustration:area:9:ecl:${scope}:cue:bugbear-toll-refused`,
     "ALLRIGHT,GETOUTOFHERETHEN.COMEBACKWHENYOU'VELEARNEDTHERULES",

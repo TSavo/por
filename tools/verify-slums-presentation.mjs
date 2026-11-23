@@ -1364,8 +1364,9 @@ const illustrationRoutes = new Map([
   }],
   ["stojanow-imposters", {
     slot: "B", inputs: stojanowTollApproach,
-    portrait: "scene-illustration:area:9:ecl:a778:cue:bugbear-wagon-imposters",
+    portrait: "portrait:area:9:ecl:a778:PIC2.DAX:63:0:0",
     prompt: /THEYAREIMPOSTERS!ALLRIGHT,THROWDOWNYOURWEAPONS/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:9:ecl:a778:PIC2.DAX:63:${member}:0`),
     finalPhaseCapture: "stojanow-bugbear-wagon-imposters.png",
     continuation: { inputs: ["s", "enter"], portrait: "scene-illustration:area:9:ecl:a0a7:cue:bugbear-confiscation",
       prompt: /(?=.*4,14S).*THEBUGBEARSSTRIPYOUOFANYTHINGREMOTELYVALUABLE/i },

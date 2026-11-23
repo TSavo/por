@@ -79,6 +79,8 @@ const portraitLoops = [
     /^(?!.*ABATTLEBEGINS).*YOUSEEAPACKOFTROLLS/i, towerTrollPoseTimes],
   ["portrait:area:5:ecl:9a5a:caller:a042:PIC5.DAX:31:", towerTrollPoseOrder, undefined,
     /APACKOFTROLLSCHARGEFROMWHERETHEYWEREHIDING/i, towerTrollPoseTimes],
+  ["portrait:area:9:ecl:a778:PIC2.DAX:63:", [0, 1, 2, 1], undefined,
+    /THEYAREIMPOSTERS!ALLRIGHT,THROWDOWNYOURWEAPONS/i, [1310, 110, 510, 20]],
   ["portrait:area:9:ecl:a945:PIC2.DAX:63:", [0, 1, 2, 1], "portrait:area:9:PIC2.DAX:63:0:0",
     /THELEADERSWINGSATYOU/i, [1310, 110, 510, 20]],
   ["portrait:area:10:ecl:b695:caller:9f7a:PIC4.DAX:35:", 5, "portrait:area:10:PIC4.DAX:35:0:0",
