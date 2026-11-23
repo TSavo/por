@@ -9,6 +9,19 @@ import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const battleEntryRoutes = new Map([
+  ["swamp-ruin-defenders-surprise", {
+    slot: "J", fixedClockStart: "4320307",
+    prefix: ["right", "up", "left", "up", "up", "up", "up", "left", "up", "right"],
+    promptSchedule: "qa/fixtures/lizardman-keep-ruins/surprise-prompts.jsonl",
+    approach: "/art/encounter:area:16:SPRIT8.DAX:57:0:0",
+    introduction: "scene-illustration:area:16:ecl:a6a7:cue:ruin-defenders-surprise",
+    automaticOpening: /GIANTLIZARDHITPOINTS\d+AC\d+/i,
+    notice: /SUDDENLYYOUAREATTACKEDBYTWOLIZARDMENANDAGIANTLIZARD.*ABATTLEBEGINS/i,
+    portrait: "scene-illustration:area:16:ecl:a6ce:cue:ruin-defenders-surprise",
+    file: "swamp-ruin-defenders-surprise.png", noticeScreenshot: "swamp-ruin-defenders-surprise.png",
+    pollFrames: 1, combatTimeout: 180_000,
+    producer: "ECL8.DAX:16:a66c",
+  }],
   ["swamp-rubble-lizard-surprise", {
     slot: "A", fixedClockStart: "4320307",
     promptSchedule: "qa/fixtures/swamp-rubble-lizard-surprise/prompts.jsonl",
@@ -1781,14 +1794,6 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:16:ecl:a6ce:cue:giant-lizard-surprise",
     prompt: /3GIANTLIZARDSAPPEARFROMBEHINDAMOUNDOFRUBBLE.*ABATTLEBEGINS/i,
     finalPhaseCapture: "swamp-giant-lizard-surprise.png",
-    continuation: { inputs: ["enter"], prompt: /HITPOINTS\d+AC/i, clearsPortrait: true },
-  }],
-  ["swamp-ruin-defenders-surprise", {
-    slot: "A", inputs: ["up", "b", "enter", "enter"],
-    portraitStops: { 3: "scene-illustration:area:16:ecl:a6c6:cue:ruin-defenders-surprise" },
-    portrait: "scene-illustration:area:16:ecl:a6ce:cue:ruin-defenders-surprise",
-    prompt: /SUDDENLYYOUAREATTACKEDBYTWOLIZARDMENANDAGIANTLIZARD.*ABATTLEBEGINS/i,
-    finalPhaseCapture: "swamp-ruin-defenders-surprise.png",
     continuation: { inputs: ["enter"], prompt: /HITPOINTS\d+AC/i, clearsPortrait: true },
   }],
   ["swamp-ruin-defenders-battle-opening", {
@@ -13138,6 +13143,9 @@ try {
     await run(`(() => {
       window.battleEntryTrace = { polls: [], frames: [] };
       const expectedArt = ${JSON.stringify("/art/" + battleEntry.portrait)};
+      const expectedIntro = ${JSON.stringify(battleEntry.introduction ?? null)};
+      const expectedApproach = ${JSON.stringify(battleEntry.approach ?? null)};
+      const automaticOpening = ${battleEntry.automaticOpening ?? "null"};
       const capture = window.battleEntryTrace;
       let lastFrame;
       function observe(now) {
@@ -13153,6 +13161,18 @@ try {
           lastFrame = signature;
           capture.frames.push({ ...observed, at: now });
         }
+        if (expectedApproach && !capture.approach) {
+          const actor = layer?.querySelector(".encounter-sprite");
+          if (actor?.getAttribute("src") === expectedApproach && actor.complete &&
+              actor.naturalWidth && actor.getClientRects().length) {
+            capture.approach = { src: expectedApproach, at: now };
+          }
+        }
+        if (expectedIntro && !capture.introduction && animationFrame?.portrait === expectedIntro &&
+            portrait?.getAttribute("src") === "/art/" + expectedIntro && portrait.complete &&
+            portrait.naturalWidth === 352 && portrait.naturalHeight === 352 && portrait.getClientRects().length) {
+          capture.introduction = { src: "/art/" + expectedIntro, at: now };
+        }
         if (state.ready && state.battleEntryPolling && capture.polls.at(-1) !== state.sequence) {
           capture.polls.push(state.sequence);
         }
@@ -13163,9 +13183,11 @@ try {
           capture.notice = { sequence: state.sequence, src: portrait.getAttribute("src"),
             width: portrait.naturalWidth, height: portrait.naturalHeight, caption, at: now };
         }
-        if (capture.notice && state.ready && state.awaitsKey && !state.battleEntryPolling && !state.automaticCombat &&
-            !animationFrame && renderingSequence === undefined && !portrait &&
-            /HITPOINTS.*MOVEVIEWAIM.*QUICKDONE/i.test(caption ?? "")) {
+        const enteredCombat = automaticOpening
+          ? state.automaticCombat && !state.awaitsKey && automaticOpening.test(caption ?? "")
+          : state.awaitsKey && !state.automaticCombat && /HITPOINTS.*MOVEVIEWAIM.*QUICKDONE/i.test(caption ?? "");
+        if (capture.notice && state.ready && !state.battleEntryPolling &&
+            !animationFrame && renderingSequence === undefined && !portrait && enteredCombat) {
           if (capture.combat?.sequence !== state.sequence) {
             capture.combat = { sequence: state.sequence, caption, at: now };
           }
@@ -13202,8 +13224,10 @@ try {
       const screenshot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, battleEntry.noticeScreenshot), Buffer.from(screenshot.data, "base64"));
     }
-    const settled = await waitFor("the first manual combat menu without sending another key", () =>
-      run("window.battleEntryTrace.combat?.heldMs >= 250 && window.battleEntryTrace"), battleEntry.combatTimeout ?? 60_000).catch(async error => {
+    const opening = battleEntry.automaticOpening ? "the first automatic combat turn" : "the first manual combat menu";
+    const settled = await waitFor(opening + " without sending another key", () =>
+      run(`window.battleEntryTrace.combat?.heldMs >= ${battleEntry.automaticOpening ? 0 : 250} && window.battleEntryTrace`),
+      battleEntry.combatTimeout ?? 60_000).catch(async error => {
       const trace = await run("window.battleEntryTrace");
       writeFileSync(resolve(directory, "battle-entry-failure.json"), JSON.stringify({
         ...trace, posts: [...posts.values()],
@@ -13211,6 +13235,14 @@ try {
       throw error;
     });
     assert.ok(settled.combat.sequence > notice.sequence);
+    if (battleEntry.approach) {
+      assert.equal(settled.approach?.src, battleEntry.approach);
+      assert.ok(settled.approach.at < notice.at);
+    }
+    if (battleEntry.introduction) {
+      assert.equal(settled.introduction?.src, "/art/" + battleEntry.introduction);
+      assert.ok(settled.introduction.at < notice.at);
+    }
     assert.equal(settled.polls.length, battleEntry.pollFrames ?? 2);
     const sent = [...posts.values()];
     assert.deepEqual(sent.filter(({ input }) => input !== ":poll").map(({ input }) => input), battleEntry.input ? ["up", battleEntry.input] : ["up"]);
@@ -13218,13 +13250,16 @@ try {
       assert.deepEqual(sent.filter(post => post.sequence === sequence).map(({ input, status }) => [input, status]),
         [[":poll", 204]], "The page must advance each ready battle entry exactly once without injecting a game key");
     }
-    assert.ok(sent.every(({ sequence, status }) => sequence < settled.combat.sequence && status === 204));
+    assert.ok(sent.every(({ input, sequence, status }) =>
+      battleEntry.automaticOpening && input === ":poll" && sequence >= settled.combat.sequence ||
+      sequence < settled.combat.sequence && status === 204));
     const art = await fetch(origin + notice.src);
     assert.ok(art.ok);
     const png = Buffer.from(await art.arrayBuffer());
     assert.deepEqual(png, readFileSync(resolve("upgrades", battleEntry.file)));
     const capture = await command("Page.captureScreenshot", { format: "png" });
-    writeFileSync(resolve(directory, "first-manual-combat.png"), Buffer.from(capture.data, "base64"));
+    writeFileSync(resolve(directory, battleEntry.automaticOpening ? "first-automatic-combat.png" : "first-manual-combat.png"),
+      Buffer.from(capture.data, "base64"));
     if (battleEntry.producer && heldPortraitEvidenceFile) {
       const renderer = await fetch(origin + "/play.js");
       assert.ok(renderer.ok);
@@ -13245,7 +13280,7 @@ try {
       artSha256: createHash("sha256").update(png).digest("hex"), ...settled, posts: sent };
     const receipt = resolve(directory, "automatic-battle-entry.json");
     writeFileSync(receipt, JSON.stringify(evidence, null, 2) + "\n");
-    console.log("Verified the authored battle notice and first manual combat menu with no extra key:", receipt);
+    console.log(`Verified the authored battle notice and ${opening} with no extra key:`, receipt);
   } else if (illustration) {
     const { inputs, prompt, continuation, journalLead, approachSequence } = illustration;
     const combatProducer = illustration.oneShotProducer ?? illustration.combatWithoutPortraitProducer;

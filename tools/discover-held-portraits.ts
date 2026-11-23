@@ -341,6 +341,12 @@ const eclCandidates = scripts.flatMap(record => {
         }
       }
     }
+    const spriteOff = instructions.get(0xa6ba);
+    const clearedPicture = instructions.get(0xa6bb);
+    const swampRuinClear = archive === 8 && scriptBlock === 16 && load.address === 0xa66c &&
+      spriteOff?.opcode === 0x31 && spriteOff.next === clearedPicture?.address &&
+      clearedPicture?.opcode === 0x0e && literal(clearedPicture.operands[0]!) === 255 &&
+      clearedPicture.next === 0xa6be && instructions.get(clearedPicture.next)?.opcode === 0x1c;
     const results = new Map<string, number | null>();
     function fightFrom(state: State): number | null {
       const key = stateKey(state);
@@ -359,7 +365,9 @@ const eclCandidates = scripts.flatMap(record => {
           current.operands[0]?.word === 0xa0a0 && current.next === 0x9de6 ||
          current && [[0xa0af, 0x11], [0xa0b3, 0x11], [0xa0c2, 0x2a], [0xa0d6, 0x2a]]
            .some(([address, opcode]) => address === current.address && opcode === current.opcode));
-      if (!current || (!combatPrelude.has(current.opcode) && !sameCloseEncounter && !podalRoster)) return null;
+      // The roofless ruin clears its single picture before loading the ambush roster.
+      const clearsSwampRuin = swampRuinClear && (current === spriteOff || current === clearedPicture);
+      if (!current || (!combatPrelude.has(current.opcode) && !sameCloseEncounter && !podalRoster && !clearsSwampRuin)) return null;
       // Re-entering an active state leaves an unproven route to the fight.
       results.set(key, null);
       const [next, ...alternatives] = successors(state, instructions);
