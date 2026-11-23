@@ -3743,6 +3743,16 @@ const illustrationRoutes = new Map([
     approachSequence: [[48, 32, "encounter:area:0:ecl:af4d:SPRIT3.DAX:27:0:0", 40, 80]],
     portrait: "portrait:area:0:HEAD3.DAX:9:BODY3.DAX:7", prompt: /GO.*STAY/i,
   }],
+  ["new-phlan-training-watch-rousted", {
+    slot: "A", stockInput: true,
+    // From the visit-training-hall save, enter the duel room, decline both offers and rest eight hours.
+    inputs: ["right", "right", "up", "up", "right", "right", "right", "up", "up", "right",
+      "up", "up", "up", "up", "left", "up", "right", "up", "enter", "n", "n", "e", "r", "h",
+      ...Array(8).fill("i"), "r"],
+    portrait: "scene-illustration:area:11:ecl:9a0c",
+    prompt: /YOUAREROUSTEDBYTHECITYWATCHANDTOLDTOMOVEALONG.*GOFIGHT/i,
+    continuation: { inputs: ["g"], prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i, clearsPortrait: true },
+  }],
   ["nomad-entrance-enter", {
     ...nomadEntrance,
     finalPhaseCapture: "nomad-entrance-enter.png",

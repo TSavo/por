@@ -2805,8 +2805,11 @@ arch and keep rubble replays cover 22 views and 2,662 placements.
 
 `new-phlan-arena-master-approach` and `new-phlan-city-watch-approach`
 check the original encounter anchors. `new-phlan-harbor-city-watch`
-checks the Go/Stay portrait. The arena and harbor Watch combat replays
-check the fighter, aide, and auxiliary ready and strike poses. Both
+checks the Go/Stay portrait. `new-phlan-training-watch-rousted` starts
+from `qa/fixtures/visit-training-hall/A.json` and checks the nighttime
+Go/Fight portrait and its removal when the party selects Go. The arena
+and harbor Watch combat replays check the fighter, aide, and auxiliary
+ready and strike poses. Both
 encounters use the same artwork with mappings for their own sprite IDs.
 
 `new-phlan-rolf-tour` checks the opening portrait and its removal
