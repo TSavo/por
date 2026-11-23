@@ -39628,6 +39628,120 @@
           "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
         }
       }
+    },
+    {
+      "producer": "ECL8.DAX:29:a161",
+      "prompt": "a173/a133",
+      "caption": "Press <enter>/<return> to continue",
+      "checkpoint": "kuto-well-catacombs/J.json",
+      "position": [
+        32,
+        4,
+        13
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-catacombs-western-arrow",
+          "data": "original",
+          "position": [
+            32,
+            4,
+            13
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,13W22:17press<enter>/<return>tocontinue",
+          "checkpointSha256": "df8b651264f1dc61ddae10a79965acaa71cc12e09abb8f41dd1b3305ec5de880",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:29:ecl:a173:caller:a133:SPRIT8.DAX:0:2:0",
+              24,
+              57
+            ],
+            "sha256": "f413a07e55335899e62cf50b5aaeace3e75f3a9bdffab6f17387083b9e932738"
+          }
+        },
+        "port": {
+          "route": "kuto-catacombs-western-arrow",
+          "data": "port",
+          "position": [
+            32,
+            4,
+            13
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,13W22:17press<enter>/<return>tocontinue",
+          "checkpointSha256": "df8b651264f1dc61ddae10a79965acaa71cc12e09abb8f41dd1b3305ec5de880",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:29:ecl:a173:caller:a133:SPRIT8.DAX:0:2:0",
+              24,
+              57
+            ],
+            "sha256": "f413a07e55335899e62cf50b5aaeace3e75f3a9bdffab6f17387083b9e932738"
+          }
+        }
+      }
+    },
+    {
+      "producer": "ECL8.DAX:29:a161",
+      "prompt": "a173/a15a",
+      "caption": "Press <enter>/<return> to continue",
+      "checkpoint": "kuto-well-catacombs/J.json",
+      "position": [
+        32,
+        2,
+        10
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-catacombs-northern-arrow",
+          "data": "original",
+          "position": [
+            32,
+            2,
+            10
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1052,10N22:22press<enter>/<return>tocontinue",
+          "checkpointSha256": "df8b651264f1dc61ddae10a79965acaa71cc12e09abb8f41dd1b3305ec5de880",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:29:ecl:a173:caller:a15a:SPRIT8.DAX:0:1:0",
+              24,
+              65
+            ],
+            "sha256": "20fa2e29ddaaa5964ec4a52eeb0b293b76863052584b747b84baa800ae1e06c9"
+          }
+        },
+        "port": {
+          "route": "kuto-catacombs-northern-arrow",
+          "data": "port",
+          "position": [
+            32,
+            2,
+            10
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1052,10N22:22press<enter>/<return>tocontinue",
+          "checkpointSha256": "df8b651264f1dc61ddae10a79965acaa71cc12e09abb8f41dd1b3305ec5de880",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:29:ecl:a173:caller:a15a:SPRIT8.DAX:0:1:0",
+              24,
+              65
+            ],
+            "sha256": "20fa2e29ddaaa5964ec4a52eeb0b293b76863052584b747b84baa800ae1e06c9"
+          }
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [

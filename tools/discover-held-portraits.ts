@@ -752,6 +752,22 @@ const eclCandidates = scripts.flatMap(record => {
       }
     }
 
+    // Kuto's side arrows hold the archer at DAMAGE before its authored
+    // caption and SPRITE OFF. Only these two side approaches draw it.
+    if (archive === 8 && scriptBlock === 29 && load.address === 0xa161 && opcode === 0x0c) {
+      const damage = instructions.get(load.next);
+      const caption = damage && instructions.get(damage.next);
+      if (damage?.address === 0xa168 && damage.opcode === 0x2e && caption?.address === 0xa173 &&
+          caption.opcode === 0x12 && caption.operands[0]?.text?.startsWith("THROUGH THE SMOKE AND DARKNESS, A DIMLY SEEN FIGURE FIRES AN ARROW") &&
+          instructions.get(caption.next)?.opcode === 0x31 && [0, 2, 0].every((value, index) => literal(operands[index]!) === value) &&
+          [1, 1, 6, 0, 39].every((value, index) => literal(damage.operands[index]!) === value)) {
+        for (const state of scope) {
+          const caller = state.returns.at(-1);
+          if (caller === 0xa133 || caller === 0xa15a) prompt({ ...state, address: damage.address }, damage, damage.operands.length);
+        }
+      }
+    }
+
     // The native encounter handler writes only 0–3. These patrols branch
     // on all four, so their hostile menus cannot fall into the disguise route.
     const patrolDispatch = archive === 5 && opcode === 0x29
