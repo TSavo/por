@@ -2327,6 +2327,24 @@ const illustrationRoutes = new Map([
       inputs: ["p"], portrait: "portrait:area:10:ecl:b58c:PIC4.DAX:20:0:0", prompt: /YOUFINDSOMEUNDEAD/i,
     },
   }],
+  ["valhingen-zombie-roam-sneak", {
+    slot: "A", fixedClockStart: "4320891", inputs: ["up", "down", "up", "down", "a", "a"], settleInputs: ["a"],
+    portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:35:0:0", prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMEZOMBIES/i,
+    heldPortraitLoop: [0, 1, 2, 3, 4].map(member => `portrait:area:10:ecl:b50b:PIC4.DAX:35:${member}:0`),
+    continuation: {
+      inputs: ["p"], prompt: /YOUARENOTICED/i,
+      portraits: [0, 1, 2, 3, 4].map(member => `portrait:area:10:ecl:b56c:PIC4.DAX:35:${member}:0`),
+      heldPortraitLoop: [0, 1, 2, 3, 4].map(member => `portrait:area:10:ecl:b56c:PIC4.DAX:35:${member}:0`),
+    },
+  }],
+  ["valhingen-zombie-roam-direct", {
+    slot: "A", fixedClockStart: "4320890", inputs: ["up", "enter", "a", "a"], settleInputs: ["a"],
+    portrait: "portrait:area:10:ecl:b56c:PIC4.DAX:35:0:0", prompt: /YOUFINDSOMEUNDEAD/i,
+    heldPortraitLoop: [0, 1, 2, 3, 4].map(member => `portrait:area:10:ecl:b56c:PIC4.DAX:35:${member}:0`),
+    continuation: {
+      inputs: ["p"], portrait: "portrait:area:10:ecl:b58c:PIC4.DAX:35:0:0", prompt: /YOUFINDSOMEUNDEAD/i,
+    },
+  }],
   ["slums-roaming-kobold-loop", {
     slot: "B", inputs: [...Array.from({ length: 18 }, () => ["up", "enter", "down"]).flat(), "up", "enter", "a"],
     portrait: "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0",
@@ -11258,7 +11276,10 @@ try {
     if (illustration.alternatePortrait && frame.portrait === illustration.alternatePortrait) {
       portrait = illustration.alternatePortrait;
     }
-    assert.equal(frame.portrait, portrait, frame.text.map(([, char]) => String.fromCharCode(char)).join(""));
+    const heldPortraitOrder = Array.isArray(illustration.heldPortraitLoop) ? illustration.heldPortraitLoop : [];
+    if (!heldPortraitOrder.includes(frame.portrait)) {
+      assert.equal(frame.portrait, portrait, frame.text.map(([, char]) => String.fromCharCode(char)).join(""));
+    }
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), prompt);
     if (portrait === undefined) {
       await waitFor("the transient illustration to clear", () => run(`

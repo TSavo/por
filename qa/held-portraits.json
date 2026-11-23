@@ -17510,6 +17510,489 @@
       "remainingCues": [
         "A man and ogre exchange the wand and a large bag, then disappear into the crowd."
       ]
+    },
+    {
+      "id": "area:10:ecl:b50b:PIC4.DAX:35",
+      "producer": "ECL4.DAX:10:b4e9",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 110,
+          "viewport": "131cbeaccc70f399fd3c39f45bc18c15d09dc6b36d5a6e8bfc87d25b7d1461b0"
+        },
+        {
+          "member": 1,
+          "durationMs": 110,
+          "viewport": "e299c6feb35ffe3c610bb7976c7dd43704775e020f26530e792c4ffe4b4a7b7b"
+        },
+        {
+          "member": 2,
+          "durationMs": 110,
+          "viewport": "98a3952924de81197cf0013ef61bb8076d5a4517559e2efbc36c96e1fdca69fb"
+        },
+        {
+          "member": 3,
+          "durationMs": 110,
+          "viewport": "9ee411079027544f6901ae4020cce42e11cc2582363b2d0c67f91967396c07c1"
+        },
+        {
+          "member": 4,
+          "durationMs": 110,
+          "viewport": "17e59d1d6b59fcc6aa98eb81374890cc500617b873068a0e9c4a434ccf225589"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "valhingen-zombie-roam-sneak",
+          "data": "original",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "f4de2c8d5eacb28d74867022ef0128c092ea7ff2d370e9070f1bacf65e93f894",
+          "portrait": "portrait:area:10:ecl:b50b:PIC4.DAX:35:2:0",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:2:0",
+              "atMs": 0.699999988079071
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:3:0",
+              "atMs": 33.8999999880798
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:4:0",
+              "atMs": 150.5999999880787
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:0:0",
+              "atMs": 250.5999999880787
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:1:0",
+              "atMs": 367.29999998807943
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:2:0",
+              "atMs": 467.29999998807943
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:3:0",
+              "atMs": 583.8999999880798
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:4:0",
+              "atMs": 700.5999999880787
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:0:0",
+              "atMs": 800.5999999880787
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:1:0",
+              "atMs": 917.2999999880794
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:2:0",
+              "atMs": 1017.2999999880794
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:3:0",
+              "atMs": 1133.8999999880798
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:b50b:PIC4.DAX:35:2:0": "a89872d62e1fc07b489b076c782666fc3747228c6b4dfa5740b4d4d52e214946",
+            "portrait:area:10:ecl:b50b:PIC4.DAX:35:3:0": "d27732e8629115d91b9a82eca5fb1392cc79e11df7775efbb60d6f8352b14f80",
+            "portrait:area:10:ecl:b50b:PIC4.DAX:35:4:0": "66529ab5b7fbc77a501080a0fff1c3271ef24a270fb60f4e8847ac4d08d37984",
+            "portrait:area:10:ecl:b50b:PIC4.DAX:35:0:0": "6a9fb8c628597b1023f1095073d9ada2969c23ab88ec203161f38c1b3b7166ce",
+            "portrait:area:10:ecl:b50b:PIC4.DAX:35:1:0": "90f662fde89b327d41c0b1f4fbe3eeb88bce12a28783b3b553fc76e29696f8c0"
+          }
+        },
+        "port": {
+          "route": "valhingen-zombie-roam-sneak",
+          "data": "port",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "f4de2c8d5eacb28d74867022ef0128c092ea7ff2d370e9070f1bacf65e93f894",
+          "portrait": "portrait:area:10:ecl:b50b:PIC4.DAX:35:2:0",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:3:0",
+              "atMs": 5.20000001192102
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:4:0",
+              "atMs": 121.80000001192093
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:0:0",
+              "atMs": 238.50000001192075
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:1:0",
+              "atMs": 338.50000001192075
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:2:0",
+              "atMs": 455.200000011921
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:3:0",
+              "atMs": 555.200000011921
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:4:0",
+              "atMs": 671.9000000119208
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:0:0",
+              "atMs": 788.5000000119207
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:1:0",
+              "atMs": 888.5000000119207
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:2:0",
+              "atMs": 1005.1000000119211
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:3:0",
+              "atMs": 1105.2000000119206
+            },
+            {
+              "key": "portrait:area:10:ecl:b50b:PIC4.DAX:35:4:0",
+              "atMs": 1221.9000000119213
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:b50b:PIC4.DAX:35:2:0": "a89872d62e1fc07b489b076c782666fc3747228c6b4dfa5740b4d4d52e214946",
+            "portrait:area:10:ecl:b50b:PIC4.DAX:35:3:0": "d27732e8629115d91b9a82eca5fb1392cc79e11df7775efbb60d6f8352b14f80",
+            "portrait:area:10:ecl:b50b:PIC4.DAX:35:4:0": "66529ab5b7fbc77a501080a0fff1c3271ef24a270fb60f4e8847ac4d08d37984",
+            "portrait:area:10:ecl:b50b:PIC4.DAX:35:0:0": "6a9fb8c628597b1023f1095073d9ada2969c23ab88ec203161f38c1b3b7166ce",
+            "portrait:area:10:ecl:b50b:PIC4.DAX:35:1:0": "90f662fde89b327d41c0b1f4fbe3eeb88bce12a28783b3b553fc76e29696f8c0"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:10:ecl:b56c:PIC4.DAX:35",
+      "producer": "ECL4.DAX:10:b4e9",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 110,
+          "viewport": "131cbeaccc70f399fd3c39f45bc18c15d09dc6b36d5a6e8bfc87d25b7d1461b0"
+        },
+        {
+          "member": 1,
+          "durationMs": 110,
+          "viewport": "e299c6feb35ffe3c610bb7976c7dd43704775e020f26530e792c4ffe4b4a7b7b"
+        },
+        {
+          "member": 2,
+          "durationMs": 110,
+          "viewport": "98a3952924de81197cf0013ef61bb8076d5a4517559e2efbc36c96e1fdca69fb"
+        },
+        {
+          "member": 3,
+          "durationMs": 110,
+          "viewport": "9ee411079027544f6901ae4020cce42e11cc2582363b2d0c67f91967396c07c1"
+        },
+        {
+          "member": 4,
+          "durationMs": 110,
+          "viewport": "17e59d1d6b59fcc6aa98eb81374890cc500617b873068a0e9c4a434ccf225589"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "valhingen-zombie-roam-sneak",
+          "data": "original",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "1934f2204e0741f8dcfa871e80783ae585b6bf3979dca325e5a722ffd13d9eb5",
+          "portrait": "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0",
+              "atMs": 11.29999996423794
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:4:0",
+              "atMs": 44.59999996423721
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:0:0",
+              "atMs": 161.29999996423794
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:1:0",
+              "atMs": 261.29999996423794
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:2:0",
+              "atMs": 377.8999999642365
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0",
+              "atMs": 494.5999999642372
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:4:0",
+              "atMs": 594.5999999642372
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:0:0",
+              "atMs": 711.1999999642376
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:1:0",
+              "atMs": 811.1999999642376
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:2:0",
+              "atMs": 927.8999999642365
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0",
+              "atMs": 1044.5999999642372
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:4:0",
+              "atMs": 1144.5999999642372
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0": "d27732e8629115d91b9a82eca5fb1392cc79e11df7775efbb60d6f8352b14f80",
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:4:0": "66529ab5b7fbc77a501080a0fff1c3271ef24a270fb60f4e8847ac4d08d37984",
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:0:0": "6a9fb8c628597b1023f1095073d9ada2969c23ab88ec203161f38c1b3b7166ce",
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:1:0": "90f662fde89b327d41c0b1f4fbe3eeb88bce12a28783b3b553fc76e29696f8c0",
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:2:0": "a89872d62e1fc07b489b076c782666fc3747228c6b4dfa5740b4d4d52e214946"
+          }
+        },
+        "port": {
+          "route": "valhingen-zombie-roam-sneak",
+          "data": "port",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "1934f2204e0741f8dcfa871e80783ae585b6bf3979dca325e5a722ffd13d9eb5",
+          "portrait": "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0",
+              "atMs": 8.200000035762969
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:4:0",
+              "atMs": 74.90000003576279
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:0:0",
+              "atMs": 191.50000003576315
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:1:0",
+              "atMs": 291.6000000357626
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:2:0",
+              "atMs": 408.20000003576297
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0",
+              "atMs": 524.9000000357628
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:4:0",
+              "atMs": 624.8000000357624
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:0:0",
+              "atMs": 741.5000000357632
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:1:0",
+              "atMs": 841.6000000357626
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:2:0",
+              "atMs": 958.200000035763
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0",
+              "atMs": 1074.8000000357624
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:4:0",
+              "atMs": 1174.8000000357624
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0": "d27732e8629115d91b9a82eca5fb1392cc79e11df7775efbb60d6f8352b14f80",
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:4:0": "66529ab5b7fbc77a501080a0fff1c3271ef24a270fb60f4e8847ac4d08d37984",
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:0:0": "6a9fb8c628597b1023f1095073d9ada2969c23ab88ec203161f38c1b3b7166ce",
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:1:0": "90f662fde89b327d41c0b1f4fbe3eeb88bce12a28783b3b553fc76e29696f8c0",
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:2:0": "a89872d62e1fc07b489b076c782666fc3747228c6b4dfa5740b4d4d52e214946"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:10:ecl:b56c:PIC4.DAX:35",
+      "producer": "ECL4.DAX:10:b549",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 110,
+          "viewport": "131cbeaccc70f399fd3c39f45bc18c15d09dc6b36d5a6e8bfc87d25b7d1461b0"
+        },
+        {
+          "member": 1,
+          "durationMs": 110,
+          "viewport": "e299c6feb35ffe3c610bb7976c7dd43704775e020f26530e792c4ffe4b4a7b7b"
+        },
+        {
+          "member": 2,
+          "durationMs": 110,
+          "viewport": "98a3952924de81197cf0013ef61bb8076d5a4517559e2efbc36c96e1fdca69fb"
+        },
+        {
+          "member": 3,
+          "durationMs": 110,
+          "viewport": "9ee411079027544f6901ae4020cce42e11cc2582363b2d0c67f91967396c07c1"
+        },
+        {
+          "member": 4,
+          "durationMs": 110,
+          "viewport": "17e59d1d6b59fcc6aa98eb81374890cc500617b873068a0e9c4a434ccf225589"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "valhingen-zombie-roam-direct",
+          "data": "original",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "1934f2204e0741f8dcfa871e80783ae585b6bf3979dca325e5a722ffd13d9eb5",
+          "portrait": "portrait:area:10:ecl:b56c:PIC4.DAX:35:2:0",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:2:0",
+              "atMs": 6.900000035762787
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0",
+              "atMs": 40.20000003576297
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:4:0",
+              "atMs": 156.9000000357628
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:0:0",
+              "atMs": 273.6000000357626
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:1:0",
+              "atMs": 373.5000000357627
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:2:0",
+              "atMs": 490.20000003576297
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0",
+              "atMs": 590.200000035763
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:4:0",
+              "atMs": 706.9000000357628
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:0:0",
+              "atMs": 823.5000000357627
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:1:0",
+              "atMs": 923.5000000357627
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:2:0",
+              "atMs": 1040.200000035763
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0",
+              "atMs": 1140.200000035763
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:2:0": "a89872d62e1fc07b489b076c782666fc3747228c6b4dfa5740b4d4d52e214946",
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0": "d27732e8629115d91b9a82eca5fb1392cc79e11df7775efbb60d6f8352b14f80",
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:4:0": "66529ab5b7fbc77a501080a0fff1c3271ef24a270fb60f4e8847ac4d08d37984",
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:0:0": "6a9fb8c628597b1023f1095073d9ada2969c23ab88ec203161f38c1b3b7166ce",
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:1:0": "90f662fde89b327d41c0b1f4fbe3eeb88bce12a28783b3b553fc76e29696f8c0"
+          }
+        },
+        "port": {
+          "route": "valhingen-zombie-roam-direct",
+          "data": "port",
+          "rendererSha256": "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c",
+          "bindingSha256": "1934f2204e0741f8dcfa871e80783ae585b6bf3979dca325e5a722ffd13d9eb5",
+          "portrait": "portrait:area:10:ecl:b56c:PIC4.DAX:35:2:0",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:2:0",
+              "atMs": 9.300000023838948
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0",
+              "atMs": 92.7000000238404
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:4:0",
+              "atMs": 209.30000002383895
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:0:0",
+              "atMs": 309.40000002384477
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:1:0",
+              "atMs": 426.0000000238433
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:2:0",
+              "atMs": 526.0000000238433
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0",
+              "atMs": 642.7000000238404
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:4:0",
+              "atMs": 759.300000023839
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:0:0",
+              "atMs": 859.300000023839
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:1:0",
+              "atMs": 976.0000000238433
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:2:0",
+              "atMs": 1076.0000000238433
+            },
+            {
+              "key": "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0",
+              "atMs": 1192.6000000238419
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:2:0": "a89872d62e1fc07b489b076c782666fc3747228c6b4dfa5740b4d4d52e214946",
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:3:0": "d27732e8629115d91b9a82eca5fb1392cc79e11df7775efbb60d6f8352b14f80",
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:4:0": "66529ab5b7fbc77a501080a0fff1c3271ef24a270fb60f4e8847ac4d08d37984",
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:0:0": "6a9fb8c628597b1023f1095073d9ada2969c23ab88ec203161f38c1b3b7166ce",
+            "portrait:area:10:ecl:b56c:PIC4.DAX:35:1:0": "90f662fde89b327d41c0b1f4fbe3eeb88bce12a28783b3b553fc76e29696f8c0"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [

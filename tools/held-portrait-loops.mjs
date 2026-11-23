@@ -34,6 +34,10 @@ const portraitLoops = [
     /WILLBRINGAGOODPRICEATZHENTILKEEP/i, penPoseTimes],
   ["portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:", 5, undefined,
     /^(?!.*ABATTLEBEGINS).*LUMBERINGFIGURESREACHFORYOU/i, Array(5).fill(110)],
+  ["portrait:area:10:ecl:b50b:PIC4.DAX:35:", 5, undefined,
+    /YOUHAVEMANAGEDTOSNEAKUPONSOMEZOMBIES/i, Array(5).fill(110)],
+  ["portrait:area:10:ecl:b56c:PIC4.DAX:35:", 5, undefined,
+    /YOUARENOTICED.*COMBATWAITFLEEPARLAY|YOUFINDSOMEUNDEAD/i, Array(5).fill(110)],
   ["portrait:area:10:ecl:b50b:PIC4.DAX:34:", [0, 1, 2, 3, 2, 1], undefined,
     /YOUHAVEMANAGEDTOSNEAKUPONSOMESKELETONS/i, [1310, 110, 110, 910, 110, 110]],
   // The roaming wight's fourth native member repeats the second painting.
