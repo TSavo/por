@@ -768,6 +768,13 @@ const wildCaveBoarAmbush = {
   continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
 };
 
+const nomadEntrancePoses = ["portrait:area:26:PIC7.DAX:30:0:0", "portrait:area:26:ecl:9c49:PIC7.DAX:30:1:0"];
+const nomadEntrance = {
+  slot: "A", inputs: ["down"], portrait: nomadEntrancePoses[0],
+  prompt: /(?=.*STUMBLEDUPONALARGENOMADCAMP)(?=.*WILLYOUENTERIT)(?=.*ENTERLEAVE)/i,
+  heldPortraitLoop: nomadEntrancePoses,
+};
+
 const illustrationRoutes = new Map([
   ["wild-cave-boar-sow-warning-loop", {
     slot: "A", inputs: ["up"],
@@ -3166,6 +3173,16 @@ const illustrationRoutes = new Map([
     requireTiledApproach: false,
     approachSequence: [[48, 32, "encounter:area:0:ecl:af4d:SPRIT3.DAX:27:0:0", 40, 80]],
     portrait: "portrait:area:0:HEAD3.DAX:9:BODY3.DAX:7", prompt: /GO.*STAY/i,
+  }],
+  ["nomad-entrance-enter", {
+    ...nomadEntrance,
+    finalPhaseCapture: "nomad-entrance-enter.png",
+    continuation: { inputs: ["e"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
+  ["nomad-entrance-leave", {
+    ...nomadEntrance,
+    finalPhaseCapture: "nomad-entrance-leave.png",
+    continuation: { inputs: ["l"], clearsPortrait: true, prompt: /25,11S.*CASTVIEWENCAMPSEARCHLOOK/i },
   }],
   ["lizard-wilds-kobold-prisoners", {
     slot: "A", inputs: ["up"],
@@ -8169,6 +8186,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       /^valjevo-tower-troll-(encounter|ambush)-loop$/.test(routeName) ||
       routeName === "valjevo-dungeon-kitchen-choice" ||
       /^valjevo-dungeon-kitchen-(entry|rescue|warning|oil)-loop$/.test(routeName) ||
+      routeName === "nomad-entrance-enter" || routeName === "nomad-entrance-leave" ||
       routeName === "lizard-wilds-kobold-prisoners" || routeName === "lizard-wilds-pool-dialogue" ||
       routeName === "lizard-wilds-displacer-pair-ambush" ||
       /^wild-grove-(mutant-hut|lizardfolk-hut|large-lizardfolk)-ambush$/.test(routeName) ||
