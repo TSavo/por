@@ -48,9 +48,16 @@ async function exercisePoses(keys, nativeBits) {
     context.drawImage(image, 0, 0);
     return { image, bytes: context.getImageData(0, 0, 96, 96).data };
   }
+  // The tall bow shoulder, axe collar, robe seam and foreground shield were cut out by the old head stencil (#301).
+  const bodyLandmarks = new Map([[65, [40, 35]], [87, [45, 30]], [93, [38, 21]], [216, [45, 26]]]);
   let trials = 0;
   for (const [index, key] of keys.entries()) {
     const before = await pixels("/art/" + key);
+    const landmark = bodyLandmarks.get(Number(key.split(":")[3]));
+    if (landmark) {
+      const [x, y] = landmark;
+      if (before.bytes[4 * (96 * y + x) + 3] < 128) throw new Error("Missing body behind selected head for " + key);
+    }
     const mask = await pixels("/art-materials/" + key + ":palette:" + palette);
     const materials = new Set();
     for (let p = 0; p < mask.bytes.length; p += 4) {
