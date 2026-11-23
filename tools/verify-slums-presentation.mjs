@@ -741,6 +741,10 @@ const valjevoKitchenMenu = /WHATDOYOUDO\?KILLTHEOVERSEERANDFREETHESLAVESGOBACKOU
 const sokalBarracksParlay = ["up", "enter", "a", "a", "p", "n", ..."lux", "enter"];
 const sokalBarracksChorus = [0, 1, 2].map(member => `portrait:area:21:ecl:ae31:caller:a463:PIC4.DAX:17:${member}:0`);
 const sokalBarracksDiary = [0, 1, 2].map(member => `portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:${member}:0`);
+const mendorFighterHeldPoses = (cursor, caller) => [0, 1, 2, 3, 4].map(
+  member => "portrait:area:15:ecl:" + cursor + ":caller:" + caller + ":PIC2.DAX:25:" + member + ":0",
+);
+
 const illustrationRoutes = new Map([
   ["buccaneer-captive-pen-overview-loop", {
     slot: "A", inputs: ["right", "right", "up", "left", "up", "right", "up", "enter"],
@@ -4968,6 +4972,7 @@ const illustrationRoutes = new Map([
     portraitStops: { 3: "portrait:area:15:PIC2.DAX:25:0:0" },
     portrait: "scene-illustration:area:15:ecl:99b5:caller:a8e2:cue:fighter-warning",
     prompt: /THEMANSCREAMSWHILEFROTHINGATTHEMOUTH/i,
+    heldPortraitLoop: mendorFighterHeldPoses("99b5", "a8e2"),
     finalPhaseCapture: "mendor-fighter-warning.png",
     continuation: { inputs: ["enter"], portrait: "portrait:area:15:PIC2.DAX:25:0:0",
       prompt: /COMBATWAITFLEEPARLAYIGNORE/i },
@@ -4976,8 +4981,17 @@ const illustrationRoutes = new Map([
     slot: "B", inputs: ["up", "enter", "enter", "p", "n"],
     portrait: "scene-illustration:area:15:ecl:99b5:caller:a91b:cue:fighter-warning",
     prompt: /THEMANSCREAMSWHILEFROTHINGATTHEMOUTH/i,
+    heldPortraitLoop: mendorFighterHeldPoses("99b5", "a91b"),
     continuation: { inputs: ["enter"], portrait: "scene-illustration:area:15:ecl:9987:caller:a967:cue:fighter-invitation",
-      prompt: /DOYOUTAKEPITYANDINVITEHIMTOGOWITHYOU/i },
+      prompt: /DOYOUTAKEPITYANDINVITEHIMTOGOWITHYOU/i, heldPortraitLoop: mendorFighterHeldPoses("9987", "a967") },
+  }],
+  ["mendor-fighter-insistence", {
+    slot: "B", inputs: ["up", "enter", "enter", "p", "n", "enter", "y"],
+    portrait: "scene-illustration:area:15:ecl:9987:caller:a9bd:cue:fighter-invitation",
+    prompt: /DOYOUINSISTHECOME/i,
+    heldPortraitLoop: mendorFighterHeldPoses("9987", "a9bd"),
+    continuation: { inputs: ["y"], portrait: "scene-illustration:area:15:ecl:9aeb:cue:fighter-joins",
+      prompt: /(?=.*HESTANDSUP,MUTTERINGTOHIMSELF,ANDJOINSYOU)(?=.*MADMAN)/i },
   }],
   ["mendor-fighter-recruitment", {
     slot: "B", inputs: ["up", "enter", "enter", "p", "n", "enter", "y", "y"],

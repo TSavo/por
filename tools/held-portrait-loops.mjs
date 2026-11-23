@@ -13,6 +13,8 @@ const conjurerPoseTimes = [410, 910, 20];
 const vampirePoseOrder = [0, 1, 2, 1];
 const vampirePoseTimes = [710, 310, 310, 210];
 const fountainPoseTimes = [20, 20, 20];
+// The sixth native fighter member repeats the fifth painting.
+const mendorFighterPoseTimes = [410, 110, 310, 210, 720];
 const podalOrcPoseOrder = [0, 1, 2, 1];
 const podalOrcPoseTimes = [1510, 20, 710, 20];
 const auctionPoseTimes = [610, 210, 410, 210, 410, 610];
@@ -203,9 +205,19 @@ const portraitLoops = [
   ["portrait:area:14:ecl:a6b8:PIC1.DAX:1:", 3],
   ["portrait:area:14:ecl:a78c:PIC1.DAX:1:", 3],
   ["portrait:area:14:ecl:a862:PIC1.DAX:1:", 3],
-  // The identical final two native members hold for 500 ms and 200 ms.
   ["portrait:area:15:ecl:a85b:PIC2.DAX:25:", 5, "portrait:area:15:PIC2.DAX:25:0:0",
-    /YOUFINDAFIGHTERWITHBATTEREDARMORANDWILDEYES/i, [400, 100, 300, 200, 700]],
+    /YOUFINDAFIGHTERWITHBATTEREDARMORANDWILDEYES/i, mendorFighterPoseTimes],
+  ...["a8e2", "a91b"].map(caller => [
+    "portrait:area:15:ecl:99b5:caller:" + caller + ":PIC2.DAX:25:", 5, undefined,
+    /THEMANSCREAMSWHILEFROTHINGATTHEMOUTH/i, mendorFighterPoseTimes,
+    [["scene-illustration:area:15:ecl:99b5:caller:" + caller + ":cue:fighter-warning", 0]],
+  ]),
+  ["portrait:area:15:ecl:9987:caller:a967:PIC2.DAX:25:", 5, undefined,
+    /DOYOUTAKEPITYANDINVITEHIMTOGOWITHYOU/i, mendorFighterPoseTimes,
+    [["scene-illustration:area:15:ecl:9987:caller:a967:cue:fighter-invitation", 0]]],
+  ["portrait:area:15:ecl:9987:caller:a9bd:PIC2.DAX:25:", 5, undefined,
+    /DOYOUINSISTHECOME/i, mendorFighterPoseTimes,
+    [["scene-illustration:area:15:ecl:9987:caller:a9bd:cue:fighter-invitation", 0]]],
   ["portrait:area:15:ecl:a520:PIC2.DAX:26:", 2, "portrait:PIC2.DAX:26:0:0",
     /YOUSEEADULLBROWNREPTILIANMONSTER/i],
   ["portrait:area:15:ecl:ad7b:PIC2.DAX:0:", [0, 1, 2, 1], "portrait:area:15:PIC2.DAX:0:0:0",
