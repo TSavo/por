@@ -13478,6 +13478,120 @@
           }
         }
       }
+    },
+    {
+      "producer": "ECL2.DAX:9:a23f",
+      "prompt": "a270",
+      "caption": "THEY SEEM UNAWARE OF YOU. Combat Wait Flee Advance",
+      "checkpoint": "stojanow-mage-barracks-alarm/A.json",
+      "position": [
+        9,
+        4,
+        7
+      ],
+      "chrome": {
+        "original": {
+          "route": "stojanow-mage-barracks-advance",
+          "data": "original",
+          "position": [
+            9,
+            4,
+            7
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,7W22:05THEYSEEMUNAWAREOFYOU.CombatWaitFleeAdvance",
+          "checkpointSha256": "c18664c2acfd9273fb7c44a6aea4e9128ced52c9f4df9c1cee50ea9caf5dace1",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:9:ecl:a270:SPRIT2.DAX:24:1:0",
+              24,
+              65
+            ],
+            "sha256": "f1a4697d202cc1daefa3b738a76b8f9c80bd5b42a1332fc4443744c7e2ba75b5"
+          }
+        },
+        "port": {
+          "route": "stojanow-mage-barracks-advance",
+          "data": "port",
+          "position": [
+            9,
+            4,
+            7
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,7W22:05THEYSEEMUNAWAREOFYOU.CombatWaitFleeAdvance",
+          "checkpointSha256": "c18664c2acfd9273fb7c44a6aea4e9128ced52c9f4df9c1cee50ea9caf5dace1",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:9:ecl:a270:SPRIT2.DAX:24:1:0",
+              24,
+              65
+            ],
+            "sha256": "f1a4697d202cc1daefa3b738a76b8f9c80bd5b42a1332fc4443744c7e2ba75b5"
+          }
+        }
+      }
+    },
+    {
+      "producer": "ECL2.DAX:9:a372",
+      "prompt": "a3a3",
+      "caption": "THEY SEEM UNAWARE OF YOU. Combat Wait Flee Advance",
+      "checkpoint": "stojanow-fighter-barracks-west-door/A.json",
+      "position": [
+        9,
+        11,
+        7
+      ],
+      "chrome": {
+        "original": {
+          "route": "stojanow-fighter-barracks-advance",
+          "data": "original",
+          "position": [
+            9,
+            11,
+            7
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA10511,7E22:03THEYSEEMUNAWAREOFYOU.CombatWaitFleeAdvance",
+          "checkpointSha256": "e945160314f6628679c836e82f78fddde60902aa277261b356f8bacb3a17cb3b",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:9:ecl:a3a3:SPRIT2.DAX:24:1:0",
+              24,
+              65
+            ],
+            "sha256": "c239bcf0b1907d42de401a9b74883066d079dbaaf54fa428c7bf9cadd5325d21"
+          }
+        },
+        "port": {
+          "route": "stojanow-fighter-barracks-advance",
+          "data": "port",
+          "position": [
+            9,
+            11,
+            7
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA10511,7E22:03THEYSEEMUNAWAREOFYOU.CombatWaitFleeAdvance",
+          "checkpointSha256": "e945160314f6628679c836e82f78fddde60902aa277261b356f8bacb3a17cb3b",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:9:ecl:a3a3:SPRIT2.DAX:24:1:0",
+              24,
+              65
+            ],
+            "sha256": "c239bcf0b1907d42de401a9b74883066d079dbaaf54fa428c7bf9cadd5325d21"
+          }
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [
@@ -15580,6 +15694,182 @@
               "samples": 191,
               "poses": [
                 "portrait:area:10:ecl:b695:caller:b3aa:PIC4.DAX:72:0:0"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL2.DAX:9:a23f",
+      "prompt": "a270",
+      "variants": [
+        {
+          "caption": "THEY SEEM UNAWARE OF YOU. Combat Wait Flee Parlay",
+          "checkpoint": "stojanow-mage-barracks-alarm/A.json",
+          "portrait": "portrait:HEAD2.DAX:52:BODY2.DAX:31",
+          "native": {
+            "drawCursor": "a270",
+            "composed": {
+              "source": "HEAD2.DAX:52:BODY2.DAX:31",
+              "headWrite": "a1d2",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a270"
+            },
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 4,7 N 22:03 THEY SEEM UNAWARE OF YOU. Combat Wait Flee Parlay",
+            "idlePolls": 120,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "3fb4fb7c42d46113c3dca0086fd9135de2d6b54d9dacb219047bd0e2ca2647b3"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "3fb4fb7c42d46113c3dca0086fd9135de2d6b54d9dacb219047bd0e2ca2647b3"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "3fb4fb7c42d46113c3dca0086fd9135de2d6b54d9dacb219047bd0e2ca2647b3"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "3fb4fb7c42d46113c3dca0086fd9135de2d6b54d9dacb219047bd0e2ca2647b3"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "3fb4fb7c42d46113c3dca0086fd9135de2d6b54d9dacb219047bd0e2ca2647b3"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "3fb4fb7c42d46113c3dca0086fd9135de2d6b54d9dacb219047bd0e2ca2647b3"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "3fb4fb7c42d46113c3dca0086fd9135de2d6b54d9dacb219047bd0e2ca2647b3"
+              }
+            ],
+            "clearedPanelSha256": "ba14c9d8f3c2d4f29e5409aaa8e7aee6308f9c5d317009c783b1ff6a98a85b85"
+          },
+          "chrome": {
+            "original": {
+              "route": "stojanow-mage-barracks-alarm",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,7N22:03THEYSEEMUNAWAREOFYOU.CombatWaitFleeParlay",
+              "portrait": "portrait:HEAD2.DAX:52:BODY2.DAX:31",
+              "checkpointSha256": "c18664c2acfd9273fb7c44a6aea4e9128ced52c9f4df9c1cee50ea9caf5dace1",
+              "artSha256": "b5948024975af522c8bb28aa6eca328082b78afe228dec1c303b921da9962b4a",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "samples": 220,
+              "durationMs": 3650,
+              "poses": [
+                "portrait:HEAD2.DAX:52:BODY2.DAX:31"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "stojanow-mage-barracks-alarm",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1054,7N22:03THEYSEEMUNAWAREOFYOU.CombatWaitFleeParlay",
+              "portrait": "portrait:HEAD2.DAX:52:BODY2.DAX:31",
+              "checkpointSha256": "c18664c2acfd9273fb7c44a6aea4e9128ced52c9f4df9c1cee50ea9caf5dace1",
+              "artSha256": "b5948024975af522c8bb28aa6eca328082b78afe228dec1c303b921da9962b4a",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "samples": 221,
+              "durationMs": 3652,
+              "poses": [
+                "portrait:HEAD2.DAX:52:BODY2.DAX:31"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL2.DAX:9:a372",
+      "prompt": "a3a3",
+      "variants": [
+        {
+          "caption": "THEY SEEM UNAWARE OF YOU. Combat Wait Flee Parlay",
+          "checkpoint": "stojanow-fighter-barracks-alarm/A.json",
+          "portrait": "portrait:HEAD2.DAX:11:BODY2.DAX:2",
+          "native": {
+            "drawCursor": "a3a3",
+            "composed": {
+              "source": "HEAD2.DAX:11:BODY2.DAX:2",
+              "headWrite": "a2f3",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "a3a3"
+            },
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 11,7 N 22:03 THEY SEEM UNAWARE OF YOU. Combat Wait Flee Parlay",
+            "idlePolls": 120,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 60,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 80,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 100,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              },
+              {
+                "idlePolls": 120,
+                "sha256": "6395491ec0fa3f34a8f2ef1c91de7858d4788850461d59f04c27ec4f658054bc"
+              }
+            ],
+            "clearedPanelSha256": "4a7e0d276a1a8d8ba17a387db315c9f83929bae9743f61c7dba88042a1bd2f19"
+          },
+          "chrome": {
+            "original": {
+              "route": "stojanow-fighter-barracks-alarm",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA10511,7N22:03THEYSEEMUNAWAREOFYOU.CombatWaitFleeParlay",
+              "portrait": "portrait:HEAD2.DAX:11:BODY2.DAX:2",
+              "checkpointSha256": "0e69bdee863dcbd2a4e09a7edd290ba315560f11a7d1b30008e27a831f98e667",
+              "artSha256": "2d22b725ad57ea137e07ad5bc4765aaf539c1b2656e36aa88ab8b380660e0e37",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "samples": 220,
+              "durationMs": 3650,
+              "poses": [
+                "portrait:HEAD2.DAX:11:BODY2.DAX:2"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "stojanow-fighter-barracks-alarm",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA10511,7N22:03THEYSEEMUNAWAREOFYOU.CombatWaitFleeParlay",
+              "portrait": "portrait:HEAD2.DAX:11:BODY2.DAX:2",
+              "checkpointSha256": "0e69bdee863dcbd2a4e09a7edd290ba315560f11a7d1b30008e27a831f98e667",
+              "artSha256": "2d22b725ad57ea137e07ad5bc4765aaf539c1b2656e36aa88ab8b380660e0e37",
+              "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "samples": 221,
+              "durationMs": 3652,
+              "poses": [
+                "portrait:HEAD2.DAX:11:BODY2.DAX:2"
               ],
               "replaced": false
             }
