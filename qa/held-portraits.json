@@ -9856,7 +9856,7 @@
           "paints": [
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
-              "atMs": -1.192074705613777e-8
+              "atMs": -1.192074705613777e-08
             },
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
@@ -32159,6 +32159,393 @@
           }
         }
       }
+    },
+    {
+      "id": "area:29:ecl:af2f:caller:a31b:PIC8.DAX:0",
+      "producer": "ECL8.DAX:29:af89",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-well-waiting-kobolds-hold",
+          "data": "original",
+          "rendererSha256": "14d61fd7ee9265e1b34205a359a7631c932bdba29f274fcf406065a2f4969489",
+          "bindingSha256": "b160bb1a8720921eb2b89e0ba1717feea81ad7ad8cee52b5c4a1084620d47935",
+          "portrait": "scene-illustration:area:29:ecl:af2f:caller:a31b:cue:waiting-kobolds",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:1:0",
+              "atMs": 0.6000000000003638
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:2:0",
+              "atMs": 184
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:1:0",
+              "atMs": 384
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:0:0",
+              "atMs": 600.6000000000004
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:1:0",
+              "atMs": 800.6000000000004
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:2:0",
+              "atMs": 1017.1999999999998
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:1:0",
+              "atMs": 1234
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:0:0",
+              "atMs": 1433.8999999999996
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:1:0",
+              "atMs": 1650.6000000000004
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:2:0",
+              "atMs": 1850.6000000000004
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a2c9:PIC8.DAX:0:1:0": "0a5a82ba600a3572a786c0bb67f9227cc96863596f4563c9a7049a0a0105fac5",
+            "portrait:area:29:ecl:a2c9:PIC8.DAX:0:2:0": "f9c7711f44d634b60ada5dafd3f594b05f15b52b908f7c7f9a10727fa68ee429",
+            "portrait:area:29:ecl:a2c9:PIC8.DAX:0:0:0": "d19383cefa5a6385333a84567025eb71ea638d9f27bb566a7b3ef4b491b0ec13"
+          }
+        },
+        "port": {
+          "route": "kuto-well-waiting-kobolds-hold",
+          "data": "port",
+          "rendererSha256": "14d61fd7ee9265e1b34205a359a7631c932bdba29f274fcf406065a2f4969489",
+          "bindingSha256": "b160bb1a8720921eb2b89e0ba1717feea81ad7ad8cee52b5c4a1084620d47935",
+          "portrait": "scene-illustration:area:29:ecl:af2f:caller:a31b:cue:waiting-kobolds",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:1:0",
+              "atMs": 0.39999996423739503
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:2:0",
+              "atMs": 200.3999999642374
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:1:0",
+              "atMs": 400.3999999642374
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:0:0",
+              "atMs": 617.0999999642372
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:1:0",
+              "atMs": 833.799999964237
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:2:0",
+              "atMs": 1033.6999999642376
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:1:0",
+              "atMs": 1250.3999999642374
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:0:0",
+              "atMs": 1450.3999999642374
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:1:0",
+              "atMs": 1667.0999999642372
+            },
+            {
+              "key": "portrait:area:29:ecl:a2c9:PIC8.DAX:0:2:0",
+              "atMs": 1883.6999999642376
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a2c9:PIC8.DAX:0:1:0": "0a5a82ba600a3572a786c0bb67f9227cc96863596f4563c9a7049a0a0105fac5",
+            "portrait:area:29:ecl:a2c9:PIC8.DAX:0:2:0": "f9c7711f44d634b60ada5dafd3f594b05f15b52b908f7c7f9a10727fa68ee429",
+            "portrait:area:29:ecl:a2c9:PIC8.DAX:0:0:0": "d19383cefa5a6385333a84567025eb71ea638d9f27bb566a7b3ef4b491b0ec13"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:29:ecl:af2f:caller:a31b:PIC8.DAX:0",
+      "producer": "ECL8.DAX:29:a3b2",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-well-behind-you-hold",
+          "data": "original",
+          "rendererSha256": "14d61fd7ee9265e1b34205a359a7631c932bdba29f274fcf406065a2f4969489",
+          "bindingSha256": "21171aa1210fcce37dd9849d7bf575216388a7b4bd87f5a84118bd57def6dc33",
+          "portrait": "scene-illustration:area:29:ecl:af2f:caller:a31b:cue:kobolds-climb-behind",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:1:0",
+              "atMs": 0.9000000238411303
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:2:0",
+              "atMs": 167.5000000238415
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:1:0",
+              "atMs": 384.10000002384186
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:0:0",
+              "atMs": 584.1000000238419
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:1:0",
+              "atMs": 800.8000000238426
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:2:0",
+              "atMs": 1000.8000000238426
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:1:0",
+              "atMs": 1217.4000000238411
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:0:0",
+              "atMs": 1434.1000000238419
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:1:0",
+              "atMs": 1634.1000000238419
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:2:0",
+              "atMs": 1850.7000000238404
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a3b2:PIC8.DAX:0:1:0": "e682b49435882078ddc936641d03fd4934c881e0693718378a64a455db038b68",
+            "portrait:area:29:ecl:a3b2:PIC8.DAX:0:2:0": "1b74497e4b758d1ec5a9b307e86798c9ee73f074ce440d99ceca10f3c974c26c",
+            "portrait:area:29:ecl:a3b2:PIC8.DAX:0:0:0": "0f494575776ba191a3e4efb1dc0efbb69d1a745cc478f65a88bcf932dfccb632"
+          }
+        },
+        "port": {
+          "route": "kuto-well-behind-you-hold",
+          "data": "port",
+          "rendererSha256": "14d61fd7ee9265e1b34205a359a7631c932bdba29f274fcf406065a2f4969489",
+          "bindingSha256": "21171aa1210fcce37dd9849d7bf575216388a7b4bd87f5a84118bd57def6dc33",
+          "portrait": "scene-illustration:area:29:ecl:af2f:caller:a31b:cue:kobolds-climb-behind",
+          "paints": [
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:1:0",
+              "atMs": 9.899999988079799
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:2:0",
+              "atMs": 126.59999998807871
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:1:0",
+              "atMs": 343.29999998807943
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:0:0",
+              "atMs": 543.2999999880794
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:1:0",
+              "atMs": 759.8999999880798
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:2:0",
+              "atMs": 959.8999999880798
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:1:0",
+              "atMs": 1176.4999999880783
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:0:0",
+              "atMs": 1393.199999988079
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:1:0",
+              "atMs": 1593.199999988079
+            },
+            {
+              "key": "portrait:area:29:ecl:a3b2:PIC8.DAX:0:2:0",
+              "atMs": 1809.7999999880794
+            }
+          ],
+          "sha256": {
+            "portrait:area:29:ecl:a3b2:PIC8.DAX:0:1:0": "e682b49435882078ddc936641d03fd4934c881e0693718378a64a455db038b68",
+            "portrait:area:29:ecl:a3b2:PIC8.DAX:0:2:0": "1b74497e4b758d1ec5a9b307e86798c9ee73f074ce440d99ceca10f3c974c26c",
+            "portrait:area:29:ecl:a3b2:PIC8.DAX:0:0:0": "0f494575776ba191a3e4efb1dc0efbb69d1a745cc478f65a88bcf932dfccb632"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:27:ecl:9bf8:PIC8.DAX:24",
+      "producer": "ECL8.DAX:27:9b6e",
+      "poses": [
+        {
+          "viewport": "c1e6d72cb1a9f63a4474c0f1bde3dc9ab007d2d20d2bbc496ecb2bf430836f86",
+          "member": 0,
+          "durationMs": 310
+        },
+        {
+          "viewport": "f32db3decb3e7e862c6a87bbf86136e87594364b4ba5995728382224369b1ed0",
+          "member": 1,
+          "durationMs": 610
+        },
+        {
+          "viewport": "085d3ccbaf5bb3c789ef33837552eb225013ff5cced26c069f66005c88a82465",
+          "member": 2,
+          "durationMs": 410
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "swamp-drawbridge-hold",
+          "data": "original",
+          "rendererSha256": "1ff8ef0a4d635d4390caaad3f85782fd99c4728df2051a01d8477381403db6ed",
+          "bindingSha256": "e2186b3ae1d97b1d0bbfc73977381dbbec9001c5e0fe38f62233f0c8f688f211",
+          "portrait": "portrait:PIC8.DAX:24:0:0",
+          "paints": [
+            {
+              "key": "portrait:PIC8.DAX:24:0:0",
+              "atMs": 0.4000000000014552
+            },
+            {
+              "key": "portrait:PIC8.DAX:24:1:0",
+              "atMs": 250.40000000000146
+            },
+            {
+              "key": "portrait:PIC8.DAX:24:2:0",
+              "atMs": 850.2999999999993
+            },
+            {
+              "key": "portrait:PIC8.DAX:24:0:0",
+              "atMs": 1267
+            },
+            {
+              "key": "portrait:PIC8.DAX:24:1:0",
+              "atMs": 1567
+            },
+            {
+              "key": "portrait:PIC8.DAX:24:2:0",
+              "atMs": 2183.5999999999985
+            },
+            {
+              "key": "portrait:PIC8.DAX:24:0:0",
+              "atMs": 2600.2999999999993
+            },
+            {
+              "key": "portrait:PIC8.DAX:24:1:0",
+              "atMs": 2900.2000000000007
+            }
+          ],
+          "sha256": {
+            "portrait:PIC8.DAX:24:0:0": "57d29df5796cd510be3d9bc841e4baa9f5655b58b04acd8d8fa8f15a7be46581",
+            "portrait:PIC8.DAX:24:1:0": "a8d32c22ceeaf5d56ed56175683d11bc1cdc089be48691a20120d9f487fd0147",
+            "portrait:PIC8.DAX:24:2:0": "cadeaf8d8759f2e2628c6ef7ac5809d2e372ffe73f3e005945dbf9c5bfac50b6"
+          }
+        },
+        "port": {
+          "route": "swamp-drawbridge-hold",
+          "data": "port",
+          "rendererSha256": "1ff8ef0a4d635d4390caaad3f85782fd99c4728df2051a01d8477381403db6ed",
+          "bindingSha256": "e2186b3ae1d97b1d0bbfc73977381dbbec9001c5e0fe38f62233f0c8f688f211",
+          "portrait": "portrait:PIC8.DAX:24:0:0",
+          "paints": [
+            {
+              "key": "portrait:PIC8.DAX:24:0:0",
+              "atMs": 9.700000000000728
+            },
+            {
+              "key": "portrait:PIC8.DAX:24:1:0",
+              "atMs": 259.60000000000036
+            },
+            {
+              "key": "portrait:PIC8.DAX:24:2:0",
+              "atMs": 859.7000000000007
+            },
+            {
+              "key": "portrait:PIC8.DAX:24:0:0",
+              "atMs": 1276.2999999999993
+            },
+            {
+              "key": "portrait:PIC8.DAX:24:1:0",
+              "atMs": 1576.2999999999993
+            },
+            {
+              "key": "portrait:PIC8.DAX:24:2:0",
+              "atMs": 2193
+            },
+            {
+              "key": "portrait:PIC8.DAX:24:0:0",
+              "atMs": 2609.5999999999985
+            },
+            {
+              "key": "portrait:PIC8.DAX:24:1:0",
+              "atMs": 2909.5
+            }
+          ],
+          "sha256": {
+            "portrait:PIC8.DAX:24:0:0": "57d29df5796cd510be3d9bc841e4baa9f5655b58b04acd8d8fa8f15a7be46581",
+            "portrait:PIC8.DAX:24:1:0": "a8d32c22ceeaf5d56ed56175683d11bc1cdc089be48691a20120d9f487fd0147",
+            "portrait:PIC8.DAX:24:2:0": "cadeaf8d8759f2e2628c6ef7ac5809d2e372ffe73f3e005945dbf9c5bfac50b6"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
@@ -33584,6 +33971,167 @@
         }
       },
       "caption": "KOBOLDS APPEAR AND BOMBARD YOU WITH ROCKS."
+    },
+    {
+      "producer": "ECL8.DAX:29:a627",
+      "prompt": "a64b",
+      "caption": "YOU HAVE SURPRISED A PARTY OF GNOLLS",
+      "checkpoint": "kuto-kobold-scout-sneak-off/B.json",
+      "position": [
+        29,
+        3,
+        1
+      ],
+      "chrome": {
+        "original": {
+          "route": "kuto-surprised-gnoll-party",
+          "data": "original",
+          "position": [
+            29,
+            3,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1053,1W22:08YOUHAVESURPRISEDAPARTYOFGNOLLSCombatWaitFleeAdvance",
+          "checkpointSha256": "e8996a914e7ba750555e1f8cdd937909b51eb7ae6c656b0f32f5aee0a3cf2aad",
+          "rendererSha256": "1ff8ef0a4d635d4390caaad3f85782fd99c4728df2051a01d8477381403db6ed",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:29:ecl:a64b:SPRIT8.DAX:73:2:0",
+              24,
+              57
+            ],
+            "sha256": "d81780f7a1ae278b49c139734a06cf5100effd2a9a3c2e556c737f774e598c0e"
+          }
+        },
+        "port": {
+          "route": "kuto-surprised-gnoll-party",
+          "data": "port",
+          "position": [
+            29,
+            3,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1053,1W22:08YOUHAVESURPRISEDAPARTYOFGNOLLSCombatWaitFleeAdvance",
+          "checkpointSha256": "e8996a914e7ba750555e1f8cdd937909b51eb7ae6c656b0f32f5aee0a3cf2aad",
+          "rendererSha256": "1ff8ef0a4d635d4390caaad3f85782fd99c4728df2051a01d8477381403db6ed",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:29:ecl:a64b:SPRIT8.DAX:73:2:0",
+              24,
+              57
+            ],
+            "sha256": "d81780f7a1ae278b49c139734a06cf5100effd2a9a3c2e556c737f774e598c0e"
+          }
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:17:b083",
+      "prompt": "9da2/b0fb",
+      "caption": "THE HEADMAN WALKS UP AND SLAPS YOU ON THE BACK.",
+      "checkpoint": "nomad-raid-alliance/A.json",
+      "illustration": {
+        "id": "scene-illustration:area:17:ecl:9da2:caller:b0fb",
+        "native": {
+          "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 S 18:29 YOU SEE A HUGE GROUP OF KOBOLDS MOVING RELUNCTANTLY FORWARD UNDER THE CURSES OF THEIR LEADER. THE HEADMAN WALKS UP AND SLAPS YOU ON THE BACK. Press button or <return> to continue",
+          "viewportSha256": "cb70e9f8c56215deccda91b8ab3c2ca198daee6a8a53c487d559943d3a9314e9",
+          "pictureDraws": 0
+        }
+      },
+      "chrome": {
+        "original": {
+          "route": "nomad-raid-alliance",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29YOUSEEAHUGEGROUPOFKOBOLDSMOVINGRELUNCTANTLYFORWARDUNDERTHECURSESOFTHEIRLEADER.THEHEADMANWALKSUPANDSLAPSYOUONTHEBACK.Pressbuttonor<return>tocontinue",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:b0fb",
+          "checkpointSha256": "8e778285bb182e33a233fcee69a6b794f3ce337ee833b80a66ece7b2350bcffa",
+          "artSha256": "ebbc17cac04651a6f6bc77b6b973fd3bcdf9f3c47f6df90e701cd49aed007cc9",
+          "rendererSha256": "1ff8ef0a4d635d4390caaad3f85782fd99c4728df2051a01d8477381403db6ed",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3650,
+          "samples": 221,
+          "poses": [
+            "scene-illustration:area:17:ecl:9da2:caller:b0fb"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "31e85e564a30cb70d84c46d93422c613cfc994cd8f7e7cf9b64a230c78efb49e",
+          "sha256": "ebbc17cac04651a6f6bc77b6b973fd3bcdf9f3c47f6df90e701cd49aed007cc9"
+        },
+        "port": {
+          "route": "nomad-raid-alliance",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29YOUSEEAHUGEGROUPOFKOBOLDSMOVINGRELUNCTANTLYFORWARDUNDERTHECURSESOFTHEIRLEADER.THEHEADMANWALKSUPANDSLAPSYOUONTHEBACK.Pressbuttonor<return>tocontinue",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:b0fb",
+          "checkpointSha256": "8e778285bb182e33a233fcee69a6b794f3ce337ee833b80a66ece7b2350bcffa",
+          "artSha256": "ebbc17cac04651a6f6bc77b6b973fd3bcdf9f3c47f6df90e701cd49aed007cc9",
+          "rendererSha256": "1ff8ef0a4d635d4390caaad3f85782fd99c4728df2051a01d8477381403db6ed",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3664,
+          "samples": 220,
+          "poses": [
+            "scene-illustration:area:17:ecl:9da2:caller:b0fb"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "31e85e564a30cb70d84c46d93422c613cfc994cd8f7e7cf9b64a230c78efb49e",
+          "sha256": "ebbc17cac04651a6f6bc77b6b973fd3bcdf9f3c47f6df90e701cd49aed007cc9"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:17:b083",
+      "prompt": "b13d",
+      "caption": "WELL DONE! WHAT SAY WE FINISH THIS TOGETHER?",
+      "checkpoint": "nomad-raid-alliance/A.json",
+      "illustration": {
+        "id": "scene-illustration:area:17:ecl:b13d",
+        "native": {
+          "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 S 18:29 'WELL DONE! WHAT SAY WE FINISH THIS TOGETHER?' Destroy the kobolds Flee",
+          "viewportSha256": "cb70e9f8c56215deccda91b8ab3c2ca198daee6a8a53c487d559943d3a9314e9",
+          "pictureDraws": 0
+        }
+      },
+      "chrome": {
+        "original": {
+          "route": "nomad-raid-alliance-offer",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29'WELLDONE!WHATSAYWEFINISHTHISTOGETHER?'DestroythekoboldsFlee",
+          "portrait": "scene-illustration:area:17:ecl:b13d",
+          "checkpointSha256": "8e778285bb182e33a233fcee69a6b794f3ce337ee833b80a66ece7b2350bcffa",
+          "artSha256": "ebbc17cac04651a6f6bc77b6b973fd3bcdf9f3c47f6df90e701cd49aed007cc9",
+          "rendererSha256": "1ff8ef0a4d635d4390caaad3f85782fd99c4728df2051a01d8477381403db6ed",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3656,
+          "samples": 221,
+          "poses": [
+            "scene-illustration:area:17:ecl:b13d"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "31e85e564a30cb70d84c46d93422c613cfc994cd8f7e7cf9b64a230c78efb49e",
+          "sha256": "ebbc17cac04651a6f6bc77b6b973fd3bcdf9f3c47f6df90e701cd49aed007cc9"
+        },
+        "port": {
+          "route": "nomad-raid-alliance-offer",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29'WELLDONE!WHATSAYWEFINISHTHISTOGETHER?'DestroythekoboldsFlee",
+          "portrait": "scene-illustration:area:17:ecl:b13d",
+          "checkpointSha256": "8e778285bb182e33a233fcee69a6b794f3ce337ee833b80a66ece7b2350bcffa",
+          "artSha256": "ebbc17cac04651a6f6bc77b6b973fd3bcdf9f3c47f6df90e701cd49aed007cc9",
+          "rendererSha256": "1ff8ef0a4d635d4390caaad3f85782fd99c4728df2051a01d8477381403db6ed",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3666,
+          "samples": 220,
+          "poses": [
+            "scene-illustration:area:17:ecl:b13d"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "31e85e564a30cb70d84c46d93422c613cfc994cd8f7e7cf9b64a230c78efb49e",
+          "sha256": "ebbc17cac04651a6f6bc77b6b973fd3bcdf9f3c47f6df90e701cd49aed007cc9"
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [

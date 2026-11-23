@@ -697,7 +697,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
         .filter(Boolean).join(". ");
       console.log(`  ${site.id.padEnd(24)}${site.source.padEnd(26)}${(site.measured ? "yes" : "no").padEnd(10)}${site.verified ? "yes" : "no"}  ${notes}`.trimEnd());
       for (const id of site.scenes) {
-        const scene = report.scenes.find(entry => entry.id === id)!;
+        const scene = report.scenes.find(entry => entry.id === id && (!entry.producer || entry.producer === site.id))!;
         console.log(`    ${id} — ${scene.reason ?? "paired Chrome check passed"}`);
       }
     }
