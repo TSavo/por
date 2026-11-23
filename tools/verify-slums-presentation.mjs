@@ -4751,6 +4751,7 @@ const illustrationRoutes = new Map([
   ["valjevo-forge-patrol", {
     slot: "B", inputs: ["up", "enter", "enter", "a", "a"],
     settleInputs: ["a"],
+    heldApproachPrompt: /SURPRISESYOU.*THAT'STHEM!GETTHEM!/i,
     approachSequence: [
       [56, 32, "encounter:area:6:SPRIT5.DAX:16:2:0", 16, 49],
       [56, 32, "encounter:area:6:SPRIT5.DAX:16:1:0", 24, 65],
@@ -4763,6 +4764,7 @@ const illustrationRoutes = new Map([
   ["valjevo-forge-patrol-disguise", {
     slot: "B", inputs: ["up", "enter", "enter", "a", "a"],
     settleInputs: ["a"],
+    heldApproachPrompt: /YOUSEEAPATROLOFGIANTSLEDBYAHUMANFIGHTER/i,
     portrait: "portrait:area:6:HEAD5.DAX:9:BODY5.DAX:1", prompt: /WHATAREYOUDOINGHERE/i,
     staticPortraitMenu: true,
     continuation: {
@@ -8143,6 +8145,47 @@ try {
     await waitForExplorationViewport();
     assert.equal(await run('Boolean(document.querySelector("#tile-art:not([hidden]) .encounter-portrait, #tile-art:not([hidden]) .encounter-sprite"))'), false);
   }
+  async function verifyForgePatrolApproach(expectedCaption) {
+    const placement = [56, 32, "encounter:area:6:SPRIT5.DAX:16:2:0", 16, 49];
+    const [, , actor, width, height] = placement;
+    const caption = frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join("");
+    assert.match(caption, expectedCaption);
+    assert.ok(frame.awaitsKey);
+    assert.equal(frame.portrait, undefined);
+    assert.deepEqual(frame.encounter, placement);
+    const location = frame.scenery ?? frame.exploration;
+    const position = [location?.mapId ?? location?.area, location?.x, location?.y];
+    assert.deepEqual(position, [6, 13, 4]);
+    await waitFor("the patrol captain at the far approach", () => run(`
+      state.sequence === ${frame.sequence} && !animationFrame && !renderingSequence &&
+      window.observedApproach.has(${JSON.stringify(actor)})`));
+    const { result, exceptionDetails } = await command("Runtime.evaluate", {
+      awaitPromise: true, returnByValue: true,
+      expression: `new Promise(resolve => {
+        const start = performance.now();
+        function sample(now) {
+          const layer = document.querySelector('#tile-art:not([hidden])');
+          const actor = layer?.querySelector('.encounter-sprite');
+          if (state.sequence !== ${frame.sequence} || animationFrame || !actor?.complete ||
+              actor.getAttribute('src') !== ${JSON.stringify("/art/" + actor)} ||
+              actor.naturalWidth !== ${width * 4} || actor.naturalHeight !== ${height * 4} ||
+              !actor.getBoundingClientRect().width || layer.querySelector('.encounter-portrait')) return resolve(false);
+          if (now - start >= 2100) return resolve(true);
+          requestAnimationFrame(sample);
+        }
+        requestAnimationFrame(sample);
+      })`,
+    });
+    assert.ok(!exceptionDetails && result.value, "The far approach must hold through the prompt");
+    const [renderer, art] = await Promise.all([fetch(origin + "/play.js"), fetch(origin + "/art/" + actor)]);
+    assert.ok(renderer.ok && art.ok);
+    heldPortraitEvidence.push({
+      route: routeName, data: frame.classicAvailable === false ? "port" : "original", position, caption,
+      checkpointSha256: createHash("sha256").update(readFileSync(checkpoint)).digest("hex"),
+      rendererSha256: createHash("sha256").update((await renderer.text()).replace(/\r\n/g, "\n")).digest("hex"),
+      encounter: { placement, sha256: createHash("sha256").update(Buffer.from(await art.arrayBuffer())).digest("hex") },
+    });
+  }
   function observeApproach(approachSequence, requireScenery = true, requireWebGL = false) {
     return run(`(() => {
       window.observedApproach = new Set();
@@ -10796,6 +10839,9 @@ try {
     let { portrait } = illustration;
     let alreadyPassedPatrol;
     if (approachSequence) await observeApproach(approachSequence, illustration.requireTiledApproach);
+    else if (illustration.heldApproachPrompt && heldPortraitEvidenceFile) {
+      await observeApproach([[56, 32, "encounter:area:6:SPRIT5.DAX:16:2:0", 16, 49]]);
+    }
     if (journalLead) {
       await advance("j");
       assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === journalLead));
@@ -10874,6 +10920,9 @@ try {
       await run('window.releasePortrait()');
     } else {
       for (const [index, key] of inputs.entries()) {
+        if (index === 2 && illustration.heldApproachPrompt && heldPortraitEvidenceFile) {
+          await verifyForgePatrolApproach(illustration.heldApproachPrompt);
+        }
         const phasePrompt = illustration.phasePrompts?.[index];
         if (phasePrompt) assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), phasePrompt);
         const interimPortrait = illustration.portraitStops?.[index];
