@@ -34132,6 +34132,110 @@
           "sha256": "ebbc17cac04651a6f6bc77b6b973fd3bcdf9f3c47f6df90e701cd49aed007cc9"
         }
       }
+    },
+    {
+      "producer": "ECL7.DAX:17:b083",
+      "prompt": "9da2/b1b6",
+      "caption": "HE AND HIS TWO GUARDS CHARGE INTO THE PACK.",
+      "checkpoint": "nomad-raid-alliance/A.json",
+      "illustration": {
+        "id": "scene-illustration:area:17:ecl:9da2:caller:b1b6",
+        "native": {
+          "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 S 18:29 THE HEADMAN SNEERS, 'COWARDS!' HE TURNS TO THE TWO GUARDS STILL LIVING AND YELLS, 'FOR HYRNKA!' HE AND HIS TWO GUARDS CHARGE INTO THE PACK. Press button or <return> to continue",
+          "viewportSha256": "cb70e9f8c56215deccda91b8ab3c2ca198daee6a8a53c487d559943d3a9314e9",
+          "pictureDraws": 0
+        }
+      },
+      "chrome": {
+        "original": {
+          "route": "nomad-raid-alliance-refusal",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29THEHEADMANSNEERS,'COWARDS!'HETURNSTOTHETWOGUARDSSTILLLIVINGANDYELLS,'FORHYRNKA!'HEANDHISTWOGUARDSCHARGEINTOTHEPACK.Pressbuttonor<return>tocontinue",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:b1b6",
+          "checkpointSha256": "8e778285bb182e33a233fcee69a6b794f3ce337ee833b80a66ece7b2350bcffa",
+          "artSha256": "bcdb5114af1956b23d65814cfbb0ec1d259e6259c9a4a6bc4556f497bf14e715",
+          "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3655,
+          "samples": 221,
+          "poses": [
+            "scene-illustration:area:17:ecl:9da2:caller:b1b6"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "b43a95461a8fa82efa2a92af1969926a2a7dd0967ad4cbeb7cae60dd38a46be8",
+          "sha256": "bcdb5114af1956b23d65814cfbb0ec1d259e6259c9a4a6bc4556f497bf14e715"
+        },
+        "port": {
+          "route": "nomad-raid-alliance-refusal",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29THEHEADMANSNEERS,'COWARDS!'HETURNSTOTHETWOGUARDSSTILLLIVINGANDYELLS,'FORHYRNKA!'HEANDHISTWOGUARDSCHARGEINTOTHEPACK.Pressbuttonor<return>tocontinue",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:b1b6",
+          "checkpointSha256": "8e778285bb182e33a233fcee69a6b794f3ce337ee833b80a66ece7b2350bcffa",
+          "artSha256": "bcdb5114af1956b23d65814cfbb0ec1d259e6259c9a4a6bc4556f497bf14e715",
+          "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3658,
+          "samples": 220,
+          "poses": [
+            "scene-illustration:area:17:ecl:9da2:caller:b1b6"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "b43a95461a8fa82efa2a92af1969926a2a7dd0967ad4cbeb7cae60dd38a46be8",
+          "sha256": "bcdb5114af1956b23d65814cfbb0ec1d259e6259c9a4a6bc4556f497bf14e715"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:17:b083",
+      "prompt": "9da2/b235",
+      "caption": "A GUARD FALLS WITH A SCORE OF WOUNDS.",
+      "checkpoint": "nomad-raid-alliance/A.json",
+      "illustration": {
+        "id": "scene-illustration:area:17:ecl:9da2:caller:b235",
+        "native": {
+          "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 S 18:29 AS THEY REACH THE PACK A FLURRY OF ARROWS STRIKE THEM. UNDAUNTED THEY STRIKE. KOBOLDS DIE LIKE FLIES AROUND THESE HEROES. A GUARD FALLS WITH A SCORE OF WOUNDS. Press button or <return> to continue",
+          "viewportSha256": "cb70e9f8c56215deccda91b8ab3c2ca198daee6a8a53c487d559943d3a9314e9",
+          "pictureDraws": 0
+        }
+      },
+      "chrome": {
+        "original": {
+          "route": "nomad-raid-alliance-volley",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29ASTHEYREACHTHEPACKAFLURRYOFARROWSSTRIKETHEM.UNDAUNTEDTHEYSTRIKE.KOBOLDSDIELIKEFLIESAROUNDTHESEHEROES.AGUARDFALLSWITHASCOREOFWOUNDS.Pressbuttonor<return>tocontinue",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:b235",
+          "checkpointSha256": "8e778285bb182e33a233fcee69a6b794f3ce337ee833b80a66ece7b2350bcffa",
+          "artSha256": "1c63d3ff7d0f7db692976884ae939d3ffa72ab7c3d94431343e59187516d6b4b",
+          "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3664,
+          "samples": 220,
+          "poses": [
+            "scene-illustration:area:17:ecl:9da2:caller:b235"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "877caebf964228d91821f4896577d98f5c9184e7c956a08f07daaa160630b13b",
+          "sha256": "1c63d3ff7d0f7db692976884ae939d3ffa72ab7c3d94431343e59187516d6b4b"
+        },
+        "port": {
+          "route": "nomad-raid-alliance-volley",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29ASTHEYREACHTHEPACKAFLURRYOFARROWSSTRIKETHEM.UNDAUNTEDTHEYSTRIKE.KOBOLDSDIELIKEFLIESAROUNDTHESEHEROES.AGUARDFALLSWITHASCOREOFWOUNDS.Pressbuttonor<return>tocontinue",
+          "portrait": "scene-illustration:area:17:ecl:9da2:caller:b235",
+          "checkpointSha256": "8e778285bb182e33a233fcee69a6b794f3ce337ee833b80a66ece7b2350bcffa",
+          "artSha256": "1c63d3ff7d0f7db692976884ae939d3ffa72ab7c3d94431343e59187516d6b4b",
+          "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3663,
+          "samples": 221,
+          "poses": [
+            "scene-illustration:area:17:ecl:9da2:caller:b235"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "877caebf964228d91821f4896577d98f5c9184e7c956a08f07daaa160630b13b",
+          "sha256": "1c63d3ff7d0f7db692976884ae939d3ffa72ab7c3d94431343e59187516d6b4b"
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [
