@@ -753,6 +753,13 @@ const mountedEscort = {
   continuation: { inputs: ["e"], clearsPortrait: true, prompt: /8,10S.*MERCHANTS'?CAMPAREA/i },
 };
 
+const wildCaveBoarAmbush = {
+  slot: "A",
+  approachSequence: [[48, 32, "encounter:area:25:SPRIT6.DAX:120:0:0", 40, 80]],
+  requireTiledApproach: false,
+  continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+};
+
 const illustrationRoutes = new Map([
   ["wild-cave-boar-sow-warning-loop", {
     slot: "A", inputs: ["up"],
@@ -3164,6 +3171,23 @@ const illustrationRoutes = new Map([
     approachSequence: [[40, 32, "encounter:area:25:ecl:a8d0:SPRIT6.DAX:60:0:0", 64, 80]],
     portrait: "scene-illustration:area:25:ecl:a90e", prompt: /AGIANTSNAKEFALLSONTOPOFTHEPARTY/i,
     continuation: { inputs: ["enter"], portrait: "scene-illustration:area:25:ecl:a90f", prompt: /ABATTLEBEGINS/i },
+  }],
+  ["wild-cave-two-boar-ambush", {
+    ...wildCaveBoarAmbush,
+    // Walk around the three-boar square to the northwestern cul-de-sac.
+    inputs: ["right", "right", "up", "left", ...Array(3).fill("up"), "left",
+      ...Array(5).fill("up"), "left", ...Array(3).fill("up"), "right", "up"],
+    oneShotProducer: "ECL6.DAX:25:a55e",
+    portrait: "portrait:area:25:PIC6.DAX:120:0:0",
+    prompt: /(?=.*OUTOFTHESHADOWS,TWOLARGEWILDBOARSCHARGE)(?=.*ABATTLEBEGINS)/i,
+    finalPhaseCapture: "wild-cave-two-boar-ambush.png",
+  }],
+  ["wild-cave-three-boar-ambush", {
+    ...wildCaveBoarAmbush, inputs: ["up"],
+    oneShotProducer: "ECL6.DAX:25:a692",
+    portrait: "scene-illustration:area:25:ecl:a6e7",
+    prompt: /(?=.*THREELARGEWILDBOARS.*CHARGEATYOUANDATTACK)(?=.*ABATTLEBEGINS)/i,
+    finalPhaseCapture: "wild-cave-three-boar-ambush.png",
   }],
   ["wild-cave-boar-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
@@ -8008,6 +8032,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "bane-black-hand-emissary-loop" ||
       routeName === "wild-cave-thri-kreen-two-guards-phases" || routeName === "diogenes-silver-dragon-phases" ||
       routeName === "wild-cave-boar-sow-warning-loop" ||
+      routeName === "wild-cave-two-boar-ambush" || routeName === "wild-cave-three-boar-ambush" ||
       routeName === "diogenes-silver-directions-loop" ||
       routeName === "tyrmor-prison-drider-phases" || routeName === "tyrmor-prison-minotaur-phases" ||
       /^tyrmor-prison-(kobolds|lizardfolk|displacer|stirge)-loop$/.test(routeName) ||
