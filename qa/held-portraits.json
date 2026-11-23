@@ -9820,6 +9820,278 @@
           }
         }
       }
+    },
+    {
+      "id": "area:10:ecl:b695:caller:b126:PIC4.DAX:23",
+      "producer": "ECL4.DAX:10:b102",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 710,
+          "viewport": "150828d24977c44d90f3288473378e177fb5a7c34e989341d116539b87116116"
+        },
+        {
+          "member": 1,
+          "durationMs": 310,
+          "viewport": "ec1ce0cca379edee42d01d858f66d511811774382993f9d0edc2c1a6d3f922ae"
+        },
+        {
+          "member": 2,
+          "durationMs": 310,
+          "viewport": "9f3eaf4b3fc244390c50dedc4436400af387904255af61f428bad7ad3514b732"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "ec1ce0cca379edee42d01d858f66d511811774382993f9d0edc2c1a6d3f922ae"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "valhingen-black-marble-crypt-return",
+          "data": "original",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "portrait": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
+          "bindingSha256": "991d3e4db7a1abc469ee22e9d732ed193b0c765435ae8c992116c6894c1f8707",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
+              "atMs": -1.192074705613777e-8
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
+              "atMs": 616.6999999880791
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:2:0",
+              "atMs": 933.2999999880794
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
+              "atMs": 1249.8999999880798
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
+              "atMs": 1449.9999999880783
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
+              "atMs": 2166.5999999880787
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:2:0",
+              "atMs": 2466.5999999880787
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
+              "atMs": 2783.199999988079
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
+              "atMs": 2999.89999998808
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
+              "atMs": 3699.89999998808
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0": "313abcd39978d85023fb66decd3d6c39756a9d84538efc690a1f41712074b44b",
+            "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0": "0ea979e7b0f14b2e51c612f85a1ebe2395012c33f27b32c57c13ab54b76936a7",
+            "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:2:0": "14333be1f8211849b1b57cb0719b5fdc4d16ceddb794ba62313809990e07243f"
+          }
+        },
+        "port": {
+          "route": "valhingen-black-marble-crypt-return",
+          "data": "port",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "portrait": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
+          "bindingSha256": "991d3e4db7a1abc469ee22e9d732ed193b0c765435ae8c992116c6894c1f8707",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
+              "atMs": 6.199999988079071
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
+              "atMs": 622.7999999880794
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:2:0",
+              "atMs": 939.4999999880783
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
+              "atMs": 1239.3999999880798
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
+              "atMs": 1456.199999988079
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
+              "atMs": 2156.0999999880787
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:2:0",
+              "atMs": 2472.699999988079
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
+              "atMs": 2789.39999998808
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
+              "atMs": 2989.39999998808
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
+              "atMs": 3705.9999999880783
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0": "313abcd39978d85023fb66decd3d6c39756a9d84538efc690a1f41712074b44b",
+            "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0": "0ea979e7b0f14b2e51c612f85a1ebe2395012c33f27b32c57c13ab54b76936a7",
+            "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:2:0": "14333be1f8211849b1b57cb0719b5fdc4d16ceddb794ba62313809990e07243f"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:10:ecl:b695:caller:b23b:PIC4.DAX:23",
+      "producer": "ECL4.DAX:10:b22f",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 710,
+          "viewport": "150828d24977c44d90f3288473378e177fb5a7c34e989341d116539b87116116"
+        },
+        {
+          "member": 1,
+          "durationMs": 310,
+          "viewport": "ec1ce0cca379edee42d01d858f66d511811774382993f9d0edc2c1a6d3f922ae"
+        },
+        {
+          "member": 2,
+          "durationMs": 310,
+          "viewport": "9f3eaf4b3fc244390c50dedc4436400af387904255af61f428bad7ad3514b732"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "ec1ce0cca379edee42d01d858f66d511811774382993f9d0edc2c1a6d3f922ae"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "valhingen-vampire-reveal-phases",
+          "data": "original",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "portrait": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0",
+          "bindingSha256": "abdda4b0da8bbedb9eabc48a4ee8683f3cd56d0036795a7b49685d34f7fd91fa",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0",
+              "atMs": 6.300000000000182
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:1:0",
+              "atMs": 639.6000000000004
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:2:0",
+              "atMs": 939.6000000000004
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:1:0",
+              "atMs": 1256.2000000000007
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0",
+              "atMs": 1472.8999999999996
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:1:0",
+              "atMs": 2172.8999999999996
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:2:0",
+              "atMs": 2489.5
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:1:0",
+              "atMs": 2789.5
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0",
+              "atMs": 3006.2000000000007
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:1:0",
+              "atMs": 3722.7999999999993
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0": "719abcbc1c48e6db1d55f4b4da0e35b15408d47dd10a3e297b881eb51b8d7ce1",
+            "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:1:0": "38584478d94399b2e654918ec6db53aea9e3c913d7cbe8763e612708a9839d37",
+            "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:2:0": "41a2dec625ff83e3160caa37f055f4b0dc0130e6c6473e85699ef7a56b221b5c"
+          }
+        },
+        "port": {
+          "route": "valhingen-vampire-reveal-phases",
+          "data": "port",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "portrait": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0",
+          "bindingSha256": "abdda4b0da8bbedb9eabc48a4ee8683f3cd56d0036795a7b49685d34f7fd91fa",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0",
+              "atMs": 2.5
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:1:0",
+              "atMs": 619.1000000000004
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:2:0",
+              "atMs": 919.1000000000004
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:1:0",
+              "atMs": 1235.7999999999993
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0",
+              "atMs": 1452.3999999999996
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:1:0",
+              "atMs": 2152.2999999999993
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:2:0",
+              "atMs": 2469.1000000000004
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:1:0",
+              "atMs": 2769.1000000000004
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0",
+              "atMs": 2985.7000000000007
+            },
+            {
+              "key": "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:1:0",
+              "atMs": 3702.2999999999993
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0": "719abcbc1c48e6db1d55f4b4da0e35b15408d47dd10a3e297b881eb51b8d7ce1",
+            "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:1:0": "38584478d94399b2e654918ec6db53aea9e3c913d7cbe8763e612708a9839d37",
+            "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:2:0": "41a2dec625ff83e3160caa37f055f4b0dc0130e6c6473e85699ef7a56b221b5c"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
@@ -11388,6 +11660,44 @@
           }
         }
       ]
+    }
+  ],
+  "approachTransitions": [
+    {
+      "producer": "ECL5.DAX:5:a953",
+      "checkpoint": "valjevo-false-throne-portraits/B.json",
+      "chrome": {
+        "original": {
+          "route": "valjevo-false-throne",
+          "data": "original",
+          "placement": [
+            48,
+            32,
+            "encounter:area:5:SPRIT5.DAX:16:0:0",
+            40,
+            80
+          ],
+          "nextPortrait": "portrait:HEAD5.DAX:54:BODY5.DAX:1",
+          "checkpointSha256": "e0a21002870d5d3108608b4b1c519df0c208569d8cd96712899908f1da8f1f0d",
+          "sha256": "d5e38d753388f3d2206be4e711e64029d367bf43eced141e8c71d1742e030240",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e"
+        },
+        "port": {
+          "route": "valjevo-false-throne",
+          "data": "port",
+          "placement": [
+            48,
+            32,
+            "encounter:area:5:SPRIT5.DAX:16:0:0",
+            40,
+            80
+          ],
+          "nextPortrait": "portrait:HEAD5.DAX:54:BODY5.DAX:1",
+          "checkpointSha256": "e0a21002870d5d3108608b4b1c519df0c208569d8cd96712899908f1da8f1f0d",
+          "sha256": "d5e38d753388f3d2206be4e711e64029d367bf43eced141e8c71d1742e030240",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e"
+        }
+      }
     }
   ]
 }
