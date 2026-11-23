@@ -173,14 +173,33 @@ async function pressThroughRolfPortraitDecode(leg, key) {
   const approach = "encounter:area:0:SPRIT3.DAX:12:0:0";
   const portrait = "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9";
   const greeting = "por.voice.ecl3.b0-b0b6";
-  const armed = await leg.chrome.evaluate(`(() => {
+  const armed = await leg.chrome.evaluate(`(async () => {
     if (state.encounter?.[2] !== ${JSON.stringify(approach)}) return false;
+    // Native input is ignored until the approach animation has finished.
+    const settled = () => !animationFrame && renderingSequence === undefined && shownArtwork === ${JSON.stringify(approach)};
+    if (!settled()) await new Promise((resolve, reject) => {
+      const observer = new MutationObserver(() => {
+        if (!settled()) return;
+        observer.disconnect();
+        resolve();
+      });
+      observer.observe(tileArt, { childList: true });
+      AbortSignal.timeout(30_000).addEventListener("abort", () => {
+        observer.disconnect();
+        reject(new Error("Rolf's approach did not finish"));
+      }, { once: true });
+    });
     const decode = HTMLImageElement.prototype.decode;
     const entered = Promise.withResolvers();
     const released = Promise.withResolvers();
     window.rolfPortraitDecode = { entered: entered.promise, release: released.resolve };
+    AbortSignal.timeout(30_000).addEventListener("abort", () => {
+      HTMLImageElement.prototype.decode = decode;
+      entered.reject(new Error("Rolf's greeting did not reach its portrait decode"));
+      released.resolve();
+    }, { once: true });
     HTMLImageElement.prototype.decode = function () {
-      if (decodeURIComponent(new URL(this.src).pathname) !== ${JSON.stringify("/art/" + portrait)}) {
+      if (decodeURIComponent(new URL(this.src, location.href).pathname) !== ${JSON.stringify("/art/" + portrait)}) {
         return decode.call(this);
       }
       HTMLImageElement.prototype.decode = decode;
