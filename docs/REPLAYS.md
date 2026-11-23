@@ -141,6 +141,8 @@ run `node tools/web/check-icon-materials.mjs <game URL> <Chrome executable>`.
 It decodes the ready and attack images for each head, body and size, applies a test
 palette with the game's recoloring code and checks the painted result. Every pose
 must change visible color while retaining its silhouette and unmasked pixels.
+Append `--each-color` to test each painted, native-visible dye channel in isolation.
+Run `npm run verify:icon-materials` alongside it to check for missing masks and channels.
 
 ## Dice
 

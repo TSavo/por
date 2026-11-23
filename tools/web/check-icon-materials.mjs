@@ -1,29 +1,36 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { openChrome } from "./chrome-check.mjs";
 
 // Run against the running worker or loose package server with a real Chrome executable.
-const [url, chromePath] = process.argv.slice(2);
+const [url, chromePath, mode] = process.argv.slice(2);
 assert.ok(url && chromePath, "Pass the game URL and Chrome executable");
+assert.ok(mode === undefined || mode === "--each-color", "Unknown color check option");
+const nativeColors = mode && JSON.parse(readFileSync(new URL("../../game/pictures.json", import.meta.url), "utf8")).partyIconColours;
 const page = await openChrome(url, { chromePath });
 try {
-  await page.until("game page", 'typeof recolorPartySprite === "function"');
+  await page.until("game page", 'typeof recolorPartySprite === "function" && typeof state === "object" && state.ready');
   let verified = 0;
+  let trials = 0;
   for (const size of [0, 64]) {
     for (let head = size; head < size + 14; head++) {
       for (const pose of [0, 128]) {
         const keys = Array.from({ length: 32 }, (_, body) => `combat:party:${head}:${size + body + pose}`);
-        const result = await page.evaluate(`(${exercisePoses})(${JSON.stringify(keys)})`);
-        assert.equal(result, keys.length);
-        verified += result;
+        const bits = nativeColors && keys.map(key => parseInt(nativeColors[key.slice("combat:party:".length)], 16));
+        const result = await page.evaluate(`(${exercisePoses})(${JSON.stringify(keys)}, ${JSON.stringify(bits)})`);
+        assert.equal(result.poses, keys.length);
+        verified += result.poses;
+        trials += result.trials;
       }
     }
   }
+  if (nativeColors) console.log(`Verified ${trials} individual visible material changes.`);
   console.log(`Chrome decoded and recolored all ${verified} editor poses through the game's asset routes.`);
 } finally {
   await page.close();
 }
 
-async function exercisePoses(keys) {
+async function exercisePoses(keys, nativeBits) {
   const palette = "0edcba987654321f";
   const canvas = document.createElement("canvas");
   canvas.width = canvas.height = 96;
@@ -41,22 +48,42 @@ async function exercisePoses(keys) {
     context.drawImage(image, 0, 0);
     return { image, bytes: context.getImageData(0, 0, 96, 96).data };
   }
-  for (const key of keys) {
-    const id = key + ":palette:" + palette;
+  let trials = 0;
+  for (const [index, key] of keys.entries()) {
     const before = await pixels("/art/" + key);
-    const mask = await pixels("/art-materials/" + id);
-    const result = await recolorPartySprite(before.image, id);
-    if (!result) throw new Error("No colorized image for " + key);
-    const after = await pixels(result);
-    let changed = 0;
-    for (let p = 0; p < before.bytes.length; p += 4) {
-      if (before.bytes[p + 3] !== after.bytes[p + 3]) throw new Error("Changed silhouette for " + key);
-      if (before.bytes[p + 3] < 128) continue;
-      if ([0, 1, 2].every(channel => Math.abs(before.bytes[p + channel] - after.bytes[p + channel]) <= 2)) continue;
-      if (!mask.bytes[p + 3] || !mask.bytes[p]) throw new Error("Changed an unmasked pixel for " + key);
-      changed++;
+    const mask = await pixels("/art-materials/" + key + ":palette:" + palette);
+    const materials = new Set();
+    for (let p = 0; p < mask.bytes.length; p += 4) {
+      if (before.bytes[p + 3] >= 128 && mask.bytes[p + 3]) materials.add(mask.bytes[p]);
     }
-    if (!changed) throw new Error("No visible color change for " + key);
+    const channels = nativeBits
+      ? [1, 2, 3, 4, 6, 7, 9, 10, 11, 12, 14, 15].filter(id => (nativeBits[index] & (1 << id)) && materials.has(id))
+      : [null];
+    if (!channels.length) throw new Error("No editable material for " + key);
+    for (const channel of channels) {
+      // Purple is outside the twelve editable source indices, so this changes exactly one entry.
+      const colors = channel === null ? palette : "0123456789abcdef".split("").map((v, i) => i === channel ? "5" : v).join("");
+      const id = key + ":palette:" + colors;
+      const result = await recolorPartySprite(before.image, id).catch(error => {
+        throw new Error("Recolor failed for " + id + " (" + error.message + ")");
+      });
+      if (!result) throw new Error("No colorized image for " + id);
+      const after = await pixels(result);
+      let changed = 0;
+      for (let p = 0; p < before.bytes.length; p += 4) {
+        if (before.bytes[p + 3] !== after.bytes[p + 3]) throw new Error("Changed silhouette for " + id);
+        if (before.bytes[p + 3] < 128) continue;
+        // Canvas may round a translucent channel on the PNG round trip.
+        if ([0, 1, 2].every(c => Math.abs(before.bytes[p + c] - after.bytes[p + c]) <= 2)) continue;
+        const material = mask.bytes[p];
+        if (!mask.bytes[p + 3] || !material || (channel !== null && material !== channel)) {
+          throw new Error("Changed a pixel outside the selected material for " + id);
+        }
+        changed++;
+      }
+      if (!changed) throw new Error("No visible color change for " + id);
+      trials++;
+    }
   }
-  return keys.length;
+  return { poses: keys.length, trials };
 }
