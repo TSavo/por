@@ -6,7 +6,7 @@
  *   npx tsx tools/release/manifest.ts list <directory> > <manifest.json>
  *     every file under <directory>: its path, size, sha256 and git blob; a link is listed as a link.
  *   POR_ASSETS_DIR=<por-assets> npx tsx tools/release/manifest.ts check <manifest.json>...
- *     fails, like release:pack's check 1, if a listed file is a link, names por-assets, is an original game
+ *     fails, like release:pack's check 1, if a link lacks a verified internal target, a path names por-assets, is an original game
  *     file, a program, a Classic sound that is not the committed audio/classic file at its own path, or has
  *     the bytes of any file in POR_ASSETS_DIR (which must exist), unless it is that committed file.
  */
@@ -14,9 +14,10 @@ import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { existsSync, lstatSync, readFileSync, readdirSync } from "node:fs";
 import { basename, join, relative } from "node:path";
+import { packageLinkTarget } from "./package-link.js";
 import { fromPortRoot } from "../port-root.js";
 
-interface Entry { path: string; link?: true; size?: number; sha256?: string; blob?: string }
+interface Entry { path: string; link?: true; target?: string; size?: number; sha256?: string; blob?: string }
 
 function walk(directory: string, base = directory): string[] {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -33,7 +34,7 @@ if (mode === "list") {
   if (!root) throw new Error("list needs the directory to list");
   const entries: Entry[] = walk(root).map((path) => {
     const full = join(root, path);
-    if (lstatSync(full).isSymbolicLink()) return { path, link: true };
+    if (lstatSync(full).isSymbolicLink()) return { path, link: true, target: packageLinkTarget(root, full) };
     const data = readFileSync(full);
     return { path, size: data.length, sha256: sha256(data), blob: gitBlob(data) };
   });
@@ -61,13 +62,23 @@ if (mode === "list") {
   for (const manifest of args) {
     const entries = JSON.parse(readFileSync(manifest, "utf8")) as Entry[];
     const problems: string[] = [];
+    const destinations = new Set<string>();
+    for (const entry of entries) {
+      if (entry.link) continue;
+      const parts = entry.path.split("/");
+      while (parts.length) {
+        destinations.add(parts.join("/"));
+        parts.pop();
+      }
+    }
     let classic = 0;
     for (const entry of entries) {
       const name = basename(entry.path);
       const payloadPath = entry.path.startsWith("Resources/") ? entry.path.slice("Resources/".length) : entry.path;
       const committedClassicSound = !entry.link && committedClassic.get(payloadPath) === entry.blob;
       if (committedClassicSound) classic++;
-      if (entry.link) problems.push(`${entry.path} is a link`);
+      if (entry.link && (!entry.target || entry.target.split("/").some(part => !part || part === ".." || part === ".") ||
+          !destinations.has(entry.target))) problems.push(`${entry.path} has no verified target inside the package`);
       if (/por-assets/i.test(entry.path)) problems.push(`${entry.path} names por-assets`);
       if (originalName.test(name)) problems.push(`${entry.path} is an original game file`);
       if (/\.exe$/i.test(name)) problems.push(`${entry.path} is a program`);
@@ -79,7 +90,7 @@ if (mode === "list") {
       failed = true;
       console.error(`${manifest}: ${problems.length} problems:\n  ${problems.join("\n  ")}`);
     } else {
-      console.log(`${manifest}: ${entries.length} files, none an original game file, link, program or por-assets path; ` +
+      console.log(`${manifest}: ${entries.length} files, none an original game file, external link, program or por-assets path; ` +
         `${classic} are the committed audio/classic; none has the bytes of any of the ${assetFiles} files in ${porAssets}`);
     }
   }

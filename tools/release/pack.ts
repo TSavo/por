@@ -32,9 +32,10 @@ import { execFileSync, execSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
   chmodSync, constants, copyFileSync, existsSync, lstatSync, mkdirSync, readdirSync, readFileSync, readlinkSync,
-  realpathSync, renameSync, rmSync, statSync, symlinkSync, writeFileSync,
+  renameSync, rmSync, statSync, symlinkSync, writeFileSync,
 } from "node:fs";
-import { basename, dirname, join, relative, resolve, sep } from "node:path";
+import { basename, dirname, join, relative, resolve } from "node:path";
+import { packageLinkTarget } from "./package-link.js";
 import { fromPortRoot } from "../port-root.js";
 
 const packageJson = JSON.parse(readFileSync(fromPortRoot("package.json"), "utf8")) as {
@@ -119,12 +120,6 @@ function copyTree(from: string, to: string): void {
   }
 }
 
-function isInside(root: string, path: string): boolean {
-  const base = resolve(root);
-  const full = resolve(path);
-  return full === base || full.startsWith(base + sep);
-}
-
 const sha256 = (data: Uint8Array) => createHash("sha256").update(data).digest("hex");
 
 /** The git blob of each file the commit holds under `directory`, by path. */
@@ -187,12 +182,8 @@ function checkNothingOriginal(root: string, label: string): void {
     const payloadPath = path.replace(/^(?:Resources|resources)\//, "");
     const info = lstatSync(full);
     if (info.isSymbolicLink()) {
-      let target: string;
-      try { target = realpathSync(full); } catch {
-        problems.push(`${path} is a broken link`);
-        continue;
-      }
-      if (!isInside(root, target)) problems.push(`${path} is a link`);
+      try { packageLinkTarget(root, full); }
+      catch (error) { problems.push(String(error)); }
     }
     if (label === "the Windows install" && /[<>:"|?*]/.test(path)) {
       problems.push(`${path} contains a character the Windows installer cannot preserve`);
