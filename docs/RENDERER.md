@@ -54,7 +54,10 @@ the painted atlas (luminance slope, contrast). No new PNGs in
 `upgrades/`. Cap strength so busy wall paintings do not wrinkle.
 
 **Lighting.** A directional sun and sky/ground ambient outdoors, a weaker
-fill plus a camera-local torch or lantern indoors. Today's per-face
+fill plus a camera-local torch or lantern indoors. The game already marks
+which square is under a roof (bit 7 of the GEO flag byte); those views
+drop the sun disc and its shadows and use a dark void instead of the
+shader sky. Today's per-face
 brightness can stay as a starting term. Do not invent a day/night cycle
 or weather the game does not already have.
 
