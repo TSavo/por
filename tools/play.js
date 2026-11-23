@@ -513,7 +513,9 @@ function requestOriginalFiles(selection) {
     originalFiles.restart.showModal();
   } else void chooseOriginalFiles(selection);
 }
-originalFiles.restart.addEventListener("close", () => { originalFilesChange = undefined; });
+originalFiles.restart.addEventListener("close", () => {
+  if (!originalFiles.restart.open) originalFilesChange = undefined;
+});
 originalFiles.proceed.addEventListener("click", () => {
   const selection = originalFilesChange;
   if (!selection) return;
