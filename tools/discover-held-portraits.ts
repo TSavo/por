@@ -709,6 +709,30 @@ const eclCandidates = scripts.flatMap(record => {
       }
     }
 
+    // The City Hall pictures share body 1 but expressly select different heads.
+    // At the restricted door, the composed draw follows APPROACH at b3e0.
+    const council = archive === 3 && scriptBlock === 8 && block === 1
+      ? new Map([
+        ["b085", { head: 55, headWrite: 0xb07f, resetCall: 0x9a4a }],
+        ["b3d9", { head: 57, headWrite: 0xb3d3, resetCall: undefined }],
+        ["b4c4", { head: 57, headWrite: 0xb4be, resetCall: 0xb500 }],
+      ]).get(address)
+      : undefined;
+    const councilHead = council && instructions.get(council.headWrite);
+    const councilReset = council?.resetCall === undefined ? undefined : instructions.get(council.resetCall);
+    const resetHead = instructions.get(0xb57f);
+    const clearPicture = resetHead && instructions.get(resetHead.next);
+    const councilComposition = council && councilHead?.opcode === 0x09 && councilHead.next === load.address &&
+      literal(councilHead.operands[0]!) === council.head && memory(councilHead.operands[1]!) === 0x6de1 &&
+      (councilReset
+        ? direct && councilReset.opcode === 0x02 && councilReset.operands[0]?.word === resetHead?.address &&
+          resetHead?.opcode === 0x09 && literal(resetHead.operands[0]!) === 255 && memory(resetHead.operands[1]!) === 0x6de1 &&
+          clearPicture?.opcode === 0x0e && literal(clearPicture.operands[0]!) === 255
+        : council.resetCall === undefined && opcode === 0x0c && literal(operands[0]!) === 27 &&
+          literal(operands[1]!) === 1 && instructions.get(load.next)?.opcode === 0x0d)
+      ? { source: `HEAD3.DAX:${council.head}:BODY3.DAX:1`, headWrite: authored(councilHead.address),
+          headSlot: "6de1", bodyOperand: direct ? 0 : 2, ...(councilReset ? { headReset: "b57f" } : {}) }
+      : undefined;
     // The envoy fight sets a composed head before the approach, then clears it
     // immediately after combat yields control to the script.
     if (archive === 8 && scriptBlock === 13 && load.address === 0xa278 && opcode === 0x0c) {
@@ -806,7 +830,7 @@ const eclCandidates = scripts.flatMap(record => {
       kind: "ecl", status: "candidate", scriptArchive: record.file, scriptBlock, address: authored(load.address),
       next: authored(load.next), opcode, name: load.name, pictureArchive, block, selector: portrait, possiblePictures,
       boundedBlocks,
-      composedPortrait,
+      composedPortrait: councilComposition ?? composedPortrait,
       ...(nomadPortrait && load.address === 0xa33c
         ? { retainedComposedDraw: { prompt: authored(load.next), cursor: authored(0x9dd6) } } : {}),
       ...(tyrmorPictures && tyrmorPictures.compositions.length > 1 ? { composedPortraitVariants: tyrmorPictures.compositions } : {}),
