@@ -28,6 +28,16 @@ const slumsGrainPoseOrder = [0, 1, 2, 3, 4, 3, 2, 1];
 const slumsGrainPoseTimes = [1310, 20, 20, 20, 510, 110, 110, 210];
 const auctionPoseTimes = [610, 210, 410, 210, 410, 610];
 const baneGatePoseTimes = [1510, 20, 710, 20];
+// The fourth native treasure member repeats the first glint in each cache.
+const baneCacheLoops = ["northern", "eastern", "southern"].map(location => {
+  const prefix = `portrait:area:24:ecl:aa47:cue:${location}-cache:PIC1.DAX:1:`;
+  return {
+    cue: /VIEWTAKEPOOLEXIT$/i,
+    phaseTimes: [410, 610, 110, 210],
+    phases: [0, 1, 2, 1].map(member => `${prefix}${member}:0`),
+    entryAliases: undefined,
+  };
+});
 
 // The last captive-pen member repeats pose 3 on all three narration pauses.
 const penPoseOrder = [0, 1, 2, 3, 4, 3];
@@ -520,7 +530,7 @@ const portraitLoops = [
   entryAliases: aliases && new Map(aliases.map(([key, index]) => [typeof key === "number" ? `${prefix}${key}:0` : key, index])),
   phases: (Array.isArray(members) ? members : Array.from({ length: members }, (_, index) => index))
     .map(phase => (phase === 0 && initial) || `${prefix}${phase}:0`),
-}));
+})).concat(baneCacheLoops);
 
 export function portraitLoopsFor(id) {
   return portraitLoops.filter(({ phases, entryAliases }) => phases.includes(id) || entryAliases?.has(id));

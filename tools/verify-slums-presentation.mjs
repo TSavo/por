@@ -951,6 +951,11 @@ const kutoWellAlleyPortrait = (cursor, cue) => ({
 });
 const waitingKobolds = kutoWellAlleyPortrait("a2c9", "waiting-kobolds");
 const koboldsClimbBehind = kutoWellAlleyPortrait("a3b2", "kobolds-climb-behind");
+const baneCacheHold = (location) => {
+  const prefix = `portrait:area:24:ecl:aa47:cue:${location}-cache:PIC1.DAX:1:`;
+  const heldPortraitLoop = [0, 1, 2, 1].map(member => `${prefix}${member}:0`);
+  return { portrait: heldPortraitLoop[0], heldPortraitLoop };
+};
 
 const illustrationRoutes = new Map([
   ["sokal-smithy-frog-hold", {
@@ -1589,7 +1594,7 @@ const illustrationRoutes = new Map([
     prompt: /5,5N.*ONTHEFLOORYOUFINDATRAPDOOR\.WILLYOUOPENIT\?/i,
     finalPhaseCapture: "bane-north-trapdoor.png",
     continuation: {
-      inputs: ["o", "enter", "enter"], portrait: "scene-illustration:area:24:ecl:aa47:cue:northern-cache",
+      inputs: ["o", "enter", "enter"], ...baneCacheHold("northern"),
       prompt: /VIEW.*POOL.*EXIT/i, capture: "bane-northern-cache.png",
       lootCaption: /LOOTCLERICALSCROLLCLERICALSCROLLMAGICUSERSCROLLITEMS/i,
     },
@@ -1601,7 +1606,7 @@ const illustrationRoutes = new Map([
     prompt: /9,12S.*ONTHEFLOORYOUFINDATRAPDOOR\.WILLYOUOPENIT\?/i,
     finalPhaseCapture: "bane-south-trapdoor.png",
     continuation: {
-      inputs: ["o", "enter", "enter"], portrait: "scene-illustration:area:24:ecl:aa47:cue:southern-cache",
+      inputs: ["o", "enter", "enter"], ...baneCacheHold("southern"),
       prompt: /VIEW.*POOL.*EXIT/i, capture: "bane-southern-cache.png",
     },
   }],
@@ -1611,11 +1616,27 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:24:ecl:a8af:caller:a847",
     prompt: /12,9E.*ONTHEFLOORYOUFINDATRAPDOOR\.WILLYOUOPENIT\?/i,
     continuation: {
-      inputs: ["o", "enter", "enter"], portrait: "scene-illustration:area:24:ecl:aa47:cue:eastern-cache",
+      inputs: ["o", "enter", "enter"], ...baneCacheHold("eastern"),
       prompt: /VIEW.*POOL.*EXIT/i, capture: "bane-eastern-cache.png",
       lootCaption: /LOOTHANDAXEDAGGERHAMMERMACEMORNINGSTARSCIMITARSPEARSHORTSWORDITEMS/i,
     },
   }],
+  ...[
+    ["northern", "5,5N", "a7bd", ["s", "up"], /LOOTCLERICALSCROLLCLERICALSCROLLMAGICUSERSCROLLITEMS/i],
+    ["southern", "9,12W", "a802",
+      ["right", "up", "right", "up", "up", "left", "up", "up", "right", "up", "left", "up", "right", "s", "up"],
+      /LOOTPOTIONPOTIONPOTIONWANDDUST7GOLDSTATUETTESWOODSHOLYSYMBOLITEMS/i],
+    ["eastern", "12,9W", "a847", ["right", "up", "right", "s", "up"],
+      /LOOTHANDAXEDAGGERHAMMERMACEMORNINGSTARSCIMITARSPEARSHORTSWORDITEMS/i],
+  ].map(([location, position, caller, inputs, lootCaption]) => [`bane-${location}-cache-loop`, {
+    slot: "A", stockInput: true, inputs,
+    portrait: `scene-illustration:area:24:ecl:a8af:caller:${caller}`,
+    prompt: new RegExp(`${position}.*ONTHEFLOORYOUFINDATRAPDOOR\\.WILLYOUOPENIT\\?`, "i"),
+    continuation: {
+      inputs: ["o", "enter"], ...baneCacheHold(location), prompt: /VIEWTAKEPOOLEXIT/i, lootCaption,
+      capture: `bane-${location}-cache-loop.png`,
+    },
+  }]),
   ["bane-hidden-trapdoor", {
     slot: "A", inputs: ["right", "up", "right", "s", "up"],
     portrait: "scene-illustration:area:24:ecl:a8af:caller:a847",
@@ -5752,15 +5773,9 @@ const illustrationRoutes = new Map([
     },
   }],
   ["bane-hidden-treasure-phases", {
-    slot: "A", inputs: ["s", "enter", "up", "o", "enter", "enter", "q", "q", "q"],
-    portraitStops: {
-      6: "portrait:PIC1.DAX:1:0:0",
-      7: "portrait:area:24:ecl:aa47:PIC1.DAX:1:1:0",
-    },
-    portrait: "portrait:area:24:ecl:aa47:PIC1.DAX:1:2:0",
-    prompt: /View.*PoolExit/i,
-    phaseCaptures: { 7: "bane-hidden-treasure-phase-1.png" },
-    finalPhaseCapture: "bane-hidden-treasure-phase-2.png",
+    slot: "A", inputs: ["s", "enter", "up", "o", "enter", "enter"],
+    ...baneCacheHold("northern"), prompt: /VIEWTAKEPOOLEXIT/i,
+    finalPhaseCapture: "bane-hidden-treasure-loop.png",
   }],
   ["valjevo-dragon-loot-phases", {
     slot: "B", manualPolling: true,
@@ -14673,11 +14688,13 @@ try {
     console.log("Verified the Kobold treasury illustration, native loot menu, and return to exploration in Chrome.");
   } else if (routeName === "bane-hidden-treasure") {
     for (const key of ["s", "enter", "up", "o", "enter", "enter"]) await advance(key);
-    assert.equal(frame.portrait, "portrait:PIC1.DAX:1:0:0");
+    const { portrait, heldPortraitLoop } = baneCacheHold("northern");
+    assert.equal(frame.portrait, portrait);
     const menu = frame.text.toSorted(([left], [right]) => left - right)
       .map(([, char]) => String.fromCharCode(char)).join("");
     assert.match(menu, /VIEW.*TAKE.*POOL.*EXIT/i);
     await waitFor("the enhanced treasure illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await verifyHeldPortraitLoop(heldPortraitLoop);
     await switchBothWays();
     console.log("Verified the hidden treasure illustration and loot menu in Chrome.");
   } else if (routeName === "phlan-priest-tyr" || routeName === "phlan-priest-tempus") {

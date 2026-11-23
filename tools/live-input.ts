@@ -559,7 +559,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           drawnPerspective?.native?.skyColor === 11 && portraitKeys.includes(wellDaylight)) {
         illustrationScope = wellDaylight;
       }
-      if (baneCacheCue) illustrationScope = `${scriptKey}:cue:${baneCacheCue}`;
+      if (baneCacheCue) {
+        illustrationScope = `${scriptKey}:cue:${baneCacheCue}`;
+        // The three temple caches share PIC1:1. Their loot selector chooses the painted loop.
+        const cachePortrait = `portrait:area:${area}:ecl:aa47:cue:${baneCacheCue}:PIC1.DAX:1:0:0`;
+        if (portraitKeys.includes(cachePortrait)) illustrationScope = cachePortrait;
+      }
       // The ankheg captions survive into COMBAT's pauses. Their illustrations
       // belong to those timed pictures, before the battle notice takes over.
       if (message === "picture") {

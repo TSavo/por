@@ -237,6 +237,10 @@ const rules: [RegExp, (match: RegExpExecArray, path: string) => string | undefin
     const [, , , file, block, member, index] = key.split(":");
     return frame(file!, block!, member, index);
   }],
+  [/^portrait:area:(24):ecl:(aa47):cue:(?:northern|eastern|southern)-cache:(PIC1\.DAX):(1):([0-2]):(0)$/, ([key, area, cursor, file, block, member, index]) => {
+    if (!scriptIllustrations.has(key)) return "its cache cue is not defined in tools/portrait-art.ts";
+    return frame(file!, block!, member, index) ?? scope(area, cursor);
+  }],
   [new RegExp(`^portrait:${scoped}(PIC\\d\\.DAX):(\\d{1,3}):(\\d{1,3}):(\\d{1,3})$`), ([, area, cursor, caller, file, block, member, index]) =>
     frame(file!, block!, member, index) ?? scope(area, cursor, caller)],
   [new RegExp(`^portrait:${scoped}(HEAD\\d\\.DAX):(\\d{1,3}):(BODY\\d\\.DAX):(\\d{1,3})$`), ([, area, cursor, caller, head, headBlock, body, bodyBlock]) =>
