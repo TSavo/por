@@ -1354,5 +1354,36 @@
         "artSha256": "3666ca1f2928f7a75394c94c9c79cc6f9c38a09d86df73400f0db625751ca3aa"
       }
     }
+  },
+  {
+    "combat": "a6cd",
+    "producer": "ECL8.DAX:16:a959",
+    "native": {
+      "evidence": "E:/por-codex/art-qa/issue-131-swamp-last-sites/rubble-durable-original/draws.jsonl",
+      "members": [
+        0
+      ],
+      "drawCursor": "a960"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL8.DAX:16:a959",
+        "route": "swamp-rubble-lizard-surprise",
+        "data": "original",
+        "portrait": "scene-illustration:area:16:ecl:a6ce:cue:giant-lizard-surprise",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "9bece26098f0a3cf4b80999313d1ff24792ab181c218625a9792fe46df8d38a0"
+      },
+      "port": {
+        "producer": "ECL8.DAX:16:a959",
+        "route": "swamp-rubble-lizard-surprise",
+        "data": "port",
+        "portrait": "scene-illustration:area:16:ecl:a6ce:cue:giant-lizard-surprise",
+        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "9bece26098f0a3cf4b80999313d1ff24792ab181c218625a9792fe46df8d38a0"
+      }
+    }
   }
 ]

@@ -41449,6 +41449,137 @@
           }
         }
       }
+    },
+    {
+      "producer": "ECL7.DAX:17:b629",
+      "prompt": "9da2/9c82",
+      "caption": "WAR CRIES AND THE CLANG OF METAL BEHIND YOU",
+      "checkpoint": "nomad-raid-betrayal-retreat/A.json",
+      "position": [
+        17,
+        13,
+        9
+      ],
+      "chrome": {
+        "original": {
+          "route": "nomad-betrayal-unburdened-retreat",
+          "data": "original",
+          "position": [
+            17,
+            13,
+            9
+          ],
+          "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96MIRA105S18:09YOUHEARWARCRIESANDTHECLANGOFMETALBEHINDYOU.YOUSPINTOFACETHESOUND.Pressbuttonor<return>tocontinue",
+          "checkpointSha256": "a984be67808e3f16968554e679be73e675a133053817d45c8d2873f2ae950560",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "nomad-betrayal-unburdened-retreat",
+          "data": "port",
+          "position": [
+            17,
+            13,
+            9
+          ],
+          "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96MIRA105S18:09YOUHEARWARCRIESANDTHECLANGOFMETALBEHINDYOU.YOUSPINTOFACETHESOUND.Pressbuttonor<return>tocontinue",
+          "checkpointSha256": "a984be67808e3f16968554e679be73e675a133053817d45c8d2873f2ae950560",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:17:b629",
+      "prompt": "9da2/ae9e",
+      "caption": "WAR CRIES AND THE CLANG OF METAL IN FRONT OF YOU",
+      "checkpoint": "nomad-raid-betrayal-retreat/A.json",
+      "position": [
+        17,
+        13,
+        9
+      ],
+      "chrome": {
+        "original": {
+          "route": "nomad-betrayal-unburdened-retreat",
+          "data": "original",
+          "position": [
+            17,
+            13,
+            9
+          ],
+          "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96MIRA105S18:09YOUHEARWARCRIESANDTHECLANGOFMETALINFRONTOFYOU.Pressbuttonor<return>tocontinue",
+          "checkpointSha256": "a984be67808e3f16968554e679be73e675a133053817d45c8d2873f2ae950560",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        },
+        "port": {
+          "route": "nomad-betrayal-unburdened-retreat",
+          "data": "port",
+          "position": [
+            17,
+            13,
+            9
+          ],
+          "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96MIRA105S18:09YOUHEARWARCRIESANDTHECLANGOFMETALINFRONTOFYOU.Pressbuttonor<return>tocontinue",
+          "checkpointSha256": "a984be67808e3f16968554e679be73e675a133053817d45c8d2873f2ae950560",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f"
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:17:b629",
+      "prompt": "9da2/9b81",
+      "caption": "THERE IS NOWHERE LEFT TO RETREAT",
+      "checkpoint": "nomad-raid-betrayal-retreat/A.json",
+      "position": [
+        17,
+        13,
+        9
+      ],
+      "chrome": {
+        "original": {
+          "route": "nomad-betrayal-unburdened-retreat",
+          "data": "original",
+          "position": [
+            17,
+            13,
+            9
+          ],
+          "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96MIRA105S18:09THEREISNOWHERELEFTTORETREAT.YOUMUSTFIGHT.Pressbuttonor<return>tocontinue",
+          "checkpointSha256": "a984be67808e3f16968554e679be73e675a133053817d45c8d2873f2ae950560",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:17:SPRIT7.DAX:11:2:0",
+              16,
+              49
+            ],
+            "sha256": "4b4fe9c0a5fe63756c59ca2b06d7b5d62626a4b15d6f6ea1c889b4c21e94c57b"
+          }
+        },
+        "port": {
+          "route": "nomad-betrayal-unburdened-retreat",
+          "data": "port",
+          "position": [
+            17,
+            13,
+            9
+          ],
+          "caption": "NameACHPALDA106BRIN86CORA106DORN108ENNA96MIRA105S18:09THEREISNOWHERELEFTTORETREAT.YOUMUSTFIGHT.Pressbuttonor<return>tocontinue",
+          "checkpointSha256": "a984be67808e3f16968554e679be73e675a133053817d45c8d2873f2ae950560",
+          "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:17:SPRIT7.DAX:11:2:0",
+              16,
+              49
+            ],
+            "sha256": "4b4fe9c0a5fe63756c59ca2b06d7b5d62626a4b15d6f6ea1c889b4c21e94c57b"
+          }
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [
