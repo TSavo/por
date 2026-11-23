@@ -25,7 +25,8 @@
     "valhingen-spirits-tower-wight-loop": "qa/fixtures/valhingen-spirits-tower-wights/A.json",
     "valhingen-wight-ambush-loop": "qa/fixtures/valhingen-wight-ambush/A.json",
     "valhingen-zombie-roam-animation": "qa/fixtures/valhingen-zombie-roam-animation/A.json",
-    "valhingen-zombie-tower": "qa/fixtures/valhingen-zombie-tower/A.json"
+    "valhingen-zombie-tower": "qa/fixtures/valhingen-zombie-tower/A.json",
+    "zhentil-escape": "qa/fixtures/zhentil-wall-escape/A.json"
   },
   "chains": {},
   "proved": [
@@ -51,6 +52,7 @@
     "valhingen-spirits-tower-wight-loop",
     "valhingen-wight-ambush-loop",
     "valhingen-zombie-roam-animation",
-    "valhingen-zombie-tower"
+    "valhingen-zombie-tower",
+    "zhentil-escape"
   ]
 }
