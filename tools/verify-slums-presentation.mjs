@@ -3538,7 +3538,7 @@ const illustrationRoutes = new Map([
   ["podal-ogre-patrol-demands-identity", {
     slot: "I", stockInput: true, fixedClockStart: 4320702, inputs: ["up", "up", "up", "left", "up"],
     portrait: "portrait:area:18:ecl:9c3f:PIC1.DAX:8:0:0",
-    prompt: /GROUPOFOGRES\.THEYGLAREATYOURPARTY,ANDDEMAND,'WHOAREYOU\?'.*HAUGHTYSLYNICEMEEKABUSIVE/i,
+    prompt: /GROUPOFOGRES\.THEYGLAREATYOURPARTY,ANDDEMAND,'WHOAREYOU\?'/i,
     staticPortraitMenu: true, podolProof: "portrait",
   }],
   ...[
@@ -3550,7 +3550,7 @@ const illustrationRoutes = new Map([
       slot: "I", stockInput: true, fixedClockStart: clock,
       inputs: Array.from({ length: moves }, (_, index) => index % 2 ? "down" : "up"),
       portrait: `portrait:area:18:ecl:9c3f:PIC1.DAX:${block}:0:0`,
-      prompt: new RegExp(`GROUPOF${name}S.*ANDDEMAND,'WHOAREYOU\\?'.*HAUGHTYSLYNICEMEEKABUSIVE`, "i"),
+      prompt: new RegExp(`GROUPOF${name}S\\.THEY${block === 4 ? "CHECKOUT" : "GLAREAT"}YOURPARTY,ANDDEMAND,'WHOAREYOU\\?'`, "i"),
       staticPortraitMenu: true, approachBeforeHeld: true, podolProof: "portrait",
     },
   ]),

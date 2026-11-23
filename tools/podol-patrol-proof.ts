@@ -95,7 +95,7 @@ function requirements(producer: Producer): Requirement[] {
     })),
     ...actors.map(({ name, block }): Requirement => ({
       route: `podal-${name}-patrol-demands-identity`, checkpoint: disguised,
-      caption: new RegExp(`GROUPOF${name.toUpperCase()}S.*ANDDEMAND,'WHOAREYOU\\?'.*HAUGHTYSLYNICEMEEKABUSIVE`),
+      caption: new RegExp(`GROUPOF${name.toUpperCase()}S\\.THEY${block === 4 ? "CHECKOUT" : "GLAREAT"}YOURPARTY,ANDDEMAND,'WHOAREYOU\\?'`),
       view: "portrait", portrait: `portrait:area:18:ecl:9c3f:PIC1.DAX:${block}:0:0`,
       nativeDraw: "9bce", nativePrompt: "9c3f",
     })),
@@ -126,6 +126,7 @@ export function podolPatrolCoverage(producer: string, site: Site, proofs: readon
     const nativeCaption = word(native.caption);
     if (!expected.caption.test(nativeCaption) ||
         (expected.view === "encounter" && !/PRESS.*TOCONTINUE/.test(nativeCaption)) ||
+        (expected.view === "portrait" && !/HAUGHTYSLYNICEMEEKABUSIVE/.test(nativeCaption)) ||
         (expected.nativePrompt !== undefined && (native.idlePolls ?? 0) < 24)) return true;
     return !(["original", "port"] as const).every(data => {
       const receipt = chrome[data];
