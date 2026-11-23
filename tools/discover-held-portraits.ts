@@ -36,7 +36,8 @@ function successors(state: State, instructions: ReadonlyMap<number, Instruction>
   const { opcode, operands, next } = instructions.get(state.address)!;
   const { returns } = state;
   switch (opcode) {
-    case 0x00: return []; // EXIT
+    case 0x00: // EXIT
+    case 0x20: return []; // NEW ECL exits the current script loop.
     case 0x01: // GOTO
     case 0x02: // GOSUB
       return targets([operands[0]?.word], opcode === 0x02);
