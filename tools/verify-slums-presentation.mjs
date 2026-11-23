@@ -8361,9 +8361,11 @@ try {
         const img = layer.querySelector(".encounter-sprite");
         const scenerySelector = ${JSON.stringify(requireWebGL ? ".street-viewport" : ".street-viewport, .perspective-backdrop")};
         if (!img || ((${requireScenery} || ${requireWebGL}) && !layer.querySelector(scenerySelector))) return;
+        const view = animationFrame ?? state;
+        const projected = view.perspective && !view.portrait;
         for (const [x, y, id, w, h] of ${JSON.stringify(approachSequence)}) {
-          const left = (8 + (x - 24) * 120 / 88) / 3.2;
-          const top = (8 + (y - 24) * 120 / 88) / 2;
+          const left = (projected ? 8 + (x - 24) * 120 / 88 : x) / 3.2;
+          const top = (projected ? 8 + (y - 24) * 120 / 88 : y) / 2;
           if (img.getAttribute("src") === "/art/" + id && img.naturalWidth === w * 4 && img.naturalHeight === h * 4 &&
               Math.abs(parseFloat(img.style.left) - left) < .001 && Math.abs(parseFloat(img.style.top) - top) < .001) {
             window.observedApproach.add(id);
