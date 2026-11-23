@@ -89,7 +89,7 @@ function requirements(producer: Producer): Requirement[] {
   return [
     ...actors.map(({ name, block }): Requirement => ({
       route: `podal-${name}-patrol-sneak-hold`, checkpoint: sneaking,
-      caption: new RegExp(`YOUSPOTAGROUPOF${name.toUpperCase()}S.*TOCONTINUE`),
+      caption: new RegExp(`YOUSPOTAGROUPOF${name.toUpperCase()}S`),
       view: "encounter", approaches: [sprite(block, "b240:caller:9d1f", 1)],
       nativeDraw: "9b7b", nativePrompt: "b240/9d1f",
     })),
@@ -123,7 +123,9 @@ export function podolPatrolCoverage(producer: string, site: Site, proofs: readon
     const proof = matching[0]!;
     const { native, chrome } = proof;
     if (native.draw !== expected.nativeDraw || native.prompt !== expected.nativePrompt || !sha256.test(native.sha256)) return true;
-    if (!expected.caption.test(word(native.caption)) ||
+    const nativeCaption = word(native.caption);
+    if (!expected.caption.test(nativeCaption) ||
+        (expected.view === "encounter" && !/PRESS.*TOCONTINUE/.test(nativeCaption)) ||
         (expected.nativePrompt !== undefined && (native.idlePolls ?? 0) < 24)) return true;
     return !(["original", "port"] as const).every(data => {
       const receipt = chrome[data];

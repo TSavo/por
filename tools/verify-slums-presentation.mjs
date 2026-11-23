@@ -3588,7 +3588,7 @@ const illustrationRoutes = new Map([
     slot: "I", stockInput: true, fixedClockStart: 4320000,
     // Start from qa/fixtures/podal-patrol-sneaking/I.json.
     inputs: Array.from({ length: 13 }, (_, index) => index % 2 ? "down" : "up"),
-    prompt: /YOUSPOTAGROUPOFGOBLINS.*PRESS<ENTER>\/<RETURN>TOCONTINUE/i,
+    prompt: /YOUSPOTAGROUPOFGOBLINS/i,
     heldApproachPrompt: /YOUSPOTAGROUPOFGOBLINS/i,
     heldApproachPosition: [18, 11, 10],
     heldApproachPlacement: [56, 32, "encounter:area:18:ecl:b240:caller:9d1f:SPRIT1.DAX:2:1:0", 32, 65],
@@ -3602,7 +3602,7 @@ const illustrationRoutes = new Map([
   ].map(({ name, block, clock, inputs, position, width }) => [
     `podal-${name}-patrol-sneak-hold`, {
       slot: "I", stockInput: true, fixedClockStart: clock, inputs,
-      prompt: new RegExp(`YOUSPOTAGROUPOF${name}S.*PRESS<ENTER>/<RETURN>TOCONTINUE`, "i"),
+      prompt: new RegExp(`YOUSPOTAGROUPOF${name}S`, "i"),
       heldApproachPrompt: new RegExp(`YOUSPOTAGROUPOF${name}S`, "i"),
       heldApproachPosition: position,
       heldApproachPlacement: [56, 32, `encounter:area:18:ecl:b240:caller:9d1f:SPRIT1.DAX:${block}:1:0`, width, 65],
@@ -13827,6 +13827,7 @@ try {
       } else {
         for (const key of continuation.inputs) await advance(key);
       }
+      if (illustration.podolProof === "encounter") assert.equal(frame.encounter, undefined);
       if (continuation.transientPortrait) {
         const id = continuation.transientPortrait;
         assert.ok(frame.animation?.some(phase => phase.portrait === id &&
