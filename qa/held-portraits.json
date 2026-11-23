@@ -9859,6 +9859,63 @@
           "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e"
         }
       }
+    },
+    {
+      "producer": "ECL4.DAX:2:9b42",
+      "prompt": "abd2/9b6e",
+      "caption": "A SKELETAL FORCE SPOTS YOU AND ATTACKS.",
+      "checkpoint": "textile-return/D.json",
+      "position": [
+        8,
+        12,
+        4
+      ],
+      "chrome": {
+        "original": {
+          "route": "textile-skeletal-force",
+          "data": "original",
+          "position": [
+            8,
+            12,
+            4
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN488,12S06:52searchASKELETALFORCESPOTSYOUANDATTACKS.Press<return>orbuttontocontinue.",
+          "checkpointSha256": "a78af3cba368a81e25f2b0c18d4e3ab5e31a6f24dc93e45ebee2efc833dbaf79",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:2:SPRIT4.DAX:34:1:0",
+              24,
+              65
+            ],
+            "sha256": "b1365e17a4d8ecd056ce3847a01a2aa41a6e7f8d301dfecf2e68e04425181432"
+          }
+        },
+        "port": {
+          "route": "textile-skeletal-force",
+          "data": "port",
+          "position": [
+            8,
+            12,
+            4
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46FENN488,12S06:52searchASKELETALFORCESPOTSYOUANDATTACKS.Press<return>orbuttontocontinue.",
+          "checkpointSha256": "a78af3cba368a81e25f2b0c18d4e3ab5e31a6f24dc93e45ebee2efc833dbaf79",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "encounter": {
+            "placement": [
+              56,
+              32,
+              "encounter:area:2:SPRIT4.DAX:34:1:0",
+              24,
+              65
+            ],
+            "sha256": "b1365e17a4d8ecd056ce3847a01a2aa41a6e7f8d301dfecf2e68e04425181432"
+          }
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [
