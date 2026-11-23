@@ -166,19 +166,64 @@ const eclCandidates = scripts.flatMap(record => {
     return [...new Set(indices.map(index => script.byte(0xb269 + index)))].sort((a, b) => a - b);
   }
 
+  // Scripted encounters call the patrol helper only to fetch monster data. The
+  // caller sets the return flag and the helper exits before either roaming menu.
+  function valhingenReturnsBeforePatrolMenu(address: number, caller: number | undefined) {
+    if (archive !== 4 || scriptBlock !== 10 || caller === undefined || ![0xb4e9, 0xb549].includes(address)) {
+      return false;
+    }
+    const call = decoded.find(instruction => instruction.next === caller);
+    if (call?.opcode !== 0x02 || call.operands[0]?.word !== 0xb420) return false;
+    const flag = 0x6e7e;
+    const setFlag = decoded.find(instruction => instruction.next === call.address);
+    if (setFlag?.opcode !== 0x09 || literal(setFlag.operands[0]!) !== 1 || memory(setFlag.operands[1]!) !== flag) return false;
+
+    let step = instructions.get(0xb420);
+    while (step?.opcode === 0x2a && memory(step.operands[2]!) !== flag) step = instructions.get(step.next);
+    if (step?.address !== 0xb448 || step.opcode !== 0x03 || memory(step.operands[0]!) !== flag ||
+        literal(step.operands[1]!) !== 1) return false;
+    const condition = instructions.get(step.next);
+    return condition?.opcode === 0x16 && instructions.get(condition.next)?.opcode === 0x13;
+  }
+
+  function valhingenPatrolPictureBlocks(address: number, portrait: ReturnType<typeof selector>) {
+    if (archive !== 4 || scriptBlock !== 10 || ![0xb4e9, 0xb549].includes(address) || portrait.address !== 0x6e7d) {
+      return undefined;
+    }
+    const lookup = instructions.get(0xb43e);
+    if (lookup?.opcode !== 0x2a || memory(lookup.operands[0]!) !== 0xb6e2 ||
+        memory(lookup.operands[1]!) !== 0x6e81 || memory(lookup.operands[2]!) !== portrait.address ||
+        readEntryVector(script).includes(0xb420) || instructions.get(0xb41f)?.opcode !== 0x00) return undefined;
+
+    const entries = decoded.filter(instruction => [0x01, 0x02, 0x25, 0x26].includes(instruction.opcode) &&
+      instruction.operands.slice(instruction.opcode <= 0x02 ? 0 : 2).some(operand => operand.word === 0xb420));
+    const roaming = entries.filter(instruction => !valhingenReturnsBeforePatrolMenu(address, instruction.next));
+    const indices: number[] = [];
+    for (const entry of roaming) {
+      const selection = decoded.find(instruction => instruction.next === entry.address);
+      const index = selection && literal(selection.operands[0]!);
+      if (entry.opcode !== 0x01 || selection?.opcode !== 0x09 || memory(selection.operands[1]!) !== 0x6e81 ||
+          index == null || index < 0 || index > 2 || !script.inRange(0xb6e2 + index)) return undefined;
+      indices.push(index);
+    }
+    if (indices.length !== 3 || new Set(indices).size !== 3) return undefined;
+    return [...new Set(indices.map(index => script.byte(0xb6e2 + index)))].sort((a, b) => a - b);
+  }
+
   return decoded.flatMap(load => {
     const { opcode, operands } = load;
     if (opcode !== 0x0e && opcode !== 0x0c && opcode !== 0x29) return [];
     const direct = opcode === 0x0e;
     const portrait = selector(operands[direct ? 0 : 2]!);
     const block = portrait.literal === null ? null : portrait.literal & 255;
-    const boundedBlocks = podalPatrolPictureBlocks(load.address, portrait);
+    const boundedBlocks = podalPatrolPictureBlocks(load.address, portrait) ?? valhingenPatrolPictureBlocks(load.address, portrait);
     const pictureBlocks = block === null ? boundedBlocks ?? [] : [block];
     const possiblePictures = animated.filter(picture => picture.file === pictureArchive &&
       picture.block !== undefined && pictureBlocks.includes(picture.block)).map(describePicture);
     if (block !== null && !possiblePictures.length) return [];
 
-    const scope = contexts.get(load.address) ?? [];
+    const scope = (contexts.get(load.address) ?? []).filter(state =>
+      !valhingenReturnsBeforePatrolMenu(load.address, state.returns.at(-1)));
     const prompts = new Map<string, {
       address: string; next: string; caller: string | null; opcode: number; name: string; labels: string[];
     }>();
