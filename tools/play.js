@@ -995,6 +995,10 @@ function followTravel() {
 
 function disableStreetPreview(error) {
   streetUnavailable = true;
+  if (moveViewport === streetViewport) {
+    moveViewport = undefined;
+    moveScene = undefined;
+  }
   streetViewport?.renderer.dispose();
   streetViewport = undefined;
   console.warn("WebGL exploration is unavailable", error);
@@ -1026,7 +1030,13 @@ function makeViewportCanvas(className, width, height) {
   canvas.addEventListener("webglcontextlost", () => {
     // Resources in the lost context cannot be reused. Keep the decoded
     // materials and rebuild only the viewport that owned the context.
-    if (streetViewport?.canvas === canvas) streetViewport = undefined;
+    if (streetViewport?.canvas === canvas) {
+      if (moveViewport === streetViewport) {
+        moveViewport = undefined;
+        moveScene = undefined;
+      }
+      streetViewport = undefined;
+    }
     else if (overlandViewport?.canvas === canvas) overlandViewport = undefined;
     else return;
     void showScreen();
@@ -1083,6 +1093,152 @@ function ensureStreetViewport(surface) {
   return streetViewport;
 }
 
+
+// The game still steps one square at a time. The exploration camera and the
+// automap party arrow share one tween from the last pose to the new one, and
+// discovered squares are painted when that step lands.
+const moveDurationMs = 180;
+let moveTween;
+let moveFrame;
+let lastMovePose;
+let shownDiscoveredMaps = discoveredMaps;
+let moveViewport;
+let moveScene;
+
+function shortestFacingDelta(from, to) {
+  let delta = (to - from) % 8;
+  if (delta > 4) delta -= 8;
+  if (delta < -4) delta += 8;
+  return delta;
+}
+
+function easeMove(t) {
+  return t * t * (3 - 2 * t);
+}
+
+function interpolateMovePose(from, to, t) {
+  const e = easeMove(Math.min(1, Math.max(0, t)));
+  return {
+    x: from.x + (to.x - from.x) * e,
+    y: from.y + (to.y - from.y) * e,
+    facing: from.facing + shortestFacingDelta(from.facing, to.facing) * e,
+  };
+}
+
+function movePose(at = performance.now()) {
+  if (!moveTween) return lastMovePose;
+  const t = (at - moveTween.started) / moveTween.duration;
+  return interpolateMovePose(moveTween.from, moveTween.to, t);
+}
+
+function sameMovePose(a, b) {
+  return a && b && a.x === b.x && a.y === b.y && a.facing === b.facing && sameMoveSpace(a, b);
+}
+
+function sameMoveSpace(a, b) {
+  if (a.materialId && b.materialId && a.materialId !== b.materialId) return false;
+  if (a.area !== undefined && b.area !== undefined && a.area !== b.area) return false;
+  if (a.mapId !== undefined && b.mapId !== undefined && a.mapId !== b.mapId) return false;
+  return true;
+}
+
+function canTweenMove(from, to) {
+  if (!from || !to || !sameMoveSpace(from, to)) return false;
+  const distance = Math.hypot(to.x - from.x, to.y - from.y);
+  const turn = Math.abs(shortestFacingDelta(from.facing, to.facing));
+  // A one-square step, a bump back, or a turn. A longer teleport snaps.
+  return distance <= 1.01 && (distance > 0.001 || turn > 0.001);
+}
+
+function discreteExplorationPose(view = state) {
+  const scene = explorationSurface(view);
+  if (scene && Number.isFinite(scene.x) && Number.isFinite(scene.y) && Number.isFinite(scene.facing)) {
+    return {
+      x: scene.x, y: scene.y, facing: scene.facing,
+      materialId: scene.materialId, area: scene.area, mapId: scene.mapId,
+    };
+  }
+  const pose = view.exploration;
+  if (!pose || !Number.isFinite(pose.x)) return;
+  return { x: pose.x, y: pose.y, facing: pose.facing, area: pose.area, mapId: pose.mapId };
+}
+
+function paintMovePose(pose) {
+  if (!pose) return;
+  if (moveViewport && moveScene) {
+    moveViewport.renderer.draw({ ...moveScene, x: pose.x, y: pose.y, facing: pose.facing });
+  }
+  const marker = automapSvg.querySelector("path.party");
+  if (marker) {
+    marker.setAttribute("transform", `translate(${pose.x} ${pose.y}) rotate(${pose.facing * 45} .5 .5)`);
+  }
+  if (typeof window.__onMovePaint === "function") window.__onMovePaint(pose, moveTween);
+}
+
+function stopMoveFrame() {
+  if (moveFrame !== undefined) {
+    cancelAnimationFrame(moveFrame);
+    moveFrame = undefined;
+  }
+}
+
+function finishMove() {
+  stopMoveFrame();
+  const ended = moveTween;
+  moveTween = undefined;
+  shownDiscoveredMaps = discoveredMaps;
+  if (ended) {
+    lastMovePose = ended.to;
+    paintMovePose(ended.to);
+  }
+  if (!automap.hidden) renderAutomap();
+}
+
+function tickMove() {
+  if (!moveTween) return;
+  const t = Math.min(1, (performance.now() - moveTween.started) / moveTween.duration);
+  paintMovePose(interpolateMovePose(moveTween.from, moveTween.to, t));
+  if (t < 1) moveFrame = requestAnimationFrame(tickMove);
+  else finishMove();
+}
+
+function startMove(from, to) {
+  stopMoveFrame();
+  moveTween = { from, to, started: performance.now(), duration: moveDurationMs };
+  lastMovePose = to;
+  moveFrame = requestAnimationFrame(tickMove);
+}
+
+function syncMoveTarget(target) {
+  if (!target) {
+    if (moveTween) finishMove();
+    return;
+  }
+  if (moveTween && sameMovePose(moveTween.to, target)) return;
+  if (sameMovePose(lastMovePose, target) && !moveTween) return;
+  if (moveTween) finishMove();
+  const from = lastMovePose;
+  if (from && canTweenMove(from, target)) startMove(from, target);
+  else {
+    lastMovePose = target;
+    paintMovePose(target);
+  }
+}
+
+function bindMoveView(viewport, scene) {
+  moveViewport = viewport;
+  moveScene = scene;
+  const pose = movePose();
+  if (pose) paintMovePose(pose);
+  else viewport.renderer.draw(scene);
+}
+
+function discoveredCells(position, maps) {
+  const map = maps[position.area];
+  const floor = position.mapId === undefined ? map : map?.floors?.[position.mapId];
+  return floor ?? { cells: {} };
+}
+
 function discoveredLocalMap({ area, mapId }) {
   const map = discoveredMaps[area];
   return mapId === undefined ? map : map?.floors?.[mapId];
@@ -1106,7 +1262,8 @@ function renderAutomap() {
   if (mapMode === "region") { renderRegionMap(position); return; }
   automapSvg.setAttribute("viewBox", "-0.5 -0.5 17 17");
   automapSvg.setAttribute("aria-label", "Discovered area map");
-  const map = discoveredLocalMap(position) ?? { cells: {} };
+  if (!moveTween) shownDiscoveredMaps = discoveredMaps;
+  const map = discoveredCells(position, moveTween ? shownDiscoveredMaps : discoveredMaps);
   const title = preferredAtlasSheet(sheets, position)?.title;
   automapTitle.textContent = `${title ?? areaNames[position.area] ?? `Area ${position.area}`} — discovered map`;
   const lines = [];
@@ -1122,8 +1279,9 @@ function renderAutomap() {
       lines.push(`<text class="landmark-label" x="${x + .75}" y="${y + .37}">${escapeMapText(cell.label)}</text>`);
     }
   }
-  const p = map.position ?? position;
-  const angle = [0, 45, 90, 135, 180, 225, 270, 315][p.facing & 7];
+  const logical = map.position ?? position;
+  const p = movePose() ?? logical;
+  const angle = p.facing * 45;
   lines.push(`<path class="party" d="M .5 .12 L .82 .82 L .5 .68 L .18 .82 Z" transform="translate(${p.x} ${p.y}) rotate(${angle} .5 .5)"/>`);
   automapSvg.innerHTML = lines.join("");
 }
@@ -1408,9 +1566,17 @@ async function showScreen() {
     let viewport;
     try {
       viewport = ensureStreetViewport(streetScene);
-      if (viewport && streetScene.materialId === "overland") overland = viewport;
+      if (viewport && streetScene.materialId === "overland") {
+        moveViewport = undefined;
+        moveScene = undefined;
+        overland = viewport;
+      }
       else if (viewport) {
-        viewport.renderer.draw(streetScene);
+        syncMoveTarget({
+          x: streetScene.x, y: streetScene.y, facing: streetScene.facing,
+          materialId: streetScene.materialId, area: streetScene.area, mapId: streetScene.mapId,
+        });
+        bindMoveView(viewport, streetScene);
         streetCanvas = viewport.canvas;
       } else if (streetScene.materialId === "overland" ? overlandLoading : streetLoading) {
         // The pending viewport will redraw when its assets settle. Keep the
@@ -1421,6 +1587,9 @@ async function showScreen() {
       if (viewport?.canvas.getContext("webgl")?.isContextLost()) return;
       disableStreetPreview(error);
     }
+  } else {
+    moveViewport = undefined;
+    moveScene = undefined;
   }
   let overlandTerrain;
   if (overland && view.overlandTerrain && !failedOverlandTerrain.has(view)) {
@@ -2113,7 +2282,10 @@ async function send(key) {
   const endsVoice = keyEndsVoice;
   keyEndsVoice = undefined;
   if (codeWheel.ended) return;
-  if (!state.ready || posting || state.stopped || renderingSequence === state.sequence) return;
+  if (!state.ready || posting || state.stopped) return;
+  // Movement can be sent while the last step is still being painted, so the
+  // next camera tween can start before the previous paint finishes.
+  if (renderingSequence === state.sequence && !repeatingKeys.has(key)) return;
   heldPoseAtInput = !animationFrame && !tileArt.hidden
     ? tileArt.querySelector(".encounter-portrait")?.dataset.heldPose : undefined;
   if (endsVoice && currentVoice) {
@@ -2202,6 +2374,7 @@ async function poll() {
       state = next;
     } else Object.assign(state, next);
     settlePresentation();
+    syncMoveTarget(discreteExplorationPose(state));
     const showWheel = wheelStartup && Number.isInteger(state.codeWheelQuestion) && !state.stopped;
     if (showWheel) {
       const url = `/code-wheel?challenge=1&question=${state.codeWheelQuestion + 1}`;
@@ -2301,7 +2474,7 @@ const repeatingKeys = new Set(["up", "down", "left", "right", "home", "end", "pa
  * skipped the second the moment it appeared (#77), and the narration of every passage matters.
  */
 function repeatsToGame(event) {
-  if (event.altKey || !bootWheel.hidden || activeTravel || travelExpanded || !automap.hidden || state.journal) return false;
+  if (event.altKey || !bootWheel.hidden || activeTravel || travelExpanded || state.journal) return false;
   return repeatingKeys.has(keypadDirections[event.code] ?? commands[event.key]);
 }
 closeJournal.addEventListener("click", () => send("j"));
@@ -2401,7 +2574,17 @@ window.addEventListener("keydown", (event) => {
     return;
   }
   if (!automap.hidden) {
-    if (event.key === "Escape") toggleAutomap();
+    if (event.key === "Escape") {
+      event.preventDefault();
+      toggleAutomap();
+      return;
+    }
+    // Movement still reaches the game so the party arrow can tween while the map is open.
+    const move = keypadDirections[event.code] ?? commands[event.key];
+    if (repeatingKeys.has(move)) {
+      event.preventDefault();
+      void send(move);
+    }
     return;
   }
   if (event.target instanceof HTMLButtonElement && ["Enter", " "].includes(event.key)) return;
