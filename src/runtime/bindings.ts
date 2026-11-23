@@ -307,6 +307,17 @@ export const code = resolve({
   /** Where FlushKeys and GetKey resume after a poll whose only purpose is to discard keys. */
   flushPollResumes: { "1.0": { segment: 0x26b, at: 0x27b1 }, "1.3": { segment: 0x899, at: 0x8aa1 } },
   drainPollResumes: { "1.0": { segment: 0x26b, at: 0x278b }, "1.3": { segment: 0x899, at: 0x8a79 } },
+  /** Where the battle setup's key-discard helper resumes after calling KeyPressed. */
+  battleEntryKeyCheckResume: { "1.0": { segment: 0x26b, at: 0x27cd }, "1.3": { segment: 0x899, at: 0x8abd } },
+  /** The key-discard helper returns here after each step of the initial battle setup. */
+  battleEntryResumes: {
+    "1.0": [{ slice: 0xa, at: 0x1f9b }, { slice: 0xa, at: 0x1fa4 }, { slice: 0xa, at: 0x1fad }],
+    "1.3": [{ slice: 0xa, at: 0x1ee6 }, { slice: 0xa, at: 0x1eef }, { slice: 0xa, at: 0x1ef8 }],
+  },
+  /** Where the party formation loop resumes after checking for a discarded key. */
+  battleFormationKeyCheckResume: { "1.0": { slice: 0xa, at: 0x1cce }, "1.3": { slice: 0xa, at: 0x1c20 } },
+  /** Where battle setup resumes after placing the party in formation. */
+  battleFormationSetupResume: { "1.0": { slice: 0xa, at: 0x1fa8 }, "1.3": { slice: 0xa, at: 0x1ef3 } },
   /** The encounter routine calls the masked blitter for its selected member. */
   encounterPictureDraw: { "1.0": { slice: 0x1d, at: 0x779 }, "1.3": { slice: 0x1c, at: 0x7ac } },
   /** The encounter member has been copied to the displayed viewport. */
@@ -432,6 +443,18 @@ export function isAt(cpu: Cpu, at: number, where: Where): boolean {
 export function returnsTo(cpu: Cpu, depth: number, where: Where): boolean {
   return cpu.read16(cpu.ss, (cpu.sp + depth) & 0xffff) === where.at &&
     cpu.read16(cpu.ss, (cpu.sp + depth + 2) & 0xffff) === codeSegment(where);
+}
+
+/** The initial battle setup checks only for keys to discard before its first turn. */
+export function isBattleEntryPoll(cpu: Cpu): boolean {
+  // Above the battle caller are the helper's saved BP, its two-byte local and the KeyPressed return.
+  const battleReturnDepth = 8;
+  // If the formation loop is in progress, its 16-byte local frame, saved BP and return are below the helper.
+  const formationReturnDepth = 30;
+  return isAt(cpu, cpu.ip, code.keyPressedPoll) && returnsTo(cpu, 0, code.battleEntryKeyCheckResume) &&
+    (code.battleEntryResumes.some(resume => returnsTo(cpu, battleReturnDepth, resume)) ||
+      returnsTo(cpu, battleReturnDepth, code.battleFormationKeyCheckResume) &&
+      returnsTo(cpu, formationReturnDepth, code.battleFormationSetupResume));
 }
 
 /** True when a far call to `segment`:`offset` is a call to `entry`. */

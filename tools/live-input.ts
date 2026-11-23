@@ -24,7 +24,7 @@ import type { PictureRecord } from "../src/runtime/game-data.js";
 import { loadEncounterArt, type EncounterPlacement } from "./encounter-art.js";
 import { canWinDeveloperCombat, developerVictoryCommand, winDeveloperCombat } from "./developer-combat.js";
 import type { Automap, ExploredPosition } from "./automap.js";
-import { authoredScriptPosition, code, data, eclGlobalOffset, isAt, returnsTo, segment as unit } from "../src/runtime/bindings.js";
+import { authoredScriptPosition, code, data, eclGlobalOffset, isAt, isBattleEntryPoll, returnsTo, segment as unit } from "../src/runtime/bindings.js";
 import { standaloneTrace } from "./standalone-trace.js";
 import { narrationLedger } from "./narration-ledger.js";
 
@@ -210,6 +210,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let area: number | undefined;
   let travelPosition: TravelState | undefined;
   let nonblockingPoll = false;
+  let battleEntryPolling = false;
   // What the game was doing when it asked for the key behind the frame being reported.
   let promptKind: "read" | "poll" | undefined;
   let awaitsKey = false;
@@ -925,6 +926,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         textColors: enhancedPalette,
         codeWheelQuestion,
         codeWheelAttempt,
+        battleEntryPolling: battleEntryPolling && !leads || undefined,
         automaticCombat: automaticCombat || undefined,
         presentationPolling: presentationPolling || undefined,
         developerVictoryAvailable: !leads && developerVictoryAvailable || undefined,
@@ -1132,12 +1134,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     prompts++;
     promptKind = kind === "read" ? "read" : "poll";
     awaitsKey = kind === "read" || (kind === "poll" && returnsTo(cpu, 0, code.menuPollResumes) && !menuTimeLimit(cpu));
+    battleEntryPolling = browser && nonblockingPoll && !awaitsKey && isBattleEntryPoll(cpu);
     showFrame(undefined, undefined, false, automaticCombat);
     while (true) {
       if (!browser) process.stdout.write("Game [J journal, :quit, key]> ");
       const command = readCommand();
       if (command === undefined || command === ":quit") throw new Error("Live session closed");
-      if (command === ":poll" && automaticCombat || command === ":travel-poll" && nonblockingPoll) {
+      if (command === ":poll" && (automaticCombat || battleEntryPolling) || command === ":travel-poll" && nonblockingPoll) {
         nextPrompt = cpu.steps + 1_000_000;
         return;
       }

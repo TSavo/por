@@ -233,6 +233,7 @@ interface FrameState extends ExplorationFrame {
   battleProps?: CombatArtPlacement[];
   animation?: (PresentationAnimationFrame & ExplorationFrame)[];
   automaticCombat?: boolean;
+  battleEntryPolling?: boolean;
   presentationPolling?: number;
   developerVictoryAvailable?: boolean;
   tileInventory?: TileInventoryCell[];
@@ -589,7 +590,7 @@ const server = createServer(async (req, res) => {
       (track && Number(track[1]) <= frame.journal.leads.filter(isOpenObjective).length));
     // Recorded walks also keep the nonblocking polls sent by the pipe harness outside travel.
     const recordedPoll = process.env.POR_PROMPT_SCHEDULE_IN && frame.prompt === "poll" && !frame.awaitsKey;
-    const validPoll = expected === String(sequence) && (command === ":poll" && (frame.automaticCombat || frame.presentationPolling) ||
+    const validPoll = expected === String(sequence) && (command === ":poll" && (frame.automaticCombat || frame.battleEntryPolling || frame.presentationPolling) ||
       command === ":travel-poll" && (frame.travelPolling || recordedPoll));
     // While the game plays an animation by itself it takes no key: the page only asks for more of it.
     if (frame.presentationPolling && !validPoll) { res.writeHead(409).end(); return; }

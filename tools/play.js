@@ -2417,16 +2417,16 @@ async function poll() {
     if (changed) {
       renderJournal();
       playAnimation(continuesAnimation);
-      if (state.automaticCombat || state.presentationPolling) {
+      if (state.automaticCombat || state.battleEntryPolling || state.presentationPolling) {
         quickPollAfter = performance.now() + 160 +
           presentedClips().reduce((total, frame) => total + (frame.durationMs ?? 120), 0);
       }
     }
-    // A fight the computer plays: once the page has shown what came, it asks for more. An animation
-    // the game plays by itself (#121): the page asks at once, so the game draws the next batch while
-    // this one plays (#125).
+    // Show the battle notice or automatic turn before asking the game for the next frame. A
+    // self-playing animation (#121) can ask immediately, while the current clips play (#125).
     const shown = !animationFrame && performance.now() >= quickPollAfter;
-    if ((state.automaticCombat && shown || state.presentationPolling) && !state.journal && !codeWheelTool() && state.ready) {
+    const battlePoll = (state.automaticCombat || state.battleEntryPolling) && shown;
+    if ((battlePoll || state.presentationPolling) && !state.journal && !codeWheelTool() && state.ready) {
       void send(":poll");
     }
     followTravel();
@@ -2442,7 +2442,7 @@ async function poll() {
       (activeTravel && `Traveling toward ${activeTravel.label}… Esc to stop.`) ??
       (!travelMap.hidden && state.ready && state.travel ? "Select a highlighted destination or use the arrow keys." : undefined) ??
       (state.ready && state.developerVictoryAvailable ? "F9 wins the fight (developer mode)." : undefined) ??
-      (state.automaticCombat && !state.journal ? "Combat in progress…"
+      ((state.automaticCombat || state.battleEntryPolling) && !state.journal ? "Combat in progress…"
         : state.ready && !state.presentationPolling ? "Arrows or keypad to move. Enter to confirm." : "Game running…");
   } catch {
     status.textContent = "Waiting for the local game runner…";
