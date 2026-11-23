@@ -675,6 +675,22 @@ function playAnimation(continues = false) {
 // drawing itself took visible time; the port draws at once, and at game speed 1 the scripted pause
 // is 225 ms, too quick to take in (#129). Classic keeps the original's pause exactly.
 const enhancedApproachMs = 800;
+const overlandImages = new Map();
+const failedOverlandTerrain = new WeakSet();
+function overlandImage(id) {
+  let image = overlandImages.get(id);
+  if (!image) {
+    const tile = new Image();
+    tile.src = `/art/${id}`;
+    image = tile.decode().then(() => tile).catch(error => {
+      overlandImages.delete(id);
+      throw error;
+    });
+    overlandImages.set(id, image);
+  }
+  return image;
+}
+
 function holdAnimationFrame(view) {
   if (view !== animationFrame || animationTimer !== undefined || !advanceAnimation) return;
   const ms = view.durationMs ?? 120;
@@ -745,10 +761,12 @@ travelArt.setAttribute("href", "/atlas/phlan-region-concept-v2-geography.png");
 function renderTravelMap(view = animationFrame ?? state) {
   const overland = enhanced && view.overlandMap && !view.journal && !view.classicPortrait && !view.combatArt?.length;
   const illustrated = overland && travelArtReady;
-  // Approaching figures are drawn over the map. A portrait or scene occupies the whole panel.
+  // The regional atlas covers travel. A decoded local encounter or portrait occupies its panel.
   const picture = Boolean(view.portrait || view.scene || view.art);
   const encounter = Boolean(view.encounter?.length);
-  const visible = illustrated && travelArtEnabled && !picture;
+  const localEncounter = encounter && view.overlandTerrain &&
+    tileArt.querySelector(".local-overland-encounter");
+  const visible = illustrated && travelArtEnabled && !picture && !localEncounter;
   if ((!visible || encounter || activeTravel) && travelExpanded) setTravelExpanded(false);
   travelMap.hidden = !visible;
   tileArt.classList.toggle("overland-encounter", visible && encounter);
@@ -1022,7 +1040,7 @@ function ensureStreetViewport(surface) {
   if (materialId === "overland") {
     if (!overlandViewport && !overlandLoading) {
       overlandLoading = rendererModule().then(module => {
-        const canvas = makeViewportCanvas("overland-viewport", 88, 88);
+        const canvas = makeViewportCanvas("overland-viewport", 352, 352);
         overlandViewport = {canvas, renderer:module.createOverlandViewport(canvas)};
       }).catch(error => {
         failedSurfaces.add(materialId);
@@ -1404,6 +1422,17 @@ async function showScreen() {
       disableStreetPreview(error);
     }
   }
+  let overlandTerrain;
+  if (overland && view.overlandTerrain && !failedOverlandTerrain.has(view)) {
+    try {
+      const [materials, ...tiles] = await Promise.all([
+        overlandImage("overland-materials"),
+        ...view.overlandTerrain.slots.map(slot => overlandImage(`overland-tile:${slot}`)),
+      ]);
+      overlandTerrain = { materials, tiles, center: view.overlandTerrain.center };
+    } catch { failedOverlandTerrain.add(view); }
+    if (render !== screenRender) return;
+  }
   const selectionArt = (view.combatSelections ?? []).map(([x, y, id]) =>
     [x, y, id, undefined, manualAimOnCell, 24, 24]);
   const placements = [...(view.battleTiles ?? []), ...(view.battleProps ?? []), ...selectionArt, ...(view.combatArt ?? [])];
@@ -1464,7 +1493,7 @@ async function showScreen() {
         tile.dataset.partyPalette = id;
       }
       if (aimMenu && highlighted) tile.classList.add("combat-aimed");
-      if (perspective && (terrainTile || id === view.encounter?.[2])) {
+      if ((perspective || overlandTerrain) && (terrainTile || id === view.encounter?.[2])) {
         const scale = 120 / 88;
         if (streetCanvas) y += view.encounter[5] ?? 0;
         x = 8 + (x - 24) * scale;
@@ -1485,7 +1514,7 @@ async function showScreen() {
     if (view.panelFrame?.length) {
       const panelFrame = drawPanelFrame(view.panelFrame);
       // The expanded view fills the outer panel, including its native inner frame.
-      if ((view.portrait && !rewardIllustration) || view.classicPortrait || perspective || streetCanvas) {
+      if ((view.portrait && !rewardIllustration) || view.classicPortrait || perspective || streetCanvas || overlandTerrain) {
         panelFrame.getContext("2d").clearRect(8 * 4, 8 * 4, 120 * 4, 120 * 4);
       }
       layers.push(panelFrame);
@@ -1543,9 +1572,16 @@ async function showScreen() {
       }
     }
     if (overland) {
-      try { overland.renderer.draw(nextFrame); }
-      catch (error) {
+      try {
+        overland.renderer.draw(nextFrame, overlandTerrain);
+        overland.canvas.classList.toggle("local-overland-encounter", Boolean(overlandTerrain));
+      } catch (error) {
         if (overland.canvas.getContext("webgl")?.isContextLost()) return;
+        if (overlandTerrain) {
+          failedOverlandTerrain.add(view);
+          void showScreen();
+          return;
+        }
         failedSurfaces.add("overland");
         decodedLayers.splice(decodedLayers.indexOf(overland.canvas),1);
         console.warn(error);
@@ -1587,9 +1623,9 @@ async function showScreen() {
   if (render !== screenRender) return;
   screen.src = source;
   document.querySelector("#screen-loading").hidden = true;
-  renderTravelMap(view);
   tileArt.replaceChildren(...layers);
   tileArt.hidden = !showArt;
+  renderTravelMap(view);
   // With no artwork drawn, the picture window holds the first-person view of the square or a page of
   // runes: named as the narration ledger names them (tools/qa-narration.ts), so the two can be compared.
   const runesInPicture = (view.runes ?? []).some(([cell]) => cell % 40 < 16 && cell < 16 * 40);

@@ -8,7 +8,7 @@ import { join } from "node:path";
 import { isPortGameRoot, readGameFile, requireBrowserGameRoot } from "./gamedata.js";
 import { loadCombatMaterialMasks, loadUpgradeArt } from "./upgrade-art.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
-import { getKey, type CodeWheelQuestion, type PanelFrameStamp, type PresentationAnimationFrame, type TileInventoryCell } from "./live-input.js";
+import { getKey, type CodeWheelQuestion, type PanelFrameStamp, type PresentationAnimationFrame, type OverlandTerrainFrame, type TileInventoryCell } from "./live-input.js";
 import { developerVictoryCommand } from "./developer-combat.js";
 import { partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
 import type { CharacterSheetPart } from "./portrait-art.js";
@@ -118,12 +118,16 @@ type ExplorationFrame = {
   nativeScenery?: NativeExploration & { area: number };
   scenery?: Pick<NativeExploration, "x" | "y" | "facing" | "walls" | "mapId"> & { materialId: string; area: number };
   overlandMap?: boolean;
+  overlandTerrain?: OverlandTerrainFrame;
   areaView?: boolean;
   tiles?: [number, number, string][];
   tileInventory?: TileInventoryCell[];
 };
 
 function prepareScenery(view: ExplorationFrame) {
+  // Keep the current travel surface until every slot in the local composition has artwork.
+  if (view.overlandTerrain && (!artwork.has("overland-materials") ||
+      view.overlandTerrain.slots.some(slot => !artwork.has(`overland-tile:${slot}`)))) delete view.overlandTerrain;
   const native = view.nativeScenery;
   if (!native) return;
   delete view.nativeScenery;

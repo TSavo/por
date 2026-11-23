@@ -96,6 +96,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const nativeEffects = input?.nativeEffects;
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
   const captureBattleTerrain = input?.captureBattleTerrain;
+  const captureOverlandTerrain = input?.captureOverlandTerrain;
   const nativeCombat = input?.nativeCombat;
   const nativePicture = input?.nativePicture;
   const picturePresentation = nativePicture ? code.pictureMemberPresented : undefined;
@@ -254,19 +255,23 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
           captureBattleTerrain(this, column, row, picture, overland ? "overland" : "combat");
         }
       }
-      // The far entry draws a frame from one of the two SQRPACI blocks.
-      if (traceBattleDraw && isAt(this, at, code.terrainEntry) && this.steps >= liveStep) {
+      // The same blitter receives local wilderness and battlefield terrain from different callers.
+      if ((traceBattleDraw || captureOverlandTerrain) && isAt(this, at, code.terrainEntry) && this.steps >= liveStep) {
         const argument = (offset: number) => this.read8(this.ss, (this.sp + offset) & 0xffff);
         const signed = (value: number) => (value << 24) >> 24;
         const x = signed(argument(10)), y = signed(argument(8)), picture = argument(6), flags = argument(4);
-        const block = picture & 0x80 ? 2 : 1, frame = picture & 0x7f;
-        const surface = returnsTo(this, 0, code.overlandTerrainDrawResumes) ? "overland" : "combat";
-        const draw = JSON.stringify({
-          x, y, picture, flags, archive: "SQRPACI.DAX", block, frame, surface, ...terrainSources.get(picture),
-        });
-        if (!terrainDraws.has(draw)) {
-          terrainDraws.add(draw);
-          console.error(`POR_BATTLE_DRAW ${draw}`);
+        const overland = returnsTo(this, 0, code.overlandTerrainDrawResumes);
+        if (overland && flags === 1) captureOverlandTerrain?.(this, x, y, picture);
+        if (traceBattleDraw) {
+          const block = picture & 0x80 ? 2 : 1, frame = picture & 0x7f;
+          const surface = overland ? "overland" : "combat";
+          const draw = JSON.stringify({
+            x, y, picture, flags, archive: "SQRPACI.DAX", block, frame, surface, ...terrainSources.get(picture),
+          });
+          if (!terrainDraws.has(draw)) {
+            terrainDraws.add(draw);
+            console.error(`POR_BATTLE_DRAW ${draw}`);
+          }
         }
       }
       tick.call(this, at);

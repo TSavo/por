@@ -327,8 +327,24 @@ export function createOverlandViewport(canvas) {
       precision mediump float;
       varying vec2 uv;
       uniform sampler2D map;
+      uniform sampler2D materials;
+      uniform bool local;
+      uniform vec2 origin;
+      vec3 terrainColor(vec2 material, vec2 scale) {
+        // Inset a texel to keep filtering inside each quarter of the atlas.
+        return texture2D(materials, material * 0.5 + (scale * 510.0 + 1.0) / 1024.0).rgb;
+      }
       void main() {
-        gl_FragColor = texture2D(map, uv);
+        vec4 pixel = texture2D(map, uv);
+        if (!local) {
+          gl_FragColor = pixel;
+          return;
+        }
+        // Red marks meadow, green marks snow and blue blends the two rock materials.
+        vec2 scale = fract((origin + uv * 352.0) / 512.0);
+        vec3 rock = mix(terrainColor(vec2(1.0, 0.0), scale), terrainColor(vec2(0.0, 1.0), scale), pixel.b);
+        rock = mix(rock, terrainColor(vec2(1.0, 1.0), scale), pixel.g);
+        gl_FragColor = vec4(mix(rock, terrainColor(vec2(0.0, 0.0), scale), pixel.r), 1.0);
       }
     `],
   ]) {
@@ -353,15 +369,42 @@ export function createOverlandViewport(canvas) {
   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+  const materialsTexture = gl.createTexture();
+  gl.activeTexture(gl.TEXTURE1);
+  gl.bindTexture(gl.TEXTURE_2D, materialsTexture);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 255]));
+  gl.activeTexture(gl.TEXTURE0);
+  const local = gl.getUniformLocation(program, "local");
+  const origin = gl.getUniformLocation(program, "origin");
+  gl.uniform1i(gl.getUniformLocation(program, "map"), 0);
+  gl.uniform1i(gl.getUniformLocation(program, "materials"), 1);
+  let loadedMaterials;
   const tile = document.createElement("canvas");
-  tile.width = tile.height = 88;
+  tile.width = tile.height = 352;
   const paint = tile.getContext("2d");
+  paint.imageSmoothingEnabled = false;
   return {
-    draw(frame) {
+    draw(frame, terrain) {
       if (gl.isContextLost()) throw new Error("WebGL context lost");
-      paint.clearRect(0,0,88,88);
-      paint.drawImage(frame,24,24,88,88,0,0,88,88);
-      gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,tile);
+      paint.clearRect(0, 0, 352, 352);
+      if (terrain) {
+        // The guest's 88px viewport is centered in the 120px terrain sheet.
+        terrain.tiles.forEach((image, index) => {
+          paint.drawImage(image, index % 5 * 96 - 64, Math.floor(index / 5) * 96 - 64);
+        });
+        if (loadedMaterials !== terrain.materials) {
+          gl.activeTexture(gl.TEXTURE1);
+          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, terrain.materials);
+          loadedMaterials = terrain.materials;
+        }
+        const [x, y] = terrain.center;
+        gl.uniform2f(origin, (x * 96 - 128) % 512, (y * 96 - 128) % 512);
+      } else paint.drawImage(frame, 24, 24, 88, 88, 0, 0, 352, 352);
+      gl.uniform1i(local, terrain ? 1 : 0);
+      gl.activeTexture(gl.TEXTURE0);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tile);
       gl.viewport(0,0,canvas.width,canvas.height);
       gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
       if (gl.getError() !== gl.NO_ERROR) throw new Error("Overland WebGL draw failed");

@@ -33,6 +33,8 @@ import { decodePicture, frameSlice, isPicture, pictureMembers } from "../src/lib
 import { contentBytes, readGameData, type PictureRecord, type PortGameData } from "../src/runtime/game-data.js";
 import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
 import { endingPortraitKey } from "./portrait-art.js";
+import { useGameVersion } from "../src/runtime/bindings.js";
+import { overlandMapSlots } from "./overland-travel.js";
 import {
   areaViewCells, covered, frontWallSymbols, HORIZON, namedTiles, reachable, readWorld, sha256, symbolTile, viewCells,
   type AreaScript, type Lower, type TileName, type ViewContext, type WallSlots, type WorldData,
@@ -856,8 +858,17 @@ function otherPictures(data: PortGameData, read: (path: string) => Uint8Array): 
 // ---------------------------------------------------------------------------------------------
 // Output.
 
+function overlandTerrainCoverage(art: Map<string, Art>) {
+  useGameVersion("1.3");
+  const slots = overlandMapSlots(at("game"));
+  const atlasReady = !missing(art, "overland-materials", 1024, 1024);
+  const missingSlots = slots.filter(slot => missing(art, `overland-tile:${slot}`, 96, 96));
+  return { atlasReady, total: slots.length, covered: slots.length - missingSlots.length, missingSlots };
+}
+
 interface Worklist {
   schema: 2;
+  overlandTerrain: ReturnType<typeof overlandTerrainCoverage>;
   heldPortraits: Omit<ReturnType<typeof heldPortraitCoverage>, "sites" | "scenes" | "unmapped">;
   enhancedFallbacks: ReturnType<typeof enhancedFallbackCoverage>;
   about: string;
@@ -1025,6 +1036,16 @@ function document(list: Worklist): string {
   if (list.battlefieldStruckOff?.cells) add("", `Struck off, not held: ${list.battlefieldStruckOff.cells} ${list.battlefieldStruckOff.reason}.`);
   add("", "Areas not confirmed, and why:", "");
   for (const area of list.areas) if (!area.established) add(`- Area ${area.area} (${area.name}): ${area.why}.`);
+  const local = list.overlandTerrain;
+  add("", "### Local overland encounter terrain (#193)", "",
+    `${local.covered} / ${local.total} native world-map slots have a 96×96 material mask. ${local.missingSlots.length} slots lack a mask.`,
+    "The Enhanced overland encounter view uses one set of painted materials with the native slots and world position. Normal travel uses the regional atlas.",
+    "The table counts slots in the native map data. Paired replays establish which local 5×5 compositions appear during encounters.",
+    local.atlasReady ? "The shared 1024×1024 material atlas is installed." : "The shared 1024×1024 material atlas is missing.",
+    "",
+    "Missing slot keys", "",
+    ...Array.from({ length: Math.ceil(local.missingSlots.length / 12) }, (_, row) =>
+      local.missingSlots.slice(row * 12, row * 12 + 12).map(slot => `\`overland-tile:${slot}\``).join(", ")));
   add("", "### Other pictures no key names", "",
     "Every picture frame of the 1.3 files outside the tile sets and the battlefield that no artwork key names. Whether the game shows each has to be seen in play before art is commissioned",
     "(`docs/ART-INVENTORY.md` says the same of secondary members), so none is counted as to do.", "",
@@ -1096,7 +1117,7 @@ function main(): void {
   const enhancedFallbacks = enhancedFallbackCoverage(repository);
   if (args.length === 1 && args[0] === "--coverage-only") {
     if (!committed) throw new Error("Run npm run art:worklist before refreshing its replay coverage.");
-    const list = { ...committed, heldPortraits, enhancedFallbacks };
+    const list = { ...committed, heldPortraits, enhancedFallbacks, overlandTerrain: overlandTerrainCoverage(readArt()) };
     writeFileSync(at(WORKLIST), JSON.stringify(list, null, 1) + "\n");
     writeFileSync(at(DOCUMENT), document(list));
     console.log(`Refreshed held portrait and Enhanced fallback coverage in ${WORKLIST} and ${DOCUMENT}.`);
@@ -1172,6 +1193,7 @@ function main(): void {
     schema: 2,
     heldPortraits,
     enhancedFallbacks,
+    overlandTerrain: overlandTerrainCoverage(art),
     about: "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
     done: "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining, no invalid tile artwork and zero Enhanced fallbacks across the recorded walks. The artwork is done when, as well, nothing is left under notEstablished.",
     remaining: items.length, totals, notEstablished, areas: first.reports, battlefield: battle.reports,
@@ -1200,6 +1222,9 @@ function main(): void {
     const problems: string[] = [];
     if (!committed) problems.push(`${WORKLIST} is missing`);
     else {
+      if (JSON.stringify(committed.overlandTerrain) !== JSON.stringify(list.overlandTerrain)) {
+        problems.push("The local overland terrain inventory changed");
+      }
       const now = new Set(items.map((item) => item.key));
       const before = new Set(committed.items.map((item) => item.key));
       if (JSON.stringify(committed.heldPortraits) !== JSON.stringify(list.heldPortraits)) {
@@ -1230,6 +1255,7 @@ function main(): void {
       return issue ? [`${key}: ${issue}`] : [];
     });
     console.log(`\nverify:art-worklist: ${items.length} confirmed cells remaining (${Date.now() - started} ms).`);
+    console.log(`Local overland encounters (#193): ${list.overlandTerrain.covered} / ${list.overlandTerrain.total} map slots with masks.`);
     console.log(`Enhanced artwork: ${enhancedFallbacks.frames} fallback frames / ${enhancedFallbacks.keys.length} distinct keys. Recorded walks measured: ${enhancedFallbacks.walks} / ${enhancedFallbacks.recordedWalks}.`);
     if (invalidTiles.length) console.error(`Invalid tile artwork (first ${Math.min(invalidTiles.length, 10)} of ${invalidTiles.length}):\n${invalidTiles.slice(0, 10).join("\n")}`);
     const pending = Object.entries(notEstablished).filter(([, count]) => typeof count === "number" && count > 0);

@@ -88,12 +88,15 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
         const random = randomCombatKey.exec(id);
         const effect = combatEffectKey.exec(id);
         const combatSelection = combatSelectionKey.exec(id);
+        const overlandTile = /^overland-tile:(0|[1-9]\d{0,2})$/.exec(id);
+        const validOverlandTile = overlandTile !== null && Number(overlandTile[1]) <= 255;
+        const overlandMaterials = id === "overland-materials";
         const sheetPart = characterSheetPartKey.exec(id);
         // scene:title-name and scene:title-edition are the game's name and SPECIAL EDITION, each drawn on its own so the page can fade them in over the title art.
         const startupScene = id === "scene:title" || id === "scene:publisher" || id === "scene:title-name" || id === "scene:title-edition";
         const illustration = scriptIllustrations.has(id) || endingPortraitKey.test(id);
         if (!startupScene && !illustration && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
-            !/^battle-tile:[a-f0-9]{64}$/.test(id) && !monster && !party && !random && !combatSelection && !effect && !sheetPart && !portraitKey.test(id) && !encounter) {
+            !/^battle-tile:[a-f0-9]{64}$/.test(id) && !validOverlandTile && !overlandMaterials && !monster && !party && !random && !combatSelection && !effect && !sheetPart && !portraitKey.test(id) && !encounter) {
           reject("Unsupported asset ID or invalid encounter placement.", id);
           continue;
         }
@@ -129,6 +132,8 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
             }
             ({ width: sourceWidth, height: sourceHeight } = encounter);
           } else if (startupScene) [sourceWidth, sourceHeight] = [320, 200];
+          else if (validOverlandTile) sourceWidth = sourceHeight = 24;
+          else if (overlandMaterials) sourceWidth = sourceHeight = 256;
           else if (random) {
             const entry = originalArchive(random[1])?.entries.find(({ id }) => id === Number(random[2]));
             if (!entry || !randomCombatPixels(entry.data, Number(random[4]))) {

@@ -114,11 +114,20 @@ const entranceCells = new Set(Object.values(landmarks).flat().map(([x, y]) => ce
 // The original movement accepts the east and west crossroads despite their ECL terrain bans.
 const phlanCrossroads = new Set([...eastApproach, ...westApproach].map(([x, y]) => cell(x, y)));
 
-export function loadOverlandTravel(root: string) {
+function terrainTable(root: string) {
   // The overland overlay reads the world terrain table from the data segment. START.EXE initializes it.
   const { image } = gameProgram(root);
-  const mapOffset = unit.data * 16 + data.overlandTerrain;
-  const terrain = image.subarray(mapOffset, mapOffset + width * height);
+  const offset = unit.data * 16 + data.overlandTerrain;
+  return image.subarray(offset, offset + width * height);
+}
+
+export function overlandMapSlots(root: string) {
+  // The guest decrements the table's one-based picture value before it draws.
+  return Array.from(new Set(terrainTable(root)), code => (code - 1) & 255).sort((a, b) => a - b);
+}
+
+export function loadOverlandTravel(root: string) {
+  const terrain = terrainTable(root);
   const nativeBarrier = new Set([0x4e, 0x7e, 0x7f, 0x80, 0x82, 0x83, 0x84, 0xa8, 0xa9, 0xaa, 0xab, 0xac,
     0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xbc, 0xdd, 0xde, 0xe1, 0xe2, 0xe3, 0xe4, 0xe5, 0xe6, 0xe7, 0xe8, 0xe9, 0xf5,
     0x66, 0x67, 0x68, 0x69, 0x6a, 0x6b, 0x6c, 0x72]);

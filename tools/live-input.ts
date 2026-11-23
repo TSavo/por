@@ -53,6 +53,10 @@ const transientScriptIllustrations = new Map([
   ["8:27:9c50", "scene-illustration:area:27:ecl:9c50"],
   ["8:27:a1b4", "scene-illustration:area:27:ecl:a1b4:cue:trolls-insult"],
 ]);
+export interface OverlandTerrainFrame {
+  slots: readonly number[];
+  center: readonly [number, number];
+}
 export interface PresentationAnimationFrame {
   portrait?: string;
   frame: string;
@@ -68,6 +72,7 @@ export interface PresentationAnimationFrame {
   nativeScenery?: NativeExploration & { area: number };
   exploration?: ExploredPosition;
   overlandMap?: boolean;
+  overlandTerrain?: OverlandTerrainFrame;
   encounter?: EncounterPlacement;
   tiles?: TilePlacement[];
   durationMs?: number;
@@ -210,7 +215,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let livePosition: { x: number; y: number } | undefined;
   let developerVictoryAvailable = false;
   let activeEcl: number;
-  let nativeOverland = false;
+  let nativeOverland: TravelState | undefined;
+  let drawingOverlandTerrain: number[] = [];
+  let drawingOverlandPosition: TravelState | undefined;
+  let drawnOverlandTerrain: OverlandTerrainFrame | undefined;
   let harborTicket: SokalQuay["ticket"] = "none";
   let explorationPosition: PresentationAnimationFrame["exploration"];
   let mappedPosition: ExploredPosition | undefined;
@@ -242,8 +250,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     const archive = cpu.read8(dataSegment, data.eclArchive), block = cpu.read8(dataSegment, data.eclBlock);
     // A pause can show the overland map before the next keyboard poll updates the
     // host's cached area and travel position. Read the same guest state as the draw.
-    nativeOverland = gameMode === 3 && block >= 25 && block <= 27 && captureOverlandTravel(cpu,
-      cpu.read16(dataSegment, data.eclGlobals + 2), cpu.read16(dataSegment, data.eclGlobals)) !== undefined;
+    nativeOverland = gameMode === 3 && block >= 25 && block <= 27 ? captureOverlandTravel(cpu,
+      cpu.read16(dataSegment, data.eclGlobals + 2), cpu.read16(dataSegment, data.eclGlobals)) : undefined;
     // The script waits for the typed word between "WHAT IS IT?" (a0bd) and "DO YOU REALLY MEAN" (a0cf).
     friendWordPrompt = archive === 8 && block === 16 && battleCursor > 0xa0bd && battleCursor <= 0xa0cf;
     const councilPayout = archive === 3 && block === 8 && battleCursor === 0x9f3f && portraitCaller === 0x9a4a;
@@ -866,6 +874,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         classicPortraitCaller: Array.isArray(picture) ? pictureCaller : undefined,
         perspective,
         overlandMap: overlandMap && !scene && picture === undefined && !characterSheet && !battlefield || undefined,
+        overlandTerrain: encounter && !scene && picture === undefined && !battlefield &&
+          drawnOverlandTerrain?.center[0] === nativeOverland?.x && drawnOverlandTerrain?.center[1] === nativeOverland?.y
+          ? drawnOverlandTerrain : undefined,
         travelPosition: overlandMenu && !dialogue && !encounter && !scene && picture === undefined && !characterSheet && !battlefield && !leads && !attack
           ? travelPosition : undefined,
         phlanArrival: travelFrame ? phlanArrival : undefined,
@@ -938,7 +949,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           combatEffect: state.combatEffect,
           battleTiles, battleProps, panelFrame: state.panelFrame, perspective,
           nativeScenery: state.nativeScenery, exploration: state.exploration,
-          overlandMap: state.overlandMap, encounter, tiles, durationMs,
+          overlandMap: state.overlandMap, overlandTerrain: state.overlandTerrain, encounter, tiles, durationMs,
           enhancedOnly: typeof captureIllustration === "string" || undefined });
       } else {
         mappedPosition = mapped;
@@ -1241,6 +1252,20 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       capturedTerrainKeys.clear();
       battleTerrain?.pixels.fill(0);
     },
+    captureOverlandTerrain: browser ? (cpu: Cpu, column: number, row: number, slot: number) => {
+      // The native overland drawer fills a five by five sheet of 24px squares.
+      if (column === 0 && row === 0) {
+        drawingOverlandTerrain = [];
+        drawingOverlandPosition = captureOverlandTravel(cpu, cpu.read16(unit.data, data.eclGlobals + 2),
+          cpu.read16(unit.data, data.eclGlobals));
+      }
+      if (column !== (drawingOverlandTerrain.length % 5) * 3 || row !== Math.floor(drawingOverlandTerrain.length / 5) * 3) return;
+      drawingOverlandTerrain.push(slot);
+      if (drawingOverlandTerrain.length === 25) {
+        const position = drawingOverlandPosition;
+        drawnOverlandTerrain = position ? { slots: drawingOverlandTerrain.slice(), center: [position.x, position.y] } : undefined;
+      }
+    } : undefined,
     captureBattleTerrain: battleTerrain ? (cpu: Cpu, column: number, row: number, picture: number, surface: "overland" | "combat") => {
       if (column > 18 || row > 18 || column % 3 || row % 3) return;
       const x = 8 + column * 8;
