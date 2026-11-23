@@ -15375,6 +15375,8 @@ try {
     console.log("Verified the prisoners' advice and tracked river objective after reload.");
   } else if (riverPumping) {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
+    const outcomePoses = caller =>
+      [0, 1, 2, 3].map(member => `portrait:area:23:ecl:9a04:caller:${caller}:PIC7.DAX:57:${member}:0`);
     for (const key of ["up", "j"]) await advance(key);
     assert.ok(knows("river-pump-prisoners") && !knows("river-pump-prisoners-freed"));
     assert.match(frame.journal.objective.nextStep, /Advance until Parlay appears/);
@@ -15424,6 +15426,7 @@ try {
       await switchBothWays(frame.frame);
       const shot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "pumping-room-prisoners-hostile.png"), Buffer.from(shot.data, "base64"));
+      await verifyHeldPortraitLoop(outcomePoses("ab0a"));
       await advance("j");
       assert.ok(knows("river-pump-prisoners-hostile"));
       assert.ok(!knows("river-pump-prisoners-freed") && !knows("journal-entry-35"));
@@ -15443,6 +15446,7 @@ try {
       const releaseShot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "pumping-room-prisoners-freed.png"), Buffer.from(releaseShot.data, "base64"));
       await switchBothWays(frame.frame);
+      await verifyHeldPortraitLoop(outcomePoses("aaae"));
       await advance("j");
       assert.ok(knows("river-pump-prisoners-freed") && knows("journal-entry-35"));
       assert.ok(!knows("river-pump-prisoners-hostile"));
