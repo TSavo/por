@@ -410,6 +410,154 @@ function colorTarget(gl, width, height) {
   return { texture, format, type, hdr };
 }
 
+const atlasSample = `
+  vec4 sampleArt(sampler2D map, float index, vec2 uv) {
+    index = floor(index + .5);
+    vec2 cell = vec2(mod(index, 8.0), floor(index/8.0));
+    vec2 faceSize = index > 15.5 || index < .5 ? vec2(255.) : vec2(223.,255.);
+    vec2 atlasUV = (cell + (vec2(.5) + clamp(uv,0.,1.)*faceSize)/256.) / vec2(8.,4.);
+    return texture2D(map, atlasUV);
+  }
+  vec2 wallFaceUV(vec3 world, vec4 material, float wallU) {
+    float axis = mix(world.x, world.z, material.y);
+    float u = wallU < 0.0 ? fract(axis) : wallU;
+    return vec2(u, 1.0-world.y/max(material.z,.1));
+  }
+  bool gateOpening(vec2 faceUV, float y) {
+    return abs(faceUV.x-.5) < .26 && y < .92;
+  }
+`;
+
+const shadowVertex = `
+  attribute vec3 position;
+  attribute vec4 surface;
+  attribute float tile;
+  attribute float faceU;
+  uniform mat4 sunProjection;
+  varying vec3 world;
+  varying vec4 material;
+  varying float tileIndex;
+  varying float wallU;
+  void main() {
+    world = position;
+    material = surface;
+    tileIndex = tile;
+    wallU = faceU;
+    gl_Position = sunProjection * vec4(position, 1.0);
+  }
+`;
+
+const shadowFragment = `
+  precision highp float;
+  uniform sampler2D art;
+  varying vec3 world;
+  varying vec4 material;
+  varying float tileIndex;
+  varying float wallU;
+  ${atlasSample}
+  void main() {
+    vec2 uv = wallFaceUV(world, material, wallU);
+    float index = tileIndex;
+    if (material.x > 1.5) {
+      if (gateOpening(uv, world.y)) discard;
+      index = 2.0;
+    } else if (material.x < .5) {
+      uv = fract(world.xz * 1.48) * .98 + .01;
+    }
+    if (sampleArt(art, index, uv).a < .55) discard;
+    // Split depth across two eight-bit channels. The depth renderbuffer
+    // selects the closest caster while the color texture stores its depth.
+    vec2 packedDepth = fract(gl_FragCoord.z * vec2(1.0, 255.0));
+    packedDepth.x -= packedDepth.y * (1.0 / 255.0);
+    gl_FragColor = vec4(packedDepth, 0.0, 1.0);
+  }
+`;
+
+function sunProjection(vertices) {
+  const [sx, sy, sz] = explorationSunDir;
+  const horizontal = Math.hypot(sx, sz);
+  const right = [sz / horizontal, 0, -sx / horizontal];
+  const up = [-sy * sx / horizontal, horizontal, -sy * sz / horizontal];
+  const forward = [-sx, -sy, -sz];
+  const fitted = [right, up, forward].map(axis => {
+    let min = Infinity, max = -Infinity;
+    for (let index = 0; index < vertices.length; index += 12) {
+      const p = vertices[index] * axis[0] + vertices[index + 1] * axis[1] + vertices[index + 2] * axis[2];
+      min = Math.min(min, p);
+      max = Math.max(max, p);
+    }
+    const scale = 2 / (max - min + 1);
+    return [...axis.map(component => component * scale), -(min + max) * scale * .5];
+  });
+  const [x, y, z] = fitted;
+  return new Float32Array([
+    x[0], y[0], z[0], 0,
+    x[1], y[1], z[1], 0,
+    x[2], y[2], z[2], 0,
+    x[3], y[3], z[3], 1,
+  ]);
+}
+
+function createSunShadow(gl, vertices, buffer, atlas) {
+  const size = Math.min(1536, gl.getParameter(gl.MAX_TEXTURE_SIZE), gl.getParameter(gl.MAX_RENDERBUFFER_SIZE));
+  if (size < 512) return null;
+  const texture = gl.createTexture();
+  const fbo = gl.createFramebuffer();
+  const depth = gl.createRenderbuffer();
+  const dither = gl.isEnabled(gl.DITHER);
+  let program;
+  let ready = false;
+  try {
+    if (!texture || !fbo || !depth) return null;
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, size, size, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+    if (gl.getError() !== gl.NO_ERROR) return null;
+    gl.bindRenderbuffer(gl.RENDERBUFFER, depth);
+    gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, size, size);
+    if (gl.getError() !== gl.NO_ERROR) return null;
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+    gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, depth);
+    if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) !== gl.FRAMEBUFFER_COMPLETE) return null;
+
+    const projection = sunProjection(vertices);
+    program = link(gl, shadowVertex, shadowFragment);
+    gl.useProgram(program);
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    for (const [name, count, offset] of [["position", 3, 0], ["surface", 4, 12], ["tile", 1, 28], ["faceU", 1, 32]]) {
+      const location = gl.getAttribLocation(program, name);
+      gl.enableVertexAttribArray(location);
+      gl.vertexAttribPointer(location, count, gl.FLOAT, false, 48, offset);
+    }
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, atlas);
+    gl.uniform1i(gl.getUniformLocation(program, "art"), 0);
+    gl.uniformMatrix4fv(gl.getUniformLocation(program, "sunProjection"), false, projection);
+    gl.viewport(0, 0, size, size);
+    gl.disable(gl.DITHER);
+    gl.enable(gl.DEPTH_TEST);
+    gl.depthFunc(gl.LESS);
+    gl.clearColor(1, 1, 1, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLES, 0, vertices.length / 12);
+    ready = gl.getError() === gl.NO_ERROR;
+    return ready ? { texture, projection, texel: 1 / size } : null;
+  } finally {
+    if (dither) gl.enable(gl.DITHER);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.bindRenderbuffer(gl.RENDERBUFFER, null);
+    gl.useProgram(null);
+    if (program) gl.deleteProgram(program);
+    gl.deleteFramebuffer(fbo);
+    gl.deleteRenderbuffer(depth);
+    if (!ready) gl.deleteTexture(texture);
+  }
+}
+
 const sceneVertex = `
   attribute vec3 position;
   attribute vec4 surface;
@@ -463,24 +611,48 @@ const sceneFragment = `
   uniform float waterTile;
   uniform sampler2D aoMap;
   uniform vec4 aoRect;
-  vec4 sampleArt(sampler2D map, float index, vec2 uv) {
-    index = floor(index + .5);
-    vec2 cell = vec2(mod(index, 8.0), floor(index/8.0));
-    vec2 faceSize = index > 15.5 || index < .5 ? vec2(255.) : vec2(223.,255.);
-    vec2 atlasUV = (cell + (vec2(.5) + clamp(uv,0.,1.)*faceSize)/256.) / vec2(8.,4.);
-    return texture2D(map, atlasUV);
+  uniform sampler2D sunShadow;
+  uniform mat4 sunProjection;
+  uniform float shadowTexel;
+  ${atlasSample}
+  float shadowVisibility(vec3 point, vec3 normal) {
+    vec3 projected = (sunProjection * vec4(point, 1.0)).xyz * .5 + .5;
+    // Compare each tap against the same plane as the receiver, including
+    // sloped ground in light space. A small depth bias then covers rounding
+    // without pulling contact shadows away from gate stone and pilings.
+    vec3 u = vec3(sunProjection[0].x, sunProjection[1].x, sunProjection[2].x);
+    vec3 v = vec3(sunProjection[0].y, sunProjection[1].y, sunProjection[2].y);
+    vec3 z = vec3(sunProjection[0].z, sunProjection[1].z, sunProjection[2].z);
+    float lightNormal = dot(normal, z) / dot(z, z);
+    if (-lightNormal < .025) return 1.0;
+    vec2 slope = -vec2(dot(normal, u) / dot(u, u), dot(normal, v) / dot(v, v)) / lightNormal;
+    vec2 center = floor(projected.xy / shadowTexel) + .5;
+    vec2 fraction = center - projected.xy / shadowTexel;
+    float total = 0.0, weight = 0.0;
+    for (int row = -1; row <= 1; row++) {
+      for (int col = -1; col <= 1; col++) {
+        vec2 offset = vec2(float(col), float(row));
+        vec2 weights = 1.5 - abs(offset + fraction);
+        float w = weights.x * weights.y;
+        vec2 tap = (center + offset) * shadowTexel;
+        vec2 packedDepth = texture2D(sunShadow, tap).rg;
+        float occluder = dot(packedDepth, vec2(1.0, 1.0 / 255.0));
+        float receiver = projected.z + dot(slope, tap - projected.xy) - .00025;
+        total += step(receiver, occluder) * w;
+        weight += w;
+      }
+    }
+    return mix(.12, 1.0, total / weight);
   }
   void main() {
     float floorSurface = 1.0 - step(.5, material.x);
-    float axis = mix(world.x, world.z, material.y);
-    float u = wallU < 0.0 ? fract(axis) : wallU;
-    vec2 faceUV = vec2(u, 1.0-world.y/max(material.z,.1));
+    vec2 faceUV = wallFaceUV(world, material, wallU);
     vec2 groundUV = vec2(world.x,world.z) * 1.48;
     vec2 tileUV = fract(groundUV) * 0.98 + 0.01;
     vec2 textureUV = mix(faceUV, tileUV, floorSurface);
     vec2 derivUV = mix(faceUV, groundUV, floorSurface);
     if (material.x > 1.5) {
-      if (abs(faceUV.x-.5) < .26 && world.y < .92) discard;
+      if (gateOpening(faceUV, world.y)) discard;
       textureUV = faceUV;
       derivUV = faceUV;
     }
@@ -551,8 +723,7 @@ const sceneFragment = `
       (world.z + Ngeo.z * 0.12 - aoRect.y) / (aoRect.w - aoRect.y)
     );
     vec4 occ = texture2D(aoMap, mix(wallAoUV, aoUV, floorSurface));
-    // Floor shadows stay in the bake. Walls use ndotl so a lit face is not
-    // crushed by a floor-height shadow.
+    // The older floor bake is the fallback when a sunlight map is unavailable.
     float sunVis = mix(1.0, occ.g, floorSurface * (1.0 - indoor));
     float contact = mix(0.5, 1.0, smoothstep(0.0, 0.22, world.y));
     float ao = mix(mix(0.78, 1.0, occ.r) * contact, mix(0.58, 1.0, occ.r), floorSurface);
@@ -560,6 +731,7 @@ const sceneFragment = `
     float raisedFloor = floorSurface * step(0.2, world.y);
     sunVis = mix(sunVis, 1.0, raisedFloor);
     ao = mix(ao, 0.96, raisedFloor);
+    if (shadowTexel > 0.0) sunVis = shadowVisibility(world, Ngeo);
     vec2 lightUV = vec2(dot(L, T), dot(L, B));
     float lightLen = length(lightUV);
     float bumpShadow = 1.0;
@@ -874,6 +1046,7 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
   gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
   const sunDir = explorationSunDir;
+  let sunShadow;
 
   return {
     draw(view) {
@@ -887,6 +1060,9 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
       const indoor = view.roofed ? 1 : 0;
       // The ECL script selects the native backdrop. Palette index zero is black.
       const darkSky = view.skyColor === 0;
+      const daylight = !indoor && !darkSky;
+      if (daylight && sunShadow === undefined) sunShadow = createSunShadow(gl, vertices, buffer, artTexture);
+      const shadow = daylight ? sunShadow : null;
       const sunColor = indoor || darkSky ? [0, 0, 0] : [1.28, 0.96, 0.62];
       const skyColor = indoor ? [0.07, 0.07, 0.08] : darkSky ? [0.14, 0.18, 0.28] : [0.36, 0.48, 0.70];
       const groundColor = indoor ? [0.08, 0.07, 0.06] : darkSky ? [0.15, 0.13, 0.12] : [0.30, 0.22, 0.14];
@@ -923,6 +1099,11 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
       gl.bindTexture(gl.TEXTURE_2D, detailTexture);
       gl.activeTexture(gl.TEXTURE2);
       gl.bindTexture(gl.TEXTURE_2D, aoTexture);
+      gl.activeTexture(gl.TEXTURE3);
+      gl.bindTexture(gl.TEXTURE_2D, shadow?.texture ?? aoTexture);
+      gl.uniform1i(gl.getUniformLocation(sceneProgram, "sunShadow"), 3);
+      gl.uniform1f(gl.getUniformLocation(sceneProgram, "shadowTexel"), shadow?.texel ?? 0);
+      if (shadow) gl.uniformMatrix4fv(gl.getUniformLocation(sceneProgram, "sunProjection"), false, shadow.projection);
       gl.uniform1i(gl.getUniformLocation(sceneProgram, "art"), 0);
       gl.uniform1i(gl.getUniformLocation(sceneProgram, "detail"), 1);
       gl.uniform1i(gl.getUniformLocation(sceneProgram, "aoMap"), 2);
@@ -989,6 +1170,7 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
       gl.deleteTexture(artTexture);
       gl.deleteTexture(detailTexture);
       gl.deleteTexture(aoTexture);
+      if (sunShadow) gl.deleteTexture(sunShadow.texture);
       gl.deleteTexture(hdr.texture);
       gl.deleteTexture(bloomA.texture);
       gl.deleteTexture(bloomB.texture);

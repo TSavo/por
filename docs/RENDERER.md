@@ -22,9 +22,9 @@ Exploration is a WebGL 1 context and a painted atlas. The look comes from
 normals, height and roughness derived in the browser from that atlas
 (multi-scale Sobel per tile, with parallax and height self-shadowing so
 mortar, brick edges, planks and ivy catch the light); a low warm
-sun with cool sky fill so lit and shadowed walls read differently; baked
-corner and wall-base ambient occlusion, contact darkening, and soft floor
-shadows from the wall grid; a shader sky and sky-tinted height fog; and a
+sun with cool sky fill, baked corner and wall-base ambient occlusion,
+contact darkening, and soft sun shadows from the exploration mesh.
+A shader draws the sky and sky-tinted height fog. The renderer has a
 final pass: HDR target when available, a filmic curve that keeps blacks
 and saturation, and bloom on the sun. Indoor views get a dimmer fill and
 a warm light at the party. The camera, geometry and atlas packing are
@@ -62,8 +62,11 @@ Open views use the native backdrop selected by the script. A black
 backdrop mutes the sun and its bloom and gives the walls a dim, cool
 ambient fill. The game already sets this backdrop at its own times.
 
-**Soft shadows.** One sun or torch shadow map of the 16×16 grid. Watch
-bias on gates and pilings.
+**Soft shadows.** One sun shadow map covers the 16×16 exploration grid
+and its layout geometry in daylight. The renderer stores packed depth in
+an RGBA8 texture with a standard depth renderbuffer. A filtered comparison
+casts shadows onto walls, floor, and the harbor surface. If the shadow
+framebuffer is unavailable, the floor uses the baked sunlight channel.
 
 **Ambient occlusion.** Darken concave edges and wall/floor meets from the
 wall grid. A small SSAO pass is fine if it helps and does not shimmer.
@@ -143,6 +146,24 @@ run in each data mode observed four detail-texture uploads, each sampled
 during a live draw. Each run released all 18 displaced texture handles
 on the same WebGL context and retained the six textures for its current
 view. Both matched the recorded final screen.
+
+### Outdoor sun shadows
+
+The [New Phlan gate comparison](screenshots/renderer-look/new-phlan-gate-sun-shadows.png)
+uses slot H of `qa/fixtures/guide-party-slums-first-training` at (0,4) west,
+08:39. The shade crosses the gate face and recess while the opening retains
+the same sky. The approach shot at (1,4) west follows Right, Right, Up,
+Right, Right from that save. The [harbor piling comparison](screenshots/renderer-look/harbor-piling-sun-shadows.png)
+uses (15,1) west after the first 43 inputs of
+`qa/fixtures/walk-commission-5-reward`. Piling shadows meet their bases and
+the masonry behind the deck also receives the sun's shadows.
+
+GOG 1.3 and bundled Chrome produced identical daylight comparison frames
+at the matched native cameras and wall grids. With float extensions
+masked, the sun pass still rendered to RGBA8. Forcing its framebuffer to
+be incomplete reproduced the earlier baked view byte for byte. The
+roofed Valjevo Barracks and Kuto's Well night controls kept their previous
+pixels. All paths drew an opaque WebGL view with zero errors.
 
 ### Harbor sky and distance fog
 
