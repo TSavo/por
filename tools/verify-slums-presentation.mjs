@@ -2172,6 +2172,20 @@ const illustrationRoutes = new Map([
       heldApproach: { position: [17, 10, 15],
         placement: [56, 32, "encounter:area:17:SPRIT7.DAX:0:1:0", 24, 65] } },
   }],
+  ["nomad-raid-retreat-cues", {
+    slot: "A", fixedClockStart: 4320000,
+    inputs: [...nomadRaidWarCries, "enter", "enter", "f", "enter", "enter", "enter", "f", "enter"],
+    sceneryStops: {
+      27: { position: [17, 13, 9], prompt: /YOUHEARWARCRIESANDTHECLANGOFMETALBEHINDYOU/i },
+      28: { position: [17, 13, 9], prompt: /YOUHEARWARCRIESANDTHECLANGOFMETALINFRONTOFYOU/i },
+    },
+    portraitStops: { 29: "scene-illustration:area:17:ecl:9da2:caller:af47:cue:melee" },
+    heldApproachPrompt: /THEREISNOWHERELEFTTORETREAT.YOUMUSTFIGHT/i,
+    heldApproachPosition: [17, 13, 9],
+    heldApproachPlacement: [56, 32, "encounter:area:17:SPRIT7.DAX:0:2:0", 24, 57],
+    heldApproachCapture: "nomad-raid-retreat-blocked.png",
+    prompt: /ABATTLEBEGINS/i,
+  }],
   ["nomad-raid-retreat-melee", {
     slot: "A", inputs: [...nomadRaidWarCries, "enter", "enter", "f", "enter", "enter"], fixedClockStart: 4320000,
     portrait: "scene-illustration:area:17:ecl:9da2:caller:af47:cue:melee",
@@ -9481,7 +9495,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "nomad-camp-tripwire-menu" ||
       /^nomad-camp-sentry-(families|parlay|combat)$/.test(routeName) ||
       /^nomad-guard-(follow|attack)$/.test(routeName) ||
-      /^nomad-raid-(alliance(?:-offer|-refusal|-volley|-aftermath)?|betrayal|camp-perimeter|cornered-kobolds|first-attack|retreat-melee)$/.test(routeName) ||
+      /^nomad-raid-(alliance(?:-offer|-refusal|-volley|-aftermath)?|betrayal|camp-perimeter|cornered-kobolds|first-attack|retreat-cues|retreat-melee)$/.test(routeName) ||
       routeName === "nomad-morning-walk" ||
       routeName === "nomad-feast-held-sequence" ||
       /^nomad-pursuit-(combat|flee|menu)$/.test(routeName) ||
@@ -9934,13 +9948,25 @@ try {
       document.querySelector("#screen").src === ${source} &&
       document.querySelector("#tile-art:not([hidden]) .street-viewport")?.isConnected`));
   }
-  async function verifySceneryPrompt(position) {
+  async function verifySceneryPrompt(position, expectedCaption, record = false) {
     assert.equal(frame.portrait, undefined);
     assert.equal(frame.classicPortrait, false);
     assert.equal(frame.encounter, undefined);
     assert.deepEqual([frame.scenery?.area, frame.scenery?.x, frame.scenery?.y], position);
     await waitForExplorationViewport();
     assert.equal(await run('Boolean(document.querySelector("#tile-art:not([hidden]) .encounter-portrait, #tile-art:not([hidden]) .encounter-sprite"))'), false);
+    const caption = frame.text.toSorted(([left], [right]) => left - right)
+      .map(([, character]) => String.fromCharCode(character)).join("");
+    if (expectedCaption) assert.match(caption, expectedCaption);
+    if (record && heldPortraitEvidenceFile) {
+      const renderer = await fetch(new URL("/play.js", origin));
+      assert.ok(renderer.ok);
+      heldPortraitEvidence.push({
+        route: routeName, data: frame.classicAvailable === false ? "port" : "original", position, caption,
+        checkpointSha256: createHash("sha256").update(readFileSync(checkpoint)).digest("hex"),
+        rendererSha256: createHash("sha256").update((await renderer.text()).replace(/\r\n/g, "\n")).digest("hex"),
+      });
+    }
   }
   function patrolApproachPlacement(area) {
     return [56, 32, `encounter:area:${area}:SPRIT5.DAX:16:2:0`, 16, 49];
@@ -13049,6 +13075,12 @@ try {
           await verifyHeldApproach(illustration.heldApproachPrompt, illustration.heldApproachPosition, heldApproachPlacement);
           heldApproachRecorded = true;
         }
+        const sceneryStop = illustration.sceneryStops?.[index];
+        if (sceneryStop) {
+          await verifySceneryPrompt(sceneryStop.position, sceneryStop.prompt, true);
+          const shot = await command("Page.captureScreenshot", { format: "png" });
+          writeFileSync(resolve(directory, `${routeName}-scenery-${index}.png`), Buffer.from(shot.data, "base64"));
+        }
         const phasePrompt = illustration.phasePrompts?.[index];
         if (phasePrompt) assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), phasePrompt);
         const interimPortrait = illustration.portraitStops?.[index];
@@ -13268,19 +13300,7 @@ try {
       await waitFor("the transient illustration to clear", () => run(`
         state.sequence === ${frame.sequence} && !animationFrame && !document.querySelector(".encounter-portrait")
       `));
-      if (illustration.sceneryPrompt) {
-        await verifySceneryPrompt(illustration.sceneryPrompt);
-        if (heldPortraitEvidenceFile) {
-          const renderer = await fetch(new URL("/play.js", origin));
-          assert.ok(renderer.ok);
-          heldPortraitEvidence.push({
-            route: routeName, data: frame.classicAvailable === false ? "port" : "original", position: illustration.sceneryPrompt,
-            caption: frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
-            checkpointSha256: createHash("sha256").update(readFileSync(checkpoint)).digest("hex"),
-            rendererSha256: createHash("sha256").update((await renderer.text()).replace(/\r\n/g, "\n")).digest("hex"),
-          });
-        }
-      }
+      if (illustration.sceneryPrompt) await verifySceneryPrompt(illustration.sceneryPrompt, undefined, true);
     } else {
       const visiblePortraits = (Array.isArray(illustration.heldPortraitLoop) ? illustration.heldPortraitLoop : [portrait])
         .map(id => "/art/" + id);
