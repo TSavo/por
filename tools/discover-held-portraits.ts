@@ -740,6 +740,16 @@ const eclCandidates = scripts.flatMap(record => {
       });
     }
     if (opcode === 0x29) for (const state of scope) prompt(state, load, 9);
+    const cacheClear = instructions.get(load.next);
+    const cacheTreasure = cacheClear && instructions.get(cacheClear.next);
+    const cacheMenu = cacheTreasure && instructions.get(cacheTreasure.next);
+    const baneCache = baneRampart && load.address === 0xaa30 && opcode === 0x0e && block === 1 &&
+      cacheClear?.opcode === 0x1c && cacheTreasure?.opcode === 0x27 && cacheMenu?.opcode === 0x24 &&
+      cacheMenu.next === 0xaa47;
+    if (baneCache) {
+      // COMBAT with the cleared monster table opens the native treasure menu.
+      prompt({ address: cacheMenu.address, returns: [] }, cacheMenu, 0);
+    }
     // This rest interruption acknowledges DAMAGE before the sprite is turned off.
     // Other DAMAGE instructions still need their own observed prompt evidence.
     if (archive === 8 && scriptBlock === 13 && load.address === 0xb460 && opcode === 0x0c) {
@@ -1049,6 +1059,7 @@ const eclCandidates = scripts.flatMap(record => {
       next: authored(load.next), opcode, name: load.name, pictureArchive, block, selector: portrait, possiblePictures,
       boundedBlocks,
       composedPortrait: councilComposition ?? composedPortrait,
+      ...(baneCache ? { requiredLoopCues: ["northern-cache", "eastern-cache", "southern-cache"] } : {}),
       ...(nomadPortrait && load.address === 0xa33c
         ? { retainedComposedDraw: { prompt: authored(load.next), cursor: authored(0x9dd6) } } : {}),
       ...(tyrmorPictures && tyrmorPictures.compositions.length > 1 ? { composedPortraitVariants: tyrmorPictures.compositions } : {}),

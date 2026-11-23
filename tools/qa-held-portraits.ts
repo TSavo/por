@@ -352,7 +352,14 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
   }
   const scenes = inventory.scenes.map(({ id, producer, poses, chrome, remainingCues, approachChrome }) => {
     remainingCues = approachCues(remainingCues, approachChrome);
-    const result = (reason: string | null) => ({ id, producer, verified: reason === null, reason, remainingCues });
+    const opening = chrome?.original.portrait;
+    const poseScope = opening?.replace(/:\d+:0$/, "");
+    const loopOpening = chrome && poseScope && opening === chrome.port.portrait &&
+      [chrome.original, chrome.port].every(proof => proof.paints.every(paint =>
+        paint.key.replace(/:\d+:0$/, "") === poseScope)) ? opening : undefined;
+    const result = (reason: string | null) => ({
+      id, producer, verified: reason === null, reason, remainingCues, ...(loopOpening ? { loopOpening } : {}),
+    });
     if (!chrome) return result("paired Chrome evidence is missing");
     try {
       for (const proof of [chrome.original, chrome.port]) {
@@ -780,6 +787,13 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     // One instruction can display several captions at the same cursor.
     const missingPrompts = prompts.flatMap(prompt => {
       const held = staticEvidence?.get(prompt);
+      if (site.requiredLoopCues) {
+        const [cursor] = prompt.split("/");
+        return site.requiredLoopCues.filter(cue => {
+          const opening = `portrait:area:${site.scriptBlock}:ecl:${cursor}:cue:${cue}:${site.pictureArchive}:${site.block}:0:0`;
+          return !evidence.some(entry => entry.prompt === prompt && entry.scene.verified && entry.scene.loopOpening === opening);
+        }).map(cue => `${prompt} (${cue})`);
+      }
       if (site.composedPortraitVariants) {
         const missing = site.composedPortraitVariants.filter(({ source }) => !held?.compositions.has(source))
           .map(({ source }) => `${prompt} (${source})`);
