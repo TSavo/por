@@ -1264,7 +1264,7 @@ const portraitLoopBindings = import("/held-portrait-loops.mjs");
 
 let heldPoseAtInput;
 let battleNoticePose;
-let pittMenuPose;
+let retainedMenuPose;
 
 function retainedPittMenuPose(source, target) {
   const transition = /^portrait:area:18:ecl:b240:caller:(ab51|abde):PIC1\.DAX:2:([01]):0$/.exec(source);
@@ -1274,6 +1274,15 @@ function retainedPittMenuPose(source, target) {
   const prefix = `portrait:area:18:ecl:${cursor}:PIC1.DAX:2:`;
   if (target === `${prefix}0:0` || target === `${prefix}1:0`) return `${prefix}${member}:0`;
   return undefined;
+}
+
+function retainedCaptivePenMenuPose(source, target) {
+  const incoming = /^portrait:area:1:ecl:(b5f7:caller:9f20|9f5d):PIC6\.DAX:42:([0-4]):0$/.exec(source);
+  if (!incoming) return undefined;
+  const [, cursor, member] = incoming;
+  const nextCursor = cursor === "9f5d" ? "a26d" : "9f5d";
+  const prefix = `portrait:area:1:ecl:${nextCursor}:PIC6.DAX:42:`;
+  return target?.startsWith(prefix) ? `${prefix}${member}:0` : undefined;
 }
 
 async function animateHeldPortrait(image, view) {
@@ -1329,7 +1338,7 @@ async function showScreen() {
   const render = ++screenRender;
   renderingSequence = state.sequence;
   const view = animationFrame ?? state;
-  const portraitId = view === state ? battleNoticePose ?? pittMenuPose ?? view.portrait : view.portrait;
+  const portraitId = view === state ? battleNoticePose ?? retainedMenuPose ?? view.portrait : view.portrait;
   // The wheel prompt uses a custom DOS font whose glyph codes are not letters.
   const useEnhanced = enhanced && !Number.isInteger(view.codeWheelQuestion) && !failedEnhancedFrames.has(view);
   const frame = useEnhanced ? view.enhancedFrame ?? view.frame : view.frame;
@@ -2129,8 +2138,9 @@ async function poll() {
         /^ABATTLEBEGINS[.!]*$/i.test(next.text?.filter(([cell]) => cell >= 960)
           .map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, ""));
       battleNoticePose = battleNotice ? previousPose : undefined;
-      pittMenuPose = next.portrait === state.portrait ? pittMenuPose :
-        retainedPittMenuPose(previousPose ?? state.portrait, next.portrait);
+      const incomingPose = previousPose ?? retainedMenuPose ?? state.portrait;
+      retainedMenuPose = next.portrait === state.portrait ? retainedMenuPose :
+        retainedPittMenuPose(incomingPose, next.portrait) ?? retainedCaptivePenMenuPose(incomingPose, next.portrait);
       heldPoseAtInput = undefined;
       state = next;
     } else Object.assign(state, next);

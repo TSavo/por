@@ -127,6 +127,7 @@ type ScriptSite = typeof heldPortraitDiscovery.eclCandidates[number];
 const scriptSiteId = (site: ScriptSite) => `${site.scriptArchive}:${site.scriptBlock}:${site.address}`;
 const promptId = (cursor: string, caller: string | null) => caller ? `${cursor}/${caller}` : cursor;
 
+const captivePenMenusRenderer = "f1294e65d761f61f763319e6521f74f0b5f28ab57c6eb67c0251971fbdff060c";
 const pittMenuRenderer = "63ed7feeedcc946fa2d875929600db3ad193e883eb12beb0e83f2ec54c1c85b9";
 const rendererBeforePittMenus = "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e";
 
@@ -135,6 +136,8 @@ const rendererBeforePittMenus = "c3582f5d74fae550739186491060b39f7fcbd25c399b99d
 const previousRendererProof = new Map<string, string>([
   // The two Pitt menus keep their incoming pose. Existing loops and scenery are untouched.
   [pittMenuRenderer, rendererBeforePittMenus],
+  // The two captive-pen prompts retain the already decoded merchant pose.
+  [captivePenMenusRenderer, pittMenuRenderer],
   // Classic skips the new Enhanced-only abandoned camp clip. Existing clips keep their filters.
   ["c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
     "db6e5267e6521bc9737d197ed4eca705e396fdc5a1e0f4253f6bff07487724d0"],
@@ -290,7 +293,9 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       return (["original", "port"] as const).every(data => {
         const observed = proof.chrome[data];
         const sameSceneryRenderer = observed.rendererSha256 === renderer ||
-          (renderer === pittMenuRenderer && observed.rendererSha256 === rendererBeforePittMenus);
+          (renderer === captivePenMenusRenderer && observed.rendererSha256 === pittMenuRenderer) ||
+          ([pittMenuRenderer, captivePenMenusRenderer].includes(renderer) &&
+            observed.rendererSha256 === rendererBeforePittMenus);
         return observed.data === data && sameSceneryRenderer &&
           checkpoint.has(observed.checkpointSha256) && isDeepStrictEqual(observed.position, proof.position) &&
           normalizeCaption(observed.caption).includes(caption);
