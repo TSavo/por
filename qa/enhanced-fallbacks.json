@@ -232,6 +232,12 @@
    "frames": [],
    "fixtureSha256": "031ab6e4267e2dfd789af9961836cbad59f85e8b5d8d32324234dfd40c3bd9af"
   },
+  "walk-lizardfolk-pledge": {
+   "observer": 2,
+   "presented": 223,
+   "frames": [],
+   "fixtureSha256": "0d72bd253c4d709bdce604b73ad3fb148e1c532222b54bc0423a4e0bf09b012a"
+  },
   "walk-new-phlan-training": {
    "observer": 2,
    "presented": 866,
@@ -249,6 +255,209 @@
    "presented": 390,
    "frames": [],
    "fixtureSha256": "7ee4c3b2355a5f718f189b8a4d9ecab3ba4c05a87606b4378cb4e1e3992b9f69"
+  },
+  "walk-zhentil-envoy": {
+   "observer": 2,
+   "presented": 250,
+   "frames": [
+    {
+     "sequence": 110,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 112,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 112,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 112,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 112,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 112,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 112,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 112,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 112,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 112,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 112,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 113,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 113,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 113,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 113,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 113,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 113,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 113,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 115,
+     "animation": false,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 116,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 116,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 116,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 116,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 116,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 116,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 116,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 116,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    },
+    {
+     "sequence": 116,
+     "animation": true,
+     "keys": [
+      "surface:area:25:first-person"
+     ]
+    }
+   ],
+   "fixtureSha256": "a7790a79917b31794e90dbca3aedb0862d9bd5e13accd647c8dee092c21f85ce"
   },
   "wilderness-walk": {
    "observer": 2,

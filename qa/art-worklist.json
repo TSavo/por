@@ -14,10 +14,10 @@
  },
  "enhancedFallbacks": {
   "observer": 2,
-  "frames": 0,
-  "presented": 6303,
-  "walks": 43,
-  "recordedWalks": 43,
+  "frames": 28,
+  "presented": 6776,
+  "walks": 45,
+  "recordedWalks": 45,
   "missingWalks": [],
   "aliasedWalks": [
    {
@@ -41,9 +41,14 @@
     "receipt": "campaign-full/leg-9"
    }
   ],
-  "runs": 40,
+  "runs": 42,
   "additionalReplays": 2,
-  "keys": []
+  "keys": [
+   {
+    "key": "surface:area:25:first-person",
+    "frames": 28
+   }
+  ]
  },
  "overlandTerrain": {
   "atlasReady": true,
