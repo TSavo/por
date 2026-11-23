@@ -139,7 +139,7 @@ function deriveNormalRoughness(atlas) {
       for (let i = 0; i < band.length; i++)
         heightMap[i] = Math.max(0, Math.min(1, 0.5 + (band[i] - mean) / (std * 2.6)));
       let strength = tileBumpStrength(index);
-      if (wallTile) strength *= (1 - 0.70 * organic) * (1 - 0.25 * sparkle);
+      if (wallTile) strength *= (1 - 0.86 * organic) * (1 - 0.25 * sparkle);
       const clampC = (v) => {
         if (wrap) return ((v % cell) + cell) % cell;
         return v < 0 ? 0 : v > cell - 1 ? cell - 1 : v;
@@ -513,6 +513,8 @@ const sceneFragment = `
     vec3 V = normalize(eye - world);
     // Fade bump hard at grazing angles and with distance so far walls stay clean.
     float bumpAmt = smoothstep(0.28, 0.82, clamp(dot(Ngeo, V), 0.0, 1.0)) * distFade;
+    // Indoor floors keep painted pattern, not carved relief (Valjevo tiles).
+    bumpAmt *= mix(1.0, 0.38, floorSurface * indoor);
     N = normalize(mix(Ngeo, N, bumpAmt));
     vec3 L = sunDir;
     float ndotl = pow(max(dot(N, L), 0.0), 1.15);
@@ -566,7 +568,7 @@ const sceneFragment = `
     sunVis *= bumpShadow;
     float floorHemi = mix(hemi, 0.28 + hemi * 0.25, floorSurface);
     ambient = mix(groundColor, skyColor, floorHemi);
-    vec3 fill = mix(vec3(0.20, 0.23, 0.30), vec3(0.14, 0.10, 0.07), indoor);
+    vec3 fill = mix(vec3(0.20, 0.23, 0.30), vec3(0.16, 0.14, 0.12), indoor);
     float sunAmt = ndotl * sunVis * (1.0 - indoor);
     sunAmt = sunAmt / (1.0 + 0.34 * sunAmt);
     vec3 sunLight = sunColor * sunAmt;
@@ -575,9 +577,11 @@ const sceneFragment = `
     float torchDist = length(eye - world);
     float torchAtt = 1.0 / (1.0 + torchDist * torchDist * 0.22);
     float torchN = max(dot(N, torchDir), 0.0);
-    vec3 torchCol = vec3(1.0, 0.72, 0.42);
-    color += albedo * torchCol * torchN * torchAtt * mix(0.10, 0.82, indoor) * ao;
-    color += albedo * vec3(0.10, 0.13, 0.18) * indoor * ao;
+    vec3 torchCol = vec3(1.0, 0.84, 0.62);
+    // Floors take a slightly weaker torch so painted grain isn't a flat orange wash.
+    float torchAmt = mix(0.10, 0.82, indoor) * mix(1.0, 0.70, floorSurface * indoor);
+    color += albedo * torchCol * torchN * torchAtt * torchAmt * ao;
+    color += albedo * vec3(0.14, 0.14, 0.15) * indoor * ao;
 
     float haze = 1.0 - exp(-max(0.0, depth) * 0.062);
     haze *= mix(1.0, 1.18, clamp(0.14 - world.y, 0.0, 1.0));
@@ -866,8 +870,8 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
       const indoor = view.roofed ? 1 : 0;
       const sunColor = indoor ? [0, 0, 0] : [1.28, 0.96, 0.62];
       const skyColor = indoor ? [0.07, 0.07, 0.08] : [0.36, 0.48, 0.70];
-      const groundColor = indoor ? [0.07, 0.055, 0.04] : [0.30, 0.22, 0.14];
-      const fogColor = indoor ? [0.05, 0.04, 0.035] : [0.62, 0.72, 0.88];
+      const groundColor = indoor ? [0.08, 0.07, 0.06] : [0.30, 0.22, 0.14];
+      const fogColor = indoor ? [0.055, 0.05, 0.045] : [0.62, 0.72, 0.88];
 
       gl.bindFramebuffer(gl.FRAMEBUFFER, sceneFbo);
       gl.viewport(0, 0, width, height);
