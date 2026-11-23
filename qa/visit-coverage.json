@@ -462,6 +462,29 @@
     "escape-visits.jsonl",
     "return-visits.jsonl"
    ]
+  },
+  "walk-buccaneer-bivant-purchase": {
+   "areas": [
+    0,
+    1,
+    8,
+    25,
+    26
+   ],
+   "commissions": [
+    "auction",
+    "kobolds",
+    "kovel",
+    "nomads",
+    "records",
+    "rescue",
+    "river",
+    "sokal",
+    "textile"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
