@@ -1946,6 +1946,13 @@ const illustrationRoutes = new Map([
     prompt: /AFLURRYOFARROWSSTRIKETHEM.*AGUARDFALLSWITHASCOREOFWOUNDS/i,
     illustratedScenery: true, finalPhaseCapture: "nomad-raid-arrow-volley.png",
   }],
+  ["nomad-raid-alliance-aftermath", {
+    slot: "A", inputs: [...nomadRaidAlliance, "f", "enter", "enter"], fixedClockStart: 4320000,
+    portrait: "portrait:area:17:ecl:9da2:caller:b2c4:HEAD7.DAX:74:BODY7.DAX:30",
+    prompt: /THECHIEFCOMESBACK.*EQUALTOYOURHONOR/i,
+    staticPortraitMenu: true, finalPhaseCapture: "nomad-raid-hassad-aftermath.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /THEPARTYHASFOUNDTREASURE/i },
+  }],
   ["nomad-raid-betrayal", {
     slot: "A", inputs: ["e", "r", "h", "i", "r", "enter"], fixedClockStart: 4320000,
     portrait: "scene-illustration:area:17:ecl:9da2:caller:b629",
@@ -9035,7 +9042,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "sokal-barracks-ghost-phases" ||
       /^nomad-camp-sentry-(families|parlay|combat)$/.test(routeName) ||
       /^nomad-guard-(follow|attack)$/.test(routeName) ||
-      /^nomad-raid-(alliance(?:-offer|-refusal|-volley)?|betrayal|first-attack)$/.test(routeName) ||
+      /^nomad-raid-(alliance(?:-offer|-refusal|-volley|-aftermath)?|betrayal|first-attack)$/.test(routeName) ||
       routeName === "nomad-morning-walk" ||
       routeName === "nomad-feast-held-sequence" ||
       /^nomad-pursuit-(combat|flee|menu)$/.test(routeName) ||

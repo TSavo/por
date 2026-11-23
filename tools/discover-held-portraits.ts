@@ -503,6 +503,19 @@ const eclCandidates = scripts.flatMap(record => {
       return { source: "HEAD7.DAX:61:BODY7.DAX:30", headWrite: authored(head.address), headSlot: "6de1",
         bodyOperand: 2 };
     }
+    if (address === 0xb23c) {
+      // The headman addresses the party after the refused alliance and the fight.
+      const head = instructions.get(0xb236);
+      const picture = instructions.get(address);
+      const reset = picture && instructions.get(picture.next);
+      if (head?.opcode !== 0x09 || head.next !== address ||
+          literal(head.operands[0]!) !== 74 || memory(head.operands[1]!) !== 0x6de1 ||
+          picture?.opcode !== 0x0e || literal(picture.operands[0]!) !== 30 ||
+          reset?.opcode !== 0x09 || literal(reset.operands[0]!) !== 0xff ||
+          memory(reset.operands[1]!) !== 0x6de1) return undefined;
+      return { source: "HEAD7.DAX:74:BODY7.DAX:30", headWrite: authored(head.address), headSlot: "6de1",
+        bodyOperand: 0, headReset: authored(reset.address) };
+    }
     if (address !== 0xa213 && address !== 0xa33c) return undefined;
 
     // The second APPROACH composes the sentry. The families passage and the
