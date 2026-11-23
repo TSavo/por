@@ -66,7 +66,7 @@ function nativeCaption({ overlay, offset, exampleNumber = "" }: { overlay: numbe
 
 interface CaptionPart { kind: string; rawText?: string }
 const narration = JSON.parse(readFileSync(new URL("../src/audio/voice-master-manifest.json", import.meta.url), "utf8")) as {
-  events: { sourceId: string; source: { archive: string; block: number }; outputParts?: CaptionPart[] }[];
+  events: { sourceId: string; source: { archive: string; block: number; address: string }; outputParts?: CaptionPart[] }[];
   units: {
     triggerSourceId: string; resolution?: string; runtimeVariants?: { text: string }[];
     sourceParts?: { sourceId: string; outputParts?: CaptionPart[] }[];
@@ -74,6 +74,9 @@ const narration = JSON.parse(readFileSync(new URL("../src/audio/voice-master-man
 };
 const narrationSources = new Map(narration.events.map(event => [event.sourceId, event]));
 const runtimeCaptions = new Map<string, string[]>();
+const podalPlaza = "ECL1.DAX:18";
+const patrolSightings: string[] = [];
+const patrolDepartures: string[] = [];
 for (const { triggerSourceId, resolution, runtimeVariants, sourceParts } of narration.units) {
   const source = narrationSources.get(triggerSourceId)?.source;
   if (!source) continue;
@@ -84,9 +87,25 @@ for (const { triggerSourceId, resolution, runtimeVariants, sourceParts } of narr
   if (!texts?.length) continue;
   const key = `${source.archive}:${source.block}`;
   const captions = runtimeCaptions.get(key) ?? [];
-  for (const text of texts) captions.push(text.toUpperCase().replace(/\s/g, ""));
+  const normalized = texts.map(text => text.toUpperCase().replace(/\s/g, ""));
+  captions.push(...normalized);
   runtimeCaptions.set(key, captions);
+  if (key !== podalPlaza) continue;
+  if (source.address === "0xa105" && resolution === "finite-runtime-variants") {
+    patrolSightings.push(...normalized);
+  }
+  if (source.address === "0x9b9a" || source.address === "0x9bb5") {
+    const end = narrationSources.get(sourceParts?.at(-1)?.sourceId ?? "")?.source;
+    if (end?.archive === source.archive && end.block === source.block &&
+        (end.address === "0x9ce6" || end.address === "0x9cf6")) {
+      patrolDepartures.push(...normalized);
+    }
+  }
 }
+// Disguised patrols append their reaction and departure to the dynamic creature sighting.
+// The narration manifest resolves each spoken part while art matches the whole displayed caption.
+runtimeCaptions.get(podalPlaza)?.push(...patrolSightings.flatMap(sighting =>
+  patrolDepartures.map(departure => sighting + departure)));
 
 // Script blocks are the primary area IDs. A script can also load a separate map.
 interface AreaScript {
