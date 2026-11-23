@@ -35271,6 +35271,56 @@
           "sha256": "56723ca23e7d458851aabc14cd52cc13ceef00e494fd9c9a8b17a470d415dc48"
         }
       }
+    },
+    {
+      "producer": "ECL1.DAX:24:aea2",
+      "prompt": "ae96/ad99",
+      "caption": "WHOSE SHIELDS BEAR A BLACK HAND ON A RED FIELD",
+      "checkpoint": "bane-black-hand-patrol-warning/A.json",
+      "illustration": {
+        "id": "scene-illustration:area:24:ecl:ae96:caller:ad99:cue:black-hand-warning",
+        "native": {
+          "heldCaption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA10515,4E01:13YOUSEEAGROUPOFFOURORCSWHOSESHIELDSBEARABLACKHANDONAREDFIELD.THEYCAUTIOSLYLOOKYOUOVER.Press<return>tocontinue",
+          "viewportSha256": "4439aa9f2083e62d630d1bdc7e6a327be991063161e1e3199e6ce40357875c4b",
+          "pictureDraws": 0
+        }
+      },
+      "chrome": {
+        "original": {
+          "route": "bane-black-hand-patrol-warning",
+          "data": "original",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA10515,4E01:13YOUSEEAGROUPOFFOURORCSWHOSESHIELDSBEARABLACKHANDONAREDFIELD.THEYCAUTIOSLYLOOKYOUOVER.Press<return>tocontinue",
+          "portrait": "scene-illustration:area:24:ecl:ae96:caller:ad99:cue:black-hand-warning",
+          "checkpointSha256": "048664c9fddbad9cb8cb1ecb3e8c5b23129d33fc3e4fdcf8186c4c49a72c49f1",
+          "artSha256": "e97aff181a9932bdbce9131d67d76050e7b26081bddddaaf884bdd16c2b67b82",
+          "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3666,
+          "samples": 218,
+          "poses": [
+            "scene-illustration:area:24:ecl:ae96:caller:ad99:cue:black-hand-warning"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "3d3f8f5412da5c9032efdc62e8838fa9820ca212e721c604137a211c1bb96514"
+        },
+        "port": {
+          "route": "bane-black-hand-patrol-warning",
+          "data": "port",
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA10515,4E01:13YOUSEEAGROUPOFFOURORCSWHOSESHIELDSBEARABLACKHANDONAREDFIELD.THEYCAUTIOSLYLOOKYOUOVER.Press<return>tocontinue",
+          "portrait": "scene-illustration:area:24:ecl:ae96:caller:ad99:cue:black-hand-warning",
+          "checkpointSha256": "048664c9fddbad9cb8cb1ecb3e8c5b23129d33fc3e4fdcf8186c4c49a72c49f1",
+          "artSha256": "e97aff181a9932bdbce9131d67d76050e7b26081bddddaaf884bdd16c2b67b82",
+          "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+          "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "durationMs": 3657,
+          "samples": 218,
+          "poses": [
+            "scene-illustration:area:24:ecl:ae96:caller:ad99:cue:black-hand-warning"
+          ],
+          "replaced": false,
+          "paneSampleSha256": "3d3f8f5412da5c9032efdc62e8838fa9820ca212e721c604137a211c1bb96514"
+        }
+      }
     }
   ],
   "staticPortraitPrompts": [

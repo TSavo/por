@@ -223,6 +223,9 @@ const eclCandidates = scripts.flatMap(record => {
   const pictureArchive = `PIC${archive}.DAX`;
   const authored = (address: number) => hex(authoredScriptAddress(archive, scriptBlock, address, "1.3"));
   const script = scriptFromBlock(contentBytes(record, read));
+  // This exact Bane script matches the GOG and bundled 1.3 extracts.
+  const baneRampart = archive === 1 && scriptBlock === 24 &&
+    digest(script.bytes) === "bb8e6cfeecbe8f3d23f1f9882bcbbe5c7aee11cc467c2116ee046dfa60953b7f";
   const decoded = disassemble(script).instructions;
   const instructions = new Map(decoded.map(instruction => [instruction.address, instruction]));
   const faceToFaceUnreachable = archive === 7 && scriptBlock === 26 &&
@@ -582,7 +585,14 @@ const eclCandidates = scripts.flatMap(record => {
     const portrait = selector(operands[direct ? 0 : 2]!);
     const block = portrait.literal === null ? null : portrait.literal & 255;
     const tyrmorPictures = tyrmorPrisonPictures(load.address, portrait);
-    const boundedBlocks = podalPatrolPictureBlocks(load.address, portrait) ?? valhingenPatrolPictureBlocks(load.address, portrait) ??
+    // The Black Hand choice writes index 1 and 4a0e=1, then jumps directly
+    // into the warning before its patrol helper returns. All returning choices
+    // have 4a0e=0, so their later aeff branch cannot enter this warning or menu.
+    const baneBlackHand = baneRampart && load.address === 0xaea2 && portrait.address === 0x9824;
+    const banePictures = baneRampart && [0xadd9, 0xaea2, 0xaf03, 0xaf4f, 0xafe7].includes(load.address) &&
+      portrait.address === 0x9824
+      ? (baneBlackHand ? [1] : [0, 1, 2, 3]).map(index => script.byte(0xb613 + index)) : undefined;
+    const boundedBlocks = banePictures ?? podalPatrolPictureBlocks(load.address, portrait) ?? valhingenPatrolPictureBlocks(load.address, portrait) ??
       slumsRoamingPictureBlocks(load.address, portrait) ?? kutoSurprisePictureBlocks(load.address, portrait) ?? tyrmorPictures?.blocks;
     const pictureBlocks = block === null ? boundedBlocks ?? [] : [block];
     const possiblePictures = animated.filter(picture => picture.file === pictureArchive &&
@@ -895,7 +905,7 @@ const eclCandidates = scripts.flatMap(record => {
       approachHandoff,
       immediateCombat: combat?.address ?? null,
       immediateCombatResume: combat?.resume,
-      promptCandidates: [...prompts.values()].sort((a, b) => a.address.localeCompare(b.address) || (a.caller ?? "").localeCompare(b.caller ?? "")),
+      promptCandidates: [...prompts.values()].filter(prompt => !baneBlackHand || prompt.caller === "ad99").sort((a, b) => a.address.localeCompare(b.address) || (a.caller ?? "").localeCompare(b.caller ?? "")),
       ...(retainedVerticalMenus.size ? { retainedVerticalMenus: Object.fromEntries(retainedVerticalMenus) } : {}),
       uncertainties: [
         "selected-head-may-use-composed-portrait",
