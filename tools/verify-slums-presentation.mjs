@@ -2328,6 +2328,19 @@ const illustrationRoutes = new Map([
       heldApproach: { position: [17, 9, 11],
         placement: [56, 32, "encounter:area:17:SPRIT7.DAX:0:1:0", 24, 65] } },
   }],
+  ["nomad-betrayal-unburdened-retreat", {
+    slot: "A", stockInput: true, fixedClockStart: "4320000",
+    promptSchedule: "qa/fixtures/nomad-raid-betrayal-retreat/prompts.jsonl",
+    inputs: [...Array.from({ length: 5 }, () => ["v", "e", "end"]).flat(), "v", "e",
+      "e", "r", "h", "i", "r", "enter", "enter", "f", "enter", "enter", "enter", "f"],
+    sceneryStops: {
+      25: { position: [17, 13, 9], prompt: /WARCRIESANDTHECLANGOFMETALBEHINDYOU/i },
+      26: { position: [17, 13, 9], prompt: /WARCRIESANDTHECLANGOFMETALINFRONTOFYOU/i },
+    },
+    prompt: /THEREISNOWHERELEFTTORETREAT/i,
+    sceneryPrompt: [17, 13, 9],
+    finalPhaseCapture: "nomad-betrayal-nowhere-left.png",
+  }],
   ["nomad-raid-betrayal", {
     slot: "A", inputs: ["e", "r", "h", "i", "r", "enter"], fixedClockStart: 4320000,
     portrait: "scene-illustration:area:17:ecl:9da2:caller:b629",
