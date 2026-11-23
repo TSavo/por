@@ -9,6 +9,7 @@
     "play": "tsx tools/browser-play.ts",
     "web:build": "tsx tools/web/build.ts",
     "web:check-boot": "node tools/web/check-boot.mjs",
+    "web:check-saves": "node tools/web/check-saves.mjs",
     "release:build": "tsx tools/release/build.ts",
     "release:pack": "npm run release:build && tsx tools/release/pack.ts",
     "verify:campaign": "node tools/verify-fresh-party.mjs --campaign",
