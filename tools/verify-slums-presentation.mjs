@@ -716,6 +716,7 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const swampPoolDive = ["s", "up", "up", "y", "enter", "up", "up", "left", "up", "up", "y"];
+const stojanowTollPortrait = "portrait:area:9:ecl:9c35:caller:abdf:PIC2.DAX:63:0:0";
 const stojanowTollApproach = [
   "up", "enter", "enter", "p", "n", "t", "enter", "enter", "enter",
   "up", "up", "enter", "enter", "up", "right", "up", "up", "enter",
@@ -1349,7 +1350,7 @@ const illustrationRoutes = new Map([
   }],
   ["stojanow-bugbear-gate-payment", {
     slot: "B", inputs: [...stojanowTollApproach, "y"],
-    portraitStops: { 18: "portrait:area:9:PIC2.DAX:63:0:0" },
+    portraitStops: { 18: stojanowTollPortrait },
     portrait: "scene-illustration:area:9:ecl:acb7",
     prompt: /THEBUGBEARTAKESTHEMONEYANDTHEGATEOPENS.*YOUPROCEEDTHROUGH/i,
     continuation: { inputs: ["enter", "up"], prompt: /8,4N.*AREACASTVIEWENCAMP|AREACASTVIEWENCAMP.*8,4N/i, clearsPortrait: true },
@@ -1371,9 +1372,19 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["s", "enter"], portrait: "scene-illustration:area:9:ecl:a0a7:cue:bugbear-confiscation",
       prompt: /(?=.*4,14S).*THEBUGBEARSSTRIPYOUOFANYTHINGREMOTELYVALUABLE/i },
   }],
+  ["stojanow-toll-demand", {
+    slot: "B", inputs: stojanowTollApproach,
+    portrait: stojanowTollPortrait, prompt: /OKAY,LETSHAVETHE15GOLD.*DOYOUPAYHIM/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:9:ecl:9c35:caller:abdf:PIC2.DAX:63:${member}:0`),
+    finalPhaseCapture: "stojanow-bugbear-toll-demand.png",
+    continuation: {
+      inputs: ["n"], portrait: "scene-illustration:area:9:ecl:a0a7:cue:bugbear-toll-refused",
+      prompt: /ALLRIGHT,GETOUTOFHERETHEN.*COMEBACKWHENYOU'VELEARNEDTHERULES/i,
+    },
+  }],
   ["stojanow-toll-refused", {
     slot: "B", inputs: [...stojanowTollApproach, "n"],
-    portraitStops: { 18: "portrait:area:9:PIC2.DAX:63:0:0" },
+    portraitStops: { 18: stojanowTollPortrait },
     portrait: "scene-illustration:area:9:ecl:a0a7:cue:bugbear-toll-refused",
     prompt: /6,11E.*ALLRIGHT,GETOUTOFHERETHEN.*COMEBACKWHENYOU'VELEARNEDTHERULES/i,
     finalPhaseCapture: "stojanow-bugbear-toll-refused.png",
