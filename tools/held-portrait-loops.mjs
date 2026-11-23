@@ -18,6 +18,8 @@ const mendorFighterPoseTimes = [410, 110, 310, 210, 720];
 const mendorBasiliskPoseTimes = [810, 710];
 const podalOrcPoseOrder = [0, 1, 2, 1];
 const podalOrcPoseTimes = [1510, 20, 710, 20];
+const slumsOrcPoseOrder = [0, 1, 2, 1];
+const slumsOrcPoseTimes = [1510, 20, 710, 20];
 const auctionPoseTimes = [610, 210, 410, 210, 410, 610];
 
 // The last captive-pen member repeats pose 3 on all three narration pauses.
@@ -155,8 +157,12 @@ const portraitLoops = [
     /INTHISROOMARESOMEGOBLINSLAVESTHATARECOWERINGINTHECORNER/i, [310, 310]],
   ["portrait:area:20:ecl:b6df:caller:9eec:PIC2.DAX:2:", 2, "portrait:area:20:PIC2.DAX:2:0:0",
     /GOBLINISINSTRUCTINGAGROUPOFYOUNGWARRIORS/i, [310, 310]],
-  ["portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:", [0, 1, 2, 1], "portrait:area:20:PIC2.DAX:4:0:0",
-    /GUARDSRUNTOINTERCEPTYOU/i, [1510, 20, 710, 20]],
+  ["portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:", slumsOrcPoseOrder, "portrait:area:20:PIC2.DAX:4:0:0",
+    /GUARDSRUNTOINTERCEPTYOU/i, slumsOrcPoseTimes],
+  ["portrait:area:20:ecl:b6df:caller:9e51:PIC2.DAX:4:", slumsOrcPoseOrder, "portrait:area:20:PIC2.DAX:4:0:0",
+    /SEVERALORCSAREARGUINGOVERSOMEPAPERS/i, slumsOrcPoseTimes],
+  ["portrait:area:20:ecl:b6df:caller:a9e5:PIC2.DAX:4:", slumsOrcPoseOrder, "portrait:area:20:PIC2.DAX:4:0:0",
+    /HOWDAREYOUBREAKINTOOURHOME/i, slumsOrcPoseTimes],
   ["portrait:area:20:ecl:9e02:PIC2.DAX:0:", [0, 1, 2, 1], undefined,
     /^(?!.*ABATTLEBEGINS).*YOUHAVESURPRISEDAPARTYOFKOBOLDS/i, [210, 210, 210, 210]],
   ["portrait:area:5:ecl:9ff9:PIC5.DAX:31:", towerTrollPoseOrder, "portrait:area:5:PIC5.DAX:31:0:0",

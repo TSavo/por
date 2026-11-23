@@ -1040,6 +1040,19 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter"], portrait: "portrait:area:20:ecl:aa02:PIC2.DAX:4:2:0",
       prompt: /ABATTLEBEGINS/i },
   }],
+  ...[
+    ["papers", "9e51", /SEVERALORCSAREARGUINGOVERSOMEPAPERS/i],
+    ["home", "a9e5", /HOWDAREYOUBREAKINTOOURHOME/i],
+  ].map(([name, caller, prompt]) => {
+    const portrait = "portrait:area:20:PIC2.DAX:4:0:0";
+    const phase = member => `portrait:area:20:ecl:b6df:caller:${caller}:PIC2.DAX:4:${member}:0`;
+    return [`slums-orc-${name}-portrait-loop`, {
+      slot: "B", inputs: ["up", "enter", "enter"], portrait, prompt,
+      heldPortraitLoop: [portrait, phase(1), phase(2), phase(1)],
+      continuation: { inputs: ["enter"], portrait, prompt: /ABATTLEBEGINS/i,
+        pressOnPortrait: phase(2), retainPose: true, battleNoticeInputs: name === "home" ? ["enter", "enter"] : undefined },
+    }];
+  }),
   ["bane-black-hand-emissary-phases", {
     slot: "A",
     inputs: [...Array.from({ length: 50 }, () => ["up", "down"]).flat(), "up", "enter", "enter",
@@ -12238,7 +12251,7 @@ try {
         await waitForPortraitPaint(frame.sequence, continuation.pressOnPortrait);
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, `${routeName}-battle-notice.png`), Buffer.from(shot.data, "base64"));
-        await advance("enter");
+        for (const key of continuation.battleNoticeInputs ?? ["enter"]) await advance(key);
         assert.equal(frame.portrait, undefined);
         await waitFor("the battlefield without the encounter portrait", () => run(`
           state.sequence === ${frame.sequence} && !animationFrame && renderingSequence === undefined &&
