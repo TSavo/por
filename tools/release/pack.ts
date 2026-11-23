@@ -187,6 +187,9 @@ function checkNothingOriginal(root: string, label: string): void {
       }
       if (!isInside(root, target)) problems.push(`${path} is a link`);
     }
+    if (label === "the Windows install" && /[<>:"|?*]/.test(path)) {
+      problems.push(`${path} contains a character the Windows installer cannot preserve`);
+    }
     if (/por-assets/i.test(path)) problems.push(`${path} names por-assets`);
     if (originalName.test(name)) problems.push(`${path} is an original game file`);
     if (/\.exe$/i.test(name) && payloadProgram.test(path.replace(/\\/g, "/"))) problems.push(`${path} is a program`);
