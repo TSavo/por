@@ -4,7 +4,7 @@
  * answers the page's requests for its files, through the Node disk backend (tools/resources/node-disk.ts),
  * by the same URLs the Node game server serves.
  *
- *   npm run play:web        (POR_PLAY_PORT, default 43125)
+ *   npm run play        (POR_PLAY_PORT, default 43124); npm run play:node is the Node runner
  *
  * Every response is cross-origin isolated (COOP and COEP), which the engine's worker needs for its
  * shared command buffer (tools/web/command-channel.ts). The settings the launcher passes to its runner
@@ -22,7 +22,7 @@ import { buildWeb, webOutput } from "./build.js";
 import { codeWheelRunes, resourceIndex } from "./resource-index.js";
 import { pageFiles, playPage, soundManifest, wheelArt } from "./static-files.js";
 
-const port = Number(process.env.POR_PLAY_PORT ?? 43125);
+const port = Number(process.env.POR_PLAY_PORT ?? 43124);
 if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error("POR_PLAY_PORT must be a TCP port between 1 and 65535");
 const origin = `http://127.0.0.1:${port}`;
 

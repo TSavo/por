@@ -6,7 +6,8 @@
   "description": "Port of SSI Pool of Radiance: Turbo Pascal procedures translated from START.EXE and GAME.OVR, plus a classic/upgraded presentation.",
   "scripts": {
     "dev": "npm run play",
-    "play": "tsx tools/browser-play.ts",
+    "play": "tsx tools/web/serve.ts",
+    "play:node": "tsx tools/browser-play.ts",
     "web:build": "tsx tools/web/build.ts",
     "web:check-boot": "node tools/web/check-boot.mjs",
     "web:check-saves": "node tools/web/check-saves.mjs",

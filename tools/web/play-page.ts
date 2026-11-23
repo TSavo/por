@@ -74,7 +74,7 @@ async function useOriginal(choice: OriginalChoice | undefined) {
 const ready = (async () => {
   provider = await IdbResources.open();
   index = (await provider.getJson<ResourceIndex>("index"))!;
-  gameEntries = await preloadEngineResources(provider, index, ["manifest:src/audio/voices.json"]);
+  gameEntries = await preloadEngineResources(provider, index, ["manifest:src/audio/voices.json", "manifest:qa/art-worklist-cells.json"]);
   const kept = await restoreOriginalFolder().catch((error: Error) => ({ problem: error.message }));
   if (kept && "release" in kept) original = kept;
   else originalProblem = kept?.problem;
