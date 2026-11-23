@@ -667,7 +667,7 @@ const postFragment = `
     mapped += glow * 0.45 * skyMask;
     float lm = dot(mapped, vec3(0.2126, 0.7152, 0.0722));
     mapped = mix(vec3(lm), mapped, 1.14);
-    float vig = smoothstep(1.28, 0.4, length((uv - 0.5) * vec2(1.0, 1.12)));
+    float vig = 1.0 - smoothstep(0.4, 1.28, length((uv - 0.5) * vec2(1.0, 1.12)));
     mapped *= mix(0.93, 1.0, vig);
     mapped *= vec3(1.03, 1.0, 0.97);
     gl_FragColor = vec4(clamp(mapped, 0.0, 1.0), 1.0);
@@ -680,6 +680,7 @@ const bloomFragment = `
   uniform sampler2D color;
   uniform vec2 texel;
   uniform float extract;
+  uniform vec2 highlightRange;
   void main() {
     vec3 acc = vec3(0.0);
     acc += texture2D(color, uv + texel * vec2(-1.0, -1.0)).rgb;
@@ -695,7 +696,7 @@ const bloomFragment = `
     if (extract > 0.5) {
       float lum = dot(acc, vec3(0.2126, 0.7152, 0.0722));
       float sky = 1.0 - texture2D(color, uv).a;
-      acc *= smoothstep(1.4, 2.4, lum) * sky;
+      acc *= smoothstep(highlightRange.x, highlightRange.y, lum) * sky;
     }
     gl_FragColor = vec4(acc, 1.0);
   }
@@ -843,6 +844,9 @@ export function createExplorationViewport(canvas, walls, atlas, layout = default
   const hdr = colorTarget(gl, width, height);
   const bloomA = colorTarget(gl, width, height);
   const bloomB = colorTarget(gl, width, height);
+  // An RGBA8 scene clamps the sun below the half-float highlight threshold.
+  gl.useProgram(bloomProgram);
+  gl.uniform2fv(gl.getUniformLocation(bloomProgram, "highlightRange"), hdr.hdr ? [1.4, 2.4] : [0.82, 0.98]);
   const depth = gl.createRenderbuffer();
   gl.bindRenderbuffer(gl.RENDERBUFFER, depth);
   gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, width, height);
