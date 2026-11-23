@@ -3340,6 +3340,36 @@ const illustrationRoutes = new Map([
       portrait: "scene-illustration:area:0:ecl:aa63",
     },
   }],
+  ["new-phlan-braccio-introduction-hold", {
+    slot: "H", fixedClockStart: "4320000",
+    inputs: ["down", "up", "right", "up", "right", "up", "up", "up", "right", "up", "up"],
+    portrait: "portrait:HEAD3.DAX:13:BODY3.DAX:1",
+    prompt: /ALLOWMETOINTRODUCEDIRTEN,PRIESTOFILMAR.*PRESS<ENTER>\/<RETURN>TOCONTINUE/i,
+    staticPortraitMenu: true,
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:HEAD3.DAX:0:BODY3.DAX:4",
+      prompt: /HEISBOUNDTORECOVERTHETEMPLE/i,
+    },
+  }],
+  ["new-phlan-tempus-healing-hold", {
+    slot: "A", fixedClockStart: "4320000",
+    inputs: ["down", "up", "left", "up", "up", "up", "up", "left", "up"],
+    portrait: "portrait:area:0:HEAD3.DAX:57:BODY3.DAX:1",
+    prompt: /THEPRIESTSOFTEMPUSBIDYOUWELCOME.*DOYOUSEEKHEALING.*YESNO/i,
+    staticPortraitMenu: true,
+    continuation: { inputs: ["n"], clearsPortrait: true, prompt: /THENYOUMUSTLEAVE/i },
+  }],
+  ["new-phlan-tempus-watch-battle-notice", {
+    slot: "A", fixedClockStart: "4320000", inputs: ["up"], settleInputs: ["enter", "enter"],
+    portrait: "portrait:area:0:ecl:aac7:HEAD3.DAX:57:BODY3.DAX:1",
+    prompt: /YOUATTACKEDTHECITYWATCH.*YOUWON.TBEATUSSOEASILY.*ABATTLEBEGINS/i,
+    oneShotProducer: "ECL3.DAX:0:aa75",
+    finalPhaseCapture: "new-phlan-tempus-watch-battle-notice.png",
+    continuation: {
+      inputs: [":travel-poll", ":travel-poll", ":travel-poll"],
+      clearsPortrait: true, prompt: /HITPOINTS/i,
+    },
+  }],
   ["new-phlan-tempus-watch-challenge", {
     slot: "A", inputs: ["up", "enter"],
     portrait: "portrait:area:0:ecl:aab8:HEAD3.DAX:57:BODY3.DAX:1",
