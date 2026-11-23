@@ -490,5 +490,36 @@
         "artSha256": "a33f0a369e1d8358e42c03b74cd645467223e31a7c8ce0af5ba79bb1c2dbb3d9"
       }
     }
+  },
+  {
+    "producer": "ECL7.DAX:26:aa2d",
+    "combat": "aa7a",
+    "native": {
+      "drawCursor": "aa34",
+      "members": [
+        0
+      ],
+      "evidence": "https://github.com/TSavo/por/issues/131#issuecomment-7090316581"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL7.DAX:26:aa2d",
+        "route": "lizard-wilds-stirge-swarm-ambush",
+        "data": "original",
+        "portrait": "portrait:area:26:PIC7.DAX:61:0:0",
+        "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "a1a130907c11dec1bd0c1cc2a823322d9e73b0ad425a282f2463c8bdf20b8d47"
+      },
+      "port": {
+        "producer": "ECL7.DAX:26:aa2d",
+        "route": "lizard-wilds-stirge-swarm-ambush",
+        "data": "port",
+        "portrait": "portrait:area:26:PIC7.DAX:61:0:0",
+        "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "a1a130907c11dec1bd0c1cc2a823322d9e73b0ad425a282f2463c8bdf20b8d47"
+      }
+    }
   }
 ]

@@ -20970,6 +20970,142 @@
           }
         }
       }
+    },
+    {
+      "id": "area:26:ecl:a7b4:PIC7.DAX:0",
+      "producer": "ECL7.DAX:26:a722",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 210,
+          "viewport": "c393fd81b80ab6eb2c45ea9884eb8c5c131c91d6283ac5111945fe2ad5929ea2"
+        },
+        {
+          "member": 1,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        },
+        {
+          "member": 2,
+          "durationMs": 210,
+          "viewport": "c6a21acea63c8c16e930163dbb013c3a2404028a1f500014a538e7f7df80f312"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "e3f4c4c652f3a10b0a778febc7d4dfead11747e0b303cce62a6f897306a2abb1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "lizard-wilds-kobold-prisoners",
+          "data": "original",
+          "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+          "bindingSha256": "5f6174a40eba8d72de8d84cb18e52c827467f30066bac1c82955028de436e2a5",
+          "portrait": "portrait:area:26:PIC7.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:26:PIC7.DAX:0:0:0",
+              "atMs": 7.999999988079253
+            },
+            {
+              "key": "portrait:area:26:ecl:a7b4:PIC7.DAX:0:1:0",
+              "atMs": 124.69999998807907
+            },
+            {
+              "key": "portrait:area:26:ecl:a7b4:PIC7.DAX:0:2:0",
+              "atMs": 341.29999998807943
+            },
+            {
+              "key": "portrait:area:26:ecl:a7b4:PIC7.DAX:0:1:0",
+              "atMs": 541.2999999880794
+            },
+            {
+              "key": "portrait:area:26:PIC7.DAX:0:0:0",
+              "atMs": 757.9999999880793
+            },
+            {
+              "key": "portrait:area:26:ecl:a7b4:PIC7.DAX:0:1:0",
+              "atMs": 974.5999999880787
+            },
+            {
+              "key": "portrait:area:26:ecl:a7b4:PIC7.DAX:0:2:0",
+              "atMs": 1174.5999999880787
+            },
+            {
+              "key": "portrait:area:26:ecl:a7b4:PIC7.DAX:0:1:0",
+              "atMs": 1391.2999999880794
+            },
+            {
+              "key": "portrait:area:26:PIC7.DAX:0:0:0",
+              "atMs": 1591.2999999880794
+            },
+            {
+              "key": "portrait:area:26:ecl:a7b4:PIC7.DAX:0:1:0",
+              "atMs": 1807.9999999880793
+            }
+          ],
+          "sha256": {
+            "portrait:area:26:PIC7.DAX:0:0:0": "1bb931ff7b3cf65f5fbd57695f64643a6496c36f50d69dece016dd435327a4b3",
+            "portrait:area:26:ecl:a7b4:PIC7.DAX:0:1:0": "345593f92e411cce8b69bb81b4174ad36f429e987286cc59388baf7e6acb7657",
+            "portrait:area:26:ecl:a7b4:PIC7.DAX:0:2:0": "3d91ef4f118ebc72b83a5773306a328054b483c6a6a57d3a06e5e1ee09b9c495"
+          }
+        },
+        "port": {
+          "route": "lizard-wilds-kobold-prisoners",
+          "data": "port",
+          "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+          "bindingSha256": "5f6174a40eba8d72de8d84cb18e52c827467f30066bac1c82955028de436e2a5",
+          "portrait": "portrait:area:26:PIC7.DAX:0:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:26:PIC7.DAX:0:0:0",
+              "atMs": 8.900000000000091
+            },
+            {
+              "key": "portrait:area:26:ecl:a7b4:PIC7.DAX:0:1:0",
+              "atMs": 209
+            },
+            {
+              "key": "portrait:area:26:ecl:a7b4:PIC7.DAX:0:2:0",
+              "atMs": 425.5999999999999
+            },
+            {
+              "key": "portrait:area:26:ecl:a7b4:PIC7.DAX:0:1:0",
+              "atMs": 625.5999999999999
+            },
+            {
+              "key": "portrait:area:26:PIC7.DAX:0:0:0",
+              "atMs": 842.1999999999998
+            },
+            {
+              "key": "portrait:area:26:ecl:a7b4:PIC7.DAX:0:1:0",
+              "atMs": 1042.3000000000002
+            },
+            {
+              "key": "portrait:area:26:ecl:a7b4:PIC7.DAX:0:2:0",
+              "atMs": 1258.8999999999996
+            },
+            {
+              "key": "portrait:area:26:ecl:a7b4:PIC7.DAX:0:1:0",
+              "atMs": 1475.5
+            },
+            {
+              "key": "portrait:area:26:PIC7.DAX:0:0:0",
+              "atMs": 1675.6000000000004
+            },
+            {
+              "key": "portrait:area:26:ecl:a7b4:PIC7.DAX:0:1:0",
+              "atMs": 1892.1999999999998
+            }
+          ],
+          "sha256": {
+            "portrait:area:26:PIC7.DAX:0:0:0": "1bb931ff7b3cf65f5fbd57695f64643a6496c36f50d69dece016dd435327a4b3",
+            "portrait:area:26:ecl:a7b4:PIC7.DAX:0:1:0": "345593f92e411cce8b69bb81b4174ad36f429e987286cc59388baf7e6acb7657",
+            "portrait:area:26:ecl:a7b4:PIC7.DAX:0:2:0": "3d91ef4f118ebc72b83a5773306a328054b483c6a6a57d3a06e5e1ee09b9c495"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
@@ -21749,6 +21885,63 @@
               49
             ],
             "sha256": "11627b2f934309107b7240c42cfa65d7636a08ff3bf702563152f21d07f00ee2"
+          }
+        }
+      }
+    },
+    {
+      "producer": "ECL7.DAX:23:ab61",
+      "prompt": "9a04/abd5",
+      "position": [
+        23,
+        4,
+        1
+      ],
+      "caption": "AN ANCIENT MAGE LOOKS UP FROM HIS STUDIES",
+      "checkpoint": "yarash-pumping-room/A.json",
+      "chrome": {
+        "original": {
+          "route": "yarash-study-far-combat",
+          "data": "original",
+          "position": [
+            23,
+            4,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105E00:32ANANCIENTMAGELOOKSUPFROMHISSTUDIES,'AH,GOOD,INEEDMORESPECIMENSASCONTROLS.'HETURNSTOHISMUTATEDGUARDS,'SUBDUETHEM!'Pressbuttonor<return>tocontinue",
+          "checkpointSha256": "dcc8745ac8a3c56bdb9deb9fc1f033c8b4df2dc2b77592d11311caa18d0316d9",
+          "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+          "encounter": {
+            "placement": [
+              64,
+              24,
+              "encounter:area:23:SPRIT7.DAX:24:2:0",
+              48,
+              57
+            ],
+            "sha256": "ed0df55d6701b2438062e9337cce0f33836e5c506c4588d9cdf97b00d8753bb6"
+          }
+        },
+        "port": {
+          "route": "yarash-study-far-combat",
+          "data": "port",
+          "position": [
+            23,
+            4,
+            1
+          ],
+          "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105E00:32ANANCIENTMAGELOOKSUPFROMHISSTUDIES,'AH,GOOD,INEEDMORESPECIMENSASCONTROLS.'HETURNSTOHISMUTATEDGUARDS,'SUBDUETHEM!'Pressbuttonor<return>tocontinue",
+          "checkpointSha256": "dcc8745ac8a3c56bdb9deb9fc1f033c8b4df2dc2b77592d11311caa18d0316d9",
+          "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+          "encounter": {
+            "placement": [
+              64,
+              24,
+              "encounter:area:23:SPRIT7.DAX:24:2:0",
+              48,
+              57
+            ],
+            "sha256": "ed0df55d6701b2438062e9337cce0f33836e5c506c4588d9cdf97b00d8753bb6"
           }
         }
       }
@@ -27540,6 +27733,86 @@
               "samples": 221,
               "poses": [
                 "portrait:HEAD5.DAX:12:BODY5.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL7.DAX:23:abd5",
+      "prompt": "abf3",
+      "variants": [
+        {
+          "caption": "Combat Wait Flee Parlay",
+          "checkpoint": "yarash-pumping-room/A.json",
+          "portrait": "portrait:area:23:HEAD7.DAX:56:BODY7.DAX:30",
+          "native": {
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 E 00:32 Combat Wait Flee Parlay",
+            "idlePolls": 40,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "6f572a74411b59993fcb756e8a3a5a23777a2529d859d19e9e6d514ebe12c451"
+              },
+              {
+                "idlePolls": 10,
+                "sha256": "6f572a74411b59993fcb756e8a3a5a23777a2529d859d19e9e6d514ebe12c451"
+              },
+              {
+                "idlePolls": 20,
+                "sha256": "6f572a74411b59993fcb756e8a3a5a23777a2529d859d19e9e6d514ebe12c451"
+              },
+              {
+                "idlePolls": 30,
+                "sha256": "6f572a74411b59993fcb756e8a3a5a23777a2529d859d19e9e6d514ebe12c451"
+              },
+              {
+                "idlePolls": 40,
+                "sha256": "6f572a74411b59993fcb756e8a3a5a23777a2529d859d19e9e6d514ebe12c451"
+              }
+            ],
+            "drawCursor": "abf3",
+            "composed": {
+              "source": "HEAD7.DAX:56:BODY7.DAX:30",
+              "headWrite": "ab5b",
+              "headSlot": "6de1",
+              "bodyOperand": 2,
+              "headReset": "abf3"
+            },
+            "battlePanelSha256": "6f572a74411b59993fcb756e8a3a5a23777a2529d859d19e9e6d514ebe12c451"
+          },
+          "chrome": {
+            "original": {
+              "route": "yarash-study-near-combat",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105E00:32CombatWaitFleeParlay",
+              "portrait": "portrait:area:23:HEAD7.DAX:56:BODY7.DAX:30",
+              "checkpointSha256": "dcc8745ac8a3c56bdb9deb9fc1f033c8b4df2dc2b77592d11311caa18d0316d9",
+              "artSha256": "09071d734da46276fc277af7993e93af398dedbf1906e3b1f377715474c6d0da",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3655,
+              "samples": 221,
+              "poses": [
+                "portrait:area:23:HEAD7.DAX:56:BODY7.DAX:30"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "yarash-study-near-combat",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105E00:32CombatWaitFleeParlay",
+              "portrait": "portrait:area:23:HEAD7.DAX:56:BODY7.DAX:30",
+              "checkpointSha256": "dcc8745ac8a3c56bdb9deb9fc1f033c8b4df2dc2b77592d11311caa18d0316d9",
+              "artSha256": "09071d734da46276fc277af7993e93af398dedbf1906e3b1f377715474c6d0da",
+              "rendererSha256": "2defbf41128e63bc3acac2f0a794de76dfffb2d906573403576e5b7fa3ab462b",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3662,
+              "samples": 220,
+              "poses": [
+                "portrait:area:23:HEAD7.DAX:56:BODY7.DAX:30"
               ],
               "replaced": false
             }
