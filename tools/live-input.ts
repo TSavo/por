@@ -476,7 +476,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let keepJavelinIllustration: string | undefined;
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false,
     durationMs?: number, effect?: { placement: TilePlacement; clean: Frame }, captureIllustration: boolean | string = false,
-    message?: "status" | "combat" | "picture" | "palette") => {
+    message?: "status" | "combat" | "picture" | "palette" | "narration") => {
     const native = screen;
     const presentation = effect?.clean ?? native;
     if (browser) {
@@ -1013,10 +1013,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         // The screen in colours the game set and holds through a pause without asking for a key (the
         // title's flash): Classic shows it for as long as the game pauses. Enhanced has its own colours.
         animation.push({ ...state, durationMs, classicOnly: true });
-      } else if (message === "picture") {
-        // One picture of an animation the game plays without asking for a key, for as long as the
-        // game shows it.
-        animation.push({ ...state, durationMs });
+      } else if (message === "picture" || message === "narration") {
+        // A guest animation cel or a transient caption held by its recording.
+        animation.push({ ...state, durationMs, enhancedOnly: message === "narration" || undefined });
       } else if (attack || captureApproach || effect || captureIllustration) {
         // Reports and status lines can be the only visible record of a game action.
         if (message !== "combat" && animation.length >= 12) {
@@ -1500,18 +1499,22 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       showFrame(undefined, undefined, false, false, ms, undefined, false, "palette");
       paletteClip = animation.at(-1);
     } : undefined,
-    captureCompletedScriptText: browser ? (cpu: Cpu, start: number) => {
+    captureCompletedScriptText: browser ? (cpu: Cpu, start: number, sourceId?: string) => {
       const archive = cpu.read8(unit.data, data.eclArchive);
       const block = cpu.read8(unit.data, data.eclBlock);
       const cursor = authoredScriptPosition(cpu, cpu.read16(unit.data, data.eclCursor), unit.data);
       const scope = transientScriptIllustrations.get(`${archive}:${block}:${cursor.toString(16)}`);
+      const previous = animation.at(-1);
       if (scope && portraitKeys.includes(scope)) {
         const durationMs = transientScriptIllustrationDurations.get(scope) ?? 1200;
-        const previous = animation.at(-1);
         showFrame(undefined, undefined, false, false, durationMs, undefined, scope);
-        const clip = animation.at(-1);
-        if (clip && clip !== previous) clip.textSteps = [start, cpu.steps];
+      } else if (sourceId === "por.review.ecl-5.block-5.at-a467") {
+        // The Tower prints the upstairs notice and immediately loads the next floor.
+        // Preserve the completed guest caption so it owns its narration before the next menu.
+        showFrame(undefined, undefined, false, false, undefined, undefined, false, "narration");
       }
+      const clip = animation.at(-1);
+      if (clip && clip !== previous) clip.textSteps = [start, cpu.steps];
     } : undefined,
     capturePresentationDelay: browser ? (cpu: Cpu, effectDelay = false, messageMs?: number, pauseMs?: number) => {
       // The game pauses on the encounter picture it just drew (DELAY between APPROACHes, Rolf's

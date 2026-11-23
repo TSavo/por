@@ -420,7 +420,7 @@ const cpu = fresh(requestKey, (name, data, written) => slotClosed(name, data, wr
 const soundTracePath = process.env.POR_SOUND_TRACE;
 const browserSound = process.env.POR_BROWSER_PLAY === "1";
 let narrationObserver: EclNarrationObserver | undefined;
-const eclTextStarts: (number | undefined)[] = [];
+const eclTextStarts: ({ step: number; sourceId?: string } | undefined)[] = [];
 const tracePictureProducer = input?.traceHeldPortrait !== undefined ||
   browserSound && Boolean(process.env.POR_PORTRAIT_DRAW_TRACE);
 const eclPictureProducers: (string | undefined)[] = [];
@@ -435,7 +435,7 @@ if (narrationObserver || tracePictureProducer) {
   cpu.onEclInstruction = entering => {
     if (!entering) {
       const start = eclTextStarts.pop();
-      if (start !== undefined) input?.captureCompletedScriptText?.(cpu, start);
+      if (start !== undefined) input?.captureCompletedScriptText?.(cpu, start.step, start.sourceId);
       eclPictureProducers.pop();
       return;
     }
@@ -452,8 +452,8 @@ if (narrationObserver || tracePictureProducer) {
       eclPictureProducers.push(producer);
     }
     if (!narrationObserver) return;
-    eclTextStarts.push(eclTextOpcodes.has(opcode) ? cpu.steps : undefined);
     const event = narrationObserver.observe(cpu);
+    eclTextStarts.push(eclTextOpcodes.has(opcode) ? { step: cpu.steps, sourceId: event?.sourceId } : undefined);
     if (event) console.log(`POR_NARRATION ${JSON.stringify(event)}`);
   };
 }
