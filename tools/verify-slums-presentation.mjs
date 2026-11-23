@@ -5207,6 +5207,16 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:3:ecl:a002:HEAD5.DAX:12:BODY5.DAX:1", prompt: /ANALARMSTARTSRINGING.*ABATTLEBEGINS/i,
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS\d+AC\d+.*MOVEVIEWAIM/i },
   }],
+  ["valjevo-outer-watch-challenge", {
+    slot: "B", inputs: ["up", "up", "c"],
+    approachSequence: [[48, 32, "encounter:area:3:ecl:a0d0:SPRIT5.DAX:16:0:0", 40, 80]],
+    requireTiledApproach: false,
+    portraitStops: { 2: "portrait:HEAD5.DAX:12:BODY5.DAX:1" },
+    staticPortraitStop: { index: 2, caption: /WHATAREYOUDOINGHERE.*COMBATWAITFLEEPARLAY/i, expectsContinue: false },
+    portrait: "portrait:HEAD5.DAX:12:BODY5.DAX:1", prompt: /HELUNGESFORTHEDOOR.*STAYANDFIGHTRUN/i,
+    staticPortraitMenu: true,
+    continuation: { inputs: ["s", "enter"], clearsPortrait: true, prompt: /HITPOINTS\d+AC\d+.*MOVEVIEWAIM/i },
+  }],
   ["zhentil-quarters-ambush", {
     slot: "A", inputs: ["up", "enter", "s", "enter"],
     approachSequence: [[48, 32, "encounter:area:28:ecl:a534:SPRIT5.DAX:16:0:0", 40, 80]],
@@ -7871,7 +7881,15 @@ const controlledBattleIllustrations = new Map([
     slot: "B", inputs: ["up", "enter", "enter", "c", "s", "enter"],
     caption: /APATROLROUNDSTHECORNER/i,
     heldApproachPosition: [4, 5, 2],
+    patrolCaptain: "portrait:area:4:ecl:9d19:HEAD5.DAX:9:BODY5.DAX:1",
     victoryInputs: ["enter", "enter", "enter", "enter", "d", "g", "d", "g", "n", "enter", "enter", "e", "n", "enter"],
+  }],
+  ["valjevo-outer-watch-patrol", {
+    slot: "B", inputs: ["up", "up", "c", "s", "enter"],
+    caption: /APATROLROUNDSTHECORNER.*THELEADERSEESYOU/i,
+    heldApproachPosition: [3, 5, 2],
+    patrolCaptain: "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1",
+    victoryInputs: ["enter", "enter", "n", "enter", "enter", "e", "n", "enter"],
   }],
   ["zhentil-quarters-second-wave", {
     slot: "A", inputs: ["up", "enter", "s", "enter", "enter", "enter"],
@@ -10936,7 +10954,7 @@ try {
     console.log("Verified all five native roaming zombie portrait phases and the battle opening in Chrome:", directory);
   } else if (controlledBattleIllustration) {
     const { inputs, portrait, caption, afterBattle = caption, walk = [], reinforcements = [],
-      heldApproachPosition, victoryInputs = [] } = controlledBattleIllustration;
+      heldApproachPosition, patrolCaptain, victoryInputs = [] } = controlledBattleIllustration;
     if (heldApproachPosition) await observeApproach([patrolApproachPlacement(heldApproachPosition[0])]);
     const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
     await run(`const sendCombatNoteKey = send; send = key => key === ":poll" ? undefined : sendCombatNoteKey(key);`);
@@ -10971,7 +10989,7 @@ try {
       await verifyPatrolApproach(caption, heldApproachPosition);
       await step("enter");
       for (let advances = 0; advances < 4 && !frame.portrait; advances++) await step("a");
-      assert.equal(frame.portrait, "portrait:area:4:ecl:9d19:HEAD5.DAX:9:BODY5.DAX:1");
+      assert.equal(frame.portrait, patrolCaptain);
       assert.match(text(), /THEYADVANCE,?WEAPONSREADY/i);
       await waitFor("the post-battle patrol captain", () => run(`state.sequence === ${frame.sequence} &&
         document.querySelector('.encounter-portrait[src="/art/${frame.portrait}"]')?.naturalWidth === 352`));
@@ -11567,7 +11585,8 @@ try {
           }
         }
         if (illustration.staticPortraitStop?.index === index) {
-          await verifyStaticPortrait(interimPortrait, illustration.staticPortraitStop.caption);
+          await verifyStaticPortrait(interimPortrait, illustration.staticPortraitStop.caption,
+            illustration.staticPortraitStop.expectsContinue);
         }
         await advance(key);
         if (routeName === "valhingen-skeleton-enclave" && index === 1) {
