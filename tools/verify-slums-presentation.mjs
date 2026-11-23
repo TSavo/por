@@ -8920,7 +8920,8 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
         routeName === "valhingen-skeleton-roaming-ambush-loop" || routeName === "valhingen-wight-ambush-loop" ? "4320042" : undefined),
     ...(textileScorpionLoop ? { POR_PROMPT_SCHEDULE_IN: resolve(textileScorpionWalk, "prompts.jsonl") } : {}),
     ...(illustration?.promptSchedule ? { POR_PROMPT_SCHEDULE_IN: resolve(illustration.promptSchedule) } : {}),
-    POR_INPUT_COMPAT: controlledBattleIllustration?.staticHold || controlledBattleIllustration?.heldPortraitLoop ||
+    ...(battleEntry ? { POR_PROMPT_SCHEDULE_IN: "" } : {}),
+    POR_INPUT_COMPAT: battleEntry || controlledBattleIllustration?.staticHold || controlledBattleIllustration?.heldPortraitLoop ||
       routeName === "kuto-well-waiting-kobolds-hold" || textileScorpionLoop || ferry || moonseaTravel || sokalTravel || valjevoTravel || routeName === "valjevo-dragon-loot" ||
       routeName === "kuto-well-catacomb-volley-hold" || routeName === "kuto-well-surrounding-buildings-hold" ||
       routeName === "pyramid-vats-mutants-loop" || routeName.startsWith("pyramid-exterior-") ||
@@ -12191,6 +12192,7 @@ try {
       window.battleEntryTrace = { polls: [], frames: [] };
       const expectedArt = ${JSON.stringify("/art/" + battleEntry.portrait)};
       const capture = window.battleEntryTrace;
+      let lastFrame;
       function observe(now) {
         const layer = document.querySelector("#tile-art:not([hidden])");
         const portrait = layer?.querySelector(".encounter-portrait");
@@ -12200,8 +12202,9 @@ try {
           battleEntryPolling: state.battleEntryPolling, automaticCombat: state.automaticCombat, caption,
           portrait: state.portrait, renderedArt: portrait?.getAttribute("src"), width: portrait?.naturalWidth };
         const signature = JSON.stringify(observed);
-        if (capture.frames.at(-1)?.signature !== signature) {
-          capture.frames.push({ signature, at: now });
+        if (lastFrame !== signature) {
+          lastFrame = signature;
+          capture.frames.push({ ...observed, at: now });
         }
         if (state.ready && state.battleEntryPolling && capture.polls.at(-1) !== state.sequence) {
           capture.polls.push(state.sequence);
