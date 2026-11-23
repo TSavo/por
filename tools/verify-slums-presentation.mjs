@@ -4040,6 +4040,22 @@ const illustrationRoutes = new Map([
       screenshot: "textile-house-scorpion-battle-notice.png",
     },
   }],
+  ["textile-poison-frog-held-loop", {
+    slot: "B", inputs: ["s", "up", "up", "down", "up", "down", "enter"],
+    portrait: "portrait:area:2:PIC4.DAX:37:0:0",
+    prompt: /EVILLOOKINGFROGSBOILUPFROMBELOW/i,
+    heldPortraitLoop: [
+      "portrait:area:2:PIC4.DAX:37:0:0",
+      ...[1, 2, 1].map(member => `portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:${member}:0`),
+    ],
+    finalPhaseCapture: "textile-poison-frog-held-loop.png",
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:2:PIC4.DAX:37:0:0",
+      prompt: /EVILLOOKINGFROGSBOILUPFROMBELOW.*ABATTLEBEGINS/i,
+      pressOnPortrait: "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:2:0", retainPose: true,
+      screenshot: "textile-poison-frog-battle-notice.png",
+    },
+  }],
   ["textile-poison-frog-phases", {
     slot: "B", inputs: ["s", "up", "up", "down", "up", "down", "enter", "q"],
     portrait: "portrait:area:2:PIC4.DAX:37:0:0",
