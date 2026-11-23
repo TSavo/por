@@ -23,6 +23,9 @@ export const looseTypes: Record<string, string> = {
   ".woff2": "font/woff2",
 };
 
+/** Store the logical id as one portable filename, including on Windows. */
+export const looseMaskPath = (base: string) => `art-materials/${encodeURIComponent(base)}.png`;
+
 /** The page's own files under web/, by the URL the page asks for them. */
 export const loosePageFiles = (): Map<string, string> => new Map([
   ["/", "web/play.html"], ["/play.html", "web/play.html"],
@@ -55,12 +58,12 @@ export function looseResponse({ root, index, pages }: LooseFiles, path: string):
     // A party recolour's mask: none for art drawn as it is.
     const id = path.slice("/art-materials/".length);
     const base = partyRecolorKey.exec(id)?.[1];
-    return (base && !index.artwork[id] && found(`web/art-materials/${base}.png`)) || { status: 204 };
+    return (base && !index.artwork[id] && found(`web/${looseMaskPath(base)}`)) || { status: 204 };
   }
   if (path.startsWith("/art/")) {
     const id = path.slice("/art/".length);
     const base = partyRecolorKey.exec(id)?.[1];
-    const own = artFile(id) ?? (base && found(`web/art-materials/${base}.png`) ? artFile(base) : undefined);
+    const own = artFile(id) ?? (base && found(`web/${looseMaskPath(base)}`) ? artFile(base) : undefined);
     return found(own && layoutPath(own)) ?? { status: 404 };
   }
   const rune = /^\/code-wheel\/([a-z0-9-]+)\.png$/.exec(path)?.[1];
