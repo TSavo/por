@@ -9856,7 +9856,7 @@
           "paints": [
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:0:0",
-              "atMs": -1.192074705613777e-8
+              "atMs": -1.192074705613777e-08
             },
             {
               "key": "portrait:area:10:ecl:b695:caller:b126:PIC4.DAX:23:1:0",
@@ -42001,6 +42001,78 @@
               "samples": 221,
               "poses": [
                 "portrait:area:0:HEAD3.DAX:57:BODY3.DAX:1"
+              ],
+              "replaced": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "producer": "ECL7.DAX:17:b23c",
+      "prompt": "9da2/b2c4",
+      "variants": [
+        {
+          "caption": "EQUAL TO YOUR HONOR",
+          "checkpoint": "nomad-raid-alliance/A.json",
+          "portrait": "portrait:area:17:ecl:9da2:caller:b2c4:HEAD7.DAX:74:BODY7.DAX:30",
+          "native": {
+            "drawCursor": "b23f",
+            "composed": {
+              "source": "HEAD7.DAX:74:BODY7.DAX:30",
+              "headWrite": "b236",
+              "headSlot": "6de1",
+              "bodyOperand": 0,
+              "headReset": "b23f"
+            },
+            "heldCaption": "Name AC HP ALDA 5 6 BRIN 3 6 CORA 5 6 DORN 5 8 ENNA 4 6 MIRA 10 5 S 18:29 WITHIN TEN MINUTES THE KOBOLDS BREAK, HALF THEIR NUMBER DEAD. THE CHIEF COMES BACK, 'I PROMISED YOU REWARD FOR YOUR AID. SO IT SHALL BE... EQUAL TO YOUR HONOR.' Press button or <return> to continue",
+            "idlePolls": 30,
+            "panelSamples": [
+              {
+                "idlePolls": 0,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 15,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              },
+              {
+                "idlePolls": 30,
+                "sha256": "2907bb53b30171748f88a7fea9661200e65f05100a4822d9aed5df1aedd8551c"
+              }
+            ],
+            "clearedPanelSha256": "3fa8ba34d7807d4ee6094d521583ee62b91176be269d3dcc4f02e0b4fd69e8ae"
+          },
+          "chrome": {
+            "original": {
+              "route": "nomad-raid-alliance-aftermath",
+              "data": "original",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29WITHINTENMINUTESTHEKOBOLDSBREAK,HALFTHEIRNUMBERDEAD.THECHIEFCOMESBACK,'IPROMISEDYOUREWARDFORYOURAID.SOITSHALLBE...EQUALTOYOURHONOR.'Pressbuttonor<return>tocontinue",
+              "portrait": "portrait:area:17:ecl:9da2:caller:b2c4:HEAD7.DAX:74:BODY7.DAX:30",
+              "checkpointSha256": "8e778285bb182e33a233fcee69a6b794f3ce337ee833b80a66ece7b2350bcffa",
+              "artSha256": "67ee76645e62a2861c6e6c1aec420d188b32ca5b8ef014388815574b6e0961c8",
+              "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3663,
+              "samples": 220,
+              "poses": [
+                "portrait:area:17:ecl:9da2:caller:b2c4:HEAD7.DAX:74:BODY7.DAX:30"
+              ],
+              "replaced": false
+            },
+            "port": {
+              "route": "nomad-raid-alliance-aftermath",
+              "data": "port",
+              "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA105S18:29WITHINTENMINUTESTHEKOBOLDSBREAK,HALFTHEIRNUMBERDEAD.THECHIEFCOMESBACK,'IPROMISEDYOUREWARDFORYOURAID.SOITSHALLBE...EQUALTOYOURHONOR.'Pressbuttonor<return>tocontinue",
+              "portrait": "portrait:area:17:ecl:9da2:caller:b2c4:HEAD7.DAX:74:BODY7.DAX:30",
+              "checkpointSha256": "8e778285bb182e33a233fcee69a6b794f3ce337ee833b80a66ece7b2350bcffa",
+              "artSha256": "67ee76645e62a2861c6e6c1aec420d188b32ca5b8ef014388815574b6e0961c8",
+              "rendererSha256": "c303da467f24a8744b2db83e8bedf399bcc384b7fadc41a9ccdd54a032816090",
+              "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "durationMs": 3655,
+              "samples": 221,
+              "poses": [
+                "portrait:area:17:ecl:9da2:caller:b2c4:HEAD7.DAX:74:BODY7.DAX:30"
               ],
               "replaced": false
             }
