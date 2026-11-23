@@ -1020,6 +1020,11 @@ const illustrationRoutes = new Map([
       ["kobolds", "4320002", 14, 3, false],
       ["lizardmen", "4320073", 6, 3, false],
     ]],
+    ["armed", "a58e", "YOUARESUDDENLYFACETOFACEWITHARMED", [
+      ["gnolls", "4320022", null, 4, true],
+      ["kobolds", "4320033", null, 4, true],
+      ["lizardmen", "4320004", null, 4, true],
+    ]],
     ["avoided", "a5e8", "YOUAREBEINGAVOIDEDBYSOME", [
       ["gnolls", "4320014", 2, 3, false],
       ["kobolds", "4320063", 14, 3, false],
@@ -1038,6 +1043,7 @@ const illustrationRoutes = new Map([
     }[species];
     const walk = ["up", "left", "up"];
     if (repeats !== null) walk.push("up", ...Array.from({ length: repeats }, () => ["down", "up"]).flat());
+    if (scene === "armed") walk.push("e", "r", "y", "i", "r");
     const sprite = distance => `encounter:area:29:ecl:${cursor}:SPRIT8.DAX:${block}:${distance}:0`;
     const portrait = member => `portrait:area:29:ecl:${cursor}:PIC8.DAX:${block}:${member}:0`;
     const far = [56, 32, sprite(2), 24, 57];
