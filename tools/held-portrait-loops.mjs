@@ -15,6 +15,7 @@ const vampirePoseTimes = [710, 310, 310, 210];
 const fountainPoseTimes = [20, 20, 20];
 const podalOrcPoseOrder = [0, 1, 2, 1];
 const podalOrcPoseTimes = [1510, 20, 710, 20];
+const auctionPoseTimes = [610, 210, 410, 210, 410, 610];
 const portraitLoops = [
   ["portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:", 5, undefined,
     /^(?!.*ABATTLEBEGINS).*LUMBERINGFIGURESREACHFORYOU/i, Array(5).fill(110)],
@@ -67,6 +68,12 @@ const portraitLoops = [
     /THEMONSTERSSTANDREADY|THEMONSTERSPREPARE/i, [310, 20, 1310, 210]],
   ["portrait:area:18:ecl:9dca:PIC1.DAX:2:", 2, undefined,
     /THEMONSTERSSTANDREADY|THEMONSTERSPREPARE/i, [310, 310]],
+  ["portrait:area:18:ecl:b240:caller:a30c:PIC1.DAX:16:", 6, undefined,
+    /THEAUCTIONEERCRIES.*WELCOMETOTHISAUCTION/i, auctionPoseTimes],
+  ["portrait:area:18:ecl:b240:caller:a637:PIC1.DAX:16:", 6, undefined,
+    /GOINGGOINGGONETHEAUCTIONEERCRIES/i, auctionPoseTimes],
+  ["portrait:area:18:ecl:b240:caller:a79b:PIC1.DAX:16:", 6, undefined,
+    /WANDOFILLUMINATION.*ISEEINTHEDARKANYWAY/i, auctionPoseTimes],
   ["portrait:area:18:ecl:af2a:PIC1.DAX:4:", podalOrcPoseOrder, "portrait:area:18:PIC1.DAX:4:0:0",
     /AROBEDORCISSITTINGHERE/i, podalOrcPoseTimes],
   ["portrait:area:18:ecl:afd0:PIC1.DAX:4:", podalOrcPoseOrder, undefined,

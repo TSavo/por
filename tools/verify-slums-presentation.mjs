@@ -1491,16 +1491,11 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /WHENYOUMEETTHEVAMPIREUSETHEBOTTLE/i },
   }],
   ["podal-auction-opening-phases", {
-    slot: "I", inputs: ["up", "enter", ...Array(11).fill("z")],
-    portraitStops: {
-      2: "portrait:area:18:ecl:b240:caller:a30c:PIC1.DAX:16:0:0",
-      6: "portrait:area:18:ecl:b240:caller:a30c:PIC1.DAX:16:1:0",
-      7: "portrait:area:18:ecl:b240:caller:a30c:PIC1.DAX:16:2:0",
-      9: "portrait:area:18:ecl:b240:caller:a30c:PIC1.DAX:16:3:0",
-      10: "portrait:area:18:ecl:b240:caller:a30c:PIC1.DAX:16:4:0",
-    },
-    portrait: "portrait:area:18:ecl:b240:caller:a30c:PIC1.DAX:16:5:0",
+    slot: "I", inputs: ["up", "enter"],
+    portrait: "portrait:area:18:ecl:b240:caller:a30c:PIC1.DAX:16:0:0",
     prompt: /THEAUCTIONEERCRIES.*WELCOMETOTHISAUCTION/i,
+    heldPortraitLoop: Array.from({ length: 6 }, (_, member) =>
+      `portrait:area:18:ecl:b240:caller:a30c:PIC1.DAX:16:${member}:0`),
   }],
   ["podal-auction-wand-or-staff", {
     slot: "I", inputs: ["up", "enter", "enter", ...Array(11).fill("z")],
