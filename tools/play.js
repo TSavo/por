@@ -1001,7 +1001,7 @@ function disableStreetPreview(error) {
 }
 
 function rendererModule() {
-  return streetModule ??= import("/new-phlan-webgl.js");
+  return streetModule ??= import("/renderer.js");
 }
 
 async function loadStreetAtlas(materialId) {
@@ -1012,7 +1012,7 @@ async function loadStreetAtlas(materialId) {
       return response.json();
     }),
   ]);
-  const {atlas, skyUrl} = await module.createNewPhlanAtlas(materials, art => `/art/${art.key}`, false, state.textColors);
+  const {atlas, skyUrl} = await module.createExplorationAtlas(materials, art => `/art/${art.key}`, false, state.textColors);
   const layout = materials.layout ?? (materialId === "phlan" ? "phlan" : "local");
   const wallRows = Object.fromEntries(materials.wallFaces.map(({type, rows = 8}) => [type, rows]));
   return {materialId, module, atlas, skyUrl, walls: materials.walls, layout, wallRows};
@@ -1077,7 +1077,7 @@ function ensureStreetViewport(surface) {
       return [a >> 4, a & 15, b >> 4, b & 15];
     }) : streetAtlas.walls;
     if (!walls) return;
-    const renderer = streetAtlas.module.createNewPhlanViewport(canvas, walls, streetAtlas.atlas, streetAtlas.layout, streetAtlas.wallRows);
+    const renderer = streetAtlas.module.createExplorationViewport(canvas, walls, streetAtlas.atlas, streetAtlas.layout, streetAtlas.wallRows);
     streetViewport = {canvas, renderer, materialId, packed};
   }
   return streetViewport;
