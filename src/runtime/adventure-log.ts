@@ -523,6 +523,7 @@ export const progressAddresses: Readonly<Record<string, number>> = {
   castle: 0x4aba,
   bane: 0x4abd,
   cadorna: 0x4abf,
+  records: 0x4ac2,
 };
 
 /** Live possession is checked again when the journal opens and after a reload. */

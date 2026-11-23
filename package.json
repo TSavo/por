@@ -12,6 +12,7 @@
     "verify:campaign": "node tools/verify-fresh-party.mjs --campaign",
     "verify:campaign-opening": "node tools/verify-fresh-party.mjs --campaign-opening",
     "verify:map-journal": "node tools/verify-map-journal.mjs",
+    "verify:records-journal": "node tools/verify-records-journal.mjs",
     "verify:input": "node tools/verify-input.mjs",
     "verify:script-positions": "node tools/verify-script-positions.mjs",
     "verify:game-data": "tsx tools/verify-game-data.ts",
