@@ -370,6 +370,27 @@ Chrome displayed 163 views per run. The original-data baseline recorded
 The atlas and scoped portrait fixes brought that count to zero in both
 data modes. The separate runner parity check matched all 152 frames.
 
+## Display switching and the Buccaneer captive pen
+
+With GOG 1.3 files installed, Chrome switched display modes on the City
+Hall exit, during Cadorna's briefing, and during Rhiannon's Orc Surprise
+combat turn. The guest state and save matched before and after the
+switch. The briefing kept its caption and 28 journal leads. In combat
+the two Classic screenshots matched byte for byte. Enhanced showed
+18 decoded combat sprites on the same turn.
+
+The arena duel showed all 16 attack reports in order in Chrome with
+both data sources. Two attacks used manual controls. One Quick press
+produced the other 14 reports and reached the native loss prompt.
+
+The paired Buccaneer captive pen check starts from the controlled
+`qa/fixtures/buccaneer-captive-pen/A.json` checkpoint. Run
+`node tools/verify-slums-presentation.mjs qa/fixtures/buccaneer-captive-pen/A.json <chrome> buccaneer-captive-pen-overview-loop`
+in both data modes with `POR_TRACE_VISITS` set to capture the runner visit.
+The same pen caption and five artwork poses appeared in both. The visit
+traces match and establish area 1 coverage in `npm run qa:visits`. No
+commission was earned during this check.
+
 ## Checkpoints for the presentation replays
 
 `node tools/verify-slums-presentation.mjs <checkpoint> <chrome> <route> [option]` plays one of about 1,250

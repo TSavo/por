@@ -420,6 +420,18 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "Buccaneer captive pen (controlled checkpoint, paired Chrome)": {
+   "areas": [
+    1
+   ],
+   "commissions": [
+    "auction",
+    "sokal"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
