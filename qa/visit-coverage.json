@@ -485,6 +485,18 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "guide-party-ohlo-delivery": {
+   "areas": [
+    20
+   ],
+   "commissions": [
+    "ohlo"
+   ],
+   "traces": [
+    "original-visits.jsonl",
+    "port-visits.jsonl"
+   ]
   }
  }
 }
