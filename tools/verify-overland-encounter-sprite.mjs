@@ -5,10 +5,32 @@ import { cpSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "nod
 import { join, resolve } from "node:path";
 import { openChromeCampaignLeg } from "./chrome-campaign-replay.mjs";
 
+const ridgeTerrain = {
+  center: [28, 8], slots: [0, 1, 39, 50, 99, 1, 40, 154, 50, 97, 0, 1, 38, 155, 52, 1, 0, 40, 54, 97, 0, 1, 0, 41, 99],
+};
+const scenes = {
+  spotted: {
+    cursor: "a194", block: 61, height: 57, clock: "4320000", caption: /YOUSPOTAGROUPOFSTIRGES/i,
+    terrain: { center: [20, 9], slots: [33, 35, 33, 30, 3, 10, 33, 30, 17, 6, 26, 27, 21, 3, 17, 17, 18, 0, 22, 20, 215, 147, 1, 0, 1] },
+  },
+  surprise: {
+    cursor: "a1e5", block: 61, height: 57, clock: "4320307", caption: /YOUARESURPRISEDBYAGROUPOFSTIRGES/i,
+    terrain: { center: [27, 8], slots: [16, 0, 1, 39, 50, 18, 1, 40, 154, 50, 1, 0, 1, 38, 155, 0, 1, 0, 40, 54, 1, 0, 1, 0, 41] },
+    inputs: ["up", "down", "up", "down", "up", "w"],
+  },
+  "ridge-merchants": {
+    cursor: "a230", block: 12, height: 65, clock: "4320016", caption: /YOUSURPRISEAGROUPOFMERCHANTS/i,
+    terrain: ridgeTerrain, inputs: ["right", "c"],
+  },
+  "ridge-bandits": {
+    cursor: "a194", block: 15, height: 65, clock: "4320320", caption: /YOUSPOTAGROUPOFBANDITS/i,
+    terrain: ridgeTerrain, inputs: ["right", "enter", "c"],
+  },
+};
 const [chromePath, encounter, outputRoot = "out"] = process.argv.slice(2);
-assert.ok(chromePath && ["spotted", "surprise"].includes(encounter),
-  "Usage: node tools/verify-overland-encounter-sprite.mjs <chrome> <spotted|surprise> [output-root]");
-
+assert.ok(chromePath && Object.hasOwn(scenes, encounter),
+  "Usage: node tools/verify-overland-encounter-sprite.mjs <chrome> <spotted|surprise|ridge-merchants|ridge-bandits> [output-root]");
+const { cursor, block, height, clock, caption, terrain } = scenes[encounter];
 const spotted = encounter === "spotted";
 const fixture = resolve("qa/fixtures", spotted ? "wilderness-walk" : "lizard-wilds-stirge-surprise");
 const slot = spotted ? "F.json" : "A.json";
@@ -16,7 +38,7 @@ let boot = {
   bootKeys: "31000000:1c0d,45000000:266c,52000000:1e61",
   startAt: "85000000", inputCompat: "discard-poll-prompt",
 };
-let inputs = ["up", "down", "up", "down", "up", "w"];
+let inputs = scenes[encounter].inputs;
 let schedule;
 if (spotted) {
   boot = JSON.parse(readFileSync(join(fixture, "boot.json"), "utf8"));
@@ -25,21 +47,14 @@ if (spotted) {
   schedule = join(fixture, "prompts.jsonl");
 }
 
-const cursor = spotted ? "a194" : "a1e5";
-const sprite = `encounter:area:26:ecl:${cursor}:SPRIT7.DAX:61:1:0`;
-const terrain = spotted ? {
-  center: [20, 9], slots: [33, 35, 33, 30, 3, 10, 33, 30, 17, 6, 26, 27, 21, 3, 17, 17, 18, 0, 22, 20, 215, 147, 1, 0, 1],
-} : {
-  center: [27, 8], slots: [16, 0, 1, 39, 50, 18, 1, 40, 154, 50, 1, 0, 1, 38, 155, 0, 1, 0, 40, 54, 1, 0, 1, 0, 41],
-};
-const caption = spotted ? /YOUSPOTAGROUPOFSTIRGES/i : /YOUARESURPRISEDBYAGROUPOFSTIRGES/i;
+const sprite = `encounter:area:26:ecl:${cursor}:SPRIT7.DAX:${block}:1:0`;
 const screenText = frame => frame.text.toSorted(([a], [b]) => a - b).map(([, glyph]) => String.fromCharCode(glyph)).join("");
 const digest = bytes => createHash("sha256").update(bytes).digest("hex");
 mkdirSync(outputRoot, { recursive: true });
 const output = mkdtempSync(resolve(outputRoot, `overland-${encounter}-`));
 const checkpointDir = join(output, "saves");
 cpSync(fixture, checkpointDir, { recursive: true });
-process.env.POR_FIXED_CLOCK_START = spotted ? "4320000" : "4320307";
+process.env.POR_FIXED_CLOCK_START = clock;
 const chrome = await openChromeCampaignLeg({
   chromePath, directory: join(output, "chrome"), checkpointDir, ...boot, developerCombat: false,
   traceEnhancedFallbacks: true, schedule,
@@ -79,7 +94,7 @@ try {
   })`);
   assert.equal(held.missing, false);
   assert.ok(held.samples > 38);
-  assert.deepEqual(held.sprites, [{ id: "/art/" + sprite, anchor: [56, 32, sprite, 24, 57], width: 96, height: 228 }]);
+  assert.deepEqual(held.sprites, [{ id: "/art/" + sprite, anchor: [56, 32, sprite, 24, height], width: 96, height: height * 4 }]);
   assert.deepEqual(await chrome.evaluate("state.overlandTerrain"), terrain);
   const surface = await chrome.evaluate(`(() => {
     const canvas = document.querySelector(".local-overland-encounter");
@@ -114,7 +129,7 @@ try {
     held: { caption: heldCaption, ...held },
     handoff: { choice, notice },
   }, null, 2) + "\n");
-  console.log(`Verified the ${encounter} local terrain, stirge sprite and battle handoff in Chrome. ${output}`);
+  console.log(`Verified the ${encounter} local terrain, encounter sprite and battle handoff in Chrome. ${output}`);
 } finally {
   await chrome.close();
 }

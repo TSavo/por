@@ -1,16 +1,16 @@
 {
  "schema": 2,
  "heldPortraits": {
-  "verified": 114,
+  "verified": 117,
   "unreachable": 1,
   "reachable": 234,
   "oneShotsVerified": 17,
-  "measured": 120,
+  "measured": 121,
   "total": 235,
-  "scenesMeasured": 219,
-  "scenesVerified": 219,
+  "scenesMeasured": 222,
+  "scenesVerified": 222,
   "unmappedScenes": 0,
-  "remaining": 120
+  "remaining": 117
  },
  "enhancedFallbacks": {
   "frames": 0,
@@ -2432,7 +2432,7 @@
  "overlandTerrain": {
   "atlasReady": true,
   "total": 248,
-  "covered": 26,
+  "covered": 29,
   "missingSlots": [
    2,
    4,
@@ -2465,7 +2465,6 @@
    48,
    49,
    51,
-   52,
    53,
    55,
    56,
@@ -2509,9 +2508,7 @@
    94,
    95,
    96,
-   97,
    98,
-   99,
    100,
    101,
    102,

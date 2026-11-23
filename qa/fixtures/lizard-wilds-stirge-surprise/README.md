@@ -5,3 +5,5 @@ Slot A is the historical local overland save from `lizard-overland-fixture-A.jso
 Load Slot A at fixed DOS clock 4320307, then press Up, Down, Up, Down, Up. At (27,8) the original ECL7.DAX block 26 encounter shows “YOU ARE SURPRISED BY A GROUP OF STIRGES.” Its middle cel is SPRIT7.DAX block 61 member 1 at (56,32) with size 24×57. Wait leads to the original battle notice and clears the sprite.
 
 `node tools/verify-overland-encounter-sprite.mjs <chrome> surprise` checks the held sprite and Wait. Switch the last argument to `spotted` to check the sighting and Flee using the tracked wilderness walk. Both tests check the authored local terrain and the original choice handoff. The remaining overland terrain is tracked in #193.
+
+The same unedited Slot A fixture also reaches the east ridge at (28,8) with one Right input. The `ridge-merchants` and `ridge-bandits` replays select their original clocks, verify the same local terrain with different native actors, and follow Combat into the battle notice.
