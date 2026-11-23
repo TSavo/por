@@ -191,6 +191,7 @@ function applicationMenu(): Menu {
     fileMenu,
     gameMenu,
     { role: "editMenu" },
+    { label: "View", submenu: [{ role: "togglefullscreen", accelerator: mac ? "Control+Command+F" : "F11" }] },
     ...(mac ? [{ role: "windowMenu" as const }] : []),
   ];
   return Menu.buildFromTemplate(template);
