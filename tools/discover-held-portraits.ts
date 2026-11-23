@@ -651,6 +651,40 @@ const eclCandidates = scripts.flatMap(record => {
       bodyOperand: 0, headReset: authored(feastReset.address),
     } : nomadPortrait ?? (tyrmorPictures?.compositions.length === 1 ? tyrmorPictures.compositions[0] : undefined);
     const address = authored(load.address);
+    if (archive === 3 && scriptBlock === 0 && block === 1 && ["9eb7", "a9e1", "aa75"].includes(address)) {
+      const at = (position: string) => decoded.find(instruction => authored(instruction.address) === position);
+      const selectsHead = (instruction: Instruction | undefined, head: number) => instruction?.opcode === 0x09 &&
+        literal(instruction.operands[0]!) === head && memory(instruction.operands[1]!) === 0x6de1;
+      const braccio = address === "9eb7" && direct && prompts.has("af1c:9f15");
+      const tempus = address === "a9e1" && direct && prompts.has("ae5a:aa2c");
+      const watch = address === "aa75" && opcode === 0x0c && literal(operands[0]!) === 16 && literal(operands[1]!) === 0;
+      const headWrite = at(braccio ? "9eb1" : "a9db");
+      const head = braccio ? 13 : 57;
+      if (headWrite && selectsHead(headWrite, head)) {
+        const composition = {
+          source: `HEAD3.DAX:${head}:BODY3.DAX:1`, headWrite: authored(headWrite.address), headSlot: "6de1",
+        };
+        if (braccio && headWrite.next === load.address && selectsHead(at("9f15"), 0)) {
+          composedPortrait = { ...composition, bodyOperand: 0, headReset: "9f15" };
+        }
+        if (tempus && headWrite.next === load.address && selectsHead(at("aa58"), 255) && selectsHead(at("aa6b"), 255)) {
+          composedPortrait = { ...composition, bodyOperand: 0, headReset: "aa58" };
+        }
+        if (watch) {
+          // The hostility branch goes straight from the priest's PICTURE to the close combat setup.
+          const priest = instructions.get(headWrite.next);
+          const compare = priest && instructions.get(priest.next);
+          const conditional = compare && instructions.get(compare.next);
+          const jump = conditional && instructions.get(conditional.next);
+          if (priest?.opcode === 0x0e && literal(priest.operands[0]!) === 1 && compare?.opcode === 0x03 &&
+              memory(compare.operands[0]!) === 0x4ac0 && literal(compare.operands[1]!) === 0 &&
+              conditional?.opcode === 0x19 && jump?.opcode === 0x01 && jump.operands[0]?.word === load.address) {
+            composedPortrait = { ...composition, bodyOperand: 2 };
+          }
+        }
+      }
+    }
+
     // The envoy fight sets a composed head before the approach, then clears it
     // immediately after combat yields control to the script.
     if (archive === 8 && scriptBlock === 13 && load.address === 0xa278 && opcode === 0x0c) {
