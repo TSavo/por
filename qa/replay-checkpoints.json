@@ -21,6 +21,8 @@
     "new-phlan-harbor-city-watch": "qa/fixtures/replay-checkpoints/290582c2f29f/A.json",
     "new-phlan-training-entrance-notice": "qa/fixtures/replay-checkpoints/290582c2f29f/A.json",
     "nomad-betrayal-unburdened-retreat": "qa/fixtures/nomad-raid-betrayal-retreat/A.json",
+    "nomad-camp-sentry-families": "qa/fixtures/nomad-headman-held/A.json",
+    "nomad-camp-sentry-parlay": "qa/fixtures/nomad-headman-held/A.json",
     "nomad-guard-attack-fallout": "qa/fixtures/nomad-headman-held/A.json",
     "nomad-pursuit-combat": "qa/fixtures/nomad-pursuit/A.json",
     "nomad-pursuit-menu": "qa/fixtures/nomad-pursuit/A.json",
@@ -64,7 +66,9 @@
     "valjevo-false-throne-dismissal": "qa/fixtures/valjevo-false-throne-portraits/B.json",
     "valjevo-forge-patrol": "qa/fixtures/valjevo-forge-patrol/B.json",
     "valjevo-forge-patrol-disguise": "qa/fixtures/valjevo-forge-patrol/disguised-B.json",
+    "valjevo-genheeris-bargain": "qa/fixtures/valjevo-genheeris-portraits/B.json",
     "valjevo-genheeris-full-party": "qa/fixtures/valjevo-genheeris-portraits/full-party-B.json",
+    "valjevo-genheeris-orders": "qa/fixtures/valjevo-genheeris-portraits/B.json",
     "valjevo-maze-patrol-disguise": "qa/fixtures/valjevo-maze-patrol/disguised-B.json",
     "valjevo-maze-patrol-hostile": "qa/fixtures/valjevo-maze-patrol/B.json",
     "valjevo-maze-watch-alarm": "qa/fixtures/valjevo-maze-watch/B.json",
@@ -76,6 +80,7 @@
     "valjevo-outer-watch-challenge": "qa/fixtures/valjevo-outer-patrol/watch-B.json",
     "valjevo-outer-watch-patrol": "qa/fixtures/valjevo-outer-patrol/watch-B.json",
     "yarash-study-far-combat": "qa/fixtures/yarash-pumping-room/A.json",
+    "yarash-study-near-combat": "qa/fixtures/yarash-pumping-room/A.json",
     "zhentil-escape": "qa/fixtures/zhentil-wall-escape/A.json"
   },
   "chains": {
@@ -100,6 +105,8 @@
     "new-phlan-harbor-city-watch",
     "new-phlan-training-entrance-notice",
     "nomad-betrayal-unburdened-retreat",
+    "nomad-camp-sentry-families",
+    "nomad-camp-sentry-parlay",
     "nomad-guard-attack-fallout",
     "nomad-pursuit-combat",
     "nomad-pursuit-menu",
@@ -143,7 +150,9 @@
     "valjevo-false-throne-dismissal",
     "valjevo-forge-patrol",
     "valjevo-forge-patrol-disguise",
+    "valjevo-genheeris-bargain",
     "valjevo-genheeris-full-party",
+    "valjevo-genheeris-orders",
     "valjevo-maze-patrol-disguise",
     "valjevo-maze-patrol-hostile",
     "valjevo-maze-watch-alarm",
@@ -155,6 +164,7 @@
     "valjevo-outer-watch-challenge",
     "valjevo-outer-watch-patrol",
     "yarash-study-far-combat",
+    "yarash-study-near-combat",
     "zhentil-escape",
     "zhentil-return"
   ]
