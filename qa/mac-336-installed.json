@@ -1,0 +1,130 @@
+{
+  "build": "3b3274234aa4a98dab01a60b7ad73b11b5dc7461",
+  "platform": "Intel macOS 26.3.1(a)",
+  "dmgSha256": "8fb006a8bd18077cf7096d00bcb068aa62ed22cfdbce99bbed023445eff04abd",
+  "controlledStartup": {
+    "env": {
+      "POR_CLOCK": "fixed",
+      "POR_FIXED_CLOCK_START": "3456789",
+      "POR_BOOT_KEYS": "31000000:1c0d,45000000:266c,52000000:1e61",
+      "POR_LIVE_AT": "85000000",
+      "POR_BOOT_STEPS": "450000000",
+      "POR_INPUT_COMPAT": "discard-poll-prompt"
+    },
+    "scriptIdentifier": "1",
+    "scope": "Controlled installed-runtime reproduction. Overrides engine startup settings in memory only; package files and gameplay code unchanged. Not default real-clock play."
+  },
+  "fixture": "qa/fixtures/middle-wilderness-patrols/A.json",
+  "source": "bundled",
+  "parlay": {
+    "build": "v0.1 Alpha 1 (3b32742)",
+    "approach": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0",
+    "encounterText": " Name AC HP ALDA 5 45 BRIN 3 45 CORA 5 45 DORN 5 45 ENNA 4 45 MIRA 10 45 23,7 N 00:23 YOU SPOT A GROUP OF KOBOLDS Combat Wait Flee Parlay ",
+    "steps": [
+      {
+        "sequence": 4,
+        "text": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSPOTAGROUPOFKOBOLDSHaughtySlyNiceMeekAbusive"
+      },
+      {
+        "sequence": 5,
+        "text": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUHAVEINSULTEDTHEKOBOLDS.THEKOBOLDSATTACKYOUIMMEDIATELY!Abattlebegins..."
+      }
+    ],
+    "result": " Name AC HP ALDA 5 45 BRIN 3 45 CORA 5 45 DORN 5 45 ENNA 4 45 MIRA 10 45 23,7 N 00:23 YOU HAVE INSULTED THE KOBOLDS.THE KOBOLDS ATTACK YOU IMMEDIATELY! A battle begins... ",
+    "lines": [
+      {
+        "id": 2,
+        "unitId": "por.voice.ecl7.b26-a3b9-a3df",
+        "variantId": "por.voice.ecl7.b26-a3b9-a3df.variant-01-kobolds",
+        "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v01-kobolds.mp3",
+        "expectedArt": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0",
+        "caption": "YOU HAVE INSULTED THE KOBOLDS.THE KOBOLDS ATTACK YOU IMMEDIATELY! Haughty Sly Nice Meek Abusive",
+        "queuedAt": 46.487,
+        "queuedFrame": 5,
+        "startedAt": 46.511,
+        "startFrame": 5,
+        "duration": 4.32,
+        "artAtStart": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0",
+        "artSeen": [
+          "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
+        ],
+        "artTimes": [
+          0
+        ],
+        "outcome": "ended",
+        "endedAt": 50.894,
+        "endFrame": 5,
+        "position": 4.32,
+        "artAtEnd": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
+      }
+    ],
+    "spriteDecoded": true,
+    "terrainVisible": true,
+    "inputs": [
+      {
+        "key": "up",
+        "sequence": 1,
+        "text": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8W12:23CastViewEncampSearchLook"
+      },
+      {
+        "key": "enter",
+        "sequence": 2,
+        "text": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSPOTAGROUPOFKOBOLDSCastViewEncampSearchLook"
+      },
+      {
+        "key": "p",
+        "sequence": 3,
+        "text": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSPOTAGROUPOFKOBOLDSCombatWaitFleeParlay"
+      },
+      {
+        "key": "h",
+        "sequence": 4,
+        "text": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSPOTAGROUPOFKOBOLDSHaughtySlyNiceMeekAbusive"
+      }
+    ],
+    "status": "captured"
+  },
+  "battle": {
+    "build": "v0.1 Alpha 1 (3b32742)",
+    "text": " KOBOLD Hitpoints 3 AC 7 ",
+    "battleTiles": 96,
+    "combatArt": 10,
+    "encounter": null,
+    "encounterSprite": false,
+    "inputs": [
+      {
+        "key": "up",
+        "sequence": 1,
+        "text": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,8W12:23CastViewEncampSearchLook"
+      },
+      {
+        "key": "enter",
+        "sequence": 2,
+        "text": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSPOTAGROUPOFKOBOLDSCastViewEncampSearchLook"
+      },
+      {
+        "key": "p",
+        "sequence": 3,
+        "text": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSPOTAGROUPOFKOBOLDSCombatWaitFleeParlay"
+      },
+      {
+        "key": "h",
+        "sequence": 4,
+        "text": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUSPOTAGROUPOFKOBOLDSHaughtySlyNiceMeekAbusive"
+      },
+      {
+        "key": "enter",
+        "sequence": 5,
+        "text": "NameACHPALDA545BRIN345CORA545DORN545ENNA445MIRA104523,7N00:23YOUHAVEINSULTEDTHEKOBOLDS.THEKOBOLDSATTACKYOUIMMEDIATELY!Abattlebegins..."
+      }
+    ]
+  },
+  "limitations": [
+    "Default real-clock target encounter reproduction remains unverified.",
+    "Clock, boot keys, live-at and input compatibility overridden in memory to match recorded harness; installed package files/gameplay code unchanged."
+  ],
+  "screenshots": [
+    "/Users/tsavo/por-mac-qa/current-3b32742/parlay.png",
+    "/Users/tsavo/por-mac-qa/current-3b32742/battlefield.png"
+  ]
+}
