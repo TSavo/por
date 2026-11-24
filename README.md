@@ -230,6 +230,28 @@ The opcode table and the wall-slot geometry were checked against Curse of the Az
 
 Fork this repository. Star it. Mirror it. Clone it. Torrent it. Put a copy on the [Internet Archive](https://archive.org/) and [Software Heritage](https://www.softwareheritage.org/). Share it as far and as wide as you can.
 
+**v0.1.0-beta.1 torrents** are also attached to the [release](https://github.com/TSavo/por/releases/tag/v0.1.0-beta.1). Each has a GitHub web seed. SHA256SUMS on the release covers every file.
+
+- **Mac (Apple silicon)** — `Pool-of-Radiance-Special-Edition-0.1.0-beta.1-mac-arm64.dmg`
+
+  `magnet:?xt=urn:btih:7edcc5be4d969f0e6e5c211c3ebb4bb3bd1f2b59&dn=Pool-of-Radiance-Special-Edition-0.1.0-beta.1-mac-arm64.dmg&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&ws=https%3A%2F%2Fgithub.com%2FTSavo%2Fpor%2Freleases%2Fdownload%2Fv0.1.0-beta.1%2FPool-of-Radiance-Special-Edition-0.1.0-beta.1-mac-arm64.dmg`
+
+- **Mac (Intel)** — `Pool-of-Radiance-Special-Edition-0.1.0-beta.1-mac-x64.dmg`
+
+  `magnet:?xt=urn:btih:59619207e7b300cd2627aef6cef39b12e1543dae&dn=Pool-of-Radiance-Special-Edition-0.1.0-beta.1-mac-x64.dmg&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&ws=https%3A%2F%2Fgithub.com%2FTSavo%2Fpor%2Freleases%2Fdownload%2Fv0.1.0-beta.1%2FPool-of-Radiance-Special-Edition-0.1.0-beta.1-mac-x64.dmg`
+
+- **Windows** — `Pool-of-Radiance-Special-Edition-0.1.0-beta.1-windows.zip`
+
+  `magnet:?xt=urn:btih:f2fb3346759e84eaea9cd868bfcdc17fa36b955e&dn=Pool-of-Radiance-Special-Edition-0.1.0-beta.1-windows.zip&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&ws=https%3A%2F%2Fgithub.com%2FTSavo%2Fpor%2Freleases%2Fdownload%2Fv0.1.0-beta.1%2FPool-of-Radiance-Special-Edition-0.1.0-beta.1-windows.zip`
+
+- **Linux** — `Pool-of-Radiance-Special-Edition-0.1.0-beta.1-linux-x64.tar.gz`
+
+  `magnet:?xt=urn:btih:38322be52824fa5baccb9900f9deea886b020893&dn=Pool-of-Radiance-Special-Edition-0.1.0-beta.1-linux-x64.tar.gz&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&ws=https%3A%2F%2Fgithub.com%2FTSavo%2Fpor%2Freleases%2Fdownload%2Fv0.1.0-beta.1%2FPool-of-Radiance-Special-Edition-0.1.0-beta.1-linux-x64.tar.gz`
+
+- **Full repository** — `Pool-of-Radiance-Special-Edition-v0.1.0-beta.1-repo.zip`, a zip of the source tree including the complete git history.
+
+  `magnet:?xt=urn:btih:66614743949f56cbd6ac4c3db5007bb20b060efb&dn=Pool-of-Radiance-Special-Edition-v0.1.0-beta.1-repo.zip&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&ws=https%3A%2F%2Fgithub.com%2FTSavo%2Fpor%2Freleases%2Fdownload%2Fv0.1.0-beta.1%2FPool-of-Radiance-Special-Edition-v0.1.0-beta.1-repo.zip`
+
 A takedown is expected. Copies are what will keep this game alive. The more places it lives, the harder it is for one notice to erase it.
 
 **A note to Wizards of the Coast.** This game deserves a proper release. Taking it down is not the right thing. Talk to me, [T Robert Savo](https://github.com/TSavo), about how to release it properly.
