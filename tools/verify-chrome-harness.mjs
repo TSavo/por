@@ -100,7 +100,22 @@ if (burners) {
     try {
       return await withLeg(async (game) => {
         const frame = await game.nextFrame();
-        return `frame ${frame.sequence} after ${((Date.now() - started) / 1000).toFixed(0)} s`;
+        const opened = ((Date.now() - started) / 1000).toFixed(0);
+        // Keep the normal key predicate pending beyond its original 30 s timeout. Short tasks
+        // leave the renderer responsive to DevTools between slices of real work.
+        await game.evaluate(`(() => {
+          posting = true;
+          const complete = performance.now() + 36_000;
+          const timer = setInterval(() => {
+            const end = performance.now() + 45;
+            while (performance.now() < end) {}
+            if (performance.now() >= complete) { clearInterval(timer); posting = false; }
+          }, 80);
+        })()`);
+        const key = await outcome(game.pressKey("enter"));
+        assert.ok(!key.error, key.error);
+        assert.ok(key.seconds >= 30, "The key was sent before the old deadline");
+        return `frame ${frame.sequence} after ${opened} s, key accepted after ${key.seconds.toFixed(1)} s`;
       });
     } finally {
       for (const burner of load) burner.kill("SIGKILL");

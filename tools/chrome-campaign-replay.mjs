@@ -132,14 +132,51 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
   let observingFallbacks = false;
 
   async function waitFor(description, read, timeout = 30_000) {
-    const deadline = Date.now() + timeout;
-    while (Date.now() < deadline) {
+    const limit = Date.now() + LONGEST_SECONDS * 1000;
+    // A pending DevTools or fetch request also counts toward the total wait.
+    let timer;
+    const expired = new Promise((_, reject) => {
+      timer = setTimeout(() => reject(new Error(`Timed out waiting for ${description} after ${LONGEST_SECONDS} s`)), LONGEST_SECONDS * 1000);
+    });
+    try {
+      return await Promise.race([pollUntil(description, read, timeout, limit), expired]);
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  async function pollUntil(description, read, timeout, limit) {
+    const start = Date.now();
+    let deadline = Math.min(start + timeout, limit);
+    // Sample shortly before expiry. Fast predicates never pay to enumerate the process tree.
+    const interval = Math.min(10_000, timeout / 2);
+    let nextSample = deadline - interval;
+    let previous;
+    while (Date.now() < limit) {
       if (childError) throw childError;
       for (const [name, child] of [["Game server", server], ["Chrome", chrome]]) {
         if (child.exitCode !== null || child.signalCode !== null) throw new Error(`${name} exited during ${description}`);
       }
       const value = await read();
       if (value) return value;
+      if (Date.now() >= nextSample) {
+        const renderers = await chromeRenderers();
+        const game = processActivity([server.pid], { tree: true });
+        const cpu = new Map([...(renderers?.cpu ?? []), ...(game?.cpu ?? [])]);
+        const now = Date.now();
+        if (previous && now >= deadline) {
+          let used = 0;
+          for (const [pid, seconds] of cpu) used += Math.max(0, seconds - (previous.cpu.get(pid) ?? seconds));
+          const storage = game && previous.io !== undefined && game.io > previous.io;
+          if (used < CPU_FLOOR && !storage && !game?.disk && !processActivity([chrome.pid], { tree: true })?.disk) break;
+          deadline = Math.min(now + interval, limit);
+          log.write(`[chrome-harness] Still waiting for ${description}: ${used.toFixed(2)} s CPU, storage activity ${Boolean(storage)}\n`);
+        }
+        // A single slow predicate can consume the whole initial timeout before the first sample.
+        if (!previous && now >= deadline) deadline = Math.min(now + interval, limit);
+        previous = { cpu, io: game?.io };
+        nextSample = deadline;
+      }
       await delay(40);
     }
     throw new Error(`Timed out waiting for ${description}`);
