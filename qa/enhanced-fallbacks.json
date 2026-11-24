@@ -214,6 +214,12 @@
    "frames": [],
    "fixtureSha256": "08e3075d51b254f63d92b69eb14020968532dad4ebaafda471a7f385161b6b8a"
   },
+  "walk-guide-party-kovel": {
+   "observer": 2,
+   "presented": 751,
+   "frames": [],
+   "fixtureSha256": "a9430485f2b011eb9c801918b27e73e13d0a21bf59861482447f12b3ffd39d90"
+  },
   "walk-guide-party-podal-auction": {
    "observer": 2,
    "presented": 464,

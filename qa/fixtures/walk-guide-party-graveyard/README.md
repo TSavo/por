@@ -1,0 +1,1 @@
+Load Kovel slot J and sail from the Bay to Valhingen. Slot A is the graveyard entrance. The party wins the claw encounter at (6,4) in ordinary combat, then returns to City Hall. The clerk repeats the general undead bounty. Slot B is at the Temple of Tyr after treatment. The special commission has yet to be accepted.

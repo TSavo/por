@@ -1,0 +1,25 @@
+
+
+                 Name            AC  HP
+
+                 AELAR            0  15
+                 BRENNAN         -1  22
+                 CAELUM          -1  19
+                 ELSPETH         -1  34
+                 DORIAN           3  19
+                 FINN             0   8
+                 CURATE           3  26
+                 CURATE           3  26
+
+
+
+                 5,5 E 03:55
+
+
+
+
+
+
+
+
+Area Cast View Encamp Search Look
