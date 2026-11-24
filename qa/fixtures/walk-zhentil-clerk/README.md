@@ -8,4 +8,4 @@ Replay both sources with the following command, setting POR_GAMEDATA to the orig
 
     POR_PARITY_ONLY=leg POR_PARITY_LEG=qa/fixtures/walk-zhentil-clerk npm run verify:port-parity
 
-All 216 frames match in text. The Enhanced artwork differs on three frames during the guard reinforcements. The ordinary-play continuation still starts at the earned slot B in walk-zhentil-envoy.
+The two Surrender / Attack frames show the far guard from SPRIT6.DAX block 16, member 2, over the courtyard. The far, middle and near poses follow as battle begins. The parity check compares these placements and the scenery beneath each pose across both data sources. The ordinary-play continuation still starts at the earned slot B in walk-zhentil-envoy.
