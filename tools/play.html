@@ -72,15 +72,12 @@
       color: #f1dfae; font: 1.4rem Georgia, serif; letter-spacing: .08em; pointer-events: none; z-index: 4; }
     #screen-loading[hidden] { display: none; }
     #travel-map {
-      position: absolute; left: 2.5%; top: 4%; width: 37.5%; height: 60%; z-index: 2;
-      display: grid; align-items: center; background: #19140f;
-    }
-    #travel-map[hidden], #close-travel-map[hidden], #phlan-approaches[hidden] { display: none; }
-    #travel-map.expanded {
-      inset: 3%; width: auto; height: auto; z-index: 5; grid-template-rows: auto minmax(0, 1fr);
+      position: fixed; inset: 0; z-index: 5; display: grid; align-items: center;
+      grid-template-rows: auto minmax(0, 1fr); background: #19140f;
       border: 1px solid #a28658; box-shadow: 0 10px 30px #000a;
       padding: clamp(8px, 2vw, 18px);
     }
+    #travel-map[hidden], #close-travel-map[hidden], #phlan-approaches[hidden] { display: none; }
     #close-travel-map { justify-self: end; margin-bottom: .4rem; }
     #travel-map svg { display: block; width: 100%; height: 100%; min-height: 0; }
     #travel-map polygon { fill: transparent; stroke: transparent; stroke-width: 1.5; }
@@ -111,7 +108,6 @@
     #phlan-approaches details { margin-top: .75rem; }
     #phlan-approaches summary { cursor: pointer; margin-bottom: .45rem; }
     #tile-art img { position: absolute; width: 2.5%; height: 4%; display: block; }
-    #tile-art.overland-encounter .encounter-sprite { z-index: 3; }
     #tile-art .encounter-portrait { background-color: #000; }
     #tile-art .combat-sprite { width: 7.5%; height: 12%; }
     #tile-art .combat-aim-reticle {
@@ -134,7 +130,7 @@
       overflow: hidden;
       font: 700 2.55cqw / 1 "Game Web Font", ui-monospace, monospace; }
     #journal { position: absolute; inset: 4%; overflow: auto; padding: clamp(12px, 3vw, 26px); background: #17232e; border: 1px solid #8495a8; }
-    #automap { position: absolute; inset: 4%; z-index: 4; display: grid; grid-template-rows: auto minmax(0, 1fr); overflow: auto;
+    #automap { position: fixed; inset: 0; z-index: 4; display: grid; grid-template-rows: auto minmax(0, 1fr); overflow: auto;
       padding: clamp(10px, 2vw, 18px); background: #17120d; border: 1px solid #a28658; }
     #automap[hidden] { display: none; }
     #automap header { min-height: 0; flex-wrap: wrap; }
@@ -266,7 +262,7 @@
       max-width: none; width: 100%; height: 100vh; height: 100dvh; margin: 0; padding: 0;
       display: grid; place-items: center; position: relative; background: #000;
     }
-    html.electron-app header, html.electron-app #status { display: none; }
+    html.electron-app main > header, html.electron-app #status { display: none; }
     html.electron-app #play {
       border: none; box-shadow: none; width: min(100vw, calc(100vh * 8 / 5)); height: min(100vh, calc(100vw * 5 / 8));
     }
@@ -335,66 +331,6 @@
       <div id="tile-art" aria-hidden="true" hidden></div>
       <div id="game-text" aria-hidden="true" hidden></div>
       <p id="party-guide" hidden></p>
-      <section id="travel-map" aria-label="Illustrated Moonsea travel map" hidden>
-        <button id="close-travel-map" type="button" hidden>Return to game</button>
-        <svg viewBox="0 0 650 433.333" aria-label="The Moonsea around Phlan">
-          <image id="travel-art" width="650" height="433.333" />
-          <polygon data-destination="diogenes" points="37,57 90,54 108,79 90,110 49,103" role="button" aria-label="Cave of Diogenes"><title>Cave of Diogenes</title></polygon>
-          <polygon data-destination="zhentil" points="33,139 74,125 129,127 128,151 99,172 37,174" role="button" aria-label="Zhentil Keep Outpost"><title>Zhentil Keep Outpost</title></polygon>
-          <polygon data-destination="buccaneers" points="30,223 59,201 89,203 107,227 108,269 35,266" role="button" aria-label="Buccaneer Base"><title>Buccaneer Base</title></polygon>
-          <polygon data-destination="valjevo" points="274,69 303,52 402,64 397,95 369,127 309,139 275,115" role="button" aria-label="Valjevo Castle via Stojanow Gate"><title>Valjevo Castle via Stojanow Gate</title></polygon>
-          <polygon data-destination="phlan" points="207,135 274,128 309,145 368,129 412,165 453,217 449,263 380,282 346,251 312,231 264,252 222,240 187,213" role="button" aria-label="Phlan destinations" aria-controls="phlan-approaches" aria-expanded="false"><title>Choose a Phlan destination</title></polygon>
-          <g class="travel-marker" data-destination="graveyard" role="button" aria-label="Valhingen Graveyard">
-            <title>Valhingen Graveyard via the north gate</title>
-            <defs>
-              <linearGradient id="valhingen-parchment" x1="0%" y1="0%" x2="22%" y2="100%">
-                <stop offset="0%" stop-color="#fff0b1" />
-                <stop offset="43%" stop-color="#f3cb83" />
-                <stop offset="100%" stop-color="#d19453" />
-              </linearGradient>
-            </defs>
-            <path class="travel-marker-paper" d="M168 106Q176 102 186 104Q201 99 216 103Q229 102 236 105L232 112L235 121Q229 126 215 125Q201 129 185 125Q175 128 167 123L171 115Z" />
-            <path class="travel-marker-fold" d="M168 106L176 105L171 115ZM235 121L228 121L232 112ZM167 123L177 124L171 115Z" />
-            <text x="201.5" y="113">VALHINGEN</text>
-            <text x="201.5" y="122">GRAVEYARD</text>
-          </g>
-          <polygon data-destination="nomads" points="439,44 467,27 550,25 569,54 541,88 469,85 435,61" role="button" aria-label="Nomad Camp"><title>Nomad Camp</title></polygon>
-          <polygon data-destination="kobolds" points="542,122 570,102 629,98 633,130 617,165 570,158" role="button" aria-label="Kobold Caves"><title>Kobold Caves</title></polygon>
-          <polygon data-destination="lizardmen" points="553,207 582,181 609,181 627,213 639,225 632,252 558,250 550,224" role="button" aria-label="Lizardman Keep"><title>Lizardman Keep</title></polygon>
-          <polygon data-destination="island" points="194,317 241,301 275,292 308,306 314,340 281,361 211,362" role="button" aria-label="Sorcerer's Island"><title>Sorcerer's Island</title></polygon>
-          <polygon data-destination="sokal" points="436,325 463,296 501,283 540,294 560,326 552,351 487,367 434,344" role="button" aria-label="Sokal Keep"><title>Sokal Keep</title></polygon>
-        </svg>
-        <section id="phlan-approaches" aria-labelledby="phlan-approaches-title" hidden>
-          <header>
-            <h2 id="phlan-approaches-title">Phlan destinations</h2>
-            <button id="close-phlan-approaches" type="button">Back to map</button>
-          </header>
-          <div class="phlan-travel-options">
-            <button type="button" data-approach="newPhlan">New Phlan</button>
-            <button type="button" data-approach="cityHall">City Hall</button>
-            <button type="button" data-approach="trainingHall">Training Hall</button>
-            <button type="button" data-approach="slums">The Slums</button>
-            <button type="button" data-approach="kovelMansion">Kovel Mansion</button>
-            <button type="button" data-approach="templeOfBane">Temple of Bane</button>
-            <button type="button" data-approach="podolPlaza">Podol Plaza</button>
-            <button type="button" data-approach="kutoWell">Kuto’s Well</button>
-            <button type="button" data-approach="textileHouse">Cadorna Textile House</button>
-            <button type="button" data-approach="mendorLibrary">Mendor’s Library</button>
-            <button type="button" data-approach="stojanow">Stojanow Gate</button>
-            <button type="button" data-approach="graveyard">Valhingen Graveyard</button>
-          </div>
-          <details>
-            <summary>Entrances and ferry docks</summary>
-            <div class="phlan-travel-options">
-              <button type="button" data-approach="northGate">North gate</button>
-              <button type="button" data-approach="eastApproach">East approach</button>
-              <button type="button" data-approach="westApproach">West approach</button>
-              <button type="button" data-approach="docks">New Phlan ferry docks</button>
-              <button type="button" data-approach="phlan">Nearest Phlan approach</button>
-            </div>
-          </details>
-        </section>
-      </section>
       <section id="code-wheel" aria-label="Translation wheel" hidden>
         <div id="wheel" role="img" aria-label="The translation wheel. The inner disc turns.">
           <canvas id="wheel-canvas" width="900" height="900"></canvas>
@@ -430,26 +366,86 @@
         <div id="objective"></div>
         <ul id="leads"></ul>
       </section>
-      <section id="automap" aria-label="Automap" hidden>
-        <header>
-          <h2 id="automap-title">Automap</h2>
-          <div class="map-tabs" role="group" aria-label="Map view">
-            <button id="local-map" type="button" aria-pressed="true">Local</button>
-            <button id="region-map" type="button" aria-pressed="false">Region</button>
-            <button id="atlas-map" type="button" aria-pressed="false" hidden>Atlas</button>
-          </div>
-          <div><button id="mark-map" type="button">Mark location</button> <button id="close-map" type="button">Return to game</button></div>
-        </header>
-        <svg id="automap-svg" viewBox="-0.5 -0.5 17 17" role="img" aria-label="Discovered area map"></svg>
-        <div id="atlas-view" hidden>
-          <div><label for="atlas-sheet">Illustration</label> <select id="atlas-sheet"></select></div>
-          <a id="atlas-image-link" target="_blank" rel="noopener" title="Open full-size illustration in a new tab">
-            <img id="atlas-image" alt="">
-          </a>
-          <p id="atlas-error" role="status" hidden>Could not load this illustration.</p>
-        </div>
-      </section>
     </div>
+    <section id="travel-map" aria-label="Illustrated Moonsea travel map" hidden>
+      <button id="close-travel-map" type="button" hidden>Return to game</button>
+      <svg viewBox="0 0 650 433.333" aria-label="The Moonsea around Phlan">
+        <image id="travel-art" width="650" height="433.333" />
+        <polygon data-destination="diogenes" points="37,57 90,54 108,79 90,110 49,103" role="button" aria-label="Cave of Diogenes"><title>Cave of Diogenes</title></polygon>
+        <polygon data-destination="zhentil" points="33,139 74,125 129,127 128,151 99,172 37,174" role="button" aria-label="Zhentil Keep Outpost"><title>Zhentil Keep Outpost</title></polygon>
+        <polygon data-destination="buccaneers" points="30,223 59,201 89,203 107,227 108,269 35,266" role="button" aria-label="Buccaneer Base"><title>Buccaneer Base</title></polygon>
+        <polygon data-destination="valjevo" points="274,69 303,52 402,64 397,95 369,127 309,139 275,115" role="button" aria-label="Valjevo Castle via Stojanow Gate"><title>Valjevo Castle via Stojanow Gate</title></polygon>
+        <polygon data-destination="phlan" points="207,135 274,128 309,145 368,129 412,165 453,217 449,263 380,282 346,251 312,231 264,252 222,240 187,213" role="button" aria-label="Phlan destinations" aria-controls="phlan-approaches" aria-expanded="false"><title>Choose a Phlan destination</title></polygon>
+        <g class="travel-marker" data-destination="graveyard" role="button" aria-label="Valhingen Graveyard">
+          <title>Valhingen Graveyard via the north gate</title>
+          <defs>
+            <linearGradient id="valhingen-parchment" x1="0%" y1="0%" x2="22%" y2="100%">
+              <stop offset="0%" stop-color="#fff0b1" />
+              <stop offset="43%" stop-color="#f3cb83" />
+              <stop offset="100%" stop-color="#d19453" />
+            </linearGradient>
+          </defs>
+          <path class="travel-marker-paper" d="M168 106Q176 102 186 104Q201 99 216 103Q229 102 236 105L232 112L235 121Q229 126 215 125Q201 129 185 125Q175 128 167 123L171 115Z" />
+          <path class="travel-marker-fold" d="M168 106L176 105L171 115ZM235 121L228 121L232 112ZM167 123L177 124L171 115Z" />
+          <text x="201.5" y="113">VALHINGEN</text>
+          <text x="201.5" y="122">GRAVEYARD</text>
+        </g>
+        <polygon data-destination="nomads" points="439,44 467,27 550,25 569,54 541,88 469,85 435,61" role="button" aria-label="Nomad Camp"><title>Nomad Camp</title></polygon>
+        <polygon data-destination="kobolds" points="542,122 570,102 629,98 633,130 617,165 570,158" role="button" aria-label="Kobold Caves"><title>Kobold Caves</title></polygon>
+        <polygon data-destination="lizardmen" points="553,207 582,181 609,181 627,213 639,225 632,252 558,250 550,224" role="button" aria-label="Lizardman Keep"><title>Lizardman Keep</title></polygon>
+        <polygon data-destination="island" points="194,317 241,301 275,292 308,306 314,340 281,361 211,362" role="button" aria-label="Sorcerer's Island"><title>Sorcerer's Island</title></polygon>
+        <polygon data-destination="sokal" points="436,325 463,296 501,283 540,294 560,326 552,351 487,367 434,344" role="button" aria-label="Sokal Keep"><title>Sokal Keep</title></polygon>
+      </svg>
+      <section id="phlan-approaches" aria-labelledby="phlan-approaches-title" hidden>
+        <header>
+          <h2 id="phlan-approaches-title">Phlan destinations</h2>
+          <button id="close-phlan-approaches" type="button">Back to map</button>
+        </header>
+        <div class="phlan-travel-options">
+          <button type="button" data-approach="newPhlan">New Phlan</button>
+          <button type="button" data-approach="cityHall">City Hall</button>
+          <button type="button" data-approach="trainingHall">Training Hall</button>
+          <button type="button" data-approach="slums">The Slums</button>
+          <button type="button" data-approach="kovelMansion">Kovel Mansion</button>
+          <button type="button" data-approach="templeOfBane">Temple of Bane</button>
+          <button type="button" data-approach="podolPlaza">Podol Plaza</button>
+          <button type="button" data-approach="kutoWell">Kuto’s Well</button>
+          <button type="button" data-approach="textileHouse">Cadorna Textile House</button>
+          <button type="button" data-approach="mendorLibrary">Mendor’s Library</button>
+          <button type="button" data-approach="stojanow">Stojanow Gate</button>
+          <button type="button" data-approach="graveyard">Valhingen Graveyard</button>
+        </div>
+        <details>
+          <summary>Entrances and ferry docks</summary>
+          <div class="phlan-travel-options">
+            <button type="button" data-approach="northGate">North gate</button>
+            <button type="button" data-approach="eastApproach">East approach</button>
+            <button type="button" data-approach="westApproach">West approach</button>
+            <button type="button" data-approach="docks">New Phlan ferry docks</button>
+            <button type="button" data-approach="phlan">Nearest Phlan approach</button>
+          </div>
+        </details>
+      </section>
+    </section>
+    <section id="automap" aria-label="Automap" hidden>
+      <header>
+        <h2 id="automap-title">Automap</h2>
+        <div class="map-tabs" role="group" aria-label="Map view">
+          <button id="local-map" type="button" aria-pressed="true">Local</button>
+          <button id="region-map" type="button" aria-pressed="false">Region</button>
+          <button id="atlas-map" type="button" aria-pressed="false" hidden>Atlas</button>
+        </div>
+        <div><button id="mark-map" type="button">Mark location</button> <button id="close-map" type="button">Return to game</button></div>
+      </header>
+      <svg id="automap-svg" viewBox="-0.5 -0.5 17 17" role="img" aria-label="Discovered area map"></svg>
+      <div id="atlas-view" hidden>
+        <div><label for="atlas-sheet">Illustration</label> <select id="atlas-sheet"></select></div>
+        <a id="atlas-image-link" target="_blank" rel="noopener" title="Open full-size illustration in a new tab">
+          <img id="atlas-image" alt="">
+        </a>
+        <p id="atlas-error" role="status" hidden>Could not load this illustration.</p>
+      </div>
+    </section>
     <iframe id="boot-wheel" title="Code word translation wheel" style="width:100%;height:46rem;border:0" hidden></iframe>
     <p id="status" role="status">Starting the game…</p>
     <p id="storage-status" role="status" hidden></p>

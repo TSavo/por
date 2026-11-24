@@ -149,10 +149,9 @@ let streetModule;
 let streetAtlas;
 let overlandViewport;
 let overlandLoading;
-// Enhanced overland play always shows the illustrated Moonsea map: there is no switch back to the original tiles.
-const travelArtEnabled = true;
 let travelArtReady = false;
 let travelExpanded = false;
+let travelMapDismissed = false;
 let activeTravel;
 const failedSurfaces = new Set();
 // The game runner records the discovered map and keeps it in the save slot.
@@ -1017,18 +1016,15 @@ travelArt.setAttribute("href", "/atlas/phlan-region-concept-v2-geography.png");
 
 function renderTravelMap(view = animationFrame ?? state) {
   const overland = enhanced && view.overlandMap && !view.journal && !view.classicPortrait && !view.combatArt?.length;
-  const illustrated = overland && travelArtReady;
-  // The regional atlas covers travel. A decoded local encounter or portrait occupies its panel.
-  const picture = Boolean(view.portrait || view.scene || view.art);
-  const encounter = Boolean(view.encounter?.length);
-  const localEncounter = encounter && view.overlandTerrain &&
-    tileArt.querySelector(".local-overland-encounter");
-  const visible = illustrated && travelArtEnabled && !picture && !localEncounter;
-  if ((!visible || encounter || activeTravel) && travelExpanded) setTravelExpanded(false);
+  // Only the native travel menu offers destinations. Encounters and dialogue
+  // need their own art and the game's text panel, including during a route.
+  const picker = overland && view.travel && !view.encounter?.length && !animationFrame &&
+    !view.portrait && !view.scene && !view.art;
+  if (!overland) travelMapDismissed = false;
+  const visible = Boolean(picker && travelArtReady && !travelMapDismissed);
+  if (visible !== travelExpanded) setTravelExpanded(visible, false);
   travelMap.hidden = !visible;
-  tileArt.classList.toggle("overland-encounter", visible && encounter);
-  // Landmarks take a click only at the game's travel screen, and not while a route is being walked.
-  const routes = visible && view.travel && !activeTravel && !animationFrame && state.ready && !state.stopped ? view.travel.routes : {};
+  const routes = visible && !activeTravel && state.ready && !state.stopped ? view.travel.routes : {};
   for (const landmark of travelLandmarks) {
     const enabled = Boolean(phlanApproaches.hidden && routes[landmark.dataset.destination]);
     landmark.setAttribute("aria-disabled", String(!enabled));
@@ -1037,13 +1033,13 @@ function renderTravelMap(view = animationFrame ?? state) {
   for (const button of approachButtons) button.disabled = !routes[button.dataset.approach];
 }
 
-function setTravelExpanded(expanded) {
+function setTravelExpanded(expanded, focus = true) {
   travelExpanded = expanded;
   if (!expanded) setPhlanApproaches(false);
   travelMap.classList.toggle("expanded", expanded);
   closeTravelMap.hidden = !expanded;
   mapToggle.setAttribute("aria-expanded", String(expanded));
-  (expanded ? closeTravelMap : screen).focus({ preventScroll: true });
+  if (focus) (expanded ? closeTravelMap : screen).focus({ preventScroll: true });
 }
 
 function setPhlanApproaches(open) {
@@ -1061,7 +1057,7 @@ function selectTravel(destination, label) {
   if (!state.travel?.routes[destination] || activeTravel || posting || !state.ready || state.stopped) return;
   resumeBlockedAudio();
   activeTravel = { destination, label };
-  setTravelExpanded(false);
+  setPhlanApproaches(false);
   renderTravelMap();
   followTravel();
 }
@@ -1756,8 +1752,10 @@ function markCurrentLocation() {
 }
 
 function toggleAutomap() {
-  if (!travelMap.hidden) {
-    setTravelExpanded(!travelExpanded);
+  if (enhanced && state.travel && !animationFrame) {
+    travelMapDismissed = travelExpanded;
+    renderTravelMap();
+    (travelExpanded ? closeTravelMap : screen).focus({ preventScroll: true });
     return;
   }
   if (automap.hidden && (!enhanced || !state.exploration)) return;
@@ -2204,7 +2202,7 @@ async function showScreen() {
   logShownArtwork(sceneArt ? view.scene ?? view.art : picture ?? (runesShown ? "runes in the picture window"
     : overlandShown ?? (streetShown ? "the first-person view" : null)));
   const expectedArt = view.scene ?? portraitId ?? view.encounter?.[2] ??
-    (runesShown ? "runes in the picture window" : view.overlandMap ? (travelArtEnabled ? mapArt : terrainArt)
+    (runesShown ? "runes in the picture window" : view.overlandMap ? (travelExpanded ? mapArt : terrainArt)
       : streetScene ? "the first-person view" : null);
   renderingSequence = undefined;
   presentNarration(view, expectedArt);
@@ -2777,7 +2775,7 @@ async function poll() {
     if (restoreGameFocus) screen.focus({ preventScroll: true });
     closeJournal.disabled = !state.ready || Boolean(state.presentationPolling) || Boolean(state.stopped);
     autoTrack.disabled = closeJournal.disabled;
-    mapToggle.disabled = !state.exploration && !(enhanced && state.travel && travelArtEnabled && travelArtReady);
+    mapToggle.disabled = !state.exploration && !(enhanced && state.travel && travelArtReady);
     journalToggle.disabled = closeJournal.disabled;
     void syncAutomap();
     offerLegacyAutomap();
@@ -2872,7 +2870,7 @@ const repeatingKeys = new Set(["up", "down", "left", "right", "home", "end", "pa
  * skipped the second the moment it appeared (#77), and the narration of every passage matters.
  */
 function repeatsToGame(event) {
-  if (event.altKey || !bootWheel.hidden || activeTravel || travelExpanded || state.journal) return false;
+  if (event.altKey || !bootWheel.hidden || activeTravel || !phlanApproaches.hidden || state.journal) return false;
   return repeatingKeys.has(keypadDirections[event.code] ?? commands[event.key]);
 }
 closeJournal.addEventListener("click", () => send("j"));
@@ -2883,7 +2881,7 @@ presentation.addEventListener("click", () => {
 });
 mapToggle.addEventListener("click", toggleAutomap);
 closeMap.addEventListener("click", toggleAutomap);
-closeTravelMap.addEventListener("click", () => setTravelExpanded(false));
+closeTravelMap.addEventListener("click", toggleAutomap);
 document.querySelector("#close-phlan-approaches").addEventListener("click", closePhlanApproaches);
 markMap.addEventListener("click", markCurrentLocation);
 localMap.addEventListener("click", () => { mapMode = "local"; renderAutomap(); });
@@ -2981,10 +2979,11 @@ window.addEventListener("keydown", (event) => {
   if (travelExpanded) {
     if (event.key === "Escape") {
       event.preventDefault();
-      if (phlanApproaches.hidden) setTravelExpanded(false);
+      if (phlanApproaches.hidden) toggleAutomap();
       else closePhlanApproaches();
+      return;
     }
-    return;
+    if (!phlanApproaches.hidden) return;
   }
   if (!automap.hidden) {
     if (event.key === "Escape") {

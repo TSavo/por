@@ -10337,6 +10337,12 @@ try {
     assert.deepEqual([stopped.travel.x, stopped.travel.y, stopped.travel.sector], [27, 9, 1]);
     await waitFor("map controls returning after cancellation", () => run(`state.sequence === ${stopped.sequence} &&
       !activeTravel && !document.querySelector("#map-toggle").disabled`));
+    assert.ok(await run(`(() => {
+      const map = document.querySelector("#travel-map").getBoundingClientRect();
+      return map.left === 0 && map.top === 0 && map.right === document.documentElement.clientWidth && map.bottom === innerHeight;
+    })()`), "The destination picker opens across the entire window");
+    await run('document.querySelector("#close-travel-map").click()');
+    assert.ok(await run('document.querySelector("#travel-map").hidden'));
     await run('document.querySelector("#map-toggle").click()');
     const point = await waitFor("the expanded Lizardman Keep landmark", () => run(`(() => {
       const marker = ${landmark};
@@ -10424,7 +10430,6 @@ try {
         marker.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true, cancelable: true }));
         return attributes;
       });
-      document.querySelector("#map-toggle").click();
       const expanded = document.querySelector("#travel-map").classList.contains("expanded");
       window.dispatchEvent(new KeyboardEvent("keydown", { key: "F10" }));
       return {markers, expanded};
