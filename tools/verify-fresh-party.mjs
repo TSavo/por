@@ -51,7 +51,8 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
     const directory = resolve(saveDir, `leg-${++campaignLeg}`);
     // The shorter campaign branches to Ohlo after the shared opening. The full
     // campaign's seventh schedule instead takes the party to Sokal.
-    const scheduleDirectory = campaign && (!campaignOption || campaignOption === "--from-temple") && campaignLeg > 6 ? "campaign-ohlo" : "campaign";
+    const scheduleDirectory = campaignOption === "--from-textile-commission" ? "textile-commission"
+      : campaign && (!campaignOption || campaignOption === "--from-temple") && campaignLeg > 6 ? "campaign-ohlo" : "campaign";
     // A checkpoint resumes partway through the six-fighter route. Battle is its first leg
     // and the west ferry is its seventh, regardless of which checkpoint the caller supplied.
     const sokalStage = {
@@ -1857,12 +1858,12 @@ if (campaign && campaignOption === "--from-textile-commission") {
     "right", "right", "up", "up", "right", "up", "left", "up", "up", "right",
     ...Array(5).fill("up"), "left",
     (text) => assert.match(text, /4,7 s.*scorpions approach hungrily/),
-    "enter", "enter", "q", "alt-m", ["q", /continue battle:yes no/, 100], "n",
+    "enter", "enter", "q", "alt-m", presses("q", 31, /continue battle:yes no/), "n",
     (text) => assert.match(text, /the party has won.*53 experience points/),
     "enter", "enter", "e", "n", "e", "s", "s", "c", "n", "e",
     "up", "up", "up", "left",
     (text) => assert.match(text, /4,10 s.*a drum begins to beat and hobgoblins attack/),
-    "enter", "enter", "q", "alt-m", ["q", /continue battle:yes no/, 145], "n", "enter",
+    "enter", "enter", "q", "alt-m", presses("q", 88, /continue battle:yes no/), "n", "enter",
     (text) => assert.match(text, /the party has won.*54 experience points/),
     "enter", "enter", "s", "e", "n",
     (text) => assert.match(text, /the drum has faded to silence/),
