@@ -51,7 +51,8 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
     const directory = resolve(saveDir, `leg-${++campaignLeg}`);
     // The shorter campaign branches to Ohlo after the shared opening. The full
     // campaign's seventh schedule instead takes the party to Sokal.
-    const scheduleDirectory = campaignOption === "--from-textile-commission" ? "textile-commission"
+    const scheduleDirectory = campaignOption === "--from-castle-ending" ? "castle-ending"
+      : campaignOption === "--from-textile-commission" ? "textile-commission"
       : campaign && (!campaignOption || campaignOption === "--from-temple") && campaignLeg > 6 ? "campaign-ohlo" : "campaign";
     // A checkpoint resumes partway through the six-fighter route. Battle is its first leg
     // and the west ferry is its seventh, regardless of which checkpoint the caller supplied.

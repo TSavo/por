@@ -97,8 +97,8 @@ hide it.
   check is measured in each (`verifySokalPatrolVictory`'s four variants all
   take 134 and 22). A mode whose count is not measured has none, and fails
   at the step. The Sokal checkpoint modes' counts were measured from a save
-  chain in the pipe (#151); the courtyard fight of #166 is recorded again as
-  the page plays it (below), and #167 waits on saves no mode produces. Each step
+  chain in the pipe (#151); the courtyard fight of #166 is recorded as
+  the page plays it (below). The checkpoint table lists the other starting parties. Each step
   of an automatic combat turn asks for a key, so Quick to a defeat can take
   over 1,000 inputs: a pipe replay gives up when its runner shows nothing
   for 90 seconds, not after 90 seconds in all.
@@ -126,6 +126,22 @@ hide it.
   left. It also counts a `presses` or `acceptSokalPatrol` whose count can be
   `undefined` in some mode (`continuous ? 7 : undefined`): that mode fails at
   the step until its count is measured and written (#151).
+
+## Campaign checkpoints for counted inputs
+
+The following fixtures supply the starting states for #151 and #167. Each linked directory describes the save's origin and the commands for its replay.
+
+| Replay | Starting save |
+| --- | --- |
+| Sokal trained, courtyard, council, lodging and Textile entrance | [Six fighters](../qa/fixtures/sokal-six-fighters/README.md), slots J, C, H, E and A respectively |
+| Podal clerk and auction | [Podal clerk](../qa/fixtures/podal-clerk/README.md), H |
+| Wealthy Area entry 53 | [Mansion approach](../qa/fixtures/walk-bane-entry53/README.md), after/A |
+| Grishnak and healed Sleep | [Prisoner approach](../qa/fixtures/walk-grishnak-prisoner/README.md), after/I; the healed branch replays the temple cures |
+| Textile sealed and opened returns | [Textile return](../qa/fixtures/textile-return/README.md), D and E |
+| Short campaign, temple rearming | [Temple of Tyr](../qa/fixtures/sokal-rearm-temple/README.md), G; the default campaign produces this save |
+| Fresh Sokal reinforcement | [Armorer](../qa/fixtures/sokal-reinforcement-armorer/README.md), D |
+| Castle guards, then ending | [Castle guards](../qa/fixtures/castle-guards/README.md), B from the full campaign, developer combat |
+| Castle ending only | [Castle ending](../qa/fixtures/castle-ending/README.md), B outside the audience hall, edited party, native Quick combat |
 
 ## Character icon editor
 

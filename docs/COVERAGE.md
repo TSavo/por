@@ -613,7 +613,7 @@ the slot and opening the journal still showed Phlan is free. This verifies
 the fight and ending with the original enemy and the edited checkpoint
 party. A party trained by playing the campaign through from a fresh
 start remains to be verified.
-Run `node tools/verify-fresh-party.mjs --castle-ending-checkpoint PATH_TO_SLOT_B`
+Run `node tools/verify-fresh-party.mjs --castle-ending-checkpoint qa/fixtures/castle-ending/B.json`
 with the prepared party outside the audience hall at `14,7 S`. The
 replay verifies the original 80 HP opponent, the journal's directions
 from New Phlan's west gate to City Hall, and the 67,500 XP council award.
