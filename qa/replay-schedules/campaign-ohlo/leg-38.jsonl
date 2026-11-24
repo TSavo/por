@@ -1,0 +1,7 @@
+{"kind":"poll","at":[0,0]}
+{"kind":"flush","at":[0,3]}
+{"kind":"poll","at":[0,4]}
+{"kind":"flush","at":[15,5]}
+{"kind":"poll","at":[942,5]}
+{"kind":"poll","at":[942,5]}
+{"kind":"poll","at":[1056,12]}
