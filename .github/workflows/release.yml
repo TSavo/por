@@ -35,7 +35,7 @@ jobs:
       tag: ${{ steps.version.outputs.tag }}
       publish: ${{ steps.version.outputs.publish }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 1
           lfs: false
@@ -85,7 +85,7 @@ jobs:
     runs-on: [self-hosted, Linux, X64, por, battleaxe]
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 1
           lfs: false
@@ -120,7 +120,7 @@ jobs:
     runs-on: macos-15
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 1
           lfs: false
@@ -166,7 +166,7 @@ jobs:
     runs-on: [self-hosted, Linux, X64, por, battleaxe]
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 1
           lfs: false

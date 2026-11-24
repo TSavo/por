@@ -21,7 +21,7 @@ jobs:
     runs-on: [self-hosted, Linux, X64, por, battleaxe]
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 1
       - run: node --version && npm ci --no-audit --no-fund
