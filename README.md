@@ -230,7 +230,25 @@ The opcode table and the wall-slot geometry were checked against Curse of the Az
 
 Fork this repository. Star it. Mirror it. Clone it. Torrent it. Put a copy on the [Internet Archive](https://archive.org/) and [Software Heritage](https://www.softwareheritage.org/). Share it as far and as wide as you can.
 
-**v0.1.0-beta.1 torrents** are also attached to the [release](https://github.com/TSavo/por/releases/tag/v0.1.0-beta.1). Each has a GitHub web seed. SHA256SUMS on the release covers every file.
+**v0.1.0-beta.2 torrents** are also attached to the [release](https://github.com/TSavo/por/releases/tag/v0.1.0-beta.2). Each has a GitHub web seed. SHA256SUMS on the release covers every file.
+
+- **Mac (Apple silicon)** — `Pool-of-Radiance-0.1.0-beta.2-mac-arm64.dmg`
+
+  `magnet:?xt=urn:btih:4a85013963e0eb7733681bda1a759959a2ab9b96&dn=Pool-of-Radiance-0.1.0-beta.2-mac-arm64.dmg&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&ws=https%3A%2F%2Fgithub.com%2FTSavo%2Fpor%2Freleases%2Fdownload%2Fv0.1.0-beta.2%2FPool-of-Radiance-0.1.0-beta.2-mac-arm64.dmg`
+
+- **Mac (Intel)** — `Pool-of-Radiance-0.1.0-beta.2-mac-x64.dmg`
+
+  `magnet:?xt=urn:btih:5c3fe81ce13d1dad62df72fa05205a66d75020c7&dn=Pool-of-Radiance-0.1.0-beta.2-mac-x64.dmg&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&ws=https%3A%2F%2Fgithub.com%2FTSavo%2Fpor%2Freleases%2Fdownload%2Fv0.1.0-beta.2%2FPool-of-Radiance-0.1.0-beta.2-mac-x64.dmg`
+
+- **Windows** — `Pool-of-Radiance-0.1.0-beta.2-windows-setup.exe`
+
+  `magnet:?xt=urn:btih:b50cf2ab63766a89aca7e4ac920b12ba76423d24&dn=Pool-of-Radiance-0.1.0-beta.2-windows-setup.exe&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&ws=https%3A%2F%2Fgithub.com%2FTSavo%2Fpor%2Freleases%2Fdownload%2Fv0.1.0-beta.2%2FPool-of-Radiance-0.1.0-beta.2-windows-setup.exe`
+
+- **Linux** — `pool-of-radiance-0.1.0-beta.2-linux-x64.tar.gz`
+
+  `magnet:?xt=urn:btih:31fb86aa6ae74f8f5f477f4caa71844fafc3ab2c&dn=pool-of-radiance-0.1.0-beta.2-linux-x64.tar.gz&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&ws=https%3A%2F%2Fgithub.com%2FTSavo%2Fpor%2Freleases%2Fdownload%2Fv0.1.0-beta.2%2Fpool-of-radiance-0.1.0-beta.2-linux-x64.tar.gz`
+
+**v0.1.0-beta.1 torrents** remain attached to the [v0.1.0-beta.1 release](https://github.com/TSavo/por/releases/tag/v0.1.0-beta.1). Each has a GitHub web seed.
 
 - **Mac (Apple silicon)** — `Pool-of-Radiance-Special-Edition-0.1.0-beta.1-mac-arm64.dmg`
 
