@@ -780,7 +780,7 @@ const encounterRoutes = new Map([
   ["kobold-cave-efreeti-approach", {
     slot: "A", inputs: ["s", "up", "p", "enter"],
     placement: [48, 32, "encounter:area:13:SPRIT8.DAX:70:0:0", 40, 80],
-    terrain: { area: 13, views: 5, patterns: 26 },
+    terrain: { area: 13, views: 4, patterns: 26 },
   }],
   ["old-phlan-sword-thief-approach", {
     slot: "A", inputs: ["left", "up", "up", "right", "up", "left", "up", "up"],
@@ -11639,6 +11639,14 @@ try {
     }
     for (const key of encounterRoute.inputs) {
       await advance(key);
+      if (routeName === "kobold-cave-efreeti-approach" && key === "up") {
+        const bottle = "scene-illustration:area:13:ecl:a564:cue:brass-bottle";
+        assert.equal(frame.portrait, bottle);
+        assert.equal(frame.tileInventory?.length, 0);
+        await waitFor("the brass bottle illustration", () => run(`
+          state.sequence === ${frame.sequence} &&
+          document.querySelector('#tile-art:not([hidden]) .encounter-portrait[src="/art/${bottle}"]')?.naturalWidth === 352`));
+      }
       if (terrain) terrainViews += await verifyTiledView(terrain.area, terrainPatterns);
     }
     const approachCaption = () => frame.text.toSorted(([a], [b]) => a - b).map(([, character]) => String.fromCharCode(character)).join("");
