@@ -221,9 +221,20 @@ try {
       !document.querySelector(".local-overland-encounter")`), true, "The regular travel map stays visible before the encounter");
     writeFileSync(join(output, "travel.png"), await chrome.screenshot());
   }
+  const narratedFrames = new Map();
   for (const key of inputs.slice(0, -1)) {
     await chrome.send(key);
     frame = await chrome.nextFrame();
+    if (checkNarration) {
+      const art = await chrome.evaluate(`(() => {
+        const sprite = document.querySelector("#tile-art:not([hidden]) .encounter-sprite");
+        if (sprite?.complete && sprite.naturalWidth && sprite.getBoundingClientRect().width) {
+          return sprite.getAttribute("src").slice("/art/".length);
+        }
+        if (!document.querySelector("#travel-map").hidden) return "the Moonsea travel map";
+      })()`);
+      narratedFrames.set(frame.sequence, art);
+    }
   }
   const heldCaption = screenText(frame);
   assert.match(heldCaption, caption);
@@ -343,10 +354,13 @@ try {
     assert.ok(voice, "No dynamic narration matched the expected encounter caption");
     assert.equal(voice.outcome, "ended");
     assert.ok(voice.duration > 0 && voice.position >= voice.duration - 0.25);
-    assert.equal(voice.expectedArt, "the Moonsea travel map");
+    const art = narratedFrames.get(voice.startFrame);
+    assert.ok(art, "The narrated encounter must show its travel map or creature");
+    assert.equal(voice.expectedArt, art);
+    assert.equal(narratedFrames.get(voice.endFrame), art);
     assert.deepEqual(voice.artSeen, [voice.expectedArt]);
     assert.equal(voice.artAtEnd, voice.expectedArt);
-    console.log(`Heard ${voice.variantId} through ${voice.position.toFixed(2)}s with the travel map on screen.`);
+    console.log(`Heard ${voice.variantId} through ${voice.position.toFixed(2)}s with ${art} on screen.`);
   }
   const notice = screenText(frame);
   assert.match(notice, caption);

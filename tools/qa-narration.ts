@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { disassemble, readEntryVector, scriptFromBlock, type Instruction } from "../src/lib/ecl.js";
 import { runningScriptAddress } from "../src/runtime/bindings.js";
 import { EclNarrationObserver, type EclNarrationEvent, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
+import { unreachableParlayVariants } from "./narration-parlay-reachability.js";
 import type { LedgerFrame, LedgerNarration } from "./narration-ledger.js";
 
 // The narration, measured.
@@ -422,10 +423,34 @@ rows.push({ part: "Complete playback captures with their own artwork", artwork: 
     `printed caption ${check.caption ? say(check.caption) : "absent"} (${check.run} ${check.leg})`) });
 const variantsHeard = [...variantOwner.keys()].filter(id => coverage.variants[id]);
 const families = units.filter(unit => unit.runtimeVariants?.length);
-rows.push({ part: "Dynamic variants selected", done: variantsHeard.length, total: variantTotal, left: variantTotal - variantsHeard.length,
+const generated = families.flatMap(unit => unit.runtimeVariants!).filter(variant => existsSync(new URL("audio/" + variant.asset, root)));
+rows.push({ part: "Dynamic variant recordings available", done: generated.length, total: variantTotal, left: variantTotal - generated.length,
+  counted: false, note: "each manifest variant with its recording on disk; the same file can serve different conditions" });
+const unreachableVariants = unreachableParlayVariants(root, units, process.env.POR_GAMEDATA_1_3);
+for (const id of variantsHeard) {
+  if (unreachableVariants.has(id)) throw new Error(`Recorded selection contradicts unreachable parlay proof for ${id}`);
+}
+rows.push({ part: "Dynamic variants selected", done: variantsHeard.length, total: variantTotal, left: variantTotal - variantsHeard.length, counted: false,
   note: `${families.filter(unit => unit.runtimeVariants!.some(variant => coverage.variants[variant.id])).length} of ${families.length} families have fired; ` +
-    `${families.filter(unit => unit.runtimeVariants!.every(variant => coverage.variants[variant.id])).length} have every variant heard`,
+    `${families.filter(unit => unit.runtimeVariants!.every(variant => coverage.variants[variant.id])).length} have every variant selected`,
   list: variantsHeard.map(id => `heard ${id}: ${coverage.variants[id]!.slot ?? "slot ?"} held ${JSON.stringify(coverage.variants[id]!.value)} (${coverage.variants[id]!.run})`) });
+rows.push({ part: "Dynamic variants proven unreachable", done: unreachableVariants.size, left: 0, counted: false,
+  note: "the original actor table forbids this parlay response; see each script branch and table index in --list",
+  list: [...unreachableVariants].map(([id, proof]) => `${id}: ${proof}`) });
+const unresolvedVariants = [...variantOwner.keys()].filter(id => !coverage.variants[id] && !unreachableVariants.has(id));
+rows.push({ part: "Dynamic variants still unresolved", left: unresolvedVariants.length,
+  note: "no native selection or proof of unreachability", list: unresolvedVariants });
+// played retains one completed line per unit. Caption receipts retain all later completed
+// variants in that unit, even when they share the same recording.
+const completedVariants = new Set<string>();
+for (const line of [...Object.values(playback.played), ...artChecks]) {
+  if (!line.variantId || !coverage.variants[line.variantId]) continue;
+  const variant = variantOwner.get(line.variantId)?.runtimeVariants?.find(item => item.id === line.variantId);
+  if (variant?.asset === line.asset) completedVariants.add(line.variantId);
+}
+rows.push({ part: "Dynamic variants played to the end in Chrome", done: completedVariants.size, total: variantTotal,
+  left: variantTotal - completedVariants.size, counted: false,
+  note: "native selection and completed playback of the matching variant ID and asset; shared files count for each witnessed selection" });
 const selectorsResolved = selectors.filter(({ triggerSourceId }) => coverage.selectors[triggerSourceId]);
 rows.push({ part: "Deferred selectors resolved", done: selectorsResolved.length, total: selectors.length, left: selectors.length - selectorsResolved.length,
   note: "a selector counts when play reached its passage and it chose a unit, or the case the manifest marks silent",

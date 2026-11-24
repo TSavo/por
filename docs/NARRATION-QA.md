@@ -354,3 +354,24 @@ never rolls.
 
 `--list` groups what is unheard by script (archive and block, with the area's name), so it reads
 as a to-do list by area.
+
+## Wilderness parlay variants
+
+The dynamic variant rows count recordings on disk, native selections, and completed Chrome
+playbacks separately. A recorded reply can be unreachable for a particular creature. The
+unresolved count excludes both witnessed selections and replies the script rules out.
+
+In the 1.3 wilderness scripts each creature name is stored with its encounter table index.
+The parlay routine reads a flag from that table. Zero goes straight to combat, 50 goes straight
+to exchanging greetings, and the remaining values enter the scored parlay.
+
+| Script | Area | Parlay branch | Excluded pairs |
+|---|---|---|---:|
+| ECL6.DAX block 25 | Western wilderness | 0xa2ab | 28 |
+| ECL7.DAX block 26 | Middle wilderness | 0xa2d3 | 18 |
+| ECL8.DAX block 27 | Eastern wilderness | 0xa093 | 21 |
+
+Run `npm run qa:narration -- --list` for the evidence by variant, including its table offset,
+index and flag. With `POR_GAMEDATA_1_3` set to the original 1.3 game directory, the measure
+also decompresses the original DAX records, compares them byte for byte with the bundled
+scripts, and checks the original instructions. Both modes verify the audited script hashes.
