@@ -122,6 +122,18 @@
    "decisions": 4,
    "heard": 4
   },
+  "issue-99-atlas-kobolds-original": {
+   "ledger": "issue-99-atlas-kobolds-original.jsonl",
+   "games": 1,
+   "decisions": 3,
+   "heard": 1
+  },
+  "issue-99-atlas-kobolds-port": {
+   "ledger": "issue-99-atlas-kobolds-port.jsonl",
+   "games": 1,
+   "decisions": 3,
+   "heard": 1
+  },
   "issue-99-landmark-zhentil-thri-kreens-original": {
    "ledger": "issue-99-landmark-zhentil-thri-kreens-original.jsonl",
    "games": 1,
@@ -6182,6 +6194,26 @@
     "unfinished": 0,
     "startedLate": 0
    },
+   "issue-99-atlas-kobolds-original": {
+    "log": "issue-99-atlas-kobolds-original.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-atlas-kobolds-port": {
+    "log": "issue-99-atlas-kobolds-port.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
    "issue-99-landmark-zhentil-thri-kreens-original": {
     "log": "issue-99-landmark-zhentil-thri-kreens-original.playback.jsonl",
     "legs": 1,
@@ -8271,7 +8303,7 @@
     "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v08-merchants.mp3",
     "variantId": "por.voice.ecl7.b26-a3f8-a42c.variant-08-merchants",
     "seconds": 6.32,
-    "waited": 0.009,
+    "waited": 0.038,
     "art": "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0"
    }
   },
@@ -9219,6 +9251,32 @@
      "portrait:area:13:ecl:9d4a:PIC8.DAX:0:0:0"
     ],
     "end": "portrait:area:13:ecl:9d4a:PIC8.DAX:0:0:0"
+   },
+   "issue-99-atlas-kobolds-original | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
+    "run": "issue-99-atlas-kobolds-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a15c-a16e",
+    "variantId": "por.voice.ecl7.b26-a15c-a16e.variant-01-kobolds",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v01-kobolds.mp3",
+    "expected": "the overland terrain",
+    "caption": "YOU SPOT A GROUP OF KOBOLDS Cast View Encamp Search Look",
+    "seen": [
+     "the overland terrain"
+    ],
+    "end": "the overland terrain"
+   },
+   "issue-99-atlas-kobolds-port | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
+    "run": "issue-99-atlas-kobolds-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a15c-a16e",
+    "variantId": "por.voice.ecl7.b26-a15c-a16e.variant-01-kobolds",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v01-kobolds.mp3",
+    "expected": "the overland terrain",
+    "caption": "YOU SPOT A GROUP OF KOBOLDS Cast View Encamp Search Look",
+    "seen": [
+     "the overland terrain"
+    ],
+    "end": "the overland terrain"
    },
    "issue-99-landmark-zhentil-thri-kreens-original | chrome | 1 | ecl6-b25-a1c7-a1dc-a1e0": {
     "run": "issue-99-landmark-zhentil-thri-kreens-original",

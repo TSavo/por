@@ -218,7 +218,8 @@ try {
   let frame = await chrome.nextFrame();
   if (!recordedInputs) {
     assert.equal(await chrome.evaluate(`!document.querySelector("#travel-map").hidden &&
-      !document.querySelector(".local-overland-encounter")`), true, "The regular travel map stays visible before the encounter");
+      document.querySelector("#travel-map").classList.contains("expanded") &&
+      !document.querySelector(".local-overland-encounter")`), true, "Travel opens the full-sized destination picker");
     writeFileSync(join(output, "travel.png"), await chrome.screenshot());
   }
   const narratedFrames = new Map();
@@ -231,7 +232,10 @@ try {
         if (sprite?.complete && sprite.naturalWidth && sprite.getBoundingClientRect().width) {
           return sprite.getAttribute("src").slice("/art/".length);
         }
-        if (!document.querySelector("#travel-map").hidden) return "the Moonsea travel map";
+        const map = document.querySelector("#travel-map");
+        if (!map.hidden && map.classList.contains("expanded")) return "the Moonsea travel map";
+        const terrain = document.querySelector("#tile-art:not([hidden]) canvas.overland-viewport");
+        if (map.hidden && terrain?.getBoundingClientRect().width && !document.querySelector("#game-text").hidden) return "the overland terrain";
       })()`);
       narratedFrames.set(frame.sequence, art);
     }
@@ -355,7 +359,7 @@ try {
     assert.equal(voice.outcome, "ended");
     assert.ok(voice.duration > 0 && voice.position >= voice.duration - 0.25);
     const art = narratedFrames.get(voice.startFrame);
-    assert.ok(art, "The narrated encounter must show its travel map or creature");
+    assert.ok(art, "The narrated encounter must show its travel terrain or creature");
     assert.equal(voice.expectedArt, art);
     assert.equal(narratedFrames.get(voice.endFrame), art);
     assert.deepEqual(voice.artSeen, [voice.expectedArt]);
