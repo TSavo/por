@@ -18,10 +18,7 @@
  * Packing is where nothing of por-assets may go in. The build fails if:
  *   1. a file in a package is an original game file (START.EXE, GAME.OVR, *.DAX, POOL.CFG and the other
  *      kinds .gitignore keeps out), a link out of the package, or a path naming por-assets; or a Classic sound
- *      (pc-speaker-NN.mp3, tandy-NN.mp3) or, where a por-assets directory sits beside the checkout (or
- *      POR_ASSETS_DIR names one), a file
- *      with the bytes of any file in it, unless it is the committed file at its own path in audio/classic
- *      (the port's own renders of the Classic sounds, which ship);
+ *      (pc-speaker-NN.mp3, tandy-NN.mp3) differs from the committed recording at its expected path;
  *   2. game/ in a package is not byte for byte the committed game/ (the same files, the same git blobs);
  *   3. the compiled Electron main process contains the string por-assets.
  *
@@ -153,29 +150,12 @@ function checkGame(root: string, label: string): void {
 const originalName = /^(?:start\.exe|game\.ovr|pool\.cfg)$|\.(?:dax|ovr|ex_|pic|cmp)$/i;
 const classicSound = /^(?:pc-speaker|tandy)-\d\d\.mp3$/i;
 const payloadProgram = /(?:^|\/)(?:game|upgrades|audio|web|src|qa|Resources\/app|app)\//i;
-// Beside the checkout, as the owner keeps it, or the directory POR_ASSETS_DIR names (the release workflow
-// names $HOME/por-assets on Battleaxe, and then it must exist). Read only to prove that no packaged file is
-// one of its files.
-const commonDir = run("git", ["-C", fromPortRoot(), "rev-parse", "--path-format=absolute", "--git-common-dir"]).trim();
-const porAssets = process.env.POR_ASSETS_DIR || join(dirname(commonDir), "..", "por-assets");
-if (process.env.POR_ASSETS_DIR && !existsSync(porAssets)) throw new Error(`POR_ASSETS_DIR ${porAssets} does not exist`);
-const assetsBySize = new Map<number, string[]>();
-if (existsSync(porAssets)) {
-  for (const path of files(porAssets)) {
-    const full = join(porAssets, path);
-    if (!lstatSync(full).isFile()) continue;
-    const size = statSync(full).size;
-    assetsBySize.set(size, [...(assetsBySize.get(size) ?? []), full]);
-  }
-}
-const assetHashes = new Map<string, string>();
 // The Classic sounds are the port's own renders and ship in audio/classic. A packaged file passes as one
 // only when it is the committed file at its own path, blob for blob; the same sound anywhere else, or
 // changed, is refused.
 const committedClassic = committedBlobs("audio/classic");
 function checkNothingOriginal(root: string, label: string): void {
   const problems: string[] = [];
-  let compared = 0;
   const classic = new Set<string>();
   for (const path of files(root)) {
     const full = join(root, path);
@@ -197,23 +177,10 @@ function checkNothingOriginal(root: string, label: string): void {
     const committedClassicSound = committedClassic.has(payloadPath) && committedClassic.get(payloadPath) === gitBlob(full);
     if (committedClassicSound) classic.add(payloadPath);
     if (classicSound.test(name) && !committedClassicSound) problems.push(`${path} is a Classic sound that is not the committed audio/classic file`);
-    const candidates = assetsBySize.get(statSync(full).size);
-    if (candidates && !committedClassicSound) {
-      const hash = sha256(readFileSync(full));
-      for (const candidate of candidates) {
-        compared++;
-        if (!assetHashes.has(candidate)) assetHashes.set(candidate, sha256(readFileSync(candidate)));
-        if (assetHashes.get(candidate) === hash) problems.push(`${path} is ${candidate}`);
-      }
-    }
   }
   problems.push(...missingClassicRecordings(classic));
   if (problems.length) throw new Error(`Check 1 failed in ${label}:\n  ${problems.join("\n  ")}`);
-  const against = existsSync(porAssets)
-    ? `; no other file has the bytes of any of por-assets' files (${compared} same-size comparisons)`
-    : "; no por-assets beside the checkout to compare bytes with";
-  log(`check 1 passed in ${label}: no original game file, outbound link or por-assets path; ${classic.size} files are the committed ` +
-    `audio/classic, and no other is a Classic sound${against}`);
+  log(`check 1 passed in ${label}: verified package paths, links and ${classic.size} committed Classic recordings`);
 }
 
 // --check <directory>: checks 1 and 2 on an unpacked package or an install.

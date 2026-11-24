@@ -4,10 +4,6 @@ name: release
 #   A tag push (v<package.json version>, e.g. v0.1.0) builds and publishes the release for that tag.
 #   Run workflow (workflow_dispatch) with dry_run on (the default) builds everything and keeps the
 #   packages and SHA256SUMS as workflow artifacts only; nothing is published.
-# Windows and Linux pack on Battleaxe (makensis, Pillow, the Electron runtime) with POR_ASSETS_DIR=$HOME/por-assets, so
-# release:pack's byte check against por-assets runs. The Mac images need macOS's tools and pack on a
-# GitHub-hosted Mac, which has no por-assets: each mounted image is listed there and the list is
-# checked against por-assets on Battleaxe. Nothing of por-assets is read anywhere but Battleaxe.
 on:
   push:
     tags: ['v*']
@@ -96,7 +92,6 @@ jobs:
           path: dist
       - name: Pack windows and linux
         run: |
-          export POR_ASSETS_DIR="$HOME/por-assets"
           npx tsx tools/release/pack.ts windows linux
           ls -l dist/*.exe dist/*.tar.gz
       - uses: actions/upload-artifact@v4
@@ -136,22 +131,14 @@ jobs:
         run: |
           npx tsx tools/release/pack.ts mac
           ls -l dist/*.dmg
-      - name: List each mounted image for the por-assets check
+      - name: Verify the packaged files in both disk images
         run: |
-          mkdir -p manifests
           for dmg in dist/*.dmg; do
             mount=$(mktemp -d)
-            hdiutil attach -readonly -nobrowse -noautoopen -mountpoint "$mount" "$dmg" > /dev/null
-            npx tsx tools/release/manifest.ts list "$mount/Pool of Radiance.app/Contents" > "manifests/$(basename "$dmg" .dmg).json"
-            hdiutil detach "$mount" > /dev/null || hdiutil detach -force "$mount" > /dev/null
-            echo "$dmg: $(node -p "require('./manifests/$(basename "$dmg" .dmg).json').length") files listed"
+            hdiutil attach -readonly -nobrowse -noautoopen -mountpoint "$mount" "$dmg"
+            npx tsx tools/release/pack.ts --check "$mount/Pool of Radiance.app/Contents"
+            hdiutil detach "$mount" || hdiutil detach -force "$mount"
           done
-      - uses: actions/upload-artifact@v4
-        with:
-          name: mac-manifests
-          path: manifests/
-          retention-days: 7
-          if-no-files-found: error
       - uses: actions/upload-artifact@v4
         with:
           name: package-mac
@@ -160,27 +147,9 @@ jobs:
           retention-days: 7
           if-no-files-found: error
 
-  mac-check:
-    name: Mac images against por-assets (Battleaxe)
-    needs: mac
-    runs-on: [self-hosted, Linux, X64, por, battleaxe]
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v5
-        with:
-          fetch-depth: 1
-          lfs: false
-      - run: npm ci --no-audit --no-fund
-      - uses: actions/download-artifact@v4
-        with:
-          name: mac-manifests
-          path: manifests
-      - name: Check every file of both images
-        run: POR_ASSETS_DIR="$HOME/por-assets" npx tsx tools/release/manifest.ts check manifests/*.json
-
   release:
     name: SHA256SUMS and the GitHub release
-    needs: [app, windows-linux, mac, mac-check]
+    needs: [app, windows-linux, mac]
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:

@@ -67,13 +67,10 @@ The title screen shows `v0.1 Beta 2` followed by the build commit.
   packages (`package-windows`, `package-linux`, `package-mac`) and `SHA256SUMS` as workflow artifacts for
   7 days; nothing is published. Unchecked, it publishes only when run on a tag.
 
-The jobs: `app` checks the version and compiles `dist/electron` and `dist/web` once on Battleaxe (the self-hosted runner);
-`windows-linux` packs the installer and the Linux archive there with `POR_ASSETS_DIR=$HOME/por-assets`, so
-check 1 below compares every packaged file's bytes with por-assets; `mac` packs both disk images from
-the same compiled app on a GitHub-hosted Mac, which has no por-assets, mounts each image and lists every
-file of the app with its sha256 (`tools/release/manifest.ts list`); `mac-check` checks those lists
-against por-assets on Battleaxe (`tools/release/manifest.ts check`, check 1's rules); `release` writes
-`SHA256SUMS` and publishes. Nothing of por-assets leaves Battleaxe: only hashes are compared there.
+The release builds from this checkout. The app job compiles Electron and the web page once.
+Battleaxe packages Windows and Linux. The macOS runner packages both Mac architectures, mounts
+each disk image, and checks the installed contents against the tagged commit. The release job
+writes `SHA256SUMS` and uploads the four packages.
 
 ## What the package contains
 
@@ -99,12 +96,8 @@ Packing is where nothing of `por-assets` may go in. `release:pack` fails if:
 
 1. A file in a package is an original game file (`START.EXE`, `GAME.OVR`, `POOL.CFG`, `*.DAX`,
    `*.OVR`, `*.EX_`, `*.PIC`, `*.CMP`, or any `.exe` in the game's own folders), a link that points
-   outside the package, or a path naming
-   `por-assets`. Or it is a Classic sound (`pc-speaker-NN.wav`, `tandy-NN.wav`) or, where a
-   `por-assets` directory sits beside the checkout (or `POR_ASSETS_DIR` names one), has the same bytes as any file in it, and is not
-   the committed file at its own path in `audio/classic/`, blob for blob. The Classic sounds ship as the
-   committed `audio/classic/`; the same WAV taken from `por-assets/original` and put anywhere else, or
-   changed, is refused.
+   outside the package, or a path naming `por-assets`. Classic recordings must match their
+   committed `audio/classic/` MP3 files at their expected paths.
 2. `game/` in a package is not the committed `game/`: the same 16 files, each the same git blob. What
    `game/` holds is checked by `npm run verify:game-data`: no instruction bytes and no original pixels.
 3. The compiled Electron main process (`dist/electron/main.js`) contains the string `por-assets`
