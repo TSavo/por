@@ -79,10 +79,26 @@ for id, size in art.items():
         problems.append(f"missing code wheel PNG: {file.name}")
         continue
     with file.open("rb") as stream:
-        header = stream.read(29)
-    if (len(header) != 29 or header[:16] != b"\x89PNG\r\n\x1a\n\x00\x00\x00\x0dIHDR"
-            or struct.unpack(">II", header[16:24]) != size or header[25] != 6):
-        problems.append(f"{file.name} must be a {size[0]}×{size[1]} RGBA PNG")
+        header = stream.read(33)
+        if (len(header) != 33 or header[:16] != b"\x89PNG\r\n\x1a\n\x00\x00\x00\x0dIHDR"
+                or struct.unpack(">II", header[16:24]) != size):
+            problems.append(f"{file.name} must be a {size[0]}×{size[1]} PNG")
+            continue
+        # oxipng can preserve every pixel using a palette and a tRNS chunk.
+        # The backdrop is opaque. Every other part composites over the wheel.
+        if id == "background" or header[25] in (4, 6):
+            continue
+        while len(chunk := stream.read(8)) == 8:
+            length, kind = struct.unpack(">I4s", chunk)
+            if kind == b"tRNS":
+                break
+            if kind in (b"IDAT", b"IEND"):
+                problems.append(f"{file.name} needs transparency to overlay the wheel")
+                break
+            stream.seek(length + 4, 1)
+        else:
+            problems.append(f"{file.name} has an incomplete PNG header")
+
 
 
 # Likeness. Each rune tile must be the real rune, redrawn: the player matches the wheel against
