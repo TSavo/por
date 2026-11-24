@@ -1042,5 +1042,25 @@
         }
       ]
     }
+  },
+  "launchBoundaryFollowup": {
+    "method": "Launch Services open of existing approved1f44fc3 app, existing isolated QA profile; process detected by proc_pidpath; registered by NSRunningApplication; normal visible window at least320x200 points. No packaging running concurrently.",
+    "samples": [
+      {
+        "startedUTC": "2026-11-24T01:10:24Z",
+        "pid": 98195,
+        "processSeconds": 0.098164,
+        "registeredSeconds": 0.124783,
+        "windowSeconds": 3.944802
+      },
+      {
+        "startedUTC": "2026-11-24T01:10:29Z",
+        "pid": 98210,
+        "processSeconds": 0.108666,
+        "registeredSeconds": 0.135659,
+        "windowSeconds": 3.385814
+      }
+    ],
+    "conclusion": "Earlier61.747s registration delay did not reproduce. Empty Chromium logs do not expose Electron-main entry; original delay cause remains unresolved."
   }
 }
