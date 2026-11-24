@@ -1,0 +1,780 @@
+{
+  "build": "v0.1 Alpha 1 (1f44fc3)",
+  "platform": "Intel macOS 26.3.1(a)",
+  "runtime": "Installed Electron por://localhost, isolated QA profile",
+  "narration": {
+    "at": 234.321,
+    "frame": 181,
+    "queued": 0,
+    "sounding": 0,
+    "lines": [
+      {
+        "id": 1,
+        "unitId": "por.voice.ecl3.b0-b0b6",
+        "asset": "voices/narration/ecl3/b0-b0b6.mp3",
+        "expectedArt": "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9",
+        "caption": "'GREETINGS, COURAGEOUS ONES, I AM ROLF, APPOINTED BY THE COUNCIL TO INTRODUCE NEWCOMERS TO THE FAIR CITY OF PHLAN. IF YOU WILL ACCOMPANY ME, I WILL START THE TOUR.' Press <enter>/<return> to continue",
+        "queuedAt": 123.293,
+        "queuedFrame": 173,
+        "startedAt": 123.304,
+        "startFrame": 173,
+        "duration": 10.8,
+        "artAtStart": "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9",
+        "artSeen": [
+          "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9"
+        ],
+        "artTimes": [
+          0
+        ],
+        "outcome": "ended",
+        "endedAt": 134.156,
+        "endFrame": 173,
+        "position": 10.8,
+        "artAtEnd": "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9"
+      },
+      {
+        "id": 2,
+        "unitId": "por.voice.ecl3.b0-b1c2",
+        "asset": "voices/narration/ecl3/b0-b1c2.mp3",
+        "expectedArt": "scene-illustration:area:0:ecl:af3f:caller:b256",
+        "caption": "'YOU NOW FACE AN ENTRANCE TO THE TEMPLE OF TYR. THERE ARE THREE TEMPLES IN PHLAN: TYR'S, SUNE'S, AND TEMPUS. TYR'S IS THE LARGEST AND HOUSES BISHOP BRACCIO. IF YOU WILL TURN AROUND NOW, ' Press <enter>/<return> to continue",
+        "queuedAt": 137.555,
+        "queuedFrame": 174,
+        "startedAt": 137.569,
+        "startFrame": 174,
+        "duration": 13.52,
+        "artAtStart": "scene-illustration:area:0:ecl:af3f:caller:b256",
+        "artSeen": [
+          "scene-illustration:area:0:ecl:af3f:caller:b256"
+        ],
+        "artTimes": [
+          0
+        ],
+        "outcome": "ended",
+        "endedAt": 151.137,
+        "endFrame": 174,
+        "position": 13.52,
+        "artAtEnd": "scene-illustration:area:0:ecl:af3f:caller:b256"
+      },
+      {
+        "id": 3,
+        "unitId": "por.voice.ecl3.b0-b257",
+        "asset": "voices/narration/ecl3/b0-b257.mp3",
+        "expectedArt": "scene-illustration:area:0:ecl:af3f:caller:b2f2",
+        "caption": "'YOU WILL SEE THE ENTRANCE TO THE PASSENGER DOCK AREA WE JUST DEPARTED. FEW SHIPS DARE THE PERILOUS PASSAGE HERE, BUT THE COUNCIL IS DEVELOPING A PLAN TO OPEN UP THE SEA LANES. PLEASE FOLLOW ME.' Press <enter>/<return> to continue",
+        "queuedAt": 153.217,
+        "queuedFrame": 175,
+        "startedAt": 153.239,
+        "startFrame": 175,
+        "duration": 11.84,
+        "artAtStart": "scene-illustration:area:0:ecl:af3f:caller:b2f2",
+        "artSeen": [
+          "scene-illustration:area:0:ecl:af3f:caller:b2f2"
+        ],
+        "artTimes": [
+          0
+        ],
+        "outcome": "ended",
+        "endedAt": 165.132,
+        "endFrame": 175,
+        "position": 11.84,
+        "artAtEnd": "scene-illustration:area:0:ecl:af3f:caller:b2f2"
+      },
+      {
+        "id": 4,
+        "unitId": "por.voice.ecl3.b0-b2f3",
+        "asset": "voices/narration/ecl3/b0-b2f3.mp3",
+        "expectedArt": "scene-illustration:area:0:ecl:af3f:caller:b369",
+        "caption": "'BEHIND THESE DOORS ARE THE SPECIAL TRAINING SCHOOLS WHERE ADVENTURERS INCREASE THEIR SKILLS. LET US NOW GO TO THE CITY'S MOST IMPORTANT BUILDING. ' Press <enter>/<return> to continue",
+        "queuedAt": 169.016,
+        "queuedFrame": 176,
+        "startedAt": 169.036,
+        "startFrame": 176,
+        "duration": 9.12,
+        "artAtStart": "scene-illustration:area:0:ecl:af3f:caller:b369",
+        "artSeen": [
+          "scene-illustration:area:0:ecl:af3f:caller:b369"
+        ],
+        "artTimes": [
+          0
+        ],
+        "outcome": "ended",
+        "endedAt": 178.23,
+        "endFrame": 176,
+        "position": 9.12,
+        "artAtEnd": "scene-illustration:area:0:ecl:af3f:caller:b369"
+      },
+      {
+        "id": 5,
+        "unitId": "por.voice.ecl3.b0-b36a",
+        "asset": "voices/narration/ecl3/b0-b36a.mp3",
+        "expectedArt": "scene-illustration:area:0:ecl:af3f:caller:b3ff",
+        "caption": "'WE ARE JUST OUTSIDE THE CITY HALL. PROCLAMATIONS ARE POSTED ON THESE WALLS. INSIDE, THE CITY CLERK AWARDS THE COUNCIL'S COMMISSIONS. COMMISSIONS ARE THE QUICKEST WAY TO FAME AND FORTUNE.' Press <enter>/<return> to continue",
+        "queuedAt": 181.307,
+        "queuedFrame": 177,
+        "startedAt": 181.341,
+        "startFrame": 177,
+        "duration": 12.32,
+        "artAtStart": "scene-illustration:area:0:ecl:af3f:caller:b3ff",
+        "artSeen": [
+          "scene-illustration:area:0:ecl:af3f:caller:b3ff"
+        ],
+        "artTimes": [
+          0
+        ],
+        "outcome": "ended",
+        "endedAt": 193.718,
+        "endFrame": 177,
+        "position": 12.32,
+        "artAtEnd": "scene-illustration:area:0:ecl:af3f:caller:b3ff"
+      },
+      {
+        "id": 6,
+        "unitId": "por.voice.ecl3.b0-b400",
+        "asset": "voices/narration/ecl3/b0-b400.mp3",
+        "expectedArt": "scene-illustration:area:0:ecl:af3f:caller:b48e",
+        "caption": "'ON YOUR RIGHT IS ONE OF THE ENTRANCE'S TO SUNE'S TEMPLE. AS WITH ALL PHLAN'S TEMPLES, VARIOUS CLERICAL SERVICES ARE OFFERED INSIDE. ON YOUR LEFT IS AN ENTRANCE TO THE CITY PARK.' Press <enter>/<return> to continue",
+        "queuedAt": 197.501,
+        "queuedFrame": 178,
+        "startedAt": 197.52,
+        "startFrame": 178,
+        "duration": 11.84,
+        "artAtStart": "scene-illustration:area:0:ecl:af3f:caller:b48e",
+        "artSeen": [
+          "scene-illustration:area:0:ecl:af3f:caller:b48e"
+        ],
+        "artTimes": [
+          0
+        ],
+        "outcome": "ended",
+        "endedAt": 209.419,
+        "endFrame": 178,
+        "position": 11.84,
+        "artAtEnd": "scene-illustration:area:0:ecl:af3f:caller:b48e"
+      },
+      {
+        "id": 7,
+        "unitId": "por.voice.ecl3.b0-b48f",
+        "asset": "voices/narration/ecl3/b0-b48f.mp3",
+        "expectedArt": "scene-illustration:area:0:ecl:af3f:caller:b51c",
+        "caption": "'BEYOND THIS GATE ARE THE MONSTER- RIDDEN AREAS OF THE OLD CITY WE ARE SLOWLY PREPARING FOR SETTLEMENT. THE COUNCIL OFFERS A GENEROUS REWARD TO THOSE WHO CLEAR AREAS OF MONSTERS. Press <enter>/<return> to continue",
+        "queuedAt": 211.328,
+        "queuedFrame": 179,
+        "startedAt": 211.352,
+        "startFrame": 179,
+        "duration": 11.28,
+        "artAtStart": "scene-illustration:area:0:ecl:af3f:caller:b51c",
+        "artSeen": [
+          "scene-illustration:area:0:ecl:af3f:caller:b51c"
+        ],
+        "artTimes": [
+          0
+        ],
+        "outcome": "ended",
+        "endedAt": 222.688,
+        "endFrame": 179,
+        "position": 11.28,
+        "artAtEnd": "scene-illustration:area:0:ecl:af3f:caller:b51c"
+      },
+      {
+        "id": 8,
+        "unitId": "por.voice.ecl3.b0-b51c",
+        "asset": "voices/narration/ecl3/b0-b51c.mp3",
+        "expectedArt": "scene-illustration:area:0:ecl:af3f:caller:b58e",
+        "caption": "'OUR TOUR IS ENDED. AGAIN, LET ME URGE YOU TO APPLY TO THE CITY CLERK FOR A COMMISSION. GOOD-BYE AND GOOD FORTUNE.' (YOU ARE ON YOUR OWN NOW) Press <enter>/<return> to continue",
+        "queuedAt": 223.991,
+        "queuedFrame": 180,
+        "startedAt": 224.002,
+        "startFrame": 180,
+        "duration": 9.92,
+        "artAtStart": "scene-illustration:area:0:ecl:af3f:caller:b58e",
+        "artSeen": [
+          "scene-illustration:area:0:ecl:af3f:caller:b58e"
+        ],
+        "artTimes": [
+          0
+        ],
+        "outcome": "ended",
+        "endedAt": 233.974,
+        "endFrame": 180,
+        "position": 9.92,
+        "artAtEnd": "scene-illustration:area:0:ecl:af3f:caller:b58e"
+      }
+    ]
+  },
+  "combat": {
+    "bundled": {
+      "inputs": [
+        {
+          "key": "a",
+          "sequence": 3,
+          "text": "CreateNewCharacterAddCharactertoPartyLoadSavedGameExittoDOSLoadWhichGame:A"
+        },
+        {
+          "key": "right",
+          "sequence": 4,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN980,4W00:00AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "right",
+          "sequence": 5,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN980,4N00:00AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 6,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN980,4E00:00AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 7,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN981,4E00:01AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "right",
+          "sequence": 8,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN982,4E00:02AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "right",
+          "sequence": 9,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN982,4S00:02AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "right",
+          "sequence": 10,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN982,4W00:02AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 11,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN982,4N00:02AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 12,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN982,3N00:03AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "right",
+          "sequence": 13,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN982,2N00:04AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 14,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN982,2E00:04AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 15,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN983,2E00:05AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 16,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN984,2E00:06AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 17,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN985,2E00:07AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "left",
+          "sequence": 18,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN986,2E00:08NOTICESFORTEACHERSANDSTUDENTSAREPOSTEDONTHEWALLS.ANOTEDIRECTSMAGICUSERSANDCLERICSTOGONORTHANDFIGHTERSAND'ROGUES'TOGOEAST.AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 19,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN986,2N00:08NOTICESFORTEACHERSANDSTUDENTSAREPOSTEDONTHEWALLS.ANOTEDIRECTSMAGICUSERSANDCLERICSTOGONORTHANDFIGHTERSAND'ROGUES'TOGOEAST.AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "right",
+          "sequence": 20,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN986,1N00:09AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 21,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN986,1E00:09AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "enter",
+          "sequence": 22,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:10THEROOMISFILLEDWITHDUELINGPAIRS.Press<enter>/<return>tocontinue"
+        },
+        {
+          "key": "y",
+          "sequence": 23,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:10THEARENAMASTERASKSIFYOUWISHTODUEL.'THEDUELSAREEVENLYMATCHEDANDNORMALLYNOTTOTHEDEATH.DOYOUDUEL?'YesNo"
+        },
+        {
+          "key": "enter",
+          "sequence": 24,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:10WHOWILLDUEL?Select"
+        },
+        {
+          "key": "m",
+          "sequence": 27,
+          "text": "ALDAHitpoints5AC10MoveViewAimQuickDone"
+        },
+        {
+          "key": "right",
+          "sequence": 28,
+          "text": "ALDAHitpoints5AC10Move/Attack,MoveLeft=12"
+        },
+        {
+          "key": "right",
+          "sequence": 29,
+          "text": "ALDAHitpoints5AC10MoveViewAimQuickDone"
+        },
+        {
+          "key": "down",
+          "sequence": 30,
+          "text": "ALDAHitpoints5AC10MoveViewAimQuickDone"
+        },
+        {
+          "key": "q",
+          "sequence": 31,
+          "text": "ALDAHitpoints5AC10MoveViewAimQuickDone"
+        }
+      ],
+      "native": [
+        {
+          "sequence": 27,
+          "text": "ROLFHitpoints6AC10ROLFAttacksALDAHittingfor1pointofdamageMove/Attack,MoveLeft=12",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 29,
+          "text": "ALDAHitpoints5AC10ALDAAttacksROLFandMissesMove/Attack,MoveLeft=12",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 29,
+          "text": "ROLFHitpoints6AC10ROLFAttacksALDAandMisses",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 32,
+          "text": "ALDAHitpoints5AC10ALDAAttacksROLFHittingfor2pointsofdamage",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 33,
+          "text": "ROLFHitpoints4AC10ROLFAttacksALDAHittingfor2pointsofdamage",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 33,
+          "text": "ALDAHitpoints3AC10ALDAAttacksROLFHittingfor2pointsofdamage",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 34,
+          "text": "ALDAHitpoints3AC10ALDAAttacksROLFandMisses",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 34,
+          "text": "ROLFHitpoints2AC10ROLFAttacksALDAandMisses",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 35,
+          "text": "ALDAHitpoints3AC10ALDAAttacksROLFandMisses",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 35,
+          "text": "ROLFHitpoints2AC10ROLFAttacksALDAandMisses",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 36,
+          "text": "ROLFHitpoints2AC10ROLFAttacksALDAHittingfor2pointsofdamage",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 36,
+          "text": "ALDAHitpoints1AC10ALDAAttacksROLFandMisses",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 37,
+          "text": "ALDAHitpoints1AC10ALDAAttacksROLFHittingfor1pointofdamage",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 37,
+          "text": "ROLFHitpoints1AC10ROLFAttacksALDAHittingfor2pointsofdamage",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 37,
+          "text": "ROLFHitpoints1AC10ROLFAttacksALDAHittingfor2pointsofdamageALDAgoesdownandisDying",
+          "durationMs": 110
+        }
+      ],
+      "visible": [
+        {
+          "sequence": 27,
+          "text": "Move/Attack,MoveLeft=12ROLFHitpoints6AC10ROLFAttacksALDAHittingfor1pointofdamage",
+          "at": 71310.70500016212
+        },
+        {
+          "sequence": 29,
+          "text": "MoveAttak,oveLft=/cMe12ALDAHitpoints5AC10ALDAAttacksROLFandMisses",
+          "at": 83473.98500013351
+        },
+        {
+          "sequence": 29,
+          "text": "ROLFHitpoints6AC10ROLFAttacksALDAandMisses",
+          "at": 84501.49500012398
+        },
+        {
+          "sequence": 32,
+          "text": "ALDAHitpoints5AC10ALDAAttacksROLFHittingfor2pointsofdamage",
+          "at": 95966.54000020027
+        },
+        {
+          "sequence": 33,
+          "text": "ROLFHitpoints4AC10ROLFAttacksALDAHittingfor2pointsofdamage",
+          "at": 97690.46000003815
+        },
+        {
+          "sequence": 33,
+          "text": "ALDAHitpoints3AC10ALDAAttacksROLFHittingfor2pointsofdamage",
+          "at": 98701.95500016212
+        },
+        {
+          "sequence": 34,
+          "text": "ALDAHitpoints3AC10ALDAAttacksROLFandMisses",
+          "at": 100410.74000000954
+        },
+        {
+          "sequence": 34,
+          "text": "ROLFHitpoints2AC10ROLFAttacksALDAandMisses",
+          "at": 101428.78500008583
+        },
+        {
+          "sequence": 35,
+          "text": "ALDAHitpoints3AC10ALDAAttacksROLFandMisses",
+          "at": 103059.7650001049
+        },
+        {
+          "sequence": 35,
+          "text": "ROLFHitpoints2AC10ROLFAttacksALDAandMisses",
+          "at": 104069.59000015259
+        },
+        {
+          "sequence": 36,
+          "text": "ROLFHitpoints2AC10ROLFAttacksALDAHittingfor2pointsofdamage",
+          "at": 105703.17500019073
+        },
+        {
+          "sequence": 36,
+          "text": "ALDAHitpoints1AC10ALDAAttacksROLFandMisses",
+          "at": 106719.70500016212
+        },
+        {
+          "sequence": 37,
+          "text": "ALDAHitpoints1AC10ALDAAttacksROLFHittingfor1pointofdamage",
+          "at": 108551.82500004768
+        },
+        {
+          "sequence": 37,
+          "text": "ROLFHitpoints1AC10ROLFAttacksALDAHittingfor2pointsofdamage",
+          "at": 109559.625
+        },
+        {
+          "sequence": 37,
+          "text": "ROLFHitpoints1AC10ROLFAttacksALDAHittingfor2pointsofdamageALDAgoesdownandisDying",
+          "at": 110575.07000017166
+        }
+      ],
+      "result": " You have lost the duel. The duelist receives 0 experience points. press <enter>/<return> to continue "
+    },
+    "gog": {
+      "inputs": [
+        {
+          "key": "a",
+          "sequence": 3,
+          "text": "CreateNewCharacterAddCharactertoPartyLoadSavedGameExittoDOSLoadWhichGame:A"
+        },
+        {
+          "key": "right",
+          "sequence": 4,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN980,4W00:00AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "right",
+          "sequence": 5,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN980,4N00:00AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 6,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN980,4E00:00AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 7,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN981,4E00:01AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "right",
+          "sequence": 8,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN982,4E00:02AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "right",
+          "sequence": 9,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN982,4S00:02AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "right",
+          "sequence": 10,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN982,4W00:02AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 11,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN982,4N00:02AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 12,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN982,3N00:03AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "right",
+          "sequence": 13,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN982,2N00:04AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 14,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN982,2E00:04AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 15,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN983,2E00:05AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 16,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN984,2E00:06AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 17,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN985,2E00:07AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "left",
+          "sequence": 18,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN986,2E00:08NOTICESFORTEACHERSANDSTUDENTSAREPOSTEDONTHEWALLS.ANOTEDIRECTSMAGICUSERSANDCLERICSTOGONORTHANDFIGHTERSAND'ROGUES'TOGOEAST.AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 19,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN986,2N00:08NOTICESFORTEACHERSANDSTUDENTSAREPOSTEDONTHEWALLS.ANOTEDIRECTSMAGICUSERSANDCLERICSTOGONORTHANDFIGHTERSAND'ROGUES'TOGOEAST.AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "right",
+          "sequence": 20,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN986,1N00:09AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "up",
+          "sequence": 21,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN986,1E00:09AreaCastViewEncampSearchLook"
+        },
+        {
+          "key": "enter",
+          "sequence": 22,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:10THEROOMISFILLEDWITHDUELINGPAIRS.Press<enter>/<return>tocontinue"
+        },
+        {
+          "key": "y",
+          "sequence": 23,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:10THEARENAMASTERASKSIFYOUWISHTODUEL.'THEDUELSAREEVENLYMATCHEDANDNORMALLYNOTTOTHEDEATH.DOYOUDUEL?'YesNo"
+        },
+        {
+          "key": "enter",
+          "sequence": 24,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:10WHOWILLDUEL?Select"
+        },
+        {
+          "key": "m",
+          "sequence": 25,
+          "text": "NameACHPALDA106BRIN86CORA106DORN108ENNA96FENN987,1E00:10Abattlebegins..."
+        },
+        {
+          "key": "right",
+          "sequence": 26,
+          "text": "ROLFHitpoints6AC10Move/Attack,MoveLeft=12"
+        },
+        {
+          "key": "right",
+          "sequence": 27,
+          "text": "ALDAHitpoints5AC10MoveViewAimQuickDone"
+        },
+        {
+          "key": "down",
+          "sequence": 28,
+          "text": "ALDAHitpoints5AC10MoveViewAimQuickDone"
+        },
+        {
+          "key": "q",
+          "sequence": 29,
+          "text": "ALDAHitpoints5AC10MoveViewAimQuickDone"
+        }
+      ],
+      "native": [
+        {
+          "sequence": 27,
+          "text": "ROLFHitpoints6AC10ROLFAttacksALDAHittingfor1pointofdamageMove/Attack,MoveLeft=10",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 30,
+          "text": "ALDAHitpoints5AC10ALDAAttacksROLFandMisses",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 31,
+          "text": "ROLFHitpoints6AC10ROLFAttacksALDAHittingfor2pointsofdamage",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 31,
+          "text": "ALDAHitpoints3AC10ALDAAttacksROLFandMisses",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 32,
+          "text": "ROLFHitpoints6AC10ROLFAttacksALDAHittingfor1pointofdamage",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 32,
+          "text": "ALDAHitpoints2AC10ALDAAttacksROLFandMisses",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 33,
+          "text": "ROLFHitpoints6AC10ROLFAttacksALDAandMisses",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 33,
+          "text": "ALDAHitpoints2AC10ALDAAttacksROLFandMisses",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 34,
+          "text": "ROLFHitpoints6AC10ROLFAttacksALDAHittingfor1pointofdamage",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 34,
+          "text": "ALDAHitpoints1AC10ALDAAttacksROLFHittingfor1pointofdamage",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 35,
+          "text": "ALDAHitpoints1AC10ALDAAttacksROLFandMisses",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 35,
+          "text": "ROLFHitpoints5AC10ROLFAttacksALDAHittingfor2pointsofdamage",
+          "durationMs": 1000
+        },
+        {
+          "sequence": 35,
+          "text": "ROLFHitpoints5AC10ROLFAttacksALDAHittingfor2pointsofdamageALDAgoesdownandisDying",
+          "durationMs": 110
+        }
+      ],
+      "visible": [
+        {
+          "sequence": 27,
+          "text": "Move/Attack,MoveLeft=10ROLFHitpoints6AC10ROLFAttacksALDAHittingfor1pointofdamage",
+          "at": 90757.25499987602
+        },
+        {
+          "sequence": 30,
+          "text": "ALDAHitpoints5AC10ALDAAttacksROLFandMisses",
+          "at": 96789.04999995232
+        },
+        {
+          "sequence": 31,
+          "text": "ROLFHitpoints6AC10ROLFAttacksALDAHittingfor2pointsofdamage",
+          "at": 103098.39999985695
+        },
+        {
+          "sequence": 31,
+          "text": "ALDAHitpoints3AC10ALDAAttacksROLFandMisses",
+          "at": 104144.34999990463
+        },
+        {
+          "sequence": 32,
+          "text": "ROLFHitpoints6AC10ROLFAttacksALDAHittingfor1pointofdamage",
+          "at": 110756.11499977112
+        },
+        {
+          "sequence": 32,
+          "text": "ALDAHitpoints2AC10ALDAAttacksROLFandMisses",
+          "at": 111781.59499979019
+        },
+        {
+          "sequence": 33,
+          "text": "ROLFHitpoints6AC10ROLFAttacksALDAandMisses",
+          "at": 118160.69999980927
+        },
+        {
+          "sequence": 33,
+          "text": "ALDAHitpoints2AC10ALDAAttacksROLFandMisses",
+          "at": 119197.78499984741
+        },
+        {
+          "sequence": 34,
+          "text": "ROLFHitpoints6AC10ROLFAttacksALDAHittingfor1pointofdamage",
+          "at": 125197.2349998951
+        },
+        {
+          "sequence": 34,
+          "text": "ALDAHitpoints1AC10ALDAAttacksROLFHittingfor1pointofdamage",
+          "at": 126215.16999983788
+        },
+        {
+          "sequence": 35,
+          "text": "ALDAHitpoints1AC10ALDAAttacksROLFandMisses",
+          "at": 132409.19999980927
+        },
+        {
+          "sequence": 35,
+          "text": "ROLFHitpoints5AC10ROLFAttacksALDAHittingfor2pointsofdamage",
+          "at": 133461.0799999237
+        },
+        {
+          "sequence": 35,
+          "text": "ROLFHitpoints5AC10ROLFAttacksALDAHittingfor2pointsofdamageALDAgoesdownandisDying",
+          "at": 134489.22999978065
+        }
+      ],
+      "result": " You have lost the duel. The duelist receives 0 experience points. press <enter>/<return> to continue "
+    }
+  },
+  "limitations": [
+    "Combat rolls differ between independent runs; each displayed report is compared with its own native frame, not across runs.",
+    "Report-frame count includes the final repeated attack with Dying text.",
+    "Narration verifies playback telemetry, not subjective listening or interruption behavior."
+  ]
+}
