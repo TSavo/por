@@ -46,5 +46,89 @@
     "moves": 6,
     "variant": "ecl8-b27-9f1c-9f2e.variant-05-hippogriffs",
     "art": "encounter:area:27:ecl:9f54:SPRIT8.DAX:113:1:0"
+  },
+  {
+    "clock": 4002962,
+    "moves": 15,
+    "variant": "ecl8-b27-9f1c-9f2e.variant-01-kobolds",
+    "art": "encounter:area:27:SPRIT8.DAX:0:1:0"
+  },
+  {
+    "clock": 4011755,
+    "moves": 2,
+    "variant": "ecl8-b27-9f1c-9f2e.variant-03-lizard-men",
+    "art": "encounter:area:27:ecl:9f54:SPRIT8.DAX:57:1:0"
+  },
+  {
+    "clock": 4001008,
+    "moves": 4,
+    "variant": "ecl8-b27-9fb7-9fcc.variant-08-phase-spiders",
+    "art": "encounter:area:27:ecl:9ff0:SPRIT8.DAX:116:1:0"
+  },
+  {
+    "clock": 4018594,
+    "moves": 1,
+    "variant": "ecl8-b27-9f1c-9f2e.variant-06-wyverns",
+    "art": "encounter:area:27:SPRIT8.DAX:121:1:0"
+  },
+  {
+    "clock": 4017617,
+    "moves": 6,
+    "variant": "ecl8-b27-9fb7-9fcc.variant-03-lizard-men",
+    "art": "encounter:area:27:ecl:9ff0:SPRIT8.DAX:57:1:0"
+  },
+  {
+    "clock": 4008824,
+    "moves": 7,
+    "variant": "ecl8-b27-9f66-9f81.variant-07-trolls",
+    "art": "encounter:area:27:ecl:9fa5:SPRIT8.DAX:31:1:0"
+  },
+  {
+    "clock": 4014686,
+    "moves": 10,
+    "variant": "ecl8-b27-9f66-9f81.variant-02-gnolls",
+    "art": "encounter:area:27:SPRIT8.DAX:73:1:0"
+  },
+  {
+    "clock": 4031295,
+    "moves": 14,
+    "variant": "ecl8-b27-9f66-9f81.variant-05-hippogriffs",
+    "art": "encounter:area:27:ecl:9fa5:SPRIT8.DAX:113:1:0"
+  },
+  {
+    "clock": 4006870,
+    "moves": 12,
+    "variant": "ecl8-b27-9f66-9f81.variant-04-giant-lizards",
+    "art": "encounter:area:27:SPRIT8.DAX:59:1:0"
+  },
+  {
+    "clock": 4039111,
+    "moves": 15,
+    "variant": "ecl8-b27-9f1c-9f2e.variant-04-giant-lizards",
+    "art": "encounter:area:27:SPRIT8.DAX:59:1:0"
+  },
+  {
+    "clock": 4016640,
+    "moves": 13,
+    "variant": "ecl8-b27-9fb7-9fcc.variant-09-minotaurs",
+    "art": "encounter:area:27:ecl:9ff0:SPRIT8.DAX:62:1:0"
+  },
+  {
+    "clock": 4048881,
+    "moves": 10,
+    "variant": "ecl8-b27-9f66-9f81.variant-01-kobolds",
+    "art": "encounter:area:27:SPRIT8.DAX:0:1:0"
+  },
+  {
+    "clock": 4054743,
+    "moves": 12,
+    "variant": "ecl8-b27-9f1c-9f2e.variant-09-minotaurs",
+    "art": "encounter:area:27:ecl:9f54:SPRIT8.DAX:62:1:0"
+  },
+  {
+    "clock": 4029341,
+    "moves": 13,
+    "variant": "ecl8-b27-9fb7-9fcc.variant-04-giant-lizards",
+    "art": "encounter:area:27:SPRIT8.DAX:59:1:0"
   }
 ]

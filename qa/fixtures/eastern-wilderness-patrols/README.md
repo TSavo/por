@@ -4,4 +4,4 @@ Slot G is the party at (32,9) facing east, in ECL8.DAX block 27. To recreate it,
 
 Each row in scenes.json gives the initial fixed clock and the number of alternating Up and Down movements, starting with Up. The script rolls the encounter and chooses its creature. The selected variant identifies both its opening line and creature. Run a row with:
 
-    node tools/acceptance/narration-eastern-patrol.mjs <clock> <new-output-directory>
+    node tools/acceptance/narration-wilderness-approach.mjs eastern <clock> <new-output-directory>

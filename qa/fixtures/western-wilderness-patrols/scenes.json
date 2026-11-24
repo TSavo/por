@@ -1,0 +1,38 @@
+[
+  {
+    "clock": 4112552,
+    "moves": 1,
+    "variant": "ecl6-b25-a128-a13a.variant-03-giant-mantis",
+    "art": "encounter:area:25:ecl:a160:SPRIT6.DAX:74:1:0"
+  },
+  {
+    "clock": 4320033,
+    "moves": 3,
+    "variant": "ecl6-b25-a128-a13a.variant-04-tigers",
+    "art": "encounter:area:25:ecl:a160:SPRIT6.DAX:119:1:0"
+  },
+  {
+    "clock": 4122522,
+    "moves": 3,
+    "variant": "ecl6-b25-a172-a18d-a191.variant-08-soldiers",
+    "art": "encounter:area:25:ecl:a1b5:SPRIT6.DAX:16:1:0"
+  },
+  {
+    "clock": 4320307,
+    "moves": 4,
+    "variant": "ecl6-b25-a172-a18d-a191.variant-05-thri-kreens",
+    "art": "encounter:area:25:ecl:a1b5:SPRIT6.DAX:118:1:0"
+  },
+  {
+    "clock": 4115543,
+    "moves": 6,
+    "variant": "ecl6-b25-a172-a18d-a191.variant-02-wild-boars",
+    "art": "encounter:area:25:ecl:a1b5:SPRIT6.DAX:120:1:0"
+  },
+  {
+    "clock": 4367220,
+    "moves": 9,
+    "variant": "ecl6-b25-a172-a18d-a191.variant-11-giant-snakes",
+    "art": "encounter:area:25:SPRIT6.DAX:60:1:0"
+  }
+]
