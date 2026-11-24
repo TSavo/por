@@ -1,0 +1,324 @@
+{
+  "build": "a3f6aba8e6cb039174149f3e4c308b36f80d16d4",
+  "platform": "Intel macOS 26.3.1(a)",
+  "method": "Installed signed-stage app. Fresh separate bundled/GOG profiles, ordinary keys and full app restarts. No engine clock/boot overrides.",
+  "runs": {
+    "guide-bundled": {
+      "config": {},
+      "steps": [
+        {
+          "key": "Enter",
+          "text": " "
+        },
+        {
+          "key": "Enter",
+          "text": " "
+        },
+        {
+          "key": "c",
+          "purpose": "create one character for native Add/Exit"
+        },
+        {
+          "key": "enter",
+          "text": "dwarf elf gnome half-elf halfling human exit"
+        },
+        {
+          "key": "enter",
+          "text": "male female exit"
+        },
+        {
+          "key": "enter",
+          "text": "fighter thief fighter/thief exit"
+        },
+        {
+          "key": "enter",
+          "text": "lawful good lawful neutral lawful evil neutral good true neutral neutral evil chaotic good chaotic neutral chaotic evil exit"
+        },
+        {
+          "key": "y",
+          "text": "male dwarf age 49 lawful good fighter str 15 gold 130 int 16 wis 14 dex 15 con 15 cha 16 level 1 exp 0 ac 9 thac0 20 encumbrance 130 hp 9 damage 1d2 movement 12 status okay keep this character? yes no"
+        },
+        {
+          "key": "a",
+          "text": "male dwarf age 49 lawful good fighter str 15 gold 130 int 16 wis 14 dex 15 con 15 cha 16 level 1 exp 0 ac 9 thac0 20 encumbrance 130 hp 9 damage 1d2 movement 12 status okay character name:"
+        },
+        {
+          "key": "enter",
+          "text": "male dwarf age 49 lawful good fighter str 15 gold 130 int 16 wis 14 dex 15 con 15 cha 16 level 1 exp 0 ac 9 thac0 20 encumbrance 130 hp 9 damage 1d2 movement 12 status okay character name: a"
+        },
+        {
+          "key": "k",
+          "text": "male dwarf age 49 lawful good fighter str 15 gold 130 int 16 wis 14 dex 15 con 15 cha 16 level 1 exp 0 ac 9 thac0 20 encumbrance 130 hp 9 damage 1d2 movement 12 status okay head body keep"
+        },
+        {
+          "key": "e",
+          "text": "old ready action new ready action parts color-1 color-2 size exit"
+        },
+        {
+          "key": "y",
+          "text": "old ready action new ready action is this icon ok? yes no"
+        },
+        {
+          "key": "a",
+          "text": " Create New Character Add Character to Party Load Saved Game Exit to DOS Choose a function "
+        },
+        {
+          "key": "a",
+          "note": "retry after waiting for native menu readiness"
+        },
+        {
+          "key": "e",
+          "text": " A Add a character: Add Exit "
+        }
+      ],
+      "build": "v0.1 Alpha 1 (a3f6aba)",
+      "subtitle": "Create up to six characters and add them to your party. When you\u2019re ready, choose Begin Adventuring.",
+      "overlaps": false,
+      "playback": [
+        {
+          "id": "por.voice.party-setup",
+          "unitId": "party-setup",
+          "asset": "party-setup.mp3",
+          "expectedArt": null,
+          "caption": "Create up to six characters and add them to your party. When you\u2019re ready, choose Begin Adventuring.",
+          "queuedAt": 15.856,
+          "queuedFrame": 2,
+          "startedAt": 15.933,
+          "startFrame": 2,
+          "duration": 6.72,
+          "artAtStart": null,
+          "artSeen": [
+            null
+          ],
+          "artTimes": [
+            0
+          ],
+          "outcome": "ended",
+          "endedAt": 22.694,
+          "endFrame": 2,
+          "position": 6.72,
+          "artAtEnd": null
+        }
+      ],
+      "addHidden": true,
+      "afterReturn": [
+        {
+          "id": "por.voice.party-setup",
+          "unitId": "party-setup",
+          "asset": "party-setup.mp3",
+          "expectedArt": null,
+          "caption": "Create up to six characters and add them to your party. When you\u2019re ready, choose Begin Adventuring.",
+          "queuedAt": 15.856,
+          "queuedFrame": 2,
+          "startedAt": 15.933,
+          "startFrame": 2,
+          "duration": 6.72,
+          "artAtStart": null,
+          "artSeen": [
+            null
+          ],
+          "artTimes": [
+            0
+          ],
+          "outcome": "ended",
+          "endedAt": 22.694,
+          "endFrame": 2,
+          "position": 6.72,
+          "artAtEnd": null
+        }
+      ],
+      "playedMarker": "1",
+      "status": "passed"
+    },
+    "guide-bundled-restart": {
+      "config": {
+        "restarted": true
+      },
+      "steps": [
+        {
+          "key": "Enter",
+          "text": " "
+        },
+        {
+          "key": "a",
+          "text": " Create New Character Add Character to Party Load Saved Game Exit to DOS Choose a function "
+        },
+        {
+          "key": "e",
+          "text": " A Add a character: Add Exit "
+        }
+      ],
+      "build": "v0.1 Alpha 1 (a3f6aba)",
+      "subtitle": "Create up to six characters and add them to your party. When you\u2019re ready, choose Begin Adventuring.",
+      "overlaps": false,
+      "playback": [],
+      "addHidden": true,
+      "afterReturn": [],
+      "playedMarker": "1",
+      "status": "passed"
+    },
+    "guide-classic": {
+      "config": {
+        "classic": true
+      },
+      "steps": [
+        {
+          "key": "F10",
+          "text": " "
+        },
+        {
+          "key": "Enter",
+          "text": " "
+        },
+        {
+          "key": "F10",
+          "text": " Create New Character Add Character to Party Load Saved Game Exit to DOS Choose a function "
+        },
+        {
+          "key": "c",
+          "purpose": "create one character for native Add/Exit"
+        },
+        {
+          "key": "enter",
+          "text": "dwarf elf gnome half-elf halfling human exit"
+        },
+        {
+          "key": "enter",
+          "text": "male female exit"
+        },
+        {
+          "key": "enter",
+          "text": "fighter thief fighter/thief exit"
+        },
+        {
+          "key": "enter",
+          "text": "lawful good lawful neutral lawful evil neutral good true neutral neutral evil chaotic good chaotic neutral chaotic evil exit"
+        },
+        {
+          "key": "y",
+          "text": "male dwarf age 53 lawful good fighter str 18(57) gold 120 int 12 wis 14 dex 14 con 14 cha 16 level 1 exp 0 ac 10 thac0 18 encumbrance 120 hp 9 damage 1d2+3 movement 12 status okay keep this character? yes no"
+        },
+        {
+          "key": "a",
+          "text": "male dwarf age 53 lawful good fighter str 18(57) gold 120 int 12 wis 14 dex 14 con 14 cha 16 level 1 exp 0 ac 10 thac0 18 encumbrance 120 hp 9 damage 1d2+3 movement 12 status okay character name:"
+        },
+        {
+          "key": "enter",
+          "text": "male dwarf age 53 lawful good fighter str 18(57) gold 120 int 12 wis 14 dex 14 con 14 cha 16 level 1 exp 0 ac 10 thac0 18 encumbrance 120 hp 9 damage 1d2+3 movement 12 status okay character name: a"
+        },
+        {
+          "key": "k",
+          "text": "male dwarf age 53 lawful good fighter str 18(57) gold 120 int 12 wis 14 dex 14 con 14 cha 16 level 1 exp 0 ac 10 thac0 18 encumbrance 120 hp 9 damage 1d2+3 movement 12 status okay head body keep"
+        },
+        {
+          "key": "e",
+          "text": "old ready action new ready action parts color-1 color-2 size exit"
+        },
+        {
+          "key": "y",
+          "text": "old ready action new ready action is this icon ok? yes no"
+        },
+        {
+          "key": "a",
+          "text": " Create New Character Add Character to Party Load Saved Game Exit to DOS Choose a function "
+        },
+        {
+          "key": "e",
+          "text": " A Add a character: Add Exit "
+        }
+      ],
+      "build": "v0.1 Alpha 1 (a3f6aba)",
+      "classic": {
+        "visible": false,
+        "lines": [],
+        "enhanced": false
+      },
+      "subtitle": "Create up to six characters and add them to your party. When you\u2019re ready, choose Begin Adventuring.",
+      "overlaps": false,
+      "playback": [
+        {
+          "id": "por.voice.party-setup",
+          "unitId": "party-setup",
+          "asset": "party-setup.mp3",
+          "expectedArt": null,
+          "caption": "Create up to six characters and add them to your party. When you\u2019re ready, choose Begin Adventuring.",
+          "queuedAt": 23.981,
+          "queuedFrame": 2,
+          "startedAt": 24.022,
+          "startFrame": 2,
+          "duration": 6.72,
+          "artAtStart": null,
+          "artSeen": [
+            null
+          ],
+          "artTimes": [
+            0
+          ],
+          "outcome": "ended",
+          "endedAt": 30.786,
+          "endFrame": 2,
+          "position": 6.72,
+          "artAtEnd": null
+        }
+      ],
+      "addHidden": true,
+      "afterReturn": [
+        {
+          "id": "por.voice.party-setup",
+          "unitId": "party-setup",
+          "asset": "party-setup.mp3",
+          "expectedArt": null,
+          "caption": "Create up to six characters and add them to your party. When you\u2019re ready, choose Begin Adventuring.",
+          "queuedAt": 23.981,
+          "queuedFrame": 2,
+          "startedAt": 24.022,
+          "startFrame": 2,
+          "duration": 6.72,
+          "artAtStart": null,
+          "artSeen": [
+            null
+          ],
+          "artTimes": [
+            0
+          ],
+          "outcome": "ended",
+          "endedAt": 30.786,
+          "endFrame": 2,
+          "position": 6.72,
+          "artAtEnd": null
+        }
+      ],
+      "playedMarker": "1",
+      "status": "passed"
+    },
+    "guide-classic-restart": {
+      "config": {
+        "classic": true,
+        "restarted": true
+      },
+      "steps": [
+        {
+          "key": "Enter",
+          "text": " "
+        },
+        {
+          "key": "a",
+          "text": " Create New Character Add Character to Party Load Saved Game Exit to DOS Choose a function "
+        },
+        {
+          "key": "e",
+          "text": " A Add a character: Add Exit "
+        }
+      ],
+      "build": "v0.1 Alpha 1 (a3f6aba)",
+      "subtitle": "Create up to six characters and add them to your party. When you\u2019re ready, choose Begin Adventuring.",
+      "overlaps": false,
+      "playback": [],
+      "addHidden": true,
+      "afterReturn": [],
+      "playedMarker": "1",
+      "status": "passed"
+    }
+  },
+  "restored": "Enhanced restored; test original-files setting removed; test app closed; owner profile untouched."
+}
