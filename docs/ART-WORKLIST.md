@@ -6,8 +6,8 @@
 The site inventory comes from static script and native picture discovery. 385 / 385 captured native prompts passed paired Chrome checks.
 Run `npm run verify:held-portraits` for every site and its evidence.
 
-**Enhanced fallbacks (#142).** 0 fallback frames / 0 distinct keys across 11894 Chrome views.
-Recorded walks measured in Chrome with GOG 1.3 and fallback observer v2: 59 / 64. Run `npm run verify:enhanced-fallbacks` for the captured keys and walks still to measure.
+**Enhanced fallbacks (#142).** 0 fallback frames / 0 distinct keys across 13027 Chrome views.
+Recorded walks measured in Chrome with GOG 1.3 and fallback observer v2: 64 / 65. Run `npm run verify:enhanced-fallbacks` for the captured keys and walks still to measure.
 2 additional replay captures are included.
 `campaign-castle-approach-leg` shares the `campaign-full/leg-8` capture because the replay inputs are identical.
 `campaign-end-leg` shares the `campaign-full/leg-11` capture because the replay inputs are identical.

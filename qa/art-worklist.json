@@ -15,15 +15,11 @@
  "enhancedFallbacks": {
   "observer": 2,
   "frames": 0,
-  "presented": 11894,
-  "walks": 59,
-  "recordedWalks": 64,
+  "presented": 13027,
+  "walks": 64,
+  "recordedWalks": 65,
   "missingWalks": [
-   "walk-bane-entry53",
-   "walk-grishnak-approach",
-   "walk-grishnak-healing",
-   "walk-grishnak-inn",
-   "walk-grishnak-prisoner"
+   "walk-guide-party-kobold-approach"
   ],
   "aliasedWalks": [
    {
@@ -47,7 +43,7 @@
     "receipt": "campaign-full/leg-9"
    }
   ],
-  "runs": 56,
+  "runs": 61,
   "additionalReplays": 2,
   "keys": []
  },

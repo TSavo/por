@@ -166,6 +166,12 @@
    "frames": [],
    "fixtureSha256": "d1d53cb1de05e616850117aa700abeb23697d16d67fe7d1078a0dabd1950ec00"
   },
+  "walk-bane-entry53": {
+   "observer": 2,
+   "presented": 257,
+   "frames": [],
+   "fixtureSha256": "6640ea8756de3ca89a17651566b43f9fc306b0033d3a67d10638e6140cade43a"
+  },
   "walk-braccio-bane-ferry": {
    "observer": 2,
    "presented": 72,
@@ -213,6 +219,30 @@
    "presented": 136,
    "frames": [],
    "fixtureSha256": "08e3075d51b254f63d92b69eb14020968532dad4ebaafda471a7f385161b6b8a"
+  },
+  "walk-grishnak-approach": {
+   "observer": 2,
+   "presented": 710,
+   "frames": [],
+   "fixtureSha256": "08d98a5f27fc408695d0cd41cb1e6059f41ffa7f9d9ecd45fe7cef2fb477afb3"
+  },
+  "walk-grishnak-healing": {
+   "observer": 2,
+   "presented": 38,
+   "frames": [],
+   "fixtureSha256": "385cc49721709ec31303cf35401f893b4df0e2c43fcdf8c27901a353eb663f23"
+  },
+  "walk-grishnak-inn": {
+   "observer": 2,
+   "presented": 104,
+   "frames": [],
+   "fixtureSha256": "2fe7fed3ed7a75fa1403cb5e8631728c16de2328bd612f51d143450ab461c320"
+  },
+  "walk-grishnak-prisoner": {
+   "observer": 2,
+   "presented": 24,
+   "frames": [],
+   "fixtureSha256": "12aeb1114367e6de366277f5ac1e782884e25f27590df7c14b7a8b323f9006ea"
   },
   "walk-guide-party-graveyard": {
    "observer": 2,
