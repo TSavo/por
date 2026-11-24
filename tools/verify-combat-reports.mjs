@@ -13,13 +13,17 @@ const routes = {
     expected: ["ALDAATTACKSWILDBOARHITTINGFOR1POINTOFDAMAGE", "WILDBOARSTANDSUPANDGRINS",
       "DORNATTACKSWILDBOARHITTINGFOR4POINTSOFDAMAGE", "WILDBOARGOESDOWNANDISDYING"],
   },
+  quarters: {
+    walk: "walk-zhentil-envoy", subject: "YOUARRIVEBACKATYOURQUARTERS|ITISNIGHTANDYOUAREINYOURQUARTERS",
+    expected: ["YOUARRIVEBACKATYOURQUARTERS", "ITISNIGHTANDYOUAREINYOURQUARTERS"],
+  },
   turning: {
     walk: "walk-guide-party-turn-undead", subject: "TURNSUNDEAD|ISFORCEDTOFLEE",
     expected: ["DORIANTURNSUNDEAD", "SKELETONISFORCEDTOFLEE"],
   },
 };
 const route = routes[process.argv[3] ?? "boar"];
-assert.ok(route, "Choose the boar or turning route");
+assert.ok(route, "Choose the boar, quarters or turning route");
 const fixture = resolve("qa/fixtures", route.walk);
 const directory = mkdtempSync(join(tmpdir(), "por-combat-reports-"));
 const saves = join(directory, "saves");

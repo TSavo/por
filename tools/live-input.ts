@@ -1737,7 +1737,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const stats = battleGlyphs.filter(([cell, char]) => cell < 423 && cell % 40 >= 23 && char > 32)
         .sort(([a], [b]) => a - b).map(([cell, char]) => `${cell}:${char}`).join(",");
       const newReport = report.length > 0 && (report !== lastCombatReport || stats !== lastCombatStats);
-      if (queueFull && !newReport) {
+      // A scripted walk can fill the animation queue before the game prints its next
+      // line. Preserve a changed screen the guest explicitly pauses on, including its position.
+      if (queueFull && !newReport && (pauseMs === undefined || battlefield || presentedText === JSON.stringify(visibleGameText()))) {
         pauseOutcome = "queue full";
         return;
       }
@@ -1782,7 +1784,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       } else if (!signature && !report && area !== undefined) {
         pauseOutcome = "approach";
         const before = animation.length;
-        showFrame(undefined, undefined, true);
+        if (!queueFull) showFrame(undefined, undefined, true);
         // Whatever else a pause outside a fight leaves on screen (the party walked on between the
         // script's DELAYs through the bugbear's gate, "The Whole Party Is Healed"): the screen as it
         // stands, for as long as the game pauses, unless the page has it already (#164, #81).

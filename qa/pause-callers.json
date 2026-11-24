@@ -123,32 +123,20 @@
    "original": {
     "walk": "qa/fixtures/walk-zhentil-envoy",
     "text": [
-     "                 7,6 S 14:33",
+     "                 4,0 W 14:33",
      " AT DUSK A GUARD COMES BY TO ESCORT",
      " YOU TO DINNER."
     ],
-    "shown": false,
-    "missing": [
-     "                   6"
-    ],
-    "pageHad": [
-     "                 7,2 S 14:33"
-    ]
+    "shown": true
    },
    "port": {
     "walk": "qa/fixtures/walk-zhentil-envoy",
     "text": [
-     "                 7,6 S 14:33",
+     "                 4,0 W 14:33",
      " AT DUSK A GUARD COMES BY TO ESCORT",
      " YOU TO DINNER."
     ],
-    "shown": false,
-    "missing": [
-     "                   6"
-    ],
-    "pageHad": [
-     "                 7,2 S 14:33"
-    ]
+    "shown": true
    }
   },
   "slice 4 +1e3": {

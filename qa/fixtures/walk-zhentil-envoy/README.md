@@ -28,3 +28,5 @@ each input. `visits.jsonl` records the native areas traversed.
 POR_PARITY_ONLY=leg POR_PARITY_LEG=qa/fixtures/walk-zhentil-envoy \
   npm run verify:port-parity
 ```
+
+The return from dinner queues several walking frames before the night menu. On both data sources, `node tools/verify-combat-reports.mjs /usr/bin/google-chrome quarters` checks that Enhanced Chrome paints “You arrive back at your quarters” followed by “It is night and you are in your quarters” before moving on.

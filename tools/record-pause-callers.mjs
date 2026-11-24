@@ -45,6 +45,11 @@ function recordedWalks() {
     .sort();
 }
 
+// Scripted walks pause both while the coordinates change and while dialogue is on screen.
+function hasMessageText(line) {
+  return line.text.some(row => /[a-z]{2}/i.test(row));
+}
+
 function merge(files) {
   const evidence = readEvidence();
   const replayed = readReplayed();
@@ -61,7 +66,10 @@ function merge(files) {
     for (const line of lines) {
       const key = `${line.id}\n${line.walk}\n${line.source}`;
       const before = found.get(key);
-      if (!before || (before.shown && !line.shown)) found.set(key, line);
+      if (!before || (before.shown && !line.shown) ||
+          (before.shown === line.shown && !hasMessageText(before) && hasMessageText(line))) {
+        found.set(key, line);
+      }
     }
     // A full replay also supersedes a prior sample from this walk when the corrected
     // trace has no message at that call. An interrupted walk cannot disprove a sample.
