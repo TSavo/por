@@ -55,8 +55,8 @@ plays it once from the 1.3 files and once from `game/` and compares the Enhanced
 point, it stands up and grins, Dorn hits for four, and it goes down dying. To check what the
 player sees, run the following from the repository root with each 1.3 data source.
 
-    POR_GAME_SOURCE=original POR_GAMEDATA=~/por-assets/gog-1.3/POOLRAD node tools/verify-boar-combat-reports.mjs /usr/bin/google-chrome
-    POR_GAME_SOURCE=port node tools/verify-boar-combat-reports.mjs /usr/bin/google-chrome
+    POR_GAME_SOURCE=original POR_GAMEDATA=~/por-assets/gog-1.3/POOLRAD node tools/verify-combat-reports.mjs /usr/bin/google-chrome
+    POR_GAME_SOURCE=port node tools/verify-combat-reports.mjs /usr/bin/google-chrome
 
 The replay observes those four messages in order in the visible Enhanced text panel.
 The standing-up message pauses at slice 24 +1915. Slice 13 +617 follows with only Alda's

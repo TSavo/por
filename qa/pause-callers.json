@@ -30,6 +30,7 @@
   "qa/fixtures/walk-clerk-pays-three",
   "qa/fixtures/walk-commission-5-reward",
   "qa/fixtures/walk-commission-5-taken",
+  "qa/fixtures/walk-guide-party-turn-undead",
   "qa/fixtures/walk-kobold-king",
   "qa/fixtures/walk-kovel-and-nomads",
   "qa/fixtures/walk-library-cleared",
@@ -158,6 +159,26 @@
     "shown": true
    }
   },
+  "slice 9 +1130": {
+   "original": {
+    "walk": "qa/fixtures/walk-guide-party-turn-undead",
+    "text": [
+     "                       SKELETON",
+     "                       is forced to",
+     "                       flee"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-guide-party-turn-undead",
+    "text": [
+     "                       SKELETON",
+     "                       is forced to",
+     "                       flee"
+    ],
+    "shown": true
+   }
+  },
   "slice 10 +1e64": {
    "original": {
     "walk": "qa/fixtures/visit-kobold-caves",
@@ -226,6 +247,24 @@
      "                       Attacks",
      "                       SKELETON",
      "                       and Misses"
+    ],
+    "shown": true
+   }
+  },
+  "slice 13 +1195": {
+   "original": {
+    "walk": "qa/fixtures/walk-guide-party-turn-undead",
+    "text": [
+     "                       DORIAN",
+     "                       turns undead..."
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-guide-party-turn-undead",
+    "text": [
+     "                       DORIAN",
+     "                       turns undead..."
     ],
     "shown": true
    }
