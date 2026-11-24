@@ -310,7 +310,7 @@ trades and readies the second sword on Fenn and returns to New Phlan.
 The party pools its money to identify the armor for 200 gold, sells the
 Leather Armor +1 for 1,000 gold, and shares the proceeds. Slot D reloads
 at the armorer with Alda holding 39 platinum and both swords readied.
-Run `node tools/verify-fresh-party.mjs --sokal-reinforce-from-slums PATH_TO_SLOT_D`
+Run `node tools/verify-fresh-party.mjs --sokal-reinforce-from-slums qa/fixtures/sokal-reinforcement-armorer/D.json`
 from the armorer save. Enna buys and readies a long bow and arrows. The
 party hires the Swordsman and Curate, sails to Sokal Keep, and reloads at
 the landing. It then reads the parchment, passes the undead patrol, and
@@ -318,11 +318,9 @@ casts Bless before the eastern approach to the courtyard. Space interrupts
 Quick on Alda's first manual turn. Alda targets an adjacent orc with his
 sword and Enna targets a helpless hobgoblin three squares away with her
 longbow. Strict verification reaches both attacks without intervention.
-Add `--fight-to-end` to continue to the original defeat screen. This
-replay previously exhausted the watchdog at overlay 31, `0x099c`, in
-the same attack-effect routine as the prepared courtyard replay. The
-bounded allowance now covers that routine for the same verified caller,
-and the extended replay finishes without an intervention.
+Add `--fight-to-end` to resume automatic combat. From this checkpoint the
+bundled data and GOG 1.3 each take 345 page polls to reach the original
+defeat screen. The replay checks the prompt at that exact count.
 Alt+Q forwards the original DOS shortcut to resume automatic combat for
 the party. The Sokal replay exercises it from Brin's manual menu, and the
 Chrome replay verifies that the browser forwards the key in combat.
