@@ -35,6 +35,8 @@ try {
   }
   assert.ok(caption(frame).includes(compact(row.caption)));
   assert.ok(caption(frame).includes("COMBATWAITFLEEPARLAY"));
+  const approachActor = await chrome.evaluate("state.encounter?.[2]");
+  assert.ok(approachActor);
   const priorLines = await chrome.evaluate("porNarrationPlayback().lines.length");
   await chrome.send("p");
   let outcome = await chrome.nextFrame();
@@ -56,6 +58,18 @@ try {
   assert.equal(matches.length, 1, `Expected one voiced response for ${actor} at ${result}`);
   const [voice] = matches;
   const variant = variants.get(voice.variantId);
+  if (result.includes("ABATTLEBEGINS")) {
+    assert.deepEqual(voice.artSeen, [approachActor], "The approach must stay on screen through the parlay reply");
+    assert.equal(voice.expectedArt, approachActor);
+    assert.equal(voice.artAtEnd, approachActor);
+    assert.equal(await chrome.evaluate('document.querySelector("#tile-art .encounter-sprite")?.naturalWidth > 0 && Boolean(document.querySelector("#tile-art .local-overland-encounter"))'), true);
+    writeFileSync(join(output, "parlay.png"), await chrome.screenshot());
+    await chrome.send("enter");
+    await chrome.nextFrame();
+    assert.equal(await chrome.evaluate('Boolean(state.battleTiles?.length || state.combatArt?.length) && !state.encounter && !document.querySelector("#tile-art .encounter-sprite")'), true,
+      "The battlefield must replace the held parlay picture");
+    writeFileSync(join(output, "battlefield.png"), await chrome.screenshot());
+  }
   assert.equal(voice.asset, variant.asset);
   assert.ok(compact(voice.caption).includes(compact(variant.text)));
   assert.equal(voice.outcome, "ended");

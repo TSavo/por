@@ -4410,10 +4410,9 @@
   "por.voice.ecl7.b26-a3b9-a3df": {
    "run": "issue-99-middle-wilderness-a194-kobolds-haughty-original",
    "step": 88326657,
-   "withoutArt": {
-    "run": "issue-99-middle-wilderness-a194-kobolds-haughty-original",
-    "step": 88326657,
-    "showing": "no picture"
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
    }
   }
  },
@@ -5532,7 +5531,7 @@
     "endedByPlayer": 0,
     "cutOff": 0,
     "unfinished": 0,
-    "startedLate": 1
+    "startedLate": 0
    },
    "issue-99-middle-wilderness-a194-kobolds-meek-original": {
     "log": "decisions.playback.jsonl",
@@ -6832,10 +6831,8 @@
     "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v01-kobolds.mp3",
     "variantId": "por.voice.ecl7.b26-a3b9-a3df.variant-01-kobolds",
     "seconds": 4.32,
-    "waited": 0.013,
-    "saw": [
-     null
-    ]
+    "waited": 0.131,
+    "art": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
    }
   },
   "artChecks": {
@@ -7854,12 +7851,12 @@
     "unitId": "por.voice.ecl7.b26-a3b9-a3df",
     "variantId": "por.voice.ecl7.b26-a3b9-a3df.variant-01-kobolds",
     "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v01-kobolds.mp3",
-    "expected": null,
+    "expected": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0",
     "caption": "YOU HAVE INSULTED THE KOBOLDS.THE KOBOLDS ATTACK YOU IMMEDIATELY! A battle begins...",
     "seen": [
-     null
+     "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
     ],
-    "end": null
+    "end": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
    },
    "issue-99-middle-wilderness-a194-kobolds-haughty-port | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
     "run": "issue-99-middle-wilderness-a194-kobolds-haughty-port",
@@ -7880,12 +7877,12 @@
     "unitId": "por.voice.ecl7.b26-a3b9-a3df",
     "variantId": "por.voice.ecl7.b26-a3b9-a3df.variant-01-kobolds",
     "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v01-kobolds.mp3",
-    "expected": null,
+    "expected": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0",
     "caption": "YOU HAVE INSULTED THE KOBOLDS.THE KOBOLDS ATTACK YOU IMMEDIATELY! A battle begins...",
     "seen": [
-     null
+     "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
     ],
-    "end": null
+    "end": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
    },
    "issue-99-middle-wilderness-a194-kobolds-meek-original | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
     "run": "issue-99-middle-wilderness-a194-kobolds-meek-original",
@@ -7906,12 +7903,12 @@
     "unitId": "por.voice.ecl7.b26-a3b9-a3df",
     "variantId": "por.voice.ecl7.b26-a3b9-a3df.variant-01-kobolds",
     "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v01-kobolds.mp3",
-    "expected": null,
+    "expected": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0",
     "caption": "YOU HAVE INSULTED THE KOBOLDS.THE KOBOLDS ATTACK YOU IMMEDIATELY! A battle begins...",
     "seen": [
-     null
+     "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
     ],
-    "end": null
+    "end": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
    },
    "issue-99-middle-wilderness-a194-kobolds-meek-port | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
     "run": "issue-99-middle-wilderness-a194-kobolds-meek-port",
@@ -7932,12 +7929,12 @@
     "unitId": "por.voice.ecl7.b26-a3b9-a3df",
     "variantId": "por.voice.ecl7.b26-a3b9-a3df.variant-01-kobolds",
     "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v01-kobolds.mp3",
-    "expected": null,
+    "expected": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0",
     "caption": "YOU HAVE INSULTED THE KOBOLDS.THE KOBOLDS ATTACK YOU IMMEDIATELY! A battle begins...",
     "seen": [
-     null
+     "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
     ],
-    "end": null
+    "end": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
    },
    "issue-99-middle-wilderness-a194-kobolds-nice-original | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
     "run": "issue-99-middle-wilderness-a194-kobolds-nice-original",
@@ -7958,12 +7955,12 @@
     "unitId": "por.voice.ecl7.b26-a3b9-a3df",
     "variantId": "por.voice.ecl7.b26-a3b9-a3df.variant-01-kobolds",
     "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v01-kobolds.mp3",
-    "expected": null,
+    "expected": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0",
     "caption": "YOU HAVE INSULTED THE KOBOLDS.THE KOBOLDS ATTACK YOU IMMEDIATELY! A battle begins...",
     "seen": [
-     null
+     "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
     ],
-    "end": null
+    "end": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
    },
    "issue-99-middle-wilderness-a194-kobolds-nice-port | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
     "run": "issue-99-middle-wilderness-a194-kobolds-nice-port",
@@ -7984,12 +7981,12 @@
     "unitId": "por.voice.ecl7.b26-a3b9-a3df",
     "variantId": "por.voice.ecl7.b26-a3b9-a3df.variant-01-kobolds",
     "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v01-kobolds.mp3",
-    "expected": null,
+    "expected": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0",
     "caption": "YOU HAVE INSULTED THE KOBOLDS.THE KOBOLDS ATTACK YOU IMMEDIATELY! A battle begins...",
     "seen": [
-     null
+     "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
     ],
-    "end": null
+    "end": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
    },
    "issue-99-middle-wilderness-a194-kobolds-original | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
     "run": "issue-99-middle-wilderness-a194-kobolds-original",

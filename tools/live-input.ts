@@ -405,6 +405,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   /** The right-hand panel above the report (the actor's stats) when the last report was taken. */
   let lastCombatStats = "";
   let lastApproach: string | undefined;
+  let wildernessEncounter: { actor: EncounterPlacement; terrain: OverlandTerrainFrame; block: number; parlay: boolean } | undefined;
   const portraitKeys = (env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean);
   const portraitArt = loadPortraitArt(portraitKeys, browser);
   const characterSheetKeys = (env.POR_CHARACTER_SHEET_ART_KEYS ?? "").split(",").filter(Boolean);
@@ -698,7 +699,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // hobgoblins' approach and "A battle begins...", where the 1.3 files find the hobgoblin again (#139).
       // A picture the game draws itself still clears it.
       if (nativeBattlefield || (picture !== undefined && picture !== illustration && !entranceIllustration)) nativeEncounter?.clear();
-      const encounter = nativeEncounter?.match(encounterArea, battleCursor, portraitCaller) ??
+      let encounter = nativeEncounter?.match(encounterArea, battleCursor, portraitCaller) ??
         encounterArt(presentation, enhanced, encounterArea, !captureApproach, battleCursor,
           [drawnPerspective?.pixels, priorPerspectiveDraw], portraitCaller);
       if (entranceIllustration && encounter) picture = undefined;
@@ -712,12 +713,31 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const tiles: [number, number, string][] = [];
       const tileInventory: TileInventoryCell[] | undefined = traceTiles ? [] : undefined;
       const overlandScript = activeEcl >= 25 && activeEcl <= 27;
+      const battlefield = nativeBattlefield || hasBattlefieldBorder(presentation);
+      let localTerrain = drawnOverlandTerrain?.center[0] === nativeOverland?.x &&
+        drawnOverlandTerrain?.center[1] === nativeOverland?.y ? drawnOverlandTerrain : undefined;
+      // The wilderness scripts clear the native approach when they draw the attitude menu.
+      // Keep its exact actor and terrain through the reply, even when COMBAT has already
+      // changed game mode behind the caption. A redraw of the map or battle ends the hold.
+      if (!overlandScript || scene || picture !== undefined || battlefield || characterSheet ||
+          (overlandMenu && !dialogue) || (wildernessEncounter && activeEcl !== wildernessEncounter.block)) {
+        wildernessEncounter = undefined;
+      } else if (menu === "COMBATWAITFLEEPARLAY" && encounter && localTerrain) {
+        wildernessEncounter = { actor: encounter, terrain: localTerrain, block: activeEcl, parlay: false };
+      }
+      const attitudeMenu = menu === "HAUGHTYSLYNICEMEEKABUSIVE";
+      if (attitudeMenu && wildernessEncounter) wildernessEncounter.parlay = true;
+      const parlayDialogue = wildernessEncounter?.parlay && !encounter &&
+        (attitudeMenu || ((!menu || menu === "ABATTLEBEGINS...") && Boolean(dialogue)));
+      if (parlayDialogue && wildernessEncounter) {
+        encounter = wildernessEncounter.actor;
+        localTerrain = wildernessEncounter.terrain;
+      }
       // A wilderness approach keeps the map while the guest changes to the encounter menu.
       const overlandEncounter = nativeOverland &&
         (encounter !== undefined || menu === "COMBATWAITFLEEPARLAY");
       const phlanArrival = overlandScript ? identifyPhlanPrompt(dialogue, menu) : undefined;
       const sokalPrompt = activeEcl === 0 ? identifySokalPrompt(dialogue, menu, harborTicket) : undefined;
-      const battlefield = nativeBattlefield || hasBattlefieldBorder(presentation);
       // The icon editor also uses the viewport blit. Its two preview labels
       // stay in place while the player changes parts, palette, and size.
       const iconEditor = text.filter(([cell]) =>
@@ -732,7 +752,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // with blank pixels, which equal the blank scenery the guest drew last, so the pixels cannot tell
       // the map from a first-person view; the guest's own state can.
       const overlandPrompt = nativeOverland && !exploration && !iconEditor;
-      const overlandMap = overlandMenu || overlandEncounter || overlandPrompt;
+      const overlandMap = overlandMenu || overlandEncounter || overlandPrompt || parlayDialogue;
       let perspective = false;
       let tileArea = area;
       let nativeScenery: PresentationAnimationFrame["nativeScenery"];
@@ -971,9 +991,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         classicPortraitCaller: Array.isArray(picture) ? pictureCaller : undefined,
         perspective,
         overlandMap: overlandMap && !scene && picture === undefined && !characterSheet && !battlefield || undefined,
-        overlandTerrain: encounter && !scene && picture === undefined && !battlefield &&
-          drawnOverlandTerrain?.center[0] === nativeOverland?.x && drawnOverlandTerrain?.center[1] === nativeOverland?.y
-          ? drawnOverlandTerrain : undefined,
+        overlandTerrain: encounter && !scene && picture === undefined && !battlefield ? localTerrain : undefined,
         travelPosition: overlandMenu && !dialogue && !encounter && !scene && picture === undefined && !characterSheet && !battlefield && !leads && !attack
           ? travelPosition : undefined,
         phlanArrival: travelFrame ? phlanArrival : undefined,
