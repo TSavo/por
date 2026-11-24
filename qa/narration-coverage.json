@@ -6347,7 +6347,7 @@
     "endedByPlayer": 0,
     "cutOff": 0,
     "unfinished": 0,
-    "startedLate": 2
+    "startedLate": 0
    },
    "issue-99-valjevo-outer-patrol-disguise-port": {
     "log": "issue-99-valjevo-outer-patrol-disguise-port.playback.jsonl",
@@ -6357,7 +6357,7 @@
     "endedByPlayer": 0,
     "cutOff": 0,
     "unfinished": 0,
-    "startedLate": 2
+    "startedLate": 0
    },
    "issue-99-wetland-tigers-original": {
     "log": "issue-99-wetland-tigers-original.playback.jsonl",
@@ -7071,7 +7071,7 @@
     "run": "issue-99-valjevo-outer-patrol-disguise-original",
     "asset": "voices/narration/ecl5/b3-99be.mp3",
     "seconds": 1.68,
-    "waited": 0.044,
+    "waited": 0.059,
     "art": "the first-person view"
    },
    "por.voice.ecl5.b3-9cb7-9cbb": {
@@ -7079,7 +7079,7 @@
     "asset": "voices/narration/dynamic-resolved/ecl5-b3-9cb7-9cbb-v01-a-patrol-of-giants-led-by-a-human-fighter.mp3",
     "variantId": "por.voice.ecl5.b3-9cb7-9cbb.variant-01-a-patrol-of-giants-led-by-a-human-fighter",
     "seconds": 4.56,
-    "waited": 0.03,
+    "waited": 0.059,
     "art": "encounter:area:3:SPRIT5.DAX:16:2:0"
    },
    "por.voice.ecl5.b3-9de2-9dec": {
@@ -7087,35 +7087,35 @@
     "asset": "voices/narration/dynamic-resolved/ecl5-b3-9de2-9dec-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
     "variantId": "por.voice.ecl5.b3-9de2-9dec.variant-01-patrol-of-giants-led-by-a-human-fighter",
     "seconds": 4.32,
-    "waited": 4.766,
+    "waited": 0.017,
     "art": "encounter:area:3:SPRIT5.DAX:16:2:0"
    },
    "por.voice.ecl5.b3-9df1-operand-9": {
     "run": "issue-99-valjevo-outer-patrol-disguise-original",
     "asset": "voices/narration/ecl5/b3-9df1-operand-9.mp3",
     "seconds": 2,
-    "waited": 9.261,
+    "waited": 0.015,
     "art": "encounter:area:3:SPRIT5.DAX:16:2:0"
    },
    "por.voice.ecl5.b3-9e47": {
     "run": "issue-99-valjevo-outer-patrol-disguise-original",
     "asset": "voices/narration/ecl5/b3-9e47.mp3",
     "seconds": 2,
-    "waited": 0.019,
+    "waited": 0.023,
     "art": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
    },
    "por.voice.ecl5.b3-9ecd": {
     "run": "issue-99-valjevo-outer-patrol-disguise-original",
     "asset": "voices/narration/ecl5/b3-9ecd.mp3",
     "seconds": 3.04,
-    "waited": 0.024,
+    "waited": 0.012,
     "art": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
    },
    "por.voice.ecl5.b3-9f5b": {
     "run": "issue-99-valjevo-outer-patrol-disguise-original",
     "asset": "voices/narration/ecl5/b3-9f5b.mp3",
     "seconds": 3.36,
-    "waited": 0.022,
+    "waited": 0.018,
     "art": "scene-illustration:area:3:ecl:9bf8:cue:giant-patrol-passage"
    },
    "por.voice.ecl5.b3-a8d0-prompt": {
@@ -9765,9 +9765,9 @@
     ],
     "end": "scene-illustration:area:11:ecl:9f8a"
    },
-   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-NTqMmx | 1 | por.voice.ecl5.b3-99be": {
+   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-UQSjN1 | 1 | por.voice.ecl5.b3-99be": {
     "run": "issue-99-valjevo-outer-patrol-disguise-original",
-    "leg": "slums-presentation-NTqMmx",
+    "leg": "slums-presentation-UQSjN1",
     "unitId": "por.voice.ecl5.b3-99be",
     "asset": "voices/narration/ecl5/b3-99be.mp3",
     "expected": "the first-person view",
@@ -9777,9 +9777,9 @@
     ],
     "end": "the first-person view"
    },
-   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-NTqMmx | 2 | por.voice.ecl5.b3-99be": {
+   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-UQSjN1 | 2 | por.voice.ecl5.b3-99be": {
     "run": "issue-99-valjevo-outer-patrol-disguise-original",
-    "leg": "slums-presentation-NTqMmx",
+    "leg": "slums-presentation-UQSjN1",
     "unitId": "por.voice.ecl5.b3-99be",
     "asset": "voices/narration/ecl5/b3-99be.mp3",
     "expected": "the first-person view",
@@ -9789,35 +9789,35 @@
     ],
     "end": "the first-person view"
    },
-   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-NTqMmx | 3 | por.voice.ecl5.b3-9cb7-9cbb": {
+   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-UQSjN1 | 3 | por.voice.ecl5.b3-9cb7-9cbb": {
     "run": "issue-99-valjevo-outer-patrol-disguise-original",
-    "leg": "slums-presentation-NTqMmx",
+    "leg": "slums-presentation-UQSjN1",
     "unitId": "por.voice.ecl5.b3-9cb7-9cbb",
     "variantId": "por.voice.ecl5.b3-9cb7-9cbb.variant-01-a-patrol-of-giants-led-by-a-human-fighter",
     "asset": "voices/narration/dynamic-resolved/ecl5-b3-9cb7-9cbb-v01-a-patrol-of-giants-led-by-a-human-fighter.mp3",
     "expected": "encounter:area:3:SPRIT5.DAX:16:2:0",
-    "caption": "'WHAT ARE YOU DOING HERE?' Combat Wait Flee Advance",
+    "caption": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER SURPRISES YOU. Area Cast View Encamp Search Look",
     "seen": [
      "encounter:area:3:SPRIT5.DAX:16:2:0"
     ],
     "end": "encounter:area:3:SPRIT5.DAX:16:2:0"
    },
-   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-NTqMmx | 4 | por.voice.ecl5.b3-9de2-9dec": {
+   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-UQSjN1 | 4 | por.voice.ecl5.b3-9de2-9dec": {
     "run": "issue-99-valjevo-outer-patrol-disguise-original",
-    "leg": "slums-presentation-NTqMmx",
+    "leg": "slums-presentation-UQSjN1",
     "unitId": "por.voice.ecl5.b3-9de2-9dec",
     "variantId": "por.voice.ecl5.b3-9de2-9dec.variant-01-patrol-of-giants-led-by-a-human-fighter",
     "asset": "voices/narration/dynamic-resolved/ecl5-b3-9de2-9dec-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
     "expected": "encounter:area:3:SPRIT5.DAX:16:2:0",
-    "caption": "'WHAT ARE YOU DOING HERE?' Combat Wait Flee Advance",
+    "caption": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER Area Cast View Encamp Search Look",
     "seen": [
      "encounter:area:3:SPRIT5.DAX:16:2:0"
     ],
     "end": "encounter:area:3:SPRIT5.DAX:16:2:0"
    },
-   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-NTqMmx | 5 | por.voice.ecl5.b3-9df1-operand-9": {
+   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-UQSjN1 | 5 | por.voice.ecl5.b3-9df1-operand-9": {
     "run": "issue-99-valjevo-outer-patrol-disguise-original",
-    "leg": "slums-presentation-NTqMmx",
+    "leg": "slums-presentation-UQSjN1",
     "unitId": "por.voice.ecl5.b3-9df1-operand-9",
     "asset": "voices/narration/ecl5/b3-9df1-operand-9.mp3",
     "expected": "encounter:area:3:SPRIT5.DAX:16:2:0",
@@ -9827,9 +9827,9 @@
     ],
     "end": "encounter:area:3:SPRIT5.DAX:16:2:0"
    },
-   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-NTqMmx | 6 | por.voice.ecl5.b3-9e47": {
+   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-UQSjN1 | 6 | por.voice.ecl5.b3-9e47": {
     "run": "issue-99-valjevo-outer-patrol-disguise-original",
-    "leg": "slums-presentation-NTqMmx",
+    "leg": "slums-presentation-UQSjN1",
     "unitId": "por.voice.ecl5.b3-9e47",
     "asset": "voices/narration/ecl5/b3-9e47.mp3",
     "expected": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1",
@@ -9839,9 +9839,9 @@
     ],
     "end": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
    },
-   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-NTqMmx | 7 | por.voice.ecl5.b3-9ecd": {
+   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-UQSjN1 | 7 | por.voice.ecl5.b3-9ecd": {
     "run": "issue-99-valjevo-outer-patrol-disguise-original",
-    "leg": "slums-presentation-NTqMmx",
+    "leg": "slums-presentation-UQSjN1",
     "unitId": "por.voice.ecl5.b3-9ecd",
     "asset": "voices/narration/ecl5/b3-9ecd.mp3",
     "expected": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1",
@@ -9851,9 +9851,9 @@
     ],
     "end": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
    },
-   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-NTqMmx | 8 | por.voice.ecl5.b3-9f5b": {
+   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-UQSjN1 | 8 | por.voice.ecl5.b3-9f5b": {
     "run": "issue-99-valjevo-outer-patrol-disguise-original",
-    "leg": "slums-presentation-NTqMmx",
+    "leg": "slums-presentation-UQSjN1",
     "unitId": "por.voice.ecl5.b3-9f5b",
     "asset": "voices/narration/ecl5/b3-9f5b.mp3",
     "expected": "scene-illustration:area:3:ecl:9bf8:cue:giant-patrol-passage",
@@ -9863,9 +9863,9 @@
     ],
     "end": "scene-illustration:area:3:ecl:9bf8:cue:giant-patrol-passage"
    },
-   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-8g1ooM | 1 | por.voice.ecl5.b3-99be": {
+   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-AgL6MJ | 1 | por.voice.ecl5.b3-99be": {
     "run": "issue-99-valjevo-outer-patrol-disguise-port",
-    "leg": "slums-presentation-8g1ooM",
+    "leg": "slums-presentation-AgL6MJ",
     "unitId": "por.voice.ecl5.b3-99be",
     "asset": "voices/narration/ecl5/b3-99be.mp3",
     "expected": "the first-person view",
@@ -9875,9 +9875,9 @@
     ],
     "end": "the first-person view"
    },
-   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-8g1ooM | 2 | por.voice.ecl5.b3-99be": {
+   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-AgL6MJ | 2 | por.voice.ecl5.b3-99be": {
     "run": "issue-99-valjevo-outer-patrol-disguise-port",
-    "leg": "slums-presentation-8g1ooM",
+    "leg": "slums-presentation-AgL6MJ",
     "unitId": "por.voice.ecl5.b3-99be",
     "asset": "voices/narration/ecl5/b3-99be.mp3",
     "expected": "the first-person view",
@@ -9887,35 +9887,35 @@
     ],
     "end": "the first-person view"
    },
-   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-8g1ooM | 3 | por.voice.ecl5.b3-9cb7-9cbb": {
+   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-AgL6MJ | 3 | por.voice.ecl5.b3-9cb7-9cbb": {
     "run": "issue-99-valjevo-outer-patrol-disguise-port",
-    "leg": "slums-presentation-8g1ooM",
+    "leg": "slums-presentation-AgL6MJ",
     "unitId": "por.voice.ecl5.b3-9cb7-9cbb",
     "variantId": "por.voice.ecl5.b3-9cb7-9cbb.variant-01-a-patrol-of-giants-led-by-a-human-fighter",
     "asset": "voices/narration/dynamic-resolved/ecl5-b3-9cb7-9cbb-v01-a-patrol-of-giants-led-by-a-human-fighter.mp3",
     "expected": "encounter:area:3:SPRIT5.DAX:16:2:0",
-    "caption": "'WHAT ARE YOU DOING HERE?' Combat Wait Flee Advance",
+    "caption": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER SURPRISES YOU. Area Cast View Encamp Search Look",
     "seen": [
      "encounter:area:3:SPRIT5.DAX:16:2:0"
     ],
     "end": "encounter:area:3:SPRIT5.DAX:16:2:0"
    },
-   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-8g1ooM | 4 | por.voice.ecl5.b3-9de2-9dec": {
+   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-AgL6MJ | 4 | por.voice.ecl5.b3-9de2-9dec": {
     "run": "issue-99-valjevo-outer-patrol-disguise-port",
-    "leg": "slums-presentation-8g1ooM",
+    "leg": "slums-presentation-AgL6MJ",
     "unitId": "por.voice.ecl5.b3-9de2-9dec",
     "variantId": "por.voice.ecl5.b3-9de2-9dec.variant-01-patrol-of-giants-led-by-a-human-fighter",
     "asset": "voices/narration/dynamic-resolved/ecl5-b3-9de2-9dec-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
     "expected": "encounter:area:3:SPRIT5.DAX:16:2:0",
-    "caption": "'WHAT ARE YOU DOING HERE?' Combat Wait Flee Advance",
+    "caption": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER Area Cast View Encamp Search Look",
     "seen": [
      "encounter:area:3:SPRIT5.DAX:16:2:0"
     ],
     "end": "encounter:area:3:SPRIT5.DAX:16:2:0"
    },
-   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-8g1ooM | 5 | por.voice.ecl5.b3-9df1-operand-9": {
+   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-AgL6MJ | 5 | por.voice.ecl5.b3-9df1-operand-9": {
     "run": "issue-99-valjevo-outer-patrol-disguise-port",
-    "leg": "slums-presentation-8g1ooM",
+    "leg": "slums-presentation-AgL6MJ",
     "unitId": "por.voice.ecl5.b3-9df1-operand-9",
     "asset": "voices/narration/ecl5/b3-9df1-operand-9.mp3",
     "expected": "encounter:area:3:SPRIT5.DAX:16:2:0",
@@ -9925,9 +9925,9 @@
     ],
     "end": "encounter:area:3:SPRIT5.DAX:16:2:0"
    },
-   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-8g1ooM | 6 | por.voice.ecl5.b3-9e47": {
+   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-AgL6MJ | 6 | por.voice.ecl5.b3-9e47": {
     "run": "issue-99-valjevo-outer-patrol-disguise-port",
-    "leg": "slums-presentation-8g1ooM",
+    "leg": "slums-presentation-AgL6MJ",
     "unitId": "por.voice.ecl5.b3-9e47",
     "asset": "voices/narration/ecl5/b3-9e47.mp3",
     "expected": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1",
@@ -9937,9 +9937,9 @@
     ],
     "end": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
    },
-   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-8g1ooM | 7 | por.voice.ecl5.b3-9ecd": {
+   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-AgL6MJ | 7 | por.voice.ecl5.b3-9ecd": {
     "run": "issue-99-valjevo-outer-patrol-disguise-port",
-    "leg": "slums-presentation-8g1ooM",
+    "leg": "slums-presentation-AgL6MJ",
     "unitId": "por.voice.ecl5.b3-9ecd",
     "asset": "voices/narration/ecl5/b3-9ecd.mp3",
     "expected": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1",
@@ -9949,9 +9949,9 @@
     ],
     "end": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
    },
-   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-8g1ooM | 8 | por.voice.ecl5.b3-9f5b": {
+   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-AgL6MJ | 8 | por.voice.ecl5.b3-9f5b": {
     "run": "issue-99-valjevo-outer-patrol-disguise-port",
-    "leg": "slums-presentation-8g1ooM",
+    "leg": "slums-presentation-AgL6MJ",
     "unitId": "por.voice.ecl5.b3-9f5b",
     "asset": "voices/narration/ecl5/b3-9f5b.mp3",
     "expected": "scene-illustration:area:3:ecl:9bf8:cue:giant-patrol-passage",

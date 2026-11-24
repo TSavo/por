@@ -19579,7 +19579,21 @@ try {
   if (battleFrame) console.log(`Battlefield artwork trace (${battleFrame} frames):`, battleTrace);
   if (narrationRun) {
     await awaitSpokenFrame();
-    saveNarrationPlayback(directory, await run("porNarrationPlayback()"));
+    const playback = await run("porNarrationPlayback()");
+    saveNarrationPlayback(directory, playback);
+    if (routeName === "valjevo-outer-patrol-disguise") {
+      const intro = [
+        ["por.voice.ecl5.b3-9cb7-9cbb", "A PATROL OF GIANTS LED BY A HUMAN FIGHTER SURPRISES YOU."],
+        ["por.voice.ecl5.b3-9de2-9dec", "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER"],
+      ];
+      for (const [unitId, text] of intro) {
+        const line = playback.lines.find(entry => entry.unitId === unitId);
+        assert.ok(line?.caption.startsWith(text), `Missing native patrol caption for ${unitId}`);
+        assert.equal(line.outcome, "ended");
+        assert.ok(line.duration > 0 && line.position >= line.duration - 0.25);
+        assert.deepEqual(line.artSeen, ["encounter:area:3:SPRIT5.DAX:16:2:0"]);
+      }
+    }
   }
   if (heldPortraitEvidenceFile) {
     assert.ok(heldPortraitEvidence.length, "The replay did not visit a measured portrait prompt");

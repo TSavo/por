@@ -421,13 +421,16 @@ const journal = (transcript = adventureLog?.() ?? ""): JournalLead[] => {
 };
 // POR_NARRATION_LEDGER: opened before the display reads its artwork list. Observes only.
 if (env.POR_BROWSER_PLAY === "1") narrationLedger?.open();
+const browserSound = env.POR_BROWSER_PLAY === "1";
+const narrationManifest = browserSound
+  ? readJsonNow<ObserverManifest>(gameResources, "manifest:src/audio/voice-master-manifest.json")! : undefined;
 const input = liveAt === undefined ? undefined : liveInput(liveStep, () => {
   const known = journal();
   const leads = [...known, ...journalInventoryLeads(cpu, known, unit.data)];
   noteNewJournalLeads(leads);
   if (seedJournalMarks) seedJournalMarks = false;
   return leads;
-}, recording, automap, Boolean(port), port?.data.pictures);
+}, recording, automap, Boolean(port), port?.data.pictures, narrationManifest?.units);
 const saves = input && openSaveSlots(gameResources);
 const rosterClosed: DosFileClosed = (name, data, written) => { if (written) saves?.saveRoster(name, data); };
 let slotClosed = rosterClosed;
@@ -468,17 +471,15 @@ const cpu = fresh(requestKey && ((machine, keys, blocking) => {
   (name) => { if (slotClosed === rosterClosed) saves?.saveRoster(name); },
   (name) => loadingSlot && saveSlotLetter(name) ? saves?.partyFiles(name) ?? [] : undefined);
 const soundTracePath = env.POR_SOUND_TRACE;
-const browserSound = env.POR_BROWSER_PLAY === "1";
 let narrationObserver: EclNarrationObserver | undefined;
 const eclTextStarts: ({ step: number; sourceId?: string } | undefined)[] = [];
 const tracePictureProducer = input?.traceHeldPortrait !== undefined ||
   browserSound && Boolean(env.POR_PORTRAIT_DRAW_TRACE);
 const eclPictureProducers: (string | undefined)[] = [];
-if (browserSound) {
-  const manifest = readJsonNow<ObserverManifest>(gameResources, "manifest:src/audio/voice-master-manifest.json")!;
-  const narration = new EclNarrationObserver(manifest);
+if (narrationManifest) {
+  const narration = new EclNarrationObserver(narrationManifest);
   // POR_NARRATION_LEDGER: record every narration decision. Observes only.
-  narrationLedger?.observe(narration, manifest);
+  narrationLedger?.observe(narration, narrationManifest);
   narrationObserver = narration;
 }
 if (narrationObserver || tracePictureProducer || automap) {

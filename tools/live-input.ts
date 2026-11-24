@@ -11,6 +11,7 @@ import { createHash } from "node:crypto";
 import { Frame } from "../src/lib/ega.js";
 import type { EncounterAnchor } from "../src/lib/assets.js";
 import type { Cpu } from "../src/cpu/machine.js";
+import type { RuntimeNarrationUnit } from "../src/runtime/narration.js";
 import { currentObjective, isOpenObjective, kovelJournalTransition, sokalReturnJournalArrival, trackedJournalObjective, type JournalLead } from "../src/runtime/adventure-log.js";
 import type { BiosKey } from "../src/runtime/dos.js";
 import { gameProgress } from "../src/runtime/far.js";
@@ -65,12 +66,10 @@ const transientScriptIllustrations = new Map([
   ["8:27:9c50", "scene-illustration:area:27:ecl:9c50"],
   ["8:27:a1b4", "scene-illustration:area:27:ecl:a1b4:cue:trolls-insult"],
 ]);
-// The peaceful wilderness replies run directly into the travel redraw. Each pair spans
-// the first and final native print of the response (including every inserted actor name).
-const peacefulParlayPrints = new Map([
-  ["6:25:a2fe", "6:25:a308"], ["6:25:a34e", "6:25:a362"], ["6:25:a3d0", "6:25:a405"],
-  ["7:26:a326", "7:26:a330"], ["7:26:a376", "7:26:a38a"], ["7:26:a3f8", "7:26:a42c"],
-  ["8:27:a0e6", "8:27:a0f0"], ["8:27:a136", "8:27:a14a"], ["8:27:a1b8", "8:27:a1ed"],
+// These three peaceful parlay outcomes in each wilderness script return directly to travel.
+const peacefulParlayStarts = new Set([
+  "6:25:a2fe", "6:25:a34e", "6:25:a3d0", "7:26:a326", "7:26:a376", "7:26:a3f8",
+  "8:27:a0e6", "8:27:a136", "8:27:a1b8",
 ]);
 // Hold narrated plates slightly longer than their installed recordings.
 const transientScriptIllustrationDurations = new Map([
@@ -225,7 +224,7 @@ function menuTimeLimit(cpu: Cpu): boolean {
 
 /** Terminal control for the translated runner. Journal input stays on the host. */
 export function liveInput(startAt: number, journal: () => JournalLead[], recording?: string, automap?: Automap,
-  standalone = false, pictures?: readonly PictureRecord[]) {
+  standalone = false, pictures?: readonly PictureRecord[], narrationUnits: readonly RuntimeNarrationUnit[] = []) {
   let nextPrompt = startAt;
   let trackedId: string | undefined;
   let scene: string | undefined;
@@ -421,7 +420,22 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   /** The right-hand panel above the report (the actor's stats) when the last report was taken. */
   let lastCombatStats = "";
   let lastApproach: string | undefined;
-  let peacefulParlay: { start: number; lastPrint: string } | undefined;
+  // The castle patrols print their introductions before drawing the encounter menu. The
+  // voiced unit names its own first and last prints, including conditional alternatives.
+  const transientPatrols = new Map<string, Set<string>>();
+  for (const unit of narrationUnits) {
+    const where = unit.triggerSourceId.match(/^por\.review\.ecl-(\d+)\.block-(\d+)\.at-([0-9a-f]+)$/);
+    if (!where || !unit.runtimeVariants?.length) continue;
+    const [, archive, block, address] = where;
+    if (!(archive === "5" && ["3", "4", "6"].includes(block!)) &&
+        !peacefulParlayStarts.has(`${archive}:${block}:${address}`)) continue;
+    const lastPrint = unit.coveredSourceIds.at(-1);
+    if (!lastPrint) continue;
+    const ends = transientPatrols.get(unit.triggerSourceId) ?? new Set<string>();
+    ends.add(lastPrint);
+    transientPatrols.set(unit.triggerSourceId, ends);
+  }
+  let patrolPassage: { start: number; ends: ReadonlySet<string> } | undefined;
   let wildernessEncounter: { actor: EncounterPlacement; terrain: OverlandTerrainFrame; block: number; parlay: boolean } | undefined;
   const portraitKeys = (env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean);
   const portraitArt = loadPortraitArt(portraitKeys, browser);
@@ -1575,14 +1589,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const block = cpu.read8(unit.data, data.eclBlock);
       const cursor = authoredScriptPosition(cpu, cpu.read16(unit.data, data.eclCursor), unit.data);
       const scope = transientScriptIllustrations.get(`${archive}:${block}:${cursor.toString(16)}`);
-      const sourceAddress = sourceId?.split(".at-")[1];
-      const print = sourceAddress && `${archive}:${block}:${sourceAddress}`;
-      const lastPrint = print && peacefulParlayPrints.get(print);
-      if (lastPrint) peacefulParlay = { start, lastPrint };
+      const ends = sourceId && transientPatrols.get(sourceId);
+      if (ends) patrolPassage = { start, ends };
       const previous = animation.at(-1);
-      if (print && print === peacefulParlay?.lastPrint && peacefulParlay) {
-        start = peacefulParlay.start;
-        peacefulParlay = undefined;
+      if (sourceId && patrolPassage?.ends.has(sourceId)) {
+        start = patrolPassage.start;
+        patrolPassage = undefined;
         if (wildernessEncounter?.block === block) wildernessEncounter.parlay = true;
         captureEclContext(cpu);
         showFrame(undefined, undefined, false, false, undefined, undefined, false, "narration");
