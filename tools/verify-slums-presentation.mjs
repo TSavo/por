@@ -5590,15 +5590,12 @@ const illustrationRoutes = new Map([
     continuation: { automaticBattle: "opening-turn", clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
   ["slums-monster-council-phases", {
-    slot: "B", inputs: ["up", "enter", "enter", ...Array(18).fill("q")],
-    portraitStops: {
-      3: "portrait:area:20:PIC2.DAX:6:0:0",
-      13: "portrait:area:20:ecl:b6df:caller:abd5:PIC2.DAX:6:2:0",
-    },
-    portrait: "portrait:area:20:ecl:b6df:caller:abd5:PIC2.DAX:6:1:0",
-    prompt: /YOUINTRUDEONAGATHERINGOFMONSTERLEADERS/i,
-    phaseCaptures: { 13: "slums-monster-council-phase-2.png" },
-    finalPhaseCapture: "slums-monster-council-phase-1.png",
+    slot: "B", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:20:PIC2.DAX:6:0:0", prompt: /YOUINTRUDEONAGATHERINGOFMONSTERLEADERS/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => member
+      ? `portrait:area:20:ecl:b6df:caller:abd5:PIC2.DAX:6:${member}:0` : "portrait:area:20:PIC2.DAX:6:0:0"),
+    heldPhaseCaptures: Object.fromEntries(Array.from({ length: 2 }, (_, index) =>
+      [`portrait:area:20:ecl:b6df:caller:abd5:PIC2.DAX:6:${index + 1}:0`, `slums-monster-council-phase-${index + 1}.png`])),
   }],
   ...[
     ["council", "abd5", /YOUINTRUDEONAGATHERINGOFMONSTERLEADERS/i,
@@ -5737,18 +5734,14 @@ const illustrationRoutes = new Map([
     },
   }],
   ["slums-grain-sack-phases", {
-    slot: "B", inputs: ["up", "enter", "enter", ...Array(23).fill("q")],
-    portraitStops: {
-      3: "portrait:area:20:PIC2.DAX:31:0:0",
-      11: "portrait:area:20:ecl:b6df:caller:b0ec:PIC2.DAX:31:4:0",
-      14: "portrait:area:20:ecl:b6df:caller:b0ec:PIC2.DAX:31:2:0",
-      15: "portrait:area:20:ecl:b6df:caller:b0ec:PIC2.DAX:31:1:0",
-    },
-    portrait: "portrait:area:20:ecl:b6df:caller:b0ec:PIC2.DAX:31:3:0",
-    prompt: /SOMEMONSTERSARETOSSINGASACKOFGRAIN/i,
-    phaseCaptures: { 11: "slums-grain-sack-ambush-phase-4.png", 14: "slums-grain-sack-ambush-phase-2.png", 15: "slums-grain-sack-ambush-phase-1.png" },
-    finalPhaseCapture: "slums-grain-sack-ambush-phase-3.png",
-    continuation: { inputs: ["enter"], portrait: "portrait:area:20:ecl:b10d:PIC2.DAX:31:3:0", prompt: /ABATTLEBEGINS/i },
+    slot: "B", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:20:PIC2.DAX:31:0:0", prompt: /SOMEMONSTERSARETOSSINGASACKOFGRAIN/i,
+    heldPortraitLoop: [0, 1, 2, 3, 4, 3, 2, 1].map(member => member
+      ? `portrait:area:20:ecl:b6df:caller:b0ec:PIC2.DAX:31:${member}:0` : "portrait:area:20:PIC2.DAX:31:0:0"),
+    heldPhaseCaptures: Object.fromEntries(Array.from({ length: 4 }, (_, index) =>
+      [`portrait:area:20:ecl:b6df:caller:b0ec:PIC2.DAX:31:${index + 1}:0`, `slums-grain-sack-ambush-phase-${index + 1}.png`])),
+    continuation: { inputs: ["enter"], portrait: "portrait:area:20:PIC2.DAX:31:0:0", prompt: /ABATTLEBEGINS/i,
+      pressOnPortrait: "portrait:area:20:ecl:b6df:caller:b0ec:PIC2.DAX:31:3:0", retainPose: true },
   }],
   ["diogenes-mountain-sighting-loop", {
     slot: "A", inputs: ["up", "enter"],
@@ -13862,6 +13855,16 @@ try {
       assert.match(text, /YOUCANSEECHILDRENPEERINGOUTOFTHETENTOPENINGS/i);
     }
     if (illustration.heldPortraitLoop) await verifyHeldPortraitLoop(illustration.heldPortraitLoop, routeName === "swamp-drawbridge-hold" ? routeName : undefined);
+    const waitForPortraitPaint = (sequence, portrait) => waitFor("the displayed portrait pose", () => run(`(() => {
+      const image = document.querySelector("#tile-art:not([hidden]) .encounter-portrait");
+      return state.sequence === ${sequence} && !animationFrame && renderingSequence === undefined &&
+        image?.complete && image.naturalWidth === 352 && new URL(image.src).pathname === ${JSON.stringify("/art/" + portrait)};
+    })()`));
+    for (const [phase, file] of Object.entries(illustration.heldPhaseCaptures ?? {})) {
+      await waitForPortraitPaint(frame.sequence, phase);
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, file), Buffer.from(shot.data, "base64"));
+    }
     if (illustration.staticPortraitMenu || illustration.illustratedScenery) {
       await verifyStaticPortrait(portrait, prompt, false, illustration.illustratedScenery);
     }
@@ -14168,11 +14171,6 @@ try {
     }
     if (continuation) {
       if (continuation.heldApproach) await observeApproach([continuation.heldApproach.placement], false);
-      const waitForPortraitPaint = (sequence, portrait) => waitFor("the displayed continuation pose", () => run(`(() => {
-        const image = document.querySelector("#tile-art:not([hidden]) .encounter-portrait");
-        return state.sequence === ${sequence} && !animationFrame && renderingSequence === undefined &&
-          image?.complete && image.naturalWidth === 352 && new URL(image.src).pathname === ${JSON.stringify("/art/" + portrait)};
-      })()`));
       if (journalLead) {
         await advance("j");
         assert.ok(frame.journal);
