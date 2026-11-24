@@ -51,7 +51,7 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
     const directory = resolve(saveDir, `leg-${++campaignLeg}`);
     // The shorter campaign branches to Ohlo after the shared opening. The full
     // campaign's seventh schedule instead takes the party to Sokal.
-    const scheduleDirectory = campaign && !campaignOption && campaignLeg > 6 ? "campaign-ohlo" : "campaign";
+    const scheduleDirectory = campaign && (!campaignOption || campaignOption === "--from-temple") && campaignLeg > 6 ? "campaign-ohlo" : "campaign";
     const chrome = await openChromeCampaignLeg({
       chromePath, directory, checkpointDir: resolve(checkpointDir), bootKeys, startAt, developerCombat,
       inputCompat: recording?.inputCompat,
@@ -1507,13 +1507,13 @@ async function verifySokalTempleHealing() {
     : "Returned to New Phlan and verified Brin's paid temple healing after reloading slot G.");
 }
 
-function selectEquipment(item, readyPrefix = "") {
+function selectEquipment(item, count, readyPrefix = "") {
   const expected = (readyPrefix + item).replaceAll(" ", "").toLowerCase();
-  return ["end", (frame) => frame.text
+  return presses("end", count, (frame) => frame.text
     // The guest paints the active stock or inventory row white.
     .filter(([cell, , color]) => color === 15 && cell >= 4 * 40 && cell < 23 * 40 && cell % 40 < 28)
     .sort(([a], [b]) => a - b)
-    .map(([, character]) => String.fromCharCode(character)).join("").toLowerCase() === expected, 20];
+    .map(([, character]) => String.fromCharCode(character)).join("").toLowerCase() === expected);
 }
 
 async function verifySokalRearm() {
@@ -1524,11 +1524,11 @@ async function verifySokalRearm() {
     const weapon = weapons[index];
     return [
       ...(index ? ["end"] : []),
-      ...(needsWeapon ? ["b", "n", selectEquipment(weapon), "b", "e"] : []),
-      ...(needsShield ? ["b", "n", "n", selectEquipment("shield"), "b", "e"] : []),
+      ...(needsWeapon ? ["b", "n", selectEquipment(weapon, 15), "b", "e"] : []),
+      ...(needsShield ? ["b", "n", "n", selectEquipment("shield", needsWeapon ? 18 : 17), "b", "e"] : []),
       "v", "i", "i",
-      ...(needsWeapon ? [selectEquipment(weapon, "no"), "r"] : []),
-      ...(needsShield ? [selectEquipment("shield", "no"), "r"] : []),
+      ...(needsWeapon ? [selectEquipment(weapon, 1, "no"), "r"] : []),
+      ...(needsShield ? [selectEquipment("shield", needsWeapon ? 1 : 2, "no"), "r"] : []),
       (text) => {
         assert.ok(text.includes(`${name}'s items`));
         assert.ok(text.includes(`yes ${weapon}`), `${name} has not readied ${weapon}`);
@@ -1779,6 +1779,8 @@ if (campaign && campaignOption === "--from-sokal-armory") {
 }
 
 if (campaign && campaignOption === "--from-temple") {
+  // The normal Ohlo route saved and reloaded this slot immediately before leg 30.
+  campaignLeg = 29;
   copyFileSync(campaignInput, join(saveDir, "G.json"));
   await verifySokalEvokerRecruitment();
   await verifySokalEvokerReturn();
