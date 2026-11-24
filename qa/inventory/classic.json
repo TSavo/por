@@ -1469,7 +1469,10 @@
           "evidence": [
             "src/maps/area-catalog.json"
           ],
-          "checks": []
+          "checks": [
+            "yarash-te"
+          ],
+          "gap": "The TE check follows the two teleporter landings. Other events in this area remain unverified."
         },
         {
           "id": "classic.area-23",
@@ -1477,7 +1480,10 @@
           "evidence": [
             "src/maps/area-catalog.json"
           ],
-          "checks": []
+          "checks": [
+            "yarash-te"
+          ],
+          "gap": "The TE check follows the two teleporter landings. Other events in this area remain unverified."
         },
         {
           "id": "classic.area-24",
@@ -1776,7 +1782,8 @@
           ],
           "checks": [
             "original-audio",
-            "sound-driver-unicorn"
+            "sound-driver-unicorn",
+            "packaged-classic-sounds"
           ]
         },
         {

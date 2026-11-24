@@ -69,6 +69,7 @@
       "detail": "The Enhanced portrait layer has had an opaque backdrop since 9f9098dd. The fresh-party Rolf replay at 0adc165e passed on DOS 1.0 and GOG 1.3: all three approach sprites over WebGL, the single full-panel greeting, all seven tour stops, and the City Hall guard transition. A separate old tour checkpoint did not reach the greeting. The GOG 1.3 Rhetoric stacks replay verified panel geometry and display switching, with identical picture pixels before and after the change. The reported Zhentil overnight ambush still needs a live reproduction: the short replay with zhentil-quarters-A.json returned to exploration at 6,0 E, and the envoy replay with parallel-cadorna-envoy-A.json stopped before its first expected portrait.",
       "source": "Owner report.",
       "status": "fixed",
+      "check": "presentation-replays",
       "issue": 79,
       "resolution": "The recovered overnight Zhentil checkpoint reached the reported four-guard ambush in both GOG 1.3 and bundled Chrome replays. The battle-entry illustration filled the outer viewport with no inner frame. The bundled-only missing guard advance was a separate lookup issue, #115; the native draw now finds the scoped artwork through the identical SPRIT5 frame."
     },
@@ -107,6 +108,7 @@
       "detail": "They are in TSavo/por-assets under original/. A release of this repository alone is silent in Classic.",
       "source": "Owner reminder and code reading.",
       "status": "fixed",
+      "check": "packaged-classic-sounds",
       "resolution": "Fixed by 1c9635e9: the 40 reproduced Classic WAVs ship in audio/classic."
     },
     {
@@ -162,6 +164,7 @@
       "detail": "The character-sheet-part layer is not in the page's handled fallback list.",
       "source": "Research pass.",
       "status": "fixed",
+      "check": "character-sheet-fallback",
       "issue": 87,
       "resolution": "Chrome reproduced the drop to Classic before the fix. With either portrait part missing, the sheet stays Enhanced. GOG 1.3 supplies a cropped native portrait and the bundled build leaves the field empty. The Chrome regression verifies both failures and portrait recovery in both data modes."
     },
@@ -181,6 +184,7 @@
       "detail": "The Stephen S. Lee guide (v2.00, 2026-04-02) is written for IBM v1.3. Compared with a v1.3 copy (Internet Archive POR_POR), all 113 shared data files are identical and 28 of 29 script blocks are identical. The New Phlan script (ECL3 block 0) is 3 bytes longer in v1.3. START.EXE and GAME.OVR differ, and v1.3 uses a different overlay format. Our credits show no version, which the guide says means v1.0. So scripted steps apply except for one New Phlan edit still to be located, and every engine-level claim in the guide must be confirmed against our program.",
       "source": "Guide research, qa/research/guides-digest.md.",
       "status": "fixed",
+      "check": "version-1.3",
       "resolution": "Resolved: the port now runs version 1.3, the version the walkthrough describes."
     },
     {
@@ -235,6 +239,7 @@
       "detail": "Owner decision on 2026-11-21. Version 1.3 is what GOG sells and what the walkthrough documents. 73% of our procedures are the same or nearly the same in it, the scripts differ in one place, and the data is identical. The work: translator support for EXEPACK and the FBOV overlay file, a named table of every code and data address the host uses, and the same checks passing on 1.3. Hard requirement from the owner: the narration and artwork work must carry over intact. Measured: of 8,063 artwork keys, 4,023 are keyed by pixels and 2,160 by data files, both identical in 1.3; 1,880 are keyed by script position, and only 60 of those are New Phlan positions after the edit and must move by 3. Of 1,432 narration units, 35 touch the 49 New Phlan source events after the edit; the 1,745 recordings themselves do not change. The journal's 333 text triggers match the game's own words, which are identical. Sound is part of the requirement: the 1.3 sound driver code and most of its data differ from the earlier program, so the 20 Classic events must be decoded, rendered and verified again. Progress is measured by `npm run qa:version-1.3`, which counted 1,044 left on 2026-11-21. On 2026-11-21 npm run qa:version-1.3 exited 0: 846 procedures translated, all artwork keys and narration units working, the sound exact, and ten checks passing on 1.3 including the full campaign. Still to do: make 1.3 the default and retire the first release.",
       "source": "qa/research/version-1.3-differences.md.",
       "status": "fixed",
+      "check": "version-1.3",
       "resolution": "The port runs GOG 1.3: `npm run qa:version-1.3` exits 0 (qa/evidence/version-1.3-measure-2026-11-22*.txt)."
     },
     {
@@ -366,6 +371,7 @@
       "detail": "The three temples of New Phlan greet the party with their own line and then all jump to one shared print, \"' DO YOU SEEK HEALING?'\" (ECL3.DAX block 0, aa13 in the manifest's numbering). The manifest gives that print to one unit only, por.voice.ecl3.b0-a9ef-aa13, whose trigger is the Tempus greeting at a9ef: its recording says both sentences. The greetings of Sune (a0d0, 'YOU ARE WELCOMED BY PRIESTESS JOY OF SUNE.') and Tyr ('THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE.') are units of their own that cover only the greeting, so in those two temples the question appears on screen and is never spoken. Found by the narration ledger: in `npm run acceptance:new-phlan` the print at aa13 was reached four times with none of its covering units started (twice after the Sune greeting, twice after Tyr's) and twice correctly as a continuation of the Tempus unit. `npm run qa:narration` lists it under silent cases as covered-without-trigger. The fix is in the manifest and recordings: the Sune and Tyr units must cover the question, or the question needs a unit of its own.",
       "source": "Narration ledger of acceptance:new-phlan, 2026-11-21; ECL3.DAX block 0 read with src/lib/ecl.ts.",
       "status": "fixed",
+      "check": "narration-runtime",
       "resolution": "Fixed by c18e8c50: 'Do you seek healing?' is narrated at the temples of Tyr and Sune."
     },
     {
@@ -434,6 +440,7 @@
       "detail": "It happens in live play, not only under the harness. Measured three ways on 2026-11-21, after the voices.json lines were retired. (1) The play server started as `npm run play` starts it (real clock, no replay schedule), driven over HTTP with no browser: on Rolf's tour the unit appears in /state 0.03 to 2.9s after Enter and the frame that prints the passage is ready 13.4 to 22.1s after the unit (b0b6 14.0, b1c2 17.3, b257 20.5, b2f3 17.2, b36a 22.1, b400 19.2); in the replay input mode 13.4 to 19.7s. The page cannot draw a frame it has not been sent, so a person pressing keys gets the same. (2) In Chrome, verify:narration-playback pass 1: every one of the eight units started within 0.02s of being queued and played to its end under the previous passage's picture; its own picture was drawn 7.4 to 14.8s after the line had ended (b0b6 7.4, b1c2 9.5, b257 14.8, b2f3 10.7, b36a 11.3, b400 8.4, b48f 10.7, b51c 14.0). The game takes no key in that time. (3) The runner alone (tools/boot-translated.ts with POR_BROWSER_PLAY=1, with and without the portrait artwork list) prints the frame 0.2 to 1.2s after the narration. So the delay is in what the play server adds to the runner or does with the frame, not in the game's script; which, is not established. The machine was busy during all three (load 10 to 30); the earlier harness figure was 7.6 to 10.7s. The owner's requirement is the picture there when the narrator speaks. Either the frame must reach the page as fast as the runner alone produces it, or the page must hold a narration until the frame that prints it is drawn. The measure's row 'Played with their artwork on screen from start to end' now requires the passage's own artwork (from the ledger), so these lines no longer count as having it.",
       "source": "tools/browser-play.ts driven over HTTP; playback log of npm run verify:narration-playback in Chrome; tools/boot-translated.ts timed alone; all 2026-11-21.",
       "status": "fixed",
+      "check": "narration-playback",
       "resolution": "Fixed by b8535ed1: the server holds a narration and gives it to the page with the frame that follows it."
     },
     {

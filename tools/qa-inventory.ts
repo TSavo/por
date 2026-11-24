@@ -34,7 +34,7 @@ const checkIds = new Set(checks.map(({ id }) => id));
 const problems: string[] = [];
 if (checkIds.size !== checks.length) problems.push("qa/checks.json has duplicate check ids");
 for (const check of checks) {
-  const script = /^npm run ([\w:-]+)/.exec(check.command)?.[1];
+  const script = /^npm run ([^\s]+)/.exec(check.command)?.[1];
   const scripts = read<{ scripts: Record<string, string> }>(new URL("../package.json", import.meta.url)).scripts;
   if (script && !scripts[script]) problems.push(`check ${check.id} names a missing npm script: ${script}`);
   const tool = /(?:tsx|node|python) (tools\/[\w./-]+)/.exec(check.command)?.[1];

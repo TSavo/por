@@ -233,6 +233,16 @@ for (const [entryAddress, number] of [[0x9b71, 42], [0xa713, 28], [0xa7f8, 16], 
   else assert.equal(realCatalog.resolve(event!).status, "continuation", "already covered by the opening recording");
 }
 
+// Each New Phlan temple welcomes the party before asking the shared healing question.
+loadBlock(3, 0);
+for (const [address, name] of [[0xa078, "TYR"], [0xa0d0, "SUNE"]] as const) {
+  const line = realCatalog.resolve(reach(address, 0x12)!);
+  assert.equal(line.status, "resolved");
+  assert.ok(line.narration.text.includes(name));
+  assert.match(line.narration.text, /DO YOU SEEK HEALING/i);
+  assert.equal(line.narration.asset, `voices/narration/ecl3/b0-${address.toString(16)}-aa13.mp3`);
+}
+
 let confirmationAsset: string | undefined;
 for (const [archive, block, address, expected] of [
   [3, 14, 0x9f26, /One of the party casts a Knock spell/],

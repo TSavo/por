@@ -10,6 +10,7 @@
  *     file, a program, a Classic sound that is not the committed audio/classic file at its own path, or has
  *     the bytes of any file in POR_ASSETS_DIR (which must exist), unless it is that committed file.
  */
+import { missingClassicRecordings } from "../classic-sounds.js";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { existsSync, lstatSync, readFileSync, readdirSync } from "node:fs";
@@ -71,12 +72,12 @@ if (mode === "list") {
         parts.pop();
       }
     }
-    let classic = 0;
+    const classic = new Set<string>();
     for (const entry of entries) {
       const name = basename(entry.path);
       const payloadPath = entry.path.startsWith("Resources/") ? entry.path.slice("Resources/".length) : entry.path;
       const committedClassicSound = !entry.link && committedClassic.get(payloadPath) === entry.blob;
-      if (committedClassicSound) classic++;
+      if (committedClassicSound) classic.add(payloadPath);
       if (entry.link && (!entry.target || entry.target.split("/").some(part => !part || part === ".." || part === ".") ||
           !destinations.has(entry.target))) problems.push(`${entry.path} has no verified target inside the package`);
       if (/por-assets/i.test(entry.path)) problems.push(`${entry.path} names por-assets`);
@@ -86,12 +87,13 @@ if (mode === "list") {
       const asset = entry.sha256 && assets.get(entry.sha256);
       if (asset && !committedClassicSound) problems.push(`${entry.path} is ${asset}`);
     }
+    problems.push(...missingClassicRecordings(classic));
     if (problems.length) {
       failed = true;
       console.error(`${manifest}: ${problems.length} problems:\n  ${problems.join("\n  ")}`);
     } else {
       console.log(`${manifest}: ${entries.length} files, none an original game file, external link, program or por-assets path; ` +
-        `${classic} are the committed audio/classic; none has the bytes of any of the ${assetFiles} files in ${porAssets}`);
+        `${classic.size} are the committed audio/classic; none has the bytes of any of the ${assetFiles} files in ${porAssets}`);
     }
   }
   if (failed) process.exit(1);

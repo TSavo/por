@@ -153,7 +153,10 @@
           "evidence": [
             "tools/portrait-art.ts"
           ],
-          "checks": []
+          "checks": [
+            "character-sheet-fallback"
+          ],
+          "gap": "The regression exercises missing head and body art and recovery in a created character. Other combinations remain unverified."
         },
         {
           "id": "enhanced.combat-sprites",
@@ -1005,7 +1008,8 @@
             "code-wheel",
             "code-wheel-screen",
             "runes-readable",
-            "rune-glyphs"
+            "rune-glyphs",
+            "version-1.3"
           ],
           "gap": "Checked on version 1.3. The first release never asks the question at start-up, so the screen is not exercised there. The runes the game writes during play are checked at all five places, Sokal Keep by play and the four in Valjevo Castle and Yarash's pyramid by developer travel with a level 1 party, and again in the shipped game from game/ (POR_GAME_SOURCE=port), where the page draws each rune from the wheel's picture: all five passed on 2026-11-22, as they did with the original files. In both runs the Journal Entry 35 friend-word place was not reached: the old lizard man did not appear at (4,3). Not established: that the game takes HARASH and LUX where it asks for them (the check types SHESTNI, NOKNOK and RHODIA), and the same five places on the first release. The table from glyph code to the wheel's rune picture is proved against the 13 questions and the six words in the scripts, and every glyph of the game's rune font is its picture pixel for pixel (rune-glyphs, with the original files)."
         }

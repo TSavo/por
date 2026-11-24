@@ -28,6 +28,7 @@
  * `npx tsx tools/release/pack.ts --check <directory>` runs checks 1 and 2 alone on an unpacked package
  * or an install, such as the Contents of an installed Mac app.
  */
+import { missingClassicRecordings } from "../classic-sounds.js";
 import { execFileSync, execSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
@@ -174,7 +175,8 @@ const assetHashes = new Map<string, string>();
 const committedClassic = committedBlobs("audio/classic");
 function checkNothingOriginal(root: string, label: string): void {
   const problems: string[] = [];
-  let compared = 0, classic = 0;
+  let compared = 0;
+  const classic = new Set<string>();
   for (const path of files(root)) {
     const full = join(root, path);
     const name = basename(path);
@@ -193,7 +195,7 @@ function checkNothingOriginal(root: string, label: string): void {
     if (/\.exe$/i.test(name) && payloadProgram.test(path.replace(/\\/g, "/"))) problems.push(`${path} is a program`);
     if (!info.isFile()) continue;
     const committedClassicSound = committedClassic.has(payloadPath) && committedClassic.get(payloadPath) === gitBlob(full);
-    if (committedClassicSound) classic++;
+    if (committedClassicSound) classic.add(payloadPath);
     if (classicSound.test(name) && !committedClassicSound) problems.push(`${path} is a Classic sound that is not the committed audio/classic file`);
     const candidates = assetsBySize.get(statSync(full).size);
     if (candidates && !committedClassicSound) {
@@ -205,11 +207,12 @@ function checkNothingOriginal(root: string, label: string): void {
       }
     }
   }
+  problems.push(...missingClassicRecordings(classic));
   if (problems.length) throw new Error(`Check 1 failed in ${label}:\n  ${problems.join("\n  ")}`);
   const against = existsSync(porAssets)
     ? `; no other file has the bytes of any of por-assets' files (${compared} same-size comparisons)`
     : "; no por-assets beside the checkout to compare bytes with";
-  log(`check 1 passed in ${label}: no original game file, outbound link or por-assets path; ${classic} files are the committed ` +
+  log(`check 1 passed in ${label}: no original game file, outbound link or por-assets path; ${classic.size} files are the committed ` +
     `audio/classic, and no other is a Classic sound${against}`);
 }
 

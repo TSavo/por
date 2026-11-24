@@ -2,6 +2,32 @@
   "schema": 1,
   "checks": [
     {
+      "id": "packaged-classic-sounds",
+      "title": "Every packaged PC speaker and Tandy sound matches its committed recording",
+      "command": "tsx tools/release/manifest.ts check <mounted-package-manifest>",
+      "reference": "self",
+      "needs": ["package manifest", "por-assets"]
+    },
+    {
+      "id": "character-sheet-fallback",
+      "title": "Character sheet stays Enhanced and recovers after missing portrait art",
+      "command": "node tools/verify-character-sheet-fallback.mjs <chrome>",
+      "reference": "recorded-play",
+      "needs": [
+        "Chrome"
+      ]
+    },
+    {
+      "id": "version-1.3",
+      "title": "Run the GOG 1.3 translation and campaign acceptance measure",
+      "command": "npm run qa:version-1.3",
+      "reference": "original",
+      "needs": [
+        "game files",
+        "Chrome"
+      ]
+    },
+    {
       "id": "yarash-te",
       "title": "After TA, TE sends the party to Level 1 without a rock and Level 2 after one rock",
       "command": "node tools/verify-yarash-te.mjs",
