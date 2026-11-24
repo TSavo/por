@@ -13359,9 +13359,9 @@ try {
     let alreadyPassedPatrol;
     const heldApproachPlacement = illustration.heldApproachPrompt && (illustration.heldApproachPlacement ??
       patrolApproachPlacement(illustration.heldApproachArea ?? illustration.heldApproachPosition[0]));
+    const timedPatrol = illustration.podolProof === "battle" || illustration.podolProof === "scenery";
     if (approachSequence) {
-      await observeApproach(approachSequence, illustration.requireTiledApproach, illustration.requireWebGL,
-        illustration.podolProof === "battle");
+      await observeApproach(approachSequence, illustration.requireTiledApproach, illustration.requireWebGL, timedPatrol);
     }
     else if (heldApproachPlacement && heldPortraitEvidenceFile) {
       await observeApproach([heldApproachPlacement]);
@@ -13742,8 +13742,8 @@ try {
     }
     if (approachSequence) {
       const expected = approachSequence.map(([, , id]) => id);
-      if (illustration.podolProof === "battle") {
-        await waitFor("the rendered Podol rest approach", () => run(
+      if (timedPatrol) {
+        await waitFor("the rendered Podol patrol approach", () => run(
           `${JSON.stringify(expected)}.every(id => window.observedApproach.has(id))`), 15_000)
           .catch(async error => {
             const timeline = await run("({ queued: [...window.announcedApproaches], rendered: [...window.observedApproach] })");
