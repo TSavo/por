@@ -355,13 +355,12 @@
    ],
    "existingKeys": 346,
    "existingKeysAccountedFor": 346,
-   "existingKeysOnlyAsArrivalViews": 1,
+   "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 326,
-   "cellsWithArt": 326,
+   "cellsTheViewsCanShow": 346,
+   "cellsWithArt": 346,
    "toDo": 0,
-   "notEstablished": {},
-   "existingKeysOnlyAsWallMaterials": 19
+   "notEstablished": {}
   },
   {
    "area": 13,

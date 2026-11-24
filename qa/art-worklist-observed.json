@@ -92,6 +92,30 @@
    ]
   },
   "11": {
+   "overheadCells": {
+    "how": "GOG 1.3 Training Hall on the earned Graveyard training walk, native overhead map at inputs 37–42 and 62–65. Chrome paints all 121 positions on both data sources.",
+    "keys": [
+     "tile:11:10fd0886e0431e57ec7e17a59570792e1059f5f7157405b493ce265199ed86da",
+     "tile:11:17aecfacb0ac862291feba2cc4407aa3def3b3919f56e9de997aa729e34681a3",
+     "tile:11:219379cc4da98bf424f77258bb2a0a640f2b73f11a6515fa36e60ffbbea8699f",
+     "tile:11:225eba79de1b87885554c16b2aac6b3bf873b62082a79f1a73420e01bc440ca3",
+     "tile:11:28ff03b45f311ec95732c83a90db315c0fca1f0670cd7beb1fd2514bad09e147",
+     "tile:11:2d42184c2362ae350c986d8bf540af917a86f15ff43d79f3dd6b7842b9490f06",
+     "tile:11:3ff193416e9b23866c37192f42c52fbc2bb3391d79c9344338de23d8db77ff13",
+     "tile:11:47a669a9430a869565e6f1812f530165e01a58580377493e63aee5a840d7058d",
+     "tile:11:482838757d705ffcec482082f3ff2948d4c7a385d2d9edc89a8169c67c22f3e4",
+     "tile:11:496285be59da9811c312df2a2d2da1c53503c086e3f75710abea664bdf2128e3",
+     "tile:11:55654b98b0904a8baf33013b015c4125b494a17e19566b7bb720eb6555a154b0",
+     "tile:11:5ecdd034c02f06e6a9af46d43ce8fc2810a70f34366a4556c9c7fec783d622ed",
+     "tile:11:7a3417a61ee293c17e3fac0977255633aabb174d9bdb22afdb3dc4c06a4d6c82",
+     "tile:11:8a7463159b3cc87236f3702080b428644809d3fabe11818c4cce77feafe61c7d",
+     "tile:11:9062228b7598045f75a5d60a5540b958c6d17b9d450a5cd9ccd89756906bfa3f",
+     "tile:11:9caaba9389bc7c9c4b5600fa65c80dc0951f8c05a67f7e27cca12fda0f0fe6d5",
+     "tile:11:ad494b78a51cb097874be17d5e9ad07ce4d108b7cfc0724a9ffb9289f7d11e5f",
+     "tile:11:bf9c0fd1402ac36b11c3e4d34e5623d7603c85da0b4a60007fe9b2bf76c5e1f9",
+     "tile:11:d8afceb6a1ca80efdc8cbb48c855ae716abf2687808334df576fb5568334ee71"
+    ]
+   },
    "shown": [
     {
      "backdrop": "s0",

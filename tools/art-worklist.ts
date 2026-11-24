@@ -406,7 +406,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
           views.push({ square: y * 16 + x, roofed, shaft, aggs: [...mine], walls });
           // ECL6/7/8 set 0x49fb to 255 when restoring GEO blocks 25/26/27.
           // The branches that enable Area load different maps for the caves.
-          if (context.script.areaView && !context.arrivalFrom && !wildernessEncounter) {
+          if ((context.script.areaView || observed[context.label]?.overheadCells) && !context.arrivalFrom && !wildernessEncounter) {
             areaViewCells(view, x, y, facing).forEach((stack, index) => {
               const { tiles } = cells.prune(stack);
               const cell = cells.cell("-", tiles);

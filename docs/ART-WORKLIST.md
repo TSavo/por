@@ -121,7 +121,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 8 | Phlan City Hall | yes | 326 | 326 | 0 | 336 of 336 (10 as WebGL wall materials) |
 | 9 | Stojanow Gate | yes | 206 | 182 | 0 | 182 of 182 |
 | 10 | Valhingen Graveyard | yes | 1007 | 1007 | 0 | 1019 of 1019 (12 as WebGL wall materials) |
-| 11 | The Training Hall | yes | 326 | 326 | 0 | 346 of 346 (1 as first views of the next area, 19 as WebGL wall materials) |
+| 11 | The Training Hall | yes | 346 | 346 | 0 | 346 of 346 |
 | 13 | The Kobold Caves | yes | 211 | 211 | 0 | 213 of 213 (2 as WebGL wall materials) |
 | 14 | Kovel Mansion | yes | 90 | 90 | 0 | 92 of 92 (2 as WebGL wall materials) |
 | 15 | Mendor's Library | yes | 254 | 254 | 0 | 274 of 274 (15 as first views of the next area, 5 as WebGL wall materials) |
