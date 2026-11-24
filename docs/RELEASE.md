@@ -32,9 +32,11 @@ no `.git`. A checkout of `npm run play` reads the same value from package.json a
 
 | File | What it is |
 | --- | --- |
-| `Pool-of-Radiance-<version>-mac-arm64.dmg`, `-mac-x64.dmg` | `Pool of Radiance.app` beside an Applications link, to drag across: one image for Apple silicon, one for Intel |
-| `Pool-of-Radiance-<version>-windows-setup.exe` | An NSIS installer to Program Files (skipped when makensis is not installed) |
-| `pool-of-radiance-<version>-linux-x64.tar.gz` | A folder with the Electron app (run `./pool-of-radiance`) |
+| `Pool-of-Radiance-Special-Edition-<version>-mac-arm64.dmg`, `-mac-x64.dmg` | `Pool of Radiance.app` beside an Applications link, to drag across: one image for Apple silicon, one for Intel |
+| `Pool-of-Radiance-Special-Edition-<version>-windows-setup.exe` | An NSIS installer to Program Files (skipped when makensis is not installed) |
+| `Pool-of-Radiance-Special-Edition-<version>-windows.zip` | A zip of that installer; this is the Windows torrent payload |
+| `Pool-of-Radiance-Special-Edition-<version>-linux-x64.tar.gz` | A folder with the Electron app (run `./pool-of-radiance`) |
+| `Pool-of-Radiance-Special-Edition-v<version>-repo.zip` | A zip of the tagged checkout including `.git`. Never a git bundle. |
 
 The packages are built from the commit checked out (`git archive HEAD`), not from the working tree,
 plus the compiled Electron main process and the packaged web files. Electron is the official build of
@@ -241,8 +243,8 @@ identified developer. Downloaded, Gatekeeper quarantines it, and opening it show
 Not Opened: Apple could not verify "Pool of Radiance" is free of malware that may harm your Mac or
 compromise your privacy*, with **Done** and **Move to Trash**.
 
-1. Open `Pool-of-Radiance-<version>-mac-arm64.dmg` (Apple silicon) or
-   `Pool-of-Radiance-<version>-mac-x64.dmg` (Intel) and drag `Pool of Radiance.app` to Applications.
+1. Open `Pool-of-Radiance-Special-Edition-<version>-mac-arm64.dmg` (Apple silicon) or
+   `Pool-of-Radiance-Special-Edition-<version>-mac-x64.dmg` (Intel) and drag `Pool of Radiance.app` to Applications.
 2. Open the app. macOS will refuse it.
 3. On macOS 15 Sequoia and later, right-click → Open no longer bypasses Gatekeeper. Go to
    **System Settings → Privacy & Security**, scroll to *"Pool of Radiance" was blocked to protect your
@@ -253,11 +255,12 @@ Or, from Terminal: `xattr -dr com.apple.quarantine "/Applications/Pool of Radian
 first approval, it opens normally. Copied without quarantine, as in the check below, it opens with no
 prompt.
 
-**Windows.** The installer `Pool-of-Radiance-<version>-windows-setup.exe` is unsigned. SmartScreen
-shows *Windows protected your PC*. Click **More info**, then **Run anyway**. After setup, start
-**Pool of Radiance** from the Start Menu or the desktop shortcut (`Pool of Radiance.exe`).
+**Windows.** Unzip `Pool-of-Radiance-Special-Edition-<version>-windows.zip` and run the installer.
+The installer is also attached on its own as `Pool-of-Radiance-Special-Edition-<version>-windows-setup.exe`.
+It is unsigned. SmartScreen shows *Windows protected your PC*. Click **More info**, then **Run anyway**.
+After setup, start **Pool of Radiance** from the Start Menu or the desktop shortcut (`Pool of Radiance.exe`).
 
-**Linux.** There is no AppImage. Unpack `pool-of-radiance-<version>-linux-x64.tar.gz` and run
+**Linux.** There is no AppImage. Unpack `Pool-of-Radiance-Special-Edition-<version>-linux-x64.tar.gz` and run
 `./pool-of-radiance` from that folder. The archive is packed with the executable bit set; if a
 download dropped it, `chmod +x pool-of-radiance`.
 

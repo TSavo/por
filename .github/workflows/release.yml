@@ -93,18 +93,20 @@ jobs:
       - name: Pack windows and linux
         run: |
           npx tsx tools/release/pack.ts windows linux
-          ls -l dist/*.exe dist/*.tar.gz
+          ls -l dist/*windows-setup.exe dist/*windows.zip dist/*linux-x64.tar.gz
       - uses: actions/upload-artifact@v4
         with:
           name: package-windows
-          path: dist/Pool-of-Radiance-*-windows-setup.exe
+          path: |
+            dist/Pool-of-Radiance-Special-Edition-*-windows-setup.exe
+            dist/Pool-of-Radiance-Special-Edition-*-windows.zip
           compression-level: 0
           retention-days: 7
           if-no-files-found: error
       - uses: actions/upload-artifact@v4
         with:
           name: package-linux
-          path: dist/pool-of-radiance-*-linux-x64.tar.gz
+          path: dist/Pool-of-Radiance-Special-Edition-*-linux-x64.tar.gz
           compression-level: 0
           retention-days: 7
           if-no-files-found: error
@@ -143,20 +145,40 @@ jobs:
     name: SHA256SUMS and the GitHub release
     needs: [app, windows-linux, mac]
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 90
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          lfs: false
+          path: src
       - uses: actions/download-artifact@v4
         with:
           pattern: package-*
           path: packages
           merge-multiple: true
+      - name: Repo zip (tagged checkout including .git; never a bundle)
+        env:
+          TAG: ${{ needs.app.outputs.tag }}
+        run: |
+          set -euo pipefail
+          folder="Pool-of-Radiance-Special-Edition-${TAG}-repo"
+          git clone --branch "$TAG" --single-branch src "$folder"
+          head=$(git -C "$folder" rev-parse HEAD)
+          tag_commit=$(git -C "$folder" rev-parse "${TAG}^{commit}")
+          if [ "$head" != "$tag_commit" ]; then
+            echo "::error::repo zip HEAD $head is not tag commit $tag_commit"
+            exit 1
+          fi
+          zip -r -9 "packages/${folder}.zip" "$folder"
+          ls -l "packages/${folder}.zip"
       - name: SHA256SUMS
         working-directory: packages
         run: |
           ls -l
-          test "$(ls | wc -l)" -eq 4 || { echo "::error::expected 4 packages, found $(ls | wc -l)"; exit 1; }
+          test "$(ls | wc -l)" -eq 6 || { echo "::error::expected 6 packages (2 dmgs, windows exe, windows zip, linux archive, repo zip), found $(ls | wc -l)"; exit 1; }
           sha256sum * > SHA256SUMS
           cat SHA256SUMS
           { echo '```'; cat SHA256SUMS; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
@@ -165,6 +187,34 @@ jobs:
           name: SHA256SUMS
           path: packages/SHA256SUMS
           retention-days: 7
+      - name: Torrents for the five seed files
+        if: needs.app.outputs.publish == 'true'
+        env:
+          TAG: ${{ needs.app.outputs.tag }}
+        working-directory: packages
+        run: |
+          set -euo pipefail
+          sudo apt-get update -y
+          sudo apt-get install -y mktorrent
+          # Five separate torrents, matching Beta 1: both Macs, the Windows zip (not the exe), Linux, and the repo zip.
+          for f in \
+            Pool-of-Radiance-Special-Edition-*-mac-arm64.dmg \
+            Pool-of-Radiance-Special-Edition-*-mac-x64.dmg \
+            Pool-of-Radiance-Special-Edition-*-windows.zip \
+            Pool-of-Radiance-Special-Edition-*-linux-x64.tar.gz \
+            Pool-of-Radiance-Special-Edition-*-repo.zip
+          do
+            test -f $f
+            mktorrent -l 20 \
+              -a udp://tracker.opentrackr.org:1337/announce \
+              -a udp://open.stealth.si:80/announce \
+              -a udp://tracker.torrent.eu.org:451/announce \
+              -a udp://exodus.desync.com:6969/announce \
+              -w "https://github.com/${GITHUB_REPOSITORY}/releases/download/${TAG}/$(basename $f)" \
+              -c "Pool of Radiance Special Edition ${TAG} — $(basename $f)" \
+              -o "$(basename $f).torrent" $f
+          done
+          ls -l *.torrent
       - name: Create or update the release
         if: needs.app.outputs.publish == 'true'
         env:
@@ -173,34 +223,69 @@ jobs:
           VERSION: ${{ needs.app.outputs.version }}
         working-directory: packages
         run: |
+          set -euo pipefail
+          magnet() {
+            python3 "$GITHUB_WORKSPACE/src/tools/release/magnet-from-torrent.py" "$1.torrent" "$GITHUB_REPOSITORY" "$TAG"
+          }
           notes=$(mktemp)
+          mac_arm=$(echo Pool-of-Radiance-Special-Edition-$VERSION-mac-arm64.dmg)
+          mac_x64=$(echo Pool-of-Radiance-Special-Edition-$VERSION-mac-x64.dmg)
+          win_zip=$(echo Pool-of-Radiance-Special-Edition-$VERSION-windows.zip)
+          win_exe=$(echo Pool-of-Radiance-Special-Edition-$VERSION-windows-setup.exe)
+          linux=$(echo Pool-of-Radiance-Special-Edition-$VERSION-linux-x64.tar.gz)
+          repo=$(echo Pool-of-Radiance-Special-Edition-$TAG-repo.zip)
           cat > "$notes" <<EOF
-          Pool of Radiance $VERSION, built from $GITHUB_SHA by $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID.
-
+          Pool of Radiance Special Edition $VERSION, built from $GITHUB_SHA by $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID.
+          
           The packages ship unsigned.
-
+          
           ## First launch
-
-          **macOS.** Open \`Pool-of-Radiance-$VERSION-mac-arm64.dmg\` (Apple silicon) or \`Pool-of-Radiance-$VERSION-mac-x64.dmg\` (Intel) and drag \`Pool of Radiance.app\` to Applications, then open it. Gatekeeper will block it.
-
+          
+          **macOS.** Open \`$mac_arm\` (Apple silicon) or \`$mac_x64\` (Intel) and drag \`Pool of Radiance.app\` to Applications, then open it. Gatekeeper will block it.
+          
           - On macOS 15 Sequoia and later, right-click → Open no longer bypasses Gatekeeper. Go to **System Settings → Privacy & Security**, scroll to the blocked-app notice for Pool of Radiance, click **Open Anyway**, and confirm with your password.
           - On earlier macOS, Control-click \`Pool of Radiance.app\`, choose **Open**, then **Open** again.
-
+          
           Or, from Terminal: \`xattr -dr com.apple.quarantine "/Applications/Pool of Radiance.app"\`.
-
-          **Windows.** Run \`Pool-of-Radiance-$VERSION-windows-setup.exe\`. If SmartScreen shows *Windows protected your PC*, click **More info**, then **Run anyway**.
-
-          **Linux.** Unpack \`pool-of-radiance-$VERSION-linux-x64.tar.gz\` and run \`./pool-of-radiance\`. If the file is not executable, \`chmod +x pool-of-radiance\`.
-
+          
+          **Windows.** Unzip \`$win_zip\` and run the installer. If SmartScreen shows *Windows protected your PC*, click **More info**, then **Run anyway**. The installer is also attached on its own as \`$win_exe\`.
+          
+          **Linux.** Unpack \`$linux\` and run \`./pool-of-radiance\`. If the file is not executable, \`chmod +x pool-of-radiance\`.
+          
           SHA256SUMS lists every file's sha256.
+          
+          ## Torrents
+          
+          Each torrent is a single file with a GitHub web seed. \`.torrent\` files are also attached to this release.
+          
+          - **Mac (Apple silicon)** — \`$mac_arm\`
+          
+            \`$(magnet "$mac_arm")\`
+          
+          - **Mac (Intel)** — \`$mac_x64\`
+          
+            \`$(magnet "$mac_x64")\`
+          
+          - **Windows** — \`$win_zip\`
+          
+            \`$(magnet "$win_zip")\`
+          
+          - **Linux** — \`$linux\`
+          
+            \`$(magnet "$linux")\`
+          
+          - **Full repository** — \`$repo\`
+          
+            \`$(magnet "$repo")\`
           EOF
           if gh release view "$TAG" -R "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
             echo "Updating release $TAG"
-            gh release edit "$TAG" -R "$GITHUB_REPOSITORY" --notes-file "$notes"
+            gh release edit "$TAG" -R "$GITHUB_REPOSITORY" --title "Pool of Radiance Special Edition $VERSION" --notes-file "$notes"
           else
             prerelease=; case "$VERSION" in *-*) prerelease=--prerelease ;; esac
             gh release create "$TAG" -R "$GITHUB_REPOSITORY" --verify-tag $prerelease \
-              --title "Pool of Radiance $VERSION" \
+              --title "Pool of Radiance Special Edition $VERSION" \
               --notes-file "$notes"
           fi
+          # Upload packages, SHA256SUMS, and torrents. Do not upload a .bundle.
           gh release upload "$TAG" -R "$GITHUB_REPOSITORY" --clobber ./*

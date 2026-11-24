@@ -167,7 +167,7 @@ The apps ship unsigned, so the first open is blocked until you approve them.
 
 **macOS**
 
-1. Open `Pool-of-Radiance-<version>-mac-arm64.dmg` (Apple silicon) or `Pool-of-Radiance-<version>-mac-x64.dmg` (Intel) and drag `Pool of Radiance.app` to Applications.
+1. Open `Pool-of-Radiance-Special-Edition-<version>-mac-arm64.dmg` (Apple silicon) or `Pool-of-Radiance-Special-Edition-<version>-mac-x64.dmg` (Intel) and drag `Pool of Radiance.app` to Applications.
 2. Open the app. macOS will refuse it.
 3. On macOS 15 Sequoia and later, right-click → Open no longer bypasses Gatekeeper. Go to **System Settings → Privacy & Security**, scroll to the blocked-app notice for Pool of Radiance, click **Open Anyway**, and confirm with your password.
 4. On earlier macOS, Control-click `Pool of Radiance.app`, choose **Open**, then **Open** again.
@@ -176,12 +176,12 @@ Or, from Terminal: `xattr -dr com.apple.quarantine "/Applications/Pool of Radian
 
 **Windows**
 
-1. Run `Pool-of-Radiance-<version>-windows-setup.exe`.
+1. Unzip `Pool-of-Radiance-Special-Edition-<version>-windows.zip` and run the installer. The installer is also attached on the release as `Pool-of-Radiance-Special-Edition-<version>-windows-setup.exe`.
 2. If SmartScreen shows *Windows protected your PC*, click **More info**, then **Run anyway**.
 
 **Linux**
 
-1. Unpack `pool-of-radiance-<version>-linux-x64.tar.gz`.
+1. Unpack `Pool-of-Radiance-Special-Edition-<version>-linux-x64.tar.gz`.
 2. Run `./pool-of-radiance` from that folder. If the file is not executable, `chmod +x pool-of-radiance`.
 
 From a checkout, Node.js 22 or newer:
@@ -230,7 +230,29 @@ The opcode table and the wall-slot geometry were checked against Curse of the Az
 
 Fork this repository. Star it. Mirror it. Clone it. Torrent it. Put a copy on the [Internet Archive](https://archive.org/) and [Software Heritage](https://www.softwareheritage.org/). Share it as far and as wide as you can.
 
-**v0.1.0-beta.1 torrents** are also attached to the [release](https://github.com/TSavo/por/releases/tag/v0.1.0-beta.1). Each has a GitHub web seed. SHA256SUMS on the release covers every file.
+**v0.1.0-beta.2 torrents** are the current release, attached to the [v0.1.0-beta.2 release](https://github.com/TSavo/por/releases/tag/v0.1.0-beta.2). Each has a GitHub web seed. SHA256SUMS on the release covers every file. The Beta 1 torrents stay up and are listed below.
+
+- **Mac (Apple silicon)** — `Pool-of-Radiance-Special-Edition-0.1.0-beta.2-mac-arm64.dmg`
+
+  `magnet:?xt=urn:btih:9f195632bb46311fe424c673576ab67f786fe571&dn=Pool-of-Radiance-Special-Edition-0.1.0-beta.2-mac-arm64.dmg&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&ws=https%3A%2F%2Fgithub.com%2FTSavo%2Fpor%2Freleases%2Fdownload%2Fv0.1.0-beta.2%2FPool-of-Radiance-Special-Edition-0.1.0-beta.2-mac-arm64.dmg`
+
+- **Mac (Intel)** — `Pool-of-Radiance-Special-Edition-0.1.0-beta.2-mac-x64.dmg`
+
+  `magnet:?xt=urn:btih:134dd27bd53a874b3dceebb9610889a0aaf39b34&dn=Pool-of-Radiance-Special-Edition-0.1.0-beta.2-mac-x64.dmg&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&ws=https%3A%2F%2Fgithub.com%2FTSavo%2Fpor%2Freleases%2Fdownload%2Fv0.1.0-beta.2%2FPool-of-Radiance-Special-Edition-0.1.0-beta.2-mac-x64.dmg`
+
+- **Windows** — `Pool-of-Radiance-Special-Edition-0.1.0-beta.2-windows.zip`
+
+  `magnet:?xt=urn:btih:6e3960fcecae66c8f243e2054748a078ef0a7fb9&dn=Pool-of-Radiance-Special-Edition-0.1.0-beta.2-windows.zip&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&ws=https%3A%2F%2Fgithub.com%2FTSavo%2Fpor%2Freleases%2Fdownload%2Fv0.1.0-beta.2%2FPool-of-Radiance-Special-Edition-0.1.0-beta.2-windows.zip`
+
+- **Linux** — `Pool-of-Radiance-Special-Edition-0.1.0-beta.2-linux-x64.tar.gz`
+
+  `magnet:?xt=urn:btih:83d5a207ad8f911d0dd589732bd9ecf1b3793198&dn=Pool-of-Radiance-Special-Edition-0.1.0-beta.2-linux-x64.tar.gz&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&ws=https%3A%2F%2Fgithub.com%2FTSavo%2Fpor%2Freleases%2Fdownload%2Fv0.1.0-beta.2%2FPool-of-Radiance-Special-Edition-0.1.0-beta.2-linux-x64.tar.gz`
+
+- **Full repository** — `Pool-of-Radiance-Special-Edition-v0.1.0-beta.2-repo.zip`, a zip of the source tree including the complete git history, pinned to the Beta 2 tag. This is a `.zip` with `.git` inside, never a git bundle.
+
+  `magnet:?xt=urn:btih:2e1bcd53b6368911909eb25af9f00d9d01a46ac0&dn=Pool-of-Radiance-Special-Edition-v0.1.0-beta.2-repo.zip&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&ws=https%3A%2F%2Fgithub.com%2FTSavo%2Fpor%2Freleases%2Fdownload%2Fv0.1.0-beta.2%2FPool-of-Radiance-Special-Edition-v0.1.0-beta.2-repo.zip`
+
+**v0.1.0-beta.1 torrents** remain seeding and are also attached to the [v0.1.0-beta.1 release](https://github.com/TSavo/por/releases/tag/v0.1.0-beta.1).
 
 - **Mac (Apple silicon)** — `Pool-of-Radiance-Special-Edition-0.1.0-beta.1-mac-arm64.dmg`
 

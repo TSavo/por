@@ -6,10 +6,11 @@
  * when it is installed, else on the machine POR_NSIS_HOST names over ssh (apt-get install nsis there);
  * with neither, the installer is skipped with a message.
  *
- *   dist/Pool-of-Radiance-<version>-mac-arm64.dmg       Pool of Radiance.app for Apple silicon, to drag to Applications
- *   dist/Pool-of-Radiance-<version>-mac-x64.dmg         the same for Intel Macs
- *   dist/Pool-of-Radiance-<version>-windows-setup.exe   NSIS installer to Program Files
- *   dist/pool-of-radiance-<version>-linux-x64.tar.gz    a folder with the Electron app
+ *   dist/Pool-of-Radiance-Special-Edition-<version>-mac-arm64.dmg       Pool of Radiance.app for Apple silicon, to drag to Applications
+ *   dist/Pool-of-Radiance-Special-Edition-<version>-mac-x64.dmg         the same for Intel Macs
+ *   dist/Pool-of-Radiance-Special-Edition-<version>-windows-setup.exe   NSIS installer to Program Files
+ *   dist/Pool-of-Radiance-Special-Edition-<version>-windows.zip         a zip of that installer (this is the Windows torrent)
+ *   dist/Pool-of-Radiance-Special-Edition-<version>-linux-x64.tar.gz    a folder with the Electron app
  *
  * Every package holds the same game files (docs/RELEASE.md lists them), the compiled Electron main
  * process from dist/electron, the packaged page from dist/web, and the official Electron runtime for
@@ -305,7 +306,7 @@ for (const arch of macArchitectures) {
   run("codesign", ["--force", "--deep", "--sign", "-", bundle]);
   run("codesign", ["--verify", "--strict", bundle]);
   symlinkSync("/Applications", join(dmgFolder, "Applications"));
-  const dmg = join(dist, `Pool-of-Radiance-${version}-mac-${arch}.dmg`);
+  const dmg = join(dist, `Pool-of-Radiance-Special-Edition-${version}-mac-${arch}.dmg`);
   rmSync(dmg, { force: true });
   log("building the disk image");
   run("hdiutil", ["create", "-quiet", "-volname", "Pool of Radiance", "-srcfolder", dmgFolder, "-fs", "HFS+", "-format", "ULFO", "-ov", dmg]);
@@ -327,7 +328,7 @@ if (platforms.includes("windows")) {
   try { makensis = run("sh", ["-c", "command -v makensis"]).trim(); } catch { makensis = undefined; }
   const nsisHost = process.env.POR_NSIS_HOST;
   const script = fromPortRoot("tools", "release", "windows-installer.nsi");
-  const setup = join(dist, `Pool-of-Radiance-${version}-windows-setup.exe`);
+  const setup = join(dist, `Pool-of-Radiance-Special-Edition-${version}-windows-setup.exe`);
   if (makensis) {
     log("building the Windows installer");
     run(makensis, ["-V2", `-DSTAGE=${stage}`, `-DOUTFILE=${setup}`, `-DVERSION=${version}`, `-DNUMERIC_VERSION=${windowsVersion}`, script]);
@@ -350,6 +351,12 @@ if (platforms.includes("windows")) {
   if (makensis || nsisHost) {
     log(`${setup} (${size(setup)})`);
     outputs.push(setup);
+    const zipOut = join(dist, `Pool-of-Radiance-Special-Edition-${version}-windows.zip`);
+    if (existsSync(zipOut)) rmSync(zipOut);
+    // A zip of the installer only, matching the Beta 1 Windows torrent. -X -j: no extra fields, no path.
+    run("zip", ["-X", "-j", zipOut, setup]);
+    log(`${zipOut} (${size(zipOut)})`);
+    outputs.push(zipOut);
   } else log("makensis is not installed and POR_NSIS_HOST is not set: the Windows installer was not built");
 }
 
@@ -373,7 +380,7 @@ if (platforms.includes("linux")) {
   ].join("\n"));
   checkNothingOriginal(stage, "the Linux folder");
   checkGame(join(stage, "resources"), "the Linux folder");
-  const archive = join(dist, `${name}-linux-x64.tar.gz`);
+  const archive = join(dist, `Pool-of-Radiance-Special-Edition-${version}-linux-x64.tar.gz`);
   log("building the Linux archive");
   // No macOS extended attributes or AppleDouble files, which tar on Linux warns about.
   run("tar", [...(onMac ? ["--no-xattrs", "--no-mac-metadata"] : []), "-czf", archive, "-C", dirname(stage), name]);
