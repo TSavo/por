@@ -2560,16 +2560,16 @@ if (process.argv[2] === "--zhentil-tour-checkpoint") {
 }
 
 if (process.argv[2] === "--bane-entry53-checkpoint") {
-  assert.ok(process.argv[3], "Pass a durable slot A from (6,9), facing north inside the Temple of Bane.");
-  copyFileSync(process.argv[3], join(saveDir, "A.json"));
+  copyFileSync(process.argv[3] ?? "qa/fixtures/walk-bane-entry53/after/A.json", join(saveDir, "A.json"));
   const learned = frame => frame.journal.leads.find(({ id }) => id === "journal-entry-53");
   await replay(loadSlot("1e61"), "85000000", [
-    (text) => assert.match(text, /6,9 n/),
+    (text) => assert.match(text, /6,7 s/),
     "j", (_text, frame) => assert.equal(learned(frame), undefined), "j",
-    "right", "up", "up", "left", "up", "up", "up", "up", "left", "up", "up", "right", "up",
-    ...Array(8).fill("enter"),
-    ["q", /continue battle/, 160], "n",
-    (text) => assert.match(text, /the party has won/),
+    "up", "enter", "enter",
+    (text) => assert.match(text, /six orcs led by a large ogre.*a battle begins/),
+    "enter", "enter", "enter", presses("q", 48, /continue battle/), "n",
+    (text) => assert.match(text, /theurgist takes and hides his share/), "enter",
+    (text) => assert.match(text, /the party has won.*49 experience points/),
     "enter", "enter", "e", "n",
     (text) => assert.match(text, /find a piece of paper.*journal under entry 53/),
     "j", (_text, frame) => assert.match(learned(frame)?.detail ?? "", /paper on the floor.*entry 53/),
@@ -2577,14 +2577,14 @@ if (process.argv[2] === "--bane-entry53-checkpoint") {
     (text) => assert.match(text, /quit to dos/),
   ]);
   await replay(loadSlot("2064"), "85000000", [
-    (text) => assert.match(text, /6,8 w/),
+    (text) => assert.match(text, /6,8 s/),
     "j", (_text, frame) => assert.match(learned(frame)?.detail ?? "", /paper on the floor.*entry 53/),
   ]);
   await replay(loadSlot("1e61"), "85000000", [
-    (text) => assert.match(text, /6,9 n/),
+    (text) => assert.match(text, /6,7 s/),
     "j", (_text, frame) => assert.equal(learned(frame), undefined),
   ]);
-  console.log("Verified Entry 53 after the Temple of Bane escort fight, after reload, and across save slots.");
+  console.log("Verified Entry 53 after the Wealthy Area escort fight, after reload, and across save slots.");
   process.exit(0);
 }
 

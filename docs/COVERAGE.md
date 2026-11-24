@@ -3074,14 +3074,13 @@ including two new lintel and sill tiles.
 16-view walk through the side courts. `stojanow-bugbear-approach` checks
 the far, middle, and near sprites over 121 tiles per frame before the
 warning portrait.
-`node tools/verify-fresh-party.mjs --bane-entry53-checkpoint PATH_TO_SLOT_A`
-uses a controlled party at (6,9), facing north in the Temple of Bane. It
-checks that Entry 53 is absent before the encounter, earned after the native
-ogre escort battle and loot prompt, and retained after saving and reloading.
-Use the same checkpoint with `node tools/verify-slums-presentation.mjs
-PATH_TO_SLOT_A PATH_TO_CHROME bane-entry53-art` to check the illustration,
-journal discovery, and Classic/Enhanced toggle in Chrome. The illustration
-clears when the party resumes exploring.
+`node tools/verify-fresh-party.mjs --bane-entry53-checkpoint` loads the
+[earned Wealthy Area checkpoint](../qa/fixtures/walk-bane-entry53/README.md)
+at (6,7) south. Entry 53 is absent before the ogre escort fight. The
+party wins, reads the paper and saves in D. Reloading D retains the
+entry and reloading A restores the earlier journal.
+The Chrome `bane-entry53-art` replay uses its historical (6,9) north
+approach for the illustration, journal discovery and Classic/Enhanced toggle.
 `bane-orc-guardroom-approach` verifies the middle and near warband frames
 over 121 terrain tiles before the existing ambush portrait.
 `new-phlan-tavern-aides-combat` verifies all seven Aides use the enhanced
