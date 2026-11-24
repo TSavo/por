@@ -10251,11 +10251,12 @@ try {
         if (!img || ((${requireScenery} || ${requireWebGL}) && !layer.querySelector(scenerySelector))) return;
         if (${timed} && (layer.hidden || !animationFrame?.encounter || !img.complete || !img.getClientRects().length)) return;
         const view = animationFrame ?? state;
-        const projected = view.perspective && !view.portrait;
+        const street = layer.querySelector(".street-viewport");
+        const projected = (view.perspective && !view.portrait) || layer.querySelector(".overland-viewport");
         for (const [x, y, id, w, h, webglYOffset = 0] of ${JSON.stringify(approachSequence)}) {
           if (${timed} && view.encounter[2] !== id) continue;
           const left = (projected ? 8 + (x - 24) * 120 / 88 : x) / 3.2;
-          const top = (projected ? 8 + (y + webglYOffset - 24) * 120 / 88 : y) / 2;
+          const top = (projected ? 8 + (y + (street ? webglYOffset : 0) - 24) * 120 / 88 : y) / 2;
           if (img.getAttribute("src") === "/art/" + id && img.naturalWidth === w * 4 && img.naturalHeight === h * 4 &&
               Math.abs(parseFloat(img.style.left) - left) < .001 && Math.abs(parseFloat(img.style.top) - top) < .001) {
             window.observedApproach.add(id);
