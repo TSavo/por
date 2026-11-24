@@ -15798,15 +15798,19 @@ try {
       await advance("y");
       const dealAccepted = "scene-illustration:area:7:ecl:a326";
       assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /GOOD\./i);
-      // A hold capture can land directly on exploration after the nonblocking acceptance cue.
-      if (!heldPortraitEvidenceFile || frame.portrait === dealAccepted) {
-        assert.equal(frame.portrait, dealAccepted);
-        await waitFor("Genheeris sealing the bargain", () => run(
-          'state.sequence === ' + frame.sequence +
-          ' && document.querySelector(\'.encounter-portrait[src="/art/' + dealAccepted + '"]\')?.naturalWidth === 352'));
+      const waitingOnDeal = frame.portrait === dealAccepted;
+      if (!waitingOnDeal) {
+        const clip = frame.animation?.find(phase => phase.portrait === dealAccepted);
+        assert.ok(clip, "Missing Genheeris acceptance before exploration");
+        assert.match(clip.text.map(([, char]) => String.fromCharCode(char)).join(""), /GOOD\./i);
+      }
+      await waitFor("Genheeris sealing the bargain", () => run(`
+        (animationFrame ?? state)?.portrait === ${JSON.stringify(dealAccepted)} &&
+        document.querySelector('#tile-art:not([hidden]) .encounter-portrait[src="/art/${dealAccepted}"]')?.naturalWidth === 352`));
+      const acceptedShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "valjevo-genheeris-deal-accepted.png"), Buffer.from(acceptedShot.data, "base64"));
+      if (waitingOnDeal) {
         await verifyPortraitPanel();
-        const acceptedShot = await command("Page.captureScreenshot", { format: "png" });
-        writeFileSync(resolve(directory, "valjevo-genheeris-deal-accepted.png"), Buffer.from(acceptedShot.data, "base64"));
         await switchBothWays();
         await advance("enter");
       }

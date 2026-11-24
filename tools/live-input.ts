@@ -57,6 +57,7 @@ const transientScriptIllustrations = new Map([
   ["2:20:a38f", ohloElixirIllustration],
   ["2:20:a453", slumsStableIllustration],
   ["5:4:b1c7", valjevoScribeFlight],
+  ["5:7:a321", "scene-illustration:area:7:ecl:a326"],
   ["7:17:b428", nomadShamanReward],
   ["7:26:9be2", "scene-illustration:area:26:ecl:9be2"],
   ["8:13:ad39", "scene-illustration:area:13:ecl:ad39"],
