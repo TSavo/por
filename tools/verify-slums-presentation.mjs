@@ -15743,15 +15743,23 @@ try {
       `document.querySelector('.encounter-portrait[src="/art/${genheerisAtDesk}"]')?.naturalWidth === 352`));
     await verifyPortraitPanel();
     await switchBothWays();
-    for (const key of ["enter", "enter"]) await advance(key);
-    assert.equal(frame.portrait, undefined);
-    for (const placement of [
+    const poses = [
       [56, 32, "encounter:area:7:SPRIT5.DAX:24:1:0", 24, 65],
       [48, 32, "encounter:area:7:SPRIT5.DAX:24:0:0", 32, 73],
-    ]) {
-      // The bundled game can settle at the audience in the same input as the near approach.
-      if (heldPortraitEvidenceFile && frame.classicAvailable === false &&
-          frame.portrait === "portrait:HEAD5.DAX:59:BODY5.DAX:31") break;
+    ];
+    const audience = "portrait:HEAD5.DAX:59:BODY5.DAX:31";
+    await observeApproach(poses, false);
+    for (const key of ["enter", "enter"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
+    for (const placement of poses) {
+      // The guest can present the last step and the audience portrait in one key.
+      if (frame.portrait === audience) {
+        const clip = frame.animation?.find(phase => phase.encounter?.[2] === placement[2]);
+        assert.deepEqual(clip?.encounter, placement);
+        await waitFor("Genheeris's animated approach", () => run(
+          `window.observedApproach.has(${JSON.stringify(placement[2])})`));
+        continue;
+      }
       assert.deepEqual(frame.encounter, placement);
       const [, , , width, height] = placement;
       await waitFor("Genheeris's approach sprite", () => run(
@@ -15759,11 +15767,8 @@ try {
       await switchBothWays();
       await advance("a");
     }
-    if (heldPortraitEvidenceFile) {
-      const audience = "portrait:HEAD5.DAX:59:BODY5.DAX:31";
-      assert.equal(frame.portrait, audience);
-      await verifyStaticPortrait(audience, /SOWHATMESSAGEFROMTYRANTHRAXUS/i, false);
-    }
+    assert.equal(frame.portrait, audience);
+    await verifyStaticPortrait(audience, /SOWHATMESSAGEFROMTYRANTHRAXUS/i, false);
     for (const key of ["p", genheerisOrders ? "n" : "h"]) await advance(key);
     const portrait = genheerisOrders ? "portrait:area:7:ecl:a246:HEAD5.DAX:59:BODY5.DAX:31"
       : "portrait:area:7:ecl:995f:caller:a2df:HEAD5.DAX:59:BODY5.DAX:31";
