@@ -1,0 +1,851 @@
+{
+  "startedUTC": "2026-11-24T01:54:01.443Z",
+  "frames": [
+    {
+      "index": 0,
+      "file": "frame-00.png",
+      "atSeconds": 38.384,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485276.71473,
+        "monotonicTimestamp": 1502177.378016
+      },
+      "state": {
+        "sequence": 0,
+        "publisher": false,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 1,
+      "file": "frame-01.png",
+      "atSeconds": 38.39,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485276.798724,
+        "monotonicTimestamp": 1502177.462007
+      },
+      "state": {
+        "sequence": 0,
+        "publisher": false,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 2,
+      "file": "frame-02.png",
+      "atSeconds": 46.721,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485285.281467,
+        "monotonicTimestamp": 1502185.944502
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": true,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 3,
+      "file": "frame-03.png",
+      "atSeconds": 46.92,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485285.382317,
+        "monotonicTimestamp": 1502186.045349
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": true,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 4,
+      "file": "frame-04.png",
+      "atSeconds": 46.978,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485286.681747,
+        "monotonicTimestamp": 1502187.344778
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": true,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 5,
+      "file": "frame-05.png",
+      "atSeconds": 47.398,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485288.131495,
+        "monotonicTimestamp": 1502188.794526
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": true,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 6,
+      "file": "frame-06.png",
+      "atSeconds": 47.753,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485288.59822,
+        "monotonicTimestamp": 1502189.261239
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": true,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 7,
+      "file": "frame-07.png",
+      "atSeconds": 47.983,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485288.731354,
+        "monotonicTimestamp": 1502189.394369
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": true,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 8,
+      "file": "frame-08.png",
+      "atSeconds": 48.252,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485288.882314,
+        "monotonicTimestamp": 1502189.545325
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": true,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 9,
+      "file": "frame-09.png",
+      "atSeconds": 48.599,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485289.431352,
+        "monotonicTimestamp": 1502190.094346
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": true,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 10,
+      "file": "frame-10.png",
+      "atSeconds": 48.979,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485289.61543,
+        "monotonicTimestamp": 1502190.278419
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": true,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 11,
+      "file": "frame-11.png",
+      "atSeconds": 49.378,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485289.91566,
+        "monotonicTimestamp": 1502190.578639
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": false,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 12,
+      "file": "frame-12.png",
+      "atSeconds": 49.811,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485290.28146,
+        "monotonicTimestamp": 1502190.944428
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": false,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 13,
+      "file": "frame-13.png",
+      "atSeconds": 50.19,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485290.698051,
+        "monotonicTimestamp": 1502191.361006
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": false,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 14,
+      "file": "frame-14.png",
+      "atSeconds": 50.567,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485291.215142,
+        "monotonicTimestamp": 1502191.878082
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": false,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 15,
+      "file": "frame-15.png",
+      "atSeconds": 50.851,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485291.548663,
+        "monotonicTimestamp": 1502192.211595
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": false,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 16,
+      "file": "frame-16.png",
+      "atSeconds": 51.266,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485291.965356,
+        "monotonicTimestamp": 1502192.628274
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": false,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 17,
+      "file": "frame-17.png",
+      "atSeconds": 51.679,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485292.249073,
+        "monotonicTimestamp": 1502192.911983
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": false,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 18,
+      "file": "frame-18.png",
+      "atSeconds": 52.065,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485292.598996,
+        "monotonicTimestamp": 1502193.261893
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": false,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 19,
+      "file": "frame-19.png",
+      "atSeconds": 52.481,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485292.998161,
+        "monotonicTimestamp": 1502193.661048
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": false,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 20,
+      "file": "frame-20.png",
+      "atSeconds": 52.869,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485293.381876,
+        "monotonicTimestamp": 1502194.04475
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": false,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 21,
+      "file": "frame-21.png",
+      "atSeconds": 53.408,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485293.798367,
+        "monotonicTimestamp": 1502194.461229
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": false,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 22,
+      "file": "frame-22.png",
+      "atSeconds": 53.745,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485294.181957,
+        "monotonicTimestamp": 1502194.844808
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": false,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 23,
+      "file": "frame-23.png",
+      "atSeconds": 54.168,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485294.665371,
+        "monotonicTimestamp": 1502195.328207
+      },
+      "state": {
+        "scene": "scene:title",
+        "sequence": 1,
+        "publisher": false,
+        "width": 1280,
+        "height": 960,
+        "screenRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 960,
+          "top": 0,
+          "right": 1280,
+          "bottom": 960,
+          "left": 0
+        },
+        "htmlClass": "electron-app",
+        "headerDisplay": "none"
+      }
+    },
+    {
+      "index": 24,
+      "file": "frame-24.png",
+      "atSeconds": 54.601,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485295.182407,
+        "monotonicTimestamp": 1502195.845228
+      }
+    },
+    {
+      "index": 25,
+      "file": "frame-25.png",
+      "atSeconds": 55.01,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 960,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1795485295.482441,
+        "monotonicTimestamp": 1502196.145253
+      }
+    }
+  ],
+  "scope": "Earliest captured renderer frames via DevTools, not guaranteed earliest native WindowServer pixels.",
+  "targetAtSeconds": 34.762
+}
