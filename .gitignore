@@ -14,9 +14,17 @@ gamedata/
 *.OVR
 *.ovr
 *.EX_
+*.ex_
 *.PIC
 *.pic
 *.CMP
+*.cmp
+*.GLB
+*.glb
+*.GEO
+*.geo
+*.ECL
+*.ecl
 uploads/
 *.zip
 
