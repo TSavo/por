@@ -250,7 +250,7 @@ Fork this repository. Star it. Mirror it. Clone it. Torrent it. Put a copy on th
 
 - **Full repository** — `Pool-of-Radiance-Special-Edition-v0.1.0-beta.1-repo.zip`, a zip of the source tree including the complete git history.
 
-  `magnet:?xt=urn:btih:78538123168ef318a0a71164439b4ad8fd9bc106&dn=Pool-of-Radiance-Special-Edition-v0.1.0-beta.1-repo.zip&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&ws=https%3A%2F%2Fgithub.com%2FTSavo%2Fpor%2Freleases%2Fdownload%2Fv0.1.0-beta.1%2FPool-of-Radiance-Special-Edition-v0.1.0-beta.1-repo.zip`
+  `magnet:?xt=urn:btih:66614743949f56cbd6ac4c3db5007bb20b060efb&dn=Pool-of-Radiance-Special-Edition-v0.1.0-beta.1-repo.zip&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&ws=https%3A%2F%2Fgithub.com%2FTSavo%2Fpor%2Freleases%2Fdownload%2Fv0.1.0-beta.1%2FPool-of-Radiance-Special-Edition-v0.1.0-beta.1-repo.zip`
 
 A takedown is expected. Copies are what will keep this game alive. The more places it lives, the harder it is for one notice to erase it.
 
