@@ -13,10 +13,18 @@ export interface AutomapEntrance {
   y: number;
   to: { area: number; mapId?: number; name?: string };
 }
+/** Places and events the party has already run into, stamped on the tile where they happened. */
+export const automapMarkerKinds = [
+  "temple", "shop", "tavern", "training", "place", "journal", "hazard", "theft",
+] as const;
+export type AutomapMarkerKind = typeof automapMarkerKinds[number];
+export interface AutomapMarker { x: number; y: number; kind: AutomapMarkerKind }
+
 export interface AutomapFloor {
   cells: Record<string, AutomapCell>;
   position?: { x: number; y: number; facing: number };
   entrances?: AutomapEntrance[];
+  markers?: AutomapMarker[];
 }
 /** An area's own map, plus any other floors the party has walked there. */
 export type AutomapArea = AutomapFloor & { floors?: Record<string, AutomapFloor> };
@@ -78,10 +86,81 @@ function cleanEntrances(input: unknown): AutomapEntrance[] | undefined {
   return entrances.length ? entrances : undefined;
 }
 
+const markerKind = new Set<string>(automapMarkerKinds);
+
+function markerKey(marker: AutomapMarker): string {
+  return `${marker.x},${marker.y}:${marker.kind}`;
+}
+
+function cleanMarker(input: unknown): AutomapMarker | undefined {
+  if (!input || typeof input !== "object") return;
+  const { x, y, kind } = input as { x?: unknown; y?: unknown; kind?: unknown };
+  if (!insideMap(x) || !insideMap(y) || typeof kind !== "string" || !markerKind.has(kind)) return;
+  return { x, y, kind: kind as AutomapMarkerKind };
+}
+
+function cleanMarkers(input: unknown): AutomapMarker[] | undefined {
+  if (!Array.isArray(input)) return;
+  const seen = new Set<string>();
+  const markers: AutomapMarker[] = [];
+  for (const value of input) {
+    const marker = cleanMarker(value);
+    if (!marker || seen.has(markerKey(marker))) continue;
+    seen.add(markerKey(marker));
+    markers.push(marker);
+  }
+  return markers.length ? markers : undefined;
+}
+
+/**
+ * Identify a named place from the text that told the party what it was.
+ * Talk is only a signal when that is how the place is known; ordinary
+ * conversation does not get a marker.
+ */
+export function locationKindFromText(text: string): AutomapMarkerKind | undefined {
+  const u = text.replace(/\s+/g, " ").toUpperCase();
+  if (
+    /PRIESTS OF TYR WELCOME YOU TO THE TEMPLE/.test(u) ||
+    /WELCOMED BY PRIESTESS JOY OF SUNE/.test(u) ||
+    /PRIESTS OF TEMPUS BID YOU WELCOME/.test(u) ||
+    /YOU NOW FACE AN ENTRANCE TO THE TEMPLE OF TYR/.test(u) ||
+    /ADMITTED TO THE TEMPLE OF BANE/.test(u) ||
+    /DO YOU SEEK HEALING\?/.test(u)
+  ) return "temple";
+  if (
+    /SHOPKEEPER (GREETS YOU|OFFERS)/.test(u) ||
+    /THE SHOP SPECIALIZES/.test(u) ||
+    /OFFERS YOU ITEMS FOR SALE/.test(u) ||
+    /CAN I SHOW YOU (SOMETHING|OUR WARES)/.test(u)
+  ) return "shop";
+  if (
+    /YOU ARE IN A TAVERN/.test(u) ||
+    /YOU HAVE ENTERED A CROWDED TAVERN/.test(u) ||
+    /YOU OVERHEAR TAVERN TALE/.test(u)
+  ) return "tavern";
+  if (
+    /SPECIAL TRAINING SCHOOLS/.test(u) ||
+    /NOTICES FOR TEACHERS AND STUDENTS/.test(u) ||
+    /DO YOU WANT TO TRAIN/.test(u) ||
+    /WE TRAIN ONLY/.test(u) ||
+    /DOOR MARKED FIGHTERS/.test(u) ||
+    /FIGHTERS'? GUILD/.test(u)
+  ) return "training";
+  if (
+    /YOU ENTER THE CITY HALL/.test(u) ||
+    /YOU ARE OUTSIDE THE CITY HALL/.test(u) ||
+    /JUST OUTSIDE THE CITY HALL/.test(u) ||
+    /THE COUNCIL CLERK BEGINS LOOKING THROUGH A STACK OF PAPERS/.test(u) ||
+    /THE ENTIRE CITY COUNCIL IS WAITING FOR YOU/.test(u) ||
+    /ENTRY TO THE OLD ROPE GUILD/.test(u) ||
+    /YOU (ENTER|HAVE ENTERED|ARE IN) .{0,40}GUILD/.test(u)
+  ) return "place";
+}
+
 function cleanFloor(input: unknown): AutomapFloor | undefined {
   if (!input || typeof input !== "object") return;
-  const { cells, position, entrances } = input as {
-    cells?: unknown; position?: { x?: unknown; y?: unknown; facing?: unknown }; entrances?: unknown;
+  const { cells, position, entrances, markers } = input as {
+    cells?: unknown; position?: { x?: unknown; y?: unknown; facing?: unknown }; entrances?: unknown; markers?: unknown;
   };
   if (!cells || typeof cells !== "object") return;
   const floor: AutomapFloor = { cells: {} };
@@ -101,6 +180,8 @@ function cleanFloor(input: unknown): AutomapFloor | undefined {
   }
   const kept = cleanEntrances(entrances);
   if (kept) floor.entrances = kept;
+  const marks = cleanMarkers(markers);
+  if (marks) floor.markers = marks;
   return floor;
 }
 
@@ -260,6 +341,27 @@ export function openAutomap(root: string) {
       revision++;
       return true;
     },
+    /** Stamp a discovered event on the party's tile. A kind is stored once per tile. */
+    mark(kind: AutomapMarkerKind, position?: ExploredPosition): boolean {
+      if (!markerKind.has(kind)) return false;
+      const place = (area: number, mapId: number | undefined, x: number, y: number): boolean => {
+        if (!insideMap(x) || !insideMap(y)) return false;
+        const floor = floorAt({ area, mapId }, false);
+        if (!floor?.cells[`${x},${y}`]) return false;
+        const list = floor.markers ??= [];
+        if (list.some(existing => existing.x === x && existing.y === y && existing.kind === kind)) return false;
+        list.push({ x, y, kind });
+        revision++;
+        return true;
+      };
+      const located = position ? this.locate(position) : undefined;
+      if (located) {
+        if (located.walls && insideMap(located.x) && insideMap(located.y)) this.record(located);
+        if (place(located.area, located.mapId, located.x, located.y)) return true;
+      }
+      if (lastVisit) return place(lastVisit.area, lastVisit.mapId, lastVisit.x, lastVisit.y);
+      return false;
+    },
     snapshot(): AutomapData { return enrich(cleanAutomap(data)); },
     restore(saved: unknown): void {
       data = enrich(cleanAutomap(saved));
@@ -284,6 +386,15 @@ export function openAutomap(root: string) {
             added = true;
           }
           if (!list.length) delete into.entrances;
+        }
+        if (from.markers) {
+          const list = into.markers ??= [];
+          for (const marker of from.markers) {
+            if (list.some(existing => markerKey(existing) === markerKey(marker))) continue;
+            list.push(marker);
+            added = true;
+          }
+          if (!list.length) delete into.markers;
         }
       };
       for (const [area, legacy] of Object.entries(cleanAutomap(saved))) {

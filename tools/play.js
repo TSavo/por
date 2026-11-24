@@ -1485,19 +1485,72 @@ function addAutomapSide(lines, x, y, side, walls, passage) {
   lines.push(`<line class="wall" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`);
 }
 
+function automapMarkerGlyph(kind) {
+  switch (kind) {
+    case "temple":
+      return `<path class="marker-temple" d="M.5.78 C.5.78.16.5.16.34 C.16.2.32.14.5.34 C.68.14.84.2.84.34 C.84.5.5.78.5.78Z"/>`;
+    case "shop":
+      return `<circle class="marker-shop" cx=".5" cy=".5" r=".3"/><circle class="marker-shop-inner" cx=".5" cy=".5" r=".16"/>`;
+    case "tavern":
+      return `<rect class="marker-tavern" x=".3" y=".26" width=".38" height=".46" rx=".06"/><path class="marker-tavern" fill="none" d="M.68.32 C.86.36.86.62.68.66"/>`;
+    case "training":
+      return `<path class="marker-training" d="M.5.16 L.8.34 L.74.7 L.5.86 L.26.7 L.2.34Z"/>`;
+    case "place":
+      return `<path class="marker-place" d="M.2.8 L.2.42 L.5.16 L.8.42 L.8.8Z"/><rect class="marker-place-door" x=".4" y=".56" width=".2" height=".24"/>`;
+    case "journal":
+      return `<rect class="marker-journal" x=".22" y=".22" width=".56" height=".56" rx=".1"/><path class="marker-journal-lines" d="M.34.4 H.66 M.34.52 H.66 M.34.64 H.54"/>`;
+    case "hazard":
+      return `<path class="marker-hazard" d="M.5.16 L.86.82 L.14.82Z"/><path class="marker-hazard-bang" d="M.5.4 V.62 M.5.7 V.76"/>`;
+    case "theft":
+      return `<path class="marker-theft" d="M.28.7 L.28.46 C.28.3.72.3.72.46 L.72.7 C.72.8.62.86.5.86 C.38.86.28.8.28.7Z M.34.44 V.28 M.42.42 V.22 M.5.42 V.2 M.58.42 V.22 M.66.44 V.28"/>`;
+    default:
+      return "";
+  }
+}
+
+function automapMarkerIcon(kind, x, y, index = 0, count = 1) {
+  const glyph = automapMarkerGlyph(kind);
+  if (!glyph) return "";
+  let ox = 0, oy = 0, scale = 0.72;
+  if (count > 1) {
+    scale = 0.5;
+    const cols = Math.min(count, 2);
+    const col = index % cols;
+    const row = Math.floor(index / cols);
+    const rows = Math.ceil(count / cols);
+    ox = (col - (cols - 1) / 2) * 0.42;
+    oy = (row - (rows - 1) / 2) * 0.42;
+  }
+  const tx = x + 0.5 - 0.5 * scale + ox;
+  const ty = y + 0.5 - 0.5 * scale + oy;
+  return `<g class="map-marker" transform="translate(${tx} ${ty}) scale(${scale})">${glyph}</g>`;
+}
+
 function automapLegend() {
+  const item = (x, y, glyph, label) =>
+    `${glyph}<text class="legend-label" x="${x + 0.85}" y="${y + 0.7}">${label}</text>`;
+  const at = (x, y, kind) =>
+    `<g transform="translate(${x} ${y}) scale(0.78)">${automapMarkerGlyph(kind)}</g>`;
   return [
     `<g class="map-legend" transform="translate(0.05 16.2)">`,
-    `<rect class="legend-back" x="-0.15" y="-0.12" width="16.4" height="1.35" rx="0.15"/>`,
-    `<line class="wall" x1="0.2" y1="0.55" x2="1.15" y2="0.55"/>`,
-    `<text class="legend-label" x="1.35" y="0.72">Wall</text>`,
-    `<line class="wall" x1="3.35" y1="0.55" x2="3.62" y2="0.55"/>`,
-    `<line class="wall" x1="4.18" y1="0.55" x2="4.45" y2="0.55"/>`,
-    `<line class="door" x1="3.9" y1="0.55" x2="3.9" y2="0.88"/>`,
-    `<line class="door" x1="3.82" y1="0.55" x2="3.98" y2="0.55"/>`,
-    `<text class="legend-label" x="4.65" y="0.72">Door</text>`,
-    `<path class="entrance" d="M .5 .16 L .82 .5 L .5 .84 L .18 .5 Z" transform="translate(7.15 0.05) scale(0.9)"/>`,
-    `<text class="legend-label" x="8.2" y="0.72">Entrance</text>`,
+    `<rect class="legend-back" x="-0.15" y="-0.12" width="16.4" height="2.45" rx="0.15"/>`,
+    `<line class="wall" x1="0.15" y1="0.5" x2="1.05" y2="0.5"/>`,
+    `<text class="legend-label" x="1.2" y="0.68">Wall</text>`,
+    `<line class="wall" x1="2.85" y1="0.5" x2="3.08" y2="0.5"/>`,
+    `<line class="wall" x1="3.52" y1="0.5" x2="3.75" y2="0.5"/>`,
+    `<line class="door" x1="3.3" y1="0.5" x2="3.3" y2="0.82"/>`,
+    `<line class="door" x1="3.22" y1="0.5" x2="3.38" y2="0.5"/>`,
+    `<text class="legend-label" x="3.95" y="0.68">Door</text>`,
+    `<path class="entrance" d="M .5 .16 L .82 .5 L .5 .84 L .18 .5 Z" transform="translate(5.7 0.08) scale(0.78)"/>`,
+    `<text class="legend-label" x="6.65" y="0.68">Entrance</text>`,
+    item(8.55, 0, at(8.55, 0.02, "temple"), "Temple"),
+    item(11.15, 0, at(11.15, 0.02, "shop"), "Shop"),
+    item(13.55, 0, at(13.55, 0.02, "tavern"), "Tavern"),
+    item(0.05, 1.15, at(0.05, 1.17, "training"), "Training"),
+    item(3.15, 1.15, at(3.15, 1.17, "place"), "Place"),
+    item(5.85, 1.15, at(5.85, 1.17, "journal"), "Journal"),
+    item(8.55, 1.15, at(8.55, 1.17, "hazard"), "Hazard"),
+    item(11.15, 1.15, at(11.15, 1.17, "theft"), "Theft"),
     `</g>`,
   ].join("");
 }
@@ -1518,7 +1571,7 @@ function renderAutomap() {
   markMap.hidden = mapMode !== "local";
   if (mapMode === "atlas") { renderAtlas(sheets, position); return; }
   if (mapMode === "region") { renderRegionMap(position); return; }
-  automapSvg.setAttribute("viewBox", "-0.5 -0.5 17 18.2");
+  automapSvg.setAttribute("viewBox", "-0.5 -0.5 17 19.3");
   automapSvg.setAttribute("aria-label", "Discovered area map");
   if (!moveTween) shownDiscoveredMaps = discoveredMaps;
   const map = discoveredCells(position, moveTween ? shownDiscoveredMaps : discoveredMaps);
@@ -1542,6 +1595,18 @@ function renderAutomap() {
       const ty = hasLabel ? y + 0.92 : y + 0.38;
       lines.push(`<text class="entrance-label" x="${x + .75}" y="${ty}">${escapeMapText(to.name)}</text>`);
     }
+  }
+  const markersByTile = new Map();
+  for (const marker of map.markers ?? []) {
+    const key = `${marker.x},${marker.y}`;
+    const list = markersByTile.get(key) ?? [];
+    list.push(marker);
+    markersByTile.set(key, list);
+  }
+  for (const group of markersByTile.values()) {
+    group.forEach((marker, index) => {
+      lines.push(automapMarkerIcon(marker.kind, marker.x, marker.y, index, group.length));
+    });
   }
   const logical = map.position ?? position;
   const p = movePose() ?? logical;
