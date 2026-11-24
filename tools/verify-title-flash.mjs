@@ -8,6 +8,10 @@
 // flashes every second or two. The check boots the game with no key at all, so the title can end only
 // by its own clock, and requires at least one flash before it ends, as the original's five seconds give.
 //
+// It runs on the clock a played game uses (POR_CLOCK=real), where the runner reads the title's clock at
+// DOSBox's pace (tools/boot-translated.ts). Replays (POR_CLOCK=fixed) keep one hundredth a reading, so
+// their title still ends after 500 passes and their dice stay as recorded; POR_CLOCK=fixed here shows that.
+//
 // From the files in POR_GAMEDATA with POR_GAME_SOURCE=original, or from game/ with POR_GAME_SOURCE=port.
 // It reads the runner's dice trace (POR_TRACE_DICE) and palette trace (POR_TRACE_PALETTE); it presses
 // nothing and changes nothing.
@@ -19,7 +23,7 @@ import { join } from "node:path";
 const steps = process.env.POR_TITLE_STEPS ?? "90000000";
 const directory = mkdtempSync(join(tmpdir(), "por-title-flash-"));
 const palette = join(directory, "palette.jsonl");
-const env = { ...process.env, POR_TRACE_DICE: "1", POR_TRACE_PALETTE: palette, POR_BOOT_KEYS: "", POR_BOOT_KEY_FILE: "",
+const env = { POR_CLOCK: "real", ...process.env, POR_TRACE_DICE: "1", POR_TRACE_PALETTE: palette, POR_BOOT_KEYS: "", POR_BOOT_KEY_FILE: "",
   POR_BOOT_STEPS: steps, POR_BROWSER_PLAY: "" };
 // No live session: the runner plays the boot by itself, and a read with no key gets Enter.
 delete env.POR_LIVE_AT;

@@ -50,6 +50,7 @@ type FrameNarrations = { narrations?: (PendingNarration & { id: number })[] };
 export interface FrameState extends ExplorationFrame, FrameNarrations {
   travelPosition?: TravelState;
   travelPolling?: boolean;
+  titlePolling?: boolean;
   phlanArrival?: PhlanApproach;
   sokalPrompt?: SokalPrompt;
   sokalQuay?: SokalQuay;
@@ -339,7 +340,7 @@ export class PlaySession {
       (track && Number(track[1]) <= frame.journal.leads.filter(isOpenObjective).length));
     const recordedPoll = this.options.recordedPolls && frame.prompt === "poll" && !frame.awaitsKey;
     const validPoll = expected === String(sequence) && (command === ":poll" && (frame.automaticCombat || frame.battleEntryPolling || frame.presentationPolling) ||
-      command === ":travel-poll" && (frame.travelPolling || recordedPoll));
+      command === ":travel-poll" && (frame.travelPolling || frame.titlePolling || recordedPoll));
     // While the game plays an animation by itself it takes no key: the page only asks for more of it.
     if (frame.presentationPolling && !validPoll) return 409;
     const unlockCombat = command === ":idspispopd" && expected === String(sequence);

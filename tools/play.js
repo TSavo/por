@@ -819,6 +819,28 @@ function narrationHoldsView(view) {
     : view.narrations.some(narration => narration.id > (initialNarrationId ?? 0));
 }
 
+// The Classic title (#152). The game's title loop only looks at the keyboard, runs five seconds by the
+// DOS clock and flashes its lightning (palette clips Classic holds as long as the game pauses) every
+// second or two. While no key is given the page lets it go on: the runner runs a million instructions
+// a poll, some 6,800 passes of the loop, which the DOS clock counts as about a third of a second under
+// DOSBox, so the page asks that often and the title ends by its own clock, as on DOS. Enhanced shows
+// its own title, which waits for a key.
+const titlePollMs = 330;
+let titlePollTimer;
+function scheduleTitlePoll() {
+  if (titlePollTimer !== undefined) return;
+  const sequence = state.sequence;
+  titlePollTimer = setTimeout(() => {
+    titlePollTimer = undefined;
+    if (enhanced || !state.titlePolling || state.sequence !== sequence || !state.ready || posting || animationFrame ||
+      state.journal || codeWheelTool() || !bootWheel.hidden || document.querySelector("dialog[open]")) {
+      if (!enhanced && state.titlePolling) scheduleTitlePoll();
+      return;
+    }
+    void send(":travel-poll");
+  }, titlePollMs);
+}
+
 // When the last batch of an animation the game plays by itself arrived, or the key that began it was sent.
 let selfPlayingBatchAt;
 /** The clips each mode can show, including Classic palette holds and Enhanced illustrations. */
@@ -2767,6 +2789,7 @@ async function poll() {
       !narrationHoldsView(state) && !state.journal && !codeWheelTool() && state.ready) {
       void send(":poll");
     }
+    if (!enhanced && state.titlePolling) scheduleTitlePoll();
     void advanceLoadRequest();
     followTravel();
     if (renderingSequence === undefined) renderTravelMap();

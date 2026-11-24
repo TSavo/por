@@ -299,6 +299,11 @@ export const code = resolve({
   /** The BIOS keyboard poll inside Crt.KeyPressed. */
   keyPressedPoll: { "1.0": { segment: 0x512, at: 0x5423 }, "1.3": { segment: 0xa40, at: 0xa706 } },
   /**
+   * Where the title loop's clock reading returns (GAME.OVR slice 1: 07e0 in the first release, 07e5 in
+   * 1.3). The loop runs until a key or until the clock passes its start plus five seconds (#152).
+   */
+  titleClockResume: { "1.0": { slice: 1, at: 0x7e5 }, "1.3": { slice: 1, at: 0x7ea } },
+  /**
    * Where the menu routine resumes after its keyboard poll. The routine loops on this poll,
    * animating the picture beside the menu, until a key arrives: the one place where the game
    * waits for the player with a poll.
@@ -443,6 +448,12 @@ export function isAt(cpu: Cpu, at: number, where: Where): boolean {
 export function returnsTo(cpu: Cpu, depth: number, where: Where): boolean {
   return cpu.read16(cpu.ss, (cpu.sp + depth) & 0xffff) === where.at &&
     cpu.read16(cpu.ss, (cpu.sp + depth + 2) & 0xffff) === codeSegment(where);
+}
+
+/** True when the DOS clock is being read for the title loop: its far return is up the stack (#152). */
+export function isTitleClockRead(cpu: Cpu): boolean {
+  for (let depth = 0; depth <= 64; depth += 2) if (returnsTo(cpu, depth, code.titleClockResume)) return true;
+  return false;
 }
 
 /** The initial battle setup checks only for keys to discard before its first turn. */
