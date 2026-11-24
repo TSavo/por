@@ -202,3 +202,17 @@ npx tsx tools/export-dos-save.ts path/to/browser/saves J
 - [docs/rea/NOTES.md](docs/rea/NOTES.md) — REA / Ghidra evidence
 
 The opcode table and the wall-slot geometry were checked against Curse of the Azure Bonds, the next game on this engine, because that is the published reconstruction. coab has no license file; this tree does not copy it. Differences to expect on Pool of Radiance are listed in `docs/ecl.md`.
+
+## Spread it
+
+Fork this repository. Star it. Mirror it. Clone it. Torrent it. Put a copy on the [Internet Archive](https://archive.org/) and [Software Heritage](https://www.softwareheritage.org/). Share it as far and as wide as you can.
+
+A takedown is expected. Copies are what will keep this game alive. The more places it lives, the harder it is for one notice to erase it.
+
+**A note to Wizards of the Coast.** This game deserves a proper release. Taking it down is not the right thing. Talk to me, [T Robert Savo](https://github.com/TSavo), about how to release it properly.
+
+## License
+
+This project's own code, art, and narration are released under the [MIT License](LICENSE). Pool of Radiance, AD&D, and Forgotten Realms are trademarks of their owners (Wizards of the Coast). The original game files are not covered by this license and are not included in this repository.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) if you want to help.
