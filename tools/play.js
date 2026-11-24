@@ -2019,10 +2019,22 @@ async function showScreen() {
     const decodeLayer = async layer => {
       if (!(layer instanceof HTMLImageElement)) return layer;
       try {
-        await layer.decode();
+        try {
+          await layer.decode();
+        } catch (error) {
+          // Chrome can cancel a pending image request before receiving its first bytes. Read
+          // the asset once directly and decode those bytes while preserving the logical src.
+          if (render !== screenRender) throw error;
+          const response = await fetch(layer.src);
+          if (!response.ok) throw error;
+          const bytes = new Uint8Array(await response.arrayBuffer());
+          layer.srcset = "data:image/png;base64," + bytes.toBase64();
+          await layer.decode();
+        }
         if (layer.dataset.partyPalette) {
           const colorized = await recolorPartySprite(layer, layer.dataset.partyPalette);
           if (colorized) {
+            layer.removeAttribute("srcset");
             layer.src = colorized;
             await layer.decode();
           }

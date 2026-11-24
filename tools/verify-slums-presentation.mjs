@@ -10247,6 +10247,7 @@ try {
           if (img.getAttribute("src") === "/art/" + id && img.naturalWidth === w * 4 && img.naturalHeight === h * 4 &&
               Math.abs(parseFloat(img.style.left) - left) < .001 && Math.abs(parseFloat(img.style.top) - top) < .001) {
             window.observedApproach.add(id);
+            if (img.currentSrc.startsWith("data:image/png;")) window.recoveredApproach = id;
           }
         }
       }
@@ -13319,6 +13320,21 @@ try {
     console.log(`Verified the authored battle notice and ${opening} with no extra key:`, receipt);
   } else if (illustration) {
     const { inputs, prompt, continuation, journalLead, approachSequence } = illustration;
+    // A canceled asset transfer on this brief approach previously replaced the archer with a
+    // patch of the original framebuffer for the whole clip. Exercise a real aborted image load.
+    let canceledApproach;
+    if (routeName === "kuto-well-catacomb-volley-hold") {
+      const url = origin + "/art/" + approachSequence[0][2];
+      function intercept(event) {
+        const { method, params } = JSON.parse(event.data);
+        if (method !== "Fetch.requestPaused" || params.request.url !== url) return;
+        socket.removeEventListener("message", intercept);
+        canceledApproach = command("Fetch.failRequest", { requestId: params.requestId, errorReason: "Aborted" })
+          .then(() => command("Fetch.disable"));
+      }
+      socket.addEventListener("message", intercept);
+      await command("Fetch.enable", { patterns: [{ urlPattern: url, resourceType: "Image" }] });
+    }
     const combatProducer = illustration.oneShotProducer ?? illustration.combatWithoutPortraitProducer;
     let { portrait } = illustration;
     let transientCombatPortrait;
@@ -13709,6 +13725,11 @@ try {
             const timeline = await run("({ queued: [...window.announcedApproaches], rendered: [...window.observedApproach] })");
             throw new Error(`${error.message}. Podol approach timeline ${JSON.stringify(timeline)}`, { cause: error });
           });
+      }
+      if (routeName === "kuto-well-catacomb-volley-hold") {
+        // Chrome can also cancel the original request before DevTools gets to intercept it.
+        if (canceledApproach) await canceledApproach;
+        assert.equal(await run("window.recoveredApproach"), expected[0]);
       }
       assert.deepEqual(await run("[...window.observedApproach]"), expected);
     }
