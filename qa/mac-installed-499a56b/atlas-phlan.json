@@ -1,0 +1,21 @@
+{
+  "viewport": [
+    1280,
+    960
+  ],
+  "map": {
+    "x": 0,
+    "y": 0,
+    "width": 1280,
+    "height": 960,
+    "top": 0,
+    "right": 1280,
+    "bottom": 960,
+    "left": 0
+  },
+  "sheet": "phlan-city-concept-v1.png",
+  "image": {
+    "src": "por://localhost/atlas/phlan-city-concept-v1.png",
+    "width": 1536
+  }
+}

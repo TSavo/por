@@ -1,0 +1,19 @@
+{
+  "ready": true,
+  "text": " Name AC HP ALDA 5 45 BRIN 3 45 CORA 5 45 DORN 5 45 ENNA 4 45 MIRA 10 45 23,8 W 12:23 Cast View Encamp Search Look ",
+  "map": false,
+  "rect": {
+    "x": 0,
+    "y": 0,
+    "width": 1280,
+    "height": 960,
+    "top": 0,
+    "right": 1280,
+    "bottom": 960,
+    "left": 0
+  },
+  "viewport": [
+    1280,
+    960
+  ]
+}

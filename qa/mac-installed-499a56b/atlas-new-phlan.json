@@ -1,0 +1,62 @@
+{
+  "viewport": [
+    1280,
+    960
+  ],
+  "map": {
+    "x": 0,
+    "y": 0,
+    "width": 1280,
+    "height": 960,
+    "top": 0,
+    "right": 1280,
+    "bottom": 960,
+    "left": 0
+  },
+  "sheet": "new-phlan-concept-v1.png",
+  "image": {
+    "src": "por://localhost/atlas/new-phlan-concept-v1.png",
+    "width": 1536
+  },
+  "controls": [
+    {
+      "selector": "#atlas-map",
+      "rect": {
+        "x": 699.453125,
+        "y": 19,
+        "width": 63.40625,
+        "height": 38.59375,
+        "top": 19,
+        "right": 762.859375,
+        "bottom": 57.59375,
+        "left": 699.453125
+      }
+    },
+    {
+      "selector": "#atlas-sheet",
+      "rect": {
+        "x": 98.734375,
+        "y": 63.9921875,
+        "width": 99,
+        "height": 23,
+        "top": 63.9921875,
+        "right": 197.734375,
+        "bottom": 86.9921875,
+        "left": 98.734375
+      }
+    },
+    {
+      "selector": "#close-map",
+      "rect": {
+        "x": 1121.8984375,
+        "y": 19,
+        "width": 139.1015625,
+        "height": 38.59375,
+        "top": 19,
+        "right": 1261,
+        "bottom": 57.59375,
+        "left": 1121.8984375
+      }
+    }
+  ]
+}
