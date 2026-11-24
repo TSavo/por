@@ -4,6 +4,8 @@
   ],
   "checkpoints": {
     "armorer": "qa/fixtures/replay-checkpoints/290582c2f29f/A.json",
+    "camp-view-portrait-restore": "qa/fixtures/guide-party-new-phlan/A.json",
+    "loot-view-portrait-restore": "qa/fixtures/ohlo-loot-view-restore/H.json",
     "mendor-east-court": "qa/fixtures/replay-checkpoints/06985118581f/D.json",
     "new-phlan-city-hall-entrance": "qa/fixtures/replay-checkpoints/290582c2f29f/A.json",
     "new-phlan-city-hall-exit": "qa/fixtures/replay-checkpoints/290582c2f29f/A.json",
@@ -12,6 +14,7 @@
     "new-phlan-harbor-city-watch": "qa/fixtures/replay-checkpoints/290582c2f29f/A.json",
     "new-phlan-training-entrance-notice": "qa/fixtures/replay-checkpoints/290582c2f29f/A.json",
     "slums-first-arrival": "qa/fixtures/replay-checkpoints/290582c2f29f/A.json",
+    "sokal-poison-frog-approach": "qa/fixtures/sokal-smithy-frogs/C.json",
     "textile-ghoul-combat": "qa/fixtures/replay-checkpoints/098c21a3e705/B.json",
     "textile-house-scorpion-held-loop": "qa/fixtures/walk-textile-house-cleared/G.json",
     "valhingen-giant-skeleton-alone": "qa/fixtures/valhingen-giant-skeleton-alone/A.json",
@@ -33,6 +36,8 @@
   },
   "proved": [
     "armorer",
+    "camp-view-portrait-restore",
+    "loot-view-portrait-restore",
     "mendor-east-court",
     "new-phlan-city-hall-entrance",
     "new-phlan-city-hall-exit",
@@ -41,6 +46,7 @@
     "new-phlan-harbor-city-watch",
     "new-phlan-training-entrance-notice",
     "slums-first-arrival",
+    "sokal-poison-frog-approach",
     "textile-ghoul-combat",
     "textile-house-scorpion-held-loop",
     "valhingen-giant-skeleton-alone",
