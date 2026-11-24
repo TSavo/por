@@ -9837,6 +9837,21 @@ try {
     assert.ok(!response.exceptionDetails, response.exceptionDetails?.text);
     return response.result.value;
   }
+  // Abort one real transfer and let the page handle a new request for the same image.
+  async function abortFirstImage(url) {
+    let aborted;
+    function intercept(event) {
+      const { method, params } = JSON.parse(event.data);
+      if (method !== "Fetch.requestPaused" || params.request.url !== url) return;
+      socket.removeEventListener("message", intercept);
+      aborted = command("Fetch.failRequest", { requestId: params.requestId, errorReason: "Aborted" })
+        .then(() => command("Fetch.disable"));
+    }
+    socket.addEventListener("message", intercept);
+    await command("Fetch.enable", { patterns: [{ urlPattern: url, resourceType: "Image" }] });
+    return () => aborted;
+  }
+  const panelAbort = routeName === "mendor-annex-floor-large" ? await abortFirstImage(origin + "/art/panel:rail-x") : undefined;
   // The page starts in Enhanced; these replays were written for a page that starts in Classic.
   await command("Page.navigate", { url: `${origin}/${sokalBarracksHeld ? "" : "?display=classic"}` });
   await waitFor("the game display", () => run('document.querySelector("#screen")?.naturalWidth === 320'));
@@ -11230,6 +11245,13 @@ try {
     const transition = environment.transition;
     let frescoTiles;
     let views = await verifyTiledView(area, patterns);
+    if (panelAbort) {
+      const canceled = panelAbort();
+      assert.ok(canceled, "Chrome intercepted the first panel rail transfer");
+      await canceled;
+      assert.ok(await run(`displayedFrame?.enhanced && displayedFrame.sequence === ${frame.sequence} &&
+        document.querySelector("#tile-art:not([hidden]) .panel-frame")?.width === 1280`));
+    }
     const canalWalk = routeName.startsWith("new-phlan-canal-");
     async function captureCanalView(point) {
       const shot = await command("Page.captureScreenshot", { format: "png" });
@@ -13383,19 +13405,8 @@ try {
     const { inputs, prompt, continuation, journalLead, approachSequence } = illustration;
     // A canceled asset transfer on this brief approach previously replaced the archer with a
     // patch of the original framebuffer for the whole clip. Exercise a real aborted image load.
-    let canceledApproach;
-    if (routeName === "kuto-well-catacomb-volley-hold") {
-      const url = origin + "/art/" + approachSequence[0][2];
-      function intercept(event) {
-        const { method, params } = JSON.parse(event.data);
-        if (method !== "Fetch.requestPaused" || params.request.url !== url) return;
-        socket.removeEventListener("message", intercept);
-        canceledApproach = command("Fetch.failRequest", { requestId: params.requestId, errorReason: "Aborted" })
-          .then(() => command("Fetch.disable"));
-      }
-      socket.addEventListener("message", intercept);
-      await command("Fetch.enable", { patterns: [{ urlPattern: url, resourceType: "Image" }] });
-    }
+    const canceledApproach = routeName === "kuto-well-catacomb-volley-hold"
+      ? await abortFirstImage(origin + "/art/" + approachSequence[0][2]) : undefined;
     const combatProducer = illustration.oneShotProducer ?? illustration.combatWithoutPortraitProducer;
     let { portrait } = illustration;
     let transientCombatPortrait;
@@ -13795,7 +13806,7 @@ try {
       }
       if (routeName === "kuto-well-catacomb-volley-hold") {
         // Chrome can also cancel the original request before DevTools gets to intercept it.
-        if (canceledApproach) await canceledApproach;
+        await canceledApproach();
         assert.equal(await run("window.recoveredApproach"), expected[0]);
       }
       assert.deepEqual(await run("[...window.observedApproach]"), expected);
