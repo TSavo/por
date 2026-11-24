@@ -1,16 +1,16 @@
 {
  "schema": 2,
  "heldPortraits": {
-  "verified": 207,
+  "verified": 1,
   "unreachable": 4,
   "reachable": 230,
-  "oneShotsVerified": 43,
-  "measured": 210,
+  "oneShotsVerified": 0,
+  "measured": 201,
   "total": 234,
   "scenesMeasured": 385,
-  "scenesVerified": 385,
+  "scenesVerified": 0,
   "unmappedScenes": 0,
-  "remaining": 23
+  "remaining": 229
  },
  "enhancedFallbacks": {
   "observer": 2,

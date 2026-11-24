@@ -223,6 +223,7 @@ const saltlineExplorationRenderer = "90fb7e1b9dd389ea45605810f27ca019f6c0e116509
 const explorationMovementRenderer = "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f";
 const titleBuildVersionRenderer = "14d61fd7ee9265e1b34205a359a7631c932bdba29f274fcf406065a2f4969489";
 const battleEntryRenderer = "1ff8ef0a4d635d4390caaad3f85782fd99c4728df2051a01d8477381403db6ed";
+const viewportDisposalRenderer = "d17e26059837ba47f3a9e81a09c7aa8560c1d2aab263f9eea4a863fdedc6e26a";
 const journalInputRenderer = "d54f126e14ad2d3039af2d220afa260df154cc5b6da64af173bb858f67ac21d1";
 const narrationSelectionRenderer = "5e7b4d90171ca9d95210cc63615f4d2289b4c5b800c96ac1bd97bd3b443c6da0";
 const narrationCaptionRenderer = "8289782c89a947c365b176bddd46ea1c58d84d7276d669bdd600fcde75c7aea8";
@@ -245,7 +246,7 @@ const rendererBeforePittMenus = "c3582f5d74fae550739186491060b39f7fcbd25c399b99d
 // This covers narration logging, the wilderness atlas, settings, and Classic palette-only clips.
 const previousRendererProof = new Map<string, string>([
   // Replacing a WebGL viewport detaches the movement renderer before disposal. Portrait selection and paint are unchanged.
-  ["d17e26059837ba47f3a9e81a09c7aa8560c1d2aab263f9eea4a863fdedc6e26a", journalInputRenderer],
+  [viewportDisposalRenderer, journalInputRenderer],
   // Journal commands can post during image decoding without changing the picture.
   [journalInputRenderer, "5e7b4d90171ca9d95210cc63615f4d2289b4c5b800c96ac1bd97bd3b443c6da0"],
   // Playback logs retain the native caption selector without changing the painted views.
@@ -539,7 +540,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       return (["original", "port"] as const).every(data => {
         const observed = proof.chrome[data];
         const reviewed = [landmarkOverlandRenderer, wetOverlandRenderer, localOverlandRenderer, auctionMenusRenderer, captivePenMenusRenderer, pittMenuRenderer, rendererBeforePittMenus];
-        const sceneryRevision = (hash: string) => hash === journalInputRenderer || hash === narrationSelectionRenderer || hash === narrationCaptionRenderer || hash === narrationVisibilityRenderer || hash === narrationMediaErrorRenderer || hash === narratedHoldRenderer || hash === scopedNarrationQueueRenderer ||
+        const sceneryRevision = (hash: string) => hash === viewportDisposalRenderer || hash === journalInputRenderer || hash === narrationSelectionRenderer || hash === narrationCaptionRenderer || hash === narrationVisibilityRenderer || hash === narrationMediaErrorRenderer || hash === narratedHoldRenderer || hash === scopedNarrationQueueRenderer ||
           hash === paintedNarrationRenderer || hash === shaderSkyRenderer || hash === tripwireKeysRenderer || hash === roofLightingRenderer ||
           hash === titleBuildVersionRenderer || hash === battleEntryRenderer
           ? explorationMovementRenderer : hash;
