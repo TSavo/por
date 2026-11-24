@@ -53,6 +53,7 @@ const slumsStableIllustration = "scene-illustration:area:20:ecl:a453";
 const valjevoScribeFlight = "scene-illustration:area:4:ecl:b1c7:cue:records-scribe-flight";
 const baneDirtenFarewell = "scene-illustration:area:24:ecl:acc3:cue:dirten-farewell";
 const nomadShamanReward = "scene-illustration:area:17:ecl:b43b:cue:shaman-reward";
+const easternTrollInsult = "scene-illustration:area:27:ecl:a1b4:cue:trolls-insult";
 const transientScriptIllustrations = new Map([
   ["1:24:acc3", baneDirtenFarewell],
   ["2:20:a38f", ohloElixirIllustration],
@@ -64,7 +65,7 @@ const transientScriptIllustrations = new Map([
   ["8:13:ad39", "scene-illustration:area:13:ecl:ad39"],
   ["8:16:aab7", "scene-illustration:area:16:ecl:aab7"],
   ["8:27:9c50", "scene-illustration:area:27:ecl:9c50"],
-  ["8:27:a1b4", "scene-illustration:area:27:ecl:a1b4:cue:trolls-insult"],
+  ["8:27:a1b4", easternTrollInsult],
 ]);
 // These three peaceful parlay outcomes in each wilderness script return directly to travel.
 const peacefulParlayStarts = new Set([
@@ -756,7 +757,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // The wilderness scripts clear the native approach when they draw the attitude menu.
       // Keep its exact actor and terrain through the reply, even when COMBAT has already
       // changed game mode behind the caption. A redraw of the map or battle ends the hold.
-      if (!overlandScript || scene || picture !== undefined || battlefield || characterSheet ||
+      if (!overlandScript || scene || (picture !== undefined && picture !== easternTrollInsult) || battlefield || characterSheet ||
           (overlandMenu && !dialogue) || (wildernessEncounter && activeEcl !== wildernessEncounter.block)) {
         wildernessEncounter = undefined;
       } else if (menu === "COMBATWAITFLEEPARLAY" && encounter && localTerrain) {
@@ -1597,6 +1598,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const scope = transientScriptIllustrations.get(`${archive}:${block}:${cursor.toString(16)}`);
       const ends = sourceId && transientPatrols.get(sourceId);
       if (ends) patrolPassage = { start, ends };
+      const completedInsult = insultReply && sourceId === insultReply.last ? insultReply : undefined;
+      if (completedInsult) {
+        // The voice is selected on the first print, including when its completed text owns an illustration.
+        start = completedInsult.start;
+        insultReply = undefined;
+      }
       const previous = animation.at(-1);
       if (sourceId && patrolPassage?.ends.has(sourceId)) {
         start = patrolPassage.start;
@@ -1614,13 +1621,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           previous.text = visibleGameText();
           previous.textSteps = [start, cpu.steps];
         }
-      } else if (insultReply && sourceId === insultReply.last) {
+      } else if (completedInsult) {
         // The insult reply goes straight on to "A battle begins...", where the game clears the
         // picture with no key between. The completed reply, its encounter still on screen, is
         // kept as its own picture from its first piece, so it owns its narration (#336).
         showFrame(undefined, undefined, false, false, undefined, undefined, false, "narration");
-        start = insultReply.start;
-        insultReply = undefined;
       } else if (sourceId && transientNarratedLines.has(sourceId)) {
         // Preserve the completed guest caption so it owns its narration before the next menu.
         showFrame(undefined, undefined, false, false, undefined, undefined, false, "narration");

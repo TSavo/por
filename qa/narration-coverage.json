@@ -170,6 +170,18 @@
    "decisions": 12,
    "heard": 2
   },
+  "issue-99-eastern-4320900-nice-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 23,
+   "heard": 2
+  },
+  "issue-99-eastern-4320900-nice-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 23,
+   "heard": 2
+  },
   "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-02-gnolls-original": {
    "ledger": "decisions.jsonl",
    "games": 1,
@@ -6542,6 +6554,26 @@
     "unfinished": 0,
     "startedLate": 0
    },
+   "issue-99-eastern-4320900-nice-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-eastern-4320900-nice-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
    "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-02-gnolls-original": {
     "log": "decisions.playback.jsonl",
     "legs": 1,
@@ -10510,6 +10542,58 @@
      "encounter:area:27:ecl:9fa5:SPRIT8.DAX:57:1:0"
     ],
     "end": "encounter:area:27:ecl:9fa5:SPRIT8.DAX:57:1:0"
+   },
+   "issue-99-eastern-4320900-nice-original | chrome | 1 | ecl8-b27-9fb7-9fcc": {
+    "run": "issue-99-eastern-4320900-nice-original",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9fb7-9fcc",
+    "variantId": "ecl8-b27-9fb7-9fcc.variant-07-trolls",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v07-trolls.mp3",
+    "expected": "encounter:area:27:ecl:9ff0:SPRIT8.DAX:31:1:0",
+    "caption": "YOU SURPRISE A GROUP OF TROLLS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:ecl:9ff0:SPRIT8.DAX:31:1:0"
+    ],
+    "end": "encounter:area:27:ecl:9ff0:SPRIT8.DAX:31:1:0"
+   },
+   "issue-99-eastern-4320900-nice-original | chrome | 2 | ecl8-b27-a179-a18d-a191-a195-a19b-a19f": {
+    "run": "issue-99-eastern-4320900-nice-original",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-a179-a18d-a191-a195-a19b-a19f",
+    "variantId": "ecl8-b27-a179-a18d-a191-a195-a19b-a19f.variant-07-trolls",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v07-trolls.mp3",
+    "expected": "scene-illustration:area:27:ecl:a1b4:cue:trolls-insult",
+    "caption": "YOU HAVE INSULTED THE TROLLS.THE TROLLS ATTACK YOU IMMEDIATELY! Haughty Sly Nice Meek Abusive",
+    "seen": [
+     "scene-illustration:area:27:ecl:a1b4:cue:trolls-insult"
+    ],
+    "end": "scene-illustration:area:27:ecl:a1b4:cue:trolls-insult"
+   },
+   "issue-99-eastern-4320900-nice-port | chrome | 1 | ecl8-b27-9fb7-9fcc": {
+    "run": "issue-99-eastern-4320900-nice-port",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9fb7-9fcc",
+    "variantId": "ecl8-b27-9fb7-9fcc.variant-07-trolls",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v07-trolls.mp3",
+    "expected": "encounter:area:27:ecl:9ff0:SPRIT8.DAX:31:1:0",
+    "caption": "YOU SURPRISE A GROUP OF TROLLS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:ecl:9ff0:SPRIT8.DAX:31:1:0"
+    ],
+    "end": "encounter:area:27:ecl:9ff0:SPRIT8.DAX:31:1:0"
+   },
+   "issue-99-eastern-4320900-nice-port | chrome | 2 | ecl8-b27-a179-a18d-a191-a195-a19b-a19f": {
+    "run": "issue-99-eastern-4320900-nice-port",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-a179-a18d-a191-a195-a19b-a19f",
+    "variantId": "ecl8-b27-a179-a18d-a191-a195-a19b-a19f.variant-07-trolls",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v07-trolls.mp3",
+    "expected": "scene-illustration:area:27:ecl:a1b4:cue:trolls-insult",
+    "caption": "YOU HAVE INSULTED THE TROLLS.THE TROLLS ATTACK YOU IMMEDIATELY! Haughty Sly Nice Meek Abusive",
+    "seen": [
+     "scene-illustration:area:27:ecl:a1b4:cue:trolls-insult"
+    ],
+    "end": "scene-illustration:area:27:ecl:a1b4:cue:trolls-insult"
    },
    "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-02-gnolls-original | chrome | 1 | ecl8-b27-9f1c-9f2e": {
     "run": "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-02-gnolls-original",

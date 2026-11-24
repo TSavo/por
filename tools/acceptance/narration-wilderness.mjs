@@ -80,11 +80,12 @@ try {
   const [voice] = matches;
   const variant = variants.get(voice.variantId);
   if (result.includes("ABATTLEBEGINS")) {
-    assert.deepEqual(voice.artSeen, [approachActor], "The approach must stay on screen through the parlay reply");
-    assert.equal(voice.expectedArt, approachActor);
-    assert.equal(voice.artAtEnd, approachActor);
+    const replyArt = easternClock && actor === "TROLLS" ? "scene-illustration:area:27:ecl:a1b4:cue:trolls-insult" : approachActor;
+    assert.deepEqual(voice.artSeen, [replyArt], "The reply must stay illustrated until the voice ends");
+    assert.equal(voice.expectedArt, replyArt);
+    assert.equal(voice.artAtEnd, replyArt);
     assert.equal(await chrome.evaluate('document.querySelector("#tile-art .encounter-sprite")?.naturalWidth > 0 && Boolean(document.querySelector("#tile-art .local-overland-encounter"))'), true);
-    writeFileSync(join(output, "parlay.png"), await chrome.screenshot());
+    writeFileSync(join(output, "battle-entry.png"), await chrome.screenshot());
     await chrome.send("enter");
     await chrome.nextFrame();
     assert.equal(await chrome.evaluate('Boolean(state.battleTiles?.length || state.combatArt?.length) && !state.encounter && !document.querySelector("#tile-art .encounter-sprite")'), true,
