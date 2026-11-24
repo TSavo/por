@@ -7,15 +7,15 @@ export function observeEnhancedFallbacks() {
   window.porEnhancedFallbacks = () => ({ observer: 2, data: state.classicAvailable ? "original" : "port", presented, frames });
 
   function inspect() {
-    if (!enhanced || document.querySelector("#screen-loading").hidden === false) return;
-    const view = animationFrame ?? state;
+    if (!displayedFrame?.enhanced || document.querySelector("#screen-loading").hidden === false) return;
+    const { view, sequence, animation } = displayedFrame;
     const layers = tileArt.hidden ? [] : [...tileArt.children];
     const isScene = !screen.src.startsWith("data:");
     const draws = selector => layers.some(layer => layer.matches(selector));
     const isWheel = Number.isInteger(view.codeWheelQuestion);
     let record = seen.get(view);
     if (!record) {
-      record = { sequence: state.sequence, animation: Boolean(animationFrame), keys: [] };
+      record = { sequence, animation, keys: [] };
       seen.set(view, record);
       presented++;
     }

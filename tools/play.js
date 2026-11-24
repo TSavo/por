@@ -207,6 +207,7 @@ let advanceAnimation;
 let animationQueue = [];
 let screenRender = 0;
 let renderingSequence;
+let displayedFrame;
 const failedSceneArt = new WeakSet();
 const failedEnhancedFrames = new WeakSet();
 
@@ -938,7 +939,7 @@ function decodedArtImage(id) {
     tile.src = `/art/${id}`;
     image = tile.decode().then(() => tile).catch(error => {
       decodedArtImages.delete(id);
-      throw error;
+      throw new Error(`Could not decode ${id}`, { cause: error });
     });
     decodedArtImages.set(id, image);
   }
@@ -1881,7 +1882,7 @@ async function animateHeldPortrait(image, view) {
   requestAnimationFrame(paintPhase);
 }
 
-async function showScreen() {
+async function showScreen(retryEnhanced = true) {
   if (!state.frame) return;
   const render = ++screenRender;
   renderingSequence = state.sequence;
@@ -2158,8 +2159,15 @@ async function showScreen() {
       }
       layers.push(layer);
     }
-  } catch {
+  } catch (error) {
     if (render !== screenRender) return;
+    console.warn("Game frame could not be drawn", { sequence: state.sequence, scene: view.scene, portrait: portraitId }, error);
+    if (useEnhanced && retryEnhanced) {
+      // Keep the previous complete picture while retrying a transient draw or decode failure.
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      if (render === screenRender) void showScreen(false);
+      return;
+    }
     if (sceneArt) failedSceneArt.add(view);
     else if (useEnhanced) failedEnhancedFrames.add(view);
     else {
@@ -2171,6 +2179,8 @@ async function showScreen() {
     return;
   }
   if (render !== screenRender) return;
+  // The next guest state can arrive while its artwork is still decoding.
+  displayedFrame = { view, enhanced, sequence: renderingSequence, animation: view !== state };
   screen.src = source;
   document.querySelector("#screen-loading").hidden = true;
   tileArt.replaceChildren(...layers);
