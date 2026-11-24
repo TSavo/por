@@ -28,8 +28,10 @@ work. Sound requests are not usable either: the builds differ in them.
   kind of moment, once the game has got at least as far.
 
 The Chrome campaign harness records every leg into its leg directory as
-`prompts.jsonl`. A leg with a record in `qa/replay-schedules/campaign/`
-follows it. `POR_REPLAY_SCHEDULES=off` ignores the committed records and
+`prompts.jsonl`. The full campaign follows `qa/replay-schedules/campaign/`.
+The default Chrome run shares the first six legs, then follows the Ohlo route
+in `qa/replay-schedules/campaign-ohlo/` wherever a leg has a recorded schedule.
+`POR_REPLAY_SCHEDULES=off` ignores the committed records and
 falls back to the old rule, which asks at a poll once a million
 instructions have passed since the last key.
 
