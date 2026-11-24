@@ -316,6 +316,12 @@
    "frames": [],
    "fixtureSha256": "be7610752410cac8a013bb36b20433b6c362a097f534d7f494ad48556f88c5aa"
   },
+  "walk-guide-party-textile-reward": {
+   "observer": 2,
+   "presented": 1412,
+   "frames": [],
+   "fixtureSha256": "893e18da0f01f06aff5fee94287934171acd3714276a659ee97c5eff4aff353e"
+  },
   "walk-guide-party-turn-undead": {
    "observer": 2,
    "presented": 100,
