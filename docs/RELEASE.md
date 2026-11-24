@@ -244,35 +244,34 @@ holds the first release's script; that case was not compared byte by byte.
 
 ## Signing
 
-None of the packages is signed by a developer yet.
+The packages ship unsigned. That is the plan, not a pending step: there will be no Developer ID and
+no Windows code-signing certificate. First launch is blocked until the player approves the app, as
+follows.
 
 **Mac.** The app is sealed with an ad-hoc signature (`codesign --sign -`), so it is intact but from no
-identified developer. Downloaded, it is quarantined, and opening it shows *"Pool of Radiance" Not
-Opened: Apple could not verify "Pool of Radiance" is free of malware that may harm your Mac or
-compromise your privacy*, with **Done** and **Move to Trash**. A tester gets past it once: open
-**System Settings → Privacy & Security**, scroll to *"Pool of Radiance" was blocked to protect your Mac*,
-choose **Open Anyway** and confirm with their password; after that it opens normally. (On macOS 14 and
-earlier, Control-click the app, choose **Open**, then **Open** again.) Or, from Terminal:
-`xattr -dr com.apple.quarantine "/Applications/Pool of Radiance.app"`. Copied without quarantine, as
-in the check below, it opens with no prompt.
+identified developer. Downloaded, Gatekeeper quarantines it, and opening it shows *"Pool of Radiance"
+Not Opened: Apple could not verify "Pool of Radiance" is free of malware that may harm your Mac or
+compromise your privacy*, with **Done** and **Move to Trash**.
 
-To ship it without that, the owner needs an **Apple Developer Program** membership (USD 99 a year) and:
+1. Open `Pool-of-Radiance-<version>-mac-arm64.dmg` (Apple silicon) or
+   `Pool-of-Radiance-<version>-mac-x64.dmg` (Intel) and drag `Pool of Radiance.app` to Applications.
+2. Open the app. macOS will refuse it.
+3. On macOS 15 Sequoia and later, right-click → Open no longer bypasses Gatekeeper. Go to
+   **System Settings → Privacy & Security**, scroll to *"Pool of Radiance" was blocked to protect your
+   Mac*, click **Open Anyway**, and confirm with your password.
+4. On earlier macOS, Control-click `Pool of Radiance.app`, choose **Open**, then **Open** again.
 
-- a **Developer ID Application** certificate, to sign `Contents/MacOS/node` (with the hardened runtime
-  and the JIT entitlements V8 needs: `com.apple.security.cs.allow-jit`,
-  `com.apple.security.cs.allow-unsigned-executable-memory`), then the app, in that order, with
-  `codesign --options runtime --timestamp`;
-- **notarization**: an app-specific password or App Store Connect API key for `xcrun notarytool submit
-  --wait` on the signed disk image (or a zip of the app), then `xcrun stapler staple` on the app and the
-  disk image, so Gatekeeper accepts it offline;
-- a bundle identifier of the owner's own (the package uses the placeholder
-  `io.github.tsavo.pool-of-radiance`), and the disk image itself signed with the same certificate.
+Or, from Terminal: `xattr -dr com.apple.quarantine "/Applications/Pool of Radiance.app"`. After that
+first approval, it opens normally. Copied without quarantine, as in the check below, it opens with no
+prompt.
 
-**Windows.** Unsigned, the installer shows SmartScreen's *Windows protected your PC*; **More info →
-Run anyway** passes it. Signing needs a code-signing certificate (an OV or EV certificate from a
-certificate authority, or Azure Trusted Signing) and `signtool` (or `osslsigncode` on the Mac) run on
-the installer and, through NSIS's `!uninstfinalize`, on `Uninstall.exe`; an OV certificate's
-reputation with SmartScreen builds over time.
+**Windows.** The installer `Pool-of-Radiance-<version>-windows-setup.exe` is unsigned. SmartScreen
+shows *Windows protected your PC*. Click **More info**, then **Run anyway**. After setup, start
+**Pool of Radiance** from the Start Menu or the desktop shortcut (`Pool of Radiance.exe`).
+
+**Linux.** There is no AppImage. Unpack `pool-of-radiance-<version>-linux-x64.tar.gz` and run
+`./pool-of-radiance` from that folder. The archive is packed with the executable bit set; if a
+download dropped it, `chmod +x pool-of-radiance`.
 
 ## Checking a package
 
@@ -452,7 +451,7 @@ To repeat, dispatch the **Mac packaged first launch** workflow with the internal
 
 On a physical Intel Mac running macOS 26.3.1(a), the browser-downloaded Alpha 1 retained quarantine through installation. The owner approved Open Anyway and saw the game open. A warm launch showed the `v0.1 Alpha 1 (1f44fc3)` title and main menu. The native folder picker accepted the GOG 1.3 and first-release folders, retained each selection across a full quit and relaunch, and rejected an invalid folder. The tester then restored bundled-data mode. The first visible window was not timed in this run. [Physical Mac test report](https://github.com/TSavo/por/issues/103#issuecomment-7118303350)
 
-Two subsequent launches on that physical Mac were timed using the same window criteria, with process lookup by bundle identifier because App Translocation changes the running bundle's path. The first registered at **61.747 s** and showed a window at **78.257 s**; the second registered at **0.201 s** and showed a window at **3.955 s**. Both followed Open Anyway and earlier successful launches; neither measures a pristine first launch. The long registration delay is observed, but this probe does not establish its cause. The initial quarantined launch was blocked before approval, with a `syspolicyd` assessment error; signing and notarization remain tracked in [#105](https://github.com/TSavo/por/issues/105). [Physical Mac timing evidence](https://github.com/TSavo/por/issues/184#issuecomment-7118462449)
+Two subsequent launches on that physical Mac were timed using the same window criteria, with process lookup by bundle identifier because App Translocation changes the running bundle's path. The first registered at **61.747 s** and showed a window at **78.257 s**; the second registered at **0.201 s** and showed a window at **3.955 s**. Both followed Open Anyway and earlier successful launches; neither measures a pristine first launch. The long registration delay is observed, but this probe does not establish its cause. The initial quarantined launch was blocked before approval, with a `syspolicyd` assessment error. The packages ship unsigned; first-launch steps are in [Signing](#signing) above. [Physical Mac timing evidence](https://github.com/TSavo/por/issues/184#issuecomment-7118462449)
 
 A follow-up with the same approved binary and an existing isolated QA profile measured process appearance, registration and window separately. The two launches took **0.098 / 0.125 / 3.945 s** and **0.109 / 0.136 / 3.386 s**, respectively. No packaging ran concurrently. Chromium log files were empty and did not expose Electron-main entry. The earlier long registration delay did not recur, so its cause remains unresolved. [Boundary follow-up](https://github.com/TSavo/por/issues/184#issuecomment-7118841050)
 
@@ -464,6 +463,6 @@ An Intel QA DMG built from `3b3274234` passed the package integrity and signatur
 
 That fresh local installation, despite having no quarantine attribute, also stalled before app code: process launch was 17:14:06.449 PST, a sample at 17:14:25.186 showed only `_dyld_start` and an 8 KB footprint, `syspolicyd` reported its assessment result at 17:14:36.081, and Launch Services checked in at 17:14:36.531. `amfid` identified the ad-hoc signature during this interval. The first window was not separately timed in this sample. [System-assessment evidence](https://github.com/TSavo/por/issues/184#issuecomment-7118913687).
 
-The next fresh local copy, `a3f6aba8e`, was measured from its first launch: **44.006 s to the first window**, then **6.458 s** after a full quit and relaunch. It used a new isolated profile and had no quarantine attribute. `amfid` identified its ad-hoc signature at 17:26:02.599 PST; the system assessment result arrived at 17:26:39.038, actual app check-in at 17:26:39.755, and the first game log at 17:26:45.162. The `NSRunningApplication` entry appeared earlier and therefore is not proof of Electron-main entry. Together with the preceding pre-dyld sample, this identifies a first-launch system-assessment delay before game startup. **Signing and notarization in [#105](https://github.com/TSavo/por/issues/105) remain the remediation; the app has not yet been signed with Developer ID.** The measurement/documentation investigation in #184 is complete, not the signing work or a claim that every historical delay has the same cause. [Fresh and warm measurements](../qa/mac-first-launch-a3f6aba8.json).
+The next fresh local copy, `a3f6aba8e`, was measured from its first launch: **44.006 s to the first window**, then **6.458 s** after a full quit and relaunch. It used a new isolated profile and had no quarantine attribute. `amfid` identified its ad-hoc signature at 17:26:02.599 PST; the system assessment result arrived at 17:26:39.038, actual app check-in at 17:26:39.755, and the first game log at 17:26:45.162. The `NSRunningApplication` entry appeared earlier and therefore is not proof of Electron-main entry. Together with the preceding pre-dyld sample, this identifies a first-launch system-assessment delay before game startup. **The packages ship unsigned** (an ad-hoc signature only; see [Signing](#signing)). The measurement/documentation investigation in #184 is complete, and does not claim that every historical delay has the same cause. [Fresh and warm measurements](../qa/mac-first-launch-a3f6aba8.json).
 
 The installed `a3f6aba8e` app passed the new party-setup guidance check in separate bundled and GOG 1.3 profiles. The instruction stayed above the native menu without overlap, and its 6.72-second recording played once to completion. Character creation and Add/Exit returned to the visible instruction without replaying it. Full application quit/relaunch also preserved the instruction without replay in both profiles. On the GOG profile, entering the menu in Classic showed and played no guide; switching to Enhanced displayed it and played it once. These runs used ordinary startup and keys, with no engine overrides. Enhanced was restored, the test original-files setting removed, and the test app closed. [Inputs and playback evidence](../qa/mac-347-installed.json).
