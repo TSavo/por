@@ -146,6 +146,102 @@
    "decisions": 25,
    "heard": 21
   },
+  "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-02-gnolls-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 5,
+   "heard": 1
+  },
+  "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-02-gnolls-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 5,
+   "heard": 1
+  },
+  "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-05-hippogriffs-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 8,
+   "heard": 1
+  },
+  "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-05-hippogriffs-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 8,
+   "heard": 1
+  },
+  "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-07-trolls-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 22,
+   "heard": 1
+  },
+  "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-07-trolls-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 22,
+   "heard": 1
+  },
+  "issue-99-eastern-ecl8-b27-9f66-9f81.variant-03-lizard-men-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 6,
+   "heard": 1
+  },
+  "issue-99-eastern-ecl8-b27-9f66-9f81.variant-03-lizard-men-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 6,
+   "heard": 1
+  },
+  "issue-99-eastern-ecl8-b27-9f66-9f81.variant-09-minotaurs-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 11,
+   "heard": 1
+  },
+  "issue-99-eastern-ecl8-b27-9f66-9f81.variant-09-minotaurs-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 11,
+   "heard": 1
+  },
+  "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-01-kobolds-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 13,
+   "heard": 1
+  },
+  "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-01-kobolds-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 13,
+   "heard": 1
+  },
+  "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-02-gnolls-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 17,
+   "heard": 1
+  },
+  "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-02-gnolls-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 17,
+   "heard": 1
+  },
+  "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-07-trolls-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 17,
+   "heard": 1
+  },
+  "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-07-trolls-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 17,
+   "heard": 1
+  },
   "issue-99-landmark-zhentil-thri-kreens-original": {
    "ledger": "issue-99-landmark-zhentil-thri-kreens-original.jsonl",
    "games": 1,
@@ -5281,6 +5377,12 @@
    "slot": "0x982c",
    "value": "THRI-KREENS"
   },
+  "ecl8-b27-9f1c-9f2e.variant-02-gnolls": {
+   "run": "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-02-gnolls-original",
+   "step": 87298639,
+   "slot": "0x982c",
+   "value": "GNOLLS"
+  },
   "ecl8-b27-9f1c-9f2e.variant-03-lizard-men": {
    "run": "walk-valhingen-1",
    "step": 1008925173,
@@ -5316,6 +5418,12 @@
    "step": 2039235750,
    "slot": "0x982c",
    "value": "GNOLLS"
+  },
+  "ecl8-b27-9f66-9f81.variant-03-lizard-men": {
+   "run": "issue-99-eastern-ecl8-b27-9f66-9f81.variant-03-lizard-men-original",
+   "step": 88340916,
+   "slot": "0x982c",
+   "value": "LIZARD MEN"
   },
   "ecl8-b27-9f66-9f81.variant-04-giant-lizards": {
    "run": "walk-kovel-1",
@@ -6359,6 +6467,166 @@
     "legs": 1,
     "lines": 21,
     "toTheEnd": 21,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-02-gnolls-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-02-gnolls-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-05-hippogriffs-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-05-hippogriffs-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-07-trolls-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-07-trolls-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-eastern-ecl8-b27-9f66-9f81.variant-03-lizard-men-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-eastern-ecl8-b27-9f66-9f81.variant-03-lizard-men-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-eastern-ecl8-b27-9f66-9f81.variant-09-minotaurs-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-eastern-ecl8-b27-9f66-9f81.variant-09-minotaurs-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-01-kobolds-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-01-kobolds-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-02-gnolls-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-02-gnolls-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 1
+   },
+   "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-07-trolls-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-07-trolls-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
     "endedByPlayer": 0,
     "cutOff": 0,
     "unfinished": 0,
@@ -7678,6 +7946,30 @@
     "seconds": 5.76,
     "waited": 0.017,
     "art": "portrait:PIC8.DAX:41:0:0"
+   },
+   "ecl8-b27-9f1c-9f2e": {
+    "run": "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-07-trolls-original",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v07-trolls.mp3",
+    "variantId": "ecl8-b27-9f1c-9f2e.variant-07-trolls",
+    "seconds": 2.48,
+    "waited": 0.102,
+    "art": "encounter:area:27:ecl:9f54:SPRIT8.DAX:31:1:0"
+   },
+   "ecl8-b27-9f66-9f81": {
+    "run": "issue-99-eastern-ecl8-b27-9f66-9f81.variant-03-lizard-men-original",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v03-lizard-men.mp3",
+    "variantId": "ecl8-b27-9f66-9f81.variant-03-lizard-men",
+    "seconds": 3.2,
+    "waited": 0.087,
+    "art": "encounter:area:27:ecl:9fa5:SPRIT8.DAX:57:1:0"
+   },
+   "ecl8-b27-9fb7-9fcc": {
+    "run": "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-02-gnolls-original",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v02-gnolls.mp3",
+    "variantId": "ecl8-b27-9fb7-9fcc.variant-02-gnolls",
+    "seconds": 2.64,
+    "waited": 0.068,
+    "art": "encounter:area:27:SPRIT8.DAX:73:1:0"
    },
    "por.narration.sokal.ecl4-b21-9923": {
     "run": "sokal-verified-original",
@@ -10036,6 +10328,214 @@
      "the first-person view"
     ],
     "end": "the first-person view"
+   },
+   "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-02-gnolls-original | chrome | 1 | ecl8-b27-9f1c-9f2e": {
+    "run": "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-02-gnolls-original",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9f1c-9f2e",
+    "variantId": "ecl8-b27-9f1c-9f2e.variant-02-gnolls",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v02-gnolls.mp3",
+    "expected": "encounter:area:27:SPRIT8.DAX:73:1:0",
+    "caption": "YOU SPOT A GROUP OF GNOLLS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:SPRIT8.DAX:73:1:0"
+    ],
+    "end": "encounter:area:27:SPRIT8.DAX:73:1:0"
+   },
+   "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-02-gnolls-port | chrome | 1 | ecl8-b27-9f1c-9f2e": {
+    "run": "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-02-gnolls-port",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9f1c-9f2e",
+    "variantId": "ecl8-b27-9f1c-9f2e.variant-02-gnolls",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v02-gnolls.mp3",
+    "expected": "encounter:area:27:SPRIT8.DAX:73:1:0",
+    "caption": "YOU SPOT A GROUP OF GNOLLS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:SPRIT8.DAX:73:1:0"
+    ],
+    "end": "encounter:area:27:SPRIT8.DAX:73:1:0"
+   },
+   "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-05-hippogriffs-original | chrome | 1 | ecl8-b27-9f1c-9f2e": {
+    "run": "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-05-hippogriffs-original",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9f1c-9f2e",
+    "variantId": "ecl8-b27-9f1c-9f2e.variant-05-hippogriffs",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v05-hippogriffs.mp3",
+    "expected": "encounter:area:27:ecl:9f54:SPRIT8.DAX:113:1:0",
+    "caption": "YOU SPOT A GROUP OF HIPPOGRIFFS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:ecl:9f54:SPRIT8.DAX:113:1:0"
+    ],
+    "end": "encounter:area:27:ecl:9f54:SPRIT8.DAX:113:1:0"
+   },
+   "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-05-hippogriffs-port | chrome | 1 | ecl8-b27-9f1c-9f2e": {
+    "run": "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-05-hippogriffs-port",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9f1c-9f2e",
+    "variantId": "ecl8-b27-9f1c-9f2e.variant-05-hippogriffs",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v05-hippogriffs.mp3",
+    "expected": "encounter:area:27:ecl:9f54:SPRIT8.DAX:113:1:0",
+    "caption": "YOU SPOT A GROUP OF HIPPOGRIFFS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:ecl:9f54:SPRIT8.DAX:113:1:0"
+    ],
+    "end": "encounter:area:27:ecl:9f54:SPRIT8.DAX:113:1:0"
+   },
+   "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-07-trolls-original | chrome | 1 | ecl8-b27-9f1c-9f2e": {
+    "run": "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-07-trolls-original",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9f1c-9f2e",
+    "variantId": "ecl8-b27-9f1c-9f2e.variant-07-trolls",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v07-trolls.mp3",
+    "expected": "encounter:area:27:ecl:9f54:SPRIT8.DAX:31:1:0",
+    "caption": "YOU SPOT A GROUP OF TROLLS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:ecl:9f54:SPRIT8.DAX:31:1:0"
+    ],
+    "end": "encounter:area:27:ecl:9f54:SPRIT8.DAX:31:1:0"
+   },
+   "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-07-trolls-port | chrome | 1 | ecl8-b27-9f1c-9f2e": {
+    "run": "issue-99-eastern-ecl8-b27-9f1c-9f2e.variant-07-trolls-port",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9f1c-9f2e",
+    "variantId": "ecl8-b27-9f1c-9f2e.variant-07-trolls",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v07-trolls.mp3",
+    "expected": "encounter:area:27:ecl:9f54:SPRIT8.DAX:31:1:0",
+    "caption": "YOU SPOT A GROUP OF TROLLS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:ecl:9f54:SPRIT8.DAX:31:1:0"
+    ],
+    "end": "encounter:area:27:ecl:9f54:SPRIT8.DAX:31:1:0"
+   },
+   "issue-99-eastern-ecl8-b27-9f66-9f81.variant-03-lizard-men-original | chrome | 1 | ecl8-b27-9f66-9f81": {
+    "run": "issue-99-eastern-ecl8-b27-9f66-9f81.variant-03-lizard-men-original",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9f66-9f81",
+    "variantId": "ecl8-b27-9f66-9f81.variant-03-lizard-men",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v03-lizard-men.mp3",
+    "expected": "encounter:area:27:ecl:9fa5:SPRIT8.DAX:57:1:0",
+    "caption": "YOU ARE SURPRISED BY A GROUP OF LIZARD MEN Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:ecl:9fa5:SPRIT8.DAX:57:1:0"
+    ],
+    "end": "encounter:area:27:ecl:9fa5:SPRIT8.DAX:57:1:0"
+   },
+   "issue-99-eastern-ecl8-b27-9f66-9f81.variant-03-lizard-men-port | chrome | 1 | ecl8-b27-9f66-9f81": {
+    "run": "issue-99-eastern-ecl8-b27-9f66-9f81.variant-03-lizard-men-port",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9f66-9f81",
+    "variantId": "ecl8-b27-9f66-9f81.variant-03-lizard-men",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v03-lizard-men.mp3",
+    "expected": "encounter:area:27:ecl:9fa5:SPRIT8.DAX:57:1:0",
+    "caption": "YOU ARE SURPRISED BY A GROUP OF LIZARD MEN Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:ecl:9fa5:SPRIT8.DAX:57:1:0"
+    ],
+    "end": "encounter:area:27:ecl:9fa5:SPRIT8.DAX:57:1:0"
+   },
+   "issue-99-eastern-ecl8-b27-9f66-9f81.variant-09-minotaurs-original | chrome | 1 | ecl8-b27-9f66-9f81": {
+    "run": "issue-99-eastern-ecl8-b27-9f66-9f81.variant-09-minotaurs-original",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9f66-9f81",
+    "variantId": "ecl8-b27-9f66-9f81.variant-09-minotaurs",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v09-minotaurs.mp3",
+    "expected": "encounter:area:27:ecl:9fa5:SPRIT8.DAX:62:1:0",
+    "caption": "YOU ARE SURPRISED BY A GROUP OF MINOTAURS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:ecl:9fa5:SPRIT8.DAX:62:1:0"
+    ],
+    "end": "encounter:area:27:ecl:9fa5:SPRIT8.DAX:62:1:0"
+   },
+   "issue-99-eastern-ecl8-b27-9f66-9f81.variant-09-minotaurs-port | chrome | 1 | ecl8-b27-9f66-9f81": {
+    "run": "issue-99-eastern-ecl8-b27-9f66-9f81.variant-09-minotaurs-port",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9f66-9f81",
+    "variantId": "ecl8-b27-9f66-9f81.variant-09-minotaurs",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v09-minotaurs.mp3",
+    "expected": "encounter:area:27:ecl:9fa5:SPRIT8.DAX:62:1:0",
+    "caption": "YOU ARE SURPRISED BY A GROUP OF MINOTAURS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:ecl:9fa5:SPRIT8.DAX:62:1:0"
+    ],
+    "end": "encounter:area:27:ecl:9fa5:SPRIT8.DAX:62:1:0"
+   },
+   "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-01-kobolds-original | chrome | 1 | ecl8-b27-9fb7-9fcc": {
+    "run": "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-01-kobolds-original",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9fb7-9fcc",
+    "variantId": "ecl8-b27-9fb7-9fcc.variant-01-kobolds",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v01-kobolds.mp3",
+    "expected": "encounter:area:27:SPRIT8.DAX:0:1:0",
+    "caption": "YOU SURPRISE A GROUP OF KOBOLDS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:SPRIT8.DAX:0:1:0"
+    ],
+    "end": "encounter:area:27:SPRIT8.DAX:0:1:0"
+   },
+   "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-01-kobolds-port | chrome | 1 | ecl8-b27-9fb7-9fcc": {
+    "run": "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-01-kobolds-port",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9fb7-9fcc",
+    "variantId": "ecl8-b27-9fb7-9fcc.variant-01-kobolds",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v01-kobolds.mp3",
+    "expected": "encounter:area:27:SPRIT8.DAX:0:1:0",
+    "caption": "YOU SURPRISE A GROUP OF KOBOLDS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:SPRIT8.DAX:0:1:0"
+    ],
+    "end": "encounter:area:27:SPRIT8.DAX:0:1:0"
+   },
+   "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-02-gnolls-original | chrome | 1 | ecl8-b27-9fb7-9fcc": {
+    "run": "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-02-gnolls-original",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9fb7-9fcc",
+    "variantId": "ecl8-b27-9fb7-9fcc.variant-02-gnolls",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v02-gnolls.mp3",
+    "expected": "encounter:area:27:SPRIT8.DAX:73:1:0",
+    "caption": "YOU SURPRISE A GROUP OF GNOLLS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:SPRIT8.DAX:73:1:0"
+    ],
+    "end": "encounter:area:27:SPRIT8.DAX:73:1:0"
+   },
+   "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-02-gnolls-port | chrome | 1 | ecl8-b27-9fb7-9fcc": {
+    "run": "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-02-gnolls-port",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9fb7-9fcc",
+    "variantId": "ecl8-b27-9fb7-9fcc.variant-02-gnolls",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v02-gnolls.mp3",
+    "expected": "encounter:area:27:SPRIT8.DAX:73:1:0",
+    "caption": "YOU SURPRISE A GROUP OF GNOLLS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:SPRIT8.DAX:73:1:0"
+    ],
+    "end": "encounter:area:27:SPRIT8.DAX:73:1:0"
+   },
+   "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-07-trolls-original | chrome | 1 | ecl8-b27-9fb7-9fcc": {
+    "run": "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-07-trolls-original",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9fb7-9fcc",
+    "variantId": "ecl8-b27-9fb7-9fcc.variant-07-trolls",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v07-trolls.mp3",
+    "expected": "encounter:area:27:ecl:9ff0:SPRIT8.DAX:31:1:0",
+    "caption": "YOU SURPRISE A GROUP OF TROLLS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:ecl:9ff0:SPRIT8.DAX:31:1:0"
+    ],
+    "end": "encounter:area:27:ecl:9ff0:SPRIT8.DAX:31:1:0"
+   },
+   "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-07-trolls-port | chrome | 1 | ecl8-b27-9fb7-9fcc": {
+    "run": "issue-99-eastern-ecl8-b27-9fb7-9fcc.variant-07-trolls-port",
+    "leg": "chrome",
+    "unitId": "ecl8-b27-9fb7-9fcc",
+    "variantId": "ecl8-b27-9fb7-9fcc.variant-07-trolls",
+    "asset": "voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v07-trolls.mp3",
+    "expected": "encounter:area:27:ecl:9ff0:SPRIT8.DAX:31:1:0",
+    "caption": "YOU SURPRISE A GROUP OF TROLLS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:27:ecl:9ff0:SPRIT8.DAX:31:1:0"
+    ],
+    "end": "encounter:area:27:ecl:9ff0:SPRIT8.DAX:31:1:0"
    },
    "issue-99-landmark-zhentil-thri-kreens-original | chrome | 1 | ecl6-b25-a1c7-a1dc-a1e0": {
     "run": "issue-99-landmark-zhentil-thri-kreens-original",
