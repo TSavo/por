@@ -13637,6 +13637,12 @@ try {
           })()`);
         }
         await advance(key);
+        const heldApproach = frame.encounter?.[2];
+        if (heldApproach && approachSequence?.some(([, , id]) => id === heldApproach)) {
+          // HTTP input can advance a held approach before Chrome paints its decoded sprite.
+          await waitFor("the held encounter approach", () => run(
+            `state.sequence === ${frame.sequence} && window.observedApproach.has(${JSON.stringify(heldApproach)})`));
+        }
         if (routeName === "valhingen-skeleton-enclave" && index === 1) {
           await waitFor("both Enhanced skeleton enclave approach distances", () =>
             run(`window.observedApproach.size === ${approachSequence.length}`));
