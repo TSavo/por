@@ -5679,10 +5679,11 @@ const illustrationRoutes = new Map([
     },
   }],
   ["valjevo-dungeon-kitchen-phases", {
-    slot: "B", inputs: ["j", "j", "up", "enter", ...Array(9).fill("q")],
-    portraitStops: { 4: "portrait:PIC5.DAX:73:0:0" },
-    portrait: "portrait:area:4:ecl:9a5a:caller:a7a7:PIC5.DAX:73:1:0",
+    slot: "B", inputs: ["j", "j", "up", "enter"],
+    portrait: "portrait:PIC5.DAX:73:0:0",
+    heldPortraitLoop: ["portrait:PIC5.DAX:73:0:0", "portrait:area:4:ecl:9a5a:caller:a7a7:PIC5.DAX:73:1:0"],
     prompt: /YOUENTERAROOMTHATREEKSOFSMOKEANDBURNEDFOOD/i,
+    finalPhasePortrait: "portrait:area:4:ecl:9a5a:caller:a7a7:PIC5.DAX:73:1:0",
     finalPhaseCapture: "valjevo-dungeon-kitchen-phase-1.png",
   }],
   ["valjevo-dungeon-kitchen-entry-loop", {
@@ -13914,6 +13915,10 @@ try {
       assert.equal(result.value, false, "The encounter artwork should remain visible until combat");
     }
     if (illustration.finalPhaseCapture) {
+      if (illustration.finalPhasePortrait) {
+        await waitFor("the named portrait phase to paint", () => run(`
+          document.querySelector('#tile-art:not([hidden]) .encounter-portrait[src="/art/${illustration.finalPhasePortrait}"]')?.naturalWidth === 352`));
+      }
       const phaseShot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, illustration.finalPhaseCapture), Buffer.from(phaseShot.data, "base64"));
       if (illustration.recordTimedHandoff) {
