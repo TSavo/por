@@ -68,8 +68,7 @@ The title screen shows `v0.1 Beta 2` followed by the build commit.
   7 days; nothing is published. Unchecked, it publishes only when run on a tag.
 
 The release builds from this checkout. The app job compiles Electron and the web page once.
-Battleaxe packages Windows and Linux. The macOS runner packages both Mac architectures, mounts
-each disk image, and checks the installed contents against the tagged commit. The release job
+Battleaxe packages Windows and Linux. The macOS runner packages both Mac architectures. The release job
 writes `SHA256SUMS` and uploads the four packages.
 
 ## What the package contains
@@ -92,19 +91,15 @@ sit in `resources/`, beside Electron's runtime.
 
 ## What packing refuses
 
-Packing is where nothing of `por-assets` may go in. `release:pack` fails if:
+`release:pack` fails if:
 
 1. A file in a package is an original game file (`START.EXE`, `GAME.OVR`, `POOL.CFG`, `*.DAX`,
    `*.OVR`, `*.EX_`, `*.PIC`, `*.CMP`, or any `.exe` in the game's own folders), a link that points
-   outside the package, or a path naming `por-assets`. Classic recordings must match their
+   outside the package. Classic recordings must match their
    committed `audio/classic/` MP3 files at their expected paths.
 2. `game/` in a package is not the committed `game/`: the same 16 files, each the same git blob. What
    `game/` holds is checked by `npm run verify:game-data`: no instruction bytes and no original pixels.
-3. The compiled Electron main process (`dist/electron/main.js`) contains the string `por-assets`
-   (`npm run release:build` fails the same way).
 
-`src/audio/original-sounds.json` mentions `por-assets` in a note on how the Classic sounds were rendered;
-nothing reads it as a path.
 
 `npx tsx tools/release/pack.ts --check <directory>` runs checks 1 and 2 alone on an unpacked package or
 an install (for the Mac app, its `Contents`). Checked against copies of the Linux folder with one thing

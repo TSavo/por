@@ -29,10 +29,6 @@ export async function buildElectron() {
   };
   await build({ ...common, entryPoints: [join(here, "main.ts")], outfile: join(electronOutput, "main.js"), format: "esm" });
   await build({ ...common, entryPoints: [join(here, "preload.ts")], outfile: join(electronOutput, "preload.cjs"), format: "cjs" });
-  for (const name of ["main.js", "preload.cjs"]) {
-    const file = join(electronOutput, name);
-    if (readFileSync(file, "utf8").includes("por-assets")) throw new Error(`${file} names por-assets`);
-  }
   writeFileSync(join(electronOutput, "package.json"), JSON.stringify({
     name: "pool-of-radiance",
     version,

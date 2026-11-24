@@ -7,7 +7,7 @@
  *                    party recolour masks (tools/web/build-loose.ts)
  *
  * The title screen's label (v0.1.0 (0c83fe2), for example) is written into the resource index,
- * because a packaged game has no .git. The build fails if the compiled main process names por-assets.
+ * because a packaged game has no .git.
  */
 import { checkoutBuildVersion } from "../build-version.js";
 import { buildElectron } from "../electron/build.js";

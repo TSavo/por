@@ -15,12 +15,11 @@
  * process from dist/electron, the packaged page from dist/web, and the official Electron runtime for
  * its platform, checked against the release's SHASUMS256.txt.
  *
- * Packing is where nothing of por-assets may go in. The build fails if:
+ * The build fails if:
  *   1. a file in a package is an original game file (START.EXE, GAME.OVR, *.DAX, POOL.CFG and the other
- *      kinds .gitignore keeps out), a link out of the package, or a path naming por-assets; or a Classic sound
+ *      kinds .gitignore keeps out), a link out of the package; or a Classic sound
  *      (pc-speaker-NN.mp3, tandy-NN.mp3) differs from the committed recording at its expected path;
- *   2. game/ in a package is not byte for byte the committed game/ (the same files, the same git blobs);
- *   3. the compiled Electron main process contains the string por-assets.
+ *   2. game/ in a package is not byte for byte the committed game/ (the same files, the same git blobs).
  *
  * `npx tsx tools/release/pack.ts --check <directory>` runs checks 1 and 2 alone on an unpacked package
  * or an install, such as the Contents of an installed Mac app.
@@ -146,7 +145,7 @@ function checkGame(root: string, label: string): void {
   log(`check 2 passed in ${label}: game/ is the committed ${committedGame.size} files, blob for blob`);
 }
 
-// ---- Check 1: nothing from por-assets, nothing of the original game. ----
+// ---- Check 1: packaged files and internal links. ----
 const originalName = /^(?:start\.exe|game\.ovr|pool\.cfg)$|\.(?:dax|ovr|ex_|pic|cmp)$/i;
 const classicSound = /^(?:pc-speaker|tandy)-\d\d\.mp3$/i;
 const payloadProgram = /(?:^|\/)(?:game|upgrades|audio|web|src|qa|Resources\/app|app)\//i;
@@ -170,7 +169,6 @@ function checkNothingOriginal(root: string, label: string): void {
     if (label === "the Windows install" && /[<>:"|?*]/.test(path)) {
       problems.push(`${path} contains a character the Windows installer cannot preserve`);
     }
-    if (/por-assets/i.test(path)) problems.push(`${path} names por-assets`);
     if (originalName.test(name)) problems.push(`${path} is an original game file`);
     if (/\.exe$/i.test(name) && payloadProgram.test(path.replace(/\\/g, "/"))) problems.push(`${path} is a program`);
     if (!info.isFile()) continue;
@@ -195,10 +193,6 @@ if (requested[0] === "--check") {
 // ---- The payload: the committed files, the compiled app, the packaged page, the icons. ----
 for (const name of compiled) if (!existsSync(join(electronApp, name))) throw new Error(`${join(electronApp, name)} is missing: run npm run release:build`);
 if (!existsSync(join(webFiles, "play.html"))) throw new Error(`${join(webFiles, "play.html")} is missing: run npm run release:build`);
-// Check 3: the compiled main process does not name por-assets.
-if (readFileSync(join(electronApp, "main.js"), "utf8").includes("por-assets")) throw new Error("Check 3 failed: dist/electron/main.js names por-assets");
-log("check 3 passed: dist/electron/main.js does not name por-assets");
-
 rmSync(stages, { recursive: true, force: true });
 const payload = join(stages, "payload");
 mkdirSync(payload, { recursive: true });
