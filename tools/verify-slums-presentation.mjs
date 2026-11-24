@@ -5642,7 +5642,7 @@ const illustrationRoutes = new Map([
     continuation: {
       inputs: ["enter"], portrait: "portrait:area:2:ecl:9c1b:PIC4.DAX:18:0:0",
       prompt: /^(?=.*SCORPIONSAPPROACHHUNGRILY)(?=.*ABATTLEBEGINS)/i,
-      pressOnPortrait: textileScorpionPortrait + "6:0", retainPose: true,
+      pressOnPortrait: textileScorpionPortrait + "6:0", retainPose: true, automaticBattle: "opening-turn",
       screenshot: "textile-house-scorpion-battle-notice.png",
     },
   }],
@@ -14353,9 +14353,11 @@ try {
         writeFileSync(resolve(directory, `${routeName}-battle-notice.png`), Buffer.from(shot.data, "base64"));
         if (continuation.automaticBattle) {
           const sequence = frame.sequence;
-          frame = await waitFor("the manual combat turn after the retained portrait", async () => {
+          frame = await waitFor("the combat turn after the retained portrait", async () => {
             const next = await latest();
-            return next.ready && next.sequence > sequence && next.awaitsKey && !next.portrait && next;
+            const inTurn = next.awaitsKey ||
+              (continuation.automaticBattle === "opening-turn" && next.automaticCombat && next.combatArt?.length);
+            return next.ready && next.sequence > sequence && inTurn && !next.portrait && next;
           });
         } else {
           for (const key of continuation.battleNoticeInputs ?? ["enter"]) await advance(key);

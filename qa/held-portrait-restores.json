@@ -22,9 +22,9 @@
           "portrait:PIC3.DAX:29:0:0"
         ],
         "checkpointSha256": "f2ca092cee6050e054e1cfad93fe785b6490a701e9281b50389316cf3a066c13",
-        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "rendererSha256": "1243434631076227c60b8691ded9c02f3ad5d2f78175c2825fee4ad5e24499e9",
         "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
-        "artSha256": "40f4da3879cf092cfef73babe6e5b6e1e315a80c71e37e6c0337624f15b06dd5"
+        "artSha256": "f0f937f4c45730248eb3d9a18bbb71150f66023affe5affd3b170974eb0bae8f"
       },
       "port": {
         "producer": "START.EXE:33fd",
@@ -37,9 +37,9 @@
           "portrait:PIC3.DAX:29:0:0"
         ],
         "checkpointSha256": "f2ca092cee6050e054e1cfad93fe785b6490a701e9281b50389316cf3a066c13",
-        "rendererSha256": "9bc6500cb235f80f539bd99d3278dbe2ee513ae381b8eced6002de050989868f",
+        "rendererSha256": "1243434631076227c60b8691ded9c02f3ad5d2f78175c2825fee4ad5e24499e9",
         "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
-        "artSha256": "40f4da3879cf092cfef73babe6e5b6e1e315a80c71e37e6c0337624f15b06dd5"
+        "artSha256": "f0f937f4c45730248eb3d9a18bbb71150f66023affe5affd3b170974eb0bae8f"
       }
     }
   },

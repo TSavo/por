@@ -1,24 +1,27 @@
 {
  "schema": 2,
  "heldPortraits": {
-  "verified": 1,
+  "verified": 230,
   "unreachable": 4,
   "reachable": 230,
-  "oneShotsVerified": 0,
-  "measured": 201,
+  "oneShotsVerified": 43,
+  "measured": 230,
   "total": 234,
   "scenesMeasured": 385,
-  "scenesVerified": 0,
+  "scenesVerified": 385,
   "unmappedScenes": 0,
-  "remaining": 229
+  "remaining": 0
  },
  "enhancedFallbacks": {
   "observer": 2,
   "frames": 0,
   "presented": 9196,
   "walks": 53,
-  "recordedWalks": 53,
-  "missingWalks": [],
+  "recordedWalks": 55,
+  "missingWalks": [
+   "walk-guide-party-podal-auction",
+   "walk-zhentil-clerk"
+  ],
   "aliasedWalks": [
    {
     "walk": "campaign-castle-approach-leg",

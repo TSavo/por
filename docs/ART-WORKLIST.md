@@ -2,12 +2,12 @@
 
 ## What to do now
 
-**Held portrait animations (#131).** 1 / 234 candidate sites visually verified (measured 201, one-shot 0). Reachable: 230. Proven unreachable in the original: 4. R = 229.
-The site inventory comes from static script and native picture discovery. 0 / 385 captured native prompts passed paired Chrome checks.
+**Held portrait animations (#131).** 230 / 234 candidate sites visually verified (measured 230, one-shot 43). Reachable: 230. Proven unreachable in the original: 4. R = 0.
+The site inventory comes from static script and native picture discovery. 385 / 385 captured native prompts passed paired Chrome checks.
 Run `npm run verify:held-portraits` for every site and its evidence.
 
 **Enhanced fallbacks (#142).** 0 fallback frames / 0 distinct keys across 9196 Chrome views.
-Recorded walks measured in Chrome with GOG 1.3 and fallback observer v2: 53 / 53. Run `npm run verify:enhanced-fallbacks` for the captured keys and walks still to measure.
+Recorded walks measured in Chrome with GOG 1.3 and fallback observer v2: 53 / 55. Run `npm run verify:enhanced-fallbacks` for the captured keys and walks still to measure.
 2 additional replay captures are included.
 `campaign-castle-approach-leg` shares the `campaign-full/leg-8` capture because the replay inputs are identical.
 `campaign-end-leg` shares the `campaign-full/leg-11` capture because the replay inputs are identical.

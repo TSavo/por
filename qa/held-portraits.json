@@ -7794,177 +7794,177 @@
         "original": {
           "route": "textile-house-scorpion-held-loop",
           "data": "original",
-          "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360",
+          "rendererSha256": "1243434631076227c60b8691ded9c02f3ad5d2f78175c2825fee4ad5e24499e9",
           "bindingSha256": "23f80ed97fef51ff7605275648cae013ecef2595e36a0141553a471d3400f521",
           "portrait": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0",
           "paints": [
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0",
-              "atMs": 9.200000000000728
+              "atMs": 2.9999999880783434
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:1:0",
-              "atMs": 159.09999999999854
+              "atMs": 136.3999999880798
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0",
-              "atMs": 375.7999999999993
+              "atMs": 336.3999999880798
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:3:0",
-              "atMs": 592.5
+              "atMs": 553.0999999880805
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0",
-              "atMs": 792.5
+              "atMs": 752.9999999880783
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:5:0",
-              "atMs": 1009.0999999999985
+              "atMs": 969.6999999880791
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:6:0",
-              "atMs": 1209.0999999999985
+              "atMs": 1186.2999999880776
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:3:0",
-              "atMs": 1425.7000000000007
+              "atMs": 1386.3999999880798
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0",
-              "atMs": 1642.4000000000015
+              "atMs": 1602.9999999880783
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:1:0",
-              "atMs": 1842.4000000000015
+              "atMs": 1802.8999999880798
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0",
-              "atMs": 2059
+              "atMs": 2019.699999988079
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:3:0",
-              "atMs": 2259.0999999999985
+              "atMs": 2236.2999999880776
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0",
-              "atMs": 2475.7000000000007
+              "atMs": 2436.2999999880776
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:5:0",
-              "atMs": 2692.4000000000015
+              "atMs": 2652.89999998808
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:6:0",
-              "atMs": 2892.4000000000015
+              "atMs": 2852.89999998808
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:3:0",
-              "atMs": 3109
+              "atMs": 3069.5999999880805
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0",
-              "atMs": 3309
+              "atMs": 3286.2999999880776
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:1:0",
-              "atMs": 3525.7000000000007
+              "atMs": 3486.199999988079
             }
           ],
           "sha256": {
-            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0": "67661141e8e3452cb2e806057e8c6da6c6e9f2088c277a75106610470549f5ad",
-            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:1:0": "91cb4637d44d3991aefb7a439d2401f7752b24cfd2ce9c548f40aead626692d1",
-            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:3:0": "9705b859278340a8f5bb8ded2742bc7b7bd774675adfc06d0e20364a11878738",
-            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:5:0": "36f03d8658da98c95663ea4b49e7e1f1e23b668b27bb28e2baba0a2c54da8ef7",
-            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:6:0": "b322ca09fb6344fdb82ec7c9175a794fd5a3036d6a1831bb1819edb1a6042c15"
+            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0": "312633fb9a039cd3d9b5384f18eda4136c1fd9d2ef20b1962ab8b9d448bfb295",
+            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:1:0": "01138024ad93ab4087ddef9b4a898bef0f4d87a9606d5142544f5c9b69382988",
+            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:3:0": "2c26df2f1db215090758d31d14ed795a5936b0ba46499707c48138f8f82fe637",
+            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:5:0": "5b909e3940de3c9d08239c20b394a5229250ff8eda45c68845bb735f08b22931",
+            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:6:0": "8868d5fa6c3b5df08b2d5d9f8978509e8b1b26c38d3f13e85bab9d8a5a89c7f9"
           }
         },
         "port": {
           "route": "textile-house-scorpion-held-loop",
           "data": "port",
-          "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360",
+          "rendererSha256": "1243434631076227c60b8691ded9c02f3ad5d2f78175c2825fee4ad5e24499e9",
           "bindingSha256": "23f80ed97fef51ff7605275648cae013ecef2595e36a0141553a471d3400f521",
           "portrait": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0",
           "paints": [
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0",
-              "atMs": 9.799999999999272
+              "atMs": 0.49999998807834345
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:1:0",
-              "atMs": 176.5
+              "atMs": 183.8999999880798
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0",
-              "atMs": 393.2000000000007
+              "atMs": 400.5999999880787
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:3:0",
-              "atMs": 609.8999999999996
+              "atMs": 617.1999999880791
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0",
-              "atMs": 809.8999999999996
+              "atMs": 817.0999999880787
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:5:0",
-              "atMs": 1026.5
+              "atMs": 1033.7999999880794
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:6:0",
-              "atMs": 1226.5
+              "atMs": 1233.7999999880794
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:3:0",
-              "atMs": 1443.1000000000004
+              "atMs": 1450.4999999880783
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0",
-              "atMs": 1659.7999999999993
+              "atMs": 1667.199999988079
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:1:0",
-              "atMs": 1859.7999999999993
+              "atMs": 1867.0999999880787
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0",
-              "atMs": 2076.3999999999996
+              "atMs": 2083.7999999880794
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:3:0",
-              "atMs": 2276.5
+              "atMs": 2283.7999999880794
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0",
-              "atMs": 2493.1000000000004
+              "atMs": 2500.39999998808
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:5:0",
-              "atMs": 2709.7999999999993
+              "atMs": 2717.0999999880787
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:6:0",
-              "atMs": 2909.7999999999993
+              "atMs": 2917.0999999880787
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:3:0",
-              "atMs": 3126.3999999999996
+              "atMs": 3133.699999988079
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0",
-              "atMs": 3326.3999999999996
+              "atMs": 3333.699999988079
             },
             {
               "key": "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:1:0",
-              "atMs": 3543.1000000000004
+              "atMs": 3550.39999998808
             }
           ],
           "sha256": {
-            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0": "67661141e8e3452cb2e806057e8c6da6c6e9f2088c277a75106610470549f5ad",
-            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:1:0": "91cb4637d44d3991aefb7a439d2401f7752b24cfd2ce9c548f40aead626692d1",
-            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:3:0": "9705b859278340a8f5bb8ded2742bc7b7bd774675adfc06d0e20364a11878738",
-            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:5:0": "36f03d8658da98c95663ea4b49e7e1f1e23b668b27bb28e2baba0a2c54da8ef7",
-            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:6:0": "b322ca09fb6344fdb82ec7c9175a794fd5a3036d6a1831bb1819edb1a6042c15"
+            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:0:0": "312633fb9a039cd3d9b5384f18eda4136c1fd9d2ef20b1962ab8b9d448bfb295",
+            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:1:0": "01138024ad93ab4087ddef9b4a898bef0f4d87a9606d5142544f5c9b69382988",
+            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:3:0": "2c26df2f1db215090758d31d14ed795a5936b0ba46499707c48138f8f82fe637",
+            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:5:0": "5b909e3940de3c9d08239c20b394a5229250ff8eda45c68845bb735f08b22931",
+            "portrait:area:2:ecl:abd2:caller:9c0b:PIC4.DAX:18:6:0": "8868d5fa6c3b5df08b2d5d9f8978509e8b1b26c38d3f13e85bab9d8a5a89c7f9"
           }
         }
       }
@@ -42047,11 +42047,11 @@
               "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,7S22:22YOUFINDAGIANTSKELETONPress<enter>/<return>tocontinue",
               "portrait": "scene-illustration:area:10:ecl:b695:caller:9e3a:cue:giant-skeleton-alone",
               "checkpointSha256": "c38b92cc745598d82238a2c27123daf1339641ae3c79a00d0ffed495197581db",
-              "artSha256": "851ba9b6f9a596ddb074597eb0471b7c44c06759fe37eac15c2ff2dcca3a6da9",
-              "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360",
+              "artSha256": "9a0e2257bf464395e21e5619565423b528c11c6703fb920c4fc27cb354b0fcb2",
+              "rendererSha256": "1243434631076227c60b8691ded9c02f3ad5d2f78175c2825fee4ad5e24499e9",
               "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
-              "durationMs": 3660,
-              "samples": 220,
+              "durationMs": 3659,
+              "samples": 221,
               "poses": [
                 "scene-illustration:area:10:ecl:b695:caller:9e3a:cue:giant-skeleton-alone"
               ],
@@ -42063,10 +42063,10 @@
               "caption": "NameACHPALDA56BRIN36CORA56DORN58ENNA46MIRA1057,7S22:22YOUFINDAGIANTSKELETONPress<enter>/<return>tocontinue",
               "portrait": "scene-illustration:area:10:ecl:b695:caller:9e3a:cue:giant-skeleton-alone",
               "checkpointSha256": "c38b92cc745598d82238a2c27123daf1339641ae3c79a00d0ffed495197581db",
-              "artSha256": "851ba9b6f9a596ddb074597eb0471b7c44c06759fe37eac15c2ff2dcca3a6da9",
-              "rendererSha256": "5e85ce66c1cf3a5e4daa5c4da33c4bb0f1e440ec93368ab94157bc2312f13360",
+              "artSha256": "9a0e2257bf464395e21e5619565423b528c11c6703fb920c4fc27cb354b0fcb2",
+              "rendererSha256": "1243434631076227c60b8691ded9c02f3ad5d2f78175c2825fee4ad5e24499e9",
               "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
-              "durationMs": 3665,
+              "durationMs": 3664,
               "samples": 221,
               "poses": [
                 "scene-illustration:area:10:ecl:b695:caller:9e3a:cue:giant-skeleton-alone"
