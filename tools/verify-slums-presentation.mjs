@@ -396,12 +396,10 @@ const encounterRoutes = new Map([
     slot: "A", inputs: ["up", "enter"],
     placement: [32, 32, "encounter:area:16:ecl:a947:SPRIT8.DAX:59:0:0", 80, 80],
     requireWebGL: true,
-    dialogueSteps: [{
+    dialogue: {
       key: "enter", portrait: "portrait:area:16:PIC8.DAX:59:0:0", prompt: /3GIANTLIZARDSCHARGETOWARDYOU/i,
-    }, {
-      keys: ["z", "z", "z"], portrait: "portrait:area:16:ecl:a947:PIC8.DAX:59:1:0",
-      prompt: /3GIANTLIZARDSCHARGETOWARDYOU/i,
-    }],
+      heldPortraitLoop: ["portrait:area:16:PIC8.DAX:59:0:0", "portrait:area:16:ecl:a947:PIC8.DAX:59:1:0"],
+    },
   }],
   ["wild-cave-wyvern-approach", {
     slot: "B", inputs: ["up", "enter"],
@@ -11703,14 +11701,34 @@ try {
           const side = await run(`(() => {
             const canvas = document.querySelector(".street-viewport");
             const gl = canvas.getContext("webgl");
-            const pixel = new Uint8Array(4);
-            return [.8, .08].map(height => {
-              gl.readPixels(Math.floor(canvas.width * .05), Math.floor(canvas.height * height),
-                1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
-              return pixel[3];
-            });
+            // The lighting pass reads the sky mask from scene alpha and writes opaque output.
+            const program = gl.getParameter(gl.CURRENT_PROGRAM);
+            const sceneSampler = gl.getUniformLocation(program, "color");
+            if (!sceneSampler) throw new Error("Lighting pass has no scene texture");
+            const activeTexture = gl.getParameter(gl.ACTIVE_TEXTURE);
+            const previous = gl.getParameter(gl.FRAMEBUFFER_BINDING);
+            const probe = gl.createFramebuffer();
+            try {
+              gl.activeTexture(gl.TEXTURE0 + gl.getUniform(program, sceneSampler));
+              const scene = gl.getParameter(gl.TEXTURE_BINDING_2D);
+              gl.bindFramebuffer(gl.FRAMEBUFFER, probe);
+              gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, scene, 0);
+              if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) !== gl.FRAMEBUFFER_COMPLETE) throw new Error("Unusable scene texture");
+              const type = gl.getParameter(gl.IMPLEMENTATION_COLOR_READ_TYPE);
+              const pixel = type === gl.FLOAT ? new Float32Array(4) :
+                type === gl.UNSIGNED_BYTE ? new Uint8Array(4) : new Uint16Array(4);
+              return [.8, .08].map(height => {
+                gl.readPixels(Math.floor(canvas.width * .05), Math.floor(canvas.height * height), 1, 1, gl.RGBA, type, pixel);
+                if (gl.getError() !== gl.NO_ERROR) throw new Error("Cannot read scene alpha");
+                return pixel[3] !== 0;
+              });
+            } finally {
+              gl.bindFramebuffer(gl.FRAMEBUFFER, previous);
+              gl.activeTexture(activeTexture);
+              gl.deleteFramebuffer(probe);
+            }
           })()`);
-          assert.deepEqual(side, [0, 255], "The low side wall should leave sky above solid ground");
+          assert.deepEqual(side, [false, true], "The low side wall should leave sky above solid ground");
         }
         if (routeName === "valhingen-conjurer-skeleton") {
           assert.equal(frame.scenery.mapId, 10);
