@@ -49,11 +49,14 @@ function pageAnswersByItself(frame) {
 async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopAt, developerCombat = false, recording, { pagePolls = false } = {}) {
   if (campaignChrome) {
     const directory = resolve(saveDir, `leg-${++campaignLeg}`);
+    // The shorter campaign branches to Ohlo after the shared opening. The full
+    // campaign's seventh schedule instead takes the party to Sokal.
+    const scheduleDirectory = campaign && !campaignOption && campaignLeg > 6 ? "campaign-ohlo" : "campaign";
     const chrome = await openChromeCampaignLeg({
       chromePath, directory, checkpointDir: resolve(checkpointDir), bootKeys, startAt, developerCombat,
       inputCompat: recording?.inputCompat,
       schedule: recording ? recording.schedule : process.env.POR_REPLAY_SCHEDULES === "off" ? undefined
-        : resolve("qa", "replay-schedules", "campaign", `leg-${campaignLeg}.jsonl`),
+        : resolve("qa", "replay-schedules", scheduleDirectory, `leg-${campaignLeg}.jsonl`),
     });
     try {
       const initial = await chrome.nextFrame();
