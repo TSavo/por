@@ -46,8 +46,20 @@ try {
     outcome = await chrome.nextFrame();
   }
   const result = caption(outcome);
+  // The atlas is a destination picker. The spoken reply stays in the picture panel.
+  assert.equal(await chrome.evaluate('document.querySelector("#travel-map").hidden && !document.querySelector("#game-text").hidden'), true);
   const animation = await chrome.evaluate("state.animation?.filter(clip => clip.narrations?.length).map(clip => ({ text: clip.text })) ?? []");
   const printed = [result, ...animation.map(caption)];
+  await chrome.evaluate(`new Promise((resolve, reject) => {
+    const deadline = performance.now() + 10_000;
+    function painted() {
+      const reply = porNarrationPlayback().lines.slice(${priorLines}).find(line => line.variantId && line.startedAt !== undefined && !line.outcome);
+      if (reply && reply.artAtStart && reply.caption.length > 12 && !document.querySelector("#game-text").hidden) return resolve(true);
+      if (performance.now() >= deadline) return reject(new Error("The completed reply was never shown during playback"));
+      requestAnimationFrame(painted);
+    }
+    painted();
+  })`);
   writeFileSync(join(output, "parlay.png"), await chrome.screenshot());
   await chrome.waitForNarration("end of parlay");
   const lines = await chrome.evaluate(`porNarrationPlayback().lines.slice(${priorLines}).filter(line => line.variantId)`);
@@ -75,7 +87,7 @@ try {
     assert.ok(result.includes("CASTVIEWENCAMPSEARCHLOOK"), "Peaceful parlay returns to travel");
     assert.deepEqual(voice.artSeen, [approachActor]);
     assert.equal(voice.artAtEnd, approachActor);
-    assert.equal(await chrome.evaluate('!state.encounter && !document.querySelector("#travel-map").hidden'), true);
+    assert.equal(await chrome.evaluate('!state.encounter && !document.querySelector("#travel-map").hidden && document.querySelector("#travel-map").classList.contains("expanded")'), true);
   }
   assert.equal(voice.asset, variant.asset);
   assert.ok(compact(voice.caption).includes(compact(variant.text)));
