@@ -49,9 +49,13 @@
       filter: saturate(.9) contrast(.94) brightness(1.025);
     }
     /* The game's name over the title art, faded in after a moment, then SPECIAL EDITION. */
-    /* The publisher screen, shown by the page before the title: it fades in, holds, and fades out over the harbour. */
+    /* The publisher screen, shown by the page before the title: it covers the harbour until the outgoing fade. */
     #publisher-splash { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none;
-      z-index: 3; opacity: 1; transition: opacity 1.2s ease-out; background: #000; }
+      z-index: 5; opacity: 1; transition: opacity 1.2s ease-out; background: #000; }
+    /* The engine has already drawn the harbour. Keep it behind black until SSI starts fading out. */
+    #play:has(> #publisher-splash:not([hidden]):not(.leaving))::before {
+      content: ""; position: absolute; inset: 0; z-index: 5; background: #000; pointer-events: none;
+    }
     #publisher-splash:not(.shown) { opacity: 0; }
     #publisher-splash[hidden] { display: none; }
     #title-name, #title-edition { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none;
@@ -269,6 +273,7 @@
     html.electron-app[data-presentation="enhanced"] #play {
       width: min(100vw, calc(100vh * 4 / 3)); height: min(100vh, calc(100vw * 3 / 4));
     }
+    html.electron-app #screen-loading { background: #000; }
     html.electron-app #screen { width: 100%; height: 100%; }
     html.electron-app #settings {
       position: absolute; z-index: 6; left: 50%; top: 50%; transform: translate(-50%, -50%);

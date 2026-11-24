@@ -269,7 +269,7 @@ const titleLayers = [["#title-name", "/art/scene:title-name"], ["#title-edition"
 let titleLayersShown = false;
 // The runner passes the publisher screen before the page sees its first frame (it runs ahead to
 // POR_LIVE_AT), so the page shows the publisher art itself, once, before the title: about three
-// seconds, then a fade to the harbour, and only then do the title's name and SPECIAL EDITION fade in.
+// seconds at full brightness, then a fade to the harbour, and only then do the title's name and SPECIAL EDITION fade in.
 // Presentation only: the game is already at its title and waits there. So a key pressed while the
 // publisher screen is up must not reach the game, which would leave its title before the player saw
 // it (#127): the key brings the title up instead (publisherSplashUp, leavePublisherSplash).
@@ -286,6 +286,7 @@ function leavePublisherSplash() {
   publisherSplashLeaving = true;
   clearTimeout(publisherSplashTimer);
   publisherSplash.classList.remove("shown");
+  publisherSplash.classList.add("leaving");
   publisherSplashTimer = setTimeout(() => { publisherSplash.hidden = true; publisherSplashDone = true; showTitleName(); }, 1200);
 }
 /**
@@ -311,7 +312,7 @@ function showPublisherSplash() {
     publisherSplash.addEventListener("load", () => {
       if (publisherSplashLeaving || publisherSplashDone) return;
       requestAnimationFrame(() => { if (!publisherSplashLeaving) publisherSplash.classList.add("shown"); });
-      publisherSplashTimer = setTimeout(leavePublisherSplash, 3500);
+      publisherSplashTimer = setTimeout(leavePublisherSplash, 4500);
     }, { once: true });
     publisherSplash.addEventListener("error", () => { publisherSplash.hidden = true; publisherSplashDone = true; showTitleName(); }, { once: true });
     publisherSplash.src = "/art/scene:publisher";
