@@ -207,6 +207,9 @@ const output = mkdtempSync(resolve(outputRoot, `overland-${encounter}-`));
 const checkpointDir = join(output, "saves");
 cpSync(fixture, checkpointDir, { recursive: true });
 process.env.POR_FIXED_CLOCK_START = clock;
+// #99: let the normal game-page audio finish before advancing from each prompt.
+const checkNarration = process.env.POR_VERIFY_ENCOUNTER_NARRATION === "1";
+if (checkNarration) process.env.POR_REPLAY_WAIT_NARRATION = "1";
 const chrome = await openChromeCampaignLeg({
   chromePath, directory: join(output, "chrome"), checkpointDir, ...boot, developerCombat: false,
   traceEnhancedFallbacks: true, schedule,
@@ -334,6 +337,17 @@ try {
   const choice = inputs.at(-1);
   await chrome.send(choice);
   frame = await chrome.nextFrame();
+  if (checkNarration) {
+    const lines = await chrome.evaluate("porNarrationPlayback().lines");
+    const voice = lines.find(line => line.variantId && caption.test(line.caption.replace(/\s/g, "")));
+    assert.ok(voice, "No dynamic narration matched the expected encounter caption");
+    assert.equal(voice.outcome, "ended");
+    assert.ok(voice.duration > 0 && voice.position >= voice.duration - 0.25);
+    assert.equal(voice.expectedArt, "the Moonsea travel map");
+    assert.deepEqual(voice.artSeen, [voice.expectedArt]);
+    assert.equal(voice.artAtEnd, voice.expectedArt);
+    console.log(`Heard ${voice.variantId} through ${voice.position.toFixed(2)}s with the travel map on screen.`);
+  }
   const notice = screenText(frame);
   assert.match(notice, caption);
   assert.match(notice, /ABATTLEBEGINS/i);

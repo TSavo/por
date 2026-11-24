@@ -2138,10 +2138,14 @@ async function showScreen() {
   const runesShown = !gameText.hidden && view.runes?.some(([cell]) => cell % 40 < 16 && cell < 16 * 40);
   const streetShown = layers.some(layer => layer === streetCanvas || layer.matches(".terrain-tile"));
   const picture = portraitShown ? portraitId : encounterShown ? view.encounter?.[2] : undefined;
+  const mapArt = "the Moonsea travel map";
+  const terrainArt = "the overland terrain";
+  const overlandShown = !travelMap.hidden ? mapArt : overland && layers.includes(overland.canvas) ? terrainArt : null;
   logShownArtwork(sceneArt ? view.scene ?? view.art : picture ?? (runesShown ? "runes in the picture window"
-    : streetShown ? "the first-person view" : null));
+    : overlandShown ?? (streetShown ? "the first-person view" : null)));
   const expectedArt = view.scene ?? portraitId ?? view.encounter?.[2] ??
-    (runesShown ? "runes in the picture window" : streetScene ? "the first-person view" : null);
+    (runesShown ? "runes in the picture window" : view.overlandMap ? (travelArtEnabled ? mapArt : terrainArt)
+      : streetScene ? "the first-person view" : null);
   renderingSequence = undefined;
   presentNarration(view, expectedArt);
   holdAnimationFrame(view);

@@ -122,6 +122,30 @@
    "decisions": 4,
    "heard": 4
   },
+  "issue-99-landmark-zhentil-thri-kreens-original": {
+   "ledger": "issue-99-landmark-zhentil-thri-kreens-original.jsonl",
+   "games": 1,
+   "decisions": 4,
+   "heard": 1
+  },
+  "issue-99-landmark-zhentil-thri-kreens-port": {
+   "ledger": "issue-99-landmark-zhentil-thri-kreens-port.jsonl",
+   "games": 1,
+   "decisions": 4,
+   "heard": 1
+  },
+  "issue-99-middle-wilderness-a194-kobolds-original": {
+   "ledger": "issue-99-middle-wilderness-a194-kobolds-original.jsonl",
+   "games": 1,
+   "decisions": 3,
+   "heard": 1
+  },
+  "issue-99-middle-wilderness-a194-kobolds-port": {
+   "ledger": "issue-99-middle-wilderness-a194-kobolds-port.jsonl",
+   "games": 1,
+   "decisions": 3,
+   "heard": 1
+  },
   "issue-99-training-original": {
    "ledger": "narration.jsonl",
    "games": 1,
@@ -133,6 +157,18 @@
    "games": 1,
    "decisions": 67,
    "heard": 17
+  },
+  "issue-99-wetland-tigers-original": {
+   "ledger": "issue-99-wetland-tigers-original.jsonl",
+   "games": 1,
+   "decisions": 4,
+   "heard": 1
+  },
+  "issue-99-wetland-tigers-port": {
+   "ledger": "issue-99-wetland-tigers-port.jsonl",
+   "games": 1,
+   "decisions": 4,
+   "heard": 1
   },
   "kovel-casket-c-gems-reveal-after": {
    "ledger": "kovel-casket-c-gems-lock-final.jsonl",
@@ -1454,6 +1490,14 @@
    "art": {
     "kind": "portrait",
     "key": "portrait:PIC6.DAX:12:0:0"
+   }
+  },
+  "ecl6-b25-a1c7-a1dc-a1e0": {
+   "run": "issue-99-landmark-zhentil-thri-kreens-original",
+   "step": 96353628,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:25:ecl:a204:SPRIT6.DAX:118:1:0"
    }
   },
   "ecl8-b13-99c1": {
@@ -4261,6 +4305,18 @@
    "slot": "0x9890",
    "value": " KOBOLDS. "
   },
+  "ecl6-b25-a1c7-a1dc-a1e0.variant-04-tigers": {
+   "run": "issue-99-wetland-tigers-original",
+   "step": 93318204,
+   "slot": "0x982c",
+   "value": "TIGERS"
+  },
+  "ecl6-b25-a1c7-a1dc-a1e0.variant-05-thri-kreens": {
+   "run": "issue-99-landmark-zhentil-thri-kreens-original",
+   "step": 96353628,
+   "slot": "0x982c",
+   "value": "THRI-KREENS"
+  },
   "ecl8-b27-9f1c-9f2e.variant-03-lizard-men": {
    "run": "walk-valhingen-1",
    "step": 1008925173,
@@ -4759,6 +4815,12 @@
    "slot": "0x9809",
    "value": " SOME HUNGRY LOOKING KOBOLDS."
   },
+  "por.voice.ecl7.b26-a15c-a16e.variant-01-kobolds": {
+   "run": "issue-99-middle-wilderness-a194-kobolds-original",
+   "step": 85407383,
+   "slot": "0x982c",
+   "value": "KOBOLDS"
+  },
   "por.voice.ecl7.b26-a15c-a16e.variant-04-stirges": {
    "run": "walk-kovel-1",
    "step": 524968936,
@@ -5047,6 +5109,46 @@
     "unfinished": 0,
     "startedLate": 0
    },
+   "issue-99-landmark-zhentil-thri-kreens-original": {
+    "log": "issue-99-landmark-zhentil-thri-kreens-original.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-landmark-zhentil-thri-kreens-port": {
+    "log": "issue-99-landmark-zhentil-thri-kreens-port.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-middle-wilderness-a194-kobolds-original": {
+    "log": "issue-99-middle-wilderness-a194-kobolds-original.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-middle-wilderness-a194-kobolds-port": {
+    "log": "issue-99-middle-wilderness-a194-kobolds-port.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
    "issue-99-training-original": {
     "log": "narration.playback.jsonl",
     "legs": 1,
@@ -5066,6 +5168,26 @@
     "cutOff": 0,
     "unfinished": 0,
     "startedLate": 1
+   },
+   "issue-99-wetland-tigers-original": {
+    "log": "issue-99-wetland-tigers-original.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-wetland-tigers-port": {
+    "log": "issue-99-wetland-tigers-port.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
    },
    "pale-form-original": {
     "log": "pale-native.playback.jsonl",
@@ -5232,6 +5354,14 @@
     "seconds": 3.44,
     "waited": 0.062,
     "art": "the first-person view"
+   },
+   "ecl6-b25-a1c7-a1dc-a1e0": {
+    "run": "issue-99-wetland-tigers-original",
+    "asset": "voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v04-tigers.mp3",
+    "variantId": "ecl6-b25-a1c7-a1dc-a1e0.variant-04-tigers",
+    "seconds": 2.72,
+    "waited": 0.054,
+    "art": "the Moonsea travel map"
    },
    "ecl8-b13-99c1": {
     "run": "issue-240-clerk-a891-port",
@@ -5887,6 +6017,14 @@
     "seconds": 5.2,
     "waited": 0.037,
     "art": "portrait:area:0:PIC3.DAX:41:0:0"
+   },
+   "por.voice.ecl7.b26-a15c-a16e": {
+    "run": "issue-99-middle-wilderness-a194-kobolds-original",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v01-kobolds.mp3",
+    "variantId": "por.voice.ecl7.b26-a15c-a16e.variant-01-kobolds",
+    "seconds": 2.56,
+    "waited": 0.032,
+    "art": "the Moonsea travel map"
    }
   },
   "artChecks": {
@@ -6834,6 +6972,58 @@
     ],
     "end": "portrait:area:13:ecl:9d4a:PIC8.DAX:0:0:0"
    },
+   "issue-99-landmark-zhentil-thri-kreens-original | chrome | 1 | ecl6-b25-a1c7-a1dc-a1e0": {
+    "run": "issue-99-landmark-zhentil-thri-kreens-original",
+    "leg": "chrome",
+    "unitId": "ecl6-b25-a1c7-a1dc-a1e0",
+    "variantId": "ecl6-b25-a1c7-a1dc-a1e0.variant-05-thri-kreens",
+    "asset": "voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v05-thri-kreens.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU SURPRISE A GROUP OF THRI-KREENS. Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-landmark-zhentil-thri-kreens-port | chrome | 1 | ecl6-b25-a1c7-a1dc-a1e0": {
+    "run": "issue-99-landmark-zhentil-thri-kreens-port",
+    "leg": "chrome",
+    "unitId": "ecl6-b25-a1c7-a1dc-a1e0",
+    "variantId": "ecl6-b25-a1c7-a1dc-a1e0.variant-05-thri-kreens",
+    "asset": "voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v05-thri-kreens.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU SURPRISE A GROUP OF THRI-KREENS. Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a194-kobolds-original | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
+    "run": "issue-99-middle-wilderness-a194-kobolds-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a15c-a16e",
+    "variantId": "por.voice.ecl7.b26-a15c-a16e.variant-01-kobolds",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v01-kobolds.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU SPOT A GROUP OF KOBOLDS Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a194-kobolds-port | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
+    "run": "issue-99-middle-wilderness-a194-kobolds-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a15c-a16e",
+    "variantId": "por.voice.ecl7.b26-a15c-a16e.variant-01-kobolds",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v01-kobolds.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU SPOT A GROUP OF KOBOLDS Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
    "issue-99-training-original | visit-training-hall | 1 | por.voice.ecl3.b11-9a74": {
     "run": "issue-99-training-original",
     "leg": "visit-training-hall",
@@ -7253,6 +7443,32 @@
      "scene-illustration:area:11:ecl:9f8a"
     ],
     "end": "scene-illustration:area:11:ecl:9f8a"
+   },
+   "issue-99-wetland-tigers-original | chrome | 1 | ecl6-b25-a1c7-a1dc-a1e0": {
+    "run": "issue-99-wetland-tigers-original",
+    "leg": "chrome",
+    "unitId": "ecl6-b25-a1c7-a1dc-a1e0",
+    "variantId": "ecl6-b25-a1c7-a1dc-a1e0.variant-04-tigers",
+    "asset": "voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v04-tigers.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU SURPRISE A GROUP OF TIGERS. Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-wetland-tigers-port | chrome | 1 | ecl6-b25-a1c7-a1dc-a1e0": {
+    "run": "issue-99-wetland-tigers-port",
+    "leg": "chrome",
+    "unitId": "ecl6-b25-a1c7-a1dc-a1e0",
+    "variantId": "ecl6-b25-a1c7-a1dc-a1e0.variant-04-tigers",
+    "asset": "voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v04-tigers.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU SURPRISE A GROUP OF TIGERS. Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
    },
    "pale-form-original | browser | 1 | por.narration.sokal.ecl4-b21-aa0a-menu": {
     "run": "pale-form-original",

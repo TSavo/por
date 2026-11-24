@@ -223,6 +223,8 @@ const saltlineExplorationRenderer = "90fb7e1b9dd389ea45605810f27ca019f6c0e116509
 const explorationMovementRenderer = "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f";
 const titleBuildVersionRenderer = "14d61fd7ee9265e1b34205a359a7631c932bdba29f274fcf406065a2f4969489";
 const battleEntryRenderer = "1ff8ef0a4d635d4390caaad3f85782fd99c4728df2051a01d8477381403db6ed";
+const overlandNarrationRenderer = "ee5e495fb0f7928b27bb7584fa2692376a5416a6208e00689cb6e3bc36111859";
+const localAutomapRenderer = "9c64e0bc2ceaf4ffc2874181bb52bd4bd7048fd5afd83c76f79bcccb392a427c";
 const localMapDoorsRenderer = "1243434631076227c60b8691ded9c02f3ad5d2f78175c2825fee4ad5e24499e9";
 const viewportDisposalRenderer = "d17e26059837ba47f3a9e81a09c7aa8560c1d2aab263f9eea4a863fdedc6e26a";
 const journalInputRenderer = "d54f126e14ad2d3039af2d220afa260df154cc5b6da64af173bb858f67ac21d1";
@@ -246,6 +248,9 @@ const rendererBeforePittMenus = "c3582f5d74fae550739186491060b39f7fcbd25c399b99d
 // Exact reviewed revisions that preserve the held portrait paint and timing code.
 // This covers narration logging, the wilderness atlas, settings, and Classic palette-only clips.
 const previousRendererProof = new Map<string, string>([
+  // These revisions affect the narration artwork log and Local automap markers, respectively.
+  [overlandNarrationRenderer, localAutomapRenderer],
+  [localAutomapRenderer, localMapDoorsRenderer],
   // The browser/Electron host, local map and border tiles retain the portrait layers and their playback.
   // The new frame uses the same transparent inner pane. See #330 for the two-source Chrome comparisons.
   [localMapDoorsRenderer, viewportDisposalRenderer],
@@ -550,7 +555,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       return (["original", "port"] as const).every(data => {
         const observed = proof.chrome[data];
         const reviewed = [landmarkOverlandRenderer, wetOverlandRenderer, localOverlandRenderer, auctionMenusRenderer, captivePenMenusRenderer, pittMenuRenderer, rendererBeforePittMenus];
-        const sceneryRevision = (hash: string) => hash === localMapDoorsRenderer || hash === viewportDisposalRenderer || hash === journalInputRenderer || hash === narrationSelectionRenderer || hash === narrationCaptionRenderer || hash === narrationVisibilityRenderer || hash === narrationMediaErrorRenderer || hash === narratedHoldRenderer || hash === scopedNarrationQueueRenderer ||
+        const sceneryRevision = (hash: string) => hash === overlandNarrationRenderer || hash === localAutomapRenderer || hash === localMapDoorsRenderer || hash === viewportDisposalRenderer || hash === journalInputRenderer || hash === narrationSelectionRenderer || hash === narrationCaptionRenderer || hash === narrationVisibilityRenderer || hash === narrationMediaErrorRenderer || hash === narratedHoldRenderer || hash === scopedNarrationQueueRenderer ||
           hash === paintedNarrationRenderer || hash === shaderSkyRenderer || hash === tripwireKeysRenderer || hash === roofLightingRenderer ||
           hash === titleBuildVersionRenderer || hash === battleEntryRenderer
           ? explorationMovementRenderer : hash;
