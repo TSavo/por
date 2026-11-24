@@ -93,9 +93,9 @@ Press **J** and the Journal opens on what the party has actually discovered: com
 
 Open **Map** and you can leave the long walk behind. On the overland map, the illustrated Moonsea *is* the travel map. Destinations glow. Click one, or focus it and press Enter, and the party walks there using the original game's own movement. Travel stops at encounters and at story prompts; **Escape** cancels the route. Select **Phlan** to choose a district — City Hall, the Training Hall, the Slums, Kuto's Well — and the port takes the original road, gate, or ferry that actually gets you there. The boat to Sokal Keep still goes through the harbor master, and if he wants a fare, you pay it in the original menu.
 
-The same **Map** has a Local view: an automap that records each tile you stand on. Solid walls and the doors you can walk through are drawn as the game itself understands them, and a marker shows where you crossed into another area or floor. It does not hand you the whole floor at the start. Interiors and underground are remembered as their own floors. **Mark location** labels the square you are in. Load a save, and the map comes back as it was.
+The same **Map** has a Local view: an automap that records each tile you stand on. Solid walls and the doors you can walk through are drawn as the game itself understands them, and a marker shows where you crossed into another area or floor. Temples, shops, taverns, training halls and other named places, Journal clues, hazards and thefts are marked only after you have actually run into them. It does not hand you the whole floor at the start. Interiors and underground are remembered as their own floors. **Mark location** labels the square you are in. Load a save, and the map comes back as it was.
 
-<img src="docs/readme/automap.png" width="800" alt="The Local automap in the desktop app, showing a well-explored floor of the Slums, with doors, an entrance to New Phlan, and the party marker on the discovered streets">
+<img src="docs/readme/automap.png" width="800" alt="The Local automap in the desktop app, showing the streets of New Phlan with doors, markers for a temple, a shop and a tavern, and the party on the discovered streets">
 
 <img src="docs/readme/moonsea.png" width="800" alt="Illustrated map of Phlan and the Moonsea, with destinations such as Valjevo Castle, Sokal Keep, and the Kobold Caves">
 

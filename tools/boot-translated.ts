@@ -7,7 +7,7 @@
 import "./enhanced-art-env.js";
 import { diagnosticFiles, engineHost } from "./engine-host.js";
 import { Cpu } from "../src/cpu/machine.js";
-import { openAutomap } from "./automap.js";
+import { locationKindFromText, openAutomap, type AutomapMarkerKind } from "./automap.js";
 import { DosExit, attachDos, consoleText, dosLog, noon, timeOfDay, type BiosKey, type DosFile, type DosFileClosed } from "../src/runtime/dos.js";
 import { intrCounts } from "../src/runtime/intr.js";
 import { journalFrame, paletteObservers, screen, stampPanelFrame, videoSummary, visibleGameText, type PanelFrameStamp } from "../src/runtime/video.js";
@@ -19,8 +19,8 @@ import { openJournalProfile } from "./journal-profile.js";
 import { stagePregenParty } from "./pregen-party.js";
 import { isPartyFile, openSaveSlots, saveSlotLetter } from "./save-slots.js";
 import { callTrace, exeByImage, farCall, farCallObservers, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
-import { installImage, installProgram, loadedSlices } from "../src/runtime/overlay.js";
-import { authoredScriptPosition, behaviour, code, codeSegment, data, far, previousRandomSeed, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit, panelFrameDraw, startupInput } from "../src/runtime/bindings.js";
+import { installImage, installProgram, loadedSlices, overlayCallObservers } from "../src/runtime/overlay.js";
+import { authoredScriptPosition, behaviour, code, codeSegment, data, eclGlobalOffset, far, previousRandomSeed, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit, panelFrameDraw, startupInput } from "../src/runtime/bindings.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 import { standaloneTrace } from "./standalone-trace.js";
@@ -362,7 +362,7 @@ let adventureLog: (() => string) | undefined;
 let transcriptStart = 0;
 const profilePath = env.POR_JOURNAL_PROFILE;
 const updateJournal = openJournalProfile(profilePath ? gameResources : undefined);
-const journal = (transcript = adventureLog?.() ?? ""): JournalLead[] =>
+const readJournal = (transcript = adventureLog?.() ?? ""): JournalLead[] =>
   updateJournal(transcript.slice(transcriptStart), (known) => questProgress(cpu, known, unit.data));
 const liveAt = env.POR_LIVE_AT;
 const liveStep = Number(liveAt);
@@ -376,11 +376,48 @@ if (recording) {
   diagnosticFiles().write(recording, prefix, true);
 }
 const automap = liveAt === undefined ? undefined : openAutomap(root);
+const seenLeadIds = new Set<string>();
+let seedJournalMarks = false;
+function stampAutomap(kind: AutomapMarkerKind): void {
+  if (!automap) return;
+  const segment = cpu.read16(unit.data, data.eclGlobals + 2);
+  const offset = cpu.read16(unit.data, data.eclGlobals);
+  const cameraX = cpu.read8(cpu.ds, data.cameraX);
+  const cameraY = cpu.read8(cpu.ds, data.cameraY);
+  const useCamera = cameraX <= 15 && cameraY <= 15;
+  const position = segment || offset ? automap.locate({
+    area: cpu.read16(segment, offset + eclGlobalOffset(0x49f2)),
+    x: useCamera ? cameraX : cpu.read16(segment, offset + eclGlobalOffset(0x49f0)),
+    y: useCamera ? cameraY : cpu.read16(segment, offset + eclGlobalOffset(0x49f1)),
+    facing: cpu.read8(cpu.ds, data.facing) & 7,
+  }) : undefined;
+  automap.mark(kind, position);
+}
+function noteNewJournalLeads(leads: JournalLead[]): void {
+  if (seedJournalMarks) {
+    for (const lead of leads) seenLeadIds.add(lead.id);
+    return;
+  }
+  if (!automap) return;
+  for (const lead of leads) {
+    if (seenLeadIds.has(lead.id)) continue;
+    seenLeadIds.add(lead.id);
+    stampAutomap("journal");
+  }
+}
+const journal = (transcript = adventureLog?.() ?? ""): JournalLead[] => {
+  const leads = readJournal(transcript);
+  noteNewJournalLeads(leads);
+  return leads;
+};
 // POR_NARRATION_LEDGER: opened before the display reads its artwork list. Observes only.
 if (env.POR_BROWSER_PLAY === "1") narrationLedger?.open();
 const input = liveAt === undefined ? undefined : liveInput(liveStep, () => {
   const known = journal();
-  return [...known, ...journalInventoryLeads(cpu, known, unit.data)];
+  const leads = [...known, ...journalInventoryLeads(cpu, known, unit.data)];
+  noteNewJournalLeads(leads);
+  if (seedJournalMarks) seedJournalMarks = false;
+  return leads;
 }, recording, automap, Boolean(port), port?.data.pictures);
 const saves = input && openSaveSlots(gameResources);
 const rosterClosed: DosFileClosed = (name, data, written) => { if (written) saves?.saveRoster(name, data); };
@@ -435,7 +472,7 @@ if (browserSound) {
   narrationLedger?.observe(narration, manifest);
   narrationObserver = narration;
 }
-if (narrationObserver || tracePictureProducer) {
+if (narrationObserver || tracePictureProducer || automap) {
   cpu.onEclInstruction = entering => {
     if (!entering) {
       const start = eclTextStarts.pop();
@@ -444,6 +481,9 @@ if (narrationObserver || tracePictureProducer) {
       return;
     }
     const opcode = cpu.read8(cpu.ds, data.eclOpcode);
+    // DAMAGE and ROB are scripted hazards and thefts, not combat blows.
+    if (automap && opcode === 0x2e) stampAutomap("hazard");
+    if (automap && opcode === 0x28) stampAutomap("theft");
     if (tracePictureProducer) {
       let producer: string | undefined;
       // SETUP MONSTER, PICTURE and ENCOUNTER MENU can supply the held portrait.
@@ -505,6 +545,9 @@ if (input && saves) {
           const saved = saves.get(slot.name);
           transcriptStart = start;
           updateJournal.restore(saved?.leads ?? []);
+          seenLeadIds.clear();
+          for (const lead of saved?.leads ?? []) seenLeadIds.add(lead.id);
+          seedJournalMarks = true;
           input.restoreTracked(saved?.tracked);
           automap?.restore(saved?.automap);
         } else {
@@ -555,10 +598,20 @@ if (input) {
     });
   }
 }
+if (automap) {
+  overlayCallObservers.set(cpu, (call) => {
+    // Slice 4 is the temple overlay, slice 6 the shop. Training shares slice 16
+    // with character creation, so it is stamped from the trainer's own text.
+    if (call.sliceIndex === 4) stampAutomap("temple");
+    else if (call.sliceIndex === 6) stampAutomap("shop");
+  });
+}
 const journalSlice = loadedSlices.find(({ index }) => index === code.eclLoop.slice);
 adventureLog = (env.POR_ADVENTURE_LOG === "1" || browserSound || liveAt !== undefined || profilePath) && journalSlice
   ? observeAdventureLog(cpu, journalSlice, loadedSlices.find(({ index }) => index === code.trainerRefusedA.slice),
     (message) => {
+      const place = locationKindFromText(message);
+      if (place) stampAutomap(place);
       // Capture the seal's state before the original menu can resolve the offer.
       if (message.includes("WE CAN DUPLICATE THE SEAL ON THAT CHEST")) journal();
       if (!browserSound) return;
