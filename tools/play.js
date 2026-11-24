@@ -1904,7 +1904,9 @@ function menuChoices(view) {
     // Beneath the named patient's greeting are the services and the list's own Exit row.
     return /how can we help you\?$/i.test(choices[0]?.label) ? choices.slice(1) : [];
   }
-  if (!choices.length || !choices.every(({ row }, i) => row === i + 2)) return [];
+  // With a party member present DOS also prints a heading above the same options.
+  if (/^Pick (Race|Gender|Class|Alignment)$/.test(choices[0]?.label)) choices.shift();
+  if (!choices.length || !choices.every(({ row }, i) => row === choices[0].row + i)) return [];
   const names = choices.map(({ label }) => label);
   const classes = /^(Cleric|Fighter|Magic-User|Thief)$/;
   const alignment = /^(True Neutral|(Lawful|Neutral|Chaotic) (Good|Neutral|Evil))$/;
@@ -2928,10 +2930,13 @@ const hostShortcutMenus = new Set([
   "Cast View Encamp Search Look",
   "Camp: Save View Magic Rest Alter Exit",
 ]);
-function hostShortcutFree(letter) {
+function commandRow() {
   const row = Array(40).fill(" ");
   for (const [cell, character] of state.text ?? []) if (cell >= 960) row[cell - 960] = String.fromCharCode(character);
-  const menu = row.join("").replace(/\s+/g, " ").trim();
+  return row.join("").replace(/\s+/g, " ").trim();
+}
+function hostShortcutFree(letter) {
+  const menu = commandRow();
   return hostShortcutMenus.has(menu) &&
     !menu.split(" ").some(word => word[0].toLowerCase() === letter);
 }
@@ -3104,7 +3109,8 @@ window.addEventListener("keydown", (event) => {
   const key = keypadDirections[event.code] ?? commands[event.key] ?? (/^[a-z0-9]$/i.test(event.key) ? event.key : null);
   if (!key) return;
   event.preventDefault();
-  if ((key === "up" || key === "down") && !choiceMenu.hidden && menuChoices(state).length) {
+  if ((key === "up" || key === "down") && enhanced &&
+      (commandRow() === "Add a character: Add Exit" || menuChoices(state).length)) {
     void send(key === "down" ? "end" : "home");
     return;
   }

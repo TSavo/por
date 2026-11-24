@@ -261,12 +261,40 @@ async function checkCreationPicker(page) {
   await page.press("k", /Parts color-1 color-2 Size Exit/);
   await page.press("e", /Is this icon ok/);
   await page.press("y", /Create New Character/);
+  // Stay in this session: adding someone changes the layout of the next creation menus.
+  await page.press("a", /Add a character: Add Exit/);
+  const rosterHighlight = () => chrome.evaluate(`state.text.filter(([cell, glyph, color]) =>
+    cell < 960 && glyph > 32 && color === 15).map(([, glyph]) => String.fromCharCode(glyph)).join("")`);
+  const first = await rosterHighlight();
+  assert.ok(first);
+  await page.press("down");
+  const second = await rosterHighlight();
+  assert.ok(second && second !== first, "Down moved the native roster highlight");
+  await page.press("up");
+  assert.equal(await rosterHighlight(), first);
+  await page.press("down");
+  await page.press("a", /Add a character: Add Exit/);
+  assert.equal(await rosterHighlight(), "*" + second);
+  await page.press("e", /Create New Character/);
   await page.press("c", /Half-Elf/);
+  await pick("down", "Elf");
+  await pick("up", "Dwarf");
   await clickChoice("Gnome");
   await chrome.until("race click advanced to gender", 'gameMenuText().includes("Male Female")', 10);
-  for (const expected of [/Fighter/, /Lawful/, /Keep this character/]) await page.press("enter", expected);
-  assert.match(await page.text(), /Male Gnome/);
-  log("ok   clicking Gnome confirms that race on the next rolled sheet");
+  await pick("down", "Female");
+  await page.press("enter", /Fighter/);
+  const secondOption = () => chrome.evaluate(`document.querySelectorAll("#menu-choices button")[1].getAttribute("aria-label")`);
+  const secondClass = await secondOption();
+  await pick("down", secondClass);
+  await page.press("enter", /Lawful/);
+  const secondAlignment = await secondOption();
+  await pick("down", secondAlignment);
+  await page.press("enter", /Keep this character/);
+  const nextSheet = await page.text();
+  assert.match(nextSheet, /Female Gnome/);
+  assert.ok(nextSheet.includes(secondClass));
+  assert.ok(nextSheet.includes(secondAlignment));
+  log("ok   roster arrows add the highlighted character and all four creation menus still work without a reload");
 }
 
 async function checkPartyGuide(page) {
