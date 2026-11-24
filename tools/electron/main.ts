@@ -81,6 +81,9 @@ function registerProtocol(loose: LooseFiles): void {
     const headers: Record<string, string> = { ...isolation, "content-type": answer.type };
     if (path === "/" || path === "/play.html") {
       headers["content-security-policy"] = "default-src 'self'; img-src 'self' data:; style-src 'unsafe-inline'";
+      // Size the native game window on its first paint, including before scripts load.
+      const html = readFileSync(answer.file, "utf8").replace('<html lang="en">', '<html lang="en" class="electron-app">');
+      return new Response(request.method === "HEAD" ? null : html, { headers });
     }
     const range = request.headers.get("range");
     return net.fetch(pathToFileURL(answer.file).href, range ? { headers: { range } } : undefined).then((response) => {
@@ -249,9 +252,6 @@ function openWindow(): void {
   });
   win.webContents.on("will-navigate", (event, url) => {
     if (!isGamePage(url)) event.preventDefault();
-  });
-  win.webContents.on("dom-ready", () => {
-    void win.webContents.executeJavaScript('document.documentElement.classList.add("electron-app")');
   });
   void win.loadURL(`${gameOrigin}/`);
 }

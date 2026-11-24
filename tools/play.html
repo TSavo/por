@@ -270,7 +270,7 @@
     html.electron-app #play {
       border: none; box-shadow: none; width: min(100vw, calc(100vh * 8 / 5)); height: min(100vh, calc(100vw * 5 / 8));
     }
-    html.electron-app[data-presentation="enhanced"] #play {
+    html.electron-app:not([data-presentation="classic"]) #play {
       width: min(100vw, calc(100vh * 4 / 3)); height: min(100vh, calc(100vw * 3 / 4));
     }
     html.electron-app #screen-loading { background: #000; }
