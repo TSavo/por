@@ -1,0 +1,1 @@
+The guide party leaves the clerk with the Graveyard commission accepted. Aelar readies the enchanted sword. Take the east ferry, survive the wilderness encounters, enter the small Kobold Cave, and pass the pool trap. The 448-input ordinary-play leg saves slot D in the cave and ends at the Quit to DOS confirmation. Slot D is the continuation toward the Efreeti Bottle.
