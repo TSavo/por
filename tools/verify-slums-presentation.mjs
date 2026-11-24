@@ -8918,7 +8918,7 @@ const environmentRoutes = new Map([
     walk: ["left", "up", "up", "right", "up", "up", "right"],
   }],
   ["mendor-annex-floor-large", {
-    slot: "B", area: 15, views: 15, patterns: 28, sceneryOnly: true, captureView: 11,
+    slot: "B", area: 15, views: 14, patterns: 26, sceneryOnly: true, captureView: 10,
     walk: ["right", "right", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up"],
   }],
   ["mendor-west-floor-small", {
@@ -11228,6 +11228,7 @@ try {
       : area === 9 ? environment.finalEncounter?.[2] ?? "encounter:area:9:SPRIT2.DAX:63:0:0" : undefined;
     const patterns = new Set();
     const transition = environment.transition;
+    let frescoTiles;
     let views = await verifyTiledView(area, patterns);
     const canalWalk = routeName.startsWith("new-phlan-canal-");
     async function captureCanalView(point) {
@@ -11248,7 +11249,7 @@ try {
     let exitPauseTiles;
     let sawGrishnakApproach = false;
     if (environment.approachSequence) await observeApproach(environment.approachSequence);
-    for (const key of environment.walk) {
+    for (const [index, key] of environment.walk.entries()) {
       const previousTiles = frame.tiles;
       await advance(key);
       if (actor && frame.encounter) assert.deepEqual(frame.tiles, previousTiles);
@@ -11289,6 +11290,18 @@ try {
           })()` });
           assert.equal(result.result.value, true, result.exceptionDetails?.text ?? "A missing portrait should preserve the enhanced picture panel");
         }
+      }
+      if (routeName === "mendor-annex-floor-large" && index === 2) {
+        const fresco = "scene-illustration:area:15:ecl:a738:cue:fresco-room";
+        assert.deepEqual([frame.scenery?.x, frame.scenery?.y, frame.scenery?.facing], [8, 2, 0]);
+        assert.equal(frame.portrait, fresco);
+        assert.equal(frame.tileInventory?.length, 121);
+        assert.deepEqual(frame.tiles, frame.tileInventory.map(([x, y, id]) => [x, y, id]));
+        frescoTiles = frame.tileInventory.map(([, , id]) => id);
+        await waitFor("the library fresco passage", () => run(`
+          state.sequence === ${frame.sequence} &&
+          document.querySelector('#tile-art:not([hidden]) .encounter-portrait[src="/art/${fresco}"]')?.naturalWidth === 352`));
+        continue;
       }
       const viewArea = transition && views >= transition.afterViews ? transition.area : area;
       const tiledView = await verifyTiledView(viewArea, patterns);
@@ -11403,6 +11416,9 @@ try {
       assert.ok(!hasLead("rescue-escape-alarm"));
       if (repeatStampede) assert.match(frame.journal.objective.nextStep, /fight off the guards.*escort the boy/i);
       await advance("j");
+    }
+    if (routeName === "mendor-annex-floor-large") {
+      assert.equal(new Set([...patterns, ...frescoTiles]).size, 28, "All native patterns including the illustrated room");
     }
     assert.equal(views, environment.views);
     assert.equal(patterns.size, environment.patterns);
