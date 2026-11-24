@@ -78,7 +78,7 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
       ...process.env, POR_PREGEN_PARTY: "0", POR_BROWSER_PLAY: "1", POR_SAVE_DIR: checkpointDir,
       POR_BOOT_KEY_FILE: "", POR_BOOT_KEYS: bootKeys, POR_LIVE_AT: startAt, POR_BOOT_STEPS: "450000000",
       // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
-      POR_INPUT_COMPAT: "discard-poll-prompt",
+      POR_INPUT_COMPAT: recording?.inputCompat ?? "discard-poll-prompt",
       ...(recording?.schedule ? { POR_PROMPT_SCHEDULE_IN: recording.schedule } : {}),
     },
     stdio: ["pipe", "pipe", "inherit"],
@@ -2682,18 +2682,26 @@ if (process.argv[2] === "--textile-prison-key-checkpoint") {
 }
 
 if (process.argv[2] === "--textile-grishnak-checkpoint") {
-  assert.ok(process.argv[3], "Pass slot I from outside Grishnak's temple at (2,13), facing north.");
-  const healedSleep = process.argv[4] === "--healed-sleep";
-  assert.ok(!process.argv[4] || healedSleep, "Expected --healed-sleep after the checkpoint");
-  copyFileSync(process.argv[3], join(saveDir, "I.json"));
-  await replay("31000000:1c0d,45000000:266c,52000000:1769", "85000000", [
-    ...(healedSleep ? templePreparation : [
-      "e", "m", "m", ...Array(6).fill("end"), "m", ...Array(4).fill("end"), "m", "e", "enter",
-      (text) => assert.match(text, /mira's spells to be memorized.*\*sleep/),
-      "y", "r", "r", "n", "e", "e",
-      (text) => assert.match(text, /2,13 n.*area cast view encamp/),
-    ]),
-    "j", "track 3", (_text, frame) => {
+  const checkpoint = process.argv[3] && !process.argv[3].startsWith("--") ? process.argv[3] : undefined;
+  const options = process.argv.slice(checkpoint ? 4 : 3);
+  const healedSleep = options.length === 1 && options[0] === "--healed-sleep";
+  assert.ok(!options.length || healedSleep, "Expected --healed-sleep after the checkpoint");
+  copyFileSync(checkpoint ?? "qa/fixtures/walk-grishnak-prisoner/after/I.json", join(saveDir, "I.json"));
+  const { isOpenObjective } = await tsImport("../src/runtime/adventure-log.ts", import.meta.url);
+  if (healedSleep) {
+    const healing = "qa/fixtures/walk-grishnak-healing";
+    const keys = readFileSync(join(healing, "commands.jsonl"), "utf8").trim().split("\n").map(line => JSON.parse(line));
+    const camp = await replay(loadSlot("1769"), "85000000", keys, saveDir, undefined, false,
+      { schedule: resolve(healing, "prompts.jsonl"), inputCompat: "" });
+    assert.match(visibleText(camp), /brennan -1 13.*elspeth -1 19.*quit to dos/);
+  }
+  await replay(loadSlot("1769"), "85000000", [
+    (text) => assert.match(text, /2,13 n/),
+    "j", (_text, frame) => {
+      const index = frame.journal.leads.filter(isOpenObjective).findIndex(({ id }) => id === "commission-textile");
+      assert.ok(index >= 0);
+      return `track ${index + 1}`;
+    }, (_text, frame) => {
       assert.equal(frame.journal?.trackedId, "commission-textile");
       assert.match(frame.journal.objective.nextStep, /north through the guards' room.*choose free, then unlock/i);
       assert.doesNotMatch(frame.journal.objective.nextStep, /grishnak/i);
@@ -2705,16 +2713,20 @@ if (process.argv[2] === "--textile-grishnak-checkpoint") {
       assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
       assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-grishnak-defeated"));
     }, "j",
-    "enter", "enter",
+    "enter",
     ...(healedSleep ? [
-      ...Array(6).fill("q"), "space", "space",
-      (text) => assert.match(text, /mira hitpoints 5.*move view aim cast/),
-      "c", "enter", ...Array(5).fill("n"),
-      (text) => assert.match(text, /grishnak hitpoints 24 ac 5 spell:sleep.*target/),
-      "t", (text) => assert.match(text, /grishnak hitpoints 24 ac 5 aim:next/),
-      "e",
-    ] : [["q", /grishnak hitpoints 24 ac 5/, 60]]),
-    ["q", /party has been destroyed/, 300],
+      "space", (text) => assert.match(text, /elspeth hitpoints 19.*move view aim use cast/),
+      "space", "d", "d", "enter", "enter",
+      presses(":poll", 14, /brennan hitpoints 13.*move view aim use cast/),
+      "c", (text) => assert.match(text, /brennan's spells in memory.*sleep/),
+      "enter", presses("n", 5, /grishnak hitpoints 24 ac 5 spell:sleep.*target/),
+      "t", (text) => {
+        assert.match(text, /aim:next/);
+        assert.doesNotMatch(text, /spell:sleep/);
+      }, "e",
+      presses("q", 9, /grishnak hitpoints 24 ac 5 move\/attack/),
+    ] : ["enter", presses("q", 25, /grishnak hitpoints 24 ac 5/)]),
+    presses("q", healedSleep ? 10 : 18, /party has been destroyed/),
   ]);
   console.log(healedSleep ? "Healed the party, cast Sleep on Grishnak, and reached the original defeat screen."
     : "Replayed Grishnak's full Quick battle through the original defeat screen.");

@@ -1,0 +1,25 @@
+
+
+                 Name            AC  HP
+
+                 AELAR            0   0
+                 BRENNAN         -1  10
+                 CAELUM          -1   0
+                 ELSPETH         -1  14
+                 DORIAN           3   0
+                 FINN             0   0
+                 CURATE           3   0
+
+
+
+
+                 2,13 N 23:40 camping
+
+
+ The party makes camp...
+
+
+
+
+
+Quit TO DOS Yes No

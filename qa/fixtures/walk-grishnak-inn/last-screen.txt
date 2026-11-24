@@ -1,0 +1,25 @@
+
+
+                 Name            AC  HP
+
+                 AELAR            0   9
+                 BRENNAN         -1  13
+                 CAELUM          -1   9
+                 ELSPETH         -1  17
+                 DORIAN           3   9
+                 FINN             0   8
+                 CURATE           3  22
+
+
+
+
+                 4,12 S 10:25 camping
+
+
+
+
+
+
+
+
+Quit TO DOS Yes No

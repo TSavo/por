@@ -2700,23 +2700,18 @@ not open a shot. The checkpoint check
 fails if the watchdog intervenes. The recruitment
 checks still use the historical checkpoint and the supplied brass key.
 
-Run `node tools/verify-fresh-party.mjs --textile-grishnak-checkpoint PATH_TO_SLOT_I`
-with the party outside the southern temple door at `2,13 N`. This
-replay prepares Mira's Sleep and checks that the tracked commission
-directs the party north through the guards' room. After hearing Grishnak
-at the altar, the objective switches to checking the battle loot and
-returning to Unlock the padlocks. Skullcrusher's later clue stays hidden.
-The replay verifies Grishnak starts at 24 HP and AC 5 and runs Quick to
-the defeat screen.
-At input 76 a fixed 20-million-instruction limit still interrupts an
-enemy turn in the original calibrated delay at `0512:53E3`. The default
-watchdog now budgets calibrated delays separately from battlefield
-redraws. The same replay finishes with zero interventions. Winning the
-battle and acquiring the brass key through this route remain open.
-With `--healed-sleep`, the temple checkpoint first heals the party and
-prepares Mira's Sleep. The replay takes manual control of Mira, targets
-Grishnak, and verifies that the cast leaves her at 24 HP without a
-helpless marker. The fight still ends in defeat without watchdog recovery.
+Run `node tools/verify-fresh-party.mjs --textile-grishnak-checkpoint`
+from the repository root. The [earned guide-party slot I](../qa/fixtures/walk-grishnak-prisoner/README.md)
+starts outside the temple at (2,13 N), after the party tried to unlock the
+prisoner's padlocks. The journal initially directs the party to search
+the guards' room. Hearing Grishnak at the altar identifies her and adds
+the battle-loot clue. In the Quick branch, 25 inputs reach Grishnak at
+24 HP and AC 5. Another 18 reach the defeat screen.
+
+With `--healed-sleep`, Elspeth casts Cure Light Wounds on Brennan and
+herself before battle. Brennan manually targets Grishnak with Sleep.
+Nine Quick inputs later Grishnak still has 24 HP and takes a movement
+turn. The next ten inputs reach the native defeat screen.
 The journal's post-victory objective was checked with the translated ECL
 setter and the original temple script. The battle points to treasure block
 38, which contains the brass key. The verified victory flag shifts the
