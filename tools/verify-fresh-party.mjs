@@ -76,6 +76,7 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
       POR_BOOT_KEY_FILE: "", POR_BOOT_KEYS: bootKeys, POR_LIVE_AT: startAt, POR_BOOT_STEPS: "450000000",
       // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
       POR_INPUT_COMPAT: "discard-poll-prompt",
+      ...(recording?.schedule ? { POR_PROMPT_SCHEDULE_IN: recording.schedule } : {}),
     },
     stdio: ["pipe", "pipe", "inherit"],
   });
@@ -543,7 +544,7 @@ async function verifyFighterTrainingJournal() {
   console.log("Verified the fighter trainer's directions are discovered in play and retained after reloading slot H.");
 }
 
-async function verifyPodalFromCouncil(continuation, fromLodging = false) {
+async function verifyPodalFromCouncil(continuation, fromLodging = false, arrivalRecording) {
   const load = loadSlot;
   // The key counts below were measured in the pipe from qa/fixtures/podal-clerk/H.json
   // (--podal-checkpoint --auction-only, #151); the other routes here start from saves no mode makes (#167).
@@ -589,8 +590,7 @@ async function verifyPodalFromCouncil(continuation, fromLodging = false) {
       "right", ...Array(8).fill("up"), "right", ...Array(7).fill("up"),
       ...westboundFromJunction(true),
     ] : ["right", "right", "up", ...westboundToGate(true)]),
-    // From the 1.3 files the game empties the keyboard twice after North, so both Enters are thrown
-    // away; from game/ only once, and the second Enter chooses Stride Boldly (#186).
+    // Two keys typed ahead during the plaza transition are discarded before the approach menu.
     "n", "enter", "enter",
     (text) => assert.match(text, /the plaza ahead is crowded with monsters.*disguise/),
     "j", (_text, frame) => {
@@ -600,7 +600,7 @@ async function verifyPodalFromCouncil(continuation, fromLodging = false) {
       assert.ok(!frame.journal.leads.some(({ id }) => id === "auction-exchange"));
     }, "j",
     "end", "enter", "enter", "enter", "e", "s", "s", "i",
-  ]);
+  ], saveDir, undefined, false, arrivalRecording);
   assert.match(visibleText(arrival), /0,4 w.*quit to dos/);
   const walkPodalStreet = (position, keys) => chosenWalk(`the walk up the street to ${position.source}`, keys, (text) => {
     if (/who are you.*haughty sly nice/.test(text)) return "s";
@@ -3126,7 +3126,10 @@ if (process.argv[2] === "--podal-checkpoint") {
   assert.ok(!continuation || ["--auction-only", "--through-textile-prison"].includes(continuation),
     "Expected --auction-only or --through-textile-prison after the checkpoint");
   copyFileSync(process.argv[3], join(saveDir, "H.json"));
-  await verifyPodalFromCouncil(continuation);
+  const recorded = resolve("qa/fixtures/podal-clerk");
+  const arrivalRecording = readFileSync(process.argv[3]).equals(readFileSync(join(recorded, "H.json")))
+    ? { schedule: join(recorded, "arrival-prompts.jsonl") } : undefined;
+  await verifyPodalFromCouncil(continuation, false, arrivalRecording);
   process.exit(0);
 }
 

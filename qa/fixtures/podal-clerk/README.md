@@ -10,3 +10,5 @@ Made on 2026-11-22 with `node tools/record-walk.mjs qa/fixtures/campaign-full F 
 Encamp, Save, then H (`commands.jsonl`; the second `s` reaches the slot menu, which ignores it).
 `boot.json`, `prompts.jsonl` and `last-screen.txt` are that recording's. The replay uses the full campaign's starting saves through `checkpointSource` in `boot.json`.
 Run `node tools/record-walk.mjs --replay qa/fixtures/podal-clerk` to replay the recording.
+
+The separate arrival-prompts.jsonl records the GOG 1.3 input prompts from this H save to the plaza save in slot I. The legacy checkpoint replay follows these game events because drawing replacement data changes how many translated instructions elapse between keyboard flushes.
