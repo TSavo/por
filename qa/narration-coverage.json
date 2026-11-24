@@ -218,6 +218,18 @@
    "decisions": 9,
    "heard": 2
   },
+  "issue-99-middle-wilderness-a194-lizard-men-abusive-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 12,
+   "heard": 2
+  },
+  "issue-99-middle-wilderness-a194-lizard-men-abusive-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 12,
+   "heard": 2
+  },
   "issue-99-middle-wilderness-a194-lizard-men-original": {
    "ledger": "issue-99-middle-wilderness-a194-lizard-men-original.jsonl",
    "games": 1,
@@ -493,6 +505,18 @@
    "games": 1,
    "decisions": 67,
    "heard": 17
+  },
+  "issue-99-valjevo-outer-patrol-disguise-original": {
+   "ledger": "issue-99-valjevo-outer-patrol-disguise-original.jsonl",
+   "games": 1,
+   "decisions": 11,
+   "heard": 8
+  },
+  "issue-99-valjevo-outer-patrol-disguise-port": {
+   "ledger": "issue-99-valjevo-outer-patrol-disguise-port.jsonl",
+   "games": 1,
+   "decisions": 11,
+   "heard": 8
   },
   "issue-99-wetland-tigers-original": {
    "ledger": "issue-99-wetland-tigers-original.jsonl",
@@ -3590,8 +3614,8 @@
    "run": "walk-valjevo-g4",
    "step": 760607913,
    "art": {
-    "kind": "view",
-    "key": "the first-person view"
+    "kind": "encounter",
+    "key": "encounter:area:3:SPRIT5.DAX:16:2:0"
    }
   },
   "por.voice.ecl5.b3-99e0": {
@@ -3600,6 +3624,14 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:3:ecl:ad5f:cue:password-sentries-alarm"
+   }
+  },
+  "por.voice.ecl5.b3-9cb7-9cbb": {
+   "run": "issue-99-valjevo-outer-patrol-disguise-original",
+   "step": 91095029,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:3:SPRIT5.DAX:16:2:0"
    }
   },
   "por.voice.ecl5.b3-9d1f-9d6e": {
@@ -3616,6 +3648,46 @@
    "art": {
     "kind": "encounter",
     "key": "encounter:area:3:SPRIT5.DAX:16:2:0"
+   }
+  },
+  "por.voice.ecl5.b3-9de2-9dec": {
+   "run": "issue-99-valjevo-outer-patrol-disguise-original",
+   "step": 91200201,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:3:SPRIT5.DAX:16:2:0"
+   }
+  },
+  "por.voice.ecl5.b3-9df1-operand-9": {
+   "run": "issue-99-valjevo-outer-patrol-disguise-original",
+   "step": 91539549,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:3:SPRIT5.DAX:16:2:0"
+   }
+  },
+  "por.voice.ecl5.b3-9e47": {
+   "run": "issue-99-valjevo-outer-patrol-disguise-original",
+   "step": 95341043,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
+   }
+  },
+  "por.voice.ecl5.b3-9ecd": {
+   "run": "issue-99-valjevo-outer-patrol-disguise-original",
+   "step": 96341512,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
+   }
+  },
+  "por.voice.ecl5.b3-9f5b": {
+   "run": "issue-99-valjevo-outer-patrol-disguise-original",
+   "step": 96529348,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:3:ecl:9bf8:cue:giant-patrol-passage"
    }
   },
   "por.voice.ecl5.b3-a557": {
@@ -5075,9 +5147,21 @@
    "slot": "0x982c",
    "value": "MAGIC USERS "
   },
+  "por.voice.ecl5.b3-9cb7-9cbb.variant-01-a-patrol-of-giants-led-by-a-human-fighter": {
+   "run": "issue-99-valjevo-outer-patrol-disguise-original",
+   "step": 91095029,
+   "slot": "0x980e",
+   "value": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+  },
   "por.voice.ecl5.b3-9d1f-9d6e.variant-01-patrol-of-giants-led-by-a-human-fighter": {
    "run": "walk-valjevo-g4",
    "step": 797384776,
+   "slot": "0x980f",
+   "value": " PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+  },
+  "por.voice.ecl5.b3-9de2-9dec.variant-01-patrol-of-giants-led-by-a-human-fighter": {
+   "run": "issue-99-valjevo-outer-patrol-disguise-original",
+   "step": 91200201,
    "slot": "0x980f",
    "value": " PATROL OF GIANTS LED BY A HUMAN FIGHTER"
   },
@@ -5309,6 +5393,12 @@
    "slot": "0x982c",
    "value": "DRIDERS"
   },
+  "por.voice.ecl7.b26-a376-a38a.variant-05-lizard-men": {
+   "run": "issue-99-middle-wilderness-a194-lizard-men-abusive-original",
+   "step": 93534290,
+   "slot": "0x982c",
+   "value": "LIZARD MEN"
+  },
   "por.voice.ecl7.b26-a3b9-a3df.variant-01-kobolds": {
    "run": "issue-99-middle-wilderness-a194-kobolds-haughty-original",
    "step": 88326657,
@@ -5381,6 +5471,12 @@
    "step": 797384776,
    "unitId": "por.voice.ecl5.b3-9d1f-9d6e",
    "value": " PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+  },
+  "por.review.ecl-5.block-3.at-9df1": {
+   "run": "issue-99-valjevo-outer-patrol-disguise-original",
+   "step": 91539549,
+   "unitId": "por.voice.ecl5.b3-9df1-operand-9",
+   "value": 9
   },
   "por.review.ecl-5.block-6.at-a06e": {
    "run": "walk-valjevo-g1",
@@ -5754,6 +5850,26 @@
     "startedLate": 0
    },
    "issue-99-middle-wilderness-a194-kobolds-sly-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-middle-wilderness-a194-lizard-men-abusive-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-middle-wilderness-a194-lizard-men-abusive-port": {
     "log": "decisions.playback.jsonl",
     "legs": 1,
     "lines": 2,
@@ -6222,6 +6338,26 @@
     "cutOff": 0,
     "unfinished": 0,
     "startedLate": 1
+   },
+   "issue-99-valjevo-outer-patrol-disguise-original": {
+    "log": "issue-99-valjevo-outer-patrol-disguise-original.playback.jsonl",
+    "legs": 1,
+    "lines": 8,
+    "toTheEnd": 8,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 2
+   },
+   "issue-99-valjevo-outer-patrol-disguise-port": {
+    "log": "issue-99-valjevo-outer-patrol-disguise-port.playback.jsonl",
+    "legs": 1,
+    "lines": 8,
+    "toTheEnd": 8,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 2
    },
    "issue-99-wetland-tigers-original": {
     "log": "issue-99-wetland-tigers-original.playback.jsonl",
@@ -6930,6 +7066,57 @@
     "seconds": 3.44,
     "waited": 0.097,
     "art": "scene-illustration:area:8:ecl:af78:caller:9a4a:cue:commissions-closed"
+   },
+   "por.voice.ecl5.b3-99be": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-original",
+    "asset": "voices/narration/ecl5/b3-99be.mp3",
+    "seconds": 1.68,
+    "waited": 0.044,
+    "art": "the first-person view"
+   },
+   "por.voice.ecl5.b3-9cb7-9cbb": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-original",
+    "asset": "voices/narration/dynamic-resolved/ecl5-b3-9cb7-9cbb-v01-a-patrol-of-giants-led-by-a-human-fighter.mp3",
+    "variantId": "por.voice.ecl5.b3-9cb7-9cbb.variant-01-a-patrol-of-giants-led-by-a-human-fighter",
+    "seconds": 4.56,
+    "waited": 0.03,
+    "art": "encounter:area:3:SPRIT5.DAX:16:2:0"
+   },
+   "por.voice.ecl5.b3-9de2-9dec": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-original",
+    "asset": "voices/narration/dynamic-resolved/ecl5-b3-9de2-9dec-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
+    "variantId": "por.voice.ecl5.b3-9de2-9dec.variant-01-patrol-of-giants-led-by-a-human-fighter",
+    "seconds": 4.32,
+    "waited": 4.766,
+    "art": "encounter:area:3:SPRIT5.DAX:16:2:0"
+   },
+   "por.voice.ecl5.b3-9df1-operand-9": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-original",
+    "asset": "voices/narration/ecl5/b3-9df1-operand-9.mp3",
+    "seconds": 2,
+    "waited": 9.261,
+    "art": "encounter:area:3:SPRIT5.DAX:16:2:0"
+   },
+   "por.voice.ecl5.b3-9e47": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-original",
+    "asset": "voices/narration/ecl5/b3-9e47.mp3",
+    "seconds": 2,
+    "waited": 0.019,
+    "art": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
+   },
+   "por.voice.ecl5.b3-9ecd": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-original",
+    "asset": "voices/narration/ecl5/b3-9ecd.mp3",
+    "seconds": 3.04,
+    "waited": 0.024,
+    "art": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
+   },
+   "por.voice.ecl5.b3-9f5b": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-original",
+    "asset": "voices/narration/ecl5/b3-9f5b.mp3",
+    "seconds": 3.36,
+    "waited": 0.022,
+    "art": "scene-illustration:area:3:ecl:9bf8:cue:giant-patrol-passage"
    },
    "por.voice.ecl5.b3-a8d0-prompt": {
     "run": "tower-source-original",
@@ -8404,6 +8591,58 @@
     ],
     "end": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
    },
+   "issue-99-middle-wilderness-a194-lizard-men-abusive-original | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
+    "run": "issue-99-middle-wilderness-a194-lizard-men-abusive-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a15c-a16e",
+    "variantId": "por.voice.ecl7.b26-a15c-a16e.variant-05-lizard-men",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v05-lizard-men.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU SPOT A GROUP OF LIZARD MEN Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a194-lizard-men-abusive-original | chrome | 2 | por.voice.ecl7.b26-a376-a38a": {
+    "run": "issue-99-middle-wilderness-a194-lizard-men-abusive-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a376-a38a",
+    "variantId": "por.voice.ecl7.b26-a376-a38a.variant-05-lizard-men",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v05-lizard-men.mp3",
+    "expected": "encounter:area:26:ecl:a194:SPRIT7.DAX:57:1:0",
+    "caption": "YOU CONVINCE THE LIZARD MEN THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY. Haughty Sly Nice Meek Abusive",
+    "seen": [
+     "encounter:area:26:ecl:a194:SPRIT7.DAX:57:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a194:SPRIT7.DAX:57:1:0"
+   },
+   "issue-99-middle-wilderness-a194-lizard-men-abusive-port | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
+    "run": "issue-99-middle-wilderness-a194-lizard-men-abusive-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a15c-a16e",
+    "variantId": "por.voice.ecl7.b26-a15c-a16e.variant-05-lizard-men",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v05-lizard-men.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU SPOT A GROUP OF LIZARD MEN Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a194-lizard-men-abusive-port | chrome | 2 | por.voice.ecl7.b26-a376-a38a": {
+    "run": "issue-99-middle-wilderness-a194-lizard-men-abusive-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a376-a38a",
+    "variantId": "por.voice.ecl7.b26-a376-a38a.variant-05-lizard-men",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v05-lizard-men.mp3",
+    "expected": "encounter:area:26:ecl:a194:SPRIT7.DAX:57:1:0",
+    "caption": "YOU CONVINCE THE LIZARD MEN THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY. Haughty Sly Nice Meek Abusive",
+    "seen": [
+     "encounter:area:26:ecl:a194:SPRIT7.DAX:57:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a194:SPRIT7.DAX:57:1:0"
+   },
    "issue-99-middle-wilderness-a194-lizard-men-original | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
     "run": "issue-99-middle-wilderness-a194-lizard-men-original",
     "leg": "chrome",
@@ -9525,6 +9764,202 @@
      "scene-illustration:area:11:ecl:9f8a"
     ],
     "end": "scene-illustration:area:11:ecl:9f8a"
+   },
+   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-NTqMmx | 1 | por.voice.ecl5.b3-99be": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-original",
+    "leg": "slums-presentation-NTqMmx",
+    "unitId": "por.voice.ecl5.b3-99be",
+    "asset": "voices/narration/ecl5/b3-99be.mp3",
+    "expected": "the first-person view",
+    "caption": "AN ALARM IS SOUNDING. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-NTqMmx | 2 | por.voice.ecl5.b3-99be": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-original",
+    "leg": "slums-presentation-NTqMmx",
+    "unitId": "por.voice.ecl5.b3-99be",
+    "asset": "voices/narration/ecl5/b3-99be.mp3",
+    "expected": "the first-person view",
+    "caption": "AN ALARM IS SOUNDING. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-NTqMmx | 3 | por.voice.ecl5.b3-9cb7-9cbb": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-original",
+    "leg": "slums-presentation-NTqMmx",
+    "unitId": "por.voice.ecl5.b3-9cb7-9cbb",
+    "variantId": "por.voice.ecl5.b3-9cb7-9cbb.variant-01-a-patrol-of-giants-led-by-a-human-fighter",
+    "asset": "voices/narration/dynamic-resolved/ecl5-b3-9cb7-9cbb-v01-a-patrol-of-giants-led-by-a-human-fighter.mp3",
+    "expected": "encounter:area:3:SPRIT5.DAX:16:2:0",
+    "caption": "'WHAT ARE YOU DOING HERE?' Combat Wait Flee Advance",
+    "seen": [
+     "encounter:area:3:SPRIT5.DAX:16:2:0"
+    ],
+    "end": "encounter:area:3:SPRIT5.DAX:16:2:0"
+   },
+   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-NTqMmx | 4 | por.voice.ecl5.b3-9de2-9dec": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-original",
+    "leg": "slums-presentation-NTqMmx",
+    "unitId": "por.voice.ecl5.b3-9de2-9dec",
+    "variantId": "por.voice.ecl5.b3-9de2-9dec.variant-01-patrol-of-giants-led-by-a-human-fighter",
+    "asset": "voices/narration/dynamic-resolved/ecl5-b3-9de2-9dec-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
+    "expected": "encounter:area:3:SPRIT5.DAX:16:2:0",
+    "caption": "'WHAT ARE YOU DOING HERE?' Combat Wait Flee Advance",
+    "seen": [
+     "encounter:area:3:SPRIT5.DAX:16:2:0"
+    ],
+    "end": "encounter:area:3:SPRIT5.DAX:16:2:0"
+   },
+   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-NTqMmx | 5 | por.voice.ecl5.b3-9df1-operand-9": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-original",
+    "leg": "slums-presentation-NTqMmx",
+    "unitId": "por.voice.ecl5.b3-9df1-operand-9",
+    "asset": "voices/narration/ecl5/b3-9df1-operand-9.mp3",
+    "expected": "encounter:area:3:SPRIT5.DAX:16:2:0",
+    "caption": "'WHAT ARE YOU DOING HERE?' Combat Wait Flee Advance",
+    "seen": [
+     "encounter:area:3:SPRIT5.DAX:16:2:0"
+    ],
+    "end": "encounter:area:3:SPRIT5.DAX:16:2:0"
+   },
+   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-NTqMmx | 6 | por.voice.ecl5.b3-9e47": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-original",
+    "leg": "slums-presentation-NTqMmx",
+    "unitId": "por.voice.ecl5.b3-9e47",
+    "asset": "voices/narration/ecl5/b3-9e47.mp3",
+    "expected": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1",
+    "caption": "WHAT ARE YOU DOING HERE? Haughty Sly Nice Meek Abusive",
+    "seen": [
+     "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
+    ],
+    "end": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
+   },
+   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-NTqMmx | 7 | por.voice.ecl5.b3-9ecd": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-original",
+    "leg": "slums-presentation-NTqMmx",
+    "unitId": "por.voice.ecl5.b3-9ecd",
+    "asset": "voices/narration/ecl5/b3-9ecd.mp3",
+    "expected": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1",
+    "caption": "'ALL RIGHT THEN. WHAT IS TODAY'S PASSWORD?'",
+    "seen": [
+     "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
+    ],
+    "end": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
+   },
+   "issue-99-valjevo-outer-patrol-disguise-original | slums-presentation-NTqMmx | 8 | por.voice.ecl5.b3-9f5b": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-original",
+    "leg": "slums-presentation-NTqMmx",
+    "unitId": "por.voice.ecl5.b3-9f5b",
+    "asset": "voices/narration/ecl5/b3-9f5b.mp3",
+    "expected": "scene-illustration:area:3:ecl:9bf8:cue:giant-patrol-passage",
+    "caption": "WITH A NOD OF THE HEAD YOU ARE LEFT ALONE. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:3:ecl:9bf8:cue:giant-patrol-passage"
+    ],
+    "end": "scene-illustration:area:3:ecl:9bf8:cue:giant-patrol-passage"
+   },
+   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-8g1ooM | 1 | por.voice.ecl5.b3-99be": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-port",
+    "leg": "slums-presentation-8g1ooM",
+    "unitId": "por.voice.ecl5.b3-99be",
+    "asset": "voices/narration/ecl5/b3-99be.mp3",
+    "expected": "the first-person view",
+    "caption": "AN ALARM IS SOUNDING. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-8g1ooM | 2 | por.voice.ecl5.b3-99be": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-port",
+    "leg": "slums-presentation-8g1ooM",
+    "unitId": "por.voice.ecl5.b3-99be",
+    "asset": "voices/narration/ecl5/b3-99be.mp3",
+    "expected": "the first-person view",
+    "caption": "AN ALARM IS SOUNDING. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-8g1ooM | 3 | por.voice.ecl5.b3-9cb7-9cbb": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-port",
+    "leg": "slums-presentation-8g1ooM",
+    "unitId": "por.voice.ecl5.b3-9cb7-9cbb",
+    "variantId": "por.voice.ecl5.b3-9cb7-9cbb.variant-01-a-patrol-of-giants-led-by-a-human-fighter",
+    "asset": "voices/narration/dynamic-resolved/ecl5-b3-9cb7-9cbb-v01-a-patrol-of-giants-led-by-a-human-fighter.mp3",
+    "expected": "encounter:area:3:SPRIT5.DAX:16:2:0",
+    "caption": "'WHAT ARE YOU DOING HERE?' Combat Wait Flee Advance",
+    "seen": [
+     "encounter:area:3:SPRIT5.DAX:16:2:0"
+    ],
+    "end": "encounter:area:3:SPRIT5.DAX:16:2:0"
+   },
+   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-8g1ooM | 4 | por.voice.ecl5.b3-9de2-9dec": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-port",
+    "leg": "slums-presentation-8g1ooM",
+    "unitId": "por.voice.ecl5.b3-9de2-9dec",
+    "variantId": "por.voice.ecl5.b3-9de2-9dec.variant-01-patrol-of-giants-led-by-a-human-fighter",
+    "asset": "voices/narration/dynamic-resolved/ecl5-b3-9de2-9dec-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
+    "expected": "encounter:area:3:SPRIT5.DAX:16:2:0",
+    "caption": "'WHAT ARE YOU DOING HERE?' Combat Wait Flee Advance",
+    "seen": [
+     "encounter:area:3:SPRIT5.DAX:16:2:0"
+    ],
+    "end": "encounter:area:3:SPRIT5.DAX:16:2:0"
+   },
+   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-8g1ooM | 5 | por.voice.ecl5.b3-9df1-operand-9": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-port",
+    "leg": "slums-presentation-8g1ooM",
+    "unitId": "por.voice.ecl5.b3-9df1-operand-9",
+    "asset": "voices/narration/ecl5/b3-9df1-operand-9.mp3",
+    "expected": "encounter:area:3:SPRIT5.DAX:16:2:0",
+    "caption": "'WHAT ARE YOU DOING HERE?' Combat Wait Flee Advance",
+    "seen": [
+     "encounter:area:3:SPRIT5.DAX:16:2:0"
+    ],
+    "end": "encounter:area:3:SPRIT5.DAX:16:2:0"
+   },
+   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-8g1ooM | 6 | por.voice.ecl5.b3-9e47": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-port",
+    "leg": "slums-presentation-8g1ooM",
+    "unitId": "por.voice.ecl5.b3-9e47",
+    "asset": "voices/narration/ecl5/b3-9e47.mp3",
+    "expected": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1",
+    "caption": "WHAT ARE YOU DOING HERE? Haughty Sly Nice Meek Abusive",
+    "seen": [
+     "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
+    ],
+    "end": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
+   },
+   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-8g1ooM | 7 | por.voice.ecl5.b3-9ecd": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-port",
+    "leg": "slums-presentation-8g1ooM",
+    "unitId": "por.voice.ecl5.b3-9ecd",
+    "asset": "voices/narration/ecl5/b3-9ecd.mp3",
+    "expected": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1",
+    "caption": "'ALL RIGHT THEN. WHAT IS TODAY'S PASSWORD?'",
+    "seen": [
+     "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
+    ],
+    "end": "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1"
+   },
+   "issue-99-valjevo-outer-patrol-disguise-port | slums-presentation-8g1ooM | 8 | por.voice.ecl5.b3-9f5b": {
+    "run": "issue-99-valjevo-outer-patrol-disguise-port",
+    "leg": "slums-presentation-8g1ooM",
+    "unitId": "por.voice.ecl5.b3-9f5b",
+    "asset": "voices/narration/ecl5/b3-9f5b.mp3",
+    "expected": "scene-illustration:area:3:ecl:9bf8:cue:giant-patrol-passage",
+    "caption": "WITH A NOD OF THE HEAD YOU ARE LEFT ALONE. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:3:ecl:9bf8:cue:giant-patrol-passage"
+    ],
+    "end": "scene-illustration:area:3:ecl:9bf8:cue:giant-patrol-passage"
    },
    "issue-99-wetland-tigers-original | chrome | 1 | ecl6-b25-a1c7-a1dc-a1e0": {
     "run": "issue-99-wetland-tigers-original",

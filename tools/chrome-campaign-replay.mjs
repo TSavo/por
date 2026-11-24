@@ -7,6 +7,15 @@ import { basename, join, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { observeEnhancedFallbacks } from "./chrome-enhanced-fallbacks.mjs";
 
+export function saveNarrationPlayback(directory, playback) {
+  const ledger = process.env.POR_NARRATION_LEDGER;
+  const run = process.env.POR_NARRATION_RUN ?? basename(ledger || directory).replace(/\.jsonl$/, "");
+  const text = [{ t: "playback", run, leg: basename(directory), at: playback.at, frame: playback.frame, queued: playback.queued },
+    ...playback.lines.map((line) => ({ t: "p", ...line }))].map((line) => JSON.stringify(line) + "\n").join("");
+  writeFileSync(join(directory, "narration-playback.jsonl"), text);
+  if (ledger) appendFileSync(ledger.replace(/\.jsonl$/, "") + ".playback.jsonl", text);
+}
+
 // How long Chrome may take to answer (#176). On a busy machine an answer can take far longer than the
 // 10 s that used to fail a run, though nothing is wrong with the game. A command now fails only when
 // Chrome is dead (it exited, its page crashed or its debug connection closed: at once), hung (neither
@@ -301,12 +310,7 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
     try { playback = await evaluate('typeof porNarrationPlayback === "function" ? porNarrationPlayback() : undefined'); }
     catch { return; }
     if (!playback) return;
-    const ledger = process.env.POR_NARRATION_LEDGER;
-    const run = process.env.POR_NARRATION_RUN ?? basename(ledger || directory).replace(/\.jsonl$/, "");
-    const text = [{ t: "playback", run, leg: basename(directory), at: playback.at, frame: playback.frame, queued: playback.queued },
-      ...playback.lines.map((line) => ({ t: "p", ...line }))].map((line) => JSON.stringify(line) + "\n").join("");
-    writeFileSync(join(directory, "narration-playback.jsonl"), text);
-    if (ledger) appendFileSync(ledger.replace(/\.jsonl$/, "") + ".playback.jsonl", text);
+    saveNarrationPlayback(directory, playback);
   }
 
   async function close() {

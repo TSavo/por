@@ -8,6 +8,8 @@ import { tmpdir } from "node:os";
 import { dirname, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
+import { saveNarrationPlayback } from "./chrome-campaign-replay.mjs";
+
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const battleEntryRoutes = new Map([
   ["swamp-ruin-defenders-surprise", {
@@ -9781,6 +9783,7 @@ async function waitFor(description, read, timeoutMs = 30_000) {
   throw new Error(`Timed out waiting for ${description}`, { cause: lastError });
 }
 
+const narrationRun = Boolean(process.env.POR_NARRATION_LEDGER);
 let socket;
 try {
   let frame = await waitFor("the loaded party", async () => {
@@ -9796,7 +9799,7 @@ try {
   mkdirSync(chromeTemp);
   chrome = spawn(chromePath, [
     "--headless", "--no-first-run", "--mute-audio", "--disable-gpu", "--enable-unsafe-swiftshader", "--remote-debugging-port=0",
-    "--disable-component-update",
+    "--disable-component-update", ...(narrationRun ? ["--autoplay-policy=no-user-gesture-required"] : []),
     `--user-data-dir=${profile}`, "about:blank",
   ], { stdio: "ignore", env: { ...process.env, TEMP: chromeTemp, TMP: chromeTemp, TMPDIR: chromeTemp } });
   const debugPort = await waitFor("Chrome's debug port", () =>
@@ -9860,7 +9863,16 @@ try {
   ] : []);
   const escortTilePatterns = new Set();
   let escortViews = 0;
+  async function awaitSpokenFrame() {
+    if (!narrationRun) return;
+    await waitFor("the painted frame and its narration", () => run(`(() => {
+      if (state.sequence !== ${frame.sequence} || renderingSequence !== undefined || animationFrame) return false;
+      const playback = porNarrationPlayback();
+      return !playback.queued && !playback.sounding && playback.lines.every(line => line.outcome);
+    })()`), 180_000);
+  }
   async function advance(key) {
+    await awaitSpokenFrame();
     const sequence = frame.sequence;
     const response = await fetch(origin + "/key", {
       method: "POST", headers: { Origin: origin, "X-POR-Frame": String(sequence) }, body: key,
@@ -19559,6 +19571,10 @@ try {
   }
   if (environmentTrace && existsSync(environmentTrace)) console.log("Environment tile trace:", environmentTrace);
   if (battleFrame) console.log(`Battlefield artwork trace (${battleFrame} frames):`, battleTrace);
+  if (narrationRun) {
+    await awaitSpokenFrame();
+    saveNarrationPlayback(directory, await run("porNarrationPlayback()"));
+  }
   if (heldPortraitEvidenceFile) {
     assert.ok(heldPortraitEvidence.length, "The replay did not visit a measured portrait prompt");
     writeFileSync(heldPortraitEvidenceFile, JSON.stringify(heldPortraitEvidence, null, 2) + "\n");
