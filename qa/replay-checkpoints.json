@@ -15,6 +15,7 @@
     "new-phlan-training-entrance-notice": "qa/fixtures/replay-checkpoints/290582c2f29f/A.json",
     "slums-first-arrival": "qa/fixtures/replay-checkpoints/290582c2f29f/A.json",
     "sokal-poison-frog-approach": "qa/fixtures/sokal-smithy-frogs/C.json",
+    "textile-ghoul-battle-entry": "qa/fixtures/replay-checkpoints/098c21a3e705/B.json",
     "textile-ghoul-combat": "qa/fixtures/replay-checkpoints/098c21a3e705/B.json",
     "textile-house-scorpion-held-loop": "qa/fixtures/walk-textile-house-cleared/G.json",
     "tyrmor-priest-benediction-hold": "qa/fixtures/tyrmor-priest-parlay/B.json",
@@ -32,6 +33,9 @@
     "valhingen-wight-ambush-loop": "qa/fixtures/valhingen-wight-ambush/A.json",
     "valhingen-zombie-roam-animation": "qa/fixtures/valhingen-zombie-roam-animation/A.json",
     "valhingen-zombie-tower": "qa/fixtures/valhingen-zombie-tower/A.json",
+    "valjevo-forge-patrol": "qa/fixtures/valjevo-forge-patrol/B.json",
+    "valjevo-forge-patrol-disguise": "qa/fixtures/valjevo-forge-patrol/disguised-B.json",
+    "valjevo-maze-patrol-hostile": "qa/fixtures/valjevo-maze-patrol/B.json",
     "zhentil-escape": "qa/fixtures/zhentil-wall-escape/A.json"
   },
   "chains": {
@@ -50,6 +54,7 @@
     "new-phlan-training-entrance-notice",
     "slums-first-arrival",
     "sokal-poison-frog-approach",
+    "textile-ghoul-battle-entry",
     "textile-ghoul-combat",
     "textile-house-scorpion-held-loop",
     "tyrmor-priest-benediction-hold",
@@ -67,6 +72,9 @@
     "valhingen-wight-ambush-loop",
     "valhingen-zombie-roam-animation",
     "valhingen-zombie-tower",
+    "valjevo-forge-patrol",
+    "valjevo-forge-patrol-disguise",
+    "valjevo-maze-patrol-hostile",
     "zhentil-escape",
     "zhentil-return"
   ]
