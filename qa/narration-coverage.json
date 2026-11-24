@@ -134,6 +134,42 @@
    "decisions": 4,
    "heard": 1
   },
+  "issue-99-mendor-library-stacks-original": {
+   "ledger": "issue-99-mendor-library-stacks-original.jsonl",
+   "games": 1,
+   "decisions": 4,
+   "heard": 2
+  },
+  "issue-99-mendor-library-stacks-port": {
+   "ledger": "issue-99-mendor-library-stacks-port.jsonl",
+   "games": 1,
+   "decisions": 4,
+   "heard": 2
+  },
+  "issue-99-mendor-mathematics-stacks-arrival-original": {
+   "ledger": "issue-99-mendor-mathematics-stacks-arrival-original.jsonl",
+   "games": 1,
+   "decisions": 5,
+   "heard": 2
+  },
+  "issue-99-mendor-mathematics-stacks-arrival-port": {
+   "ledger": "issue-99-mendor-mathematics-stacks-arrival-port.jsonl",
+   "games": 1,
+   "decisions": 5,
+   "heard": 2
+  },
+  "issue-99-mendor-rhetoric-stacks-arrival-original": {
+   "ledger": "issue-99-mendor-rhetoric-stacks-arrival-original.jsonl",
+   "games": 1,
+   "decisions": 5,
+   "heard": 2
+  },
+  "issue-99-mendor-rhetoric-stacks-arrival-port": {
+   "ledger": "issue-99-mendor-rhetoric-stacks-arrival-port.jsonl",
+   "games": 1,
+   "decisions": 5,
+   "heard": 2
+  },
   "issue-99-middle-wilderness-a194-displacer-beasts-original": {
    "ledger": "issue-99-middle-wilderness-a194-displacer-beasts-original.jsonl",
    "games": 1,
@@ -505,6 +541,18 @@
    "games": 1,
    "decisions": 24,
    "heard": 6
+  },
+  "issue-99-swamp-hidden-tunnel-original": {
+   "ledger": "issue-99-swamp-hidden-tunnel-original.jsonl",
+   "games": 1,
+   "decisions": 5,
+   "heard": 1
+  },
+  "issue-99-swamp-hidden-tunnel-port": {
+   "ledger": "issue-99-swamp-hidden-tunnel-port.jsonl",
+   "games": 1,
+   "decisions": 5,
+   "heard": 1
   },
   "issue-99-training-original": {
    "ledger": "narration.jsonl",
@@ -1148,6 +1196,30 @@
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:24:ecl:b0b5:cue:emissary-dismissal"
+   }
+  },
+  "ecl2-b15-9d77-9e38-sign-rhetoric": {
+   "run": "issue-99-mendor-library-stacks-original",
+   "step": 92390268,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:rhetoric-stacks"
+   }
+  },
+  "ecl2-b15-9d77-9e50-sign-mathematics": {
+   "run": "issue-99-mendor-mathematics-stacks-arrival-original",
+   "step": 94411807,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:mathematics-stacks"
+   }
+  },
+  "ecl2-b15-a6b2": {
+   "run": "issue-99-mendor-library-stacks-original",
+   "step": 85399356,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:15:ecl:a738:cue:fresco-room"
    }
   },
   "ecl2-b20-9ab8": {
@@ -2263,6 +2335,14 @@
    "art": {
     "kind": "view",
     "key": "the first-person view"
+   }
+  },
+  "ecl8-b16-9ceb-9e8c-9d14-rubble": {
+   "run": "issue-99-swamp-hidden-tunnel-original",
+   "step": 87494778,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:16:ecl:9a59:caller:9d45"
    }
   },
   "ecl8-b16-9da9": {
@@ -5775,6 +5855,12 @@
    "unitId": "ecl1-b18-9d86-ready",
    "value": 9
   },
+  "por.review.ecl-2.block-15.at-9d77": {
+   "run": "issue-99-mendor-library-stacks-original",
+   "step": 92390268,
+   "unitId": "ecl2-b15-9d77-9e38-sign-rhetoric",
+   "value": 3
+  },
   "por.review.ecl-3.block-0.at-a0f7": {
    "run": "walk-slums-c1",
    "step": 94813687,
@@ -5902,6 +5988,12 @@
    "run": "walk-kobold-1",
    "step": 1359641055,
    "unitId": "ecl8-b13-a713"
+  },
+  "por.review.ecl-8.block-16.at-9ceb": {
+   "run": "issue-99-swamp-hidden-tunnel-original",
+   "step": 87494778,
+   "unitId": "ecl8-b16-9ceb-9e8c-9d14-rubble",
+   "value": 4
   },
   "por.review.ecl-8.block-29.at-9b25": {
    "run": "walk-slums-d8",
@@ -6105,6 +6197,66 @@
     "legs": 1,
     "lines": 1,
     "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-mendor-library-stacks-original": {
+    "log": "issue-99-mendor-library-stacks-original.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-mendor-library-stacks-port": {
+    "log": "issue-99-mendor-library-stacks-port.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-mendor-mathematics-stacks-arrival-original": {
+    "log": "issue-99-mendor-mathematics-stacks-arrival-original.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 1,
+    "endedByPlayer": 1,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-mendor-mathematics-stacks-arrival-port": {
+    "log": "issue-99-mendor-mathematics-stacks-arrival-port.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-mendor-rhetoric-stacks-arrival-original": {
+    "log": "issue-99-mendor-rhetoric-stacks-arrival-original.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 1,
+    "endedByPlayer": 1,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-mendor-rhetoric-stacks-arrival-port": {
+    "log": "issue-99-mendor-rhetoric-stacks-arrival-port.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
     "endedByPlayer": 0,
     "cutOff": 0,
     "unfinished": 0,
@@ -6730,6 +6882,26 @@
     "unfinished": 0,
     "startedLate": 1
    },
+   "issue-99-swamp-hidden-tunnel-original": {
+    "log": "issue-99-swamp-hidden-tunnel-original.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 0,
+    "endedByPlayer": 1,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-swamp-hidden-tunnel-port": {
+    "log": "issue-99-swamp-hidden-tunnel-port.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
    "issue-99-training-original": {
     "log": "narration.playback.jsonl",
     "legs": 1,
@@ -7059,6 +7231,27 @@
     "waited": 0.007,
     "art": "the first-person view"
    },
+   "ecl2-b15-9d77-9e38-sign-rhetoric": {
+    "run": "issue-99-mendor-library-stacks-original",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-9d77-9e38-sign-rhetoric.mp3",
+    "seconds": 9.28,
+    "waited": 0.052,
+    "art": "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:rhetoric-stacks"
+   },
+   "ecl2-b15-9d77-9e50-sign-mathematics": {
+    "run": "issue-99-mendor-mathematics-stacks-arrival-port",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-9d77-9e50-sign-mathematics.mp3",
+    "seconds": 9.36,
+    "waited": 0.008,
+    "art": "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:mathematics-stacks"
+   },
+   "ecl2-b15-a6b2": {
+    "run": "issue-99-mendor-library-stacks-original",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-a6b2.mp3",
+    "seconds": 12.08,
+    "waited": 0.022,
+    "art": "scene-illustration:area:15:ecl:a738:cue:fresco-room"
+   },
    "ecl2-b20-9ab8": {
     "run": "campaign-full",
     "asset": "voices/narration/ecl2/block-20/ecl2-b20-9ab8.mp3",
@@ -7158,6 +7351,13 @@
     "seconds": 5.28,
     "waited": 0.02,
     "art": "scene-illustration:area:13:ecl:ace3:cue:dining-room"
+   },
+   "ecl8-b16-9ceb-9e8c-9d14-rubble": {
+    "run": "issue-99-swamp-hidden-tunnel-port",
+    "asset": "voices/narration/ecl8/block-16/ecl8-b16-9ceb-9e8c-9d14-rubble.mp3",
+    "seconds": 5.52,
+    "waited": 0.007,
+    "art": "scene-illustration:area:16:ecl:9a59:caller:9d45"
    },
    "ecl8-b16-aa7c": {
     "run": "issue-100-pool-transient",
@@ -9046,6 +9246,126 @@
     ],
     "end": "the Moonsea travel map"
    },
+   "issue-99-mendor-library-stacks-original | slums-presentation-ljwDPI | 1 | ecl2-b15-a6b2": {
+    "run": "issue-99-mendor-library-stacks-original",
+    "leg": "slums-presentation-ljwDPI",
+    "unitId": "ecl2-b15-a6b2",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-a6b2.mp3",
+    "expected": "scene-illustration:area:15:ecl:a738:cue:fresco-room",
+    "caption": "YOU SEE AN EMPTY ROOM. THE ONLY FEATURE IS A SERIES OF FRESCOES ON THE WALLS OF LEARNED MEN AND THE HEAVENLY PATRONS OF ART AND LEARNING. YOU GET A FEELING OF PEACE. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:15:ecl:a738:cue:fresco-room"
+    ],
+    "end": "scene-illustration:area:15:ecl:a738:cue:fresco-room"
+   },
+   "issue-99-mendor-library-stacks-original | slums-presentation-ljwDPI | 2 | ecl2-b15-9d77-9e38-sign-rhetoric": {
+    "run": "issue-99-mendor-library-stacks-original",
+    "leg": "slums-presentation-ljwDPI",
+    "unitId": "ecl2-b15-9d77-9e38-sign-rhetoric",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-9d77-9e38-sign-rhetoric.mp3",
+    "expected": "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:rhetoric-stacks",
+    "caption": "THESE ARE THE LIBRARY STACKS. OLD AND MOLDERING BOOKS ARE STORED ON SHELVES. A SIGN OVER THE ENTRANCE READS RHETORIC. Press button or <return> to continue",
+    "seen": [
+     "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:rhetoric-stacks"
+    ],
+    "end": "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:rhetoric-stacks"
+   },
+   "issue-99-mendor-library-stacks-port | slums-presentation-qGgStp | 1 | ecl2-b15-a6b2": {
+    "run": "issue-99-mendor-library-stacks-port",
+    "leg": "slums-presentation-qGgStp",
+    "unitId": "ecl2-b15-a6b2",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-a6b2.mp3",
+    "expected": "scene-illustration:area:15:ecl:a738:cue:fresco-room",
+    "caption": "YOU SEE AN EMPTY ROOM. THE ONLY FEATURE IS A SERIES OF FRESCOES ON THE WALLS OF LEARNED MEN AND THE HEAVENLY PATRONS OF ART AND LEARNING. YOU GET A FEELING OF PEACE. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:15:ecl:a738:cue:fresco-room"
+    ],
+    "end": "scene-illustration:area:15:ecl:a738:cue:fresco-room"
+   },
+   "issue-99-mendor-library-stacks-port | slums-presentation-qGgStp | 2 | ecl2-b15-9d77-9e38-sign-rhetoric": {
+    "run": "issue-99-mendor-library-stacks-port",
+    "leg": "slums-presentation-qGgStp",
+    "unitId": "ecl2-b15-9d77-9e38-sign-rhetoric",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-9d77-9e38-sign-rhetoric.mp3",
+    "expected": "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:rhetoric-stacks",
+    "caption": "THESE ARE THE LIBRARY STACKS. OLD AND MOLDERING BOOKS ARE STORED ON SHELVES. A SIGN OVER THE ENTRANCE READS RHETORIC. Press button or <return> to continue",
+    "seen": [
+     "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:rhetoric-stacks"
+    ],
+    "end": "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:rhetoric-stacks"
+   },
+   "issue-99-mendor-mathematics-stacks-arrival-original | slums-presentation-nB3gXL | 1 | ecl2-b15-a6b2": {
+    "run": "issue-99-mendor-mathematics-stacks-arrival-original",
+    "leg": "slums-presentation-nB3gXL",
+    "unitId": "ecl2-b15-a6b2",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-a6b2.mp3",
+    "expected": "scene-illustration:area:15:ecl:a738:cue:fresco-room",
+    "caption": "YOU SEE AN EMPTY ROOM. THE ONLY FEATURE IS A SERIES OF FRESCOES ON THE WALLS OF LEARNED MEN AND THE HEAVENLY PATRONS OF ART AND LEARNING. YOU GET A FEELING OF PEACE. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:15:ecl:a738:cue:fresco-room"
+    ],
+    "end": "scene-illustration:area:15:ecl:a738:cue:fresco-room"
+   },
+   "issue-99-mendor-mathematics-stacks-arrival-port | slums-presentation-edmcDo | 1 | ecl2-b15-a6b2": {
+    "run": "issue-99-mendor-mathematics-stacks-arrival-port",
+    "leg": "slums-presentation-edmcDo",
+    "unitId": "ecl2-b15-a6b2",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-a6b2.mp3",
+    "expected": "scene-illustration:area:15:ecl:a738:cue:fresco-room",
+    "caption": "YOU SEE AN EMPTY ROOM. THE ONLY FEATURE IS A SERIES OF FRESCOES ON THE WALLS OF LEARNED MEN AND THE HEAVENLY PATRONS OF ART AND LEARNING. YOU GET A FEELING OF PEACE. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:15:ecl:a738:cue:fresco-room"
+    ],
+    "end": "scene-illustration:area:15:ecl:a738:cue:fresco-room"
+   },
+   "issue-99-mendor-mathematics-stacks-arrival-port | slums-presentation-edmcDo | 2 | ecl2-b15-9d77-9e50-sign-mathematics": {
+    "run": "issue-99-mendor-mathematics-stacks-arrival-port",
+    "leg": "slums-presentation-edmcDo",
+    "unitId": "ecl2-b15-9d77-9e50-sign-mathematics",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-9d77-9e50-sign-mathematics.mp3",
+    "expected": "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:mathematics-stacks",
+    "caption": "THESE ARE THE LIBRARY STACKS. OLD AND MOLDERING BOOKS ARE STORED ON SHELVES. A SIGN OVER THE ENTRANCE READS MATHEMATICS. Press button or <return> to continue",
+    "seen": [
+     "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:mathematics-stacks"
+    ],
+    "end": "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:mathematics-stacks"
+   },
+   "issue-99-mendor-rhetoric-stacks-arrival-original | slums-presentation-ec6eOn | 1 | ecl2-b15-a6b2": {
+    "run": "issue-99-mendor-rhetoric-stacks-arrival-original",
+    "leg": "slums-presentation-ec6eOn",
+    "unitId": "ecl2-b15-a6b2",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-a6b2.mp3",
+    "expected": "scene-illustration:area:15:ecl:a738:cue:fresco-room",
+    "caption": "YOU SEE AN EMPTY ROOM. THE ONLY FEATURE IS A SERIES OF FRESCOES ON THE WALLS OF LEARNED MEN AND THE HEAVENLY PATRONS OF ART AND LEARNING. YOU GET A FEELING OF PEACE. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:15:ecl:a738:cue:fresco-room"
+    ],
+    "end": "scene-illustration:area:15:ecl:a738:cue:fresco-room"
+   },
+   "issue-99-mendor-rhetoric-stacks-arrival-port | slums-presentation-B1eqWZ | 1 | ecl2-b15-a6b2": {
+    "run": "issue-99-mendor-rhetoric-stacks-arrival-port",
+    "leg": "slums-presentation-B1eqWZ",
+    "unitId": "ecl2-b15-a6b2",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-a6b2.mp3",
+    "expected": "scene-illustration:area:15:ecl:a738:cue:fresco-room",
+    "caption": "YOU SEE AN EMPTY ROOM. THE ONLY FEATURE IS A SERIES OF FRESCOES ON THE WALLS OF LEARNED MEN AND THE HEAVENLY PATRONS OF ART AND LEARNING. YOU GET A FEELING OF PEACE. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:15:ecl:a738:cue:fresco-room"
+    ],
+    "end": "scene-illustration:area:15:ecl:a738:cue:fresco-room"
+   },
+   "issue-99-mendor-rhetoric-stacks-arrival-port | slums-presentation-B1eqWZ | 2 | ecl2-b15-9d77-9e38-sign-rhetoric": {
+    "run": "issue-99-mendor-rhetoric-stacks-arrival-port",
+    "leg": "slums-presentation-B1eqWZ",
+    "unitId": "ecl2-b15-9d77-9e38-sign-rhetoric",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-9d77-9e38-sign-rhetoric.mp3",
+    "expected": "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:rhetoric-stacks",
+    "caption": "THESE ARE THE LIBRARY STACKS. OLD AND MOLDERING BOOKS ARE STORED ON SHELVES. A SIGN OVER THE ENTRANCE READS RHETORIC. Press button or <return> to continue",
+    "seen": [
+     "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:rhetoric-stacks"
+    ],
+    "end": "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:rhetoric-stacks"
+   },
    "issue-99-middle-wilderness-a194-displacer-beasts-original | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
     "run": "issue-99-middle-wilderness-a194-displacer-beasts-original",
     "leg": "chrome",
@@ -10255,6 +10575,18 @@
      "encounter:area:17:SPRIT7.DAX:0:2:0"
     ],
     "end": "encounter:area:17:SPRIT7.DAX:0:2:0"
+   },
+   "issue-99-swamp-hidden-tunnel-port | slums-presentation-c9KYhL | 1 | ecl8-b16-9ceb-9e8c-9d14-rubble": {
+    "run": "issue-99-swamp-hidden-tunnel-port",
+    "leg": "slums-presentation-c9KYhL",
+    "unitId": "ecl8-b16-9ceb-9e8c-9d14-rubble",
+    "asset": "voices/narration/ecl8/block-16/ecl8-b16-9ceb-9e8c-9d14-rubble.mp3",
+    "expected": "scene-illustration:area:16:ecl:9a59:caller:9d45",
+    "caption": "SEARCHING THROUGH THE RUBBLE YOU FIND A HIDDEN TUNNEL LEADING DOWN. DO YOU TAKE IT? Yes No",
+    "seen": [
+     "scene-illustration:area:16:ecl:9a59:caller:9d45"
+    ],
+    "end": "scene-illustration:area:16:ecl:9a59:caller:9d45"
    },
    "issue-99-training-original | visit-training-hall | 1 | por.voice.ecl3.b11-9a74": {
     "run": "issue-99-training-original",
