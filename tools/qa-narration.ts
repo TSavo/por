@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { disassemble, readEntryVector, scriptFromBlock, type Instruction } from "../src/lib/ecl.js";
 import { runningScriptAddress } from "../src/runtime/bindings.js";
 import { EclNarrationObserver, type EclNarrationEvent, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
-import { unreachableParlayVariants } from "./narration-parlay-reachability.js";
+import { unreachableWildernessVariants } from "./narration-parlay-reachability.js";
 import type { LedgerFrame, LedgerNarration } from "./narration-ledger.js";
 
 // The narration, measured.
@@ -426,16 +426,16 @@ const families = units.filter(unit => unit.runtimeVariants?.length);
 const generated = families.flatMap(unit => unit.runtimeVariants!).filter(variant => existsSync(new URL("audio/" + variant.asset, root)));
 rows.push({ part: "Dynamic variant recordings available", done: generated.length, total: variantTotal, left: variantTotal - generated.length,
   counted: false, note: "each manifest variant with its recording on disk; the same file can serve different conditions" });
-const unreachableVariants = unreachableParlayVariants(root, units, process.env.POR_GAMEDATA_1_3);
+const unreachableVariants = unreachableWildernessVariants(root, units, process.env.POR_GAMEDATA_1_3);
 for (const id of variantsHeard) {
-  if (unreachableVariants.has(id)) throw new Error(`Recorded selection contradicts unreachable parlay proof for ${id}`);
+  if (unreachableVariants.has(id)) throw new Error(`Recorded selection contradicts unreachable wilderness proof for ${id}`);
 }
 rows.push({ part: "Dynamic variants selected", done: variantsHeard.length, total: variantTotal, left: variantTotal - variantsHeard.length, counted: false,
   note: `${families.filter(unit => unit.runtimeVariants!.some(variant => coverage.variants[variant.id])).length} of ${families.length} families have fired; ` +
     `${families.filter(unit => unit.runtimeVariants!.every(variant => coverage.variants[variant.id])).length} have every variant selected`,
   list: variantsHeard.map(id => `heard ${id}: ${coverage.variants[id]!.slot ?? "slot ?"} held ${JSON.stringify(coverage.variants[id]!.value)} (${coverage.variants[id]!.run})`) });
 rows.push({ part: "Dynamic variants proven unreachable", done: unreachableVariants.size, left: 0, counted: false,
-  note: "the original actor table forbids this parlay response; see each script branch and table index in --list",
+  note: "the original parlay tables or surprise dispatch forbid these variants; --list gives the evidence for each",
   list: [...unreachableVariants].map(([id, proof]) => `${id}: ${proof}`) });
 const unresolvedVariants = [...variantOwner.keys()].filter(id => !coverage.variants[id] && !unreachableVariants.has(id));
 rows.push({ part: "Dynamic variants still unresolved", left: unresolvedVariants.length,

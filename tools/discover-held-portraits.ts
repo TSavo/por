@@ -7,6 +7,7 @@ import { disassemble, readEntryVector, scriptFromBlock, type Instruction, type O
 import { authoredScriptAddress } from "../src/runtime/bindings.js";
 import { contentBytes, readGameData, type PictureRecord } from "../src/runtime/game-data.js";
 import { findGameRoot, isPortGameRoot, portGameRoot, readGameFile } from "./gamedata.js";
+import { matchesSurpriseRoutines } from "./surprise-program.js";
 import { fromPortRoot } from "./port-root.js";
 
 const read = (path: string) => readFileSync(join(portGameRoot, path));
@@ -164,11 +165,7 @@ function slumsBothSurprisedUnreachable(instructions: ReadonlyMap<number, Instruc
 
 function matchesSurpriseProof(file: string, blockId: number, scriptSha256: string): boolean {
   const proof = lizardFaceToFaceProof;
-  const source = readFileSync(fromPortRoot("src", "translated-1.3", "ovl03.ts"), "utf8").replace(/\r\n/g, "\n");
-  for (const offset of ["0e5e", "1629", "16c9", "18f8", "1ef8", "2f2d"]) {
-    const routine = source.split("export function ovl03_" + offset + "(")[1]?.split("\n}\n")[0];
-    if (!routine || digest(routine) !== proof.translatedRoutines[offset]) return false;
-  }
+  if (!matchesSurpriseRoutines(proof.translatedRoutines)) return false;
 
   // The record pins the original release. Where external game files are selected, check those too.
   const original = findGameRoot();

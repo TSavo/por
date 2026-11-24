@@ -355,7 +355,7 @@ never rolls.
 `--list` groups what is unheard by script (archive and block, with the area's name), so it reads
 as a to-do list by area.
 
-## Wilderness parlay variants
+## Wilderness encounter variants
 
 The dynamic variant rows count recordings on disk, native selections, and completed Chrome
 playbacks separately. A recorded reply can be unreachable for a particular creature. The
@@ -375,3 +375,13 @@ Run `npm run qa:narration -- --list` for the evidence by variant, including its 
 index and flag. With `POR_GAMEDATA_1_3` set to the original 1.3 game directory, the measure
 also decompresses the original DAX records, compares them byte for byte with the bundled
 scripts, and checks the original instructions. Both modes verify the audited script hashes.
+
+
+All three wilderness scripts also have a fourth approach line, “Suddenly you are face to face
+with a group of …”. The original 1.3 SURPRISE routine overwrites result 3 with 2 before the
+script branches. The optional bit mask can only reduce that result. The preceding encounter
+menu handles all four of its return values, and no other entry jumps to the fourth print.
+This rules out 11 western, 8 middle, and 9 eastern creature recordings independently of the
+67 excluded parlay combinations. The measure verifies the original routine fingerprints used
+by the held-portrait audit, the dispatch operands, and each incoming branch. Supplying the
+GOG 1.3 directory also verifies START.EXE and GAME.OVR against that audit's original hashes.
