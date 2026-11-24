@@ -130,6 +130,10 @@
     }
     #tile-art .sprite-fallback { position: absolute; image-rendering: pixelated; }
     #game-text { position: absolute; inset: 0; pointer-events: none; }
+    #menu-choices { position: absolute; inset: 0; pointer-events: none; }
+    #menu-choices button { position: absolute; height: 4%; pointer-events: auto;
+      border: 0; border-radius: 0; padding: 0; background: transparent; cursor: pointer; }
+    #menu-choices button:hover { outline: 1px solid #a28658; }
     #game-text span { position: absolute; width: 2.5%; height: 4%; display: grid; place-items: center;
       overflow: hidden;
       font: 700 2.55cqw / 1 "Game Web Font", ui-monospace, monospace; }
@@ -335,6 +339,7 @@
       <p id="build-version" hidden></p>
       <div id="tile-art" aria-hidden="true" hidden></div>
       <div id="game-text" aria-hidden="true" hidden></div>
+      <div id="menu-choices" aria-label="Game menu choices" role="group" hidden></div>
       <p id="party-guide" hidden></p>
       <section id="code-wheel" aria-label="Translation wheel" hidden>
         <div id="wheel" role="img" aria-label="The translation wheel. The inner disc turns.">

@@ -1,6 +1,6 @@
 // The browser-engine acceptance check (#223), in headless Chrome, as a player plays:
 //
-//   node tools/web/check-play.mjs [--server runner|web|loose] [--original <folder>] [--shots <dir>] [--party-guide-only]
+//   node tools/web/check-play.mjs [--server runner|web|loose] [--original <folder>] [--shots <dir>] [--party-guide-only | --creation-picker-only | --temple-picker-only]
 //
 // --server runner  `tools/browser-play.ts`, the Node runner behind POST /key and GET /state
 //          web     `tools/web/serve.ts`, the engine in a Web Worker in the page (#228)
@@ -201,6 +201,74 @@ async function checkFailedOverwrite(page) {
   return updated;
 }
 
+async function clickChoice(label) {
+  const point = await chrome.until(`the ${label} row click target`, `(() => {
+    const b = [...document.querySelectorAll("#menu-choices button")].find(button =>
+      button.getAttribute("aria-label") === ${JSON.stringify(label)})?.getBoundingClientRect();
+    return b && { x: b.x + b.width / 2, y: b.y + b.height / 2 };
+  })()`, 10);
+  for (const type of ["mousePressed", "mouseReleased"])
+    await chrome.command("Input.dispatchMouseEvent", { type, ...point, button: "left", clickCount: 1 });
+}
+
+async function checkTemplePicker(page) {
+  for (const heading of [2, 0]) {
+    for (let turn = 0; turn < 3 && (await position())?.[2] !== heading; turn++) await page.press("right");
+    await page.press("up");
+  }
+  await page.press("y", /Heal View Pool Appraise Exit/);
+  await page.press("h", /how can we help you/);
+  await page.press("down");
+  const selected = `document.querySelector('#menu-choices button[aria-pressed="true"]')?.getAttribute("aria-label")`;
+  await chrome.until("Cure Disease highlighted", `${selected} === "Cure Disease"`, 5);
+  await page.press("up");
+  await chrome.until("Cure Blindness highlighted", `${selected} === "Cure Blindness"`, 5);
+  await clickChoice("Cure Light Wounds");
+  await chrome.until("the priest responds to the click", '/anyway: Yes No|pay for cure Yes No/i.test(gameMenuText())', 10);
+  if (/anyway: Yes No/i.test(await page.text())) await page.press("y");
+  assert.match(await page.text(), /Cure Light Wounds will only cost 100 gold pieces/i);
+  await page.press("n", /Heal Exit/);
+  log("ok   arrow keys move the temple highlight and clicking Cure Light Wounds reaches its 100-gold confirmation");
+}
+
+async function checkCreationPicker(page) {
+  const selected = `document.querySelector('#menu-choices button[aria-pressed="true"]')?.getAttribute("aria-label")`;
+  async function pick(key, expected) {
+    await page.press(key);
+    await chrome.until(`selected ${expected}`, `${selected} === ${JSON.stringify(expected)}`, 5);
+  }
+  await page.press("c", /Half-Elf/);
+  await chrome.until("Dwarf selected", `${selected} === "Dwarf"`, 5);
+  await pick("down", "Elf");
+  await pick("up", "Dwarf");
+  await pick("down", "Elf");
+  await screenshot("creation-arrow-elf");
+  await page.press("enter", /Male Female/);
+  await pick("down", "Female");
+  await page.press("enter", /Fighter/);
+  await pick("down", "Magic-User");
+  await page.press("enter", /Lawful/);
+  await pick("down", "Lawful Neutral");
+  await page.press("enter", /Keep this character/);
+  const sheet = await page.text();
+  assert.match(sheet, /Female Elf/);
+  assert.match(sheet, /Lawful Neutral/);
+  assert.match(sheet, /Magic-User/);
+  log("ok   ArrowDown/ArrowUp and Enter select the race, sex, class and alignment on the rolled sheet");
+  await page.press("y", /Character name:/);
+  await page.press("v");
+  await page.press("enter", /Head Body Keep/);
+  await page.press("k", /Parts color-1 color-2 Size Exit/);
+  await page.press("e", /Is this icon ok/);
+  await page.press("y", /Create New Character/);
+  await page.press("c", /Half-Elf/);
+  await clickChoice("Gnome");
+  await chrome.until("race click advanced to gender", 'gameMenuText().includes("Male Female")', 10);
+  for (const expected of [/Fighter/, /Lawful/, /Keep this character/]) await page.press("enter", expected);
+  assert.match(await page.text(), /Male Gnome/);
+  log("ok   clicking Gnome confirms that race on the next rolled sheet");
+}
+
 async function checkPartyGuide(page) {
   const guide = "document.querySelector('#party-guide')";
   const guideVisible = `Boolean(${guide}?.getClientRects().length)`;
@@ -275,6 +343,7 @@ async function checkGame() {
     classicAvailable === Boolean(original), classicAvailable);
   expect("the display switch reflects Classic availability", await chrome.evaluate("!presentation.hidden") === classicAvailable);
   await screenshot("1-first-menu");
+  if (args.includes("--creation-picker-only")) return checkCreationPicker(page);
 
   // 2. SSI's ready-made characters.
   text = await page.press("a", /Add a character: Add Exit/);
@@ -294,6 +363,8 @@ async function checkGame() {
     text = await page.press("enter");
   }
   expect("begins adventuring and reaches the exploration menu", exploring.test(text), text);
+
+  if (args.includes("--temple-picker-only")) return checkTemplePicker(page);
 
   // 4. Walk: the tour ends at the Slums gate (0,4) facing west; turn about and step east into New Phlan.
   const before = await position();

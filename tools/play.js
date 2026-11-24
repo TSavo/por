@@ -6,6 +6,7 @@ const bootWheel = document.querySelector("#boot-wheel");
 let wheelStartup = false;
 const tileArt = document.querySelector("#tile-art");
 const gameText = document.querySelector("#game-text");
+const choiceMenu = document.querySelector("#menu-choices");
 const journal = document.querySelector("#journal");
 const closeJournal = document.querySelector("#close-journal");
 const autoTrack = document.querySelector("#auto-track");
@@ -1882,6 +1883,76 @@ async function animateHeldPortrait(image, view) {
   requestAnimationFrame(paintPhase);
 }
 
+// Character creation and temple healing offer vertical lists. Each option occupies
+// one native text row, and the game draws the selected option in white (15).
+function menuChoices(view) {
+  if (!enhanced || view.scene || view.journal) return [];
+  const labels = new Map();
+  for (const [cell, glyph, color] of view.text ?? []) {
+    if (glyph <= 32) continue;
+    const row = Math.floor(cell / 40);
+    if (!labels.has(row)) labels.set(row, { row, chars: Array(40).fill(" "), selected: color === 15 });
+    labels.get(row).chars[cell % 40] = String.fromCharCode(glyph);
+  }
+  const command = labels.get(24)?.chars.join("").trim().replace(/ +/g, " ");
+  if (command !== "Exit" && command !== "Heal Exit") return [];
+  labels.delete(24);
+  const choices = [...labels.values()].sort((a, b) => a.row - b.row).map(({ row, chars, selected }) => ({
+    row, label: chars.join("").trim(), column: chars.findIndex(c => c !== " "), selected,
+  }));
+  if (command === "Heal Exit") {
+    // Beneath the named patient's greeting are the services and the list's own Exit row.
+    return /how can we help you\?$/i.test(choices[0]?.label) ? choices.slice(1) : [];
+  }
+  if (!choices.length || !choices.every(({ row }, i) => row === i + 2)) return [];
+  const names = choices.map(({ label }) => label);
+  const classes = /^(Cleric|Fighter|Magic-User|Thief)$/;
+  const alignment = /^(True Neutral|(Lawful|Neutral|Chaotic) (Good|Neutral|Evil))$/;
+  return names.join("|") === "Dwarf|Elf|Gnome|Half-Elf|Halfling|Human" || names.join("|") === "Male|Female" ||
+    names.every(name => name.split("/").every(part => classes.test(part))) ||
+    names.every(name => alignment.test(name)) ? choices : [];
+}
+
+let choosingMenuRow = false;
+async function chooseMenuRow(label) {
+  if (choosingMenuRow) return;
+  choosingMenuRow = true;
+  try {
+    const choices = menuChoices(state);
+    const target = choices.findIndex(choice => choice.label === label);
+    let current = choices.findIndex(choice => choice.selected);
+    if (target < 0 || current < 0) return;
+    while (current !== target) {
+      const step = Math.sign(target - current);
+      if (!await sendToGameInTurn(step > 0 ? "end" : "home")) return;
+      current += step;
+      const updated = menuChoices(state);
+      if (updated[target]?.label !== label || !updated[current]?.selected) return;
+    }
+    await sendToGameInTurn("enter");
+  } finally {
+    choosingMenuRow = false;
+  }
+}
+
+function choiceButtons(choices) {
+  return choices.map(({ row, column, label, selected }) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.tabIndex = -1;
+    button.setAttribute("aria-label", label);
+    button.setAttribute("aria-pressed", String(selected));
+    Object.assign(button.style, {
+      top: `${row * 4}%`, left: `${column * 2.5}%`, width: `${label.length * 2.5}%`,
+    });
+    button.addEventListener("click", () => {
+      screen.focus({ preventScroll: true });
+      void chooseMenuRow(label);
+    });
+    return button;
+  });
+}
+
 async function showScreen(retryEnhanced = true) {
   if (!state.frame) return;
   const render = ++screenRender;
@@ -2201,6 +2272,9 @@ async function showScreen(retryEnhanced = true) {
       return glyph;
     }), ...gameRunes(view));
   }
+  const choices = !gameText.hidden && /^(?:Heal\s*)?Exit$/.test(menu.trim()) ? menuChoices(view) : [];
+  choiceMenu.hidden = !choices.length;
+  if (choices.length || choiceMenu.childElementCount) choiceMenu.replaceChildren(...choiceButtons(choices));
   // Record the layers that decoded and made it to the page.
   const portraitShown = layers.some(layer => layer.matches(".encounter-portrait, .reward-illustration"));
   const encounterShown = layers.some(layer => layer.matches(".encounter-sprite"));
@@ -3026,9 +3100,14 @@ window.addEventListener("keydown", (event) => {
     if (event.key === "Escape") void send("j");
     return;
   }
+  if (choosingMenuRow) { event.preventDefault(); return; }
   const key = keypadDirections[event.code] ?? commands[event.key] ?? (/^[a-z0-9]$/i.test(event.key) ? event.key : null);
   if (!key) return;
   event.preventDefault();
+  if ((key === "up" || key === "down") && !choiceMenu.hidden && menuChoices(state).length) {
+    void send(key === "down" ? "end" : "home");
+    return;
+  }
   void send(key.toLowerCase() === "j" ? `key ${key}` : key);
 });
 function wheelKey(key) {
