@@ -27,7 +27,10 @@ export function observeNativeEncounterArt(anchors: Record<string, EncounterAncho
   }
   const members = new Map<number, string>();
   let drawn: string | undefined;
-  let visible: { member: string; pixels: Buffer; mark: number } | undefined;
+  // placement: the artwork last found for this cel. The original keeps the cel on screen while the
+  // script runs on into code no anchor is scoped to (the parlay reply at ECL7 a3b9 after the
+  // approach at a194, #336), so the picture stays until the guest writes over the viewport.
+  let visible: { member: string; pixels: Buffer; mark: number; placement?: EncounterPlacement } | undefined;
   return {
     load(cpu: Cpu) {
       const argument = (offset: number) => cpu.read16(cpu.ss, (cpu.sp + offset) & 0xffff);
@@ -88,8 +91,10 @@ export function observeNativeEncounterArt(anchors: Record<string, EncounterAncho
         if (!key || matching.length !== 1) continue;
         const anchor = anchors[key]!;
         const { x, y, width, height, webglYOffset } = anchor;
-        return webglYOffset ? [x, y, key, width, height, webglYOffset] : [x, y, key, width, height];
+        visible.placement = webglYOffset ? [x, y, key, width, height, webglYOffset] : [x, y, key, width, height];
+        return visible.placement;
       }
+      return visible.placement;
     },
   };
 }

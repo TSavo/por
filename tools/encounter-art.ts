@@ -86,6 +86,10 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>,
     Number(b.cursor !== undefined) - Number(a.cursor !== undefined));
   let background: Uint8Array | undefined;
   let backgroundArea: number | undefined;
+  // The pattern last placed, while its cel stays on screen. The original leaves the cel up as the
+  // script runs on into code no anchor is scoped to (the parlay reply at ECL7 a3b9 after the
+  // approach at a194, #336), so its artwork stays until the guest draws something else there.
+  let held: (typeof patterns)[number] | undefined;
 
   return (screen: Frame, enhanced: Frame, area: number | undefined, rememberBackground = true, cursor?: number,
     nativeDraws: readonly (Uint8Array | undefined)[] = [], caller?: number): EncounterPlacement | undefined => {
@@ -93,12 +97,18 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>,
     if (rememberBackground) backgroundArea = area;
     if (area === undefined) {
       if (rememberBackground) background = undefined;
+      held = undefined;
       return;
     }
     let unmatchedScope: { key: string; anchor: EncounterAnchor } | undefined;
-    for (const { key, anchor, pixels, cursor: expectedCursor, caller: expectedCaller } of patterns) {
+    const holding = held;
+    held = undefined;
+    // Scoped patterns first; then the held pattern in any scope, if no scoped one matched.
+    const candidates = holding ? [...patterns, holding] : patterns;
+    for (const [index, pattern] of candidates.entries()) {
+      const { key, anchor, pixels, cursor: expectedCursor, caller: expectedCaller } = pattern;
       if (anchor.area !== area) continue;
-      const scopeMatches = (expectedCursor === undefined || expectedCursor === cursor) &&
+      const scopeMatches = index >= patterns.length || (expectedCursor === undefined || expectedCursor === cursor) &&
         (expectedCaller === undefined || expectedCaller === caller);
       if (!scopeMatches && (!traceUnmatchedScope || cursor === undefined || unmatchedScope)) continue;
       const { x, y, width, height } = anchor;
@@ -166,6 +176,7 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>,
       }
       const placement: EncounterPlacement = [x, y, key, width, height];
       if (anchor.webglYOffset) placement.push(anchor.webglYOffset);
+      held = pattern;
       return placement;
     }
     if (unmatchedScope && cursor !== undefined) {
