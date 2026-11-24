@@ -223,6 +223,7 @@ const saltlineExplorationRenderer = "90fb7e1b9dd389ea45605810f27ca019f6c0e116509
 const explorationMovementRenderer = "256261c40a690714d94703629e96516402dafed25462c5dcb34db9789f18db4f";
 const titleBuildVersionRenderer = "14d61fd7ee9265e1b34205a359a7631c932bdba29f274fcf406065a2f4969489";
 const battleEntryRenderer = "1ff8ef0a4d635d4390caaad3f85782fd99c4728df2051a01d8477381403db6ed";
+const retryFrameRenderer = "7675e6f087ae7c8b75b8b8e870ef5cf1a8c2c065bcfd41dc93648cba17a652ba";
 const publisherFadeRenderer = "bc8dfe43f6c95b2fe6e8110de87b26acd492352ad980f72970c3f883c1c98530";
 const fullTravelPickerRenderer = "0ac83e518e2041aa1ff9f5d17f7b765cb60e46a18d88251982cca5cf872d0904";
 const partyGuideRenderer = "bc185ec61adcbc2579b1fb28cbfaf96f2a99b5499ed94bd61331bf188d821d58";
@@ -253,6 +254,9 @@ const rendererBeforePittMenus = "c3582f5d74fae550739186491060b39f7fcbd25c399b99d
 // Exact reviewed revisions that preserve the held portrait paint and timing code.
 // This covers narration logging, the wilderness atlas, settings, and Classic palette-only clips.
 const previousRendererProof = new Map<string, string>([
+  // A failed draw retries once while keeping the last completed frame. Both sources pass the
+  // failed-first-request Kuto volley, held panel timing, and the Textile House ghoul handoff.
+  [retryFrameRenderer, publisherFadeRenderer],
   // Only the SSI publisher splash gains a fade and a longer full-brightness hold.
   [publisherFadeRenderer, fullTravelPickerRenderer],
   // The atlas picker takes the window at travel input. The local terrain and actor own held encounters.
@@ -570,7 +574,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       return (["original", "port"] as const).every(data => {
         const observed = proof.chrome[data];
         const reviewed = [landmarkOverlandRenderer, wetOverlandRenderer, localOverlandRenderer, auctionMenusRenderer, captivePenMenusRenderer, pittMenuRenderer, rendererBeforePittMenus];
-        const sceneryRevision = (hash: string) => hash === publisherFadeRenderer || hash === fullTravelPickerRenderer || hash === partyGuideRenderer || hash === classicTitlePollRenderer || hash === retryImageRenderer || hash === overlandNarrationRenderer || hash === localAutomapRenderer || hash === localMapDoorsRenderer || hash === viewportDisposalRenderer || hash === journalInputRenderer || hash === narrationSelectionRenderer || hash === narrationCaptionRenderer || hash === narrationVisibilityRenderer || hash === narrationMediaErrorRenderer || hash === narratedHoldRenderer || hash === scopedNarrationQueueRenderer ||
+        const sceneryRevision = (hash: string) => hash === retryFrameRenderer || hash === publisherFadeRenderer || hash === fullTravelPickerRenderer || hash === partyGuideRenderer || hash === classicTitlePollRenderer || hash === retryImageRenderer || hash === overlandNarrationRenderer || hash === localAutomapRenderer || hash === localMapDoorsRenderer || hash === viewportDisposalRenderer || hash === journalInputRenderer || hash === narrationSelectionRenderer || hash === narrationCaptionRenderer || hash === narrationVisibilityRenderer || hash === narrationMediaErrorRenderer || hash === narratedHoldRenderer || hash === scopedNarrationQueueRenderer ||
           hash === paintedNarrationRenderer || hash === shaderSkyRenderer || hash === tripwireKeysRenderer || hash === roofLightingRenderer ||
           hash === titleBuildVersionRenderer || hash === battleEntryRenderer
           ? explorationMovementRenderer : hash;
