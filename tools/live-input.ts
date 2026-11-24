@@ -300,6 +300,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if (baneTreasure) baneCacheCue = baneCacheCues.get(treasure);
     }
   }
+  // The wilderness parlay's insult replies print in pieces, from the first piece to the last
+  // (ECL6 block 25 quicklings, ECL7 block 26 and ECL8 block 27 kobolds).
+  const insultReplies = new Map([
+    ["por.review.ecl-6.block-25.at-a391", "por.review.ecl-6.block-25.at-a3b7"],
+    ["por.review.ecl-7.block-26.at-a3b9", "por.review.ecl-7.block-26.at-a3df"],
+    ["por.review.ecl-8.block-27.at-a179", "por.review.ecl-8.block-27.at-a19f"],
+  ]);
+  let insultReply: { start: number; last: string } | undefined;
   let drawnPerspective: { pixels: Buffer; mark: number; localEcl?: number; native?: NativeExploration } | undefined;
   let lastLocalPerspective: typeof drawnPerspective;
   // The text box: the 8 rows of 40 cells below the view, above the menu line. Its write mark changes
@@ -1562,6 +1570,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       paletteClip = animation.at(-1);
     } : undefined,
     captureCompletedScriptText: browser ? (cpu: Cpu, start: number, sourceId?: string) => {
+      if (sourceId && insultReplies.has(sourceId)) insultReply = { start, last: insultReplies.get(sourceId)! };
       const archive = cpu.read8(unit.data, data.eclArchive);
       const block = cpu.read8(unit.data, data.eclBlock);
       const cursor = authoredScriptPosition(cpu, cpu.read16(unit.data, data.eclCursor), unit.data);
@@ -1587,6 +1596,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           previous.text = visibleGameText();
           previous.textSteps = [start, cpu.steps];
         }
+      } else if (insultReply && sourceId === insultReply.last) {
+        // The insult reply goes straight on to "A battle begins...", where the game clears the
+        // picture with no key between. The completed reply, its encounter still on screen, is
+        // kept as its own picture from its first piece, so it owns its narration (#336).
+        showFrame(undefined, undefined, false, false, undefined, undefined, false, "narration");
+        start = insultReply.start;
+        insultReply = undefined;
       } else if (sourceId === "por.review.ecl-5.block-5.at-a467") {
         // The Tower prints the upstairs notice and immediately loads the next floor.
         // Preserve the completed guest caption so it owns its narration before the next menu.
