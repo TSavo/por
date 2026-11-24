@@ -39,7 +39,7 @@ try {
   assert.ok(compact(voice.caption).includes(compact(variant.text)), voice.caption);
   assert.equal(voice.outcome, "ended");
   assert.ok(voice.duration > 0 && voice.position >= voice.duration - 0.25);
-  assert.ok(voice.expectedArt);
+  assert.equal(voice.expectedArt, scene.art);
   assert.deepEqual(voice.artSeen, [voice.expectedArt]);
   assert.equal(voice.artAtEnd, voice.expectedArt);
   const native = readFileSync(process.env.POR_NARRATION_LEDGER, "utf8").trim().split("\n").map(JSON.parse);

@@ -1,4 +1,4 @@
-// Play a recorded Middle Wilderness encounter and choose one of the five native parlay attitudes.
+// Play a recorded wilderness encounter and choose a native parlay attitude.
 // POR_GAMEDATA and POR_GAME_SOURCE select the source. Pass an empty output directory for each run:
 // node tools/acceptance/narration-wilderness.mjs middle-wilderness-a194-kobolds haughty <output>
 import assert from "node:assert/strict";
@@ -7,13 +7,19 @@ import { join, resolve } from "node:path";
 import { openChromeCampaignLeg } from "../chrome-campaign-replay.mjs";
 
 const [route, attitude, directory] = process.argv.slice(2);
-const fixture = resolve("qa/fixtures/middle-wilderness-patrols");
-const scenes = JSON.parse(readFileSync(join(fixture, "scenes.json"))).scenes;
-const row = scenes.find(scene => scene.route === route);
-assert.ok(row && directory && ["haughty", "sly", "nice", "meek", "abusive", "direct"].includes(attitude),
-  "Pass a Middle Wilderness route, a parlay attitude and a new result directory");
+const easternClock = /^eastern-(\d+)$/.exec(route)?.[1];
+const fixture = resolve(easternClock ? "qa/fixtures/eastern-wilderness-patrols" : "qa/fixtures/middle-wilderness-patrols");
+const scenes = JSON.parse(readFileSync(join(fixture, "scenes.json")));
 const manifest = JSON.parse(readFileSync("src/audio/voice-master-manifest.json"));
 const variants = new Map(manifest.units.flatMap(unit => unit.runtimeVariants.map(variant => [variant.id, variant])));
+const east = easternClock && scenes.find(scene => scene.clock === Number(easternClock));
+const row = easternClock ? east && {
+  clock: String(east.clock),
+  inputs: Array.from({ length: east.moves }, (_, index) => index % 2 === 0 ? "up" : "down"),
+  caption: variants.get(east.variant).text,
+} : scenes.scenes.find(scene => scene.route === route);
+assert.ok(row && directory && ["haughty", "sly", "nice", "meek", "abusive", "direct"].includes(attitude),
+  "Pass a Middle Wilderness route or eastern-<clock>, a parlay attitude and a new result directory");
 const output = resolve(directory);
 mkdirSync(output);
 process.env.POR_FIXED_CLOCK_START = row.clock;
@@ -23,7 +29,8 @@ process.env.POR_NARRATION_LEDGER = join(output, "decisions.jsonl");
 const chrome = await openChromeCampaignLeg({
   chromePath: process.env.POR_CHROME ?? "/usr/bin/google-chrome",
   directory: join(output, "chrome"), checkpointDir: fixture,
-  bootKeys: "31000000:1c0d,45000000:266c,52000000:1e61", startAt: "85000000",
+  bootKeys: "31000000:1c0d,45000000:266c,52000000:" + (easternClock ? "2267" : "1e61"),
+  inputCompat: easternClock ? "" : "discard-poll-prompt", startAt: "85000000",
 });
 const compact = text => text.toUpperCase().replace(/[^A-Z0-9]/g, "");
 const caption = frame => compact(frame.text.toSorted(([a], [b]) => a - b).map(([, glyph]) => String.fromCharCode(glyph)).join(""));

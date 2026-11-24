@@ -2,41 +2,49 @@
   {
     "clock": 4320033,
     "moves": 3,
-    "variant": "ecl8-b27-9f1c-9f2e.variant-02-gnolls"
+    "variant": "ecl8-b27-9f1c-9f2e.variant-02-gnolls",
+    "art": "encounter:area:27:SPRIT8.DAX:73:1:0"
   },
   {
     "clock": 4320128,
     "moves": 15,
-    "variant": "ecl8-b27-9fb7-9fcc.variant-02-gnolls"
+    "variant": "ecl8-b27-9fb7-9fcc.variant-02-gnolls",
+    "art": "encounter:area:27:SPRIT8.DAX:73:1:0"
   },
   {
     "clock": 4320307,
     "moves": 4,
-    "variant": "ecl8-b27-9f66-9f81.variant-03-lizard-men"
+    "variant": "ecl8-b27-9f66-9f81.variant-03-lizard-men",
+    "art": "encounter:area:27:ecl:9fa5:SPRIT8.DAX:57:1:0"
   },
   {
     "clock": 4321806,
     "moves": 11,
-    "variant": "ecl8-b27-9fb7-9fcc.variant-01-kobolds"
+    "variant": "ecl8-b27-9fb7-9fcc.variant-01-kobolds",
+    "art": "encounter:area:27:SPRIT8.DAX:0:1:0"
   },
   {
     "clock": 4320900,
     "moves": 15,
-    "variant": "ecl8-b27-9fb7-9fcc.variant-07-trolls"
+    "variant": "ecl8-b27-9fb7-9fcc.variant-07-trolls",
+    "art": "encounter:area:27:ecl:9ff0:SPRIT8.DAX:31:1:0"
   },
   {
     "clock": 4367220,
     "moves": 9,
-    "variant": "ecl8-b27-9f66-9f81.variant-09-minotaurs"
+    "variant": "ecl8-b27-9f66-9f81.variant-09-minotaurs",
+    "art": "encounter:area:27:ecl:9fa5:SPRIT8.DAX:62:1:0"
   },
   {
     "clock": 4103253,
     "moves": 20,
-    "variant": "ecl8-b27-9f1c-9f2e.variant-07-trolls"
+    "variant": "ecl8-b27-9f1c-9f2e.variant-07-trolls",
+    "art": "encounter:area:27:ecl:9f54:SPRIT8.DAX:31:1:0"
   },
   {
     "clock": 4200124,
     "moves": 6,
-    "variant": "ecl8-b27-9f1c-9f2e.variant-05-hippogriffs"
+    "variant": "ecl8-b27-9f1c-9f2e.variant-05-hippogriffs",
+    "art": "encounter:area:27:ecl:9f54:SPRIT8.DAX:113:1:0"
   }
 ]
