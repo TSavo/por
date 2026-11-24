@@ -132,9 +132,13 @@ The 1988 archives hold **4,526 frames** — every cell in the original picture f
 
 The game procedures are translated instruction by instruction from `START.EXE` and `GAME.OVR`. See [docs/PORT.md](docs/PORT.md) and [docs/COVERAGE.md](docs/COVERAGE.md).
 
+## Reverse engineering
+
+This is a reverse-engineering of the 1988 Pool of Radiance. The repository does not include SSI's original disk files — no `START.EXE`, no `GAME.OVR`, no `*.DAX` archives — and it does not ship the original art. To play Classic mode, you must supply your own copy of those original game files, from GOG or the Internet Archive, as described below.
+
 ## Playing Classic mode
 
-Classic is the original 1988 display, and this port does not ship the original pictures. You bring your own copy, then press **F10** (or **Enhanced display**) to flip between Classic and Enhanced. Both modes share the running game and the same save slots.
+Classic is the original 1988 display, and this port does not ship the original pictures. You bring your own copy of the original game files, from GOG or the Internet Archive, then press **F10** (or **Enhanced display**) to flip between Classic and Enhanced. Both modes share the running game and the same save slots.
 
 - **Version 1.3**, the edition this port targets, is sold on GOG as part of [Forgotten Realms: The Archives - Collection Two](https://www.gog.com/en/game/forgotten_realms_the_archives_collection_two), the Gold Box pack. It is not sold alone. After you install the collection, point the game at the `POOLRAD` folder inside it.
 - **Version 1.1**, the first release, is in the [Strategic Simulations (SSI) PC Floppy Disk Image Collection](https://archive.org/details/20220918_20220918_1709) on the Internet Archive, as DOS disk images. Unpack a copy so `START.EXE`, `GAME.OVR`, and the `*.DAX` files are in the same folder. Classic will use those pictures; the game itself stays the version 1.3 data that ships with the port.
