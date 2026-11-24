@@ -35,7 +35,12 @@
     "valhingen-zombie-tower": "qa/fixtures/valhingen-zombie-tower/A.json",
     "valjevo-forge-patrol": "qa/fixtures/valjevo-forge-patrol/B.json",
     "valjevo-forge-patrol-disguise": "qa/fixtures/valjevo-forge-patrol/disguised-B.json",
+    "valjevo-maze-patrol-disguise": "qa/fixtures/valjevo-maze-patrol/disguised-B.json",
     "valjevo-maze-patrol-hostile": "qa/fixtures/valjevo-maze-patrol/B.json",
+    "valjevo-maze-watch-patrol": "qa/fixtures/valjevo-maze-watch/B.json",
+    "valjevo-outer-patrol-hostile": "qa/fixtures/valjevo-outer-patrol/B.json",
+    "valjevo-outer-watch-patrol": "qa/fixtures/valjevo-outer-patrol/watch-B.json",
+    "yarash-study-far-combat": "qa/fixtures/yarash-pumping-room/A.json",
     "zhentil-escape": "qa/fixtures/zhentil-wall-escape/A.json"
   },
   "chains": {
@@ -74,7 +79,12 @@
     "valhingen-zombie-tower",
     "valjevo-forge-patrol",
     "valjevo-forge-patrol-disguise",
+    "valjevo-maze-patrol-disguise",
     "valjevo-maze-patrol-hostile",
+    "valjevo-maze-watch-patrol",
+    "valjevo-outer-patrol-hostile",
+    "valjevo-outer-watch-patrol",
+    "yarash-study-far-combat",
     "zhentil-escape",
     "zhentil-return"
   ]
