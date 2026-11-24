@@ -2930,7 +2930,7 @@ if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"]
     ...(opened ? [
       (text) => assert.match(text, /councilman cadorna confronts you/),
       "j", checkUnpaid, "j",
-      ["enter", /area cast view encamp/, 6], "e", "s", "s", "f",
+      (text) => assert.match(text, /area cast view encamp/), "e", "s", "s", "f",
     ] : [
       "left", "up", "up", presses("enter", 4, /view take pool share exit/),
       "j", (_text, frame) => assert.equal(textile(frame)?.status, "reward-pending"), "j",
