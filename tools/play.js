@@ -2903,6 +2903,11 @@ window.addEventListener("keydown", (event) => {
   if (originalFiles.restart.open || document.querySelector("#storage-error[open]")) return;
   resumeBlockedAudio();
   if (!settingsPanel.hidden) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      toggleSettings();
+      return;
+    }
     if (!event.repeat && !event.isComposing && !event.ctrlKey && !event.altKey && !event.metaKey &&
         /^[a-z]$/i.test(event.key)) {
       const code = "idspispopd";
