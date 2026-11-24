@@ -6,8 +6,8 @@
 The site inventory comes from static script and native picture discovery. 385 / 385 captured native prompts passed paired Chrome checks.
 Run `npm run verify:held-portraits` for every site and its evidence.
 
-**Enhanced fallbacks (#142).** 7 fallback frames / 1 distinct keys across 11794 Chrome views.
-Recorded walks measured in Chrome with GOG 1.3 and fallback observer v2: 58 / 59. Run `npm run verify:enhanced-fallbacks` for the captured keys and walks still to measure.
+**Enhanced fallbacks (#142).** 0 fallback frames / 0 distinct keys across 11894 Chrome views.
+Recorded walks measured in Chrome with GOG 1.3 and fallback observer v2: 59 / 64. Run `npm run verify:enhanced-fallbacks` for the captured keys and walks still to measure.
 2 additional replay captures are included.
 `campaign-castle-approach-leg` shares the `campaign-full/leg-8` capture because the replay inputs are identical.
 `campaign-end-leg` shares the `campaign-full/leg-11` capture because the replay inputs are identical.
@@ -93,8 +93,8 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | Distinct shapes among the first-person cells (the same tiles, whatever sky or ground is behind them) | 0 |
 |   of which the area already has your art for that shape over another sky or ground | 0 |
 | Battlefield cells to do | 0 |
-| Tile keys in the manifests | 7915 |
-|   accounted for by the tool | 7915 |
+| Tile keys in the manifests | 7935 |
+|   accounted for by the tool | 7935 |
 | Battlefield keys in the manifests | 322 |
 |   that are one stored cell of a battlefield picture | 317 |
 | Stored 8 by 8 tiles | 3016 |
@@ -121,7 +121,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 8 | Phlan City Hall | yes | 326 | 326 | 0 | 336 of 336 (10 as WebGL wall materials) |
 | 9 | Stojanow Gate | yes | 206 | 182 | 0 | 182 of 182 |
 | 10 | Valhingen Graveyard | yes | 1007 | 1007 | 0 | 1019 of 1019 (12 as WebGL wall materials) |
-| 11 | The Training Hall | yes | 326 | 326 | 0 | 326 of 326 |
+| 11 | The Training Hall | yes | 326 | 326 | 0 | 346 of 346 (1 as first views of the next area, 19 as WebGL wall materials) |
 | 13 | The Kobold Caves | yes | 211 | 211 | 0 | 213 of 213 (2 as WebGL wall materials) |
 | 14 | Kovel Mansion | yes | 90 | 90 | 0 | 92 of 92 (2 as WebGL wall materials) |
 | 15 | Mendor's Library | yes | 254 | 254 | 0 | 274 of 274 (15 as first views of the next area, 5 as WebGL wall materials) |

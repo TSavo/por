@@ -223,57 +223,7 @@
   "walk-guide-party-graveyard-training": {
    "observer": 2,
    "presented": 705,
-   "frames": [
-    {
-     "sequence": 38,
-     "animation": false,
-     "keys": [
-      "surface:area:11:first-person"
-     ]
-    },
-    {
-     "sequence": 39,
-     "animation": false,
-     "keys": [
-      "surface:area:11:first-person"
-     ]
-    },
-    {
-     "sequence": 41,
-     "animation": false,
-     "keys": [
-      "surface:area:11:first-person"
-     ]
-    },
-    {
-     "sequence": 43,
-     "animation": false,
-     "keys": [
-      "surface:area:11:first-person"
-     ]
-    },
-    {
-     "sequence": 63,
-     "animation": false,
-     "keys": [
-      "surface:area:11:first-person"
-     ]
-    },
-    {
-     "sequence": 64,
-     "animation": false,
-     "keys": [
-      "surface:area:11:first-person"
-     ]
-    },
-    {
-     "sequence": 66,
-     "animation": false,
-     "keys": [
-      "surface:area:11:first-person"
-     ]
-    }
-   ],
+   "frames": [],
    "fixtureSha256": "781164dae1ef411a4dbc9dd570c6bce5c0148d71b8b470ef197de34348612c9e"
   },
   "walk-guide-party-kovel": {
@@ -329,6 +279,12 @@
    "presented": 44,
    "frames": [],
    "fixtureSha256": "be7610752410cac8a013bb36b20433b6c362a097f534d7f494ad48556f88c5aa"
+  },
+  "walk-guide-party-turn-undead": {
+   "observer": 2,
+   "presented": 100,
+   "frames": [],
+   "fixtureSha256": "c98d414d50840676b928750c6797fff75b3b5c77922a575ffec16a5acd3e759c"
   },
   "walk-kobold-king": {
    "observer": 2,

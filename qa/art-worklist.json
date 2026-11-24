@@ -14,12 +14,16 @@
  },
  "enhancedFallbacks": {
   "observer": 2,
-  "frames": 7,
-  "presented": 11794,
-  "walks": 58,
-  "recordedWalks": 59,
+  "frames": 0,
+  "presented": 11894,
+  "walks": 59,
+  "recordedWalks": 64,
   "missingWalks": [
-   "walk-bane-entry53"
+   "walk-bane-entry53",
+   "walk-grishnak-approach",
+   "walk-grishnak-healing",
+   "walk-grishnak-inn",
+   "walk-grishnak-prisoner"
   ],
   "aliasedWalks": [
    {
@@ -43,14 +47,9 @@
     "receipt": "campaign-full/leg-9"
    }
   ],
-  "runs": 55,
+  "runs": 56,
   "additionalReplays": 2,
-  "keys": [
-   {
-    "key": "surface:area:11:first-person",
-    "frames": 7
-   }
-  ]
+  "keys": []
  },
  "overlandTerrain": {
   "atlasReady": true,
@@ -72,8 +71,8 @@
   "Distinct shapes among the first-person cells (the same tiles, whatever sky or ground is behind them)": 0,
   "  of which the area already has your art for that shape over another sky or ground": 0,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 7915,
-  "  accounted for by the tool": 7915,
+  "Tile keys in the manifests": 7935,
+  "  accounted for by the tool": 7935,
   "Battlefield keys in the manifests": 322,
   "  that are one stored cell of a battlefield picture": 317,
   "Stored 8 by 8 tiles": 3016,
@@ -347,21 +346,22 @@
    "area": 11,
    "name": "The Training Hall",
    "established": true,
-   "why": "all 326 cells that have artwork are among the cells the tool works out",
+   "why": "all 346 cells that have artwork are among the cells the tool works out",
    "maps": [
     0
    ],
    "wallSets": [
     "WALLDEF3 block 0 (tiles 8X8D3 block 101), block 0 set 2 (tiles 8X8D3 block 102), block 0 set 3 (tiles 8X8D3 block 103)"
    ],
-   "existingKeys": 326,
-   "existingKeysAccountedFor": 326,
-   "existingKeysOnlyAsArrivalViews": 0,
+   "existingKeys": 346,
+   "existingKeysAccountedFor": 346,
+   "existingKeysOnlyAsArrivalViews": 1,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 326,
    "cellsWithArt": 326,
    "toDo": 0,
-   "notEstablished": {}
+   "notEstablished": {},
+   "existingKeysOnlyAsWallMaterials": 19
   },
   {
    "area": 13,
