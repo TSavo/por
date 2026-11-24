@@ -1846,6 +1846,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
 // The scripted close approach belongs to the reinforcements. Each of the
 // shared battle notices keeps the illustration selected by its own caption.
 const retainedIllustrationScopes = new Map([
+  // The fighters' shared alarm call returns to this battle prompt with its caption still visible.
+  ["scene-illustration:area:9:ecl:a3e6", "scene-illustration:area:9:ecl:a3d8"],
   ["scene-illustration:area:18:ecl:9cf2", "scene-illustration:area:18:ecl:9e23"],
   ["scene-illustration:area:18:ecl:9d11", "scene-illustration:area:18:ecl:9e23"],
   ["scene-illustration:area:23:ecl:a29f", "scene-illustration:area:23:ecl:a2a9"],
