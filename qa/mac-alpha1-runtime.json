@@ -775,6 +775,272 @@
   "limitations": [
     "Combat rolls differ between independent runs; each displayed report is compared with its own native frame, not across runs.",
     "Report-frame count includes the final repeated attack with Dying text.",
-    "Narration verifies playback telemetry, not subjective listening or interruption behavior."
-  ]
+    "Narration verifies playback telemetry, not subjective listening. Interruption checks use actual Rolf passages, standard keys and the Journal button."
+  ],
+  "interruptions": {
+    "source": "GOG 1.3",
+    "status": "passed",
+    "ignoredArrowPreservedFrame": true,
+    "steps": [
+      {
+        "action": "ArrowLeft",
+        "text": " Name AC HP A 8 6 15,1 W 00:00 'GREETINGS, COURAGEOUS ONES, I AM ROLF, APPOINTED BY THE COUNCIL TO INTRODUCE NEWCOMERS TO THE FAIR CITY OF PHLAN. IF YOU WILL ACCOMPANY ME, I WILL START THE TOUR.' Press <enter>/<return> to continue ",
+        "at": 42919.47500014305
+      },
+      {
+        "label": "after ignored arrow",
+        "text": " Name AC HP A 8 6 15,1 W 00:00 'GREETINGS, COURAGEOUS ONES, I AM ROLF, APPOINTED BY THE COUNCIL TO INTRODUCE NEWCOMERS TO THE FAIR CITY OF PHLAN. IF YOU WILL ACCOMPANY ME, I WILL START THE TOUR.' Press <enter>/<return> to continue ",
+        "journalHidden": true,
+        "enhanced": true,
+        "audio": {
+          "sounding": 1,
+          "queued": 0,
+          "lines": [
+            {
+              "id": 1,
+              "outcome": null,
+              "reason": null,
+              "position": 2.000381
+            }
+          ]
+        }
+      },
+      {
+        "action": "j",
+        "text": " Name AC HP A 8 6 15,1 W 00:00 'GREETINGS, COURAGEOUS ONES, I AM ROLF, APPOINTED BY THE COUNCIL TO INTRODUCE NEWCOMERS TO THE FAIR CITY OF PHLAN. IF YOU WILL ACCOMPANY ME, I WILL START THE TOUR.' Press <enter>/<return> to continue ",
+        "at": 43919.98000001907
+      },
+      {
+        "label": "J at continue prompt",
+        "text": " Name AC HP A 8 6 15,1 W 00:00 'GREETINGS, COURAGEOUS ONES, I AM ROLF, APPOINTED BY THE COUNCIL TO INTRODUCE NEWCOMERS TO THE FAIR CITY OF PHLAN. IF YOU WILL ACCOMPANY ME, I WILL START THE TOUR.' Press <enter>/<return> to continue ",
+        "journalHidden": true,
+        "enhanced": true,
+        "audio": {
+          "sounding": 1,
+          "queued": 0,
+          "lines": [
+            {
+              "id": 1,
+              "outcome": null,
+              "reason": null,
+              "position": 3.014116
+            }
+          ]
+        }
+      },
+      {
+        "action": "Journal button",
+        "at": 44935.71000003815
+      },
+      {
+        "label": "journal open",
+        "text": " Name AC HP A 8 6 15,1 W 00:00 'GREETINGS, COURAGEOUS ONES, I AM ROLF, APPOINTED BY THE COUNCIL TO INTRODUCE NEWCOMERS TO THE FAIR CITY OF PHLAN. IF YOU WILL ACCOMPANY ME, I WILL START THE TOUR.' Press <enter>/<return> to continue ",
+        "journal": {
+          "objective": {
+            "title": "Explore New Phlan",
+            "nextStep": "Speak with people in town to learn about available work."
+          },
+          "leads": []
+        },
+        "journalHidden": false,
+        "enhanced": true,
+        "audio": {
+          "sounding": 1,
+          "queued": 0,
+          "lines": [
+            {
+              "id": 1,
+              "outcome": null,
+              "reason": null,
+              "position": 3.201761
+            }
+          ]
+        }
+      },
+      {
+        "action": "Escape",
+        "text": " Name AC HP A 8 6 15,1 W 00:00 'GREETINGS, COURAGEOUS ONES, I AM ROLF, APPOINTED BY THE COUNCIL TO INTRODUCE NEWCOMERS TO THE FAIR CITY OF PHLAN. IF YOU WILL ACCOMPANY ME, I WILL START THE TOUR.' Press <enter>/<return> to continue ",
+        "at": 45119.96000003815
+      },
+      {
+        "label": "journal closed",
+        "text": " Name AC HP A 8 6 15,1 W 00:00 'GREETINGS, COURAGEOUS ONES, I AM ROLF, APPOINTED BY THE COUNCIL TO INTRODUCE NEWCOMERS TO THE FAIR CITY OF PHLAN. IF YOU WILL ACCOMPANY ME, I WILL START THE TOUR.' Press <enter>/<return> to continue ",
+        "journalHidden": true,
+        "enhanced": true,
+        "audio": {
+          "sounding": 1,
+          "queued": 0,
+          "lines": [
+            {
+              "id": 1,
+              "outcome": null,
+              "reason": null,
+              "position": 3.317336
+            }
+          ]
+        }
+      },
+      {
+        "action": "F10",
+        "text": " Name AC HP A 8 6 15,1 W 00:00 'GREETINGS, COURAGEOUS ONES, I AM ROLF, APPOINTED BY THE COUNCIL TO INTRODUCE NEWCOMERS TO THE FAIR CITY OF PHLAN. IF YOU WILL ACCOMPANY ME, I WILL START THE TOUR.' Press <enter>/<return> to continue ",
+        "at": 45235.84500002861
+      },
+      {
+        "label": "Classic",
+        "text": " Name AC HP A 8 6 15,1 W 00:00 'GREETINGS, COURAGEOUS ONES, I AM ROLF, APPOINTED BY THE COUNCIL TO INTRODUCE NEWCOMERS TO THE FAIR CITY OF PHLAN. IF YOU WILL ACCOMPANY ME, I WILL START THE TOUR.' Press <enter>/<return> to continue ",
+        "journalHidden": true,
+        "enhanced": false,
+        "audio": {
+          "sounding": 0,
+          "queued": 0,
+          "lines": [
+            {
+              "id": 1,
+              "outcome": "stopped",
+              "reason": "switched to Classic",
+              "position": 3.317336
+            }
+          ]
+        }
+      },
+      {
+        "action": "F10",
+        "text": " Name AC HP A 8 6 15,1 W 00:00 'GREETINGS, COURAGEOUS ONES, I AM ROLF, APPOINTED BY THE COUNCIL TO INTRODUCE NEWCOMERS TO THE FAIR CITY OF PHLAN. IF YOU WILL ACCOMPANY ME, I WILL START THE TOUR.' Press <enter>/<return> to continue ",
+        "at": 45237.08500003815
+      },
+      {
+        "label": "Enhanced again",
+        "text": " Name AC HP A 8 6 15,1 W 00:00 'GREETINGS, COURAGEOUS ONES, I AM ROLF, APPOINTED BY THE COUNCIL TO INTRODUCE NEWCOMERS TO THE FAIR CITY OF PHLAN. IF YOU WILL ACCOMPANY ME, I WILL START THE TOUR.' Press <enter>/<return> to continue ",
+        "journalHidden": true,
+        "enhanced": true,
+        "audio": {
+          "sounding": 0,
+          "queued": 0,
+          "lines": [
+            {
+              "id": 1,
+              "outcome": "stopped",
+              "reason": "switched to Classic",
+              "position": 3.317336
+            }
+          ]
+        }
+      },
+      {
+        "action": "Enter",
+        "text": " Name AC HP A 8 6 15,1 W 00:00 'GREETINGS, COURAGEOUS ONES, I AM ROLF, APPOINTED BY THE COUNCIL TO INTRODUCE NEWCOMERS TO THE FAIR CITY OF PHLAN. IF YOU WILL ACCOMPANY ME, I WILL START THE TOUR.' Press <enter>/<return> to continue ",
+        "at": 45264.6850001812
+      },
+      {
+        "label": "next passage playing",
+        "text": " Name AC HP A 8 6 11,2 S 00:00 'YOU NOW FACE AN ENTRANCE TO THE TEMPLE OF TYR. THERE ARE THREE TEMPLES IN PHLAN: TYR'S, SUNE'S, AND TEMPUS. TYR'S IS THE LARGEST AND HOUSES BISHOP BRACCIO. IF YOU WILL TURN AROUND NOW, ' Press <enter>/<return> to continue ",
+        "journalHidden": true,
+        "enhanced": true,
+        "audio": {
+          "sounding": 1,
+          "queued": 0,
+          "lines": [
+            {
+              "id": 1,
+              "outcome": "stopped",
+              "reason": "switched to Classic",
+              "position": 3.317336
+            },
+            {
+              "id": 2,
+              "outcome": null,
+              "reason": null,
+              "position": 1.007212
+            }
+          ]
+        }
+      },
+      {
+        "action": "Enter",
+        "text": " Name AC HP A 8 6 11,2 S 00:00 'YOU NOW FACE AN ENTRANCE TO THE TEMPLE OF TYR. THERE ARE THREE TEMPLES IN PHLAN: TYR'S, SUNE'S, AND TEMPUS. TYR'S IS THE LARGEST AND HOUSES BISHOP BRACCIO. IF YOU WILL TURN AROUND NOW, ' Press <enter>/<return> to continue ",
+        "at": 62936.96000003815
+      },
+      {
+        "label": "after Enter over second passage",
+        "text": " Name AC HP A 8 6 11,2 S 00:00 'YOU NOW FACE AN ENTRANCE TO THE TEMPLE OF TYR. THERE ARE THREE TEMPLES IN PHLAN: TYR'S, SUNE'S, AND TEMPUS. TYR'S IS THE LARGEST AND HOUSES BISHOP BRACCIO. IF YOU WILL TURN AROUND NOW, ' Press <enter>/<return> to continue ",
+        "journalHidden": true,
+        "enhanced": true,
+        "audio": {
+          "sounding": 0,
+          "queued": 0,
+          "lines": [
+            {
+              "id": 1,
+              "outcome": "stopped",
+              "reason": "switched to Classic",
+              "position": 3.317336
+            },
+            {
+              "id": 2,
+              "outcome": "ended",
+              "reason": null,
+              "position": 13.52
+            }
+          ]
+        }
+      }
+    ],
+    "finalPlayback": {
+      "at": 75.469,
+      "frame": 11,
+      "queued": 0,
+      "sounding": 0,
+      "lines": [
+        {
+          "id": 1,
+          "unitId": "por.voice.ecl3.b0-b0b6",
+          "asset": "voices/narration/ecl3/b0-b0b6.mp3",
+          "expectedArt": "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9",
+          "caption": "'GREETINGS, COURAGEOUS ONES, I AM ROLF, APPOINTED BY THE COUNCIL TO INTRODUCE NEWCOMERS TO THE FAIR CITY OF PHLAN. IF YOU WILL ACCOMPANY ME, I WILL START THE TOUR.' Press <enter>/<return> to continue",
+          "queuedAt": 41.867,
+          "queuedFrame": 6,
+          "startedAt": 41.887,
+          "startFrame": 6,
+          "duration": 10.8,
+          "artAtStart": "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9",
+          "artSeen": [
+            "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9"
+          ],
+          "artTimes": [
+            0
+          ],
+          "outcome": "stopped",
+          "reason": "switched to Classic",
+          "endedAt": 45.236,
+          "endFrame": 10,
+          "position": 3.317336,
+          "artAtEnd": "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9"
+        },
+        {
+          "id": 2,
+          "unitId": "por.voice.ecl3.b0-b1c2",
+          "asset": "voices/narration/ecl3/b0-b1c2.mp3",
+          "expectedArt": "scene-illustration:area:0:ecl:af3f:caller:b256",
+          "caption": "'YOU NOW FACE AN ENTRANCE TO THE TEMPLE OF TYR. THERE ARE THREE TEMPLES IN PHLAN: TYR'S, SUNE'S, AND TEMPUS. TYR'S IS THE LARGEST AND HOUSES BISHOP BRACCIO. IF YOU WILL TURN AROUND NOW, ' Press <enter>/<return> to continue",
+          "queuedAt": 61.852,
+          "queuedFrame": 11,
+          "startedAt": 61.885,
+          "startFrame": 11,
+          "duration": 13.52,
+          "artAtStart": "scene-illustration:area:0:ecl:af3f:caller:b256",
+          "artSeen": [
+            "scene-illustration:area:0:ecl:af3f:caller:b256"
+          ],
+          "artTimes": [
+            0
+          ],
+          "outcome": "ended",
+          "endedAt": 75.465,
+          "endFrame": 11,
+          "position": 13.52,
+          "artAtEnd": "scene-illustration:area:0:ecl:af3f:caller:b256"
+        }
+      ]
+    }
+  }
 }
