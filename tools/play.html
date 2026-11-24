@@ -24,6 +24,8 @@
     #screen { display: block; width: 100%; height: auto; aspect-ratio: 8 / 5; background: #000; }
     .code-wheel-open #play { max-width: 32rem; margin-inline: auto; }
     #play { position: relative; border: 1px solid #546577; container-type: inline-size; }
+    #party-guide { position: absolute; top: 4%; left: 6%; right: 6%; margin: 0; text-align: center; text-wrap: balance;
+      font: 500 clamp(12px, 2.6cqi, 22px)/1.35 Georgia, serif; color: #f2e4ca; pointer-events: none; }
     #tile-art { position: absolute; inset: 0; pointer-events: none; }
     #tile-art .panel-frame { position: absolute; inset: 0; width: 100%; height: 100%; }
     #tile-art .perspective-backdrop {
@@ -332,6 +334,7 @@
       <p id="build-version" hidden></p>
       <div id="tile-art" aria-hidden="true" hidden></div>
       <div id="game-text" aria-hidden="true" hidden></div>
+      <p id="party-guide" hidden></p>
       <section id="travel-map" aria-label="Illustrated Moonsea travel map" hidden>
         <button id="close-travel-map" type="button" hidden>Return to game</button>
         <svg viewBox="0 0 650 433.333" aria-label="The Moonsea around Phlan">

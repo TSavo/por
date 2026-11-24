@@ -1,6 +1,6 @@
 // The browser-engine acceptance check (#223), in headless Chrome, as a player plays:
 //
-//   node tools/web/check-play.mjs [--server runner|web|loose] [--original <folder>] [--shots <dir>]
+//   node tools/web/check-play.mjs [--server runner|web|loose] [--original <folder>] [--shots <dir>] [--party-guide-only]
 //
 // --server runner  `tools/browser-play.ts`, the Node runner behind POST /key and GET /state
 //          web     `tools/web/serve.ts`, the engine in a Web Worker in the page (#228)
@@ -201,11 +201,71 @@ async function checkFailedOverwrite(page) {
   return updated;
 }
 
+async function checkPartyGuide(page) {
+  const guide = "document.querySelector('#party-guide')";
+  const guideVisible = `Boolean(${guide}?.getClientRects().length)`;
+  const guideLines = "porNarrationPlayback().lines.filter(line => line.unitId === 'party-setup')";
+  const heard = () => chrome.evaluate(`${guideLines}.length`);
+  await chrome.until("the original title", "state.scene === 'scene:title' && !publisherSplashUp()");
+  assert.equal(await chrome.evaluate(guideVisible), false, "the title hides the party instruction");
+  assert.equal(await heard(), 0, "the title leaves the party guide unplayed");
+  const isClassicTest = Boolean(original);
+  if (isClassicTest) {
+    await chrome.key("f10");
+    await chrome.until("Classic presentation", "!enhanced");
+  }
+  await page.pressUntil("enter", /Create New Character.*Add Character to Party/);
+  if (isClassicTest) {
+    assert.equal(await chrome.evaluate(guideVisible), false, "Classic hides the party instruction");
+    assert.equal(await heard(), 0, "Classic leaves the party guide unplayed");
+    await chrome.key("f10");
+    await chrome.until("Enhanced presentation", "enhanced");
+  }
+  await chrome.until("the Enhanced party instruction", guideVisible, 10);
+  const overlaps = await chrome.evaluate(`(() => {
+    const banner = ${guide}.getBoundingClientRect();
+    return [...document.querySelectorAll("#game-text span")].some(span => {
+      if (!span.textContent.trim()) return false;
+      const glyph = span.getBoundingClientRect();
+      return glyph.width && glyph.left < banner.right && glyph.right > banner.left &&
+        glyph.top < banner.bottom && glyph.bottom > banner.top;
+    });
+  })()`);
+  assert.equal(overlaps, false, "the party instruction leaves native menu text visible");
+  const message = await chrome.evaluate(`${guide}.textContent.trim()`);
+  assert.match(message, /up to six characters/i);
+  assert.match(message, /add them to your party/i);
+  assert.match(message, /begin adventuring/i);
+  const playback = await chrome.until("party narration at full length",
+    `${guideLines}.find(line => line.outcome === "ended")`, 30);
+  assert.ok(playback.duration > 0 && playback.position >= playback.duration - 0.1);
+  assert.equal(await heard(), 1);
+  log(`ok   party screen displayed “${message}” and played the recording once (${playback.duration.toFixed(2)} s)`);
+  await screenshot("1-first-menu");
+  await page.press("a", /Add a character: Add Exit/);
+  assert.equal(await chrome.evaluate(guideVisible), false, "the Add screen hides the instruction");
+  await page.press("e", /Create New Character/);
+  await chrome.until("the party instruction on return", guideVisible);
+  assert.equal(await heard(), 1, "returning to the menu does not repeat the narration");
+  await chrome.evaluate("window.guideTestBeforeReload = true");
+  await chrome.command("Page.reload");
+  await chrome.until("the reloaded game", "!window.guideTestBeforeReload && typeof state === 'object' && state.ready");
+  await page.settle();
+  if (await chrome.evaluate("state.scene === 'scene:title'")) {
+    await chrome.until("the reloaded title", "!publisherSplashUp()");
+  }
+  await page.pressUntil("enter", /Create New Character.*Add Character to Party/);
+  await chrome.until("the reloaded party screen", guideVisible);
+  assert.equal(await heard(), 0, "reloading the menu does not replay the narration");
+  log("ok   the party instruction survives a return and reload without repeating the recording");
+}
+
 let game = await startServer();
-try {
+async function checkGame() {
   // 1. Boot to the first menu.
   let page = await openGame(game);
   await page.settle(240);
+  if (args.includes("--party-guide-only")) return checkPartyGuide(page);
   let text = await page.text();
   for (let presses = 0; !/Add Character to Party/.test(text) && presses < 12; presses++) text = await page.press("enter");
   expect("boots to the first menu", /Create New Character/.test(text) && /Add Character to Party/.test(text), text);
@@ -334,6 +394,9 @@ try {
   if (server !== "runner") {
     expect("the page handled keys and state without HTTP requests", gameHttpRequests.size === 0, [...gameHttpRequests]);
   }
+}
+try {
+  await checkGame();
 } catch (error) {
   failures.push(error.message);
   log(`FAIL ${error.stack}`);

@@ -116,6 +116,11 @@ let titleCueStarted = false;
 let lastSoundId = null;
 let blockedEffect;
 let voiceManifest = { lines: [] };
+const partyGuide = document.querySelector("#party-guide");
+const partyGuideKey = "por.narration.party-setup.v1";
+let partyGuidePlayed = false;
+let partyGuideRequested = false;
+try { partyGuidePlayed = localStorage.getItem(partyGuideKey) === "1"; } catch {}
 let soundManifest = { events: [] };
 let currentVoice;
 let blockedVoice;
@@ -372,7 +377,7 @@ function resumeBlockedAudio() {
 }
 
 syncAudioControls();
-fetch("/voice-manifest.json").then((response) => response.json()).then((manifest) => { voiceManifest = manifest; }).catch(() => {});
+fetch("/voice-manifest.json").then((response) => response.json()).then((manifest) => { voiceManifest = manifest; void showScreen(); }).catch(() => {});
 fetch("/sound-manifest.json").then((response) => response.json()).then((manifest) => {
   soundManifest = manifest;
   playTitleCue();
@@ -438,9 +443,9 @@ journalToggle.addEventListener("click", toggleJournal);
 function originalFilesNeedConfirmation() {
   return !state.stopped && state.scene !== "scene:publisher" && state.scene !== "scene:title";
 }
-function gameMenuText() {
+function gameMenuText(view = state) {
   const cells = Array(1000).fill(" ");
-  for (const [cell, character] of state.text ?? []) cells[cell] = String.fromCharCode(character);
+  for (const [cell, character] of view.text ?? []) cells[cell] = String.fromCharCode(character);
   return cells.join("").replace(/ +/g, " ");
 }
 
@@ -638,6 +643,10 @@ function logVoice(voice, line) {
     soundingVoices.set(voice, entry);
     for (const [, other] of others) if (other && !other.outcome) other.talkedOverBy = entry?.id ?? "a voice line";
     if (!entry || entry.startedAt !== undefined) return;
+    if (entry.unitId === "party-setup") {
+      partyGuidePlayed = true;
+      try { localStorage.setItem(partyGuideKey, "1"); } catch {}
+    }
     Object.assign(entry, { startedAt: playbackSeconds(), startFrame: state.sequence, duration: voice.duration,
       artAtStart: shownArtwork, artSeen: [shownArtwork], artTimes: [0] });
     if (others.length) entry.startedOver = others.map(([, other]) => other?.id ?? "a voice line");
@@ -789,11 +798,28 @@ function playPendingVoice() {
   }
 }
 
+function presentPartyGuide(view) {
+  const line = voiceManifest.lines.find(line => line.menu === "party-setup");
+  const visible = enhanced && !view.scene && line && /Add Character to Party/i.test(gameMenuText(view));
+  partyGuide.hidden = !visible;
+  if (!visible) {
+    partyGuideRequested = false;
+    return;
+  }
+  partyGuide.textContent = line.subtitle;
+  if (partyGuidePlayed || partyGuideRequested || audioPreferences.muted ||
+      !audioPreferences.master || !audioPreferences.narration) return;
+  partyGuideRequested = true;
+  const log = logNarrationQueued({ id: line.id, unitId: line.menu, asset: line.file }, null, line.subtitle);
+  narrationQueue.push({ ...line, queuedNarration: true, cue: paintedNarrationCue, log });
+}
+
 function presentNarration(view, expectedArt) {
   paintedNarrationView = view;
   // The same native picture can arrive at a new sequence after an ignored key.
   paintedNarrationCue = { frame: view.frame, artwork: shownArtwork };
   retireUnstartedNarration();
+  presentPartyGuide(view);
   if (view.narrations?.length && !narratedViews.has(view)) {
     const entries = [];
     narratedViews.set(view, entries);

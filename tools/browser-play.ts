@@ -253,8 +253,8 @@ const server = createServer(async (req, res) => {
     if (mp3) res.writeHead(200, { "content-type": "audio/mpeg", "content-length": mp3.length }).end(mp3);
     else res.writeHead(404).end();
   } else if (req.method === "GET" && req.url?.startsWith("/voice/") && voiceFiles.has(req.url.slice(7))) {
-    const wav = readResource(`voice:${req.url.slice(7)}`);
-    if (wav) res.writeHead(200, { "content-type": "audio/wav", "content-length": wav.length }).end(wav);
+    const voice = readResource(`voice:${req.url.slice(7)}`);
+    if (voice) res.writeHead(200, { "content-type": req.url.endsWith(".mp3") ? "audio/mpeg" : "audio/wav", "content-length": voice.length }).end(voice);
     else res.writeHead(404).end();
   } else if (req.method === "GET" && req.url === "/font.woff2") {
     const font = readResource("font");

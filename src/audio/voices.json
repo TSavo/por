@@ -42,6 +42,16 @@
       "pronunciation": "tie-RAN-thrak-sus"
     }
   ],
-  "lines": [],
+  "lines": [
+    {
+      "id": "por.voice.party-setup",
+      "type": "narration",
+      "file": "party-setup.mp3",
+      "menu": "party-setup",
+      "speaker": "narrator",
+      "subtitle": "Create up to six characters and add them to your party. When you’re ready, choose Begin Adventuring.",
+      "status": "recorded"
+    }
+  ],
   "retired": "The nine text-matched lines (Rolf's eight tour passages and the temple healing question) were removed on 2026-11-21. Every one is also a script-keyed narration unit in voice-master-manifest.json, and the page played both: the passage was read twice, or the second cut the first off. Narration now has one source, the master manifest."
 }
