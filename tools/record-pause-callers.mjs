@@ -115,7 +115,8 @@ async function replay(fixture, source) {
   const walk = relative(process.cwd(), resolve(fixture));
   const boot = JSON.parse(readFileSync(join(fixture, "boot.json"), "utf8"));
   const saves = mkdtempSync(join(tmpdir(), "por-pause-callers-"));
-  for (const name of readdirSync(fixture).filter((name) => /^(?:[A-J]|roster)\.json$/.test(name))) cpSync(join(fixture, name), join(saves, name));
+  const checkpoints = resolve(fixture, boot.checkpointSource ?? ".");
+  for (const name of readdirSync(checkpoints).filter((name) => /^(?:[A-J]|roster)\.json$/.test(name))) cpSync(join(checkpoints, name), join(saves, name));
   const game = await startGame({ pregen: false, saves, seconds: 3600, env: { ...sources[source],
     POR_BOOT_KEYS: boot.bootKeys, POR_LIVE_AT: boot.startAt, POR_DEV_COMBAT: boot.developerCombat ? "1" : "0",
     POR_INPUT_COMPAT: boot.inputCompat ?? "discard-poll-prompt", POR_PROMPT_SCHEDULE_IN: resolve(fixture, "prompts.jsonl"),
@@ -124,7 +125,7 @@ async function replay(fixture, source) {
   let taken = 0;
   try {
     for (const command of commands) {
-      if (!await game.send(command)) break;
+      if (!await game.send(command)) game.fail(`The runner refused command ${taken}, ${JSON.stringify(command)}.`);
       taken++;
     }
   } finally {
