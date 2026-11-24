@@ -14626,9 +14626,15 @@ try {
         assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /7,5N/i);
       }
       if (routeName === "lizard-wilds-kobold-prisoners") {
+        const pose = () => [frame.scenery?.x, frame.scenery?.y, frame.scenery?.facing];
+        assert.deepEqual(pose(), [8, 14, 2]);
         await advance("down");
-        assert.equal(frame.portrait, nextPortrait);
+        assert.deepEqual(pose(), [8, 14, 6]);
+        assert.equal(frame.portrait, undefined);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /THEYTHENRUNOUTTHEDOOR/i);
+        await waitForExplorationViewport();
         await advance("up");
+        assert.deepEqual(pose(), [7, 14, 6]);
         assert.equal(frame.portrait, undefined);
       }
       if (routeName === "wild-cave-boar-dialogue") {
