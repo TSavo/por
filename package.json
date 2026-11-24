@@ -1,7 +1,7 @@
 {
   "name": "pool-of-radiance",
   "private": true,
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0-beta.2",
   "type": "module",
   "description": "Port of SSI Pool of Radiance: Turbo Pascal procedures translated from START.EXE and GAME.OVR, plus a classic/upgraded presentation.",
   "scripts": {
