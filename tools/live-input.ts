@@ -980,6 +980,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         sokalPrompt: travelFrame ? sokalPrompt : undefined,
         sokalQuay: travelFrame ? quay : undefined,
         districtRoad: districtRoad || undefined,
+        // The title's loop only looks at the keyboard: Classic asks it to go on (":travel-poll") so its
+        // lightning flashes and it ends by its own clock as on DOS (#152).
+        titlePolling: nonblockingPoll && scene === "scene:title" || undefined,
         travelPolling: nonblockingPoll && !menu && travelFrame && (
           picture === undefined && (
             (overlandScript || travelRoadScripts.has(activeEcl)) && !dialogue ||

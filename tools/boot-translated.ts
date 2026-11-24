@@ -20,7 +20,7 @@ import { stagePregenParty } from "./pregen-party.js";
 import { isPartyFile, openSaveSlots, saveSlotLetter } from "./save-slots.js";
 import { callTrace, exeByImage, farCall, farCallObservers, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installImage, installProgram, loadedSlices, overlayCallObservers } from "../src/runtime/overlay.js";
-import { authoredScriptPosition, behaviour, code, codeSegment, data, eclGlobalOffset, far, previousRandomSeed, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit, panelFrameDraw, startupInput } from "../src/runtime/bindings.js";
+import { authoredScriptPosition, behaviour, code, codeSegment, data, eclGlobalOffset, far, previousRandomSeed, isAt, isFar, isTitleClockRead, loadTranslation, procedure, returnsTo, segment as unit, panelFrameDraw, startupInput } from "../src/runtime/bindings.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 import { standaloneTrace } from "./standalone-trace.js";
@@ -43,6 +43,8 @@ const port = isPortGameRoot(root) ? portGame(root) : undefined;
 console.error(`POR_GAME_DATA ${port ? "port" : "original"} ${gameDirectory}`);
 const portProgram = port?.program;
 const fixedClockStart = Number(env.POR_FIXED_CLOCK_START ?? noon);
+/** Passes of the title loop a DOS clock hundredth under DOSBox (#152); see attachDos below. */
+const titleReadsPerHundredth = 205;
 if (!Number.isInteger(fixedClockStart) || fixedClockStart < 0 || fixedClockStart >= 24 * 60 * 60 * 100) {
   throw new Error("POR_FIXED_CLOCK_START must be an integer in centiseconds since midnight");
 }
@@ -322,7 +324,14 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
     fileClosed, fileDeleted, readCompanions,
     env.POR_CLOCK === "real" ? timeOfDay() : fixedClockStart,
     // From the live step on the player answers every blocking read (tools/live-input.ts).
-    requestKey ? liveStep : undefined);
+    requestKey ? liveStep : undefined,
+    // The title loop (#152) runs five seconds by the DOS clock and flashes its lightning after some
+    // 33,000 passes. Under DOSBox (GOG's cycles=auto, 3,000 instructions a millisecond) one pass of
+    // some 146 instructions is about 1/205 of a hundredth, so the loop makes some 102,500 passes and
+    // flashes every second or two. A played game reads the title's clock at that pace. Replays
+    // (POR_CLOCK=fixed) keep one hundredth a reading there too: the title ends after 500 passes, each
+    // drawing one Random(4), so every recorded replay's dice after the title stay as recorded.
+    env.POR_CLOCK === "real" ? (m) => isTitleClockRead(m) ? titleReadsPerHundredth : 1 : undefined);
   cpu.ss = boot.ss;
   cpu.sp = boot.sp || 0xfffe;
   cpu.ds = 0x2000;

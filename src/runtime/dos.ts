@@ -69,7 +69,8 @@ export function timeOfDay(now = new Date()): number {
 export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
   requestKey?: (blocking: boolean) => void, fileClosed?: DosFileClosed,
   fileDeleted?: (name: string) => void, readCompanions?: (name: string) => DosFile[] | undefined,
-  clockStart = noon, everyReadAnsweredFrom = Number.POSITIVE_INFINITY): void {
+  clockStart = noon, everyReadAnsweredFrom = Number.POSITIVE_INFINITY,
+  readsPerHundredth: (cpu: Cpu) => number = () => 1): void {
   dosLog.length = 0;
   consoleText = "";
   resetVideo();
@@ -120,8 +121,10 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
   let nextHandle = 5;
   let heap = 0x5000;
   // The game seeds its dice once from this clock. Each Get Time call advances it by one
-  // hundredth, so a run is repeatable from its starting time.
+  // hundredth, so a run is repeatable from its starting time. A reading `readsPerHundredth` names
+  // as one of k a hundredth advances it by 1/k: the title loop's, in a played game (#152).
   let clockHundredths = clockStart % (24 * 60 * 60 * 100);
+  let clockReads = 0;
   // The DOS date. Get Date reports it, Set Date changes it.
   let date = { year: 1988, month: 6, day: 1 };
 
@@ -204,12 +207,20 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
     }
     if (ah === 0x2d) {
       const valid = cpu.ch < 24 && cpu.cl < 60 && cpu.dh < 60 && cpu.dl < 100;
-      if (valid) clockHundredths = ((cpu.ch * 60 + cpu.cl) * 60 + cpu.dh) * 100 + cpu.dl;
+      if (valid) {
+        clockHundredths = ((cpu.ch * 60 + cpu.cl) * 60 + cpu.dh) * 100 + cpu.dl;
+        clockReads = 0;
+      }
       cpu.al = valid ? 0 : 0xff;
       return;
     }
     if (ah === 0x2c) {
-      const value = clockHundredths++ % (24 * 60 * 60 * 100);
+      const value = clockHundredths % (24 * 60 * 60 * 100);
+      const reads = readsPerHundredth(cpu);
+      if (reads <= 1 || ++clockReads >= reads) {
+        clockHundredths++;
+        clockReads = 0;
+      }
       const hours = Math.floor(value / 360000);
       const minutes = Math.floor(value / 6000) % 60;
       const seconds = Math.floor(value / 100) % 60;
