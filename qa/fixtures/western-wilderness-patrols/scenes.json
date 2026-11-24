@@ -34,5 +34,41 @@
     "moves": 9,
     "variant": "ecl6-b25-a172-a18d-a191.variant-11-giant-snakes",
     "art": "encounter:area:25:SPRIT6.DAX:60:1:0"
+  },
+  {
+    "clock": 4321806,
+    "moves": 11,
+    "variant": "ecl6-b25-a1c7-a1dc-a1e0.variant-02-wild-boars",
+    "art": "encounter:area:25:ecl:a204:SPRIT6.DAX:120:1:0"
+  },
+  {
+    "clock": 4125513,
+    "moves": 14,
+    "variant": "ecl6-b25-a128-a13a.variant-05-thri-kreens",
+    "art": "encounter:area:25:ecl:a160:SPRIT6.DAX:118:1:0"
+  },
+  {
+    "clock": 4320900,
+    "moves": 15,
+    "variant": "ecl6-b25-a128-a13a.variant-01-quicklings",
+    "art": "encounter:area:25:ecl:a160:SPRIT6.DAX:10:1:0"
+  },
+  {
+    "clock": 4130498,
+    "moves": 17,
+    "variant": "ecl6-b25-a128-a13a.variant-07-centaurs",
+    "art": "encounter:area:25:ecl:a160:SPRIT6.DAX:67:1:0"
+  },
+  {
+    "clock": 4127507,
+    "moves": 18,
+    "variant": "ecl6-b25-a172-a18d-a191.variant-01-quicklings",
+    "art": "encounter:area:25:ecl:a1b5:SPRIT6.DAX:10:1:0"
+  },
+  {
+    "clock": 4120528,
+    "moves": 3,
+    "variant": "ecl6-b25-a1c7-a1dc-a1e0.variant-04-tigers",
+    "art": "encounter:area:25:ecl:a204:SPRIT6.DAX:119:1:0"
   }
 ]

@@ -1022,6 +1022,18 @@
    "decisions": 6,
    "heard": 3
   },
+  "issue-99-western-ecl6-b25-a128-a13a.variant-01-quicklings-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 3,
+   "heard": 1
+  },
+  "issue-99-western-ecl6-b25-a128-a13a.variant-01-quicklings-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 3,
+   "heard": 1
+  },
   "issue-99-western-ecl6-b25-a128-a13a.variant-03-giant-mantis-original": {
    "ledger": "decisions.jsonl",
    "games": 1,
@@ -1044,6 +1056,42 @@
    "ledger": "decisions.jsonl",
    "games": 1,
    "decisions": 3,
+   "heard": 1
+  },
+  "issue-99-western-ecl6-b25-a128-a13a.variant-05-thri-kreens-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 3,
+   "heard": 1
+  },
+  "issue-99-western-ecl6-b25-a128-a13a.variant-05-thri-kreens-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 3,
+   "heard": 1
+  },
+  "issue-99-western-ecl6-b25-a128-a13a.variant-07-centaurs-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 3,
+   "heard": 1
+  },
+  "issue-99-western-ecl6-b25-a128-a13a.variant-07-centaurs-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 3,
+   "heard": 1
+  },
+  "issue-99-western-ecl6-b25-a172-a18d-a191.variant-01-quicklings-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 4,
+   "heard": 1
+  },
+  "issue-99-western-ecl6-b25-a172-a18d-a191.variant-01-quicklings-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 4,
    "heard": 1
   },
   "issue-99-western-ecl6-b25-a172-a18d-a191.variant-02-wild-boars-original": {
@@ -1089,6 +1137,30 @@
    "heard": 1
   },
   "issue-99-western-ecl6-b25-a172-a18d-a191.variant-11-giant-snakes-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 4,
+   "heard": 1
+  },
+  "issue-99-western-ecl6-b25-a1c7-a1dc-a1e0.variant-02-wild-boars-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 4,
+   "heard": 1
+  },
+  "issue-99-western-ecl6-b25-a1c7-a1dc-a1e0.variant-02-wild-boars-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 4,
+   "heard": 1
+  },
+  "issue-99-western-ecl6-b25-a1c7-a1dc-a1e0.variant-04-tigers-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 4,
+   "heard": 1
+  },
+  "issue-99-western-ecl6-b25-a1c7-a1dc-a1e0.variant-04-tigers-port": {
    "ledger": "decisions.jsonl",
    "games": 1,
    "decisions": 4,
@@ -5657,6 +5729,12 @@
    "slot": "0x9890",
    "value": " KOBOLDS. "
   },
+  "ecl6-b25-a128-a13a.variant-01-quicklings": {
+   "run": "issue-99-western-ecl6-b25-a128-a13a.variant-01-quicklings-original",
+   "step": 99301165,
+   "slot": "0x982c",
+   "value": "QUICKLINGS"
+  },
   "ecl6-b25-a128-a13a.variant-03-giant-mantis": {
    "run": "issue-99-western-ecl6-b25-a128-a13a.variant-03-giant-mantis-original",
    "step": 85302555,
@@ -5668,6 +5746,24 @@
    "step": 87299814,
    "slot": "0x982c",
    "value": "TIGERS"
+  },
+  "ecl6-b25-a128-a13a.variant-05-thri-kreens": {
+   "run": "issue-99-western-ecl6-b25-a128-a13a.variant-05-thri-kreens-original",
+   "step": 98333271,
+   "slot": "0x982c",
+   "value": "THRI-KREENS"
+  },
+  "ecl6-b25-a128-a13a.variant-07-centaurs": {
+   "run": "issue-99-western-ecl6-b25-a128-a13a.variant-07-centaurs-original",
+   "step": 101300357,
+   "slot": "0x982c",
+   "value": "CENTAURS"
+  },
+  "ecl6-b25-a172-a18d-a191.variant-01-quicklings": {
+   "run": "issue-99-western-ecl6-b25-a172-a18d-a191.variant-01-quicklings-original",
+   "step": 102333711,
+   "slot": "0x982c",
+   "value": "QUICKLINGS"
   },
   "ecl6-b25-a172-a18d-a191.variant-02-wild-boars": {
    "run": "issue-99-western-ecl6-b25-a172-a18d-a191.variant-02-wild-boars-original",
@@ -5692,6 +5788,12 @@
    "step": 93300959,
    "slot": "0x982c",
    "value": "GIANT SNAKES"
+  },
+  "ecl6-b25-a1c7-a1dc-a1e0.variant-02-wild-boars": {
+   "run": "issue-99-western-ecl6-b25-a1c7-a1dc-a1e0.variant-02-wild-boars-original",
+   "step": 95300561,
+   "slot": "0x982c",
+   "value": "WILD BOARS"
   },
   "ecl6-b25-a1c7-a1dc-a1e0.variant-04-tigers": {
    "run": "issue-99-wetland-tigers-original",
@@ -8290,6 +8392,26 @@
     "unfinished": 0,
     "startedLate": 0
    },
+   "issue-99-western-ecl6-b25-a128-a13a.variant-01-quicklings-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-western-ecl6-b25-a128-a13a.variant-01-quicklings-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
    "issue-99-western-ecl6-b25-a128-a13a.variant-03-giant-mantis-original": {
     "log": "decisions.playback.jsonl",
     "legs": 1,
@@ -8321,6 +8443,66 @@
     "startedLate": 0
    },
    "issue-99-western-ecl6-b25-a128-a13a.variant-04-tigers-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-western-ecl6-b25-a128-a13a.variant-05-thri-kreens-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-western-ecl6-b25-a128-a13a.variant-05-thri-kreens-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-western-ecl6-b25-a128-a13a.variant-07-centaurs-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-western-ecl6-b25-a128-a13a.variant-07-centaurs-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-western-ecl6-b25-a172-a18d-a191.variant-01-quicklings-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-western-ecl6-b25-a172-a18d-a191.variant-01-quicklings-port": {
     "log": "decisions.playback.jsonl",
     "legs": 1,
     "lines": 1,
@@ -8401,6 +8583,46 @@
     "startedLate": 0
    },
    "issue-99-western-ecl6-b25-a172-a18d-a191.variant-11-giant-snakes-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-western-ecl6-b25-a1c7-a1dc-a1e0.variant-02-wild-boars-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-western-ecl6-b25-a1c7-a1dc-a1e0.variant-02-wild-boars-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-western-ecl6-b25-a1c7-a1dc-a1e0.variant-04-tigers-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-western-ecl6-b25-a1c7-a1dc-a1e0.variant-04-tigers-port": {
     "log": "decisions.playback.jsonl",
     "legs": 1,
     "lines": 1,
@@ -14635,6 +14857,32 @@
     ],
     "end": "encounter:area:3:SPRIT5.DAX:16:2:0"
    },
+   "issue-99-western-ecl6-b25-a128-a13a.variant-01-quicklings-original | chrome | 1 | ecl6-b25-a128-a13a": {
+    "run": "issue-99-western-ecl6-b25-a128-a13a.variant-01-quicklings-original",
+    "leg": "chrome",
+    "unitId": "ecl6-b25-a128-a13a",
+    "variantId": "ecl6-b25-a128-a13a.variant-01-quicklings",
+    "asset": "voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v01-quicklings.mp3",
+    "expected": "encounter:area:25:ecl:a160:SPRIT6.DAX:10:1:0",
+    "caption": "YOU SPOT A GROUP OF QUICKLINGS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:25:ecl:a160:SPRIT6.DAX:10:1:0"
+    ],
+    "end": "encounter:area:25:ecl:a160:SPRIT6.DAX:10:1:0"
+   },
+   "issue-99-western-ecl6-b25-a128-a13a.variant-01-quicklings-port | chrome | 1 | ecl6-b25-a128-a13a": {
+    "run": "issue-99-western-ecl6-b25-a128-a13a.variant-01-quicklings-port",
+    "leg": "chrome",
+    "unitId": "ecl6-b25-a128-a13a",
+    "variantId": "ecl6-b25-a128-a13a.variant-01-quicklings",
+    "asset": "voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v01-quicklings.mp3",
+    "expected": "encounter:area:25:ecl:a160:SPRIT6.DAX:10:1:0",
+    "caption": "YOU SPOT A GROUP OF QUICKLINGS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:25:ecl:a160:SPRIT6.DAX:10:1:0"
+    ],
+    "end": "encounter:area:25:ecl:a160:SPRIT6.DAX:10:1:0"
+   },
    "issue-99-western-ecl6-b25-a128-a13a.variant-03-giant-mantis-original | chrome | 1 | ecl6-b25-a128-a13a": {
     "run": "issue-99-western-ecl6-b25-a128-a13a.variant-03-giant-mantis-original",
     "leg": "chrome",
@@ -14686,6 +14934,84 @@
      "encounter:area:25:ecl:a160:SPRIT6.DAX:119:1:0"
     ],
     "end": "encounter:area:25:ecl:a160:SPRIT6.DAX:119:1:0"
+   },
+   "issue-99-western-ecl6-b25-a128-a13a.variant-05-thri-kreens-original | chrome | 1 | ecl6-b25-a128-a13a": {
+    "run": "issue-99-western-ecl6-b25-a128-a13a.variant-05-thri-kreens-original",
+    "leg": "chrome",
+    "unitId": "ecl6-b25-a128-a13a",
+    "variantId": "ecl6-b25-a128-a13a.variant-05-thri-kreens",
+    "asset": "voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v05-thri-kreens.mp3",
+    "expected": "encounter:area:25:ecl:a160:SPRIT6.DAX:118:1:0",
+    "caption": "YOU SPOT A GROUP OF THRI-KREENS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:25:ecl:a160:SPRIT6.DAX:118:1:0"
+    ],
+    "end": "encounter:area:25:ecl:a160:SPRIT6.DAX:118:1:0"
+   },
+   "issue-99-western-ecl6-b25-a128-a13a.variant-05-thri-kreens-port | chrome | 1 | ecl6-b25-a128-a13a": {
+    "run": "issue-99-western-ecl6-b25-a128-a13a.variant-05-thri-kreens-port",
+    "leg": "chrome",
+    "unitId": "ecl6-b25-a128-a13a",
+    "variantId": "ecl6-b25-a128-a13a.variant-05-thri-kreens",
+    "asset": "voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v05-thri-kreens.mp3",
+    "expected": "encounter:area:25:ecl:a160:SPRIT6.DAX:118:1:0",
+    "caption": "YOU SPOT A GROUP OF THRI-KREENS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:25:ecl:a160:SPRIT6.DAX:118:1:0"
+    ],
+    "end": "encounter:area:25:ecl:a160:SPRIT6.DAX:118:1:0"
+   },
+   "issue-99-western-ecl6-b25-a128-a13a.variant-07-centaurs-original | chrome | 1 | ecl6-b25-a128-a13a": {
+    "run": "issue-99-western-ecl6-b25-a128-a13a.variant-07-centaurs-original",
+    "leg": "chrome",
+    "unitId": "ecl6-b25-a128-a13a",
+    "variantId": "ecl6-b25-a128-a13a.variant-07-centaurs",
+    "asset": "voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v07-centaurs.mp3",
+    "expected": "encounter:area:25:ecl:a160:SPRIT6.DAX:67:1:0",
+    "caption": "YOU SPOT A GROUP OF CENTAURS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:25:ecl:a160:SPRIT6.DAX:67:1:0"
+    ],
+    "end": "encounter:area:25:ecl:a160:SPRIT6.DAX:67:1:0"
+   },
+   "issue-99-western-ecl6-b25-a128-a13a.variant-07-centaurs-port | chrome | 1 | ecl6-b25-a128-a13a": {
+    "run": "issue-99-western-ecl6-b25-a128-a13a.variant-07-centaurs-port",
+    "leg": "chrome",
+    "unitId": "ecl6-b25-a128-a13a",
+    "variantId": "ecl6-b25-a128-a13a.variant-07-centaurs",
+    "asset": "voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v07-centaurs.mp3",
+    "expected": "encounter:area:25:ecl:a160:SPRIT6.DAX:67:1:0",
+    "caption": "YOU SPOT A GROUP OF CENTAURS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:25:ecl:a160:SPRIT6.DAX:67:1:0"
+    ],
+    "end": "encounter:area:25:ecl:a160:SPRIT6.DAX:67:1:0"
+   },
+   "issue-99-western-ecl6-b25-a172-a18d-a191.variant-01-quicklings-original | chrome | 1 | ecl6-b25-a172-a18d-a191": {
+    "run": "issue-99-western-ecl6-b25-a172-a18d-a191.variant-01-quicklings-original",
+    "leg": "chrome",
+    "unitId": "ecl6-b25-a172-a18d-a191",
+    "variantId": "ecl6-b25-a172-a18d-a191.variant-01-quicklings",
+    "asset": "voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v01-quicklings.mp3",
+    "expected": "encounter:area:25:ecl:a1b5:SPRIT6.DAX:10:1:0",
+    "caption": "YOU ARE SURPRISED BY A GROUP OF QUICKLINGS. Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:25:ecl:a1b5:SPRIT6.DAX:10:1:0"
+    ],
+    "end": "encounter:area:25:ecl:a1b5:SPRIT6.DAX:10:1:0"
+   },
+   "issue-99-western-ecl6-b25-a172-a18d-a191.variant-01-quicklings-port | chrome | 1 | ecl6-b25-a172-a18d-a191": {
+    "run": "issue-99-western-ecl6-b25-a172-a18d-a191.variant-01-quicklings-port",
+    "leg": "chrome",
+    "unitId": "ecl6-b25-a172-a18d-a191",
+    "variantId": "ecl6-b25-a172-a18d-a191.variant-01-quicklings",
+    "asset": "voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v01-quicklings.mp3",
+    "expected": "encounter:area:25:ecl:a1b5:SPRIT6.DAX:10:1:0",
+    "caption": "YOU ARE SURPRISED BY A GROUP OF QUICKLINGS. Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:25:ecl:a1b5:SPRIT6.DAX:10:1:0"
+    ],
+    "end": "encounter:area:25:ecl:a1b5:SPRIT6.DAX:10:1:0"
    },
    "issue-99-western-ecl6-b25-a172-a18d-a191.variant-02-wild-boars-original | chrome | 1 | ecl6-b25-a172-a18d-a191": {
     "run": "issue-99-western-ecl6-b25-a172-a18d-a191.variant-02-wild-boars-original",
@@ -14790,6 +15116,58 @@
      "encounter:area:25:SPRIT6.DAX:60:1:0"
     ],
     "end": "encounter:area:25:SPRIT6.DAX:60:1:0"
+   },
+   "issue-99-western-ecl6-b25-a1c7-a1dc-a1e0.variant-02-wild-boars-original | chrome | 1 | ecl6-b25-a1c7-a1dc-a1e0": {
+    "run": "issue-99-western-ecl6-b25-a1c7-a1dc-a1e0.variant-02-wild-boars-original",
+    "leg": "chrome",
+    "unitId": "ecl6-b25-a1c7-a1dc-a1e0",
+    "variantId": "ecl6-b25-a1c7-a1dc-a1e0.variant-02-wild-boars",
+    "asset": "voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v02-wild-boars.mp3",
+    "expected": "encounter:area:25:ecl:a204:SPRIT6.DAX:120:1:0",
+    "caption": "YOU SURPRISE A GROUP OF WILD BOARS. Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:25:ecl:a204:SPRIT6.DAX:120:1:0"
+    ],
+    "end": "encounter:area:25:ecl:a204:SPRIT6.DAX:120:1:0"
+   },
+   "issue-99-western-ecl6-b25-a1c7-a1dc-a1e0.variant-02-wild-boars-port | chrome | 1 | ecl6-b25-a1c7-a1dc-a1e0": {
+    "run": "issue-99-western-ecl6-b25-a1c7-a1dc-a1e0.variant-02-wild-boars-port",
+    "leg": "chrome",
+    "unitId": "ecl6-b25-a1c7-a1dc-a1e0",
+    "variantId": "ecl6-b25-a1c7-a1dc-a1e0.variant-02-wild-boars",
+    "asset": "voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v02-wild-boars.mp3",
+    "expected": "encounter:area:25:ecl:a204:SPRIT6.DAX:120:1:0",
+    "caption": "YOU SURPRISE A GROUP OF WILD BOARS. Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:25:ecl:a204:SPRIT6.DAX:120:1:0"
+    ],
+    "end": "encounter:area:25:ecl:a204:SPRIT6.DAX:120:1:0"
+   },
+   "issue-99-western-ecl6-b25-a1c7-a1dc-a1e0.variant-04-tigers-original | chrome | 1 | ecl6-b25-a1c7-a1dc-a1e0": {
+    "run": "issue-99-western-ecl6-b25-a1c7-a1dc-a1e0.variant-04-tigers-original",
+    "leg": "chrome",
+    "unitId": "ecl6-b25-a1c7-a1dc-a1e0",
+    "variantId": "ecl6-b25-a1c7-a1dc-a1e0.variant-04-tigers",
+    "asset": "voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v04-tigers.mp3",
+    "expected": "encounter:area:25:ecl:a204:SPRIT6.DAX:119:1:0",
+    "caption": "YOU SURPRISE A GROUP OF TIGERS. Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:25:ecl:a204:SPRIT6.DAX:119:1:0"
+    ],
+    "end": "encounter:area:25:ecl:a204:SPRIT6.DAX:119:1:0"
+   },
+   "issue-99-western-ecl6-b25-a1c7-a1dc-a1e0.variant-04-tigers-port | chrome | 1 | ecl6-b25-a1c7-a1dc-a1e0": {
+    "run": "issue-99-western-ecl6-b25-a1c7-a1dc-a1e0.variant-04-tigers-port",
+    "leg": "chrome",
+    "unitId": "ecl6-b25-a1c7-a1dc-a1e0",
+    "variantId": "ecl6-b25-a1c7-a1dc-a1e0.variant-04-tigers",
+    "asset": "voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v04-tigers.mp3",
+    "expected": "encounter:area:25:ecl:a204:SPRIT6.DAX:119:1:0",
+    "caption": "YOU SURPRISE A GROUP OF TIGERS. Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:25:ecl:a204:SPRIT6.DAX:119:1:0"
+    ],
+    "end": "encounter:area:25:ecl:a204:SPRIT6.DAX:119:1:0"
    },
    "issue-99-wetland-tigers-original | chrome | 1 | ecl6-b25-a1c7-a1dc-a1e0": {
     "run": "issue-99-wetland-tigers-original",
