@@ -159,7 +159,30 @@ Enhanced shows the translation wheel on screen and requires the right word. Clas
 
 ## Play
 
-The game starts in Enhanced and needs no original files. Installers for macOS, Windows, and Linux need no checkout either. See [docs/RELEASE.md](docs/RELEASE.md).
+The game starts in Enhanced and needs no original files. Installers for macOS, Windows, and Linux need no checkout either. Get them from the [Releases](https://github.com/TSavo/por/releases) page. See [docs/RELEASE.md](docs/RELEASE.md).
+
+### First launch
+
+The apps ship unsigned, so the first open is blocked until you approve them.
+
+**macOS**
+
+1. Open `Pool-of-Radiance-<version>-mac-arm64.dmg` (Apple silicon) or `Pool-of-Radiance-<version>-mac-x64.dmg` (Intel) and drag `Pool of Radiance.app` to Applications.
+2. Open the app. macOS will refuse it.
+3. On macOS 15 Sequoia and later, right-click → Open no longer bypasses Gatekeeper. Go to **System Settings → Privacy & Security**, scroll to the blocked-app notice for Pool of Radiance, click **Open Anyway**, and confirm with your password.
+4. On earlier macOS, Control-click `Pool of Radiance.app`, choose **Open**, then **Open** again.
+
+Or, from Terminal: `xattr -dr com.apple.quarantine "/Applications/Pool of Radiance.app"`.
+
+**Windows**
+
+1. Run `Pool-of-Radiance-<version>-windows-setup.exe`.
+2. If SmartScreen shows *Windows protected your PC*, click **More info**, then **Run anyway**.
+
+**Linux**
+
+1. Unpack `pool-of-radiance-<version>-linux-x64.tar.gz`.
+2. Run `./pool-of-radiance` from that folder. If the file is not executable, `chmod +x pool-of-radiance`.
 
 From a checkout, Node.js 22 or newer:
 

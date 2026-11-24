@@ -212,12 +212,34 @@ jobs:
           VERSION: ${{ needs.app.outputs.version }}
         working-directory: packages
         run: |
+          notes=$(mktemp)
+          cat > "$notes" <<EOF
+          Pool of Radiance $VERSION, built from $GITHUB_SHA by $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID.
+
+          The packages ship unsigned.
+
+          ## First launch
+
+          **macOS.** Open \`Pool-of-Radiance-$VERSION-mac-arm64.dmg\` (Apple silicon) or \`Pool-of-Radiance-$VERSION-mac-x64.dmg\` (Intel) and drag \`Pool of Radiance.app\` to Applications, then open it. Gatekeeper will block it.
+
+          - On macOS 15 Sequoia and later, right-click → Open no longer bypasses Gatekeeper. Go to **System Settings → Privacy & Security**, scroll to the blocked-app notice for Pool of Radiance, click **Open Anyway**, and confirm with your password.
+          - On earlier macOS, Control-click \`Pool of Radiance.app\`, choose **Open**, then **Open** again.
+
+          Or, from Terminal: \`xattr -dr com.apple.quarantine "/Applications/Pool of Radiance.app"\`.
+
+          **Windows.** Run \`Pool-of-Radiance-$VERSION-windows-setup.exe\`. If SmartScreen shows *Windows protected your PC*, click **More info**, then **Run anyway**.
+
+          **Linux.** Unpack \`pool-of-radiance-$VERSION-linux-x64.tar.gz\` and run \`./pool-of-radiance\`. If the file is not executable, \`chmod +x pool-of-radiance\`.
+
+          SHA256SUMS lists every file's sha256.
+          EOF
           if gh release view "$TAG" -R "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
             echo "Updating release $TAG"
+            gh release edit "$TAG" -R "$GITHUB_REPOSITORY" --notes-file "$notes"
           else
             prerelease=; case "$VERSION" in *-*) prerelease=--prerelease ;; esac
             gh release create "$TAG" -R "$GITHUB_REPOSITORY" --verify-tag $prerelease \
               --title "Pool of Radiance $VERSION" \
-              --notes "Pool of Radiance $VERSION, built from $GITHUB_SHA by $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Mac: open the disk image for your Mac (arm64 for Apple silicon, x64 for Intel) and drag the app to Applications. Windows: run the setup. Linux: unpack and run ./pool-of-radiance. SHA256SUMS lists every file's sha256."
+              --notes-file "$notes"
           fi
           gh release upload "$TAG" -R "$GITHUB_REPOSITORY" --clobber ./*
