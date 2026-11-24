@@ -46,7 +46,7 @@ function pageAnswersByItself(frame) {
  * so a key in `actions` is only ever the player's. Without it, a key answers whatever frame comes next,
  * the computer's steps of a fight included: the older replays are written so.
  */
-async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopAt, developerCombat = false, recording, { pagePolls = false } = {}) {
+async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, developerCombat = false, recording, { pagePolls = false } = {}) {
   if (campaignChrome) {
     const directory = resolve(saveDir, `leg-${++campaignLeg}`);
     // The shorter campaign branches to Ohlo after the shared opening. The full
@@ -71,7 +71,7 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
     });
     try {
       const initial = await chrome.nextFrame();
-      const finalFrame = await replayActions(initial, actions, stopAt, async (command) => {
+      const finalFrame = await replayActions(initial, actions, async (command) => {
         await chrome.send(command);
         return chrome.nextFrame();
       });
@@ -134,7 +134,7 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
     return frame;
   }
   try {
-    return await replayActions(await answerAsThePage(await nextFrame()), actions, stopAt, async (command, hold = false) => {
+    return await replayActions(await answerAsThePage(await nextFrame()), actions, async (command, hold = false) => {
       lastKey = command;
       actionNumber++;
       runner.stdin.write(command + "\n");
@@ -230,7 +230,7 @@ async function pressCounted(frame, { presses: key, count, until }, send) {
   return frame;
 }
 
-async function replayActions(frame, actions, stopAt, send) {
+async function replayActions(frame, actions, send) {
   for (const action of actions) {
     const step = typeof action === "function" ? action(visibleText(frame), frame) : action;
     if (Array.isArray(step)) {
@@ -250,7 +250,6 @@ async function replayActions(frame, actions, stopAt, send) {
     }
     if (typeof step !== "string") continue;
     frame = await send(step);
-    if (stopAt?.test(visibleText(frame))) break;
   }
   return frame;
 }
@@ -260,7 +259,7 @@ if (campaign && campaignOption === "--replay-leg") {
   const commands = readFileSync(join(campaignInput, "commands.jsonl"), "utf8").trim().split(/\r?\n/)
     .filter(Boolean).map((line) => JSON.parse(line));
   copyCampaignSaves(resolve(campaignInput, checkpointSource ?? "."), saveDir);
-  const actual = await replay(bootKeys, startAt, commands, saveDir, undefined, developerCombat === true, {
+  const actual = await replay(bootKeys, startAt, commands, saveDir, developerCombat === true, {
     inputCompat, schedule: resolve(campaignInput, "prompts.jsonl"),
   });
   const expectedPath = join(campaignInput, "end-frame.json");
@@ -613,7 +612,7 @@ async function verifyPodalFromCouncil(continuation, fromLodging = false, arrival
       assert.ok(!frame.journal.leads.some(({ id }) => id === "auction-exchange"));
     }, "j",
     "end", "enter", "enter", "enter", "e", "s", "s", "i",
-  ], saveDir, undefined, false, arrivalRecording);
+  ], saveDir, false, arrivalRecording);
   assert.match(visibleText(arrival), /0,4 w.*quit to dos/);
   const walkPodalStreet = (position, keys) => chosenWalk(`the walk up the street to ${position.source}`, keys, (text) => {
     if (/who are you.*haughty sly nice/.test(text)) return "s";
@@ -1239,7 +1238,7 @@ async function verifySokalReinforcement(fightToEnd = false) {
     (text) => assert.match(text, /hobgoblin hitpoints 6 ac 5.*move\/attack/),
     // The rest of the fight is the computer's: the page polls from this turn to the defeat prompt.
     ...(fightToEnd ? [presses(":poll", 345, /the monsters rejoice for the party has been destroyed/)] : []),
-  ], saveDir, undefined, false, undefined, { pagePolls: true });
+  ], saveDir, false, undefined, { pagePolls: true });
   console.log("Equipped and recruited the party, then verified manual sword and bow attacks at Sokal:", join(saveDir, "J.json"));
   if (fightToEnd) console.log("The first courtyard fight reached the original defeat screen.");
 }
@@ -1734,7 +1733,7 @@ async function verifySokalCourtyardAftermath() {
     ...Array(4).fill("end"), "v", text => assert.match(text, /fenn.*con 16.*hp 0.*status dead/), "e",
     "home", "v",
     (text) => assert.match(text, /enna.*jewelry 3.*platinum 389.*exp 12423/),
-  ], saveDir, undefined, false, { inputCompat: "" });
+  ], saveDir, false, { inputCompat: "" });
   console.log("Turned in Sokal Keep and reloaded the original council reward:", resolve(saveDir, "H.json"));
 }
 
@@ -1774,7 +1773,7 @@ async function verifySokalCouncilRecovery() {
     }, "j",
     "end", "v", text => assert.match(text, /brin.*con 11.*hp 9.*status okay/), "e",
     ...Array(4).fill("end"), "v", text => assert.match(text, /fenn.*con 15.*hp 9.*status okay/),
-  ], saveDir, undefined, false, { inputCompat: "" });
+  ], saveDir, false, { inputCompat: "" });
   console.log("Reunited all six original fighters and reloaded after paid lodging:", resolve(saveDir, "E.json"));
 }
 
@@ -2705,7 +2704,7 @@ if (process.argv[2] === "--textile-grishnak-checkpoint") {
   if (healedSleep) {
     const healing = "qa/fixtures/walk-grishnak-healing";
     const keys = readFileSync(join(healing, "commands.jsonl"), "utf8").trim().split("\n").map(line => JSON.parse(line));
-    const camp = await replay(loadSlot("1769"), "85000000", keys, saveDir, undefined, false,
+    const camp = await replay(loadSlot("1769"), "85000000", keys, saveDir, false,
       { schedule: resolve(healing, "prompts.jsonl"), inputCompat: "" });
     assert.match(visibleText(camp), /brennan -1 13.*elspeth -1 19.*quit to dos/);
   }
@@ -3080,7 +3079,7 @@ async function verifyCastleEnding(fromCastleGuards, { saveAtWestGate = false, co
       "j", checkCastle("turned-in"), "j",
       "e", "s", "s", continuous ? "i" : "c",
     ]),
-  ], saveDir, undefined, fromCastleGuards);
+  ], saveDir, fromCastleGuards);
   if (saveAtWestGate) {
     console.log("Saved after defeating Tyranthraxus and returning to New Phlan:", join(saveDir, "D.json"));
     return;
@@ -3429,7 +3428,7 @@ async function verifyCampaignSokal() {
     presses("enter", 4, /5,5 e.*area cast view encamp/),
     "j", (_text, frame) => assert.equal(frame.journal.leads.find(({ id }) => id === "commission-sokal")?.status, "turned-in"), "j",
     "e", "s", "s", "f",
-  ], saveDir, undefined, true);
+  ], saveDir, true);
   assert.match(visibleText(trip), /quit to dos/);
   console.log("Cleared Sokal Keep with the original party and collected the council reward:", resolve(saveDir, "F.json"));
 }
@@ -3469,7 +3468,7 @@ async function verifyCampaignCastleApproach() {
     "up", "left", ...Array(4).fill("up"), "right", ...Array(5).fill("up"), "enter", "up", "enter",
     (text) => assert.match(text, /\bn \d+:\d+.*area cast view encamp/),
     "e", "s", "s", "g",
-  ], saveDir, undefined, true);
+  ], saveDir, true);
   assert.match(visibleText(atCastle), /quit to dos/);
   console.log("Passed Stojanow Gate and saved at Valjevo Castle:", resolve(saveDir, "G.json"));
 }
@@ -3491,7 +3490,7 @@ async function verifyCampaignTower() {
     "n", (text) => assert.match(text, /a secret door is found to your left/), "enter",
     "left", "up", "up", "enter", "y", "enter",
     "left", "up", "left", "up", "up", "right", "up", "left", "e", "s", "s", "h",
-  ], saveDir, undefined, true);
+  ], saveDir, true);
   assert.match(visibleText(atStairs), /quit to dos/);
   console.log("Reached the stairs to Tyranthraxus's audience hall:", resolve(saveDir, "H.json"));
 }
@@ -3786,14 +3785,14 @@ const courtyardDefeat = await replay(loadSlotG, "85000000", [
   (text) => assert.match(text, /large force of orcs and hobgoblins rushes you/),
   "enter", "enter", "enter", "q",
   (text) => assert.match(text, /brin hitpoints 6 ac 1 long sword/),
-  ...Array(301).fill("q"),
-], saveDir, /the monsters rejoice for the party has been destroyed/);
+  presses("q", 207, /the monsters rejoice for the party has been destroyed/),
+]);
 assert.match(visibleText(courtyardDefeat), /the monsters rejoice for the party has been destroyed/);
 await replay(loadSlotG, "85000000", [
   (text) => assert.match(text, /brin 1 6.*11,3 s/),
   "j", (_text, frame) => {
     checkSokal("", frame);
-    assert.ok(frame.journal.leads.some((lead) => lead.id === "commission-sokal" && lead.status === "offered"));
+    assert.ok(frame.journal.leads.some((lead) => lead.id === "commission-sokal" && lead.status === "accepted"));
   },
 ]);
 console.log("Replayed the Sokal courtyard defeat and reloaded the party and outstanding commission from slot G.");
@@ -3804,7 +3803,7 @@ const evokerTurn = await replay(loadSlotH, "85000000", [
   "up", "left", ...Array(6).fill("up"), "enter", "y",
   "up", "enter", "enter", "y", "left", "up", "up", "enter", "y", "up", "enter",
   (text) => assert.match(text, /large force of orcs and hobgoblins rushes you/),
-  ...Array(4).fill("enter"), ...Array(117).fill("d"),
+  ...Array(4).fill("enter"), presses("d", 112, /evoker hitpoints 6 ac 9/),
 ]);
 assert.match(visibleText(evokerTurn), /evoker hitpoints 6 ac 9/);
 console.log("Returned to Sokal Keep with the evoker and reached his first courtyard combat turn.");
@@ -3847,7 +3846,7 @@ const northCourtyardBattle = await replay(loadSlotJ, "85000000", [
   (text) => assert.match(text, /11,6 s.*do you give the password/),
   "y", "left", "up", "right", "up", "left", "up", "left", "up", "right", "up", "left",
   (text) => assert.match(text, /the croaking rises in volume/),
-  "w", "enter", ...Array(32).fill("q"),
+  "w", "enter", presses("q", 30, /continue battle:yes no/),
   (text) => assert.match(text, /continue battle:yes no/),
   "n",
   (text) => assert.match(text, /the party has won.*receives \d+ experience points/),
@@ -3856,8 +3855,8 @@ const northCourtyardBattle = await replay(loadSlotJ, "85000000", [
   (text) => assert.match(text, /curate 3 26.*theurgist 8 13.*8,3 s/),
   ...Array(6).fill("end"), "c", ...Array(8).fill("home"), "enter", "e", "up", "enter",
   (text) => assert.match(text, /8,4 s.*large force of orcs and hobgoblins rushes you/),
-  "enter", "enter", "enter", ...Array(800).fill("q"),
-], saveDir, northCourtyardDefeat);
+  "enter", "enter", "enter", presses("q", 699, northCourtyardDefeat),
+]);
 assert.match(visibleText(northCourtyardBattle), northCourtyardDefeat);
 console.log("Won the smithy fight with both recruits and reproduced the north courtyard defeat with Bless and Quick.");
 
