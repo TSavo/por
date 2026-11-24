@@ -13,6 +13,7 @@
 //   - the registry (or a fixture README run line) names a checkpoint file that exists under qa/fixtures, or
 //   - it is a chained route ("chains": it consumes the native save another route writes) whose first route is runnable.
 // "proved" is separate: the registry's "proved" list holds routes that were run in Chrome from the named file.
+import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
@@ -50,14 +51,11 @@ for (const line of lines) {
   const slot = /^\s{4}slot: "([A-J])"/.exec(line);
   if (slot && current && !current.slot) current.slot = slot[1];
 }
-// Tables that are not route tables: the Mendor reward table and the controlled battle table hold routes too, but
-// mendorCouncilRewards keys are reward ids; keep only names the verifier also tests against routeName.
-const tested = new Set<string>();
-for (const m of source.matchAll(/routeName === "([a-z0-9][a-z0-9-]*)"/g)) tested.add(m[1]!);
-for (const m of source.matchAll(/\[((?:"[a-z0-9-]+",?\s*)+)\]\.includes\(routeName\)/g))
-  for (const n of m[1]!.matchAll(/"([a-z0-9-]+)"/g)) tested.add(n[1]!);
-for (const name of tested) add(name, "explicit");
-for (const [name, route] of [...routes]) if (route.table === "mendorCouncilRewards" && !tested.has(name)) routes.delete(name);
+// The verifier expands generated entries, aliases and explicit names when it builds the dispatch list.
+// Keep the table and slot details read above only for names a player of the replay can actually select.
+const accepted = new Set<string>(JSON.parse(execFileSync(process.execPath, [verifier, "--list-routes"], { encoding: "utf8" })));
+for (const name of routes.keys()) if (!accepted.has(name)) routes.delete(name);
+for (const name of accepted) add(name, "explicit");
 
 const registry: Registry = existsSync(registryPath)
   ? JSON.parse(readFileSync(registryPath, "utf8")) as Registry

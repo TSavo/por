@@ -9343,7 +9343,7 @@ const valhingenBrassDoorBattle = {
   afterBattle: /9,1W.*AREACASTVIEWENCAMPSEARCHLOOK/i,
 };
 const nomadShamanReward = routeName === "nomad-shaman-reward-after-victory";
-if (nomadShamanReward) routes.push(routeName);
+routes.push("nomad-shaman-reward-after-victory");
 const controlledBattleIllustrations = new Map([
   ["valjevo-maze-watch-patrol", {
     slot: "B", inputs: ["up", "enter", "enter", "c", "s", "enter"],
@@ -9485,6 +9485,10 @@ const projectile = {
 }[routeName];
 const stinkingCloud = routeName === "textile-stinking-cloud";
 const mageWand = routeName === "slums-mage-wand";
+if (checkpoint === "--list-routes") {
+  await new Promise(resolve => process.stdout.write(JSON.stringify([...new Set(routes)].sort()) + "\n", resolve));
+  process.exit(0);
+}
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
