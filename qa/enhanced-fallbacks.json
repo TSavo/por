@@ -256,6 +256,12 @@
    "frames": [],
    "fixtureSha256": "781164dae1ef411a4dbc9dd570c6bce5c0148d71b8b470ef197de34348612c9e"
   },
+  "walk-guide-party-kobold-approach": {
+   "observer": 2,
+   "presented": 963,
+   "frames": [],
+   "fixtureSha256": "a40c09d44626c935fe09d4deff4d9ad13636a1016230bb1c78907f81a766ef15"
+  },
   "walk-guide-party-kovel": {
    "observer": 2,
    "presented": 751,

@@ -15,12 +15,10 @@
  "enhancedFallbacks": {
   "observer": 2,
   "frames": 0,
-  "presented": 13027,
-  "walks": 64,
+  "presented": 13990,
+  "walks": 65,
   "recordedWalks": 65,
-  "missingWalks": [
-   "walk-guide-party-kobold-approach"
-  ],
+  "missingWalks": [],
   "aliasedWalks": [
    {
     "walk": "campaign-castle-approach-leg",
@@ -43,7 +41,7 @@
     "receipt": "campaign-full/leg-9"
    }
   ],
-  "runs": 61,
+  "runs": 62,
   "additionalReplays": 2,
   "keys": []
  },
