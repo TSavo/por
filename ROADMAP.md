@@ -74,7 +74,7 @@ which start from controlled saves. [Audio](docs/AUDIO.md) and the
   `--from-sokal-patrol <slot-J>`. Use `--replay-leg <directory>`
   to rerun a recorded leg independently in Chrome and compare its final frame.
 - `--from-sokal-trained <slot-J>` resumes with the six trained fighters and
-  their two recruits beyond the Sokal patrol. The party wins the courtyard
+  their two recruits beyond the Sokal patrol. The [six-fighter checkpoints](qa/fixtures/sokal-six-fighters/README.md) supply J, C, H and E. The party wins the courtyard
   battle with the original Quick combat and reloads the courtyard note in
   slot C. Use `--from-sokal-courtyard <slot-C>` to continue from that save.
   The party speaks to Ferran, returns by boat, and claims the Sokal Keep

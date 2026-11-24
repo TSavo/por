@@ -52,11 +52,20 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
     // The shorter campaign branches to Ohlo after the shared opening. The full
     // campaign's seventh schedule instead takes the party to Sokal.
     const scheduleDirectory = campaign && (!campaignOption || campaignOption === "--from-temple") && campaignLeg > 6 ? "campaign-ohlo" : "campaign";
+    // A checkpoint resumes partway through the six-fighter route. Battle is its first leg
+    // and the west ferry is its seventh, regardless of which checkpoint the caller supplied.
+    const sokalStage = {
+      "--from-sokal-trained": 0, "--from-sokal-courtyard": 1,
+      "--from-sokal-council": 4, "--from-sokal-lodging": 6,
+    }[campaignOption];
+    const schedule = sokalStage === undefined
+      ? resolve("qa", "replay-schedules", scheduleDirectory, `leg-${campaignLeg}.jsonl`)
+      : resolve("qa", "replay-schedules", "sokal-trained", `leg-${sokalStage + campaignLeg}.jsonl`);
     const chrome = await openChromeCampaignLeg({
       chromePath, directory, checkpointDir: resolve(checkpointDir), bootKeys, startAt, developerCombat,
       inputCompat: recording?.inputCompat,
       schedule: recording ? recording.schedule : process.env.POR_REPLAY_SCHEDULES === "off" ? undefined
-        : resolve("qa", "replay-schedules", scheduleDirectory, `leg-${campaignLeg}.jsonl`),
+        : schedule,
     });
     try {
       const initial = await chrome.nextFrame();
@@ -549,8 +558,7 @@ async function verifyFighterTrainingJournal() {
 
 async function verifyPodalFromCouncil(continuation, fromLodging = false, arrivalRecording) {
   const load = loadSlot;
-  // The key counts below were measured in the pipe from qa/fixtures/podal-clerk/H.json
-  // (--podal-checkpoint --auction-only, #151); the other routes here start from saves no mode makes (#167).
+  // The inn party meets merchants on the walk east and parlays once. The clerk party walks straight through.
   const checkAuction = (status) => (_text, frame) =>
     assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-auction")?.status, status);
   const checkExchange = (_text, frame) => {
@@ -565,7 +573,7 @@ async function verifyPodalFromCouncil(continuation, fromLodging = false, arrival
     }, "j"] : []),
     "w", ...payerSelection, "enter", "enter", "right", ...Array(4).fill("up"), "enter", "enter", "enter", "s",
     (text) => assert.match(text, /20,29 e/),
-    "enter", "enter", "up", ...chosenWalk("the walk east to 24,28", 4, (text) => {
+    "enter", "enter", "up", ...chosenWalk("the walk east to 24,28", fromLodging && verifyAuction ? 5 : 4, (text) => {
       if (/merchants.*combat wait flee parlay/.test(text)) return "p";
       assert.doesNotMatch(text, /combat wait flee parlay/);
       if (!/24,28 e/.test(text)) return "right";
@@ -680,7 +688,7 @@ async function verifyPodalFromCouncil(continuation, fromLodging = false, arrival
     "left", "up", "right", "up", "left", "up", "right", ...Array(6).fill("up"),
     "left", "up", "up", "left", "up", "left", "up", "up", "enter",
     (text) => assert.match(text, /your success at podal plaza is noted/),
-    presses("enter", 1, /each character receives \d+ experience points/),
+    presses("enter", fromLodging ? 2 : 1, /each character receives \d+ experience points/),
     "enter", "enter", "s", "e", "n", ...Array(8).fill("enter"), "j", checkAuction("turned-in"), "j",
     "up", "up",
     (text) => assert.match(text, /family treasure was hidden in the western building/),
@@ -1667,7 +1675,7 @@ async function verifyTrainedSokalCourtyard() {
     ...Array(8).fill("home"), "enter", "e",
     "up", ...Array(5).fill("enter"), (text) => assert.match(text, /brin hitpoints 9 ac -1 long sword/),
     // Run original Quick combat with spellcasting enabled.
-    "q", "alt-m", ["q", /continue battle:yes no|the party has been destroyed/, 1500],
+    "q", "alt-m", presses("q", 1166, /continue battle:yes no|the party has been destroyed/),
     (text) => assert.match(text, /continue battle:yes no/),
     "n", (text) => assert.match(text, /the party has won.*receives 648 experience points/),
     "enter", "enter", "e", "n", (text) => assert.match(text, /on a hobgoblin body.*as entry 57/),
@@ -1713,16 +1721,18 @@ async function verifySokalCourtyardAftermath() {
     // Give the platinum and jewelry to Enna, who can bring them to the temple.
     ...Array(4).fill("end"), "t", (text) => assert.match(text, /platinum 250 jewelry 3/),
     "end", "enter", "3", "enter", "p", "enter", ..."250", "enter", "e",
-    ["enter", /area cast view encamp/, 12], "j", checkSokal("turned-in"), "j",
+    presses("enter", 5, /area cast view encamp/), "j", checkSokal("turned-in"), "j",
     "e", "s", "s", "h",
   ]);
   assert.match(visibleText(council), /quit to dos/);
   await replay(loadSlot("2368"), "85000000", [
     (text) => assert.match(text, /enna 2 12.*5,5 e/),
     "j", checkSokal("turned-in"), "j",
-    ...Array(4).fill("end"), "v",
+    "end", "v", text => assert.match(text, /brin.*con 12.*hp 0.*status dead/), "e",
+    ...Array(4).fill("end"), "v", text => assert.match(text, /fenn.*con 16.*hp 0.*status dead/), "e",
+    "home", "v",
     (text) => assert.match(text, /enna.*jewelry 3.*platinum 389.*exp 12423/),
-  ]);
+  ], saveDir, undefined, false, { inputCompat: "" });
   console.log("Turned in Sokal Keep and reloaded the original council reward:", resolve(saveDir, "H.json"));
 }
 
@@ -1744,12 +1754,12 @@ async function verifySokalCouncilRecovery() {
     "end", ...lightWounds, "end", ...lightWounds,
     "end", "end", ...raiseDead, ...lightWounds,
     (text) => assert.match(text, /fenn 1 [1-9] theurgist/),
-    "end", "end", ...lightWounds, "s", ["e", /11,3 s.*area cast view encamp/, 5],
+    "end", "end", ...lightWounds, "s", presses("e", 1, /11,3 s.*area cast view encamp/),
     "right", "right", "up", "left", "up", "left", "up", "right", ...Array(7).fill("up"),
     "left", ...Array(8).fill("up"), "left", ...Array(4).fill("up"), "right", "up", "right", "up", "enter",
     (text) => assert.match(text, /6,12 w.*1 platinum piece to rest here/),
     "y", "end", "enter", "enter", "r", "y", ...Array(20).fill("i"), "r",
-    ["n", /camp: save view magic rest alter exit(?! journal)/, 120],
+    presses("n", 54, /camp: save view magic rest alter exit(?! journal)/),
     (text) => assert.match(text, restedParty), "s", "s", "e",
   ]);
   assert.match(visibleText(recovered), /quit to dos/);
@@ -1759,8 +1769,10 @@ async function verifySokalCouncilRecovery() {
       const { leads } = frame.journal;
       assert.ok(leads.some(({ id }) => id === "phlan-paid-rest"));
       assert.ok(leads.some(({ id, status }) => id === "commission-sokal" && status === "turned-in"));
-    },
-  ]);
+    }, "j",
+    "end", "v", text => assert.match(text, /brin.*con 11.*hp 9.*status okay/), "e",
+    ...Array(4).fill("end"), "v", text => assert.match(text, /fenn.*con 15.*hp 9.*status okay/),
+  ], saveDir, undefined, false, { inputCompat: "" });
   console.log("Reunited all six original fighters and reloaded after paid lodging:", resolve(saveDir, "E.json"));
 }
 
