@@ -17,6 +17,8 @@
   "qa/fixtures/campaign-full/leg-9",
   "qa/fixtures/campaign-sokal-leg",
   "qa/fixtures/campaign-tower-leg",
+  "qa/fixtures/castle-guards",
+  "qa/fixtures/podal-clerk",
   "qa/fixtures/visit-kobold-caves",
   "qa/fixtures/visit-kovel-mansion",
   "qa/fixtures/visit-lizardman-keep",
@@ -27,20 +29,62 @@
   "qa/fixtures/visit-valhingen-graveyard",
   "qa/fixtures/visit-valjevo-area-4",
   "qa/fixtures/visit-yarashs-pyramid",
+  "qa/fixtures/walk-bane-entry53",
+  "qa/fixtures/walk-braccio-bane-ferry",
+  "qa/fixtures/walk-buccaneer-bivant-purchase",
+  "qa/fixtures/walk-buccaneer-bivant-rescue",
+  "qa/fixtures/walk-cadorna-briefing",
+  "qa/fixtures/walk-clerk-offers-bivant",
   "qa/fixtures/walk-clerk-pays-three",
   "qa/fixtures/walk-commission-5-reward",
   "qa/fixtures/walk-commission-5-taken",
+  "qa/fixtures/walk-grishnak-approach",
+  "qa/fixtures/walk-grishnak-healing",
+  "qa/fixtures/walk-grishnak-inn",
+  "qa/fixtures/walk-grishnak-prisoner",
+  "qa/fixtures/walk-guide-party-graveyard",
+  "qa/fixtures/walk-guide-party-graveyard-training",
+  "qa/fixtures/walk-guide-party-kovel",
+  "qa/fixtures/walk-guide-party-podal-auction",
+  "qa/fixtures/walk-guide-party-sokal-approach",
+  "qa/fixtures/walk-guide-party-sokal-courtyard",
+  "qa/fixtures/walk-guide-party-sokal-healing",
+  "qa/fixtures/walk-guide-party-sokal-rest",
+  "qa/fixtures/walk-guide-party-sokal-reward",
+  "qa/fixtures/walk-guide-party-sokal-training",
+  "qa/fixtures/walk-guide-party-textile-briefing",
   "qa/fixtures/walk-guide-party-turn-undead",
   "qa/fixtures/walk-kobold-king",
   "qa/fixtures/walk-kovel-and-nomads",
   "qa/fixtures/walk-library-cleared",
   "qa/fixtures/walk-library-locked-temple",
+  "qa/fixtures/walk-lizardfolk-pledge",
   "qa/fixtures/walk-new-phlan-training",
   "qa/fixtures/walk-textile-house-cleared",
   "qa/fixtures/walk-yarash-pyramid",
+  "qa/fixtures/walk-zhentil-clerk",
+  "qa/fixtures/walk-zhentil-envoy",
   "qa/fixtures/wilderness-walk"
  ],
  "calls": {
+  "exe 2d30": {
+   "original": {
+    "walk": "qa/fixtures/walk-guide-party-sokal-courtyard",
+    "text": [
+     " AELAR",
+     " is Blessed"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-guide-party-sokal-courtyard",
+    "text": [
+     " AELAR",
+     " is Blessed"
+    ],
+    "shown": true
+   }
+  },
   "exe 2f3b": {
    "original": {
     "walk": "acceptance slums orcs",
@@ -77,18 +121,34 @@
   },
   "slice 3 +2726": {
    "original": {
-    "walk": "qa/fixtures/visit-yarashs-pyramid",
+    "walk": "qa/fixtures/walk-zhentil-envoy",
     "text": [
-     "                     6"
+     "                 7,6 S 14:33",
+     " AT DUSK A GUARD COMES BY TO ESCORT",
+     " YOU TO DINNER."
     ],
-    "shown": true
+    "shown": false,
+    "missing": [
+     "                   6"
+    ],
+    "pageHad": [
+     "                 7,2 S 14:33"
+    ]
    },
    "port": {
-    "walk": "qa/fixtures/visit-yarashs-pyramid",
+    "walk": "qa/fixtures/walk-zhentil-envoy",
     "text": [
-     "                     6"
+     "                 7,6 S 14:33",
+     " AT DUSK A GUARD COMES BY TO ESCORT",
+     " YOU TO DINNER."
     ],
-    "shown": true
+    "shown": false,
+    "missing": [
+     "                   6"
+    ],
+    "pageHad": [
+     "                 7,2 S 14:33"
+    ]
    }
   },
   "slice 4 +1e3": {
@@ -125,6 +185,22 @@
     "shown": true
    }
   },
+  "slice 8 +4ca": {
+   "original": {
+    "walk": "qa/fixtures/walk-guide-party-sokal-courtyard",
+    "text": [
+     "Magic On"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-guide-party-sokal-courtyard",
+    "text": [
+     "Magic On"
+    ],
+    "shown": true
+   }
+  },
   "slice 8 +92d": {
    "original": {
     "walk": "acceptance slums goblins",
@@ -155,6 +231,24 @@
     "text": [
      "                       BRENNAN",
      "                       is bandaged"
+    ],
+    "shown": true
+   }
+  },
+  "slice 9 +101": {
+   "original": {
+    "walk": "qa/fixtures/walk-grishnak-approach",
+    "text": [
+     "                       HOBGOBLIN",
+     "                       flees in panic"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-grishnak-approach",
+    "text": [
+     "                       HOBGOBLIN",
+     "                       flees in panic"
     ],
     "shown": true
    }
@@ -195,6 +289,52 @@
      "                  3      02",
      " A SCREAMING HORDE OF KOBOLDS ATTACKS",
      " THE PARTY."
+    ],
+    "shown": true
+   }
+  },
+  "slice 13 +500": {
+   "original": {
+    "walk": "qa/fixtures/walk-grishnak-approach",
+    "text": [
+     "                       HOBGOBLIN LDR",
+     "                       Attacks",
+     "                       CURATE",
+     "                       Hitting for 8",
+     "                       points of damage"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-grishnak-approach",
+    "text": [
+     "                       HOBGOBLIN LDR",
+     "                       Attacks",
+     "                       CURATE",
+     "                       Hitting for 8",
+     "                       points of damage"
+    ],
+    "shown": true
+   }
+  },
+  "slice 13 +520": {
+   "original": {
+    "walk": "qa/fixtures/walk-grishnak-approach",
+    "text": [
+     "                       HOBGOBLIN LDR",
+     "                       Attacks",
+     "                       CURATE",
+     "                       lost a spell"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-grishnak-approach",
+    "text": [
+     "                       HOBGOBLIN LDR",
+     "                       Attacks",
+     "                       CURATE",
+     "                       lost a spell"
     ],
     "shown": true
    }
@@ -251,6 +391,24 @@
     "shown": true
    }
   },
+  "slice 13 +f8b": {
+   "original": {
+    "walk": "qa/fixtures/walk-zhentil-clerk",
+    "text": [
+     "                       BRIN",
+     "                       sweeps"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-zhentil-clerk",
+    "text": [
+     "                       BRIN",
+     "                       sweeps"
+    ],
+    "shown": true
+   }
+  },
   "slice 13 +1195": {
    "original": {
     "walk": "qa/fixtures/walk-guide-party-turn-undead",
@@ -269,6 +427,52 @@
     "shown": true
    }
   },
+  "slice 13 +132e": {
+   "original": {
+    "walk": "qa/fixtures/walk-guide-party-graveyard",
+    "text": [
+     "                       DORIAN",
+     "                       Hitpoints 5",
+     "                       AC 3",
+     "                       Long Sword",
+     "                       DORIAN",
+     "                       turns undead...",
+     "Nothing Happens..."
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-guide-party-graveyard",
+    "text": [
+     "                       DORIAN",
+     "                       Hitpoints 5",
+     "                       AC 3",
+     "                       Long Sword",
+     "                       DORIAN",
+     "                       turns undead...",
+     "Nothing Happens..."
+    ],
+    "shown": true
+   }
+  },
+  "slice 13 +2525": {
+   "original": {
+    "walk": "qa/fixtures/walk-bane-entry53",
+    "text": [
+     "                       DIRTEN",
+     "                       Begins Casting"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-bane-entry53",
+    "text": [
+     "                       DIRTEN",
+     "                       Begins Casting"
+    ],
+    "shown": true
+   }
+  },
   "slice 14 +923": {
    "original": {
     "walk": "qa/fixtures/walk-yarash-pyramid",
@@ -281,6 +485,24 @@
     "walk": "qa/fixtures/walk-yarash-pyramid",
     "text": [
      "The river's stench drives you back."
+    ],
+    "shown": true
+   }
+  },
+  "slice 15 +47b": {
+   "original": {
+    "walk": "qa/fixtures/walk-grishnak-approach",
+    "text": [
+     " AELAR",
+     " is in no condition to cast any spells"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-grishnak-approach",
+    "text": [
+     " AELAR",
+     " is in no condition to cast any spells"
     ],
     "shown": true
    }
@@ -531,6 +753,34 @@
     "walk": "acceptance slums guide",
     "text": [
      "Spell Aborted"
+    ],
+    "shown": true
+   }
+  },
+  "slice 22 +1eec": {
+   "original": {
+    "walk": "qa/fixtures/walk-bane-entry53",
+    "text": [
+     "                       THEURGIST",
+     "                       Hitpoints 13",
+     "                       AC 8",
+     "                       THEURGIST",
+     "                       Creates a",
+     "                       noxious cloud",
+     "Spell:Stinking Cloud"
+    ],
+    "shown": true
+   },
+   "port": {
+    "walk": "qa/fixtures/walk-bane-entry53",
+    "text": [
+     "                       THEURGIST",
+     "                       Hitpoints 13",
+     "                       AC 8",
+     "                       THEURGIST",
+     "                       Creates a",
+     "                       noxious cloud",
+     "Spell:Stinking Cloud"
     ],
     "shown": true
    }
