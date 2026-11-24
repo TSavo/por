@@ -1224,8 +1224,8 @@ async function verifySokalReinforcement(fightToEnd = false) {
     (text) => assert.match(text, /brin hitpoints 6 ac 1.*move view aim use quick done/),
     hold("alt-q"), hold("z"),
     (text) => assert.match(text, /hobgoblin hitpoints 6 ac 5.*move\/attack/),
-    // The rest of the fight is the computer's: the page polls it to the end (#151 measures the count).
-    ...(fightToEnd ? [presses(":poll", undefined, /the monsters rejoice for the party has been destroyed/)] : []),
+    // The rest of the fight is the computer's: the page polls from this turn to the defeat prompt.
+    ...(fightToEnd ? [presses(":poll", 345, /the monsters rejoice for the party has been destroyed/)] : []),
   ], saveDir, undefined, false, undefined, { pagePolls: true });
   console.log("Equipped and recruited the party, then verified manual sword and bow attacks at Sokal:", join(saveDir, "J.json"));
   if (fightToEnd) console.log("The first courtyard fight reached the original defeat screen.");
