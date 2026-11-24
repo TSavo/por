@@ -64,6 +64,13 @@ const transientScriptIllustrations = new Map([
   ["8:27:9c50", "scene-illustration:area:27:ecl:9c50"],
   ["8:27:a1b4", "scene-illustration:area:27:ecl:a1b4:cue:trolls-insult"],
 ]);
+// The peaceful wilderness replies run directly into the travel redraw. Each pair spans
+// the first and final native print of the response (including every inserted actor name).
+const peacefulParlayPrints = new Map([
+  ["6:25:a2fe", "6:25:a308"], ["6:25:a34e", "6:25:a362"], ["6:25:a3d0", "6:25:a405"],
+  ["7:26:a326", "7:26:a330"], ["7:26:a376", "7:26:a38a"], ["7:26:a3f8", "7:26:a42c"],
+  ["8:27:a0e6", "8:27:a0f0"], ["8:27:a136", "8:27:a14a"], ["8:27:a1b8", "8:27:a1ed"],
+]);
 // Hold narrated plates slightly longer than their installed recordings.
 const transientScriptIllustrationDurations = new Map([
   [ohloElixirIllustration, 17000], // 15.961 s
@@ -405,6 +412,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   /** The right-hand panel above the report (the actor's stats) when the last report was taken. */
   let lastCombatStats = "";
   let lastApproach: string | undefined;
+  let peacefulParlay: { start: number; lastPrint: string } | undefined;
   let wildernessEncounter: { actor: EncounterPlacement; terrain: OverlandTerrainFrame; block: number; parlay: boolean } | undefined;
   const portraitKeys = (env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean);
   const portraitArt = loadPortraitArt(portraitKeys, browser);
@@ -1557,8 +1565,18 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const block = cpu.read8(unit.data, data.eclBlock);
       const cursor = authoredScriptPosition(cpu, cpu.read16(unit.data, data.eclCursor), unit.data);
       const scope = transientScriptIllustrations.get(`${archive}:${block}:${cursor.toString(16)}`);
+      const sourceAddress = sourceId?.split(".at-")[1];
+      const print = sourceAddress && `${archive}:${block}:${sourceAddress}`;
+      const lastPrint = print && peacefulParlayPrints.get(print);
+      if (lastPrint) peacefulParlay = { start, lastPrint };
       const previous = animation.at(-1);
-      if (scope && portraitKeys.includes(scope)) {
+      if (print && print === peacefulParlay?.lastPrint && peacefulParlay) {
+        start = peacefulParlay.start;
+        peacefulParlay = undefined;
+        if (wildernessEncounter?.block === block) wildernessEncounter.parlay = true;
+        captureEclContext(cpu);
+        showFrame(undefined, undefined, false, false, undefined, undefined, false, "narration");
+      } else if (scope && portraitKeys.includes(scope)) {
         const durationMs = transientScriptIllustrationDurations.get(scope) ?? 1200;
         showFrame(undefined, undefined, false, false, durationMs, undefined, scope);
       } else if (sourceId === "por.review.ecl-3.block-8.at-af4b") {

@@ -146,6 +146,18 @@
    "decisions": 3,
    "heard": 1
   },
+  "issue-99-middle-wilderness-a194-kobolds-abusive-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 7,
+   "heard": 2
+  },
+  "issue-99-middle-wilderness-a194-kobolds-abusive-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 7,
+   "heard": 2
+  },
   "issue-99-middle-wilderness-a194-kobolds-haughty-original": {
    "ledger": "decisions.jsonl",
    "games": 1,
@@ -194,6 +206,18 @@
    "decisions": 3,
    "heard": 1
   },
+  "issue-99-middle-wilderness-a194-kobolds-sly-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 9,
+   "heard": 2
+  },
+  "issue-99-middle-wilderness-a194-kobolds-sly-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 9,
+   "heard": 2
+  },
   "issue-99-middle-wilderness-a194-lizard-men-original": {
    "ledger": "issue-99-middle-wilderness-a194-lizard-men-original.jsonl",
    "games": 1,
@@ -205,6 +229,18 @@
    "games": 1,
    "decisions": 8,
    "heard": 1
+  },
+  "issue-99-middle-wilderness-a194-merchants-direct-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 11,
+   "heard": 2
+  },
+  "issue-99-middle-wilderness-a194-merchants-direct-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 11,
+   "heard": 2
   },
   "issue-99-middle-wilderness-a194-merchants-original": {
    "ledger": "issue-99-middle-wilderness-a194-merchants-original.jsonl",
@@ -254,6 +290,30 @@
    "decisions": 22,
    "heard": 1
   },
+  "issue-99-middle-wilderness-a1e5-driders-meek-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 23,
+   "heard": 2
+  },
+  "issue-99-middle-wilderness-a1e5-driders-meek-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 23,
+   "heard": 2
+  },
+  "issue-99-middle-wilderness-a1e5-driders-nice-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 21,
+   "heard": 2
+  },
+  "issue-99-middle-wilderness-a1e5-driders-nice-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 21,
+   "heard": 2
+  },
   "issue-99-middle-wilderness-a1e5-driders-original": {
    "ledger": "issue-99-middle-wilderness-a1e5-driders-original.jsonl",
    "games": 1,
@@ -265,6 +325,18 @@
    "games": 1,
    "decisions": 17,
    "heard": 1
+  },
+  "issue-99-middle-wilderness-a1e5-driders-sly-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 21,
+   "heard": 2
+  },
+  "issue-99-middle-wilderness-a1e5-driders-sly-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 21,
+   "heard": 2
   },
   "issue-99-middle-wilderness-a1e5-kobolds-original": {
    "ledger": "issue-99-middle-wilderness-a1e5-kobolds-original.jsonl",
@@ -373,6 +445,18 @@
    "games": 1,
    "decisions": 6,
    "heard": 1
+  },
+  "issue-99-middle-wilderness-a230-nomads-direct-original": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 10,
+   "heard": 2
+  },
+  "issue-99-middle-wilderness-a230-nomads-direct-port": {
+   "ledger": "decisions.jsonl",
+   "games": 1,
+   "decisions": 10,
+   "heard": 2
   },
   "issue-99-middle-wilderness-a230-nomads-original": {
    "ledger": "issue-99-middle-wilderness-a230-nomads-original.jsonl",
@@ -4407,12 +4491,28 @@
     "key": "encounter:area:26:ecl:a230:SPRIT7.DAX:12:1:0"
    }
   },
+  "por.voice.ecl7.b26-a376-a38a": {
+   "run": "issue-99-middle-wilderness-a1e5-driders-nice-original",
+   "step": 102629877,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0"
+   }
+  },
   "por.voice.ecl7.b26-a3b9-a3df": {
    "run": "issue-99-middle-wilderness-a194-kobolds-haughty-original",
    "step": 88326657,
    "art": {
     "kind": "encounter",
     "key": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
+   }
+  },
+  "por.voice.ecl7.b26-a3f8-a42c": {
+   "run": "issue-99-middle-wilderness-a194-merchants-direct-original",
+   "step": 88162549,
+   "art": {
+    "kind": "encounter",
+    "key": "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0"
    }
   }
  },
@@ -5197,11 +5297,41 @@
    "slot": "0x982c",
    "value": "MERCHANTS"
   },
+  "por.voice.ecl7.b26-a376-a38a.variant-01-kobolds": {
+   "run": "issue-99-middle-wilderness-a194-kobolds-abusive-original",
+   "step": 88326524,
+   "slot": "0x982c",
+   "value": "KOBOLDS"
+  },
+  "por.voice.ecl7.b26-a376-a38a.variant-03-driders": {
+   "run": "issue-99-middle-wilderness-a1e5-driders-nice-original",
+   "step": 102629877,
+   "slot": "0x982c",
+   "value": "DRIDERS"
+  },
   "por.voice.ecl7.b26-a3b9-a3df.variant-01-kobolds": {
    "run": "issue-99-middle-wilderness-a194-kobolds-haughty-original",
    "step": 88326657,
    "slot": "0x982c",
    "value": "KOBOLDS"
+  },
+  "por.voice.ecl7.b26-a3b9-a3df.variant-03-driders": {
+   "run": "issue-99-middle-wilderness-a1e5-driders-meek-original",
+   "step": 102629894,
+   "slot": "0x982c",
+   "value": "DRIDERS"
+  },
+  "por.voice.ecl7.b26-a3f8-a42c.variant-07-nomads": {
+   "run": "issue-99-middle-wilderness-a230-nomads-direct-original",
+   "step": 88366384,
+   "slot": "0x982c",
+   "value": "NOMADS"
+  },
+  "por.voice.ecl7.b26-a3f8-a42c.variant-08-merchants": {
+   "run": "issue-99-middle-wilderness-a194-merchants-direct-original",
+   "step": 88162549,
+   "slot": "0x982c",
+   "value": "MERCHANTS"
   }
  },
  "selectors": {
@@ -5513,6 +5643,26 @@
     "unfinished": 0,
     "startedLate": 0
    },
+   "issue-99-middle-wilderness-a194-kobolds-abusive-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-middle-wilderness-a194-kobolds-abusive-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
    "issue-99-middle-wilderness-a194-kobolds-haughty-original": {
     "log": "decisions.playback.jsonl",
     "legs": 1,
@@ -5593,6 +5743,26 @@
     "unfinished": 0,
     "startedLate": 0
    },
+   "issue-99-middle-wilderness-a194-kobolds-sly-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-middle-wilderness-a194-kobolds-sly-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
    "issue-99-middle-wilderness-a194-lizard-men-original": {
     "log": "issue-99-middle-wilderness-a194-lizard-men-original.playback.jsonl",
     "legs": 1,
@@ -5608,6 +5778,26 @@
     "legs": 1,
     "lines": 1,
     "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-middle-wilderness-a194-merchants-direct-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-middle-wilderness-a194-merchants-direct-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
     "endedByPlayer": 0,
     "cutOff": 0,
     "unfinished": 0,
@@ -5693,6 +5883,46 @@
     "unfinished": 0,
     "startedLate": 0
    },
+   "issue-99-middle-wilderness-a1e5-driders-meek-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-middle-wilderness-a1e5-driders-meek-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-middle-wilderness-a1e5-driders-nice-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-middle-wilderness-a1e5-driders-nice-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
    "issue-99-middle-wilderness-a1e5-driders-original": {
     "log": "issue-99-middle-wilderness-a1e5-driders-original.playback.jsonl",
     "legs": 1,
@@ -5708,6 +5938,26 @@
     "legs": 1,
     "lines": 1,
     "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-middle-wilderness-a1e5-driders-sly-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-middle-wilderness-a1e5-driders-sly-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
     "endedByPlayer": 0,
     "cutOff": 0,
     "unfinished": 0,
@@ -5888,6 +6138,26 @@
     "legs": 1,
     "lines": 1,
     "toTheEnd": 1,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-middle-wilderness-a230-nomads-direct-original": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-middle-wilderness-a230-nomads-direct-port": {
+    "log": "decisions.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
     "endedByPlayer": 0,
     "cutOff": 0,
     "unfinished": 0,
@@ -6826,6 +7096,14 @@
     "waited": 0.034,
     "art": "the Moonsea travel map"
    },
+   "por.voice.ecl7.b26-a376-a38a": {
+    "run": "issue-99-middle-wilderness-a1e5-driders-nice-original",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v03-driders.mp3",
+    "variantId": "por.voice.ecl7.b26-a376-a38a.variant-03-driders",
+    "seconds": 5.68,
+    "waited": 0.018,
+    "art": "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0"
+   },
    "por.voice.ecl7.b26-a3b9-a3df": {
     "run": "issue-99-middle-wilderness-a194-kobolds-haughty-original",
     "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v01-kobolds.mp3",
@@ -6833,6 +7111,14 @@
     "seconds": 4.32,
     "waited": 0.131,
     "art": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
+   },
+   "por.voice.ecl7.b26-a3f8-a42c": {
+    "run": "issue-99-middle-wilderness-a194-merchants-direct-original",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v08-merchants.mp3",
+    "variantId": "por.voice.ecl7.b26-a3f8-a42c.variant-08-merchants",
+    "seconds": 6.32,
+    "waited": 0.009,
+    "art": "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0"
    }
   },
   "artChecks": {
@@ -7832,6 +8118,58 @@
     ],
     "end": "the Moonsea travel map"
    },
+   "issue-99-middle-wilderness-a194-kobolds-abusive-original | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
+    "run": "issue-99-middle-wilderness-a194-kobolds-abusive-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a15c-a16e",
+    "variantId": "por.voice.ecl7.b26-a15c-a16e.variant-01-kobolds",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v01-kobolds.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU SPOT A GROUP OF KOBOLDS Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a194-kobolds-abusive-original | chrome | 2 | por.voice.ecl7.b26-a376-a38a": {
+    "run": "issue-99-middle-wilderness-a194-kobolds-abusive-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a376-a38a",
+    "variantId": "por.voice.ecl7.b26-a376-a38a.variant-01-kobolds",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v01-kobolds.mp3",
+    "expected": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0",
+    "caption": "YOU CONVINCE THE KOBOLDS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY. Haughty Sly Nice Meek Abusive",
+    "seen": [
+     "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
+   },
+   "issue-99-middle-wilderness-a194-kobolds-abusive-port | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
+    "run": "issue-99-middle-wilderness-a194-kobolds-abusive-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a15c-a16e",
+    "variantId": "por.voice.ecl7.b26-a15c-a16e.variant-01-kobolds",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v01-kobolds.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU SPOT A GROUP OF KOBOLDS Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a194-kobolds-abusive-port | chrome | 2 | por.voice.ecl7.b26-a376-a38a": {
+    "run": "issue-99-middle-wilderness-a194-kobolds-abusive-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a376-a38a",
+    "variantId": "por.voice.ecl7.b26-a376-a38a.variant-01-kobolds",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v01-kobolds.mp3",
+    "expected": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0",
+    "caption": "YOU CONVINCE THE KOBOLDS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY. Haughty Sly Nice Meek Abusive",
+    "seen": [
+     "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
+   },
    "issue-99-middle-wilderness-a194-kobolds-haughty-original | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
     "run": "issue-99-middle-wilderness-a194-kobolds-haughty-original",
     "leg": "chrome",
@@ -8014,6 +8352,58 @@
     ],
     "end": "the Moonsea travel map"
    },
+   "issue-99-middle-wilderness-a194-kobolds-sly-original | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
+    "run": "issue-99-middle-wilderness-a194-kobolds-sly-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a15c-a16e",
+    "variantId": "por.voice.ecl7.b26-a15c-a16e.variant-01-kobolds",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v01-kobolds.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU SPOT A GROUP OF KOBOLDS Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a194-kobolds-sly-original | chrome | 2 | por.voice.ecl7.b26-a3b9-a3df": {
+    "run": "issue-99-middle-wilderness-a194-kobolds-sly-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a3b9-a3df",
+    "variantId": "por.voice.ecl7.b26-a3b9-a3df.variant-01-kobolds",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v01-kobolds.mp3",
+    "expected": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0",
+    "caption": "YOU HAVE INSULTED THE KOBOLDS.THE KOBOLDS ATTACK YOU IMMEDIATELY! A battle begins...",
+    "seen": [
+     "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
+   },
+   "issue-99-middle-wilderness-a194-kobolds-sly-port | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
+    "run": "issue-99-middle-wilderness-a194-kobolds-sly-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a15c-a16e",
+    "variantId": "por.voice.ecl7.b26-a15c-a16e.variant-01-kobolds",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v01-kobolds.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU SPOT A GROUP OF KOBOLDS Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a194-kobolds-sly-port | chrome | 2 | por.voice.ecl7.b26-a3b9-a3df": {
+    "run": "issue-99-middle-wilderness-a194-kobolds-sly-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a3b9-a3df",
+    "variantId": "por.voice.ecl7.b26-a3b9-a3df.variant-01-kobolds",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v01-kobolds.mp3",
+    "expected": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0",
+    "caption": "YOU HAVE INSULTED THE KOBOLDS.THE KOBOLDS ATTACK YOU IMMEDIATELY! A battle begins...",
+    "seen": [
+     "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0"
+   },
    "issue-99-middle-wilderness-a194-lizard-men-original | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
     "run": "issue-99-middle-wilderness-a194-lizard-men-original",
     "leg": "chrome",
@@ -8039,6 +8429,58 @@
      "the Moonsea travel map"
     ],
     "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a194-merchants-direct-original | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
+    "run": "issue-99-middle-wilderness-a194-merchants-direct-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a15c-a16e",
+    "variantId": "por.voice.ecl7.b26-a15c-a16e.variant-08-merchants",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v08-merchants.mp3",
+    "expected": "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0",
+    "caption": "YOU SPOT A GROUP OF MERCHANTS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0"
+   },
+   "issue-99-middle-wilderness-a194-merchants-direct-original | chrome | 2 | por.voice.ecl7.b26-a3f8-a42c": {
+    "run": "issue-99-middle-wilderness-a194-merchants-direct-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a3f8-a42c",
+    "variantId": "por.voice.ecl7.b26-a3f8-a42c.variant-08-merchants",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v08-merchants.mp3",
+    "expected": "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0",
+    "caption": "THE MERCHANTS GREET YOU AND YOU EXCHANGE PLESANTRIES. THE MERCHANTS THEN LEAVE AND BID YOU GOOD DAY.",
+    "seen": [
+     "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0"
+   },
+   "issue-99-middle-wilderness-a194-merchants-direct-port | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
+    "run": "issue-99-middle-wilderness-a194-merchants-direct-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a15c-a16e",
+    "variantId": "por.voice.ecl7.b26-a15c-a16e.variant-08-merchants",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v08-merchants.mp3",
+    "expected": "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0",
+    "caption": "YOU SPOT A GROUP OF MERCHANTS Combat Wait Flee Parlay",
+    "seen": [
+     "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0"
+   },
+   "issue-99-middle-wilderness-a194-merchants-direct-port | chrome | 2 | por.voice.ecl7.b26-a3f8-a42c": {
+    "run": "issue-99-middle-wilderness-a194-merchants-direct-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a3f8-a42c",
+    "variantId": "por.voice.ecl7.b26-a3f8-a42c.variant-08-merchants",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v08-merchants.mp3",
+    "expected": "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0",
+    "caption": "THE MERCHANTS GREET YOU AND YOU EXCHANGE PLESANTRIES. THE MERCHANTS THEN LEAVE AND BID YOU GOOD DAY.",
+    "seen": [
+     "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0"
    },
    "issue-99-middle-wilderness-a194-merchants-original | chrome | 1 | por.voice.ecl7.b26-a15c-a16e": {
     "run": "issue-99-middle-wilderness-a194-merchants-original",
@@ -8144,6 +8586,110 @@
     ],
     "end": "the Moonsea travel map"
    },
+   "issue-99-middle-wilderness-a1e5-driders-meek-original | chrome | 1 | por.voice.ecl7.b26-a1a6-a1c1": {
+    "run": "issue-99-middle-wilderness-a1e5-driders-meek-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a1a6-a1c1",
+    "variantId": "por.voice.ecl7.b26-a1a6-a1c1.variant-03-driders",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v03-driders.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU ARE SURPRISED BY A GROUP OF DRIDERS Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a1e5-driders-meek-original | chrome | 2 | por.voice.ecl7.b26-a3b9-a3df": {
+    "run": "issue-99-middle-wilderness-a1e5-driders-meek-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a3b9-a3df",
+    "variantId": "por.voice.ecl7.b26-a3b9-a3df.variant-03-driders",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v03-driders.mp3",
+    "expected": "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0",
+    "caption": "YOU HAVE INSULTED THE DRIDERS.THE DRIDERS ATTACK YOU IMMEDIATELY! A battle begins...",
+    "seen": [
+     "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0"
+   },
+   "issue-99-middle-wilderness-a1e5-driders-meek-port | chrome | 1 | por.voice.ecl7.b26-a1a6-a1c1": {
+    "run": "issue-99-middle-wilderness-a1e5-driders-meek-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a1a6-a1c1",
+    "variantId": "por.voice.ecl7.b26-a1a6-a1c1.variant-03-driders",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v03-driders.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU ARE SURPRISED BY A GROUP OF DRIDERS Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a1e5-driders-meek-port | chrome | 2 | por.voice.ecl7.b26-a3b9-a3df": {
+    "run": "issue-99-middle-wilderness-a1e5-driders-meek-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a3b9-a3df",
+    "variantId": "por.voice.ecl7.b26-a3b9-a3df.variant-03-driders",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v03-driders.mp3",
+    "expected": "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0",
+    "caption": "YOU HAVE INSULTED THE DRIDERS.THE DRIDERS ATTACK YOU IMMEDIATELY! A battle begins...",
+    "seen": [
+     "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0"
+   },
+   "issue-99-middle-wilderness-a1e5-driders-nice-original | chrome | 1 | por.voice.ecl7.b26-a1a6-a1c1": {
+    "run": "issue-99-middle-wilderness-a1e5-driders-nice-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a1a6-a1c1",
+    "variantId": "por.voice.ecl7.b26-a1a6-a1c1.variant-03-driders",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v03-driders.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU ARE SURPRISED BY A GROUP OF DRIDERS Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a1e5-driders-nice-original | chrome | 2 | por.voice.ecl7.b26-a376-a38a": {
+    "run": "issue-99-middle-wilderness-a1e5-driders-nice-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a376-a38a",
+    "variantId": "por.voice.ecl7.b26-a376-a38a.variant-03-driders",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v03-driders.mp3",
+    "expected": "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0",
+    "caption": "YOU CONVINCE THE DRIDERS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY. Haughty Sly Nice Meek Abusive",
+    "seen": [
+     "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0"
+   },
+   "issue-99-middle-wilderness-a1e5-driders-nice-port | chrome | 1 | por.voice.ecl7.b26-a1a6-a1c1": {
+    "run": "issue-99-middle-wilderness-a1e5-driders-nice-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a1a6-a1c1",
+    "variantId": "por.voice.ecl7.b26-a1a6-a1c1.variant-03-driders",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v03-driders.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU ARE SURPRISED BY A GROUP OF DRIDERS Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a1e5-driders-nice-port | chrome | 2 | por.voice.ecl7.b26-a376-a38a": {
+    "run": "issue-99-middle-wilderness-a1e5-driders-nice-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a376-a38a",
+    "variantId": "por.voice.ecl7.b26-a376-a38a.variant-03-driders",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v03-driders.mp3",
+    "expected": "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0",
+    "caption": "YOU CONVINCE THE DRIDERS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY. Haughty Sly Nice Meek Abusive",
+    "seen": [
+     "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0"
+   },
    "issue-99-middle-wilderness-a1e5-driders-original | chrome | 1 | por.voice.ecl7.b26-a1a6-a1c1": {
     "run": "issue-99-middle-wilderness-a1e5-driders-original",
     "leg": "chrome",
@@ -8169,6 +8715,58 @@
      "the Moonsea travel map"
     ],
     "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a1e5-driders-sly-original | chrome | 1 | por.voice.ecl7.b26-a1a6-a1c1": {
+    "run": "issue-99-middle-wilderness-a1e5-driders-sly-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a1a6-a1c1",
+    "variantId": "por.voice.ecl7.b26-a1a6-a1c1.variant-03-driders",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v03-driders.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU ARE SURPRISED BY A GROUP OF DRIDERS Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a1e5-driders-sly-original | chrome | 2 | por.voice.ecl7.b26-a376-a38a": {
+    "run": "issue-99-middle-wilderness-a1e5-driders-sly-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a376-a38a",
+    "variantId": "por.voice.ecl7.b26-a376-a38a.variant-03-driders",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v03-driders.mp3",
+    "expected": "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0",
+    "caption": "YOU CONVINCE THE DRIDERS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY. Haughty Sly Nice Meek Abusive",
+    "seen": [
+     "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0"
+   },
+   "issue-99-middle-wilderness-a1e5-driders-sly-port | chrome | 1 | por.voice.ecl7.b26-a1a6-a1c1": {
+    "run": "issue-99-middle-wilderness-a1e5-driders-sly-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a1a6-a1c1",
+    "variantId": "por.voice.ecl7.b26-a1a6-a1c1.variant-03-driders",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v03-driders.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU ARE SURPRISED BY A GROUP OF DRIDERS Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a1e5-driders-sly-port | chrome | 2 | por.voice.ecl7.b26-a376-a38a": {
+    "run": "issue-99-middle-wilderness-a1e5-driders-sly-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a376-a38a",
+    "variantId": "por.voice.ecl7.b26-a376-a38a.variant-03-driders",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v03-driders.mp3",
+    "expected": "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0",
+    "caption": "YOU CONVINCE THE DRIDERS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY. Haughty Sly Nice Meek Abusive",
+    "seen": [
+     "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0"
    },
    "issue-99-middle-wilderness-a1e5-kobolds-original | chrome | 1 | por.voice.ecl7.b26-a1a6-a1c1": {
     "run": "issue-99-middle-wilderness-a1e5-kobolds-original",
@@ -8403,6 +9001,58 @@
      "the Moonsea travel map"
     ],
     "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a230-nomads-direct-original | chrome | 1 | por.voice.ecl7.b26-a1f7-a20c": {
+    "run": "issue-99-middle-wilderness-a230-nomads-direct-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a1f7-a20c",
+    "variantId": "por.voice.ecl7.b26-a1f7-a20c.variant-07-nomads",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v07-nomads.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU SURPRISE A GROUP OF NOMADS Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a230-nomads-direct-original | chrome | 2 | por.voice.ecl7.b26-a3f8-a42c": {
+    "run": "issue-99-middle-wilderness-a230-nomads-direct-original",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a3f8-a42c",
+    "variantId": "por.voice.ecl7.b26-a3f8-a42c.variant-07-nomads",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v07-nomads.mp3",
+    "expected": "encounter:area:26:ecl:a230:SPRIT7.DAX:11:1:0",
+    "caption": "THE NOMADS GREET YOU AND YOU EXCHANGE PLESANTRIES. THE NOMADS THEN LEAVE AND BID YOU GOOD DAY.",
+    "seen": [
+     "encounter:area:26:ecl:a230:SPRIT7.DAX:11:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a230:SPRIT7.DAX:11:1:0"
+   },
+   "issue-99-middle-wilderness-a230-nomads-direct-port | chrome | 1 | por.voice.ecl7.b26-a1f7-a20c": {
+    "run": "issue-99-middle-wilderness-a230-nomads-direct-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a1f7-a20c",
+    "variantId": "por.voice.ecl7.b26-a1f7-a20c.variant-07-nomads",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v07-nomads.mp3",
+    "expected": "the Moonsea travel map",
+    "caption": "YOU SURPRISE A GROUP OF NOMADS Cast View Encamp Search Look",
+    "seen": [
+     "the Moonsea travel map"
+    ],
+    "end": "the Moonsea travel map"
+   },
+   "issue-99-middle-wilderness-a230-nomads-direct-port | chrome | 2 | por.voice.ecl7.b26-a3f8-a42c": {
+    "run": "issue-99-middle-wilderness-a230-nomads-direct-port",
+    "leg": "chrome",
+    "unitId": "por.voice.ecl7.b26-a3f8-a42c",
+    "variantId": "por.voice.ecl7.b26-a3f8-a42c.variant-07-nomads",
+    "asset": "voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v07-nomads.mp3",
+    "expected": "encounter:area:26:ecl:a230:SPRIT7.DAX:11:1:0",
+    "caption": "THE NOMADS GREET YOU AND YOU EXCHANGE PLESANTRIES. THE NOMADS THEN LEAVE AND BID YOU GOOD DAY.",
+    "seen": [
+     "encounter:area:26:ecl:a230:SPRIT7.DAX:11:1:0"
+    ],
+    "end": "encounter:area:26:ecl:a230:SPRIT7.DAX:11:1:0"
    },
    "issue-99-middle-wilderness-a230-nomads-original | chrome | 1 | por.voice.ecl7.b26-a1f7-a20c": {
     "run": "issue-99-middle-wilderness-a230-nomads-original",

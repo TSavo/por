@@ -46,6 +46,8 @@ try {
     outcome = await chrome.nextFrame();
   }
   const result = caption(outcome);
+  const animation = await chrome.evaluate("state.animation?.filter(clip => clip.narrations?.length).map(clip => ({ text: clip.text })) ?? []");
+  const printed = [result, ...animation.map(caption)];
   writeFileSync(join(output, "parlay.png"), await chrome.screenshot());
   await chrome.waitForNarration("end of parlay");
   const lines = await chrome.evaluate(`porNarrationPlayback().lines.slice(${priorLines}).filter(line => line.variantId)`);
@@ -53,7 +55,7 @@ try {
   assert.ok(actor);
   const matches = lines.filter(line => {
     const variant = variants.get(line.variantId);
-    return variant && variant.dynamicValue.trim() === actor && result.includes(compact(variant.text));
+    return variant && variant.dynamicValue.trim() === actor && printed.some(text => text.includes(compact(variant.text)));
   });
   assert.equal(matches.length, 1, `Expected one voiced response for ${actor} at ${result}`);
   const [voice] = matches;
@@ -69,6 +71,11 @@ try {
     assert.equal(await chrome.evaluate('Boolean(state.battleTiles?.length || state.combatArt?.length) && !state.encounter && !document.querySelector("#tile-art .encounter-sprite")'), true,
       "The battlefield must replace the held parlay picture");
     writeFileSync(join(output, "battlefield.png"), await chrome.screenshot());
+  } else {
+    assert.ok(result.includes("CASTVIEWENCAMPSEARCHLOOK"), "Peaceful parlay returns to travel");
+    assert.deepEqual(voice.artSeen, [approachActor]);
+    assert.equal(voice.artAtEnd, approachActor);
+    assert.equal(await chrome.evaluate('!state.encounter && !document.querySelector("#travel-map").hidden'), true);
   }
   assert.equal(voice.asset, variant.asset);
   assert.ok(compact(voice.caption).includes(compact(variant.text)));
