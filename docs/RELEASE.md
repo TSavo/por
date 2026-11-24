@@ -433,8 +433,7 @@ checked by its binaries only (it cannot run on this Intel Mac).
 
 ## Known gaps
 
-- Windows, not yet run as this Electron install: an elevated install to Program Files, the Start Menu
-  and desktop shortcuts, the uninstall entry, SmartScreen's prompt, and the finish page's Play.
+- The internal Alpha 1 Windows installer registered version `0.1.0-alpha.1` and its chosen destination on a clean Windows Server 2022 runner. Its Start Menu shortcut opened the game window in 1.81 seconds. Manual checks remain for the default Program Files destination, desktop shortcut, SmartScreen prompt, and finish page Play action. [Windows installation test](https://github.com/TSavo/por/actions/runs/45293360307)
 - The historical notes above describe the earlier Node launcher, which opened the game in a browser.
   The current packages are the Electron app.
 
