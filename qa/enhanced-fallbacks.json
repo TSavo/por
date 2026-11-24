@@ -304,6 +304,12 @@
    "frames": [],
    "fixtureSha256": "7ee4c3b2355a5f718f189b8a4d9ecab3ba4c05a87606b4378cb4e1e3992b9f69"
   },
+  "walk-zhentil-clerk": {
+   "observer": 2,
+   "presented": 311,
+   "frames": [],
+   "fixtureSha256": "1538469c6f4592f573d6bcfe8a347fb4b2a0b1fdc38befcde832eecd21ecbe64"
+  },
   "walk-zhentil-envoy": {
    "observer": 2,
    "presented": 250,
