@@ -249,8 +249,10 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
         const picture = this.read8(this.ss, (this.sp + 6) & 0xffff);
         nativeCombat?.overwriteTile(column, row);
         nativeSelection?.overwriteTile(column, row);
-        nativeBattleTerrain?.draw(column, row, picture);
-        if (captureBattleTerrain && this.read8(this.ss, (this.sp + 4) & 0xffff) === 1) {
+        const prop = nativeBattleTerrain?.draw(column, row, picture);
+        // RANDCOM props can follow the first terrain pass. The actor matcher needs that completed
+        // backdrop when a standing party member shares the square with a fallen combatant.
+        if (captureBattleTerrain && (prop || this.read8(this.ss, (this.sp + 4) & 0xffff) === 1)) {
           const overland = traceBattleDraw && returnsTo(this, 0, code.overlandTerrainDrawResumes);
           captureBattleTerrain(this, column, row, picture, overland ? "overland" : "combat");
         }

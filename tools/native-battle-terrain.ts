@@ -57,6 +57,7 @@ export function observeNativeBattleTerrain(pictures: readonly PictureRecord[], a
           else visible.delete(cell);
         }
       }
+      return source?.prop;
     },
     reset() { visible.clear(); props.clear(); },
     placements() { return [...visible.values()]; },
