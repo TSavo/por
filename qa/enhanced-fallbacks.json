@@ -214,6 +214,68 @@
    "frames": [],
    "fixtureSha256": "08e3075d51b254f63d92b69eb14020968532dad4ebaafda471a7f385161b6b8a"
   },
+  "walk-guide-party-graveyard": {
+   "observer": 2,
+   "presented": 367,
+   "frames": [],
+   "fixtureSha256": "c57157e6277c826c1280c5919a609a9459008fc127b92ac8a5fcdca2fb1099a3"
+  },
+  "walk-guide-party-graveyard-training": {
+   "observer": 2,
+   "presented": 705,
+   "frames": [
+    {
+     "sequence": 38,
+     "animation": false,
+     "keys": [
+      "surface:area:11:first-person"
+     ]
+    },
+    {
+     "sequence": 39,
+     "animation": false,
+     "keys": [
+      "surface:area:11:first-person"
+     ]
+    },
+    {
+     "sequence": 41,
+     "animation": false,
+     "keys": [
+      "surface:area:11:first-person"
+     ]
+    },
+    {
+     "sequence": 43,
+     "animation": false,
+     "keys": [
+      "surface:area:11:first-person"
+     ]
+    },
+    {
+     "sequence": 63,
+     "animation": false,
+     "keys": [
+      "surface:area:11:first-person"
+     ]
+    },
+    {
+     "sequence": 64,
+     "animation": false,
+     "keys": [
+      "surface:area:11:first-person"
+     ]
+    },
+    {
+     "sequence": 66,
+     "animation": false,
+     "keys": [
+      "surface:area:11:first-person"
+     ]
+    }
+   ],
+   "fixtureSha256": "781164dae1ef411a4dbc9dd570c6bce5c0148d71b8b470ef197de34348612c9e"
+  },
   "walk-guide-party-kovel": {
    "observer": 2,
    "presented": 751,
