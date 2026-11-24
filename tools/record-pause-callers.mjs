@@ -63,6 +63,16 @@ function merge(files) {
       const before = found.get(key);
       if (!before || (before.shown && !line.shown)) found.set(key, line);
     }
+    // A full replay also supersedes a prior sample from this walk when the corrected
+    // trace has no message at that call. An interrupted walk cannot disprove a sample.
+    for (const { walk, source } of all.filter(line => line.replayed && Number.isInteger(line.of) && line.commands === line.of)) {
+      for (const [id, samples] of Object.entries(evidence)) {
+        if (samples[source]?.walk === walk && !found.has(`${id}\n${walk}\n${source}`)) {
+          delete samples[source];
+          if (!Object.keys(samples).length) delete evidence[id];
+        }
+      }
+    }
     for (const { id, source, walk, text, shown, missing, pageHad } of found.values()) {
       const kept = (evidence[id] ??= {})[source];
       if (!kept || kept.walk === walk || (kept.shown && !shown)) evidence[id][source] = { walk, text, shown, ...(shown ? {} : { missing, pageHad }) };

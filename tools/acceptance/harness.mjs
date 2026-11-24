@@ -41,7 +41,12 @@ export function screenRows(frame) {
  */
 export function pauseMessage(pause, before) {
   const cells = new Map((before?.text ?? []).map(([cell, character]) => [cell, character]));
-  return pause.text.filter(([cell, character]) => character > 32 && cells.get(cell) !== character);
+  // A change of turn replaces the top of the combat panel (name, HP, AC and weapon).
+  // The native combat report starts on row 10. Keep the menu and the rest of the screen.
+  const rows = screenRows(pause);
+  const combat = /^ {23}Hitpoints \d+ *$/.test(rows[3]) && /^ {23}AC -?\d+ *$/.test(rows[5]);
+  return pause.text.filter(([cell, character]) =>
+    character > 32 && cells.get(cell) !== character && !(combat && cell < 400 && cell % 40 >= 23));
 }
 
 /**

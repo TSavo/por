@@ -230,26 +230,6 @@
     "shown": true
    }
   },
-  "slice 13 +617": {
-   "original": {
-    "walk": "qa/fixtures/walk-kobold-king",
-    "text": [
-     "                       ALDA",
-     "                       Hitpoints 6",
-     "                       AC 5"
-    ],
-    "shown": true
-   },
-   "port": {
-    "walk": "qa/fixtures/walk-kobold-king",
-    "text": [
-     "                       ALDA",
-     "                       Hitpoints 6",
-     "                       AC 5"
-    ],
-    "shown": true
-   }
-  },
   "slice 14 +923": {
    "original": {
     "walk": "qa/fixtures/walk-yarash-pyramid",
