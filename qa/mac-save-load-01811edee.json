@@ -1,0 +1,287 @@
+{
+  "commit": "01811edee3bd5d2ef31c881d800f647045814d4e",
+  "dmgSha256": "c1efbfd6a470f89102f63987bccc9bf912e3938b88a855301c80b9166de677b6",
+  "executableSha256": "9020cea08acfb2f8c9c7a528e6e3492fea8ec61bba5376769a08734eb75069e9",
+  "installation": "Separate QA app APFS-cloned from sealed package staging; deep/strict codesign verification passed; ad-hoc signature. Separate profile, bundled game data.",
+  "actions": [
+    "Import tracked visit-training-hall A fixture",
+    "Native File Load shortcut Cmd+O, choose A",
+    "Native File Save shortcut Cmd+S, choose new B",
+    "Answer No to quit-to-DOS, exit camp",
+    "Native Right rotates West to North",
+    "Native File Load Cmd+O, confirm unsaved progress, choose B",
+    "Native Cmd+Q; verified main process absent",
+    "Relaunch same app/profile, native Cmd+O, choose B"
+  ],
+  "result": "passed",
+  "scope": "Save/load persistence on exact candidate; does not close global #103 because separate pinned wheel verifier failed. Initial dependency symlink caused dirty build label; that run was stopped, replaced by ignored directory, and rebuilt from clean checkout.",
+  "observations": {
+    "baseline": {
+      "ready": true,
+      "text": " Name AC HP ALDA 10 6 BRIN 8 6 CORA 10 6 DORN 10 8 ENNA 9 6 FENN 9 8 0,4 W 00:00 Area Cast View Encamp Search Look ",
+      "exploration": {
+        "area": 0,
+        "x": 0,
+        "y": 4,
+        "facing": 6,
+        "cameraX": 0,
+        "cameraY": 4,
+        "walls": [
+          0,
+          0,
+          4,
+          1
+        ],
+        "passage": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "saved": {
+      "slot": "SAVE\\SAVGAMB.DAT",
+      "digest": "bb5b9886e402a4d54e86643b4bb0255abe28dc515efc079627ad18971f3dcb90",
+      "byteLength": 21104,
+      "partyFiles": [
+        "SAVE\\CHRDATB1.SAV",
+        "SAVE\\CHRDATB1.SPC",
+        "SAVE\\CHRDATB2.SAV",
+        "SAVE\\CHRDATB2.SPC",
+        "SAVE\\CHRDATB3.SAV",
+        "SAVE\\CHRDATB3.SPC",
+        "SAVE\\CHRDATB4.SAV",
+        "SAVE\\CHRDATB4.SPC",
+        "SAVE\\CHRDATB5.SAV",
+        "SAVE\\CHRDATB5.SPC",
+        "SAVE\\CHRDATB6.SAV",
+        "SAVE\\CHRDATB6.SPC"
+      ],
+      "leads": [
+        {
+          "id": "council-commissions",
+          "title": "Council commissions",
+          "detail": "Rolf says to read the proclamations at City Hall and ask the clerk about commissions."
+        },
+        {
+          "id": "phlan-training-schools",
+          "title": "Training in New Phlan",
+          "detail": "Rolf showed the party where adventurers train. Return to the training schools when a character is ready to advance."
+        },
+        {
+          "id": "harbor-trade",
+          "title": "The sea lanes",
+          "detail": "Rolf says few ships risk the passage and the council wants to reopen it."
+        }
+      ],
+      "text": " Name AC HP ALDA 10 6 BRIN 8 6 CORA 10 6 DORN 10 8 ENNA 9 6 FENN 9 8 0,4 W 00:00 camping The party makes camp... Quit TO DOS Yes No ",
+      "sequence": 7,
+      "saveSlot": "B",
+      "saveSlotAction": "save"
+    },
+    "before-move": {
+      "slot": "SAVE\\SAVGAMB.DAT",
+      "digest": "bb5b9886e402a4d54e86643b4bb0255abe28dc515efc079627ad18971f3dcb90",
+      "byteLength": 21104,
+      "partyFiles": [
+        "SAVE\\CHRDATB1.SAV",
+        "SAVE\\CHRDATB1.SPC",
+        "SAVE\\CHRDATB2.SAV",
+        "SAVE\\CHRDATB2.SPC",
+        "SAVE\\CHRDATB3.SAV",
+        "SAVE\\CHRDATB3.SPC",
+        "SAVE\\CHRDATB4.SAV",
+        "SAVE\\CHRDATB4.SPC",
+        "SAVE\\CHRDATB5.SAV",
+        "SAVE\\CHRDATB5.SPC",
+        "SAVE\\CHRDATB6.SAV",
+        "SAVE\\CHRDATB6.SPC"
+      ],
+      "leads": [
+        {
+          "id": "council-commissions",
+          "title": "Council commissions",
+          "detail": "Rolf says to read the proclamations at City Hall and ask the clerk about commissions."
+        },
+        {
+          "id": "phlan-training-schools",
+          "title": "Training in New Phlan",
+          "detail": "Rolf showed the party where adventurers train. Return to the training schools when a character is ready to advance."
+        },
+        {
+          "id": "harbor-trade",
+          "title": "The sea lanes",
+          "detail": "Rolf says few ships risk the passage and the council wants to reopen it."
+        }
+      ],
+      "exploration": {
+        "area": 0,
+        "x": 0,
+        "y": 4,
+        "facing": 6,
+        "cameraX": 0,
+        "cameraY": 4,
+        "walls": [
+          0,
+          0,
+          4,
+          1
+        ],
+        "passage": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "text": " Name AC HP ALDA 10 6 BRIN 8 6 CORA 10 6 DORN 10 8 ENNA 9 6 FENN 9 8 0,4 W 00:00 Area Cast View Encamp Search Look ",
+      "sequence": 9,
+      "saveSlot": "B",
+      "saveSlotAction": "save"
+    },
+    "changed": {
+      "text": " Name AC HP ALDA 10 6 BRIN 8 6 CORA 10 6 DORN 10 8 ENNA 9 6 FENN 9 8 0,4 N 00:00 Area Cast View Encamp Search Look ",
+      "exploration": {
+        "area": 0,
+        "x": 0,
+        "y": 4,
+        "facing": 0,
+        "cameraX": 0,
+        "cameraY": 4,
+        "walls": [
+          0,
+          0,
+          4,
+          1
+        ],
+        "passage": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "reloaded": {
+      "slot": "SAVE\\SAVGAMB.DAT",
+      "digest": "bb5b9886e402a4d54e86643b4bb0255abe28dc515efc079627ad18971f3dcb90",
+      "byteLength": 21104,
+      "partyFiles": [
+        "SAVE\\CHRDATB1.SAV",
+        "SAVE\\CHRDATB1.SPC",
+        "SAVE\\CHRDATB2.SAV",
+        "SAVE\\CHRDATB2.SPC",
+        "SAVE\\CHRDATB3.SAV",
+        "SAVE\\CHRDATB3.SPC",
+        "SAVE\\CHRDATB4.SAV",
+        "SAVE\\CHRDATB4.SPC",
+        "SAVE\\CHRDATB5.SAV",
+        "SAVE\\CHRDATB5.SPC",
+        "SAVE\\CHRDATB6.SAV",
+        "SAVE\\CHRDATB6.SPC"
+      ],
+      "leads": [
+        {
+          "id": "council-commissions",
+          "title": "Council commissions",
+          "detail": "Rolf says to read the proclamations at City Hall and ask the clerk about commissions."
+        },
+        {
+          "id": "phlan-training-schools",
+          "title": "Training in New Phlan",
+          "detail": "Rolf showed the party where adventurers train. Return to the training schools when a character is ready to advance."
+        },
+        {
+          "id": "harbor-trade",
+          "title": "The sea lanes",
+          "detail": "Rolf says few ships risk the passage and the council wants to reopen it."
+        }
+      ],
+      "exploration": {
+        "area": 0,
+        "x": 0,
+        "y": 4,
+        "facing": 6,
+        "cameraX": 0,
+        "cameraY": 4,
+        "walls": [
+          0,
+          0,
+          4,
+          1
+        ],
+        "passage": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "text": " Name AC HP ALDA 10 6 BRIN 8 6 CORA 10 6 DORN 10 8 ENNA 9 6 FENN 9 8 0,4 W 00:00 Area Cast View Encamp Search Look ",
+      "sequence": 4,
+      "saveSlot": "B",
+      "saveSlotAction": "load"
+    },
+    "restarted": {
+      "slot": "SAVE\\SAVGAMB.DAT",
+      "digest": "bb5b9886e402a4d54e86643b4bb0255abe28dc515efc079627ad18971f3dcb90",
+      "byteLength": 21104,
+      "partyFiles": [
+        "SAVE\\CHRDATB1.SAV",
+        "SAVE\\CHRDATB1.SPC",
+        "SAVE\\CHRDATB2.SAV",
+        "SAVE\\CHRDATB2.SPC",
+        "SAVE\\CHRDATB3.SAV",
+        "SAVE\\CHRDATB3.SPC",
+        "SAVE\\CHRDATB4.SAV",
+        "SAVE\\CHRDATB4.SPC",
+        "SAVE\\CHRDATB5.SAV",
+        "SAVE\\CHRDATB5.SPC",
+        "SAVE\\CHRDATB6.SAV",
+        "SAVE\\CHRDATB6.SPC"
+      ],
+      "leads": [
+        {
+          "id": "council-commissions",
+          "title": "Council commissions",
+          "detail": "Rolf says to read the proclamations at City Hall and ask the clerk about commissions."
+        },
+        {
+          "id": "phlan-training-schools",
+          "title": "Training in New Phlan",
+          "detail": "Rolf showed the party where adventurers train. Return to the training schools when a character is ready to advance."
+        },
+        {
+          "id": "harbor-trade",
+          "title": "The sea lanes",
+          "detail": "Rolf says few ships risk the passage and the council wants to reopen it."
+        }
+      ],
+      "exploration": {
+        "area": 0,
+        "x": 0,
+        "y": 4,
+        "facing": 6,
+        "cameraX": 0,
+        "cameraY": 4,
+        "walls": [
+          0,
+          0,
+          4,
+          1
+        ],
+        "passage": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "text": " Name AC HP ALDA 10 6 BRIN 8 6 CORA 10 6 DORN 10 8 ENNA 9 6 FENN 9 8 0,4 W 00:00 Area Cast View Encamp Search Look ",
+      "sequence": 4,
+      "saveSlot": "B",
+      "saveSlotAction": "load"
+    }
+  }
+}
