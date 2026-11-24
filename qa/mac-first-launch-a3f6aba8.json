@@ -1,0 +1,31 @@
+{
+  "build": "a3f6aba8e6cb039174149f3e4c308b36f80d16d4",
+  "method": "First launch of separately copied signed-stage local app, fresh isolated timing profile, no quarantine attribute. Full quit then second launch. No packaging concurrent. proc_pidpath process observation, NSRunningApplication registration observation, on-screen normal-layer window at least320x200.",
+  "dmgSha256": "015dd82637d8b65b9482a22fb51a577a060c3640c8d8736c0703eed10537ce29",
+  "samples": [
+    {
+      "attempt": 1,
+      "pid": 2069,
+      "startUTC": "2026-11-24T01:26:02Z",
+      "processSeconds": 0.232977,
+      "nsRunningApplicationSeconds": 0.265629,
+      "windowSeconds": 44.006199
+    },
+    {
+      "attempt": 2,
+      "pid": 2249,
+      "startUTC": "2026-11-24T01:26:47Z",
+      "processSeconds": 0.623509,
+      "nsRunningApplicationSeconds": 0.469022,
+      "windowSeconds": 6.45752
+    }
+  ],
+  "securityEvidence": [
+    "17:26:02.599 PST: amfid -423 ad-hoc or unknown certificate chain for main executable",
+    "17:26:39.038 PST: syspolicyd GK evaluateScanResult2",
+    "17:26:39.070 PST: syspolicyd provenance tracking for PID2069",
+    "17:26:39.755 PST: launchservicesd CHECKIN PID2069",
+    "17:26:45.162 PST: game renderer log POR_GAME_DATA port res:game"
+  ],
+  "interpretation": "NSRunningApplication can report the process before actual app check-in. The first-launch system assessment preceded actual check-in and game startup; earlier fresh3b copy was sampled at _dyld_start during its similar delay. Signing/notarization is tracked separately in #105. This does not prove the exact cause of every historical delay or claim the delay is fixed."
+}
