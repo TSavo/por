@@ -19605,6 +19605,21 @@ try {
     await awaitSpokenFrame();
     const playback = await run("porNarrationPlayback()");
     saveNarrationPlayback(directory, playback);
+    const singlePrint = {
+      "mendor-natural-philosophy": ["ecl2-b15-9f1c", "YOU FIND WORKS ON NATURAL PHILOSOPHY, THEORIES OF ART, AND THE SUPERNATURAL SCIENCES. IT IS VERY BORING."],
+      "buccaneer-pens": ["ecl6-b1-997c", "ANIMALS ARE RUNNING ALL OVER THE COMPOUND."],
+    }[routeName];
+    if (singlePrint) {
+      const [unit, caption] = singlePrint;
+      const lines = playback.lines.filter(line => line.unitId === unit);
+      assert.ok(lines.length, `Missing narration for ${unit}`);
+      for (const line of lines) {
+        assert.ok(line.caption.includes(caption), line.caption);
+        assert.equal(line.outcome, "ended");
+        assert.ok(line.duration > 0 && line.position >= line.duration - 0.25);
+        assert.deepEqual(line.artSeen, ["the first-person view"]);
+      }
+    }
     if (routeName === "valjevo-outer-patrol-disguise") {
       const intro = [
         ["por.voice.ecl5.b3-9cb7-9cbb", "A PATROL OF GIANTS LED BY A HUMAN FIGHTER SURPRISES YOU."],

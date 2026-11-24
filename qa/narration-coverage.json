@@ -134,6 +134,18 @@
    "decisions": 3,
    "heard": 1
   },
+  "issue-99-buccaneer-pens-original": {
+   "ledger": "issue-99-buccaneer-pens-original.jsonl",
+   "games": 1,
+   "decisions": 25,
+   "heard": 21
+  },
+  "issue-99-buccaneer-pens-port": {
+   "ledger": "issue-99-buccaneer-pens-port.jsonl",
+   "games": 1,
+   "decisions": 25,
+   "heard": 21
+  },
   "issue-99-landmark-zhentil-thri-kreens-original": {
    "ledger": "issue-99-landmark-zhentil-thri-kreens-original.jsonl",
    "games": 1,
@@ -169,6 +181,30 @@
    "games": 1,
    "decisions": 5,
    "heard": 2
+  },
+  "issue-99-mendor-natural-philosophy-original": {
+   "ledger": "issue-99-mendor-natural-philosophy-original.jsonl",
+   "games": 1,
+   "decisions": 7,
+   "heard": 2
+  },
+  "issue-99-mendor-natural-philosophy-port": {
+   "ledger": "issue-99-mendor-natural-philosophy-port.jsonl",
+   "games": 1,
+   "decisions": 7,
+   "heard": 2
+  },
+  "issue-99-mendor-philosophy-stacks-original": {
+   "ledger": "issue-99-mendor-philosophy-stacks-original.jsonl",
+   "games": 1,
+   "decisions": 4,
+   "heard": 1
+  },
+  "issue-99-mendor-philosophy-stacks-port": {
+   "ledger": "issue-99-mendor-philosophy-stacks-port.jsonl",
+   "games": 1,
+   "decisions": 4,
+   "heard": 1
   },
   "issue-99-mendor-rhetoric-stacks-arrival-original": {
    "ledger": "issue-99-mendor-rhetoric-stacks-arrival-original.jsonl",
@@ -1218,12 +1254,28 @@
     "key": "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:rhetoric-stacks"
    }
   },
+  "ecl2-b15-9d77-9e43-sign-philosophy": {
+   "run": "issue-99-mendor-natural-philosophy-original",
+   "step": 87480820,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:15:ecl:99b5:caller:9de1"
+   }
+  },
   "ecl2-b15-9d77-9e50-sign-mathematics": {
    "run": "issue-99-mendor-mathematics-stacks-arrival-original",
    "step": 94411807,
    "art": {
     "kind": "portrait",
     "key": "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:mathematics-stacks"
+   }
+  },
+  "ecl2-b15-9f1c": {
+   "run": "issue-99-mendor-natural-philosophy-original",
+   "step": 88095938,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:15:ecl:9956:caller:9f71:cue:natural-philosophy"
    }
   },
   "ecl2-b15-a6b2": {
@@ -1985,6 +2037,78 @@
    "art": {
     "kind": "view",
     "key": "the first-person view"
+   }
+  },
+  "ecl6-b1-997c": {
+   "run": "issue-99-buccaneer-pens-original",
+   "step": 103232266,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl6-b1-9ad7": {
+   "run": "issue-99-buccaneer-pens-original",
+   "step": 127434245,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:1:ecl:9b01:HEAD6.DAX:6:BODY6.DAX:3"
+   }
+  },
+  "ecl6-b1-9d74": {
+   "run": "issue-99-buccaneer-pens-original",
+   "step": 87222038,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl6-b1-a994": {
+   "run": "issue-99-buccaneer-pens-original",
+   "step": 121797513,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl6-b1-b333": {
+   "run": "issue-99-buccaneer-pens-original",
+   "step": 98302302,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl6-b1-b39c-b3f6-first-release": {
+   "run": "issue-99-buccaneer-pens-original",
+   "step": 99062847,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:1:ecl:b5f7:caller:b3eb"
+   }
+  },
+  "ecl6-b1-b4a2": {
+   "run": "issue-99-buccaneer-pens-original",
+   "step": 110507773,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl6-b1-b4db": {
+   "run": "issue-99-buccaneer-pens-original",
+   "step": 116457046,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:1:ecl:b52f:PIC6.DAX:42:0:0"
+   }
+  },
+  "ecl6-b1-b53b": {
+   "run": "issue-99-buccaneer-pens-original",
+   "step": 117447976,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:1:ecl:b5a5:cue:bivant-leaves-pen"
    }
   },
   "ecl6-b19-999c": {
@@ -5962,6 +6086,12 @@
    "unitId": "por.voice.ecl5.b7-a56c-operand-9",
    "value": 9
   },
+  "por.review.ecl-6.block-1.at-b39c": {
+   "run": "issue-99-buccaneer-pens-original",
+   "step": 99062847,
+   "unitId": "ecl6-b1-b39c-b3f6-first-release",
+   "value": 0
+  },
   "por.review.ecl-7.block-17.at-9c26": {
    "run": "issue-99-nomad-raid-retreat-cues-original",
    "step": 113944097,
@@ -6214,6 +6344,26 @@
     "unfinished": 0,
     "startedLate": 0
    },
+   "issue-99-buccaneer-pens-original": {
+    "log": "issue-99-buccaneer-pens-original.playback.jsonl",
+    "legs": 1,
+    "lines": 21,
+    "toTheEnd": 20,
+    "endedByPlayer": 1,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-buccaneer-pens-port": {
+    "log": "issue-99-buccaneer-pens-port.playback.jsonl",
+    "legs": 1,
+    "lines": 21,
+    "toTheEnd": 21,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
    "issue-99-landmark-zhentil-thri-kreens-original": {
     "log": "issue-99-landmark-zhentil-thri-kreens-original.playback.jsonl",
     "legs": 1,
@@ -6269,6 +6419,46 @@
     "legs": 1,
     "lines": 2,
     "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-mendor-natural-philosophy-original": {
+    "log": "issue-99-mendor-natural-philosophy-original.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-mendor-natural-philosophy-port": {
+    "log": "issue-99-mendor-natural-philosophy-port.playback.jsonl",
+    "legs": 1,
+    "lines": 2,
+    "toTheEnd": 2,
+    "endedByPlayer": 0,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-mendor-philosophy-stacks-original": {
+    "log": "issue-99-mendor-philosophy-stacks-original.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 0,
+    "endedByPlayer": 1,
+    "cutOff": 0,
+    "unfinished": 0,
+    "startedLate": 0
+   },
+   "issue-99-mendor-philosophy-stacks-port": {
+    "log": "issue-99-mendor-philosophy-stacks-port.playback.jsonl",
+    "legs": 1,
+    "lines": 1,
+    "toTheEnd": 1,
     "endedByPlayer": 0,
     "cutOff": 0,
     "unfinished": 0,
@@ -7270,12 +7460,26 @@
     "waited": 0.052,
     "art": "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:rhetoric-stacks"
    },
+   "ecl2-b15-9d77-9e43-sign-philosophy": {
+    "run": "issue-99-mendor-natural-philosophy-original",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-9d77-9e43-sign-philosophy.mp3",
+    "seconds": 9.28,
+    "waited": 0.006,
+    "art": "scene-illustration:area:15:ecl:99b5:caller:9de1"
+   },
    "ecl2-b15-9d77-9e50-sign-mathematics": {
     "run": "issue-99-mendor-mathematics-stacks-arrival-port",
     "asset": "voices/narration/ecl2/block-15/ecl2-b15-9d77-9e50-sign-mathematics.mp3",
     "seconds": 9.36,
     "waited": 0.008,
     "art": "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:mathematics-stacks"
+   },
+   "ecl2-b15-9f1c": {
+    "run": "issue-99-mendor-natural-philosophy-original",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-9f1c.mp3",
+    "seconds": 8,
+    "waited": 0.146,
+    "art": "the first-person view"
    },
    "ecl2-b15-a6b2": {
     "run": "issue-99-mendor-library-stacks-original",
@@ -7340,6 +7544,69 @@
     "seconds": 3.44,
     "waited": 0.062,
     "art": "the first-person view"
+   },
+   "ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-original",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "seconds": 3.28,
+    "waited": 0.187,
+    "art": "the first-person view"
+   },
+   "ecl6-b1-9ad7": {
+    "run": "issue-99-buccaneer-pens-original",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-9ad7.mp3",
+    "seconds": 2.96,
+    "waited": 0.031,
+    "art": "portrait:area:1:ecl:9b01:HEAD6.DAX:6:BODY6.DAX:3"
+   },
+   "ecl6-b1-9d74": {
+    "run": "issue-99-buccaneer-pens-original",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-9d74.mp3",
+    "seconds": 2.88,
+    "waited": 0.2,
+    "art": "the first-person view"
+   },
+   "ecl6-b1-a994": {
+    "run": "issue-99-buccaneer-pens-original",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-a994.mp3",
+    "seconds": 3.68,
+    "waited": 0.018,
+    "art": "the first-person view"
+   },
+   "ecl6-b1-b333": {
+    "run": "issue-99-buccaneer-pens-original",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-b333.mp3",
+    "seconds": 5.76,
+    "waited": 0.277,
+    "art": "the first-person view"
+   },
+   "ecl6-b1-b39c-b3f6-first-release": {
+    "run": "issue-99-buccaneer-pens-port",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-b39c-b3f6-first-release.mp3",
+    "seconds": 13.84,
+    "waited": 0.05,
+    "art": "scene-illustration:area:1:ecl:b5f7:caller:b3eb"
+   },
+   "ecl6-b1-b4a2": {
+    "run": "issue-99-buccaneer-pens-original",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-b4a2.mp3",
+    "seconds": 3.04,
+    "waited": 0.035,
+    "art": "the first-person view"
+   },
+   "ecl6-b1-b4db": {
+    "run": "issue-99-buccaneer-pens-original",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-b4db.mp3",
+    "seconds": 6.08,
+    "waited": 0.046,
+    "art": "portrait:area:1:ecl:b52f:PIC6.DAX:42:0:0"
+   },
+   "ecl6-b1-b53b": {
+    "run": "issue-99-buccaneer-pens-original",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-b53b.mp3",
+    "seconds": 5.68,
+    "waited": 0.015,
+    "art": "scene-illustration:area:1:ecl:b5a5:cue:bivant-leaves-pen"
    },
    "ecl6-b25-a1c7-a1dc-a1e0": {
     "run": "issue-99-wetland-tigers-original",
@@ -9278,6 +9545,498 @@
     ],
     "end": "the overland terrain"
    },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 1 | ecl6-b1-9d74": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-9d74",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-9d74.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU ARE IN THE MERCHANTS' CAMP AREA. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 10 | ecl6-b1-b4a2": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-b4a2",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-b4a2.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU ARE NEAR THE GATE TO THE SLAVE PEN. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 11 | ecl6-b1-b4db": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-b4db",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-b4db.mp3",
+    "expected": "portrait:area:1:ecl:b52f:PIC6.DAX:42:0:0",
+    "caption": "YOU ARE IN THE SLAVE PEN. STANDING NEAR YOU IS THE YOUNG BOY. WHAT WILL YOU DO? Get him Leave",
+    "seen": [
+     "portrait:area:1:ecl:b52f:PIC6.DAX:42:0:0"
+    ],
+    "end": "portrait:area:1:ecl:b52f:PIC6.DAX:42:0:0"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 12 | ecl6-b1-b53b": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-b53b",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-b53b.mp3",
+    "expected": "scene-illustration:area:1:ecl:b5a5:cue:bivant-leaves-pen",
+    "caption": "YOU TAKE THE YOUNG BOY AND LEAVE. THE OTHER SLAVES ALSO RUN OUT THE SLAVE PEN. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:1:ecl:b5a5:cue:bivant-leaves-pen"
+    ],
+    "end": "scene-illustration:area:1:ecl:b5a5:cue:bivant-leaves-pen"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 13 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 14 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 15 | ecl6-b1-a994": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-a994",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-a994.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU ARE JUST OUTSIDE AN UNGUARDED SLAVE PEN. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 16 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 17 | ecl6-b1-a994": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-a994",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-a994.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU ARE JUST OUTSIDE AN UNGUARDED SLAVE PEN. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 18 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 19 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 2 | ecl6-b1-b333": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-b333",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-b333.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU ARE AT THE GATE TO THE ANIMAL PENS. THE ANIMALS ARE RESTLESS. WHAT WILL YOU DO? Release animals Leave",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 20 | ecl6-b1-9d74": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-9d74",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-9d74.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU ARE IN THE MERCHANTS' CAMP AREA. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 21 | ecl6-b1-9ad7": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-9ad7",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-9ad7.mp3",
+    "expected": "portrait:area:1:ecl:9b01:HEAD6.DAX:6:BODY6.DAX:3",
+    "caption": "SOME OF THE GUARDS SPOT YOU WITH THE BOY. Area Cast View Encamp Search Look",
+    "seen": [
+     "portrait:area:1:ecl:9b01:HEAD6.DAX:6:BODY6.DAX:3"
+    ],
+    "end": "portrait:area:1:ecl:9b01:HEAD6.DAX:6:BODY6.DAX:3"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 4 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 5 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 6 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 7 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 8 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-original | slums-presentation-A0Gmba | 9 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-original",
+    "leg": "slums-presentation-A0Gmba",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 1 | ecl6-b1-9d74": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-9d74",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-9d74.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU ARE IN THE MERCHANTS' CAMP AREA. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 10 | ecl6-b1-b4a2": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-b4a2",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-b4a2.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU ARE NEAR THE GATE TO THE SLAVE PEN. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 11 | ecl6-b1-b4db": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-b4db",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-b4db.mp3",
+    "expected": "portrait:area:1:ecl:b52f:PIC6.DAX:42:0:0",
+    "caption": "YOU ARE IN THE SLAVE PEN. STANDING NEAR YOU IS THE YOUNG BOY. WHAT WILL YOU DO? Get him Leave",
+    "seen": [
+     "portrait:area:1:ecl:b52f:PIC6.DAX:42:0:0"
+    ],
+    "end": "portrait:area:1:ecl:b52f:PIC6.DAX:42:0:0"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 12 | ecl6-b1-b53b": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-b53b",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-b53b.mp3",
+    "expected": "scene-illustration:area:1:ecl:b5a5:cue:bivant-leaves-pen",
+    "caption": "YOU TAKE THE YOUNG BOY AND LEAVE. THE OTHER SLAVES ALSO RUN OUT THE SLAVE PEN. Area Cast View Encamp Search Look",
+    "seen": [
+     "scene-illustration:area:1:ecl:b5a5:cue:bivant-leaves-pen"
+    ],
+    "end": "scene-illustration:area:1:ecl:b5a5:cue:bivant-leaves-pen"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 13 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 14 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 15 | ecl6-b1-a994": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-a994",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-a994.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU ARE JUST OUTSIDE AN UNGUARDED SLAVE PEN. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 16 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 17 | ecl6-b1-a994": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-a994",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-a994.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU ARE JUST OUTSIDE AN UNGUARDED SLAVE PEN. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 18 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 19 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 2 | ecl6-b1-b333": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-b333",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-b333.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU ARE AT THE GATE TO THE ANIMAL PENS. THE ANIMALS ARE RESTLESS. WHAT WILL YOU DO? Release animals Leave",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 20 | ecl6-b1-9d74": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-9d74",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-9d74.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU ARE IN THE MERCHANTS' CAMP AREA. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 21 | ecl6-b1-9ad7": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-9ad7",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-9ad7.mp3",
+    "expected": "portrait:area:1:ecl:9b01:HEAD6.DAX:6:BODY6.DAX:3",
+    "caption": "SOME OF THE GUARDS SPOT YOU WITH THE BOY. Area Cast View Encamp Search Look",
+    "seen": [
+     "portrait:area:1:ecl:9b01:HEAD6.DAX:6:BODY6.DAX:3"
+    ],
+    "end": "portrait:area:1:ecl:9b01:HEAD6.DAX:6:BODY6.DAX:3"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 3 | ecl6-b1-b39c-b3f6-first-release": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-b39c-b3f6-first-release",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-b39c-b3f6-first-release.mp3",
+    "expected": "scene-illustration:area:1:ecl:b5f7:caller:b3eb",
+    "caption": "AS SOON AS YOU OPEN THE GATE THE ANIMALS INSIDE CHARGE OUT. THEY STAMPEDE ACROSS THE COMPOUND. Press button or <return> to continue",
+    "seen": [
+     "scene-illustration:area:1:ecl:b5f7:caller:b3eb"
+    ],
+    "end": "scene-illustration:area:1:ecl:b5f7:caller:b3eb"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 4 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 5 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 6 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 7 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 8 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-buccaneer-pens-port | slums-presentation-Nnf1mJ | 9 | ecl6-b1-997c": {
+    "run": "issue-99-buccaneer-pens-port",
+    "leg": "slums-presentation-Nnf1mJ",
+    "unitId": "ecl6-b1-997c",
+    "asset": "voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+    "expected": "the first-person view",
+    "caption": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND. Area Cast View Encamp Search Look",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
    "issue-99-landmark-zhentil-thri-kreens-original | chrome | 1 | ecl6-b25-a1c7-a1dc-a1e0": {
     "run": "issue-99-landmark-zhentil-thri-kreens-original",
     "leg": "chrome",
@@ -9387,6 +10146,66 @@
      "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:mathematics-stacks"
     ],
     "end": "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:mathematics-stacks"
+   },
+   "issue-99-mendor-natural-philosophy-original | slums-presentation-BUlbXn | 1 | ecl2-b15-9d77-9e43-sign-philosophy": {
+    "run": "issue-99-mendor-natural-philosophy-original",
+    "leg": "slums-presentation-BUlbXn",
+    "unitId": "ecl2-b15-9d77-9e43-sign-philosophy",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-9d77-9e43-sign-philosophy.mp3",
+    "expected": "scene-illustration:area:15:ecl:99b5:caller:9de1",
+    "caption": "THESE ARE THE LIBRARY STACKS. OLD AND MOLDERING BOOKS ARE STORED ON SHELVES. A SIGN OVER THE ENTRANCE READS PHILOSOPHY. Press button or <return> to continue",
+    "seen": [
+     "scene-illustration:area:15:ecl:99b5:caller:9de1"
+    ],
+    "end": "scene-illustration:area:15:ecl:99b5:caller:9de1"
+   },
+   "issue-99-mendor-natural-philosophy-original | slums-presentation-BUlbXn | 2 | ecl2-b15-9f1c": {
+    "run": "issue-99-mendor-natural-philosophy-original",
+    "leg": "slums-presentation-BUlbXn",
+    "unitId": "ecl2-b15-9f1c",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-9f1c.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU FIND WORKS ON NATURAL PHILOSOPHY, THEORIES OF ART, AND THE SUPERNATURAL SCIENCES. IT IS VERY BORING.",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-mendor-natural-philosophy-port | slums-presentation-P2snkI | 1 | ecl2-b15-9d77-9e43-sign-philosophy": {
+    "run": "issue-99-mendor-natural-philosophy-port",
+    "leg": "slums-presentation-P2snkI",
+    "unitId": "ecl2-b15-9d77-9e43-sign-philosophy",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-9d77-9e43-sign-philosophy.mp3",
+    "expected": "scene-illustration:area:15:ecl:99b5:caller:9de1",
+    "caption": "THESE ARE THE LIBRARY STACKS. OLD AND MOLDERING BOOKS ARE STORED ON SHELVES. A SIGN OVER THE ENTRANCE READS PHILOSOPHY. Press button or <return> to continue",
+    "seen": [
+     "scene-illustration:area:15:ecl:99b5:caller:9de1"
+    ],
+    "end": "scene-illustration:area:15:ecl:99b5:caller:9de1"
+   },
+   "issue-99-mendor-natural-philosophy-port | slums-presentation-P2snkI | 2 | ecl2-b15-9f1c": {
+    "run": "issue-99-mendor-natural-philosophy-port",
+    "leg": "slums-presentation-P2snkI",
+    "unitId": "ecl2-b15-9f1c",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-9f1c.mp3",
+    "expected": "the first-person view",
+    "caption": "YOU FIND WORKS ON NATURAL PHILOSOPHY, THEORIES OF ART, AND THE SUPERNATURAL SCIENCES. IT IS VERY BORING.",
+    "seen": [
+     "the first-person view"
+    ],
+    "end": "the first-person view"
+   },
+   "issue-99-mendor-philosophy-stacks-port | slums-presentation-cMGfPH | 1 | ecl2-b15-9d77-9e43-sign-philosophy": {
+    "run": "issue-99-mendor-philosophy-stacks-port",
+    "leg": "slums-presentation-cMGfPH",
+    "unitId": "ecl2-b15-9d77-9e43-sign-philosophy",
+    "asset": "voices/narration/ecl2/block-15/ecl2-b15-9d77-9e43-sign-philosophy.mp3",
+    "expected": "scene-illustration:area:15:ecl:99b5:caller:9de1",
+    "caption": "THESE ARE THE LIBRARY STACKS. OLD AND MOLDERING BOOKS ARE STORED ON SHELVES. A SIGN OVER THE ENTRANCE READS PHILOSOPHY. Press button or <return> to continue",
+    "seen": [
+     "scene-illustration:area:15:ecl:99b5:caller:9de1"
+    ],
+    "end": "scene-illustration:area:15:ecl:99b5:caller:9de1"
    },
    "issue-99-mendor-rhetoric-stacks-arrival-original | slums-presentation-ec6eOn | 1 | ecl2-b15-a6b2": {
     "run": "issue-99-mendor-rhetoric-stacks-arrival-original",

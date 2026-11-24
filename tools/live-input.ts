@@ -299,6 +299,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if (baneTreasure) baneCacheCue = baneCacheCues.get(treasure);
     }
   }
+  // These single PRINTs return directly to the next room description or menu.
+  const transientNarratedLines = new Set([
+    "por.review.ecl-5.block-5.at-a467", // Tower upstairs notice
+    "por.review.ecl-6.block-1.at-997c", // Animals loose in the Buccaneer compound
+    "por.review.ecl-2.block-15.at-9f1c", // Mendor natural philosophy books
+  ]);
   // The wilderness parlay's insult replies print in pieces, from the first piece to the last
   // (ECL6 block 25 quicklings, ECL7 block 26 and ECL8 block 27 kobolds).
   const insultReplies = new Map([
@@ -1615,8 +1621,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         showFrame(undefined, undefined, false, false, undefined, undefined, false, "narration");
         start = insultReply.start;
         insultReply = undefined;
-      } else if (sourceId === "por.review.ecl-5.block-5.at-a467") {
-        // The Tower prints the upstairs notice and immediately loads the next floor.
+      } else if (sourceId && transientNarratedLines.has(sourceId)) {
         // Preserve the completed guest caption so it owns its narration before the next menu.
         showFrame(undefined, undefined, false, false, undefined, undefined, false, "narration");
       }
