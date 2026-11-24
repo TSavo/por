@@ -8038,8 +8038,8 @@ const combatPoseRoutes = new Map([
   }],
   ["kobold-cave-efreeti", {
     stand: "combat:area:13:CPIC8.DAX:70", strike: "combat:area:13:CPIC8.DAX:198",
-    width: 96, height: 192, strikeReflected: false,
-    inputs: ["s", "up", "p", "enter", "enter", "enter", "a", "enter", "enter", "enter", ...Array(4).fill("q")],
+    width: 96, height: 192, manualPolling: true, strikeInputs: [":poll"], strikeReflected: false,
+    inputs: ["s", "up", "p", "enter", "enter", "enter", "a", "enter", "enter", "enter", ...Array(4).fill("q"), ...Array(4).fill(":poll")],
   }],
   ["kobold-cave-boar", {
     excluded: ["combat:area:13:CPIC8.DAX:11:ecl:a856", "combat:area:13:CPIC8.DAX:139:ecl:a856"],
@@ -8070,8 +8070,8 @@ const combatPoseRoutes = new Map([
   }],
   ["valjevo-tower-troll", {
     slot: "B", stand: "combat:area:5:CPIC5.DAX:31", strike: "combat:area:5:CPIC5.DAX:159",
-    width: 96, height: 192, strikeReflected: true,
-    inputs: ["up", "b", "up", "enter", "enter", "c", "enter", "enter", ...Array(6).fill("q")],
+    width: 96, height: 192, manualPolling: true, strikeInputs: [":poll"], strikeReflected: true,
+    inputs: ["up", "b", "up", "enter", "enter", "c", "enter", "enter", ...Array(6).fill("q"), ...Array(3).fill(":poll")],
   }],
   ["valjevo-fire-giant", {
     slot: "B", stand: "combat:area:4:CPIC5.DAX:56", strike: "combat:area:4:CPIC5.DAX:184",
