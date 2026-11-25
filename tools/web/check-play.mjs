@@ -276,6 +276,25 @@ async function checkCreationPicker(page) {
   await page.press("a", /Add a character: Add Exit/);
   assert.equal(await rosterHighlight(), "*" + second);
   await page.press("e", /Create New Character/);
+  await page.press("a", /Add a character: Add Exit/);
+  const nextMember = await rosterHighlight();
+  assert.ok(nextMember && nextMember !== second);
+  await page.press("a", /Add a character: Add Exit/);
+  assert.equal(await rosterHighlight(), "*" + nextMember);
+  await page.press("e", /Choose a function/);
+
+  const partyHighlight = () => chrome.evaluate(`state.text.filter(([cell, glyph, color]) =>
+    cell >= 160 && cell < 400 && cell % 40 < 32 && glyph > 32 && color === 15)
+    .map(([, glyph]) => String.fromCharCode(glyph)).join("")`);
+  const activeMember = await partyHighlight();
+  // The Add list uses the filename, while the party roster can show a longer name.
+  assert.ok([second, nextMember].some(name => activeMember.startsWith(name)));
+  const otherMember = activeMember.startsWith(second) ? nextMember : second;
+  await page.press("down", /Choose a function/);
+  assert.ok((await partyHighlight()).startsWith(otherMember), "Down moves the highlight on the main party roster");
+  await page.press("up", /Choose a function/);
+  assert.equal(await partyHighlight(), activeMember, "Up restores the main roster highlight");
+
   await page.press("c", /Half-Elf/);
   await pick("down", "Elf");
   await pick("up", "Dwarf");

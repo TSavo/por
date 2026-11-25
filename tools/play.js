@@ -3109,10 +3109,13 @@ window.addEventListener("keydown", (event) => {
   const key = keypadDirections[event.code] ?? commands[event.key] ?? (/^[a-z0-9]$/i.test(event.key) ? event.key : null);
   if (!key) return;
   event.preventDefault();
-  if ((key === "up" || key === "down") && enhanced &&
-      (commandRow() === "Add a character: Add Exit" || menuChoices(state).length)) {
-    void send(key === "down" ? "end" : "home");
-    return;
+  if (enhanced && (key === "up" || key === "down")) {
+    const menu = commandRow();
+    const partyRoster = menu === "Choose a function" && gameMenuText().trimStart().startsWith("Name AC HP ");
+    if (menu === "Add a character: Add Exit" || partyRoster || menuChoices(state).length) {
+      void send(key === "down" ? "end" : "home");
+      return;
+    }
   }
   void send(key.toLowerCase() === "j" ? `key ${key}` : key);
 });
