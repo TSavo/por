@@ -445,11 +445,96 @@ journalToggle.addEventListener("click", toggleJournal);
 function originalFilesNeedConfirmation() {
   return !state.stopped && state.scene !== "scene:publisher" && state.scene !== "scene:title";
 }
-function gameMenuText(view = state) {
+function gameTextCells(view) {
   const cells = Array(1000).fill(" ");
   for (const [cell, character] of view.text ?? []) cells[cell] = String.fromCharCode(character);
-  return cells.join("").replace(/ +/g, " ");
+  return cells;
 }
+
+function gameMenuText(view = state) {
+  return gameTextCells(view).join("").replace(/ +/g, " ");
+}
+
+const maxCharacterButton = document.querySelector("#max-character");
+const maxCharacterStatus = document.querySelector("#max-character-status");
+let characterMaximization;
+
+function modifyingCharacter(view = state) {
+  return enhanced && !view.stopped && !view.journal && gameMenuText(view).trimEnd().endsWith("Modify character: Keep Exit");
+}
+
+function renderMaxCharacter(view) {
+  maxCharacterButton.hidden = !modifyingCharacter(view);
+  if (maxCharacterButton.hidden) {
+    maxCharacterStatus.textContent = "";
+    return;
+  }
+  // Leave one text cell after Exit, and use the native menu and shortcut colors.
+  const last = view.text.reduce((end, glyph) => glyph[0] >= 960 && glyph[1] > 32 && glyph[0] > end[0] ? glyph : end, [959]);
+  maxCharacterButton.style.left = `${(last[0] - 960 + 2) * 2.5}%`;
+  maxCharacterButton.style.color = `rgb(${state.textColors[last[2]].join(",")})`;
+  maxCharacterButton.style.setProperty("--shortcut-color", `rgb(${state.textColors[15].join(",")})`);
+}
+
+function modifyFields() {
+  const cells = gameTextCells(state);
+  const fields = [];
+  for (let start = 0; start < 960; start += 40) {
+    const row = cells.slice(start, start + 40).join("");
+    const match = /^\s*(?:STR|INT|WIS|DEX|CON|CHA|HP)\s+(-?\d+(?:\(\d+\))?)/.exec(row);
+    if (!match) continue;
+    const valueCell = start + match[0].length - match[1].length;
+    fields.push({
+      value: match[1],
+      selected: state.text.find(([cell]) => cell === valueCell)?.[2] === 13,
+    });
+  }
+  return fields;
+}
+
+async function maximizeCharacter() {
+  if (characterMaximization || !modifyingCharacter()) return;
+  const attempt = new AbortController();
+  characterMaximization = attempt;
+  maxCharacterButton.disabled = true;
+  maxCharacterStatus.textContent = "Maximizing attributes and HP… Esc to stop.";
+  screen.focus({ preventScroll: true });
+  let completed = false;
+  try {
+    const allowed = () => !attempt.signal.aborted && modifyingCharacter();
+    const step = async (key) => await sendToGameInTurn(key, allowed) && allowed() ? modifyFields() : [];
+    if (!await waitForGameTurn(allowed, performance.now() + 15_000)) return;
+    let fields = modifyFields();
+    // The native editor applies the caps, including exceptional Strength and class-specific HP.
+    for (let index = 0; index < 7; index++) {
+      let selected = fields.findIndex(field => field.selected);
+      while (fields.length === 7 && selected >= 0 && selected !== index) {
+        const direction = selected < index ? 1 : -1;
+        fields = await step(direction === 1 ? "down" : "up");
+        selected += direction;
+        if (!fields[selected]?.selected) return;
+      }
+      if (fields.length !== 7 || selected !== index) return;
+      let unchanged = 0;
+      for (let presses = 0; presses < 140 && unchanged < 2; presses++) {
+        const before = fields[index].value;
+        fields = await step("right");
+        if (!fields[index]?.selected) return;
+        unchanged = fields[index].value === before ? unchanged + 1 : 0;
+      }
+      if (unchanged < 2) return;
+    }
+    completed = true;
+  } finally {
+    if (!modifyingCharacter()) maxCharacterStatus.textContent = "";
+    else maxCharacterStatus.textContent = completed
+      ? "Attributes and HP are at their maximum. Choose Keep to save."
+      : "Maximizing stopped. Review the current values before choosing Keep.";
+    characterMaximization = undefined;
+    maxCharacterButton.disabled = false;
+  }
+}
+maxCharacterButton.addEventListener("click", () => void maximizeCharacter());
 
 async function saveGame() {
   if (document.querySelector("dialog[open]")) return;
@@ -976,6 +1061,7 @@ function settlePresentation() {
 function togglePresentation() {
   if (enhanced && state.classicAvailable === false) return;
   enhanced = !enhanced;
+  if (!enhanced) characterMaximization?.abort();
   if (!enhanced) activeTravel = undefined;
   if (!enhanced) endPublisherSplash();
   document.documentElement.dataset.presentation = enhanced ? "enhanced" : "classic";
@@ -2274,6 +2360,7 @@ async function showScreen(retryEnhanced = true) {
       return glyph;
     }), ...gameRunes(view));
   }
+  renderMaxCharacter(view);
   const choices = !gameText.hidden && /^(?:Heal\s*)?Exit$/.test(menu.trim()) ? menuChoices(view) : [];
   choiceMenu.hidden = !choices.length;
   if (choices.length || choiceMenu.childElementCount) choiceMenu.replaceChildren(...choiceButtons(choices));
@@ -2612,17 +2699,28 @@ function renderCodeWheel() {
   document.querySelector("#wheel-message").textContent = codeWheel.message;
 }
 
+function waitForGamePoll() {
+  return new Promise(done => setTimeout(done, characterMaximization ? 12 : 40));
+}
+
+async function waitForGameTurn(allowed, deadline) {
+  while (performance.now() < deadline && !state.stopped && allowed()) {
+    if (state.ready && !posting && renderingSequence === undefined) return true;
+    await waitForGamePoll();
+  }
+  return false;
+}
+
 /** Give the game one key, once it is waiting for one, and wait until it has taken it. */
-async function sendToGameInTurn(key) {
+async function sendToGameInTurn(key, allowed = () => true) {
   const deadline = performance.now() + 15_000;
-  const wait = () => new Promise(done => setTimeout(done, 40));
-  while (performance.now() < deadline && !state.stopped) {
+  while (await waitForGameTurn(allowed, deadline) && allowed()) {
     const sequence = state.sequence;
-    if (state.ready && !posting && renderingSequence === undefined && await send(key)) {
-      while (state.sequence === sequence && performance.now() < deadline && !state.stopped) await wait();
+    if (await send(key)) {
+      while (state.sequence === sequence && performance.now() < deadline && !state.stopped && allowed()) await waitForGamePoll();
       return state.sequence !== sequence;
     }
-    await wait();
+    await waitForGamePoll();
   }
   return false;
 }
@@ -2919,7 +3017,7 @@ async function poll() {
   } catch {
     status.textContent = "Waiting for the local game runner…";
   }
-  setTimeout(poll, 100);
+  setTimeout(poll, characterMaximization ? 18 : 100);
 }
 
 // J and M belong to the game wherever it reads letters: Move, Magic, Mins, a typed name,
@@ -2980,6 +3078,11 @@ atlasMap.addEventListener("click", () => { mapMode = "atlas"; renderAutomap(); }
 atlasSheet.addEventListener("change", renderAutomap);
 window.addEventListener("keydown", (event) => {
   if (originalFiles.restart.open || document.querySelector("#storage-error[open]")) return;
+  if (characterMaximization && event.key !== "F10") {
+    if (event.key === "Escape") characterMaximization.abort();
+    if (!event.ctrlKey && !event.metaKey && !event.altKey) event.preventDefault();
+    return;
+  }
   resumeBlockedAudio();
   if (!settingsPanel.hidden) {
     if (event.key === "Escape") {
@@ -3109,6 +3212,10 @@ window.addEventListener("keydown", (event) => {
   const key = keypadDirections[event.code] ?? commands[event.key] ?? (/^[a-z0-9]$/i.test(event.key) ? event.key : null);
   if (!key) return;
   event.preventDefault();
+  if (key.toLowerCase() === "x" && modifyingCharacter()) {
+    void maximizeCharacter();
+    return;
+  }
   if (enhanced && (key === "up" || key === "down")) {
     const menu = commandRow();
     const partyRoster = menu === "Choose a function" && gameMenuText().trimStart().startsWith("Name AC HP ");
