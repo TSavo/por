@@ -2703,7 +2703,7 @@ async function sendToGameInTurn(key, allowed = () => true) {
   while (performance.now() < deadline && !state.stopped && allowed()) {
     const sequence = state.sequence;
     if (state.ready && !posting && renderingSequence === undefined && await send(key)) {
-      while (state.sequence === sequence && performance.now() < deadline && !state.stopped) await wait();
+      while (state.sequence === sequence && performance.now() < deadline && !state.stopped && allowed()) await wait();
       return state.sequence !== sequence;
     }
     await wait();
