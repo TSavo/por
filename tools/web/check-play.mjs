@@ -276,6 +276,39 @@ async function checkCreationPicker(page) {
   await page.press("a", /Add a character: Add Exit/);
   assert.equal(await rosterHighlight(), "*" + second);
   await page.press("e", /Create New Character/);
+  const partyHighlight = () => chrome.evaluate(`state.text.filter(([cell, glyph, color]) =>
+    cell >= 160 && cell < 400 && cell % 40 < 32 && glyph > 32 && color === 15)
+    .map(([, glyph]) => String.fromCharCode(glyph)).join("")`);
+  // Modify is available for the zero-experience character created above.
+  await page.press("a", /Add a character: Add Exit/);
+  for (let moves = 0; moves < 12 && await rosterHighlight() !== "V"; moves++) await page.press("down");
+  assert.equal(await rosterHighlight(), "V");
+  await page.press("a", /Add a character: Add Exit/);
+  await page.press("e", /Choose a function/);
+  for (let moves = 0; moves < 3 && await partyHighlight() !== "V"; moves++) await page.press("end");
+  assert.equal(await partyHighlight(), "V");
+  await page.press("m", /Modify character: Keep Exit/);
+  const scores = () => chrome.evaluate(`Array.from(gameMenuText().matchAll(
+    /\\b(?:STR|INT|WIS|DEX|CON|CHA|HP) (-?\\d+(?:\\(\\d+\\))?)/g), match => match[1])`);
+  const originalScores = await scores();
+  assert.equal(originalScores.length, 7);
+  assert.equal(await chrome.evaluate('Boolean(document.querySelector("#max-character:not([hidden])"))'), true);
+  await chrome.key("x");
+  await chrome.until("the maximum attributes and HP", 'document.querySelector("#max-character-status").textContent.includes("at their maximum")', 90);
+  const maximum = await scores();
+  assert.notDeepEqual(maximum, originalScores);
+  for (let field = maximum.length - 1; field >= 0; field--) {
+    assert.equal(await chrome.evaluate("modifyFields().findIndex(({ selected }) => selected)"), field);
+    await page.press("right", /Modify character: Keep Exit/);
+    assert.deepEqual(await scores(), maximum, "Right cannot raise a field beyond the shortcut's result");
+    if (field > 0) await page.press("up", /Modify character: Keep Exit/);
+  }
+  await page.press("k", /Choose a function/);
+  await page.press("m", /Modify character: Keep Exit/);
+  assert.deepEqual(await scores(), maximum, "Keep saves all seven values");
+  await page.press("e", /Choose a function/);
+  assert.equal(await chrome.evaluate('document.querySelector("#max-character").hidden'), true);
+
   await page.press("c", /Half-Elf/);
   await pick("down", "Elf");
   await pick("up", "Dwarf");
