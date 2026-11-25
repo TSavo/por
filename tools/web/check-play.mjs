@@ -292,7 +292,14 @@ async function checkCreationPicker(page) {
     /\\b(?:STR|INT|WIS|DEX|CON|CHA|HP) (-?\\d+(?:\\(\\d+\\))?)/g), match => match[1])`);
   const originalScores = await scores();
   assert.equal(originalScores.length, 7);
-  assert.equal(await chrome.evaluate('Boolean(document.querySelector("#max-character:not([hidden])"))'), true);
+  await chrome.until("MaX on the Modify command row", `(() => {
+    const option = document.querySelector("#max-character");
+    const shortcut = option.lastElementChild;
+    return !option.hidden && option.textContent === "MaX" &&
+      getComputedStyle(option).top !== "auto" &&
+      getComputedStyle(shortcut).color === "rgb(" + state.textColors[15].join(", ") + ")" &&
+      getComputedStyle(shortcut).color !== getComputedStyle(option).color;
+  })()`, 5);
   await chrome.key("x");
   await chrome.until("the maximum attributes and HP", 'document.querySelector("#max-character-status").textContent.includes("at their maximum")', 90);
   const maximum = await scores();

@@ -24,10 +24,20 @@
     #screen { display: block; width: 100%; height: auto; aspect-ratio: 8 / 5; background: #000; }
     .code-wheel-open #play { max-width: 32rem; margin-inline: auto; }
     #play { position: relative; border: 1px solid #546577; container-type: inline-size; }
-    #max-character { position: absolute; z-index: 1; top: .5rem; right: .5rem; max-width: 45%; text-align: right;
-      font-size: clamp(.7rem, 2.2cqi, .9rem); }
-    #max-character button { padding: .35rem .55rem; }
-    #max-character-status:not(:empty) { margin: .3rem 0 0; padding: .3rem .45rem; background: #111419; border-radius: 5px; }
+    #max-character:not([hidden]) {
+      position: absolute; z-index: 1; top: 96%; width: 7.5%; height: 4%;
+      display: grid; grid-template-columns: repeat(3, 1fr); align-items: center;
+      padding: 0; border: 0; border-radius: 0; background: transparent;
+      font: 700 2.55cqw / 1 "Game Web Font", ui-monospace, monospace;
+    }
+    #max-character span:last-child { color: var(--shortcut-color); }
+    #max-character:hover, #max-character:focus-visible { outline: 1px solid currentColor; }
+    #max-character-status:empty { display: none; }
+    #max-character-status:not(:empty) {
+      position: absolute; z-index: 1; top: .5rem; right: .5rem; max-width: 45%; text-align: right;
+      margin: 0; padding: .3rem .45rem; background: #111419; border-radius: 5px;
+      font-size: clamp(.7rem, 2.2cqi, .9rem);
+    }
     #party-guide { position: absolute; top: 4%; left: 6%; right: 6%; margin: 0; text-align: center; text-wrap: balance;
       font: 500 clamp(12px, 2.6cqi, 22px)/1.35 Georgia, serif; color: #f2e4ca; pointer-events: none; }
     #tile-art { position: absolute; inset: 0; pointer-events: none; }
@@ -345,10 +355,8 @@
       <div id="game-text" aria-hidden="true" hidden></div>
       <div id="menu-choices" aria-label="Game menu choices" role="group" hidden></div>
       <p id="party-guide" hidden></p>
-      <div id="max-character" hidden>
-        <button type="button" aria-keyshortcuts="X">Max attributes and HP (X)</button>
-        <p id="max-character-status" role="status"></p>
-      </div>
+      <button id="max-character" type="button" aria-keyshortcuts="X" aria-label="Max attributes and HP" hidden><span>M</span><span>a</span><span>X</span></button>
+      <p id="max-character-status" role="status"></p>
       <section id="code-wheel" aria-label="Translation wheel" hidden>
         <div id="wheel" role="img" aria-label="The translation wheel. The inner disc turns.">
           <canvas id="wheel-canvas" width="900" height="900"></canvas>

@@ -455,13 +455,25 @@ function gameMenuText(view = state) {
   return gameTextCells(view).join("").replace(/ +/g, " ");
 }
 
-const maxCharacterControl = document.querySelector("#max-character");
-const maxCharacterButton = maxCharacterControl.querySelector("button");
+const maxCharacterButton = document.querySelector("#max-character");
 const maxCharacterStatus = document.querySelector("#max-character-status");
 let characterMaximization;
 
-function modifyingCharacter() {
-  return !state.stopped && !state.journal && gameMenuText().trimEnd().endsWith("Modify character: Keep Exit");
+function modifyingCharacter(view = state) {
+  return !view.stopped && !view.journal && gameMenuText(view).trimEnd().endsWith("Modify character: Keep Exit");
+}
+
+function renderMaxCharacter(view) {
+  maxCharacterButton.hidden = !modifyingCharacter(view);
+  if (maxCharacterButton.hidden) {
+    maxCharacterStatus.textContent = "";
+    return;
+  }
+  // Leave one text cell after Exit, and use the native menu and shortcut colors.
+  const last = view.text.reduce((end, glyph) => glyph[0] >= 960 && glyph[1] > 32 && glyph[0] > end[0] ? glyph : end, [959]);
+  maxCharacterButton.style.left = `${(last[0] - 960 + 2) * 2.5}%`;
+  maxCharacterButton.style.color = `rgb(${state.textColors[last[2]].join(",")})`;
+  maxCharacterButton.style.setProperty("--shortcut-color", `rgb(${state.textColors[15].join(",")})`);
 }
 
 function modifyFields() {
@@ -2345,6 +2357,7 @@ async function showScreen(retryEnhanced = true) {
       return glyph;
     }), ...gameRunes(view));
   }
+  renderMaxCharacter(view);
   const choices = !gameText.hidden && /^(?:Heal\s*)?Exit$/.test(menu.trim()) ? menuChoices(view) : [];
   choiceMenu.hidden = !choices.length;
   if (choices.length || choiceMenu.childElementCount) choiceMenu.replaceChildren(...choiceButtons(choices));
@@ -2953,8 +2966,6 @@ async function poll() {
     }
     if (changed) {
       renderJournal();
-      maxCharacterControl.hidden = !modifyingCharacter();
-      if (maxCharacterControl.hidden) maxCharacterStatus.textContent = "";
       playAnimation(continuesAnimation);
       if (state.automaticCombat || state.battleEntryPolling || state.presentationPolling) {
         quickPollAfter = performance.now() + 160 +
