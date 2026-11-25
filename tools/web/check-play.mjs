@@ -311,10 +311,15 @@ async function checkCreationPicker(page) {
       getComputedStyle(shortcut).color !== getComputedStyle(option).color;
   })()`, 5);
   if (original) {
+    await chrome.key("x");
+    await chrome.until("MaX in progress", 'document.querySelector("#max-character").disabled');
     await chrome.key("f10");
     await chrome.until("Classic Modify menu", '!enhanced && document.querySelector("#max-character").hidden');
+    await chrome.until("the interrupted MaX run to stop", '!document.querySelector("#max-character").disabled');
+    await page.settle();
+    const classicScores = await scores();
     await page.press("x", /Modify character: Keep Exit/);
-    assert.deepEqual(await scores(), originalScores, "X preserves the Classic scores");
+    assert.deepEqual(await scores(), classicScores, "Switching to Classic stops MaX and X preserves the scores");
     assert.equal(await chrome.evaluate('document.querySelector("#max-character-status").textContent'), "");
     await chrome.key("f10");
     await chrome.until("Enhanced Modify menu", 'enhanced && !document.querySelector("#max-character").hidden');
