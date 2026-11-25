@@ -282,9 +282,19 @@ async function checkCreationPicker(page) {
   // Modify is available for the zero-experience character created above.
   await page.press("a", /Add a character: Add Exit/);
   for (let moves = 0; moves < 12 && await rosterHighlight() !== "V"; moves++) await page.press("down");
-  assert.equal(await rosterHighlight(), "V");
+  const nextMember = await rosterHighlight();
+  assert.equal(nextMember, "V");
   await page.press("a", /Add a character: Add Exit/);
+  assert.equal(await rosterHighlight(), "*" + nextMember);
   await page.press("e", /Choose a function/);
+  const activeMember = await partyHighlight();
+  // The Add list uses the filename, while the party roster can show a longer name.
+  assert.ok([second, nextMember].some(name => activeMember.startsWith(name)));
+  const otherMember = activeMember.startsWith(second) ? nextMember : second;
+  await page.press("down", /Choose a function/);
+  assert.ok((await partyHighlight()).startsWith(otherMember), "Down moves the highlight on the main party roster");
+  await page.press("up", /Choose a function/);
+  assert.equal(await partyHighlight(), activeMember, "Up restores the main roster highlight");
   for (let moves = 0; moves < 3 && await partyHighlight() !== "V"; moves++) await page.press("end");
   assert.equal(await partyHighlight(), "V");
   await page.press("m", /Modify character: Keep Exit/);
@@ -300,7 +310,23 @@ async function checkCreationPicker(page) {
       getComputedStyle(shortcut).color === "rgb(" + state.textColors[15].join(", ") + ")" &&
       getComputedStyle(shortcut).color !== getComputedStyle(option).color;
   })()`, 5);
-  await chrome.key("x");
+  if (original) {
+    await chrome.key("f10");
+    await chrome.until("Classic Modify menu", '!enhanced && document.querySelector("#max-character").hidden');
+    await page.press("x", /Modify character: Keep Exit/);
+    assert.deepEqual(await scores(), originalScores, "X preserves the Classic scores");
+    assert.equal(await chrome.evaluate('document.querySelector("#max-character-status").textContent'), "");
+    await chrome.key("f10");
+    await chrome.until("Enhanced Modify menu", 'enhanced && !document.querySelector("#max-character").hidden');
+  }
+  await page.settle();
+  // Deliver both events in one browser task so the first key's worker response is still pending.
+  assert.equal(await chrome.evaluate(`(() => {
+    window.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown", code: "ArrowDown" }));
+    const pending = posting;
+    window.dispatchEvent(new KeyboardEvent("keydown", { key: "x", code: "KeyX" }));
+    return pending;
+  })()`), true, "Down is still in flight when X begins");
   await chrome.until("the maximum attributes and HP", 'document.querySelector("#max-character-status").textContent.includes("at their maximum")', 90);
   const maximum = await scores();
   assert.notDeepEqual(maximum, originalScores);

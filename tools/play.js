@@ -460,7 +460,7 @@ const maxCharacterStatus = document.querySelector("#max-character-status");
 let characterMaximization;
 
 function modifyingCharacter(view = state) {
-  return !view.stopped && !view.journal && gameMenuText(view).trimEnd().endsWith("Modify character: Keep Exit");
+  return enhanced && !view.stopped && !view.journal && gameMenuText(view).trimEnd().endsWith("Modify character: Keep Exit");
 }
 
 function renderMaxCharacter(view) {
@@ -503,6 +503,7 @@ async function maximizeCharacter() {
   try {
     const allowed = () => !attempt.signal.aborted && modifyingCharacter();
     const step = async (key) => await sendToGameInTurn(key, allowed) && allowed() ? modifyFields() : [];
+    if (!await waitForGameTurn(allowed, performance.now() + 15_000)) return;
     let fields = modifyFields();
     // The native editor applies the caps, including exceptional Strength and class-specific HP.
     for (let index = 0; index < 7; index++) {
@@ -525,7 +526,8 @@ async function maximizeCharacter() {
     }
     completed = true;
   } finally {
-    maxCharacterStatus.textContent = completed
+    if (!modifyingCharacter()) maxCharacterStatus.textContent = "";
+    else maxCharacterStatus.textContent = completed
       ? "Attributes and HP are at their maximum. Choose Keep to save."
       : "Maximizing stopped. Review the current values before choosing Keep.";
     characterMaximization = undefined;
@@ -1059,6 +1061,7 @@ function settlePresentation() {
 function togglePresentation() {
   if (enhanced && state.classicAvailable === false) return;
   enhanced = !enhanced;
+  if (!enhanced) characterMaximization?.abort();
   if (!enhanced) activeTravel = undefined;
   if (!enhanced) endPublisherSplash();
   document.documentElement.dataset.presentation = enhanced ? "enhanced" : "classic";
@@ -2696,17 +2699,28 @@ function renderCodeWheel() {
   document.querySelector("#wheel-message").textContent = codeWheel.message;
 }
 
+function waitForGamePoll() {
+  return new Promise(done => setTimeout(done, characterMaximization ? 12 : 40));
+}
+
+async function waitForGameTurn(allowed, deadline) {
+  while (performance.now() < deadline && !state.stopped && allowed()) {
+    if (state.ready && !posting && renderingSequence === undefined) return true;
+    await waitForGamePoll();
+  }
+  return false;
+}
+
 /** Give the game one key, once it is waiting for one, and wait until it has taken it. */
 async function sendToGameInTurn(key, allowed = () => true) {
   const deadline = performance.now() + 15_000;
-  const wait = () => new Promise(done => setTimeout(done, characterMaximization ? 12 : 40));
-  while (performance.now() < deadline && !state.stopped && allowed()) {
+  while (await waitForGameTurn(allowed, deadline) && allowed()) {
     const sequence = state.sequence;
-    if (state.ready && !posting && renderingSequence === undefined && await send(key)) {
-      while (state.sequence === sequence && performance.now() < deadline && !state.stopped && allowed()) await wait();
+    if (await send(key)) {
+      while (state.sequence === sequence && performance.now() < deadline && !state.stopped && allowed()) await waitForGamePoll();
       return state.sequence !== sequence;
     }
-    await wait();
+    await waitForGamePoll();
   }
   return false;
 }
@@ -3064,7 +3078,7 @@ atlasMap.addEventListener("click", () => { mapMode = "atlas"; renderAutomap(); }
 atlasSheet.addEventListener("change", renderAutomap);
 window.addEventListener("keydown", (event) => {
   if (originalFiles.restart.open || document.querySelector("#storage-error[open]")) return;
-  if (characterMaximization) {
+  if (characterMaximization && event.key !== "F10") {
     if (event.key === "Escape") characterMaximization.abort();
     if (!event.ctrlKey && !event.metaKey && !event.altKey) event.preventDefault();
     return;
@@ -3202,10 +3216,13 @@ window.addEventListener("keydown", (event) => {
     void maximizeCharacter();
     return;
   }
-  if ((key === "up" || key === "down") && enhanced &&
-      (commandRow() === "Add a character: Add Exit" || menuChoices(state).length)) {
-    void send(key === "down" ? "end" : "home");
-    return;
+  if (enhanced && (key === "up" || key === "down")) {
+    const menu = commandRow();
+    const partyRoster = menu === "Choose a function" && gameMenuText().trimStart().startsWith("Name AC HP ");
+    if (menu === "Add a character: Add Exit" || partyRoster || menuChoices(state).length) {
+      void send(key === "down" ? "end" : "home");
+      return;
+    }
   }
   void send(key.toLowerCase() === "j" ? `key ${key}` : key);
 });
