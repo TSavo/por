@@ -22,6 +22,8 @@
     "verify:map-journal": "node tools/verify-map-journal.mjs",
     "verify:records-journal": "node tools/verify-records-journal.mjs",
     "verify:input": "node tools/verify-input.mjs",
+    "verify:arrow-menus": "node tools/web/check-play.mjs --arrow-menus-only",
+    "verify:temple-picker": "node tools/web/check-play.mjs --temple-picker-only",
     "verify:script-positions": "node tools/verify-script-positions.mjs",
     "verify:game-data": "tsx tools/verify-game-data.ts",
     "verify:game-data-records": "tsx tools/verify-game-data-records.ts",

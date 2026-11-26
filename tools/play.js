@@ -3033,6 +3033,37 @@ function commandRow() {
   for (const [cell, character] of state.text ?? []) if (cell >= 960) row[cell - 960] = String.fromCharCode(character);
   return row.join("").replace(/\s+/g, " ").trim();
 }
+/**
+ * Enhanced Up and Down in the original's selection screens. There the original moves the highlight
+ * with Home (the one before, from the first to the last) and End (the next, from the last to the
+ * first) and ignores the arrows, so Enhanced sends Home and End for them. Classic sends the arrows
+ * as they are, and the walking and combat menus are on neither list, so there the arrows still move.
+ *
+ * A roster menu picks a party member from the list under "Name AC HP" (the main party menu, Camp,
+ * Magic, the treasure and Take menus, shops, temples, and the questions that ask who). The command
+ * rows are the original's own strings; the words in brackets are the ones it leaves out when they
+ * do not apply. A selection menu picks a row of its own list: a character to add, a coin type, a
+ * spell (Cast, also in combat, Memorize, Scribe or Learn), or an item of the loot.
+ */
+const arrowRosterMenus = [
+  /^Choose a function$/,
+  /^Camp: Save View Magic Rest Alter Exit$/,
+  /^Cast Memorize Scribe Display Rest Exit$/,
+  /^View (?:Take )?Pool (?:Share )?Exit$/,
+  /^Take: (?:Money )?(?:Items )?Exit$/,
+  /^(?:Buy|Heal) View (?:Take )?Pool (?:Share )?Appraise Exit$/,
+  /^(?:WHO WILL (?:PAY|GAMBLE)\? |Cast Spell on whom )Select(?: Exit)?$/,
+];
+const arrowSelectionMenus = [
+  /^Add a character: Add Exit$/,
+  /^Select type of coin Exit$/,
+  /^Choose Spell: (?:Cast|Memorize|Scribe|Learn) (?:Next )?(?:Prev )?Exit$/,
+];
+function arrowSelects(menu = commandRow(), screen = gameMenuText()) {
+  if (arrowSelectionMenus.some(pattern => pattern.test(menu))) return true;
+  if (/^Items: Take (?:Next )?(?:Prev )?Exit$/.test(menu)) return screen.trimStart().startsWith("Loot ");
+  return arrowRosterMenus.some(pattern => pattern.test(menu)) && / Name AC HP /.test(` ${screen} `);
+}
 function hostShortcutFree(letter) {
   const menu = commandRow();
   return hostShortcutMenus.has(menu) &&
@@ -3216,13 +3247,9 @@ window.addEventListener("keydown", (event) => {
     void maximizeCharacter();
     return;
   }
-  if (enhanced && (key === "up" || key === "down")) {
-    const menu = commandRow();
-    const partyRoster = menu === "Choose a function" && gameMenuText().trimStart().startsWith("Name AC HP ");
-    if (menu === "Add a character: Add Exit" || partyRoster || menuChoices(state).length) {
-      void send(key === "down" ? "end" : "home");
-      return;
-    }
+  if (enhanced && (key === "up" || key === "down") && (arrowSelects() || menuChoices(state).length)) {
+    void send(key === "down" ? "end" : "home");
+    return;
   }
   void send(key.toLowerCase() === "j" ? `key ${key}` : key);
 });

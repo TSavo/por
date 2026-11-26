@@ -1,6 +1,7 @@
 // The browser-engine acceptance check (#223), in headless Chrome, as a player plays:
 //
 //   node tools/web/check-play.mjs [--server runner|web|loose] [--original <folder>] [--shots <dir>] [--party-guide-only | --creation-picker-only | --temple-picker-only]
+//   node tools/web/check-play.mjs --arrow-menus-only   (npm run verify:arrow-menus)
 //
 // --server runner  `tools/browser-play.ts`, the Node runner behind POST /key and GET /state
 //          web     `tools/web/serve.ts`, the engine in a Web Worker in the page (#228)
@@ -14,7 +15,7 @@
 // and loads slot A. Every step says what the screen showed.
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
-import { mkdirSync, mkdtempSync, readdirSync, rmSync, statSync } from "node:fs";
+import { copyFileSync, mkdirSync, mkdtempSync, readdirSync, rmSync, statSync } from "node:fs";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
@@ -28,6 +29,8 @@ const server = option("--server") ?? "runner";
 const original = option("--original") && resolve(option("--original"));
 const saveFaults = args.includes("--save-faults");
 if (saveFaults && server === "runner") throw new Error("--save-faults requires --server web or loose");
+const arrowMenusOnly = args.includes("--arrow-menus-only");
+if (arrowMenusOnly && server !== "runner") throw new Error("--arrow-menus-only requires --server runner");
 const shots = option("--shots") && resolve(option("--shots"));
 if (shots) mkdirSync(shots, { recursive: true });
 const work = mkdtempSync(join(tmpdir(), "por-check-play-"));
@@ -58,6 +61,11 @@ function originalRelease(folder) {
 async function startServer() {
   const port = await freePort();
   const env = { ...process.env, POR_PLAY_PORT: String(port), POR_CLOCK: "fixed", POR_PREGEN_PARTY: "1", POR_SAVE_DIR: join(work, "saves") };
+  if (arrowMenusOnly) {
+    // The guide's party in New Phlan (qa/fixtures/guide-party-new-phlan), loaded from slot A.
+    mkdirSync(env.POR_SAVE_DIR);
+    copyFileSync(new URL("../../qa/fixtures/guide-party-new-phlan/A.json", import.meta.url), join(env.POR_SAVE_DIR, "A.json"));
+  }
   let command;
   if (server === "runner") {
     command = ["--import", "tsx", "tools/browser-play.ts"];
@@ -217,6 +225,15 @@ async function checkTemplePicker(page) {
     await page.press("up");
   }
   await page.press("y", /Heal View Pool Appraise Exit/);
+  // The temple's roster: Up and Down choose the patient, as the original's Home and End do.
+  const white = () => chrome.evaluate(`state.text.filter(([cell, glyph, color]) => cell < 960 && glyph > 32 && color === 15)
+    .map(([, glyph]) => String.fromCharCode(glyph)).join("")`);
+  const patient = await white();
+  await page.press("down", /Heal View Pool Appraise Exit/);
+  assert.notEqual(await white(), patient, "Down chooses the next member at the temple");
+  await page.press("up", /Heal View Pool Appraise Exit/);
+  assert.equal(await white(), patient, "Up chooses the member before at the temple");
+  log("ok   Up and Down choose the member on the temple's menu");
   await page.press("h", /how can we help you/);
   await page.press("down");
   const selected = `document.querySelector('#menu-choices button[aria-pressed="true"]')?.getAttribute("aria-label")`;
@@ -427,6 +444,116 @@ async function checkPartyGuide(page) {
   log("ok   the party instruction survives a return and reload without repeating the recording");
 }
 
+// Enhanced Up and Down in the original's selection screens send its Home and End (tools/play.js,
+// arrowSelects). The command rows below are the original's own strings.
+function checkArrowMenuList() {
+  const roster = "Name AC HP AELAR -1 9 BRENNAN -1 9";
+  const cases = [
+    // Roster menus: a party member is picked from the list under "Name AC HP".
+    ["Choose a function", roster, true],
+    ["Camp: Save View Magic Rest Alter Exit", roster, true],
+    ["Cast Memorize Scribe Display Rest Exit", roster, true],
+    ["View Take Pool Share Exit", roster, true],
+    ["View Take Pool Exit", roster, true],
+    ["View Pool Exit", roster, true],
+    ["Take: Money Items Exit", roster, true],
+    ["Take: Items Exit", roster, true],
+    ["Take: Money Exit", roster, true],
+    ["Buy View Take Pool Share Appraise Exit", "PHLAN SHOP " + roster, true],
+    ["Buy View Pool Appraise Exit", roster, true],
+    ["Heal View Take Pool Share Appraise Exit", roster, true],
+    ["Heal View Pool Appraise Exit", roster, true],
+    ["WHO WILL PAY? Select", roster, true],
+    ["WHO WILL GAMBLE? Select", roster, true],
+    ["Cast Spell on whom Select Exit", roster, true],
+    ["Camp: Save View Magic Rest Alter Exit", "AELAR's Spells in Spell Book", false],
+    // Selection menus: a row of the menu's own list.
+    ["Add a character: Add Exit", "", true],
+    ["Select type of coin Exit", "Platinum 10 Jewelry 1", true],
+    ["Choose Spell: Cast Exit", "Sleep", true],
+    ["Choose Spell: Memorize Next Exit", "Sleep", true],
+    ["Choose Spell: Memorize Next Prev Exit", "Sleep", true],
+    ["Choose Spell: Memorize Prev Exit", "Sleep", true],
+    ["Choose Spell: Scribe Exit", "Sleep", true],
+    ["Choose Spell: Learn Exit", "Sleep", true],
+    ["Items: Take Next Exit", "Loot Hand Axe Long Sword", true],
+    ["Items: Take Exit", "Loot Hand Axe", true],
+    ["Items: Take Exit", "AELAR Hand Axe", false],
+    // The walking and combat menus keep their arrows for moving, though the party list is up.
+    ["Area Cast View Encamp Search Look", roster, false],
+    ["Cast View Encamp Search Look", roster, false],
+    ["Move View Aim Use Cast Turn Guard Quick Delay Bandage Done", roster, false],
+    ["Aim: Next Prev Manual Target Center Exit", roster, false],
+  ];
+  return chrome.evaluate(`${JSON.stringify(cases)}.filter(([menu, screen, selects]) => arrowSelects(menu, screen) !== selects)`);
+}
+
+async function checkArrowMenus(page) {
+  const wrong = await checkArrowMenuList();
+  assert.deepEqual(wrong, [], "Up and Down select in exactly the original's selection menus");
+  log("ok   Up and Down select in the roster, coin, loot and spell menus, and not on the walking or combat menus");
+
+  const member = () => chrome.evaluate(`state.text.filter(([cell, , color]) =>
+    cell >= 160 && cell < 400 && cell % 40 >= 17 && cell % 40 < 32 && color === 15)
+    .map(([, glyph]) => String.fromCharCode(glyph)).join("")`);
+  // The rows of a list the game draws in white: the highlighted row.
+  const whiteRows = () => chrome.evaluate(`JSON.stringify([...new Set(state.text.filter(([cell, glyph, color]) =>
+    cell >= 80 && cell < 960 && glyph > 32 && color === 15).map(([cell]) => Math.floor(cell / 40)))].sort((a, b) => a - b))`);
+  const magic = /Cast Memorize Scribe Display Rest Exit\s*$/;
+  await page.press("l", /Load Which Game: A/);
+  await page.press("a", exploring);
+
+  // Walking: the arrows still move the party (Down turns it about).
+  const facing = await position();
+  await page.press("down", exploring);
+  assert.notEqual((await position())?.[2], facing?.[2], "Down on the walking screen turns the party");
+  await page.press("down", exploring);
+  assert.equal((await position())?.[2], facing?.[2]);
+
+  // Roster menus: Camp and Magic, wrapping at both ends as the original's Home and End do.
+  await page.press("e", /Camp: Save View Magic Rest Alter Exit\s*$/);
+  assert.equal(await member(), "AELAR");
+  await page.press("up");
+  assert.equal(await member(), "FINN", "Up from the first member wraps to the last in Camp");
+  await page.press("down");
+  assert.equal(await member(), "AELAR", "Down from the last member wraps to the first in Camp");
+  await page.press("down");
+  assert.equal(await member(), "BRENNAN");
+  await page.press("m", magic);
+  assert.equal(await member(), "BRENNAN", "Magic opens with the member chosen in Camp");
+  await page.press("down");
+  assert.equal(await member(), "CAELUM", "Down moves to the next member in Magic");
+  await page.press("up");
+  assert.equal(await member(), "BRENNAN", "Up moves back in Magic");
+  log("ok   Up and Down choose the member in Camp and Magic, wrapping at both ends");
+
+  // Selection menus: ELSPETH's cleric spells to memorise, and DORIAN's spells in memory to cast.
+  await page.press("down");
+  await page.press("down");
+  assert.equal(await member(), "ELSPETH");
+  await page.press("m", /Choose Spell: Memorize (?:Next )?(?:Prev )?Exit\s*$/);
+  const firstSpell = await whiteRows();
+  await page.press("down");
+  const nextSpell = await whiteRows();
+  assert.notEqual(nextSpell, firstSpell, "Down moves the highlight in the Memorize list");
+  await page.press("up");
+  assert.equal(await whiteRows(), firstSpell, "Up moves it back in the Memorize list");
+  for (let presses = 0; !magic.test(await page.text()); presses++) {
+    assert.ok(presses < 4, "Exit leads back to the Magic menu");
+    await page.press(/Yes No\s*$/.test(await page.text()) ? "n" : "e");
+  }
+  await page.press("down");
+  assert.equal(await member(), "DORIAN");
+  await page.press("c", /Choose Spell: Cast Exit\s*$/);
+  const firstCast = await whiteRows();
+  await page.press("down");
+  assert.notEqual(await whiteRows(), firstCast, "Down moves the highlight in the Cast list");
+  await page.press("up");
+  assert.equal(await whiteRows(), firstCast, "Up moves it back in the Cast list");
+  await page.press("e", magic);
+  log("ok   Up and Down move the highlight in the Memorize and Cast spell lists");
+}
+
 let game = await startServer();
 async function checkGame() {
   // 1. Boot to the first menu.
@@ -442,6 +569,7 @@ async function checkGame() {
     classicAvailable === Boolean(original), classicAvailable);
   expect("the display switch reflects Classic availability", await chrome.evaluate("!presentation.hidden") === classicAvailable);
   await screenshot("1-first-menu");
+  if (arrowMenusOnly) return checkArrowMenus(page);
   if (args.includes("--creation-picker-only")) return checkCreationPicker(page);
 
   // 2. SSI's ready-made characters.
