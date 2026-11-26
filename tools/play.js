@@ -3218,7 +3218,9 @@ window.addEventListener("keydown", (event) => {
   }
   if (enhanced && (key === "up" || key === "down")) {
     const menu = commandRow();
-    const partyRoster = menu === "Choose a function" && gameMenuText().trimStart().startsWith("Name AC HP ");
+    const partyRoster = (menu === "Choose a function" || menu === "Camp: Save View Magic Rest Alter Exit" ||
+      menu === "Cast Memorize Scribe Display Rest Exit") &&
+      gameMenuText().trimStart().startsWith("Name AC HP ");
     if (menu === "Add a character: Add Exit" || partyRoster || menuChoices(state).length) {
       void send(key === "down" ? "end" : "home");
       return;

@@ -1,6 +1,7 @@
 // The browser-engine acceptance check (#223), in headless Chrome, as a player plays:
 //
 //   node tools/web/check-play.mjs [--server runner|web|loose] [--original <folder>] [--shots <dir>] [--party-guide-only | --creation-picker-only | --temple-picker-only]
+//   node tools/web/check-play.mjs --encamp-roster-only
 //
 // --server runner  `tools/browser-play.ts`, the Node runner behind POST /key and GET /state
 //          web     `tools/web/serve.ts`, the engine in a Web Worker in the page (#228)
@@ -14,7 +15,7 @@
 // and loads slot A. Every step says what the screen showed.
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
-import { mkdirSync, mkdtempSync, readdirSync, rmSync, statSync } from "node:fs";
+import { copyFileSync, mkdirSync, mkdtempSync, readdirSync, rmSync, statSync } from "node:fs";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
@@ -28,6 +29,8 @@ const server = option("--server") ?? "runner";
 const original = option("--original") && resolve(option("--original"));
 const saveFaults = args.includes("--save-faults");
 if (saveFaults && server === "runner") throw new Error("--save-faults requires --server web or loose");
+const encampRosterOnly = args.includes("--encamp-roster-only");
+if (encampRosterOnly && server !== "runner") throw new Error("--encamp-roster-only requires --server runner");
 const shots = option("--shots") && resolve(option("--shots"));
 if (shots) mkdirSync(shots, { recursive: true });
 const work = mkdtempSync(join(tmpdir(), "por-check-play-"));
@@ -58,6 +61,10 @@ function originalRelease(folder) {
 async function startServer() {
   const port = await freePort();
   const env = { ...process.env, POR_PLAY_PORT: String(port), POR_CLOCK: "fixed", POR_PREGEN_PARTY: "1", POR_SAVE_DIR: join(work, "saves") };
+  if (encampRosterOnly) {
+    mkdirSync(env.POR_SAVE_DIR);
+    copyFileSync(new URL("../../qa/fixtures/guide-party-new-phlan/A.json", import.meta.url), join(env.POR_SAVE_DIR, "A.json"));
+  }
   let command;
   if (server === "runner") {
     command = ["--import", "tsx", "tools/browser-play.ts"];
@@ -427,6 +434,30 @@ async function checkPartyGuide(page) {
   log("ok   the party instruction survives a return and reload without repeating the recording");
 }
 
+async function checkEncampRoster(page) {
+  const activeMember = () => chrome.evaluate(`state.text.filter(([cell, , color]) =>
+    cell >= 160 && cell < 400 && cell % 40 >= 17 && cell % 40 < 32 && color === 15)
+    .map(([, glyph]) => String.fromCharCode(glyph)).join("")`);
+  await page.press("l", /Load Which Game: A/);
+  await page.press("a", exploring);
+  await page.press("e", /Camp: Save View Magic Rest Alter Exit/);
+  assert.equal(await activeMember(), "AELAR");
+  await page.press("up");
+  assert.equal(await activeMember(), "FINN", "Up wraps to the last member in Encamp");
+  await page.press("down");
+  assert.equal(await activeMember(), "AELAR", "Down wraps to the first member in Encamp");
+  await page.press("down");
+  assert.equal(await activeMember(), "BRENNAN");
+  await page.press("m", /Cast Memorize Scribe Display Rest Exit/);
+  assert.equal(await activeMember(), "BRENNAN", "Magic opens with the selected member");
+  await page.press("down");
+  assert.equal(await activeMember(), "CAELUM", "Down advances to the next member in Magic");
+  await page.press("up");
+  assert.equal(await activeMember(), "BRENNAN");
+  await page.press("m", /BRENNAN's Spells in Spell Book/);
+  log("ok   Encamp and Magic arrows select the caster whose spellbook opens in Memorize");
+}
+
 let game = await startServer();
 async function checkGame() {
   // 1. Boot to the first menu.
@@ -442,6 +473,7 @@ async function checkGame() {
     classicAvailable === Boolean(original), classicAvailable);
   expect("the display switch reflects Classic availability", await chrome.evaluate("!presentation.hidden") === classicAvailable);
   await screenshot("1-first-menu");
+  if (encampRosterOnly) return checkEncampRoster(page);
   if (args.includes("--creation-picker-only")) return checkCreationPicker(page);
 
   // 2. SSI's ready-made characters.
