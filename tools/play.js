@@ -3219,7 +3219,8 @@ window.addEventListener("keydown", (event) => {
   if (enhanced && (key === "up" || key === "down")) {
     const menu = commandRow();
     const partyRoster = menu === "Choose a function" && gameMenuText().trimStart().startsWith("Name AC HP ");
-    if (menu === "Add a character: Add Exit" || partyRoster || menuChoices(state).length) {
+    const memorizeSpells = /^Choose Spell: Memorize (?:Next )?(?:Prev )?Exit$/.test(menu);
+    if (menu === "Add a character: Add Exit" || partyRoster || memorizeSpells || menuChoices(state).length) {
       void send(key === "down" ? "end" : "home");
       return;
     }
