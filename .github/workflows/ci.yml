@@ -37,3 +37,10 @@ jobs:
         run: npm run -s verify:enhanced-fallbacks
       - name: Script illustrations leave with their pose
         run: POR_PLAY_PORT=43217 npm run -s verify:illustration-left-behind
+      - name: Enhanced Up and Down in the original's selection menus
+        run: |
+          if [ -n "$POR_CHROME" ] || command -v google-chrome >/dev/null; then
+            npm run -s verify:arrow-menus
+          else
+            echo "::warning::No Chrome on this runner (set POR_CHROME); verify:arrow-menus did not run"
+          fi
